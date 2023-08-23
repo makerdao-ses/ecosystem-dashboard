@@ -60,51 +60,124 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '16px 16px 48px 64px',
+    padding: '16px 24px 24px 32px',
     borderRadius: 6,
     border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : 'red',
     background: isLight ? '#FFF' : 'red',
     boxShadow: isLight
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
       : 'red',
+    height: 223,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    padding: '16px 24px 48px 64px',
+    height: 311,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '16px 16px 48px 64px',
+
     height: 311,
   },
 }));
 
 const ContainerFilters = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-end',
-  gap: 24,
-  marginBottom: 32,
-  marginRight: 8,
-  marginTop: -2,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    gap: 24,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 32,
+    marginTop: -2,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginRight: 8,
+  },
 });
 const Item = styled.div<WithIsLight & { isSelected: boolean }>(({ isLight, isSelected }) => ({
-  color: isLight ? (isSelected ? '#2DC1B1' : '#D1DEE6') : isSelected ? 'red' : 'blue',
-  fontSize: 16,
-  fontWeight: 500,
-  lineHeight: 'normal',
-  cursor: 'pointer',
+  [lightTheme.breakpoints.up('table_834')]: {
+    color: isLight ? (isSelected ? '#2DC1B1' : '#D1DEE6') : isSelected ? 'red' : 'blue',
+    fontSize: 11,
+    fontWeight: 500,
+    lineHeight: 'normal',
+    cursor: 'pointer',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 16,
+  },
 }));
 
 const ContainerCardChart = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  gap: 64,
-  flex: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 0,
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 64,
+    marginLeft: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 64,
+    marginLeft: 0,
+  },
 });
 
 const ContainerCardInformation = styled.div({
-  width: 300,
+  [lightTheme.breakpoints.up('table_834')]: {
+    width: 241,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 300,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 300,
+  },
 });
 
 const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   borderLeft: isLight ? '1px solid #D4D9E1' : 'red',
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    marginLeft: 32,
+    height: 134,
+    borderLeft: 'none',
+    marginTop: 20,
+
+    border: isLight ? '1px solid #D4D9E1' : 'red',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginLeft: '0',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: '0',
+  },
 }));
 
 const ContainerChat = styled.div({
   display: 'flex',
-  width: 430,
-  marginLeft: 130,
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    // width: 360,
+    // marginLeft: 30,
+    // border: '2px solid blue',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 440,
+    marginLeft: 60,
+    // border: '2px solid blue',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 430,
+    marginLeft: 130,
+  },
 });

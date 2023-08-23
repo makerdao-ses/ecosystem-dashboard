@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
+import { calculateValuesByBreakpoint } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import lightTheme from '@ses/styles/theme/light';
@@ -12,8 +14,21 @@ interface Props {
 
 const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
   const { isLight } = useThemeContext();
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
+  const normalSizeDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
 
-  const options2 = {
+  const {
+    center,
+    paddingLegend,
+    paddingRichTextDai,
+    paddingRichTextName,
+    paddingRichTextPercent,
+    paddingRichTextValue,
+    radius,
+  } = calculateValuesByBreakpoint(isTable, isSmallDesk, normalSizeDesk);
+
+  const options = {
     color: doughnutSeriesData.map((data) => data.color),
     tooltip: {
       show: true,
@@ -55,9 +70,8 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
       {
         name: 'Overview Card',
         type: 'pie',
-        radius: ['45%', '95%'],
-
-        center: ['24%', '50%'],
+        radius,
+        center,
         label: {
           normal: {
             show: false,
@@ -76,14 +90,8 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
     ],
     legend: {
       orient: 'vertical',
-
       align: 'left',
-      padding: [
-        22, // up
-        8, // right
-        0, // down
-        0, // left
-      ],
+      padding: paddingLegend,
       left: 'right',
 
       data: doughnutSeriesData.map((data) => data.name),
@@ -107,18 +115,12 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
         fontFamily: 'Inter, sans-serif',
         fontStyle: 'normal',
         fontWeight: 400,
-
         color: isLight ? '#43435' : 'red',
         rich: {
           name: {
             fontSize: 12,
             fontFamily: 'Inter, sans-serif',
-            padding: [
-              24, // up
-              0, // right
-              13.7, // down
-              1, // left
-            ],
+            padding: paddingRichTextName,
 
             color: isLight ? '#43435' : 'red',
           },
@@ -126,34 +128,21 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
             fontSize: 14,
             width: 'fit-content',
             fontFamily: 'Inter, sans-serif',
-            // lineHeight: 17,
             color: isLight ? '#9FAFB9' : 'red',
-            padding: [
-              0, // up
-              2, // right
-              0, // down
-              2, // left
-            ],
+            padding: paddingRichTextValue,
           },
           dai: {
             fontSize: 14,
-
             width: 'fit-content',
             fontFamily: 'Inter, sans-serif',
             color: isLight ? '#9FAFB9' : 'red',
-
-            padding: [
-              0, // up
-              4, // right
-              0, // down
-              6, // left
-            ],
+            padding: paddingRichTextDai,
           },
           percent: {
             fontSize: 14,
-
             fontFamily: 'Inter, sans-serif',
             color: isLight ? '#9FAFB9' : 'red',
+            padding: paddingRichTextPercent,
           },
         },
       },
@@ -167,7 +156,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
     <Container>
       <ReactECharts
         className="chart-container"
-        option={options2}
+        option={options}
         style={{
           height: '100%',
           width: '100%',
@@ -184,11 +173,15 @@ const Container = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     width: 422,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: '100%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     width: '100%',
     height: 196,
   },
