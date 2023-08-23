@@ -14,6 +14,20 @@ const NavigationTabs: React.FC = () => {
 
   useEffect(() => {
     setAsPath(router.asPath);
+
+    // Will run when leaving the current page (on back/forward click)
+    router.beforePopState(({ as }) => {
+      const url = as.split('#');
+      if (url[0] === '/endgame') {
+        setAsPath(as);
+        return false;
+      }
+      return true;
+    });
+
+    return () => {
+      router.beforePopState(() => true);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -34,17 +48,17 @@ const NavigationTabs: React.FC = () => {
       <Wrapper isLight={isLight}>
         <Container>
           <Navigation isLight={isLight}>
-            <Link href="#key-changes" passHref>
+            <Link href="#key-changes" scroll={false} passHref>
               <Tab isLight={isLight} active={asPath === '/endgame#key-changes'}>
                 Key Changes
               </Tab>
             </Link>
-            <Link href="#endgame-budget-structure" passHref>
+            <Link href="#endgame-budget-structure" scroll={false} passHref>
               <Tab isLight={isLight} active={asPath === '/endgame#endgame-budget-structure'}>
                 Endgame Budget Structure
               </Tab>
             </Link>
-            <Link href="#budget-transition-status" passHref>
+            <Link href="#budget-transition-status" scroll={false} passHref>
               <Tab isLight={isLight} active={asPath === '/endgame#budget-transition-status'}>
                 Budget Transition Status
               </Tab>
