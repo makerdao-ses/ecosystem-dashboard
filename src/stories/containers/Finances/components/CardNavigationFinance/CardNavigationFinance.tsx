@@ -28,6 +28,7 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   width: '100%',
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '16px 8px 24px',
+    flex: 1,
     width: 246,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
