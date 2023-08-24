@@ -57,6 +57,47 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(CardChartOverview
 LightMode.parameters = {
   figma: {
     component: {
+      834: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22977:246968&mode=dev',
+        options: {
+          componentStyle: {
+            width: 770,
+          },
+          style: {
+            top: -20,
+            left: -38,
+          },
+        },
+      },
+      1194: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:240941&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1130,
+          },
+          style: {
+            top: -20,
+            // top: 320,
+            left: -38,
+          },
+        },
+      },
+      1280: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:213618&mode=design&t=S9d4X3eJriJUHI4G-4',
+        options: {
+          componentStyle: {
+            width: 1130,
+          },
+          style: {
+            top: -20,
+            // top: 320,
+            left: -38,
+          },
+        },
+      },
       1440: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22069:257647&mode=dev',
@@ -70,6 +111,21 @@ LightMode.parameters = {
           },
         },
       },
+      1920: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:204180&mode=dev',
+        options: {
+          componentStyle: {
+            width: 1312,
+          },
+          style: {
+            top: -20,
+            left: -38,
+          },
+        },
+      },
     },
   } as FigmaParams,
 };
+
+DarkMode.parameters = {};

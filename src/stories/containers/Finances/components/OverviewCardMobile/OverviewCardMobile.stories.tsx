@@ -27,7 +27,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(OverviewCardMobil
 LightMode.parameters = {
   figma: {
     component: {
-      357: {
+      0: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22857:196036&mode=dev',
         options: {
@@ -43,3 +43,5 @@ LightMode.parameters = {
     },
   } as FigmaParams,
 };
+
+DarkMode.parameters = {};

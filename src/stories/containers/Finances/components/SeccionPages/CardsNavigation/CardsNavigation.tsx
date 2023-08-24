@@ -49,6 +49,12 @@ const WrapperDesk = styled.div({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: 16,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 32,
   },
 });

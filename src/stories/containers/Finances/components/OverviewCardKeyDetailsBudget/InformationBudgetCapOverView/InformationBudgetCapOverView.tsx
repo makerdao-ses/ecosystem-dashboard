@@ -65,6 +65,12 @@ const CardContainer = styled.div({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
+  [lightTheme.breakpoints.up('table_834')]: {
+    paddingTop: 2,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    paddingTop: 0,
+  },
 });
 
 const PredictionWrapper = styled.div({
@@ -74,7 +80,11 @@ const PredictionWrapper = styled.div({
   justifyContent: 'center',
   marginTop: 0,
   marginLeft: -1,
+
   [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
     marginTop: -1,
   },
 });
@@ -126,6 +136,10 @@ const BarWrapper = styled.div({
   marginBottom: 8,
 
   [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 16,
     marginBottom: 16,
   },
@@ -135,10 +149,16 @@ const Legend = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
   paddingLeft: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingLeft: 1,
+    marginTop: 1,
+  },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: 1,
+    marginTop: 0,
     paddingLeft: 1,
   },
 });
@@ -189,10 +209,10 @@ const LegendLabel = styled.div({
   fontSize: 14,
   lineHeight: 'normal',
   [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 4,
+    marginLeft: 3,
+    fontSize: 14,
+    lineHeight: 'normal',
     fontWeight: 400,
-    fontSize: 12,
-    lineHeight: '15px',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -212,10 +232,14 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   marginTop: 8,
   color: isLight ? '#708390' : 'red',
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginLeft: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 6,
+  },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginTop: 6,
-    textAlign: 'center',
-    marginLeft: 1,
   },
 }));
 
@@ -243,7 +267,7 @@ const DividerCardChart = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 16,
   marginBottom: 16,
   borderBottom: isLight ? '1px solid #D4D9E1' : 'red',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 24,
     marginBottom: 24,
   },
