@@ -59,7 +59,7 @@ const FilterTable: React.FC<Props> = ({
 
       <ContainerFiltersMetric>
         <CustomMultiSelect
-          positionRight={true}
+          positionRight={false}
           label="Metrics"
           activeItems={activeItems}
           items={metrics}

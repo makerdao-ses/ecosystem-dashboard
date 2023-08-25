@@ -25,3 +25,29 @@ export const calculateValuesByBreakpoint = (isTable: boolean, isSmallDesk: boole
     paddingRichTextPercent,
   };
 };
+
+export const getHeaderForFilters = (period: string, year: string) => {
+  const periods: string[] = [];
+
+  if (period === 'Quarterly') {
+    for (let quarter = 1; quarter <= 4; quarter++) {
+      periods.push(`Q${quarter} ${year}`);
+    }
+  }
+
+  return {
+    periods,
+  };
+};
+
+export const returnShortNameForMetric = (filter: string): string => {
+  if (filter === 'Net Expenses Off-chain') {
+    return 'Off-chain';
+  }
+  if (filter === 'Net Expenses On-chain') {
+    return 'On-chain';
+  }
+  return filter;
+};
+
+export const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

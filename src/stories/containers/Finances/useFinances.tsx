@@ -2,37 +2,35 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
+
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
+
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
-import type { FilterDoughnut, NavigationCard, PeriodicSelectionFilter } from './utils/types';
+import { type NavigationCard, type PeriodicSelectionFilter } from './utils/types';
+import { getHeaderForFilters } from './utils/utils';
+import type { FilterMetrics } from './utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+
+const metricsFilter = ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'];
+const defaultFilters = [...metricsFilter.slice(0, 2)];
 
 export const useFinances = () => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const routes = ['Finances'];
   const years = ['2022', '2023'];
-  const metricsFilter = useMemo(
-    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
-    []
-  );
 
-  const [activeElements, setActiveElements] = useState<string[]>([]);
-  const handleSelectChangeMetrics = (value: string[]) => {
-    setActiveElements(value);
-  };
-  const handleResetMetrics = () => {
-    setActiveElements([]);
-  };
+  const [activeElements, setActiveElements] = useState<string[]>(defaultFilters);
+
   const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', 'Annually'];
-  const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
+  const filters: FilterMetrics[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
-  const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
+  const [filterSelected, setFilterSelected] = useState<FilterMetrics>('Budget');
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>('Quarterly');
   const router = useRouter();
 
@@ -42,11 +40,18 @@ export const useFinances = () => {
   const actuals = 9120;
   const budgetCap = 9120;
   const prediction = 4436;
+  const totalCardsNavigation = ['Endgame Atlas Budgets', 'Endgame Scope Budgets'];
 
-  const handleSelectFilter = (item: FilterDoughnut) => {
+  const handleSelectFilter = (item: FilterMetrics) => {
     setFilterSelected(item);
   };
-
+  const handleResetFilters = () => {
+    setActiveElements(defaultFilters);
+    setPeriodFilter('Quarterly');
+  };
+  const handleSelectChangeMetrics = (value: string[]) => {
+    setActiveElements(value);
+  };
   const handleChangeYears = (event: SelectChangeEvent<unknown>) => {
     setYears(event.target.value as string);
   };
@@ -71,7 +76,7 @@ export const useFinances = () => {
         id: filter,
         content: filter,
       })) as MultiSelectItem[],
-    [metricsFilter]
+    []
   );
   const trailingAddress = routes.map((adr) => ({
     label: adr,
@@ -131,6 +136,9 @@ export const useFinances = () => {
       color: '#2DC1B1',
     },
   ];
+
+  const result = getHeaderForFilters(periodFilter, year);
+
   return {
     years,
     year,
@@ -158,6 +166,8 @@ export const useFinances = () => {
     activeElements,
     handleSelectChangeMetrics,
     selectMetrics,
-    handleResetMetrics,
+    handleResetFilters,
+    totalCardsNavigation,
+    result,
   };
 };

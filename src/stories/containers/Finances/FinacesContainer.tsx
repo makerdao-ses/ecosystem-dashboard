@@ -43,7 +43,8 @@ const FinancesContainer = () => {
     activeElements,
     handleSelectChangeMetrics,
     selectMetrics,
-    handleResetMetrics,
+    handleResetFilters,
+    totalCardsNavigation,
   } = useFinances();
   return (
     <PageContainer>
@@ -79,7 +80,7 @@ const FinancesContainer = () => {
           <BreakdownTable
             activeItems={activeElements}
             handleChange={handlePeriodChange}
-            handleResetFilter={handleResetMetrics}
+            handleResetFilter={handleResetFilters}
             handleSelectChange={handleSelectChangeMetrics}
             isOpen={isOpenPeriod}
             metrics={selectMetrics}
@@ -87,6 +88,10 @@ const FinancesContainer = () => {
             selectedValue={periodFilter}
             onClose={handleClosePeriod}
             onOpen={handleOpenPeriod}
+            // TODO: Add real data for the table when Api is ready
+            bodyTable={[]}
+            totalCardsNavigation={totalCardsNavigation}
+            year={year}
           />
           {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
           <LatestExpenseReports />

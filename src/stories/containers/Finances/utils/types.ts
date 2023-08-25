@@ -1,4 +1,4 @@
-export type FilterDoughnut = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
+export type FilterMetrics = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
 
 export interface NavigationCard {
   svgImage: JSX.Element;
