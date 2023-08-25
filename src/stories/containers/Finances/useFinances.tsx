@@ -11,10 +11,9 @@ import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
 import { type NavigationCard, type PeriodicSelectionFilter } from './utils/types';
 import { getHeaderForFilters } from './utils/utils';
-import type { FilterMetrics } from './utils/types';
+import type { DoughnutSeries, FilterMetrics } from './utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
 
 const metricsFilter = ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'];
 const defaultFilters = [...metricsFilter.slice(0, 2)];
