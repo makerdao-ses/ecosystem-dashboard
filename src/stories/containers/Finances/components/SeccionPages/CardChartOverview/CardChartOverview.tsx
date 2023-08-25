@@ -4,14 +4,13 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
-import type { FilterDoughnut } from '@ses/containers/Finances/utils/types';
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+import type { DoughnutSeries, FilterMetrics } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  filters: FilterDoughnut[];
+  filters: FilterMetrics[];
   filterSelected: string;
-  handleSelectFilter: (filterSelected: FilterDoughnut) => void;
+  handleSelectFilter: (filterSelected: FilterMetrics) => void;
   actuals: number;
   budgetCap: number;
   prediction: number;
@@ -27,7 +26,7 @@ const CardChartOverview: React.FC<Props> = ({
   doughnutSeriesData,
 }) => {
   const { isLight } = useThemeContext();
-  const handleOnclick = (item: FilterDoughnut) => () => {
+  const handleOnclick = (item: FilterMetrics) => () => {
     handleSelectFilter(item);
   };
 
