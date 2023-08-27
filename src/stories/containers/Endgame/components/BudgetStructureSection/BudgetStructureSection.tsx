@@ -71,11 +71,11 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   gap: 32,
   borderRadius: 6,
-  border: `1px solid ${isLight ? 'rgba(212, 217, 225, 0.25)' : 'red'}`,
-  background: isLight ? '#FFF' : 'red',
+  border: `1px solid ${isLight ? 'rgba(212, 217, 225, 0.25)' : '#31424E'}`,
+  background: isLight ? '#FFF' : '#1E2C37',
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px 0px red',
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px 0px rgba(7, 22, 40, 0.40)',
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
@@ -89,7 +89,6 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BudgetComposition = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -97,14 +96,14 @@ const BudgetComposition = styled.div<WithIsLight>(({ isLight }) => ({
   width: '100%',
   height: 353,
   padding: '24px 16px 0px',
-  backgroundColor: 'rgba(236, 239, 249, 0.25)',
+  backgroundColor: isLight ? 'rgba(236, 239, 249, 0.25)' : '#1E2C37',
 
   [lightTheme.breakpoints.up('table_834')]: {
     alignSelf: 'center',
     height: 201,
     padding: 0,
-    backgroundColor: '#fff',
-    borderLeft: '1px solid #D4D9E1',
+    backgroundColor: isLight ? '#fff' : '#1E2C37',
+    borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -112,13 +111,13 @@ const BudgetComposition = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BudgetCompositionTitle = styled.h3<WithIsLight>(({ isLight }) => ({
   fontSize: 16,
   fontWeight: 700,
   fontStyle: 'normal',
   lineHeight: '19.36px',
   margin: 0,
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 20,
