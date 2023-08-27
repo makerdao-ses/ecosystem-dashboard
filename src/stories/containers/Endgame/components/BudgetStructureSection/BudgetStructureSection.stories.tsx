@@ -21,7 +21,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(BudgetStructureSe
 LightMode.parameters = {
   figma: {
     component: {
-      0: {
+      375: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21089:238282',
         options: {
           componentStyle: {
@@ -37,7 +37,7 @@ LightMode.parameters = {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21235:239248',
         options: {
           componentStyle: {
-            width: 834,
+            width: 770,
           },
           style: {
             top: 0,
@@ -48,6 +48,9 @@ LightMode.parameters = {
       1194: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20947:243382',
         options: {
+          componentStyle: {
+            width: 1130,
+          },
           style: {
             top: 0,
             left: -40,
