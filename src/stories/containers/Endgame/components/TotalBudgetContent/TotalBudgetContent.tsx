@@ -54,14 +54,19 @@ export default TotalBudgetContent;
 
 const getColor = (variant: BarVariant, isLight: boolean): string => {
   if (variant === 'gray') {
-    return isLight ? '#D2D4EF' : 'red';
+    return isLight ? '#D2D4EF' : '#D2D4EF';
   } else {
-    // it is blue
-    return isLight ? '#447AFB' : 'red';
+    return isLight ? '#447AFB' : '#447AFB';
   }
 };
 
 const Content = styled.div({
+  padding: '0px 15px',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    padding: 0,
+  },
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: 388,
   },
@@ -73,7 +78,7 @@ const BudgetCapNumber = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 500,
   lineHeight: 'normal',
   letterSpacing: 0.4,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: 24,
@@ -85,7 +90,7 @@ const Currency = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 24,
   fontWeight: 600,
   lineHeight: 'normal',
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#708390',
   marginLeft: 6,
 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
@@ -96,7 +101,7 @@ const Currency = styled.span<WithIsLight>(({ isLight }) => ({
 const AvgBudgetCapUtilization = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   lineHeight: 'normal',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
   textAlign: 'center',
   marginTop: 8,
 }));
@@ -108,7 +113,7 @@ const AvgPercentage = styled.span({
 const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   height: 1,
   width: 'calc(100% - 17px)',
-  background: isLight ? '#D4D9E1' : 'red',
+  background: isLight ? '#D4D9E1' : '#31424E',
   margin: '24px 8.5px',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -130,7 +135,7 @@ const Legend = styled.div({
 const LegendItem = styled.div<WithIsLight & { variant: BarVariant }>(({ isLight, variant }) => ({
   fontSize: 11,
   lineHeight: 'normal',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
   position: 'relative',
   paddingLeft: 12,
 
@@ -154,7 +159,7 @@ const Bar = styled.div<WithIsLight & { defaultVariant: BarVariant }>(({ isLight,
   position: 'relative',
   overflow: 'hidden',
   background: getColor(defaultVariant, isLight),
-  margin: '16px 0',
+  margin: '14px 0',
 }));
 
 const BarContent = styled.div<WithIsLight & { variant: BarVariant; width: string }>(({ isLight, variant, width }) => ({
@@ -174,12 +179,12 @@ const Values = styled.div({
 const Value = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: 'normal',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const FinancesLink = styled(LinkButton)({
   display: 'flex',
   width: '100%',
   padding: '7px 23px',
-  marginTop: 32,
+  marginTop: 34,
 });
