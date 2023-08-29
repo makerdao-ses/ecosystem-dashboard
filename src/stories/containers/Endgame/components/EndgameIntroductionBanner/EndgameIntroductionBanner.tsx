@@ -36,8 +36,9 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
           <Title isLight={isLight}>{isKeyChanges ? 'Key Changes' : 'Endgame has arrived'}</Title>
           <Paragraph isLight={isLight}>
             On <Date>17-Feb-2023</Date> Maker Governance approved the{' '}
-            <ExternalLink href="https://vote.makerdao.com/polling/QmTmS5Nf">Endgame proposal</ExternalLink>. This kicks
-            off the biggest restructuring of MakerDAO since the dissolution of the Maker Foundation in June 2021.
+            <ExternalLink href="https://vote.makerdao.com/polling/QmTmS5Nf#poll-detail">Endgame proposal</ExternalLink>.
+            This kicks off the biggest restructuring of MakerDAO since the dissolution of the Maker Foundation in June
+            2021.
           </Paragraph>
           {isKeyChanges ? (
             <Paragraph isLight={isLight} noMargin={true}>
