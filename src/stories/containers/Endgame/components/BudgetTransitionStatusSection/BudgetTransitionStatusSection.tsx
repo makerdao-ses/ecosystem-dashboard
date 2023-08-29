@@ -9,17 +9,16 @@ const BudgetTransitionStatusSection: React.FC = () => (
       subtitle="Some context about the trends that will be occurring, as it relates to expense and endgame that visually telegraph the changes."
     />
 
-    <div>
-      here <br />
-      here <br />
-      here <br />
-      here <br />
-      here <br />
-      here <br />
-      here <br />
-      here <br />
-      here <br />
-      here <br />
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 350,
+        background: '#e5e5e5',
+      }}
+    >
+      Chart...
     </div>
   </Content>
 );

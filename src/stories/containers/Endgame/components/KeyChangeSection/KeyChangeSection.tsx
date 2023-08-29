@@ -51,7 +51,14 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 
 const AccordionSummary = styled(MuiAccordionSummary)<WithIsLight>(({ isLight }) => ({
   minHeight: 'auto',
-  padding: 0,
+  padding: 8,
+  marginLeft: -8,
+  marginRight: -8,
+  borderRadius: 8,
+
+  '&:hover': {
+    background: isLight ? '#F6F8F9' : '#10191F',
+  },
 
   '& .MuiAccordionSummary-content': {
     margin: 0,
@@ -71,5 +78,5 @@ const AccordionSummary = styled(MuiAccordionSummary)<WithIsLight>(({ isLight }) 
 
 const AccordionDetails = styled(MuiAccordionDetails)({
   padding: 0,
-  marginTop: 32,
+  marginTop: 24,
 });

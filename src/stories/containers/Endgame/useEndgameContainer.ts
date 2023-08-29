@@ -11,8 +11,9 @@ export enum NavigationTabEnum {
 }
 
 const INTERSECTION_OPTIONS: IntersectionOptions = {
-  threshold: 0.5,
+  threshold: 0.7,
   fallbackInView: false,
+  rootMargin: '130px 0px 0px 0px',
 };
 
 const useEndgameContainer = () => {
@@ -52,10 +53,10 @@ const useEndgameContainer = () => {
       updateUrl(tab === NavigationTabEnum.KEY_CHANGES ? undefined : tab);
     };
 
-    if (structureInView) {
-      activate(NavigationTabEnum.BUDGET_STRUCTURE);
-    } else if (transitionInView) {
+    if (transitionInView) {
       activate(NavigationTabEnum.BUDGET_TRANSITION_STATUS);
+    } else if (structureInView) {
+      activate(NavigationTabEnum.BUDGET_STRUCTURE);
     } else {
       activate(NavigationTabEnum.KEY_CHANGES);
     }
