@@ -4,22 +4,8 @@ import padEnd from 'lodash/padEnd';
 import React from 'react';
 import { getColorForString } from '../../../core/utils/colors';
 import { getTwoInitials } from '../../../core/utils/string';
+import type { CircleAvatarProps } from './type';
 import type { Theme } from '@mui/material';
-import type { CSSProperties } from 'react';
-
-interface CircleAvatarProps {
-  width: string;
-  height: string;
-  name: string;
-  image?: string;
-  fontSize?: string;
-  style?: CSSProperties;
-  imageStyle?: CSSProperties;
-  identIcon?: boolean;
-  border?: string;
-  onClick?: () => void;
-  className?: string;
-}
 
 export const CircleAvatar = ({
   width = '32px',
