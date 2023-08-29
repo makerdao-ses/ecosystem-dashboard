@@ -1,6 +1,7 @@
 import Container from '@ses/components/Container/Container';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { NavigationTabEnum } from '../../useEndgameContainer';
 import NavigationTabs from '../NavigationTabs/NavigationTabs';
 import IntroductoryHeadline from './IntroductoryHeadline';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
@@ -24,7 +25,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
       <Container>
         <IntroductoryHeadline />
       </Container>
-      <NavigationTabs />
+      <NavigationTabs activeTab={NavigationTabEnum.KEY_CHANGES} handlePauseUrlUpdate={() => null} />
     </>
   ),
   variantsArgs,
