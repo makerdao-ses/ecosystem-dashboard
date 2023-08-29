@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
-import BudgetDoughnutChart from '../BudgetDoughnutChart';
+import React, { useEffect, useState } from 'react';
+import BudgetDoughnutChart from '../BudgetDoughnutChart/BudgetDoughnutChart';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TotalBudgetContent from '../TotalBudgetContent/TotalBudgetContent';
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
@@ -11,27 +11,33 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 const BudgetStructureSection: React.FC = () => {
   const { isLight } = useThemeContext();
 
+  // avoid chart mounting flicker
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const doughnutSeriesData: DoughnutSeries[] = [
     {
       name: 'End-game Alignment Scope Budgets',
-      value: 50000000,
-      percent: 50,
+      value: 22000000,
+      percent: 82,
       actuals: 0,
       budgetCap: 0,
       color: '#D2D4EF',
     },
     {
       name: 'End-game Atlas Immutable AA Budgets',
-      value: 30000000,
-      percent: 30,
+      value: 12000000,
+      percent: 12,
       actuals: 0,
       budgetCap: 0,
       color: '#447AFB',
     },
     {
       name: 'MakerDAO Legacy Budgets',
-      value: 20000000,
-      percent: 20,
+      value: 9000000,
+      percent: 8,
       actuals: 0,
       budgetCap: 0,
       color: '#1AAB9B',
@@ -49,7 +55,7 @@ const BudgetStructureSection: React.FC = () => {
         <TotalBudgetContent />
         <BudgetComposition isLight={isLight}>
           <BudgetCompositionTitle isLight={isLight}>Composition of Budget</BudgetCompositionTitle>
-          <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />
+          {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
         </BudgetComposition>
       </Card>
     </Content>
@@ -69,6 +75,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '31px 0px 0px',
   display: 'flex',
   flexDirection: 'column',
+  overflow: 'hidden',
   gap: 32,
   borderRadius: 6,
   border: `1px solid ${isLight ? 'rgba(212, 217, 225, 0.25)' : '#31424E'}`,
@@ -84,7 +91,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '31px 63px',
+    padding: '31px 0 31px 63px',
     gap: 64,
   },
 }));
@@ -93,6 +100,7 @@ const BudgetComposition = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  position: 'relative',
   width: '100%',
   height: 353,
   padding: '24px 16px 0px',
@@ -124,19 +132,18 @@ const BudgetCompositionTitle = styled.h3<WithIsLight>(({ isLight }) => ({
     fontWeight: 600,
     letterSpacing: '0.4px',
     marginTop: 2,
-    paddingLeft: '3.667%',
+    marginLeft: '4.2%',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    paddingLeft: '9.091%',
+    marginLeft: '3.5%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingLeft: 0,
-    paddingRight: 30,
+    marginLeft: '-4.8%',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    paddingRight: 94,
+    marginLeft: '-8%',
   },
 }));

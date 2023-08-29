@@ -3,6 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import { calculateValuesByBreakpoint } from '@ses/containers/Endgame/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React from 'react';
@@ -14,10 +15,10 @@ interface Props {
 
 const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
   const { isLight } = useThemeContext();
-  const isTablet = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
-  const isNormalDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const isNormalDeskPlus = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
+  const isTablet834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const isDesktop1194 = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
+  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const {
     radius,
@@ -36,7 +37,7 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
     richValuePadding,
     richDaiPadding,
     richPercentPadding,
-  } = calculateValuesByBreakpoint(isTablet, isSmallDesk, isNormalDesk, isNormalDeskPlus);
+  } = calculateValuesByBreakpoint(isTablet834, isDesktop1194, isDesktop1280, isDesktop1440);
 
   const options = {
     color: doughnutSeriesData.map((data) => data.color),
@@ -86,13 +87,13 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
       itemWidth: 8,
       itemHeight: 8,
       align: 'left',
-      itemGap: 18,
+      itemGap: 19,
 
       formatter: function (value: string) {
         const index = doughnutSeriesData.findIndex((data) => data.name === value);
         if (index !== -1) {
           const data = doughnutSeriesData[index];
-          return `{name|${data.name}}\n{value|${data.value}}{dai|DAI}{percent|(${data.percent}%)}`;
+          return `{name|${data.name}}\n{value|${usLocalizedNumber(data.value)}}{dai|DAI}{percent|(${data.percent}%)}`;
         }
         return '';
       },
@@ -159,6 +160,23 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
+  position: 'relative',
   width: '100%',
   height: '100%',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    maxWidth: 513, // 493 + 5px left + 15px paddingLeft
+    paddingLeft: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: -5, // prevent hover to be cut by the overflow
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginLeft: '7.5%',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginLeft: '12.5%',
+  },
 });
