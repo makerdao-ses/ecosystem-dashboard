@@ -159,7 +159,11 @@ const Bar = styled.div<WithIsLight & { defaultVariant: BarVariant }>(({ isLight,
   position: 'relative',
   overflow: 'hidden',
   background: getColor(defaultVariant, isLight),
-  margin: '14px 0',
+  margin: '14px 0 16px 0',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    margin: '14px 0 17px 0',
+  },
 }));
 
 const BarContent = styled.div<WithIsLight & { variant: BarVariant; width: string }>(({ isLight, variant, width }) => ({
@@ -186,5 +190,5 @@ const FinancesLink = styled(LinkButton)({
   display: 'flex',
   width: '100%',
   padding: '7px 23px',
-  marginTop: 34,
+  marginTop: 32,
 });
