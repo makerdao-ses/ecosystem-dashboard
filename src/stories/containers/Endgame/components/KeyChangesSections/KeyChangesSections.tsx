@@ -1,5 +1,5 @@
-/* eslint-disable spellcheck/spell-checker */
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import KeyChangeSection from '../KeyChangeSection/KeyChangeSection';
@@ -10,19 +10,31 @@ import TokenUpgradesSection from './Sections/TokenUpgradesSection';
 import { KeyChangesSectionsEnum } from './SectionsEnum';
 
 const KeyChangesSections: React.FC = () => {
-  const [activeSection, setActiveSection] = React.useState<KeyChangesSectionsEnum | undefined>(
-    KeyChangesSectionsEnum.GOVERNANCE
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const [activeSections, setActiveSections] = React.useState<Set<KeyChangesSectionsEnum>>(
+    new Set([KeyChangesSectionsEnum.GOVERNANCE])
   );
 
   const handleExpand = (section: KeyChangesSectionsEnum) => () => {
-    setActiveSection(activeSection === section ? undefined : section);
+    if (isMobile) {
+      // only one can be expanded at the time
+      setActiveSections(new Set(activeSections.has(section) ? [] : [section]));
+      return;
+    }
+    const newActiveSections = new Set(activeSections);
+    if (newActiveSections.has(section)) {
+      newActiveSections.delete(section);
+    } else {
+      newActiveSections.add(section);
+    }
+    setActiveSections(newActiveSections);
   };
 
   return (
     <KeyChangesSectionsContainer>
       <KeyChangeSection
         title="Governance"
-        expanded={activeSection === KeyChangesSectionsEnum.GOVERNANCE}
+        expanded={activeSections.has(KeyChangesSectionsEnum.GOVERNANCE)}
         onExpand={handleExpand(KeyChangesSectionsEnum.GOVERNANCE)}
       >
         <SectionContainer>
@@ -32,7 +44,7 @@ const KeyChangesSections: React.FC = () => {
 
       <KeyChangeSection
         title="Operations"
-        expanded={activeSection === KeyChangesSectionsEnum.OPERATIONS}
+        expanded={activeSections.has(KeyChangesSectionsEnum.OPERATIONS)}
         onExpand={handleExpand(KeyChangesSectionsEnum.OPERATIONS)}
       >
         <SectionContainer>
@@ -42,7 +54,7 @@ const KeyChangesSections: React.FC = () => {
 
       <KeyChangeSection
         title="Token upgrades"
-        expanded={activeSection === KeyChangesSectionsEnum.TOKEN_UPGRADES}
+        expanded={activeSections.has(KeyChangesSectionsEnum.TOKEN_UPGRADES)}
         onExpand={handleExpand(KeyChangesSectionsEnum.TOKEN_UPGRADES)}
       >
         <SectionContainer>
