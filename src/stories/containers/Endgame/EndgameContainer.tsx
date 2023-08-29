@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 
@@ -15,11 +13,12 @@ import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/En
 import IntroductoryHeadline from './components/IntroductoryHeadline/IntroductoryHeadline';
 import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
+import useEndgameContainer from './useEndgameContainer';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const EndgameContainer: React.FC = () => {
-  const { isLight } = useThemeContext();
-  const [isEnabled] = useFlagsActive();
+  const { isLight, isEnabled, keyChangesRef, structureRef, transitionStatusRef, activeTab, handlePauseUrlUpdate } =
+    useEndgameContainer();
 
   return (
     <EndgamePageContainer isLight={isLight}>
@@ -36,7 +35,9 @@ const EndgameContainer: React.FC = () => {
       <Container>
         <IntroductoryHeadline />
       </Container>
-      {isEnabled('FEATURE_ENDGAME_NAVIGATION_SECTION') && <NavigationTabs />}
+      {isEnabled('FEATURE_ENDGAME_NAVIGATION_SECTION') && (
+        <NavigationTabs activeTab={activeTab} handlePauseUrlUpdate={handlePauseUrlUpdate} />
+      )}
 
       <BannerContainer id="key-changes">
         <EndgameIntroductionBanner isKeyChanges />
@@ -44,11 +45,21 @@ const EndgameContainer: React.FC = () => {
 
       <Container>
         <SectionSpacing>
-          <KeyChangesSections />
+          <div ref={keyChangesRef}>
+            <KeyChangesSections />
+          </div>
 
-          {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && <BudgetStructureSection />}
+          {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && (
+            <div ref={structureRef}>
+              <BudgetStructureSection />
+            </div>
+          )}
 
-          {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && <BudgetTransitionStatusSection />}
+          {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && (
+            <div ref={transitionStatusRef}>
+              <BudgetTransitionStatusSection />
+            </div>
+          )}
         </SectionSpacing>
       </Container>
     </EndgamePageContainer>

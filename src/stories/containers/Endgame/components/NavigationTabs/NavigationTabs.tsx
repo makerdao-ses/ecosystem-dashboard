@@ -1,68 +1,58 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { NavigationTabEnum } from '../../useEndgameContainer';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const NavigationTabs: React.FC = () => {
+interface NavigationTabsProps {
+  activeTab: NavigationTabEnum;
+  handlePauseUrlUpdate: () => void;
+}
+
+const NavigationTabs: React.FC<NavigationTabsProps> = ({ activeTab, handlePauseUrlUpdate }) => {
   const { isLight } = useThemeContext();
-  const router = useRouter();
-  const [asPath, setAsPath] = useState('');
-
-  useEffect(() => {
-    setAsPath(router.asPath);
-
-    // Will run when leaving the current page (on back/forward click)
-    router.beforePopState(({ as }) => {
-      const url = as.split('#');
-      if (url[0] === '/endgame') {
-        setAsPath(as);
-        return false;
-      }
-      return true;
-    });
-
-    return () => {
-      router.beforePopState(() => true);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const onHashChangeStart = (url: string) => {
-      setAsPath(url);
-    };
-
-    router.events.on('hashChangeStart', onHashChangeStart);
-
-    return () => {
-      router.events.off('hashChangeStart', onHashChangeStart);
-    };
-  }, [router.events]);
+  const [isEnabled] = useFlagsActive();
 
   return (
     <Sticky>
       <Wrapper isLight={isLight}>
         <Container>
           <Navigation isLight={isLight}>
-            <Link href="#key-changes" scroll={false} passHref>
-              <Tab isLight={isLight} active={asPath === '/endgame#key-changes'}>
+            <Link href={`#${NavigationTabEnum.KEY_CHANGES}`} scroll={false} passHref>
+              <Tab
+                isLight={isLight}
+                active={activeTab === NavigationTabEnum.KEY_CHANGES}
+                onClick={handlePauseUrlUpdate}
+              >
                 Key Changes
               </Tab>
             </Link>
-            <Link href="#endgame-budget-structure" scroll={false} passHref>
-              <Tab isLight={isLight} active={asPath === '/endgame#endgame-budget-structure'}>
-                Endgame Budget Structure
-              </Tab>
-            </Link>
-            <Link href="#budget-transition-status" scroll={false} passHref>
-              <Tab isLight={isLight} active={asPath === '/endgame#budget-transition-status'}>
-                Budget Transition Status
-              </Tab>
-            </Link>
+            {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && (
+              <Link href={`#${NavigationTabEnum.BUDGET_STRUCTURE}`} scroll={false} passHref>
+                <Tab
+                  isLight={isLight}
+                  active={activeTab === NavigationTabEnum.BUDGET_STRUCTURE}
+                  onClick={handlePauseUrlUpdate}
+                >
+                  Endgame Budget Structure
+                </Tab>
+              </Link>
+            )}
+            {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && (
+              <Link href={`#${NavigationTabEnum.BUDGET_TRANSITION_STATUS}`} scroll={false} passHref>
+                <Tab
+                  isLight={isLight}
+                  active={activeTab === NavigationTabEnum.BUDGET_TRANSITION_STATUS}
+                  onClick={handlePauseUrlUpdate}
+                >
+                  Budget Transition Status
+                </Tab>
+              </Link>
+            )}
           </Navigation>
         </Container>
       </Wrapper>
