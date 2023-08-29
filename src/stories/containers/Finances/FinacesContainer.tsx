@@ -10,7 +10,7 @@ import BreakdownChart from './components/SeccionPages/BreakdownChart';
 import BreakdownTable from './components/SeccionPages/BreakdownTable';
 import CardChartOverview from './components/SeccionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from './components/SeccionPages/CardsNavigation/CardsNavigation';
-import LatestExpenseReports from './components/SeccionPages/LatestExpenseReports';
+import DelegateExpenseTrendFinances from './components/SeccionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetrics from './components/SeccionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -89,7 +89,7 @@ const FinancesContainer = () => {
             onOpen={handleOpenPeriod}
           />
           {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
-          <LatestExpenseReports />
+          <DelegateExpenseTrendFinances />
         </ContainerSections>
       </Container>
     </PageContainer>
