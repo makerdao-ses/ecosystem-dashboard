@@ -26,13 +26,9 @@ const useEndgameContainer = () => {
     setTimeout(() => setPauseUrlUpdate(false), 700);
   }, []);
 
-  const { ref: keyChangesRef, inView: keyInView, entry: keyEntry } = useInView(INTERSECTION_OPTIONS);
-  const { ref: structureRef, inView: structureInView, entry: structureEntry } = useInView(INTERSECTION_OPTIONS);
-  const {
-    ref: transitionStatusRef,
-    inView: transitionInView,
-    entry: transitionEntry,
-  } = useInView(INTERSECTION_OPTIONS);
+  const { ref: keyChangesRef, inView: keyInView } = useInView(INTERSECTION_OPTIONS);
+  const { ref: structureRef, inView: structureInView } = useInView(INTERSECTION_OPTIONS);
+  const { ref: transitionStatusRef, inView: transitionInView } = useInView(INTERSECTION_OPTIONS);
 
   const [activeTab, setActiveTab] = useState<NavigationTabEnum>(NavigationTabEnum.KEY_CHANGES);
   useEffect(() => {
@@ -57,19 +53,13 @@ const useEndgameContainer = () => {
     };
 
     if (structureInView) {
-      if (keyInView && (keyEntry?.intersectionRatio ?? 0) > (structureEntry?.intersectionRatio ?? 0)) {
-        activate(NavigationTabEnum.KEY_CHANGES);
-      }
-      if (transitionInView && (transitionEntry?.intersectionRatio ?? 0) > (structureEntry?.intersectionRatio ?? 0)) {
-        activate(NavigationTabEnum.KEY_CHANGES);
-      }
       activate(NavigationTabEnum.BUDGET_STRUCTURE);
     } else if (transitionInView) {
       activate(NavigationTabEnum.BUDGET_TRANSITION_STATUS);
     } else {
       activate(NavigationTabEnum.KEY_CHANGES);
     }
-  }, [structureInView, transitionInView, keyInView, keyEntry, structureEntry, transitionEntry, pauseUrlUpdate]);
+  }, [structureInView, transitionInView, keyInView, pauseUrlUpdate]);
 
   return {
     isLight,
