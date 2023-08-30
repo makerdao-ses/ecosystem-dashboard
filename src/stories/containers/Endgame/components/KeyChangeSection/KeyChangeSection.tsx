@@ -54,7 +54,7 @@ const AccordionSummary = styled(MuiAccordionSummary)<WithIsLight>(({ isLight }) 
   padding: 8,
   marginLeft: -8,
   marginRight: -8,
-  borderRadius: 8,
+  borderRadius: 6,
 
   '&:hover': {
     background: isLight ? '#F6F8F9' : '#10191F',
