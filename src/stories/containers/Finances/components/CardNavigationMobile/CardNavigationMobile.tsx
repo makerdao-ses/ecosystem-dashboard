@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import BarPercentRelativeToTotal from '@ses/components/BarPercentRelativeToTotal/BarPercentRelativeToTotal';
+import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
@@ -8,8 +9,6 @@ import Link from 'next/link';
 import React from 'react';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-
-import type { PropsWithChildren } from 'react';
 
 interface Props {
   svgImage: JSX.Element;
@@ -24,40 +23,36 @@ const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valu
   const { isLight } = useThemeContext();
   const formatted = usLocalizedNumber(valueDai);
   const percent = percentageRespectTo(valueDai, totalDai);
-  const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
-    <ContainerLinkColum>
-      <Link href={href} legacyBehavior passHref>
-        <LinkColum>{children}</LinkColum>
-      </Link>
-    </ContainerLinkColum>
-  );
 
   return (
     <StyleCardNavigationGeneric>
-      <ActorAboutLink>
-        <ContainerIcon>
-          <ContainerImage>{svgImage}</ContainerImage>
-          <Title>{title}</Title>
-        </ContainerIcon>
-      </ActorAboutLink>
-      <CardInformation>
-        <ActorAboutLink>
-          <Total isLight={isLight}>
-            {`${formatted}`}
-            <Coin isLight={isLight}>DAI</Coin>
-          </Total>
-        </ActorAboutLink>
-        <ContainerBarPercent>
-          <ActorAboutLink>
-            <ContainerBar>
-              <BarPercentRelativeToTotalStyled value={3456} total={23456} barColor={barColor} />
-            </ContainerBar>
-          </ActorAboutLink>
-          <ActorAboutLink>
-            <Percent>{percent}%</Percent>
-          </ActorAboutLink>
-        </ContainerBarPercent>
-      </CardInformation>
+      <Link href={href} legacyBehavior passHref>
+        <LinkTag>
+          <MainCard>
+            <ContainerData>
+              <ContainerIcon>
+                <ContainerImage>{svgImage}</ContainerImage>
+                <Title>{title}</Title>
+              </ContainerIcon>
+              <CardInformation>
+                <Total isLight={isLight}>
+                  {`${formatted}`}
+                  <Coin isLight={isLight}>DAI</Coin>
+                </Total>
+                <ContainerBarPercent>
+                  <ContainerBar>
+                    <BarPercentRelativeToTotalStyled value={3456} total={23456} barColor={barColor} />
+                  </ContainerBar>
+                  <Percent>{percent}%</Percent>
+                </ContainerBarPercent>
+              </CardInformation>
+            </ContainerData>
+            <ArrowContainer isLight={isLight}>
+              <ArrowNavigationForCards width={32} height={32} />
+            </ArrowContainer>
+          </MainCard>
+        </LinkTag>
+      </Link>
     </StyleCardNavigationGeneric>
   );
 };
@@ -65,8 +60,9 @@ const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valu
 export default CardNavigationMobile;
 const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   padding: 0,
+  flex: 1,
+  border: 'none',
   flexDirection: 'column',
-  alignItems: 'flex-start',
 });
 const ContainerIcon = styled.div({
   display: 'flex',
@@ -74,9 +70,6 @@ const ContainerIcon = styled.div({
   alignItems: 'center',
   flex: 1,
   gap: 8,
-  paddingTop: 8,
-  paddingLeft: 8,
-  paddingRight: 8,
 });
 
 const ContainerImage = styled.div({});
@@ -93,21 +86,6 @@ const CardInformation = styled.div({
   justifyContent: 'space-between',
   flex: 1,
   width: '100%',
-  paddingRight: 8,
-  paddingLeft: 8,
-});
-
-const ContainerLinkColum = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  flex: 1,
-  width: '100%',
-});
-
-const LinkColum = styled.a({
-  display: 'flex',
-
-  flex: 1,
 });
 
 const Total = styled.div<WithIsLight>(({ isLight }) => ({
@@ -121,6 +99,7 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
 
   textTransform: 'uppercase',
   textAlign: 'center',
+  display: 'flex',
 }));
 
 const Coin = styled.span<WithIsLight>(({ isLight }) => ({
@@ -134,6 +113,8 @@ const Coin = styled.span<WithIsLight>(({ isLight }) => ({
   marginLeft: 4,
   textTransform: 'uppercase',
   width: 58,
+  display: 'flex',
+  marginRight: 8,
 }));
 
 const ContainerBarPercent = styled.div({
@@ -145,7 +126,7 @@ const ContainerBarPercent = styled.div({
 });
 
 const ContainerBar = styled.div({
-  width: 138,
+  width: 97,
   height: 25,
 });
 
@@ -160,6 +141,7 @@ const Percent = styled.div({
   textTransform: 'uppercase',
   width: 34,
   height: 25,
+  marginTop: 2,
 });
 
 const BarPercentRelativeToTotalStyled = styled(BarPercentRelativeToTotal)<{ barColor: string }>(({ barColor }) => ({
@@ -167,3 +149,31 @@ const BarPercentRelativeToTotalStyled = styled(BarPercentRelativeToTotal)<{ barC
     background: barColor,
   },
 }));
+
+const ContainerData = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  paddingTop: 8,
+  paddingLeft: 8,
+  width: 279,
+});
+
+const LinkTag = styled.a({});
+const ArrowContainer = styled.div<WithIsLight>(({ isLight }) => ({
+  display: 'flex',
+  backgroundColor: isLight ? 'rgba(236, 239, 249, 0.80)' : 'red',
+  alignItems: 'center',
+  height: 76,
+  overflow: 'hidden',
+  borderTopRightRadius: 6,
+  borderBottomRightRadius: 6,
+  justifyContent: 'center',
+  width: 48,
+}));
+
+const MainCard = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
