@@ -53,7 +53,7 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
             <LearMore isLight={isLight} href={siteRoutes.endgame} buttonType={ButtonType.Primary} label="Learn More" />
           )}
         </InfoContainer>
-        {isUpDesktop1194 && image}
+        {isUpDesktop1194 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
       </ContentContainer>
     </EndgameContainer>
   );
@@ -97,7 +97,6 @@ const ImageWrapper = styled.div({
   height: '100%',
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: '50%',
     right: 0,
   },
 });
