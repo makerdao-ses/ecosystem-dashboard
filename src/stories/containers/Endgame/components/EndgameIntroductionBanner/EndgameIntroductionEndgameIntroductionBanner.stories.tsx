@@ -10,7 +10,7 @@ export default {
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440, 1920],
+      viewports: [375, 834, 1194, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -66,14 +66,6 @@ IntroductionLightMode.parameters = {
       },
       1440: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20677:238297',
-        options: {
-          style: {
-            margin: 0,
-          },
-        },
-      },
-      1920: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20677:241116',
         options: {
           style: {
             margin: 0,
