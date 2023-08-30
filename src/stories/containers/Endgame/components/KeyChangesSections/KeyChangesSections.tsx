@@ -72,7 +72,7 @@ export default KeyChangesSections;
 const KeyChangesSectionsContainer = styled.section({
   display: 'flex',
   flexDirection: 'column',
-  gap: 40,
+  gap: 32,
 });
 
 export const SectionContainer = styled.div({
