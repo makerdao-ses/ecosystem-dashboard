@@ -136,7 +136,7 @@ KeyChangesLightMode.parameters = {
         },
       },
       1920: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:273271',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=23817:103657',
         options: {
           style: {
             margin: 0,

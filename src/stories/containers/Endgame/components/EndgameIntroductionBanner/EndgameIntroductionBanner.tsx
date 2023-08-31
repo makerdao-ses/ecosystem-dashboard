@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
@@ -16,22 +17,26 @@ interface EndgameIntroductionBannerProps {
 
 const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
   const { isLight } = useThemeContext();
+  const isUpDesktop1194 = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
+
+  const image = (
+    <ImageWrapper>
+      <Image
+        src="/assets/img/endgame/maker_endgame.png"
+        alt="Endgame"
+        layout="fill"
+        objectFit="cover"
+        placeholder="blur"
+        blurDataURL="/assets/img/endgame/maker_endgame.png"
+      />
+    </ImageWrapper>
+  );
 
   return (
     <EndgameContainer isLight={isLight}>
-      <ImageContainer isLight={isLight}>
-        <ImageWrapper>
-          <Image
-            src="/assets/img/endgame/maker_endgame.png"
-            alt="Endgame"
-            layout="fill"
-            objectFit="cover"
-            placeholder="blur"
-            blurDataURL="/assets/img/endgame/maker_endgame.png"
-          />
-        </ImageWrapper>
-      </ImageContainer>
-      <Container>
+      {!isUpDesktop1194 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
+
+      <ContentContainer>
         <InfoContainer isKeyChanges={isKeyChanges}>
           <Title isLight={isLight}>{isKeyChanges ? 'Key Changes' : 'Endgame has arrived'}</Title>
           <Paragraph isLight={isLight}>
@@ -48,7 +53,8 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
             <LearMore isLight={isLight} href={siteRoutes.endgame} buttonType={ButtonType.Primary} label="Learn More" />
           )}
         </InfoContainer>
-      </Container>
+        {isUpDesktop1194 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
+      </ContentContainer>
     </EndgameContainer>
   );
 };
@@ -60,6 +66,14 @@ const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#F6F8F9' : '#10191F',
   overflow: 'hidden',
 }));
+
+const ContentContainer = styled(Container)({
+  position: 'relative',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    display: 'flex',
+  },
+});
 
 const ImageContainer = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'absolute',
@@ -81,6 +95,10 @@ const ImageWrapper = styled.div({
   position: 'absolute',
   width: '100%',
   height: '100%',
+
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    right: 0,
+  },
 });
 
 const InfoContainer = styled.div<{ isKeyChanges: boolean }>(({ isKeyChanges }) => ({
@@ -132,10 +150,6 @@ const InfoContainer = styled.div<{ isKeyChanges: boolean }>(({ isKeyChanges }) =
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     paddingRight: 112,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    padding: isKeyChanges ? '123px 112px 123px 0' : '117px 112px 117px 0',
   },
 }));
 
