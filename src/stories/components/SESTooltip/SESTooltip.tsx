@@ -10,7 +10,7 @@ import ModalBottomSheet from './ModalBottomSheet';
 import type { TooltipProps } from '@mui/material';
 
 export interface SESTooltipProps extends Omit<TooltipProps, 'title' | 'content'> {
-  content: React.ReactElement;
+  content: TooltipProps['title'];
   enableClickListener?: boolean;
   borderColor?: React.CSSProperties['color'];
   fallbackPlacements?: TooltipProps['placement'][];
