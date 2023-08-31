@@ -111,7 +111,8 @@ export const useFinances = () => {
       title: 'Endgame Atlas Budgets',
       description: 'Finances of the core governance constructs described in the Maker Atlas.',
       href: '#',
-      totalDai: 12345,
+      totalDai: 132345,
+      valueDai: 12345,
       color: '#F99374',
     },
     {
@@ -119,7 +120,8 @@ export const useFinances = () => {
       title: 'Endgame Scope Budgets',
       description: 'Detailed budgets of the practical DAO activities within Endgame.',
       href: '#',
-      totalDai: 12345,
+      totalDai: 132345,
+      valueDai: 12345,
       color: '#447AFB',
     },
     {
@@ -127,7 +129,8 @@ export const useFinances = () => {
       title: 'MakerDAO Legacy Budgets',
       description: 'Historical records of MakerDAO expenses, prior to Endgame',
       href: '#',
-      totalDai: 12345,
+      totalDai: 132345,
+      valueDai: 12345,
       color: '#2DC1B1',
     },
   ];
