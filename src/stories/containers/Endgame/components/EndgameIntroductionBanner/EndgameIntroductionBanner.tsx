@@ -63,8 +63,22 @@ export default EndgameIntroductionBanner;
 
 const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
-  background: isLight ? '#F6F8F9' : '#10191F',
+  background: isLight
+    ? 'linear-gradient(90deg, rgba(246, 248, 249, 0.00) 0%, #F6F8F9 5.61%, #F6F8F9 93.65%, rgba(246, 248, 249, 0.00) 100%)'
+    : 'linear-gradient(90deg, rgba(246, 248, 249, 0.00) 0%, #10191F 5.61%, #10191F 93.65%, rgba(246, 248, 249, 0.00) 100%)',
   overflow: 'hidden',
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    background: isLight
+      ? 'linear-gradient(90deg, rgba(246, 248, 249, 0.00) 0%, #F6F8F9 6.4%, #F6F8F9 94.57%, rgba(246, 248, 249, 0.00) 100%)'
+      : 'linear-gradient(90deg, rgba(246, 248, 249, 0.00) 0%, #10191F 6.4%, #10191F 94.57%, rgba(246, 248, 249, 0.00) 100%)',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    background: isLight
+      ? 'linear-gradient(90deg, rgba(246, 248, 249, 0.00) 0%, #F6F8F9 19.97%, #F6F8F9 80.22%, rgba(246, 248, 249, 0.00) 100%)'
+      : 'linear-gradient(90deg, rgba(246, 248, 249, 0.00) 0%, #10191F 19.97%, #10191F 80.22%, rgba(246, 248, 249, 0.00) 100%)',
+  },
 }));
 
 const ContentContainer = styled(Container)({
