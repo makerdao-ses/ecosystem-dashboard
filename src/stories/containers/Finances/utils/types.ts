@@ -6,6 +6,7 @@ export interface NavigationCard {
   description?: React.ReactNode;
   href: string;
   totalDai?: number;
+  valueDai?: number;
   color: string;
 }
 

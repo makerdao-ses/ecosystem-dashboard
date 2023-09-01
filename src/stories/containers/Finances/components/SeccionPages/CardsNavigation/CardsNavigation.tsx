@@ -24,7 +24,7 @@ const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation }) => (
     <WrapperMobile>
       {cardsNavigationInformation.map((card: NavigationCard) => (
         <CardNavigationMobile
-          valueDai={card?.totalDai || 0}
+          valueDai={card?.valueDai || 0}
           totalDai={card?.totalDai || 0}
           href={card.href}
           svgImage={card.svgImage}

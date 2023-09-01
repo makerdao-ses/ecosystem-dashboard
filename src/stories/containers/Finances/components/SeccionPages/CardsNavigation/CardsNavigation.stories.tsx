@@ -54,7 +54,8 @@ const args = [
         title: 'Endgame Atlas Budgets',
         description: 'Finances of the core governance constructs described in the Maker Atlas.',
         href: '#',
-        totalDai: 12345,
+        totalDai: 1790155,
+        valueDai: 1734955,
         color: '#F99374',
       },
       {
@@ -62,7 +63,8 @@ const args = [
         title: 'Endgame Scope Budgets',
         description: 'Detailed budgets of the practical DAO activities within Endgame.',
         href: '#',
-        totalDai: 12345,
+        totalDai: 12000000,
+        valueDai: 1734955,
         color: '#447AFB',
       },
       {
@@ -70,7 +72,8 @@ const args = [
         title: 'MakerDAO Legacy Budgets',
         description: 'Historical records of MakerDAO expenses, prior to Endgame',
         href: '#',
-        totalDai: 12345,
+        totalDai: 9000000,
+        valueDai: 1734955,
         color: '#2DC1B1',
       },
     ],
@@ -173,7 +176,7 @@ Mobile.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22857:196079&mode=design&t=sM71I6qiw3fWBmkW-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24015:210016&mode=dev',
         options: {
           componentStyle: {
             width: 343,
