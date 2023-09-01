@@ -45,7 +45,7 @@ const BudgetStructureSection: React.FC = () => {
   ];
 
   return (
-    <Content id="endgame-budget-structure">
+    <Content id="section-endgame-budget-structure">
       <SectionHeader
         title="Endgame Budget Structure"
         subtitle="Some simple but poignant text about what endgame budgets are about"

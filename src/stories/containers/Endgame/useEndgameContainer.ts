@@ -21,6 +21,22 @@ const useEndgameContainer = () => {
   const [isEnabled] = useFlagsActive();
   const [pauseUrlUpdate, setPauseUrlUpdate] = useState<boolean>(false);
 
+  useEffect(() => {
+    // scroll into a section on page load
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '');
+      if (hash === NavigationTabEnum.BUDGET_STRUCTURE) {
+        document.getElementById(`section-${NavigationTabEnum.BUDGET_STRUCTURE}`)?.scrollIntoView({
+          behavior: 'smooth',
+        });
+      } else if (hash === NavigationTabEnum.BUDGET_TRANSITION_STATUS) {
+        document.getElementById(`section-${NavigationTabEnum.BUDGET_TRANSITION_STATUS}`)?.scrollIntoView({
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, []);
+
   const handlePauseUrlUpdate = useCallback(() => {
     setPauseUrlUpdate(true);
     // un pause the updating after the scroll has ended
