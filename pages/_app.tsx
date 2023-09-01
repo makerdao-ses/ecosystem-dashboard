@@ -27,11 +27,11 @@ import type { ReactElement, ReactNode } from 'react';
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
 if (typeof window === 'undefined') React.useLayoutEffect = React.useEffect;
 
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout = NextPage<{ protected?: boolean }> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
-interface MyAppProps extends AppProps {
+interface MyAppProps extends AppProps<{ protected?: boolean }> {
   Component: NextPageWithLayout;
   emotionCache?: EmotionCache;
   protected?: boolean;
