@@ -10,7 +10,7 @@ const BudgetTransitionStatusSection: React.FC = () => {
   const { isLight } = useThemeContext();
 
   return (
-    <Content id="budget-transition-status">
+    <Content id="section-budget-transition-status">
       <SectionHeader
         title="Budget Transition Status"
         subtitle="Some context about the trends that will be occurring, as it relates to expense and endgame that visually telegraph the changes."

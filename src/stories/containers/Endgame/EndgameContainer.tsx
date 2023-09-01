@@ -39,7 +39,7 @@ const EndgameContainer: React.FC = () => {
         <NavigationTabs activeTab={activeTab} handlePauseUrlUpdate={handlePauseUrlUpdate} />
       )}
 
-      <BannerContainer id="key-changes">
+      <BannerContainer id="section-key-changes">
         <EndgameIntroductionBanner isKeyChanges />
       </BannerContainer>
 

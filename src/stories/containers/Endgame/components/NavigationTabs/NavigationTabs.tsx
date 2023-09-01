@@ -3,7 +3,6 @@ import Container from '@ses/components/Container/Container';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
-import Link from 'next/link';
 import React from 'react';
 import { NavigationTabEnum } from '../../useEndgameContainer';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -17,41 +16,44 @@ const NavigationTabs: React.FC<NavigationTabsProps> = ({ activeTab, handlePauseU
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
 
+  const handleOnClick = (tab: NavigationTabEnum) => () => {
+    if (typeof document !== 'undefined') {
+      handlePauseUrlUpdate();
+      document?.getElementById(`section-${tab}`)?.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <Sticky>
       <Wrapper isLight={isLight}>
         <Container>
           <Navigation isLight={isLight}>
-            <Link href={`#${NavigationTabEnum.KEY_CHANGES}`} scroll={false} passHref>
+            <Tab
+              isLight={isLight}
+              active={activeTab === NavigationTabEnum.KEY_CHANGES}
+              onClick={handleOnClick(NavigationTabEnum.KEY_CHANGES)}
+            >
+              Key Changes
+            </Tab>
+            {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && (
               <Tab
                 isLight={isLight}
-                active={activeTab === NavigationTabEnum.KEY_CHANGES}
-                onClick={handlePauseUrlUpdate}
+                active={activeTab === NavigationTabEnum.BUDGET_STRUCTURE}
+                onClick={handleOnClick(NavigationTabEnum.BUDGET_STRUCTURE)}
               >
-                Key Changes
+                Endgame Budget Structure
               </Tab>
-            </Link>
-            {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && (
-              <Link href={`#${NavigationTabEnum.BUDGET_STRUCTURE}`} scroll={false} passHref>
-                <Tab
-                  isLight={isLight}
-                  active={activeTab === NavigationTabEnum.BUDGET_STRUCTURE}
-                  onClick={handlePauseUrlUpdate}
-                >
-                  Endgame Budget Structure
-                </Tab>
-              </Link>
             )}
             {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && (
-              <Link href={`#${NavigationTabEnum.BUDGET_TRANSITION_STATUS}`} scroll={false} passHref>
-                <Tab
-                  isLight={isLight}
-                  active={activeTab === NavigationTabEnum.BUDGET_TRANSITION_STATUS}
-                  onClick={handlePauseUrlUpdate}
-                >
-                  Budget Transition Status
-                </Tab>
-              </Link>
+              <Tab
+                isLight={isLight}
+                active={activeTab === NavigationTabEnum.BUDGET_TRANSITION_STATUS}
+                onClick={handleOnClick(NavigationTabEnum.BUDGET_TRANSITION_STATUS)}
+              >
+                Budget Transition Status
+              </Tab>
             )}
           </Navigation>
         </Container>
@@ -100,7 +102,7 @@ const Navigation = styled.nav<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Tab = styled.a<WithIsLight & { active?: boolean }>(({ isLight, active = false }) => {
+const Tab = styled.div<WithIsLight & { active?: boolean }>(({ isLight, active = false }) => {
   const activeColor = isLight ? '#1AAB9B' : '#2DC1B1';
   const defaultColor = '#708390';
 
@@ -111,6 +113,7 @@ const Tab = styled.a<WithIsLight & { active?: boolean }>(({ isLight, active = fa
     paddingTop: 10,
     borderBottom: `2px solid ${active ? activeColor : 'transparent'}`,
     whiteSpace: 'nowrap',
+    cursor: 'pointer',
 
     [lightTheme.breakpoints.up('table_834')]: {
       fontSize: 16,
