@@ -10,11 +10,13 @@ import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 export type ExpenseReportStatusIndicatorProps = {
   budgetStatus: BudgetStatus;
   showCTA: boolean;
+  className?: string;
 };
 
 const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> = ({
   budgetStatus = BudgetStatus.Draft,
   showCTA,
+  className,
 }) => {
   const router = useRouter();
   const url = useMemo(() => {
@@ -26,7 +28,7 @@ const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> 
   }, [router.asPath]);
 
   return (
-    <IndicatorContainer>
+    <IndicatorContainer className={className}>
       <ExpenseReportStatus status={budgetStatus} />
       {showCTA && budgetStatus !== BudgetStatus.Final && (
         <Link href={url} shallow={true}>
