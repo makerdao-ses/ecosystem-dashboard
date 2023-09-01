@@ -9,7 +9,7 @@ const DelegateExpenseTrendFinances: React.FC = () => {
   return (
     <Container>
       <InformationSection>
-        <Title isLight={isLight}>Delegate Expense Trend</Title>
+        <Title isLight={isLight}>Expense Reports</Title>
         <Description isLight={isLight}>Delegate Compensation / Month</Description>
       </InformationSection>
     </Container>
