@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -31,13 +30,6 @@ const DataButton = styled(CustomButton)<WithIsLight & { selected?: boolean }>(({
   fontFamily: 'Inter, sans serif',
   fontStyle: 'normal',
   padding: '7px 23px',
-  //   width: 83,
-  //   height: 34,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    // width: 120,
-    // height: 48,
-  },
 
   '& > div': {
     color: isLight ? (selected ? '#FFFFFF' : '#9FAFB9') : selected ? '#FFFFFF' : '#ADAFD4',
@@ -47,11 +39,6 @@ const DataButton = styled(CustomButton)<WithIsLight & { selected?: boolean }>(({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
-    [lightTheme.breakpoints.up('table_834')]: {
-      //   fontSize: '16px!important',
-      //   lineHeight: '19px!important',
-    },
   },
 
   ...(!selected
