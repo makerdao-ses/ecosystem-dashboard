@@ -14,6 +14,7 @@ import { getExpenseMonthWithData, mockDataApiTeam } from './utils/utils';
 import type {
   DelegateExpenseTableHeader,
   FilterDoughnut,
+  MomentDataItem,
   NavigationCard,
   PeriodicSelectionFilter,
 } from './utils/types';
@@ -21,7 +22,6 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
-import type { MomentDataItem } from '@ses/core/models/interfaces/team';
 
 export const useFinances = () => {
   const { isLight } = useThemeContext();
@@ -275,7 +275,7 @@ export const useFinances = () => {
       href: '#',
       totalDai: 132345,
       valueDai: 12345,
-      color: '#F99374',
+      color: isLight ? '#F99374' : '#F77249',
     },
     {
       svgImage: <EndgameScopeBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} />,
@@ -293,7 +293,7 @@ export const useFinances = () => {
       href: '#',
       totalDai: 132345,
       valueDai: 12345,
-      color: '#2DC1B1',
+      color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
   ];
   const handleLinkToPage = (href: string) => {
