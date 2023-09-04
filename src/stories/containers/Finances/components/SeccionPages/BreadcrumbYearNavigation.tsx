@@ -48,14 +48,12 @@ export default BreadcrumbYearNavigation;
 const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
   marginRight: 16,
   marginLeft: 16,
-  // marginLeft:16,
   position: 'sticky',
   top: 64,
   marginTop: 16,
   paddingLeft: 8,
   paddingRight: 8,
   borderRadius: 6,
-  // top: 16,
   background: isLight ? '#ECF1F3' : 'red',
   zIndex: zIndexEnum.BREAD_CRUMB_NAVIGATION,
   [lightTheme.breakpoints.up('table_834')]: {
