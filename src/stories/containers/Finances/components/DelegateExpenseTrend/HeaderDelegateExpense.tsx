@@ -110,4 +110,5 @@ const Arrows = styled.div({
   margin: '0 8px',
   cursor: 'pointer',
   boxSizing: 'unset',
+  marginTop: -3,
 });
