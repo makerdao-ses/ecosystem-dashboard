@@ -26,6 +26,7 @@ import type { MomentDataItem } from '@ses/core/models/interfaces/team';
 export const useFinances = () => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
   const routes = ['Finances'];
   const years = ['2022', '2023'];
@@ -98,7 +99,7 @@ export const useFinances = () => {
       sort: headersSort[0],
     },
     {
-      header: 'Reporting Month',
+      header: isSmallDesk ? 'Report Month' : 'Reporting Month',
       styles: {
         width: 170,
         marginLeft: 112,
@@ -136,9 +137,7 @@ export const useFinances = () => {
       styles: {
         width: 173,
         marginLeft: -6,
-
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          // marginLeft: 18,
           marginLeft: 2,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
