@@ -1,6 +1,8 @@
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
+import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
-import type { MomentDataItem } from './types';
+import type { DelegateExpenseTableHeader, MomentDataItem } from './types';
+import type { SortEnum } from '@ses/core/enums/sortEnum';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export const calculateValuesByBreakpoint = (isTable: boolean, isSmallDesk: boolean, normalSizeDesk: boolean) => {
@@ -257,3 +259,85 @@ export const getExpenseMonthWithData = (expense: MomentDataItem) => {
 };
 
 export const isCoreUnit = (item: MomentDataItem) => item?.type === ResourceType.CoreUnit;
+export const getHeadersExpenseReport = (
+  headersSort: SortEnum[],
+  isSmallDesk: boolean
+): DelegateExpenseTableHeader[] => [
+  {
+    header: 'Contributors',
+    styles: {
+      boxSizing: 'border-box',
+      minWidth: 228,
+      paddingLeft: 16,
+    },
+    sortReverse: true,
+    sort: headersSort[0],
+  },
+  {
+    header: isSmallDesk ? 'Report Month' : 'Reporting Month',
+    styles: {
+      width: 170,
+      marginLeft: 112,
+
+      [lightTheme.breakpoints.up('desktop_1280')]: {
+        marginLeft: 122,
+      },
+      [lightTheme.breakpoints.up('desktop_1440')]: {
+        marginLeft: 126,
+      },
+    },
+    sortReverse: true,
+    sort: headersSort[1],
+  },
+  {
+    header: 'Total Actuals',
+    sort: headersSort[2],
+    styles: {
+      width: 170,
+      marginLeft: -18,
+
+      [lightTheme.breakpoints.up('desktop_1280')]: {
+        marginLeft: -4,
+      },
+      [lightTheme.breakpoints.up('desktop_1440')]: {
+        marginLeft: 12,
+        justifyContent: 'center',
+      },
+    },
+    sortReverse: true,
+  },
+
+  {
+    header: 'Status',
+    sort: headersSort[3],
+    styles: {
+      width: 173,
+      marginLeft: -6,
+      [lightTheme.breakpoints.up('desktop_1280')]: {
+        marginLeft: 2,
+      },
+      [lightTheme.breakpoints.up('desktop_1440')]: {
+        marginLeft: 12,
+        justifyContent: 'center',
+      },
+    },
+    sortReverse: true,
+  },
+  {
+    header: 'Last Modified',
+    sort: headersSort[4],
+    styles: {
+      width: 173,
+      marginLeft: 10,
+
+      [lightTheme.breakpoints.up('desktop_1280')]: {
+        marginLeft: 22,
+      },
+      [lightTheme.breakpoints.up('desktop_1440')]: {
+        marginLeft: 92,
+        justifyContent: 'center',
+      },
+    },
+    sortReverse: true,
+  },
+];

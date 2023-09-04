@@ -10,14 +10,8 @@ import { useMemo, useState } from 'react';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
-import { getExpenseMonthWithData, mockDataApiTeam } from './utils/utils';
-import type {
-  DelegateExpenseTableHeader,
-  FilterDoughnut,
-  MomentDataItem,
-  NavigationCard,
-  PeriodicSelectionFilter,
-} from './utils/types';
+import { getExpenseMonthWithData, getHeadersExpenseReport, mockDataApiTeam } from './utils/utils';
+import type { FilterDoughnut, MomentDataItem, NavigationCard, PeriodicSelectionFilter } from './utils/types';
 
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -25,6 +19,7 @@ import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMu
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
 
 export const useFinances = () => {
+  const [showSome, setShowSome] = useState(false);
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
@@ -43,7 +38,7 @@ export const useFinances = () => {
     SortEnum.Neutral,
     SortEnum.Neutral,
   ]);
-
+  const headersExpenseReport = getHeadersExpenseReport(headersSort, isSmallDesk);
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChangeMetrics = (value: string[]) => {
     setActiveElements(value);
@@ -88,84 +83,6 @@ export const useFinances = () => {
     setIsOpenPeriod(false);
   };
 
-  const headersExpenseReport: DelegateExpenseTableHeader[] = [
-    {
-      header: 'Contributors',
-      styles: {
-        boxSizing: 'border-box',
-        minWidth: 228,
-        paddingLeft: 16,
-      },
-      sortReverse: true,
-      sort: headersSort[0],
-    },
-    {
-      header: isSmallDesk ? 'Report Month' : 'Reporting Month',
-      styles: {
-        width: 170,
-        marginLeft: 112,
-
-        [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: 122,
-        },
-        [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 126,
-        },
-      },
-      sortReverse: true,
-      sort: headersSort[1],
-    },
-    {
-      header: 'Total Actuals',
-      sort: headersSort[2],
-      styles: {
-        width: 170,
-        marginLeft: -18,
-
-        [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: -4,
-        },
-        [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 12,
-          justifyContent: 'center',
-        },
-      },
-      sortReverse: true,
-    },
-    {
-      header: 'Status',
-      sort: headersSort[3],
-      styles: {
-        width: 173,
-        marginLeft: -6,
-        [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: 2,
-        },
-        [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 12,
-          justifyContent: 'center',
-        },
-      },
-      sortReverse: true,
-    },
-    {
-      header: 'Last Modified',
-      sort: headersSort[4],
-      styles: {
-        width: 173,
-        marginLeft: 10,
-
-        [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: 22,
-        },
-        [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 92,
-          justifyContent: 'center',
-        },
-      },
-      sortReverse: true,
-    },
-  ];
   const sortData = useMemo(() => {
     const sortDataFunction = (items: MomentDataItem[]) => {
       if (headersSort[sortColumn] === SortEnum.Disabled) return items;
@@ -301,6 +218,9 @@ export const useFinances = () => {
     // Add the correct link when APi is ready
     console.log('some links', href);
   };
+  const handleLoadMore = () => {
+    setShowSome(!showSome);
+  };
   return {
     years,
     year,
@@ -333,5 +253,7 @@ export const useFinances = () => {
     onSortClick,
     reportExpenseItems,
     handleLinkToPage,
+    showSome,
+    handleLoadMore,
   };
 };
