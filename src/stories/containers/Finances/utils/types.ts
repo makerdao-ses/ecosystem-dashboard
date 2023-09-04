@@ -1,3 +1,5 @@
+import type { SortEnum } from '@ses/core/enums/sortEnum';
+
 export type FilterDoughnut = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
 
 export interface NavigationCard {
@@ -20,3 +22,13 @@ export interface DoughnutSeries {
 }
 
 export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually';
+
+export interface DelegateExpenseTableHeader {
+  header: string;
+  width?: string;
+  align?: 'left' | 'center' | 'right';
+  styles?: React.CSSProperties;
+  sort?: SortEnum;
+  hidden?: boolean;
+  sortReverse?: boolean;
+}
