@@ -1,7 +1,7 @@
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
+import type { MomentDataItem } from './types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
-import type { MomentDataItem } from '@ses/core/models/interfaces/team';
 
 export const calculateValuesByBreakpoint = (isTable: boolean, isSmallDesk: boolean, normalSizeDesk: boolean) => {
   const radius = isTable ? ['40%', '75%'] : isSmallDesk ? ['45%', '95%'] : ['45%', '95%'];
