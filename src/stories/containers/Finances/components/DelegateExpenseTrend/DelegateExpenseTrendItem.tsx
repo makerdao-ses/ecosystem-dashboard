@@ -10,23 +10,45 @@ import ExpenseReportStatusIndicator from '@ses/containers/TransparencyReport/com
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { capitalizeSentence } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 
+import { DateTime } from 'luxon';
 import React from 'react';
 
+import { getExpenseMonthWithData, getShowCTA, getStatus, isCoreUnit } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
+import type { MomentDataItem } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-import type { DateTime } from 'luxon';
 
 interface Props {
-  handleLinkToPage: () => void;
+  handleLinkToPage: (href: string) => void;
   link?: string;
-  date: DateTime;
   isMobile: boolean;
+  expenseReport: MomentDataItem;
+  now?: DateTime;
 }
 
-const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, date, isMobile }) => {
+const DelegateExpenseTrendItem: React.FC<Props> = ({
+  handleLinkToPage,
+  link,
+  isMobile,
+  expenseReport,
+  now = DateTime.now(),
+}) => {
   const { isLight } = useThemeContext();
+  const getDateExpenseModified = getExpenseMonthWithData(expenseReport);
+  const lasModified = capitalizeSentence(
+    getDateExpenseModified?.toRelative({
+      base: now,
+      unit: 'days',
+    }) ?? ''
+  );
+
+  const handleLink = () => {
+    handleLinkToPage(expenseReport.shortCode);
+  };
+  const isCoreUnitElement = isCoreUnit(expenseReport);
 
   return (
     <ExtendedGenericDelegate isLight={isLight}>
@@ -35,20 +57,24 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, dat
           <ContainerMobile>
             <ActorLabel isLight={isLight}>Ecosystem Actor</ActorLabel>
             <ContainerIconName>
-              <CircleAvatarWithIcon
-                name="Alt"
+              <CircleAvatarWithIconStyled
+                isCoreUnit={isCoreUnitElement}
+                name="Image Core Unit or Delegate"
                 width={isMobile ? '42px' : '34px'}
                 height={isMobile ? '42px' : '34px'}
                 icon={isMobile ? <MultiUsersMobile /> : <MultiUsers />}
-                image="https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png"
+                image={expenseReport.image}
               />
               <ContainerStatus>
                 <TitleCode>
-                  <Code isLight={isLight}>SES</Code>
-                  <Title isLight={isLight}>Sustainable Ecosystem Scaling</Title>
+                  <Code isLight={isLight}>{expenseReport.shortCode}</Code>
+                  <Title isLight={isLight}>{expenseReport.name}</Title>
                 </TitleCode>
                 <StatusMobile>
-                  <ExpenseReportStatusIndicatorMobile budgetStatus={BudgetStatus.Draft} showCTA={false} />
+                  <ExpenseReportStatusIndicatorMobile
+                    budgetStatus={getStatus(expenseReport.budgetStatements) || BudgetStatus.Draft}
+                    showCTA={getShowCTA()}
+                  />
                 </StatusMobile>
               </ContainerStatus>
             </ContainerIconName>
@@ -60,26 +86,31 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, dat
 
           <ReportingMonth>
             <LabelDescription isLight={isLight}>Reporting Month</LabelDescription>
-            <Date isLight={isLight}>March 2023</Date>
+            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
           </ReportingMonth>
           <TotalActualsTable>
             <LabelDescription isLight={isLight}>Total Actuals</LabelDescription>
-            <Date isLight={isLight}>2,048,873 DAI</Date>
+            <TotalNumber isLight={isLight}>{`${
+              expenseReport.totalActuals.toLocaleString('es-US') || '0'
+            } DAI`}</TotalNumber>
           </TotalActualsTable>
           <ContainerStatusTable>
             <StatusTable>
               <LabelStatus isLight={isLight}>Status</LabelStatus>
-              <ExpenseReportStatusIndicatorTable budgetStatus={BudgetStatus.Draft} showCTA={false} />
+              <ExpenseReportStatusIndicatorTable
+                budgetStatus={getStatus(expenseReport.budgetStatements)}
+                showCTA={getShowCTA()}
+              />
             </StatusTable>
             <ContainerArrow isLight={isLight}>
               <ArrowNavigationForCards width={32} height={32} />
             </ContainerArrow>
           </ContainerStatusTable>
           <LastModifiedDesk>
-            <LabelLastModifiedText isLight={isLight}>13 Days Ago</LabelLastModifiedText>
+            <LabelLastModifiedText isLight={isLight}>{lasModified}</LabelLastModifiedText>
           </LastModifiedDesk>
           <ViewContainer>
-            <ViewButton title="View" handleOnclick={handleLinkToPage} />
+            <ViewButton title="View" handleOnclick={handleLink} />
           </ViewContainer>
         </ContainerDesk>
         <Divider isLight={isLight} />
@@ -87,19 +118,21 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, dat
           <ContainerReportingMobile>
             <ReportingMobile>
               <LabelTagMobile isLight={isLight}>Reporting Month</LabelTagMobile>
-              <Date isLight={isLight}>March 2023</Date>
+              <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
             </ReportingMobile>
           </ContainerReportingMobile>
 
           <TotalContainerMobile>
             <Total isLight={isLight}>Total Actuals</Total>
-            <TotalNumber isLight={isLight}>2,048,873 DAI</TotalNumber>
+            <TotalNumber isLight={isLight}>
+              {`${expenseReport.totalActuals.toLocaleString('es-US') || '0'} DAI`}
+            </TotalNumber>
           </TotalContainerMobile>
         </ContainerCardMobile>
       </ContainerInside>
 
       <FooterMobile>
-        <ActorLastModified href={link || '#'} date={date} />
+        <ActorLastModified href={link || '#'} date={expenseReport.reportMonth} />
       </FooterMobile>
     </ExtendedGenericDelegate>
   );
@@ -122,6 +155,25 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   [lightTheme.breakpoints.up('table_834')]: {
     padding: 0,
     flexDirection: 'column',
+  },
+}));
+
+const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: boolean }>(({ isCoreUnit }) => ({
+  marginTop: 4,
+  '& div svg path': {
+    fill: isCoreUnit ? '#1AAB9B' : '#447AFB',
+  },
+  '& div svg rect': {
+    stroke: isCoreUnit ? '#6EDBD0' : '#85A9FF',
+  },
+  '& div svg path:nth-of-type(3)': {
+    fill: '#fff',
+  },
+  '& div svg path:nth-of-type(4)': {
+    fill: '#fff',
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 0,
   },
 }));
 
@@ -158,10 +210,13 @@ const TitleCode = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   gap: 4,
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    width: 256,
+  },
 });
 
 const Code = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#546978',
   fontSize: 14,
   fontStyle: 'normal',
   fontWeight: 800,
@@ -170,7 +225,7 @@ const Code = styled.div<WithIsLight>(({ isLight }) => ({
   textTransform: 'uppercase',
 }));
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#FFF',
   fontSize: 14,
   fontStyle: 'normal',
   fontWeight: 400,
@@ -191,7 +246,7 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const Date = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#EDEFFF',
   fontSize: 14,
   fontStyle: 'normal',
   fontWeight: 600,
@@ -203,7 +258,7 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  borderBottom: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
+  borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   opacity: 0.5,
   marginTop: 16,
   marginBottom: 16,
@@ -223,7 +278,7 @@ const TotalContainerMobile = styled.div({
 });
 
 const Total = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#EDEFFF',
   fontSize: 11,
   fontStyle: 'normal',
   fontWeight: 400,
@@ -231,7 +286,7 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const TotalNumber = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#EDEFFF',
   fontSize: 14,
   fontStyle: 'normal',
   fontWeight: 600,
@@ -257,7 +312,7 @@ const ActorLabel = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     display: 'flex',
     marginBottom: 8,
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#D2D4EF',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 400,
@@ -279,11 +334,13 @@ const ReportingMonth = styled.div({
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 0,
-    marginLeft: -73,
+
+    marginLeft: -20,
+    width: 120,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: -110,
+    marginLeft: -40,
   },
 });
 
@@ -293,18 +350,18 @@ const TotalActualsTable = styled.div({
     display: 'flex',
     flexDirection: 'column',
     gap: 19,
-    marginLeft: -4,
+    marginLeft: -6,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-
     gap: 0,
-    marginLeft: -12,
+    marginLeft: -2,
+    width: 130,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: -12,
+    marginLeft: 20,
   },
 });
 
@@ -322,17 +379,21 @@ const StatusTable = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
-    marginLeft: -16,
+
     flexDirection: 'column',
     justifyContent: 'center',
-
     gap: 0,
     '& div:nth-of-type(2)': {
       marginLeft: 0,
     },
+    width: 150,
+    marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: -22,
+    marginLeft: 10,
+    '& div:nth-of-type(2)': {
+      marginLeft: 0,
+    },
   },
 });
 
@@ -340,7 +401,7 @@ const LabelDescription = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     display: 'flex',
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#D2D4EF',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 400,
@@ -351,7 +412,7 @@ const LabelStatus = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     display: 'flex',
-    color: isLight ? '#9FAFB9' : 'red',
+    color: isLight ? '#9FAFB9' : '#D2D4EF',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 400,
@@ -363,10 +424,11 @@ const LastModifiedDesk = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
-    marginRight: 24,
+
+    width: 160,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginRight: -12,
+    paddingLeft: 20,
   },
 });
 
@@ -388,7 +450,7 @@ const ContainerDesk = styled.div({
 });
 
 const LabelLastModifiedText = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#EDEFFF',
   display: 'flex',
   alignItems: 'center',
   fontSize: 14,
@@ -460,7 +522,7 @@ const ContainerReportingMobile = styled.div({
 
 const LabelTagMobile = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : '#D2D4EF',
   fontSize: 11,
   fontStyle: 'normal',
   fontWeight: 400,

@@ -43,12 +43,12 @@ export const mockDataApiTeam: MomentDataItem[] = [
     sentenceDescription: '',
     paragraphDescription: '',
     paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-09-25T09:08:34.123'),
+    lastModified: DateTime.fromISO('2023-03-25T09:08:34.123'),
     reportMonth: DateTime.fromISO('2023-03-01T09:08:34.123'),
     totalActuals: 2048873,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-12T09:08:34.123',
+      created_at: '2023-03-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -66,7 +66,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
       {
         id: '234',
         ownerId: '34',
-        status: BudgetStatus.Escalated,
+        status: BudgetStatus.Draft,
         ownerType: '',
         month: 'some',
         ownerCode: 'ses',

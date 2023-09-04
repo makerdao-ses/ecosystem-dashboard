@@ -19,11 +19,11 @@ import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMu
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
 
 export const useFinances = () => {
-  const [showSome, setShowSome] = useState(false);
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
+  const [showSome, setShowSome] = useState(true);
   const routes = ['Finances'];
   const years = ['2022', '2023'];
   const metricsFilter = useMemo(
