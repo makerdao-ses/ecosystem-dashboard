@@ -156,7 +156,7 @@ const useTransparencyReportingTabs = ({
             undefined,
             { shallow: true }
           );
-          setTabsIndex(TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT);
+          setTabsIndex(TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS);
         }
       }
     };
