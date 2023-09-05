@@ -34,8 +34,8 @@ const CardChartOverview: React.FC<Props> = ({
   return (
     <Container isLight={isLight}>
       <ContainerFilters>
-        {filters.map((item) => (
-          <Item isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
+        {filters.map((item, index) => (
+          <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
             {item}
           </Item>
         ))}

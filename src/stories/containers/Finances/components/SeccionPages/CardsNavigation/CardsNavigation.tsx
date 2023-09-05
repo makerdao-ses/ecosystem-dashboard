@@ -12,17 +12,18 @@ interface Props {
 const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation }) => (
   <ContainerCardsNavigation>
     <WrapperDesk>
-      {cardsNavigationInformation.map((card: NavigationCard) => (
+      {cardsNavigationInformation.map((card: NavigationCard, index) => (
         <CardNavigationFinance
           href={card.href}
           svgImage={card.svgImage}
           title={card.title}
           description={card.description}
+          key={index}
         />
       ))}
     </WrapperDesk>
     <WrapperMobile>
-      {cardsNavigationInformation.map((card: NavigationCard) => (
+      {cardsNavigationInformation.map((card: NavigationCard, index) => (
         <CardNavigationMobile
           valueDai={card?.valueDai || 0}
           totalDai={card?.totalDai || 0}
@@ -30,6 +31,7 @@ const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation }) => (
           svgImage={card.svgImage}
           title={card.title}
           barColor={card.color}
+          key={index}
         />
       ))}
     </WrapperMobile>

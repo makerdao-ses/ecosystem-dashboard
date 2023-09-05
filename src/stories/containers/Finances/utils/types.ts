@@ -1,3 +1,7 @@
+import type { SortEnum } from '@ses/core/enums/sortEnum';
+import type { Team } from '@ses/core/models/interfaces/team';
+import type { DateTime } from 'luxon';
+
 export type FilterDoughnut = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
 
 export interface NavigationCard {
@@ -20,3 +24,20 @@ export interface DoughnutSeries {
 }
 
 export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually';
+
+export interface DelegateExpenseTableHeader {
+  header: string;
+  width?: string;
+  align?: 'left' | 'center' | 'right';
+  styles?: React.CSSProperties;
+  sort?: SortEnum;
+  hidden?: boolean;
+  sortReverse?: boolean;
+}
+
+// Update Date for Expense when Api is ready
+export interface MomentDataItem extends Team {
+  reportMonth: DateTime;
+  totalActuals: number;
+  lastModified: DateTime;
+}

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { siteRoutes } from '@ses/config/routes';
+import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
@@ -123,7 +124,7 @@ const Container = styled.header<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
   display: 'flex',
   width: '100%',
-  zIndex: 4,
+  zIndex: zIndexEnum.HEADER_PAGE,
   flexDirection: 'row',
   height: '64px',
   justifyContent: 'space-between',
