@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import CircleAvatarWithIcon from '@ses/components/CircleAvatar/CircleAvatarWithIcon';
 
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
@@ -14,6 +15,7 @@ import { capitalizeSentence } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 
 import { DateTime } from 'luxon';
+import Link from 'next/link';
 import React from 'react';
 
 import { getExpenseMonthWithData, getShowCTA, getStatus, isCoreUnit } from '../../utils/utils';
@@ -36,6 +38,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({
   expenseReport,
   now = DateTime.now(),
 }) => {
+  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
   const { isLight } = useThemeContext();
   const getDateExpenseModified = getExpenseMonthWithData(expenseReport);
   const lasModified = capitalizeSentence(
@@ -50,86 +53,96 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({
   };
   const isCoreUnitElement = isCoreUnit(expenseReport);
 
+  const elementInDesk = (
+    <ContainerInside>
+      <ContainerDesk>
+        <ContainerMobile>
+          <ActorLabel isLight={isLight}>Ecosystem Actor</ActorLabel>
+          <ContainerIconName>
+            <CircleAvatarWithIconStyled
+              isCoreUnit={isCoreUnitElement}
+              name="Image Core Unit or Delegate"
+              width={isMobile ? '42px' : '34px'}
+              height={isMobile ? '42px' : '34px'}
+              icon={isMobile ? <MultiUsersMobile /> : <MultiUsers />}
+              image={expenseReport.image}
+            />
+            <ContainerStatus>
+              <TitleCode>
+                <Code isLight={isLight}>{expenseReport.shortCode}</Code>
+                <Title isLight={isLight}>{expenseReport.name}</Title>
+              </TitleCode>
+              <StatusMobile>
+                <ExpenseReportStatusIndicatorMobile
+                  budgetStatus={getStatus(expenseReport.budgetStatements) || BudgetStatus.Draft}
+                  showCTA={getShowCTA()}
+                />
+              </StatusMobile>
+            </ContainerStatus>
+          </ContainerIconName>
+
+          <ArrowMobile isLight={isLight}>
+            <ArrowNavigationForCards width={32} height={32} />
+          </ArrowMobile>
+        </ContainerMobile>
+
+        <ReportingMonth>
+          <LabelDescription isLight={isLight}>Reporting Month</LabelDescription>
+          <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
+        </ReportingMonth>
+        <TotalActualsTable>
+          <LabelDescription isLight={isLight}>Total Actuals</LabelDescription>
+          <TotalNumber isLight={isLight}>{`${
+            expenseReport.totalActuals.toLocaleString('es-US') || '0'
+          } DAI`}</TotalNumber>
+        </TotalActualsTable>
+        <ContainerStatusTable>
+          <StatusTable>
+            <LabelStatus isLight={isLight}>Status</LabelStatus>
+            <ExpenseReportStatusIndicatorTable
+              budgetStatus={getStatus(expenseReport.budgetStatements)}
+              showCTA={getShowCTA()}
+            />
+          </StatusTable>
+          <ContainerArrow isLight={isLight}>
+            <ArrowNavigationForCards width={32} height={32} />
+          </ContainerArrow>
+        </ContainerStatusTable>
+        <LastModifiedDesk>
+          <LabelLastModifiedText isLight={isLight}>{lasModified}</LabelLastModifiedText>
+        </LastModifiedDesk>
+        <ViewContainer>
+          <ViewButton title="View" handleOnclick={handleLink} />
+        </ViewContainer>
+      </ContainerDesk>
+      <Divider isLight={isLight} />
+      <ContainerCardMobile>
+        <ContainerReportingMobile>
+          <ReportingMobile>
+            <LabelTagMobile isLight={isLight}>Reporting Month</LabelTagMobile>
+            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
+          </ReportingMobile>
+        </ContainerReportingMobile>
+
+        <TotalContainerMobile>
+          <Total isLight={isLight}>Total Actuals</Total>
+          <TotalNumber isLight={isLight}>
+            {`${expenseReport.totalActuals.toLocaleString('es-US') || '0'} DAI`}
+          </TotalNumber>
+        </TotalContainerMobile>
+      </ContainerCardMobile>
+    </ContainerInside>
+  );
+
   return (
     <ExtendedGenericDelegate isLight={isLight}>
-      <ContainerInside>
-        <ContainerDesk>
-          <ContainerMobile>
-            <ActorLabel isLight={isLight}>Ecosystem Actor</ActorLabel>
-            <ContainerIconName>
-              <CircleAvatarWithIconStyled
-                isCoreUnit={isCoreUnitElement}
-                name="Image Core Unit or Delegate"
-                width={isMobile ? '42px' : '34px'}
-                height={isMobile ? '42px' : '34px'}
-                icon={isMobile ? <MultiUsersMobile /> : <MultiUsers />}
-                image={expenseReport.image}
-              />
-              <ContainerStatus>
-                <TitleCode>
-                  <Code isLight={isLight}>{expenseReport.shortCode}</Code>
-                  <Title isLight={isLight}>{expenseReport.name}</Title>
-                </TitleCode>
-                <StatusMobile>
-                  <ExpenseReportStatusIndicatorMobile
-                    budgetStatus={getStatus(expenseReport.budgetStatements) || BudgetStatus.Draft}
-                    showCTA={getShowCTA()}
-                  />
-                </StatusMobile>
-              </ContainerStatus>
-            </ContainerIconName>
-
-            <ArrowMobile isLight={isLight}>
-              <ArrowNavigationForCards width={32} height={32} />
-            </ArrowMobile>
-          </ContainerMobile>
-
-          <ReportingMonth>
-            <LabelDescription isLight={isLight}>Reporting Month</LabelDescription>
-            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
-          </ReportingMonth>
-          <TotalActualsTable>
-            <LabelDescription isLight={isLight}>Total Actuals</LabelDescription>
-            <TotalNumber isLight={isLight}>{`${
-              expenseReport.totalActuals.toLocaleString('es-US') || '0'
-            } DAI`}</TotalNumber>
-          </TotalActualsTable>
-          <ContainerStatusTable>
-            <StatusTable>
-              <LabelStatus isLight={isLight}>Status</LabelStatus>
-              <ExpenseReportStatusIndicatorTable
-                budgetStatus={getStatus(expenseReport.budgetStatements)}
-                showCTA={getShowCTA()}
-              />
-            </StatusTable>
-            <ContainerArrow isLight={isLight}>
-              <ArrowNavigationForCards width={32} height={32} />
-            </ContainerArrow>
-          </ContainerStatusTable>
-          <LastModifiedDesk>
-            <LabelLastModifiedText isLight={isLight}>{lasModified}</LabelLastModifiedText>
-          </LastModifiedDesk>
-          <ViewContainer>
-            <ViewButton title="View" handleOnclick={handleLink} />
-          </ViewContainer>
-        </ContainerDesk>
-        <Divider isLight={isLight} />
-        <ContainerCardMobile>
-          <ContainerReportingMobile>
-            <ReportingMobile>
-              <LabelTagMobile isLight={isLight}>Reporting Month</LabelTagMobile>
-              <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
-            </ReportingMobile>
-          </ContainerReportingMobile>
-
-          <TotalContainerMobile>
-            <Total isLight={isLight}>Total Actuals</Total>
-            <TotalNumber isLight={isLight}>
-              {`${expenseReport.totalActuals.toLocaleString('es-US') || '0'} DAI`}
-            </TotalNumber>
-          </TotalContainerMobile>
-        </ContainerCardMobile>
-      </ContainerInside>
+      {isSmallDesk ? (
+        <Link href={link || ''} legacyBehavior passHref>
+          <a>{elementInDesk}</a>
+        </Link>
+      ) : (
+        <>{elementInDesk}</>
+      )}
 
       <FooterMobile>
         <ActorLastModified href={link || '#'} date={expenseReport.reportMonth} />
@@ -194,7 +207,6 @@ const ContainerIconName = styled.div({
   flexDirection: 'row',
   gap: 8,
   height: 51,
-
   [lightTheme.breakpoints.up('table_834')]: {
     height: 'unset',
     alignItems: 'center',
@@ -270,7 +282,6 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
 const TotalContainerMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
-
   gap: 8,
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'none',
