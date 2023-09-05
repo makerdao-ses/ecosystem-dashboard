@@ -24,18 +24,18 @@ interface Props {
 const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   const { isLight } = useThemeContext();
   const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('table_834'));
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
   const ref = useRef<HTMLDivElement>(null);
   const [showHeader, setHeader] = useState(true);
+  const valueHiddenHeader = isMobile ? 150 : 100;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleScroll = useCallback(
-    _.debounce(() => {
-      setHeader((ref?.current?.offsetTop ?? 0) <= 65);
-    }, 50),
-    []
-  );
+  const handleScroll = useCallback(() => {
+    const shouldHideContainer = window.scrollY < valueHiddenHeader; // Cambia 65 a la posición deseada para ocultar el contenedor
+    setHeader(shouldHideContainer);
+  }, [valueHiddenHeader]);
+
   useEffect(() => {
     handleScroll();
     window.addEventListener('scroll', _.debounce(handleScroll, 50));
@@ -52,7 +52,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
       <BreadcrumbsContainer>
         <CustomBreadcrumbs isLight={isLight} items={items} />
       </BreadcrumbsContainer>
-      <Collapse in={showHeader} timeout={600} unmountOnExit>
+      <Collapse in={showHeader} timeout={300} unmountOnExit style={{ width: '100%' }}>
         <Container>
           <ContainerRow>
             <CircleContainer>
@@ -117,7 +117,7 @@ export default DelegateSummary;
 
 const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; showHeader?: boolean }>(
   ({ isLight, showHeader }) => ({
-    position: 'sticky',
+    position: 'fixed',
     top: 64,
     flexDirection: 'column',
     width: '100%',

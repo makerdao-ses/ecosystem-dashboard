@@ -381,7 +381,7 @@ export const DividerStyle = styled(Divider)({
 
 const ContainerScroll = styled.div({
   position: 'sticky',
-  top: 250,
+  top: 122,
   paddingTop: '34px',
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     position: 'relative',
@@ -390,24 +390,29 @@ const ContainerScroll = styled.div({
 });
 
 const Wrapper = styled.div({
+  [lightTheme.breakpoints.down('table_375')]: {
+    width: '100%',
+  },
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
+  marginTop: 270,
 
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    maxWidth: '1312px',
-    marginLeft: '0px',
-    marginRight: '0px',
-    margin: '0 auto',
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    marginTop: 230,
   },
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     marginRight: '0px',
     marginLeft: '0px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
-    width: '100%',
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    maxWidth: '1312px',
+    marginLeft: '0px',
+    marginRight: '0px',
+    margin: '0 auto',
+    marginTop: 230,
   },
 });
 

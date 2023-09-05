@@ -36,6 +36,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
+  const valueHiddenHeader = phone ? 150 : 100;
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -46,13 +47,10 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
 
   const ref = useRef<HTMLDivElement>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleScroll = useCallback(
-    _.debounce(() => {
-      setShowHeader((ref?.current?.offsetTop ?? 0) <= 65);
-    }, 50),
-    []
-  );
+  const handleScroll = useCallback(() => {
+    const shouldHideContainer = window.scrollY < valueHiddenHeader; // Cambia 65 a la posición deseada para ocultar el contenedor
+    setShowHeader(shouldHideContainer);
+  }, [valueHiddenHeader]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -165,7 +163,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
         </div>
       )}
       <Wrapper>
-        <Collapse in={showHeader} timeout={600} unmountOnExit style={{ width: '100%' }}>
+        <Collapse in={showHeader} timeout={300} unmountOnExit style={{ width: '100%' }}>
           <ContainerTitle>
             <>
               <TitleNavigationCuAbout coreUnitAbout={cu} />
@@ -185,7 +183,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
 };
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  position: 'sticky',
+  position: 'fixed',
   top: 64,
   width: '100%',
   background: isLight ? '#FFFFFF' : '#25273D',
@@ -213,8 +211,6 @@ const ContainerTitle = styled.div({
   width: '100%',
   height: 'fit-content',
   transition: 'all .3s ease',
-
-  paddingTop: 24,
 
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     paddingLeft: '48px',

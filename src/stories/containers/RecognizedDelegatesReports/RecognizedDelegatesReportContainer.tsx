@@ -164,13 +164,9 @@ const ContainerInside = styled.div({
   margin: '22px auto 0',
   paddingRight: '64px',
   paddingLeft: '64px',
-
+  marginTop: 200,
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 45,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 40,
+    marginTop: 230,
   },
 
   [lightTheme.breakpoints.up('desktop_1920')]: {

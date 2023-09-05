@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Collapse } from '@mui/material';
+import { Collapse, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { filterDataActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -21,11 +21,12 @@ interface ActorSummaryProps {
 
 const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcrumbTitle, trailingAddress = [] }) => {
   const { isLight } = useThemeContext();
-
+  const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const [showHeader, setShowHeader] = useState(true);
   const router = useRouter();
   const query = router.query;
   const code = query.code as string;
+  const valueHiddenHeader = isPhone ? 150 : 100;
 
   // This is for the filter in the page of list actors about
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -36,13 +37,10 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
 
   const ref = useRef<HTMLDivElement>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleScroll = useCallback(
-    _.debounce(() => {
-      setShowHeader((ref?.current?.offsetTop ?? 0) <= 65);
-    }, 50),
-    []
-  );
+  const handleScroll = useCallback(() => {
+    const shouldHideContainer = window.scrollY < valueHiddenHeader; // Cambia 65 a la posición deseada para ocultar el contenedor
+    setShowHeader(shouldHideContainer);
+  }, [valueHiddenHeader]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -112,14 +110,12 @@ const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcru
 
 export default ActorSummary;
 const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  position: 'sticky',
+  position: 'fixed',
   top: 64,
   width: '100%',
   background: isLight ? '#FFFFFF' : '#25273D',
-
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
-
   zIndex: 3,
 
   [lightTheme.breakpoints.between('table_375', 'table_834')]: {

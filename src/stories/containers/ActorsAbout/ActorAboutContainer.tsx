@@ -125,7 +125,7 @@ const ContainerScroll = styled.div({
   [lightTheme.breakpoints.up('desktop_1194')]: {
     position: 'sticky',
     height: 'fit-content',
-    top: 322,
+    top: 180,
   },
 });
 
@@ -147,6 +147,7 @@ const ContainerAllData = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   zIndex: -1,
+  marginTop: 232,
 });
 
 const WrapperCardSomethingWrongMobile = styled.div({
