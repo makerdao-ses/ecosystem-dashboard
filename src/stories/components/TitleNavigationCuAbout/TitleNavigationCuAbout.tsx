@@ -7,6 +7,7 @@ import lightTheme from '../../../../styles/theme/light';
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
+  getMipUrlFromCoreUnit,
   getStatusMip39AcceptedOrObsolete,
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
@@ -17,7 +18,6 @@ import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChip } from '../StatusChip/StatusChip';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
-import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 interface Props {
   coreUnitAbout?: CoreUnit;
@@ -59,11 +59,11 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
                 flexDirection: 'row',
               }}
             >
-              {mipStatus && <StatusChip status={mipStatus as CuMipStatus} />}
+              {mipStatus && <StatusChip status={mipStatus} />}
               <Row>
                 {newDate && (
                   <CustomLink
-                    href={coreUnitAbout.cuMip[0].mipUrl || '#'}
+                    href={getMipUrlFromCoreUnit(coreUnitAbout)}
                     withArrow
                     styleIcon={{
                       marginTop: '3px',
