@@ -32,7 +32,7 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   const valueHiddenHeader = isMobile ? 150 : 100;
 
   const handleScroll = useCallback(() => {
-    const shouldHideContainer = window.scrollY < valueHiddenHeader; // Cambia 65 a la posición deseada para ocultar el contenedor
+    const shouldHideContainer = window.scrollY < valueHiddenHeader;
     setHeader(shouldHideContainer);
   }, [valueHiddenHeader]);
 

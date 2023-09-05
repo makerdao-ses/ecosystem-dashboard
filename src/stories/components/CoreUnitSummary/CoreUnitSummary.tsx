@@ -48,7 +48,7 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
   const ref = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(() => {
-    const shouldHideContainer = window.scrollY < valueHiddenHeader; // Cambia 65 a la posición deseada para ocultar el contenedor
+    const shouldHideContainer = window.scrollY < valueHiddenHeader;
     setShowHeader(shouldHideContainer);
   }, [valueHiddenHeader]);
 
