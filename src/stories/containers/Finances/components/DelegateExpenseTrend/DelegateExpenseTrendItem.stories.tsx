@@ -1,6 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
-import { DateTime } from 'luxon';
+import { mockDataApiTeam } from '../../utils/utils';
 import DelegateExpenseTrendItem from './DelegateExpenseTrendItem';
 
 import type { ComponentMeta } from '@storybook/react';
@@ -12,29 +11,28 @@ export default {
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440, 1920],
     },
+    date: new Date('2023-03-14T09:08:34.123'),
   },
 } as ComponentMeta<typeof DelegateExpenseTrendItem>;
 const variantsArgs = [
   {
     handleLinkToPage: () => null,
     link: '#',
-    date: DateTime.fromISO('2023-08-07T09:08:34.123'),
     isMobile: false,
+    expenseReport: mockDataApiTeam[0],
   },
   {
     handleLinkToPage: () => null,
     link: '#',
-    date: DateTime.fromISO('2023-08-07T09:08:34.123'),
     isMobile: true,
+    expenseReport: mockDataApiTeam[0],
   },
 ];
 
-export const [[Actors, ActorsDark], [ActorsMobile, ActorsMobileDark]] = createThemeModeVariants(
-  DelegateExpenseTrendItem,
-  variantsArgs
-);
+export const [[DelegateExpense, DelegateExpenseDark], [DelegateExpenseMobile, DelegateExpenseMobileDark]] =
+  createThemeModeVariants(DelegateExpenseTrendItem, variantsArgs);
 
-Actors.parameters = {
+DelegateExpense.parameters = {
   figma: {
     component: {
       834: {
@@ -109,8 +107,8 @@ Actors.parameters = {
   },
 };
 
-ActorsDark.parameters = {};
-ActorsMobile.parameters = {
+DelegateExpenseDark.parameters = {};
+DelegateExpenseMobile.parameters = {
   chromatic: {
     viewports: [375],
   },
@@ -132,4 +130,4 @@ ActorsMobile.parameters = {
     },
   },
 };
-ActorsMobileDark.parameters = {};
+DelegateExpenseMobileDark.parameters = {};

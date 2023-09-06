@@ -25,18 +25,18 @@ const Container = styled.button<WithIsLight>(({ isLight }) => ({
   gap: 8,
   padding: '8px 24px',
   borderRadius: 22,
-  border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
-  background: '#FFF',
+  border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+  background: isLight ? '#FFF' : 'transparent',
   height: 34,
   cursor: 'pointer',
   ':hover': {
-    border: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
+    border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   },
 }));
 
 const Text = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
-  color: isLight ? '#31424E' : 'red',
+  color: isLight ? '#31424E' : '#E2D8EE',
   fontSize: 14,
   fontStyle: 'normal',
   fontWeight: 500,

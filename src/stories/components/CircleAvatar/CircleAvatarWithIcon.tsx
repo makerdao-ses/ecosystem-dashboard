@@ -35,6 +35,7 @@ const Container = styled.div({
   display: 'flex',
   width: 47,
   height: 47,
+
   [lightTheme.breakpoints.up('table_834')]: {
     width: 39,
     height: 38,
@@ -43,7 +44,7 @@ const Container = styled.div({
 
 const ContainerIcon = styled.div({
   position: 'absolute',
-  top: 22,
+  top: 18,
   left: 18,
   zIndex: zIndexEnum.SMALL_ICON_AVATAR_WITH_ICON_COMPONENT,
   width: '100%',

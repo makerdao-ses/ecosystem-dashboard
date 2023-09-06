@@ -44,7 +44,13 @@ const FinancesContainer = () => {
     handleSelectChangeMetrics,
     selectMetrics,
     handleResetMetrics,
+    headersExpenseReport,
+    reportExpenseItems,
+    onSortClick,
+    handleLinkToPage,
+    handleLoadMore,
   } = useFinances();
+
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -89,7 +95,13 @@ const FinancesContainer = () => {
             onOpen={handleOpenPeriod}
           />
           {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
-          <DelegateExpenseTrendFinances />
+          <DelegateExpenseTrendFinances
+            columns={headersExpenseReport}
+            expenseReport={reportExpenseItems}
+            sortClick={onSortClick}
+            handleLinkToPage={handleLinkToPage}
+            handleLoadMore={handleLoadMore}
+          />
         </ContainerSections>
       </Container>
     </PageContainer>
@@ -105,7 +117,7 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: '0.4px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 24,
   marginBottom: 24,
   [lightTheme.breakpoints.up('table_834')]: {

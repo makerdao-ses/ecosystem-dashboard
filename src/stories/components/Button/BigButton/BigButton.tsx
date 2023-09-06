@@ -7,12 +7,13 @@ interface Props {
   onClick?: () => void;
   title?: string;
   color?: string;
+  className?: string;
 }
 
-const BigButton = ({ onClick, title = 'Back' }: Props) => {
+const BigButton = ({ onClick, title = 'Back', className }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <StyledBigButton isLight={isLight} onClick={onClick}>
+    <StyledBigButton isLight={isLight} onClick={onClick} className={className}>
       {title}
     </StyledBigButton>
   );
