@@ -9,7 +9,6 @@ import type { DelegateExpenseTableHeader, MomentDataItem } from '@ses/containers
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  isMobile?: boolean;
   columns: DelegateExpenseTableHeader[];
   expenseReport: MomentDataItem[];
   sortClick: (index: number) => void;
@@ -18,12 +17,10 @@ interface Props {
   handleLoadMore?: () => void;
 }
 const DelegateExpenseTrendFinances: React.FC<Props> = ({
-  isMobile = false,
   columns,
   expenseReport,
   sortClick,
   handleLinkToPage,
-
   handleLoadMore,
 }) => {
   const { isLight } = useThemeContext();
@@ -38,12 +35,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
       </Header>
       <ItemSection>
         {expenseReport.map((expense, index) => (
-          <DelegateExpenseTrendItem
-            key={index}
-            expenseReport={expense}
-            handleLinkToPage={handleLinkToPage}
-            isMobile={isMobile}
-          />
+          <DelegateExpenseTrendItem key={index} expenseReport={expense} handleLinkToPage={handleLinkToPage} />
         ))}
       </ItemSection>
       <ContainerButton>
@@ -130,6 +122,9 @@ const ContainerButton = styled.div({
   flex: 1,
   alignItems: 'center',
   marginTop: 24,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 40,
+  },
 });
 const DividerStyle = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#D4D9E1' : '#405361',
