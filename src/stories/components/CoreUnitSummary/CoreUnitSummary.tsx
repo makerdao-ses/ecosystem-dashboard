@@ -211,7 +211,7 @@ const ContainerTitle = styled.div({
   width: '100%',
   height: 'fit-content',
   transition: 'all .3s ease',
-
+  paddingTop: 24,
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     paddingLeft: '48px',
     paddingRight: '48px',
