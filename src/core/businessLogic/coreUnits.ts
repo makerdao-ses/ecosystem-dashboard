@@ -340,8 +340,9 @@ export const getLast3MonthsWithDataFormatted = (cu: CoreUnit) => {
 };
 
 export const getMipUrlFromCoreUnit = (cu: CoreUnit) => {
+  const mipStatus = getStatusMip39AcceptedOrObsolete(cu);
   if (cu?.cuMip.length === 0) return '';
-  return cu?.cuMip[0].mipUrl ?? '';
+  return mipStatus === CuMipStatus.Obsolete ? cu.cuMip[cu.cuMip.length - 1].mipUrl : cu.cuMip[0].mipUrl;
 };
 
 export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatement) => {

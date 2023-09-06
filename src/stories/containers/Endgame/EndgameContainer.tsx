@@ -1,12 +1,11 @@
+import 'intersection-observer'; // polyfill
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
-
 import React from 'react';
-
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
 import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
@@ -39,7 +38,7 @@ const EndgameContainer: React.FC = () => {
         <NavigationTabs activeTab={activeTab} handlePauseUrlUpdate={handlePauseUrlUpdate} />
       )}
 
-      <BannerContainer id="key-changes">
+      <BannerContainer id="section-key-changes">
         <EndgameIntroductionBanner isKeyChanges />
       </BannerContainer>
 
