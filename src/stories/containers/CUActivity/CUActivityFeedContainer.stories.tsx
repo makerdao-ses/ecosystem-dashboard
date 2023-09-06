@@ -11,7 +11,6 @@ export default {
   title: 'Pages/CU Activity Feed',
   component: CUActivityFeedContainer,
   decorators: [withoutSBPadding, withFixedPositionRelative],
-  // decorators: [withFixedPositionRelative],
   parameters: {
     nextRouter: {
       path: '/core-unit/[code]/activity-feed',

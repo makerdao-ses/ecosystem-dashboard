@@ -147,7 +147,10 @@ const ContainerAllData = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   zIndex: -1,
-  marginTop: 232,
+  marginTop: 263,
+  [lightTheme.breakpoints.up('table_834')]: {
+    marginTop: 255,
+  },
 });
 
 const WrapperCardSomethingWrongMobile = styled.div({
