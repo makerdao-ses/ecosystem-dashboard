@@ -26,19 +26,13 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   handleLinkToPage: (href: string) => void;
   link?: string;
-  isMobile: boolean;
   expenseReport: MomentDataItem;
   now?: DateTime;
 }
 
-const DelegateExpenseTrendItem: React.FC<Props> = ({
-  handleLinkToPage,
-  link,
-  isMobile,
-  expenseReport,
-  now = DateTime.now(),
-}) => {
+const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, expenseReport, now = DateTime.now() }) => {
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const { isLight } = useThemeContext();
   const getDateExpenseModified = getExpenseMonthWithData(expenseReport);
   const lasModified = capitalizeSentence(
