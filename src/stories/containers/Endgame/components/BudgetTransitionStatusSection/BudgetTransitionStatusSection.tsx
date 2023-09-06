@@ -1,14 +1,19 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-
 import React from 'react';
 import BudgetTransitionChart from '../BudgetTransitionChart/BudgetTransitionChart';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransitionDataPicker from '../TransitionDataPicker/TransitionDataPicker';
+import type { TransitionDataPickerProps } from '../TransitionDataPicker/TransitionDataPicker';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const BudgetTransitionStatusSection: React.FC = () => {
+interface BudgetTransitionStatusSectionProps extends TransitionDataPickerProps {
+  // TODO: add data here...
+  data?: unknown;
+}
+
+const BudgetTransitionStatusSection: React.FC<BudgetTransitionStatusSectionProps> = ({ selected, handleChange }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -20,7 +25,7 @@ const BudgetTransitionStatusSection: React.FC = () => {
 
       <Card isLight={isLight}>
         <WidthRestriction>
-          <TransitionDataPicker />
+          <TransitionDataPicker selected={selected} handleChange={handleChange} />
           <BudgetTransitionChart />
         </WidthRestriction>
       </Card>

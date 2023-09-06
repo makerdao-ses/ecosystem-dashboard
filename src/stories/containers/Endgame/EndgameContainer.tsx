@@ -16,8 +16,17 @@ import useEndgameContainer from './useEndgameContainer';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const EndgameContainer: React.FC = () => {
-  const { isLight, isEnabled, keyChangesRef, structureRef, transitionStatusRef, activeTab, handlePauseUrlUpdate } =
-    useEndgameContainer();
+  const {
+    isLight,
+    isEnabled,
+    keyChangesRef,
+    structureRef,
+    transitionStatusRef,
+    activeTab,
+    handlePauseUrlUpdate,
+    transitionDataSelected,
+    handleTransitionDateSelectedChange,
+  } = useEndgameContainer();
 
   return (
     <EndgamePageContainer isLight={isLight}>
@@ -56,7 +65,10 @@ const EndgameContainer: React.FC = () => {
 
           {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && (
             <div ref={transitionStatusRef}>
-              <BudgetTransitionStatusSection />
+              <BudgetTransitionStatusSection
+                selected={transitionDataSelected}
+                handleChange={handleTransitionDateSelectedChange}
+              />
             </div>
           )}
         </SectionSpacing>
