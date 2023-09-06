@@ -1,3 +1,4 @@
+import { enumForStories, getHeadersExpenseReport, mockDataApiTeam } from '@ses/containers/Finances/utils/utils';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateExpenseTrendFinances from './DelegateExpenseTrendFinances';
 import type { ComponentMeta } from '@storybook/react';
@@ -15,7 +16,17 @@ export default {
   },
 } as ComponentMeta<typeof DelegateExpenseTrendFinances>;
 
-const args = [{}];
+const args = [
+  {
+    isMobile: true,
+    columns: getHeadersExpenseReport(enumForStories, false),
+    expenseReport: mockDataApiTeam,
+    sortClick: () => null,
+    handleLinkToPage: () => null,
+    showSome: false,
+    handleLoadMore: () => null,
+  },
+];
 export const [[LightMode, DarkMode]] = createThemeModeVariants(DelegateExpenseTrendFinances, args);
 
 LightMode.parameters = {
@@ -23,10 +34,10 @@ LightMode.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24015:210683&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24365:95543&mode=dev',
         options: {
           componentStyle: {
-            width: 375,
+            width: 343,
           },
           style: {
             top: 0,
@@ -39,11 +50,11 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22977:247838&mode=dev',
         options: {
           componentStyle: {
-            width: 834,
+            width: 770,
           },
           style: {
             top: -1,
-            left: -1,
+            left: 0,
           },
         },
       },
@@ -52,7 +63,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:241811&mode=dev',
         options: {
           componentStyle: {
-            width: 1194,
+            width: 1130,
           },
           style: {
             top: -1,
@@ -65,7 +76,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:214488&mode=dev',
         options: {
           componentStyle: {
-            width: 1280,
+            width: 1184,
           },
           style: {
             top: -1,
@@ -78,7 +89,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:200750&mode=dev',
         options: {
           componentStyle: {
-            width: 1440,
+            width: 1312,
           },
           style: {
             top: -1,
@@ -91,7 +102,7 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:205050&mode=dev',
         options: {
           componentStyle: {
-            width: 1920,
+            width: 1312,
           },
           style: {
             top: -1,

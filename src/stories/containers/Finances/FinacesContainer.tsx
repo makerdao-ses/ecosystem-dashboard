@@ -48,10 +48,9 @@ const FinancesContainer = () => {
     reportExpenseItems,
     onSortClick,
     handleLinkToPage,
-    showSome,
     handleLoadMore,
   } = useFinances();
-  const showItemsExpenseReport = showSome ? reportExpenseItems.slice(0, 3) : reportExpenseItems;
+
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -98,11 +97,10 @@ const FinancesContainer = () => {
           {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
           <DelegateExpenseTrendFinances
             columns={headersExpenseReport}
-            expenseReport={showItemsExpenseReport}
+            expenseReport={reportExpenseItems}
             sortClick={onSortClick}
             handleLinkToPage={handleLinkToPage}
             handleLoadMore={handleLoadMore}
-            showSome={showSome}
           />
         </ContainerSections>
       </Container>

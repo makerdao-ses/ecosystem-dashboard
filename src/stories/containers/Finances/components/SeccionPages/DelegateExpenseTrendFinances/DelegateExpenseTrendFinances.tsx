@@ -14,7 +14,7 @@ interface Props {
   expenseReport: MomentDataItem[];
   sortClick: (index: number) => void;
   handleLinkToPage: (href: string) => void;
-  showSome: boolean;
+
   handleLoadMore?: () => void;
 }
 const DelegateExpenseTrendFinances: React.FC<Props> = ({
@@ -23,7 +23,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
   expenseReport,
   sortClick,
   handleLinkToPage,
-  showSome,
+
   handleLoadMore,
 }) => {
   const { isLight } = useThemeContext();
@@ -48,7 +48,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
       </ItemSection>
       <ContainerButton>
         <DividerStyle isLight={isLight} />
-        <BigButton title={showSome ? 'Load More' : 'Load Less'} onClick={handleLoadMore} />
+        <BigButtonStyled title={'Load More'} onClick={handleLoadMore} />
         <DividerStyle isLight={isLight} />
       </ContainerButton>
     </Container>
@@ -71,6 +71,7 @@ const InformationSection = styled.div({
   marginBottom: 24,
   [lightTheme.breakpoints.up('table_834')]: {
     gap: 16,
+    marginBottom: 40,
   },
 });
 
@@ -83,8 +84,11 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   letterSpacing: '0.75px',
   [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: 32,
+    fontSize: 24,
     letterSpacing: '0.4px',
+  },
+  [lightTheme.breakpoints.up('desktop_1194')]: {
+    fontSize: 32,
   },
 }));
 
@@ -95,7 +99,6 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   margin: 0,
   lineHeight: 'normal',
-
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 16,
     lineHeight: '22px',
@@ -126,7 +129,7 @@ const ContainerButton = styled.div({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
-  marginTop: 40,
+  marginTop: 24,
 });
 const DividerStyle = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#D4D9E1' : '#405361',
@@ -134,3 +137,13 @@ const DividerStyle = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flex: 1,
 }));
+
+const BigButtonStyled = styled(BigButton)({
+  minWidth: 127,
+  height: 31,
+  padding: '8px 24px',
+  letterSpacing: 1,
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 207,
+  },
+});

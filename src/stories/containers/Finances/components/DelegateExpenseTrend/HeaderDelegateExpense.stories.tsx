@@ -1,11 +1,8 @@
-import { SortEnum } from '@ses/core/enums/sortEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
-import { getHeadersExpenseReport } from '../../utils/utils';
+import { enumForStories, getHeadersExpenseReport } from '../../utils/utils';
 import HeaderDelegateExpense from './HeaderDelegateExpense';
 import type { ComponentMeta } from '@storybook/react';
-
-const enumStories: SortEnum[] = [SortEnum.Asc, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral, SortEnum.Neutral];
 
 export default {
   title: 'Components/NewFinances/HeaderDelegateExpense',
@@ -14,10 +11,10 @@ export default {
 
 const variantsArgs = [
   {
-    columns: getHeadersExpenseReport(enumStories, false),
+    columns: getHeadersExpenseReport(enumForStories, false),
   },
   {
-    columns: getHeadersExpenseReport(enumStories, true),
+    columns: getHeadersExpenseReport(enumForStories, true),
   },
 ];
 
