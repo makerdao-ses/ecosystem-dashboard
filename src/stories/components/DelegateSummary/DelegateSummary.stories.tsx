@@ -1,5 +1,6 @@
 import { siteRoutes } from '@ses/config/routes';
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
+import { withoutFixedChild } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateSummary from './DelegateSummary';
 import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
@@ -8,6 +9,7 @@ import type { ComponentMeta } from '@storybook/react';
 export default {
   title: 'Components/DelegateReport/DelegateSummary',
   component: DelegateSummary,
+  decorators: [withoutFixedChild],
   parameters: {
     layout: 'fullscreen',
     chromatic: {

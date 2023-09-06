@@ -1,4 +1,4 @@
-import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
+import { withoutFixedChild, withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import { CoreUnitSummary } from './CoreUnitSummary';
@@ -14,7 +14,7 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-  decorators: [withoutSBPadding],
+  decorators: [withoutFixedChild, withoutSBPadding],
 } as ComponentMeta<typeof CoreUnitSummary>;
 
 const nextRouter = {

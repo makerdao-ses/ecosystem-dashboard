@@ -1,5 +1,5 @@
 import { ActivityBuilder } from '@ses/core/businessLogic/builders/activityBuilder';
-import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
+import { withFixedPositionRelative, withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
@@ -10,8 +10,8 @@ import type { ComponentMeta } from '@storybook/react';
 export default {
   title: 'Pages/CU Activity Feed',
   component: CUActivityFeedContainer,
-  decorators: [withoutSBPadding],
-
+  decorators: [withoutSBPadding, withFixedPositionRelative],
+  // decorators: [withFixedPositionRelative],
   parameters: {
     nextRouter: {
       path: '/core-unit/[code]/activity-feed',

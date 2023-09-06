@@ -82,3 +82,16 @@ export const withWrappedStyles = (styles: React.CSSProperties) => (Story: Story)
 export const withoutSBPadding = (Story: Story) => withWrappedStyles({ margin: '-1rem' })(Story);
 
 export const withFixedPositionRelative = (Story: Story) => withWrappedStyles({ transform: 'translateZ(0)' })(Story);
+
+export const withoutFixedChild = (Story: Story) => (
+  <RemoveChildFixPosition>
+    <Story />
+  </RemoveChildFixPosition>
+);
+
+const RemoveChildFixPosition = styled.div({
+  '&  div': {
+    position: 'relative',
+    top: 0,
+  },
+});
