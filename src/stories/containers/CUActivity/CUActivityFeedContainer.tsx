@@ -62,7 +62,7 @@ const Wrapper = styled.div({
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
-  paddingTop: '282px',
+  paddingTop: '244px',
   flex: 1,
   backgroundColor: isLight ? '#FFFFFF' : '#000000',
   backgroundImage: isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
@@ -72,7 +72,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingBottom: '128px',
-    paddingTop: '232px',
+    paddingTop: '256px',
   },
 }));
 
