@@ -1,5 +1,4 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
-
 declare module '@mui/material/styles' {
   // eslint-disable-next-line spellcheck/spell-checker
   interface BreakpointOverrides {
@@ -16,6 +15,7 @@ declare module '@mui/material/styles' {
     desktop_1194: true;
     /** @deprecated in favor of tablet 768 */
     table_834: true;
+    tablet_768: true;
     mobile_375: true;
   }
 }

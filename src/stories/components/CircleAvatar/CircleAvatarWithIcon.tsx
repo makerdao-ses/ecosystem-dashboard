@@ -36,7 +36,7 @@ const Container = styled.div({
   width: 47,
   height: 47,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 39,
     height: 38,
   },
@@ -50,7 +50,7 @@ const ContainerIcon = styled.div({
   width: '100%',
   height: '100%',
   display: 'flex',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     top: 16,
     left: 14,
   },

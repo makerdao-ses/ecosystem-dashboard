@@ -9,7 +9,7 @@ export default {
   component: DelegateExpenseTrendItem,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440, 1920],
+      viewports: [375, 768, 1194, 1280, 1440, 1920],
     },
     date: new Date('2023-03-14T09:08:34.123'),
   },
@@ -35,30 +35,30 @@ export const [[DelegateExpense, DelegateExpenseDark], [DelegateExpenseMobile, De
 DelegateExpense.parameters = {
   figma: {
     component: {
-      834: {
+      768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=23823:194172&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24369:100466&mode=dev',
         options: {
           style: {
             left: -12,
             top: -10,
           },
           componentStyle: {
-            width: 770,
+            width: 704,
           },
         },
       },
-      1194: {
+      1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:241828&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204291&mode=dev',
         options: {
           style: {
-            left: -4,
-
-            top: -2,
+            left: -1,
+            top: -1,
+            // top: 90,
           },
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
         },
       },
@@ -116,7 +116,7 @@ DelegateExpenseMobile.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24106:111266&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24365:95547&mode=dev',
         options: {
           style: {
             left: -40,

@@ -15,9 +15,10 @@ interface Props {
   code?: string;
   now?: DateTime;
   href: string;
+  className?: string;
 }
 
-export const ActorLastModified = ({ date, now = DateTime.now(), href }: Props) => {
+export const ActorLastModified = ({ date, now = DateTime.now(), href, className }: Props) => {
   const { isLight } = useThemeContext();
 
   const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
@@ -34,7 +35,7 @@ export const ActorLastModified = ({ date, now = DateTime.now(), href }: Props) =
       {date ? (
         <Link href={href} passHref legacyBehavior>
           <a>
-            <ContainerNoData isLight={isLight}>
+            <ContainerNoData isLight={isLight} className={className}>
               <LastModifiedText isLight={isLight} hasUppercase={!isDesk}>
                 {textDescription}
               </LastModifiedText>

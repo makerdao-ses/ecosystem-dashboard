@@ -31,8 +31,8 @@ interface Props {
 }
 
 const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, expenseReport, now = DateTime.now() }) => {
-  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.down('desktop_1024'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
   const getDateExpenseModified = getExpenseMonthWithData(expenseReport);
   const lasModified = capitalizeSentence(
@@ -76,7 +76,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
           </ContainerIconName>
 
           <ArrowMobile isLight={isLight}>
-            <ArrowNavigationForCards width={32} height={32} />
+            <ArrowNavigationForCards width={32} height={32} fill={isLight ? '#434358' : '#B7A6CD'} />
           </ArrowMobile>
         </ContainerMobile>
 
@@ -99,7 +99,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
             />
           </StatusTable>
           <ContainerArrow isLight={isLight}>
-            <ArrowNavigationForCards width={32} height={32} />
+            <ArrowNavigationForCards width={32} height={32} fill={isLight ? '#434358' : '#B7A6CD'} />
           </ContainerArrow>
         </ContainerStatusTable>
         <LastModifiedDesk>
@@ -139,7 +139,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
       )}
 
       <FooterMobile>
-        <ActorLastModified href={link || '#'} date={expenseReport.reportMonth} />
+        <ActorLastModifiedStyled href={link || '#'} date={getDateExpenseModified} />
       </FooterMobile>
     </ExtendedGenericDelegate>
   );
@@ -159,7 +159,7 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   fontStyle: 'normal',
   flex: 1,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 0,
     flexDirection: 'column',
   },
@@ -179,7 +179,7 @@ const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: bo
   '& div svg path:nth-of-type(4)': {
     fill: '#fff',
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
   },
 }));
@@ -187,11 +187,11 @@ const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: bo
 const ContainerInside = styled.div({
   padding: '16px 16px 8px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    padding: '6px 8px 16px 16px',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: '8px 8px 16px 16px',
     flexDirection: 'row',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '16px',
   },
 });
@@ -201,11 +201,11 @@ const ContainerIconName = styled.div({
   flexDirection: 'row',
   gap: 8,
   height: 51,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 'unset',
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     gap: 16,
   },
 });
@@ -216,8 +216,15 @@ const TitleCode = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   gap: 4,
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 237,
+    gap: 6,
+    marginTop: 4,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 4,
     width: 256,
+    marginTop: 'revert',
   },
 });
 
@@ -240,13 +247,16 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    width: 175,
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    width: 171,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 180,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 224,
   },
 }));
@@ -268,7 +278,7 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   opacity: 0.5,
   marginTop: 16,
   marginBottom: 16,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 }));
@@ -277,7 +287,7 @@ const TotalContainerMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
@@ -307,14 +317,15 @@ const FooterMobile = styled.div({
   '& > a': {
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 });
 
 const ActorLabel = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     marginBottom: 8,
     color: isLight ? '#9FAFB9' : '#D2D4EF',
@@ -323,27 +334,30 @@ const ActorLabel = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 400,
     lineHeight: 'normal',
     width: '100%',
+    marginTop: -2,
   },
 }));
 
 const ReportingMonth = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     gap: 19,
     marginLeft: -28,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 0,
 
-    marginLeft: -20,
+    marginLeft: 2,
     width: 120,
   },
-
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginLeft: -20,
+  },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: -40,
   },
@@ -351,19 +365,22 @@ const ReportingMonth = styled.div({
 
 const TotalActualsTable = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     gap: 19,
     marginLeft: -6,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 0,
-    marginLeft: -2,
+    marginLeft: 2,
     width: 130,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginLeft: -2,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: 20,
@@ -372,7 +389,7 @@ const TotalActualsTable = styled.div({
 
 const StatusTable = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     '& > div:nth-last-of-type(1)': {
@@ -382,7 +399,7 @@ const StatusTable = styled.div({
 
     gap: 14,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
 
     flexDirection: 'column',
@@ -391,6 +408,10 @@ const StatusTable = styled.div({
     '& div:nth-of-type(2)': {
       marginLeft: 0,
     },
+    width: 120,
+    marginLeft: 4,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 150,
     marginLeft: 0,
   },
@@ -404,32 +425,33 @@ const StatusTable = styled.div({
 
 const LabelDescription = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     color: isLight ? '#9FAFB9' : '#D2D4EF',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 400,
     lineHeight: 'normal',
+    marginTop: -2,
   },
 }));
 const LabelStatus = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     color: isLight ? '#9FAFB9' : '#D2D4EF',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 400,
     lineHeight: 'normal',
+    marginTop: -2,
   },
 }));
 
 const LastModifiedDesk = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-
     width: 160,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -439,7 +461,7 @@ const LastModifiedDesk = styled.div({
 
 const ViewContainer = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     marginTop: 2,
   },
@@ -449,7 +471,7 @@ const ContainerDesk = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     height: 38,
   },
 });
@@ -466,12 +488,12 @@ const LabelLastModifiedText = styled.div<WithIsLight>(({ isLight }) => ({
 
 const ContainerArrow = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: isLight ? '#F9FAFF' : 'red',
-    borderRadius: '0px 6px 6px 0px',
+    backgroundColor: isLight ? '#F9FAFF' : 'rgba(60, 62, 100, 0.50)',
+    borderRadius: 6,
     width: 48,
     height: 63,
     boxShadow: isLight ? '0px 2px 3px 0px #DEE1F4' : 'red',
@@ -482,11 +504,11 @@ const ArrowMobile = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   width: 32,
   height: 32,
-  backgroundColor: isLight ? '#F0F2FA' : 'red',
-  boxShadow: isLight ? '0px 2px 3px 0px #DEE1F4' : 'red',
+  backgroundColor: isLight ? '#F0F2FA' : 'rgba(60, 62, 100, 0.50)',
+  boxShadow: isLight ? '0px 2px 3px 0px #DEE1F4' : ' 0px 2px 3px 0px #040C27;',
   marginTop: 2,
   borderRadius: 6,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 }));
@@ -498,7 +520,7 @@ const ContainerMobile = styled.div({
   justifyContent: 'space-between',
 
   alignItems: 'center',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     justifyContent: 'flex-start',
     flexDirection: 'column',
     flex: 'unset',
@@ -514,7 +536,7 @@ const ContainerCardMobile = styled.div({
 
   paddingLeft: 32,
   paddingRight: 32,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
@@ -539,7 +561,7 @@ const ExpenseReportStatusIndicatorMobile = styled(ExpenseReportStatusIndicator)(
 });
 const ExpenseReportStatusIndicatorTable = styled(ExpenseReportStatusIndicator)({
   marginTop: 0,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     '& > div': {
       marginLeft: 0,
     },
@@ -548,7 +570,7 @@ const ExpenseReportStatusIndicatorTable = styled(ExpenseReportStatusIndicator)({
 
 const StatusMobile = styled.div({
   display: 'flex',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
@@ -569,4 +591,10 @@ const ReportingMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
+});
+
+const ActorLastModifiedStyled = styled(ActorLastModified)({
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    padding: '2px 10px',
+  },
 });
