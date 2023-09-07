@@ -11,9 +11,12 @@ declare module '@mui/material/styles' {
     desktop_1920: true;
     desktop_1440: true;
     desktop_1280: true;
+    desktop_1024: true;
+    /** @deprecated in favor of desktop 1024 */
     desktop_1194: true;
+    /** @deprecated in favor of tablet 768 */
     table_834: true;
-    table_375: true;
+    mobile_375: true;
   }
 }
 
@@ -21,9 +24,13 @@ export const breakpoints = {
   desktop_1920: 1920,
   desktop_1440: 1440,
   desktop_1280: 1280,
+  /** @deprecated in favor of desktop 1024 */
   desktop_1194: 1194,
+  desktop_1024: 1024,
+  /** @deprecated in favor of tablet 768 */
   table_834: 834,
-  table_375: 375,
+  tablet_768: 768,
+  mobile_375: 375,
 };
 
 const lightTheme = responsiveFontSizes(

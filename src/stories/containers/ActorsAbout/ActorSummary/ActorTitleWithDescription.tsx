@@ -88,7 +88,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '12px',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginTop: '8px',
     width: '100%',
     fontStyle: 'normal',

@@ -273,11 +273,11 @@ const ResponsiveParagraph = styled.div({
   textAlign: 'left',
   marginTop: '1em',
 
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
@@ -295,11 +295,11 @@ const ResponsiveList = styled.ul({
   },
   marginTop: '1em',
   marginBottom: '0px',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
@@ -307,22 +307,22 @@ const ResponsiveList = styled.ul({
 
 const ResponsiveItem = styled.li({
   textAlign: 'left',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
 });
 
 const ResponsiveCode = styled.code({
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },

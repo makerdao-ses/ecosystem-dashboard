@@ -135,7 +135,7 @@ const Container = styled(Card, { shouldForwardProp: (prop) => prop !== 'isLight'
     backgroundColor: isLight ? '#FFFFFF' : '#10191F',
     borderRadius: '6px',
     width: '335px',
-    [lightTheme.breakpoints.down('table_375')]: {
+    [lightTheme.breakpoints.down('mobile_375')]: {
       width: '100%',
     },
   })

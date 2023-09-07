@@ -48,7 +48,7 @@ const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !
     fontSize: '20px',
     lineHeight: '24px',
     color: isLight ? '#231536' : '#D2D4EF',
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
       fontFamily: 'Inter, sans-serif',
       fontStyle: 'normal',
       fontWeight: 600,

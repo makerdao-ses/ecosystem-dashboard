@@ -31,7 +31,7 @@ interface Props {
 
 const Footer = ({ governesses, products, developer }: Props) => {
   const { isLight } = useThemeContext();
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 835));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 835));
   const upTable = useMediaQuery(lightTheme.breakpoints.up(835));
 
   return (

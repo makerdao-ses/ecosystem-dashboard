@@ -15,8 +15,8 @@ import { CustomButton } from '../CustomButton/CustomButton';
 
 const NotFound404: React.FC = () => {
   const router = useRouter();
-  const phoneLess = useMediaQuery(lightTheme.breakpoints.down('table_375'));
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const phoneLess = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
   const { isLight } = useThemeContext();
   const handleOnclick = () => {
     router.push('/');

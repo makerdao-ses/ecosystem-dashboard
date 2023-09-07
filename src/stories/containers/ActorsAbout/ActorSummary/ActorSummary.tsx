@@ -122,7 +122,7 @@ const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
   zIndex: 3,
 
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
   },
 }));
@@ -137,7 +137,7 @@ const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boo
     marginTop: '24px',
   },
 
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginTop: showHeader ? '16px' : '0px',
     borderBottom: 'none',
   },

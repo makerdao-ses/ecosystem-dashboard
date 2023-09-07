@@ -73,7 +73,7 @@ const Container = styled(Box, { shouldForwardProp: (prop) => prop !== 'isLight' 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     width: '100%',
   },
 }));

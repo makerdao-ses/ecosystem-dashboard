@@ -30,8 +30,8 @@ export const CoreUnitSummary: React.FC<CoreUnitSummaryProps> = ({
 }) => {
   const { isLight } = useThemeContext();
   const { sortData } = useCoreUnitsTable();
-  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+  const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
+  const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
   const [showHeader, setShowHeader] = useState(true);
   const router = useRouter();
   const query = router.query;
@@ -224,13 +224,13 @@ const ContainerTitle = styled.div({
     paddingLeft: '32px',
     paddingRight: '32px',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     overflow: 'hidden',
     paddingLeft: '16px',
     paddingRight: '16px',
     paddingTop: '0px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     overflow: 'hidden',
     paddingLeft: '16px',
     paddingRight: '16px',
@@ -265,7 +265,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginTop: '16px',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginTop: '8px',
     width: '100%',
     fontStyle: 'normal',
@@ -302,7 +302,7 @@ const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boo
   position: 'relative',
   width: '100%',
   marginTop: showHeader ? '24px' : 0,
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginTop: showHeader ? '16px' : '0px',
   },
 }));

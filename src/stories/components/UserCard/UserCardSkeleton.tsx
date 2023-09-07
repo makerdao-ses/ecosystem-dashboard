@@ -55,7 +55,7 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: '6px',
   width: 416,
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     width: 343,
   },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {

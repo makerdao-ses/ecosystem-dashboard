@@ -7,8 +7,8 @@ import type { ParsedUrlQuery } from 'querystring';
 
 const useActorAboutAbout = (query: ParsedUrlQuery) => {
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+  const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
+  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
   // This is for the filter of Actors List
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', query), [query]);
   const queryStrings = useMemo(

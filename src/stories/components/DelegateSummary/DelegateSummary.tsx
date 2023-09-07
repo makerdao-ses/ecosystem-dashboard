@@ -24,7 +24,7 @@ interface Props {
 const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
   const { isLight } = useThemeContext();
   const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('table_834'));
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
 
   const ref = useRef<HTMLDivElement>(null);
   const [showHeader, setHeader] = useState(true);

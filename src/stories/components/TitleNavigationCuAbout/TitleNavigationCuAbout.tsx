@@ -25,9 +25,9 @@ interface Props {
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   const { isLight } = useThemeContext();
-  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const lessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+  const lessPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
   const mipStatus = getStatusMip39AcceptedOrObsolete(coreUnitAbout as CoreUnit);
   const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnit));
@@ -142,7 +142,7 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'flex-end',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     width: '100%',
   },
 });
@@ -157,7 +157,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
     marginLeft: '16px',
     marginRight: '24px',
     fontFamily: 'Inter, sans-serif',
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
       fontFamily: 'Inter, sans-serif',
       fontStyle: 'normal',
       fontWeight: 700,
@@ -166,7 +166,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
       marginLeft: '4px',
       marginRight: '0px',
     },
-    [lightTheme.breakpoints.down('table_375')]: {
+    [lightTheme.breakpoints.down('mobile_375')]: {
       fontWeight: 700,
       fontSize: '16px',
       lineHeight: '19px',
@@ -184,12 +184,12 @@ const TypographySES = styled(Typography, { shouldForwardProp: (prop) => prop !==
     lineHeight: '29px',
     color: isLight ? '#9FAFB9' : '#546978',
     fontFamily: 'Inter, sans-serif',
-    [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+    [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
       fontWeight: 700,
       fontSize: '16px',
       lineHeight: '19px',
     },
-    [lightTheme.breakpoints.down('table_375')]: {
+    [lightTheme.breakpoints.down('mobile_375')]: {
       fontWeight: 700,
       fontSize: '16px',
       lineHeight: '19px',
@@ -214,12 +214,12 @@ const ContainerLinks = styled.div({
     alignItems: 'flex-start',
     height: 'fit-content',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     flexDirection: 'column',
     height: 'fit-content',
     marginTop: '4px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     flexDirection: 'column',
     height: 'fit-content',
     marginTop: '4px',
@@ -228,10 +228,10 @@ const ContainerLinks = styled.div({
 
 const CircleContainer = styled.div({
   marginRight: '16px',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     display: 'none',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     display: 'none',
   },
 });
@@ -264,7 +264,7 @@ const CategoryContainer = styled.div({
       marginRight: '8px',
     },
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginBottom: '16px',
     marginTop: '20px',
     marginRight: '24px',
@@ -275,7 +275,7 @@ const CategoryContainer = styled.div({
       marginRight: '8px',
     },
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
     '> div:first-of-type': {
@@ -293,7 +293,7 @@ const ContainerCategoryConditional = styled.div({
   justifyContent: 'space-between',
 
   width: '100%',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -313,7 +313,7 @@ const ContainerSeparateData = styled.div({
   [lightTheme.breakpoints.down('desktop_1194')]: {
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -332,7 +332,7 @@ const ResponsiveTitle = styled.div({
     width: '100%',
     marginBottom: '6px',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     width: 'auto',
     marginRight: '24px',
     marginBottom: '2px',
