@@ -20,10 +20,12 @@ import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries'
 
 export const useFinances = () => {
   const { isLight } = useThemeContext();
+  const [showSome, setShowSome] = useState(true);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
-  const [showSome, setShowSome] = useState(true);
+  const getItems = showSome ? getExpenseReportItems.slice(0, 10) : getExpenseReportItems;
+
   const routes = ['Finances'];
   const years = ['2022', '2023'];
   const metricsFilter = useMemo(
@@ -113,10 +115,10 @@ export const useFinances = () => {
   }, [headersSort, sortColumn]);
 
   const groupByStatusDefaultSorting: MomentDataItem[] = useMemo(() => {
-    const resultMoment = orderBy(getExpenseReportItems, 'name');
+    const resultMoment = orderBy(getItems, 'name');
 
     return resultMoment;
-  }, [getExpenseReportItems]);
+  }, [getItems]);
   const reportExpenseItems: MomentDataItem[] = useMemo(() => {
     const sortedData = sortData(groupByStatusDefaultSorting);
     return sortedData?.map((x: MomentDataItem) => ({
@@ -255,5 +257,6 @@ export const useFinances = () => {
     handleLinkToPage,
     showSome,
     handleLoadMore,
+    getItems,
   };
 };

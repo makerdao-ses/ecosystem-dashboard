@@ -15,6 +15,7 @@ const args = [
     sortClick: () => null,
     handleLinkToPage: () => null,
     handleLoadMore: () => null,
+    showSome: true,
   },
   {
     columns: getHeadersExpenseReport(enumForStories, true),
@@ -22,6 +23,7 @@ const args = [
     sortClick: () => null,
     handleLinkToPage: () => null,
     handleLoadMore: () => null,
+    showSome: true,
   },
 ];
 export const [[LightMode, DarkMode], [DeskLightMode1194, DeskLightModeDark1194]] = createThemeModeVariants(
