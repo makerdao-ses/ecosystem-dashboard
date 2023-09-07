@@ -11,7 +11,7 @@ export default {
 const args = [
   {
     columns: getHeadersExpenseReport(enumForStories, false),
-    expenseReport: mockDataApiTeam,
+    expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
     handleLinkToPage: () => null,
     handleLoadMore: () => null,
@@ -19,7 +19,7 @@ const args = [
   },
   {
     columns: getHeadersExpenseReport(enumForStories, true),
-    expenseReport: mockDataApiTeam,
+    expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
     handleLinkToPage: () => null,
     handleLoadMore: () => null,
