@@ -1,14 +1,19 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-
 import React from 'react';
 import BudgetTransitionChart from '../BudgetTransitionChart/BudgetTransitionChart';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransitionDataPicker from '../TransitionDataPicker/TransitionDataPicker';
+import type { TransitionDataPickerProps } from '../TransitionDataPicker/TransitionDataPicker';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const BudgetTransitionStatusSection: React.FC = () => {
+interface BudgetTransitionStatusSectionProps extends TransitionDataPickerProps {
+  // TODO: add data here...
+  data?: unknown;
+}
+
+const BudgetTransitionStatusSection: React.FC<BudgetTransitionStatusSectionProps> = ({ selected, handleChange }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -20,7 +25,7 @@ const BudgetTransitionStatusSection: React.FC = () => {
 
       <Card isLight={isLight}>
         <WidthRestriction>
-          <TransitionDataPicker />
+          <TransitionDataPicker selected={selected} handleChange={handleChange} />
           <BudgetTransitionChart />
         </WidthRestriction>
       </Card>
@@ -56,11 +61,11 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   gap: 24,
   borderRadius: 6,
   padding: '16px 8px 24px',
-  background: isLight ? '#fff' : 'red',
-  border: `1px solid ${isLight ? 'rgba(212, 217, 225, 0.25)' : 'red'}`,
+  background: isLight ? '#fff' : '#1E2C37',
+  border: `1px solid ${isLight ? 'rgba(212, 217, 225, 0.25)' : '#31424E'}`,
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px 0px red',
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 
   [lightTheme.breakpoints.up('table_834')]: {
     padding: '16px 54px 32px',

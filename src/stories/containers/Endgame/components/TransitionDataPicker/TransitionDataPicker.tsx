@@ -2,15 +2,33 @@ import styled from '@emotion/styled';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import type { TransitionStatusDataShown } from '../../types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const TransitionDataPicker: React.FC = () => {
+export interface TransitionDataPickerProps {
+  selected: TransitionStatusDataShown;
+  handleChange: (selected: TransitionStatusDataShown) => void;
+}
+
+const TransitionDataPicker: React.FC<TransitionDataPickerProps> = ({ selected, handleChange }) => {
   const { isLight } = useThemeContext();
 
   return (
     <Content>
-      <DataButton isLight={isLight} label={'Actuals'} />
-      <DataButton isLight={isLight} selected={true} label={'Budget Cap'} />
+      <DataButton
+        allowsHover={false}
+        isLight={isLight}
+        onClick={() => handleChange('actuals')}
+        selected={selected === 'actuals'}
+        label={'Actuals'}
+      />
+      <DataButton
+        allowsHover={false}
+        isLight={isLight}
+        onClick={() => handleChange('budget-cap')}
+        selected={selected === 'budget-cap'}
+        label={'Budget Cap'}
+      />
     </Content>
   );
 };
