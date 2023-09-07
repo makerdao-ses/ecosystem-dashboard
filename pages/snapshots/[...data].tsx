@@ -29,8 +29,18 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   }
 
   const { query } = context;
-  const { ownerType, ownerId } = query;
-  if (!ownerType || !ownerId || isNaN(ownerId as unknown as number)) {
+
+  const { data } = query;
+  if (!(data?.length === 1 || data?.length === 2)) {
+    return {
+      // wrong amount of params
+      notFound: true,
+    };
+  }
+  const ownerType = data[0];
+  const ownerId = data.length === 2 ? data[1] : null;
+
+  if (!ownerType || (ownerId !== null && isNaN(ownerId as unknown as number))) {
     return {
       notFound: true,
     };

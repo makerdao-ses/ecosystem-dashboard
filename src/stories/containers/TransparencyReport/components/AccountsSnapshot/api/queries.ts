@@ -160,11 +160,16 @@ export const generateSnapshotOwnerString = async (ownerType: string, ownerId: st
         return `${shortCode} Core Unit`;
       }
       case 'DelegatesDraft':
+      case 'Delegates':
         return 'Recognized Delegates';
+      case 'EcosystemActor':
       case 'EcosystemActorDraft': {
         const shortCode = await getTeamsShortCode(ownerId);
         return `${shortCode} Ecosystem Actor`;
       }
+      case 'Keepers':
+      case 'KeepersDraft':
+        return 'Keepers';
     }
   } catch (error) {}
   return '';
