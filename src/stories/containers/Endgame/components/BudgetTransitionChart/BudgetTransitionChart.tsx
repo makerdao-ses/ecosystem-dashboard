@@ -6,6 +6,7 @@ import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { EChartsOption } from 'echarts-for-react';
 
 const BudgetTransitionChart: React.FC = () => {
   const { isLight } = useThemeContext();
@@ -25,7 +26,7 @@ const BudgetTransitionChart: React.FC = () => {
     borderRadius: [barBorderRadius, barBorderRadius, 0, 0],
   };
 
-  const options = {
+  const options: EChartsOption = {
     grid: {
       height: isMobile ? 222 : isTablet ? 312 : isDesktop1194 ? 392 : 392,
       width: isMobile ? 273 : isTablet ? 594 : isDesktop1194 ? 864 : 960,
@@ -81,14 +82,14 @@ const BudgetTransitionChart: React.FC = () => {
         rich: {
           bgImg: {
             verticalAlign: 'top',
-            color: '#139D8D',
+            color: isLight ? '#139D8D' : '#2DC1B1',
             padding: [1, 4, 7, 4],
             fontFamily: 'Inter, sans-serif',
             fontSize: upTable ? 12 : 9,
             lineHeight: upTable ? 15 : 11,
             interval: 0,
             backgroundColor: {
-              image: isLight ? '/assets/img/endgame/year_indicator.svg' : '/assets/img/endgame/year_indicator.svg',
+              image: isLight ? '/assets/img/endgame/year_indicator.svg' : '/assets/img/endgame/year_indicator-dark.svg',
             },
           },
         },
@@ -183,7 +184,7 @@ const BudgetTransitionChart: React.FC = () => {
         showBackground: false,
         barWidth,
         itemStyle: {
-          color: isLight ? '#FBCC5F' : 'red',
+          color: isLight ? '#FBCC5F' : '#F9A606',
         },
       },
       {
@@ -243,7 +244,7 @@ const BudgetTransitionChart: React.FC = () => {
         showBackground: false,
         barWidth,
         itemStyle: {
-          color: isLight ? '#2DC1B1' : 'red',
+          color: isLight ? '#2DC1B1' : '#098C7D',
         },
       },
     ],
@@ -326,7 +327,7 @@ const YearsContainer = styled.div({
 });
 
 const Year = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#139D8D' : 'red',
+  color: isLight ? '#139D8D' : '#2DC1B1',
   fontSize: 11,
   lineHeight: 'normal',
 }));
@@ -349,7 +350,7 @@ const LegendItem = styled.div<WithIsLight & { variant: 'yellow' | 'green' }>(({ 
   position: 'relative',
   fontSize: 11,
   lineHeight: 'normal',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#D2D4EF',
   marginLeft: 13,
 
   '&::before': {
@@ -360,7 +361,13 @@ const LegendItem = styled.div<WithIsLight & { variant: 'yellow' | 'green' }>(({ 
     borderRadius: 12,
     top: 3,
     left: -12,
-    backgroundColor: isLight ? (variant === 'yellow' ? '#FBCC5F' : '#2DC1B1') : variant === 'yellow' ? 'red' : 'blue',
+    backgroundColor: isLight
+      ? variant === 'yellow'
+        ? '#FBCC5F'
+        : '#2DC1B1'
+      : variant === 'yellow'
+      ? '#F9A606'
+      : '#098C7D',
   },
 
   [lightTheme.breakpoints.up('table_834')]: {

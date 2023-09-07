@@ -4,6 +4,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import type { TransitionStatusDataShown } from './types';
 import type { IntersectionOptions } from 'react-intersection-observer';
 
 export enum NavigationTabEnum {
@@ -110,6 +111,11 @@ const useEndgameContainer = () => {
     structureEntryTopY,
   ]);
 
+  // transition status section
+  const [transitionDataSelected, setTransitionDataSelected] = useState<TransitionStatusDataShown>('budget-cap');
+  const handleTransitionDateSelectedChange = (selected: TransitionStatusDataShown) =>
+    setTransitionDataSelected(selected);
+
   return {
     isLight,
     isEnabled,
@@ -118,6 +124,8 @@ const useEndgameContainer = () => {
     structureRef,
     transitionStatusRef,
     activeTab,
+    transitionDataSelected,
+    handleTransitionDateSelectedChange,
   };
 };
 
