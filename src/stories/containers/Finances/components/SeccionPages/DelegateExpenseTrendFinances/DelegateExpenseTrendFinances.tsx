@@ -13,7 +13,7 @@ interface Props {
   expenseReport: MomentDataItem[];
   sortClick: (index: number) => void;
   handleLinkToPage: (href: string) => void;
-
+  showSome: boolean;
   handleLoadMore?: () => void;
 }
 const DelegateExpenseTrendFinances: React.FC<Props> = ({
@@ -22,6 +22,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
   sortClick,
   handleLinkToPage,
   handleLoadMore,
+  showSome,
 }) => {
   const { isLight } = useThemeContext();
   return (
@@ -38,11 +39,13 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
           <DelegateExpenseTrendItem key={index} expenseReport={expense} handleLinkToPage={handleLinkToPage} />
         ))}
       </ItemSection>
-      <ContainerButton>
-        <DividerStyle isLight={isLight} />
-        <BigButtonStyled title={'Load More'} onClick={handleLoadMore} />
-        <DividerStyle isLight={isLight} />
-      </ContainerButton>
+      {showSome && (
+        <ContainerButton>
+          <DividerStyle isLight={isLight} />
+          <BigButtonStyled title={'Load More'} onClick={handleLoadMore} />
+          <DividerStyle isLight={isLight} />
+        </ContainerButton>
+      )}
     </Container>
   );
 };

@@ -49,6 +49,7 @@ const FinancesContainer = () => {
     onSortClick,
     handleLinkToPage,
     handleLoadMore,
+    showSome,
   } = useFinances();
 
   return (
@@ -101,6 +102,7 @@ const FinancesContainer = () => {
             sortClick={onSortClick}
             handleLinkToPage={handleLinkToPage}
             handleLoadMore={handleLoadMore}
+            showSome={showSome}
           />
         </ContainerSections>
       </Container>

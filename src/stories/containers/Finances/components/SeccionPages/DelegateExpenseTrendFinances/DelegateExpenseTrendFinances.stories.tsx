@@ -11,17 +11,19 @@ export default {
 const args = [
   {
     columns: getHeadersExpenseReport(enumForStories, false),
-    expenseReport: mockDataApiTeam,
+    expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
     handleLinkToPage: () => null,
     handleLoadMore: () => null,
+    showSome: true,
   },
   {
     columns: getHeadersExpenseReport(enumForStories, true),
-    expenseReport: mockDataApiTeam,
+    expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
     handleLinkToPage: () => null,
     handleLoadMore: () => null,
+    showSome: true,
   },
 ];
 export const [[LightMode, DarkMode], [DeskLightMode1194, DeskLightModeDark1194]] = createThemeModeVariants(
