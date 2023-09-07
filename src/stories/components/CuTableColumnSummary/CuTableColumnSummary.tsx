@@ -196,7 +196,7 @@ const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   marginRight: '5px',
   whiteSpace: 'nowrap',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     fontWeight: 700,
   },
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {

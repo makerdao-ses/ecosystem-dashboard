@@ -68,7 +68,7 @@ const ContainerOverlay = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   height: 'calc(100vh - 282px)',
   background: 'rgba(52, 52, 66, 0.1)',
   backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     height: 'calc(100vh - 458px)',
   },
 }));

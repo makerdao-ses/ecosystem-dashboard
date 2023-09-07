@@ -56,8 +56,8 @@ export const buildWidthStyles = (width: GenericCell['width']): React.CSSProperti
   }
 
   return {
-    ...(width.table_375 && {
-      width: width.table_375,
+    ...(width.mobile_375 && {
+      width: width.mobile_375,
     }),
     ...(width.table_834 && {
       [lightTheme.breakpoints.up('table_834')]: {
@@ -99,8 +99,8 @@ export const buildPaddingStyles = (padding?: CellPadding): React.CSSProperties =
   }
 
   return {
-    ...(padding.table_375 && {
-      padding: padding.table_375,
+    ...(padding.mobile_375 && {
+      padding: padding.mobile_375,
     }),
     ...(padding.table_834 && {
       [lightTheme.breakpoints.up('table_834')]: {

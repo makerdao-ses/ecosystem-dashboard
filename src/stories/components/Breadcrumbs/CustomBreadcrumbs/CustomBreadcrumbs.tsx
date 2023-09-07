@@ -59,7 +59,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
         fontWeight: 600,
       },
 
-      [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+      [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
         lineHeight: '13px',
         letterSpacing: 0,
       },

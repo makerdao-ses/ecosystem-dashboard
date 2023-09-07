@@ -36,8 +36,8 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const [isEnabled] = useFlagsActive();
 
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const phone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
-  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('table_375'));
+  const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
+  const LessPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
   const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings } = useCuAbout({
@@ -184,7 +184,7 @@ const ContainerAbout = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   paddingBottom: '128px',
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     width: '100%',
     minWidth: '360px',
   },
@@ -269,7 +269,7 @@ const ContainerCards = styled.div({
   flexWrap: 'wrap',
   padding: '0px',
   marginBottom: '32px',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     maxWidth: '100%',
     display: 'flex',
     flexDirection: 'row',
@@ -279,7 +279,7 @@ const ContainerCards = styled.div({
     flexDirection: 'row',
     minWidth: '100%',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     maxWidth: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -297,10 +297,10 @@ const CardRelateMipsContainer = styled.div({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     width: '100%',
   },
-  [lightTheme.breakpoints.between('table_375', 835)]: {
+  [lightTheme.breakpoints.between('mobile_375', 835)]: {
     width: '100%',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     width: '100%',
   },
 });
@@ -406,7 +406,7 @@ const Wrapper = styled.div({
     marginRight: '0px',
     marginLeft: '0px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     width: '100%',
   },
 });
@@ -422,7 +422,7 @@ const ContainerResponsive = styled.div({
 
 const CardInfoContainer = styled.div({
   marginBottom: '32px',
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     width: '100%',
   },
 });

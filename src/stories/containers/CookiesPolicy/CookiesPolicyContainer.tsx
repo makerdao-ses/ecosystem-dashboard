@@ -90,7 +90,7 @@ const ContainerData = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     maxWidth: '770px',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     maxWidth: '343px',
     padding: '32px 24px',
   },
@@ -139,7 +139,7 @@ const ContainerButton = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   marginTop: '64px',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginTop: '40px',
   },
 });

@@ -124,7 +124,7 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'flex-end',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     width: '100%',
   },
 });
@@ -133,14 +133,14 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   isLight: boolean;
 }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#E2D8EE',
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     fontWeight: 700,
     fontSize: '16px',
     lineHeight: '19px',
     marginLeft: '4px',
     marginRight: '0px',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 700,
@@ -202,12 +202,12 @@ const ContainerLinks = styled.div({
   height: '68px',
   marginRight: '6px',
 
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     flexDirection: 'column',
     height: 'fit-content',
     marginTop: '4px',
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     flexDirection: 'column',
     height: 'fit-content',
     marginTop: -1,
@@ -252,7 +252,7 @@ const CategoryContainer = styled.div({
   '* + *': {
     marginRight: '16px',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     marginBottom: '16px',
     marginTop: '20px',
     '> div:first-of-type': {
@@ -272,7 +272,7 @@ const CategoryContainer = styled.div({
       marginRight: '8px',
     },
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginBottom: '16px',
     marginTop: 6,
     marginLeft: 4,
@@ -318,7 +318,7 @@ const ContainerSeparateData = styled.div({
   [lightTheme.breakpoints.down('desktop_1194')]: {
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.down('table_375')]: {
+  [lightTheme.breakpoints.down('mobile_375')]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -334,7 +334,7 @@ const ResponsiveTitle = styled.div({
   flexDirection: 'column',
   width: '100%',
 
-  [lightTheme.breakpoints.up('table_375')]: {
+  [lightTheme.breakpoints.up('mobile_375')]: {
     width: 'auto',
     marginRight: '24px',
     marginBottom: '2px',

@@ -283,7 +283,7 @@ export const Title = styled.div<{
     lineHeight: '24px',
     marginBottom: `${responsiveMarginBottom || marginBottom}px`,
   },
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     marginTop: '32px',
     fontWeight: 700,
   },

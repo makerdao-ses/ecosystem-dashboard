@@ -157,7 +157,7 @@ const Text = styled.div<{
     : customStyles[buttonType].textColorDark,
   '&:hover:not(:disabled)': allowsHoverText(allowsHover, isLight, active, buttonType),
   ...(style ?? {}),
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     lineHeight: '18px',
   },
 }));

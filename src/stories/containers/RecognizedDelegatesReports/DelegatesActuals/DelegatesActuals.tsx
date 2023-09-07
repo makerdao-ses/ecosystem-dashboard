@@ -18,7 +18,7 @@ interface Props {
 
 const DelegatesActuals: React.FC<Props> = ({ currentMonth, budgetStatement }) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
 
   const {
     breakdownColumnsActuals,

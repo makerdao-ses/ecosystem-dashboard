@@ -73,7 +73,7 @@ const Container = styled.div<{ isLight: boolean; spacing: CardSpacingSize }>(({ 
   padding: spacing === 'large' ? '20px 24px 10px' : '16px 16px 6px',
   marginBottom: spacing === 'large' ? 24 : 8,
   borderRadius: '6px',
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     ':last-child': {
       marginBottom: '0px',
     },

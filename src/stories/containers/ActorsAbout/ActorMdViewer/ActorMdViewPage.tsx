@@ -45,7 +45,7 @@ const ActorMdViewPage = ({
 }: Props) => {
   const { isLight } = useThemeContext();
   const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('table_375', 'desktop_1194'));
+  const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'desktop_1194'));
   const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [isEnabled] = useFlagsActive();
@@ -203,7 +203,7 @@ const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) 
   color: isLight ? '#231536' : ' #D2D4EF',
   margin: '0px',
   marginRight: 10,
-  [lightTheme.breakpoints.between('table_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: 700,

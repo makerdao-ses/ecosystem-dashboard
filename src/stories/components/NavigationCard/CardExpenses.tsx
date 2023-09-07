@@ -47,7 +47,7 @@ const CardExpenses = ({
   const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit`;
   const textLink = resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor';
   const auditorTitle = auditorMessage ?? `The ${shortCode} Core Unit is currently working without auditor`;
-  const isPhone = useMediaQuery(lightTheme.breakpoints.between('table_375', 'table_834'));
+  const isPhone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   return (

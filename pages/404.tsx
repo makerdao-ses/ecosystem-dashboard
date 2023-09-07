@@ -25,7 +25,7 @@ const Container = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   backgroundPosition: 'right 30% bottom 70%',
-  [lightTheme.breakpoints.up('table_375')]: {
+  [lightTheme.breakpoints.up('mobile_375')]: {
     // TODO: Find a better way to hidden line
     marginBottom: '-1px',
   },
