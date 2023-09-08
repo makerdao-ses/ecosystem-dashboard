@@ -64,7 +64,7 @@ const InformationSection = styled.div({
   flexDirection: 'column',
   gap: 4,
   marginBottom: 24,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 16,
     marginBottom: 40,
   },
@@ -78,11 +78,11 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: '0.75px',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
     letterSpacing: '0.4px',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 32,
   },
 }));
@@ -94,7 +94,7 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   margin: 0,
   lineHeight: 'normal',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
   },
@@ -104,14 +104,14 @@ const ItemSection = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 16,
   },
 });
 
 const Header = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flex: 1,
     width: '100%',
@@ -125,7 +125,7 @@ const ContainerButton = styled.div({
   flex: 1,
   alignItems: 'center',
   marginTop: 24,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 40,
   },
 });
@@ -141,7 +141,7 @@ const BigButtonStyled = styled(BigButton)({
   height: 31,
   padding: '8px 24px',
   letterSpacing: 1,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     minWidth: 207,
   },
 });

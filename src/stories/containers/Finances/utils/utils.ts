@@ -498,11 +498,11 @@ export const getHeadersExpenseReport = (
     sort: headersSort[0],
   },
   {
-    header: isSmallDesk ? 'Report Month' : 'Reporting Month',
+    header: isSmallDesk ? 'Rep Month' : 'Reporting Month',
     styles: {
-      width: 170,
-      marginLeft: 112,
+      width: 152,
 
+      marginLeft: 84,
       [lightTheme.breakpoints.up('desktop_1280')]: {
         marginLeft: 122,
       },
@@ -518,13 +518,13 @@ export const getHeadersExpenseReport = (
     sort: headersSort[2],
     styles: {
       width: 170,
-      marginLeft: -18,
+      marginLeft: -28,
 
       [lightTheme.breakpoints.up('desktop_1280')]: {
-        marginLeft: -4,
+        marginLeft: 14,
       },
       [lightTheme.breakpoints.up('desktop_1440')]: {
-        marginLeft: 12,
+        marginLeft: 30,
         justifyContent: 'center',
       },
     },
@@ -536,7 +536,7 @@ export const getHeadersExpenseReport = (
     sort: headersSort[3],
     styles: {
       width: 173,
-      marginLeft: -6,
+      marginLeft: -34,
       [lightTheme.breakpoints.up('desktop_1280')]: {
         marginLeft: 2,
       },
@@ -552,8 +552,7 @@ export const getHeadersExpenseReport = (
     sort: headersSort[4],
     styles: {
       width: 173,
-      marginLeft: 10,
-
+      marginLeft: -48,
       [lightTheme.breakpoints.up('desktop_1280')]: {
         marginLeft: 22,
       },
