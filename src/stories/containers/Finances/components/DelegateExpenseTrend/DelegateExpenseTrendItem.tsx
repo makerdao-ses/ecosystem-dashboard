@@ -216,8 +216,10 @@ const TitleCode = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   gap: 4,
+
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 237,
+
     gap: 6,
     marginTop: 4,
   },
@@ -351,12 +353,13 @@ const ReportingMonth = styled.div({
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 0,
-
-    marginLeft: 2,
+    marginLeft: 6,
     width: 120,
+    marginTop: 1,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginLeft: -20,
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: -40,
@@ -376,11 +379,13 @@ const TotalActualsTable = styled.div({
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 0,
-    marginLeft: 2,
+    marginLeft: 6,
     width: 130,
+    marginTop: 1,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: -2,
+    marginLeft: 2,
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: 20,
@@ -410,13 +415,17 @@ const StatusTable = styled.div({
     },
     width: 120,
     marginLeft: 4,
+    marginTop: 1,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 150,
     marginLeft: 0,
+    paddingLeft: 4,
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: 10,
+
     '& div:nth-of-type(2)': {
       marginLeft: 0,
     },
@@ -453,6 +462,11 @@ const LastModifiedDesk = styled.div({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     width: 160,
+    marginLeft: 6,
+    marginTop: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     paddingLeft: 20,
@@ -461,8 +475,17 @@ const LastModifiedDesk = styled.div({
 
 const ViewContainer = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     display: 'flex',
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginTop: 3,
+
+    marginRight: -2,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+
     marginTop: 2,
   },
 });
@@ -471,6 +494,11 @@ const ContainerDesk = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+
+  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    justifyContent: 'normal',
+    height: 38,
+  },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     height: 38,
   },

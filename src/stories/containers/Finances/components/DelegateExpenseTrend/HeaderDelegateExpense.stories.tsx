@@ -18,12 +18,12 @@ const variantsArgs = [
   },
 ];
 
-export const [[HeaderDelegate, HeaderDelegateDark], [HeaderDelegate1194, HeaderDelegate1194Dark]] =
+export const [[HeaderDelegate, HeaderDelegateDark], [HeaderDelegate1024, HeaderDelegate1024Dark]] =
   createThemeModeVariants(HeaderDelegateExpense, variantsArgs);
 
 HeaderDelegate.parameters = {
   chromatic: {
-    viewports: [1280],
+    viewports: [1280, 1440, 1920],
   },
   figma: {
     component: {
@@ -40,15 +40,6 @@ HeaderDelegate.parameters = {
           },
         },
       },
-    },
-  },
-};
-HeaderDelegate.parameters = {
-  chromatic: {
-    viewports: [1440],
-  },
-  figma: {
-    component: {
       1440: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:200754&mode=dev',
@@ -62,18 +53,9 @@ HeaderDelegate.parameters = {
           },
         },
       },
-    },
-  },
-};
-HeaderDelegate.parameters = {
-  chromatic: {
-    viewports: [1920],
-  },
-  figma: {
-    component: {
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:205054&mode=design&t=stARrczXcxThl0Bv-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:205054&mode=dev',
         options: {
           style: {
             left: -40,
@@ -88,27 +70,27 @@ HeaderDelegate.parameters = {
   },
 };
 
-HeaderDelegate1194.parameters = {
+HeaderDelegate1024.parameters = {
   chromatic: {
-    viewports: [1194],
+    viewports: [1024],
   },
   figma: {
     component: {
-      1194: {
+      1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:241815&mode=design&t=stARrczXcxThl0Bv-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204278&mode=dev',
         options: {
           style: {
             left: -40,
             top: -22,
           },
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
         },
       },
     },
   },
 };
-HeaderDelegate1194Dark.parameters = {};
+HeaderDelegate1024Dark.parameters = {};
 HeaderDelegateDark.parameters = {};

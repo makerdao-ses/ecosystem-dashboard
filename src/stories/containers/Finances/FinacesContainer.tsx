@@ -122,7 +122,7 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 24,
   marginBottom: 24,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 32,
     marginTop: 32,
     marginBottom: 64,
@@ -133,14 +133,14 @@ const ContainerSections = styled.div({
   gap: 16,
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 64,
   },
 });
 
 const WrapperDesk = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'column',
     gap: 64,
@@ -151,7 +151,7 @@ const WrapperMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
