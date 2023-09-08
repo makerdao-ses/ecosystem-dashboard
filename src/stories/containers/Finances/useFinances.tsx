@@ -189,7 +189,13 @@ export const useFinances = () => {
 
   const cardsNavigationInformation: NavigationCard[] = [
     {
-      svgImage: <EndgameAtlasBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} />,
+      svgImage: (
+        <EndgameAtlasBudgets
+          width={isMobile ? 32 : 64}
+          height={isMobile ? 32 : 64}
+          fill={isLight ? (isMobile ? '#546978' : '#9FAFB9') : isMobile ? '#9FAFB9' : '#D1DEE6'}
+        />
+      ),
       title: 'Endgame Atlas Budgets',
       description: 'Finances of the core governance constructs described in the Maker Atlas.',
       href: '#',
@@ -198,7 +204,13 @@ export const useFinances = () => {
       color: isLight ? '#F99374' : '#F77249',
     },
     {
-      svgImage: <EndgameScopeBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} fill="#9FAFB9" />,
+      svgImage: (
+        <EndgameScopeBudgets
+          width={isMobile ? 32 : 64}
+          height={isMobile ? 32 : 64}
+          fill={isLight ? (isMobile ? '#546978' : '#9FAFB9') : isMobile ? '#9FAFB9' : '#D1DEE6'}
+        />
+      ),
       title: 'Endgame Scope Budgets',
       description: 'Detailed budgets of the practical DAO activities within Endgame.',
       href: '#',
@@ -207,7 +219,13 @@ export const useFinances = () => {
       color: '#447AFB',
     },
     {
-      svgImage: <MakerDAOLegacyBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} fill="#9FAFB9" />,
+      svgImage: (
+        <MakerDAOLegacyBudgets
+          width={isMobile ? 32 : 64}
+          height={isMobile ? 32 : 64}
+          fill={isLight ? (isMobile ? '#546978' : '#9FAFB9') : isMobile ? '#9FAFB9' : '#D1DEE6'}
+        />
+      ),
       title: 'MakerDAO Legacy Budgets',
       description: 'Historical records of MakerDAO expenses, prior to Endgame',
       href: '#',
