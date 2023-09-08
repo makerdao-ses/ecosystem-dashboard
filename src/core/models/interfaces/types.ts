@@ -2,6 +2,7 @@ export enum ResourceType {
   AlignedDelegates = 'AlignedDelegates',
   CoreUnit = 'CoreUnit',
   Delegates = 'Delegates',
+  Keepers = 'Keepers',
   EcosystemActor = 'EcosystemActor',
   System = 'System',
 }

@@ -5,6 +5,7 @@ import {
   generateSnapshotOwnerString,
 } from '@ses/containers/TransparencyReport/components/AccountsSnapshot/api/queries';
 import { featureFlags } from 'feature-flags/feature-flags';
+import { DateTime } from 'luxon';
 import React from 'react';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { GetServerSidePropsContext } from 'next';
@@ -29,15 +30,33 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   }
 
   const { query } = context;
-  const { ownerType, ownerId } = query;
-  if (!ownerType || !ownerId || isNaN(ownerId as unknown as number)) {
+
+  const { data, period } = query;
+  if (!(data?.length === 1 || data?.length === 2)) {
+    return {
+      // wrong amount of params
+      notFound: true,
+    };
+  }
+  const ownerType = data[0];
+  const ownerId = data.length === 2 ? data[1] : null;
+
+  if (
+    !ownerType ||
+    (ownerId !== null && isNaN(ownerId as unknown as number)) ||
+    (period && !/^\d{4}\/\d{2}$/g.test(period as string))
+  ) {
     return {
       notFound: true,
     };
   }
 
   const [snapshots, snapshotOwner] = await Promise.all([
-    fetchAccountsSnapshot(ownerType as string, ownerId as string),
+    fetchAccountsSnapshot(
+      ownerType as string,
+      ownerId as string,
+      period ? DateTime.fromFormat(period as string, 'yyyy/MM') : undefined
+    ),
     generateSnapshotOwnerString(ownerType as string, ownerId as string),
   ]);
 
