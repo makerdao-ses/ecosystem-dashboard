@@ -100,7 +100,7 @@ const TitleTooltip = styled.div({
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 20,
   fontStyle: 'normal',

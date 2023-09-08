@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SelectDropdown from '../SelectDropdown';
 import type { SelectChangeEvent } from '@mui/material/Select/Select';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   trailingAddress?: NavigationBreadcrumb[];
@@ -24,19 +26,22 @@ const BreadcrumbWithYear: React.FC<Props> = ({
   years,
   onClose,
   onOpen,
-}: Props) => (
-  <ContainerNavigation>
-    <StyledBreadcrumbs items={trailingAddress} />
-    <SelectDropdown
-      handleChange={handleChange}
-      items={years}
-      isOpen={isOpen}
-      selectedValue={selectedValue}
-      onClose={onClose}
-      onOpen={onOpen}
-    />
-  </ContainerNavigation>
-);
+}: Props) => {
+  const { isLight } = useThemeContext();
+  return (
+    <ContainerNavigation>
+      <StyledBreadcrumbs items={trailingAddress} isLight={isLight} />
+      <SelectDropdown
+        handleChange={handleChange}
+        items={years}
+        isOpen={isOpen}
+        selectedValue={selectedValue}
+        onClose={onClose}
+        onOpen={onOpen}
+      />
+    </ContainerNavigation>
+  );
+};
 
 export default BreadcrumbWithYear;
 const ContainerNavigation = styled.div({
@@ -52,10 +57,12 @@ const ContainerNavigation = styled.div({
   },
 });
 
-const StyledBreadcrumbs = styled(Breadcrumbs)({
+const StyledBreadcrumbs = styled(Breadcrumbs)<WithIsLight>(({ isLight }) => ({
   padding: 0,
+
   '& .crumb': {
     letterSpacing: 0,
+    color: isLight ? '#231536' : '#E2D8EE',
     padding: 0,
     fontSize: 11,
     [lightTheme.breakpoints.up('table_834')]: {
@@ -65,4 +72,4 @@ const StyledBreadcrumbs = styled(Breadcrumbs)({
   [lightTheme.breakpoints.up('desktop_1440')]: {
     padding: '27px 0',
   },
-});
+}));

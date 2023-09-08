@@ -231,7 +231,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   textAlign: 'center',
   marginTop: 8,
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('table_834')]: {
     marginLeft: 1,
   },
@@ -251,11 +251,11 @@ const Percent = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   textAlign: 'center',
   letterSpacing: '0.4px',
-  color: isLight ? '#405361' : 'red',
+  color: isLight ? '#405361' : '#9FAFB9',
 }));
 
 const DividerActualsBudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
-  border: isLight ? '2px  solid #231536' : 'red',
+  border: `2px  solid ${isLight ? '#231536' : '#D2D4EF'}`,
   height: 32,
   marginLeft: 9,
   marginRight: 8,
@@ -266,7 +266,7 @@ const DividerActualsBudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
 const DividerCardChart = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 16,
   marginBottom: 16,
-  borderBottom: isLight ? '1px solid #D4D9E1' : 'red',
+  borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 24,
     marginBottom: 24,

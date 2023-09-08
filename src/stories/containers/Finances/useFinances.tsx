@@ -198,7 +198,7 @@ export const useFinances = () => {
       color: isLight ? '#F99374' : '#F77249',
     },
     {
-      svgImage: <EndgameScopeBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} />,
+      svgImage: <EndgameScopeBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} fill="#9FAFB9" />,
       title: 'Endgame Scope Budgets',
       description: 'Detailed budgets of the practical DAO activities within Endgame.',
       href: '#',
@@ -207,7 +207,7 @@ export const useFinances = () => {
       color: '#447AFB',
     },
     {
-      svgImage: <MakerDAOLegacyBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} />,
+      svgImage: <MakerDAOLegacyBudgets width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} fill="#9FAFB9" />,
       title: 'MakerDAO Legacy Budgets',
       description: 'Historical records of MakerDAO expenses, prior to Endgame',
       href: '#',

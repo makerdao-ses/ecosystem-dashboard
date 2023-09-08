@@ -33,7 +33,7 @@ const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valu
               <ContainerData>
                 <ContainerIcon>
                   <ContainerImage>{svgImage}</ContainerImage>
-                  <Title>{title}</Title>
+                  <Title isLight={isLight}>{title}</Title>
                 </ContainerIcon>
                 <CardInformation>
                   <ContainerTotal>
@@ -44,15 +44,20 @@ const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valu
                   </ContainerTotal>
                   <ContainerBarPercent>
                     <ContainerBar>
-                      <BarPercentRelativeToTotalStyled value={3456} total={23456} barColor={barColor} />
+                      <BarPercentRelativeToTotalStyled
+                        value={3456}
+                        total={23456}
+                        barColor={barColor}
+                        isLight={isLight}
+                      />
                     </ContainerBar>
-                    <Percent>{Math.floor(percent)}%</Percent>
+                    <Percent isLight={isLight}>{Math.floor(percent)}%</Percent>
                   </ContainerBarPercent>
                 </CardInformation>
               </ContainerData>
             </MainCard>
             <ArrowContainer isLight={isLight}>
-              <ArrowNavigationForCards width={32} height={32} />
+              <ArrowNavigationForCards width={32} height={32} fill={isLight ? '#434358' : '#B7A6CD'} />
             </ArrowContainer>
           </ContainerSpace>
         </LinkTag>
@@ -82,12 +87,13 @@ const ContainerImage = styled.div({
   width: 32,
   height: 32,
 });
-const Title = styled.div({
+const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
 
 const CardInformation = styled.div({
   display: 'flex',
@@ -105,7 +111,7 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   letterSpacing: 'normal',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#231536' : '#EDEFFF',
+  color: isLight ? '#231536' : '#D2D4EF',
   height: 17,
   textTransform: 'uppercase',
   textAlign: 'center',
@@ -119,14 +125,12 @@ const Coin = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   letterSpacing: 'normal',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#9FAFB9' : '#708390',
+  color: isLight ? '#9FAFB9' : '#9FAFB9',
   marginLeft: 4,
   textTransform: 'uppercase',
   width: 58,
   display: 'flex',
   marginRight: 8,
-
-  lineHeight: 'normal',
 }));
 
 const ContainerBarPercent = styled.div({
@@ -139,9 +143,10 @@ const ContainerBarPercent = styled.div({
 const ContainerBar = styled.div({
   width: 97,
   borderRadius: 4,
+  // backgroundColor: 'red',
 });
 
-const Percent = styled.div({
+const Percent = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'right',
   fontVariantNumeric: 'lin',
   fontFamily: 'Inter, sans-serif',
@@ -151,14 +156,18 @@ const Percent = styled.div({
   lineHeight: 'normal',
   textTransform: 'uppercase',
   width: 34,
-});
-
-const BarPercentRelativeToTotalStyled = styled(BarPercentRelativeToTotal)<{ barColor: string }>(({ barColor }) => ({
-  borderRadius: 4,
-  '& > div': {
-    background: barColor,
-  },
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
+
+const BarPercentRelativeToTotalStyled = styled(BarPercentRelativeToTotal)<WithIsLight & { barColor: string }>(
+  ({ barColor, isLight }) => ({
+    borderRadius: 4,
+    backgroundColor: isLight ? '#ECF1F3' : '#10191F',
+    '& > div': {
+      background: barColor,
+    },
+  })
+);
 
 const ContainerData = styled.div({
   display: 'flex',
@@ -172,7 +181,7 @@ const LinkTag = styled.a({});
 const ArrowContainer = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   position: 'absolute',
-  backgroundColor: isLight ? '#F9FAFF' : 'red',
+  backgroundColor: isLight ? '#F9FAFF' : 'rgba(60, 62, 100, 0.50);',
   alignItems: 'center',
   height: '100%',
   right: 0,
@@ -183,7 +192,9 @@ const ArrowContainer = styled.div<WithIsLight>(({ isLight }) => ({
   width: 48,
   zIndex: 4,
 
-  boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
+  boxShadow: isLight
+    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
 
 const MainCard = styled.div({
@@ -191,7 +202,6 @@ const MainCard = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  // height: '100%',
 });
 
 const ContainerSpace = styled.div({
