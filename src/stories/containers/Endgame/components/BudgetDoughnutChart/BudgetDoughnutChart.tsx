@@ -15,8 +15,8 @@ interface Props {
 
 const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
   const { isLight } = useThemeContext();
-  const isTablet834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const isDesktop1194 = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
+  const isTablet706 = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
@@ -37,7 +37,7 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
     richValuePadding,
     richDaiPadding,
     richPercentPadding,
-  } = calculateValuesByBreakpoint(isTablet834, isDesktop1194, isDesktop1280, isDesktop1440);
+  } = calculateValuesByBreakpoint(isTablet706, isDesktop1024, isDesktop1280, isDesktop1440);
 
   const options = {
     color: doughnutSeriesData.map((data) => data.color),

@@ -65,10 +65,10 @@ const CardContainer = styled.div({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     paddingTop: 2,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     paddingTop: 0,
   },
 });
@@ -81,7 +81,7 @@ const PredictionWrapper = styled.div({
   marginTop: 0,
   marginLeft: -1,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -96,13 +96,13 @@ const TotalActual = styled.div<WithIsLight>(({ isLight }) => ({
   marginLeft: 0,
   color: isLight ? '#231536' : '#EDEFFF',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 8,
   },
 }));
 const TotalBudgeCap = styled(TotalActual)({
   marginLeft: 6,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 8,
   },
 });
@@ -135,11 +135,15 @@ const BarWrapper = styled.div({
   marginTop: 8,
   marginBottom: 8,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 8,
     marginBottom: 8,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 16,
     marginBottom: 16,
   },
@@ -149,7 +153,7 @@ const Legend = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
   paddingLeft: 1,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     justifyContent: 'space-between',
     paddingLeft: 1,
@@ -174,14 +178,14 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
   alignItems: 'flex-start ',
   height: 'fit-content',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
     lineHeight: '17px',
     alignItems: 'center',
     paddingLeft: 10,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     paddingLeft: 8,
   },
 
@@ -196,7 +200,7 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
     borderRadius: '50%',
     backgroundColor: dotColor,
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [lightTheme.breakpoints.up('tablet_768')]: {
       width: 8,
       height: 8,
       top: 'calc(50% - 4px)',
@@ -208,14 +212,14 @@ const LegendLabel = styled.div({
   marginLeft: 4,
   fontSize: 14,
   lineHeight: 'normal',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 3,
     fontSize: 14,
     lineHeight: 'normal',
     fontWeight: 400,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: 6,
     fontWeight: 400,
     fontSize: 14,
@@ -232,11 +236,18 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   marginTop: 8,
   color: isLight ? '#708390' : 'red',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 1,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
     marginTop: 6,
+    marginBottom: -2,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 8,
+    marginBottom: -1,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 6,
+    marginBottom: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginTop: 6,
@@ -267,7 +278,11 @@ const DividerCardChart = styled.div<WithIsLight>(({ isLight }) => ({
   marginTop: 16,
   marginBottom: 16,
   borderBottom: isLight ? '1px solid #D4D9E1' : 'red',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 24,
     marginBottom: 24,
   },
