@@ -30,16 +30,16 @@ const ContainerReadMoreLink = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   gap: 8,
   borderRadius: 22,
-  border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
-  background: '#FFF',
+  border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+  background: isLight ? '#FFF' : 'transparent',
   padding: '5px 5px 5px 16px',
   ':hover': {
-    border: `1px solid ${isLight ? '#231536' : 'black'}`,
+    border: `1px solid ${isLight ? '#231536' : '#405361'}`,
   },
 }));
 
 const ReadMoreText = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#9FAFB9',
   fontSize: 13,
   fontStyle: 'normal',
   fontWeight: 400,

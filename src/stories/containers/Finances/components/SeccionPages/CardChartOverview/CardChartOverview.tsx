@@ -62,11 +62,12 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
     flexDirection: 'column',
     padding: '16px 24px 24px 32px',
     borderRadius: 6,
-    border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : 'red',
-    background: isLight ? '#FFF' : 'red',
+    border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : '#31424E',
+    background: isLight ? '#FFF' : '#1E2C37',
     boxShadow: isLight
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-      : 'red',
+      : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+
     height: 223,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
@@ -101,7 +102,7 @@ const ContainerFilters = styled.div({
 });
 const Item = styled.div<WithIsLight & { isSelected: boolean }>(({ isLight, isSelected }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
-    color: isLight ? (isSelected ? '#2DC1B1' : '#D1DEE6') : isSelected ? 'red' : 'blue',
+    color: isLight ? (isSelected ? '#2DC1B1' : '#D1DEE6') : isSelected ? '#139D8D' : '#546978',
     fontSize: 11,
     fontWeight: 500,
     lineHeight: 'normal',
@@ -146,14 +147,12 @@ const ContainerCardInformation = styled.div({
 });
 
 const Divider = styled.div<WithIsLight>(({ isLight }) => ({
-  borderLeft: isLight ? '1px solid #D4D9E1' : 'red',
+  borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
     marginLeft: 32,
     height: 134,
-    borderLeft: 'none',
     marginTop: 20,
-
-    border: isLight ? '1px solid #D4D9E1' : 'red',
+    borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     marginLeft: '0',
@@ -165,16 +164,9 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
 
 const ContainerChat = styled.div({
   display: 'flex',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    // width: 360,
-    // marginLeft: 30,
-    // border: '2px solid blue',
-  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 440,
     marginLeft: 60,
-    // border: '2px solid blue',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 430,

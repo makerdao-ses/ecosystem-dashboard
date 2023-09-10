@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import ReadMore from '../ReadMore';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   svgImage: JSX.Element;
@@ -11,16 +13,20 @@ interface Props {
   href: string;
 }
 
-const CardNavigationFinance: React.FC<Props> = ({ svgImage, title, description, href }) => (
-  <StyleCardNavigationGeneric>
-    <ContainerImage>{svgImage}</ContainerImage>
-    <CardInformation>
-      <Title>{title}</Title>
-      <Description>{description}</Description>
-    </CardInformation>
-    <ReadMore href={href} />
-  </StyleCardNavigationGeneric>
-);
+const CardNavigationFinance: React.FC<Props> = ({ svgImage, title, description, href }) => {
+  const { isLight } = useThemeContext();
+  return (
+    <StyleCardNavigationGeneric>
+      <ContainerImage>{svgImage}</ContainerImage>
+      <CardInformation>
+        <Title isLight={isLight}>{title}</Title>
+        <Description isLight={isLight}>{description}</Description>
+      </CardInformation>
+      <ReadMore href={href} />
+    </StyleCardNavigationGeneric>
+  );
+};
+
 export default CardNavigationFinance;
 const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   flexDirection: 'column',
@@ -47,22 +53,24 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
 const ContainerImage = styled.div({
   marginBottom: 8,
 });
-const Title = styled.div({
+const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 16,
   fontStyle: 'normal',
   fontWeight: 500,
   lineHeight: 'normal',
   marginBottom: 8,
-});
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
 
-const Description = styled.div({
+const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
   width: 236,
   margin: '0px auto 24px',
-});
+  color: isLight ? '#708390' : '#708390',
+}));
 
 const CardInformation = styled.div({
   width: 300,
