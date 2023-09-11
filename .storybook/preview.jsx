@@ -3,7 +3,13 @@ import { WithNextRouter } from 'storybook-addon-next-router/dist/decorators';
 import { mockDateDecorator } from 'storybook-mock-date-decorator';
 import '../styles/globals.scss';
 
+import isChromatic from 'chromatic/isChromatic';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@mui/material/styles'; // Importa Material-UI
+
 export const parameters = {
+  mui: {
+    disabled: isChromatic(),
+  },
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     matchers: {
