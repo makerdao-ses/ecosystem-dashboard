@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { getMarkdownInformation } from '../../../core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '../../../core/businessLogic/coreUnits';
@@ -48,6 +49,9 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
     setShowThreeMIPs,
   });
 
+  const ref = useRef<HTMLDivElement>(null);
+  const { height, showHeader } = useHeaderSummary(ref, code);
+
   return (
     <ContainerAbout isLight={isLight}>
       <SEOHead
@@ -58,9 +62,9 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
         canonicalURL={siteRoutes.coreUnitAbout(code)}
       />
 
-      <CoreUnitSummary coreUnits={coreUnits} showDescription={true} />
+      <CoreUnitSummary coreUnits={coreUnits} ref={ref} showHeader={showHeader} showDescription={true} />
       <Wrapper>
-        <ContainerAllData>
+        <ContainerAllData marginTop={height}>
           <ContainerResponsive>
             <MarkdownContainer>
               <MdViewerContainer
@@ -350,30 +354,33 @@ const ContainerNoRelateMIps = styled.div({
   justifyContent: 'center',
 });
 
-const ContainerAllData = styled.div({
+const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   maxWidth: '100%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  marginRight: '64px',
-  marginLeft: '64px',
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    marginRight: '0px',
-    marginLeft: '0px',
+  marginRight: '16px',
+  marginLeft: '16px',
+  marginTop,
+  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
+    marginRight: '32px',
+    marginLeft: '32px',
+    marginTop,
   },
   [lightTheme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     marginRight: '48px',
     marginLeft: '48px',
   },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1280')]: {
-    marginRight: '32px',
-    marginLeft: '32px',
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginRight: '64px',
+    marginLeft: '64px',
   },
-  [lightTheme.breakpoints.down('table_834')]: {
-    marginRight: '16px',
-    marginLeft: '16px',
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    marginRight: '0px',
+    marginLeft: '0px',
   },
-});
+}));
 
 export const DividerStyle = styled(Divider)({
   width: '100%',

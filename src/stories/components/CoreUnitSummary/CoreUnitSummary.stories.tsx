@@ -29,10 +29,14 @@ const variantsArgs = [
   {
     coreUnits: [SESCoreUnitMocked],
     showDescription: true,
+    ref: null,
+    showHeader: true,
   },
   {
     coreUnits: [SESCoreUnitMocked],
     showDescription: false,
+    ref: null,
+    showHeader: true,
   },
 ];
 
