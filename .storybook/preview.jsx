@@ -7,9 +7,6 @@ import isChromatic from 'chromatic/isChromatic';
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@mui/material/styles'; // Importa Material-UI
 
 export const parameters = {
-  mui: {
-    disabled: isChromatic(),
-  },
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     matchers: {
