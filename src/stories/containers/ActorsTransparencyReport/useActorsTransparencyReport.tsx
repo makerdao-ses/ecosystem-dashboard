@@ -9,6 +9,7 @@ import type { Team } from '@ses/core/models/interfaces/team';
 const useActorsTransparencyReport = (actor: Team) => {
   const router = useRouter();
   const query = router.query;
+  const code = router.query.code as string;
   const [isEnabled] = useFlagsActive();
 
   const initTabIndex = useCallback(() => {
@@ -97,6 +98,7 @@ const useActorsTransparencyReport = (actor: Team) => {
     onTabChange,
     lastVisitHandler,
     comments,
+    code,
   };
 };
 
