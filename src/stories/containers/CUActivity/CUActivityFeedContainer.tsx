@@ -34,8 +34,8 @@ const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit,
         coreUnits={coreUnits}
         trailingAddress={['Activity Feed']}
         breadcrumbTitle="Activity Feed"
-        showHeader={showHeader}
         ref={ref}
+        showHeader={showHeader}
       />
       <Container isLight={isLight}>
         <InnerPage marginTop={height}>
