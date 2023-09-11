@@ -25,6 +25,7 @@ export default {
     chromatic: {
       viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
+      delay: 300,
     },
     date: new Date('2022-09-22T12:23:00Z'),
   },

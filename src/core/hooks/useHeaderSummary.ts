@@ -33,12 +33,8 @@ export const useHeaderSummary = (ref: React.RefObject<HTMLDivElement>, code: str
   }, [actualsUrl, code, ref, updateHeight, url]);
 
   useEffect(() => {
-    if (ref?.current) {
-      const { bottom, top } = ref.current.getBoundingClientRect();
-      const elementHeight = bottom - top;
-      setHeight(elementHeight);
-    }
-  }, [ref]);
+    updateHeight();
+  }, [updateHeight]);
 
   useEffect(() => {
     window.addEventListener('scroll', updatePosition);
