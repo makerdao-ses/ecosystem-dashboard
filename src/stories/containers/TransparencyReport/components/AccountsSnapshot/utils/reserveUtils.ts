@@ -45,5 +45,5 @@ export const getReserveAccounts = (
             })),
         } as UIReservesData)
     )
-    .sort((a, b) => parseInt(a.id) - parseInt(b.id));
+    .sort((a, b) => parseInt(b.upstreamAccountId) - parseInt(a.upstreamAccountId));
 };
