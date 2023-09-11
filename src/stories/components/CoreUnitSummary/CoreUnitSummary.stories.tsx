@@ -12,6 +12,7 @@ export default {
     chromatic: {
       viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
+      disableSnapshot: true,
     },
   },
   decorators: [withoutSBPadding],
