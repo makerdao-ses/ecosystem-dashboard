@@ -8,7 +8,7 @@ import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useMemo } from 'react';
 import BreadcrumbNavigation from '../BreadcrumbNavigation/BreadcrumbNavigation';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -17,102 +17,82 @@ interface ActorSummaryProps {
   actors: Team[];
   trailingAddress?: string[];
   breadcrumbTitle?: string;
+  showHeader?: boolean;
 }
 
-const ActorSummary: React.FC<ActorSummaryProps> = ({ actors: data = [], breadcrumbTitle, trailingAddress = [] }) => {
-  const { isLight } = useThemeContext();
+const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
+  ({ actors: data = [], breadcrumbTitle, trailingAddress = [], showHeader = true }, ref) => {
+    const { isLight } = useThemeContext();
+    const router = useRouter();
+    const query = router.query;
+    const code = query.code as string;
 
-  const [showHeader, setShowHeader] = useState(true);
-  const router = useRouter();
-  const query = router.query;
-  const code = query.code as string;
+    // This is for the filter in the page of list actors about
+    const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
-  // This is for the filter in the page of list actors about
-  const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
+    const actorAbout = data?.find((actor) => actor.shortCode === code) || ({} as Team);
 
-  const actorAbout = data?.find((actor) => actor.shortCode === code) || ({} as Team);
+    const buildCULabel = () => (!_.isEmpty(actorAbout) ? `${actorAbout?.name}` : '');
 
-  const buildCULabel = () => (!_.isEmpty(actorAbout) ? `${actorAbout?.name}` : '');
+    const filteredData = useMemo(() => {
+      const { filteredCategoryData } = filterDataActors({
+        data: data as Team[],
+        filteredCategories,
+      });
+      return filteredCategoryData;
+    }, [data, filteredCategories]);
 
-  const ref = useRef<HTMLDivElement>(null);
+    const page = useMemo(() => filteredData?.findIndex((item) => item.shortCode === code) + 1, [code, filteredData]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleScroll = useCallback(
-    _.debounce(() => {
-      setShowHeader((ref?.current?.offsetTop ?? 0) <= 65);
-    }, 50),
-    []
-  );
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('touchmove', handleScroll);
-
-    // Remove the event listener
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
-    };
-  }, [handleScroll]);
-
-  const filteredData = useMemo(() => {
-    const { filteredCategoryData } = filterDataActors({
-      data: data as Team[],
+    const queryStrings = buildQueryString({
+      ...router.query,
       filteredCategories,
+      code: null, // override the Actors Code code to avoid add it to the query string as Core Unit
     });
-    return filteredCategoryData;
-  }, [data, filteredCategories]);
 
-  const page = useMemo(() => filteredData?.findIndex((item) => item.shortCode === code) + 1, [code, filteredData]);
+    const changeCoreUnitCode = useCallback(
+      (direct: -1 | 1) => () => {
+        const index = filteredData?.findIndex((item) => item.shortCode === code);
+        const newIndex = index + direct;
+        if (newIndex >= 0 && newIndex < filteredData?.length) {
+          router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
+        }
+      },
+      [code, filteredData, queryStrings, router]
+    );
 
-  const queryStrings = buildQueryString({
-    ...router.query,
-    filteredCategories,
-    code: null, // override the Actors Code code to avoid add it to the query string as Core Unit
-  });
+    return (
+      <MainContainer ref={ref} isLight={isLight}>
+        <BreadcrumbNavigationStyled
+          descriptionTextPagination="Ecosystem Actors"
+          itemActual={page}
+          mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
+          labelFirstItemNavigation={{
+            label: buildCULabel(),
+            url: `${siteRoutes.ecosystemActorAbout(code)}/${queryStrings}`,
+          }}
+          totalElements={filteredData.length}
+          onClickLeft={changeCoreUnitCode(-1)}
+          onClickRight={changeCoreUnitCode(1)}
+          breadcrumbTitleMobile={breadcrumbTitle}
+          hasStyleMobileItem={[buildCULabel(), undefined].includes(breadcrumbTitle)}
+          trailingAddress={trailingAddress}
+          router={router}
+        />
 
-  const changeCoreUnitCode = useCallback(
-    (direct: -1 | 1) => () => {
-      const index = filteredData?.findIndex((item) => item.shortCode === code);
-      const newIndex = index + direct;
-      if (newIndex >= 0 && newIndex < filteredData?.length) {
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
-      }
-    },
-    [code, filteredData, queryStrings, router]
-  );
+        <Collapse in={showHeader} timeout={600} unmountOnExit>
+          <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={true} />
+        </Collapse>
 
-  return (
-    <MainContainer ref={ref} isLight={isLight}>
-      <BreadcrumbNavigationStyled
-        descriptionTextPagination="Ecosystem Actors"
-        itemActual={page}
-        mainUrl={`${siteRoutes.ecosystemActors}/${queryStrings}`}
-        labelFirstItemNavigation={{
-          label: buildCULabel(),
-          url: `${siteRoutes.ecosystemActorAbout(code)}/${queryStrings}`,
-        }}
-        totalElements={filteredData.length}
-        onClickLeft={changeCoreUnitCode(-1)}
-        onClickRight={changeCoreUnitCode(1)}
-        breadcrumbTitleMobile={breadcrumbTitle}
-        hasStyleMobileItem={[buildCULabel(), undefined].includes(breadcrumbTitle)}
-        trailingAddress={trailingAddress}
-        router={router}
-      />
-
-      <Collapse in={showHeader} timeout={600} unmountOnExit>
-        <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={true} />
-      </Collapse>
-
-      <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
-    </MainContainer>
-  );
-};
+        <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
+      </MainContainer>
+    );
+  }
+);
 
 export default ActorSummary;
 const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  position: 'sticky',
+  position: 'fixed',
   top: 64,
   width: '100%',
   background: isLight ? '#FFFFFF' : '#25273D',

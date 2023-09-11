@@ -10,11 +10,12 @@ import { getMarkdownInformation } from '@ses/core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
+import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useRef } from 'react';
 import ActorMdViewer from './ActorMdViewer/ActorMdViewer';
 import ActorSummary from './ActorSummary/ActorSummary';
 import useActorAbout from './useActorAbout';
@@ -30,8 +31,10 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
   const router = useRouter();
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
-
+  const ref = useRef<HTMLDivElement>(null);
   const { queryStrings, phone, LessPhone, table834 } = useActorAbout(router.query);
+
+  const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
 
   return (
     <PageWrapper isLight={isLight}>
@@ -45,9 +48,9 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
         }}
         canonicalURL={siteRoutes.ecosystemActorAbout(actor.shortCode)}
       />
-      <ActorSummary actors={actors} />
+      <ActorSummary actors={actors} showHeader={showHeader} ref={ref} />
       <Container>
-        <ContainerAllData>
+        <ContainerAllData marginTop={height}>
           <ContainerResponsive>
             <MarkdownContainer>
               <ActorMdViewer
@@ -142,12 +145,13 @@ const ContainerCard = styled.div({
   },
 });
 
-const ContainerAllData = styled.div({
+const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   zIndex: -1,
-});
+  marginTop,
+}));
 
 const WrapperCardSomethingWrongMobile = styled.div({
   display: 'flex',
