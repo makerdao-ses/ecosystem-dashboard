@@ -7,11 +7,11 @@ import IntroductoryHeadline from './IntroductoryHeadline';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
-  title: 'Components/Endgame/Introduction',
+  title: 'Components/Endgame/Introduction Endgame',
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -47,11 +47,11 @@ LightMode.parameters = {
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21235:239044',
+      768: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204924',
         options: {
           componentStyle: {
-            width: 834,
+            width: 704,
           },
           style: {
             top: -12,
@@ -59,11 +59,11 @@ LightMode.parameters = {
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20947:243186',
+      1024: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:210968',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
             left: 1,

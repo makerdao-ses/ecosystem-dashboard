@@ -84,7 +84,7 @@ const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
 const ContentContainer = styled(Container)({
   position: 'relative',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
   },
 });
@@ -98,7 +98,7 @@ const ImageContainer = styled.div<WithIsLight>(({ isLight }) => ({
     ? '-8.3px 0px 16.6px 0px rgba(190, 190, 190, 0.25), -16.6px 0px 33px 0px rgba(219, 227, 237, 0.40)'
     : '-10px 0px 20px 0px rgba(24, 9, 68, 0.25), -20px 0px 40px 0px rgba(9, 35, 68, 0.40)',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     width: '50%',
     right: 0,
     marginLeft: 'auto',
@@ -110,7 +110,7 @@ const ImageWrapper = styled.div({
   width: '100%',
   height: '100%',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     right: 0,
   },
 });
@@ -125,7 +125,7 @@ const InfoContainer = styled.div<{ isKeyChanges: boolean }>(({ isKeyChanges }) =
   textAlign: 'center',
   background: 'linear-gradient(360deg, #10131F 0%, rgba(16, 25, 31, 0.00) 100%)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: isKeyChanges ? 169 : 133,
     marginLeft: -32,
     marginRight: 0,
@@ -148,19 +148,24 @@ const InfoContainer = styled.div<{ isKeyChanges: boolean }>(({ isKeyChanges }) =
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: isKeyChanges ? 120 : 133,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: '50%',
     margin: 0,
-    padding: isKeyChanges ? '80px 64px 80px 0' : '62px 64px 62px 0',
+    // padding: isKeyChanges ? '80px 64px 80px 0' : '62px 64px 62px 0',
+    padding: isKeyChanges ? '60px 48px 60px 0' : '54px 48px 54px 0',
 
     '&::before': {
       display: 'none',
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    padding: isKeyChanges ? '60px 48px 60px 0' : '54px 48px 54px 0',
-  },
+  // [lightTheme.breakpoints.up('desktop_1280')]: {
+  //   padding: isKeyChanges ? '60px 48px 60px 0' : '54px 48px 54px 0',
+  // },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     paddingRight: 112,
@@ -175,19 +180,21 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   marginTop: 0,
   marginBottom: 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    color: isLight ? '#25273D' : '#D2D4EF',
-    lineHeight: '29.05px',
-  },
-
   [lightTheme.breakpoints.up('desktop_1280')]: {
+    color: isLight ? '#25273D' : '#D2D4EF',
+    // lineHeight: '29.05px',
     fontSize: 32,
     lineHeight: '38.7px',
   },
+
+  // [lightTheme.breakpoints.up('desktop_1280')]: {
+  //   fontSize: 32,
+  //   lineHeight: '38.7px',
+  // },
 }));
 
 const Paragraph = styled.p<WithIsLight & { noMargin?: boolean }>(({ isLight, noMargin = false }) => ({
@@ -197,23 +204,25 @@ const Paragraph = styled.p<WithIsLight & { noMargin?: boolean }>(({ isLight, noM
   marginBottom: 0,
   marginTop: noMargin ? 0 : 14,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     color: isLight ? '#25273D' : '#D2D4EF',
     marginTop: noMargin ? 0 : 15,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: 20,
     lineHeight: '34px',
   },
+
+  // [lightTheme.breakpoints.up('desktop_1280')]: {
+  //   fontSize: 20,
+  //   lineHeight: '34px',
+  // },
 }));
 
 const Date = styled.span({
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontWeight: 700,
   },
 });
@@ -234,7 +243,7 @@ const ExternalLink = styled(CustomLink)({
     marginRight: -6,
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
 
     '& svg': {
@@ -262,12 +271,12 @@ const LearMore = styled(LinkButton)<WithIsLight>(({ isLight }) => ({
     color: '#6EDBD0',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '13px 39px',
     marginTop: 32,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     background: isLight ? '#E7FCFA' : '#06554C',
 
     '& > div': {

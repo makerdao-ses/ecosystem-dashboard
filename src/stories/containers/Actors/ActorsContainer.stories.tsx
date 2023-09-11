@@ -19,6 +19,7 @@ export default {
       viewports: [375, 834, 1194, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
+    date: new Date('2023-08-02T09:56:16Z'),
   },
 } as ComponentMeta<typeof ActorsContainer>;
 

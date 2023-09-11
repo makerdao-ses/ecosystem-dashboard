@@ -47,7 +47,7 @@ const HeaderContainer = styled.div<WithIsLight>(({ isLight }) => ({
   borderRadius: 6,
   overflow: 'hidden',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     background: isLight ? 'rgba(236, 239, 249, 0.30)' : '#343442',
     boxShadow: 'none',
@@ -71,7 +71,7 @@ const From = styled.div<WithIsLight>(({ isLight }) => ({
     marginBottom: 23,
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     backgroundImage: `url("/assets/img/endgame/arrow_desktop_${isLight ? 'light' : 'dark'}.png")`,
     backgroundSize: 'calc(100% + 15px) 100%',
     backgroundRepeat: 'no-repeat',
@@ -87,7 +87,7 @@ const From = styled.div<WithIsLight>(({ isLight }) => ({
       marginLeft: 4,
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
       paddingRight: 75,
       width: 'calc(50% + 89px)',
     },
@@ -106,7 +106,7 @@ const To = styled.div<WithIsLight>(({ isLight }) => ({
     padding: '16px 0',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: '50%',
     marginTop: 0,
     paddingTop: 0,
@@ -122,7 +122,7 @@ const To = styled.div<WithIsLight>(({ isLight }) => ({
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingRight: 12,
   },
 }));
@@ -149,14 +149,14 @@ const List = styled.ul<WithIsLight>(({ isLight }) => ({
       left: 8,
       marginTop: 8,
 
-      [lightTheme.breakpoints.up('table_834')]: {
+      [lightTheme.breakpoints.up('tablet_768')]: {
         width: 5,
         height: 5,
         left: 5,
       },
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
       whiteSpace: 'nowrap',
     },
   },
@@ -170,7 +170,7 @@ const Item = styled.div<WithIsLight>(({ isLight }) => ({
   width: '100%',
   textAlign: 'center',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 700,
     lineHeight: '19px',

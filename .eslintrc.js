@@ -79,5 +79,6 @@ module.exports = {
         alphabetize: { order: 'asc' },
       },
     ],
+    'no-return-await': 'error',
   },
 };
