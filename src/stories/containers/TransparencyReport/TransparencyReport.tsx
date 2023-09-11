@@ -85,8 +85,8 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
         showHeader={showHeader}
       />
       <PageContainer hasImageBackground={true}>
-        <PageSeparator marginTop={height}>
-          <Container>
+        <PageSeparator>
+          <ContainerStyled marginTop={height}>
             <BudgetStatementPager
               currentMonth={currentMonth}
               handleNext={handleNextMonth}
@@ -118,7 +118,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
                 }}
               />
             </TabsContainer>
-          </Container>
+          </ContainerStyled>
           <ModalCategoriesProvider expenseCategories={expenseCategories}>
             <Container>
               {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
@@ -262,14 +262,13 @@ const Wrapper = styled.div({
   width: '100%',
 });
 
-const PageSeparator = styled.div<{ marginTop: number }>(({ marginTop }) => ({
-  marginTop: 32 + marginTop,
-
+const PageSeparator = styled.div({
+  marginTop: 32,
   [lightTheme.breakpoints.up('table_834')]: {
     paddingTop: 32,
-    marginTop,
+    marginTop: 0,
   },
-}));
+});
 
 export const Title = styled.div<{
   marginBottom?: number;
@@ -352,3 +351,7 @@ const LegacyReportParagraph = styled.div({
   marginTop: 16,
   marginBottom: 0,
 });
+
+const ContainerStyled = styled(Container)<{ marginTop: number }>(({ marginTop }) => ({
+  marginTop,
+}));
