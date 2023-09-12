@@ -1,5 +1,6 @@
 import { siteRoutes } from '@ses/config/routes';
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
+import { withoutMarginTopInFixedPosition } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateSummary from './DelegateSummary';
 import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
@@ -8,6 +9,7 @@ import type { ComponentMeta } from '@storybook/react';
 export default {
   title: 'Components/DelegateReport/DelegateSummary',
   component: DelegateSummary,
+  decorators: [withoutMarginTopInFixedPosition],
   parameters: {
     layout: 'fullscreen',
     chromatic: {
@@ -20,6 +22,7 @@ export default {
 const variantsArgs = [
   {
     code: 'del',
+    showHeader: true,
     links: [
       {
         linkType: LinkTypeEnum.WWW,

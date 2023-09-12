@@ -12,6 +12,7 @@ import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collections
 import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CommentsTab from '../../components/Tabs/CommentsTab/CommentsTab';
 import type { TableItems } from '../TransparencyReport/TransparencyReport';
@@ -55,6 +56,8 @@ const itemsBreadcrumb = [
 
 const useRecognizedDelegatesReport = (delegates: DelegatesDto) => {
   const { isLight } = useThemeContext();
+  const router = useRouter();
+  const code = router.query.code as string;
   const [selectedTab, setSelectedTab] = useState<DELEGATES_REPORT_IDS_ENUM>(DELEGATES_REPORT_IDS_ENUM.ACTUALS);
   const [lastVisitHandler, setLastVisitHandler] = useState<LastVisitHandler>();
   const { permissionManager } = useAuthContext();
@@ -166,6 +169,7 @@ const useRecognizedDelegatesReport = (delegates: DelegatesDto) => {
     comments,
     selectedTab,
     onTabChange,
+    code,
   };
 };
 
