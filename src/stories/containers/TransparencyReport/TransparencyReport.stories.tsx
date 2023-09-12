@@ -2,7 +2,7 @@ import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { FeatureFlagsProvider } from '@ses/core/context/FeatureFlagsProvider';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
+// import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import { featureFlags } from 'feature-flags/feature-flags';
 import AppLayout from '../AppLayout/AppLayout';
@@ -29,7 +29,7 @@ export default {
     },
     date: new Date('2022-09-22T12:23:00Z'),
   },
-  loaders: [withLocalStorageItem('activity-visit-SES', '1662812570000')],
+  // loaders: [withLocalStorageItem('activity-visit-SES', '1662812570000')],
 } as ComponentMeta<typeof TransparencyReport>;
 
 const variantsArgs = [
