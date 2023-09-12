@@ -20,6 +20,7 @@ export default {
 const variantsArgs = [
   {
     code: 'del',
+    showHeader: true,
     links: [
       {
         linkType: LinkTypeEnum.WWW,
