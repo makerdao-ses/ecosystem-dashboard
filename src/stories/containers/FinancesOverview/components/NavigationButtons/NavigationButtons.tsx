@@ -9,6 +9,7 @@ const NavigationButtons: React.FC = () => (
   <NavigationButtonsContainer>
     <Button href={siteRoutes.coreUnitsOverview} label="Core Units" buttonType={ButtonType.Primary} />
     <Button href={siteRoutes.recognizedDelegate} label="Recognized Delegates" buttonType={ButtonType.Primary} />
+    <Button href={siteRoutes.ecosystemActors} label="Ecosystem Actors" buttonType={ButtonType.Primary} />
   </NavigationButtonsContainer>
 );
 
@@ -26,17 +27,16 @@ const NavigationButtonsContainer = styled.div({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 24,
-    maxWidth: 571,
+    maxWidth: 738,
     margin: '46px auto 0',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
+    flexDirection: 'column',
     margin: '37px auto 0',
+    maxWidth: 320,
     padding: 0,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 32,
+    gap: 16,
   },
 });
 
