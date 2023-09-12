@@ -134,6 +134,10 @@ const Card = styled(MuiAccordionSummary)<WithIsLight & { hasTransactions: boolea
       padding: 0,
     },
 
+    '&.Mui-focusVisible': {
+      backgroundColor: isLight ? '#ffffff' : '#1E2C37',
+    },
+
     '&.Mui-expanded': {
       [lightTheme.breakpoints.down('table_834')]: {
         borderRadius: '6px 6px 0 0',
