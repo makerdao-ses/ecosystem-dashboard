@@ -155,17 +155,12 @@ const InfoContainer = styled.div<{ isKeyChanges: boolean }>(({ isKeyChanges }) =
   [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: '50%',
     margin: 0,
-    // padding: isKeyChanges ? '80px 64px 80px 0' : '62px 64px 62px 0',
     padding: isKeyChanges ? '60px 48px 60px 0' : '54px 48px 54px 0',
 
     '&::before': {
       display: 'none',
     },
   },
-
-  // [lightTheme.breakpoints.up('desktop_1280')]: {
-  //   padding: isKeyChanges ? '60px 48px 60px 0' : '54px 48px 54px 0',
-  // },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     paddingRight: 112,
@@ -186,15 +181,9 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
     color: isLight ? '#25273D' : '#D2D4EF',
-    // lineHeight: '29.05px',
     fontSize: 32,
     lineHeight: '38.7px',
   },
-
-  // [lightTheme.breakpoints.up('desktop_1280')]: {
-  //   fontSize: 32,
-  //   lineHeight: '38.7px',
-  // },
 }));
 
 const Paragraph = styled.p<WithIsLight & { noMargin?: boolean }>(({ isLight, noMargin = false }) => ({
@@ -214,11 +203,6 @@ const Paragraph = styled.p<WithIsLight & { noMargin?: boolean }>(({ isLight, noM
     fontSize: 20,
     lineHeight: '34px',
   },
-
-  // [lightTheme.breakpoints.up('desktop_1280')]: {
-  //   fontSize: 20,
-  //   lineHeight: '34px',
-  // },
 }));
 
 const Date = styled.span({
