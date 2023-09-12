@@ -82,3 +82,15 @@ export const withWrappedStyles = (styles: React.CSSProperties) => (Story: Story)
 export const withoutSBPadding = (Story: Story) => withWrappedStyles({ margin: '-1rem' })(Story);
 
 export const withFixedPositionRelative = (Story: Story) => withWrappedStyles({ transform: 'translateZ(0)' })(Story);
+
+const Container = styled.div({
+  '& div:first-of-type': {
+    top: 0,
+  },
+});
+
+export const withoutMarginTopInFixedPosition = (Story: Story) => (
+  <Container>
+    <Story />
+  </Container>
+);
