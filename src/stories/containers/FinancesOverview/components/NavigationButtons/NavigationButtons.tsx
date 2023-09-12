@@ -36,10 +36,7 @@ const NavigationButtonsContainer = styled.div({
     margin: '37px auto 0',
     maxWidth: 320,
     padding: 0,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 32,
+    gap: 16,
   },
 });
 
