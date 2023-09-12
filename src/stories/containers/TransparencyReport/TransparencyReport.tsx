@@ -265,7 +265,7 @@ const Wrapper = styled.div({
 });
 
 const PageSeparator = styled.div<{ marginTop: number }>(({ marginTop }) => ({
-  marginTop: 32 + marginTop,
+  marginTop: `${32 + marginTop}px`,
   [lightTheme.breakpoints.up('table_834')]: {
     paddingTop: 32,
     marginTop,
