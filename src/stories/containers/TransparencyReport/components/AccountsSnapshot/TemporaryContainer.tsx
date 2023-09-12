@@ -6,14 +6,16 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import AccountsSnapshot from './AccountsSnapshot';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TemporaryContainerProps {
   snapshot: Snapshots;
   snapshotOwner: string;
+  resourceType: ResourceType;
 }
 
-const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot, snapshotOwner }) => {
+const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot, snapshotOwner, resourceType }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -21,7 +23,7 @@ const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot, snaps
       <Container>
         <Title isLight={isLight}>Account Snapshot</Title>
 
-        <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} />
+        <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} resourceType={resourceType} />
       </Container>
     </PageContainer>
   );
