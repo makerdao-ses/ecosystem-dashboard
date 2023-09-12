@@ -1,6 +1,8 @@
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 
 export const isCoreUnitExpense = (expense: ExpenseDto): boolean => expense.budget.includes('makerdao/core-unit');
+export const isEcosystemActorExpense = (expense: ExpenseDto): boolean =>
+  expense.budget.includes('makerdao/ecosystem-actor');
 
 export const mutableCombinationExpenseByAdding = (expenseA: ExpenseDto, expenseB: ExpenseDto): void => {
   expenseA.actuals += expenseB.actuals;

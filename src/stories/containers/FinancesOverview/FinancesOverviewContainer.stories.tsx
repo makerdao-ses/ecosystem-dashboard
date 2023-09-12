@@ -150,11 +150,26 @@ const variantsArgs = [
         .extend('DUX', 'Development & UX')
         .build(),
       new TotalExpenseReportsBuilder()
+        .withPrediction(779481)
+        .withActuals(329481)
+        .withAnnualPeriod(2023)
+        .withBudget('/makerdao/ecosystem-actors')
+        .extend('DEWIZ', 'DEWIZ')
+
+        .build(),
+      new TotalExpenseReportsBuilder()
         .withPrediction(425631)
         .withActuals(1082362)
         .withAnnualPeriod(2023)
         .extend('TEST', 'Testing')
         .build(),
+      new TotalExpenseReportsBuilder()
+        .withPrediction(425631)
+        .withActuals(1082362)
+        .withAnnualPeriod(2023)
+        .extend('TEST', 'Testing')
+        .build(),
+
       new TotalExpenseReportsBuilder()
         .withBudget('delegates')
         .withPrediction(415631)
@@ -248,7 +263,8 @@ LightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15491:165746',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15491:165746&mode=dev',
         options: {
           componentStyle: {
             width: 343,
@@ -257,7 +273,8 @@ LightMode.parameters = {
         },
       },
       834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:267229',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:267229&mode=dev',
         options: {
           componentStyle: {
             width: 802,
@@ -266,7 +283,8 @@ LightMode.parameters = {
         },
       },
       1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:144041',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399-144041&mode=dev',
         options: {
           componentStyle: {
             width: 1162,
@@ -275,7 +293,8 @@ LightMode.parameters = {
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:143348',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399-143348&mode=dev',
         options: {
           componentStyle: {
             width: 1248,
@@ -284,7 +303,8 @@ LightMode.parameters = {
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15343:199079',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15343:199079&mode=dev',
         options: {
           componentStyle: {
             width: 1408,
@@ -293,7 +313,8 @@ LightMode.parameters = {
         },
       },
       1920: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:142663',
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:142663&mode=dev',
         options: {
           componentStyle: {
             width: 1888,

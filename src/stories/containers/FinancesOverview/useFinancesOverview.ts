@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { useCallback, useMemo, useState } from 'react';
 import {
   isCoreUnitExpense,
+  isEcosystemActorExpense,
   isHeadcountExpense,
   isNonHeadcountExpense,
   mutableCombinationExpenseByAdding,
@@ -146,57 +147,78 @@ const useFinancesOverview = (
   // cost breakdown
   const [selectedFilter, setSelectedFilter] = useState<CostBreakdownFilterValue>('By budget');
 
-  const { byBudgetExpenses, costBreakdownTotal, remainingBudgetCU, maxValueByBudget, remainingBudgetDelegates } =
-    useMemo(() => {
-      let costBreakdownTotal = 0;
-      const byBudgetExpenses: ExtendedExpense[] = [];
-      const remainingBudgetCU = {
-        shortCode: 'CU',
-        name: 'Remaining Core Units',
-        actuals: 0,
-        budgetCap: 0,
-        budget: 'makerdao/core-units',
-        discontinued: 0,
-        period: selectedYear.toString(),
-        prediction: 0,
-      } as ExtendedExpense;
-      const remainingBudgetDelegates = {
-        shortCode: 'DEL',
-        name: 'Recognized Delegates',
-        actuals: 0,
-        budgetCap: 0,
-        budget: 'makerdao/delegates',
-        discontinued: 0,
-        period: selectedYear.toString(),
-        prediction: 0,
-      } as ExtendedExpense;
+  const {
+    byBudgetExpenses,
+    costBreakdownTotal,
+    remainingBudgetCU,
+    maxValueByBudget,
+    remainingBudgetDelegates,
+    remainingEcosystemActors,
+  } = useMemo(() => {
+    let costBreakdownTotal = 0;
+    const byBudgetExpenses: ExtendedExpense[] = [];
+    const remainingBudgetCU = {
+      shortCode: 'CU',
+      name: 'Remaining Core Units',
+      actuals: 0,
+      budgetCap: 0,
+      budget: 'makerdao/core-units',
+      discontinued: 0,
+      period: selectedYear.toString(),
+      prediction: 0,
+    } as ExtendedExpense;
+    const remainingBudgetDelegates = {
+      shortCode: 'DEL',
+      name: 'Recognized Delegates',
+      actuals: 0,
+      budgetCap: 0,
+      budget: 'makerdao/delegates',
+      discontinued: 0,
+      period: selectedYear.toString(),
+      prediction: 0,
+    } as ExtendedExpense;
+    const remainingEcosystemActors = {
+      shortCode: 'EA',
+      name: 'Ecosystem Actors',
+      actuals: 0,
+      budgetCap: 0,
+      budget: 'makerdao/ecosystem-actors',
+      discontinued: 0,
+      period: selectedYear.toString(),
+      prediction: 0,
+    } as ExtendedExpense;
 
-      byBudgetBreakdownExpenses
-        .filter((expense) => expense.period === selectedYear.toString())
-        .sort((a, b) => b.prediction - a.prediction)
-        .forEach((expense, index) => {
-          costBreakdownTotal += expense.prediction;
-          if (index < 10) {
-            byBudgetExpenses.push(expense);
-          } else if (isCoreUnitExpense(expense)) {
-            mutableCombinationExpenseByAdding(remainingBudgetCU, expense);
-          } else {
-            mutableCombinationExpenseByAdding(remainingBudgetDelegates, expense);
-          }
-        });
+    byBudgetBreakdownExpenses
+      .filter((expense) => expense.period === selectedYear.toString())
+      .sort((a, b) => b.prediction - a.prediction)
+      .forEach((expense, index) => {
+        costBreakdownTotal += expense.prediction;
+        if (index < 10) {
+          byBudgetExpenses.push(expense);
+        } else if (isCoreUnitExpense(expense)) {
+          mutableCombinationExpenseByAdding(remainingBudgetCU, expense);
+        } else if (isEcosystemActorExpense(expense)) {
+          mutableCombinationExpenseByAdding(remainingEcosystemActors, expense);
+        } else {
+          mutableCombinationExpenseByAdding(remainingBudgetDelegates, expense);
+        }
+      });
 
-      const maxValueByBudget = Math.max(
-        ...[...byBudgetExpenses, remainingBudgetCU, remainingBudgetDelegates].map((item) => item.prediction)
-      );
+    const maxValueByBudget = Math.max(
+      ...[...byBudgetExpenses, remainingBudgetCU, remainingBudgetDelegates, remainingEcosystemActors].map(
+        (item) => item.prediction
+      )
+    );
 
-      return {
-        byBudgetExpenses,
-        remainingBudgetCU,
-        remainingBudgetDelegates,
-        maxValueByBudget,
-        costBreakdownTotal,
-      };
-    }, [byBudgetBreakdownExpenses, selectedYear]);
+    return {
+      byBudgetExpenses,
+      remainingBudgetCU,
+      remainingEcosystemActors,
+      remainingBudgetDelegates,
+      maxValueByBudget,
+      costBreakdownTotal,
+    };
+  }, [byBudgetBreakdownExpenses, selectedYear]);
 
   const { byCategoryExpenses, remainingCategories, maxValueByCategory } = useMemo(() => {
     const byCategoryExpenses = {
@@ -261,6 +283,7 @@ const useFinancesOverview = (
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
+    remainingEcosystemActors,
   };
 };
 

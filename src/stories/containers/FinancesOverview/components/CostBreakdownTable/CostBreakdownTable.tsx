@@ -5,7 +5,7 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { isCoreUnitExpense } from '../../utils/costBreakdown';
+import { isCoreUnitExpense, isEcosystemActorExpense } from '../../utils/costBreakdown';
 import CostBreakdownFilter from '../CostBreakdownFilter/CostBreakdownFilter';
 import ByBudgetTableHeader from './ByBudgetTableHeader';
 import ByBudgetTableRow from './ByBudgetTableRow';
@@ -23,6 +23,7 @@ export interface CostBreakdownTableProps {
   byBudgetExpenses: ExtendedExpense[];
   remainingBudgetCU: ExtendedExpense;
   remainingBudgetDelegates: ExtendedExpense;
+  remainingEcosystemActors: ExtendedExpense;
   maxValueByBudget: number;
   byCategoryExpenses: {
     headcount: ExpenseDto[];
@@ -40,6 +41,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   byBudgetExpenses,
   remainingBudgetCU,
   remainingBudgetDelegates,
+  remainingEcosystemActors,
   maxValueByBudget,
   byCategoryExpenses,
   remainingCategories,
@@ -65,7 +67,13 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                   expense={budget}
                   total={total}
                   relativePercentage={percentageRespectTo(budget.prediction, maxValueByBudget)}
-                  rowType={isCoreUnitExpense(budget) ? 'coreUnit' : 'delegate'}
+                  rowType={
+                    isCoreUnitExpense(budget)
+                      ? 'coreUnit'
+                      : isEcosystemActorExpense(budget)
+                      ? 'ecosystemActor'
+                      : 'delegate'
+                  }
                   key={i}
                 />
               ))}
@@ -89,6 +97,17 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                       byBudgetExpenses[0]?.prediction
                     )}
                     rowType={'remaining'}
+                  />
+                )}
+                {remainingEcosystemActors?.prediction > 0 && (
+                  <ByBudgetTableRow
+                    expense={remainingEcosystemActors}
+                    total={total}
+                    relativePercentage={percentageRespectTo(
+                      remainingEcosystemActors?.prediction,
+                      byBudgetExpenses[0]?.prediction
+                    )}
+                    rowType={'ecosystemActor'}
                   />
                 )}
               </RemainingContainer>
