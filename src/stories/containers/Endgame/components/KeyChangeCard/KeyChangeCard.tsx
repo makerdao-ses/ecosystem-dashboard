@@ -52,7 +52,7 @@ const Container = styled.div({
   flexDirection: 'column',
   gap: 8,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 16,
   },
 });
@@ -69,11 +69,11 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   gap: 24,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '23px 31px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     flexGrow: 1,
   },
 }));
@@ -92,7 +92,7 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   margin: 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
   },
@@ -157,7 +157,7 @@ const ExternalLink = styled(CustomLink)<WithIsLight>(() => ({
     marginLeft: '7px!important',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
   },
 }));

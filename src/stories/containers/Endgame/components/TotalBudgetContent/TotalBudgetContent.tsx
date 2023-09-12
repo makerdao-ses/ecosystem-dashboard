@@ -41,11 +41,7 @@ const TotalBudgetContent: React.FC = () => {
         <Value isLight={isLight}>15.4M (29.8%)</Value>
       </Values>
 
-      <FinancesLink
-        href={siteRoutes.home}
-        buttonType={ButtonType.Primary}
-        label="Legacy Expenses (Return to Finances)"
-      />
+      <FinancesLink href={siteRoutes.home} buttonType={ButtonType.Primary} label="Legacy Expenses (Back to Finances)" />
     </Content>
   );
 };
@@ -63,12 +59,17 @@ const getColor = (variant: BarVariant, isLight: boolean): string => {
 const Content = styled.div({
   padding: '0px 15px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 0,
+    width: 272,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    minWidth: 388,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    minWidth: 350,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: 387,
   },
 });
 
@@ -80,8 +81,8 @@ const BudgetCapNumber = styled.div<WithIsLight>(({ isLight }) => ({
   letterSpacing: 0.4,
   color: isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 24,
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    fontSize: 20,
     fontWeight: 600,
   },
 }));
@@ -93,8 +94,8 @@ const Currency = styled.span<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#708390',
   marginLeft: 6,
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 20,
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    fontSize: 16,
   },
 }));
 
@@ -116,12 +117,12 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#D4D9E1' : '#31424E',
   margin: '24px 8.5px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 'calc(100% - 10px)',
     margin: '23px 5px 24px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 'calc(100% - 94px)',
     margin: '23px 47px 24px',
   },
@@ -161,7 +162,7 @@ const Bar = styled.div<WithIsLight & { defaultVariant: BarVariant }>(({ isLight,
   background: getColor(defaultVariant, isLight),
   margin: '14px 0 16px 0',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     margin: '14px 0 17px 0',
   },
 }));

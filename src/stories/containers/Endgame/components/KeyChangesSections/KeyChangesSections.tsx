@@ -10,7 +10,7 @@ import TokenUpgradesSection from './Sections/TokenUpgradesSection';
 import { KeyChangesSectionsEnum } from './SectionsEnum';
 
 const KeyChangesSections: React.FC = () => {
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [activeSections, setActiveSections] = React.useState<Set<KeyChangesSectionsEnum>>(
     new Set([KeyChangesSectionsEnum.GOVERNANCE])
   );

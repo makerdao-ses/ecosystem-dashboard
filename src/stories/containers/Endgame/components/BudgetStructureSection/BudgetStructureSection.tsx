@@ -84,13 +84,18 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px 0px rgba(7, 22, 40, 0.40)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
-    padding: '31px 15px',
-    gap: 24,
+    padding: '23px 15px',
+    gap: 16,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    padding: 31,
+    gap: 32,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     padding: '31px 0 31px 63px',
     gap: 64,
   },
@@ -106,15 +111,15 @@ const BudgetComposition = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '24px 16px 0px',
   backgroundColor: isLight ? 'rgba(236, 239, 249, 0.25)' : '#1E2C37',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     alignSelf: 'center',
-    height: 201,
+    height: 189,
     padding: 0,
     backgroundColor: isLight ? '#fff' : '#1E2C37',
     borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     height: 241,
   },
 }));
@@ -127,7 +132,7 @@ const BudgetCompositionTitle = styled.h3<WithIsLight>(({ isLight }) => ({
   margin: 0,
   color: isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 20,
     fontWeight: 600,
     letterSpacing: '0.4px',
@@ -135,8 +140,8 @@ const BudgetCompositionTitle = styled.h3<WithIsLight>(({ isLight }) => ({
     marginLeft: '4.2%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginLeft: '3.5%',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginLeft: '3%',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
