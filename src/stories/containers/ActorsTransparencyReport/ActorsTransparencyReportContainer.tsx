@@ -7,11 +7,13 @@ import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetSt
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
+import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useRef } from 'react';
 import ActorSummary from '../ActorsAbout/ActorSummary/ActorSummary';
 import AccountsSnapshotTabContainer from '../TransparencyReport/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import ExpenseReport from '../TransparencyReport/components/ExpenseReport/ExpenseReport';
@@ -58,7 +60,9 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     lastVisitHandler,
     comments,
   } = useActorsTransparencyReport(actor);
-
+  const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const headline = <TeamHeadLine teamLongCode={actor.code} teamShortCode={actor.shortCode} />;
   return (
     <Wrapper>
@@ -69,9 +73,15 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
         twitterCard={actor.image ? 'summary' : 'summary_large_image'}
         canonicalURL={siteRoutes.ecosystemActorReports(actor.shortCode)}
       />
-      <ActorSummary actors={actors} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
+      <ActorSummary
+        actors={actors}
+        trailingAddress={['Expense Reports']}
+        breadcrumbTitle="Expense Reports"
+        ref={ref}
+        showHeader={showHeader}
+      />
       <PageContainer hasImageBackground={true}>
-        <PageSeparator>
+        <PageSeparator marginTop={height}>
           <Container>
             <BudgetStatementPager
               currentMonth={currentMonth}
@@ -195,14 +205,14 @@ const Wrapper = styled.div({
   width: '100%',
 });
 
-const PageSeparator = styled.div({
-  marginTop: 32,
+const PageSeparator = styled.div<{ marginTop: number }>(({ marginTop }) => ({
+  marginTop: `${32 + marginTop}px`,
 
   [lightTheme.breakpoints.up('table_834')]: {
     paddingTop: 32,
-    marginTop: 0,
+    marginTop,
   },
-});
+}));
 
 const TabsContainer = styled.div({
   margin: '32px 0 16px',
