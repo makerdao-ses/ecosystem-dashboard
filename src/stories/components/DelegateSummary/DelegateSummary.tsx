@@ -4,8 +4,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/light';
-import _ from 'lodash';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+// import _ from 'lodash';
+import React, { forwardRef } from 'react';
 import CustomBreadcrumbs from '../Breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
@@ -15,37 +15,17 @@ import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
 interface Props {
   code?: string;
   links: LinkModel[];
+  showHeader?: boolean;
   items: {
     label: string | JSX.Element;
     url: string;
   }[];
 }
 
-const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
+const DelegateSummary = forwardRef<HTMLDivElement, Props>(({ code = 'del', links, items, showHeader }, ref) => {
   const { isLight } = useThemeContext();
   const isUp1280 = useMediaQuery(lightTheme.breakpoints.up('table_834'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
-
-  const ref = useRef<HTMLDivElement>(null);
-  const [showHeader, setHeader] = useState(true);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleScroll = useCallback(
-    _.debounce(() => {
-      setHeader((ref?.current?.offsetTop ?? 0) <= 65);
-    }, 50),
-    []
-  );
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener('scroll', _.debounce(handleScroll, 50));
-    window.addEventListener('touchmove', _.debounce(handleScroll, 50));
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
-    };
-  }, [handleScroll]);
 
   return (
     <ContainerWithBreadcrumb isLight={isLight} ref={ref} showHeader={showHeader}>
@@ -111,13 +91,13 @@ const DelegateSummary: React.FC<Props> = ({ code = 'del', links, items }) => {
       </Collapse>
     </ContainerWithBreadcrumb>
   );
-};
+});
 
 export default DelegateSummary;
 
 const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; showHeader?: boolean }>(
   ({ isLight, showHeader }) => ({
-    position: 'sticky',
+    position: 'fixed',
     top: 64,
     flexDirection: 'column',
     width: '100%',
