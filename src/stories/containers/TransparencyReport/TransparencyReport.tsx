@@ -7,6 +7,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
+import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
@@ -64,9 +65,10 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
     onTabsExpand,
     compressedTabItems,
   } = useTransparencyReport(coreUnit);
+  const router = useRouter();
   const [isEnabled] = useFlagsActive();
   const ref = useRef<HTMLDivElement>(null);
-  const { height, showHeader } = useHeaderSummary(ref, code);
+  const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const headline = <CuHeadlineText cuLongCode={longCode} />;
   return (
     <Wrapper>
