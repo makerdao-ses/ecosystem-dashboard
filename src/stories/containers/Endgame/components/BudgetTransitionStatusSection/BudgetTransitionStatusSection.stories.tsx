@@ -8,7 +8,7 @@ export default {
   component: BudgetTransitionStatusSection,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -21,7 +21,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(BudgetTransitionS
 LightMode.parameters = {
   figma: {
     component: {
-      375: {
+      0: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21089:238342',
         options: {
           componentStyle: {
@@ -33,11 +33,11 @@ LightMode.parameters = {
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21235:239308',
+      768: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:205084',
         options: {
           componentStyle: {
-            width: 770,
+            width: 704,
           },
           style: {
             top: 0,
@@ -45,11 +45,11 @@ LightMode.parameters = {
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20947:243442',
+      1024: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:212333',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
             top: 0,
