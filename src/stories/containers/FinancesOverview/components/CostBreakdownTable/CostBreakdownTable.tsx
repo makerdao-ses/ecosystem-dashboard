@@ -14,6 +14,7 @@ import ByExpenseCategoryTableRow from './ByExpenseCategoryTableRow';
 import ExpenseCategoryGroup from './ExpenseCategoryGroup';
 import TableFooter from './TableFooter';
 import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
+import type { TableFooterProps } from './TableFooter';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -152,7 +153,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
             </>
           )}
         </TableBody>
-        <TableFooter mode={selectedFilter} total={total} />
+        <TableFooterStyled mode={selectedFilter} total={total} />
       </Table>
     </BreakdownTableContainer>
   );
@@ -226,4 +227,8 @@ const ContainerOpenModal = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'none',
   },
+}));
+
+const TableFooterStyled = styled(TableFooter)<TableFooterProps>(({ mode }) => ({
+  paddingTop: mode === 'By budget' ? 10 : 8,
 }));

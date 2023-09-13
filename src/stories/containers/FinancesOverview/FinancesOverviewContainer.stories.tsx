@@ -284,7 +284,7 @@ LightMode.parameters = {
       },
       1194: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399-144041&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:144041&mode=design&t=iwdjYJMPNwmgoBQ3-4',
         options: {
           componentStyle: {
             width: 1162,
@@ -294,7 +294,7 @@ LightMode.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399-143348&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:143348&mode=dev',
         options: {
           componentStyle: {
             width: 1248,
