@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { siteRoutes } from '@ses/config/routes';
+import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { toAbsoluteURL } from '../../../core/utils/urls';
@@ -17,7 +18,9 @@ interface CUActivityContainerProps {
 }
 
 const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit, coreUnits, activities }) => {
-  const { isLight, columns, onSortClick } = useCuActivity();
+  const { isLight, columns, onSortClick, code, ref } = useCuActivity();
+
+  const { height, showHeader } = useHeaderSummary(ref, code);
   return (
     <Wrapper>
       <SEOHead
@@ -27,9 +30,15 @@ const CUActivityFeedContainer: React.FC<CUActivityContainerProps> = ({ coreUnit,
         twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
         canonicalURL={siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}
       />
-      <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Activity Feed']} breadcrumbTitle="Activity Feed" />
+      <CoreUnitSummary
+        coreUnits={coreUnits}
+        trailingAddress={['Activity Feed']}
+        breadcrumbTitle="Activity Feed"
+        ref={ref}
+        showHeader={showHeader}
+      />
       <Container isLight={isLight}>
-        <InnerPage>
+        <InnerPage marginTop={height}>
           <TableWrapper>
             <ActivityTable
               columns={columns}
@@ -75,12 +84,13 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const InnerPage = styled.div({
+const InnerPage = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   display: 'block',
   textAlign: 'left',
   width: '100%',
   maxWidth: '1440px',
   margin: '0 auto',
+  marginTop,
   paddingTop: 24,
   paddingRight: '64px',
   paddingLeft: '64px',
@@ -105,7 +115,7 @@ const InnerPage = styled.div({
     paddingRight: '16px',
     paddingLeft: '16px',
   },
-});
+}));
 
 export const Title = styled.div<{
   marginBottom?: number;
