@@ -3,21 +3,26 @@ import TemporaryContainer from '@ses/containers/TransparencyReport/components/Ac
 import {
   fetchAccountsSnapshot,
   generateSnapshotOwnerString,
+  getResourceType,
 } from '@ses/containers/TransparencyReport/components/AccountsSnapshot/api/queries';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { DateTime } from 'luxon';
 import React from 'react';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { GetServerSidePropsContext } from 'next';
 
 interface TemporalAccountSnapshotPageProps {
   snapshot: Snapshots;
   snapshotOwner: string;
+  resourceType: ResourceType;
 }
 
-const TemporalAccountSnapshotPage: React.FC<TemporalAccountSnapshotPageProps> = ({ snapshot, snapshotOwner }) => (
-  <TemporaryContainer snapshot={snapshot} snapshotOwner={snapshotOwner} />
-);
+const TemporalAccountSnapshotPage: React.FC<TemporalAccountSnapshotPageProps> = ({
+  snapshot,
+  snapshotOwner,
+  resourceType,
+}) => <TemporaryContainer snapshot={snapshot} snapshotOwner={snapshotOwner} resourceType={resourceType} />;
 
 export default TemporalAccountSnapshotPage;
 
@@ -51,6 +56,8 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     };
   }
 
+  const resourceType = getResourceType(ownerType);
+
   const [snapshots, snapshotOwner] = await Promise.all([
     fetchAccountsSnapshot(
       ownerType as string,
@@ -73,6 +80,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       ownerId,
       snapshot: snapshots[0] ?? null,
       snapshotOwner,
+      resourceType,
     },
   };
 };
