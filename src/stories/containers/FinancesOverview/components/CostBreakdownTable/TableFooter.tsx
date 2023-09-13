@@ -6,16 +6,17 @@ import React from 'react';
 import type { CostBreakdownFilterValue } from '../../financesOverviewTypes';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-interface TableFooterProps {
+export interface TableFooterProps {
   mode: CostBreakdownFilterValue;
   total: number;
+  className?: string;
 }
 
-const TableFooter: React.FC<TableFooterProps> = ({ mode, total = 0 }) => {
+const TableFooter: React.FC<TableFooterProps> = ({ mode, total = 0, className }) => {
   const { isLight } = useThemeContext();
 
   return (
-    <TableFooterContainer isLight={isLight}>
+    <TableFooterContainer isLight={isLight} className={className}>
       <Total isLight={isLight}>Total </Total>
       <TotalNumber isLight={isLight} extraPadding={mode === 'By budget'}>
         {usLocalizedNumber(Math.round(total))} <DAISpan isLight={isLight}>DAI</DAISpan>

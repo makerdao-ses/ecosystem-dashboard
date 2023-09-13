@@ -54,6 +54,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     remainingCategories,
     maxValueByCategory,
     costBreakdownTotal,
+    remainingEcosystemActors,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
   return (
@@ -96,6 +97,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
 
           <BreakdownTableColumn>
             <CostBreakdownTable
+              remainingEcosystemActors={remainingEcosystemActors}
               selectedFilter={selectedFilter}
               setSelectedFilter={setSelectedFilter}
               byBudgetExpenses={byBudgetExpenses}
