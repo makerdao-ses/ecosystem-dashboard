@@ -524,7 +524,7 @@ const ContainerArrow = styled.div<WithIsLight>(({ isLight }) => ({
     borderRadius: 6,
     width: 48,
     height: 63,
-    boxShadow: isLight ? '0px 2px 3px 0px #DEE1F4' : 'red',
+    boxShadow: isLight ? '0px 2px 3px 0px #DEE1F4' : '0px 2px 3px 0px #040C27',
   },
 }));
 

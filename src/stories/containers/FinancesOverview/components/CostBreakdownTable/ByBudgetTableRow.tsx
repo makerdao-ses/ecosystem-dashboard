@@ -14,7 +14,7 @@ interface ByBudgetTableRowProps {
   expense: ExtendedExpense;
   total: number;
   relativePercentage?: number;
-  rowType: 'coreUnit' | 'delegate' | 'remaining';
+  rowType: 'coreUnit' | 'delegate' | 'remaining' | 'ecosystemActor';
 }
 
 const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
@@ -31,6 +31,8 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
       ? siteRoutes.coreUnitReports(expense.shortCode ?? '')
       : rowType === 'delegate' || expense.shortCode === 'DEL'
       ? siteRoutes.recognizedDelegateReport
+      : rowType === 'ecosystemActor'
+      ? siteRoutes.ecosystemActorReports(expense.shortCode ?? '')
       : siteRoutes.coreUnitsOverview;
 
   return (

@@ -2,11 +2,12 @@ import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import { ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
 import { getShortCode } from '@ses/core/utils/string';
 import request, { gql } from 'graphql-request';
-import { isCoreUnitExpense } from '../utils/costBreakdown';
+import { isCoreUnitExpense, isEcosystemActorExpense } from '../utils/costBreakdown';
 import type { ExtendedExpense } from '../financesOverviewTypes';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
+import type { Team } from '@ses/core/models/interfaces/team';
 
 export const totalExpensesQuery = (granularity: ExpenseGranularity, budgets: string) => ({
   query: gql`
@@ -66,6 +67,10 @@ export const costBreakdownExpensesQuery = () => ({
         shortCode
         name
       }
+      teams {
+        shortCode
+        name
+      }
     }
   `,
   filter: {
@@ -112,10 +117,14 @@ export const fetchCostBreakdownExpenses = async (): Promise<{
     byBudget: { reports: { expenses: ExpenseDto[] } };
     byCategory: { reports: { expenses: ExpenseDto[] } };
     coreUnits: CoreUnitDto[];
+    teams: Team[];
   }>(GRAPHQL_ENDPOINT, query, filter);
 
   const coreUnitsMap = new Map<string, CoreUnitDto>();
+  const teamsMap = new Map<string, Team>();
+
   res.coreUnits.forEach((cu) => coreUnitsMap.set(cu.shortCode, cu));
+  res.teams.forEach((team) => teamsMap.set(team.shortCode, team));
 
   const byBudget = res.byBudget.reports.expenses.map((expense) => {
     if (isCoreUnitExpense(expense)) {
@@ -124,6 +133,14 @@ export const fetchCostBreakdownExpenses = async (): Promise<{
         ...expense,
         shortCode,
         name: coreUnitsMap.get(shortCode)?.name ?? 'Unknown',
+      } as ExtendedExpense;
+    }
+    if (isEcosystemActorExpense(expense)) {
+      const shortCode = getShortCode(expense.budget.replace('makerdao/ecosystem-actors/', ''));
+      return {
+        ...expense,
+        shortCode,
+        name: teamsMap.get(shortCode)?.name ?? 'Unknown',
       } as ExtendedExpense;
     }
     // it is a delegate expense

@@ -36,7 +36,7 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   letterSpacing: 0.4,
   color: isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 32,
   },
 }));
@@ -47,7 +47,7 @@ const Subtitle = styled.p<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: 'normal',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
   },

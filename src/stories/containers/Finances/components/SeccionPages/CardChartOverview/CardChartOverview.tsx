@@ -62,11 +62,12 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
     flexDirection: 'column',
     padding: '16px 16px 24px 32px',
     borderRadius: 6,
-    border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : 'red',
-    background: isLight ? '#FFF' : 'red',
+    border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : '#31424E',
+    background: isLight ? '#FFF' : '#1E2C37',
     boxShadow: isLight
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-      : 'red',
+      : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+
     height: 223,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -107,6 +108,7 @@ const ContainerFilters = styled.div({
     marginRight: 8,
   },
 });
+
 const Item = styled.div<WithIsLight & { isSelected: boolean }>(({ isLight, isSelected }) => ({
   [lightTheme.breakpoints.up('tablet_768')]: {
     color: isLight ? (isSelected ? '#2DC1B1' : '#D1DEE6') : isSelected ? '#139D8D' : '#546978',
@@ -177,10 +179,8 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginLeft: 32,
     height: 134,
-    borderLeft: 'none',
     marginTop: 20,
-
-    border: isLight ? '1px solid #D4D9E1' : 'red',
+    borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: '0',

@@ -9,6 +9,7 @@ const NavigationButtons: React.FC = () => (
   <NavigationButtonsContainer>
     <Button href={siteRoutes.coreUnitsOverview} label="Core Units" buttonType={ButtonType.Primary} />
     <Button href={siteRoutes.recognizedDelegate} label="Recognized Delegates" buttonType={ButtonType.Primary} />
+    <Button href={siteRoutes.ecosystemActors} label="Ecosystem Actors" buttonType={ButtonType.Primary} />
   </NavigationButtonsContainer>
 );
 
@@ -19,24 +20,27 @@ const NavigationButtonsContainer = styled.div({
   flexDirection: 'column',
   gap: 16,
   width: '100%',
-  margin: '10px auto 0',
+  margin: '12px auto 0',
   padding: '0 22px',
 
   [lightTheme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 24,
-    maxWidth: 571,
+    padding: 0,
+    maxWidth: 738,
     margin: '46px auto 0',
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    margin: '37px auto 0',
+    flexDirection: 'column',
+    margin: '32px auto 0',
+    maxWidth: 320,
     padding: 0,
+    gap: 16,
   },
-
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 32,
+    margin: '32px auto 0',
   },
 });
 
@@ -50,5 +54,8 @@ const Button = styled(LinkButton)({
     width: '100%',
     fontSize: 16,
     lineHeight: '19px',
+  },
+  [lightTheme.breakpoints.up('table_834')]: {
+    minWidth: 218,
   },
 });

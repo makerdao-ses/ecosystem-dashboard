@@ -1,4 +1,5 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import request, { gql } from 'graphql-request';
 import type { SnapshotFilter, Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { DateTime } from 'luxon';
@@ -149,6 +150,26 @@ const getTeamsShortCode = async (ownerId: string): Promise<string> => {
     return res.teams[0].shortCode;
   }
   return '';
+};
+
+export const getResourceType = (ownerType: string): ResourceType => {
+  switch (ownerType) {
+    case 'CoreUnit':
+    case 'CoreUnitDraft':
+      return ResourceType.CoreUnit;
+    case 'DelegatesDraft':
+    case 'Delegates':
+      return ResourceType.Delegates;
+    case 'EcosystemActor':
+    case 'EcosystemActorDraft':
+      return ResourceType.EcosystemActor;
+    case 'Keepers':
+    case 'KeepersDraft':
+      return ResourceType.Keepers;
+
+    default:
+      return ResourceType.EcosystemActor;
+  }
 };
 
 export const generateSnapshotOwnerString = async (ownerType: string, ownerId: string): Promise<string | undefined> => {

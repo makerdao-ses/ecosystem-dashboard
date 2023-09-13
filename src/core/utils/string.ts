@@ -190,7 +190,9 @@ export const getResourceLabel = (resourceType?: ResourceType): string => {
     case ResourceType.CoreUnit:
       return 'Core Unit';
     case ResourceType.Delegates:
-      return 'Delegate';
+      return 'Recognized Delegate';
+    case ResourceType.Keepers:
+      return 'Keeper';
     default:
       return 'Ecosystem Actor';
   }

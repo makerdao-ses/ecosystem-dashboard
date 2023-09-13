@@ -6,11 +6,12 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { siteRoutes } from '@ses/config/routes';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
+import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useRef } from 'react';
 import ExpenseReportStatusIndicator from '../TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import AuditorCommentsContainer from '../TransparencyReport/components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import DelegatesActuals from './DelegatesActuals/DelegatesActuals';
@@ -42,7 +43,10 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesProps> = (
     comments,
     selectedTab,
     onTabChange,
+    code,
   } = useRecognizedDelegatesReport(delegates);
+  const ref = useRef<HTMLDivElement>(null);
+  const { height, showHeader } = useHeaderSummary(ref, code);
 
   return (
     <Container isLight={isLight}>
@@ -59,8 +63,8 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesProps> = (
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
         canonicalURL={siteRoutes.recognizedDelegateReport}
       />
-      <DelegateSummary links={links} items={itemsBreadcrumb} />
-      <ContainerInside>
+      <DelegateSummary links={links} items={itemsBreadcrumb} ref={ref} showHeader={showHeader} />
+      <ContainerInside marginTop={height}>
         <ContainerPagerBar>
           <PagerBar className="no-select" ref={null}>
             <PagerBarLeft>
@@ -156,21 +160,23 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   backgroundSize: 'cover',
 }));
 
-const ContainerInside = styled.div({
+const ContainerInside = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   display: 'block',
   textAlign: 'left',
   width: '100%',
   maxWidth: '1440px',
-  margin: '22px auto 0',
+  marginBottom: 0,
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  marginTop: 22 + marginTop,
   paddingRight: '64px',
   paddingLeft: '64px',
-
   [lightTheme.breakpoints.up('table_834')]: {
-    marginTop: 45,
+    marginTop: 45 + marginTop,
   },
 
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 40,
+    marginTop: 40 + marginTop,
   },
 
   [lightTheme.breakpoints.up('desktop_1920')]: {
@@ -193,7 +199,7 @@ const ContainerInside = styled.div({
     paddingRight: '16px',
     paddingLeft: '16px',
   },
-});
+}));
 
 const ContainerPagerBar = styled.div({
   [lightTheme.breakpoints.up('table_834')]: {

@@ -10,7 +10,7 @@ export default {
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440, 1920],
+      viewports: [375, 768, 1024, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
   },
@@ -88,7 +88,7 @@ KeyChangesLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20979:251300',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21089:238100',
         options: {
           componentStyle: {
             width: 343,
@@ -99,28 +99,32 @@ KeyChangesLightMode.parameters = {
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21235:239060',
+      768: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204940',
         options: {
           componentStyle: {
-            width: 834,
+            width: 768,
           },
           style: {
             top: -61,
+            left: -100,
+          },
+        },
+      },
+      1024: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:210984',
+        options: {
+          componentStyle: {
+            width: 1024,
+          },
+          style: {
+            top: -60,
             left: -84,
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20872:240015',
-        options: {
-          style: {
-            margin: 0,
-          },
-        },
-      },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20872:235804',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=23817:107416',
         options: {
           style: {
             margin: 0,
@@ -128,7 +132,7 @@ KeyChangesLightMode.parameters = {
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:270107',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=23817:105537',
         options: {
           style: {
             margin: 0,

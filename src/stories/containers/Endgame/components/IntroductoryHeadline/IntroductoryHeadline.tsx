@@ -25,7 +25,7 @@ const Section = styled.section({
   textAlign: 'center',
   marginBottom: 38,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 'auto',
     marginRight: 'auto',
     maxWidth: 675,
@@ -40,7 +40,7 @@ const HeadlineTitle = styled.h1<WithIsLight>(({ isLight }) => ({
   letterSpacing: 0.4,
   color: isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 32,
   },
 }));
@@ -52,7 +52,7 @@ const HeadlineSubtext = styled.p<WithIsLight>(({ isLight }) => ({
   lineHeight: '16px',
   color: isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
     marginTop: 27,
