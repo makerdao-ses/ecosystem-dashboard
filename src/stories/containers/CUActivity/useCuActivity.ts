@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SortEnum } from '../../../core/enums/sortEnum';
@@ -6,7 +7,9 @@ import type { ActivityTableHeader } from '../../components/CUActivityTable/Activ
 
 export const useCuActivity = () => {
   const { isLight } = useThemeContext();
-
+  const router = useRouter();
+  const code = router.query.code as string;
+  const ref = useRef<HTMLDivElement>(null);
   const [columns, setColumns] = useState<ActivityTableHeader[]>([
     {
       header: 'Timestamp',
@@ -40,5 +43,7 @@ export const useCuActivity = () => {
     isLight,
     columns,
     onSortClick,
+    code,
+    ref,
   };
 };
