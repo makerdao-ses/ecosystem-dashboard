@@ -19,7 +19,6 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
-
   const {
     radius,
     center,

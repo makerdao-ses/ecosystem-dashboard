@@ -15,8 +15,9 @@ interface Props {
 const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const normalSizeDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const {
     center,
@@ -26,7 +27,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
     paddingRichTextPercent,
     paddingRichTextValue,
     radius,
-  } = calculateValuesByBreakpoint(isTable, isSmallDesk, normalSizeDesk);
+  } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
   const options = {
     color: doughnutSeriesData.map((data) => data.color),
