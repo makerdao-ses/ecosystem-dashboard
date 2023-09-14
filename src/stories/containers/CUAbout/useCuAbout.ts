@@ -1,6 +1,6 @@
 import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import sortBy from 'lodash/sortBy';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useRef } from 'react';
 import { getRelateMipObjectFromCoreUnit } from '../../../core/businessLogic/coreUnitAbout';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/urls';
@@ -17,6 +17,7 @@ interface Props {
 }
 
 export const useCuAbout = ({ cuAbout, code, router, setShowThreeMIPs, showThreeMIPs }: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
@@ -66,5 +67,6 @@ export const useCuAbout = ({ cuAbout, code, router, setShowThreeMIPs, showThreeM
     setShowThreeMIPs,
     onClickActivity,
     queryStrings,
+    ref,
   };
 };

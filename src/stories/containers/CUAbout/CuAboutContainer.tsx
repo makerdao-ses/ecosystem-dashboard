@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
@@ -31,6 +32,7 @@ interface Props {
 
 const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const router = useRouter();
+
   const { isLight } = useThemeContext();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
   const [isEnabled] = useFlagsActive();
@@ -40,13 +42,14 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
   const lessDesktop1194 = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings } = useCuAbout({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings, ref } = useCuAbout({
     cuAbout,
     code,
     router,
     showThreeMIPs,
     setShowThreeMIPs,
   });
+  const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
 
   return (
     <ContainerAbout isLight={isLight}>
@@ -58,9 +61,9 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
         canonicalURL={siteRoutes.coreUnitAbout(code)}
       />
 
-      <CoreUnitSummary coreUnits={coreUnits} showDescription={true} />
+      <CoreUnitSummary coreUnits={coreUnits} showDescription={true} ref={ref} showHeader={showHeader} />
       <Wrapper>
-        <ContainerAllData>
+        <ContainerAllData marginTop={height}>
           <ContainerResponsive>
             <MarkdownContainer>
               <MdViewerContainer
@@ -350,13 +353,14 @@ const ContainerNoRelateMIps = styled.div({
   justifyContent: 'center',
 });
 
-const ContainerAllData = styled.div({
+const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   maxWidth: '100%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginRight: '64px',
   marginLeft: '64px',
+  marginTop,
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginRight: '0px',
     marginLeft: '0px',
@@ -373,7 +377,7 @@ const ContainerAllData = styled.div({
     marginRight: '16px',
     marginLeft: '16px',
   },
-});
+}));
 
 export const DividerStyle = styled(Divider)({
   width: '100%',

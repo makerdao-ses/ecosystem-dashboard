@@ -14,9 +14,10 @@ interface Props {
 
 const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
   const { isLight } = useThemeContext();
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
-  const normalSizeDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const {
     center,
@@ -26,7 +27,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
     paddingRichTextPercent,
     paddingRichTextValue,
     radius,
-  } = calculateValuesByBreakpoint(isTable, isSmallDesk, normalSizeDesk);
+  } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
   const options = {
     color: doughnutSeriesData.map((data) => data.color),
@@ -41,6 +42,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
         width: 40,
       },
       padding: 0,
+      borderWidth: 2,
       formatter: function (params: DoughnutSeries) {
         const index = doughnutSeriesData.findIndex((data) => data.name === params.name);
         const itemRender = doughnutSeriesData[index];
@@ -83,9 +85,6 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
           normal: {
             show: false,
           },
-        },
-        textStyle: {
-          color: 'red',
         },
         data: doughnutSeriesData,
       },
@@ -175,12 +174,17 @@ const Container = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 422,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 420,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     width: '100%',
+    marginTop: 'revert',
+    height: 'revert',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {

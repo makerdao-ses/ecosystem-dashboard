@@ -10,13 +10,13 @@ import type { EChartsOption } from 'echarts-for-react';
 
 const BudgetTransitionChart: React.FC = () => {
   const { isLight } = useThemeContext();
-  const upTable = useMediaQuery(lightTheme.breakpoints.up('table_834'));
+  const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
 
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const isTablet = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const isDesktop1194 = useMediaQuery(lightTheme.breakpoints.between('desktop_1194', 'desktop_1280'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
-  const barWidth = isMobile ? 16 : isTablet ? 32 : isDesktop1194 ? 48 : 56;
+  const barWidth = isMobile ? 16 : isTablet ? 32 : isDesktop1024 ? 48 : 56;
 
   const barBorderRadius = isMobile ? 4 : 6;
   const itemStyleBottom = {
@@ -28,10 +28,10 @@ const BudgetTransitionChart: React.FC = () => {
 
   const options: EChartsOption = {
     grid: {
-      height: isMobile ? 222 : isTablet ? 312 : isDesktop1194 ? 392 : 392,
-      width: isMobile ? 273 : isTablet ? 594 : isDesktop1194 ? 864 : 960,
-      top: isMobile ? 15 : isTablet ? 6 : isDesktop1194 ? 6 : 11,
-      right: isMobile ? 6 : isTablet ? 7 : 4,
+      height: isMobile ? 222 : isTablet ? 312 : isDesktop1024 ? 392 : 392,
+      width: isMobile ? 273 : isTablet ? 588 : isDesktop1024 ? 765 : 960,
+      top: isMobile ? 15 : isTablet ? 6 : isDesktop1024 ? 6 : 11,
+      right: isMobile ? 6 : isTablet ? 7 : isDesktop1024 ? 10 : 4,
     },
     xAxis: {
       type: 'category',
@@ -97,7 +97,7 @@ const BudgetTransitionChart: React.FC = () => {
     },
     yAxis: {
       axisLabel: {
-        margin: isMobile ? 13 : isTablet ? 22 : 28,
+        margin: isMobile ? 13 : isTablet ? 22 : isDesktop1024 ? 32 : 28,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -297,13 +297,13 @@ const ChartContainer = styled.div({
   marginRight: 'auto',
   marginTop: 24,
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    maxWidth: 661,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    maxWidth: 656,
     height: 350,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 932,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    maxWidth: 848,
     height: 431,
   },
 
@@ -321,7 +321,7 @@ const YearsContainer = styled.div({
   bottom: -20,
   left: 45,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
@@ -339,7 +339,7 @@ const LegendContainer = styled.div({
   width: 'fit-content',
   margin: '47px auto 0',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     gap: 64,
     marginTop: 39,
@@ -370,7 +370,7 @@ const LegendItem = styled.div<WithIsLight & { variant: 'yellow' | 'green' }>(({ 
       : '#098C7D',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
     marginLeft: 20,

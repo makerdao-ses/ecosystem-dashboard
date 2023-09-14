@@ -5,8 +5,9 @@ import Tabs from '@ses/components/Tabs/Tabs';
 import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
+import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import React from 'react';
+import React, { useRef } from 'react';
 import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -64,7 +65,8 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
     compressedTabItems,
   } = useTransparencyReport(coreUnit);
   const [isEnabled] = useFlagsActive();
-
+  const ref = useRef<HTMLDivElement>(null);
+  const { height, showHeader } = useHeaderSummary(ref, code);
   const headline = <CuHeadlineText cuLongCode={longCode} />;
   return (
     <Wrapper>
@@ -75,9 +77,15 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
         twitterCard={coreUnit.image ? 'summary' : 'summary_large_image'}
         canonicalURL={siteRoutes.coreUnitReports(coreUnit.shortCode)}
       />
-      <CoreUnitSummary coreUnits={coreUnits} trailingAddress={['Expense Reports']} breadcrumbTitle="Expense Reports" />
+      <CoreUnitSummary
+        coreUnits={coreUnits}
+        trailingAddress={['Expense Reports']}
+        breadcrumbTitle="Expense Reports"
+        showHeader={showHeader}
+        ref={ref}
+      />
       <PageContainer hasImageBackground={true}>
-        <PageSeparator>
+        <PageSeparator marginTop={height}>
           <Container>
             <BudgetStatementPager
               currentMonth={currentMonth}
@@ -254,14 +262,13 @@ const Wrapper = styled.div({
   width: '100%',
 });
 
-const PageSeparator = styled.div({
-  marginTop: 32,
-
+const PageSeparator = styled.div<{ marginTop: number }>(({ marginTop }) => ({
+  marginTop: `${32 + marginTop}px`,
   [lightTheme.breakpoints.up('table_834')]: {
     paddingTop: 32,
-    marginTop: 0,
+    marginTop,
   },
-});
+}));
 
 export const Title = styled.div<{
   marginBottom?: number;
