@@ -57,10 +57,10 @@ export default CardChartOverview;
 
 const Container = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '16px 24px 24px 32px',
+    padding: '16px 16px 24px 32px',
     borderRadius: 6,
     border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : '#31424E',
     background: isLight ? '#FFF' : '#1E2C37',
@@ -70,7 +70,11 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
 
     height: 223,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    padding: '16px 24px 24px 32px',
+    height: 223,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     padding: '16px 24px 48px 64px',
     height: 311,
   },
@@ -82,45 +86,59 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const ContainerFilters = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     gap: 8,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    gap: 24,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 8,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginBottom: 32,
+
     marginTop: -2,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 24,
+    marginBottom: 32,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginRight: 8,
   },
 });
+
 const Item = styled.div<WithIsLight & { isSelected: boolean }>(({ isLight, isSelected }) => ({
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     color: isLight ? (isSelected ? '#2DC1B1' : '#D1DEE6') : isSelected ? '#139D8D' : '#546978',
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: 500,
     lineHeight: 'normal',
     cursor: 'pointer',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    fontSize: 14,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: 16,
   },
 }));
 
 const ContainerCardChart = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     gap: 0,
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 32,
+    marginLeft: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
     gap: 64,
@@ -135,11 +153,21 @@ const ContainerCardChart = styled.div({
 });
 
 const ContainerCardInformation = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 241,
+    paddingTop: 4,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 300,
+
+    paddingTop: 'revert',
+    paddingLeft: 'revert',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 300,
+
+    paddingTop: 'revert',
+    paddingLeft: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 300,
@@ -148,13 +176,16 @@ const ContainerCardInformation = styled.div({
 
 const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginLeft: 32,
     height: 134,
     marginTop: 20,
     borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginLeft: '0',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: '0',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -164,7 +195,16 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
 
 const ContainerChat = styled.div({
   display: 'flex',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    width: 440,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 440,
+    marginLeft: 66,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 440,
     marginLeft: 60,
   },
