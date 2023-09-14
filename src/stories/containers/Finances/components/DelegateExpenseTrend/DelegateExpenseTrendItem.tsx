@@ -322,7 +322,6 @@ const FooterMobile = styled.div({
   '& > a': {
     flex: 1,
   },
-  // border: '2px solid red',
   ':hover': {
     background: '#1E2C37',
   },
