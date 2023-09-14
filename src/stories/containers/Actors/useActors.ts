@@ -164,7 +164,6 @@ export const useActors = (actors: Team[], stories = false) => {
   }, [groupByStatusDefaultSorting, sortData]);
 
   const onSortClick = (index: number) => {
-    console.log('onSortClick', index);
     const sortNeutralState = columns.map((column) =>
       column.sort ? SortEnum.Neutral : SortEnum.Disabled
     ) as SortEnum[];

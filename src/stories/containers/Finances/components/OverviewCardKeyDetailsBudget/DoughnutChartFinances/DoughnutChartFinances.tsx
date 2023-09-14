@@ -40,23 +40,25 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
       emphasis: {
         width: 40,
       },
-
+      padding: 0,
       formatter: function (params: DoughnutSeries) {
         const index = doughnutSeriesData.findIndex((data) => data.name === params.name);
         const itemRender = doughnutSeriesData[index];
 
         const customTooltip = `
-        <div style="background-color:${isLight ? '#fff' : 'red'}; border:padding: 16px;width:194px">
-          <div style="margin-bottom:4px;">${itemRender.percent} %</div>
-          <div style="margin-bottom:16px">${itemRender.name}</div>
+        <div style="background-color:${
+          isLight ? '#fff' : '#000A13'
+        };padding:16px;minWidth:194px;overflow:auto;border-radius:3px;">
+          <div style="margin-bottom:4px;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.percent} %</div>
+          <div style="margin-bottom:16px;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.name}</div>
           <div style="display:flex;flex-direction:row;justify-content:space-between;">
               <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;">${itemRender.actuals}</div>
-                <div style="font-weight:bold">Actuals</div>
+                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.actuals}</div>
+                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Actuals</div>
              </div>
               <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;">${itemRender.budgetCap}</div>
-                <div style="font-weight:bold">Budget Cap</div>
+                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.budgetCap}</div>
+                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Budget Cap</div>
              </div>
           </div>
         </div>
@@ -115,33 +117,33 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
         fontFamily: 'Inter, sans-serif',
         fontStyle: 'normal',
         fontWeight: 400,
-        color: isLight ? '#43435' : 'red',
+        color: isLight ? '#43435' : '#EDEFFF',
         rich: {
           name: {
             fontSize: 12,
             fontFamily: 'Inter, sans-serif',
             padding: paddingRichTextName,
 
-            color: isLight ? '#43435' : 'red',
+            color: isLight ? '#43435' : '#EDEFFF',
           },
           value: {
             fontSize: 14,
             width: 'fit-content',
             fontFamily: 'Inter, sans-serif',
-            color: isLight ? '#9FAFB9' : 'red',
+            color: isLight ? '#9FAFB9' : '#546978',
             padding: paddingRichTextValue,
           },
           dai: {
             fontSize: 14,
             width: 'fit-content',
             fontFamily: 'Inter, sans-serif',
-            color: isLight ? '#9FAFB9' : 'red',
+            color: isLight ? '#9FAFB9' : '#546978',
             padding: paddingRichTextDai,
           },
           percent: {
             fontSize: 14,
             fontFamily: 'Inter, sans-serif',
-            color: isLight ? '#9FAFB9' : 'red',
+            color: isLight ? '#9FAFB9' : '#546978',
             padding: paddingRichTextPercent,
           },
         },
