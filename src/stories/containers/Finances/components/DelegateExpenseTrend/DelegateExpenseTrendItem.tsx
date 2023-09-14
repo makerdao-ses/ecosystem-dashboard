@@ -48,7 +48,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
   const isCoreUnitElement = isCoreUnit(expenseReport);
 
   const elementInDesk = (
-    <ContainerInside>
+    <ContainerInside isLight={isLight}>
       <ContainerDesk>
         <ContainerMobile>
           <ActorLabel isLight={isLight}>Ecosystem Actor</ActorLabel>
@@ -184,17 +184,20 @@ const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: bo
   },
 }));
 
-const ContainerInside = styled.div({
+const ContainerInside = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '16px 16px 8px',
-
+  cursor: 'pointer',
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '8px 8px 16px 16px',
     flexDirection: 'row',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '16px',
+    ':hover': {
+      backgroundColor: isLight ? '#ECF1F3' : '#1E2C37',
+    },
   },
-});
+}));
 
 const ContainerIconName = styled.div({
   display: 'flex',
@@ -319,7 +322,9 @@ const FooterMobile = styled.div({
   '& > a': {
     flex: 1,
   },
-
+  ':hover': {
+    background: '#1E2C37',
+  },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },

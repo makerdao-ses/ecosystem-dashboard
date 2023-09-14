@@ -30,7 +30,8 @@ const Container = styled.button<WithIsLight>(({ isLight }) => ({
   height: 34,
   cursor: 'pointer',
   ':hover': {
-    border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+    border: `1px solid ${isLight ? '#231536' : '#787A9B'}`,
+    background: isLight ? 'none' : '#10191F',
   },
 }));
 
