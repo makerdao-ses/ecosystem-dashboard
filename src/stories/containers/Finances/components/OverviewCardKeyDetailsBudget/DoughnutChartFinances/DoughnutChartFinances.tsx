@@ -173,9 +173,9 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 422,
+    // height: 140,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -183,12 +183,10 @@ const Container = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: '100%',
-    marginTop: 'revert',
-    height: 'revert',
+    height: 210,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: '100%',
-    height: 196,
   },
 });
