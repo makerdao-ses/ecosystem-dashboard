@@ -48,19 +48,19 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
         const itemRender = doughnutSeriesData[index];
 
         const customTooltip = `
-        <div style="background-color:${isLight ? '#fff' : '#1E2C37'};overflow:'hidden';padding:16px;color: ${
-          isLight ? '#231536' : '#D2D4EF'
-        };border-radius: 2px;">
-          <div style="margin-bottom:4px;padding:0px">${itemRender.percent} %</div>
-          <div style="margin-bottom:16px">${itemRender.name}</div>
+        <div style="background-color:${
+          isLight ? '#fff' : '#000A13'
+        };padding:16px;minWidth:194px;overflow:auto;border-radius:3px;">
+          <div style="margin-bottom:4px;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.percent} %</div>
+          <div style="margin-bottom:16px;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.name}</div>
           <div style="display:flex;flex-direction:row;justify-content:space-between;">
               <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;">${itemRender.actuals}</div>
-                <div style="font-weight:bold">Actuals</div>
+                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.actuals}</div>
+                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Actuals</div>
              </div>
               <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;">${itemRender.budgetCap}</div>
-                <div style="font-weight:bold">Budget Cap</div>
+                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.budgetCap}</div>
+                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Budget Cap</div>
              </div>
           </div>
         </div>
@@ -173,7 +173,6 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 422,
   },
@@ -183,12 +182,10 @@ const Container = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: '100%',
-    marginTop: 'revert',
-    height: 'revert',
+    height: 210,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: '100%',
-    height: 196,
   },
 });
