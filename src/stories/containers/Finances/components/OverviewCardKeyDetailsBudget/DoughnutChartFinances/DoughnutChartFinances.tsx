@@ -175,7 +175,6 @@ const Container = styled.div({
   justifyContent: 'center',
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 422,
-    // height: 140,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
