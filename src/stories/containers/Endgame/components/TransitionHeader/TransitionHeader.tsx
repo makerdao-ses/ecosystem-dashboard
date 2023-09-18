@@ -73,11 +73,11 @@ const From = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     backgroundImage: `url("/assets/img/endgame/arrow_desktop_${isLight ? 'light' : 'dark'}.png")`,
-    backgroundSize: 'calc(100% + 15px) 100%',
+    backgroundSize: 'calc(100% + 22px) 100%',
     backgroundRepeat: 'no-repeat',
     minHeight: 87,
     paddingLeft: 32,
-    paddingRight: 131,
+    paddingRight: 112,
     paddingBottom: 0,
     width: 'calc(50% + 140px)',
     filter: 'none',
@@ -86,11 +86,17 @@ const From = styled.div<WithIsLight>(({ isLight }) => ({
       marginBottom: 16,
       marginLeft: 4,
     },
+  },
 
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      paddingRight: 75,
-      width: 'calc(50% + 89px)',
-    },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    backgroundSize: 'calc(100% + 15px) 100%',
+    paddingRight: 131,
+    width: 'calc(50% + 140px)',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    paddingRight: 75,
+    width: 'calc(50% + 89px)',
   },
 }));
 
@@ -118,6 +124,12 @@ const To = styled.div<WithIsLight>(({ isLight }) => ({
 
     '& > ul': {
       gap: 16,
+      marginLeft: -50,
+    },
+  },
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    '& > ul': {
       marginLeft: -18,
     },
   },
