@@ -11,7 +11,7 @@ export default {
 
   parameters: {
     chromatic: {
-      viewports: [768, 11024, 1280, 1440],
+      viewports: [768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
