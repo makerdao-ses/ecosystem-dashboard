@@ -10,7 +10,12 @@ import { useMemo, useState } from 'react';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
-import { getExpenseMonthWithData, getHeadersExpenseReport, mockDataApiTeam } from './utils/utils';
+import {
+  getExpenseMonthWithData,
+  getHeadersExpenseReport,
+  getLinkLastExpenseReport,
+  mockDataApiTeam,
+} from './utils/utils';
 import type { FilterDoughnut, MomentDataItem, NavigationCard, PeriodicSelectionFilter } from './utils/types';
 
 import type { SelectChangeEvent } from '@mui/material/Select';
@@ -20,6 +25,7 @@ import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries'
 
 export const useFinances = () => {
   const { isLight } = useThemeContext();
+  const router = useRouter();
   const [showSome, setShowSome] = useState(true);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
@@ -53,7 +59,6 @@ export const useFinances = () => {
 
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>('Quarterly');
-  const router = useRouter();
 
   const [year, setYears] = useState(years[0]);
   const [isOpenYear, setIsOpenYear] = useState<boolean>(false);
@@ -234,9 +239,10 @@ export const useFinances = () => {
       color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
   ];
+
   const handleLinkToPage = (href: string) => {
-    // Add the correct link when APi is ready
-    console.log('some links', href);
+    const link = getLinkLastExpenseReport(href, reportExpenseItems);
+    router.push(link || '');
   };
   const handleLoadMore = () => {
     setShowSome(!showSome);

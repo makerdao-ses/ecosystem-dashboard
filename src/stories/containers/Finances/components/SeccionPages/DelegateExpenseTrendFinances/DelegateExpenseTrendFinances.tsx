@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import BigButton from '@ses/components/Button/BigButton/BigButton';
+import { getLinkLastExpenseReport } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -36,7 +37,12 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
       </Header>
       <ItemSection>
         {expenseReport.map((expense, index) => (
-          <DelegateExpenseTrendItem key={index} expenseReport={expense} handleLinkToPage={handleLinkToPage} />
+          <DelegateExpenseTrendItem
+            key={index}
+            expenseReport={expense}
+            handleLinkToPage={handleLinkToPage}
+            link={getLinkLastExpenseReport(expense.shortCode, expenseReport)}
+          />
         ))}
       </ItemSection>
       {showSome && (

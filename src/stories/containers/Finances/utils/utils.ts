@@ -1,3 +1,4 @@
+import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
@@ -578,3 +579,15 @@ export const enumForStories: SortEnum[] = [
   SortEnum.Neutral,
   SortEnum.Neutral,
 ];
+
+export const getLinkLastExpenseReport = (code: string, reportExpenseItems: MomentDataItem[]) => {
+  const reportResult = reportExpenseItems.find((report) => report.shortCode === code);
+  if (reportResult) {
+    const typeReport = isCoreUnit(reportResult);
+    if (typeReport) {
+      return siteRoutes.coreUnitAbout(code);
+    } else {
+      return siteRoutes.ecosystemActorAbout(code);
+    }
+  }
+};
