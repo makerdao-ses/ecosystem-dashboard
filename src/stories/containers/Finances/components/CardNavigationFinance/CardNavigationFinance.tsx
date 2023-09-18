@@ -32,17 +32,20 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '16px 8px 24px',
     flex: 1,
-    width: 246,
+    width: 224,
+    height: 250,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    padding: '16px 32px 24px',
-    width: 355.33,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    padding: '16px 8px 24px',
+    width: 309.33,
+    height: 235,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 373.33,
+    height: 'revert',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -59,6 +62,8 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 500,
   lineHeight: 'normal',
   marginBottom: 8,
+  paddingLeft: 4,
+  paddingRight: 4,
   color: isLight ? '#231536' : '#D2D4EF',
 }));
 
@@ -67,13 +72,19 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  width: 236,
+  width: 208,
   margin: '0px auto 24px',
+
   color: isLight ? '#708390' : '#708390',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 293.3,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 236,
+  },
 }));
 
 const CardInformation = styled.div({
-  width: 300,
   textAlign: 'center',
   marginBottom: -1,
 });
