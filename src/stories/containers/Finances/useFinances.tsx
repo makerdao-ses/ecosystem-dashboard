@@ -193,7 +193,7 @@ export const useFinances = () => {
         <EndgameAtlasBudgets
           width={isMobile ? 32 : 64}
           height={isMobile ? 32 : 64}
-          fill={isLight ? (isMobile ? '#546978' : '#9FAFB9') : isMobile ? '#9FAFB9' : '#D1DEE6'}
+          fill={isLight ? (isMobile ? '#9FAFB9' : '#546978') : isMobile ? '#9FAFB9' : '#D1DEE6'}
         />
       ),
       title: 'Endgame Atlas Budgets',
@@ -208,7 +208,7 @@ export const useFinances = () => {
         <EndgameScopeBudgets
           width={isMobile ? 32 : 64}
           height={isMobile ? 32 : 64}
-          fill={isLight ? (isMobile ? '#546978' : '#9FAFB9') : isMobile ? '#9FAFB9' : '#D1DEE6'}
+          fill={isLight ? (isMobile ? '#9FAFB9' : '#546978') : isMobile ? '#9FAFB9' : '#D1DEE6'}
         />
       ),
       title: 'Endgame Scope Budgets',
@@ -223,7 +223,7 @@ export const useFinances = () => {
         <MakerDAOLegacyBudgets
           width={isMobile ? 32 : 64}
           height={isMobile ? 32 : 64}
-          fill={isLight ? (isMobile ? '#546978' : '#9FAFB9') : isMobile ? '#9FAFB9' : '#D1DEE6'}
+          fill={isLight ? (isMobile ? '#9FAFB9' : '#546978') : isMobile ? '#9FAFB9' : '#D1DEE6'}
         />
       ),
       title: 'MakerDAO Legacy Budgets',

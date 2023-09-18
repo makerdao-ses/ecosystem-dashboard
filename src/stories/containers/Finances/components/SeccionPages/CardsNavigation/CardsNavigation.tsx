@@ -47,16 +47,38 @@ const ContainerCardsNavigation = styled.div({
 
 const WrapperDesk = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
+    '& > div:nth-of-type(2) > div:nth-of-type(2)': {
+      marginBottom: 14,
+    },
+    '& > div:nth-of-type(3) > div:nth-of-type(2)': {
+      marginBottom: 'auto',
+      height: 81,
+    },
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: 16,
+    '& > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)': {
+      width: 210,
+    },
+    '& > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2)': {
+      width: 250,
+    },
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    '& > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)': {
+      width: 205,
+    },
     gap: 32,
   },
 });
@@ -64,7 +86,7 @@ const WrapperMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });

@@ -17,6 +17,8 @@ interface Props {
   valueDai: number;
   href: string;
   barColor: string;
+  width?: number;
+  height?: number;
 }
 
 const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valueDai, href, barColor }) => {
@@ -143,7 +145,6 @@ const ContainerBarPercent = styled.div({
 const ContainerBar = styled.div({
   width: 97,
   borderRadius: 4,
-  // backgroundColor: 'red',
 });
 
 const Percent = styled.div<WithIsLight>(({ isLight }) => ({

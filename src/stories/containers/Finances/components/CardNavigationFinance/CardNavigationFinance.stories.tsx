@@ -11,7 +11,7 @@ export default {
 
   parameters: {
     chromatic: {
-      viewports: [834, 1194, 1280, 1440],
+      viewports: [768, 11024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
@@ -30,12 +30,12 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationFin
 LightMode.parameters = {
   figma: {
     component: {
-      834: {
+      768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22977:247037&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24369:99760&mode=dev',
         options: {
           componentStyle: {
-            width: 246,
+            width: 224,
           },
           style: {
             top: -20,
@@ -43,12 +43,12 @@ LightMode.parameters = {
           },
         },
       },
-      1194: {
+      1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:241010&mode=design&t=ZBWgNIumxqlJTZfp-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:201557&mode=dev',
         options: {
           componentStyle: {
-            width: 246,
+            width: 309.33,
           },
           style: {
             top: -20,
