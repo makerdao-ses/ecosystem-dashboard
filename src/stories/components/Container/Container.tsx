@@ -18,20 +18,16 @@ const ContainerStyled = styled.div({
   width: '100%',
   maxWidth: '100%',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     paddingLeft: 32,
     paddingRight: 32,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginLeft: 'auto',
     marginRight: 'auto',
     paddingLeft: 0,
     paddingRight: 0,
-    maxWidth: 1130,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: 1184,
   },
 
