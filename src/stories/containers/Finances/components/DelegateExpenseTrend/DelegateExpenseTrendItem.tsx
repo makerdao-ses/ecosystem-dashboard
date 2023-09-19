@@ -582,11 +582,14 @@ const ContainerReportingMobile = styled.div({
 
 const LabelTagMobile = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
-  color: isLight ? '#9FAFB9' : '#D2D4EF',
+  color: isLight ? '#708390' : '#D2D4EF',
   fontSize: 11,
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    color: isLight ? '#9FAFB9' : '#D2D4EF',
+  },
 }));
 
 const ExpenseReportStatusIndicatorMobile = styled(ExpenseReportStatusIndicator)({
@@ -627,6 +630,12 @@ const ReportingMobile = styled.div({
 });
 
 const ActorLastModifiedStyled = styled(ActorLastModified)({
+  '& > div:first-of-type': {
+    color: '#9FAFB9',
+  },
+  '& > div:last-of-type': {
+    color: '#708390',
+  },
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     padding: '2px 10px',
   },
