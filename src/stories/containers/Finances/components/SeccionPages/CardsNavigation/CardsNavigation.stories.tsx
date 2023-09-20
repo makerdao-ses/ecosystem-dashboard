@@ -12,7 +12,6 @@ export default {
 
   parameters: {
     chromatic: {
-      viewports: [375, 768, 1024, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
       delay: 1000,
     },
@@ -84,6 +83,9 @@ const args = [
 export const [[LightMode, DarkMode], [Mobile, MobileDark]] = createThemeModeVariants(CardsNavigation, args);
 
 LightMode.parameters = {
+  chromatic: {
+    viewports: [768, 1024, 1280, 1440, 1920],
+  },
   figma: {
     component: {
       768: {
@@ -155,6 +157,7 @@ LightMode.parameters = {
     },
   } as FigmaParams,
 };
+
 DarkMode.parameters = {};
 
 Mobile.parameters = {
