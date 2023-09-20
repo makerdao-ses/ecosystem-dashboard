@@ -11,7 +11,7 @@ export default {
     chromatic: {
       viewports: [375, 768, 1194, 1280, 1440, 1920],
     },
-    date: new Date('2023-03-14T09:08:34.123'),
+    date: new Date('2023-09-01T09:08:34.123'),
   },
 } as ComponentMeta<typeof DelegateExpenseTrendItem>;
 const variantsArgs = [
@@ -55,7 +55,6 @@ DelegateExpense.parameters = {
           style: {
             left: -1,
             top: -1,
-            // top: 90,
           },
           componentStyle: {
             width: 960,
