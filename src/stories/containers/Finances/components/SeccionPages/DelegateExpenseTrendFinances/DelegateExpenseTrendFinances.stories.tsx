@@ -7,7 +7,7 @@ export default {
   title: 'Components/NewFinances/Section/DelegateExpenseTrendFinances',
   component: DelegateExpenseTrendFinances,
   parameters: {
-    date: new Date('2022-09-22T12:23:00Z'),
+    date: new Date('2023-09-18T12:23:00Z'),
   },
 } as ComponentMeta<typeof DelegateExpenseTrendFinances>;
 
