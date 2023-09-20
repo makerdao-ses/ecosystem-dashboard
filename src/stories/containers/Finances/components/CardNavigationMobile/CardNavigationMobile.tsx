@@ -130,9 +130,8 @@ const Coin = styled.span<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : '#9FAFB9',
   marginLeft: 4,
   textTransform: 'uppercase',
-  width: 58,
+  width: 'fit-content',
   display: 'flex',
-  marginRight: 8,
 }));
 
 const ContainerBarPercent = styled.div({
