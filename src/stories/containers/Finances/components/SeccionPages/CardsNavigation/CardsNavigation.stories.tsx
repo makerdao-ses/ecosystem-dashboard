@@ -66,7 +66,7 @@ const args = [
         description: 'Detailed budgets of the practical DAO activities within Endgame.',
         href: '#',
         totalDai: 12000000,
-        valueDai: 1734955,
+        valueDai: 12000000,
         color: '#447AFB',
       },
       {

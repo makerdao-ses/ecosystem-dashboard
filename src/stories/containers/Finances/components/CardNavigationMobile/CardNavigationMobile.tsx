@@ -140,6 +140,7 @@ const ContainerBarPercent = styled.div({
   flexDirection: 'row',
   alignItems: 'flex-start',
   gap: 4,
+  marginRight: 8,
 });
 
 const ContainerBar = styled.div({
@@ -176,6 +177,7 @@ const ContainerData = styled.div({
   paddingTop: 8,
   paddingLeft: 8,
   paddingBottom: 8,
+  flex: 1,
 });
 
 const LinkTag = styled.a({});
@@ -203,6 +205,7 @@ const MainCard = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
+  width: 'calc(100% - 48px)',
 });
 
 const ContainerSpace = styled.div({
