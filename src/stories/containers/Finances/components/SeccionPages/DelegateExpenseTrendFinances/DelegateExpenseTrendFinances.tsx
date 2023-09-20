@@ -13,7 +13,6 @@ interface Props {
   columns: DelegateExpenseTableHeader[];
   expenseReport: MomentDataItem[];
   sortClick: (index: number) => void;
-  handleLinkToPage: (href: string) => void;
   showSome: boolean;
   handleLoadMore?: () => void;
 }
@@ -21,7 +20,6 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
   columns,
   expenseReport,
   sortClick,
-  handleLinkToPage,
   handleLoadMore,
   showSome,
 }) => {
@@ -40,7 +38,6 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
           <DelegateExpenseTrendItem
             key={index}
             expenseReport={expense}
-            handleLinkToPage={handleLinkToPage}
             link={getLinkLastExpenseReport(expense.shortCode, expenseReport)}
           />
         ))}

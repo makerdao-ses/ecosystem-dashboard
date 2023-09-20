@@ -13,9 +13,9 @@ export const calculateValuesByBreakpoint = (
   isDesktop1440: boolean
 ) => {
   const radius = isTable || isDesktop1024 ? [32, 64] : isDesktop1280 ? [50, 96] : isDesktop1440 ? [48, 96] : [48, 96];
-  const center = isTable ? [95, '50%'] : isDesktop1024 ? [95, '50%'] : isDesktop1280 ? ['24%', '48%'] : ['24%', '50%'];
+  const center = isTable ? [70, '50%'] : isDesktop1024 ? [95, '50%'] : isDesktop1280 ? ['24%', '48%'] : ['24%', '50%'];
   const paddingLegend = isTable
-    ? [20, 68, 0, 0]
+    ? [20, 66, 0, 0]
     : isDesktop1024
     ? [18, 66, 0, 0]
     : isDesktop1280

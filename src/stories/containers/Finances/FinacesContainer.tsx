@@ -47,7 +47,7 @@ const FinancesContainer = () => {
     headersExpenseReport,
     reportExpenseItems,
     onSortClick,
-    handleLinkToPage,
+
     handleLoadMore,
     showSome,
   } = useFinances();
@@ -100,7 +100,6 @@ const FinancesContainer = () => {
             columns={headersExpenseReport}
             expenseReport={reportExpenseItems}
             sortClick={onSortClick}
-            handleLinkToPage={handleLinkToPage}
             handleLoadMore={handleLoadMore}
             showSome={showSome}
           />

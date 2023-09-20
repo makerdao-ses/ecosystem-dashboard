@@ -4,7 +4,7 @@ import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  handleOnclick: () => void;
+  handleOnclick?: () => void;
   title?: string;
 }
 const ViewButton: React.FC<Props> = ({ handleOnclick, title }) => {
