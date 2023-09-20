@@ -6,6 +6,9 @@ import type { ComponentMeta } from '@storybook/react';
 export default {
   title: 'Components/NewFinances/Section/DelegateExpenseTrendFinances',
   component: DelegateExpenseTrendFinances,
+  parameters: {
+    date: new Date('2022-09-22T12:23:00Z'),
+  },
 } as ComponentMeta<typeof DelegateExpenseTrendFinances>;
 
 const args = [
