@@ -144,7 +144,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
           </div>
         )}
         <Wrapper>
-          <Collapse in={showHeader} timeout={600} unmountOnExit style={{ width: '100%' }}>
+          <Collapse in={showHeader} timeout={300} unmountOnExit style={{ width: '100%' }}>
             <ContainerTitle>
               <>
                 <TitleNavigationCuAbout coreUnitAbout={cu} />
