@@ -138,7 +138,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
         <>{elementInDesk}</>
       )}
 
-      <FooterMobile>
+      <FooterMobile isLight={isLight}>
         <ActorLastModifiedStyled href={link || '#'} date={getDateExpenseModified} />
       </FooterMobile>
     </ExtendedGenericDelegate>
@@ -313,7 +313,7 @@ const TotalNumber = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
 }));
 
-const FooterMobile = styled.div({
+const FooterMobile = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   width: '100%',
   '& > div': {
@@ -323,12 +323,12 @@ const FooterMobile = styled.div({
     flex: 1,
   },
   ':hover': {
-    background: '#1E2C37',
+    background: isLight ? '#F5F6FB' : '#1E2C37',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
-});
+}));
 
 const ActorLabel = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',

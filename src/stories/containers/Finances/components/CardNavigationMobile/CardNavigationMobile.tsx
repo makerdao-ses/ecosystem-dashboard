@@ -47,8 +47,8 @@ const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valu
                   <ContainerBarPercent>
                     <ContainerBar>
                       <BarPercentRelativeToTotalStyled
-                        value={3456}
-                        total={23456}
+                        value={valueDai}
+                        total={totalDai}
                         barColor={barColor}
                         isLight={isLight}
                       />
