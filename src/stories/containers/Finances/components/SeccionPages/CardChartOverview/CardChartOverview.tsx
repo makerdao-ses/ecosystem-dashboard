@@ -97,7 +97,7 @@ const ContainerFilters = styled.div({
     gap: 8,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    gap: 8,
+    gap: 16,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
