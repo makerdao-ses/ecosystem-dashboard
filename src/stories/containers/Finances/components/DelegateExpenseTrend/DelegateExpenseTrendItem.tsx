@@ -161,7 +161,11 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 0,
+    minHeight: 113,
     flexDirection: 'column',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    minHeight: 'revert',
   },
 }));
 
@@ -632,11 +636,16 @@ const ReportingMobile = styled.div({
 const ActorLastModifiedStyled = styled(ActorLastModified)({
   '& > div:first-of-type': {
     color: '#9FAFB9',
+    marginTop: 0,
   },
   '& > div:last-of-type': {
     color: '#708390',
   },
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     padding: '2px 10px',
+    height: 26,
+    '& > div:last-of-type': {
+      marginTop: -4,
+    },
   },
 });
