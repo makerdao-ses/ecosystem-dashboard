@@ -161,7 +161,11 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 0,
+    minHeight: 113,
     flexDirection: 'column',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    minHeight: 'revert',
   },
 }));
 
@@ -272,6 +276,10 @@ const Date = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
+  marginLeft: -2,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginLeft: 'revert',
+  },
 }));
 
 const Divider = styled.div<WithIsLight>(({ isLight }) => ({
@@ -341,7 +349,6 @@ const ActorLabel = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 400,
     lineHeight: 'normal',
     width: '100%',
-    marginTop: -2,
   },
 }));
 
@@ -351,7 +358,8 @@ const ReportingMonth = styled.div({
     display: 'flex',
     flexDirection: 'column',
     gap: 19,
-    marginLeft: -28,
+    marginLeft: 0,
+    minWidth: 130,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
@@ -378,6 +386,7 @@ const TotalActualsTable = styled.div({
     flexDirection: 'column',
     gap: 19,
     marginLeft: -6,
+    minWidth: 120,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
@@ -446,7 +455,7 @@ const LabelDescription = styled.div<WithIsLight>(({ isLight }) => ({
     fontStyle: 'normal',
     fontWeight: 400,
     lineHeight: 'normal',
-    marginTop: -2,
+    marginLeft: -2,
   },
 }));
 const LabelStatus = styled.div<WithIsLight>(({ isLight }) => ({
@@ -458,7 +467,6 @@ const LabelStatus = styled.div<WithIsLight>(({ isLight }) => ({
     fontStyle: 'normal',
     fontWeight: 400,
     lineHeight: 'normal',
-    marginTop: -2,
   },
 }));
 
@@ -557,6 +565,10 @@ const ContainerMobile = styled.div({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     flex: 'unset',
+    width: 250,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 'revert',
   },
 });
 
@@ -632,11 +644,16 @@ const ReportingMobile = styled.div({
 const ActorLastModifiedStyled = styled(ActorLastModified)({
   '& > div:first-of-type': {
     color: '#9FAFB9',
+    marginTop: 0,
   },
   '& > div:last-of-type': {
     color: '#708390',
   },
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     padding: '2px 10px',
+    height: 26,
+    '& > div:last-of-type': {
+      marginTop: -4,
+    },
   },
 });
