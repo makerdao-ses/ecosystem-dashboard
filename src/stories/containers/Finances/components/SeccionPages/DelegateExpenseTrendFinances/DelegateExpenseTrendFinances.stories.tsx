@@ -29,14 +29,14 @@ const args = [
     showSome: true,
   },
 ];
-export const [[LightMode, DarkMode], [DeskLightMode1194, DeskLightModeDark1194]] = createThemeModeVariants(
+export const [[LightMode, DarkMode], [DeskLightMode1024, DeskLightMode1024Dark]] = createThemeModeVariants(
   DelegateExpenseTrendFinances,
   args
 );
 
 LightMode.parameters = {
   chromatic: {
-    viewports: [375, 1280, 1440, 1920],
+    viewports: [375, 768, 1280, 1440, 1920],
   },
   figma: {
     component: {
@@ -50,6 +50,19 @@ LightMode.parameters = {
           style: {
             top: 0,
             left: -40,
+          },
+        },
+      },
+      768: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24369:100461&mode=dev',
+        options: {
+          componentStyle: {
+            width: 704,
+          },
+          style: {
+            top: -1,
+            left: -1,
           },
         },
       },
@@ -96,18 +109,18 @@ LightMode.parameters = {
   },
 };
 
-DeskLightMode1194.parameters = {
+DeskLightMode1024.parameters = {
   chromatic: {
-    viewports: [1194],
+    viewports: [1024],
   },
   figma: {
     component: {
-      1194: {
+      1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:241810&mode=design&t=dTByGfvKLwYnVbvR-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:202230&mode=dev',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
             top: -1,
@@ -120,4 +133,4 @@ DeskLightMode1194.parameters = {
 };
 
 DarkMode.parameters = {};
-DeskLightModeDark1194.parameters = {};
+DeskLightMode1024Dark.parameters = {};
