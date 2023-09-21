@@ -7,7 +7,7 @@ export const useHeaderSummary = (ref: React.RefObject<HTMLDivElement>, code: str
   const [actualsUrl, setActualsUrl] = useState(code);
 
   const [position, setPosition] = useState(0);
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(165);
   const [showHeader, setShowHeader] = useState(true);
   const updateHeight = useCallback(() => {
     if (ref?.current) {
@@ -33,12 +33,18 @@ export const useHeaderSummary = (ref: React.RefObject<HTMLDivElement>, code: str
   }, [actualsUrl, code, ref, updateHeight, url]);
 
   useEffect(() => {
-    if (ref?.current) {
+    if (ref?.current && (showHeader || height === 0)) {
       const { bottom, top } = ref.current.getBoundingClientRect();
       const elementHeight = bottom - top;
-      setHeight(elementHeight);
+      if (elementHeight > height) {
+        setHeight(elementHeight);
+      }
     }
-  }, [ref]);
+    // ref.current is not recommended as a dependency, but in this case
+    // it works as we only want to trigger the re-render when the ref
+    // is properly initialized
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [height, ref?.current, showHeader]);
 
   useEffect(() => {
     window.addEventListener('scroll', updatePosition);
