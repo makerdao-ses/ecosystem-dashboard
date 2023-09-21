@@ -21,7 +21,7 @@ const useEndgameContainer = () => {
   const isUpDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const INTERSECTION_OPTIONS: IntersectionOptions = {
-    threshold: isMobile ? 0.5 : isUpDesktop1440 ? 0.9 : 0.7,
+    threshold: isMobile ? 0.5 : isUpDesktop1440 ? 0.9 : 0.65,
     fallbackInView: false,
     rootMargin: '130px 0px 0px 0px',
   };
@@ -90,7 +90,7 @@ const useEndgameContainer = () => {
         !structureInView &&
         hasBoundingData &&
         keyEntryTopY < 0 &&
-        transitionEntryTopY < 0
+        structureEntryTopY < 0
       ) {
         // it is close to the footer and any section is in the view
         // activate this as is the last one
