@@ -41,7 +41,7 @@ DelegateExpense.parameters = {
         options: {
           style: {
             left: -12,
-            top: -10,
+            top: -8,
           },
           componentStyle: {
             width: 704,
