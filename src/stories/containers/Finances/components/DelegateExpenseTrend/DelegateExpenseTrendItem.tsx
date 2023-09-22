@@ -24,14 +24,12 @@ import type { MomentDataItem } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  handleLinkToPage: (href: string) => void;
   link?: string;
   expenseReport: MomentDataItem;
   now?: DateTime;
 }
 
-const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, expenseReport, now = DateTime.now() }) => {
-  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.down('desktop_1024'));
+const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, now = DateTime.now() }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
   const getDateExpenseModified = getExpenseMonthWithData(expenseReport);
@@ -42,9 +40,6 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
     }) ?? ''
   );
 
-  const handleLink = () => {
-    handleLinkToPage(expenseReport.shortCode);
-  };
   const isCoreUnitElement = isCoreUnit(expenseReport);
 
   const elementInDesk = (
@@ -106,7 +101,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
           <LabelLastModifiedText isLight={isLight}>{lasModified}</LabelLastModifiedText>
         </LastModifiedDesk>
         <ViewContainer>
-          <ViewButton title="View" handleOnclick={handleLink} />
+          <ViewButton title="View" />
         </ViewContainer>
       </ContainerDesk>
       <Divider isLight={isLight} />
@@ -130,13 +125,9 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ handleLinkToPage, link, exp
 
   return (
     <ExtendedGenericDelegate isLight={isLight}>
-      {isSmallDesk ? (
-        <Link href={link || ''} legacyBehavior passHref>
-          <a>{elementInDesk}</a>
-        </Link>
-      ) : (
-        <>{elementInDesk}</>
-      )}
+      <Link href={link || ''} legacyBehavior passHref target="_blank">
+        <a>{elementInDesk}</a>
+      </Link>
 
       <FooterMobile isLight={isLight}>
         <ActorLastModifiedStyled href={link || '#'} date={getDateExpenseModified} />
