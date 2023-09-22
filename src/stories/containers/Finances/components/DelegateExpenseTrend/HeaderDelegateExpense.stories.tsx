@@ -33,7 +33,7 @@ HeaderDelegate.parameters = {
         options: {
           style: {
             left: -40,
-            top: -22,
+            top: -20,
           },
           componentStyle: {
             width: 1184,
@@ -46,7 +46,7 @@ HeaderDelegate.parameters = {
         options: {
           style: {
             left: -40,
-            top: -22,
+            top: -20,
           },
           componentStyle: {
             width: 1312,
@@ -78,11 +78,11 @@ HeaderDelegate1024.parameters = {
     component: {
       1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204278&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204278&mode=design&t=y0gKYTesgoKVR9cb-4',
         options: {
           style: {
             left: -40,
-            top: -22,
+            top: -20,
           },
           componentStyle: {
             width: 960,

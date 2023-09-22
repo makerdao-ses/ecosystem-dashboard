@@ -355,10 +355,11 @@ const ReportingMonth = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
+
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 0,
-    marginLeft: 6,
+    marginLeft: 0,
     width: 120,
     marginTop: 1,
   },
@@ -366,6 +367,7 @@ const ReportingMonth = styled.div({
     marginLeft: -20,
     marginTop: 'revert',
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: -40,
   },
@@ -384,7 +386,7 @@ const TotalActualsTable = styled.div({
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 0,
-    marginLeft: 6,
+    marginLeft: 0,
     width: 130,
     marginTop: 1,
   },
@@ -414,18 +416,21 @@ const StatusTable = styled.div({
 
     flexDirection: 'column',
     justifyContent: 'center',
+
     gap: 0,
-    '& div:nth-of-type(2)': {
+
+    '& > div:nth-last-of-type(1)': {
       marginLeft: 0,
     },
-    width: 120,
-    marginLeft: 4,
+
+    minWidth: 120,
+    marginLeft: 0,
     marginTop: 1,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 150,
     marginLeft: 0,
-    paddingLeft: 4,
+    paddingLeft: 0,
     marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -467,11 +472,12 @@ const LastModifiedDesk = styled.div({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     width: 160,
-    marginLeft: 6,
+    marginLeft: 0,
     marginTop: 1,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 'revert',
+    paddingLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     paddingLeft: 20,
@@ -482,10 +488,9 @@ const ViewContainer = styled.div({
   display: 'none',
   [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     display: 'flex',
-    flex: 1,
+
     justifyContent: 'flex-end',
     marginTop: 3,
-
     marginRight: -2,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -500,11 +505,8 @@ const ContainerDesk = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
 
-  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    justifyContent: 'normal',
-    height: 38,
-  },
   [lightTheme.breakpoints.up('desktop_1024')]: {
+    justifyContent: 'space-between',
     height: 38,
   },
 });

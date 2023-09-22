@@ -498,7 +498,7 @@ export const getHeadersExpenseReport = (
     header: 'Contributors',
     styles: {
       boxSizing: 'border-box',
-      minWidth: 228,
+      minWidth: 310,
       paddingLeft: 16,
     },
     sortReverse: true,
@@ -507,14 +507,15 @@ export const getHeadersExpenseReport = (
   {
     header: isSmallDesk ? 'Rep Month' : 'Reporting Month',
     styles: {
-      width: 152,
+      width: 130,
+      marginLeft: -22,
 
-      marginLeft: 84,
       [lightTheme.breakpoints.up('desktop_1280')]: {
-        marginLeft: 122,
+        width: 152,
+        marginLeft: -22,
       },
       [lightTheme.breakpoints.up('desktop_1440')]: {
-        marginLeft: 126,
+        marginLeft: -102,
       },
     },
     sortReverse: true,
@@ -524,14 +525,14 @@ export const getHeadersExpenseReport = (
     header: 'Total Actuals',
     sort: headersSort[2],
     styles: {
-      width: 170,
-      marginLeft: -28,
+      width: 130,
+      marginLeft: -26,
 
       [lightTheme.breakpoints.up('desktop_1280')]: {
-        marginLeft: 14,
+        marginLeft: -52,
       },
       [lightTheme.breakpoints.up('desktop_1440')]: {
-        marginLeft: 30,
+        marginLeft: -102,
         justifyContent: 'center',
       },
     },
@@ -542,13 +543,13 @@ export const getHeadersExpenseReport = (
     header: 'Status',
     sort: headersSort[3],
     styles: {
-      width: 173,
-      marginLeft: -34,
+      width: 100,
+      marginLeft: -20,
       [lightTheme.breakpoints.up('desktop_1280')]: {
-        marginLeft: 2,
+        marginLeft: -22,
       },
       [lightTheme.breakpoints.up('desktop_1440')]: {
-        marginLeft: 12,
+        marginLeft: -80,
         justifyContent: 'center',
       },
     },
@@ -558,13 +559,30 @@ export const getHeadersExpenseReport = (
     header: 'Last Modified',
     sort: headersSort[4],
     styles: {
-      width: 173,
-      marginLeft: -48,
+      width: 130,
+
       [lightTheme.breakpoints.up('desktop_1280')]: {
-        marginLeft: 22,
+        marginLeft: 30,
       },
       [lightTheme.breakpoints.up('desktop_1440')]: {
-        marginLeft: 92,
+        marginLeft: 0,
+        marginRight: -80,
+        justifyContent: 'center',
+      },
+    },
+    sortReverse: true,
+  },
+  {
+    header: '',
+    sort: SortEnum.Disabled,
+    styles: {
+      width: 111,
+      [lightTheme.breakpoints.up('desktop_1280')]: {
+        marginLeft: 0,
+        width: 110,
+      },
+      [lightTheme.breakpoints.up('desktop_1440')]: {
+        marginLeft: 0,
         justifyContent: 'center',
       },
     },
