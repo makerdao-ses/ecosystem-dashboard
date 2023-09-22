@@ -8,6 +8,7 @@ export default {
   title: 'Pages/FinancesContainer',
   component: FinancesContainer,
   parameters: {
+    date: new Date('2022-09-22T12:23:00Z'),
     layout: 'fullscreen',
     nextRouter: {
       pathname: '/finances',

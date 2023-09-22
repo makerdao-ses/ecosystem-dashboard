@@ -40,11 +40,14 @@ const CardChartOverview: React.FC<Props> = ({
           </Item>
         ))}
       </ContainerFilters>
+
       <ContainerCardChart>
-        <ContainerCardInformation>
-          <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
-        </ContainerCardInformation>
-        <Divider isLight={isLight} />
+        <ContainerCardAndLine>
+          <ContainerCardInformation>
+            <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+          </ContainerCardInformation>
+          <Divider isLight={isLight} />
+        </ContainerCardAndLine>
         <ContainerChat>
           <DoughnutChartFinances doughnutSeriesData={doughnutSeriesData} />
         </ContainerChat>
@@ -70,6 +73,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
 
     height: 223,
   },
+
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '16px 24px 24px 32px',
     height: 223,
@@ -93,7 +97,7 @@ const ContainerFilters = styled.div({
     gap: 8,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    gap: 8,
+    gap: 16,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -129,26 +133,21 @@ const ContainerCardChart = styled.div({
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 0,
+    justifyContent: 'space-between',
+
     flex: 1,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 32,
-    marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 64,
-    marginLeft: 0,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 64,
-    marginLeft: 0,
   },
 });
 
@@ -183,13 +182,14 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
     borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginLeft: '0',
+    marginTop: 20,
+    height: 134,
+    marginLeft: 32,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginLeft: '0',
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: '0',
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 0,
+    height: 192,
+    marginLeft: 64,
   },
 }));
 
@@ -197,19 +197,26 @@ const ContainerChat = styled.div({
   display: 'flex',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    width: 440,
+    width: 420,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 440,
-    marginLeft: 66,
+    marginRight: 32,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 440,
-    marginLeft: 60,
+    marginRight: 166,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 430,
-    marginLeft: 130,
+    marginRight: 242,
+  },
+});
+
+const ContainerCardAndLine = styled.div({
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 });

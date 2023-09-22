@@ -10,12 +10,7 @@ import { useMemo, useState } from 'react';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
-import {
-  getExpenseMonthWithData,
-  getHeadersExpenseReport,
-  getLinkLastExpenseReport,
-  mockDataApiTeam,
-} from './utils/utils';
+import { getExpenseMonthWithData, getHeadersExpenseReport, mockDataApiTeam } from './utils/utils';
 import type { FilterDoughnut, MomentDataItem, NavigationCard, PeriodicSelectionFilter } from './utils/types';
 
 import type { SelectChangeEvent } from '@mui/material/Select';
@@ -239,11 +234,6 @@ export const useFinances = () => {
       color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
   ];
-
-  const handleLinkToPage = (href: string) => {
-    const link = getLinkLastExpenseReport(href, reportExpenseItems);
-    router.push(link || '');
-  };
   const handleLoadMore = () => {
     setShowSome(!showSome);
   };
@@ -278,7 +268,6 @@ export const useFinances = () => {
     headersExpenseReport,
     onSortClick,
     reportExpenseItems,
-    handleLinkToPage,
     showSome,
     handleLoadMore,
     getItems,

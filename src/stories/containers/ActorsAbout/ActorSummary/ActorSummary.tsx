@@ -80,11 +80,10 @@ const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
           router={router}
         />
 
-        <Collapse in={showHeader} timeout={600} unmountOnExit>
+        <Collapse in={showHeader} timeout={300} unmountOnExit>
           <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={true} />
+          <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
         </Collapse>
-
-        <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
       </MainContainer>
     );
   }

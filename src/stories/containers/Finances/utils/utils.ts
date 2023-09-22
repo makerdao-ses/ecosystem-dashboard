@@ -13,20 +13,20 @@ export const calculateValuesByBreakpoint = (
   isDesktop1440: boolean
 ) => {
   const radius = isTable || isDesktop1024 ? [32, 64] : isDesktop1280 ? [50, 96] : isDesktop1440 ? [48, 96] : [48, 96];
-  const center = isTable ? [95, '50%'] : isDesktop1024 ? [95, '50%'] : isDesktop1280 ? ['24%', '48%'] : ['24%', '50%'];
+  const center = isTable ? [68, '50%'] : isDesktop1024 ? [94, '50%'] : isDesktop1280 ? ['24%', '48%'] : ['24%', '48%'];
   const paddingLegend = isTable
-    ? [20, 68, 0, 0]
+    ? [20, 60, 0, 0]
     : isDesktop1024
-    ? [18, 66, 0, 0]
+    ? [18, 58, 0, 0]
     : isDesktop1280
-    ? [22, 12, 0, 0]
+    ? [22, 6, 0, 0]
     : isDesktop1440
-    ? [22, 8, 0, 0]
+    ? [22, 2, 0, 0]
     : [22, 2, 0, 0];
 
   const paddingRichTextName = isTable ? [20, 0, 14, 0] : isDesktop1024 ? [26, 0, 7, 0] : [26, 0, 13.7, 1];
-  const paddingRichTextValue = isTable ? [-6, 1, 0, 0] : isDesktop1024 ? [-8, 4, 0, 0] : [0, 2, 0, 2];
-  const paddingRichTextDai = isTable ? [-6, 4, 0, 8] : isDesktop1024 ? [-8, 4, 0, 4] : [0, 4, 0, 6];
+  const paddingRichTextValue = isTable ? [-6, -2, 0, 0] : isDesktop1024 ? [-8, 0, 0, 0] : [0, 0, 0, 2];
+  const paddingRichTextDai = isTable ? [-6, 4, 0, 8] : isDesktop1024 ? [-8, 4, 0, 4] : [0, 4, 0, 4];
   const paddingRichTextPercent = isTable ? [-6, 0, 0, 0] : isDesktop1024 ? [0, 0, 8, 0] : [0, 0, 0, 0];
 
   return {
@@ -50,12 +50,12 @@ export const mockDataApiTeam: MomentDataItem[] = [
     sentenceDescription: '',
     paragraphDescription: '',
     paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-03-25T09:08:34.123'),
+    lastModified: DateTime.fromISO('2023-09-01T09:08:34.123'),
     reportMonth: DateTime.fromISO('2023-03-01T09:08:34.123'),
     totalActuals: 2048873,
     lastActivity: {
       id: '343',
-      created_at: '2023-03-01T09:08:34.123',
+      created_at: '2023-08-30T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -99,12 +99,12 @@ export const mockDataApiTeam: MomentDataItem[] = [
     sentenceDescription: '',
     paragraphDescription: '',
     paragraphImage: '',
-    lastModified: DateTime.fromISO('22023-09-24T09:08:34.123'),
-    reportMonth: DateTime.fromISO('2015-12-25T09:08:34.123'),
+    lastModified: DateTime.fromISO('2023-09-01T09:08:34.123'),
+    reportMonth: DateTime.fromISO('2023-09-01T09:08:34.123'),
     totalActuals: 2048873,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-02T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -153,7 +153,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 2048873,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-25T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -202,7 +202,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 456347,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-25T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -234,7 +234,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 244567,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-30T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -266,7 +266,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 244567,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-30T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -298,7 +298,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 244567,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-30T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -330,7 +330,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 244567,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-30T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -362,7 +362,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 244567,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-30T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -394,7 +394,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
     totalActuals: 244567,
     lastActivity: {
       id: '343',
-      created_at: '2023-08-30T09:08:34.123',
+      created_at: '2023-09-01T09:08:34.123',
       event: 'event',
       params: {},
       description: '',

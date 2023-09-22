@@ -31,7 +31,7 @@ const DelegateSummary = forwardRef<HTMLDivElement, Props>(({ code = 'del', links
       <BreadcrumbsContainer>
         <CustomBreadcrumbs isLight={isLight} items={items} />
       </BreadcrumbsContainer>
-      <Collapse in={showHeader} timeout={600} unmountOnExit>
+      <Collapse in={showHeader} timeout={300} unmountOnExit>
         <Container>
           <ContainerRow>
             <CircleContainer>

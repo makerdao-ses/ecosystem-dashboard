@@ -13,7 +13,6 @@ interface Props {
   columns: DelegateExpenseTableHeader[];
   expenseReport: MomentDataItem[];
   sortClick: (index: number) => void;
-  handleLinkToPage: (href: string) => void;
   showSome: boolean;
   handleLoadMore?: () => void;
 }
@@ -21,7 +20,6 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
   columns,
   expenseReport,
   sortClick,
-  handleLinkToPage,
   handleLoadMore,
   showSome,
 }) => {
@@ -40,7 +38,6 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
           <DelegateExpenseTrendItem
             key={index}
             expenseReport={expense}
-            handleLinkToPage={handleLinkToPage}
             link={getLinkLastExpenseReport(expense.shortCode, expenseReport)}
           />
         ))}
@@ -71,8 +68,11 @@ const InformationSection = styled.div({
   gap: 4,
   marginBottom: 24,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 16,
+    gap: 8,
     marginBottom: 40,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 16,
   },
 });
 
@@ -88,7 +88,7 @@ const Title = styled.h2<WithIsLight>(({ isLight }) => ({
     fontSize: 24,
     letterSpacing: '0.4px',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: 32,
   },
 }));
