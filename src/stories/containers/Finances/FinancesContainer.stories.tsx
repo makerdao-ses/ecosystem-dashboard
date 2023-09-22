@@ -8,7 +8,6 @@ export default {
   title: 'Pages/FinancesContainer',
   component: FinancesContainer,
   parameters: {
-    date: new Date('2022-09-22T12:23:00Z'),
     layout: 'fullscreen',
     nextRouter: {
       pathname: '/finances',
@@ -17,7 +16,6 @@ export default {
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
-      delay: 5000,
     },
   },
 } as ComponentMeta<typeof FinancesContainer>;
