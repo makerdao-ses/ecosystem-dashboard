@@ -17,6 +17,7 @@ export default {
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
+      delay: 5000,
     },
   },
 } as ComponentMeta<typeof FinancesContainer>;
