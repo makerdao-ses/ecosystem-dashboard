@@ -181,13 +181,15 @@ const Container = styled.div({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 420,
     marginLeft: 0,
+    marginRight: 22,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: '100%',
     height: 210,
+    width: 440,
+    marginRight: 0,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: '100%',
+    width: 430,
   },
 });

@@ -12,6 +12,7 @@ export default {
     chromatic: {
       viewports: [768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
+      delay: 5000,
     },
   },
 } as ComponentMeta<typeof CardChartOverview>;

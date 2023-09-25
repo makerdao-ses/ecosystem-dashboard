@@ -84,6 +84,8 @@ const TableHeader = styled.div<{ isLight: boolean; isGlobal?: boolean }>(({ isLi
 
 const TableHeaderRow = styled.div({
   display: 'flex',
+  justifyContent: 'space-between',
+  flex: 1,
 });
 
 const TableHeaderTitle = styled.div<{
