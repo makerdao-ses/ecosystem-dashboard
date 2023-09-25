@@ -182,6 +182,7 @@ const Container = styled.div({
     width: 420,
     marginLeft: 0,
     marginRight: 22,
+    transition: 'all .4s ease',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     height: 210,

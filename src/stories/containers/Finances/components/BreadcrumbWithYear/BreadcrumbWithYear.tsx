@@ -50,7 +50,7 @@ const ContainerNavigation = styled.div({
   justifyContent: 'space-between',
   alignItems: 'center',
   height: 50,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 74,
     paddingLeft: 0,
     paddingRight: 0,
@@ -65,7 +65,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<WithIsLight>(({ isLight }) => ({
     color: isLight ? '#231536' : '#E2D8EE',
     padding: 0,
     fontSize: 11,
-    [lightTheme.breakpoints.up('table_834')]: {
+    [lightTheme.breakpoints.up('tablet_768')]: {
       fontSize: 16,
     },
   },
