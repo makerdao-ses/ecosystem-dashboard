@@ -203,6 +203,7 @@ const ContainerChat = styled.div({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 440,
     marginRight: 32,
+    transition: 'all .3s ease',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 440,

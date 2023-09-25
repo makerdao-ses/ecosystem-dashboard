@@ -56,7 +56,7 @@ const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
   borderRadius: 6,
   background: isLight ? '#ECF1F3' : '#000A13',
   zIndex: zIndexEnum.BREAD_CRUMB_NAVIGATION,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginRight: 0,
     marginLeft: 0,
     top: 63,
