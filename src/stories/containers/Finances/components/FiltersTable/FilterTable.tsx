@@ -58,7 +58,7 @@ const FilterTable: React.FC<Props> = ({
       </Reset>
 
       <ContainerFiltersMetric>
-        <CustomMultiSelect
+        <CustomMultiSelectStyled
           positionRight={true}
           label="Metrics"
           activeItems={activeItems}
@@ -107,12 +107,12 @@ const FiltersContainer = styled.div({
   gridTemplateRows: 'auto',
   placeItems: 'space-between',
   justifyContent: 'end',
-  width: 343,
+  minWidth: 343,
   margin: '0 auto',
   gridTemplateAreas: `
   "filterMetrics periodicSelection buttonFilter "
   `,
-  '@media (min-width: 834px)': {
+  '@media (min-width: 768px)': {
     gridTemplateRows: 'auto',
     margin: 'none',
     gap: 18,
@@ -125,7 +125,7 @@ const Reset = styled.div({
   gridArea: 'reset',
   display: 'none',
   justifyContent: 'flex-end',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 768px)': {
     display: 'flex',
   },
 });
@@ -133,14 +133,14 @@ const Reset = styled.div({
 const ContainerFiltersMetric = styled.div({
   display: 'flex',
   gridArea: 'filterMetrics',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 768px)': {
     display: 'flex',
   },
 });
 const PeriodicSelectionFilter = styled.div({
   gridArea: 'periodicSelection',
   justifyContent: 'flex-end',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 768px)': {
     display: 'flex',
   },
 });
@@ -155,7 +155,7 @@ const ResponsiveButton = styled.div<WithIsLight>(({ isLight }) => ({
   borderRadius: '22px',
   alignItems: 'center',
   justifyContent: 'center',
-  '@media (min-width: 834px)': {
+  '@media (min-width: 768px)': {
     display: 'none',
   },
 }));
@@ -164,7 +164,18 @@ const StyledSelectDropdown = styled(SelectDropdown)({
   '& > div': {
     width: 120,
     height: 34,
-    [lightTheme.breakpoints.up('table_834')]: {
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      width: 120,
+      height: 48,
+    },
+  },
+});
+
+const CustomMultiSelectStyled = styled(CustomMultiSelect)({
+  '& > div': {
+    width: 120,
+    height: 34,
+    [lightTheme.breakpoints.up('tablet_768')]: {
       width: 120,
       height: 48,
     },

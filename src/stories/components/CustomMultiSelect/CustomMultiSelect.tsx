@@ -95,7 +95,7 @@ export const CustomMultiSelect = ({
   const handleClearSearch = useCallback(() => setSearchText(''), []);
 
   return (
-    <SelectWrapper ref={refOutsideClick} style={props.style}>
+    <SelectWrapper ref={refOutsideClick} style={props.style} className={className}>
       <SelectContainer
         isLight={isLight}
         focus={popupVisible}
