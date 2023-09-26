@@ -172,11 +172,8 @@ const StyledSelectDropdown = styled(SelectDropdown)({
 });
 
 const CustomMultiSelectStyled = styled(CustomMultiSelect)({
-  '& > div': {
-    width: 120,
-    height: 34,
+  '& > div:first-of-type': {
     [lightTheme.breakpoints.up('tablet_768')]: {
-      width: 120,
       height: 48,
     },
   },
