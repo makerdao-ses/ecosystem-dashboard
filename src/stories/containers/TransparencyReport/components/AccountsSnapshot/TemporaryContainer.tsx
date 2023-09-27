@@ -3,8 +3,8 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
+import { AccountsSnapshot, ThemeProvider } from 'dspot-powerhouse-components';
 import React from 'react';
-import AccountsSnapshot from './AccountsSnapshot';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -23,7 +23,9 @@ const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot, snaps
       <Container>
         <Title isLight={isLight}>Account Snapshot</Title>
 
-        <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} resourceType={resourceType} />
+        <ThemeProvider isLight={isLight}>
+          <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} resourceType={resourceType} />
+        </ThemeProvider>
       </Container>
     </PageContainer>
   );

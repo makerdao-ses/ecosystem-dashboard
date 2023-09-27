@@ -1,8 +1,7 @@
 import { Box } from '@mui/material';
+import { AccountsSnapshot, AccountsSnapshotSkeleton, ThemeProvider } from 'dspot-powerhouse-components';
 import React from 'react';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
-import AccountsSnapshot from './AccountsSnapshot';
-import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './useAccountsSnapshotTab';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
@@ -24,16 +23,25 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   shortCode,
   resource,
 }) => {
-  const { isLoading, snapshot, sinceDate } = useAccountsSnapshotTab(ownerId, currentMonth, resource);
+  const { isLoading, snapshot, sinceDate, isEmpty, isLight } = useAccountsSnapshotTab(ownerId, currentMonth, resource);
 
-  return isLoading ? (
-    <AccountsSnapshotSkeleton />
-  ) : snapshot ? (
-    <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} sinceDate={sinceDate} resourceType={resource} />
-  ) : (
+  return isEmpty ? (
     <Box sx={{ mb: '64px' }}>
       <TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />
     </Box>
+  ) : (
+    <ThemeProvider isLight={isLight}>
+      {isLoading || !snapshot ? (
+        <AccountsSnapshotSkeleton />
+      ) : (
+        <AccountsSnapshot
+          snapshot={snapshot}
+          snapshotOwner={snapshotOwner}
+          sinceDate={sinceDate}
+          resourceType={resource}
+        />
+      )}
+    </ThemeProvider>
   );
 };
 

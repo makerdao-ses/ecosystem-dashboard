@@ -1,3 +1,4 @@
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { fetcher } from '@ses/core/utils/fetcher';
 import { useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
@@ -54,10 +55,17 @@ const useAccountsSnapshotTab = (ownerId: string, currentMonth: DateTime, resourc
     return new Date(Math.min(...validDates.map((date) => date.getTime())));
   }, [dateResponse?.snapshots]);
 
+  const isLoading = (!response && !errorFetchingSnapshots) || (!dateResponse && !errorFetchingDateSnapshots);
+  const snapshot = response?.snapshots?.[0];
+  const { isLight } = useThemeContext();
+  const isEmpty = isLoading || !snapshot;
+
   return {
-    isLoading: (!response && !errorFetchingSnapshots) || (!dateResponse && !errorFetchingDateSnapshots),
-    snapshot: response?.snapshots?.[0],
+    isLoading,
+    snapshot,
     sinceDate,
+    isLight,
+    isEmpty,
   };
 };
 
