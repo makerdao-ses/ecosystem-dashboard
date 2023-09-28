@@ -4,6 +4,7 @@ import PageContainer from '@ses/components/Container/PageContainer';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SeccionPages/BreadcrumbYearNavigation';
 import BreakdownChart from './components/SeccionPages/BreakdownChart';
@@ -52,11 +53,6 @@ const FinancesContainer = () => {
     showSome,
     getAllMetricsValuesTotal,
   } = useFinances();
-  const ConditionalWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
-    const Wrapper =
-      periodFilter === 'Quarterly' ? <ContainerTable>{children}</ContainerTable> : <Container>{children}</Container>;
-    return Wrapper;
-  };
 
   return (
     <PageContainer>
@@ -92,7 +88,7 @@ const FinancesContainer = () => {
       </Container>
 
       {isEnabled('FEATURE_FINANCES_BREAK_DOWN_CHART_SECTION') && <BreakdownChart />}
-      <ConditionalWrapper>
+      <ConditionalWrapper period={filterSelected}>
         <BreakdownTable
           activeItems={activeMetrics}
           handleChange={handlePeriodChange}
@@ -168,33 +164,6 @@ const WrapperMobile = styled.div({
   gap: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
-  },
-});
-
-const ContainerTable = styled.div({
-  paddingLeft: 16,
-  paddingRight: 16,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingLeft: 32,
-    paddingRight: 32,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    paddingLeft: 0,
-    paddingRight: 0,
-    maxWidth: 1184,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    maxWidth: 1312,
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    maxWidth: 'revert',
-    marginLeft: 64,
-    marginRight: 64,
-    justifyContent: 'center',
   },
 });
 
