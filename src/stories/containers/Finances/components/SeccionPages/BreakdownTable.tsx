@@ -56,7 +56,7 @@ const BreakdownTable: React.FC<Props> = ({
     <TableHeader>
       <HeaderTable title="MakerDAO Budget" metrics={headerTableMetrics} year={year} metricTotal={metricTotal} />
     </TableHeader>
-    <TableWrapper />
+    <TableWrapper>Espace for the table</TableWrapper>
   </MainContainer>
 );
 
@@ -75,7 +75,6 @@ const TableWrapper = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 24,
-    marginBottom: 16,
     display: 'flex',
     flexDirection: 'column',
     gap: 16,

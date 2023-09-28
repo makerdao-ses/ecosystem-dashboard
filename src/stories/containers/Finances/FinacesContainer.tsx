@@ -111,13 +111,15 @@ const FinancesContainer = () => {
       </ConditionalWrapper>
       <Container>
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
-        <DelegateExpenseTrendFinances
-          columns={headersExpenseReport}
-          expenseReport={reportExpenseItems}
-          sortClick={onSortClick}
-          handleLoadMore={handleLoadMore}
-          showSome={showSome}
-        />
+        <ContainerLastReport>
+          <DelegateExpenseTrendFinances
+            columns={headersExpenseReport}
+            expenseReport={reportExpenseItems}
+            sortClick={onSortClick}
+            handleLoadMore={handleLoadMore}
+            showSome={showSome}
+          />
+        </ContainerLastReport>
       </Container>
     </PageContainer>
   );
@@ -170,6 +172,8 @@ const WrapperMobile = styled.div({
 });
 
 const ContainerTable = styled.div({
+  paddingLeft: 16,
+  paddingRight: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
     paddingLeft: 32,
     paddingRight: 32,
@@ -191,5 +195,12 @@ const ContainerTable = styled.div({
     marginLeft: 64,
     marginRight: 64,
     justifyContent: 'center',
+  },
+});
+
+const ContainerLastReport = styled.div({
+  marginTop: 40,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: 64,
   },
 });
