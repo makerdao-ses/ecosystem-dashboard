@@ -106,4 +106,6 @@ const ContainerCell = styled.div({
   alignItems: 'center',
 });
 
-const CellQuarterlyTotal = styled(CellQuarterly)({});
+const CellQuarterlyTotal = styled(CellQuarterly)({
+  minHeight: 80,
+});

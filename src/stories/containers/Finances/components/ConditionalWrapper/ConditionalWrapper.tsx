@@ -1,17 +1,10 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 
-interface Props extends React.PropsWithChildren {
-  period: string;
-}
-
-const ConditionalWrapper: React.FC<Props> = ({ children, period }) => {
-  const Wrapper =
-    period === 'Quarterly' ? <ContainerTable>{children}</ContainerTable> : <Container>{children}</Container>;
-  return Wrapper;
-};
+const ConditionalWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
+  <ContainerTable>{children}</ContainerTable>
+);
 export default ConditionalWrapper;
 const ContainerTable = styled.div({
   paddingLeft: 16,

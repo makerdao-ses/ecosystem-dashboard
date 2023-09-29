@@ -41,8 +41,8 @@ export interface MomentDataItem extends Team {
   totalActuals: number;
   lastModified: DateTime;
 }
-export type Metrics = 'Budget' | 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
-export type MetricsWithAmount = {
-  name: Metrics;
+export type Metric = 'Budget' | 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
+export interface MetricsWithAmount {
+  name: Metric;
   amount: number;
-};
+}

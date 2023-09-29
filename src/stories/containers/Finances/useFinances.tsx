@@ -18,7 +18,7 @@ import type {
   MetricsWithAmount,
   PeriodicSelectionFilter,
   NavigationCard,
-  Metrics,
+  Metric,
 } from './utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -249,7 +249,7 @@ export const useFinances = () => {
   };
 
   const mapMetricValuesTotal = useMemo(() => {
-    const mapMetricValues: Record<Metrics, number> = {
+    const mapMetricValues: Record<Metric, number> = {
       Budget: 11044445,
       Actual: 11044445,
       Forecast: 11044445,
@@ -263,10 +263,10 @@ export const useFinances = () => {
     const metricValues: MetricsWithAmount[] = [];
     if (periodFilter === 'Quarterly') {
       activeMetrics.forEach((metric: string) => {
-        const amount = mapMetricValuesTotal[metric as Metrics] || 0;
+        const amount = mapMetricValuesTotal[metric as Metric] || 0;
         if (amount !== undefined) {
           metricValues.push({
-            name: metric as Metrics,
+            name: metric as Metric,
             amount,
           });
         }
@@ -275,7 +275,7 @@ export const useFinances = () => {
     if (periodFilter === 'Annually' || periodFilter === 'Monthly') {
       activeMetrics.forEach((metric: string) => {
         metricValues.push({
-          name: metric as Metrics,
+          name: metric as Metric,
           amount: 0,
         });
       });

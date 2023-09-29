@@ -88,7 +88,7 @@ const FinancesContainer = () => {
       </Container>
 
       {isEnabled('FEATURE_FINANCES_BREAK_DOWN_CHART_SECTION') && <BreakdownChart />}
-      <ConditionalWrapper period={filterSelected}>
+      <ConditionalWrapper>
         <BreakdownTable
           activeItems={activeMetrics}
           handleChange={handlePeriodChange}

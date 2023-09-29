@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { returnShortNameForMetric } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
@@ -24,7 +25,7 @@ export const CellQuarterly: React.FC<Props> = ({ metrics, quarterly, isTotal = f
           {metrics?.map((metric, index) => (
             <Metrics key={index}>
               <Name isLight={isLight}>{returnShortNameForMetric(metric).name}</Name>
-              <Amount isLight={isLight}>{metric.amount.toLocaleString('es-US')}</Amount>
+              <Amount isLight={isLight}>{usLocalizedNumber(metric.amount)}</Amount>
             </Metrics>
           ))}
         </ContainerMetricsData>
