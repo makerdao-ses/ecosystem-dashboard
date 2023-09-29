@@ -22,23 +22,19 @@ import type {
 } from './utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-
+const years = ['2022', '2023'];
 export const useFinances = () => {
   const { isLight } = useThemeContext();
-  const [activeMetrics, setActiveMetrics] = useState<string[]>([]);
   const router = useRouter();
+  const [activeMetrics, setActiveMetrics] = useState<string[]>([]);
   const [showSome, setShowSome] = useState(true);
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
-  const getItems = showSome ? getExpenseReportItems.slice(0, 10) : getExpenseReportItems;
 
-  const routes = ['Finances'];
-  const years = ['2022', '2023'];
-  const metricsFilter = useMemo(
-    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
-    []
-  );
+  const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
+  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>('Quarterly');
+
+  const [year, setYears] = useState(years[0]);
+  const [isOpenYear, setIsOpenYear] = useState<boolean>(false);
+  const [isOpenPeriod, setIsOpenPeriod] = useState<boolean>(false);
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Asc,
@@ -47,6 +43,18 @@ export const useFinances = () => {
     SortEnum.Neutral,
     SortEnum.Neutral,
   ]);
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
+  const getItems = showSome ? getExpenseReportItems.slice(0, 10) : getExpenseReportItems;
+
+  const routes = ['Finances'];
+
+  const metricsFilter = useMemo(
+    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
+    []
+  );
+
   const totalCardsNavigation = 34223;
   const headersExpenseReport = getHeadersExpenseReport(headersSort, isSmallDesk);
 
@@ -60,12 +68,6 @@ export const useFinances = () => {
   const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', 'Annually'];
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
-  const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
-  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>('Quarterly');
-
-  const [year, setYears] = useState(years[0]);
-  const [isOpenYear, setIsOpenYear] = useState<boolean>(false);
-  const [isOpenPeriod, setIsOpenPeriod] = useState<boolean>(false);
   const actuals = 9120;
   const budgetCap = 9120;
   const prediction = 4436;

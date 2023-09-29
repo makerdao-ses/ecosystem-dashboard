@@ -1,10 +1,18 @@
 import styled from '@emotion/styled';
+import Container from '@ses/components/Container/Container';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import type { PeriodicSelectionFilter } from '../../utils/types';
 
-const ConditionalWrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
-  <ContainerTable>{children}</ContainerTable>
-);
+interface Props extends React.PropsWithChildren {
+  period: PeriodicSelectionFilter;
+}
+
+const ConditionalWrapper: React.FC<Props> = ({ children, period }) => {
+  const Wrapper =
+    period === 'Quarterly' ? <ContainerTable>{children}</ContainerTable> : <Container>{children}</Container>;
+  return Wrapper;
+};
 export default ConditionalWrapper;
 const ContainerTable = styled.div({
   paddingLeft: 16,
