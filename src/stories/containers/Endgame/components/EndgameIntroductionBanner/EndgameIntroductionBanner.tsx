@@ -17,7 +17,7 @@ interface EndgameIntroductionBannerProps {
 
 const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
   const { isLight } = useThemeContext();
-  const isUpDesktop1194 = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
+  const isUpDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
 
   const image = (
     <ImageWrapper>
@@ -34,7 +34,7 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
 
   return (
     <EndgameContainer isLight={isLight}>
-      {!isUpDesktop1194 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
+      {!isUpDesktop1280 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
 
       <ContentContainer>
         <InfoContainer isKeyChanges={isKeyChanges}>
@@ -53,7 +53,7 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
             <LearMore isLight={isLight} href={siteRoutes.endgame} buttonType={ButtonType.Primary} label="Learn More" />
           )}
         </InfoContainer>
-        {isUpDesktop1194 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
+        {isUpDesktop1280 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
       </ContentContainer>
     </EndgameContainer>
   );
@@ -84,7 +84,7 @@ const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
 const ContentContainer = styled(Container)({
   position: 'relative',
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
   },
 });
