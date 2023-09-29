@@ -4,6 +4,7 @@ import PageContainer from '@ses/components/Container/PageContainer';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SeccionPages/BreadcrumbYearNavigation';
 import BreakdownChart from './components/SeccionPages/BreakdownChart';
@@ -40,7 +41,7 @@ const FinancesContainer = () => {
     periodFilter,
     year,
     cardsNavigationInformation,
-    activeElements,
+    activeMetrics,
     handleSelectChangeMetrics,
     selectMetrics,
     handleResetMetrics,
@@ -50,6 +51,7 @@ const FinancesContainer = () => {
 
     handleLoadMore,
     showSome,
+    getAllMetricsValuesTotal,
   } = useFinances();
 
   return (
@@ -82,20 +84,30 @@ const FinancesContainer = () => {
             <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
           </WrapperMobile>
           <CardsNavigation cardsNavigationInformation={cardsNavigationInformation} />
-          {isEnabled('FEATURE_FINANCES_BREAK_DOWN_CHART_SECTION') && <BreakdownChart />}
-          <BreakdownTable
-            activeItems={activeElements}
-            handleChange={handlePeriodChange}
-            handleResetFilter={handleResetMetrics}
-            handleSelectChange={handleSelectChangeMetrics}
-            isOpen={isOpenPeriod}
-            metrics={selectMetrics}
-            periodicSelectionFilter={periodicSelectionFilter}
-            selectedValue={periodFilter}
-            onClose={handleClosePeriod}
-            onOpen={handleOpenPeriod}
-          />
-          {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
+        </ContainerSections>
+      </Container>
+
+      {isEnabled('FEATURE_FINANCES_BREAK_DOWN_CHART_SECTION') && <BreakdownChart />}
+      <ConditionalWrapper>
+        <BreakdownTable
+          activeItems={activeMetrics}
+          handleChange={handlePeriodChange}
+          handleResetFilter={handleResetMetrics}
+          handleSelectChange={handleSelectChangeMetrics}
+          isOpen={isOpenPeriod}
+          metrics={selectMetrics}
+          periodicSelectionFilter={periodicSelectionFilter}
+          selectedValue={periodFilter}
+          onClose={handleClosePeriod}
+          onOpen={handleOpenPeriod}
+          year={year}
+          headerTableMetrics={getAllMetricsValuesTotal()}
+          metricTotal={getAllMetricsValuesTotal()}
+        />
+      </ConditionalWrapper>
+      <Container>
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
+        <ContainerLastReport>
           <DelegateExpenseTrendFinances
             columns={headersExpenseReport}
             expenseReport={reportExpenseItems}
@@ -103,7 +115,7 @@ const FinancesContainer = () => {
             handleLoadMore={handleLoadMore}
             showSome={showSome}
           />
-        </ContainerSections>
+        </ContainerLastReport>
       </Container>
     </PageContainer>
   );
@@ -152,5 +164,12 @@ const WrapperMobile = styled.div({
   gap: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
+  },
+});
+
+const ContainerLastReport = styled.div({
+  marginTop: 40,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: 64,
   },
 });

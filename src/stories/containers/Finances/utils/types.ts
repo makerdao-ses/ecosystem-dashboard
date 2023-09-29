@@ -23,7 +23,7 @@ export interface DoughnutSeries {
   color: string;
 }
 
-export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually';
+export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually' | 'Semi-annual';
 
 export interface DelegateExpenseTableHeader {
   header: string;
@@ -40,4 +40,9 @@ export interface MomentDataItem extends Team {
   reportMonth: DateTime;
   totalActuals: number;
   lastModified: DateTime;
+}
+export type Metric = 'Budget' | 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
+export interface MetricsWithAmount {
+  name: Metric;
+  amount: number;
 }

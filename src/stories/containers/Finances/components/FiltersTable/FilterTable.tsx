@@ -107,7 +107,6 @@ const FiltersContainer = styled.div({
   gridTemplateRows: 'auto',
   placeItems: 'space-between',
   justifyContent: 'end',
-  minWidth: 343,
   margin: '0 auto',
   gridTemplateAreas: `
   "filterMetrics periodicSelection buttonFilter "

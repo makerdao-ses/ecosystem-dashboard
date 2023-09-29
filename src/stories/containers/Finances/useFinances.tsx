@@ -6,20 +6,26 @@ import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
 import { getExpenseMonthWithData, getHeadersExpenseReport, mockDataApiTeam } from './utils/utils';
-import type { FilterDoughnut, MomentDataItem, NavigationCard, PeriodicSelectionFilter } from './utils/types';
-
+import type {
+  FilterDoughnut,
+  MomentDataItem,
+  DoughnutSeries,
+  MetricsWithAmount,
+  PeriodicSelectionFilter,
+  NavigationCard,
+  Metric,
+} from './utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
-
 export const useFinances = () => {
   const { isLight } = useThemeContext();
+  const [activeMetrics, setActiveMetrics] = useState<string[]>([]);
   const router = useRouter();
   const [showSome, setShowSome] = useState(true);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -41,14 +47,16 @@ export const useFinances = () => {
     SortEnum.Neutral,
     SortEnum.Neutral,
   ]);
+  const totalCardsNavigation = 34223;
   const headersExpenseReport = getHeadersExpenseReport(headersSort, isSmallDesk);
-  const [activeElements, setActiveElements] = useState<string[]>([]);
+
   const handleSelectChangeMetrics = (value: string[]) => {
-    setActiveElements(value);
+    setActiveMetrics(value);
   };
   const handleResetMetrics = () => {
-    setActiveElements([]);
+    setActiveMetrics([]);
   };
+
   const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', 'Annually'];
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
@@ -159,7 +167,9 @@ export const useFinances = () => {
     label: adr,
     url: router.asPath,
   }));
-
+  const handleResetFilters = () => {
+    console.log('reset-filters');
+  };
   const doughnutSeriesData: DoughnutSeries[] = [
     {
       name: 'Endgame Atlas Budgets',
@@ -237,6 +247,43 @@ export const useFinances = () => {
   const handleLoadMore = () => {
     setShowSome(!showSome);
   };
+
+  const mapMetricValuesTotal = useMemo(() => {
+    const mapMetricValues: Record<Metric, number> = {
+      Budget: 11044445,
+      Actual: 11044445,
+      Forecast: 11044445,
+      'Net Expenses On-chain': 11044445,
+      'Net Expenses Off-chain': 11044445,
+    };
+    return mapMetricValues;
+  }, []);
+
+  const getAllMetricsValuesTotal = useCallback(() => {
+    const metricValues: MetricsWithAmount[] = [];
+    if (periodFilter === 'Quarterly') {
+      activeMetrics.forEach((metric: string) => {
+        const amount = mapMetricValuesTotal[metric as Metric] || 0;
+        if (amount !== undefined) {
+          metricValues.push({
+            name: metric as Metric,
+            amount,
+          });
+        }
+      });
+    }
+    if (periodFilter === 'Annually' || periodFilter === 'Monthly') {
+      activeMetrics.forEach((metric: string) => {
+        metricValues.push({
+          name: metric as Metric,
+          amount: 0,
+        });
+      });
+    }
+
+    return metricValues;
+  }, [activeMetrics, mapMetricValuesTotal, periodFilter]);
+
   return {
     years,
     year,
@@ -261,7 +308,7 @@ export const useFinances = () => {
     handleOpenPeriod,
     periodFilter,
     isOpenPeriod,
-    activeElements,
+    activeMetrics,
     handleSelectChangeMetrics,
     selectMetrics,
     handleResetMetrics,
@@ -271,5 +318,10 @@ export const useFinances = () => {
     showSome,
     handleLoadMore,
     getItems,
+    handleResetFilters,
+    totalCardsNavigation,
+
+    mapMetricValuesTotal,
+    getAllMetricsValuesTotal,
   };
 };

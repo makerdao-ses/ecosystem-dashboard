@@ -3,7 +3,7 @@ import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
-import type { DelegateExpenseTableHeader, MomentDataItem } from './types';
+import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem } from './types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export const calculateValuesByBreakpoint = (
@@ -480,7 +480,14 @@ export const mockDataApiTeam: MomentDataItem[] = [
 // TODO: Update function when are data in the API
 export const getStatus = (budget: BudgetStatement[]) => budget[0]?.status;
 export const getShowCTA = () => false;
-
+export const getQuarterlyForFilters = (year: number): string[] => {
+  const period: string[] = [];
+  for (let i = 2; i <= 5; i++) {
+    const quarter = `Q${i} ${year}`;
+    period.push(quarter);
+  }
+  return period;
+};
 export const getExpenseMonthWithData = (expense: MomentDataItem) => {
   if (expense?.lastActivity?.created_at) {
     return DateTime.fromISO(expense.lastActivity?.created_at);
@@ -608,4 +615,31 @@ export const getLinkLastExpenseReport = (code: string, reportExpenseItems: Momen
       return siteRoutes.ecosystemActorAbout(code);
     }
   }
+};
+
+export const getPeriodForFilters = (year: string) => {
+  const quarterlies: string[] = [];
+  for (let i = 1; i <= 4; ++i) {
+    const quarterly = `Q${i} ${year}`;
+    quarterlies.push(quarterly);
+  }
+  return quarterlies;
+};
+
+export const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export const returnShortNameForMetric = (metric: MetricsWithAmount) => {
+  if (metric.name === 'Net Expenses On-chain') {
+    return {
+      ...metric,
+      name: 'On-chain',
+    };
+  }
+  if (metric.name === 'Net Expenses Off-chain') {
+    return {
+      ...metric,
+      name: 'Off-chain',
+    };
+  }
+  return metric;
 };
