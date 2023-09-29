@@ -52,16 +52,23 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
       position: 'relative',
       height: 48,
       left: 10,
+      //
       borderLeft: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+      [lightTheme.breakpoints.up('tablet_768')]: {
+        left: 6,
+      },
       [lightTheme.breakpoints.up('desktop_1024')]: {
         left: 4,
       },
+      [lightTheme.breakpoints.up('desktop_1280')]: {
+        left: 0,
+      },
 
       [lightTheme.breakpoints.up('desktop_1440')]: {
-        left: 6,
+        left: 0,
       },
       [lightTheme.breakpoints.up('desktop_1920')]: {
-        left: 12,
+        left: 2,
       },
     },
   }),
