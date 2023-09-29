@@ -32,12 +32,11 @@ const BreakdownTable: React.FC<Props> = ({
   isOpen,
   metrics,
   periodicSelectionFilter,
-  selectedValue,
   onClose,
   onOpen,
   headerTableMetrics,
   metricTotal,
-
+  selectedValue,
   year,
 }) => (
   <MainContainer>
@@ -54,7 +53,13 @@ const BreakdownTable: React.FC<Props> = ({
       onOpen={onOpen}
     />
     <TableHeader>
-      <HeaderTable title="MakerDAO Budget" metrics={headerTableMetrics} year={year} metricTotal={metricTotal} />
+      <HeaderTable
+        title="MakerDAO Budget"
+        metrics={headerTableMetrics}
+        year={year}
+        metricTotal={metricTotal}
+        period={selectedValue}
+      />
     </TableHeader>
     <TableWrapper>Espace for the table</TableWrapper>
   </MainContainer>

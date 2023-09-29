@@ -46,3 +46,11 @@ export interface MetricsWithAmount {
   name: Metric;
   amount: number;
 }
+
+export type MetricValues = {
+  Budget: number;
+  Actual: number;
+  Forecast: number;
+  'Net Expenses On-chain': number;
+  'Net Expenses Off-chain': number;
+};
