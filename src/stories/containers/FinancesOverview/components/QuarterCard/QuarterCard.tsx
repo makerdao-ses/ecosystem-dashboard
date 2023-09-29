@@ -84,9 +84,10 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
   overflow: 'hidden',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 16,
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     padding: '16px 24px',
   },
@@ -135,7 +136,7 @@ const BarWrapper = styled.div({
   marginTop: 8,
   marginBottom: 8,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 16,
     marginBottom: 16,
   },
@@ -157,14 +158,18 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
   alignItems: 'flex-start ',
   height: 'fit-content',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
     lineHeight: '17px',
     alignItems: 'center',
     paddingRight: 10,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    paddingRight: 10,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingRight: 12,
   },
 
@@ -179,7 +184,7 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
     borderRadius: '50%',
     backgroundColor: dotColor,
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [lightTheme.breakpoints.up('tablet_768')]: {
       width: 8,
       height: 8,
       top: 'calc(50% - 4px)',
@@ -198,16 +203,21 @@ const LegendNumber = styled.div({
   lineHeight: '12px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: 14,
-    lineHeight: '17px',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 12,
+    lineHeight: 'normal',
     letterSpacing: '0.3px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    fontSize: 14,
+    letterSpacing: 'normal',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: 16,
-    lineHeight: '19px',
     letterSpacing: '0.3px',
+    lineHeight: '18px',
   },
 });
 
@@ -216,29 +226,38 @@ const LegendNumberSuffix = styled.div({
   lineHeight: '8px',
   marginLeft: 1.1,
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: 12,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 10,
     fontWeight: 600,
-    lineHeight: '15px',
+    lineHeight: 'normal',
     letterSpacing: '1px',
     textTransform: 'uppercase',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    fontSize: 12,
+    marginLeft: 0,
+    letterSpacing: 'normal',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    letterSpacing: '1px',
   },
 });
 
 const LegendLabel = styled.div({
   marginLeft: 3.1,
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 4,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginLeft: 2,
     fontWeight: 400,
     fontSize: 12,
-    lineHeight: '15px',
+    lineHeight: 'normal',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginLeft: 6,
-    fontWeight: 400,
     fontSize: 14,
-    lineHeight: '17px',
+    lineHeight: '18px',
   },
 });
