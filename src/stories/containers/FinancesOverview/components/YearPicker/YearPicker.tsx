@@ -42,7 +42,7 @@ const Container = styled.div({
   justifyContent: 'center',
   gap: 8,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 16,
   },
 });
@@ -62,7 +62,7 @@ const YearButton = styled(CustomButton)<WithIsLight & { selected: boolean }>(({ 
   width: 83,
   height: 34,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 120,
     height: 48,
   },
@@ -76,7 +76,7 @@ const YearButton = styled(CustomButton)<WithIsLight & { selected: boolean }>(({ 
     alignItems: 'center',
     justifyContent: 'center',
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [lightTheme.breakpoints.up('tablet_768')]: {
       fontSize: '16px!important',
       lineHeight: '19px!important',
     },
