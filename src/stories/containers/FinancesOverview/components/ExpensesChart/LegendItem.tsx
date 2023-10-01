@@ -26,13 +26,15 @@ const Container = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
 });
+
 const Doter = styled.div<{ color: string }>(({ color }) => ({
   backgroundColor: color,
   marginRight: 4,
   width: 8,
   height: 8,
   borderRadius: '50%',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 12,
     height: 12,
     marginRight: 6,
@@ -47,7 +49,8 @@ const Label = styled.label<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '13px',
   padding: 0,
   color: isLight ? '#231536' : '#EDEFFF',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: '16px',
     lineHeight: '22px',
   },

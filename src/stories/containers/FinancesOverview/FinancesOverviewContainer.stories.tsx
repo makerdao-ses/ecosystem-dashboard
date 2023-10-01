@@ -14,7 +14,7 @@ export default {
   parameters: {
     date: new Date('2023-02-14T04:14:00.000Z'),
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440, 1920],
+      viewports: [375, 768, 1024, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
   },

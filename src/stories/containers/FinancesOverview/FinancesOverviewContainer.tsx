@@ -43,7 +43,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     newPrediction,
     totalExpenses,
     sortedQuarters,
-    isDownTable,
+    isDownDesktop1280,
     selectedFilter,
     setSelectedFilter,
     byBudgetExpenses,
@@ -92,7 +92,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         <BreakdownSectionContainer>
           <ExpensesChartColumn>
             <ExpensesChart newActual={newActual} newDiscontinued={newDiscontinued} newPrediction={newPrediction} />
-            {!isDownTable && <NavigationButtons />}
+            {!isDownDesktop1280 && <NavigationButtons />}
           </ExpensesChartColumn>
 
           <BreakdownTableColumn>
@@ -111,7 +111,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
               handleOnClick={handleOpenModal}
             />
           </BreakdownTableColumn>
-          {isDownTable && <NavigationButtons />}
+          {isDownDesktop1280 && <NavigationButtons />}
         </BreakdownSectionContainer>
       </Container>
       <CategoryModalComponent />
@@ -228,7 +228,7 @@ const BreakdownSectionContainer = styled.div({
     gap: 18,
   },
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     gap: 40,
   },
@@ -242,15 +242,10 @@ const ExpensesChartColumn = styled.div({
   width: 343,
   margin: '16px auto 0',
 
-  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     margin: '32px auto 0',
     width: 666,
     paddingRight: 59,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    margin: '52px auto 0',
-    width: 479,
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {

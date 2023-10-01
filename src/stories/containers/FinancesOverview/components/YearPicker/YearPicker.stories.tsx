@@ -8,7 +8,7 @@ export default {
   component: YearPicker,
   parameters: {
     chromatic: {
-      viewports: [375, 834],
+      viewports: [375, 768],
       pauseAnimationAtEnd: true,
     },
   },
