@@ -89,6 +89,17 @@ const Headed = styled.th({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 150,
   },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 220,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 261,
+    padding: '16px 0px 16px 32px',
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    width: 230,
+    padding: '16px 8px',
+  },
 });
 
 const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false, isLight }) => ({
