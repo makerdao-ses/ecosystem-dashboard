@@ -43,7 +43,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     newPrediction,
     totalExpenses,
     sortedQuarters,
-    isDownTable,
+    isDownDesktop1280,
     selectedFilter,
     setSelectedFilter,
     byBudgetExpenses,
@@ -92,7 +92,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         <BreakdownSectionContainer>
           <ExpensesChartColumn>
             <ExpensesChart newActual={newActual} newDiscontinued={newDiscontinued} newPrediction={newPrediction} />
-            {!isDownTable && <NavigationButtons />}
+            {!isDownDesktop1280 && <NavigationButtons />}
           </ExpensesChartColumn>
 
           <BreakdownTableColumn>
@@ -111,7 +111,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
               handleOnClick={handleOpenModal}
             />
           </BreakdownTableColumn>
-          {isDownTable && <NavigationButtons />}
+          {isDownDesktop1280 && <NavigationButtons />}
         </BreakdownSectionContainer>
       </Container>
       <CategoryModalComponent />
@@ -128,11 +128,11 @@ const PageWrapper = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
 const EndgameIntroContainer = styled.div({
   marginBottom: 40,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 64,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginTop: 32,
   },
 });
@@ -146,7 +146,7 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
   marginTop: 32,
   marginBottom: 32,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
     fontWeight: 600,
     lineHeight: '29px',
@@ -154,7 +154,7 @@ const PageTitle = styled.h1<{ isLight: boolean }>(({ isLight }) => ({
     marginBottom: 40,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 32,
   },
 }));
@@ -163,7 +163,7 @@ const ContainerYearPicker = styled.div({
   marginBottom: 24,
   marginTop: 8,
 
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1440')]: {
+  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1440')]: {
     marginBottom: 16,
   },
 });
@@ -174,7 +174,7 @@ const TotalReported = styled.div({
   alignItems: 'center',
   marginBottom: 16,
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginBottom: 0,
   },
 });
@@ -189,7 +189,7 @@ const Label = styled.label<WithIsLight>(({ isLight }) => ({
   textTransform: 'uppercase',
   color: isLight ? '#231536' : '#EDEFFF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: '32px',
     lineHeight: '39px',
     letterSpacing: '0.4px',
@@ -211,7 +211,7 @@ const TotalDescription = styled.label<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#EDEFFF',
   marginTop: 2,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontWeight: 500,
     fontSize: 20,
     lineHeight: ' 24px',
@@ -224,11 +224,11 @@ const BreakdownSectionContainer = styled.div({
   flexDirection: 'column',
   gap: 39,
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     gap: 18,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     gap: 40,
   },
@@ -242,15 +242,10 @@ const ExpensesChartColumn = styled.div({
   width: 343,
   margin: '16px auto 0',
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     margin: '32px auto 0',
     width: 666,
     paddingRight: 59,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    margin: '52px auto 0',
-    width: 479,
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -273,16 +268,19 @@ export const BasicModalExtended = styled(BasicModal)({
   outline: 'none',
   transform: 'translateX(-50%)',
   width: 'max(100%, 375px)',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 'max(90%, 770px)',
     height: 'calc(100% - 128px)',
     marginBottom: 64,
     maxHeight: 813,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 1114,
     maxHeight: 847,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 1184,
   },

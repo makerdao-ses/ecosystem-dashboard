@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import ArrowSwiperNext from '@ses/components/svg/ArrowSwiperNext';
 import ArrowSwiperPrevious from '@ses/components/svg/ArrowSwiperPrevious';
 import lightTheme from '@ses/styles/theme/light';
@@ -8,7 +7,6 @@ import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { isQuarter4 } from '../../utils/quarters';
 import QuarterCard from '../QuarterCard/QuarterCard';
-
 import useQuarterCarousel from './useQuarterCarousel';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import 'swiper/css/navigation';
@@ -24,7 +22,6 @@ type QuarterCarouselProps = {
 
 const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
   const swiper = useSwiper();
-
   const { showDivider, swiperOptions, isLight } = useQuarterCarousel(quarters);
   const ref = useRef<SwiperRef>(null);
   const navigationPrevRef = useRef<SVGSVGElement>(null);
@@ -89,29 +86,32 @@ export default QuarterCarousel;
 const SwiperWrapper = styled.div({
   margin: '0 -8px',
   position: 'relative',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    margin: '0 -12px',
-  },
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 32,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 24,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    margin: '0 -12px',
   },
 
   '& .swiper-slide': {
     display: 'flex',
     maxWidth: '50%',
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [lightTheme.breakpoints.up('tablet_768')]: {
       maxWidth: '33.3333%',
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
+    [lightTheme.breakpoints.up('desktop_1024')]: {
       maxWidth: '25%',
     },
   },
+
   '& .swiper-button-prev:after': {
     display: 'none',
   },
@@ -122,6 +122,7 @@ const CardWrapper = styled.div({
   marginRight: 8,
   marginBottom: 40,
   width: '100%',
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginLeft: 12,
     marginRight: 12,
@@ -133,7 +134,7 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   height: 131,
   background: isLight ? '#D4D9E1' : '#30363C',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 161,
   },
 }));
@@ -155,7 +156,8 @@ const ContainerButtonLeft = styled.div({
 
 const WrapperMobile = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'block',
   },
 });

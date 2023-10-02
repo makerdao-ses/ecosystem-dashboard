@@ -53,7 +53,7 @@ const BarContainer = styled.div<WithIsLight>(({ isLight }) => ({
   borderRadius: 4,
   background: isLight ? '#ECF1F3' : '#10191F',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 16,
     borderRadius: 8,
   },
@@ -69,7 +69,7 @@ const Actuals = styled.div<WithIsLight & { width: number }>(({ isLight, width })
   height: '100%',
   transition: 'width 0.85s ease-in-out',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     borderRadius: 8,
   },
 }));
@@ -84,7 +84,7 @@ const Prediction = styled.div<WithIsLight & { width: number }>(({ isLight, width
   height: '100%',
   transition: 'width 0.85s ease-in-out',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     borderRadius: 8,
   },
 }));
