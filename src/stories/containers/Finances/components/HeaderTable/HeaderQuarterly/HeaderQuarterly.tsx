@@ -77,7 +77,7 @@ const TitleContainer = styled.div<WithIsLight>(({ isLight }) => ({
   height: 48,
   borderRight: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
 
-  width: 136,
+  width: 145,
   padding: '16px 8px 16px 8px',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 141,
