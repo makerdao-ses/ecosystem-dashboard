@@ -21,36 +21,36 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable }) => {
         <TableContainer isLight={isLight} className={className}>
           <TableBody>
             <TableRow isMain isLight={isLight}>
-              <Headed>Atlas Immutable AA Budgets </Headed>
-              <Cell>2208889</Cell>
-              <Cell>2208889</Cell>
-              <Cell>2208889</Cell>
-              <Cell>2208889</Cell>
-              <Cell>2208889</Cell>
+              <Headed isLight={isLight}>Atlas Immutable AA Budgets </Headed>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
             </TableRow>
             <TableRow isLight={isLight}>
-              <Headed>Aligned Voter Committees</Headed>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>2208889</Cell>
+              <Headed isLight={isLight}>Aligned Voter Committees</Headed>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
             </TableRow>
             <TableRow isLight={isLight}>
-              <Headed>Aligned Delegates</Headed>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>2208889</Cell>
+              <Headed isLight={isLight}>Aligned Delegates</Headed>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
             </TableRow>
             <TableRow isLight={isLight}>
-              <Headed>SubDAOs</Headed>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>245432</Cell>
-              <Cell>2208889</Cell>
+              <Headed isLight={isLight}>SubDAOs</Headed>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>2208889</Cell>
             </TableRow>
           </TableBody>
         </TableContainer>
@@ -71,15 +71,15 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   width: '100%',
 }));
 
-const Cell = styled.td({
-  borderRight: '1px solid rgb(190,190,190)',
+const Cell = styled.td<WithIsLight>(({ isLight }) => ({
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
-});
+}));
 
-const Headed = styled.th({
-  borderRight: '1px solid rgb(190,190,190)',
+const Headed = styled.th<WithIsLight>(({ isLight }) => ({
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
   fontSize: 14,
   color: '#231536',
   width: 145,
@@ -100,7 +100,7 @@ const Headed = styled.th({
     width: 230,
     padding: '16px 8px',
   },
-});
+}));
 
 const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false, isLight }) => ({
   '& th': {
