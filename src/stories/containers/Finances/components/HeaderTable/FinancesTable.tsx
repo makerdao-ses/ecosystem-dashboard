@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { MockData } from '../../utils/mockData';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -85,6 +86,9 @@ const Headed = styled.th({
   textAlign: 'center',
   verticalAlign: 'center',
   padding: '16px 8px',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 150,
+  },
 });
 
 const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false, isLight }) => ({
@@ -100,6 +104,9 @@ const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false
     borderRight: 'none',
     borderTopRightRadius: isMain ? 6 : 'none',
     borderBottomRightRadius: isMain ? 6 : 'none',
+  },
+  '& td': {
+    fontWeight: isMain ? 600 : 400,
   },
 }));
 
