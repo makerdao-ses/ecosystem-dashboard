@@ -5,7 +5,6 @@ import AppLayout from '../AppLayout/AppLayout';
 import FinancesOverviewContainer from './FinancesOverviewContainer';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
 export default {
   title: 'Pages/Finances Overview',
@@ -252,76 +251,3 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
-
-const optionStyles = {
-  style: {
-    top: -16,
-    left: -16,
-  },
-};
-LightMode.parameters = {
-  figma: {
-    component: {
-      0: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15491:165746&mode=dev',
-        options: {
-          componentStyle: {
-            width: 343,
-          },
-          ...optionStyles,
-        },
-      },
-      834: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:267229&mode=dev',
-        options: {
-          componentStyle: {
-            width: 802,
-          },
-          ...optionStyles,
-        },
-      },
-      1194: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:144041&mode=design&t=iwdjYJMPNwmgoBQ3-4',
-        options: {
-          componentStyle: {
-            width: 1162,
-          },
-          ...optionStyles,
-        },
-      },
-      1280: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:143348&mode=dev',
-        options: {
-          componentStyle: {
-            width: 1248,
-          },
-          ...optionStyles,
-        },
-      },
-      1440: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15343:199079&mode=dev',
-        options: {
-          componentStyle: {
-            width: 1408,
-          },
-          ...optionStyles,
-        },
-      },
-      1920: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=13399:142663&mode=dev',
-        options: {
-          componentStyle: {
-            width: 1888,
-          },
-          ...optionStyles,
-        },
-      },
-    },
-  } as FigmaParams,
-};
