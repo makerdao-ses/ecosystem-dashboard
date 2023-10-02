@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -14,9 +13,9 @@ interface Props {
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable }) => {
   const { isLight } = useThemeContext();
   const tables = Object.keys(breakdownTable);
-
   return (
     <>
+      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {tables.map((_) => (
         <TableContainer isLight={isLight} className={className}>
           <TableBody>
