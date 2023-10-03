@@ -9,7 +9,7 @@ export default {
   component: ExpensesChart,
   parameters: {
     chromatic: {
-      viewports: [375, 834],
+      viewports: [375, 768],
     },
   },
 } as ComponentMeta<typeof ExpensesChart>;
@@ -135,7 +135,7 @@ const args = [
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(0).build().discontinued,
         itemStyle: {
-          borderRadius: [6, 6, 6, 6],
+          borderRadius: [6, 6, 0, 0],
         },
       },
       {
@@ -150,7 +150,7 @@ const args = [
       {
         value: new TotalExpenseReportsBuilder().withDiscontinued(1172334).build().discontinued,
         itemStyle: {
-          borderRadius: [0, 0, 6, 6],
+          borderRadius: [0, 0, 0, 0],
         },
       },
       {
@@ -256,16 +256,29 @@ LightMode.parameters = {
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=15343%3A199330',
+      768: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24815:141272',
+        options: {
+          componentStyle: {
+            width: 607,
+            height: 387,
+          },
+          style: {
+            top: 0,
+            left: 2,
+          },
+        },
+      },
+      1280: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15343:203943',
         options: {
           componentStyle: {
             width: 504,
             height: 387,
           },
           style: {
-            top: -2,
-            left: 3,
+            top: 0,
+            left: -21,
           },
         },
       },

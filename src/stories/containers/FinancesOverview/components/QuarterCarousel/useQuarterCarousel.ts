@@ -54,10 +54,10 @@ const useQuarterCarousel = (quarters: ExpenseDto[]) => {
     spaceBetween: 0,
     slidesPerView: 2,
     breakpoints: {
-      834: {
+      768: {
         slidesPerView: 3,
       },
-      1194: {
+      1024: {
         slidesPerView: 4,
       },
     },

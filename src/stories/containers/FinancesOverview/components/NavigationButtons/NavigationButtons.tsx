@@ -23,24 +23,20 @@ const NavigationButtonsContainer = styled.div({
   margin: '12px auto 0',
   padding: '0 22px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 24,
     padding: 0,
-    maxWidth: 738,
     margin: '46px auto 0',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'column',
     margin: '32px auto 0',
     maxWidth: 320,
     padding: 0,
     gap: 16,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    margin: '32px auto 0',
   },
 });
 
@@ -55,7 +51,7 @@ const Button = styled(LinkButton)({
     fontSize: 16,
     lineHeight: '19px',
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     minWidth: 218,
   },
 });

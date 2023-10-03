@@ -8,7 +8,7 @@ export default {
   component: YearPicker,
   parameters: {
     chromatic: {
-      viewports: [375, 834],
+      viewports: [375, 768],
       pauseAnimationAtEnd: true,
     },
   },
@@ -26,19 +26,19 @@ LightMode.parameters = {
   figma: {
     component: {
       375: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13399%3A147675',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=15491:166084',
         options: {
           componentStyle: {
             width: 'fit-content',
           },
           style: {
             top: -3,
-            left: -99,
+            left: 1,
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=13451%3A150494',
+      768: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24815:141259',
         options: {
           componentStyle: {
             width: 'fit-content',

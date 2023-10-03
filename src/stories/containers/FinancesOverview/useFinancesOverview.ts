@@ -38,7 +38,7 @@ const useFinancesOverview = (
   const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
 
   const { isLight } = useThemeContext();
-  const isDownTable = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
+  const isDownDesktop1280 = useMediaQuery(lightTheme.breakpoints.down('desktop_1280'));
   const years = [2021, 2022, 2023];
 
   const handleChangeSelectYear = (year: number) => {
@@ -272,7 +272,7 @@ const useFinancesOverview = (
     newPrediction,
     newActual,
     totalExpenses,
-    isDownTable,
+    isDownDesktop1280,
     selectedFilter,
     setSelectedFilter,
     byBudgetExpenses,
