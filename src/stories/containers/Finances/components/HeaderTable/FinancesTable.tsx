@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -13,19 +14,31 @@ interface Props {
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable }) => {
   const { isLight } = useThemeContext();
   const tables = Object.keys(breakdownTable);
+  // Replace these conditionals when the formula based on screen resolution and number of metrics selected
+  const showOnlyOne = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const showOnlyTwo = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1920'));
+  const numberItemsArray = showOnlyOne ? 1 : showOnlyTwo ? 2 : 3;
+  const arrayMetrics = new Array<number>(numberItemsArray).fill(0);
+
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-      {tables.map((_) => (
-        <TableContainer isLight={isLight} className={className}>
+      {tables.map((_, index) => (
+        <TableContainer isLight={isLight} className={className} key={index}>
           <TableBody>
             <TableRow isMain isLight={isLight}>
               <Headed isLight={isLight}>Atlas Immutable AA Budgets </Headed>
               <Cell isLight={isLight}>2208889</Cell>
               <Cell isLight={isLight}>2208889</Cell>
               <Cell isLight={isLight}>2208889</Cell>
-              <Cell isLight={isLight}>2208889</Cell>
-              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>
+                <SpacedValues>
+                  {arrayMetrics.map((_, index) => (
+                    <span key={index}>2208889</span>
+                  ))}
+                </SpacedValues>
+              </Cell>
+              <Cell isLight={isLight}> 2208889</Cell>
             </TableRow>
             <TableRow isLight={isLight}>
               <Headed isLight={isLight}>Aligned Voter Committees</Headed>
@@ -33,7 +46,14 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable }) => {
               <Cell isLight={isLight}>2208889</Cell>
               <Cell isLight={isLight}>2208889</Cell>
               <Cell isLight={isLight}>2208889</Cell>
-              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>
+                <SpacedValues>
+                  {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+                  {arrayMetrics.map((_, index) => (
+                    <span key={index}>2208889</span>
+                  ))}
+                </SpacedValues>
+              </Cell>
             </TableRow>
             <TableRow isLight={isLight}>
               <Headed isLight={isLight}>Aligned Delegates</Headed>
@@ -49,7 +69,13 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable }) => {
               <Cell isLight={isLight}>2208889</Cell>
               <Cell isLight={isLight}>2208889</Cell>
               <Cell isLight={isLight}>2208889</Cell>
-              <Cell isLight={isLight}>2208889</Cell>
+              <Cell isLight={isLight}>
+                <SpacedValues>
+                  {arrayMetrics?.map((_, index) => (
+                    <span key={index}>2208889</span>
+                  ))}
+                </SpacedValues>
+              </Cell>
             </TableRow>
           </TableBody>
         </TableContainer>
@@ -75,6 +101,9 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 20px',
+  },
 }));
 
 const Headed = styled.th<WithIsLight>(({ isLight }) => ({
@@ -90,6 +119,7 @@ const Headed = styled.th<WithIsLight>(({ isLight }) => ({
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 220,
+    padding: '16px 0px 16px 32px',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 261,
@@ -97,7 +127,7 @@ const Headed = styled.th<WithIsLight>(({ isLight }) => ({
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     width: 230,
-    padding: '16px 8px',
+    padding: '16px 0px 16px 16px',
   },
 }));
 
@@ -126,5 +156,17 @@ const TableBody = styled.tbody({
   },
   '& tr:first-of-type': {
     backgroundColor: '#ECF1F3',
+  },
+});
+
+const SpacedValues = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 16,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 32,
   },
 });
