@@ -154,7 +154,6 @@ const variantsArgs = [
         .withAnnualPeriod(2023)
         .withBudget('/makerdao/ecosystem-actors')
         .extend('DEWIZ', 'DEWIZ')
-
         .build(),
       new TotalExpenseReportsBuilder()
         .withPrediction(425631)

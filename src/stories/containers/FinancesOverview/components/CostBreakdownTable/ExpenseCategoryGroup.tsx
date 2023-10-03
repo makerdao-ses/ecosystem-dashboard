@@ -34,13 +34,13 @@ const NameContainer = styled.div({
   overflow: 'hidden',
   margin: '24px 0',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     margin: '16px 0',
   },
 });
 
 const GroupContainer = styled.div({
-  [lightTheme.breakpoints.down('table_834')]: {
+  [lightTheme.breakpoints.down('tablet_768')]: {
     '&:first-child > div:first-child': {
       marginTop: 40,
     },
@@ -57,7 +57,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '0 16px',
   minWidth: 'fit-content',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 12,
     lineHeight: '15px',
   },

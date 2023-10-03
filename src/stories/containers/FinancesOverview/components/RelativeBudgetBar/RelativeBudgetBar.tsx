@@ -58,7 +58,7 @@ const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#ECF1F3' : '#10191F',
   boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 3px 10px rgba(23, 35, 44, 0.7)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 12,
   },
 }));

@@ -27,7 +27,7 @@ export default ByExpenseCategoryTableHeader;
 const TableHeader = styled.div({
   display: 'none',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     padding: 16,
   },
@@ -47,7 +47,7 @@ const TotalPercentageColumn = styled(TableHeaderItem)({
   width: 240,
   minWidth: 240,
   textAlign: 'right',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 164,
     minWidth: 164,
   },
@@ -64,7 +64,7 @@ const TotalSpendColumn = styled(TableHeaderItem)({
   minWidth: 200,
   textAlign: 'right',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 154,
     minWidth: 154,
   },
