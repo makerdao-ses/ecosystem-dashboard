@@ -47,7 +47,7 @@ export const useFinances = () => {
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
   const getItems = showSome ? getExpenseReportItems.slice(0, 10) : getExpenseReportItems;
-
+  const conditionalFilter = isMobile ? 'Semi-annual' : 'Annually';
   const routes = ['Finances'];
 
   const metricsFilter = useMemo(
@@ -65,7 +65,7 @@ export const useFinances = () => {
     setActiveMetrics([]);
   };
 
-  const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', 'Annually'];
+  const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', conditionalFilter];
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
   const actuals = 9120;

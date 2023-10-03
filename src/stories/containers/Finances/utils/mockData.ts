@@ -1,12 +1,12 @@
 // TODO:  Add builder for this mock data when Api is ready
-interface BudgetData {
+export interface BudgetData {
   q1: number;
   q2: number;
   q3: number;
   q4: number;
 }
 
-interface QuarterlyBudget {
+export interface QuarterlyBudget {
   name: string;
   budget: BudgetData;
   actuals: BudgetData;
@@ -19,7 +19,7 @@ export interface MockData {
   EndgameScopeBudgets: QuarterlyBudget[];
   MakerDAOLegacyBudgets: QuarterlyBudget[];
 }
-export const MockDataTableQuarterly: MockData = {
+export const mockDataTableQuarterly: MockData = {
   EndgameAtlasBudgets: [
     {
       name: 'Atlas Immutable AA Budgets',
