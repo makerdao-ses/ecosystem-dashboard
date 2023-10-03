@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { MockDataTableQuarterly } from '../../utils/mockData';
 import BreakdownTableFinances from '../BreakdownTableFinances/BreakdownTableFinances';
+import FinancesTable from '../HeaderTable/FinancesTable';
 import HeaderTable from '../HeaderTable/HeaderTable';
 import type { MetricsWithAmount } from '../../utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select/Select';
@@ -61,7 +63,9 @@ const BreakdownTable: React.FC<Props> = ({
         period={selectedValue}
       />
     </TableHeader>
-    <TableWrapper>Espace for the table</TableWrapper>
+    <TableWrapper>
+      <FinancesTable breakdownTable={MockDataTableQuarterly} />
+    </TableWrapper>
   </MainContainer>
 );
 

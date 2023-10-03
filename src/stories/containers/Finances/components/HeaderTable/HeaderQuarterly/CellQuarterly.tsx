@@ -41,7 +41,7 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
   flexDirection: 'row',
   justifyContent: 'center',
   flex: 1,
-  minWidth: isTotal ? 105 : 96,
+  width: isTotal ? 105 : 96,
   position: 'relative',
   alignItems: 'center',
   padding: isTotal ? '16px 0px 16px 8px' : '16px 4px',
@@ -73,19 +73,17 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
     },
   }),
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    minWidth: isTotal ? 147 : 154,
+    width: isTotal ? 144 : 100,
 
-    padding: isTotal ? '16px 8px 16px' : '16px 4px',
+    padding: isTotal ? '16px 4px 16px' : '16px 4px',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    minWidth: isTotal ? 162 : 177,
-
-    padding: isTotal ? '16px 16px' : '16px 0px',
+    width: isTotal ? 162 : 190,
+    padding: isTotal ? '16px 1px' : '16px 0px',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     minWidth: isTotal ? 197 : 191,
-
-    padding: isTotal ? '16px 11px 16px 16px' : '16px 0px',
+    padding: '16px 0px',
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     minWidth: isTotal ? 285 : 284,
@@ -119,7 +117,6 @@ const ContainerMetricsData = styled.div({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: '100%',
     flexDirection: 'row',
-    gap: 8,
     justifyContent: 'center',
   },
 });

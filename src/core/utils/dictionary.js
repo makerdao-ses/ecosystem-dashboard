@@ -138,6 +138,7 @@ const dictionary = [
   'Tokenomics',
   'Incentivized',
   'Annualy',
+  'tbody',
 ];
 
 module.exports = dictionary;
