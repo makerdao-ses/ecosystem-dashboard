@@ -22,7 +22,7 @@ const ByExpenseCategoryTableRow: React.FC<ByExpenseCategoryTableRowProps> = ({
   total,
 }) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   return (
     <Row isLight={isLight}>
@@ -61,7 +61,7 @@ const Row = styled.div<WithIsLight>(({ isLight }) => ({
     background: isLight ? '#ECF1F3' : '#31424E',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '15px 0',
     boxShadow: 'none',
     background: 'transparent',
@@ -75,7 +75,7 @@ const MobileColumn = styled.div({
   display: 'flex',
   flexDirection: 'column',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     width: '100%',
   },
@@ -118,7 +118,7 @@ const NameColumn = styled.div({
   lineHeight: '15px',
   fontSize: 12,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: '100%',
     minWidth: '100%',
     paddingLeft: 16,
@@ -131,12 +131,12 @@ const TotalPercentageColumn = styled.div({
   width: 145,
   minWidth: 145,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 240,
     minWidth: 240,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 180,
     minWidth: 180,
   },
@@ -152,14 +152,14 @@ const TotalSpendColumn = styled.div({
   minWidth: 153,
   lineHeight: '17px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     textAlign: 'right',
     width: 216,
     minWidth: 216,
     paddingRight: 16,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 170,
     minWidth: 170,
   },
@@ -176,7 +176,7 @@ const Name = styled.span<WithIsLight>(({ isLight }) => ({
   lineHeight: '15px',
   color: isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 400,
     lineHeight: '22px',
@@ -206,7 +206,7 @@ const TotalNumber = styled.span<WithIsLight>(({ isLight }) => ({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 400,
     lineHeight: '19px',
@@ -222,7 +222,7 @@ const DAISpan = styled.span({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: '#9FAFB9',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 'inherit',
     fontWeight: 'inherit',
     lineHeight: 'inherit',
