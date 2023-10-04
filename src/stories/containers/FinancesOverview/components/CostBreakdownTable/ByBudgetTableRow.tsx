@@ -6,6 +6,7 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
+import MobileArrowSvg from '../MobileArrowSvg/MobileArrowSvg';
 import RelativeBudgetBar from '../RelativeBudgetBar/RelativeBudgetBar';
 import type { ExtendedExpense } from '../../financesOverviewTypes';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -50,15 +51,10 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
       />
       {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
 
-      <ViewColumn>
+      <ViewColumn isLight={isLight}>
         {isMobile ? (
           <MobileArrow isLight={isLight}>
-            <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M19.5582 6.89376L19.668 7.00004L19.5582 7.10623L18.8793 7.76356L18.8784 7.76446L12.7641 13.6836C12.3283 14.1055 11.6217 14.1055 11.1859 13.6836C10.75 13.2616 10.75 12.5775 11.1859 12.1556L15.3954 8.0804H1.784C1.16764 8.0804 0.667969 7.59677 0.667969 7.00004C0.667969 6.40332 1.16764 5.91959 1.784 5.91959H15.3954L11.1859 1.84441C10.75 1.42248 10.75 0.738389 11.1859 0.316452C11.6217 -0.105484 12.3283 -0.105484 12.7641 0.316452L18.8784 6.23559L18.8793 6.2365L19.5582 6.89376Z"
-                fill="#434358"
-              />
-            </svg>
+            <MobileArrowSvg />
           </MobileArrow>
         ) : (
           <Link href={link} passHref>
@@ -252,10 +248,10 @@ const TotalSpendColumn = styled.div({
   },
 });
 
-const ViewColumn = styled.div({
+const ViewColumn = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   display: 'block',
-  borderLeft: `1px solid ${'#D4D9E1'}`,
+  borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
   padding: '5px 4px 5px 7px',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -275,7 +271,7 @@ const ViewColumn = styled.div({
   [lightTheme.breakpoints.up('desktop_1440')]: {
     padding: '0 19px',
   },
-});
+}));
 
 const ShortCode = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
@@ -369,16 +365,16 @@ const MobileArrow = styled.div<WithIsLight>(({ isLight }) => ({
   width: 32,
   height: 32,
   borderRadius: 6,
-  background: isLight ? '#F9FAFF' : 'red',
-  boxShadow: isLight ? '0px 2px 3px 0px #DEE1F4' : 'red',
+  background: isLight ? '#F9FAFF' : 'rgba(60, 62, 100, 0.50)',
+  boxShadow: isLight ? '0px 2px 3px 0px #DEE1F4' : '0px 2px 3px 0px #040C27',
 }));
 
 const ViewLink = styled.a<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',
-  color: isLight ? '#31424E' : 'red',
+  color: isLight ? '#31424E' : '#E2D8EE',
   padding: '7px 23px',
   borderRadius: 22,
-  border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
+  border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
 }));
