@@ -318,9 +318,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           column: mainTableColumns[1],
           value: (
             <ContainerProgressiveIndicator>
-              {typeof totalFirstMonthBudGetCap === 'number' ? (
+              {typeof totalFirstMonthBudGetCap === 'number' || totalFirstMonth !== 0 ? (
                 <ProgressiveIndicator
-                  budgetCap={totalFirstMonthBudGetCap}
+                  budgetCap={totalFirstMonthBudGetCap === 'N/A' ? 0 : totalFirstMonthBudGetCap}
                   forecast={totalFirstMonth}
                   isTotal
                   month={firstMonth}
@@ -335,9 +335,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           column: mainTableColumns[2],
           value: (
             <ContainerProgressiveIndicator>
-              {typeof totalSecondMonthBudGetCap === 'number' ? (
+              {typeof totalSecondMonthBudGetCap === 'number' || totalSecondMonth !== 0 ? (
                 <ProgressiveIndicator
-                  budgetCap={totalSecondMonthBudGetCap}
+                  budgetCap={totalSecondMonthBudGetCap === 'N/A' ? 0 : totalSecondMonthBudGetCap}
                   forecast={totalSecondMonth}
                   isTotal
                   month={secondMonth}
@@ -352,9 +352,9 @@ export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements
           column: mainTableColumns[3],
           value: (
             <ContainerProgressiveIndicator>
-              {typeof totalThirdMonthBudGetCap === 'number' ? (
+              {typeof totalThirdMonthBudGetCap === 'number' || totalThirdMonth !== 0 ? (
                 <ProgressiveIndicator
-                  budgetCap={totalThirdMonthBudGetCap}
+                  budgetCap={totalThirdMonthBudGetCap === 'N/A' ? 0 : totalThirdMonthBudGetCap}
                   forecast={totalThirdMonth}
                   isTotal
                   month={thirdMonth}
