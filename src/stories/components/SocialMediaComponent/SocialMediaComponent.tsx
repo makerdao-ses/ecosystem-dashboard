@@ -127,9 +127,12 @@ const BoxContainer = styled.div<{ boxLinkWidth: number; boxLinkHeight: number }>
 );
 const LinkImage = styled.a<WithIsLight & { marginBottom?: boolean }>(({ isLight, marginBottom = false }) => ({
   display: 'flex',
-  '&:hover svg path': {
-    fill: isLight ? '#231536' : '#48495F',
-    stroke: isLight ? '#231536' : '#48495F',
-  },
   ...(marginBottom && { marginBottom: 8 }),
+
+  '@media (hover: hover)': {
+    '&:hover svg path': {
+      fill: isLight ? '#231536' : '#48495F',
+      stroke: isLight ? '#231536' : '#48495F',
+    },
+  },
 }));

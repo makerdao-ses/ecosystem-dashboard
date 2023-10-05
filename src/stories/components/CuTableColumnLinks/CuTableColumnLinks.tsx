@@ -154,8 +154,11 @@ const LinkImage = styled.a(
   ({ width = 32, height = 32, isLight = true }: StickyLinkProps) => ({
     width,
     height,
-    '&:hover svg path': {
-      fill: isLight ? '#231536' : '#48495F',
+
+    '@media (hover: hover)': {
+      '&:hover svg path': {
+        fill: isLight ? '#231536' : '#48495F',
+      },
     },
   })
 );
