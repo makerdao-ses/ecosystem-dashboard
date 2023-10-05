@@ -228,7 +228,11 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    width: 640,
+    width: 625,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 725,
   },
 }));
 

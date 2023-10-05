@@ -109,7 +109,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                       remainingEcosystemActors?.prediction,
                       byBudgetExpenses[0]?.prediction
                     )}
-                    rowType={'ecosystemActor'}
+                    rowType={'remaining'}
                   />
                 )}
               </RemainingContainer>

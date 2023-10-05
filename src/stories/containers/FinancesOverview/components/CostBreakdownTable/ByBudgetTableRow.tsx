@@ -34,6 +34,8 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
       ? siteRoutes.recognizedDelegateReport
       : rowType === 'ecosystemActor'
       ? siteRoutes.ecosystemActorReports(expense.shortCode ?? '')
+      : rowType === 'remaining' && expense.shortCode === 'EA'
+      ? siteRoutes.ecosystemActors
       : siteRoutes.coreUnitsOverview;
 
   return (
