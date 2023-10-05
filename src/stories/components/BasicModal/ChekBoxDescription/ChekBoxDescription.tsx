@@ -30,21 +30,23 @@ export default CheckBoxDescription;
 const Container = styled.div<{ isChecked: boolean }>(({ isChecked }) => ({
   gap: 8,
   display: 'flex',
-
   marginBottom: isChecked ? 4 : undefined,
   alignItems: 'center',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     gap: 12,
     marginBottom: isChecked ? 3 : undefined,
   },
 }));
+
 const Text = styled.div<WithIsLight & { isChecked: boolean }>(({ isLight, isChecked = false }) => ({
   fontWeight: 500,
   fontSize: 14,
   lineHeight: '18px',
   color: isLight ? '#231536' : '#D2D4EF',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: isChecked ? 700 : 400,
@@ -65,6 +67,7 @@ const ContainerCheckBox = styled.div({
 const Checkbox = styled(CheckboxMui)<WithIsLight>(({ isLight }) => ({
   width: 15,
   height: 15,
+
   svg: {
     fill: isLight ? '#231536' : '#ADAFD4',
   },

@@ -74,6 +74,7 @@ const Row = styled.div<WithIsLight>(({ isLight }) => ({
 const MobileColumn = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  flex: 1,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
@@ -130,6 +131,7 @@ const NameColumn = styled.div({
 const TotalPercentageColumn = styled.div({
   width: 145,
   minWidth: 145,
+  flex: 1,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 240,
@@ -144,6 +146,7 @@ const TotalPercentageColumn = styled.div({
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 240,
     minWidth: 240,
+    maxWidth: 240,
   },
 });
 
