@@ -25,7 +25,7 @@ export const HeaderMonthly: React.FC<Props> = ({ metrics, title, months }) => {
             {months.map((month) => (
               <CellMonthly metrics={metrics} title={month} key={month} />
             ))}
-            <CellMonthly metrics={metrics} title="Total" isTotal />
+            <CellMonthlyTotally metrics={metrics} title="Total" isTotal />
           </ContainerAnnuallyCell>
         </ContainerYear>
       </ContainerAnnually>
@@ -74,7 +74,7 @@ const ContainerAnnuallyCell = styled.div({
 const Title = styled.div({
   color: '#231536',
   fontFamily: 'Inter, sans-serif',
-  fontSize: 11,
+  fontSize: 16,
   fontStyle: 'normal',
   fontWeight: 700,
   lineHeight: 'normal',
@@ -82,12 +82,13 @@ const Title = styled.div({
 
 const ContainerTitle = styled.div({
   display: 'flex',
-  padding: '16px 0px 16px 16px',
-
+  padding: '16px 0px 16px 32px',
   alignItems: 'center',
-
-  minWidth: 188,
+  minWidth: 195,
   height: 48,
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    minWidth: 230,
+  },
 });
 
 const ContainerYear = styled.div({
@@ -95,4 +96,9 @@ const ContainerYear = styled.div({
   flex: 1,
   flexDirection: 'column',
   alignItems: 'center',
+});
+
+const CellMonthlyTotally = styled(CellMonthly)({
+  width: 85,
+  border: '2px silid red',
 });

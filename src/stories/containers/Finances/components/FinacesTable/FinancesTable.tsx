@@ -19,11 +19,13 @@ interface Props {
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period }) => {
   const { isLight } = useThemeContext();
   const tables = Object.keys(breakdownTable);
-  const iteration = period === 'Quarterly' ? 5 : 3;
+  const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
   const showSemiAnnual = isMobile && period === 'Semi-annual';
   const showAnnual = isMobile && period === 'Annually';
   const showQuarterly = !isMobile && period === 'Quarterly';
+  const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
 
   return (
@@ -34,7 +36,9 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
           <TableBody>
             {breakdownTable[table].map((row) => (
               <TableRow isMain={row.isMain} isLight={isLight}>
-                <Headed isLight={isLight}>{row.name}</Headed>
+                <Headed isLight={isLight} period={period}>
+                  {row.name}
+                </Headed>
                 {showAnnual &&
                   metrics.map(
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,6 +58,11 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                   arrayMetrics.map(
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     (_) => <Cell isLight={isLight}>3453</Cell>
+                  )}
+                {showMonthly &&
+                  arrayMetrics.map(
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    (_) => <CellTable metrics={metrics} />
                   )}
               </TableRow>
             ))}
@@ -87,7 +96,7 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Headed = styled.th<WithIsLight>(({ isLight }) => ({
+const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ isLight, period }) => ({
   borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
   fontSize: 11,
   color: '#231536',
@@ -95,8 +104,12 @@ const Headed = styled.th<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   verticalAlign: 'center',
   padding: '16px 4px 16px 8px',
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
+    ...(period === 'Monthly' && {
+      fontSize: 12,
+    }),
     width: 150,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -107,12 +120,19 @@ const Headed = styled.th<WithIsLight>(({ isLight }) => ({
     padding: '16px 0px 16px 32px',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 261,
+    width: period === 'Quarterly' ? 261 : 188,
     padding: '16px 0px 16px 32px',
+    textOverflow: period === 'Monthly' ? 'ellipsis' : 'ellipsis',
+    ...(period === 'Monthly' && {
+      textOverflow: 'ellipsis',
+
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+    }),
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     width: 230,
-    padding: '16px 0px 16px 16px',
+    padding: period === 'Quarterly' ? '16px 0px 16px 16px' : '16px 0px 16px 32px',
   },
 }));
 

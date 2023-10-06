@@ -111,7 +111,7 @@ const FiltersContainer = styled.div({
   gridTemplateAreas: `
   "filterMetrics periodicSelection buttonFilter "
   `,
-  '@media (min-width: 768px)': {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gridTemplateRows: 'auto',
     margin: 'none',
     gap: 18,
@@ -124,7 +124,7 @@ const Reset = styled.div({
   gridArea: 'reset',
   display: 'none',
   justifyContent: 'flex-end',
-  '@media (min-width: 768px)': {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
 });
@@ -132,14 +132,14 @@ const Reset = styled.div({
 const ContainerFiltersMetric = styled.div({
   display: 'flex',
   gridArea: 'filterMetrics',
-  '@media (min-width: 768px)': {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
 });
 const PeriodicSelectionFilter = styled.div({
   gridArea: 'periodicSelection',
   justifyContent: 'flex-end',
-  '@media (min-width: 768px)': {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
 });
@@ -154,8 +154,8 @@ const ResponsiveButton = styled.div<WithIsLight>(({ isLight }) => ({
   borderRadius: '22px',
   alignItems: 'center',
   justifyContent: 'center',
-  '@media (min-width: 768px)': {
-    display: 'none',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
   },
 }));
 
