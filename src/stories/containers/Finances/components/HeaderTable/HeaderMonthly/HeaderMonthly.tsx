@@ -86,6 +86,9 @@ const ContainerTitle = styled.div({
   alignItems: 'center',
   minWidth: 195,
   height: 48,
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    minWidth: 230,
+  },
 });
 
 const ContainerYear = styled.div({
