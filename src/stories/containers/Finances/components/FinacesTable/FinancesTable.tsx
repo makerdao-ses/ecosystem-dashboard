@@ -23,11 +23,10 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
   const showSemiAnnual = isMobile && period === 'Semi-annual';
-  const showAnnual = isMobile && period === 'Annually';
+  const showAnnual = period === 'Annually';
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
-
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
@@ -42,12 +41,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                 {showAnnual &&
                   metrics.map(
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
-                {showAnnual &&
-                  metrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
+                    (_) => <Cell isLight={isLight}>{12345}</Cell>
                   )}
                 {showQuarterly &&
                   arrayMetrics.map(
@@ -57,7 +51,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                 {showSemiAnnual &&
                   arrayMetrics.map(
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <Cell isLight={isLight}>3453</Cell>
+                    (_) => <CellTable metrics={metrics} />
                   )}
                 {showMonthly &&
                   arrayMetrics.map(
@@ -85,17 +79,6 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   width: '100%',
 }));
 
-const Cell = styled.td<WithIsLight>(({ isLight }) => ({
-  borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
-  padding: '16px 8px',
-  textAlign: 'center',
-  fontSize: 12,
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    padding: '16px 20px',
-  },
-}));
-
 const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ isLight, period }) => ({
   borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
   fontSize: 11,
@@ -120,18 +103,22 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
     padding: '16px 0px 16px 32px',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: period === 'Quarterly' ? 261 : 188,
+    width: period === 'Quarterly' ? 261 : period === 'Annually' ? 200 : 188,
     padding: '16px 0px 16px 32px',
-    textOverflow: period === 'Monthly' ? 'ellipsis' : 'ellipsis',
+    textOverflow: period === 'Monthly' ? 'ellipsis' : 'revert',
     ...(period === 'Monthly' && {
       textOverflow: 'ellipsis',
-
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+    }),
+    ...(period === 'Annually' && {
+      textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
     }),
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    width: 230,
+    width: period === 'Annually' ? 212 : 230,
     padding: period === 'Quarterly' ? '16px 0px 16px 16px' : '16px 0px 16px 32px',
   },
 }));
@@ -163,3 +150,14 @@ const TableBody = styled.tbody({
     backgroundColor: '#ECF1F3',
   },
 });
+
+const Cell = styled.td<WithIsLight>(({ isLight }) => ({
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
+  padding: '16px 8px',
+  textAlign: 'center',
+  fontSize: 12,
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 20px',
+  },
+}));

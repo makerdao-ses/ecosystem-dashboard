@@ -39,8 +39,11 @@ const ContainerAnnually = styled.div({
   alignItems: 'center',
   padding: '16px 8px',
   flex: 1,
-
+  whiteSpace: 'break-spaces',
   [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: '16px 8px',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     padding: '16px 32px',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -84,6 +87,9 @@ const Title = styled.div({
   fontWeight: 700,
   lineHeight: 'normal',
   whiteSpace: 'break-spaces',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+  },
 });
 
 const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
@@ -91,9 +97,25 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   alignItems: 'center',
   borderRight: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+  whiteSpace: 'break-spaces',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    minWidth: 188,
+    width: 140,
     height: 48,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 140,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 140,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 190,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 170,
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    width: 195,
   },
 }));
 
