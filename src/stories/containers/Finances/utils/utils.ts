@@ -3,6 +3,7 @@ import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
+import type { QuarterlyBudget } from './mockData';
 import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem } from './types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
@@ -619,11 +620,21 @@ export const getLinkLastExpenseReport = (code: string, reportExpenseItems: Momen
 
 export const getPeriodForFilters = (year: string) => {
   const quarterlies: string[] = [];
+
   for (let i = 1; i <= 4; ++i) {
     const quarterly = `Q${i} ${year}`;
     quarterlies.push(quarterly);
   }
   return quarterlies;
+};
+
+export const getPeriodForSemiAnnual = (year: string) => {
+  const semiAnnual: string[] = [];
+  for (let i = 1; i <= 2; ++i) {
+    const quarterly = `H${i}’ ${year}`;
+    semiAnnual.push(quarterly);
+  }
+  return semiAnnual;
 };
 
 export const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -642,4 +653,21 @@ export const returnShortNameForMetric = (metric: MetricsWithAmount) => {
     };
   }
   return metric;
+};
+
+export const searchMetric = (obj: QuarterlyBudget, metric: string) => {
+  switch (metric.toLocaleLowerCase()) {
+    case 'budget':
+      return obj.budget;
+    case 'actual':
+      return obj.actual;
+    case 'Net Expenses Off-chain':
+      return obj['Net Expenses Off-chain'];
+    case 'Net Expenses On-chain':
+      return obj['Net Expenses On-chain'];
+    case 'forecast':
+      return obj.forecast;
+    default:
+      return undefined;
+  }
 };

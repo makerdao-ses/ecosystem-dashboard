@@ -161,7 +161,7 @@ const ResponsiveButton = styled.div<WithIsLight>(({ isLight }) => ({
 
 const StyledSelectDropdown = styled(SelectDropdown)({
   '& > div': {
-    width: 120,
+    width: 141,
     height: 34,
     [lightTheme.breakpoints.up('tablet_768')]: {
       width: 120,

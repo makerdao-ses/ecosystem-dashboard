@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { MockDataTableQuarterly } from '../../utils/mockData';
+import { mockDataTableQuarterly } from '../../utils/mockData';
 import BreakdownTableFinances from '../BreakdownTableFinances/BreakdownTableFinances';
-import FinancesTable from '../HeaderTable/FinancesTable';
+import FinancesTable from '../FinacesTable/FinancesTable';
 import HeaderTable from '../HeaderTable/HeaderTable';
-import type { MetricsWithAmount } from '../../utils/types';
+import type { MetricsWithAmount, PeriodicSelectionFilter } from '../../utils/types';
 import type { SelectChangeEvent } from '@mui/material/Select/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
@@ -60,11 +60,16 @@ const BreakdownTable: React.FC<Props> = ({
         metrics={headerTableMetrics}
         year={year}
         metricTotal={metricTotal}
-        period={selectedValue}
+        period={selectedValue as PeriodicSelectionFilter}
       />
     </TableHeader>
     <TableWrapper>
-      <FinancesTable breakdownTable={MockDataTableQuarterly} />
+      <FinancesTable
+        breakdownTable={mockDataTableQuarterly}
+        metrics={activeItems}
+        year={year}
+        period={selectedValue as PeriodicSelectionFilter}
+      />
     </TableWrapper>
   </MainContainer>
 );
@@ -72,21 +77,20 @@ const BreakdownTable: React.FC<Props> = ({
 export default BreakdownTable;
 
 const TableHeader = styled.div({
-  display: 'none',
+  marginTop: 24,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 24,
     display: 'flex',
     flexDirection: 'column',
   },
 });
 
 const TableWrapper = styled.div({
-  display: 'none',
+  marginTop: 16,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 24,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 16,
   },
 });
 

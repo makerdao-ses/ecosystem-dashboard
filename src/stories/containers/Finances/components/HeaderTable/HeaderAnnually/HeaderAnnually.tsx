@@ -17,7 +17,7 @@ export const HeaderAnnually: React.FC<Props> = ({ year, metrics, title }) => {
   return (
     <Container isLight={isLight}>
       <ContainerAnnually>
-        <ContainerTitle>
+        <ContainerTitle isLight={isLight}>
           <Title>{title}</Title>
         </ContainerTitle>
         <ContainerYear>
@@ -36,9 +36,13 @@ export default HeaderAnnually;
 const ContainerAnnually = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  padding: '16px 32px',
+  alignItems: 'center',
+  padding: '16px 8px',
   flex: 1,
 
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: '16px 32px',
+  },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     maxWidth: 1312,
   },
@@ -46,10 +50,15 @@ const ContainerAnnually = styled.div({
 
 const Year = styled.div({
   textAlign: 'center',
-  fontSize: 18,
+  fontSize: 14,
+  fontWeight: 500,
   fontStyle: 'normal',
   lineHeight: 'normal',
-  marginBottom: 24,
+  marginBottom: 8,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginBottom: 24,
+    fontSize: 18,
+  },
 });
 
 const ContainerAnnuallyCell = styled.div({
@@ -58,6 +67,13 @@ const ContainerAnnuallyCell = styled.div({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
 });
 
 const Title = styled.div({
@@ -67,14 +83,19 @@ const Title = styled.div({
   fontStyle: 'normal',
   fontWeight: 700,
   lineHeight: 'normal',
+  whiteSpace: 'break-spaces',
 });
 
-const ContainerTitle = styled.div({
-  minWidth: 188,
-  height: 48,
+const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
+  width: 76,
   display: 'flex',
   alignItems: 'center',
-});
+  borderRight: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    minWidth: 188,
+    height: 48,
+  },
+}));
 
 const ContainerYear = styled.div({
   display: 'flex',
@@ -94,7 +115,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   whiteSpace: 'pre',
   overflow: 'auto',
-  height: 97,
+  // height: 97,
   '&::-webkit-scrollbar': {
     width: 0,
     height: 0,
