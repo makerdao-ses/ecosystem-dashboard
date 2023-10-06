@@ -26,13 +26,16 @@ const years = ['2022', '2023'];
 export const useFinances = () => {
   const { isLight } = useThemeContext();
   const router = useRouter();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [activeMetrics, setActiveMetrics] = useState<string[]>([]);
   const [showSome, setShowSome] = useState(true);
+  const initialValueFilter: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
 
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
-  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>('Quarterly');
+  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(() => initialValueFilter);
 
   const [year, setYears] = useState(years[0]);
+
   const [isOpenYear, setIsOpenYear] = useState<boolean>(false);
   const [isOpenPeriod, setIsOpenPeriod] = useState<boolean>(false);
   const [sortColumn, setSortColumn] = useState<number>(-1);
@@ -43,11 +46,13 @@ export const useFinances = () => {
     SortEnum.Neutral,
     SortEnum.Neutral,
   ]);
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
   const getItems = showSome ? getExpenseReportItems.slice(0, 10) : getExpenseReportItems;
-  const conditionalFilter = isMobile ? 'Semi-annual' : 'Annually';
+
+  const conditionalFilters: PeriodicSelectionFilter[] = ['Annually', 'Monthly', 'Quarterly', 'Semi-annual'];
+
   const routes = ['Finances'];
 
   const metricsFilter = useMemo(
@@ -65,7 +70,7 @@ export const useFinances = () => {
     setActiveMetrics([]);
   };
 
-  const periodicSelectionFilter: PeriodicSelectionFilter[] = ['Monthly', 'Quarterly', conditionalFilter];
+  const periodicSelectionFilter = [...conditionalFilters];
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
   const actuals = 9120;
@@ -274,11 +279,11 @@ export const useFinances = () => {
         }
       });
     }
-    if (periodFilter === 'Annually' || periodFilter === 'Monthly') {
+    if (periodFilter === 'Annually' || periodFilter === 'Monthly' || periodFilter === 'Semi-annual') {
       activeMetrics.forEach((metric: string) => {
         metricValues.push({
           name: metric as Metric,
-          amount: 0,
+          amount: 11044445,
         });
       });
     }

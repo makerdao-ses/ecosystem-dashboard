@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import CellQuarterly from './CellQuarterly';
-import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
+import CellSemiAnnual from './CellSemiAnnual';
+import type { MetricsWithAmount, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -12,10 +12,12 @@ interface Props {
   metrics: MetricsWithAmount[];
   metricTotal: MetricsWithAmount[];
   periods: string[];
+  period: PeriodicSelectionFilter;
 }
 
-const HeaderQuarterly: React.FC<Props> = ({ title, className, metrics, periods, metricTotal }) => {
+const HeaderSemiAnnual: React.FC<Props> = ({ title, className, metrics, periods, metricTotal }) => {
   const { isLight } = useThemeContext();
+
   return (
     <Container isLight={isLight} className={className}>
       <TitleContainer isLight={isLight}>
@@ -24,15 +26,15 @@ const HeaderQuarterly: React.FC<Props> = ({ title, className, metrics, periods, 
 
       <ContainerCell>
         {periods?.map((period, index) => (
-          <CellQuarterly metrics={metrics} quarterly={period} key={index} />
+          <CellSemiAnnual metrics={metrics} semiannual={period} key={index} />
         ))}
-        <CellQuarterlyTotal metrics={metricTotal} quarterly="Total" isTotal />
+        <CellSemiAnnualTotal metrics={metricTotal} semiannual="Total" isTotal />
       </ContainerCell>
     </Container>
   );
 };
 
-export default HeaderQuarterly;
+export default HeaderSemiAnnual;
 
 const Container = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -45,7 +47,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   whiteSpace: 'pre',
   overflow: 'auto',
-  height: 97,
+  height: 87,
   '&::-webkit-scrollbar': {
     width: 0,
     height: 0,
@@ -55,11 +57,15 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : 'red',
   fontFamily: 'Inter, sans-serif',
-  fontSize: 16,
+  fontSize: 12,
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
+
   whiteSpace: 'break-spaces',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+  },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     whiteSpace: 'revert',
   },
@@ -72,29 +78,8 @@ const TitleContainer = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   height: 48,
   borderRight: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
-
-  width: 145,
-
-  padding: '16px 8px 16px 8px',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    width: 148,
-    padding: '16px 0px 16px 8px',
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 220,
-
-    padding: '16px 0px 16px 32px',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 260,
-    padding: '16px 8px 16px 32px',
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    width: 228,
-
-    padding: '16px 0px 16px 16px',
-  },
+  width: 85,
+  padding: '16px 16px 16px 8px',
 }));
 
 const ContainerCell = styled.div({
@@ -104,6 +89,6 @@ const ContainerCell = styled.div({
   alignItems: 'center',
 });
 
-const CellQuarterlyTotal = styled(CellQuarterly)({
-  minHeight: 80,
+const CellSemiAnnualTotal = styled(CellSemiAnnual)({
+  minHeight: 87,
 });

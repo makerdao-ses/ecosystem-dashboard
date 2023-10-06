@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { returnShortNameForMetric } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
@@ -16,7 +17,10 @@ export const CellAnnually: React.FC<Props> = ({ metrics }) => {
   return (
     <ContainerCell isLight={isLight}>
       {metrics?.map((metric, index) => (
-        <Metric key={index}>{returnShortNameForMetric(metric).name}</Metric>
+        <Metrics isLight={isLight} key={index}>
+          <Name isLight={isLight}>{returnShortNameForMetric(metric).name}</Name>
+          <Amount isLight={isLight}>{usLocalizedNumber(metric.amount)}</Amount>
+        </Metrics>
       ))}
     </ContainerCell>
   );
@@ -32,11 +36,57 @@ const ContainerCell = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : 'red',
   width: '100%',
   fontWeight: 500,
-  [lightTheme.breakpoints.up('desktop_1440')]: {},
 }));
 
-const Metric = styled.div({
-  fontSize: 11,
-  textAlign: 'center',
+const Metrics = styled.div<WithIsLight>(({ isLight }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: 78,
+  position: 'relative',
   flex: 1,
-});
+  ':after': {
+    content: '""',
+    position: 'absolute',
+    height: 48,
+    bottom: 4,
+    borderRight: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+  },
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    ':after': {
+      display: 'none',
+    },
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: 83.5,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: 93.5,
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    minWidth: 80,
+  },
+}));
+const Name = styled.div<WithIsLight>(({ isLight }) => ({
+  marginBottom: 4,
+  fontSize: 11,
+  fontWeight: 500,
+  textAlign: 'center',
+  fontStyle: 'normal',
+  lineHeight: 'normal',
+  color: isLight ? '#708390' : 'red',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    textAlign: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    marginBottom: 2,
+  },
+}));
+const Amount = styled.div<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#231536' : 'red',
+  fontSize: 11,
+  fontWeight: 600,
+  textAlign: 'center',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 12,
+  },
+}));

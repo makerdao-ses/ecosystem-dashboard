@@ -157,7 +157,7 @@ const MenuItemStyled = styled(MenuItem)<WithIsLight>(({ isLight }) => ({
 const ContainerIcon = styled.div({
   position: 'absolute',
   right: 16,
-  marginTop: 0,
+  marginTop: 2,
   marginRight: -2,
 });
 
