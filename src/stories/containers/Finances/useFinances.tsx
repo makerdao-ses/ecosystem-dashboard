@@ -6,11 +6,11 @@ import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
-import { getExpenseMonthWithData, getHeadersExpenseReport, mockDataApiTeam } from './utils/utils';
+import { getExpenseMonthWithData, getHeadersExpenseReport, getMetricByPeriod, mockDataApiTeam } from './utils/utils';
 import type {
   FilterDoughnut,
   MomentDataItem,
@@ -26,13 +26,70 @@ const years = ['2022', '2023'];
 export const useFinances = () => {
   const { isLight } = useThemeContext();
   const router = useRouter();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const [activeMetrics, setActiveMetrics] = useState<string[]>([]);
+
   const [showSome, setShowSome] = useState(true);
-  const initialValueFilter: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesk1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isDesk1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
+  const isDesk1920 = useMediaQuery(lightTheme.breakpoints.up('desktop_1920'));
+
+  const initialValue: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
+  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(initialValue);
+
+  const metricsFilter = useMemo(
+    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
+    []
+  );
+  const val = useMemo(
+    () => getMetricByPeriod(periodFilter, isMobile, isTable, isDesk1024, isDesk1280, isDesk1440, isDesk1920),
+    [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]
+  );
+  const [activeMetrics, setActiveMetrics] = useState<string[]>(metricsFilter.slice(0, val));
+  // This is to show correct value in the filter when got from useMediaQuery
+  useEffect(() => {
+    if (isMobile) {
+      setPeriodFilter('Semi-annual');
+    } else {
+      setPeriodFilter('Quarterly');
+    }
+  }, [isMobile]);
+  // This is for put default metric per dimension
+  useEffect(() => {
+    if (periodFilter === 'Quarterly') {
+      if (isTable) {
+        setActiveMetrics(metricsFilter.slice(0, val));
+      }
+      if (isDesk1024 || isDesk1280 || isDesk1440) {
+        setActiveMetrics(metricsFilter.slice(0, val));
+      }
+      if (isDesk1920) {
+        setActiveMetrics(metricsFilter.slice(0, val));
+      }
+    }
+    if (periodFilter === 'Monthly') {
+      setActiveMetrics(metricsFilter.slice(0, val));
+    }
+    if (periodFilter === 'Annually') {
+      if (isMobile) {
+        setActiveMetrics(metricsFilter.slice(0, val));
+      } else {
+        setActiveMetrics(metricsFilter.slice(0, val));
+      }
+    }
+    if (periodFilter === 'Semi-annual') {
+      setActiveMetrics(metricsFilter.slice(0, val));
+    }
+  }, [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, metricsFilter, periodFilter, val]);
+
+  useEffect(() => {
+    if ((periodFilter === 'Monthly' && isMobile) || isDesk1024 || isDesk1280) {
+      setPeriodFilter('Quarterly');
+    }
+  }, [isDesk1024, isDesk1280, isMobile, periodFilter]);
 
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
-  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(() => initialValueFilter);
 
   const [year, setYears] = useState(years[0]);
 
@@ -51,14 +108,7 @@ export const useFinances = () => {
   const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
   const getItems = showSome ? getExpenseReportItems.slice(0, 10) : getExpenseReportItems;
 
-  const conditionalFilters: PeriodicSelectionFilter[] = ['Annually', 'Monthly', 'Quarterly', 'Semi-annual'];
-
   const routes = ['Finances'];
-
-  const metricsFilter = useMemo(
-    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
-    []
-  );
 
   const totalCardsNavigation = 34223;
   const headersExpenseReport = getHeadersExpenseReport(headersSort, isSmallDesk);
@@ -67,10 +117,15 @@ export const useFinances = () => {
     setActiveMetrics(value);
   };
   const handleResetMetrics = () => {
-    setActiveMetrics([]);
+    setActiveMetrics(metricsFilter.slice(0, val));
   };
 
-  const periodicSelectionFilter = [...conditionalFilters];
+  const periodicSelectionFilter = isMobile
+    ? ['Annually', 'Semi-annual']
+    : isTable || isDesk1024 || isDesk1280
+    ? ['Annually', 'Quarterly']
+    : ['Annually', 'Quarterly', 'Monthly'];
+
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
 
   const actuals = 9120;

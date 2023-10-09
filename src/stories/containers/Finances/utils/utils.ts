@@ -4,7 +4,7 @@ import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import type { QuarterlyBudget } from './mockData';
-import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem } from './types';
+import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem, PeriodicSelectionFilter } from './types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export const calculateValuesByBreakpoint = (
@@ -670,4 +670,35 @@ export const searchMetric = (obj: QuarterlyBudget, metric: string) => {
     default:
       return undefined;
   }
+};
+
+export const getMetricByPeriod = (
+  period: PeriodicSelectionFilter,
+  isMobile: boolean,
+  isTable: boolean,
+  isDesk1024: boolean,
+  isDesk1280: boolean,
+  isDesk1440: boolean,
+  isDesk1920: boolean
+) => {
+  let metricsCount = 0;
+
+  // This is for metrics base on the resolution
+  if (period === 'Semi-annual') {
+    metricsCount = 1;
+  } else if (period === 'Annually') {
+    if (isMobile) {
+      metricsCount = 3;
+    } else {
+      metricsCount = 5;
+    }
+  } else if (period === 'Monthly' && (isDesk1440 || isDesk1920)) {
+    metricsCount = 1;
+  } else if (period === 'Quarterly') {
+    if (isTable) metricsCount = 1;
+    if (isDesk1024 || isDesk1280 || isDesk1440) metricsCount = 2;
+    if (isDesk1920) metricsCount = 3;
+  }
+
+  return metricsCount;
 };
