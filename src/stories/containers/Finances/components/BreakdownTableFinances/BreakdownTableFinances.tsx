@@ -21,6 +21,10 @@ interface Props {
   onClose?: () => void;
   selectedValue: string;
   isOpen: boolean;
+  maxItems?: number;
+  minItems?: number;
+  defaultMetricsWithAllSelected?: string[];
+  allowSelectAll?: boolean;
 }
 
 const BreakdownTableFinances = ({
@@ -34,6 +38,10 @@ const BreakdownTableFinances = ({
   selectedValue,
   onClose,
   onOpen,
+  defaultMetricsWithAllSelected,
+  maxItems,
+  minItems,
+  allowSelectAll,
 }: Props) => {
   const { isLight } = useThemeContext();
   const phoneLess = useMediaQuery(lightTheme.breakpoints.down('table_834'));
@@ -59,6 +67,9 @@ const BreakdownTableFinances = ({
 
       <FilterContainer>
         <FilterTable
+          maxItems={maxItems}
+          minItems={minItems}
+          defaultMetricsWithAllSelected={defaultMetricsWithAllSelected}
           activeItems={activeItems}
           metrics={metrics}
           handleSelectChange={handleSelectChange}
@@ -69,6 +80,7 @@ const BreakdownTableFinances = ({
           periodicSelectionFilter={periodicSelectionFilter}
           onClose={onClose}
           onOpen={onOpen}
+          allowSelectAll={allowSelectAll}
         />
       </FilterContainer>
     </Container>

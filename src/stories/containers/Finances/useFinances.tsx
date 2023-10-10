@@ -47,7 +47,12 @@ export const useFinances = () => {
     [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]
   );
   const [activeMetrics, setActiveMetrics] = useState<string[]>(metricsFilter.slice(0, val));
-  // This is to show correct value in the filter when got from useMediaQuery
+  const maxItems = val;
+  const minItems = 1;
+
+  // Avoid select all items when is mobile and different annually filter
+  const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
+  // Show correct value in the filter when got from useMediaQuery
   useEffect(() => {
     if (isMobile) {
       setPeriodFilter('Semi-annual');
@@ -55,7 +60,8 @@ export const useFinances = () => {
       setPeriodFilter('Quarterly');
     }
   }, [isMobile]);
-  // This is for put default metric per dimension
+
+  // Default metric per dimension
   useEffect(() => {
     if (periodFilter === 'Quarterly') {
       if (isTable) {
@@ -82,12 +88,18 @@ export const useFinances = () => {
       setActiveMetrics(metricsFilter.slice(0, val));
     }
   }, [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, metricsFilter, periodFilter, val]);
-
+  // Only show monthly filter in dimension bigger than isDesk1440
   useEffect(() => {
-    if ((periodFilter === 'Monthly' && isMobile) || isDesk1024 || isDesk1280) {
-      setPeriodFilter('Quarterly');
-    }
-  }, [isDesk1024, isDesk1280, isMobile, periodFilter]);
+    const handleResize = () => {
+      if (periodFilter === 'Monthly' && (isMobile || isDesk1024 || isDesk1280)) {
+        setPeriodFilter('Quarterly');
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isDesk1024, isDesk1280, isDesk1440, isMobile, periodFilter]);
 
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
 
@@ -119,7 +131,7 @@ export const useFinances = () => {
   const handleResetMetrics = () => {
     setActiveMetrics(metricsFilter.slice(0, val));
   };
-
+  const defaultMetricsWithAllSelected = metricsFilter.slice(0, val);
   const periodicSelectionFilter = isMobile
     ? ['Annually', 'Semi-annual']
     : isTable || isDesk1024 || isDesk1280
@@ -382,8 +394,11 @@ export const useFinances = () => {
     getItems,
     handleResetFilters,
     totalCardsNavigation,
-
+    allowSelectAll,
     mapMetricValuesTotal,
     getAllMetricsValuesTotal,
+    defaultMetricsWithAllSelected,
+    maxItems,
+    minItems,
   };
 };

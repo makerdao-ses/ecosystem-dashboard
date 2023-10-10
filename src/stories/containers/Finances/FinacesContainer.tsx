@@ -52,6 +52,10 @@ const FinancesContainer = () => {
     handleLoadMore,
     showSome,
     getAllMetricsValuesTotal,
+    defaultMetricsWithAllSelected,
+    maxItems,
+    minItems,
+    allowSelectAll,
   } = useFinances();
 
   return (
@@ -90,6 +94,7 @@ const FinancesContainer = () => {
       {isEnabled('FEATURE_FINANCES_BREAK_DOWN_CHART_SECTION') && <BreakdownChart />}
       <ConditionalWrapper period={periodFilter}>
         <BreakdownTable
+          handleResetMetrics={defaultMetricsWithAllSelected}
           activeItems={activeMetrics}
           handleChange={handlePeriodChange}
           handleResetFilter={handleResetMetrics}
@@ -103,6 +108,9 @@ const FinancesContainer = () => {
           year={year}
           headerTableMetrics={getAllMetricsValuesTotal()}
           metricTotal={getAllMetricsValuesTotal()}
+          maxItems={maxItems}
+          minItems={minItems}
+          allowSelectAll={allowSelectAll}
         />
       </ConditionalWrapper>
       <Container>

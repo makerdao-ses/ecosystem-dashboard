@@ -24,6 +24,10 @@ interface Props {
   selectedValue: string;
   isOpen: boolean;
   className?: string;
+  maxItems?: number;
+  minItems?: number;
+  defaultMetricsWithAllSelected?: string[];
+  allowSelectAll?: boolean;
 }
 
 const FilterTable: React.FC<Props> = ({
@@ -37,6 +41,10 @@ const FilterTable: React.FC<Props> = ({
   isOpen,
   onClose,
   onOpen,
+  maxItems,
+  minItems,
+  defaultMetricsWithAllSelected,
+  allowSelectAll,
 }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
@@ -61,8 +69,10 @@ const FilterTable: React.FC<Props> = ({
 
       <ContainerFiltersMetric>
         <CustomMultiSelectStyled
-          maxItems={2}
-          minItems={1}
+          allowSelectAll={allowSelectAll}
+          maxItems={maxItems}
+          minItems={minItems}
+          defaultMetricsWithAllSelected={defaultMetricsWithAllSelected}
           positionRight={!isMobile}
           label="Metrics"
           activeItems={activeItems}
