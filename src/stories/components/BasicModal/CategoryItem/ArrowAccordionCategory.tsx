@@ -2,13 +2,11 @@ import styled from '@emotion/styled';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
-
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
@@ -51,7 +49,8 @@ const TransactionHistoryContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  [lightTheme.breakpoints.down(834)]: {
+
+  [lightTheme.breakpoints.down('tablet_768')]: {
     width: '100%',
   },
 });
@@ -59,10 +58,12 @@ const TransactionHistoryContainer = styled.div({
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)({
   backgroundColor: 'transparent',
   width: '100%',
-  [lightTheme.breakpoints.up('table_834')]: {
-    width: 335,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    width: 310,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 416,
   },
 });
@@ -92,16 +93,20 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     lineHeight: '22px',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-
     color: isLight ? '#231536' : '#D2D4EF',
     padding: 0,
     marginTop: 0,
     marginBottom: 0,
-    [lightTheme.breakpoints.up('table_834')]: {
+
+    [lightTheme.breakpoints.up('tablet_768')]: {
       fontWeight: 500,
-      fontSize: 18,
-      lineHeight: '22px',
+      fontSize: 16,
+      lineHeight: 'normal',
       letterSpacing: '0.4px',
+    },
+
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      fontSize: 18,
     },
   },
 
@@ -114,7 +119,8 @@ const AccordionDetails = styled(MuiAccordionDetails)({
   padding: 0,
   paddingLeft: 24,
   marginTop: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 24,
     paddingLeft: 32,
   },
@@ -127,14 +133,19 @@ const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   textTransform: 'capitalize',
   color: isLight ? '#231536' : '#D2D4EF',
-
   gap: 16,
   fontWeight: 300,
   fontSize: 14,
   lineHeight: '17px',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 24,
     fontWeight: 400,
+    fontSize: 14,
+    lineHeight: 'normal',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '22px',
   },

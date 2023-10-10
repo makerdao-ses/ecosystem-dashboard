@@ -37,7 +37,7 @@ const TableFooterContainer = styled.div<WithIsLight>(({ isLight }) => ({
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     boxShadow: 'none',
     background: isLight ? '#ECF1F3' : '#25273D',
     padding: '14px 16px',
@@ -55,7 +55,7 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   marginBottom: 10,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     textAlign: 'left',
     marginBottom: 0,
   },
@@ -70,24 +70,24 @@ const TotalNumber = styled.div<WithIsLight & { extraPadding: boolean }>(({ isLig
   letterSpacing: '0.4px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     textAlign: 'right',
-    paddingRight: extraPadding ? 85 : 0,
+    paddingRight: extraPadding ? 102 : 0,
     fontSize: 16,
     fontWeight: 700,
     lineHeight: '19px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    paddingRight: extraPadding ? 57 : 0,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    paddingRight: extraPadding ? 118 : 0,
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingRight: extraPadding ? 68 : 0,
+    paddingRight: extraPadding ? 98 : 0,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    paddingRight: extraPadding ? 85 : 0,
+    paddingRight: extraPadding ? 107 : 0,
   },
 }));
 
@@ -99,7 +99,7 @@ const DAISpan = styled.span<WithIsLight>(({ isLight }) => ({
   fontFeatureSettings: "'tnum' on, 'lnum' on",
   color: isLight ? '#9FAFB9' : '#546978',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontWeight: 'inherit',
     fontSize: 'inherit',
     lineHeight: 'inherit',

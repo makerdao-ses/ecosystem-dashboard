@@ -1,7 +1,6 @@
 import { ParsedExpenseCategoryBuilder } from '@ses/core/businessLogic/builders/categoriesBuilders';
 import { withFixedPositionRelative } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
 import ContainerModal from './ContainerModal';
 import type { ComponentMeta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
@@ -13,11 +12,12 @@ export default {
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 734, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
 } as ComponentMeta<typeof ContainerModal>;
+
 const variantsArgs = [
   {
     headCountCategories: [
@@ -116,12 +116,11 @@ UnExpanded.parameters = {
           },
         },
       },
-      834: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19645:247601&t=3rWAHk8rUGngJTx7-4',
+      768: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24815:147193',
         options: {
           componentStyle: {
-            width: 770,
+            width: 704,
           },
           style: {
             top: -36,
@@ -129,12 +128,11 @@ UnExpanded.parameters = {
           },
         },
       },
-      1194: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19614:238996&t=QN0Rot6AvH91wak3-4',
+      1024: {
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24815:151467',
         options: {
           componentStyle: {
-            width: 1114,
+            width: 944,
           },
           style: {
             top: -36,

@@ -17,6 +17,7 @@ const CategoryModalComponent: React.FC = () => {
     openModal,
   } = useCategoriesModalContext();
   const { isLight } = useThemeContext();
+
   return (
     <BasicModalExtended
       handleClose={handleCloseModal}
@@ -53,16 +54,19 @@ const BasicModalExtended = styled(BasicModal)({
   outline: 'none',
   transform: 'translateX(-50%)',
   width: 'max(100%, 375px)',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 'max(90%, 770px)',
     height: 'calc(100% - 128px)',
     marginBottom: 64,
     maxHeight: 813,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: 1114,
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    maxWidth: 1114,
     maxHeight: 847,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 1184,
   },

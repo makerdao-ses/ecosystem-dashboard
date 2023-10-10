@@ -51,6 +51,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
   total,
 }) => {
   const { isLight } = useThemeContext();
+
   return (
     <BreakdownTableContainer>
       <CostBreakdownFilter selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
@@ -108,7 +109,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                       remainingEcosystemActors?.prediction,
                       byBudgetExpenses[0]?.prediction
                     )}
-                    rowType={'ecosystemActor'}
+                    rowType={'remaining'}
                   />
                 )}
               </RemainingContainer>
@@ -167,7 +168,7 @@ const Table = styled.div<WithIsLight>(({ isLight }) => ({
   width: '100%',
   marginTop: 24,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     background: isLight ? '#FFFFFF' : '#1E2C37',
     borderRadius: 6,
     marginTop: 25,
@@ -176,7 +177,11 @@ const Table = styled.div<WithIsLight>(({ isLight }) => ({
       : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 24,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 15,
   },
 }));
@@ -196,7 +201,7 @@ const RemainingContainer = styled.div<WithIsLight>(({ isLight }) => ({
     marginBottom: 0,
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     margin: '32px 0 0',
     padding: 0,
     gap: 0,
@@ -224,7 +229,8 @@ const ContainerOpenModal = styled.div<WithIsLight>(({ isLight }) => ({
   borderRadius: '6px',
   padding: '8px 16px 8px 16px',
   marginTop: -2,
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 }));
