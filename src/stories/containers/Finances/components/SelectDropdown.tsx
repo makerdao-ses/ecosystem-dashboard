@@ -4,7 +4,8 @@ import Select from '@mui/material/Select';
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useEffect } from 'react';
+import type { MenuProps } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -20,6 +21,7 @@ interface Props {
   height?: number;
   width?: number;
   borderRadiusPopover?: string;
+  menuAnchorOrigin?: MenuProps['anchorOrigin'];
 }
 
 const SelectDropdown: React.FC<Props> = ({
@@ -34,8 +36,25 @@ const SelectDropdown: React.FC<Props> = ({
   width = 92,
   widthPaper = 120,
   borderRadiusPopover = '6px',
+  menuAnchorOrigin,
 }: Props) => {
   const { isLight } = useThemeContext();
+
+  useEffect(() => {
+    // close the menu if it is open
+    const handleScroll = () => {
+      if (isOpen) {
+        onClose?.();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <ContainerSelect className={className}>
       <SelectStyled
@@ -44,6 +63,9 @@ const SelectDropdown: React.FC<Props> = ({
         isLight={isLight}
         MenuProps={{
           disableScrollLock: true,
+          ...(menuAnchorOrigin && {
+            anchorOrigin: menuAnchorOrigin,
+          }),
           PaperProps: {
             sx: {
               bgcolor: isLight ? 'white' : '#000A13',
@@ -80,9 +102,9 @@ const SelectDropdown: React.FC<Props> = ({
           </ContainerIcon>
         )}
       >
-        {items.map((items) => (
-          <MenuItemStyled value={items} key={items} disableTouchRipple={true} isLight={isLight}>
-            {items}
+        {items.map((item) => (
+          <MenuItemStyled value={item} key={item} disableTouchRipple={true} isLight={isLight}>
+            {item}
           </MenuItemStyled>
         ))}
       </SelectStyled>
@@ -122,7 +144,8 @@ const SelectStyled = styled(Select)<WithIsLight & { width: number; height: numbe
       border: `1px solid ${isLight ? '#231536' : '#787A9B'}`,
     },
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 48,
   },
 }));

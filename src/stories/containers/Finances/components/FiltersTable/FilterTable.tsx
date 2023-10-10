@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { Close } from '@ses/components/svg/close';
@@ -37,6 +38,7 @@ const FilterTable: React.FC<Props> = ({
   onClose,
   onOpen,
 }) => {
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
   const isEnable = isLight
     ? activeItems.length > 0
@@ -59,7 +61,7 @@ const FilterTable: React.FC<Props> = ({
 
       <ContainerFiltersMetric>
         <CustomMultiSelectStyled
-          positionRight={true}
+          positionRight={!isMobile}
           label="Metrics"
           activeItems={activeItems}
           items={metrics}
@@ -87,7 +89,11 @@ const FilterTable: React.FC<Props> = ({
           selectedValue={selectedValue}
           onClose={onClose}
           onOpen={onOpen}
-          widthPaper={256}
+          widthPaper={224}
+          menuAnchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
         />
       </PeriodicSelectionFilter>
 
@@ -163,6 +169,7 @@ const StyledSelectDropdown = styled(SelectDropdown)({
   '& > div': {
     width: 141,
     height: 34,
+
     [lightTheme.breakpoints.up('tablet_768')]: {
       width: 120,
       height: 48,
