@@ -29,7 +29,7 @@ const useBudgetStatementComments = (
   const comments = useMemo(() => {
     const comments = getAllCommentsBudgetStatementLine(budgetStatement) as (BudgetStatementComment & WithDate)[];
     let activities = budgetStatement?.activityFeed?.filter(
-      (activity) => activity.event === 'CU_BUDGET_STATEMENT_CREATED'
+      (activity) => activity.event.endsWith('_STATEMENT_CREATED') || activity.event.endsWith('_STATEMENT_UPDATED')
     ) as (ChangeTrackingEvent & WithDate)[];
     activities =
       activities?.map((activity) => {
