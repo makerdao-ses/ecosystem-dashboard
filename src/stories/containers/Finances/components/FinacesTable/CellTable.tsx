@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -14,7 +15,7 @@ const CellTable: React.FC<Props> = ({ metrics }) => {
     <Cell isLight={isLight}>
       <SpacedValues>
         {metrics.map((_, index) => (
-          <span key={index}>2208889</span>
+          <span key={index}>{usLocalizedNumber(2208889)}</span>
         ))}
       </SpacedValues>
     </Cell>
