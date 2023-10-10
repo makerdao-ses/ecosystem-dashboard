@@ -61,6 +61,8 @@ const FilterTable: React.FC<Props> = ({
 
       <ContainerFiltersMetric>
         <CustomMultiSelectStyled
+          maxItems={2}
+          minItems={1}
           positionRight={!isMobile}
           label="Metrics"
           activeItems={activeItems}
