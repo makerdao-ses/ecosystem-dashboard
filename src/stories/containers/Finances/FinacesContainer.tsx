@@ -4,10 +4,10 @@ import PageContainer from '@ses/components/Container/PageContainer';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SeccionPages/BreadcrumbYearNavigation';
-import BreakdownChart from './components/SeccionPages/BreakdownChart';
 import BreakdownTable from './components/SeccionPages/BreakdownTable';
 import CardChartOverview from './components/SeccionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from './components/SeccionPages/CardsNavigation/CardsNavigation';
@@ -85,9 +85,10 @@ const FinancesContainer = () => {
           </WrapperMobile>
           <CardsNavigation cardsNavigationInformation={cardsNavigationInformation} />
         </ContainerSections>
+
+        {isEnabled('FEATURE_FINANCES_BREAKDOWN_CHART_SECTION') && <BreakdownChartSection year={year} />}
       </Container>
 
-      {isEnabled('FEATURE_FINANCES_BREAK_DOWN_CHART_SECTION') && <BreakdownChart />}
       <ConditionalWrapper period={periodFilter}>
         <BreakdownTable
           activeItems={activeMetrics}
