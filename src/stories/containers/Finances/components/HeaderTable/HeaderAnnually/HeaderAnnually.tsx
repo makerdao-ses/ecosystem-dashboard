@@ -18,10 +18,10 @@ export const HeaderAnnually: React.FC<Props> = ({ year, metrics, title }) => {
     <Container isLight={isLight}>
       <ContainerAnnually>
         <ContainerTitle isLight={isLight}>
-          <Title>{title}</Title>
+          <Title isLight={isLight}>{title}</Title>
         </ContainerTitle>
         <ContainerYear>
-          <Year>{year}</Year>
+          <Year isLight={isLight}>{year}</Year>
           <ContainerAnnuallyCell>
             <CellAnnually metrics={metrics} />
           </ContainerAnnuallyCell>
@@ -51,18 +51,19 @@ const ContainerAnnually = styled.div({
   },
 });
 
-const Year = styled.div({
+const Year = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   fontSize: 14,
   fontWeight: 500,
   fontStyle: 'normal',
   lineHeight: 'normal',
   marginBottom: 8,
+  color: isLight ? '#231536' : '#D2D4EF',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 24,
     fontSize: 18,
   },
-});
+}));
 
 const ContainerAnnuallyCell = styled.div({
   display: 'flex',
@@ -79,8 +80,8 @@ const ContainerAnnuallyCell = styled.div({
   },
 });
 
-const Title = styled.div({
-  color: '#231536',
+const Title = styled.div<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 11,
   fontStyle: 'normal',
@@ -90,13 +91,13 @@ const Title = styled.div({
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
   },
-});
+}));
 
 const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   width: 76,
   display: 'flex',
   alignItems: 'center',
-  borderRight: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+  borderRight: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
   whiteSpace: 'break-spaces',
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 140,
@@ -132,8 +133,11 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   flex: 1,
   justifyContent: 'flex-start',
   borderRadius: 6,
-  backgroundColor: isLight ? '#E5E9EC' : 'red',
-  boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
+  backgroundColor: isLight ? '#E5E9EC' : '#405361',
+  boxShadow: isLight
+    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+
   alignItems: 'center',
   whiteSpace: 'pre',
   overflow: 'auto',

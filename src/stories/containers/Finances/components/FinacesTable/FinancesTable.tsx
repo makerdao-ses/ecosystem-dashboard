@@ -32,7 +32,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {tables.map((table, index) => (
         <TableContainer isLight={isLight} className={className} key={index}>
-          <TableBody>
+          <TableBody isLight={isLight}>
             {breakdownTable[table].map((row) => (
               <TableRow isMain={row.isMain} isLight={isLight}>
                 <Headed isLight={isLight} period={period}>
@@ -72,17 +72,24 @@ export default FinancesTable;
 const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   borderCollapse: 'collapse',
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
-  borderRadius: 6,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   tableLayout: 'fixed',
   width: '100%',
+  backgroundColor: isLight ? 'white' : '#1E2C37',
+  borderRadius: '6px',
+  '& tr:last-of-type td:last-of-type': {
+    borderBottomRightRadius: 6,
+  },
+  '& tr:last-of-type th:last-of-type': {
+    borderBottomLeftRadius: 6,
+  },
 }));
 
 const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ isLight, period }) => ({
-  borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   fontSize: 11,
-  color: '#231536',
+  color: isLight ? '#231536' : '#D2D4EF',
   width: 87,
   textAlign: 'center',
   verticalAlign: 'center',
@@ -131,7 +138,7 @@ const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false
     textAlign: 'left',
   },
   '& td:last-of-type': {
-    backgroundColor: isLight ? (isMain ? 'rgba(159, 175, 185, 0.17)' : 'inherit') : 'red',
+    backgroundColor: isLight ? (isMain ? 'rgba(159, 175, 185, 0.17)' : 'inherit') : isMain ? '#2D3C48;' : 'inherit',
     fontWeight: isMain ? 600 : 400,
     borderRight: 'none',
     borderTopRightRadius: isMain ? 6 : 'none',
@@ -142,20 +149,24 @@ const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false
   },
 }));
 
-const TableBody = styled.tbody({
+const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
   '& tr:nth-of-type(odd):not(:first-child)': {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: isLight ? '#F5F5F5' : '#18252E',
+  },
+  '& tr:nth-of-type(even):not(:first-child)': {
+    backgroundColor: isLight ? '#ffffff' : '#1f2d37',
   },
   '& tr:first-of-type': {
-    backgroundColor: '#ECF1F3',
+    backgroundColor: isLight ? '#ECF1F3' : '#30434e',
   },
-});
+}));
 
 const Cell = styled.td<WithIsLight>(({ isLight }) => ({
-  borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
     padding: '16px 20px',

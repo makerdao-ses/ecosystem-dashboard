@@ -15,7 +15,9 @@ const CellTable: React.FC<Props> = ({ metrics }) => {
     <Cell isLight={isLight}>
       <SpacedValues>
         {metrics.map((_, index) => (
-          <span key={index}>{usLocalizedNumber(2208889)}</span>
+          <Span key={index} isLight={isLight}>
+            {usLocalizedNumber(2208889)}
+          </Span>
         ))}
       </SpacedValues>
     </Cell>
@@ -25,7 +27,7 @@ const CellTable: React.FC<Props> = ({ metrics }) => {
 export default CellTable;
 
 const Cell = styled.td<WithIsLight>(({ isLight }) => ({
-  borderRight: `1px solid ${isLight ? '#D8E0E3' : 'red'}`,
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
@@ -45,3 +47,7 @@ const SpacedValues = styled.div({
     gap: 32,
   },
 });
+
+const Span = styled.span<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
+}));
