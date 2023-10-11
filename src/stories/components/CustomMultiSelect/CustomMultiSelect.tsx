@@ -46,6 +46,10 @@ interface CustomMultiSelectProps {
   withSearch?: boolean;
   positionRight?: boolean;
   className?: string;
+  maxItems?: number;
+  minItems?: number;
+  defaultMetricsWithAllSelected?: string[];
+  allowSelectAll?: boolean;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -56,6 +60,10 @@ export const CustomMultiSelect = ({
   customItemRender = defaultItemRender,
   positionRight = false,
   className,
+  maxItems,
+  minItems,
+  defaultMetricsWithAllSelected = [],
+  allowSelectAll = true,
   ...props
 }: CustomMultiSelectProps) => {
   const { isLight } = useThemeContext();
@@ -72,12 +80,28 @@ export const CustomMultiSelect = ({
   const toggleItem = (item: string) => {
     const pos = activeItems.indexOf(item);
     if (pos > -1) {
-      const temp = [...activeItems];
-      temp.splice(pos, 1);
-      props.onChange && props.onChange(temp);
+      if (minItems && activeItems.length > minItems) {
+        const temp = [...activeItems];
+        temp.splice(pos, 1);
+        props.onChange && props.onChange(temp);
+      }
     } else {
-      const temp = [...activeItems];
-      temp.push(item);
+      const temp = [...activeItems, item];
+
+      if (maxItems && minItems && temp.length > maxItems) {
+        temp.shift();
+      }
+      if (minItems) {
+        while (temp.length < minItems) {
+          const nextItem = props.items.find((item) => !temp.includes(item.id));
+          if (nextItem) {
+            temp.push(nextItem.id);
+          } else {
+            break;
+          }
+        }
+      }
+
       props.onChange && props.onChange(temp);
     }
   };
@@ -86,9 +110,11 @@ export const CustomMultiSelect = ({
 
   const toggleAll = () => {
     if (activeItems.length === props.items.length) {
-      props.onChange && props.onChange([]);
+      props.onChange && props.onChange(defaultMetricsWithAllSelected ?? []);
     } else {
-      props.onChange && props.onChange(props.items.map((item) => item.id));
+      if (allowSelectAll) {
+        props.onChange && props.onChange(props.items.map((item) => item.id));
+      }
     }
   };
 

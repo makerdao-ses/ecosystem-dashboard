@@ -7,12 +7,12 @@ import React from 'react';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
-import BreadcrumbYearNavigation from './components/SeccionPages/BreadcrumbYearNavigation';
-import BreakdownTable from './components/SeccionPages/BreakdownTable';
-import CardChartOverview from './components/SeccionPages/CardChartOverview/CardChartOverview';
-import CardsNavigation from './components/SeccionPages/CardsNavigation/CardsNavigation';
-import DelegateExpenseTrendFinances from './components/SeccionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
-import MakerDAOExpenseMetrics from './components/SeccionPages/MakerDAOExpenseMetrics';
+import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
+import BreakdownTable from './components/SectionPages/BreakdownTable';
+import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
+import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
+import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
+import MakerDAOExpenseMetrics from './components/SectionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -52,6 +52,10 @@ const FinancesContainer = () => {
     handleLoadMore,
     showSome,
     getAllMetricsValuesTotal,
+    defaultMetricsWithAllSelected,
+    maxItems,
+    minItems,
+    allowSelectAll,
   } = useFinances();
 
   return (
@@ -91,6 +95,7 @@ const FinancesContainer = () => {
 
       <ConditionalWrapper period={periodFilter}>
         <BreakdownTable
+          handleResetMetrics={defaultMetricsWithAllSelected}
           activeItems={activeMetrics}
           handleChange={handlePeriodChange}
           handleResetFilter={handleResetMetrics}
@@ -104,6 +109,9 @@ const FinancesContainer = () => {
           year={year}
           headerTableMetrics={getAllMetricsValuesTotal()}
           metricTotal={getAllMetricsValuesTotal()}
+          maxItems={maxItems}
+          minItems={minItems}
+          allowSelectAll={allowSelectAll}
         />
       </ConditionalWrapper>
       <Container>

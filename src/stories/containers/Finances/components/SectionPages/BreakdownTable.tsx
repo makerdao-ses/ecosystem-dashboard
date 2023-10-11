@@ -24,6 +24,10 @@ interface Props {
   year: string;
   headerTableMetrics: MetricsWithAmount[];
   metricTotal: MetricsWithAmount[];
+  handleResetMetrics?: string[];
+  maxItems?: number;
+  minItems?: number;
+  allowSelectAll?: boolean;
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -40,6 +44,10 @@ const BreakdownTable: React.FC<Props> = ({
   metricTotal,
   selectedValue,
   year,
+  handleResetMetrics,
+  maxItems,
+  minItems,
+  allowSelectAll,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -53,6 +61,10 @@ const BreakdownTable: React.FC<Props> = ({
       selectedValue={selectedValue}
       onClose={onClose}
       onOpen={onOpen}
+      defaultMetricsWithAllSelected={handleResetMetrics}
+      maxItems={maxItems}
+      minItems={minItems}
+      allowSelectAll={allowSelectAll}
     />
     <TableHeader>
       <HeaderTable
