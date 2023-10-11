@@ -68,6 +68,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, code);
   const headline = <CuHeadlineText cuLongCode={longCode} />;
+
   return (
     <Wrapper>
       <SEOHead
