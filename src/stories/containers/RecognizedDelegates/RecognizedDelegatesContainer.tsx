@@ -51,6 +51,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
     maxValuesRelative,
     resultFilteredChart,
   } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses, totalMonthlyExpenses);
+
   return (
     <ExtendedPageContainer isLight={isLight}>
       <SEOHead
