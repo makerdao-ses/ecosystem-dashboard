@@ -3,7 +3,7 @@ import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
-import type { QuarterlyBudget } from './mockData';
+import type { MockData, QuarterlyBudget } from './mockData';
 import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem, PeriodicSelectionFilter } from './types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
@@ -701,4 +701,18 @@ export const getMetricByPeriod = (
   }
 
   return metricsCount;
+};
+
+export const sortDataByElementCount = (data: MockData) => {
+  const groupSizes = Object.keys(data).map((key) => ({
+    name: key,
+    size: data[key].length,
+  }));
+  groupSizes.sort((a, b) => b.size - a.size);
+  const sortedData: MockData = {};
+  groupSizes.forEach((group) => {
+    sortedData[group.name as keyof typeof sortedData] = data[group.name];
+  });
+
+  return sortedData;
 };

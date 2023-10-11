@@ -42,8 +42,10 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   flex: 1,
   justifyContent: 'flex-start',
   borderRadius: 6,
-  backgroundColor: isLight ? '#E5E9EC' : 'red',
-  boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
+  backgroundColor: isLight ? '#E5E9EC' : '#405361',
+  boxShadow: isLight
+    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   alignItems: 'center',
   whiteSpace: 'pre',
   overflow: 'auto',
@@ -55,7 +57,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 12,
   fontStyle: 'normal',

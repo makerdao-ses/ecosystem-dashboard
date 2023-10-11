@@ -33,7 +33,7 @@ const ContainerCell = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   width: '100%',
   fontWeight: 500,
 }));
@@ -66,23 +66,23 @@ const Metrics = styled.div<WithIsLight>(({ isLight }) => ({
     minWidth: 80,
   },
 }));
-const Name = styled.div<WithIsLight>(({ isLight }) => ({
+const Name = styled.div<WithIsLight>({
   marginBottom: 4,
   fontSize: 11,
   fontWeight: 500,
   textAlign: 'center',
   fontStyle: 'normal',
   lineHeight: 'normal',
-  color: isLight ? '#708390' : 'red',
+  color: '#708390',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     textAlign: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginBottom: 2,
   },
-}));
+});
 const Amount = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 11,
   fontWeight: 600,
   textAlign: 'center',
