@@ -18,7 +18,7 @@ export const HeaderMonthly: React.FC<Props> = ({ metrics, title, months }) => {
     <Container isLight={isLight}>
       <ContainerAnnually>
         <ContainerTitle>
-          <Title>{title}</Title>
+          <Title isLight={isLight}>{title}</Title>
         </ContainerTitle>
         <ContainerYear>
           <ContainerAnnuallyCell>
@@ -41,7 +41,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   flex: 1,
   justifyContent: 'flex-start',
   borderRadius: 6,
-  backgroundColor: isLight ? '#E5E9EC' : 'red',
+  backgroundColor: isLight ? '#E5E9EC' : '#405361',
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
   alignItems: 'center',
   whiteSpace: 'pre',
@@ -71,14 +71,14 @@ const ContainerAnnuallyCell = styled.div({
   width: '100%',
 });
 
-const Title = styled.div({
-  color: '#231536',
+const Title = styled.div<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 16,
   fontStyle: 'normal',
   fontWeight: 700,
   lineHeight: 'normal',
-});
+}));
 
 const ContainerTitle = styled.div({
   display: 'flex',
@@ -100,5 +100,4 @@ const ContainerYear = styled.div({
 
 const CellMonthlyTotally = styled(CellMonthly)({
   width: 85,
-  border: '2px silid red',
 });
