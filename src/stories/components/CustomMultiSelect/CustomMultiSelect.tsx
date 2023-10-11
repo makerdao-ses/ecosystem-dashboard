@@ -93,7 +93,6 @@ export const CustomMultiSelect = ({
       }
       if (minItems) {
         while (temp.length < minItems) {
-          console.log('tem', temp, props.items);
           const nextItem = props.items.find((item) => !temp.includes(item.id));
           if (nextItem) {
             temp.push(nextItem.id);
