@@ -78,7 +78,6 @@ export const CustomMultiSelect = ({
   });
 
   const toggleItem = (item: string) => {
-    // toggleItemWithLimits(item, 2, 1);
     const pos = activeItems.indexOf(item);
     if (pos > -1) {
       if (minItems && activeItems.length > minItems) {
