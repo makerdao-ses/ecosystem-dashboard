@@ -156,7 +156,10 @@ const useTransparencyReportingTabs = ({
             undefined,
             { shallow: true }
           );
-          setTabsIndex(TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS);
+          // it's coming from default view, but comment is in both views so we can keep it activated
+          if (router.query.section !== TRANSPARENCY_IDS_ENUM.COMMENTS) {
+            setTabsIndex(TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS);
+          }
         }
       }
     };
