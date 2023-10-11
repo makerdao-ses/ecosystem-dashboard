@@ -3,6 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { sortDataByElementCount } from '../../utils/utils';
 import CellTable from './CellTable';
 import type { MockData } from '../../utils/mockData';
 import type { PeriodicSelectionFilter } from '../../utils/types';
@@ -18,7 +19,8 @@ interface Props {
 
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period }) => {
   const { isLight } = useThemeContext();
-  const tables = Object.keys(breakdownTable);
+  const orderData = sortDataByElementCount(breakdownTable);
+  const tables = Object.keys(orderData);
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));

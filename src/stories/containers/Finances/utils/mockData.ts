@@ -561,43 +561,5 @@ export const mockDataTableQuarterly: MockData = {
         total: 34354,
       },
     },
-    {
-      name: 'Special Purpose Funds',
-      forecast: {
-        q1: 1234567,
-        q2: 123,
-        q3: 3455,
-        q4: 345436,
-        total: 34354,
-      },
-      budget: {
-        q1: 2208889,
-        q2: 2208889,
-        q3: 2208889,
-        q4: 2208889,
-        total: 34354,
-      },
-      actual: {
-        q1: 2208889,
-        q2: 2208889,
-        q3: 2208889,
-        q4: 2208889,
-        total: 34354,
-      },
-      'Net Expenses On-chain': {
-        q1: 2208889,
-        q2: 2208889,
-        q3: 2208889,
-        q4: 2208889,
-        total: 34354,
-      },
-      'Net Expenses Off-chain': {
-        q1: 2208889,
-        q2: 2208889,
-        q3: 2208889,
-        q4: 2208889,
-        total: 34354,
-      },
-    },
   ],
 };
