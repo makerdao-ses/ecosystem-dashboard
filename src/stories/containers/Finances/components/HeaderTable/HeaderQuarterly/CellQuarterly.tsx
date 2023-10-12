@@ -45,7 +45,7 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
   position: 'relative',
   alignItems: 'center',
   padding: isTotal ? '16px 0px 16px 8px' : '16px 4px',
-  backgroundColor: isLight ? (isTotal ? 'rgba(209, 222, 230, 0.50)' : 'transparent') : isTotal ? 'red' : 'red',
+  backgroundColor: isLight ? (isTotal ? 'rgba(209, 222, 230, 0.50)' : 'transparent') : isTotal ? '#374752' : '#405361)',
   ...(!isTotal && {
     ':after': {
       content: '""',
@@ -53,7 +53,7 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
       height: 48,
       left: 10,
 
-      borderLeft: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+      borderLeft: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
       [lightTheme.breakpoints.up('tablet_768')]: {
         left: 6,
       },
@@ -103,7 +103,7 @@ const Quarterly = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 6,
   fontWeight: 700,
   fontSize: 16,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: 20,
@@ -141,7 +141,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   fontStyle: 'normal',
   lineHeight: 'normal',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     textAlign: 'center',
   },
@@ -150,7 +150,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 const Amount = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   fontWeight: 600,
   textAlign: 'center',

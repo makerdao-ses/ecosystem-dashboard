@@ -2,7 +2,7 @@ import {
   delegateWithActuals,
   filteredDelegatesChart,
   sumActualsByPeriod,
-} from '@ses/core/businessLogic/reconizedDelegate';
+} from '@ses/core/businessLogic/recognizedDelegate';
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 
@@ -42,9 +42,10 @@ export const useRecognizedDelegates = (
   // TODO: Those number will be delete next release
   const shadowTotal = 178;
   const mediaAnnual = 73254.1;
-  const delegatesExpenses = totalQuarterlyExpenses.delegatesExpenses[0].actuals;
+  const delegatesExpenses = totalQuarterlyExpenses.delegatesExpenses[0]?.actuals;
+
   const otherExpenses =
-    totalQuarterlyExpenses.totalExpenses[0].actuals - totalQuarterlyExpenses.delegatesExpenses[0].actuals;
+    totalQuarterlyExpenses.totalExpenses[0].actuals - totalQuarterlyExpenses.delegatesExpenses[0]?.actuals;
 
   const selectElements = useMemo(
     () =>
