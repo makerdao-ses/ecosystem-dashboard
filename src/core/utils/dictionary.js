@@ -139,6 +139,7 @@ const dictionary = [
   'Incentivized',
   'Annualy',
   'tbody',
+  'tfoot',
 ];
 
 module.exports = dictionary;

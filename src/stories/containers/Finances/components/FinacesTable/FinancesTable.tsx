@@ -29,11 +29,15 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
+  const showFooter = true;
+  // Shoe color for others depending if odd or even
+  const isPar = orderData[`${tables[tables.length - 1]}`]?.length % 2 === 0;
+
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {tables.map((table, index) => (
-        <TableContainer isLight={isLight} className={className} key={index}>
+        <TableContainer isLight={isLight} className={className} key={index} showFooter={showFooter}>
           <TableBody isLight={isLight}>
             {breakdownTable[table].map((row) => (
               <TableRow isMain={row.isMain} isLight={isLight}>
@@ -63,6 +67,18 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
               </TableRow>
             ))}
           </TableBody>
+          {index === tables.length - 1 && showFooter && (
+            <Footer isLight={isLight} isPar={isPar}>
+              <FooterRow>
+                <FooterCell>Others</FooterCell>
+                {showQuarterly &&
+                  arrayMetrics.map(
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    (_) => <CellTable metrics={metrics} />
+                  )}
+              </FooterRow>
+            </Footer>
+          )}
         </TableContainer>
       ))}
     </>
@@ -71,7 +87,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
 export default FinancesTable;
 
-const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
+const TableContainer = styled.table<WithIsLight & { showFooter?: boolean }>(({ isLight }) => ({
   borderCollapse: 'collapse',
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
   fontFamily: 'Inter, sans-serif',
@@ -83,8 +99,13 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   '& tr:last-of-type td:last-of-type': {
     borderBottomRightRadius: 6,
   },
+
   '& tr:last-of-type th:last-of-type': {
     borderBottomLeftRadius: 6,
+  },
+  '& tfoot': {
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
   },
 }));
 
@@ -174,3 +195,25 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
     padding: '16px 20px',
   },
 }));
+
+const Footer = styled.tfoot<WithIsLight & { isPar: boolean }>(({ isLight, isPar }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
+
+  '& :last-of-type': {
+    borderRight: 'none',
+  },
+  '& td:first-of-type': {
+    borderBottomLeftRadius: 6,
+    borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
+    padding: '16px 4px 16px 8px',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 400,
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      padding: '16px 0px 16px 32px',
+    },
+  },
+  backgroundColor: isLight ? (!isPar ? '#ffffff' : '#F5F5F5') : isPar ? '#18252E' : '#1f2d37',
+}));
+
+const FooterRow = styled.tr({});
+const FooterCell = styled.td({});
