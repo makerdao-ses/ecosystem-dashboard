@@ -44,7 +44,7 @@ const BreakdownTableFinances = ({
   allowSelectAll,
 }: Props) => {
   const { isLight } = useThemeContext();
-  const phoneLess = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const phoneLess = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   return (
     <Container>
@@ -92,7 +92,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 26,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -106,7 +106,7 @@ const TitleTooltip = styled.div({
   alignItems: 'center',
   gap: 12,
   height: 24,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 10,
   },
 });
@@ -120,7 +120,7 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   letterSpacing: '0.5px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
     letterSpacing: '0.4px',
   },
@@ -131,7 +131,7 @@ const IconWrapper = styled.div({
   display: 'flex',
 
   paddingTop: 2,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     paddingTop: 8,
   },
 });
@@ -139,7 +139,7 @@ const IconWrapper = styled.div({
 const FilterContainer = styled.div({
   height: 34,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 48,
   },
 });
