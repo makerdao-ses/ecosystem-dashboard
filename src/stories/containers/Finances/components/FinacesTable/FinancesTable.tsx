@@ -29,6 +29,10 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
+  const showFooter = true;
+  // Show color for others depending if odd or even
+  const isPair = orderData[`${tables[tables.length - 1]}`]?.length % 2 === 0;
+
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
@@ -63,6 +67,18 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
               </TableRow>
             ))}
           </TableBody>
+          {index === tables.length - 1 && showFooter && (
+            <Footer isLight={isLight} isPair={isPair}>
+              <FooterRow>
+                <FooterCell>Others</FooterCell>
+                {showQuarterly &&
+                  arrayMetrics.map(
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    (_) => <CellTable metrics={metrics} />
+                  )}
+              </FooterRow>
+            </Footer>
+          )}
         </TableContainer>
       ))}
     </>
@@ -83,8 +99,13 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   '& tr:last-of-type td:last-of-type': {
     borderBottomRightRadius: 6,
   },
+
   '& tr:last-of-type th:last-of-type': {
     borderBottomLeftRadius: 6,
+  },
+  '& tfoot': {
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
   },
 }));
 
@@ -174,3 +195,25 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
     padding: '16px 20px',
   },
 }));
+
+const Footer = styled.tfoot<WithIsLight & { isPair: boolean }>(({ isLight, isPair }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
+
+  '& :last-of-type': {
+    borderRight: 'none',
+  },
+  '& td:first-of-type': {
+    borderBottomLeftRadius: 6,
+    borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
+    padding: '16px 4px 16px 8px',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 400,
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      padding: '16px 0px 16px 32px',
+    },
+  },
+  backgroundColor: isLight ? (!isPair ? '#ffffff' : '#F5F5F5') : isPair ? '#18252E' : '#1f2d37',
+}));
+
+const FooterRow = styled.tr({});
+const FooterCell = styled.td({});
