@@ -31,7 +31,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const arrayMetrics = new Array<number>(iteration).fill(0);
   const showFooter = true;
   // Show color for others depending if odd or even
-  const isPar = orderData[`${tables[tables.length - 1]}`]?.length % 2 === 0;
+  const isPair = orderData[`${tables[tables.length - 1]}`]?.length % 2 === 0;
 
   return (
     <>
@@ -68,7 +68,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
             ))}
           </TableBody>
           {index === tables.length - 1 && showFooter && (
-            <Footer isLight={isLight} isPar={isPar}>
+            <Footer isLight={isLight} isPar={isPair}>
               <FooterRow>
                 <FooterCell>Others</FooterCell>
                 {showQuarterly &&
