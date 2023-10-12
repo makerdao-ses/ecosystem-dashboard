@@ -30,14 +30,14 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
   const showFooter = true;
-  // Shoe color for others depending if odd or even
+  // Show color for others depending if odd or even
   const isPar = orderData[`${tables[tables.length - 1]}`]?.length % 2 === 0;
 
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {tables.map((table, index) => (
-        <TableContainer isLight={isLight} className={className} key={index} showFooter={showFooter}>
+        <TableContainer isLight={isLight} className={className} key={index}>
           <TableBody isLight={isLight}>
             {breakdownTable[table].map((row) => (
               <TableRow isMain={row.isMain} isLight={isLight}>
@@ -87,7 +87,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
 export default FinancesTable;
 
-const TableContainer = styled.table<WithIsLight & { showFooter?: boolean }>(({ isLight }) => ({
+const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   borderCollapse: 'collapse',
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
   fontFamily: 'Inter, sans-serif',
