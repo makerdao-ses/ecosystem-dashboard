@@ -3,7 +3,7 @@ import BarPercentRelativeToTotal from '@ses/components/BarPercentRelativeToTotal
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
-import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/reconizedDelegate';
+import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/recognizedDelegate';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';

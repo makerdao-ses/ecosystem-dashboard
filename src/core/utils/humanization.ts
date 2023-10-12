@@ -3,7 +3,7 @@ export type HumanizedNumber = {
   suffix: string;
 };
 
-export const threeDigitsPrecisionHumanization = (num: number): HumanizedNumber => {
+export const threeDigitsPrecisionHumanization = (num = 0): HumanizedNumber => {
   if (num >= 1000000) {
     return {
       value: (num / 1000000).toPrecision(3),
