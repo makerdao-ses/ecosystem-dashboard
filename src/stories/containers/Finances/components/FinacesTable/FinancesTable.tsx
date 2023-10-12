@@ -68,7 +68,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
             ))}
           </TableBody>
           {index === tables.length - 1 && showFooter && (
-            <Footer isLight={isLight} isPar={isPair}>
+            <Footer isLight={isLight} isPair={isPair}>
               <FooterRow>
                 <FooterCell>Others</FooterCell>
                 {showQuarterly &&
@@ -196,7 +196,7 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Footer = styled.tfoot<WithIsLight & { isPar: boolean }>(({ isLight, isPar }) => ({
+const Footer = styled.tfoot<WithIsLight & { isPair: boolean }>(({ isLight, isPair }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
 
   '& :last-of-type': {
@@ -212,7 +212,7 @@ const Footer = styled.tfoot<WithIsLight & { isPar: boolean }>(({ isLight, isPar 
       padding: '16px 0px 16px 32px',
     },
   },
-  backgroundColor: isLight ? (!isPar ? '#ffffff' : '#F5F5F5') : isPar ? '#18252E' : '#1f2d37',
+  backgroundColor: isLight ? (!isPair ? '#ffffff' : '#F5F5F5') : isPair ? '#18252E' : '#1f2d37',
 }));
 
 const FooterRow = styled.tr({});
