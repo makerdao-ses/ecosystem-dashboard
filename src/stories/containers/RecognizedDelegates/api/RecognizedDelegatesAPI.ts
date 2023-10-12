@@ -73,7 +73,7 @@ export const recognizedDelegateDoughnutChart = () => ({
   `,
   filter: {
     f1: {
-      budgets: 'makerdao/delegates:*/',
+      budgets: 'makerdao/delegates:*',
       end: '2023/03',
       start: '2021/11',
       granularity: 'total',

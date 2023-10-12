@@ -363,7 +363,7 @@ export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatem
       (index !== 0 && array[index - 1].status !== comment.status)
     ) {
       // status change occurred
-      if (comment.comment.trim()) {
+      if (comment.comment?.trim()) {
         return [
           {
             ...comment,
