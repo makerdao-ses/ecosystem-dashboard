@@ -15,10 +15,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.3",
-    "@emotion/styled": "^11.9.3",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.4",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.13",
+    "@mui/material": "^5.14.13",
     "@reduxjs/toolkit": "^1.8.2",
     "classnames": "^2.3.2",
     "countup.js": "2.5.0",
