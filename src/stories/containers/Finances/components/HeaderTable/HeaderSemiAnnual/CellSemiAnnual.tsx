@@ -44,13 +44,13 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
   position: 'relative',
   alignItems: 'center',
 
-  backgroundColor: isLight ? (isTotal ? 'rgba(209, 222, 230, 0.50)' : 'transparent') : isTotal ? 'red' : 'red',
+  backgroundColor: isLight ? (isTotal ? 'rgba(209, 222, 230, 0.50)' : 'transparent') : isTotal ? '#2D3C48' : '#405361',
   ...(!isTotal && {
     ':after': {
       content: '""',
       position: 'relative',
       height: 48,
-      borderLeft: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+      borderLeft: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
     },
   }),
 }));
@@ -66,7 +66,7 @@ const Semiannual = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 6,
   fontWeight: 500,
   fontSize: 14,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 const ContainerMetricsData = styled.div({
   display: 'flex',
@@ -84,10 +84,10 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'center',
   fontStyle: 'normal',
   lineHeight: 'normal',
-  color: isLight ? '#708390' : 'red',
+  color: isLight ? '#708390' : '#D2D4EF',
 }));
 const Amount = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   fontWeight: 600,
   textAlign: 'center',
