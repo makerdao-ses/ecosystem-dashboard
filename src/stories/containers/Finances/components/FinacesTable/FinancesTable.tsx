@@ -3,9 +3,9 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { sortDataByElementCount } from '../../utils/utils';
+import { showOnlySixteenRowsWithOthers, showOthersFooterRow, sortDataByElementCount } from '../../utils/utils';
 import CellTable from './CellTable';
-import type { MockData } from '../../utils/mockData';
+import type { MockData, QuarterlyBudget } from '../../utils/mockData';
 import type { PeriodicSelectionFilter } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -20,7 +20,8 @@ interface Props {
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period }) => {
   const { isLight } = useThemeContext();
   const orderData = sortDataByElementCount(breakdownTable);
-  const tables = Object.keys(orderData);
+  const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
+  const tables = Object.keys(showFooterAndCorrectNumber);
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
@@ -29,9 +30,11 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
-  const showFooter = true;
-  // Show color for others depending if odd or even
-  const isPair = orderData[`${tables[tables.length - 1]}`]?.length % 2 === 0;
+
+  // Show color for others depending if odd or pair
+  const isPair = showFooterAndCorrectNumber[`${tables[tables.length - 1]}`]?.length % 2 === 0;
+
+  const showFooter = showOthersFooterRow(breakdownTable);
 
   return (
     <>
@@ -39,7 +42,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
       {tables.map((table, index) => (
         <TableContainer isLight={isLight} className={className} key={index}>
           <TableBody isLight={isLight}>
-            {breakdownTable[table].map((row) => (
+            {showFooterAndCorrectNumber[table].map((row: QuarterlyBudget) => (
               <TableRow isMain={row.isMain} isLight={isLight}>
                 <Headed isLight={isLight} period={period}>
                   {row.name}
