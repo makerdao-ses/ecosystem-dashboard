@@ -56,6 +56,7 @@ const FinancesContainer = () => {
     maxItems,
     minItems,
     allowSelectAll,
+    popupContainerHeight,
   } = useFinances();
 
   return (
@@ -112,6 +113,7 @@ const FinancesContainer = () => {
           maxItems={maxItems}
           minItems={minItems}
           allowSelectAll={allowSelectAll}
+          popupContainerHeight={popupContainerHeight}
         />
       </ConditionalWrapper>
       <Container>

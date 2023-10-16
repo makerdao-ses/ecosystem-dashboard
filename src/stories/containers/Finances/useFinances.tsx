@@ -52,6 +52,7 @@ export const useFinances = () => {
 
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
+  const popupContainerHeight = allowSelectAll ? 250 : 210;
   // Show correct value in the filter when got from useMediaQuery
   useEffect(() => {
     if (isMobile) {
@@ -400,5 +401,6 @@ export const useFinances = () => {
     defaultMetricsWithAllSelected,
     maxItems,
     minItems,
+    popupContainerHeight,
   };
 };

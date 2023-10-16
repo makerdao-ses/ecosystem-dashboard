@@ -28,6 +28,7 @@ interface Props {
   maxItems?: number;
   minItems?: number;
   allowSelectAll?: boolean;
+  popupContainerHeight?: number;
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -48,6 +49,7 @@ const BreakdownTable: React.FC<Props> = ({
   maxItems,
   minItems,
   allowSelectAll,
+  popupContainerHeight,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -65,6 +67,7 @@ const BreakdownTable: React.FC<Props> = ({
       maxItems={maxItems}
       minItems={minItems}
       allowSelectAll={allowSelectAll}
+      popupContainerHeight={popupContainerHeight}
     />
     <TableHeader>
       <HeaderTable
