@@ -723,7 +723,6 @@ export const showOthersFooterRow = (data: MockData) => {
   Object.keys(data).forEach((key) => {
     totalRows += data[key].length;
   });
-  console.log({ totalRows });
   if (totalRows > 16) return true;
   return false;
 };
@@ -751,7 +750,7 @@ export const showOnlySixteenRowsWithOthers = (data: MockData) => {
 
   // Save the first element of each table
   Object.keys(data).forEach((key) => {
-    firstElements[key] = [data[key][0]];
+    firstElements[key] = data[key].length ? [data[key][0]] : [];
   });
   // Iterate over each table and add necessary elements without exceeding the maximum
   Object.keys(data).forEach((key) => {

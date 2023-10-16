@@ -31,8 +31,8 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
 
-  // Show color for others depending if odd or pair
-  const isPair = showFooterAndCorrectNumber[`${tables[tables.length - 1]}`]?.length % 2 === 0;
+  // Show color for others depending if number are odd or even
+  const isEven = showFooterAndCorrectNumber[`${tables[tables.length - 1]}`]?.length % 2 === 0;
 
   const showFooter = showOthersFooterRow(breakdownTable);
 
@@ -71,7 +71,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
             ))}
           </TableBody>
           {index === tables.length - 1 && showFooter && (
-            <Footer isLight={isLight} isPair={isPair}>
+            <Footer isLight={isLight} isEven={isEven}>
               <FooterRow>
                 <FooterCell>Others</FooterCell>
                 {showQuarterly &&
@@ -199,7 +199,7 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Footer = styled.tfoot<WithIsLight & { isPair: boolean }>(({ isLight, isPair }) => ({
+const Footer = styled.tfoot<WithIsLight & { isEven: boolean }>(({ isLight, isEven }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
 
   '& :last-of-type': {
@@ -215,7 +215,7 @@ const Footer = styled.tfoot<WithIsLight & { isPair: boolean }>(({ isLight, isPai
       padding: '16px 0px 16px 32px',
     },
   },
-  backgroundColor: isLight ? (!isPair ? '#ffffff' : '#F5F5F5') : isPair ? '#18252E' : '#1f2d37',
+  backgroundColor: isLight ? (!isEven ? '#ffffff' : '#F5F5F5') : isEven ? '#18252E' : '#1f2d37',
 }));
 
 const FooterRow = styled.tr({});
