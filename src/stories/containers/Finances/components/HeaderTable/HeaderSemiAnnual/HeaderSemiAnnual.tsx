@@ -79,7 +79,7 @@ const TitleContainer = styled.div<WithIsLight>(({ isLight }) => ({
   justifyContent: 'flex-start',
   alignItems: 'center',
   height: 48,
-  borderRight: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
+  borderRight: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
   width: 85,
   padding: '16px 16px 16px 8px',
 }));

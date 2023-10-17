@@ -56,6 +56,7 @@ const FinancesContainer = () => {
     maxItems,
     minItems,
     allowSelectAll,
+    popupContainerHeight,
 
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
@@ -125,6 +126,7 @@ const FinancesContainer = () => {
           maxItems={maxItems}
           minItems={minItems}
           allowSelectAll={allowSelectAll}
+          popupContainerHeight={popupContainerHeight}
         />
       </ConditionalWrapper>
       <Container>
