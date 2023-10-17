@@ -1,6 +1,7 @@
 import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
+import { NUMBER_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import type { MockData, QuarterlyBudget } from './mockData';
@@ -715,4 +716,51 @@ export const sortDataByElementCount = (data: MockData) => {
   });
 
   return sortedData;
+};
+
+export const showOthersFooterRow = (data: MockData) => {
+  let totalRows = 0;
+  Object.keys(data).forEach((key) => {
+    totalRows += data[key].length;
+  });
+  if (totalRows > 16) return true;
+  return false;
+};
+
+// Get first element of each table that always have to appear
+const getFirstElementEachTable = (data: MockData) => {
+  const moment: MockData = {};
+  Object.keys(data).forEach((element) => {
+    moment[element] = data[element].slice(0, 1);
+  });
+  return moment;
+};
+
+export const showOnlySixteenRowsWithOthers = (data: MockData) => {
+  const result = getFirstElementEachTable(data);
+
+  const maxRows = NUMBER_ROWS_FINANCES_TABLE;
+  let totalRowsPerTable = 0;
+  const firstElements: Record<string, QuarterlyBudget[]> = {};
+  const totalRows = Object.keys(data).reduce((acc, key) => acc + data[key].length, 0);
+  // Si la cantidad total de filas es menor o igual a 16, no necesitas hacer cambios
+  if (totalRows < maxRows) {
+    return data;
+  }
+
+  // Save the first element of each table
+  Object.keys(data).forEach((key) => {
+    firstElements[key] = data[key].length ? [data[key][0]] : [];
+  });
+  // Iterate over each table and add necessary elements without exceeding the maximum
+  Object.keys(data).forEach((key) => {
+    if (totalRowsPerTable + firstElements[key].length <= maxRows) {
+      const remainingSpace = maxRows - totalRowsPerTable - firstElements[key].length;
+      // remove the last one, because the rows number 16 its for the Others
+      result[key] = firstElements[key].concat(data[key].slice(1, remainingSpace - 1));
+      totalRowsPerTable += result[key].length;
+    }
+  });
+
+  return result;
 };
