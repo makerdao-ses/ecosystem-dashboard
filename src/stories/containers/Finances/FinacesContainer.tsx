@@ -56,6 +56,11 @@ const FinancesContainer = () => {
     maxItems,
     minItems,
     allowSelectAll,
+
+    selectedBreakdownMetric,
+    selectedBreakdownGranularity,
+    handleBreakdownMetricChange,
+    handleBreakdownGranularityChange,
   } = useFinances();
 
   return (
@@ -90,7 +95,15 @@ const FinancesContainer = () => {
           <CardsNavigation cardsNavigationInformation={cardsNavigationInformation} />
         </ContainerSections>
 
-        {isEnabled('FEATURE_FINANCES_BREAKDOWN_CHART_SECTION') && <BreakdownChartSection year={year} />}
+        {isEnabled('FEATURE_FINANCES_BREAKDOWN_CHART_SECTION') && (
+          <BreakdownChartSection
+            year={year}
+            selectedMetric={selectedBreakdownMetric}
+            selectedGranularity={selectedBreakdownGranularity}
+            onMetricChange={handleBreakdownMetricChange}
+            onGranularityChange={handleBreakdownGranularityChange}
+          />
+        )}
       </Container>
 
       <ConditionalWrapper period={periodFilter}>
