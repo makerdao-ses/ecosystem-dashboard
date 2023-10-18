@@ -113,7 +113,7 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
 }));
 
 const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ isLight, period }) => ({
-  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
+  borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
   fontSize: 11,
   color: isLight ? '#231536' : '#D2D4EF',
   width: 87,
@@ -188,7 +188,6 @@ const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
 }));
 
 const Cell = styled.td<WithIsLight>(({ isLight }) => ({
-  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
