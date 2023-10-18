@@ -7,6 +7,7 @@ import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import useBreakdownChart from './components/BreakdownChartSection/useBreakdownChart';
 import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import EndgameScopeBudgets from './components/EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
@@ -52,6 +53,7 @@ export const useFinances = () => {
 
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
+  const popupContainerHeight = allowSelectAll ? 250 : 210;
   // Show correct value in the filter when got from useMediaQuery
   useEffect(() => {
     if (isMobile) {
@@ -358,6 +360,9 @@ export const useFinances = () => {
     return metricValues;
   }, [activeMetrics, mapMetricValuesTotal, periodFilter]);
 
+  // all the logic required by the breakdown chart section
+  const breakdownChartSectionData = useBreakdownChart();
+
   return {
     years,
     year,
@@ -400,5 +405,7 @@ export const useFinances = () => {
     defaultMetricsWithAllSelected,
     maxItems,
     minItems,
+    popupContainerHeight,
+    ...breakdownChartSectionData,
   };
 };

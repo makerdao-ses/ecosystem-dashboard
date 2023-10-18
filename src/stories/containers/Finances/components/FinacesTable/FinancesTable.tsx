@@ -185,6 +185,12 @@ const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
   '& tr:first-of-type': {
     backgroundColor: isLight ? '#ECF1F3' : '#30434e',
   },
+  '& tr:nth-of-type(odd):not(:first-child) td:last-of-type': {
+    backgroundColor: isLight ? 'rgba(159, 175, 185, 0.10)' : '#111C23',
+  },
+  '& tr:nth-of-type(even):not(:first-child) td:last-of-type': {
+    backgroundColor: isLight ? 'rgba(209, 222, 230, 0.20)' : '#17232C',
+  },
 }));
 
 const Cell = styled.td<WithIsLight>(({ isLight }) => ({

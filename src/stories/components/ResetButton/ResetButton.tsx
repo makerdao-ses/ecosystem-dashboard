@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { CustomButton } from '../CustomButton/CustomButton';
 import { Close } from '../svg/close';
@@ -9,12 +10,20 @@ interface Props {
   label?: string;
   hasIcon?: boolean;
   labelMobile?: string;
+  legacyBreakpoints?: boolean;
 }
 
-const ResetButton: React.FC<Props> = ({ onClick, disabled, label = 'Reset Filters', hasIcon = true, labelMobile }) => (
+const ResetButton: React.FC<Props> = ({
+  onClick,
+  disabled,
+  label = 'Reset Filters',
+  hasIcon = true,
+  labelMobile,
+  legacyBreakpoints = true,
+}) => (
   <>
-    <Under834>
-      <ResponsiveButton onClick={onClick} hasIcon={hasIcon}>
+    <Under834 legacyBreakpoints={legacyBreakpoints}>
+      <ResponsiveButton onClick={onClick} hasIcon={hasIcon} legacyBreakpoints={legacyBreakpoints}>
         {hasIcon ? (
           <Close width={10} height={10} fill={!disabled ? '#231536' : '#D1DEE6'} />
         ) : (
@@ -31,7 +40,7 @@ const ResetButton: React.FC<Props> = ({ onClick, disabled, label = 'Reset Filter
         )}
       </ResponsiveButton>
     </Under834>
-    <Over834>
+    <Over834 legacyBreakpoints={legacyBreakpoints}>
       <CustomButton
         label={label}
         style={{
@@ -48,31 +57,36 @@ const ResetButton: React.FC<Props> = ({ onClick, disabled, label = 'Reset Filter
 
 export default ResetButton;
 
-const Under834 = styled.div({
+const Under834 = styled.div<{ legacyBreakpoints: boolean }>(({ legacyBreakpoints }) => ({
   display: 'flex',
-  '@media (min-width: 834px)': {
-    display: 'none',
-  },
-});
 
-const Over834 = styled.div({
-  display: 'none',
-  '@media (min-width: 834px)': {
-    display: 'flex',
-  },
-});
-
-const ResponsiveButton = styled.div<{ hasIcon: boolean }>(({ hasIcon = true }) => ({
-  display: 'flex',
-  gridArea: 'buttonFilter',
-  justifySelf: 'flex-end',
-  width: hasIcon ? '34px' : 'fit-content',
-  height: '34px',
-  border: hasIcon ? '1px solid #D4D9E1' : 'none',
-  borderRadius: hasIcon ? '50%' : 'none',
-  alignItems: 'center',
-  justifyContent: 'center',
-  '@media (min-width: 834px)': {
+  [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: {
     display: 'none',
   },
 }));
+
+const Over834 = styled.div<{ legacyBreakpoints: boolean }>(({ legacyBreakpoints }) => ({
+  display: 'none',
+
+  [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: {
+    display: 'flex',
+  },
+}));
+
+const ResponsiveButton = styled.div<{ hasIcon: boolean; legacyBreakpoints: boolean }>(
+  ({ hasIcon = true, legacyBreakpoints }) => ({
+    display: 'flex',
+    gridArea: 'buttonFilter',
+    justifySelf: 'flex-end',
+    width: hasIcon ? '34px' : 'fit-content',
+    height: '34px',
+    border: hasIcon ? '1px solid #D4D9E1' : 'none',
+    borderRadius: hasIcon ? '50%' : 'none',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: {
+      display: 'none',
+    },
+  })
+);

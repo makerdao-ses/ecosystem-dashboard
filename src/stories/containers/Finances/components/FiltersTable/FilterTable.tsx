@@ -28,6 +28,7 @@ interface Props {
   minItems?: number;
   defaultMetricsWithAllSelected?: string[];
   allowSelectAll?: boolean;
+  popupContainerHeight?: number;
 }
 
 const FilterTable: React.FC<Props> = ({
@@ -45,6 +46,7 @@ const FilterTable: React.FC<Props> = ({
   minItems,
   defaultMetricsWithAllSelected,
   allowSelectAll,
+  popupContainerHeight,
 }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
@@ -81,7 +83,7 @@ const FilterTable: React.FC<Props> = ({
           onChange={(value: string[]) => {
             handleSelectChange(value);
           }}
-          withAll
+          withAll={allowSelectAll}
           popupContainerWidth={256}
           listItemWidth={224}
           customAll={{
@@ -90,6 +92,7 @@ const FilterTable: React.FC<Props> = ({
             params: { isAll: true },
             count: 0,
           }}
+          popupContainerHeight={popupContainerHeight}
           customItemRender={(props: SelectItemProps) => <MetricItem {...props} />}
         />
       </ContainerFiltersMetric>

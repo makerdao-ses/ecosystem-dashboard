@@ -24,6 +24,9 @@ interface Props {
   menuAnchorOrigin?: MenuProps['anchorOrigin'];
 }
 
+/**
+ * @deprecated use `SingleItemSelect` instead
+ */
 const SelectDropdown: React.FC<Props> = ({
   items,
   handleChange,
