@@ -6,7 +6,6 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import FilterTable from '../FiltersTable/FilterTable';
-import type { SelectChangeEvent } from '@mui/material/Select/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -16,11 +15,10 @@ interface Props {
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
   periodicSelectionFilter: string[];
-  handleChange: (event: SelectChangeEvent<unknown>) => void;
-  onOpen?: () => void;
-  onClose?: () => void;
+  handleChange: (value: string) => void;
+
   selectedValue: string;
-  isOpen: boolean;
+
   maxItems?: number;
   minItems?: number;
   defaultMetricsWithAllSelected?: string[];
@@ -33,12 +31,11 @@ const BreakdownTableFinances = ({
   handleChange,
   handleResetFilter,
   handleSelectChange,
-  isOpen,
+
   periodicSelectionFilter,
   metrics,
   selectedValue,
-  onClose,
-  onOpen,
+
   defaultMetricsWithAllSelected,
   maxItems,
   minItems,
@@ -77,11 +74,8 @@ const BreakdownTableFinances = ({
           handleSelectChange={handleSelectChange}
           handleResetFilter={handleResetFilter}
           handleChange={handleChange}
-          isOpen={isOpen}
           selectedValue={selectedValue}
           periodicSelectionFilter={periodicSelectionFilter}
-          onClose={onClose}
-          onOpen={onOpen}
           allowSelectAll={allowSelectAll}
           popupContainerHeight={popupContainerHeight}
         />

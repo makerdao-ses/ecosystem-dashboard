@@ -31,10 +31,9 @@ const FinancesContainer = () => {
     doughnutSeriesData,
     periodicSelectionFilter,
     handleChangeYears,
-    handleClosePeriod,
-    handleOpenPeriod,
+
     handlePeriodChange,
-    isOpenPeriod,
+
     periodFilter,
     year,
     cardsNavigationInformation,
@@ -106,12 +105,9 @@ const FinancesContainer = () => {
           handleChange={handlePeriodChange}
           handleResetFilter={handleResetMetrics}
           handleSelectChange={handleSelectChangeMetrics}
-          isOpen={isOpenPeriod}
           metrics={selectMetrics}
           periodicSelectionFilter={periodicSelectionFilter}
           selectedValue={periodFilter}
-          onClose={handleClosePeriod}
-          onOpen={handleOpenPeriod}
           year={year}
           headerTableMetrics={getAllMetricsValuesTotal()}
           metricTotal={getAllMetricsValuesTotal()}

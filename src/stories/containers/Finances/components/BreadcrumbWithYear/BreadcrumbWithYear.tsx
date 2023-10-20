@@ -15,18 +15,12 @@ interface Props {
   selectedValue: string;
 }
 
-const BreadcrumbWithYear: React.FC<Props> = ({
-  trailingAddress = [],
-  handleChange,
-
-  selectedValue,
-  years,
-}: Props) => {
+const BreadcrumbWithYear: React.FC<Props> = ({ trailingAddress = [], handleChange, selectedValue, years }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerNavigation>
       <StyledBreadcrumbs items={trailingAddress} isLight={isLight} />
-      <PeriodSelect
+      <YearSelect
         items={years}
         useSelectedAsLabel
         onChange={handleChange}
@@ -70,7 +64,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const PeriodSelect = styled(SingleItemSelect)({
+const YearSelect = styled(SingleItemSelect)({
   padding: '7px 15px 7px 16px',
 
   [lightTheme.breakpoints.up('tablet_768')]: {

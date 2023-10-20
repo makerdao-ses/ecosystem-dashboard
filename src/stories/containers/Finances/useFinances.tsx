@@ -21,7 +21,6 @@ import type {
   NavigationCard,
   Metric,
 } from './utils/types';
-import type { SelectChangeEvent } from '@mui/material/Select';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 const years = ['2022', '2023'];
 export const useFinances = () => {
@@ -107,7 +106,6 @@ export const useFinances = () => {
 
   const [year, setYears] = useState<string>('2022');
 
-  const [isOpenPeriod, setIsOpenPeriod] = useState<boolean>(false);
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Asc,
@@ -152,15 +150,8 @@ export const useFinances = () => {
   const handleChangeYears = (value: string) => {
     setYears(value);
   };
-  const handlePeriodChange = (event: SelectChangeEvent<unknown>) => {
-    setPeriodFilter(event.target.value as PeriodicSelectionFilter);
-  };
-
-  const handleOpenPeriod = () => {
-    setIsOpenPeriod(true);
-  };
-  const handleClosePeriod = () => {
-    setIsOpenPeriod(false);
+  const handlePeriodChange = (value: string) => {
+    setPeriodFilter(value as PeriodicSelectionFilter);
   };
 
   const sortData = useMemo(() => {
@@ -374,10 +365,9 @@ export const useFinances = () => {
     cardsNavigationInformation,
     periodicSelectionFilter,
     handlePeriodChange,
-    handleClosePeriod,
-    handleOpenPeriod,
+
     periodFilter,
-    isOpenPeriod,
+
     activeMetrics,
     handleSelectChangeMetrics,
     selectMetrics,

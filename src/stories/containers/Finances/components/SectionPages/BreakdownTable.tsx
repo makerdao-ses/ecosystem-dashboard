@@ -6,7 +6,7 @@ import BreakdownTableFinances from '../BreakdownTableFinances/BreakdownTableFina
 import FinancesTable from '../FinacesTable/FinancesTable';
 import HeaderTable from '../HeaderTable/HeaderTable';
 import type { MetricsWithAmount, PeriodicSelectionFilter } from '../../utils/types';
-import type { SelectChangeEvent } from '@mui/material/Select/Select';
+
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {
@@ -15,11 +15,10 @@ interface Props {
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
   periodicSelectionFilter: string[];
-  handleChange: (event: SelectChangeEvent<unknown>) => void;
-  onOpen?: () => void;
-  onClose?: () => void;
+  handleChange: (value: string) => void;
+
   selectedValue: string;
-  isOpen: boolean;
+
   widthPaper?: number;
   year: string;
   headerTableMetrics: MetricsWithAmount[];
@@ -36,11 +35,10 @@ const BreakdownTable: React.FC<Props> = ({
   handleChange,
   handleResetFilter,
   handleSelectChange,
-  isOpen,
+
   metrics,
   periodicSelectionFilter,
-  onClose,
-  onOpen,
+
   headerTableMetrics,
   metricTotal,
   selectedValue,
@@ -57,12 +55,9 @@ const BreakdownTable: React.FC<Props> = ({
       handleChange={handleChange}
       handleResetFilter={handleResetFilter}
       handleSelectChange={handleSelectChange}
-      isOpen={isOpen}
       metrics={metrics}
       periodicSelectionFilter={periodicSelectionFilter}
       selectedValue={selectedValue}
-      onClose={onClose}
-      onOpen={onOpen}
       defaultMetricsWithAllSelected={handleResetMetrics}
       maxItems={maxItems}
       minItems={minItems}

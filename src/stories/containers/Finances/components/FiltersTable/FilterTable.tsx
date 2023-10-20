@@ -2,13 +2,12 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
+import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import SelectDropdown from '../SelectDropdown';
 import MetricItem from './MetricItem';
-import type { SelectChangeEvent } from '@mui/material/Select/Select';
 import type { SelectItemProps, MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -18,11 +17,10 @@ interface Props {
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
   periodicSelectionFilter: string[];
-  handleChange: (event: SelectChangeEvent<unknown>) => void;
-  onOpen?: () => void;
-  onClose?: () => void;
+  handleChange: (value: string) => void;
+
   selectedValue: string;
-  isOpen: boolean;
+
   className?: string;
   maxItems?: number;
   minItems?: number;
@@ -39,9 +37,7 @@ const FilterTable: React.FC<Props> = ({
   metrics,
   handleChange,
   selectedValue,
-  isOpen,
-  onClose,
-  onOpen,
+
   maxItems,
   minItems,
   defaultMetricsWithAllSelected,
@@ -97,17 +93,13 @@ const FilterTable: React.FC<Props> = ({
         />
       </ContainerFiltersMetric>
       <PeriodicSelectionFilter>
-        <StyledSelectDropdown
-          handleChange={handleChange}
-          isOpen={isOpen}
+        <PeriodSelect
           items={periodicSelectionFilter}
-          selectedValue={selectedValue}
-          onClose={onClose}
-          onOpen={onOpen}
-          widthPaper={224}
-          menuAnchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+          useSelectedAsLabel
+          onChange={handleChange}
+          selected={selectedValue}
+          PopperProps={{
+            placement: 'bottom-end',
           }}
         />
       </PeriodicSelectionFilter>
@@ -176,26 +168,23 @@ const ResponsiveButton = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'flex',
+    display: 'none',
   },
 }));
-
-const StyledSelectDropdown = styled(SelectDropdown)({
-  '& > div': {
-    width: 141,
-    height: 34,
-
-    [lightTheme.breakpoints.up('tablet_768')]: {
-      width: 120,
-      height: 48,
-    },
-  },
-});
 
 const CustomMultiSelectStyled = styled(CustomMultiSelect)({
   '& > div:first-of-type': {
     [lightTheme.breakpoints.up('tablet_768')]: {
       height: 48,
     },
+  },
+});
+
+const PeriodSelect = styled(SingleItemSelect)({
+  padding: '7px 15px 7px 16px',
+  zIndex: 900,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: '14px 15px 14px 16px',
   },
 });
