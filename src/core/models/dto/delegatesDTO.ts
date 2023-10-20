@@ -1,11 +1,13 @@
 import type { ChangeTrackingEvent } from '../interfaces/activity';
 import type { BudgetStatement } from '../interfaces/budgetStatement';
+import type { ResourceType } from '../interfaces/types';
 import type { ExpenseDto } from './expensesDTO';
 
 export interface DelegatesDto {
   id: string;
   shortCode: string;
   code: string;
+  type: ResourceType;
   budgetStatements: BudgetStatement[];
   activityFeed: ChangeTrackingEvent[];
 }

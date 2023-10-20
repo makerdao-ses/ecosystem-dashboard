@@ -1,5 +1,6 @@
+import { RoleEnum } from '../enums/roleEnum';
+import { ResourceType } from '../models/interfaces/types';
 import type { Team } from '../models/interfaces/team';
-import type { ResourceType } from '../models/interfaces/types';
 import type { User } from '../models/interfaces/users';
 import type PermissionManager from './permissionManager';
 
@@ -36,6 +37,13 @@ class TeamExtension {
     if (!user) {
       // there is not authenticated user
       return false;
+    }
+
+    if (team?.type === ResourceType.Delegates) {
+      return (
+        this.permissionManager.hasRole(RoleEnum.DelegatesAuditor) ||
+        this.permissionManager.hasPermission('Delegates/Audit')
+      );
     }
 
     return !!team?.auditors?.some((auditor) => auditor.id === user?.id);

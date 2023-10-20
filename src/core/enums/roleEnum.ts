@@ -3,5 +3,6 @@ export enum RoleEnum {
   CoreUnitFacilitator = 'CoreUnitFacilitator',
   CoreUnitAuditor = 'CoreUnitAuditor',
   DelegatesAdmin = 'DelegatesAdmin',
+  DelegatesAuditor = 'DelegatesAuditor',
   User = 'User',
 }
