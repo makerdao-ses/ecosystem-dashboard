@@ -99,6 +99,9 @@ const FilterTable: React.FC<Props> = ({
           onChange={handleChange}
           selected={selectedValue}
           PopperProps={{
+            style: {
+              zIndex: 2,
+            },
             placement: 'bottom-end',
           }}
         />
@@ -182,7 +185,6 @@ const CustomMultiSelectStyled = styled(CustomMultiSelect)({
 
 const PeriodSelect = styled(SingleItemSelect)({
   padding: '7px 15px 7px 16px',
-  zIndex: 900,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '14px 15px 14px 16px',
