@@ -1,4 +1,5 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import request, { gql } from 'graphql-request';
 import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -76,6 +77,7 @@ export const fetchRecognizedDelegatesBudgetStatements = async (): Promise<Delega
   const delegates = {
     shortCode: 'DEL',
     code: 'Delegates',
+    type: ResourceType.Delegates,
     budgetStatements: response.budgetStatements,
     activityFeed: response.budgetStatements.reduce((acc, budgetStatement) => ({
       ...acc,
