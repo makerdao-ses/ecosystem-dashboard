@@ -31,13 +31,9 @@ const FinancesContainer = () => {
     doughnutSeriesData,
     periodicSelectionFilter,
     handleChangeYears,
-    handleClosePeriod,
-    handleCloseYear,
-    handleOpenPeriod,
-    handleOpenYear,
+
     handlePeriodChange,
-    isOpenPeriod,
-    isOpenYear,
+
     periodFilter,
     year,
     cardsNavigationInformation,
@@ -48,7 +44,6 @@ const FinancesContainer = () => {
     headersExpenseReport,
     reportExpenseItems,
     onSortClick,
-
     handleLoadMore,
     showSome,
     getAllMetricsValuesTotal,
@@ -57,7 +52,6 @@ const FinancesContainer = () => {
     minItems,
     allowSelectAll,
     popupContainerHeight,
-
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
@@ -69,10 +63,7 @@ const FinancesContainer = () => {
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
         years={years}
-        isOpen={isOpenYear}
         handleChange={handleChangeYears}
-        onClose={handleCloseYear}
-        onOpen={handleOpenYear}
         selectedValue={year}
       />
 
@@ -114,12 +105,9 @@ const FinancesContainer = () => {
           handleChange={handlePeriodChange}
           handleResetFilter={handleResetMetrics}
           handleSelectChange={handleSelectChangeMetrics}
-          isOpen={isOpenPeriod}
           metrics={selectMetrics}
           periodicSelectionFilter={periodicSelectionFilter}
           selectedValue={periodFilter}
-          onClose={handleClosePeriod}
-          onOpen={handleOpenPeriod}
           year={year}
           headerTableMetrics={getAllMetricsValuesTotal()}
           metricTotal={getAllMetricsValuesTotal()}

@@ -42,7 +42,6 @@ const Metrics = styled.div<WithIsLight>({
   display: 'flex',
   flexDirection: 'column',
   width: 78,
-  position: 'relative',
   flex: 1,
   ':after': {
     content: '""',

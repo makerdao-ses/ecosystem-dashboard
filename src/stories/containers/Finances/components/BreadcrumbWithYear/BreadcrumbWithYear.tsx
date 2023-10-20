@@ -1,43 +1,33 @@
 import styled from '@emotion/styled';
 import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
+import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import SelectDropdown from '../SelectDropdown';
-import type { SelectChangeEvent } from '@mui/material/Select/Select';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   trailingAddress?: NavigationBreadcrumb[];
   years: string[];
-  handleChange: (event: SelectChangeEvent<unknown>) => void;
-  onOpen?: () => void;
-  onClose?: () => void;
+  handleChange: (value: string) => void;
+
   selectedValue: string;
-  isOpen: boolean;
 }
 
-const BreadcrumbWithYear: React.FC<Props> = ({
-  trailingAddress = [],
-  handleChange,
-  isOpen,
-  selectedValue,
-  years,
-  onClose,
-  onOpen,
-}: Props) => {
+const BreadcrumbWithYear: React.FC<Props> = ({ trailingAddress = [], handleChange, selectedValue, years }: Props) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerNavigation>
       <StyledBreadcrumbs items={trailingAddress} isLight={isLight} />
-      <SelectDropdown
-        handleChange={handleChange}
+      <YearSelect
         items={years}
-        isOpen={isOpen}
-        selectedValue={selectedValue}
-        onClose={onClose}
-        onOpen={onOpen}
+        useSelectedAsLabel
+        onChange={handleChange}
+        selected={selectedValue}
+        PopperProps={{
+          placement: 'bottom-end',
+        }}
       />
     </ContainerNavigation>
   );
@@ -73,3 +63,11 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<WithIsLight>(({ isLight }) => ({
     padding: '27px 0',
   },
 }));
+
+const YearSelect = styled(SingleItemSelect)({
+  padding: '7px 15px 7px 16px',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: '14px 15px 14px 16px',
+  },
+});

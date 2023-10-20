@@ -41,9 +41,7 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
   justifyContent: 'center',
   flex: 1,
   width: isTotal ? 71 : 78,
-  position: 'relative',
   alignItems: 'center',
-
   backgroundColor: isLight ? (isTotal ? 'rgba(209, 222, 230, 0.50)' : 'transparent') : isTotal ? '#2D3C48' : '#405361',
   ...(!isTotal && {
     ':after': {
