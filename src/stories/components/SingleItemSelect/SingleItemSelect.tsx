@@ -196,19 +196,20 @@ const SelectBtn = styled.button<WithIsLight>(({ isLight }) => ({
   alignItems: 'flex-end',
   justifyContent: 'space-between',
   gap: 8,
+  color: isLight ? '#231536' : '#E2D8EE',
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   lineHeight: '18px',
   fontWeight: 500,
-  background: isLight ? '#ffffff' : 'red',
+  background: isLight ? '#ffffff' : '#10191F',
   borderRadius: 24,
-  border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
+  border: `1px solid ${isLight ? '#D4D9E1' : '#343442'}`,
   padding: '15px 16px',
   cursor: 'pointer',
   outline: 'none',
 
   '&:hover': {
-    border: `1px solid ${isLight ? '#231536' : 'red'}`,
+    border: `1px solid ${isLight ? '#231536' : '#787A9B'}`,
   },
 }));
 
@@ -225,12 +226,12 @@ const StyledSelectChevronDown = styled(SelectChevronDown)<{ isOpen: boolean }>((
 }));
 
 const CustomPaper = styled(Paper)<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#ffffff' : 'red',
+  background: isLight ? '#ffffff' : '#000A13',
   padding: '24px 16px 16px',
   borderRadius: 6,
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px 0px red',
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
 }));
 
 const CustomMenuItem = styled(MenuItem)<WithIsLight>(({ isLight }) => ({
@@ -239,20 +240,23 @@ const CustomMenuItem = styled(MenuItem)<WithIsLight>(({ isLight }) => ({
   minHeight: 'auto',
   fontSize: 14,
   lineHeight: 'normal',
-
+  color: isLight ? '#231536' : '#D2D4EF',
   '&:not(:first-of-type)': {
     marginTop: 4,
   },
 
   '&.Mui-selected': {
-    backgroundColor: isLight ? '#EDEFFF' : 'red',
+    backgroundColor: isLight ? '#EDEFFF' : '#231536',
 
     '&.Mui-focusVisible': {
       backgroundColor: isLight ? '#EDEFFF' : 'red',
     },
+    '&:hover': {
+      backgroundColor: isLight ? '#F6F8F9' : '#25273D',
+    },
   },
 
   '&:hover': {
-    backgroundColor: isLight ? '#F6F8F9' : 'red',
+    backgroundColor: isLight ? '#F6F8F9' : '#25273D',
   },
 }));
