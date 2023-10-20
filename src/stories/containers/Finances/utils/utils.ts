@@ -4,7 +4,7 @@ import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { NUMBER_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
-import type { MockData, QuarterlyBudget } from './mockData';
+import type { QuarterlyBudget, RowsItems } from './mockData';
 import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem, PeriodicSelectionFilter } from './types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
@@ -656,7 +656,7 @@ export const returnShortNameForMetric = (metric: MetricsWithAmount) => {
   return metric;
 };
 
-export const searchMetric = (obj: QuarterlyBudget, metric: string) => {
+export const searchMetric = (obj: RowsItems, metric: string) => {
   switch (metric.toLocaleLowerCase()) {
     case 'budget':
       return obj.budget;
@@ -704,63 +704,73 @@ export const getMetricByPeriod = (
   return metricsCount;
 };
 
-export const sortDataByElementCount = (data: MockData) => {
-  const groupSizes = Object.keys(data).map((key) => ({
-    name: key,
-    size: data[key].length,
-  }));
-  groupSizes.sort((a, b) => b.size - a.size);
-  const sortedData: MockData = {};
-  groupSizes.forEach((group) => {
-    sortedData[group.name as keyof typeof sortedData] = data[group.name];
-  });
-
-  return sortedData;
-};
-
-export const showOthersFooterRow = (data: MockData) => {
-  let totalRows = 0;
-  Object.keys(data).forEach((key) => {
-    totalRows += data[key].length;
-  });
-  if (totalRows > 16) return true;
-  return false;
+export const sortDataByElementCount = (data: QuarterlyBudget[]) => {
+  if (!data) {
+    return [];
+  }
+  return data.sort((a, b) => b.rows.length - a.rows.length);
 };
 
 // Get first element of each table that always have to appear
-const getFirstElementEachTable = (data: MockData) => {
-  const moment: MockData = {};
-  Object.keys(data).forEach((element) => {
-    moment[element] = data[element].slice(0, 1);
-  });
-  return moment;
+export const getFirstElementEachTable = (data: QuarterlyBudget[]): RowsItems[] => {
+  const orderData = sortDataByElementCount(data);
+  const getFirstElements = orderData.map((item: QuarterlyBudget) => item.rows[0]);
+  return getFirstElements;
 };
 
-export const showOnlySixteenRowsWithOthers = (data: MockData) => {
-  const result = getFirstElementEachTable(data);
-
+export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
+  // const result: QuarterlyBudget[] = [];
   const maxRows = NUMBER_ROWS_FINANCES_TABLE;
   let totalRowsPerTable = 0;
-  const firstElements: Record<string, QuarterlyBudget[]> = {};
-  const totalRows = Object.keys(data).reduce((acc, key) => acc + data[key].length, 0);
-  // Si la cantidad total de filas es menor o igual a 16, no necesitas hacer cambios
-  if (totalRows < maxRows) {
+  let itemArrayTableHasOthers: QuarterlyBudget = {
+    rows: [],
+    tableName: '',
+    others: false,
+  };
+
+  const orderData = sortDataByElementCount(data);
+  const firstElementOfArray = getFirstElementEachTable(orderData);
+
+  const result = firstElementOfArray.map((row, index) => ({
+    tableName: orderData[index].tableName,
+    rows: [firstElementOfArray[index]],
+    others: false,
+  }));
+  const totalRows = data.reduce((acc, element) => acc + element.rows.length, 0);
+
+  if (totalRows <= maxRows) {
     return data;
   }
-
-  // Save the first element of each table
-  Object.keys(data).forEach((key) => {
-    firstElements[key] = data[key].length ? [data[key][0]] : [];
-  });
-  // Iterate over each table and add necessary elements without exceeding the maximum
-  Object.keys(data).forEach((key) => {
-    if (totalRowsPerTable + firstElements[key].length <= maxRows) {
-      const remainingSpace = maxRows - totalRowsPerTable - firstElements[key].length;
-      // remove the last one, because the rows number 16 its for the Others
-      result[key] = firstElements[key].concat(data[key].slice(1, remainingSpace - 1));
-      totalRowsPerTable += result[key].length;
+  for (const item of orderData) {
+    if (item.rows.length + totalRowsPerTable >= 16) {
+      itemArrayTableHasOthers = {
+        rows: item.rows,
+        others: false,
+        tableName: item.tableName,
+      };
+      break;
     }
-  });
+    const indexItem = result.findIndex((element) => element.tableName === item.tableName);
+    const takeAllElementLessOne = item.rows.slice(1, item.rows.length);
+    result[indexItem].rows.push(...takeAllElementLessOne);
+    totalRowsPerTable += item.rows.length;
+  }
+
+  if (itemArrayTableHasOthers.rows) {
+    const indexItem = result.findIndex((element) => element.tableName === itemArrayTableHasOthers.tableName);
+    itemArrayTableHasOthers.rows.forEach((item) => {
+      // Les than 12 because 3 of head of each table and now new one is others
+      if (totalRowsPerTable <= 12) {
+        result[indexItem].rows.push(item);
+        totalRowsPerTable++;
+      }
+    });
+    if (indexItem !== orderData.length - 1) {
+      result[indexItem].others = true;
+    } else {
+      result[indexItem].others = false;
+    }
+  }
 
   return result;
 };

@@ -93,11 +93,10 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const ContainerTitle = styled.div<WithIsLight>({
   width: 76,
   display: 'flex',
   alignItems: 'center',
-  borderRight: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
   whiteSpace: 'break-spaces',
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 140,
@@ -118,7 +117,7 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('desktop_1920')]: {
     width: 195,
   },
-}));
+});
 
 const ContainerYear = styled.div({
   display: 'flex',
