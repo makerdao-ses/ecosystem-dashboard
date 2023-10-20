@@ -105,9 +105,8 @@ export const useFinances = () => {
 
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
 
-  const [year, setYears] = useState(years[0]);
+  const [year, setYears] = useState<string>('2022');
 
-  const [isOpenYear, setIsOpenYear] = useState<boolean>(false);
   const [isOpenPeriod, setIsOpenPeriod] = useState<boolean>(false);
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
@@ -150,18 +149,13 @@ export const useFinances = () => {
     setFilterSelected(item);
   };
 
-  const handleChangeYears = (event: SelectChangeEvent<unknown>) => {
-    setYears(event.target.value as string);
+  const handleChangeYears = (value: string) => {
+    setYears(value);
   };
   const handlePeriodChange = (event: SelectChangeEvent<unknown>) => {
     setPeriodFilter(event.target.value as PeriodicSelectionFilter);
   };
-  const handleOpenYear = () => {
-    setIsOpenYear(true);
-  };
-  const handleCloseYear = () => {
-    setIsOpenYear(false);
-  };
+
   const handleOpenPeriod = () => {
     setIsOpenPeriod(true);
   };
@@ -366,10 +360,7 @@ export const useFinances = () => {
   return {
     years,
     year,
-    isOpenYear,
     handleChangeYears,
-    handleOpenYear,
-    handleCloseYear,
     router,
     trailingAddress,
     filterSelected,

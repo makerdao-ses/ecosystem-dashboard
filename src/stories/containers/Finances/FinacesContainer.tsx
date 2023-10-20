@@ -32,12 +32,9 @@ const FinancesContainer = () => {
     periodicSelectionFilter,
     handleChangeYears,
     handleClosePeriod,
-    handleCloseYear,
     handleOpenPeriod,
-    handleOpenYear,
     handlePeriodChange,
     isOpenPeriod,
-    isOpenYear,
     periodFilter,
     year,
     cardsNavigationInformation,
@@ -48,7 +45,6 @@ const FinancesContainer = () => {
     headersExpenseReport,
     reportExpenseItems,
     onSortClick,
-
     handleLoadMore,
     showSome,
     getAllMetricsValuesTotal,
@@ -57,7 +53,6 @@ const FinancesContainer = () => {
     minItems,
     allowSelectAll,
     popupContainerHeight,
-
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
@@ -69,10 +64,7 @@ const FinancesContainer = () => {
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
         years={years}
-        isOpen={isOpenYear}
         handleChange={handleChangeYears}
-        onClose={handleCloseYear}
-        onOpen={handleOpenYear}
         selectedValue={year}
       />
 
