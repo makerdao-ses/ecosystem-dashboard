@@ -5,8 +5,9 @@ import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { TRANSPARENCY_IDS_ENUM } from '../TransparencyReport/useTransparencyReport';
 import type { Team } from '@ses/core/models/interfaces/team';
+import type { DateTime } from 'luxon';
 
-const useActorsTransparencyReport = (actor: Team) => {
+const useActorsTransparencyReport = (actor: Team, latestSnapshotPeriod?: DateTime) => {
   const router = useRouter();
   const query = router.query;
   const [isEnabled] = useFlagsActive();
@@ -68,6 +69,7 @@ const useActorsTransparencyReport = (actor: Team) => {
   } = useTransparencyReporting<TRANSPARENCY_IDS_ENUM>(actor, {
     commentTabId: TRANSPARENCY_IDS_ENUM.COMMENTS,
     initTabIndex,
+    latestSnapshotPeriod,
   });
 
   const { tabItems, compressedTabItems, onTabChange, onTabsExpand, onTabsInit } = useTransparencyReportingTabs({

@@ -21,7 +21,6 @@ import AccountsSnapshotTabContainer from './components/AccountsSnapshot/Accounts
 import CuHeadlineText from './components/CuHeadlineText/CuHeadlineText';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
-
 import { TransparencyAudit } from './components/TransparencyAudit/TransparencyAudit';
 import AuditorCommentsContainer from './components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import { TransparencyForecast } from './components/TransparencyForecast/TransparencyForecast';
@@ -30,18 +29,25 @@ import { TransparencyTransferRequest } from './components/TransparencyTransferRe
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
+import type { DateTime } from 'luxon';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnit[];
   coreUnit: CoreUnit;
   expenseCategories: ExpenseCategory[];
+  latestSnapshotPeriod?: DateTime;
 }
 export type TableItems = {
   item: string | JSX.Element;
   id: string;
 };
 
-export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: TransparencyReportProps) => {
+export const TransparencyReport = ({
+  coreUnits,
+  coreUnit,
+  expenseCategories,
+  latestSnapshotPeriod,
+}: TransparencyReportProps) => {
   const { isLight } = useThemeContext();
   const {
     tabItems,
@@ -63,7 +69,7 @@ export const TransparencyReport = ({ coreUnits, coreUnit, expenseCategories }: T
     onTabChange,
     onTabsExpand,
     compressedTabItems,
-  } = useTransparencyReport(coreUnit);
+  } = useTransparencyReport(coreUnit, latestSnapshotPeriod);
   const [isEnabled] = useFlagsActive();
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, code);

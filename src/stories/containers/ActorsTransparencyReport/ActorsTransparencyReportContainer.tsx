@@ -28,17 +28,20 @@ import TeamHeadLine from './components/TeamHeadlineText/TeamHeadlineText';
 import useActorsTransparencyReport from './useActorsTransparencyReport';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { Team } from '@ses/core/models/interfaces/team';
+import type { DateTime } from 'luxon';
 
 interface ActorsTransparencyReportContainerProps {
   actors: Team[];
   actor: Team;
   expenseCategories: ExpenseCategory[];
+  latestSnapshotPeriod?: DateTime;
 }
 
 const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContainerProps> = ({
   actor,
   actors,
   expenseCategories,
+  latestSnapshotPeriod,
 }) => {
   const {
     isEnabled,
@@ -59,11 +62,12 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     onTabsExpand,
     lastVisitHandler,
     comments,
-  } = useActorsTransparencyReport(actor);
+  } = useActorsTransparencyReport(actor, latestSnapshotPeriod);
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const headline = <TeamHeadLine teamLongCode={actor.code} teamShortCode={actor.shortCode} />;
+
   return (
     <Wrapper>
       <SEOHead

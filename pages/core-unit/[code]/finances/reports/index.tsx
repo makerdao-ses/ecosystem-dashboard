@@ -1,11 +1,13 @@
+import { fetchCoreUnits } from '@ses/components/CoreUnitSummary/CoreUnitSummaryApi';
+import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import { fetchExpenseCategories } from '@ses/containers/FinancesOverview/api/queries';
+import { TransparencyReport } from '@ses/containers/TransparencyReport/TransparencyReport';
+import { CORE_UNIT_REQUEST, getLastSnapshotPeriod } from '@ses/containers/TransparencyReport/transparencyReportAPI';
 import { TeamContext } from '@ses/core/context/TeamContext';
+import { ResourceType } from '@ses/core/models/interfaces/types';
 import request from 'graphql-request';
+import { DateTime } from 'luxon';
 import React, { useState, useEffect } from 'react';
-import { GRAPHQL_ENDPOINT } from '../../../../../src/config/endpoints';
-import { fetchCoreUnits } from '../../../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
-import { TransparencyReport } from '../../../../../src/stories/containers/TransparencyReport/TransparencyReport';
-import { CORE_UNIT_REQUEST } from '../../../../../src/stories/containers/TransparencyReport/transparencyReportAPI';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -15,9 +17,10 @@ interface TransparencyProps {
   coreUnits: CoreUnit[];
   cu: CoreUnit;
   expenseCategories: ExpenseCategory[];
+  latestSnapshotPeriod?: string;
 }
 
-const Transparency = ({ coreUnits, cu, expenseCategories }: TransparencyProps) => {
+const Transparency = ({ coreUnits, cu, expenseCategories, latestSnapshotPeriod }: TransparencyProps) => {
   const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnit>(cu);
   useEffect(() => {
     setCurrentCoreUnit(cu);
@@ -31,7 +34,12 @@ const Transparency = ({ coreUnits, cu, expenseCategories }: TransparencyProps) =
         setCurrentTeam: setCurrentCoreUnit as unknown as (cu: Team) => void,
       }}
     >
-      <TransparencyReport coreUnits={coreUnits} coreUnit={currentCoreUnit} expenseCategories={expenseCategories} />
+      <TransparencyReport
+        coreUnits={coreUnits}
+        coreUnit={currentCoreUnit}
+        expenseCategories={expenseCategories}
+        latestSnapshotPeriod={latestSnapshotPeriod ? DateTime.fromISO(latestSnapshotPeriod) : undefined}
+      />
     </TeamContext.Provider>
   );
 };
@@ -55,11 +63,16 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     };
   }
 
+  const cu = data.coreUnits[0];
+
+  const latestSnapshotPeriod = await getLastSnapshotPeriod(cu.id, ResourceType.CoreUnit);
+
   return {
     props: {
       coreUnits,
-      cu: data.coreUnits[0],
+      cu,
       expenseCategories,
+      latestSnapshotPeriod: latestSnapshotPeriod?.toISODate() ?? null,
     },
   };
 };

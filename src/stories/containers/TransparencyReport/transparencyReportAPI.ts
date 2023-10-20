@@ -1,4 +1,7 @@
-import { gql } from 'graphql-request';
+import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
+import request, { gql } from 'graphql-request';
+import { DateTime } from 'luxon';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 
 export const CORE_UNIT_REQUEST = (shortCode: string) => ({
   query: gql`
@@ -110,3 +113,34 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
     },
   },
 });
+
+export const snapshotPeriodQuery = (ownerId: string, resourceType: ResourceType) => ({
+  query: gql`
+    query Snapshots($filter: SnapshotFilter) {
+      snapshots(filter: $filter) {
+        period
+      }
+    }
+  `,
+  filter: {
+    filter: {
+      ownerType: resourceType,
+      ownerId,
+    },
+  },
+});
+
+export const getLastSnapshotPeriod = async (
+  ownerId: string,
+  resourceType: ResourceType
+): Promise<DateTime | undefined> => {
+  const { query, filter } = snapshotPeriodQuery(ownerId, resourceType);
+  const data = await request<{ snapshots: [{ period: string }] }>(GRAPHQL_ENDPOINT, query, filter);
+
+  if (!data?.snapshots?.length) {
+    return undefined;
+  }
+
+  const periods = data.snapshots.map((snapshot) => DateTime.fromFormat(snapshot.period, 'yyyy/MM'));
+  return DateTime.max(...periods);
+};
