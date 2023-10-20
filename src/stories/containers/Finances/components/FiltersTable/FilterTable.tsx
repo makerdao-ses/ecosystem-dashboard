@@ -99,6 +99,9 @@ const FilterTable: React.FC<Props> = ({
           onChange={handleChange}
           selected={selectedValue}
           PopperProps={{
+            style: {
+              zIndex: 2,
+            },
             placement: 'bottom-end',
           }}
         />
@@ -134,11 +137,12 @@ const FiltersContainer = styled.div({
 });
 
 const Reset = styled.div({
-  gridArea: 'reset',
   display: 'none',
-  justifyContent: 'flex-end',
   [lightTheme.breakpoints.up('tablet_768')]: {
+    gridArea: 'reset',
+    justifyContent: 'flex-end',
     display: 'flex',
+    alignItems: 'center',
   },
 });
 
@@ -178,11 +182,13 @@ const CustomMultiSelectStyled = styled(CustomMultiSelect)({
       height: 48,
     },
   },
+  '& > div:nth-of-type(2)': {
+    borderRadius: 6,
+  },
 });
 
 const PeriodSelect = styled(SingleItemSelect)({
   padding: '7px 15px 7px 16px',
-  zIndex: 900,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '14px 15px 14px 16px',
