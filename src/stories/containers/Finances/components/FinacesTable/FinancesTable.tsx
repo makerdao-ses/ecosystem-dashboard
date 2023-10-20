@@ -3,15 +3,15 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { showOnlySixteenRowsWithOthers, showOthersFooterRow, sortDataByElementCount } from '../../utils/utils';
+import { showOnlySixteenRowsWithOthers, sortDataByElementCount } from '../../utils/utils';
 import CellTable from './CellTable';
-import type { MockData, QuarterlyBudget } from '../../utils/mockData';
+import type { QuarterlyBudget, RowsItems } from '../../utils/mockData';
 import type { PeriodicSelectionFilter } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   className?: string;
-  breakdownTable: MockData;
+  breakdownTable: QuarterlyBudget[];
   metrics: string[];
   year: string;
   period: PeriodicSelectionFilter;
@@ -20,8 +20,9 @@ interface Props {
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period }) => {
   const { isLight } = useThemeContext();
   const orderData = sortDataByElementCount(breakdownTable);
+
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
-  const tables = Object.keys(showFooterAndCorrectNumber);
+
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
@@ -32,25 +33,27 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const arrayMetrics = new Array<number>(iteration).fill(0);
 
   // Show color for others depending if number are odd or even
-  const isEven = showFooterAndCorrectNumber[`${tables[tables.length - 1]}`]?.length % 2 === 0;
-
-  const showFooter = showOthersFooterRow(breakdownTable);
+  const isEven = showFooterAndCorrectNumber.length % 2 === 0;
 
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-      {tables.map((table, index) => (
+      {showFooterAndCorrectNumber.map((table, index) => (
         <TableContainer isLight={isLight} className={className} key={index}>
           <TableBody isLight={isLight}>
-            {showFooterAndCorrectNumber[table].map((row: QuarterlyBudget) => (
-              <TableRow isMain={row.isMain} isLight={isLight}>
+            {table.rows.map((row: RowsItems) => (
+              <TableRow isLight={isLight}>
                 <Headed isLight={isLight} period={period}>
                   {row.name}
                 </Headed>
                 {showAnnual &&
                   metrics.map(
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <Cell isLight={isLight}>{12345}</Cell>
+                    (_) => (
+                      <Cell isLight={isLight} period={period}>
+                        11044445
+                      </Cell>
+                    )
                   )}
                 {showQuarterly &&
                   arrayMetrics.map(
@@ -70,11 +73,20 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
               </TableRow>
             ))}
           </TableBody>
-          {index === tables.length - 1 && showFooter && (
-            <Footer isLight={isLight} isEven={isEven}>
+          {table.others && (
+            <Footer isLight={isLight} isEven={isEven} period={period}>
               <FooterRow>
                 <FooterCell>Others</FooterCell>
-                {showQuarterly &&
+                {showAnnual &&
+                  metrics.map(
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    (_) => (
+                      <Cell isLight={isLight} period={period}>
+                        11044445
+                      </Cell>
+                    )
+                  )}
+                {!showAnnual &&
                   arrayMetrics.map(
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     (_) => <CellTable metrics={metrics} />
@@ -193,7 +205,8 @@ const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Cell = styled.td<WithIsLight>(({ isLight }) => ({
+const Cell = styled.td<WithIsLight & { period: PeriodicSelectionFilter }>(({ isLight, period }) => ({
+  borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
@@ -204,24 +217,35 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Footer = styled.tfoot<WithIsLight & { isEven: boolean }>(({ isLight, isEven }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
+const Footer = styled.tfoot<WithIsLight & { isEven: boolean; period: PeriodicSelectionFilter }>(
+  ({ isLight, isEven, period }) => ({
+    color: isLight ? '#231536' : '#D2D4EF',
 
-  '& :last-of-type': {
-    borderRight: 'none',
-  },
-  '& td:first-of-type': {
-    borderBottomLeftRadius: 6,
-    borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
-    padding: '16px 4px 16px 8px',
-    fontFamily: 'Inter, sans-serif',
-    fontWeight: 400,
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      padding: '16px 0px 16px 32px',
+    '& td:first-of-type': {
+      borderBottomLeftRadius: 6,
+      borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
+      padding: '16px 4px 16px 8px',
+      fontFamily: 'Inter, sans-serif',
+      fontWeight: 400,
+      [lightTheme.breakpoints.up('desktop_1280')]: {
+        padding: '16px 0px 16px 32px',
+      },
     },
-  },
-  backgroundColor: isLight ? (!isEven ? '#ffffff' : '#F5F5F5') : isEven ? '#18252E' : '#1f2d37',
-}));
+    backgroundColor: isLight ? (!isEven ? '#ffffff' : '#F5F5F5') : isEven ? '#18252E' : '#1f2d37',
+
+    '& td:last-of-type': {
+      borderRight: 'none',
+
+      backgroundColor: isLight
+        ? isEven
+          ? 'rgba(209, 222, 230, 0.20)'
+          : 'rgba(159, 175, 185, 0.10)'
+        : !isEven
+        ? '#17232C'
+        : '#111C23',
+    },
+  })
+);
 
 const FooterRow = styled.tr({});
 const FooterCell = styled.td({});

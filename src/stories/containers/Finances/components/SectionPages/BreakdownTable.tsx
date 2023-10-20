@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { mockDataTableQuarterly } from '../../utils/mockData';
+import { mockDataTableQuarterlyArray } from '../../utils/mockData';
 import BreakdownTableFinances from '../BreakdownTableFinances/BreakdownTableFinances';
 import FinancesTable from '../FinacesTable/FinancesTable';
 import HeaderTable from '../HeaderTable/HeaderTable';
@@ -80,7 +80,7 @@ const BreakdownTable: React.FC<Props> = ({
     </TableHeader>
     <TableWrapper>
       <FinancesTable
-        breakdownTable={mockDataTableQuarterly}
+        breakdownTable={mockDataTableQuarterlyArray}
         metrics={activeItems}
         year={year}
         period={selectedValue as PeriodicSelectionFilter}
