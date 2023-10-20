@@ -137,11 +137,12 @@ const FiltersContainer = styled.div({
 });
 
 const Reset = styled.div({
-  gridArea: 'reset',
   display: 'none',
-  justifyContent: 'flex-end',
   [lightTheme.breakpoints.up('tablet_768')]: {
+    gridArea: 'reset',
+    justifyContent: 'flex-end',
     display: 'flex',
+    alignItems: 'center',
   },
 });
 

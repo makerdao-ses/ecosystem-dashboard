@@ -36,6 +36,10 @@ const ContainerCell = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   width: '100%',
   fontWeight: 500,
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 60,
+    paddingLeft: 20,
+  },
 }));
 
 const Metrics = styled.div<WithIsLight>({
@@ -43,25 +47,24 @@ const Metrics = styled.div<WithIsLight>({
   flexDirection: 'column',
   width: 78,
   flex: 1,
+
   ':after': {
     content: '""',
     position: 'absolute',
     height: 48,
     bottom: 4,
   },
+  padding: '16px 8px',
   [lightTheme.breakpoints.up('tablet_768')]: {
     ':after': {
       display: 'none',
     },
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    minWidth: 83.5,
+    width: 192,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    minWidth: 93.5,
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    minWidth: 80,
+    width: 192,
   },
 });
 const Name = styled.div<WithIsLight>({
