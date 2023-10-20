@@ -182,6 +182,9 @@ const CustomMultiSelectStyled = styled(CustomMultiSelect)({
       height: 48,
     },
   },
+  '& > div:nth-of-type(2)': {
+    borderRadius: 6,
+  },
 });
 
 const PeriodSelect = styled(SingleItemSelect)({

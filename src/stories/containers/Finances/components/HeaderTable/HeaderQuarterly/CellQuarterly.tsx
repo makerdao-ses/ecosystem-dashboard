@@ -106,6 +106,7 @@ const Quarterly = styled.div<WithIsLight>(({ isLight }) => ({
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: 20,
+    fontWeight: 600,
     letterSpacing: '0.4px',
   },
 }));
