@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { getCurrentOrLastMonthWithData, getLastMonthWithActualOrForecast } from '../businessLogic/coreUnits';
+import { getLastMonthWithActualOrForecast } from '../businessLogic/coreUnits';
 import { API_MONTH_TO_FORMAT } from '../utils/date';
 import { useUrlAnchor } from './useUrlAnchor';
 import type { BudgetStatement } from '../models/interfaces/budgetStatement';
@@ -10,6 +10,7 @@ import type { WithBudgetStatement } from '../models/interfaces/generics';
 export interface BudgetStatementPagerOptions {
   onPrevious?: () => void;
   onNext?: () => void;
+  latestSnapshotPeriod?: DateTime;
 }
 
 const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetStatementPagerOptions) => {
@@ -44,16 +45,33 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
   );
 
   useEffect(() => {
+    const snapshotLimit = options?.latestSnapshotPeriod?.startOf('month');
+    const limit = getLastMonthWithActualOrForecast(element.budgetStatements)
+      .plus({
+        month: 1,
+      })
+      .startOf('month');
+    const actualMonth = DateTime.local().startOf('month');
+
+    const mostRecentMonth = snapshotLimit ? (snapshotLimit > limit ? snapshotLimit : limit) : limit;
+
     if (viewMonthStr) {
       const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
-      setCurrentMonth(month);
+
+      if (month && month.isValid && month <= mostRecentMonth) {
+        setCurrentMonth(month);
+      } else {
+        setCurrentMonth(mostRecentMonth);
+      }
     } else {
-      const month = getCurrentOrLastMonthWithData(element.budgetStatements);
-      if (month) {
+      const month = getLastMonthWithActualOrForecast(element.budgetStatements);
+      if (snapshotLimit?.isValid && month < snapshotLimit && snapshotLimit <= actualMonth) {
+        setCurrentMonth(snapshotLimit);
+      } else if (month) {
         setCurrentMonth(month);
       }
     }
-  }, [router.route, router.query, viewMonthStr, element.budgetStatements]);
+  }, [router.route, router.query, viewMonthStr, element.budgetStatements, options?.latestSnapshotPeriod]);
 
   const replaceViewMonthRoute = useCallback(
     (viewMonth: string) => {
@@ -91,11 +109,15 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
   }, [hasPreviousMonth, options, currentMonth, replaceViewMonthRoute]);
 
   const hasNextMonth = useCallback(() => {
-    const limit = getLastMonthWithActualOrForecast(element.budgetStatements).plus({
-      month: 1,
-    });
-    return currentMonth.startOf('month') < limit.startOf('month');
-  }, [element.budgetStatements, currentMonth]);
+    const limit = getLastMonthWithActualOrForecast(element.budgetStatements);
+    const snapshotLimit = options?.latestSnapshotPeriod;
+    const actualMonth = DateTime.local().startOf('month');
+    return (
+      currentMonth.startOf('month') < actualMonth &&
+      (currentMonth.startOf('month') < limit.startOf('month') ||
+        (!!snapshotLimit && currentMonth.startOf('month') < snapshotLimit.startOf('month')))
+    );
+  }, [element.budgetStatements, options?.latestSnapshotPeriod, currentMonth]);
 
   const handleNextMonth = useCallback(() => {
     if (hasNextMonth()) {

@@ -10,10 +10,12 @@ import useBudgetStatementPager from './useBudgetStatementPager';
 import type { CoreUnit } from '../models/interfaces/coreUnit';
 import type { WithActivityFeed, WithBudgetStatement } from '../models/interfaces/generics';
 import type { Team } from '../models/interfaces/team';
+import type { DateTime } from 'luxon';
 
 interface TransparencyReportingOptions<TabIds extends string> {
   commentTabId?: TabIds;
   initTabIndex?: () => TabIds;
+  latestSnapshotPeriod?: DateTime;
 }
 
 const useTransparencyReporting = <TabIds extends string>(
@@ -44,6 +46,7 @@ const useTransparencyReporting = <TabIds extends string>(
     useBudgetStatementPager(transparencyElement as WithBudgetStatement, {
       onNext: onPagerChanges,
       onPrevious: onPagerChanges,
+      latestSnapshotPeriod: options.latestSnapshotPeriod,
     });
 
   useEffect(() => {
