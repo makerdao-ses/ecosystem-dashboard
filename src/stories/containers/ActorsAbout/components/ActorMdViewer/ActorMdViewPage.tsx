@@ -11,7 +11,10 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import Markdown from 'marked-react';
 import React from 'react';
+import ActorNavigationOptions from '../ActorNavigationOptions/ActorNavigationOptions';
+import CardProjects from '../CardProjects/CardProjects';
 import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';
+
 export type MarkDownHeaders = {
   level: number;
   title: string;
@@ -65,84 +68,80 @@ const ActorMdViewPage = ({
       {showButton && !isTable834 ? (
         <ContainerResponsive>
           <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
-          {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') && (
-            <CustomButton
-              buttonType={open ? ButtonType.Default : ButtonType.Primary}
-              active={open}
-              widthText="100%"
-              allowsHover={!isPhoneAndTable}
-              label="Expenses"
-              style={{
-                textAlign: 'center',
-                borderRadius: '22px',
-                height: '34px',
-                fontFamily: 'Inter, sans-serif',
-                fontStyle: 'normal',
-                fontWeight: 500,
-                fontSize: '14px',
-                lineHeight: '18px',
-                width: 'fit-content',
-                padding: '8px 24px',
-              }}
-              onClick={handleClick}
-            />
-          )}
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            sx={{
-              '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-                borderRadius: '6px',
-                backgroundColor: isLight ? 'none' : '#10191F',
-                boxShadow: isLight
-                  ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-                  : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-              },
-            }}
-          >
-            <CardExpenses
-              resource={ResourceType.EcosystemActor}
-              queryStrings={queryStrings}
-              code={code}
-              shortCode={shortCode}
-              auditors={auditors}
-              buttonWidth="139.5px"
-              isTitlePresent={false}
-              style={{
-                width: '335px',
-              }}
-              styleContainer={{
-                minHeight: '190px',
-                overflowY: 'hidden',
-              }}
-              titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
-              auditorMessage={`The ${actorName} is working without auditor`}
-              makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
-            />
-          </Popover>
+          {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') &&
+            (isEnabled('FEATURE_TEAM_PROJECTS') ? (
+              <ActorNavigationOptions shortCode={shortCode} />
+            ) : (
+              <>
+                <CustomButton
+                  buttonType={open ? ButtonType.Default : ButtonType.Primary}
+                  active={open}
+                  widthText="100%"
+                  allowsHover={!isPhoneAndTable}
+                  label="Expenses"
+                  style={{
+                    textAlign: 'center',
+                    borderRadius: '22px',
+                    height: '34px',
+                    fontFamily: 'Inter, sans-serif',
+                    fontStyle: 'normal',
+                    fontWeight: 500,
+                    fontSize: '14px',
+                    lineHeight: '18px',
+                    width: 'fit-content',
+                    padding: '8px 24px',
+                  }}
+                  onClick={handleClick}
+                />
+
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  sx={{
+                    '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+                      borderRadius: '6px',
+                      backgroundColor: isLight ? 'none' : '#10191F',
+                      boxShadow: isLight
+                        ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+                        : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+                    },
+                  }}
+                >
+                  <CardExpenses
+                    resource={ResourceType.EcosystemActor}
+                    queryStrings={queryStrings}
+                    code={code}
+                    shortCode={shortCode}
+                    auditors={auditors}
+                    buttonWidth="139.5px"
+                    isTitlePresent={false}
+                    style={{
+                      width: '335px',
+                    }}
+                    styleContainer={{
+                      minHeight: '190px',
+                      overflowY: 'hidden',
+                    }}
+                    titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
+                    auditorMessage={`The ${actorName} is working without auditor`}
+                    makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
+                  />
+                </Popover>
+              </>
+            ))}
         </ContainerResponsive>
       ) : (
         showButton &&
         isTable834 && (
           <div>
             {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') && (
-              <CardExpenses
-                resource={ResourceType.EcosystemActor}
-                styleContainer={{
-                  minHeight: '190px',
-                }}
-                queryStrings={queryStrings}
-                code={code}
-                shortCode={shortCode}
-                auditors={auditors}
-                isTitlePresent={false}
-                buttonWidth="139.5px"
+              <div
                 style={{
                   width: '335px',
                   float: 'right',
@@ -150,10 +149,31 @@ const ActorMdViewPage = ({
                   marginBottom: 16,
                   marginTop: 32,
                 }}
-                titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
-                auditorMessage={`The ${actorName} is working without auditor`}
-                makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
-              />
+              >
+                {isEnabled('FEATURE_TEAM_PROJECTS') && <CardProjects actorName={actorName} shortCode={shortCode} />}
+                <CardExpenses
+                  resource={ResourceType.EcosystemActor}
+                  styleContainer={{
+                    minHeight: '190px',
+                  }}
+                  queryStrings={queryStrings}
+                  code={code}
+                  shortCode={shortCode}
+                  auditors={auditors}
+                  isTitlePresent={isEnabled('FEATURE_TEAM_PROJECTS')}
+                  buttonWidth="139.5px"
+                  // style={{
+                  //   width: '335px',
+                  //   float: 'right',
+                  //   marginLeft: 16,
+                  //   marginBottom: 16,
+                  //   marginTop: 32,
+                  // }}
+                  titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
+                  auditorMessage={`The ${actorName} is working without auditor`}
+                  makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
+                />
+              </div>
             )}
             {!isTable834 && (
               <ContainerCard>

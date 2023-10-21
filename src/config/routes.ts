@@ -8,6 +8,7 @@ export const siteRoutes = {
   ecosystemActors: '/ecosystem-actors',
   ecosystemActorAbout: (code: string) => `/ecosystem-actors/${code}`,
   ecosystemActorReports: (code: string) => `/ecosystem-actors/${code}/finances/reports`,
+  ecosystemActorProjects: (code: string) => `/ecosystem-actors/${code}/projects`,
   coreUnitsOverview: featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? '/core-units' : '/',
   financesOverview: '/',
   newFinancesOverview: '/finances',

@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
 import ActorSummary from './components/ActorSummary/ActorSummary';
+import CardProjects from './components/CardProjects/CardProjects';
 import useActorAbout from './useActorAbout';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -75,6 +76,9 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
             <ContainerScroll>
               {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') && (
                 <ContainerCard>
+                  {isEnabled('FEATURE_TEAM_PROJECTS') && (
+                    <CardProjects actorName={actor.name} shortCode={actor.shortCode} />
+                  )}
                   <CardExpenses
                     resource={ResourceType.EcosystemActor}
                     queryStrings={queryStrings}
