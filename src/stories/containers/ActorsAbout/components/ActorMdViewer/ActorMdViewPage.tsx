@@ -162,13 +162,6 @@ const ActorMdViewPage = ({
                   auditors={auditors}
                   isTitlePresent={isEnabled('FEATURE_TEAM_PROJECTS')}
                   buttonWidth="139.5px"
-                  // style={{
-                  //   width: '335px',
-                  //   float: 'right',
-                  //   marginLeft: 16,
-                  //   marginBottom: 16,
-                  //   marginTop: 32,
-                  // }}
                   titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
                   auditorMessage={`The ${actorName} is working without auditor`}
                   makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
