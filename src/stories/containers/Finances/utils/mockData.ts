@@ -25,7 +25,6 @@ export interface QuarterlyBudget {
 export const mockDataTableQuarterlyArray: QuarterlyBudget[] = [
   {
     tableName: 'Endgame Atlas Budgets1',
-
     rows: [
       {
         name: 'Atlas Immutable AA Budgets ',
@@ -453,6 +452,7 @@ export const mockDataTableQuarterlyArray: QuarterlyBudget[] = [
     rows: [
       {
         name: 'Alignment Scope Budgets ',
+        isMain: true,
         forecast: {
           q1: 1234567,
           q2: 123,
@@ -572,6 +572,7 @@ export const mockDataTableQuarterlyArray: QuarterlyBudget[] = [
     rows: [
       {
         name: 'MakerDAO Legacy Budgets',
+        isMain: true,
         forecast: {
           q1: 1234567,
           q2: 123,

@@ -719,7 +719,6 @@ export const getFirstElementEachTable = (data: QuarterlyBudget[]): RowsItems[] =
 };
 
 export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
-  // const result: QuarterlyBudget[] = [];
   const maxRows = NUMBER_ROWS_FINANCES_TABLE;
   let totalRowsPerTable = 0;
   let itemArrayTableHasOthers: QuarterlyBudget = {
@@ -742,7 +741,7 @@ export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
     return data;
   }
   for (const item of orderData) {
-    if (item.rows.length + totalRowsPerTable >= 16) {
+    if (item.rows.length + totalRowsPerTable > 16) {
       itemArrayTableHasOthers = {
         rows: item.rows,
         others: false,
@@ -752,15 +751,17 @@ export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
     }
     const indexItem = result.findIndex((element) => element.tableName === item.tableName);
     const takeAllElementLessOne = item.rows.slice(1, item.rows.length);
+
     result[indexItem].rows.push(...takeAllElementLessOne);
     totalRowsPerTable += item.rows.length;
   }
 
   if (itemArrayTableHasOthers.rows) {
     const indexItem = result.findIndex((element) => element.tableName === itemArrayTableHasOthers.tableName);
-    itemArrayTableHasOthers.rows.forEach((item) => {
-      // Les than 12 because 3 of head of each table and now new one is others
-      if (totalRowsPerTable <= 12) {
+
+    itemArrayTableHasOthers.rows.forEach((item, index) => {
+      // Les than 12 because 3 of head of each table and now new one is others dont get the firsts element
+      if (totalRowsPerTable <= 12 && index !== 0) {
         result[indexItem].rows.push(item);
         totalRowsPerTable++;
       }

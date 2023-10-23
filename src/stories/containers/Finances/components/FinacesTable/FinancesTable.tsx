@@ -42,7 +42,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
         <TableContainer isLight={isLight} className={className} key={index}>
           <TableBody isLight={isLight}>
             {table.rows.map((row: RowsItems) => (
-              <TableRow isLight={isLight}>
+              <TableRow isLight={isLight} isMain={row.isMain}>
                 <Headed isLight={isLight} period={period}>
                   {row.name}
                 </Headed>
@@ -170,8 +170,8 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
 
 const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false, isLight }) => ({
   '& th': {
-    borderTopLeftRadius: isMain ? 6 : 'none',
-    borderBottomLeftRadius: isMain ? 6 : 'none',
+    borderTopLeftRadius: isMain ? 6 : '0',
+    borderBottomLeftRadius: isMain ? 6 : '0',
     fontWeight: isMain ? 700 : 400,
     textAlign: 'left',
   },
@@ -179,8 +179,8 @@ const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false
     backgroundColor: isLight ? (isMain ? 'rgba(159, 175, 185, 0.17)' : 'inherit') : isMain ? '#2D3C48;' : 'inherit',
     fontWeight: isMain ? 600 : 400,
     borderRight: 'none',
-    borderTopRightRadius: isMain ? 6 : 'none',
-    borderBottomRightRadius: isMain ? 6 : 'none',
+    borderTopRightRadius: isMain ? 6 : '0',
+    borderBottomRightRadius: isMain ? 6 : '0',
   },
   '& td': {
     fontWeight: isMain ? 600 : 400,
@@ -190,6 +190,7 @@ const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false
 const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
   '& tr:nth-of-type(odd):not(:first-child)': {
     backgroundColor: isLight ? '#F5F5F5' : '#18252E',
+    borderRadius: 40,
   },
   '& tr:nth-of-type(even):not(:first-child)': {
     backgroundColor: isLight ? '#ffffff' : '#1f2d37',
@@ -204,7 +205,6 @@ const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
     backgroundColor: isLight ? 'rgba(209, 222, 230, 0.20)' : '#17232C',
   },
 }));
-
 const Cell = styled.td<WithIsLight & { period: PeriodicSelectionFilter }>(({ isLight, period }) => ({
   borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
   padding: '16px 8px',
