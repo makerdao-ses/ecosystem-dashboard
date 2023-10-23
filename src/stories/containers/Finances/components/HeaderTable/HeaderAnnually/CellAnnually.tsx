@@ -64,7 +64,7 @@ const Metrics = styled.div<WithIsLight>({
     width: 192,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 192,
+    width: 78,
   },
 });
 const Name = styled.div<WithIsLight>({

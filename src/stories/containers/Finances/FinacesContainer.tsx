@@ -31,9 +31,7 @@ const FinancesContainer = () => {
     doughnutSeriesData,
     periodicSelectionFilter,
     handleChangeYears,
-
     handlePeriodChange,
-
     periodFilter,
     year,
     cardsNavigationInformation,
