@@ -9,7 +9,6 @@ import React from 'react';
 import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
 import useActorProjectsContainer from './useActorProjectsContainer';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ActorProjectsContainerProps {
   actors: Team[];
@@ -17,13 +16,16 @@ interface ActorProjectsContainerProps {
 }
 
 const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, actors }) => {
-  const { height, isLight, ref, showHeader } = useActorProjectsContainer();
+  const { height, ref, showHeader } = useActorProjectsContainer();
 
   return (
-    <PageWrapper isLight={isLight}>
+    <PageWrapper hasImageBackground>
       <SEOHead
-        title={`About ${actor.name} Ecosystem Actor at MakerDAO`}
-        description={`Learn about the ${actor.name} Ecosystem Actor at MakerDAO: their mandate, scope, vision, strategy, and more.`}
+        title={'MakerDAO Ecosystem Actors | Projects'}
+        description={
+          "MakerDAO Ecosystem Actors Projects page provides a comprehensive overview of Ecosystem Actor's" +
+          ' ongoing work activities, their status, and progress.'
+        }
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
@@ -43,10 +45,9 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
 
 export default ActorProjectsContainer;
 
-const PageWrapper = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
-  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
+const PageWrapper = styled(PageContainer)({
   paddingTop: 0,
-}));
+});
 
 const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   display: 'flex',
