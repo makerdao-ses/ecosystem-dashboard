@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
-
 import CardExpenses from '@ses/components/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@ses/components/NavigationCard/CardSomethingWrong';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { getMarkdownInformation } from '@ses/core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
@@ -16,8 +14,9 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
-import ActorMdViewer from './ActorMdViewer/ActorMdViewer';
-import ActorSummary from './ActorSummary/ActorSummary';
+import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
+import ActorSummary from './components/ActorSummary/ActorSummary';
+import CardProjects from './components/CardProjects/CardProjects';
 import useActorAbout from './useActorAbout';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -77,6 +76,9 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
             <ContainerScroll>
               {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') && (
                 <ContainerCard>
+                  {isEnabled('FEATURE_TEAM_PROJECTS') && (
+                    <CardProjects actorName={actor.name} shortCode={actor.shortCode} />
+                  )}
                   <CardExpenses
                     resource={ResourceType.EcosystemActor}
                     queryStrings={queryStrings}
