@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
+import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
@@ -19,7 +20,6 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 const FinancesContainer = () => {
   const [isEnabled] = useFlagsActive();
   const {
-    years,
     trailingAddress,
     filters,
     filterSelected,
@@ -60,7 +60,7 @@ const FinancesContainer = () => {
     <PageContainer>
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
-        years={years}
+        years={YEARS_FINANCES_SELECTED}
         handleChange={handleChangeYears}
         selectedValue={year}
       />

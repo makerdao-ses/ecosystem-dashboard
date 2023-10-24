@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { Metric, MetricsWithAmount, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
-const years = ['2022', '2023'];
+
 export const useBreakdownTable = () => {
   const router = useRouter();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -180,6 +180,5 @@ export const useBreakdownTable = () => {
     handleResetFilters,
     mapMetricValuesTotal,
     getAllMetricsValuesTotal,
-    years,
   };
 };
