@@ -10,7 +10,7 @@ import ScopeIcon from './components/ScopeIcon';
 import { useEndgameScopeBudget } from './useEndgameScopeBudget';
 
 const EndgameScopeBudgetContainer = () => {
-  const { trailingAddress, handleChangeYearsEndgameScopeBudget, year } = useEndgameScopeBudget();
+  const { trailingAddress, handleChangeYearsEndgameScopeBudget, year, isMobile } = useEndgameScopeBudget();
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -18,10 +18,15 @@ const EndgameScopeBudgetContainer = () => {
         years={YEARS_FINANCES_SELECTED}
         handleChange={handleChangeYearsEndgameScopeBudget}
         selectedValue={year}
+        trailingAddressDesk={trailingAddress}
+        title="Endgame Scope Budget"
       />
       <Container>
         <ContainerTitle>
-          <IconTitle icon={<ScopeIcon />} title="Endgame Atlas Budget" />
+          <IconTitle
+            icon={<ScopeIcon width={isMobile ? 32 : 62} height={isMobile ? 32 : 62} />}
+            title="Endgame Scope Budget"
+          />
         </ContainerTitle>
       </Container>
     </PageContainer>

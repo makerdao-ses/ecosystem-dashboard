@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -23,15 +24,23 @@ export default IconTitle;
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  gap: 8,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 'revert',
+  },
 });
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
   fontFamily: 'Inter, sans-serif',
-  fontSize: 32,
   fontStyle: 'normal',
   fontWeight: 600,
-  lineHeight: 'normal',
-  marginTop: 8,
-  letterSpacing: '0.4px',
+  fontSize: 20,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    color: isLight ? '#231536' : 'red',
+    fontSize: 32,
+    lineHeight: 'normal',
+    marginTop: 8,
+    letterSpacing: '0.4px',
+    marginBottom: 64,
+  },
 }));
 const Icon = styled.div({});

@@ -13,14 +13,18 @@ interface Props {
   handleChange: (value: string) => void;
   selectedValue: string;
   trailingAddress: NavigationBreadcrumb[];
+  trailingAddressDesk: NavigationBreadcrumb[];
+  title: string;
+  hasIcon?: boolean;
 }
 const BreadcrumbYearNavigation: React.FC<Props> = ({
   years,
   handleChange,
-
   selectedValue,
-
   trailingAddress,
+  trailingAddressDesk,
+  hasIcon,
+  title,
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
@@ -30,6 +34,9 @@ const BreadcrumbYearNavigation: React.FC<Props> = ({
         selectedValue={selectedValue}
         years={years}
         trailingAddress={trailingAddress}
+        trailingAddressDesk={trailingAddressDesk}
+        title={title}
+        hasIcon={hasIcon}
       />
     </ContainerNavigation>
   );

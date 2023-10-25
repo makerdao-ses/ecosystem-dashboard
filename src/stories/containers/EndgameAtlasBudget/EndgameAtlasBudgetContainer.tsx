@@ -11,7 +11,8 @@ import AtlasIcon from './components/AtlasIcon';
 import { useEndgameAtlasBudget } from './useEndgameAtlasBudget';
 
 const EndgameAtlasBudgetContainer = () => {
-  const { trailingAddress, handleChangeYearsEndgameAtlasBudget, year } = useEndgameAtlasBudget();
+  const { trailingAddressDesk, trailingAddress, handleChangeYearsEndgameAtlasBudget, year, isMobile } =
+    useEndgameAtlasBudget();
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -19,10 +20,15 @@ const EndgameAtlasBudgetContainer = () => {
         years={YEARS_FINANCES_SELECTED}
         handleChange={handleChangeYearsEndgameAtlasBudget}
         selectedValue={year}
+        trailingAddressDesk={trailingAddressDesk}
+        title="Endgame Atlas Budget"
       />
       <Container>
         <ContainerTitle>
-          <IconTitle icon={<AtlasIcon />} title="Endgame Atlas Budget" />
+          <IconTitle
+            icon={<AtlasIcon width={isMobile ? 32 : 62} height={isMobile ? 32 : 62} />}
+            title="Endgame Atlas Budget"
+          />
         </ContainerTitle>
       </Container>
     </PageContainer>

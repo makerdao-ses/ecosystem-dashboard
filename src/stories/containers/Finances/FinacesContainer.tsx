@@ -63,6 +63,9 @@ const FinancesContainer = () => {
         years={YEARS_FINANCES_SELECTED}
         handleChange={handleChangeYears}
         selectedValue={year}
+        trailingAddressDesk={trailingAddress}
+        title="Finances"
+        hasIcon={false}
       />
 
       <Container>
