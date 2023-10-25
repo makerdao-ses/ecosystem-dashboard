@@ -8,6 +8,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
 import PageSubheader from './components/PageSubheader/PageSubheader';
+import ProjectList from './components/ProjectList/ProjectList';
 import useActorProjectsContainer from './useActorProjectsContainer';
 import type { Team } from '@ses/core/models/interfaces/team';
 
@@ -56,6 +57,8 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
               handleSearchChange={handleSearchChange}
               handleResetFilters={handleResetFilters}
             />
+
+            <ProjectList />
           </ContainerResponsive>
         </ContainerAllData>
       </Container>
