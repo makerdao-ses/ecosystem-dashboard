@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
+import BreadCrumbWithIcons from '@ses/components/Pagination/BreadCrumbWithIcons';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -11,15 +12,33 @@ interface Props {
   trailingAddress?: NavigationBreadcrumb[];
   years: string[];
   handleChange: (value: string) => void;
-
+  title: string;
   selectedValue: string;
+  trailingAddressDesk?: NavigationBreadcrumb[];
+  hasIcon?: boolean;
 }
 
-const BreadcrumbWithYear: React.FC<Props> = ({ trailingAddress = [], handleChange, selectedValue, years }: Props) => {
+const BreadcrumbWithYear: React.FC<Props> = ({
+  trailingAddress = [],
+  trailingAddressDesk = [],
+  handleChange,
+  selectedValue,
+  years,
+  title,
+  hasIcon = true,
+}: Props) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerNavigation>
-      <StyledBreadcrumbs items={trailingAddress} isLight={isLight} />
+      {trailingAddress.length >= 1 && (
+        <BreadcrumbMobile>
+          <BreadCrumbWithIcons items={trailingAddress} title={title} hasIcon={hasIcon} />
+        </BreadcrumbMobile>
+      )}
+      <BreadcrumbDesk>
+        <StyledBreadcrumbs items={trailingAddressDesk} isLight={isLight} />
+      </BreadcrumbDesk>
+
       <YearSelect
         items={years}
         useSelectedAsLabel
@@ -69,5 +88,18 @@ const YearSelect = styled(SingleItemSelect)({
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '14px 15px 14px 16px',
+  },
+});
+
+const BreadcrumbMobile = styled.div({
+  display: 'flex',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+});
+const BreadcrumbDesk = styled.div({
+  display: 'none',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
   },
 });
