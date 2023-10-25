@@ -8,15 +8,18 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
 import PageSubheader from './components/PageSubheader/PageSubheader';
+import ProjectList from './components/ProjectList/ProjectList';
 import useActorProjectsContainer from './useActorProjectsContainer';
+import type { Project } from '@ses/core/models/interfaces/projects';
 import type { Team } from '@ses/core/models/interfaces/team';
 
 interface ActorProjectsContainerProps {
   actors: Team[];
   actor: Team;
+  projects: Project[];
 }
 
-const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, actors }) => {
+const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, actors, projects }) => {
   const {
     height,
     ref,
@@ -27,7 +30,8 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
     searchQuery,
     handleSearchChange,
     handleResetFilters,
-  } = useActorProjectsContainer();
+    filteredProjects,
+  } = useActorProjectsContainer(projects);
 
   return (
     <PageWrapper hasImageBackground>
@@ -56,6 +60,8 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
               handleSearchChange={handleSearchChange}
               handleResetFilters={handleResetFilters}
             />
+
+            <ProjectList projects={filteredProjects} />
           </ContainerResponsive>
         </ContainerAllData>
       </Container>

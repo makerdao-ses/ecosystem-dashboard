@@ -1,5 +1,6 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import ActorProjectsContainer from '@ses/containers/ActorProjects/ActorProjectsContainer';
+import { fetchProjects } from '@ses/containers/ActorProjects/api/query';
 import { fetchActors } from '@ses/containers/Actors/api/queries';
 import { fetchActorAbout } from '@ses/containers/ActorsAbout/api/queries';
 import { ResourceType } from '@ses/core/models/interfaces/types';
@@ -7,8 +8,12 @@ import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
-const ProjectsPage: NextPage = ({ actor, actors }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
-  <ActorProjectsContainer actors={actors} actor={actor} />
+const ProjectsPage: NextPage = ({
+  actor,
+  actors,
+  projects,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => (
+  <ActorProjectsContainer actors={actors} actor={actor} projects={projects} />
 );
 
 export default ProjectsPage;
@@ -32,10 +37,13 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     };
   }
 
+  const projects = await fetchProjects();
+
   return {
     props: {
       actors,
       actor,
+      projects,
     },
   };
 };

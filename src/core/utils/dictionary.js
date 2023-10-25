@@ -140,6 +140,8 @@ const dictionary = [
   'Annualy',
   'tbody',
   'tfoot',
+  'deliverables',
+  'typename',
 ];
 
 module.exports = dictionary;
