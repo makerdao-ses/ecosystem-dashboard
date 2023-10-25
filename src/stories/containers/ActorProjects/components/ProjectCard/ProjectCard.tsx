@@ -2,17 +2,36 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import BudgetTypeBadge from '../BudgetTypeBadge/BudgetTypeBadge';
+import ProjectOwnerChip from '../ProjectOwnerChip/ProjectOwnerChip';
+import SupportedTeamsAvatarGroup from '../SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
+import type { Project } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const ProjectCard: React.FC = () => {
+interface ProjectCardProps {
+  project: Project;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { isLight } = useThemeContext();
 
   return (
     <Card isLight={isLight}>
       <MainContent>
-        <NameContainer>
-          <ProjectCode isLight={isLight}>CODE</ProjectCode> <ProjectName isLight={isLight}>Project name</ProjectName>
-        </NameContainer>
+        <ProjectHeader>
+          <NameContainer>
+            <TitleContainer>
+              <ProjectCode isLight={isLight}>{project.code}</ProjectCode>{' '}
+              <ProjectTitle isLight={isLight}>{project.title}</ProjectTitle>
+            </TitleContainer>
+            <BudgetTypeBadge budgetType={project.budgetType} />
+          </NameContainer>
+
+          <ParticipantsContainer>
+            <ProjectOwnerChip owner={project.owner} />
+            <SupportedTeamsAvatarGroup />
+          </ParticipantsContainer>
+        </ProjectHeader>
       </MainContent>
     </Card>
   );
@@ -42,7 +61,33 @@ const MainContent = styled.div({
   },
 });
 
+const ProjectHeader = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+  },
+});
+
 const NameContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  alignSelf: 'stretch',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    justifyContent: 'normal',
+    alignItems: 'center',
+    gap: 8,
+  },
+});
+
+const TitleContainer = styled.div({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
@@ -57,6 +102,7 @@ const ProjectCode = styled.span<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
+  textTransform: 'uppercase',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 20,
@@ -69,7 +115,7 @@ const ProjectCode = styled.span<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ProjectName = styled.span<WithIsLight>(({ isLight }) => ({
+const ProjectTitle = styled.span<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#25273D' : 'red',
   fontSize: 14,
   fontWeight: 500,
@@ -86,3 +132,9 @@ const ProjectName = styled.span<WithIsLight>(({ isLight }) => ({
     fontSize: 24,
   },
 }));
+
+const ParticipantsContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+});

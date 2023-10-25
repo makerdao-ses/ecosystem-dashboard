@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import ProjectCard from '../ProjectCard/ProjectCard';
+import type { Project } from '@ses/core/models/interfaces/projects';
 
-const ProjectList: React.FC = () => (
+interface ProjectListProps {
+  projects: Project[];
+}
+
+const ProjectList: React.FC<ProjectListProps> = ({ projects }) => (
   <List>
-    {[...Array(3)].map((_, index) => (
-      <ProjectCard key={index} />
+    {projects.map((project) => (
+      <ProjectCard key={project.id} project={project} />
     ))}
   </List>
 );
