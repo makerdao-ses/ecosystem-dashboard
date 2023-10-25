@@ -9,8 +9,10 @@ import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
-import type { NavigationCard } from './utils/types';
-export const useFinances = () => {
+import type { BudgetsFinances, NavigationCard } from './utils/types';
+export const useFinances = (budgets: BudgetsFinances[]) => {
+  // This will remove in the next pr, when the budgets will be used
+  console.log('budgets', budgets);
   const { isLight } = useThemeContext();
   const router = useRouter();
 
@@ -46,6 +48,21 @@ export const useFinances = () => {
       totalDai: 132345,
       valueDai: 12345,
       color: '#447AFB',
+    },
+    {
+      svgImage: (
+        <MakerDAOLegacyBudgets
+          width={isMobile ? 32 : 64}
+          height={isMobile ? 32 : 64}
+          fill={isLight ? (isMobile ? '#9FAFB9' : '#546978') : isMobile ? '#9FAFB9' : '#D1DEE6'}
+        />
+      ),
+      title: 'MakerDAO Legacy Budgets',
+      description: 'Historical records of MakerDAO expenses, prior to Endgame',
+      href: 'finances/makerDAO-legacy-budget',
+      totalDai: 132345,
+      valueDai: 12345,
+      color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
     {
       svgImage: (
