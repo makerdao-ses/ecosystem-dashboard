@@ -15,9 +15,14 @@ import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavi
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetrics from './components/SectionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
+import type { BudgetsFinances } from './utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const FinancesContainer = () => {
+interface Props {
+  budgets: BudgetsFinances[];
+}
+
+const FinancesContainer: React.FC<Props> = ({ budgets }) => {
   const [isEnabled] = useFlagsActive();
   const {
     trailingAddress,
@@ -54,7 +59,7 @@ const FinancesContainer = () => {
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
     handleBreakdownGranularityChange,
-  } = useFinances();
+  } = useFinances(budgets);
 
   return (
     <PageContainer>

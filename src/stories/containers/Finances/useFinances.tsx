@@ -9,8 +9,10 @@ import MakerDAOLegacyBudgets from './components/MakerDAOLegacyBudgets';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
-import type { NavigationCard } from './utils/types';
-export const useFinances = () => {
+import type { BudgetsFinances, NavigationCard } from './utils/types';
+export const useFinances = (budgets: BudgetsFinances[]) => {
+  // This will remove in the next pr, when the budgets will be used
+  console.log('budgets', budgets);
   const { isLight } = useThemeContext();
   const router = useRouter();
 
