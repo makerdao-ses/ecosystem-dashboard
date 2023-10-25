@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
+import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import type { Owner } from '@ses/core/models/interfaces/projects';
@@ -14,7 +15,7 @@ const ProjectOwnerChip: React.FC<ProjectOwnerChipProps> = ({ owner }) => {
   const { isLight } = useThemeContext();
 
   return (
-    <div>
+    <SESTooltip content={<TooltipText>Owner</TooltipText>} placement="bottom-start">
       <OwnerChip
         isLight={isLight}
         label={owner.name}
@@ -22,7 +23,7 @@ const ProjectOwnerChip: React.FC<ProjectOwnerChipProps> = ({ owner }) => {
           <Avatar src="https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png" />
         }
       />
-    </div>
+    </SESTooltip>
   );
 };
 
@@ -36,6 +37,7 @@ const OwnerChip = styled(Chip)<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#708390' : 'red',
   fontSize: 11,
   lineHeight: 'normal',
+  cursor: 'pointer',
 
   '.MuiAvatar-root': {
     margin: 0,
@@ -47,3 +49,10 @@ const OwnerChip = styled(Chip)<WithIsLight>(({ isLight }) => ({
     paddingLeft: 4,
   },
 }));
+
+const TooltipText = styled.div({
+  fontWeight: 700,
+  fontSize: 16,
+  lineHeight: 'normal',
+  letterSpacing: 0.3,
+});
