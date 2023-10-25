@@ -64,21 +64,6 @@ export const useFinances = (budgets: BudgetsFinances[]) => {
       valueDai: 12345,
       color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
-    {
-      svgImage: (
-        <MakerDAOLegacyBudgets
-          width={isMobile ? 32 : 64}
-          height={isMobile ? 32 : 64}
-          fill={isLight ? (isMobile ? '#9FAFB9' : '#546978') : isMobile ? '#9FAFB9' : '#D1DEE6'}
-        />
-      ),
-      title: 'MakerDAO Legacy Budgets',
-      description: 'Historical records of MakerDAO expenses, prior to Endgame',
-      href: 'finances/makerDAO-legacy-budget',
-      totalDai: 132345,
-      valueDai: 12345,
-      color: isLight ? '#2DC1B1' : '#1AAB9B',
-    },
   ];
 
   // all the logic required by the breakdown chart section
