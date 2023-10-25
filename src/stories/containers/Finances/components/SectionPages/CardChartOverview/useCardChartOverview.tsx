@@ -1,8 +1,18 @@
+import { generateColorPalette, removePrefix } from '@ses/containers/Finances/utils/utils';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useState } from 'react';
-import type { FilterDoughnut } from '@ses/containers/Finances/utils/types';
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+import type { BudgetsFinances, FilterDoughnut } from '@ses/containers/Finances/utils/types';
+const prefixToRemove = 'End-game';
+const existingColors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
+const existingColorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
+export const useCardChartOverview = (budgets: BudgetsFinances[]) => {
+  const { isLight } = useThemeContext();
+  const cardsNavigation: BudgetsFinances[] = budgets.filter((budget) => budget.parentId === null);
+  const numColors = budgets.length;
+  const colorsLight = generateColorPalette(existingColors.length, numColors - existingColors.length, existingColors);
 
-export const useCardChartOverview = () => {
+  const colorsDark = generateColorPalette(180, numColors, existingColorsDark);
+
   const actuals = 9120;
   const budgetCap = 9120;
   const prediction = 4436;
@@ -12,32 +22,15 @@ export const useCardChartOverview = () => {
   const handleSelectFilter = (item: FilterDoughnut) => {
     setFilterSelected(item);
   };
-  const doughnutSeriesData: DoughnutSeries[] = [
-    {
-      name: 'Endgame Atlas Budgets',
-      value: 4345,
-      percent: 30,
-      actuals: 45,
-      budgetCap: 34,
-      color: '#F99374',
-    },
-    {
-      name: 'Endgame Scope Budgets',
-      value: 34627,
-      percent: 40,
-      actuals: 45,
-      budgetCap: 34,
-      color: '#447AFB',
-    },
-    {
-      name: 'MakerDAO Legacy Budgets',
-      value: 3445,
-      percent: 30,
-      actuals: 45,
-      budgetCap: 34,
-      color: '#2DC1B1',
-    },
-  ];
+
+  const doughnutSeriesData = cardsNavigation.map((item, index) => ({
+    name: removePrefix(item.name, prefixToRemove),
+    value: 4345,
+    percent: 30,
+    actuals: 45,
+    budgetCap: 34,
+    color: isLight ? colorsLight[index] : colorsDark[index],
+  }));
 
   return {
     actuals,

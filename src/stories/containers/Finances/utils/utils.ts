@@ -775,3 +775,24 @@ export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
 
   return result;
 };
+export const generateColorPalette = (index: number, numColors: number, existingColors: string[] = []) => {
+  const baseHue = (index * (360 / numColors)) % 360;
+  const colors = [];
+
+  for (let i = 0; i < numColors; i++) {
+    const hue = (baseHue + i * (360 / numColors)) % 360;
+    const color = `hsl(${hue}, 70%, 50%)`;
+    colors.push(color);
+  }
+
+  return [...existingColors, ...colors];
+};
+// Remove prefix in the string
+export const removePrefix = (inputString: string, prefix: string) => {
+  const escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`^${escapedPrefix}\\s*`, 'i');
+  const result = inputString.replace(regex, '');
+  return result;
+};
+// Prefix to delete from Api text
+export const prefixToRemove = 'End-game';
