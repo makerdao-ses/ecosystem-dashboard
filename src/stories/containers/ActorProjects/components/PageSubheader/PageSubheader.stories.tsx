@@ -12,7 +12,13 @@ export default {
   },
 } as ComponentMeta<typeof PageSubheader>;
 
-const variantsArgs = [{}];
+const variantsArgs = [
+  {
+    statuses: [],
+    activeStatuses: [],
+    searchQuery: '',
+  },
+];
 export const [[LightMode, DarkMode]] = createThemeModeVariants(PageSubheader, variantsArgs);
 
 LightMode.parameters = {
