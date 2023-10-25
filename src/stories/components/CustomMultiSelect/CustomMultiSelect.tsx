@@ -1,15 +1,16 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useCallback, useRef, useState } from 'react';
-
-import './CustomMultiSelect.module.scss';
 import SimpleBar from 'simplebar-react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import useOutsideClick from '../../../core/hooks/useOutsideClick';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { SelectItem } from '../SelectItem/SelectItem';
 import { SelectChevronDown } from '../svg/select-chevron-down';
+import type { WithLegacyBreakpoints } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
+
+import './CustomMultiSelect.module.scss';
 
 export interface MultiSelectItem {
   id: string;
@@ -30,7 +31,7 @@ export interface SelectItemProps {
   params?: any;
 }
 
-interface CustomMultiSelectProps {
+interface CustomMultiSelectProps extends Partial<WithLegacyBreakpoints> {
   label: string | ((props: CustomMultiSelectProps) => React.ReactNode);
   items: MultiSelectItem[];
   withAll?: boolean;
@@ -64,6 +65,7 @@ export const CustomMultiSelect = ({
   minItems,
   defaultMetricsWithAllSelected = [],
   allowSelectAll = true,
+  legacyBreakpoints = true,
   ...props
 }: CustomMultiSelectProps) => {
   const { isLight } = useThemeContext();
@@ -121,7 +123,12 @@ export const CustomMultiSelect = ({
   const handleClearSearch = useCallback(() => setSearchText(''), []);
 
   return (
-    <SelectWrapper ref={refOutsideClick} style={props.style} className={className}>
+    <SelectWrapper
+      ref={refOutsideClick}
+      style={props.style}
+      className={className}
+      legacyBreakpoints={legacyBreakpoints}
+    >
       <SelectContainer
         isLight={isLight}
         focus={popupVisible}
@@ -131,6 +138,7 @@ export const CustomMultiSelect = ({
         onMouseOut={() => setHover(false)}
         onClick={toggleVisible}
         width={props.width}
+        legacyBreakpoints={legacyBreakpoints}
       >
         {typeof props.label === 'string' ? (
           <Label active={activeItems.length > 0} isLight={isLight} hover={hover}>
@@ -170,6 +178,7 @@ export const CustomMultiSelect = ({
           isLight={isLight}
           positionRight={positionRight}
           className={className}
+          legacyBreakpoints={legacyBreakpoints}
         >
           {props.withSearch && (
             <SearchInput
@@ -224,25 +233,28 @@ export const CustomMultiSelect = ({
   );
 };
 
-const SelectWrapper = styled.div({
+const SelectWrapper = styled.div<WithLegacyBreakpoints>(({ legacyBreakpoints }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   position: 'relative',
   width: 'fit-content',
   zIndex: 2,
-  '@media (min-width: 834px)': {
+
+  [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: {
     alignItems: 'flex-start',
     width: 'fit-content',
   },
-});
+}));
 
-const SelectContainer = styled.div<{
-  focus: boolean;
-  active: boolean;
-  isLight: boolean;
-  width?: number;
-}>(({ active, focus, isLight, width }) => ({
+const SelectContainer = styled.div<
+  {
+    focus: boolean;
+    active: boolean;
+    isLight: boolean;
+    width?: number;
+  } & WithLegacyBreakpoints
+>(({ active, focus, isLight, width, legacyBreakpoints }) => ({
   display: 'flex',
   position: 'relative',
   alignItems: 'center',
@@ -266,6 +278,7 @@ const SelectContainer = styled.div<{
   cursor: 'pointer',
   transition: 'all .3s ease',
   background: isLight ? 'white' : '#10191F',
+
   '&:hover': {
     border: isLight
       ? active
@@ -276,7 +289,8 @@ const SelectContainer = styled.div<{
       : '1px solid #787A9B',
     background: isLight ? (active ? '#E7FCFA' : 'none') : active ? '#003C40' : '#10191F',
   },
-  '@media (min-width: 834px)': {
+
+  [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: {
     height: '48px',
     padding: '15px 40px 15px 15px',
   },
@@ -316,8 +330,8 @@ const IconWrapper = styled.div({
   marginTop: '-4px',
 });
 
-const PopupContainer = styled.div<{ isLight: boolean; width: number; positionRight?: boolean }>(
-  ({ isLight, width, positionRight }) => ({
+const PopupContainer = styled.div<{ isLight: boolean; width: number; positionRight?: boolean } & WithLegacyBreakpoints>(
+  ({ isLight, width, positionRight, legacyBreakpoints }) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '4px',
@@ -330,12 +344,14 @@ const PopupContainer = styled.div<{ isLight: boolean; width: number; positionRig
     top: '50px',
     ...(positionRight ? { right: -50 } : { left: '0' }),
     zIndex: 3,
+
     '::-webkit-scrollbar': {
       opacity: !isLight ? 0 : 'none',
       width: !isLight ? 0 : 'none',
       backgroundColor: !isLight ? 'transparent' : 'none',
     },
-    [lightTheme.breakpoints.up('table_834')]: {
+
+    [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: {
       ...(positionRight && { right: '0' }),
     },
   })

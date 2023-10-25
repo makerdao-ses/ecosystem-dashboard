@@ -7,6 +7,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
+import PageSubheader from './components/PageSubheader/PageSubheader';
 import useActorProjectsContainer from './useActorProjectsContainer';
 import type { Team } from '@ses/core/models/interfaces/team';
 
@@ -16,7 +17,17 @@ interface ActorProjectsContainerProps {
 }
 
 const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, actors }) => {
-  const { height, ref, showHeader } = useActorProjectsContainer();
+  const {
+    height,
+    ref,
+    showHeader,
+    statuses,
+    activeStatuses,
+    handleStatusChange,
+    searchQuery,
+    handleSearchChange,
+    handleResetFilters,
+  } = useActorProjectsContainer();
 
   return (
     <PageWrapper hasImageBackground>
@@ -36,7 +47,16 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
       <ActorSummary actors={actors} showHeader={showHeader} ref={ref} trailingAddress={['Projects']} />
       <Container>
         <ContainerAllData marginTop={height}>
-          <ContainerResponsive>Projects</ContainerResponsive>
+          <ContainerResponsive>
+            <PageSubheader
+              statuses={statuses}
+              activeStatuses={activeStatuses}
+              handleStatusChange={handleStatusChange}
+              searchQuery={searchQuery}
+              handleSearchChange={handleSearchChange}
+              handleResetFilters={handleResetFilters}
+            />
+          </ContainerResponsive>
         </ContainerAllData>
       </Container>
     </PageWrapper>
@@ -58,7 +78,7 @@ const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
 }));
 
 const ContainerResponsive = styled.div({
-  width: '60.39%',
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   marginTop: 96,

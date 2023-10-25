@@ -10,6 +10,10 @@ export type WithIsLight = {
   isLight: boolean;
 };
 
+export type WithLegacyBreakpoints = {
+  legacyBreakpoints: boolean;
+};
+
 export interface CookiesInterface {
   allowsThemeTracking: boolean;
   allowsTimestampTracking: boolean;
