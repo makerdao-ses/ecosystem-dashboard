@@ -58,6 +58,7 @@ const StyledAvatarGroup = styled(AvatarGroup)<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#fff' : 'red',
   padding: 3,
   borderRadius: 20,
+  cursor: 'pointer',
 
   '& .MuiAvatar-root': {
     border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
