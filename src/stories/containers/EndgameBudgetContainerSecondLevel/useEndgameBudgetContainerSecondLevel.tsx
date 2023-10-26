@@ -15,7 +15,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: BudgetsFinances[])
   const { isLight } = useThemeContext();
   const [year, setYears] = useState<string>('2022');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const icon = itemTitle?.image;
+  const icon = itemTitle?.image || '';
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYears(value);
   };

@@ -25,11 +25,11 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
         handleChange={handleChangeYearsEndgameAtlasBudget}
         selectedValue={year}
         trailingAddressDesk={trailingAddressDesk}
-        title={title || ''}
+        title={title}
       />
       <Container>
         <ContainerTitle>
-          <IconTitle icon={icon} title={title || ''} />
+          <IconTitle icon={icon} title={title} />
         </ContainerTitle>
       </Container>
     </PageContainer>
