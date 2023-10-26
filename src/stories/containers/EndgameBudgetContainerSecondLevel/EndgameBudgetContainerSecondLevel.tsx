@@ -6,7 +6,6 @@ import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
-import AtlasIcon from './components/AtlasIcon';
 
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
 import type { BudgetsFinances } from '../Finances/utils/types';
@@ -16,7 +15,7 @@ interface Props {
 }
 
 const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
-  const { trailingAddressDesk, trailingAddress, handleChangeYearsEndgameAtlasBudget, year, isMobile, title } =
+  const { trailingAddressDesk, trailingAddress, handleChangeYearsEndgameAtlasBudget, year, title, icon } =
     useEndgameBudgetContainerSecondLevel(budgets);
   return (
     <PageContainer>
@@ -30,7 +29,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
       />
       <Container>
         <ContainerTitle>
-          <IconTitle icon={<AtlasIcon width={isMobile ? 32 : 62} height={isMobile ? 32 : 62} />} title={title || ''} />
+          <IconTitle icon={icon} title={title || ''} />
         </ContainerTitle>
       </Container>
     </PageContainer>

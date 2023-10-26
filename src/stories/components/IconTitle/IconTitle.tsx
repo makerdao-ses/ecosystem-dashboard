@@ -1,19 +1,31 @@
 import styled from '@emotion/styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
+import Image from 'next/image';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   title: string;
-  icon: JSX.Element;
+  icon: string;
+  className?: string;
 }
 
-const IconTitle: React.FC<Props> = ({ icon, title }) => {
+const IconTitle: React.FC<Props> = ({ icon, title, className }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+
   return (
-    <Container>
-      <Icon>{icon}</Icon>
+    <Container className={className}>
+      <Icon>
+        <ImageStyle
+          src={icon || ''}
+          width={isMobile ? 29 : 32}
+          height={isMobile ? 29 : 32}
+          alt="Picture of the author"
+        />
+      </Icon>
       <Title isLight={isLight}>{title}</Title>
     </Container>
   );
@@ -25,9 +37,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   gap: 8,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 'revert',
-  },
+  alignItems: 'center',
 });
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -38,9 +48,26 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
     color: isLight ? '#231536' : 'red',
     fontSize: 32,
     lineHeight: 'normal',
-    marginTop: 8,
     letterSpacing: '0.4px',
-    marginBottom: 64,
   },
 }));
-const Icon = styled.div({});
+const Icon = styled.div({
+  overflow: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 32,
+  height: 32,
+  backgroundColor: '#ECF1F3',
+  boxShadow: '2px 4px 7px 0px rgba(26, 171, 155, 0.25)',
+  borderRadius: '50%',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    width: 48,
+    height: 48,
+  },
+});
+
+const ImageStyle = styled(Image)({
+  borderRadius: 22,
+});

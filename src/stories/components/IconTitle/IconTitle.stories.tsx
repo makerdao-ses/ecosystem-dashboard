@@ -1,5 +1,3 @@
-import AtlasIcon from '@ses/containers/EndgameAtlasBudget/components/AtlasIcon';
-import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import IconTitle from './IconTitle';
 import type { ComponentMeta } from '@storybook/react';
@@ -8,7 +6,6 @@ import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types
 export default {
   title: 'Components/IconTitle/IconTitle',
   component: IconTitle,
-  decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
       viewports: [1440],
@@ -20,7 +17,7 @@ export default {
 const variantsArgs = [
   {
     title: 'Endgame Atlas Budget',
-    icon: <AtlasIcon />,
+    icon: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/sh-001/SH_logo.png',
   },
 ];
 
@@ -34,8 +31,8 @@ LightMode.parameters = {
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21609:263019&mode=dev',
         options: {
           style: {
-            top: -15,
-            left: -15,
+            top: -2,
+            left: -4,
           },
         },
       },
