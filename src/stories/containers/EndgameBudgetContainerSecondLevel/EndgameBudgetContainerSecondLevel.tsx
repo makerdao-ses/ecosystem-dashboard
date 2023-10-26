@@ -8,10 +8,10 @@ import React from 'react';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
 
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
-import type { BudgetsFinances } from '../Finances/utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
 interface Props {
-  budgets: BudgetsFinances[];
+  budgets: Budget[];
 }
 
 const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {

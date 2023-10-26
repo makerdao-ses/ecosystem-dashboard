@@ -1,7 +1,6 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
-
 import request, { gql } from 'graphql-request';
-import type { BudgetsFinances } from '../utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const AllBudgets = () => ({
   query: gql`
@@ -20,10 +19,10 @@ export const AllBudgets = () => ({
   `,
 });
 
-export const fetchBudgetsFinances = async (): Promise<BudgetsFinances[]> => {
+export const fetchBudgetsFinances = async (): Promise<Budget[]> => {
   const { query } = AllBudgets();
   const res = await request<{
-    budgets: BudgetsFinances[];
+    budgets: Budget[];
   }>(GRAPHQL_ENDPOINT, query);
 
   return res.budgets;

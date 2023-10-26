@@ -8,10 +8,10 @@ import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useB
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { prefixToRemove, removePrefix } from './utils/utils';
-import type { BudgetsFinances } from './utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useFinances = (budgets: BudgetsFinances[]) => {
-  const cardsNavigation: BudgetsFinances[] = budgets.filter((budget) => budget.parentId === null);
+export const useFinances = (budgets: Budget[]) => {
+  const cardsNavigation: Budget[] = budgets.filter((budget) => budget.parentId === null);
   const { isLight } = useThemeContext();
   const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
   const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];

@@ -5,9 +5,9 @@ import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { prefixToRemove, removePrefix } from '../Finances/utils/utils';
-import type { BudgetsFinances } from '../Finances/utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useEndgameBudgetContainerSecondLevel = (budgets: BudgetsFinances[]) => {
+export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
   const router = useRouter();
   const levelCode = router.query.codePath;
   const itemTitle = budgets?.find((budget) => budget.codePath === levelCode);

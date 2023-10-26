@@ -3,11 +3,11 @@ import EndgameBudgetContainerSecondLevel from '@ses/containers/EndgameBudgetCont
 import { fetchBudgetsFinances } from '@ses/containers/Finances/api/queries';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
-import type { BudgetsFinances } from '@ses/containers/Finances/utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { GetServerSideProps } from 'next';
 
 interface Props {
-  budgets: BudgetsFinances[];
+  budgets: Budget[];
 }
 
 const EndgameBudgetSecondLevel: React.FC<Props> = ({ budgets }) => (
