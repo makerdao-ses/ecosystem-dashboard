@@ -4,18 +4,24 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { prefixToRemove, removePrefix } from '../Finances/utils/utils';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useMakerDAOLegacyBudget = () => {
+export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
   const router = useRouter();
+  const levelCode = router.query.codePath;
+  const itemTitle = budgets?.find((budget) => budget.codePath === levelCode);
+  const title = removePrefix(itemTitle?.name || '', prefixToRemove) || '';
   const { isLight } = useThemeContext();
   const [year, setYears] = useState<string>('2022');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-
-  const handleChangeYearsEMakerDAOLegacyBudget = (value: string) => {
+  const icon = itemTitle?.image || '';
+  const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYears(value);
   };
 
-  const breadcrumbs = ['MakerDAO Legacy Budget'];
+  const breadcrumbs = [title];
+
   const trailingAddressDesk = [
     {
       label: 'Finances',
@@ -37,13 +43,14 @@ export const useMakerDAOLegacyBudget = () => {
       url: `${siteRoutes.newFinancesOverview}`,
     },
   ];
-
   return {
     breadcrumbs,
-    trailingAddress,
-    handleChangeYearsEMakerDAOLegacyBudget,
-    year,
     trailingAddressDesk,
+    handleChangeYearsEndgameAtlasBudget,
+    year,
+    trailingAddress,
     isMobile,
+    title,
+    icon,
   };
 };

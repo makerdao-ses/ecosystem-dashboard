@@ -13,17 +13,6 @@ export interface NavigationCard {
   valueDai?: number;
   color: string;
 }
-export interface BudgetsFinances {
-  id: string;
-  parentId: string;
-  name: string;
-  code: string;
-  idPath: string;
-  codePath: string;
-  image: string;
-  description: string;
-}
-
 export interface DoughnutSeries {
   name: string;
   value: number;

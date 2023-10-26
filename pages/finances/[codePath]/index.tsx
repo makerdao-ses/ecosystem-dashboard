@@ -1,5 +1,5 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import FinancesContainer from '@ses/containers/Finances/FinacesContainer';
+import EndgameBudgetContainerSecondLevel from '@ses/containers/EndgameBudgetContainerSecondLevel/EndgameBudgetContainerSecondLevel';
 import { fetchBudgetsFinances } from '@ses/containers/Finances/api/queries';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
@@ -10,9 +10,11 @@ interface Props {
   budgets: Budget[];
 }
 
-const Finances: React.FC<Props> = ({ budgets }) => <FinancesContainer budgets={budgets} />;
+const EndgameBudgetSecondLevel: React.FC<Props> = ({ budgets }) => (
+  <EndgameBudgetContainerSecondLevel budgets={budgets} />
+);
 
-export default Finances;
+export default EndgameBudgetSecondLevel;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_ECOSYSTEM_FINANCES_DASHBOARD_PAGE) {

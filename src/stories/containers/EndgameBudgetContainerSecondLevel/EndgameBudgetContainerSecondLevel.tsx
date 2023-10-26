@@ -6,13 +6,17 @@ import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
-import AtlasIcon from './components/AtlasIcon';
 
-import { useEndgameAtlasBudget } from './useEndgameAtlasBudget';
+import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
-const EndgameAtlasBudgetContainer = () => {
-  const { trailingAddressDesk, trailingAddress, handleChangeYearsEndgameAtlasBudget, year, isMobile } =
-    useEndgameAtlasBudget();
+interface Props {
+  budgets: Budget[];
+}
+
+const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
+  const { trailingAddressDesk, trailingAddress, handleChangeYearsEndgameAtlasBudget, year, title, icon } =
+    useEndgameBudgetContainerSecondLevel(budgets);
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -21,20 +25,17 @@ const EndgameAtlasBudgetContainer = () => {
         handleChange={handleChangeYearsEndgameAtlasBudget}
         selectedValue={year}
         trailingAddressDesk={trailingAddressDesk}
-        title="Endgame Atlas Budget"
+        title={title}
       />
       <Container>
         <ContainerTitle>
-          <IconTitle
-            icon={<AtlasIcon width={isMobile ? 32 : 62} height={isMobile ? 32 : 62} />}
-            title="Endgame Atlas Budget"
-          />
+          <IconTitle icon={icon} title={title} />
         </ContainerTitle>
       </Container>
     </PageContainer>
   );
 };
-export default EndgameAtlasBudgetContainer;
+export default EndgameBudgetContainerSecondLevel;
 
 const ContainerTitle = styled.div({
   marginTop: 24,
