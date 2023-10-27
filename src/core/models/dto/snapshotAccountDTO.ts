@@ -66,6 +66,7 @@ export interface Snapshots {
   end: string | null;
   ownerType: string;
   ownerId: string;
+  created: string | null;
   snapshotAccount: SnapshotAccount[];
   actualsComparison: ActualsComparison[];
 }

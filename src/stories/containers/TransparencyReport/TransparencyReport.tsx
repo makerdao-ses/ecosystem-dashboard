@@ -61,7 +61,7 @@ export const TransparencyReport = ({
     hasPreviousMonth,
     currentBudgetStatement,
     tabsIndex,
-    lastUpdateForBudgetStatement,
+    lastUpdate,
     comments,
     showExpenseReportStatusCTA,
     lastVisitHandler,
@@ -69,6 +69,7 @@ export const TransparencyReport = ({
     onTabChange,
     onTabsExpand,
     compressedTabItems,
+    setSnapshotCreated,
   } = useTransparencyReport(coreUnit, latestSnapshotPeriod);
   const [isEnabled] = useFlagsActive();
   const ref = useRef<HTMLDivElement>(null);
@@ -102,7 +103,7 @@ export const TransparencyReport = ({
               hasPrevious={hasPreviousMonth()}
               budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
               showExpenseReportStatusCTA={showExpenseReportStatusCTA}
-              lastUpdate={lastUpdateForBudgetStatement}
+              lastUpdate={lastUpdate}
               ref={pagerRef}
             />
 
@@ -179,6 +180,7 @@ export const TransparencyReport = ({
                   longCode={coreUnit.code}
                   shortCode={coreUnit.shortCode}
                   resource={ResourceType.CoreUnit}
+                  setSnapshotCreated={setSnapshotCreated}
                 />
               )}
 

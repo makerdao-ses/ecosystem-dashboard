@@ -2,7 +2,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import useTransparencyReporting from '@ses/core/hooks/useTransparencyReporting';
 import useTransparencyReportingTabs from '@ses/core/hooks/useTransparencyReportingTabs';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { TRANSPARENCY_IDS_ENUM } from '../TransparencyReport/useTransparencyReport';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { DateTime } from 'luxon';
@@ -80,6 +80,18 @@ const useActorsTransparencyReport = (actor: Team, latestSnapshotPeriod?: DateTim
     setTabsIndex,
   });
 
+  const [snapshotCreated, setSnapshotCreated] = useState<DateTime | undefined>();
+  const [lastUpdate, setLastUpdate] = useState<DateTime | undefined>();
+
+  useEffect(() => {
+    // update the last update if the account snapshot tab is selected or if it is a budget statement tab selected
+    if (tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS) {
+      setLastUpdate(snapshotCreated);
+    } else {
+      setLastUpdate(lastUpdateForBudgetStatement);
+    }
+  }, [lastUpdateForBudgetStatement, snapshotCreated, tabsIndex]);
+
   return {
     isEnabled,
     pagerRef,
@@ -90,7 +102,7 @@ const useActorsTransparencyReport = (actor: Team, latestSnapshotPeriod?: DateTim
     handlePreviousMonth,
     hasNextMonth,
     hasPreviousMonth,
-    lastUpdateForBudgetStatement,
+    lastUpdate,
     showExpenseReportStatusCTA,
     tabItems,
     compressedTabItems,
@@ -99,6 +111,7 @@ const useActorsTransparencyReport = (actor: Team, latestSnapshotPeriod?: DateTim
     onTabChange,
     lastVisitHandler,
     comments,
+    setSnapshotCreated,
   };
 };
 
