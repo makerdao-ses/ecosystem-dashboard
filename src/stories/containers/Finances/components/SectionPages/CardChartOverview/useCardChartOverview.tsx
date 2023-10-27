@@ -1,11 +1,15 @@
-import { generateColorPalette, removePrefix } from '@ses/containers/Finances/utils/utils';
+import {
+  existingColors,
+  existingColorsDark,
+  generateColorPalette,
+  removePrefix,
+} from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useState } from 'react';
 import type { FilterDoughnut } from '@ses/containers/Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 const prefixToRemove = 'End-game';
-const existingColors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
-const existingColorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
+
 export const useCardChartOverview = (budgets: Budget[]) => {
   const { isLight } = useThemeContext();
   const cardsNavigation: Budget[] = budgets.filter((budget) => budget.parentId === null);
