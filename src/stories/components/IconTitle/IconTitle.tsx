@@ -39,11 +39,11 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: 20,
+  letterSpacing: '0.4px',
   [lightTheme.breakpoints.up('tablet_768')]: {
     color: isLight ? '#231536' : 'red',
     fontSize: 32,
     lineHeight: 'normal',
-    letterSpacing: '0.4px',
   },
 }));
 const Icon = styled.div({

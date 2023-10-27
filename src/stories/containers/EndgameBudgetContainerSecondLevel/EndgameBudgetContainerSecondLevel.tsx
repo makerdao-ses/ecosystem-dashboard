@@ -13,10 +13,10 @@ import CardChartOverview from '../Finances/components/SectionPages/CardChartOver
 import CardsNavigation from '../Finances/components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
-import type { BudgetsFinances } from '../Finances/utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
 interface Props {
-  budgets: BudgetsFinances[];
+  budgets: Budget[];
 }
 
 const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {

@@ -15,11 +15,11 @@ import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavi
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetrics from './components/SectionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
-import type { BudgetsFinances } from './utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  budgets: BudgetsFinances[];
+  budgets: Budget[];
 }
 
 const FinancesContainer: React.FC<Props> = ({ budgets }) => {

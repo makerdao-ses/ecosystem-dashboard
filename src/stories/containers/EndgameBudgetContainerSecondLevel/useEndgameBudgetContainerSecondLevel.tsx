@@ -15,9 +15,11 @@ import {
   prefixToRemove,
   removePrefix,
 } from '../Finances/utils/utils';
-import type { BudgetsFinances, Metric, MetricsWithAmount } from '../Finances/utils/types';
+import type { Metric, MetricsWithAmount } from '../Finances/utils/types';
 
-export const useEndgameBudgetContainerSecondLevel = (budgets: BudgetsFinances[]) => {
+import type { Budget } from '@ses/core/models/interfaces/budget';
+
+export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
   const router = useRouter();
   const levelCode = router.query.codePath as string;
 
@@ -49,10 +51,11 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: BudgetsFinances[])
   const [year, setYears] = useState<string>('2022');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const icon = levelBudget?.image || '';
+  // const icon = itemTitle?.image || '';
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYears(value);
   };
-  const cardsNavigation: BudgetsFinances[] = budgets.filter((budget) => budget.parentId === levelBudget?.id);
+  const cardsNavigation: Budget[] = budgets.filter((budget) => budget.parentId === levelBudget?.id);
 
   const numColors = budgets.length;
   const colorsLight = generateColorPalette(existingColors.length, numColors - existingColors.length, existingColors);
