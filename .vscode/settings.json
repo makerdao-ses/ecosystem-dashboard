@@ -18,6 +18,7 @@
         "Swiper",
         "tokenomics",
         "topup",
+        "unoptimized",
         "viewports"
     ],
     "editor.codeActionsOnSave": {
