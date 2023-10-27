@@ -796,3 +796,16 @@ export const removePrefix = (inputString: string, prefix: string) => {
 };
 // Prefix to delete from Api text
 export const prefixToRemove = 'End-game';
+
+// Colors for the first level in Finances Charts OverView
+export const existingColors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
+export const existingColorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
+
+// Got all the level
+export const getNumbersFromIdPath = (idPath: string) => {
+  if (idPath.length === 0) {
+    return idPath;
+  }
+  const numbers = idPath.split('/').map((item) => item);
+  return numbers;
+};

@@ -20,10 +20,6 @@ export const siteRoutes = {
   recognizedDelegateReport: '/recognized-delegates/finances/reports',
   recognizedDelegate: '/delegates',
   endgame: '/endgame',
-  endgameAtlasBudget: 'finances/endgame-atlas-budget',
-  endgameScopeBudget: 'finaces/endgame-scope-budget',
-  makerDAOLegacyBudget: 'finaces/makerDAO-legacy-budget',
-
   // auth
   login: '/login',
   manageAccounts: '/auth/manage/accounts',
