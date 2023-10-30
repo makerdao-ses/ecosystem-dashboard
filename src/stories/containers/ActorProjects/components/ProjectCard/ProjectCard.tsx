@@ -310,7 +310,12 @@ const DeliverablesContainer = styled.div({
   gap: 16,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+
+    '& > *': {
+      width: '100%',
+      maxWidth: 'calc(50% - 8px)',
+    },
   },
 });

@@ -46,6 +46,32 @@ const variantsArgs = [
           .withStatus(DeliverableStatus.DELIVERED)
           .build()
       )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('1')
+          .withTitle('PEA-01 On-chain Data Reconciliation - very long name')
+          .withOwnerData(
+            '1',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+            'Phoenix Lab',
+            'PHOENIX'
+          )
+          .withStatus(DeliverableStatus.DELIVERED)
+          .build()
+      )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('1')
+          .withTitle('PEA-01 On-chain Data Reconciliation - very long name')
+          .withOwnerData(
+            '1',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+            'Phoenix Lab',
+            'PHOENIX'
+          )
+          .withStatus(DeliverableStatus.DELIVERED)
+          .build()
+      )
       .build(),
   },
 ];

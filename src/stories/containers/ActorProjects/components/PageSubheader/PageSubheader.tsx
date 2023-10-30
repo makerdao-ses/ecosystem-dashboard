@@ -8,10 +8,11 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const PageSubheader: React.FC<ProjectFiltersProps> = (props) => {
   const { isLight } = useThemeContext();
+  const { isMobile, isFilterCollapsedOnMobile } = props;
 
   return (
     <Header>
-      <Title isLight={isLight}>Projects</Title>
+      {((isMobile && isFilterCollapsedOnMobile) || !isMobile) && <Title isLight={isLight}>Projects</Title>}
 
       <ProjectFilters {...props} />
     </Header>
@@ -23,6 +24,7 @@ export default PageSubheader;
 const Header = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
   flexWrap: 'wrap',
   gap: 24,
   marginBottom: 32,
@@ -30,7 +32,7 @@ const Header = styled.div({
   [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+
     alignSelf: 'stretch',
     gap: 0,
   },
