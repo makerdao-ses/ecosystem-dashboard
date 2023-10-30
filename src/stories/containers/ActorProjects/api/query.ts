@@ -45,6 +45,13 @@ export const getProjectsQuery = () => ({
             title
             link
           }
+          owner {
+            ref
+            id
+            imgUrl
+            name
+            code
+          }
         }
       }
     }

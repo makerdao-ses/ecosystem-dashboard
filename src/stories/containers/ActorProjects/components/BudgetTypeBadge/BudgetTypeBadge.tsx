@@ -21,7 +21,7 @@ export default BudgetTypeBadge;
 
 const BudgetBadge = styled.span<{ color: string; background: string }>(({ color, background }) => ({
   borderRadius: 6,
-  padding: '4px 8px',
+  padding: '3px 7px',
   border: `1px solid ${color}`,
   background,
   color,
