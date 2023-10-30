@@ -52,7 +52,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           <LeftColumn>
             {isUpDesktop1280 && statusSection}
             <ImageContainer>
-              <Image src="https://picsum.photos/450/260" layout="fill" unoptimized />
+              <Image src="https://placehold.co/600x400" layout="fill" unoptimized />
             </ImageContainer>
             <DataContainer>
               {!isUpDesktop1280 && statusSection}
@@ -94,18 +94,18 @@ const MainContent = styled.div({
   padding: '16px 16px 24px 16px',
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    padding: '16px 24px 24px 24px',
+    padding: '15px 23px 23px 23px',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 32px 32px 32px',
+    padding: '15px 31px 31px 31px',
   },
 });
 
 const ProjectHeader = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
+  gap: 7,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
@@ -129,7 +129,7 @@ const NameContainer = styled.div({
 });
 
 const TitleContainer = styled.div({
-  lineHeight: '18px',
+  lineHeight: '17px',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 8,
@@ -165,6 +165,7 @@ const ProjectTitle = styled.span<WithIsLight>(({ isLight }) => ({
     fontWeight: 600,
     letterSpacing: 0.4,
     lineHeight: 'normal',
+    marginLeft: 3,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -213,6 +214,10 @@ const LeftColumn = styled.div({
     flexDirection: 'column',
     flex: 0.632,
   },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    flex: 0.639,
+  },
 });
 
 const RightColumn = styled.div({
@@ -255,9 +260,6 @@ const DataContainer = styled.div({
     justifyContent: 'center',
     alignItems: 'flex-start',
     flex: 1,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 0,
   },
 });

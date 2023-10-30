@@ -19,7 +19,7 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable }) => {
       <HeaderContainer>
         <TitleContainer>
           <Title isLight={isLight}>{deliverable.title}</Title>
-          <DeliverableStatusChip status={DeliverableStatus.INPROGRESS} />
+          <DeliverableStatusChip status={DeliverableStatus.DELIVERED} />
         </TitleContainer>
         <DeliverableOwnerContainer>
           <OwnerImage isLight={isLight} src={deliverable.owner.imgUrl} />
@@ -42,7 +42,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
     : '0px 1px 3px 0px red, 0px 5px 10px 0px red',
-  padding: '8px 8px 16px 8px',
+  padding: '7px 7px 15px 7px',
 }));
 
 const HeaderContainer = styled.div({
@@ -53,10 +53,11 @@ const HeaderContainer = styled.div({
 });
 
 const TitleContainer = styled.div({
+  maxWidth: 'calc(100% - 51px)',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  gap: 16,
+  gap: 15,
   flex: '1 0 0',
 });
 
@@ -77,8 +78,8 @@ const DeliverableOwnerContainer = styled.div({
 });
 
 const OwnerImage = styled(Avatar)<WithIsLight>(({ isLight }) => ({
-  width: 24,
-  height: 24,
+  width: 28,
+  height: 28,
   borderRadius: 20,
   border: `2px solid ${isLight ? '#fff' : 'red'}`,
   boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : '2px 4px 7px 0px red',
