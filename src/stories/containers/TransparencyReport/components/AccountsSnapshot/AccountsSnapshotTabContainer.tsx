@@ -14,6 +14,7 @@ interface AccountsSnapshotTabContainerProps {
   longCode: string;
   shortCode: string;
   resource: ResourceType;
+  setSnapshotCreated: (value: DateTime | undefined) => void;
 }
 
 const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> = ({
@@ -23,8 +24,14 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
   longCode,
   shortCode,
   resource,
+  setSnapshotCreated,
 }) => {
-  const { isLoading, snapshot, sinceDate } = useAccountsSnapshotTab(ownerId, currentMonth, resource);
+  const { isLoading, snapshot, sinceDate } = useAccountsSnapshotTab(
+    ownerId,
+    currentMonth,
+    resource,
+    setSnapshotCreated
+  );
 
   return isLoading ? (
     <AccountsSnapshotSkeleton />

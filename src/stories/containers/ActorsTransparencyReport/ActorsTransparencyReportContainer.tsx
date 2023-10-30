@@ -54,7 +54,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     hasNextMonth,
     hasPreviousMonth,
     showExpenseReportStatusCTA,
-    lastUpdateForBudgetStatement,
+    lastUpdate,
     tabItems,
     compressedTabItems,
     onTabsInit,
@@ -62,6 +62,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     onTabsExpand,
     lastVisitHandler,
     comments,
+    setSnapshotCreated,
   } = useActorsTransparencyReport(actor, latestSnapshotPeriod);
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
@@ -95,7 +96,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
               hasPrevious={hasPreviousMonth()}
               budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
               showExpenseReportStatusCTA={showExpenseReportStatusCTA}
-              lastUpdate={lastUpdateForBudgetStatement}
+              lastUpdate={lastUpdate}
               ref={pagerRef}
             />
 
@@ -172,6 +173,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
                   longCode={actor.code}
                   shortCode={actor.shortCode}
                   resource={ResourceType.EcosystemActor}
+                  setSnapshotCreated={setSnapshotCreated}
                 />
               )}
               {tabsIndex === TRANSPARENCY_IDS_ENUM.COMMENTS && (

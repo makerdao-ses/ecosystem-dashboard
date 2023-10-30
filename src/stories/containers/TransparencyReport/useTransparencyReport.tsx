@@ -2,7 +2,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import useTransparencyReporting from '@ses/core/hooks/useTransparencyReporting';
 import useTransparencyReportingTabs from '@ses/core/hooks/useTransparencyReportingTabs';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { DateTime } from 'luxon';
 
@@ -90,6 +90,18 @@ export const useTransparencyReport = (coreUnit: CoreUnit, latestSnapshotPeriod?:
     setTabsIndex,
   });
 
+  const [snapshotCreated, setSnapshotCreated] = useState<DateTime | undefined>();
+  const [lastUpdate, setLastUpdate] = useState<DateTime | undefined>();
+
+  useEffect(() => {
+    // update the last update if the account snapshot tab is selected or if it is a budget statement tab selected
+    if (tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS) {
+      setLastUpdate(snapshotCreated);
+    } else {
+      setLastUpdate(lastUpdateForBudgetStatement);
+    }
+  }, [lastUpdateForBudgetStatement, snapshotCreated, tabsIndex]);
+
   return {
     isEnabled,
     pagerRef,
@@ -100,7 +112,7 @@ export const useTransparencyReport = (coreUnit: CoreUnit, latestSnapshotPeriod?:
     handlePreviousMonth,
     hasNextMonth,
     hasPreviousMonth,
-    lastUpdateForBudgetStatement,
+    lastUpdate,
     showExpenseReportStatusCTA,
     tabItems,
     compressedTabItems,
@@ -111,5 +123,6 @@ export const useTransparencyReport = (coreUnit: CoreUnit, latestSnapshotPeriod?:
     comments,
     code: coreUnit.shortCode,
     longCode: coreUnit.code,
+    setSnapshotCreated,
   };
 };

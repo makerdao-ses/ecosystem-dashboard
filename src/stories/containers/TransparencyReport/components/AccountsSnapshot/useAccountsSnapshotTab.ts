@@ -1,12 +1,17 @@
 import { fetcher } from '@ses/core/utils/fetcher';
-import { useMemo } from 'react';
+import { DateTime } from 'luxon';
+import { useEffect, useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { accountsSnapshotQuery, allAccountsSnapshotsForStartDateQuery } from './api/queries';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
-import type { DateTime } from 'luxon';
 
-const useAccountsSnapshotTab = (ownerId: string, currentMonth: DateTime, resource: ResourceType) => {
+const useAccountsSnapshotTab = (
+  ownerId: string,
+  currentMonth: DateTime,
+  resource: ResourceType,
+  setSnapshotCreated: (value: DateTime | undefined) => void
+) => {
   const { query, filter } = useMemo(
     () =>
       accountsSnapshotQuery({
@@ -54,9 +59,23 @@ const useAccountsSnapshotTab = (ownerId: string, currentMonth: DateTime, resourc
     return new Date(Math.min(...validDates.map((date) => date.getTime())));
   }, [dateResponse?.snapshots]);
 
+  const snapshot = response?.snapshots?.[0];
+  const isLoading = (!response && !errorFetchingSnapshots) || (!dateResponse && !errorFetchingDateSnapshots);
+
+  // update the create date to be displayed as last update
+  useEffect(() => {
+    if (isLoading) {
+      // the current data is not valid as a new one is being loaded
+      setSnapshotCreated(undefined);
+      return;
+    }
+    const created = DateTime.fromISO(snapshot?.created ?? '');
+    setSnapshotCreated(created.isValid ? created : undefined);
+  }, [isLoading, setSnapshotCreated, snapshot]);
+
   return {
-    isLoading: (!response && !errorFetchingSnapshots) || (!dateResponse && !errorFetchingDateSnapshots),
-    snapshot: response?.snapshots?.[0],
+    isLoading,
+    snapshot,
     sinceDate,
   };
 };
