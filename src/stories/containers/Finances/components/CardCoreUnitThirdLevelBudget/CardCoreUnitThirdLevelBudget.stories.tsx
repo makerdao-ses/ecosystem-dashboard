@@ -18,11 +18,9 @@ export default {
 const args = [
   {
     href: '#',
-    code: 'CES',
+    shortCode: 'CES',
     name: 'Collateral Engineering Services',
-    // name: 'Data Insights',
-
-    img: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ces-001/ces_logo.png',
+    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ces-001/ces_logo.png',
   },
 ];
 export const [[LightMode, DarkMode]] = createThemeModeVariants(CardCoreUnitThirdLevelBudget, args);

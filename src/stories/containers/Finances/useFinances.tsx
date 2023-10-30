@@ -1,9 +1,6 @@
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import useBreakdownChart from './components/BreakdownChartSection/useBreakdownChart';
-import EndgameAtlasBudgets from './components/EndgameAtlasBudgets';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
@@ -16,17 +13,9 @@ export const useFinances = (budgets: Budget[]) => {
   const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
   const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
   const router = useRouter();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   const cardsNavigationInformation = cardsNavigation.map((item, index) => ({
-    // This should be a image came from the API
-    svgImage: (
-      <EndgameAtlasBudgets
-        width={isMobile ? 32 : 64}
-        height={isMobile ? 32 : 64}
-        fill={isLight ? (isMobile ? '#9FAFB9' : '#546978') : isMobile ? '#9FAFB9' : '#D1DEE6'}
-      />
-    ),
+    image: item.image || '',
     title: removePrefix(item.name, prefixToRemove),
     description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
     href: `finances/${item.codePath}`,

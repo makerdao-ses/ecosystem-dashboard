@@ -4,7 +4,6 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
-import EndgameAtlasBudgets from '../Finances/components/EndgameAtlasBudgets';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
@@ -74,13 +73,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
   const breadcrumbs = [title];
   const cardsNavigationInformation = cardsNavigation.map((item, index) => ({
     // This should be a image came from the API
-    svgImage: (
-      <EndgameAtlasBudgets
-        width={isMobile ? 32 : 64}
-        height={isMobile ? 32 : 64}
-        fill={isLight ? (isMobile ? '#9FAFB9' : '#546978') : isMobile ? '#9FAFB9' : '#D1DEE6'}
-      />
-    ),
+    image: 'https://i.ibb.co/vXD0xDp/atlas.png',
     title: removePrefix(item.name, prefixToRemove),
     description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
     href: `${item.codePath}`,

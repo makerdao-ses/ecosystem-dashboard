@@ -1,23 +1,28 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
+import Image from 'next/image';
 import React from 'react';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import ReadMore from '../ReadMore';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  svgImage: JSX.Element;
+  image: string;
   title: string;
   description: React.ReactNode;
   href: string;
 }
 
-const CardNavigationFinance: React.FC<Props> = ({ svgImage, title, description, href }) => {
+const CardNavigationFinance: React.FC<Props> = ({ image, title, description, href }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   return (
     <StyleCardNavigationGeneric>
-      <ContainerImage>{svgImage}</ContainerImage>
+      <ContainerImage>
+        <ImageStyle src={image} width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} alt="Picture" />
+      </ContainerImage>
       <CardInformation>
         <Title isLight={isLight}>{title}</Title>
         <Description isLight={isLight}>{description}</Description>
@@ -56,6 +61,7 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
 const ContainerImage = styled.div({
   marginBottom: 8,
 });
+
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 16,
   fontStyle: 'normal',
@@ -87,4 +93,8 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
 const CardInformation = styled.div({
   textAlign: 'center',
   marginBottom: -1,
+});
+
+const ImageStyle = styled(Image)({
+  borderRadius: 22,
 });

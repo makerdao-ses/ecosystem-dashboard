@@ -15,7 +15,7 @@ const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation }) => (
       {cardsNavigationInformation.map((card: NavigationCard, index) => (
         <CardNavigationFinance
           href={card.href}
-          svgImage={card.svgImage}
+          image={card.image}
           title={card.title}
           description={card.description}
           key={index}
@@ -28,7 +28,7 @@ const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation }) => (
           valueDai={card?.valueDai || 0}
           totalDai={card?.totalDai || 0}
           href={card.href}
-          svgImage={card.svgImage}
+          image={card.image}
           title={card.title}
           barColor={card.color}
           key={index}

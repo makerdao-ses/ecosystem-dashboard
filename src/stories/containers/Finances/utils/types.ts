@@ -5,7 +5,7 @@ import type { DateTime } from 'luxon';
 export type FilterDoughnut = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
 
 export interface NavigationCard {
-  svgImage: JSX.Element;
+  image: string;
   title: string;
   description?: React.ReactNode;
   href: string;
@@ -46,10 +46,10 @@ export interface MetricsWithAmount {
   amount: number;
 }
 
-export type MetricValues = {
+export interface MetricValues {
   Budget: number;
   Actual: number;
   Forecast: number;
   'Net Expenses On-chain': number;
   'Net Expenses Off-chain': number;
-};
+}

@@ -9,22 +9,29 @@ import ReadMore from '../ReadMore';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  img: string;
-  code: string;
+  image: string;
+  shortCode: string;
   name: string;
   href: string;
 }
 
-const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ img, href, code, name }) => {
+const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ image, href, shortCode, name }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   return (
     <Container isLight={isLight}>
       <Avatar>
-        <CircleAvatarStyled isLight={isLight} image={img} width={'32px'} height="32px" name="Core Unit" border="none" />
+        <CircleAvatarStyled
+          isLight={isLight}
+          image={image}
+          width={'32px'}
+          height="32px"
+          name="Core Unit"
+          border="none"
+        />
       </Avatar>
       <Information>
-        <Code isLight={isLight}>{code}</Code>
+        <Code isLight={isLight}>{shortCode}</Code>
         <Name isLight={isLight}>{name}</Name>
       </Information>
       <Action>{isMobile ? <ArrowOutline href={href} /> : <ReadMore href={href} />}</Action>
