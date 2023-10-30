@@ -1,4 +1,3 @@
-import EndgameAtlasBudgets from '@ses/containers/Finances/components/EndgameAtlasBudgets';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardNavigationMobile from './CardNavigationMobile';
 import type { ComponentMeta } from '@storybook/react';
@@ -18,7 +17,7 @@ export default {
 
 const args = [
   {
-    svgImage: <EndgameAtlasBudgets height={32} width={32} />,
+    image: 'https://i.ibb.co/vXD0xDp/atlas.png',
     title: 'Endgame Atlas Budgets',
     href: '#',
     totalDai: 8950775,

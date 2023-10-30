@@ -1,4 +1,3 @@
-import EndgameAtlasBudgets from '@ses/containers/Finances/components/EndgameAtlasBudgets';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
 import CardNavigationFinance from './CardNavigationFinance';
@@ -19,7 +18,7 @@ export default {
 
 const args = [
   {
-    svgImage: <EndgameAtlasBudgets />,
+    image: 'https://i.ibb.co/vXD0xDp/atlas.png',
     title: 'Endgame Atlas Budgets',
     description: 'Finances of the core governance constructs described in the Maker Atlas.',
     href: '#',

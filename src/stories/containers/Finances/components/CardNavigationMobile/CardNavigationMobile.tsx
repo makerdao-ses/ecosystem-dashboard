@@ -5,13 +5,14 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  svgImage: JSX.Element;
+  image: string;
   title: string;
   totalDai: number;
   valueDai: number;
@@ -21,7 +22,7 @@ interface Props {
   height?: number;
 }
 
-const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valueDai, href, barColor }) => {
+const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDai, href, barColor }) => {
   const { isLight } = useThemeContext();
   const formatted = usLocalizedNumber(valueDai);
   const percent = percentageRespectTo(valueDai, totalDai);
@@ -34,7 +35,9 @@ const CardNavigationMobile: React.FC<Props> = ({ svgImage, title, totalDai, valu
             <MainCard>
               <ContainerData>
                 <ContainerIcon>
-                  <ContainerImage>{svgImage}</ContainerImage>
+                  <ContainerImage>
+                    <Image src={image} width={32} height={32} alt="Picture" />
+                  </ContainerImage>
                   <Title isLight={isLight}>{title}</Title>
                 </ContainerIcon>
                 <CardInformation>
