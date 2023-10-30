@@ -1,4 +1,6 @@
+import { useMediaQuery } from '@mui/material';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import lightTheme from '@ses/styles/theme/light';
 import PageSubheader from './PageSubheader';
 import type { ComponentMeta } from '@storybook/react';
 
@@ -14,18 +16,23 @@ export default {
 
 const variantsArgs = [
   {
+    isFilterCollapsedOnMobile: true,
     statuses: [],
     activeStatuses: [],
     searchQuery: '',
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(PageSubheader, variantsArgs);
+export const [[LightMode, DarkMode]] = createThemeModeVariants((props) => {
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+
+  return <PageSubheader {...props} isMobile={isMobile} />;
+}, variantsArgs);
 
 LightMode.parameters = {
   figma: {
     component: {
       375: {
-        component: 'https://www.figma.com/file/nubRdNZLDrQJLDgh8caMrQ/Untitled?type=design&node-id=1233:18779',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=26861:199589',
         options: {
           componentStyle: {
             width: 343,

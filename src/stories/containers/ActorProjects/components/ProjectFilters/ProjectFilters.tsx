@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { SearchInput } from '@ses/components/SearchInput/SearchInput';
+import Filter from '@ses/components/svg/filter';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -10,26 +10,83 @@ import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMu
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface ProjectFiltersProps {
+  isMobile: boolean;
   handleResetFilters: () => void;
   statuses: MultiSelectItem[];
   activeStatuses: string[];
   handleStatusChange: (items: string[]) => void;
   searchQuery: string;
   handleSearchChange: (query: string) => void;
+  isFilterCollapsedOnMobile: boolean;
+  handleToggleFilterOnMobile: () => void;
 }
 
 const ProjectFilters: React.FC<ProjectFiltersProps> = ({
+  isMobile,
   handleResetFilters,
   statuses,
   activeStatuses,
   handleStatusChange,
   searchQuery,
   handleSearchChange,
+  isFilterCollapsedOnMobile,
+  handleToggleFilterOnMobile,
 }) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isActive = activeStatuses.length > 0 || searchQuery.length > 0;
 
-  return (
+  return isMobile ? (
+    <MobileFilterContainer isCollapsed={isFilterCollapsedOnMobile}>
+      <SearchMobileContainer isCollapsed={isFilterCollapsedOnMobile}>
+        {!isFilterCollapsedOnMobile && (
+          <SearchContainer isLight={isLight}>
+            <SearchInput
+              legacyBreakpoints={false}
+              handleClearSearch={() => handleSearchChange('')}
+              placeholder="Search"
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+          </SearchContainer>
+        )}
+        <ButtonFilter
+          isLight={isLight}
+          isOpen={!isFilterCollapsedOnMobile}
+          isActive={isActive}
+          onClick={handleToggleFilterOnMobile}
+        >
+          <Filter
+            fill={
+              !isFilterCollapsedOnMobile || isActive ? (isLight ? '#1AAB9B' : '#098C7D') : isLight ? '#231536' : 'white'
+            }
+          />
+        </ButtonFilter>
+      </SearchMobileContainer>
+      {!isFilterCollapsedOnMobile && (
+        <StatusMobileContainer>
+          <CustomMultiSelect
+            legacyBreakpoints={false}
+            popupContainerHeight={180}
+            positionRight={true}
+            label="Status"
+            activeItems={activeStatuses}
+            width={118}
+            popupContainerWidth={250}
+            listItemWidth={218}
+            items={statuses}
+            onChange={handleStatusChange}
+          />
+          <ResetButton
+            onClick={handleResetFilters}
+            disabled={activeStatuses.length === 0 && searchQuery.length === 0}
+            hasIcon={true}
+            label="Reset filters"
+            legacyBreakpoints={false}
+          />
+        </StatusMobileContainer>
+      )}
+    </MobileFilterContainer>
+  ) : (
     <FilterContainer>
       <ResetButton
         onClick={handleResetFilters}
@@ -86,8 +143,12 @@ const FieldsContainer = styled.div({
 });
 
 const SearchContainer = styled.div<WithIsLight>(({ isLight }) => ({
-  paddingLeft: 16,
   position: 'relative',
+  width: '100%',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    paddingLeft: 16,
+  },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     paddingLeft: 32,
@@ -96,15 +157,12 @@ const SearchContainer = styled.div<WithIsLight>(({ isLight }) => ({
   '&:before': {
     content: '""',
     position: 'absolute',
-    top: 5,
-    left: 8,
-    height: 24,
-    width: 1,
-    backgroundColor: isLight ? '#D4D9E1' : 'red',
-
     [lightTheme.breakpoints.up('tablet_768')]: {
       top: 9,
+      left: 8,
       height: 32,
+      width: 1,
+      backgroundColor: isLight ? '#D4D9E1' : 'red',
     },
 
     [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -112,3 +170,61 @@ const SearchContainer = styled.div<WithIsLight>(({ isLight }) => ({
     },
   },
 }));
+
+const MobileFilterContainer = styled.div<{ isCollapsed: boolean }>(({ isCollapsed }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+
+  ...(isCollapsed
+    ? {
+        marginLeft: 'auto',
+      }
+    : {
+        width: '100%',
+        justifyContent: 'space-between',
+      }),
+}));
+
+const SearchMobileContainer = styled.div<{ isCollapsed: boolean }>(({ isCollapsed }) => ({
+  display: 'flex',
+  ...(isCollapsed
+    ? {
+        marginLeft: 'auto',
+      }
+    : {
+        width: '100%',
+        justifyContent: 'space-between',
+        gap: 16,
+      }),
+}));
+
+const StatusMobileContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: 16,
+});
+
+const ButtonFilter = styled.div<{ isActive: boolean; isLight: boolean; isOpen: boolean }>(
+  ({ isActive, isLight, isOpen }) => ({
+    display: 'flex',
+    gridArea: 'buttonFilter',
+    justifySelf: 'flex-end',
+    width: 34,
+    minWidth: 34,
+    height: 34,
+    border: isLight
+      ? isOpen || isActive
+        ? '1px solid #6EDBD0'
+        : '1px solid #D4D9E1'
+      : isOpen || isActive
+      ? '1px solid #098C7D'
+      : '1px solid #343442',
+    borderRadius: '50%',
+    alignItems: 'center',
+    background: isOpen ? (isLight ? '#B6EDE7' : '#003C40') : isLight ? 'white' : 'transparent',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    cursor: 'pointer',
+  })
+);

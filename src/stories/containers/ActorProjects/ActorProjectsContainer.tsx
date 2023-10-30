@@ -24,6 +24,9 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
     height,
     ref,
     showHeader,
+    isMobile,
+    isFilterCollapsedOnMobile,
+    handleToggleFilterOnMobile,
     statuses,
     activeStatuses,
     handleStatusChange,
@@ -53,12 +56,15 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
         <ContainerAllData marginTop={height}>
           <ContainerResponsive>
             <PageSubheader
+              isMobile={isMobile}
               statuses={statuses}
               activeStatuses={activeStatuses}
               handleStatusChange={handleStatusChange}
               searchQuery={searchQuery}
               handleSearchChange={handleSearchChange}
               handleResetFilters={handleResetFilters}
+              isFilterCollapsedOnMobile={isFilterCollapsedOnMobile}
+              handleToggleFilterOnMobile={handleToggleFilterOnMobile}
             />
 
             <ProjectList projects={filteredProjects} />
