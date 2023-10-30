@@ -12,6 +12,7 @@ export const accountsSnapshotQuery = (filter: SnapshotFilter) => ({
         period
         start
         end
+        created
         ownerType
         ownerId
         snapshotAccount {
