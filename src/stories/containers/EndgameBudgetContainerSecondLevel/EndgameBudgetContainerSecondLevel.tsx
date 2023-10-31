@@ -34,7 +34,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
     actuals,
     budgetCap,
     prediction,
-    cardsNavigationInformation,
+
     getAllMetricsValuesTotal,
     activeMetrics,
     allowSelectAll,
@@ -53,6 +53,9 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
     onSortClick,
     handleLoadMore,
     showSome,
+    handleLoadMoreCards,
+    loadMoreCards,
+    cardsToShow,
   } = useEndgameBudgetContainerSecondLevel(budgets);
 
   return (
@@ -84,7 +87,11 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
           <WrapperMobile>
             <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
           </WrapperMobile>
-          <CardsNavigation cardsNavigationInformation={cardsNavigationInformation} />
+          <CardsNavigation
+            cardsNavigationInformation={cardsToShow}
+            loadMoreCards={loadMoreCards}
+            handleLoadMoreCards={handleLoadMoreCards}
+          />
           <ConditionalWrapper period={'Quarterly'}>
             <BreakdownTable
               handleResetMetrics={defaultMetricsWithAllSelected}

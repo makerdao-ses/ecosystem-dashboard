@@ -39,7 +39,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
     handlePeriodChange,
     periodFilter,
     year,
-    cardsNavigationInformation,
+    cardsToShow,
     activeMetrics,
     handleSelectChangeMetrics,
     selectMetrics,
@@ -59,6 +59,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
     handleBreakdownGranularityChange,
+    loadMoreCards,
+    handleLoadMoreCards,
   } = useFinances(budgets);
 
   return (
@@ -90,7 +92,11 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
           <WrapperMobile>
             <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
           </WrapperMobile>
-          <CardsNavigation cardsNavigationInformation={cardsNavigationInformation} />
+          <CardsNavigation
+            cardsNavigationInformation={cardsToShow}
+            handleLoadMoreCards={handleLoadMoreCards}
+            loadMoreCards={loadMoreCards}
+          />
         </ContainerSections>
 
         {isEnabled('FEATURE_FINANCES_BREAKDOWN_CHART_SECTION') && (
