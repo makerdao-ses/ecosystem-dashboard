@@ -3,7 +3,9 @@ import Avatar from '@mui/material/Avatar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import React from 'react';
+import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
+import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
 import type { Deliverable } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -25,6 +27,9 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable }) => {
           <OwnerImage isLight={isLight} src={deliverable.owner.imgUrl} />
         </DeliverableOwnerContainer>
       </HeaderContainer>
+      <DeliverablePercentageBar percentage={0.73} />
+
+      <DeliverableStoryPointsBar total={30} completed={22} />
     </Card>
   );
 };
