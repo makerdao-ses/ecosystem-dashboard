@@ -1,5 +1,6 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import useBreakdownChart from './components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
@@ -23,6 +24,12 @@ export const useFinances = (budgets: Budget[]) => {
     valueDai: 12345,
     color: isLight ? colors[index] : colorsDark[index],
   }));
+  const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
+
+  const handleLoadMoreCards = () => {
+    setLoadMoreCards(!loadMoreCards);
+  };
+  const cardsToShow = loadMoreCards ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // all the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart();
@@ -40,9 +47,11 @@ export const useFinances = (budgets: Budget[]) => {
     ...cardOverViewSectionData,
     router,
     isLight,
-    cardsNavigationInformation,
+    cardsToShow,
     ...breakdownChartSectionData,
     ...expenseTrendFinances,
     ...breakdownTable,
+    loadMoreCards,
+    handleLoadMoreCards,
   };
 };

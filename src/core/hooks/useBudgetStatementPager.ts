@@ -7,10 +7,15 @@ import { useUrlAnchor } from './useUrlAnchor';
 import type { BudgetStatement } from '../models/interfaces/budgetStatement';
 import type { WithBudgetStatement } from '../models/interfaces/generics';
 
+export interface SnapshotLimitPeriods {
+  earliest: DateTime;
+  latest: DateTime;
+}
+
 export interface BudgetStatementPagerOptions {
   onPrevious?: () => void;
   onNext?: () => void;
-  latestSnapshotPeriod?: DateTime;
+  latestSnapshotPeriod?: SnapshotLimitPeriods;
 }
 
 const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetStatementPagerOptions) => {
@@ -45,7 +50,7 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
   );
 
   useEffect(() => {
-    const snapshotLimit = options?.latestSnapshotPeriod?.startOf('month');
+    const snapshotLimit = options?.latestSnapshotPeriod?.latest?.startOf('month');
     const limit = getLastMonthWithActualOrForecast(element.budgetStatements)
       .plus({
         month: 1,
@@ -96,8 +101,13 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
     const limit = getLastMonthWithActualOrForecast(element.budgetStatements, true).minus({
       month: 1,
     });
-    return currentMonth.startOf('month') > limit.startOf('month');
-  }, [element.budgetStatements, currentMonth]);
+    const snapshotLimit = options?.latestSnapshotPeriod?.earliest;
+
+    return (
+      currentMonth.startOf('month') > limit.startOf('month') ||
+      (!!snapshotLimit && currentMonth.startOf('month') > snapshotLimit.startOf('month'))
+    );
+  }, [element.budgetStatements, options?.latestSnapshotPeriod?.earliest, currentMonth]);
 
   const handlePreviousMonth = useCallback(() => {
     if (hasPreviousMonth()) {
@@ -110,7 +120,7 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
 
   const hasNextMonth = useCallback(() => {
     const limit = getLastMonthWithActualOrForecast(element.budgetStatements);
-    const snapshotLimit = options?.latestSnapshotPeriod;
+    const snapshotLimit = options?.latestSnapshotPeriod?.latest;
     const actualMonth = DateTime.local().startOf('month');
     return (
       currentMonth.startOf('month') < actualMonth &&

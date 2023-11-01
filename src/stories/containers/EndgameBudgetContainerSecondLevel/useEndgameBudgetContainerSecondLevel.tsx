@@ -56,6 +56,12 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
   };
   const cardsNavigation: Budget[] = budgets.filter((budget) => budget.parentId === levelBudget?.id);
 
+  const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigation.length > 6);
+
+  const handleLoadMoreCards = () => {
+    setLoadMoreCards(!loadMoreCards);
+  };
+
   const numColors = budgets.length;
   const colorsLight = generateColorPalette(existingColors.length, numColors - existingColors.length, existingColors);
   const colorsDark = generateColorPalette(180, numColors, existingColorsDark);
@@ -73,7 +79,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
   const breadcrumbs = [title];
   const cardsNavigationInformation = cardsNavigation.map((item, index) => ({
     // This should be a image came from the API
-    image: 'https://i.ibb.co/vXD0xDp/atlas.png',
+    image: item.image || '',
     title: removePrefix(item.name, prefixToRemove),
     description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
     href: `${item.codePath}`,
@@ -81,7 +87,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
     valueDai: 12345,
     color: isLight ? colorsLight[index] : colorsDark[index],
   }));
-
+  const cardsToShow = loadMoreCards ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
   const trailingAddressDesk = [
     {
       label: 'Finances',
@@ -174,5 +180,8 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
     handleLoadMore,
     showSome,
     onSortClick,
+    handleLoadMoreCards,
+    loadMoreCards,
+    cardsToShow,
   };
 };

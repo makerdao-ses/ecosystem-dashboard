@@ -3,6 +3,7 @@ import useTransparencyReporting from '@ses/core/hooks/useTransparencyReporting';
 import useTransparencyReportingTabs from '@ses/core/hooks/useTransparencyReportingTabs';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { DateTime } from 'luxon';
 
@@ -17,7 +18,7 @@ export enum TRANSPARENCY_IDS_ENUM {
   EXPENSE_REPORT = 'expense-report',
 }
 
-export const useTransparencyReport = (coreUnit: CoreUnit, latestSnapshotPeriod?: DateTime) => {
+export const useTransparencyReport = (coreUnit: CoreUnit, snapshotLimitPeriods?: SnapshotLimitPeriods) => {
   const router = useRouter();
   const query = router.query;
   const [isEnabled] = useFlagsActive();
@@ -79,7 +80,7 @@ export const useTransparencyReport = (coreUnit: CoreUnit, latestSnapshotPeriod?:
   } = useTransparencyReporting<TRANSPARENCY_IDS_ENUM>(coreUnit, {
     commentTabId: TRANSPARENCY_IDS_ENUM.COMMENTS,
     initTabIndex,
-    latestSnapshotPeriod,
+    snapshotLimitPeriods,
   });
 
   const { tabItems, compressedTabItems, onTabChange, onTabsExpand, onTabsInit } = useTransparencyReportingTabs({
