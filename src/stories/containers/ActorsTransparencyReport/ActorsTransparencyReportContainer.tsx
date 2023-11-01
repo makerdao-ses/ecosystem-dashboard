@@ -26,22 +26,22 @@ import { TransparencyTransferRequest } from '../TransparencyReport/components/Tr
 import { TRANSPARENCY_IDS_ENUM } from '../TransparencyReport/useTransparencyReport';
 import TeamHeadLine from './components/TeamHeadlineText/TeamHeadlineText';
 import useActorsTransparencyReport from './useActorsTransparencyReport';
+import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { DateTime } from 'luxon';
 
 interface ActorsTransparencyReportContainerProps {
   actors: Team[];
   actor: Team;
   expenseCategories: ExpenseCategory[];
-  latestSnapshotPeriod?: DateTime;
+  snapshotLimitPeriods?: SnapshotLimitPeriods;
 }
 
 const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContainerProps> = ({
   actor,
   actors,
   expenseCategories,
-  latestSnapshotPeriod,
+  snapshotLimitPeriods,
 }) => {
   const {
     isEnabled,
@@ -63,7 +63,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
     lastVisitHandler,
     comments,
     setSnapshotCreated,
-  } = useActorsTransparencyReport(actor, latestSnapshotPeriod);
+  } = useActorsTransparencyReport(actor, snapshotLimitPeriods);
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);

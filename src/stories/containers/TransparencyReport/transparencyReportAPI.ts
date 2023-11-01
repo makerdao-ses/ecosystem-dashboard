@@ -1,6 +1,7 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
 import { DateTime } from 'luxon';
+import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 
 export const CORE_UNIT_REQUEST = (shortCode: string) => ({
@@ -133,7 +134,7 @@ export const snapshotPeriodQuery = (ownerId: string, resourceType: ResourceType)
 export const getLastSnapshotPeriod = async (
   ownerId: string,
   resourceType: ResourceType
-): Promise<DateTime | undefined> => {
+): Promise<SnapshotLimitPeriods | undefined> => {
   const { query, filter } = snapshotPeriodQuery(ownerId, resourceType);
   const data = await request<{ snapshots: [{ period: string }] }>(GRAPHQL_ENDPOINT, query, filter);
 
@@ -142,5 +143,8 @@ export const getLastSnapshotPeriod = async (
   }
 
   const periods = data.snapshots.map((snapshot) => DateTime.fromFormat(snapshot.period, 'yyyy/MM'));
-  return DateTime.max(...periods);
+  return {
+    earliest: DateTime.min(...periods),
+    latest: DateTime.max(...periods),
+  };
 };
