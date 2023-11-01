@@ -17,10 +17,13 @@ interface TransparencyProps {
   coreUnits: CoreUnit[];
   cu: CoreUnit;
   expenseCategories: ExpenseCategory[];
-  latestSnapshotPeriod?: string;
+  snapshotLimitPeriods?: {
+    earliest: string;
+    latest: string;
+  } | null;
 }
 
-const Transparency = ({ coreUnits, cu, expenseCategories, latestSnapshotPeriod }: TransparencyProps) => {
+const Transparency = ({ coreUnits, cu, expenseCategories, snapshotLimitPeriods }: TransparencyProps) => {
   const [currentCoreUnit, setCurrentCoreUnit] = useState<CoreUnit>(cu);
   useEffect(() => {
     setCurrentCoreUnit(cu);
@@ -38,7 +41,15 @@ const Transparency = ({ coreUnits, cu, expenseCategories, latestSnapshotPeriod }
         coreUnits={coreUnits}
         coreUnit={currentCoreUnit}
         expenseCategories={expenseCategories}
-        latestSnapshotPeriod={latestSnapshotPeriod ? DateTime.fromISO(latestSnapshotPeriod) : undefined}
+        snapshotLimitPeriods={
+          snapshotLimitPeriods
+            ? {
+                // deserialize the ISO strings to date objects
+                earliest: DateTime.fromISO(snapshotLimitPeriods.earliest),
+                latest: DateTime.fromISO(snapshotLimitPeriods.latest),
+              }
+            : undefined
+        }
       />
     </TeamContext.Provider>
   );
@@ -65,14 +76,20 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const cu = data.coreUnits[0];
 
-  const latestSnapshotPeriod = await getLastSnapshotPeriod(cu.id, ResourceType.CoreUnit);
+  const snapshotLimitPeriods = await getLastSnapshotPeriod(cu.id, ResourceType.CoreUnit);
 
   return {
     props: {
       coreUnits,
       cu,
       expenseCategories,
-      latestSnapshotPeriod: latestSnapshotPeriod?.toISODate() ?? null,
+      snapshotLimitPeriods: snapshotLimitPeriods
+        ? {
+            // serialize the date objects to ISO strings
+            earliest: snapshotLimitPeriods.earliest.toISO(),
+            latest: snapshotLimitPeriods.latest.toISO(),
+          }
+        : null,
     },
   };
 };

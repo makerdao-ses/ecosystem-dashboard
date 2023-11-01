@@ -15,7 +15,7 @@ const EcosystemActorsTransparencyReportingPage: NextPage = ({
   actor,
   actors,
   expenseCategories,
-  latestSnapshotPeriod,
+  snapshotLimitPeriods,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [currentActor, setCurrentActor] = useState(actor);
   useEffect(() => {
@@ -35,7 +35,15 @@ const EcosystemActorsTransparencyReportingPage: NextPage = ({
         actor={currentActor}
         actors={actors}
         expenseCategories={expenseCategories}
-        latestSnapshotPeriod={latestSnapshotPeriod ? DateTime.fromISO(latestSnapshotPeriod) : undefined}
+        snapshotLimitPeriods={
+          snapshotLimitPeriods
+            ? {
+                // deserialize the ISO strings to date objects
+                earliest: DateTime.fromISO(snapshotLimitPeriods.earliest),
+                latest: DateTime.fromISO(snapshotLimitPeriods.latest),
+              }
+            : undefined
+        }
       />
     </TeamContext.Provider>
   );
@@ -64,14 +72,20 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     };
   }
 
-  const latestSnapshotPeriod = await getLastSnapshotPeriod(actor.id, ResourceType.EcosystemActor);
+  const snapshotLimitPeriods = await getLastSnapshotPeriod(actor.id, ResourceType.EcosystemActor);
 
   return {
     props: {
       actor,
       actors,
       expenseCategories,
-      latestSnapshotPeriod: latestSnapshotPeriod?.toISODate() ?? null,
+      snapshotLimitPeriods: snapshotLimitPeriods
+        ? {
+            // serialize the date objects to ISO strings
+            earliest: snapshotLimitPeriods.earliest.toISO(),
+            latest: snapshotLimitPeriods.latest.toISO(),
+          }
+        : null,
     },
   };
 };

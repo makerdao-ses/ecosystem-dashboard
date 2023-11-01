@@ -27,15 +27,15 @@ import { TransparencyForecast } from './components/TransparencyForecast/Transpar
 import { TransparencyMkrVesting } from './components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from './components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
+import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
-import type { DateTime } from 'luxon';
 
 interface TransparencyReportProps {
   coreUnits: CoreUnit[];
   coreUnit: CoreUnit;
   expenseCategories: ExpenseCategory[];
-  latestSnapshotPeriod?: DateTime;
+  snapshotLimitPeriods?: SnapshotLimitPeriods;
 }
 export type TableItems = {
   item: string | JSX.Element;
@@ -46,7 +46,7 @@ export const TransparencyReport = ({
   coreUnits,
   coreUnit,
   expenseCategories,
-  latestSnapshotPeriod,
+  snapshotLimitPeriods,
 }: TransparencyReportProps) => {
   const { isLight } = useThemeContext();
   const {
@@ -70,7 +70,7 @@ export const TransparencyReport = ({
     onTabsExpand,
     compressedTabItems,
     setSnapshotCreated,
-  } = useTransparencyReport(coreUnit, latestSnapshotPeriod);
+  } = useTransparencyReport(coreUnit, snapshotLimitPeriods);
   const [isEnabled] = useFlagsActive();
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, code);
