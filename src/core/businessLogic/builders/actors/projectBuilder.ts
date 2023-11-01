@@ -1,12 +1,5 @@
 import { BudgetType, ProjectStatus } from '@ses/core/models/interfaces/projects';
-import type {
-  Owner,
-  Progress,
-  Project,
-  Deliverable,
-  DeliverableStatus,
-  Indication,
-} from '@ses/core/models/interfaces/projects';
+import type { Owner, Project, Deliverable } from '@ses/core/models/interfaces/projects';
 
 export class ProjectBuilder {
   private readonly _project: Project;
@@ -19,7 +12,10 @@ export class ProjectBuilder {
       title: '',
       abstract: '',
       status: ProjectStatus.TODO,
-      progress: {} as Progress,
+      progress: {
+        __typename: 'Percentage',
+        value: 0,
+      },
       imgUrl: '',
       budgetType: BudgetType.CAPEX,
       deliverables: [],
@@ -56,10 +52,10 @@ export class ProjectBuilder {
     return this;
   }
 
-  withProgress(status: DeliverableStatus, indication: Indication): ProjectBuilder {
+  withProgress(progress: number): ProjectBuilder {
     this._project.progress = {
-      indication,
-      status,
+      __typename: 'Percentage',
+      value: progress,
     };
     return this;
   }

@@ -33,6 +33,7 @@ const variantsArgs = [
         "Protocol Expense Accounting aims to provide a comprehensive, detailed, and up-to-date view of the Maker Protocol's operational expenses. This information can help Maker Protocol stakeholders, including MKR holders and contributors, understand how MakerDAO spends funds."
       )
       .withStatus(ProjectStatus.INPROGRESS)
+      .withProgress(0.5)
       .addDeliverable(
         new DeliverableBuilder()
           .withId('1')

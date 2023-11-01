@@ -6,6 +6,7 @@ import React from 'react';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
+import KeyResults from '../KeyResults/KeyResults';
 import type { Deliverable } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -21,15 +22,23 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable }) => {
       <HeaderContainer>
         <TitleContainer>
           <Title isLight={isLight}>{deliverable.title}</Title>
-          <DeliverableStatusChip status={DeliverableStatus.DELIVERED} />
+          {/* <DeliverableStatusChip status={deliverable.status} /> */}
         </TitleContainer>
         <DeliverableOwnerContainer>
-          <OwnerImage isLight={isLight} src={deliverable.owner.imgUrl} />
+          <OwnerImage isLight={isLight} src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
         </DeliverableOwnerContainer>
       </HeaderContainer>
-      <DeliverablePercentageBar percentage={0.73} />
-
-      <DeliverableStoryPointsBar total={30} completed={22} />
+      <ProgressContainer>
+        <DeliverableStatusChip status={deliverable.status} />
+        {deliverable.status === DeliverableStatus.INPROGRESS &&
+          deliverable.progress &&
+          (deliverable.progress.__typename === 'Percentage' ? (
+            <DeliverablePercentageBar percentage={deliverable.progress.value} />
+          ) : (
+            <DeliverableStoryPointsBar total={deliverable.progress.total} completed={deliverable.progress.completed} />
+          ))}
+      </ProgressContainer>
+      <KeyResults keyResults={deliverable.keyResults} />
     </Card>
   );
 };
@@ -40,7 +49,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  gap: 24,
+  gap: 9,
   borderRadius: 6,
   border: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
   background: isLight ? '#fff' : 'red',
@@ -88,4 +97,13 @@ const OwnerImage = styled(Avatar)<WithIsLight>(({ isLight }) => ({
   borderRadius: 20,
   border: `2px solid ${isLight ? '#fff' : 'red'}`,
   boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : '2px 4px 7px 0px red',
+  fontSize: 14,
+  fontFamily: 'Inter, sans-serif',
 }));
+
+const ProgressContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  gap: 16,
+});

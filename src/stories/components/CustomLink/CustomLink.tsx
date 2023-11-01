@@ -23,6 +23,9 @@ interface CustomLinkProps {
   className?: string;
 }
 
+/**
+ * @deprecated use`ExternalLink` instead
+ */
 export const CustomLink = ({
   target = '_blank',
   iconWidth = 6,

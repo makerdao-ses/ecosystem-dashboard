@@ -1,5 +1,5 @@
 import { DeliverableStatus, OwnerType } from '@ses/core/models/interfaces/projects';
-import type { Owner, Deliverable, KeyResult } from '@ses/core/models/interfaces/projects';
+import type { Owner, Deliverable, KeyResult, Progress } from '@ses/core/models/interfaces/projects';
 
 export class DeliverableBuilder {
   private readonly _deliverable: Deliverable;
@@ -9,6 +9,7 @@ export class DeliverableBuilder {
       id: '',
       title: '',
       status: DeliverableStatus.TODO,
+      progress: {},
       owner: {} as Owner,
       keyResults: [] as KeyResult[],
     } as Deliverable;
@@ -26,6 +27,11 @@ export class DeliverableBuilder {
 
   withStatus(status: DeliverableStatus): DeliverableBuilder {
     this._deliverable.status = status;
+    return this;
+  }
+
+  withProgress(progress: Progress): DeliverableBuilder {
+    this._deliverable.progress = progress;
     return this;
   }
 
