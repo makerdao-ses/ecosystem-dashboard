@@ -3,11 +3,11 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-interface ProjectProgressProps {
+interface DeliverablePercentageBarProps {
   percentage: number;
 }
 
-const ProjectProgress: React.FC<ProjectProgressProps> = ({ percentage }) => {
+const DeliverablePercentageBar: React.FC<DeliverablePercentageBarProps> = ({ percentage }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -18,13 +18,13 @@ const ProjectProgress: React.FC<ProjectProgressProps> = ({ percentage }) => {
   );
 };
 
-export default ProjectProgress;
+export default DeliverablePercentageBar;
 
 const ProgressContainer = styled.div({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
-  height: 24,
+  height: 16,
   width: '100%',
 });
 
@@ -46,7 +46,7 @@ const ProgressBar = styled.div<WithIsLight & { progress: number }>(({ isLight, p
     bottom: 0,
     borderRadius: 6,
     width: `${progress}%`,
-    background: '#1AAB9B',
+    background: '#6EDBD0',
   },
 }));
 

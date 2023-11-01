@@ -25,7 +25,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     <StatusData>
       <ProjectStatusChip status={project.status} />
       <ProgressContainer>
-        <ProjectProgress percentage={0.22} />
+        <ProjectProgress percentage={project.progress?.value ?? 0} />
       </ProgressContainer>
     </StatusData>
   );
@@ -56,11 +56,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </ImageContainer>
             <DataContainer>
               {!isUpDesktop1280 && statusSection}
-              <Description isLight={isLight}>
-                Protocol Expense Accounting aims to provide a comprehensive, detailed, and up-to-date view of the Maker
-                Protocol's operational expenses. This information can help Maker Protocol stakeholders, including MKR
-                holders and contributors, understand how MakerDAO spends funds.
-              </Description>
+              <Description isLight={isLight}>{project.abstract}</Description>
             </DataContainer>
           </LeftColumn>
           <RightColumn>

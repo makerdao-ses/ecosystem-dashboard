@@ -7,13 +7,13 @@ export enum BudgetType {
 
 export enum ProjectStatus {
   TODO = 'TODO',
-  INPROGRESS = 'INPROGRESS',
+  INPROGRESS = 'IN_PROGRESS',
   FINISHED = 'FINISHED',
 }
 
 export enum DeliverableStatus {
   TODO = 'TODO',
-  INPROGRESS = 'INPROGRESS',
+  INPROGRESS = 'IN_PROGRESS',
   DELIVERED = 'DELIVERED',
 }
 
@@ -41,32 +41,26 @@ export interface KeyResult {
   link: string;
 }
 
-export interface Deliverable {
-  id: string;
-  title: string;
-  status: DeliverableStatus;
-  owner: Owner;
-  keyResults: KeyResult[];
-}
-
-export interface InProgress {
-  description: string;
-}
-
 export interface StoryPoints {
+  __typename: 'StoryPoints';
   total: number;
   completed: number;
 }
 
 export interface Percentage {
+  __typename: 'Percentage';
   value: number;
 }
 
-export type Indication = InProgress | StoryPoints | Percentage;
+export type Progress = StoryPoints | Percentage;
 
-export interface Progress {
+export interface Deliverable {
+  id: string;
+  title: string;
   status: DeliverableStatus;
-  indication: Indication;
+  progress: Progress;
+  owner: Owner;
+  keyResults: KeyResult[];
 }
 
 export interface Project {
@@ -76,7 +70,7 @@ export interface Project {
   title: string;
   abstract?: string;
   status: ProjectStatus;
-  progress?: Progress;
+  progress?: Percentage;
   imgUrl?: string;
   budgetType: BudgetType;
   deliverables: Deliverable[];

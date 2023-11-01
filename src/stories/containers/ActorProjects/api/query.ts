@@ -19,20 +19,7 @@ export const getProjectsQuery = () => ({
         abstract
         status
         progress {
-          status
-          indication {
-            __typename
-            ... on InProgress {
-              description
-            }
-            ... on StoryPoints {
-              total
-              completed
-            }
-            ... on Percentage {
-              value
-            }
-          }
+          value
         }
         imgUrl
         budgetType
@@ -51,6 +38,16 @@ export const getProjectsQuery = () => ({
             imgUrl
             name
             code
+          }
+          progress {
+            __typename
+            ... on StoryPoints {
+              total
+              completed
+            }
+            ... on Percentage {
+              value
+            }
           }
         }
       }
