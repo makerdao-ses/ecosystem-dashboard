@@ -10,6 +10,7 @@ import ProjectOwnerChip from '../ProjectOwnerChip/ProjectOwnerChip';
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 import ProjectStatusChip from '../ProjectStatusChip/ProjectStatusChip';
 import SupportedTeamsAvatarGroup from '../SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
+import ViewAllButton from '../ViewAllButton/ViewAllButton';
 import type { Project } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -63,10 +64,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <DeliverablesTitle isLight={isLight}>Deliverables</DeliverablesTitle>
 
             <DeliverablesContainer>
-              {project.deliverables.map((deliverable) => (
+              {project.deliverables.slice(0, 4).map((deliverable) => (
                 <DeliverableCard key={deliverable.id} deliverable={deliverable} />
               ))}
             </DeliverablesContainer>
+            <ViewAllButton>View all Deliverables</ViewAllButton>
           </RightColumn>
         </Row>
       </MainContent>

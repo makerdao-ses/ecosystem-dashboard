@@ -22,7 +22,6 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable }) => {
       <HeaderContainer>
         <TitleContainer>
           <Title isLight={isLight}>{deliverable.title}</Title>
-          {/* <DeliverableStatusChip status={deliverable.status} /> */}
         </TitleContainer>
         <DeliverableOwnerContainer>
           <OwnerImage isLight={isLight} src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
