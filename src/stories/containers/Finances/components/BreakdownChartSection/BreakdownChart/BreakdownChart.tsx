@@ -35,7 +35,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
-    color: isLight ? '#708390' : 'red',
+    color: '#708390',
     fontWeight: 600,
     fontSize: upTable ? 12 : 9,
     verticalAlign: 'top',
@@ -191,7 +191,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         showBackground: false,
 
         itemStyle: {
-          color: isLight ? '#F99374' : 'red',
+          color: isLight ? '#F99374' : '#F77249',
         },
       },
       {
@@ -248,7 +248,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         showBackground: false,
 
         itemStyle: {
-          color: isLight ? '#447AFB' : 'red',
+          color: isLight ? '#447AFB' : '#447AFB',
         },
       },
       {
@@ -308,7 +308,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         showBackground: false,
         barWidth,
         itemStyle: {
-          color: isLight ? '#2DC1B1' : 'red',
+          color: isLight ? '#2DC1B1' : '#1AAB9B',
         },
       },
     ],
@@ -363,8 +363,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : '#F77249'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : '#F77249'} />
             </svg>
             Endgame Atlas
           </LegendItem>
@@ -380,8 +380,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : '#447AFB'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : '#447AFB'} />
             </svg>
             Endgame Scopes
           </LegendItem>
@@ -397,8 +397,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : '#1AAB9B'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : '#1AAB9B'} />
             </svg>
             MakerDAO Legacy
           </LegendItem>
@@ -505,7 +505,7 @@ const LegendContainer = styled.div({
 
 const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
