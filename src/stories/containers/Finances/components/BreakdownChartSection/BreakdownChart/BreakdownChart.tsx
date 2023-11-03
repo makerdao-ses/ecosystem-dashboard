@@ -4,18 +4,16 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
-
 interface BreakdownChartProps {
   year: string;
 }
 
 const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
   const { isLight } = useThemeContext();
-  const [highlightedLegend, setHighlightedLegend] = useState<string | null>(null);
-
+  const chartRef = useRef<EChartsOption | null>(null);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -194,7 +192,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
 
         itemStyle: {
           color: isLight ? '#F99374' : 'red',
-          opacity: highlightedLegend === 'Endgame Atlas' ? 0.9 : 'none',
         },
       },
       {
@@ -252,7 +249,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
 
         itemStyle: {
           color: isLight ? '#447AFB' : 'red',
-          opacity: highlightedLegend === 'Endgame Scopes' ? 0.9 : 'none',
         },
       },
       {
@@ -312,20 +308,36 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         showBackground: false,
         barWidth,
         itemStyle: {
-          opacity: highlightedLegend === 'MakerDAO Legacy' ? 0.9 : 'none',
           color: isLight ? '#2DC1B1' : 'red',
         },
       },
     ],
   };
-  const handleLegendHover = (legendName: string) => () => {
-    setHighlightedLegend(legendName);
+
+  const onLegendItemHover = (legendName: string) => () => {
+    const chartInstance = chartRef?.current.getEchartsInstance();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
+    if (seriesIndex !== -1) {
+      chartInstance.dispatchAction({
+        type: 'highlight',
+        seriesName: options.series[seriesIndex].name,
+      });
+    }
+  };
+
+  const onLegendItemLeave = () => {
+    const chartInstance = chartRef.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'downplay',
+    });
   };
 
   return (
     <Wrapper>
       <ChartContainer>
         <ReactECharts
+          ref={chartRef}
           option={options}
           style={{
             height: '100%',
@@ -341,8 +353,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         <LegendContainer>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={handleLegendHover('Endgame Atlas')}
-            onMouseLeave={handleLegendHover('')}
+            onMouseEnter={onLegendItemHover('Endgame Atlas')}
+            onMouseLeave={onLegendItemLeave}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -358,8 +370,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
           </LegendItem>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={handleLegendHover('Endgame Scopes')}
-            onMouseLeave={handleLegendHover('')}
+            onMouseEnter={onLegendItemHover('Endgame Scopes')}
+            onMouseLeave={onLegendItemLeave}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -375,8 +387,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
           </LegendItem>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={handleLegendHover('MakerDAO Legacy')}
-            onMouseLeave={handleLegendHover('')}
+            onMouseEnter={onLegendItemHover('MakerDAO Legacy')}
+            onMouseLeave={onLegendItemLeave}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

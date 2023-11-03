@@ -142,6 +142,7 @@ const dictionary = [
   'tfoot',
   'deliverables',
   'typename',
+  'Echarts',
 ];
 
 module.exports = dictionary;
