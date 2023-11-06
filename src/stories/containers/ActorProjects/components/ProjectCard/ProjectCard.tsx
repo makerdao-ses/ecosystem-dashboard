@@ -3,9 +3,10 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import BudgetTypeBadge from '../BudgetTypeBadge/BudgetTypeBadge';
 import DeliverableCard from '../DeliverableCard/DeliverableCard';
+import DeliverableViewModeToggle from '../DeliverableViewModeToggle/DeliverableViewModeToggle';
 import ProjectOwnerChip from '../ProjectOwnerChip/ProjectOwnerChip';
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 import ProjectStatusChip from '../ProjectStatusChip/ProjectStatusChip';
@@ -18,9 +19,21 @@ interface ProjectCardProps {
   project: Project;
 }
 
+export type DeliverableViewMode = 'compacted' | 'detailed';
+
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { isLight } = useThemeContext();
   const isUpDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
+
+  const [deliverableViewMode, setDeliverableViewMode] = useState<DeliverableViewMode>('compacted');
+  const handleChangeDeliverableViewMode = useCallback((viewMode: DeliverableViewMode) => {
+    setDeliverableViewMode(viewMode);
+  }, []);
+
+  const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(false);
+
+  const showGrayBackground = showAllDeliverables || !isUpDesktop1280;
+  const showDeliverablesBelow = showAllDeliverables || deliverableViewMode === 'detailed';
 
   const statusSection = (
     <StatusData>
@@ -31,6 +44,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     </StatusData>
   );
 
+  const deliverables = showAllDeliverables ? project.deliverables : project.deliverables.slice(0, 4);
   return (
     <Card isLight={isLight}>
       <MainContent>
@@ -49,26 +63,38 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </ParticipantsContainer>
         </ProjectHeader>
 
-        <Row>
-          <LeftColumn>
-            {isUpDesktop1280 && statusSection}
+        <Row showDeliverablesBelow={showDeliverablesBelow}>
+          <LeftColumn showDeliverablesBelow={showDeliverablesBelow}>
+            {isUpDesktop1280 && !showDeliverablesBelow && statusSection}
             <ImageContainer>
               <Image src="https://placehold.co/600x400" layout="fill" unoptimized />
             </ImageContainer>
-            <DataContainer>
-              {!isUpDesktop1280 && statusSection}
+            <DataContainer showDeliverablesBelow={showDeliverablesBelow}>
+              {(!isUpDesktop1280 || showDeliverablesBelow) && statusSection}
               <Description isLight={isLight}>{project.abstract}</Description>
             </DataContainer>
           </LeftColumn>
           <RightColumn>
-            <DeliverablesTitle isLight={isLight}>Deliverables</DeliverablesTitle>
+            <DeliverableTitleContainer>
+              <DeliverablesTitle isLight={isLight}>Deliverables</DeliverablesTitle>
+              <DeliverableViewModeToggle
+                deliverableViewMode={deliverableViewMode}
+                onChangeDeliverableViewMode={handleChangeDeliverableViewMode}
+              />
+            </DeliverableTitleContainer>
 
-            <DeliverablesContainer>
-              {project.deliverables.slice(0, 4).map((deliverable) => (
-                <DeliverableCard key={deliverable.id} deliverable={deliverable} />
-              ))}
-            </DeliverablesContainer>
-            <ViewAllButton>View all Deliverables</ViewAllButton>
+            <GrayBackground isLight={isLight} showBackground={showGrayBackground}>
+              <DeliverablesContainer showDeliverablesBelow={showDeliverablesBelow}>
+                {deliverables.map((deliverable) => (
+                  <DeliverableCard key={deliverable.id} deliverable={deliverable} />
+                ))}
+              </DeliverablesContainer>
+              {project.deliverables.length > 4 && (
+                <ViewAllButton viewAll={showAllDeliverables} onClick={() => setShowAllDeliverables((prev) => !prev)}>
+                  View {showAllDeliverables ? 'less' : 'all'} Deliverables
+                </ViewAllButton>
+              )}
+            </GrayBackground>
           </RightColumn>
         </Row>
       </MainContent>
@@ -177,23 +203,29 @@ const ParticipantsContainer = styled.div({
   gap: 8,
 });
 
-const Row = styled.div({
+const Row = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginTop: 16,
   gap: 24,
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    flexDirection: 'row',
-    gap: 32,
+    marginTop: 32,
+
+    ...(!showDeliverablesBelow && {
+      flexDirection: 'row',
+      gap: 32,
+    }),
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    gap: 64,
-  },
-});
+  ...(!showDeliverablesBelow && {
+    [lightTheme.breakpoints.up('desktop_1440')]: {
+      gap: 64,
+    },
+  }),
+}));
 
-const LeftColumn = styled.div({
+const LeftColumn = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -208,15 +240,17 @@ const LeftColumn = styled.div({
     gap: 24,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    flexDirection: 'column',
-    flex: 0.632,
-  },
+  ...(!showDeliverablesBelow && {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      flexDirection: 'column',
+      flex: 0.632,
+    },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    flex: 0.639,
-  },
-});
+    [lightTheme.breakpoints.up('desktop_1440')]: {
+      flex: 0.639,
+    },
+  }),
+}));
 
 const RightColumn = styled.div({
   display: 'flex',
@@ -247,7 +281,7 @@ const ImageContainer = styled.div({
   },
 });
 
-const DataContainer = styled.div({
+const DataContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -260,7 +294,11 @@ const DataContainer = styled.div({
     flex: 1,
     marginTop: 0,
   },
-});
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    justifyContent: showDeliverablesBelow ? 'center' : 'flex-start',
+  },
+}));
 
 const StatusData = styled.div({
   display: 'flex',
@@ -294,6 +332,14 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
   },
 }));
 
+const DeliverableTitleContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  alignSelf: 'stretch',
+  gap: 16,
+});
+
 const DeliverablesTitle = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : 'red',
   fontSize: 20,
@@ -302,7 +348,25 @@ const DeliverablesTitle = styled.div<WithIsLight>(({ isLight }) => ({
   letterSpacing: 0.4,
 }));
 
-const DeliverablesContainer = styled.div({
+const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ isLight, showBackground }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  background: showBackground
+    ? isLight
+      ? 'linear-gradient(0deg, #F6F8F9 85.04%, rgba(246, 248, 249, 0.00) 121.04%)'
+      : 'linear-gradient(0deg, red 85.04%, red 121.04%)'
+    : 'none',
+  padding: '8px 16px 24px 16px',
+  margin: '-8px -16px -24px -16px',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: '8px 23px 23px 23px',
+    margin: '-8px -23px -23px -23px',
+  },
+}));
+
+const DeliverablesContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -316,4 +380,12 @@ const DeliverablesContainer = styled.div({
       maxWidth: 'calc(50% - 8px)',
     },
   },
-});
+
+  ...(showDeliverablesBelow && {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      '& > *': {
+        maxWidth: 'calc(33% - 7px)',
+      },
+    },
+  }),
+}));
