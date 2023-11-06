@@ -63,6 +63,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
     handleBreakdownGranularityChange,
     loadMoreCards,
     handleLoadMoreCards,
+    newAtlasBudgetWithBorders,
+    newLegacyBudgetWithBorders,
+    newScopeBudgetWithBorders,
   } = useFinances(budgets);
 
   return (
@@ -118,6 +121,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
             selectedGranularity={selectedBreakdownGranularity}
             onMetricChange={handleBreakdownMetricChange}
             onGranularityChange={handleBreakdownGranularityChange}
+            newAtlasBudgetWithBorders={newAtlasBudgetWithBorders}
+            newScopeBudgetWithBorders={newScopeBudgetWithBorders}
+            newLegacyBudgetWithBorders={newLegacyBudgetWithBorders}
           />
         )}
       </Container>

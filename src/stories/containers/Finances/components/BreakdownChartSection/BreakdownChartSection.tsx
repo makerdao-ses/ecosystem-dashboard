@@ -4,6 +4,7 @@ import React from 'react';
 import BreakdownChart from './BreakdownChart/BreakdownChart';
 import BreakdownChartFilter from './BreakdownChartFilter/BreakdownChartFilter';
 import SectionTitle from './SectionTitle/SectionTitle';
+import type { ValueSeriesBreakdownChart } from '../../utils/types';
 
 interface BreakdownChartSectionProps {
   selectedMetric: string;
@@ -11,6 +12,9 @@ interface BreakdownChartSectionProps {
   selectedGranularity: string;
   onGranularityChange: (value: string) => void;
   year: string;
+  newAtlasBudgetWithBorders: ValueSeriesBreakdownChart[];
+  newScopeBudgetWithBorders: ValueSeriesBreakdownChart[];
+  newLegacyBudgetWithBorders: ValueSeriesBreakdownChart[];
 }
 
 const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
@@ -19,6 +23,9 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
   onMetricChange,
   selectedGranularity,
   onGranularityChange,
+  newAtlasBudgetWithBorders,
+  newLegacyBudgetWithBorders,
+  newScopeBudgetWithBorders,
 }) => (
   <Section>
     <HeaderContainer>
@@ -31,7 +38,12 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
       />
     </HeaderContainer>
 
-    <BreakdownChart year={year} />
+    <BreakdownChart
+      year={year}
+      newAtlasBudgetWithBorders={newAtlasBudgetWithBorders}
+      newLegacyBudgetWithBorders={newLegacyBudgetWithBorders}
+      newScopeBudgetWithBorders={newScopeBudgetWithBorders}
+    />
   </Section>
 );
 

@@ -53,3 +53,15 @@ export interface MetricValues {
   'Net Expenses On-chain': number;
   'Net Expenses Off-chain': number;
 }
+
+export interface ValueSeriesBreakdownChart {
+  value: number;
+  itemStyle: {
+    borderRadius: [number, number, number, number];
+  };
+}
+
+export interface SeriesBreakdownChart {
+  name: string;
+  data: ValueSeriesBreakdownChart[];
+}
