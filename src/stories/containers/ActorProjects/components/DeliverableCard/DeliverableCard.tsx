@@ -7,14 +7,17 @@ import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePer
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
 import KeyResults from '../KeyResults/KeyResults';
+import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
 import type { Deliverable } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface DeliverableCardProps {
   deliverable: Deliverable;
+  viewMode: DeliverableViewMode;
+  isShownBelow: boolean;
 }
 
-const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable }) => {
+const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable, viewMode, isShownBelow }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -37,7 +40,13 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable }) => {
             <DeliverableStoryPointsBar total={deliverable.progress.total} completed={deliverable.progress.completed} />
           ))}
       </ProgressContainer>
-      <KeyResults keyResults={deliverable.keyResults} />
+
+      {viewMode === 'detailed' && (
+        <div>
+          Purely financial view of SPFs with generalized financial categories applicable across all budget categories.
+        </div>
+      )}
+      <KeyResults keyResults={deliverable.keyResults} viewMode={viewMode} isShownBelow={isShownBelow} />
     </Card>
   );
 };

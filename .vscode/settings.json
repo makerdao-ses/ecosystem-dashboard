@@ -19,7 +19,8 @@
         "tokenomics",
         "topup",
         "unoptimized",
-        "viewports"
+        "viewports",
+        "Wireframes"
     ],
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true

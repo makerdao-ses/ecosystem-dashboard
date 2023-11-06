@@ -44,13 +44,50 @@ const variantsArgs = [
             'Phoenix Lab',
             'PHOENIX'
           )
-          .withStatus(DeliverableStatus.DELIVERED)
+          .withStatus(DeliverableStatus.INPROGRESS)
+          .withProgress({
+            __typename: 'Percentage',
+            value: 0.5,
+          })
+          .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
+          .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
+          .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
+          .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
+          .addKeyResult('5', 'API Playground - Production', 'https://makerdao.com')
+          .addKeyResult('6', 'API Playground - Staging', 'https://makerdao.com')
+          .addKeyResult('7', 'Extra 1', 'https://makerdao.com')
+          .addKeyResult('8', 'Extra 2', 'https://makerdao.com')
           .build()
       )
       .addDeliverable(
         new DeliverableBuilder()
-          .withId('1')
-          .withTitle('PEA-01 On-chain Data Reconciliation - very long name')
+          .withId('2')
+          .withTitle('PEA-02 Delegates Transparency')
+          .withOwnerData(
+            '1',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+            'Phoenix Lab',
+            'PHOENIX'
+          )
+          .withStatus(DeliverableStatus.INPROGRESS)
+          .withProgress({
+            __typename: 'StoryPoints',
+            total: 5,
+            completed: 3,
+          })
+          .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
+          .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
+          .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
+          .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
+          .addKeyResult('5', 'API Playground - Production', 'https://makerdao.com')
+          .addKeyResult('6', 'API Playground - Staging', 'https://makerdao.com')
+          .addKeyResult('7', 'Extra 1', 'https://makerdao.com')
+          .build()
+      )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('3')
+          .withTitle('PEA-03 SPF Finances')
           .withOwnerData(
             '1',
             'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
@@ -62,8 +99,23 @@ const variantsArgs = [
       )
       .addDeliverable(
         new DeliverableBuilder()
-          .withId('1')
-          .withTitle('PEA-01 On-chain Data Reconciliation - very long name')
+          .withId('3')
+          .withTitle('PEA-03 SPF Finances')
+          .withOwnerData(
+            '1',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+            'Phoenix Lab',
+            'PHOENIX'
+          )
+          .withStatus(DeliverableStatus.DELIVERED)
+          .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
+          .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
+          .build()
+      )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('3')
+          .withTitle('PEA-03 SPF Finances')
           .withOwnerData(
             '1',
             'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
