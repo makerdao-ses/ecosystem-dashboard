@@ -4,6 +4,7 @@ import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { NUMBER_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
+
 import type { QuarterlyBudget, RowsItems } from './mockData';
 import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem, PeriodicSelectionFilter } from './types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -808,4 +809,140 @@ export const getNumbersFromIdPath = (idPath: string) => {
   }
   const numbers = idPath.split('/').map((item) => item);
   return numbers;
+};
+
+export const atlasBudget = [
+  {
+    value: 1450000,
+  },
+  {
+    value: 1450000,
+  },
+  {
+    value: 1450000,
+  },
+  {
+    value: 1300000,
+  },
+  {
+    value: 1400000,
+  },
+  {
+    value: 1280000,
+  },
+  {
+    value: 640000,
+  },
+  {
+    value: 320000,
+  },
+  {
+    value: 160000,
+  },
+  {
+    value: 80000,
+  },
+  {
+    value: 25000,
+  },
+  {
+    value: 10000,
+  },
+];
+
+export const scopeBudget = [
+  {
+    value: 123434,
+  },
+  {
+    value: 123434,
+  },
+  {
+    value: 123434,
+  },
+  {
+    value: 123434,
+  },
+  {
+    value: 100000,
+  },
+  {
+    value: 250000,
+  },
+  {
+    value: 900000,
+  },
+  {
+    value: 1250000,
+  },
+  {
+    value: 0,
+  },
+  {
+    value: 1400000,
+  },
+  {
+    value: 1400000,
+  },
+  {
+    value: 1500000,
+  },
+];
+
+export const legacyBudget = [
+  {
+    value: 0,
+  },
+  {
+    value: 43434,
+  },
+  {
+    value: 452342,
+  },
+  {
+    value: 23543,
+  },
+  {
+    value: 43434,
+  },
+  {
+    value: 0,
+  },
+  {
+    value: 54456,
+  },
+  {
+    value: 235425,
+  },
+  {
+    value: 175000,
+  },
+  {
+    value: 180000,
+  },
+  {
+    value: 220000,
+  },
+  {
+    value: 200000,
+  },
+];
+
+const fillArrayWhenNoData = (series: { value: number }[]) => {
+  const filledArray = new Array<{ value: number }>(12).fill({ value: 0 });
+
+  const monthWithData = series.map((item) => ({
+    value: item.value,
+  }));
+  monthWithData.forEach((itemY, index) => {
+    filledArray[index] = {
+      value: itemY.value || 0,
+    };
+  });
+  return filledArray;
+};
+
+export const processingData = (series: { value: number }[]) => {
+  const fillingArray = fillArrayWhenNoData(series);
+  return fillingArray;
 };

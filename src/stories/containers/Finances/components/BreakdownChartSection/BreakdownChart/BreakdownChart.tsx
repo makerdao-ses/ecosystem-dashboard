@@ -5,13 +5,22 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
+import type { ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 interface BreakdownChartProps {
   year: string;
+  newAtlasBudgetWithBorders: ValueSeriesBreakdownChart[];
+  newScopeBudgetWithBorders: ValueSeriesBreakdownChart[];
+  newLegacyBudgetWithBorders: ValueSeriesBreakdownChart[];
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
+const BreakdownChart: React.FC<BreakdownChartProps> = ({
+  year,
+  newAtlasBudgetWithBorders,
+  newScopeBudgetWithBorders,
+  newLegacyBudgetWithBorders,
+}) => {
   const { isLight } = useThemeContext();
   const chartRef = useRef<EChartsOption | null>(null);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
@@ -20,17 +29,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
-
-  const barBorderRadius = isMobile ? 4 : 6;
-  const itemStyleBottom = {
-    borderRadius: [0, 0, barBorderRadius, barBorderRadius],
-  };
-  const itemStyleTop = {
-    borderRadius: [barBorderRadius, barBorderRadius, 0, 0],
-  };
-  const itemStyleFull = {
-    borderRadius: [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius],
-  };
 
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
@@ -135,56 +133,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
     series: [
       {
         name: 'Endgame Atlas',
-        data: [
-          {
-            value: 1450000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1500000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1550000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1300000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1400000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 1280000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 640000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 320000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 160000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 80000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 25000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 10000,
-            itemStyle: itemStyleBottom,
-          },
-        ],
+
+        data: newAtlasBudgetWithBorders,
         type: 'bar',
         stack: 'x',
         barWidth,
@@ -196,52 +146,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
       },
       {
         name: 'Endgame Scopes',
-        data: [
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 100000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 250000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 900000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 1250000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 1300000,
-          },
-          {
-            value: 1400000,
-          },
-          {
-            value: 1400000,
-          },
-          {
-            value: 1500000,
-          },
-        ],
+
+        data: newScopeBudgetWithBorders,
         type: 'bar',
         stack: 'x',
         barWidth,
@@ -253,56 +159,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
       },
       {
         name: 'MakerDAO Legacy',
-        data: [
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 175000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 180000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 220000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 200000,
-            itemStyle: itemStyleTop,
-          },
-        ],
+
+        data: newLegacyBudgetWithBorders,
         type: 'bar',
         stack: 'x',
         showBackground: false,
@@ -332,7 +190,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
       type: 'downplay',
     });
   };
-
   return (
     <Wrapper>
       <ChartContainer>
