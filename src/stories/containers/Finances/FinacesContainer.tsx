@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
+import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
@@ -61,10 +63,23 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
     handleBreakdownGranularityChange,
     loadMoreCards,
     handleLoadMoreCards,
+    newAtlasBudgetWithBorders,
+    newLegacyBudgetWithBorders,
+    newScopeBudgetWithBorders,
   } = useFinances(budgets);
 
   return (
     <PageContainer>
+      <SEOHead
+        title="MakerDAO | Finances"
+        description="MakerDAO Finances page provides a structured overview of MakerDAO's budgets, from high-level finances to detailed legacy and endgame allocations "
+        image={{
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
+          width: 385,
+          height: 200,
+        }}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
+      />
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
         years={YEARS_FINANCES_SELECTED}
@@ -106,6 +121,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
             selectedGranularity={selectedBreakdownGranularity}
             onMetricChange={handleBreakdownMetricChange}
             onGranularityChange={handleBreakdownGranularityChange}
+            newAtlasBudgetWithBorders={newAtlasBudgetWithBorders}
+            newScopeBudgetWithBorders={newScopeBudgetWithBorders}
+            newLegacyBudgetWithBorders={newLegacyBudgetWithBorders}
           />
         )}
       </Container>

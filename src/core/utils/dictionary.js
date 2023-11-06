@@ -143,6 +143,7 @@ const dictionary = [
   'deliverables',
   'typename',
   'Wireframes',
+  'Echarts',
 ];
 
 module.exports = dictionary;

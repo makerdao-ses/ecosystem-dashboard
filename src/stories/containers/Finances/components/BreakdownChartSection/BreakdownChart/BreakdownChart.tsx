@@ -4,38 +4,36 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React from 'react';
+import React, { useRef } from 'react';
+import type { ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
-
 interface BreakdownChartProps {
   year: string;
+  newAtlasBudgetWithBorders: ValueSeriesBreakdownChart[];
+  newScopeBudgetWithBorders: ValueSeriesBreakdownChart[];
+  newLegacyBudgetWithBorders: ValueSeriesBreakdownChart[];
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
+const BreakdownChart: React.FC<BreakdownChartProps> = ({
+  year,
+  newAtlasBudgetWithBorders,
+  newScopeBudgetWithBorders,
+  newLegacyBudgetWithBorders,
+}) => {
   const { isLight } = useThemeContext();
+  const chartRef = useRef<EChartsOption | null>(null);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-
-  const barWidth = isMobile ? 16 : isTablet ? 32 : isDesktop1024 ? 48 : 56;
-
-  const barBorderRadius = isMobile ? 4 : 6;
-  const itemStyleBottom = {
-    borderRadius: [0, 0, barBorderRadius, barBorderRadius],
-  };
-  const itemStyleTop = {
-    borderRadius: [barBorderRadius, barBorderRadius, 0, 0],
-  };
-  const itemStyleFull = {
-    borderRadius: [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius],
-  };
+  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
 
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
-    color: isLight ? '#708390' : 'red',
+    color: '#708390',
     fontWeight: 600,
     fontSize: upTable ? 12 : 9,
     verticalAlign: 'top',
@@ -44,10 +42,10 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
 
   const options: EChartsOption = {
     grid: {
-      height: isMobile ? 222 : isTablet ? 312 : isDesktop1024 ? 392 : 392,
-      width: isMobile ? 273 : isTablet ? 588 : isDesktop1024 ? 765 : 960,
-      top: isMobile ? 15 : isTablet ? 6 : isDesktop1024 ? 6 : 11,
-      right: isMobile ? 6 : isTablet ? 7 : isDesktop1024 ? 10 : 4,
+      height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
+      width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
+      top: isMobile ? 10 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
+      right: isMobile ? 2 : isTablet ? 7 : isDesktop1024 ? 50 : isDesktop1280 ? 4 : 4,
     },
     xAxis: {
       type: 'category',
@@ -79,7 +77,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         show: false,
       },
       axisLabel: {
-        margin: isMobile || isTablet ? 16 : 18,
+        margin: isMobile ? 12 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 16 : 16,
         color: isLight ? '#434358' : '#708390',
         align: 'center',
         fontFamily: 'Inter,san-serif',
@@ -88,6 +86,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         height: upTable ? 15 : 11,
         baseline: 'top',
         interval: 0,
+
         formatter: function (value: string) {
           if (isMobile) {
             return value;
@@ -102,7 +101,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
     },
     yAxis: {
       axisLabel: {
-        margin: isMobile ? 13 : isTablet ? 22 : isDesktop1024 ? 32 : 28,
+        margin: isMobile ? 10 : isTablet ? 22 : isDesktop1024 ? 32 : isDesktop1280 ? 20 : 20,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -111,7 +110,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
           return replaceAllNumberLetOneBeforeDot(value);
         },
         color: isLight ? '#231536' : '#EDEFFF',
-        fontSize: isMobile ? 10 : isTablet ? 12 : 14,
+        fontSize: isMobile ? 10 : isTablet ? 14 : 14,
         height: upTable ? 15 : 12,
         fontFamily: 'Inter, sans-serif',
         fontWeight: upTable ? 600 : 400,
@@ -134,187 +133,68 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
     series: [
       {
         name: 'Endgame Atlas',
-        data: [
-          {
-            value: 1450000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1500000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1550000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1300000,
-            itemStyle: itemStyleFull,
-          },
-          {
-            value: 1400000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 1280000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 640000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 320000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 160000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 80000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 25000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 10000,
-            itemStyle: itemStyleBottom,
-          },
-        ],
+
+        data: newAtlasBudgetWithBorders,
         type: 'bar',
         stack: 'x',
-        showBackground: false,
         barWidth,
+        showBackground: false,
+
         itemStyle: {
-          color: isLight ? '#F99374' : 'red',
+          color: isLight ? '#F99374' : '#F77249',
         },
       },
       {
-        name: 'Endgame Scope',
-        data: [
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 100000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 250000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 900000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 1250000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 1300000,
-          },
-          {
-            value: 1400000,
-          },
-          {
-            value: 1400000,
-          },
-          {
-            value: 1500000,
-          },
-        ],
+        name: 'Endgame Scopes',
+
+        data: newScopeBudgetWithBorders,
         type: 'bar',
         stack: 'x',
-        showBackground: false,
         barWidth,
+        showBackground: false,
+
         itemStyle: {
-          color: isLight ? '#447AFB' : 'red',
+          color: isLight ? '#447AFB' : '#447AFB',
         },
       },
       {
         name: 'MakerDAO Legacy',
-        data: [
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 0,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 175000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 180000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 220000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 200000,
-            itemStyle: itemStyleTop,
-          },
-        ],
+
+        data: newLegacyBudgetWithBorders,
         type: 'bar',
         stack: 'x',
         showBackground: false,
         barWidth,
         itemStyle: {
-          color: isLight ? '#2DC1B1' : 'red',
+          color: isLight ? '#2DC1B1' : '#1AAB9B',
         },
       },
     ],
   };
 
+  const onLegendItemHover = (legendName: string) => () => {
+    const chartInstance = chartRef?.current.getEchartsInstance();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
+    if (seriesIndex !== -1) {
+      chartInstance.dispatchAction({
+        type: 'highlight',
+        seriesName: options.series[seriesIndex].name,
+      });
+    }
+  };
+
+  const onLegendItemLeave = () => {
+    const chartInstance = chartRef.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'downplay',
+    });
+  };
   return (
     <Wrapper>
       <ChartContainer>
         <ReactECharts
+          ref={chartRef}
           option={options}
           style={{
             height: '100%',
@@ -327,9 +207,12 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>
         )}
-
         <LegendContainer>
-          <LegendItem isLight={isLight}>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={onLegendItemHover('Endgame Atlas')}
+            onMouseLeave={onLegendItemLeave}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={isMobile ? 13 : 16}
@@ -337,12 +220,16 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : '#F77249'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : '#F77249'} />
             </svg>
             Endgame Atlas
           </LegendItem>
-          <LegendItem isLight={isLight}>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={onLegendItemHover('Endgame Scopes')}
+            onMouseLeave={onLegendItemLeave}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={isMobile ? 13 : 16}
@@ -350,12 +237,16 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : '#447AFB'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : '#447AFB'} />
             </svg>
-            Endgame Scope
+            Endgame Scopes
           </LegendItem>
-          <LegendItem isLight={isLight}>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={onLegendItemHover('MakerDAO Legacy')}
+            onMouseLeave={onLegendItemLeave}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={isMobile ? 13 : 16}
@@ -363,8 +254,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : '#1AAB9B'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : '#1AAB9B'} />
             </svg>
             MakerDAO Legacy
           </LegendItem>
@@ -386,15 +277,16 @@ const ChartContainer = styled.div({
   justifyContent: 'center',
   position: 'relative',
   width: '100%',
-  maxWidth: 327,
-  height: 317,
+
+  maxWidth: 343,
+  height: 347,
   marginLeft: 'auto',
   marginRight: 'auto',
   marginTop: 24,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    maxWidth: 656,
-    height: 400,
+    maxWidth: 756,
+    height: 510,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -413,9 +305,9 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 
   return {
     position: 'absolute',
-    bottom: 47,
-    left: 51,
-    right: 10,
+    bottom: 107,
+    left: 40,
+    right: 5,
     height: 11,
     borderLeft: border,
     borderRight: border,
@@ -440,20 +332,46 @@ const YearText = styled.div<WithIsLight>(({ isLight }) => ({
 
 const LegendContainer = styled.div({
   display: 'flex',
-  justifyContent: 'space-evenly',
+  flexDirection: 'row',
+  justifyContent: 'center',
   flexWrap: 'wrap',
+  paddingLeft: 8,
+  paddingRight: 6,
+  gap: 22,
+  position: 'absolute',
+  bottom: 30,
+  rowGap: 10,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 32,
+    marginBottom: 2,
+    paddingLeft: 'revert',
+    paddingRight: 'revert',
+    flexWrap: 'revert',
+    position: 'revert',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginBottom: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 60,
+  },
 });
 
 const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  gap: 8,
+  gap: 6,
+  cursor: 'pointer',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
+    gap: 8,
     lineHeight: '22px',
   },
 }));
