@@ -142,6 +142,7 @@ const dictionary = [
   'tfoot',
   'deliverables',
   'typename',
+  'Wireframes',
   'Echarts',
 ];
 

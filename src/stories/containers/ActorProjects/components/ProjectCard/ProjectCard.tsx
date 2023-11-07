@@ -33,7 +33,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(false);
 
   const showGrayBackground = showAllDeliverables || !isUpDesktop1280;
-  const showDeliverablesBelow = showAllDeliverables || deliverableViewMode === 'detailed';
+  const showDeliverablesBelow = !isUpDesktop1280 || showAllDeliverables || deliverableViewMode === 'detailed';
 
   const statusSection = (
     <StatusData>
@@ -86,10 +86,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <GrayBackground isLight={isLight} showBackground={showGrayBackground}>
               <DeliverablesContainer showDeliverablesBelow={showDeliverablesBelow}>
                 {deliverables.map((deliverable) => (
-                  <DeliverableCard key={deliverable.id} deliverable={deliverable} />
+                  <DeliverableCard
+                    key={deliverable.id}
+                    deliverable={deliverable}
+                    viewMode={deliverableViewMode}
+                    isShownBelow={showDeliverablesBelow}
+                  />
                 ))}
               </DeliverablesContainer>
-              {project.deliverables.length > 4 && (
+              {(isUpDesktop1280
+                ? deliverableViewMode === 'compacted'
+                  ? project.deliverables.length > 4
+                  : project.deliverables.length > 6
+                : project.deliverables.length > 4) && (
                 <ViewAllButton viewAll={showAllDeliverables} onClick={() => setShowAllDeliverables((prev) => !prev)}>
                   View {showAllDeliverables ? 'less' : 'all'} Deliverables
                 </ViewAllButton>
@@ -364,6 +373,11 @@ const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ 
     padding: '8px 23px 23px 23px',
     margin: '-8px -23px -23px -23px',
   },
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '8px 31px 31px 31px',
+    margin: '-8px -31px -31px -31px',
+  },
 }));
 
 const DeliverablesContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
@@ -388,4 +402,18 @@ const DeliverablesContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ 
       },
     },
   }),
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
+
+    '& > *': {
+      ...(showDeliverablesBelow
+        ? {
+            maxWidth: 'calc(33% - 12px)',
+          }
+        : {
+            maxWidth: 'calc(50% - 12px)',
+          }),
+    },
+  },
 }));
