@@ -35,6 +35,7 @@ const ContainerCell = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   justifyContent: 'center',
   color: isLight ? '#231536' : '#D2D4EF',
 

@@ -227,6 +227,7 @@ const Footer = styled.tfoot<WithIsLight & { isEven: boolean; period: PeriodicSel
       padding: '16px 4px 16px 8px',
       fontFamily: 'Inter, sans-serif',
       fontWeight: 400,
+      fontSize: 14,
       [lightTheme.breakpoints.up('desktop_1280')]: {
         padding: '16px 0px 16px 32px',
       },
