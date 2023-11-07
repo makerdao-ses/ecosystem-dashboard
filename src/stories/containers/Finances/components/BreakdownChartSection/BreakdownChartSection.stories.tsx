@@ -1,4 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { atlasBudget, legacyBudget, scopeBudget } from '../../utils/utils';
 import BreakdownChartSection from './BreakdownChartSection';
 import type { ComponentMeta } from '@storybook/react';
 
@@ -17,6 +18,9 @@ export default {
 const args = [
   {
     year: 2023,
+    newAtlasBudgetWithBorders: atlasBudget,
+    newScopeBudgetWithBorders: scopeBudget,
+    newLegacyBudgetWithBorders: legacyBudget,
   },
 ];
 
