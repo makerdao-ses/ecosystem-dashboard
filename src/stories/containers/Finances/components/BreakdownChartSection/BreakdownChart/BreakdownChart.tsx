@@ -338,7 +338,7 @@ const ChartContainer = styled.div({
 });
 
 const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
-  const border = `1px solid ${isLight ? '#6EDBD0' : 'red'}`;
+  const border = `1px solid ${isLight ? '#6EDBD0' : 'rgba(0, 237, 24, 0.4)'}`;
 
   return {
     position: 'absolute',
@@ -357,13 +357,13 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 const YearText = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 11,
   lineHeight: 'normal',
-  color: isLight ? '#139D8D' : 'red',
+  color: isLight ? '#139D8D' : '#2DC1B1',
   position: 'absolute',
   bottom: -6,
   width: 52,
   left: '50%',
   transform: 'translateX(-50%)',
-  backgroundColor: isLight ? '#FFFFFF' : 'red',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
   textAlign: 'center',
 }));
 
