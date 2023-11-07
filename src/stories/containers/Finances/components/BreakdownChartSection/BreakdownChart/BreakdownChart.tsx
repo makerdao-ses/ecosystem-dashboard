@@ -5,22 +5,28 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
+import useBreakdownChart from '../useBreakdownChart';
 import type { ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
+interface IsShowSeries {
+  'Endgame Atlas': boolean;
+  'Endgame Scopes': boolean;
+  'MakerDAO Legacy': boolean;
+}
 interface BreakdownChartProps {
   year: string;
-  newAtlasBudgetWithBorders: ValueSeriesBreakdownChart[];
-  newScopeBudgetWithBorders: ValueSeriesBreakdownChart[];
-  newLegacyBudgetWithBorders: ValueSeriesBreakdownChart[];
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({
-  year,
-  newAtlasBudgetWithBorders,
-  newScopeBudgetWithBorders,
-  newLegacyBudgetWithBorders,
-}) => {
+const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
+  const {
+    newAtlasBudgetWithBorders,
+    newScopeBudgetWithBorders,
+    newLegacyBudgetWithBorders,
+    isShowSeries,
+    setIsShowSeries,
+  } = useBreakdownChart();
+
   const { isLight } = useThemeContext();
   const chartRef = useRef<EChartsOption | null>(null);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
@@ -139,7 +145,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         stack: 'x',
         barWidth,
         showBackground: false,
-
+        visible: true,
         itemStyle: {
           color: isLight ? '#F99374' : '#F77249',
         },
@@ -152,14 +158,14 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         stack: 'x',
         barWidth,
         showBackground: false,
-
+        visible: true,
         itemStyle: {
           color: isLight ? '#447AFB' : '#447AFB',
         },
       },
       {
         name: 'MakerDAO Legacy',
-
+        visible: true,
         data: newLegacyBudgetWithBorders,
         type: 'bar',
         stack: 'x',
@@ -190,6 +196,34 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
       type: 'downplay',
     });
   };
+
+  const handleOnclick = (legendName: string, data: ValueSeriesBreakdownChart[]) => () => {
+    const chartInstance = chartRef?.current.getEchartsInstance();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
+    if (seriesIndex !== -1) {
+      const currentSeries = options.series[seriesIndex];
+      setIsShowSeries({
+        ...isShowSeries,
+        [legendName]: !isShowSeries[legendName as keyof IsShowSeries],
+      });
+
+      currentSeries.visible = !currentSeries.visible;
+
+      if (!currentSeries.visible) {
+        currentSeries.data = new Array<ValueSeriesBreakdownChart>(12).fill({
+          value: 0,
+          itemStyle: {
+            borderRadius: [0, 0, 0, 0],
+          },
+        });
+        chartInstance.setOption(options, true);
+      } else {
+        currentSeries.data = data;
+      }
+      chartInstance.setOption(options, true);
+    }
+  };
   return (
     <Wrapper>
       <ChartContainer>
@@ -212,6 +246,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
             isLight={isLight}
             onMouseEnter={onLegendItemHover('Endgame Atlas')}
             onMouseLeave={onLegendItemLeave}
+            onClick={handleOnclick('Endgame Atlas', newAtlasBudgetWithBorders)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -229,6 +264,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
             isLight={isLight}
             onMouseEnter={onLegendItemHover('Endgame Scopes')}
             onMouseLeave={onLegendItemLeave}
+            onClick={handleOnclick('Endgame Scopes', newScopeBudgetWithBorders)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -246,6 +282,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
             isLight={isLight}
             onMouseEnter={onLegendItemHover('MakerDAO Legacy')}
             onMouseLeave={onLegendItemLeave}
+            onClick={handleOnclick('MakerDAO Legacy', newLegacyBudgetWithBorders)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

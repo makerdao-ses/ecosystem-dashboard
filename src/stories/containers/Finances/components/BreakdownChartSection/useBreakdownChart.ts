@@ -5,13 +5,17 @@ import { atlasBudget, legacyBudget, processingData, scopeBudget } from '../../ut
 import type { ValueSeriesBreakdownChart } from '../../utils/types';
 
 const useBreakdownChart = () => {
+  const [isShowSeries, setIsShowSeries] = useState({
+    'Endgame Atlas': true,
+    'Endgame Scopes': true,
+    'MakerDAO Legacy': true,
+  });
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const [selectedBreakdownGranularity, setSelectedBreakdownGranularity] = useState<string>('Monthly');
 
   const handleBreakdownMetricChange = (value: string) => setSelectedBreakdownMetric(value);
   const handleBreakdownGranularityChange = (value: string) => setSelectedBreakdownGranularity(value);
-
   const barBorderRadius = isMobile ? 4 : 6;
   const itemStyleBottom = {
     borderRadius: [0, 0, barBorderRadius, barBorderRadius],
@@ -25,9 +29,9 @@ const useBreakdownChart = () => {
   const itemStyledNoBorders = {
     borderRadius: [0, 0, 0, 0],
   };
-  const valuesAtlasBudget = processingData(atlasBudget);
-  const valuesScopeBudget = processingData(scopeBudget);
-  const valuesLegacyBudget = processingData(legacyBudget);
+  const valuesAtlasBudget = processingData(isShowSeries['Endgame Atlas'] ? atlasBudget : []);
+  const valuesScopeBudget = processingData(isShowSeries['Endgame Scopes'] ? scopeBudget : []);
+  const valuesLegacyBudget = processingData(isShowSeries['MakerDAO Legacy'] ? legacyBudget : []);
 
   const newAtlasBudgetWithBorders = valuesAtlasBudget.map((item, index: number) => ({
     value: item.value,
@@ -54,6 +58,7 @@ const useBreakdownChart = () => {
     itemStyle:
       valuesAtlasBudget[index].value === 0 && valuesScopeBudget[index].value === 0 ? itemStyleFull : itemStyleTop,
   })) as ValueSeriesBreakdownChart[];
+
   return {
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
@@ -62,6 +67,8 @@ const useBreakdownChart = () => {
     newAtlasBudgetWithBorders,
     newScopeBudgetWithBorders,
     newLegacyBudgetWithBorders,
+    isShowSeries,
+    setIsShowSeries,
   };
 };
 
