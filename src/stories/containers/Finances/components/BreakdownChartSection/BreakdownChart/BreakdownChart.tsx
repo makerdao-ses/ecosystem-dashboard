@@ -338,7 +338,7 @@ const ChartContainer = styled.div({
 });
 
 const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
-  const border = `1px solid ${isLight ? '#6EDBD0' : 'rgba(0, 237, 24, 0.4)'}`;
+  const border = `1px solid ${isLight ? '#6EDBD0' : '#1AAB9B'}`;
 
   return {
     position: 'absolute',
