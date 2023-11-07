@@ -22,6 +22,8 @@ const KeyResults: React.FC<KeyResultsProps> = ({ keyResults, viewMode, isShownBe
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [expanded, setExpanded] = useState<boolean>(false);
 
+  const handleToggleExpand = () => setExpanded((prev) => !prev);
+
   const results = useMemo(() => {
     if (viewMode === 'compacted') {
       if (isShownBelow) {
@@ -54,7 +56,7 @@ const KeyResults: React.FC<KeyResultsProps> = ({ keyResults, viewMode, isShownBe
               </ResultItem>
             ))}
             {isShownBelow && viewMode === 'compacted' && keyResults.length > 4 && (
-              <ExpandableButtonItem expanded={expanded} handleToggleExpand={() => setExpanded((prev) => !prev)} />
+              <ExpandableButtonItem expanded={expanded} handleToggleExpand={handleToggleExpand} />
             )}
           </>
         )}
