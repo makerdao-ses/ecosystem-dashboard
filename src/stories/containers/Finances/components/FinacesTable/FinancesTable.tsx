@@ -39,7 +39,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {showFooterAndCorrectNumber.map((table, index) => (
-        <TableContainer isLight={isLight} className={className} key={index}>
+        <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
           <TableBody isLight={isLight}>
             {table.rows.map((row: RowsItems) => (
               <TableRow isLight={isLight} isMain={row.isMain}>
@@ -102,7 +102,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
 export default FinancesTable;
 
-const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
+const TableContainer = styled.table<WithIsLight & { hasOthers: boolean }>(({ isLight, hasOthers }) => ({
   borderCollapse: 'collapse',
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
   fontFamily: 'Inter, sans-serif',
@@ -112,13 +112,14 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   backgroundColor: isLight ? 'white' : '#1E2C37',
   borderRadius: '6px',
   '& tr:last-of-type td:last-of-type': {
-    borderBottomRightRadius: 6,
+    borderBottomRightRadius: hasOthers ? 0 : 6,
   },
 
   '& tr:last-of-type th:last-of-type': {
-    borderBottomLeftRadius: 6,
+    borderBottomLeftRadius: hasOthers ? 0 : 6,
   },
-  '& tfoot': {
+
+  '& tfoot td:last-of-type': {
     borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,
   },
@@ -235,6 +236,7 @@ const Footer = styled.tfoot<WithIsLight & { isEven: boolean; period: PeriodicSel
     backgroundColor: isLight ? (!isEven ? '#ffffff' : '#F5F5F5') : isEven ? '#18252E' : '#1f2d37',
 
     '& td:last-of-type': {
+      borderBottomRightRadius: 6,
       borderRight: 'none',
 
       backgroundColor: isLight
@@ -244,6 +246,9 @@ const Footer = styled.tfoot<WithIsLight & { isEven: boolean; period: PeriodicSel
         : !isEven
         ? '#17232C'
         : '#111C23',
+    },
+    '& tr:last-of-type td:last-of-type': {
+      borderBottomRightRadius: 6,
     },
   })
 );
