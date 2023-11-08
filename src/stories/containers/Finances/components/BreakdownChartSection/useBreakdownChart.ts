@@ -58,6 +58,11 @@ const useBreakdownChart = () => {
     itemStyle:
       valuesAtlasBudget[index].value === 0 && valuesScopeBudget[index].value === 0 ? itemStyleFull : itemStyleTop,
   })) as ValueSeriesBreakdownChart[];
+  const isDisabled = selectedBreakdownMetric === 'Budget' && selectedBreakdownGranularity === 'Monthly';
+  const handleResetFilterBreakDownChart = () => {
+    setSelectedBreakdownMetric('Budget');
+    setSelectedBreakdownGranularity('Monthly');
+  };
 
   return {
     selectedBreakdownMetric,
@@ -69,6 +74,8 @@ const useBreakdownChart = () => {
     newLegacyBudgetWithBorders,
     isShowSeries,
     setIsShowSeries,
+    isDisabled,
+    handleResetFilterBreakDownChart,
   };
 };
 

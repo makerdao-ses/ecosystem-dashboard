@@ -12,6 +12,8 @@ interface BreakdownChartFilterProps {
   onMetricChange: (value: string) => void;
   selectedGranularity: string;
   onGranularityChange: (value: string) => void;
+  isDisabled?: boolean;
+  handleResetFilter: () => void;
 }
 
 const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
@@ -19,18 +21,19 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
   onMetricChange,
   selectedGranularity,
   onGranularityChange,
+  isDisabled = true,
+  handleResetFilter,
 }) => {
   const { isLight } = useThemeContext();
 
-  const isEnable = isLight ? '#231536' : '#48495F';
-  const handleResetFilter = () => null;
+  const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? 'red' : '#48495F';
 
   return (
     <FilterContainer>
       <Reset>
         <ResetButton
           onClick={handleResetFilter}
-          disabled={true}
+          disabled={isDisabled}
           hasIcon={false}
           label="Reset filters"
           legacyBreakpoints={false}
@@ -58,8 +61,8 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
         />
       </SelectContainer>
 
-      <ResponsiveButton onClick={handleResetFilter} isLight={isLight}>
-        <Close width={10} height={10} fill={isEnable} fillDark={isEnable} />
+      <ResponsiveButton onClick={!isDisabled ? handleResetFilter : undefined} isLight={isLight} isDisabled={isDisabled}>
+        <Close width={10} height={10} fill={colorButton} fillDark={colorButton} />
       </ResponsiveButton>
     </FilterContainer>
   );
@@ -98,20 +101,20 @@ const MetricSelect = styled(SingleItemSelect)({
 });
 
 const GranularitySelect = styled(SingleItemSelect)({
-  padding: '7px 15px 7px 16px',
+  padding: '7px 12px 7px 16px',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '14px 15px 14px 16px',
   },
 });
 
-const ResponsiveButton = styled.div<WithIsLight>(({ isLight }) => ({
+const ResponsiveButton = styled.div<WithIsLight & { isDisabled: boolean }>(({ isLight, isDisabled }) => ({
   display: 'flex',
   gridArea: 'buttonFilter',
   justifySelf: 'flex-end',
   height: '34px',
   width: '34px',
-  border: isLight ? '1px solid #D4D9E1' : '1px solid #10191F',
+  border: isLight ? `1px solid ${isDisabled ? '#ECEFF9' : '#D4D9E1'}` : `1px solid ${isDisabled ? 'red' : '#10191F'}`,
   borderRadius: '22px',
   alignItems: 'center',
   justifyContent: 'center',

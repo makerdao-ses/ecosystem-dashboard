@@ -70,6 +70,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
     newForecast,
     newNetExpensesOffChain,
     newNetExpensesOnChain,
+    isDisabled,
+    handleResetFilterBreakDownChart,
   } = useFinances(budgets);
 
   return (
@@ -125,6 +127,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
             selectedGranularity={selectedBreakdownGranularity}
             onMetricChange={handleBreakdownMetricChange}
             onGranularityChange={handleBreakdownGranularityChange}
+            isDisabled={isDisabled}
+            handleResetFilter={handleResetFilterBreakDownChart}
           />
         )}
       </Container>

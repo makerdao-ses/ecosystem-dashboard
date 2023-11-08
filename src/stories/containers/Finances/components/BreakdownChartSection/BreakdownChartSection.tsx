@@ -11,6 +11,8 @@ interface BreakdownChartSectionProps {
   selectedGranularity: string;
   onGranularityChange: (value: string) => void;
   year: string;
+  isDisabled?: boolean;
+  handleResetFilter: () => void;
 }
 
 const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
@@ -19,6 +21,8 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
   onMetricChange,
   selectedGranularity,
   onGranularityChange,
+  isDisabled,
+  handleResetFilter,
 }) => (
   <Section>
     <HeaderContainer>
@@ -28,6 +32,8 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
         selectedGranularity={selectedGranularity}
         onMetricChange={onMetricChange}
         onGranularityChange={onGranularityChange}
+        isDisabled={isDisabled}
+        handleResetFilter={handleResetFilter}
       />
     </HeaderContainer>
 
