@@ -5,36 +5,35 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
-import useBreakdownChart from '../useBreakdownChart';
-import type { ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
+import { useMakerDAOExpenseMetrics } from '../useMakerDAOExpenseMetrics';
+import type { MakerDAOExpenseMetricsLineChart, ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
-interface IsShowSeries {
-  'Endgame Atlas': boolean;
-  'Endgame Scopes': boolean;
-  'MakerDAO Legacy': boolean;
-}
 interface BreakdownChartProps {
   year: string;
+  newActuals: { value: number }[];
+  newBudget: { value: number }[];
+  newForecast: { value: number }[];
+  newNetExpensesOffChain: { value: number }[];
+  newNetExpensesOnChain: { value: number }[];
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
-  const {
-    newAtlasBudgetWithBorders,
-    newScopeBudgetWithBorders,
-    newLegacyBudgetWithBorders,
-    isShowSeries,
-    setIsShowSeries,
-  } = useBreakdownChart();
-
+const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
+  year,
+  newActuals,
+  newBudget,
+  newForecast,
+  newNetExpensesOnChain,
+  newNetExpensesOffChain,
+}) => {
   const { isLight } = useThemeContext();
+  const { isShowSeries, setIsShowSeries } = useMakerDAOExpenseMetrics();
   const chartRef = useRef<EChartsOption | null>(null);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
 
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
@@ -138,39 +137,53 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
     },
     series: [
       {
-        name: 'Endgame Atlas',
-        data: newAtlasBudgetWithBorders,
-        type: 'bar',
-        stack: 'x',
-        barWidth,
+        name: 'Budget',
+        data: newActuals,
+        type: 'line',
+        stack: 'Total',
         showBackground: false,
-        visible: true,
         itemStyle: {
           color: isLight ? '#F99374' : '#F77249',
         },
       },
       {
-        name: 'Endgame Scopes',
-        data: newScopeBudgetWithBorders,
-        type: 'bar',
-        stack: 'x',
-        barWidth,
+        name: 'Forecast',
+        data: newBudget,
+        type: 'line',
+        stack: 'Total',
         showBackground: false,
-        visible: true,
         itemStyle: {
           color: isLight ? '#447AFB' : '#447AFB',
         },
       },
       {
-        name: 'MakerDAO Legacy',
-        visible: true,
-        data: newLegacyBudgetWithBorders,
-        type: 'bar',
-        stack: 'x',
+        name: 'Actuals',
+        data: newForecast,
+        type: 'line',
+        stack: 'Total',
         showBackground: false,
-        barWidth,
         itemStyle: {
           color: isLight ? '#2DC1B1' : '#1AAB9B',
+        },
+      },
+      {
+        name: 'Net Expenses On-chain',
+        data: newNetExpensesOnChain,
+        type: 'line',
+        stack: 'Total',
+        showBackground: false,
+        itemStyle: {
+          color: isLight ? '#FBCC5F' : 'red',
+        },
+      },
+      {
+        name: 'Net Expenses Off-chain',
+        data: newNetExpensesOffChain,
+        type: 'line',
+        stack: 'Total',
+        showBackground: false,
+        itemStyle: {
+          color: isLight ? '#7C6B95' : 'red',
         },
       },
     ],
@@ -195,7 +208,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
     });
   };
 
-  const handleOnclick = (legendName: string, data: ValueSeriesBreakdownChart[]) => () => {
+  const handleOnclick = (legendName: string, data: { value: number }[]) => () => {
     const chartInstance = chartRef?.current.getEchartsInstance();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
@@ -203,7 +216,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
       const currentSeries = options.series[seriesIndex];
       setIsShowSeries({
         ...isShowSeries,
-        [legendName]: !isShowSeries[legendName as keyof IsShowSeries],
+        [legendName]: !isShowSeries[legendName as keyof MakerDAOExpenseMetricsLineChart],
       });
 
       currentSeries.visible = !currentSeries.visible;
@@ -242,9 +255,9 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         <LegendContainer>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={onLegendItemHover('Endgame Atlas')}
+            onMouseEnter={onLegendItemHover('Budget')}
             onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('Endgame Atlas', newAtlasBudgetWithBorders)}
+            onClick={handleOnclick('Budget', newBudget)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -256,14 +269,9 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : '#F77249'} />
               <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : '#F77249'} />
             </svg>
-            Endgame Atlas
+            Budget
           </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={onLegendItemHover('Endgame Scopes')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('Endgame Scopes', newScopeBudgetWithBorders)}
-          >
+          <LegendItem isLight={isLight} onMouseEnter={onLegendItemHover('Forecast')} onMouseLeave={onLegendItemLeave}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={isMobile ? 13 : 16}
@@ -274,14 +282,9 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : '#447AFB'} />
               <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : '#447AFB'} />
             </svg>
-            Endgame Scopes
+            Forecast
           </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={onLegendItemHover('MakerDAO Legacy')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('MakerDAO Legacy', newLegacyBudgetWithBorders)}
-          >
+          <LegendItem isLight={isLight} onMouseEnter={onLegendItemHover('Actuals')} onMouseLeave={onLegendItemLeave}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={isMobile ? 13 : 16}
@@ -292,7 +295,41 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
               <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : '#1AAB9B'} />
               <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : '#1AAB9B'} />
             </svg>
-            MakerDAO Legacy
+            Actuals
+          </LegendItem>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={onLegendItemHover('Net Expenses On-chain')}
+            onMouseLeave={onLegendItemLeave}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={isMobile ? 13 : 16}
+              height={isMobile ? 13 : 16}
+              viewBox="0 0 13 13"
+              fill="none"
+            >
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#FBCC5F' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#FBCC5F' : 'red'} />
+            </svg>
+            Net Expenses On-chain
+          </LegendItem>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={onLegendItemHover('Net Expenses Off-chain')}
+            onMouseLeave={onLegendItemLeave}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={isMobile ? 13 : 16}
+              height={isMobile ? 13 : 16}
+              viewBox="0 0 13 13"
+              fill="none"
+            >
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#7C6B95' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#7C6B95' : 'red'} />
+            </svg>
+            Net Expenses Off-chain
           </LegendItem>
         </LegendContainer>
       </ChartContainer>
@@ -300,7 +337,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
   );
 };
 
-export default BreakdownChart;
+export default MakerDAOChartMetrics;
 
 const Wrapper = styled.div({
   marginTop: 32,
@@ -336,7 +373,7 @@ const ChartContainer = styled.div({
 });
 
 const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
-  const border = `1px solid ${isLight ? '#6EDBD0' : '#1AAB9B'}`;
+  const border = `1px solid ${isLight ? '#6EDBD0' : 'red'}`;
 
   return {
     position: 'absolute',
@@ -355,13 +392,13 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 const YearText = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 11,
   lineHeight: 'normal',
-  color: isLight ? '#139D8D' : '#2DC1B1',
+  color: isLight ? '#139D8D' : 'red',
   position: 'absolute',
   bottom: -6,
   width: 52,
   left: '50%',
   transform: 'translateX(-50%)',
-  backgroundColor: isLight ? '#FFFFFF' : '#000000',
+  backgroundColor: isLight ? '#FFFFFF' : 'red',
   textAlign: 'center',
 }));
 
