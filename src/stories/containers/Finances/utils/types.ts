@@ -12,6 +12,7 @@ export interface NavigationCard {
   totalDai?: number;
   valueDai?: number;
   color: string;
+  code?: string;
 }
 export interface DoughnutSeries {
   name: string;

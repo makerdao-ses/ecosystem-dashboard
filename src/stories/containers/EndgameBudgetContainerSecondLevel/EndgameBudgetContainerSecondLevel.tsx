@@ -12,6 +12,7 @@ import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/B
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from '../Finances/components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
+import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
@@ -109,6 +110,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
               allowSelectAll={allowSelectAll}
               popupContainerHeight={popupContainerHeight}
               handleSelectChange={handleSelectChangeMetrics}
+              breakdownTable={mockDataTableQuarterlyArray}
             />
           </ConditionalWrapper>
         </ContainerSections>

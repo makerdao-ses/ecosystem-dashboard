@@ -17,6 +17,7 @@ import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavi
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetrics from './components/SectionPages/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
+import { mockDataTableQuarterlyArray } from './utils/mockData';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -143,6 +144,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
           minItems={minItems}
           allowSelectAll={allowSelectAll}
           popupContainerHeight={popupContainerHeight}
+          breakdownTable={mockDataTableQuarterlyArray}
         />
       </ConditionalWrapper>
       <Container>
