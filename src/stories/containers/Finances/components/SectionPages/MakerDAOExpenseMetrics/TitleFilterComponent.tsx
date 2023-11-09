@@ -58,6 +58,7 @@ export default TitleFilterComponent;
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  gap: 16,
   flex: 1,
   [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
@@ -74,22 +75,25 @@ const TitleTooltip = styled.div({
   height: 24,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 10,
+    gap: 12,
   },
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
-  fontSize: 20,
+  fontSize: 18,
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
-  letterSpacing: '0.5px',
+  letterSpacing: '0.75px',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 24,
+    fontSize: 20,
     letterSpacing: '0.4px',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    fontSize: 24,
   },
 }));
 const Tooltip = styled.div({});
@@ -99,6 +103,9 @@ const IconWrapper = styled.div({
 
   paddingTop: 2,
   [lightTheme.breakpoints.up('tablet_768')]: {
+    paddingTop: 4,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingTop: 8,
   },
 });

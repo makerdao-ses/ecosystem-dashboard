@@ -34,7 +34,7 @@ const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
       selectedValue={selectedValue}
       periodicSelectionFilter={periodicSelectionFilter}
     />
-    <div>
+    <ContainerChart>
       <MakerDAOChartMetrics
         year={year}
         newActuals={newActuals}
@@ -43,7 +43,7 @@ const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
         newNetExpensesOffChain={newNetExpensesOffChain}
         newNetExpensesOnChain={newNetExpensesOnChain}
       />
-    </div>
+    </ContainerChart>
   </Container>
 );
 
@@ -56,3 +56,5 @@ const Container = styled.div({
     marginTop: 64,
   },
 });
+
+const ContainerChart = styled.div({});
