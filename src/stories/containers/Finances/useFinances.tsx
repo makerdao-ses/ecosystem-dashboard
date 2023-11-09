@@ -5,6 +5,7 @@ import useBreakdownChart from './components/BreakdownChartSection/useBreakdownCh
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
+import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
 import { prefixToRemove, removePrefix } from './utils/utils';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
@@ -43,6 +44,9 @@ export const useFinances = (budgets: Budget[]) => {
   // All the logic required by the CardChartOverview section
   const breakdownTable = useBreakdownTable();
 
+  // All the logic required by the MakerDAOExpenseMetrics
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics();
+
   return {
     ...cardOverViewSectionData,
     router,
@@ -51,6 +55,7 @@ export const useFinances = (budgets: Budget[]) => {
     ...breakdownChartSectionData,
     ...expenseTrendFinances,
     ...breakdownTable,
+    ...makerDAOExpensesMetrics,
     loadMoreCards,
     handleLoadMoreCards,
   };
