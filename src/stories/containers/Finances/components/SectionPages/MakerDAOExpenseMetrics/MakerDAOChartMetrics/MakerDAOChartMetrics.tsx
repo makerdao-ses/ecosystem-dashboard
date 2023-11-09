@@ -47,10 +47,10 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
 
   const options: EChartsOption = {
     grid: {
-      height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
-      width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
+      height: isMobile ? 192 : isTablet ? 409 : isDesktop1024 ? 398 : isDesktop1280 ? 399 : 399,
+      width: isMobile ? 304 : isTablet ? 645 : isDesktop1024 ? 704 : isDesktop1280 ? 955 : 955,
       top: isMobile ? 10 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
-      right: isMobile ? 2 : isTablet ? 7 : isDesktop1024 ? 50 : isDesktop1280 ? 4 : 4,
+      right: isMobile ? 2 : isTablet ? 0 : isDesktop1024 ? 36 : isDesktop1280 ? 4 : 4,
     },
     xAxis: {
       type: 'category',
@@ -82,7 +82,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         show: false,
       },
       axisLabel: {
-        margin: isMobile ? 12 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 16 : 16,
+        margin: isMobile ? 12 : isTablet ? 12 : isDesktop1024 ? 26 : isDesktop1280 ? 20 : 20,
         color: isLight ? '#434358' : '#708390',
         align: 'center',
         fontFamily: 'Inter,san-serif',
@@ -106,7 +106,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
     },
     yAxis: {
       axisLabel: {
-        margin: isMobile ? 10 : isTablet ? 22 : isDesktop1024 ? 32 : isDesktop1280 ? 20 : 20,
+        margin: isMobile ? 10 : isTablet ? 12 : isDesktop1024 ? 26 : isDesktop1280 ? 20 : 20,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -177,7 +177,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         },
       },
       {
-        name: 'Net Expenses Off-chain',
+        name: 'Net Expenses Off-chain included',
         data: newNetExpensesOffChain,
         type: 'line',
         stack: 'Total',
@@ -329,7 +329,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
               <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#7C6B95' : 'red'} />
               <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#7C6B95' : 'red'} />
             </svg>
-            Net Expenses Off-chain
+            {`${isMobile ? 'Net Expenses Off-chain' : 'Net Expenses Off-chain included'}`}
           </LegendItem>
         </LegendContainer>
       </ChartContainer>
@@ -354,7 +354,7 @@ const ChartContainer = styled.div({
   height: 347,
   marginLeft: 'auto',
   marginRight: 'auto',
-  marginTop: 24,
+  marginTop: -4,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     maxWidth: 756,
@@ -362,6 +362,7 @@ const ChartContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
+    position: 'revert',
     maxWidth: 848,
     height: 508,
   },
@@ -407,40 +408,47 @@ const LegendContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   flexWrap: 'wrap',
-  paddingLeft: 8,
-  paddingRight: 6,
-  gap: 22,
+  flex: 1,
+  gap: 24,
   position: 'absolute',
-  bottom: 30,
-  rowGap: 10,
+  bottom: 28,
+  rowGap: 14,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 32,
-    marginBottom: 2,
-    paddingLeft: 'revert',
-    paddingRight: 'revert',
-    flexWrap: 'revert',
-    position: 'revert',
+    gap: 42,
+    bottom: -50,
+    rowGap: 16,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginBottom: 0,
+    marginLeft: -18,
+    gap: 40,
+    bottom: -20,
+    justifyContent: 'start',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 60,
+    gap: 65,
+    marginLeft: 22,
+    marginBottom: 36,
+    bottom: -72,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 65,
+    marginLeft: 22,
+    marginBottom: 36,
   },
 });
 
 const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   color: isLight ? '#231536' : '#D2D4EF',
-  position: 'relative',
   display: 'flex',
   alignItems: 'center',
   gap: 6,
   cursor: 'pointer',
-
+  lineHeight: 'normal',
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     gap: 8,
