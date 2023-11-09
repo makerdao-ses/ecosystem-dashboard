@@ -20,9 +20,10 @@ interface Props {
   barColor: string;
   width?: number;
   height?: number;
+  code?: string;
 }
 
-const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDai, href, barColor }) => {
+const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDai, href, barColor, code }) => {
   const { isLight } = useThemeContext();
   const formatted = usLocalizedNumber(valueDai);
   const percent = percentageRespectTo(valueDai, totalDai);
@@ -38,7 +39,9 @@ const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDa
                   <ContainerImage>
                     <Image src={image} width={32} height={32} alt="Picture" />
                   </ContainerImage>
-                  <Title isLight={isLight}>{title}</Title>
+                  <Title isLight={isLight}>
+                    {code && <span>SES</span>} {title}
+                  </Title>
                 </ContainerIcon>
                 <CardInformation>
                   <ContainerTotal>
@@ -98,6 +101,11 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   lineHeight: 'normal',
   color: isLight ? '#231536' : '#D2D4EF',
+  '& span': {
+    color: isLight ? '#708390' : '#546978',
+    fontWeight: 700,
+    lineHeight: 'normal',
+  },
 }));
 
 const CardInformation = styled.div({

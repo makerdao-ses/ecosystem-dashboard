@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { mockDataTableQuarterlyArray } from '../../../utils/mockData';
 import BreakdownTableFinances from '../../BreakdownTableFinances/BreakdownTableFinances';
 import FinancesTable from '../../FinacesTable/FinancesTable';
 import HeaderTable from '../../HeaderTable/HeaderTable';
+import type { QuarterlyBudget } from '../../../utils/mockData';
 import type { MetricsWithAmount, PeriodicSelectionFilter } from '../../../utils/types';
-
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {
@@ -28,6 +27,7 @@ interface Props {
   minItems?: number;
   allowSelectAll?: boolean;
   popupContainerHeight?: number;
+  breakdownTable: QuarterlyBudget[];
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -48,6 +48,7 @@ const BreakdownTable: React.FC<Props> = ({
   minItems,
   allowSelectAll,
   popupContainerHeight,
+  breakdownTable,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -75,7 +76,7 @@ const BreakdownTable: React.FC<Props> = ({
     </TableHeader>
     <TableWrapper>
       <FinancesTable
-        breakdownTable={mockDataTableQuarterlyArray}
+        breakdownTable={breakdownTable}
         metrics={activeItems}
         year={year}
         period={selectedValue as PeriodicSelectionFilter}

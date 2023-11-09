@@ -10,14 +10,14 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   image: string;
-  shortCode: string;
+  code: string;
   name: string;
   href: string;
 }
 
-const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ image, href, shortCode, name }) => {
+const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ image, href, code, name }) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   return (
     <Container isLight={isLight}>
       <Avatar>
@@ -31,7 +31,7 @@ const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ image, href, shortCode,
         />
       </Avatar>
       <Information>
-        <Code isLight={isLight}>{shortCode}</Code>
+        <Code isLight={isLight}>{code}</Code>
         <Name isLight={isLight}>{name}</Name>
       </Information>
       <Action>{isMobile ? <ArrowOutline href={href} /> : <ReadMore href={href} />}</Action>
@@ -47,6 +47,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   padding: '16px 8px 10px',
   width: 100,
+  flex: 1,
   borderRadius: 6,
   background: isLight ? '#FFF' : 'red',
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
