@@ -75,7 +75,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], coreUnits
   const colorsLight = generateColorPalette(existingColors.length, numColors - existingColors.length, existingColors);
   const colorsDark = generateColorPalette(180, numColors, existingColorsDark);
   const doughnutSeriesData = childBudgetCoreUnits.map((item, index) => ({
-    name: removePrefix(item.name, prefixToRemove),
+    name: removePrefix(item?.name || '', prefixToRemove),
     value: 4345,
     percent: 30,
     actuals: 45,
@@ -88,10 +88,10 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], coreUnits
   const prediction = 4436;
   const breadcrumbs = [title];
   const cardsNavigationInformation = childBudgetCoreUnits.map((item: Budget, index) => ({
-    image: item.image || '',
-    title: removePrefix(item.name, prefixToRemove),
-    description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-    href: `${item.codePath}`,
+    image: item?.image || '',
+    title: removePrefix(item?.name || '', prefixToRemove),
+    description: item?.description || 'Finances of the core governance constructs described in the Maker Atlas.',
+    href: `${item?.codePath}`,
     totalDai: 132345,
     valueDai: 12345,
     color: isLight ? colorsLight[index] : colorsDark[index],
