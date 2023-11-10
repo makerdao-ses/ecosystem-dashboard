@@ -790,7 +790,7 @@ export const generateColorPalette = (index: number, numColors: number, existingC
 };
 // Remove prefix in the string
 export const removePrefix = (inputString: string, prefix: string) => {
-  if (inputString) return 'No-Name';
+  if (!inputString) return 'No-Name';
   const escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const regex = new RegExp(`^${escapedPrefix}\\s*`, 'i');
   const result = inputString.replace(regex, '');
