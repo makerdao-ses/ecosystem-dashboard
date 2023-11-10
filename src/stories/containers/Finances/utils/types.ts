@@ -73,3 +73,17 @@ export interface MakerDAOExpenseMetricsLineChart {
   'Net Expenses On-chain': boolean;
   'Net Expenses Off-chain Included': boolean;
 }
+
+export interface SeriesBreakDownChart {
+  name: 'Endgame Atlas';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any;
+  type: string;
+  stack: string;
+  barWidth: number;
+  showBackground: boolean;
+  visible: boolean;
+  itemStyle?: {
+    color: string;
+  };
+}

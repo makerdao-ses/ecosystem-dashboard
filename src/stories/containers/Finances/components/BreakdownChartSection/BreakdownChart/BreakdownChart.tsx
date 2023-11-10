@@ -6,7 +6,7 @@ import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
 import useBreakdownChart from '../useBreakdownChart';
-import type { ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
+import type { SeriesBreakDownChart, ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 interface IsShowSeries {
@@ -16,16 +16,11 @@ interface IsShowSeries {
 }
 interface BreakdownChartProps {
   year: string;
+  className?: string;
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
-  const {
-    newAtlasBudgetWithBorders,
-    newScopeBudgetWithBorders,
-    newLegacyBudgetWithBorders,
-    isShowSeries,
-    setIsShowSeries,
-  } = useBreakdownChart();
+const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, className }) => {
+  const { isShowSeries, setIsShowSeries, seriesBreakDownChartWithColors, legendBreakDownChart } = useBreakdownChart();
 
   const { isLight } = useThemeContext();
   const chartRef = useRef<EChartsOption | null>(null);
@@ -34,7 +29,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
 
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
@@ -136,44 +130,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         },
       },
     },
-    series: [
-      {
-        name: 'Endgame Atlas',
-        data: newAtlasBudgetWithBorders,
-        type: 'bar',
-        stack: 'x',
-        barWidth,
-        showBackground: false,
-        visible: true,
-        itemStyle: {
-          color: isLight ? '#F99374' : '#F77249',
-        },
-      },
-      {
-        name: 'Endgame Scopes',
-        data: newScopeBudgetWithBorders,
-        type: 'bar',
-        stack: 'x',
-        barWidth,
-        showBackground: false,
-        visible: true,
-        itemStyle: {
-          color: isLight ? '#447AFB' : '#447AFB',
-        },
-      },
-      {
-        name: 'MakerDAO Legacy',
-        visible: true,
-        data: newLegacyBudgetWithBorders,
-        type: 'bar',
-        stack: 'x',
-        showBackground: false,
-        barWidth,
-        itemStyle: {
-          color: isLight ? '#2DC1B1' : '#1AAB9B',
-        },
-      },
-    ],
+    series: seriesBreakDownChartWithColors as SeriesBreakDownChart[],
   };
 
   const onLegendItemHover = (legendName: string) => () => {
@@ -224,7 +181,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
   };
   return (
     <Wrapper>
-      <ChartContainer>
+      <ChartContainer className={className}>
         <ReactECharts
           ref={chartRef}
           option={options}
@@ -239,63 +196,29 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>
         )}
-        <LegendContainer>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={onLegendItemHover('Endgame Atlas')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('Endgame Atlas', newAtlasBudgetWithBorders)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : '#F77249'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : '#F77249'} />
-            </svg>
-            Endgame Atlas
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={onLegendItemHover('Endgame Scopes')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('Endgame Scopes', newScopeBudgetWithBorders)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : '#447AFB'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : '#447AFB'} />
-            </svg>
-            Endgame Scopes
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={onLegendItemHover('MakerDAO Legacy')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('MakerDAO Legacy', newLegacyBudgetWithBorders)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : '#1AAB9B'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : '#1AAB9B'} />
-            </svg>
-            MakerDAO Legacy
-          </LegendItem>
-        </LegendContainer>
       </ChartContainer>
+      <LegendContainer>
+        {legendBreakDownChart.map((legend) => (
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={onLegendItemHover(legend.name)}
+            onMouseLeave={onLegendItemLeave}
+            onClick={handleOnclick(legend.name, legend.data)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={isMobile ? 13 : 16}
+              height={isMobile ? 13 : 16}
+              viewBox="0 0 13 13"
+              fill="none"
+            >
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={legend.color} />
+              <circle cx="6.5" cy="6.5" r="4" fill={legend.color} />
+            </svg>
+            {legend.name}
+          </LegendItem>
+        ))}
+      </LegendContainer>
     </Wrapper>
   );
 };
@@ -373,25 +296,28 @@ const LegendContainer = styled.div({
   paddingLeft: 8,
   paddingRight: 6,
   gap: 22,
-  position: 'absolute',
-  bottom: 30,
-  rowGap: 10,
+  marginTop: -78,
+  rowGap: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 32,
+    rowGap: 5,
     marginBottom: 2,
+    marginTop: -24,
     paddingLeft: 'revert',
     paddingRight: 'revert',
-    flexWrap: 'revert',
-    position: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 0,
+    rowGap: 5,
+    marginTop: -22,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 60,
+    rowGap: 5,
   },
 });
 
