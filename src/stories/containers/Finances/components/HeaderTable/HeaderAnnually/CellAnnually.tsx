@@ -53,7 +53,7 @@ const Metrics = styled.div<WithIsLight>(({ isLight }) => ({
     position: 'absolute',
     height: 48,
     bottom: 4,
-    borderRight: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
+    borderRight: `1px solid ${isLight ? '#D1DEE6' : '#546978'}`,
   },
   padding: 0,
   [lightTheme.breakpoints.up('tablet_768')]: {

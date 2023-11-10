@@ -51,8 +51,7 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
       position: 'relative',
       height: 48,
       left: 10,
-
-      borderLeft: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
+      borderRight: `1px solid ${isLight ? '#D1DEE6' : '#546978'}`,
       [lightTheme.breakpoints.up('tablet_768')]: {
         left: 6,
       },
