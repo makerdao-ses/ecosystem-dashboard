@@ -422,16 +422,18 @@ const LegendContainer = styled.div({
     rowGap: 16,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginLeft: -18,
+    marginLeft: -20,
     gap: 40,
-    bottom: -20,
+    minWidth: 960,
+    bottom: -12,
     justifyContent: 'start',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 65,
     marginLeft: 22,
     marginBottom: 36,
-    bottom: -72,
+    bottom: -50,
+    minWidth: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 65,
