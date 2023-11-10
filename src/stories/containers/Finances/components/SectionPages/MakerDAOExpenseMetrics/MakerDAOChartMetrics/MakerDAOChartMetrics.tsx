@@ -362,7 +362,6 @@ const ChartContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    position: 'revert',
     maxWidth: 848,
     height: 508,
   },
