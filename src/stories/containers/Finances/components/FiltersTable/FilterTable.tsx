@@ -188,7 +188,7 @@ const CustomMultiSelectStyled = styled(CustomMultiSelect)({
 });
 
 const PeriodSelect = styled(SingleItemSelect)({
-  padding: '7px 15px 7px 16px',
+  padding: '7px 12px 7px 16px',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '14px 15px 14px 16px',

@@ -12,6 +12,7 @@ export interface NavigationCard {
   totalDai?: number;
   valueDai?: number;
   color: string;
+  code?: string;
 }
 export interface DoughnutSeries {
   name: string;
@@ -64,4 +65,12 @@ export interface ValueSeriesBreakdownChart {
 export interface SeriesBreakdownChart {
   name: string;
   data: ValueSeriesBreakdownChart[];
+}
+
+export interface MakerDAOExpenseMetricsLineChart {
+  Atlas: boolean;
+  Forecast: boolean;
+  Actuals: boolean;
+  'Net Expenses On-chain': boolean;
+  'Net Expenses Off-chain Included': boolean;
 }

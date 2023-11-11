@@ -15,8 +15,9 @@ import BreakdownTable from './components/SectionPages/BreakdownTable';
 import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
-import MakerDAOExpenseMetrics from './components/SectionPages/MakerDAOExpenseMetrics';
+import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
+import { mockDataTableQuarterlyArray } from './utils/mockData';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -63,6 +64,15 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
     handleBreakdownGranularityChange,
     loadMoreCards,
     handleLoadMoreCards,
+    periodFilterMetrics,
+    handlePeriodChangeMetrics,
+    newActuals,
+    newBudget,
+    newForecast,
+    newNetExpensesOffChain,
+    newNetExpensesOnChain,
+    isDisabled,
+    handleResetFilterBreakDownChart,
   } = useFinances(budgets);
 
   return (
@@ -118,6 +128,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
             selectedGranularity={selectedBreakdownGranularity}
             onMetricChange={handleBreakdownMetricChange}
             onGranularityChange={handleBreakdownGranularityChange}
+            isDisabled={isDisabled}
+            handleResetFilter={handleResetFilterBreakDownChart}
           />
         )}
       </Container>
@@ -139,10 +151,23 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
           minItems={minItems}
           allowSelectAll={allowSelectAll}
           popupContainerHeight={popupContainerHeight}
+          breakdownTable={mockDataTableQuarterlyArray}
         />
       </ConditionalWrapper>
       <Container>
-        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && <MakerDAOExpenseMetrics />}
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
+          <MakerDAOExpenseMetricsFinances
+            handleChange={handlePeriodChangeMetrics}
+            periodicSelectionFilter={periodicSelectionFilter}
+            selectedValue={periodFilterMetrics}
+            newActuals={newActuals}
+            newBudget={newBudget}
+            newForecast={newForecast}
+            newNetExpensesOffChain={newNetExpensesOffChain}
+            newNetExpensesOnChain={newNetExpensesOnChain}
+            year={year}
+          />
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             columns={headersExpenseReport}
