@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
-import React from 'react';
+import lightTheme from '@ses/styles/theme/light';
+import React, { useState } from 'react';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
@@ -15,13 +17,26 @@ interface DeliverableCardProps {
   deliverable: Deliverable;
   viewMode: DeliverableViewMode;
   isShownBelow: boolean;
+  maxKeyResultsOnRow: number;
 }
 
-const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable, viewMode, isShownBelow }) => {
+const DeliverableCard: React.FC<DeliverableCardProps> = ({
+  deliverable,
+  viewMode,
+  isShownBelow,
+  maxKeyResultsOnRow,
+}) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const handleToggleExpand = () => setExpanded((prev) => !prev);
 
   return (
-    <Card isLight={isLight}>
+    <Card
+      isLight={isLight}
+      fixedHeight={!expanded && viewMode === 'compacted' && isShownBelow && !isMobile}
+      maxKeyResultsOnRow={maxKeyResultsOnRow}
+    >
       <HeaderContainer>
         <TitleContainer>
           <Title isLight={isLight}>{deliverable.title}</Title>
@@ -42,30 +57,49 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable, viewMode
       </ProgressContainer>
 
       {viewMode === 'detailed' && (
-        <div>
+        <Description isLight={isLight}>
           Purely financial view of SPFs with generalized financial categories applicable across all budget categories.
-        </div>
+        </Description>
       )}
-      <KeyResults keyResults={deliverable.keyResults} viewMode={viewMode} isShownBelow={isShownBelow} />
+      <KeyResults
+        keyResults={deliverable.keyResults}
+        viewMode={viewMode}
+        isShownBelow={isShownBelow}
+        expanded={expanded}
+        handleToggleExpand={handleToggleExpand}
+        maxKeyResultsOnRow={maxKeyResultsOnRow}
+      />
     </Card>
   );
 };
 
 export default DeliverableCard;
 
-const Card = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  gap: 9,
-  borderRadius: 6,
-  border: `1px solid ${isLight ? '#D1DEE6' : 'red'}`,
-  background: isLight ? '#fff' : 'red',
-  boxShadow: isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 5px 10px 0px red',
-  padding: '7px 7px 15px 7px',
-}));
+const Card = styled.div<WithIsLight & { fixedHeight: boolean; maxKeyResultsOnRow: number }>(
+  ({ isLight, fixedHeight, maxKeyResultsOnRow }) => {
+    let height: string | number;
+
+    if (fixedHeight) {
+      height = maxKeyResultsOnRow < 4 ? 'auto' : 247;
+    } else {
+      height = 'auto';
+    }
+
+    return {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      gap: 7,
+      borderRadius: 6,
+      background: isLight ? '#fff' : 'red',
+      boxShadow: isLight
+        ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
+        : '0px 1px 3px 0px red, 0px 5px 10px 0px red',
+      padding: 16,
+      height: fixedHeight ? height : 'auto',
+    };
+  }
+);
 
 const HeaderContainer = styled.div({
   display: 'flex',
@@ -115,3 +149,15 @@ const ProgressContainer = styled.div({
   width: '100%',
   gap: 16,
 });
+
+const Description = styled.p<WithIsLight>(({ isLight }) => ({
+  margin: 0,
+  fontSize: 14,
+  lineHeight: 'normal',
+  color: isLight ? '#231536' : 'red',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+    lineHeight: '22px',
+  },
+}));

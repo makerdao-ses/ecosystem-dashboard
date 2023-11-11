@@ -16,7 +16,7 @@ const DeliverableStatusChip: React.FC<DeliverableStatusChipProps> = ({ status })
       case DeliverableStatus.DELIVERED:
         return 'Delivered';
       default:
-        return 'To Do';
+        return 'To do';
     }
   }, [status]);
 

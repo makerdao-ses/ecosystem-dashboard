@@ -21,6 +21,17 @@ interface ProjectCardProps {
 
 export type DeliverableViewMode = 'compacted' | 'detailed';
 
+function splitInRows<T = unknown>(arr: T[], rowLength: number): T[][] {
+  const result: T[][] = [];
+
+  for (let i = 0; i < arr.length; i += rowLength) {
+    const row = arr.slice(i, i + rowLength);
+    result.push(row);
+  }
+
+  return result;
+}
+
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { isLight } = useThemeContext();
   const isUpDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
@@ -45,6 +56,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   );
 
   const deliverables = showAllDeliverables ? project.deliverables : project.deliverables.slice(0, 4);
+  // transforming deliverables into rows we can predict the max height needed to the cards
+  const deliverablesRows = splitInRows(deliverables, isUpDesktop1280 ? 3 : 2);
+
   return (
     <Card isLight={isLight}>
       <MainContent>
@@ -67,7 +81,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           <LeftColumn showDeliverablesBelow={showDeliverablesBelow}>
             {isUpDesktop1280 && !showDeliverablesBelow && statusSection}
             <ImageContainer>
-              <Image src="https://placehold.co/600x400" layout="fill" unoptimized />
+              <Image src="/assets/img/project_placeholder.png" layout="fill" unoptimized />
             </ImageContainer>
             <DataContainer showDeliverablesBelow={showDeliverablesBelow}>
               {(!isUpDesktop1280 || showDeliverablesBelow) && statusSection}
@@ -85,14 +99,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
             <GrayBackground isLight={isLight} showBackground={showGrayBackground}>
               <DeliverablesContainer showDeliverablesBelow={showDeliverablesBelow}>
-                {deliverables.map((deliverable) => (
-                  <DeliverableCard
-                    key={deliverable.id}
-                    deliverable={deliverable}
-                    viewMode={deliverableViewMode}
-                    isShownBelow={showDeliverablesBelow}
-                  />
-                ))}
+                {deliverablesRows.map((row) =>
+                  row.map((deliverable) => (
+                    <DeliverableCard
+                      key={deliverable.id}
+                      deliverable={deliverable}
+                      viewMode={deliverableViewMode}
+                      isShownBelow={showDeliverablesBelow}
+                      maxKeyResultsOnRow={row
+                        .map((d) => d.keyResults.length)
+                        .reduce(
+                          (a, b) =>
+                            isUpDesktop1280 && !showDeliverablesBelow ? Math.min(3, Math.max(a, b)) : Math.max(a, b),
+                          0
+                        )}
+                    />
+                  ))
+                )}
               </DeliverablesContainer>
               {(isUpDesktop1280
                 ? deliverableViewMode === 'compacted'
@@ -374,6 +397,10 @@ const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ 
     margin: '-8px -23px -23px -23px',
   },
 
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 24,
+  },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     padding: '8px 31px 31px 31px',
     margin: '-8px -31px -31px -31px',
@@ -396,7 +423,17 @@ const DeliverablesContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ 
   },
 
   ...(showDeliverablesBelow && {
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      gap: 24,
+
+      '& > *': {
+        maxWidth: 'calc(50% - 12px)',
+      },
+    },
+
     [lightTheme.breakpoints.up('desktop_1280')]: {
+      gap: 16,
+
       '& > *': {
         maxWidth: 'calc(33% - 7px)',
       },

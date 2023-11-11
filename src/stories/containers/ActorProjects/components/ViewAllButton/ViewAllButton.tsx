@@ -49,6 +49,7 @@ const Button = styled.button<WithIsLight>(({ isLight }) => ({
     fontSize: 14,
     fontWeight: 500,
     lineHeight: '18px',
+    letterSpacing: 0.4,
     color: isLight ? '#31424E' : 'red',
   },
 

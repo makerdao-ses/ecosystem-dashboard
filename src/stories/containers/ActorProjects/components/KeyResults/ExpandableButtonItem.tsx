@@ -36,7 +36,7 @@ const ExpandableButtonItem: React.FC<ExpandableButtonItemProps> = ({ expanded, h
 
 export default ExpandableButtonItem;
 
-const Container = styled.li(() => ({
+const Container = styled.div(() => ({
   display: 'flex',
   alignItems: 'center',
   listStyle: 'none',
@@ -48,6 +48,8 @@ const ExpandableItem = styled.div({
   gap: 8,
   cursor: 'pointer',
   width: '100%',
+  marginTop: 8,
+  paddingLeft: 7,
 });
 
 const Label = styled.span<WithIsLight>(({ isLight }) => ({
