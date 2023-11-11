@@ -7,7 +7,7 @@ jobs:
     environment: staging
     strategy:
       matrix:
-        node-version: [v16.x]
+        node-version: [v20.9.0]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v1
