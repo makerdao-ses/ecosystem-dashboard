@@ -47,8 +47,10 @@ const StoryPoint = styled.div<WithIsLight & { completed: boolean }>(({ isLight, 
   width: '100%',
   height: '100%',
   borderRadius: 4,
-  background: completed ? (isLight ? '#6EDBD0' : 'red') : isLight ? '#ECF1F3' : 'red',
-  boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : '2px 4px 7px 0px red',
+  background: completed ? (isLight ? '#6EDBD0' : '#2DC1B1') : isLight ? '#ECF1F3' : '#10191F',
+  boxShadow: isLight
+    ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
 
 const Label = styled.div<WithIsLight>(({ isLight }) => ({
@@ -58,10 +60,10 @@ const Label = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   fontWeight: 500,
   textAlign: 'right',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));
 
 const Completed = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#6EDBD0' : 'red',
+  color: isLight ? '#6EDBD0' : '#6EDBD0',
   fontWeight: 700,
 }));

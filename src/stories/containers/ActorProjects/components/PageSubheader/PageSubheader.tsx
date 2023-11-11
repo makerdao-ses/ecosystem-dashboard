@@ -40,7 +40,7 @@ const Header = styled.div({
 
 const Title = styled.h1<WithIsLight>(({ isLight }) => ({
   margin: 0,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 20,
   fontWeight: 600,
   lineHeight: 'normal',

@@ -51,7 +51,7 @@ const KeyResults: React.FC<KeyResultsProps> = ({
       <MaybeScrollableList scrollable={!isMobile && (viewMode === 'detailed' || expanded) && keyResults.length > 6}>
         {isEmpty ? (
           <NoKeyContainer maxKeyResultsOnRow={maxKeyResultsOnRow}>
-            <NoKeyResults isLight={isLight}>No Key results yet</NoKeyResults>
+            <NoKeyResults>No Key results yet</NoKeyResults>
           </NoKeyContainer>
         ) : (
           <>
@@ -93,9 +93,9 @@ const Title = styled.h4<WithIsLight>(({ isLight }) => ({
   fontSize: 16,
   fontWeight: 500,
   lineHeight: '18px',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   padding: '2px 8px',
-  background: isLight ? 'rgba(236, 239, 249, 0.50)' : 'red',
+  background: isLight ? 'rgba(236, 239, 249, 0.50)' : 'rgba(35, 21, 54, 0.30)',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'block',
@@ -124,13 +124,13 @@ const NoKeyContainer = styled.div<{ maxKeyResultsOnRow: number }>(({ maxKeyResul
   };
 });
 
-const NoKeyResults = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#546978' : 'red',
+const NoKeyResults = styled.span({
+  color: '#546978',
   fontSize: 16,
   fontStyle: 'italic',
   lineHeight: '18px',
   padding: '16px 0',
-}));
+});
 
 const ResultItem = styled.li(() => ({
   display: 'flex',

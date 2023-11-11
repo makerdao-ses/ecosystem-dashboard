@@ -42,7 +42,7 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
           <Title isLight={isLight}>{deliverable.title}</Title>
         </TitleContainer>
         <DeliverableOwnerContainer>
-          <OwnerImage isLight={isLight} src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
+          <OwnerImage src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
         </DeliverableOwnerContainer>
       </HeaderContainer>
       <ProgressContainer>
@@ -91,10 +91,10 @@ const Card = styled.div<WithIsLight & { fixedHeight: boolean; maxKeyResultsOnRow
       alignItems: 'flex-start',
       gap: 7,
       borderRadius: 6,
-      background: isLight ? '#fff' : 'red',
+      background: isLight ? '#fff' : '#1E2C37',
       boxShadow: isLight
         ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
-        : '0px 1px 3px 0px red, 0px 5px 10px 0px red',
+        : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
       padding: 16,
       height: fixedHeight ? height : 'auto',
     };
@@ -122,7 +122,7 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   alignSelf: 'stretch',
-  color: isLight ? '#25273D' : 'red',
+  color: isLight ? '#25273D' : '#D2D4EF',
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
@@ -133,15 +133,15 @@ const DeliverableOwnerContainer = styled.div({
   alignItems: 'center',
 });
 
-const OwnerImage = styled(Avatar)<WithIsLight>(({ isLight }) => ({
+const OwnerImage = styled(Avatar)({
   width: 28,
   height: 28,
   borderRadius: 20,
-  border: `2px solid ${isLight ? '#fff' : 'red'}`,
-  boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : '2px 4px 7px 0px red',
+  border: '2px solid #fff',
+  boxShadow: '2px 4px 7px 0px rgba(26, 171, 155, 0.25)',
   fontSize: 14,
   fontFamily: 'Inter, sans-serif',
-}));
+});
 
 const ProgressContainer = styled.div({
   display: 'flex',
@@ -154,7 +154,7 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
   margin: 0,
   fontSize: 14,
   lineHeight: 'normal',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,

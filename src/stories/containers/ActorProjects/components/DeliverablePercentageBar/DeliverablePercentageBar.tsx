@@ -34,8 +34,8 @@ const ProgressBar = styled.div<WithIsLight & { progress: number }>(({ isLight, p
   width: '100%',
   borderRadius: 6,
   overflow: 'hidden',
-  background: isLight ? '#ECF1F3' : 'red',
-  boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : '2px 4px 7px 0px red',
+  background: isLight ? '#ECF1F3' : '#10191F',
+  boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : 'none',
 
   '&:before': {
     content: '""',
@@ -46,7 +46,7 @@ const ProgressBar = styled.div<WithIsLight & { progress: number }>(({ isLight, p
     bottom: 0,
     borderRadius: 6,
     width: `${progress}%`,
-    background: '#6EDBD0',
+    background: isLight ? '#6EDBD0' : '#2DC1B1',
   },
 }));
 
@@ -56,5 +56,5 @@ const Label = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: 'normal',
   textAlign: 'right',
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
 }));

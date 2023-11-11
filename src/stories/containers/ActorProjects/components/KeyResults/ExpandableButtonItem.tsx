@@ -53,7 +53,7 @@ const ExpandableItem = styled.div({
 });
 
 const Label = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   lineHeight: '18px',
   fontWeight: 500,
@@ -62,7 +62,7 @@ const Label = styled.span<WithIsLight>(({ isLight }) => ({
 const Line = styled.div<WithIsLight>(({ isLight }) => ({
   width: '100%',
   height: 1,
-  background: isLight ? '#D4D9E1' : 'red',
+  background: isLight ? '#D4D9E1' : '#546978',
   margin: 'auto 0',
 }));
 

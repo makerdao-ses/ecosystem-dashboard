@@ -65,8 +65,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <ProjectHeader>
           <NameContainer>
             <TitleContainer>
-              <ProjectCode isLight={isLight}>{project.code}</ProjectCode>{' '}
-              <ProjectTitle isLight={isLight}>{project.title}</ProjectTitle>
+              <ProjectCode>{project.code}</ProjectCode> <ProjectTitle isLight={isLight}>{project.title}</ProjectTitle>
             </TitleContainer>
             <BudgetTypeBadge budgetType={project.budgetType} />
           </NameContainer>
@@ -138,12 +137,12 @@ export default ProjectCard;
 
 const Card = styled.article<WithIsLight>(({ isLight }) => ({
   overflow: 'hidden',
-  background: isLight ? '#fff' : 'red',
+  background: isLight ? '#fff' : '#10191F',
   borderRadius: 6,
-  border: `1px solid ${isLight ? '#e6e6e6' : '#D1DEE6'}`,
+  border: `1px solid ${isLight ? '#e6e6e6' : '#10191F'}`,
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px 0px red',
+    : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
 
 const MainContent = styled.div({
@@ -192,8 +191,8 @@ const TitleContainer = styled.div({
   },
 });
 
-const ProjectCode = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#9FAFB9' : 'red',
+const ProjectCode = styled.span({
+  color: '#9FAFB9',
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
@@ -208,10 +207,10 @@ const ProjectCode = styled.span<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 24,
   },
-}));
+});
 
 const ProjectTitle = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#25273D' : 'red',
+  color: isLight ? '#25273D' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',
@@ -354,7 +353,7 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
   textOverflow: 'ellipsis',
   alignSelf: 'stretch',
   margin: 0,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   lineHeight: 'normal',
 
@@ -373,7 +372,7 @@ const DeliverableTitleContainer = styled.div({
 });
 
 const DeliverablesTitle = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 20,
   fontWeight: 600,
   lineHeight: 'normal',
@@ -387,7 +386,7 @@ const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ 
   background: showBackground
     ? isLight
       ? 'linear-gradient(0deg, #F6F8F9 85.04%, rgba(246, 248, 249, 0.00) 121.04%)'
-      : 'linear-gradient(0deg, red 85.04%, red 121.04%)'
+      : 'none'
     : 'none',
   padding: '8px 16px 24px 16px',
   margin: '-8px -16px -24px -16px',

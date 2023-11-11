@@ -7,7 +7,6 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface ProjectFiltersProps {
   isMobile: boolean;
@@ -39,7 +38,7 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
     <MobileFilterContainer isCollapsed={isFilterCollapsedOnMobile}>
       <SearchMobileContainer isCollapsed={isFilterCollapsedOnMobile}>
         {!isFilterCollapsedOnMobile && (
-          <SearchContainer isLight={isLight}>
+          <SearchContainer>
             <SearchInput
               legacyBreakpoints={false}
               handleClearSearch={() => handleSearchChange('')}
@@ -108,7 +107,7 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
           items={statuses}
           onChange={handleStatusChange}
         />
-        <SearchContainer isLight={isLight}>
+        <SearchContainer>
           <SearchInput
             legacyBreakpoints={false}
             handleClearSearch={() => handleSearchChange('')}
@@ -142,7 +141,7 @@ const FieldsContainer = styled.div({
   display: 'flex',
 });
 
-const SearchContainer = styled.div<WithIsLight>(({ isLight }) => ({
+const SearchContainer = styled.div({
   position: 'relative',
   width: '100%',
 
@@ -162,14 +161,14 @@ const SearchContainer = styled.div<WithIsLight>(({ isLight }) => ({
       left: 8,
       height: 32,
       width: 1,
-      backgroundColor: isLight ? '#D4D9E1' : 'red',
+      backgroundColor: '#D4D9E1',
     },
 
     [lightTheme.breakpoints.up('desktop_1024')]: {
       left: 16,
     },
   },
-}));
+});
 
 const MobileFilterContainer = styled.div<{ isCollapsed: boolean }>(({ isCollapsed }) => ({
   display: 'flex',

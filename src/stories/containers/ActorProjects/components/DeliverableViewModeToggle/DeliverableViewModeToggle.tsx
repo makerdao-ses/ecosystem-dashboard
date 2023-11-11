@@ -54,8 +54,6 @@ const Button = styled.div<WithIsLight & { active: boolean }>(({ isLight, active 
   cursor: 'pointer',
 
   '& path': {
-    fill: active ? (isLight ? '#546978' : 'red') : isLight ? '#D1DEE6' : 'red',
+    fill: active ? (isLight ? '#546978' : '#D1DEE6') : isLight ? '#D1DEE6' : '#546978',
   },
-
-  '&:hover': {},
 }));
