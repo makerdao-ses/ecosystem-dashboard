@@ -30,18 +30,18 @@ const ProjectOwnerChip: React.FC<ProjectOwnerChipProps> = ({ owner }) => {
 export default ProjectOwnerChip;
 
 const OwnerChip = styled(Chip)<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#fff' : 'red',
-  border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
+  background: isLight ? '#fff' : '#10191F',
+  border: `1px solid ${isLight ? '#D4D9E1' : '#343442'}`,
   borderRadius: 20,
   padding: '3px 7px 3px 3px',
-  color: isLight ? '#708390' : 'red',
+  color: '#708390',
   fontSize: 11,
   lineHeight: 'normal',
   cursor: 'pointer',
 
   '.MuiAvatar-root': {
     margin: 0,
-    boxShadow: isLight ? '1px 2px 3px 0px rgba(26, 171, 155, 0.25)' : '1px 2px 3px 0px red',
+    boxShadow: '1px 2px 3px 0px rgba(26, 171, 155, 0.25)',
   },
 
   '.MuiChip-label': {

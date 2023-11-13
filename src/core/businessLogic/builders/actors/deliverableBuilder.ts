@@ -8,6 +8,7 @@ export class DeliverableBuilder {
     this._deliverable = {
       id: '',
       title: '',
+      description: '',
       status: DeliverableStatus.TODO,
       progress: {},
       owner: {} as Owner,
@@ -22,6 +23,11 @@ export class DeliverableBuilder {
 
   withTitle(title: string): DeliverableBuilder {
     this._deliverable.title = title;
+    return this;
+  }
+
+  withDescription(description: string): DeliverableBuilder {
+    this._deliverable.description = description;
     return this;
   }
 

@@ -23,7 +23,7 @@ const ViewAllButton: React.FC<ViewAllButtonProps> = (props) => {
       >
         <path
           d="M8.19339 10.8631C8.35404 11.0456 8.64598 11.0456 8.80664 10.8631L13.4036 5.63952C13.6255 5.38735 13.4398 5 13.097 5H3.90306C3.56023 5 3.37451 5.38735 3.59643 5.63952L8.19339 10.8631Z"
-          fill="#25273D"
+          fill={isLight ? '#25273D' : '#B7A6CD'}
         />
       </svg>
     </Button>
@@ -41,22 +41,23 @@ const Button = styled.button<WithIsLight>(({ isLight }) => ({
   gap: 10,
   alignSelf: 'stretch',
   borderRadius: 22,
-  border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
-  background: isLight ? '#fff' : 'red',
+  border: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
+  background: isLight ? '#fff' : '#1E2C37',
   cursor: 'pointer',
 
   '& > span': {
     fontSize: 14,
     fontWeight: 500,
     lineHeight: '18px',
-    color: isLight ? '#31424E' : 'red',
+    letterSpacing: 0.4,
+    color: isLight ? '#31424E' : '#9FAFB9',
   },
 
   '&:hover': {
-    border: `1px solid ${isLight ? '#25273D' : 'red'}`,
+    border: `1px solid ${isLight ? '#25273D' : '#D2D4EF'}`,
 
     '& > span': {
-      color: isLight ? '#231536' : 'red',
+      color: isLight ? '#231536' : '#D2D4EF',
     },
   },
 }));

@@ -60,6 +60,7 @@ export interface Deliverable {
   status: DeliverableStatus;
   progress: Progress;
   owner: Owner;
+  description?: string;
   keyResults: KeyResult[];
 }
 

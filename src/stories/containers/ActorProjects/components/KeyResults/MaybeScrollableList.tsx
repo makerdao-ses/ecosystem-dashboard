@@ -12,6 +12,7 @@ const MaybeScrollableList: React.FC<MaybeScrollableListProps> = ({ scrollable, c
       style={{
         height: 150,
       }}
+      autoHide={false}
     >
       <ResultList>{children}</ResultList>
     </SimpleBar>

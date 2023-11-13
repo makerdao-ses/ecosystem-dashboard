@@ -31,17 +31,14 @@ const SupportedTeamsAvatarGroup: React.FC = () => {
     >
       <StyledAvatarGroup total={3} isLight={isLight}>
         <StyledAvatar
-          isLight={isLight}
           alt="Powerhouse"
           src="https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png"
         />
         <StyledAvatar
-          isLight={isLight}
           alt="Dewiz"
           src="https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/DEWIZ/DEWIZ_logo.png"
         />
         <StyledAvatar
-          isLight={isLight}
           alt="BALabs"
           src="https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png"
         />
@@ -54,8 +51,8 @@ export default SupportedTeamsAvatarGroup;
 
 const StyledAvatarGroup = styled(AvatarGroup)<WithIsLight>(({ isLight }) => ({
   display: 'flex',
-  border: `1px solid ${isLight ? '#D4D9E1' : 'red'}`,
-  background: isLight ? '#fff' : 'red',
+  border: `1px solid ${isLight ? '#D4D9E1' : '#343442'}`,
+  background: isLight ? '#fff' : '#10191F',
   padding: 3,
   borderRadius: 20,
   cursor: 'pointer',
@@ -65,15 +62,15 @@ const StyledAvatarGroup = styled(AvatarGroup)<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const StyledAvatar = styled(Avatar)<WithIsLight>(({ isLight }) => ({
+const StyledAvatar = styled(Avatar)({
   width: 24,
   height: 24,
-  boxShadow: isLight ? '1px 2px 3px 0px rgba(26, 171, 155, 0.25)' : '1px 2px 3px 0px red',
+  boxShadow: '1px 2px 3px 0px rgba(26, 171, 155, 0.25)',
 
   '&:not(:last-of-type)': {
     marginLeft: -8,
   },
-}));
+});
 
 const TooltipContainer = styled.div({
   display: 'flex',

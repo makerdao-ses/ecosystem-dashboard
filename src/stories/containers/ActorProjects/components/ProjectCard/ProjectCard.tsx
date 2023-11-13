@@ -21,6 +21,17 @@ interface ProjectCardProps {
 
 export type DeliverableViewMode = 'compacted' | 'detailed';
 
+function splitInRows<T = unknown>(arr: T[], rowLength: number): T[][] {
+  const result: T[][] = [];
+
+  for (let i = 0; i < arr.length; i += rowLength) {
+    const row = arr.slice(i, i + rowLength);
+    result.push(row);
+  }
+
+  return result;
+}
+
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { isLight } = useThemeContext();
   const isUpDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
@@ -45,14 +56,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   );
 
   const deliverables = showAllDeliverables ? project.deliverables : project.deliverables.slice(0, 4);
+  // transforming deliverables into rows we can predict the max height needed to the cards
+  const deliverablesRows = splitInRows(deliverables, isUpDesktop1280 ? 3 : 2);
+
   return (
     <Card isLight={isLight}>
       <MainContent>
         <ProjectHeader>
           <NameContainer>
             <TitleContainer>
-              <ProjectCode isLight={isLight}>{project.code}</ProjectCode>{' '}
-              <ProjectTitle isLight={isLight}>{project.title}</ProjectTitle>
+              <ProjectCode>{project.code}</ProjectCode> <ProjectTitle isLight={isLight}>{project.title}</ProjectTitle>
             </TitleContainer>
             <BudgetTypeBadge budgetType={project.budgetType} />
           </NameContainer>
@@ -67,7 +80,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           <LeftColumn showDeliverablesBelow={showDeliverablesBelow}>
             {isUpDesktop1280 && !showDeliverablesBelow && statusSection}
             <ImageContainer>
-              <Image src="https://placehold.co/600x400" layout="fill" unoptimized />
+              <Image src="/assets/img/project_placeholder.png" layout="fill" unoptimized />
             </ImageContainer>
             <DataContainer showDeliverablesBelow={showDeliverablesBelow}>
               {(!isUpDesktop1280 || showDeliverablesBelow) && statusSection}
@@ -85,14 +98,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
             <GrayBackground isLight={isLight} showBackground={showGrayBackground}>
               <DeliverablesContainer showDeliverablesBelow={showDeliverablesBelow}>
-                {deliverables.map((deliverable) => (
-                  <DeliverableCard
-                    key={deliverable.id}
-                    deliverable={deliverable}
-                    viewMode={deliverableViewMode}
-                    isShownBelow={showDeliverablesBelow}
-                  />
-                ))}
+                {deliverablesRows.map((row) =>
+                  row.map((deliverable) => (
+                    <DeliverableCard
+                      key={deliverable.id}
+                      deliverable={deliverable}
+                      viewMode={deliverableViewMode}
+                      isShownBelow={showDeliverablesBelow}
+                      maxKeyResultsOnRow={row
+                        .map((d) => d.keyResults.length)
+                        .reduce(
+                          (a, b) =>
+                            isUpDesktop1280 && !showDeliverablesBelow ? Math.min(3, Math.max(a, b)) : Math.max(a, b),
+                          0
+                        )}
+                    />
+                  ))
+                )}
               </DeliverablesContainer>
               {(isUpDesktop1280
                 ? deliverableViewMode === 'compacted'
@@ -115,12 +137,12 @@ export default ProjectCard;
 
 const Card = styled.article<WithIsLight>(({ isLight }) => ({
   overflow: 'hidden',
-  background: isLight ? '#fff' : 'red',
+  background: isLight ? '#fff' : '#10191F',
   borderRadius: 6,
-  border: `1px solid ${isLight ? '#e6e6e6' : '#D1DEE6'}`,
+  border: `1px solid ${isLight ? '#e6e6e6' : '#10191F'}`,
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px red, 0px 20px 40px 0px red',
+    : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
 
 const MainContent = styled.div({
@@ -169,8 +191,8 @@ const TitleContainer = styled.div({
   },
 });
 
-const ProjectCode = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#9FAFB9' : 'red',
+const ProjectCode = styled.span({
+  color: '#9FAFB9',
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
@@ -185,10 +207,10 @@ const ProjectCode = styled.span<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 24,
   },
-}));
+});
 
 const ProjectTitle = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#25273D' : 'red',
+  color: isLight ? '#25273D' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',
@@ -331,7 +353,7 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
   textOverflow: 'ellipsis',
   alignSelf: 'stretch',
   margin: 0,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   lineHeight: 'normal',
 
@@ -350,7 +372,7 @@ const DeliverableTitleContainer = styled.div({
 });
 
 const DeliverablesTitle = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 20,
   fontWeight: 600,
   lineHeight: 'normal',
@@ -364,7 +386,7 @@ const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ 
   background: showBackground
     ? isLight
       ? 'linear-gradient(0deg, #F6F8F9 85.04%, rgba(246, 248, 249, 0.00) 121.04%)'
-      : 'linear-gradient(0deg, red 85.04%, red 121.04%)'
+      : 'none'
     : 'none',
   padding: '8px 16px 24px 16px',
   margin: '-8px -16px -24px -16px',
@@ -374,7 +396,16 @@ const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ 
     margin: '-8px -23px -23px -23px',
   },
 
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 24,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 16,
+  },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
     padding: '8px 31px 31px 31px',
     margin: '-8px -31px -31px -31px',
   },
@@ -396,7 +427,17 @@ const DeliverablesContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ 
   },
 
   ...(showDeliverablesBelow && {
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      gap: 24,
+
+      '& > *': {
+        maxWidth: 'calc(50% - 12px)',
+      },
+    },
+
     [lightTheme.breakpoints.up('desktop_1280')]: {
+      gap: 16,
+
       '& > *': {
         maxWidth: 'calc(33% - 7px)',
       },

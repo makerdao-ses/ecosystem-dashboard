@@ -38,17 +38,16 @@ const variantsArgs = [
         new DeliverableBuilder()
           .withId('1')
           .withTitle('PEA-01 On-chain Data Reconciliation')
+          .withDescription(
+            "On-chain Data Reconciliation will help ensure that all data related to Maker Protocol's expenses are accurate and up-to-date. This component will include a thorough analysis of all on-chain data related to expenses, which will help to identify any discrepancies."
+          )
           .withOwnerData(
             '1',
             'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
             'Phoenix Lab',
             'PHOENIX'
           )
-          .withStatus(DeliverableStatus.INPROGRESS)
-          .withProgress({
-            __typename: 'Percentage',
-            value: 0.5,
-          })
+          .withStatus(DeliverableStatus.DELIVERED)
           .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
           .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
           .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
@@ -63,6 +62,41 @@ const variantsArgs = [
         new DeliverableBuilder()
           .withId('2')
           .withTitle('PEA-02 Delegates Transparency')
+          .withDescription('Comprehensive overview of Delegates costs and changes over time.')
+          .withOwnerData(
+            '1',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+            'Phoenix Lab',
+            'PHOENIX'
+          )
+          .withStatus(DeliverableStatus.INPROGRESS)
+          .withProgress({
+            __typename: 'Percentage',
+            value: 0.73,
+          })
+          .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
+          .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
+          .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
+          .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
+          .build()
+      )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('3')
+          .withTitle('PEA-02 Delegates Transparency')
+          .withOwnerData(
+            '1',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+            'Phoenix Lab',
+            'PHOENIX'
+          )
+          .withStatus(DeliverableStatus.TODO)
+          .build()
+      )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('3')
+          .withTitle('PEA-02 Delegates Transparency')
           .withOwnerData(
             '1',
             'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
@@ -76,40 +110,10 @@ const variantsArgs = [
             completed: 3,
           })
           .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
-          .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
-          .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
-          .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
-          .addKeyResult('5', 'API Playground - Production', 'https://makerdao.com')
-          .addKeyResult('6', 'API Playground - Staging', 'https://makerdao.com')
-          .addKeyResult('7', 'Extra 1', 'https://makerdao.com')
-          .build()
-      )
-      .addDeliverable(
-        new DeliverableBuilder()
-          .withId('3')
-          .withTitle('PEA-03 SPF Finances')
-          .withOwnerData(
-            '1',
-            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
-            'Phoenix Lab',
-            'PHOENIX'
-          )
-          .withStatus(DeliverableStatus.DELIVERED)
-          .build()
-      )
-      .addDeliverable(
-        new DeliverableBuilder()
-          .withId('3')
-          .withTitle('PEA-03 SPF Finances')
-          .withOwnerData(
-            '1',
-            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
-            'Phoenix Lab',
-            'PHOENIX'
-          )
-          .withStatus(DeliverableStatus.DELIVERED)
-          .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
-          .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
+          .addKeyResult('2', 'API Playground - Production', 'https://makerdao.com')
+          .addKeyResult('3', 'Dashboard - Production', 'https://makerdao.com')
+          .addKeyResult('4', 'Dashboard - Staging ', 'https://makerdao.com')
+          .addKeyResult('5', 'Dashboard - Staging ', 'https://makerdao.com')
           .build()
       )
       .addDeliverable(
@@ -135,7 +139,7 @@ LightMode.parameters = {
   figma: {
     component: {
       375: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=26323:116356',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28280:318265',
         options: {
           style: {
             left: -40,
@@ -147,7 +151,7 @@ LightMode.parameters = {
         },
       },
       768: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=26315:267187',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28194:143103',
         options: {
           style: {
             left: -40,
@@ -159,7 +163,7 @@ LightMode.parameters = {
         },
       },
       1024: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=26314:262361',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28194:145018',
         options: {
           style: {
             left: -40,
@@ -171,7 +175,7 @@ LightMode.parameters = {
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=26314:256309',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28194:133324',
         options: {
           style: {
             left: -40,
@@ -183,7 +187,7 @@ LightMode.parameters = {
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=26572:248520',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28194:147165',
         options: {
           style: {
             left: -40,

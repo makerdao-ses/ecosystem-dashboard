@@ -36,7 +36,7 @@ const ExpandableButtonItem: React.FC<ExpandableButtonItemProps> = ({ expanded, h
 
 export default ExpandableButtonItem;
 
-const Container = styled.li(() => ({
+const Container = styled.div(() => ({
   display: 'flex',
   alignItems: 'center',
   listStyle: 'none',
@@ -48,10 +48,12 @@ const ExpandableItem = styled.div({
   gap: 8,
   cursor: 'pointer',
   width: '100%',
+  marginTop: 8,
+  paddingLeft: 7,
 });
 
 const Label = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   lineHeight: '18px',
   fontWeight: 500,
@@ -60,7 +62,7 @@ const Label = styled.span<WithIsLight>(({ isLight }) => ({
 const Line = styled.div<WithIsLight>(({ isLight }) => ({
   width: '100%',
   height: 1,
-  background: isLight ? '#D4D9E1' : 'red',
+  background: isLight ? '#D4D9E1' : '#546978',
   margin: 'auto 0',
 }));
 
