@@ -400,7 +400,12 @@ const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ 
     gap: 24,
   },
 
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 16,
+  },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
     padding: '8px 31px 31px 31px',
     margin: '-8px -31px -31px -31px',
   },
