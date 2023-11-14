@@ -4,6 +4,9 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
+  images: {
+    domains: ['raw.githubusercontent.com'],
+  },
 };
 
 module.exports = nextConfig;

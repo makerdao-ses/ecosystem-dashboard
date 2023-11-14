@@ -5,8 +5,6 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
-import { useMakerDAOExpenseMetrics } from '../useMakerDAOExpenseMetrics';
-import type { MakerDAOExpenseMetricsLineChart, ValueSeriesBreakdownChart } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 interface BreakdownChartProps {
@@ -27,7 +25,6 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   newNetExpensesOffChain,
 }) => {
   const { isLight } = useThemeContext();
-  const { isShowSeries, setIsShowSeries } = useMakerDAOExpenseMetrics();
   const chartRef = useRef<EChartsOption | null>(null);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -138,33 +135,36 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
     series: [
       {
         name: 'Budget',
-        data: newActuals,
+        data: newBudget,
         type: 'line',
         stack: 'Total',
         showBackground: false,
         itemStyle: {
           color: isLight ? '#F99374' : '#F77249',
         },
+        isVisible: true,
       },
       {
         name: 'Forecast',
-        data: newBudget,
+        data: newForecast,
         type: 'line',
         stack: 'Total',
         showBackground: false,
         itemStyle: {
           color: isLight ? '#447AFB' : '#447AFB',
         },
+        isVisible: true,
       },
       {
         name: 'Actuals',
-        data: newForecast,
+        data: newActuals,
         type: 'line',
         stack: 'Total',
         showBackground: false,
         itemStyle: {
           color: isLight ? '#2DC1B1' : '#1AAB9B',
         },
+        isVisible: true,
       },
       {
         name: 'Net Expenses On-chain',
@@ -175,9 +175,10 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         itemStyle: {
           color: isLight ? '#FBCC5F' : 'red',
         },
+        isVisible: true,
       },
       {
-        name: 'Net Expenses Off-chain included',
+        name: 'Net Expenses Off-chain',
         data: newNetExpensesOffChain,
         type: 'line',
         stack: 'Total',
@@ -185,56 +186,35 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         itemStyle: {
           color: isLight ? '#7C6B95' : 'red',
         },
+        isVisible: true,
       },
     ],
   };
 
-  const onLegendItemHover = (legendName: string) => () => {
-    const chartInstance = chartRef?.current.getEchartsInstance();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
-    if (seriesIndex !== -1) {
-      chartInstance.dispatchAction({
-        type: 'highlight',
-        seriesName: options.series[seriesIndex].name,
-      });
-    }
-  };
-
-  const onLegendItemLeave = () => {
+  const onLegendItemHover = (legendName: string) => {
     const chartInstance = chartRef.current.getEchartsInstance();
     chartInstance.dispatchAction({
-      type: 'downplay',
+      type: 'highlight',
+      seriesName: legendName,
     });
   };
 
-  const handleOnclick = (legendName: string, data: { value: number }[]) => () => {
-    const chartInstance = chartRef?.current.getEchartsInstance();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
-    if (seriesIndex !== -1) {
-      const currentSeries = options.series[seriesIndex];
-      setIsShowSeries({
-        ...isShowSeries,
-        [legendName]: !isShowSeries[legendName as keyof MakerDAOExpenseMetricsLineChart],
-      });
-
-      currentSeries.visible = !currentSeries.visible;
-
-      if (!currentSeries.visible) {
-        currentSeries.data = new Array<ValueSeriesBreakdownChart>(12).fill({
-          value: 0,
-          itemStyle: {
-            borderRadius: [0, 0, 0, 0],
-          },
-        });
-        chartInstance.setOption(options, true);
-      } else {
-        currentSeries.data = data;
-      }
-      chartInstance.setOption(options, true);
-    }
+  const onLegendItemLeave = (legendName: string) => {
+    const chartInstance = chartRef.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'downplay',
+      seriesName: legendName,
+    });
   };
+
+  const onLegendItemClick = (legendName: string, data: { value: number }[]) => {
+    const chartInstance = chartRef.current.getEchartsInstance();
+    const seriesIndex: number = options.series.findIndex((s: { name: string }) => s.name === legendName);
+    options.series[seriesIndex].isVisible = !options.series[seriesIndex].isVisible;
+    options.series[seriesIndex].data = options.series[seriesIndex].isVisible ? data : [];
+    chartInstance.setOption(options);
+  };
+
   return (
     <Wrapper>
       <ChartContainer>
@@ -255,9 +235,9 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         <LegendContainer>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={onLegendItemHover('Budget')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('Budget', newBudget)}
+            onMouseEnter={() => onLegendItemHover('Budget')}
+            onMouseLeave={() => onLegendItemLeave('Budget')}
+            onClick={() => onLegendItemClick('Budget', newBudget)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -271,7 +251,12 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
             </svg>
             Budget
           </LegendItem>
-          <LegendItem isLight={isLight} onMouseEnter={onLegendItemHover('Forecast')} onMouseLeave={onLegendItemLeave}>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={() => onLegendItemHover('Forecast')}
+            onMouseLeave={() => onLegendItemLeave('Forecast')}
+            onClick={() => onLegendItemClick('Forecast', newForecast)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={isMobile ? 13 : 16}
@@ -284,7 +269,12 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
             </svg>
             Forecast
           </LegendItem>
-          <LegendItem isLight={isLight} onMouseEnter={onLegendItemHover('Actuals')} onMouseLeave={onLegendItemLeave}>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={() => onLegendItemHover('Actuals')}
+            onMouseLeave={() => onLegendItemLeave('Actuals')}
+            onClick={() => onLegendItemClick('Actuals', newActuals)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={isMobile ? 13 : 16}
@@ -299,8 +289,9 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
           </LegendItem>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={onLegendItemHover('Net Expenses On-chain')}
-            onMouseLeave={onLegendItemLeave}
+            onMouseEnter={() => onLegendItemHover('Net Expenses On-chain')}
+            onMouseLeave={() => onLegendItemLeave('Net Expenses On-chain')}
+            onClick={() => onLegendItemClick('Net Expenses On-chain', newNetExpensesOnChain)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -316,8 +307,9 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
           </LegendItem>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={onLegendItemHover('Net Expenses Off-chain')}
-            onMouseLeave={onLegendItemLeave}
+            onMouseEnter={() => onLegendItemHover('Net Expenses Off-chain')}
+            onMouseLeave={() => onLegendItemLeave('Net Expenses Off-chain')}
+            onClick={() => onLegendItemClick('Net Expenses Off-chain', newNetExpensesOffChain)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

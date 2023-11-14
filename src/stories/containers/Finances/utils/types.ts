@@ -72,5 +72,5 @@ export interface MakerDAOExpenseMetricsLineChart {
   Forecast: boolean;
   Actuals: boolean;
   'Net Expenses On-chain': boolean;
-  'Net Expenses Off-chain Included': boolean;
+  'Net Expenses Off-chain': boolean;
 }
