@@ -5,6 +5,7 @@ import { ProjectStatus } from '@ses/core/models/interfaces/projects';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
+import ProjectStatusChip from './components/ProjectStatusChip/ProjectStatusChip';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { Project } from '@ses/core/models/interfaces/projects';
 
@@ -21,18 +22,18 @@ const useActorProjectsContainer = (projects: Project[]) => {
   const statuses = [
     {
       id: ProjectStatus.TODO,
-      content: 'To Do',
-      count: 1,
+      content: <ProjectStatusChip status={ProjectStatus.TODO} isSmall />,
+      count: projects.filter((project) => project.status === ProjectStatus.TODO).length,
     },
     {
       id: ProjectStatus.INPROGRESS,
-      content: 'In Progress',
-      count: 1,
+      content: <ProjectStatusChip status={ProjectStatus.INPROGRESS} isSmall />,
+      count: projects.filter((project) => project.status === ProjectStatus.INPROGRESS).length,
     },
     {
       id: ProjectStatus.FINISHED,
-      content: 'Finished',
-      count: 1,
+      content: <ProjectStatusChip status={ProjectStatus.FINISHED} isSmall />,
+      count: projects.filter((project) => project.status === ProjectStatus.FINISHED).length,
     },
   ] as MultiSelectItem[];
 

@@ -4,8 +4,10 @@ import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { SearchInput } from '@ses/components/SearchInput/SearchInput';
 import Filter from '@ses/components/svg/filter';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ProjectStatus } from '@ses/core/models/interfaces/projects';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useMemo } from 'react';
+import ProjectStatusChip from '../ProjectStatusChip/ProjectStatusChip';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 export interface ProjectFiltersProps {
@@ -33,6 +35,7 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
 }) => {
   const { isLight } = useThemeContext();
   const isActive = activeStatuses.length > 0 || searchQuery.length > 0;
+  const allCount = useMemo(() => statuses.reduce((previous, current) => previous + current.count, 0), [statuses]);
 
   return isMobile ? (
     <MobileFilterContainer isCollapsed={isFilterCollapsedOnMobile}>
@@ -65,9 +68,14 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
         <StatusMobileContainer>
           <CustomMultiSelect
             legacyBreakpoints={false}
-            popupContainerHeight={180}
+            popupContainerHeight={182}
             positionRight={true}
             label="Status"
+            customAll={{
+              id: 'All',
+              content: <ProjectStatusChip status={ProjectStatus.INPROGRESS} customLabel="All" isSmall />,
+              count: allCount,
+            }}
             activeItems={activeStatuses}
             width={118}
             popupContainerWidth={250}
@@ -97,9 +105,14 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       <FieldsContainer>
         <CustomMultiSelect
           legacyBreakpoints={false}
-          popupContainerHeight={180}
+          popupContainerHeight={182}
           positionRight={true}
           label="Status"
+          customAll={{
+            id: 'All',
+            content: <ProjectStatusChip status={ProjectStatus.INPROGRESS} customLabel="All" isSmall />,
+            count: allCount,
+          }}
           activeItems={activeStatuses}
           width={118}
           popupContainerWidth={250}
