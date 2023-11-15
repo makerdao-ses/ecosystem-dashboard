@@ -4,6 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
+import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
@@ -24,6 +25,9 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
 
   // Hooks for Doughnut Series
   const { filters, filterSelected, handleSelectFilter } = useCardChartOverview(budgets);
+
+  // all the logic required by the breakdown chart section
+  const breakdownChartSectionData = useBreakdownChart();
 
   // Hooks Logic of Table Second Level
   const {
@@ -157,6 +161,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
     filters,
     filterSelected,
     doughnutSeriesData,
+    ...breakdownChartSectionData,
     actuals,
     budgetCap,
     prediction,

@@ -144,10 +144,10 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         stack: 'x',
         barWidth,
         showBackground: false,
-        visible: true,
         itemStyle: {
           color: isLight ? '#F99374' : '#F77249',
         },
+        isVisible: true,
       },
       {
         name: 'Endgame Scopes',
@@ -156,72 +156,55 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         stack: 'x',
         barWidth,
         showBackground: false,
-        visible: true,
         itemStyle: {
           color: isLight ? '#447AFB' : '#447AFB',
         },
+        isVisible: true,
       },
       {
         name: 'MakerDAO Legacy',
-        visible: true,
         data: newLegacyBudgetWithBorders,
         type: 'bar',
         stack: 'x',
-        showBackground: false,
         barWidth,
+        showBackground: false,
         itemStyle: {
           color: isLight ? '#2DC1B1' : '#1AAB9B',
         },
+        isVisible: true,
       },
     ],
   };
 
-  const onLegendItemHover = (legendName: string) => () => {
-    const chartInstance = chartRef?.current.getEchartsInstance();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
-    if (seriesIndex !== -1) {
-      chartInstance.dispatchAction({
-        type: 'highlight',
-        seriesName: options.series[seriesIndex].name,
-      });
-    }
-  };
-
-  const onLegendItemLeave = () => {
+  const onLegendItemHover = (legendName: string) => {
     const chartInstance = chartRef.current.getEchartsInstance();
     chartInstance.dispatchAction({
-      type: 'downplay',
+      type: 'highlight',
+      seriesName: legendName,
     });
   };
 
-  const handleOnclick = (legendName: string, data: ValueSeriesBreakdownChart[]) => () => {
-    const chartInstance = chartRef?.current.getEchartsInstance();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const seriesIndex = options.series.findIndex((series: any) => series.name === legendName);
+  const onLegendItemLeave = (legendName: string) => {
+    const chartInstance = chartRef.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'downplay',
+      seriesName: legendName,
+    });
+  };
+
+  const onLegendItemClick = (legendName: string, data: ValueSeriesBreakdownChart[]) => {
+    const seriesIndex = options.series.findIndex((series: { name: string }) => series.name === legendName);
     if (seriesIndex !== -1) {
       const currentSeries = options.series[seriesIndex];
+      currentSeries.isVisible = !currentSeries.isVisible;
+      currentSeries.data = currentSeries.isVisible ? data : [];
       setIsShowSeries({
         ...isShowSeries,
         [legendName]: !isShowSeries[legendName as keyof IsShowSeries],
       });
-
-      currentSeries.visible = !currentSeries.visible;
-
-      if (!currentSeries.visible) {
-        currentSeries.data = new Array<ValueSeriesBreakdownChart>(12).fill({
-          value: 0,
-          itemStyle: {
-            borderRadius: [0, 0, 0, 0],
-          },
-        });
-        chartInstance.setOption(options, true);
-      } else {
-        currentSeries.data = data;
-      }
-      chartInstance.setOption(options, true);
     }
   };
+
   return (
     <Wrapper>
       <ChartContainer>
@@ -242,9 +225,9 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
         <LegendContainer>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={onLegendItemHover('Endgame Atlas')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('Endgame Atlas', newAtlasBudgetWithBorders)}
+            onMouseEnter={() => onLegendItemHover('Endgame Atlas')}
+            onMouseLeave={() => onLegendItemLeave('Endgame Atlas')}
+            onClick={() => onLegendItemClick('Endgame Atlas', newAtlasBudgetWithBorders)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -260,9 +243,9 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
           </LegendItem>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={onLegendItemHover('Endgame Scopes')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('Endgame Scopes', newScopeBudgetWithBorders)}
+            onMouseEnter={() => onLegendItemHover('Endgame Scopes')}
+            onMouseLeave={() => onLegendItemLeave('Endgame Scopes')}
+            onClick={() => onLegendItemClick('Endgame Scopes', newScopeBudgetWithBorders)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -278,9 +261,9 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year }) => {
           </LegendItem>
           <LegendItem
             isLight={isLight}
-            onMouseEnter={onLegendItemHover('MakerDAO Legacy')}
-            onMouseLeave={onLegendItemLeave}
-            onClick={handleOnclick('MakerDAO Legacy', newLegacyBudgetWithBorders)}
+            onMouseEnter={() => onLegendItemHover('MakerDAO Legacy')}
+            onMouseLeave={() => onLegendItemLeave('MakerDAO Legacy')}
+            onClick={() => onLegendItemClick('MakerDAO Legacy', newLegacyBudgetWithBorders)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
