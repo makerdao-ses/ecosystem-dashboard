@@ -83,7 +83,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
         <Row showDeliverablesBelow={showDeliverablesBelow}>
           <LeftColumn showDeliverablesBelow={showDeliverablesBelow}>
             {isUpDesktop1280 && !showDeliverablesBelow && statusSection}
-            <ImageContainer>
+            <ImageContainer isBigger={showDeliverablesBelow}>
               <Image src="/assets/img/project_placeholder.png" layout="fill" unoptimized />
             </ImageContainer>
             <DataContainer showDeliverablesBelow={showDeliverablesBelow}>
@@ -158,7 +158,7 @@ const Card = styled.article<WithIsLight>(({ isLight }) => ({
 }));
 
 const MainContent = styled.div({
-  padding: '16px 16px 24px 16px',
+  padding: '15px 15px 23px 15px',
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '15px 23px 23px 23px',
@@ -283,16 +283,22 @@ const LeftColumn = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliver
     gap: 24,
   },
 
-  ...(!showDeliverablesBelow && {
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      flexDirection: 'column',
-      flex: 0.632,
-    },
+  ...(showDeliverablesBelow
+    ? {
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          gap: 64,
+        },
+      }
+    : {
+        [lightTheme.breakpoints.up('desktop_1280')]: {
+          flexDirection: 'column',
+          flex: 0.632,
+        },
 
-    [lightTheme.breakpoints.up('desktop_1440')]: {
-      flex: 0.639,
-    },
-  }),
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          flex: 0.639,
+        },
+      }),
 }));
 
 const RightColumn = styled.div({
@@ -306,7 +312,7 @@ const RightColumn = styled.div({
   },
 });
 
-const ImageContainer = styled.div({
+const ImageContainer = styled.div<{ isBigger: boolean }>(({ isBigger }) => ({
   position: 'relative',
   width: '100%',
   height: 175,
@@ -322,7 +328,18 @@ const ImageContainer = styled.div({
     minHeight: 256,
     flex: 1,
   },
-});
+
+  ...(isBigger && {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      height: 320,
+      minHeight: 320,
+    },
+  }),
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    maxWidth: 578,
+  },
+}));
 
 const DataContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
