@@ -8,6 +8,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import BreakdownChartSection from '../Finances/components/BreakdownChartSection/BreakdownChartSection';
 import CardCoreUnitThirdLevelBudget from '../Finances/components/CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';
 import CardNavigationMobile from '../Finances/components/CardNavigationMobile/CardNavigationMobile';
 import ConditionalWrapper from '../Finances/components/ConditionalWrapper/ConditionalWrapper';
@@ -70,6 +71,12 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, coreUnits 
     minItems,
     calculateItemsPerPage,
     popupContainerHeight,
+    selectedBreakdownMetric,
+    selectedBreakdownGranularity,
+    handleBreakdownMetricChange,
+    handleBreakdownGranularityChange,
+    isDisabled,
+    handleResetFilterBreakDownChart,
   } = useEndgameBudgetContainerThirdLevel(budgets, coreUnits);
   const ref = useRef<SwiperRef>(null);
   const totalItems = cardsToShow.length;
@@ -176,6 +183,15 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, coreUnits 
               ))}
             </Swiper>
           </SwiperWrapper>
+          <BreakdownChartSection
+            year={year}
+            selectedMetric={selectedBreakdownMetric}
+            selectedGranularity={selectedBreakdownGranularity}
+            onMetricChange={handleBreakdownMetricChange}
+            onGranularityChange={handleBreakdownGranularityChange}
+            isDisabled={isDisabled}
+            handleResetFilter={handleResetFilterBreakDownChart}
+          />
         </ContainerSections>
         <ConditionalWrapper period={periodFilter}>
           <BreakdownTable

@@ -5,6 +5,7 @@ import IconTitle from '@ses/components/IconTitle/IconTitle';
 import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import BreakdownChartSection from '../Finances/components/BreakdownChartSection/BreakdownChartSection';
 import ConditionalWrapper from '../Finances/components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
@@ -57,6 +58,12 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
+    selectedBreakdownMetric,
+    selectedBreakdownGranularity,
+    handleBreakdownMetricChange,
+    handleBreakdownGranularityChange,
+    isDisabled,
+    handleResetFilterBreakDownChart,
   } = useEndgameBudgetContainerSecondLevel(budgets);
 
   return (
@@ -92,6 +99,15 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
             cardsNavigationInformation={cardsToShow}
             loadMoreCards={loadMoreCards}
             handleLoadMoreCards={handleLoadMoreCards}
+          />
+          <BreakdownChartSection
+            year={year}
+            selectedMetric={selectedBreakdownMetric}
+            selectedGranularity={selectedBreakdownGranularity}
+            onMetricChange={handleBreakdownMetricChange}
+            onGranularityChange={handleBreakdownGranularityChange}
+            isDisabled={isDisabled}
+            handleResetFilter={handleResetFilterBreakDownChart}
           />
           <ConditionalWrapper period={'Quarterly'}>
             <BreakdownTable

@@ -4,6 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
@@ -45,6 +46,9 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], coreUnits
     filterSelected: selectedThirdLevel,
     handleSelectFilter: handleSelectFilterThirdLevel,
   } = useCardChartOverview(budgets);
+
+  // all the logic required by the breakdown chart section
+  const breakdownChartSectionData = useBreakdownChart();
 
   const momentValue = (router.query && router.query.code && router.query.code[0]) || '';
 
@@ -186,6 +190,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], coreUnits
     prediction,
     cardsNavigationInformation,
     doughnutSeriesData,
+    ...breakdownChartSectionData,
     filtersThirdLevel,
     selectedThirdLevel,
     handleSelectFilterThirdLevel,
