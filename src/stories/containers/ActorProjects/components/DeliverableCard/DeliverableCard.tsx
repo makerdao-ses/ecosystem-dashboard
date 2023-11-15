@@ -39,7 +39,9 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
     >
       <HeaderContainer>
         <TitleContainer>
-          <Title isLight={isLight}>{deliverable.title}</Title>
+          <Title isLight={isLight} viewMode={viewMode}>
+            {deliverable.title}
+          </Title>
         </TitleContainer>
         <DeliverableOwnerContainer>
           <OwnerImage src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
@@ -113,14 +115,16 @@ const TitleContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  gap: 15,
   flex: '1 0 0',
+  marginBottom: 8,
 });
 
-const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
+const Title = styled.div<WithIsLight & { viewMode: DeliverableViewMode }>(({ isLight, viewMode }) => ({
+  ...(viewMode !== 'detailed' && {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }),
   alignSelf: 'stretch',
   color: isLight ? '#25273D' : '#D2D4EF',
   fontSize: 16,
