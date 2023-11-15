@@ -8,7 +8,7 @@ export const useMakerDAOExpenseMetrics = () => {
     Forecast: true,
     Actuals: true,
     'Net Expenses On-chain': true,
-    'Net Expenses Off-chain Included': true,
+    'Net Expenses Off-chain': true,
   });
   const [periodFilterMetrics, setPeriodFilterMetrics] = useState<PeriodicSelectionFilter>('Monthly');
   const handlePeriodChangeMetrics = (value: string) => {
