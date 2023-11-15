@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { LinkButton } from '@ses/components/LinkButton/LinkButton';
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
@@ -17,6 +20,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ProjectCardProps {
   project: Project;
+  isSupportedProject?: boolean;
 }
 
 export type DeliverableViewMode = 'compacted' | 'detailed';
@@ -32,7 +36,7 @@ function splitInRows<T = unknown>(arr: T[], rowLength: number): T[][] {
   return result;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject = false }) => {
   const { isLight } = useThemeContext();
   const isUpDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
 
@@ -85,6 +89,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <DataContainer showDeliverablesBelow={showDeliverablesBelow}>
               {(!isUpDesktop1280 || showDeliverablesBelow) && statusSection}
               <Description isLight={isLight}>{project.abstract}</Description>
+              {isSupportedProject && (
+                <ViewEcosystem
+                  isLight={isLight}
+                  href={siteRoutes.ecosystemActorAbout(project.owner.code ?? '')}
+                  buttonType={ButtonType.Default}
+                  label="View Ecosystem Actor"
+                />
+              )}
             </DataContainer>
           </LeftColumn>
           <RightColumn>
@@ -456,5 +468,28 @@ const DeliverablesContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ 
             maxWidth: 'calc(50% - 12px)',
           }),
     },
+  },
+}));
+
+const ViewEcosystem = styled(LinkButton)<WithIsLight>(({ isLight }) => ({
+  borderColor: isLight ? '#D4D9E1' : '#708390',
+  borderRadius: '22px',
+  fontFamily: 'Inter, sans serif',
+  fontStyle: 'normal',
+  padding: '7px 23px',
+
+  '& > div': {
+    color: isLight ? '#31424E' : '#ADAFD4',
+    fontWeight: 500,
+    fontSize: 14,
+    lineHeight: '18px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  '&:hover': {
+    background: isLight ? '#F6F8F9' : '#10191F',
+    border: `1px solid ${isLight ? '#ECF1F3' : '#1E2C37'}}`,
   },
 }));

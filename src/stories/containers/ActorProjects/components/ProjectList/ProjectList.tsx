@@ -6,15 +6,16 @@ import type { Project } from '@ses/core/models/interfaces/projects';
 
 interface ProjectListProps {
   projects: Project[];
+  isSupportedProjects?: boolean;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects }) => (
+const ProjectList: React.FC<ProjectListProps> = ({ projects, isSupportedProjects = false }) => (
   <List>
     {projects.map((project) => (
-      <ProjectCard key={project.id} project={project} />
+      <ProjectCard key={project.id} project={project} isSupportedProject={isSupportedProjects} />
     ))}
 
-    {projects.length === 0 && (
+    {projects.length === 0 && !isSupportedProjects && (
       <TablePlaceholder description="There are no Projects available with this combination of filters." />
     )}
   </List>
