@@ -62,7 +62,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
   );
 
   const statusSection = (
-    <StatusData>
+    <StatusData showDeliverablesBelow={showDeliverablesBelow}>
       <ProjectStatusChip status={project.status} />
       <ProgressContainer>
         <ProjectProgress percentage={project.progress?.value ?? 0} />
@@ -371,13 +371,20 @@ const DataContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeli
   },
 }));
 
-const StatusData = styled.div({
+const StatusData = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 16,
   width: '100%',
   justifyContent: 'space-between',
-});
+
+  ...(showDeliverablesBelow && {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      justifyContent: 'normal',
+      gap: 64,
+    },
+  }),
+}));
 
 const ProgressContainer = styled.div({
   maxWidth: 256,
