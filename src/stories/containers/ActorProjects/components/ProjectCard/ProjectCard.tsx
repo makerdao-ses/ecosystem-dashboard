@@ -6,7 +6,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import BudgetTypeBadge from '../BudgetTypeBadge/BudgetTypeBadge';
 import DeliverableCard from '../DeliverableCard/DeliverableCard';
 import DeliverableViewModeToggle from '../DeliverableViewModeToggle/DeliverableViewModeToggle';
@@ -15,7 +15,7 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 import ProjectStatusChip from '../ProjectStatusChip/ProjectStatusChip';
 import SupportedTeamsAvatarGroup from '../SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import ViewAllButton from '../ViewAllButton/ViewAllButton';
-import type { Project } from '@ses/core/models/interfaces/projects';
+import type { Owner, Project } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ProjectCardProps {
@@ -50,6 +50,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
   const showGrayBackground = showAllDeliverables || !isUpDesktop1280;
   const showDeliverablesBelow = !isUpDesktop1280 || showAllDeliverables || deliverableViewMode === 'detailed';
 
+  const supporters = useMemo(
+    () =>
+      // the supporters are the owners of the deliverables (they can be duplicated)
+      Array.from(
+        project.deliverables
+          .reduce((prev, current) => prev.set(current.owner.id, current.owner), new Map<string, Owner>())
+          .values()
+      ),
+    [project.deliverables]
+  );
+
   const statusSection = (
     <StatusData>
       <ProjectStatusChip status={project.status} />
@@ -76,7 +87,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
 
           <ParticipantsContainer>
             <ProjectOwnerChip owner={project.owner} />
-            <SupportedTeamsAvatarGroup />
+            <SupportedTeamsAvatarGroup supporters={supporters} />
           </ParticipantsContainer>
         </ProjectHeader>
 
