@@ -55,10 +55,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
       // the supporters are the owners of the deliverables (they can be duplicated)
       Array.from(
         project.deliverables
+          .filter((deliverable) => deliverable.owner.id !== project.owner.id)
           .reduce((prev, current) => prev.set(current.owner.id, current.owner), new Map<string, Owner>())
           .values()
       ),
-    [project.deliverables]
+    [project.deliverables, project.owner.id]
   );
 
   const statusSection = (

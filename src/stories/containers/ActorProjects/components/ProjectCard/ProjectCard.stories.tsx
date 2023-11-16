@@ -23,7 +23,7 @@ const variantsArgs = [
       .withTitle('Protocol Expense Accounting')
       .withOwner({
         ref: OwnerType.EcosystemActor,
-        id: '1',
+        id: '2',
         imgUrl: 'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
         name: 'Phoenix Lab',
         code: 'PHOENIX',
@@ -43,9 +43,9 @@ const variantsArgs = [
           )
           .withOwnerData(
             '1',
-            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
-            'Phoenix Lab',
-            'PHOENIX'
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
+            'Powerhouse',
+            'POWERHOUSE'
           )
           .withStatus(DeliverableStatus.DELIVERED)
           .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
@@ -64,7 +64,7 @@ const variantsArgs = [
           .withTitle('PEA-02 Delegates Transparency')
           .withDescription('Comprehensive overview of Delegates costs and changes over time.')
           .withOwnerData(
-            '1',
+            '2',
             'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
             'Phoenix Lab',
             'PHOENIX'
@@ -85,10 +85,10 @@ const variantsArgs = [
           .withId('3')
           .withTitle('PEA-02 Delegates Transparency')
           .withOwnerData(
-            '1',
-            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
-            'Phoenix Lab',
-            'PHOENIX'
+            '3',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/DEWIZ/DEWIZ_logo.png',
+            'Dewiz',
+            'DEWIZ'
           )
           .withStatus(DeliverableStatus.TODO)
           .build()
@@ -98,7 +98,7 @@ const variantsArgs = [
           .withId('3')
           .withTitle('PEA-02 Delegates Transparency')
           .withOwnerData(
-            '1',
+            '2',
             'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
             'Phoenix Lab',
             'PHOENIX'
@@ -121,10 +121,10 @@ const variantsArgs = [
           .withId('3')
           .withTitle('PEA-03 SPF Finances')
           .withOwnerData(
-            '1',
-            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
-            'Phoenix Lab',
-            'PHOENIX'
+            '4',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
+            'BA Labs',
+            'BA-LABS'
           )
           .withStatus(DeliverableStatus.DELIVERED)
           .build()
