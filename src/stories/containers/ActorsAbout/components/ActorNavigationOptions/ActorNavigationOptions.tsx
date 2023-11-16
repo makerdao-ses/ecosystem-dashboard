@@ -87,7 +87,7 @@ const ThreeDotsButton = styled.button<WithIsLight>(({ isLight }) => ({
   height: '35px',
   background: isLight ? 'white' : 'transparent',
   boxSizing: 'border-box',
-  border: isLight ? '1px solid #D4D9E1' : '1px solid #31424E;',
+  border: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
   borderRadius: '50%',
   cursor: 'pointer',
 }));
@@ -102,7 +102,7 @@ const OptionsPopover = styled(Popover)<WithIsLight>(({ isLight }) => ({
   },
 
   '.MuiPaper-rounded': {
-    borderRadius: '6px',
+    borderRadius: '6px!important', // override paper rounded default
   },
 }));
 
@@ -115,5 +115,9 @@ const BtnContainer = styled.div({
 
 const OptionLink = styled(LinkButton)<WithIsLight>(({ isLight }) => ({
   padding: '7px 23px',
-  border: `1px solid ${isLight ? '#25273D' : 'red'}`,
+  border: `1px solid ${isLight ? '#25273D' : '#00585E'}`,
+
+  '& > div': {
+    color: isLight ? '#231536' : '#68FEE3',
+  },
 }));

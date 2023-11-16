@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import lightTheme from '@ses/styles/theme/light';
@@ -9,6 +10,7 @@ import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePer
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
 import KeyResults from '../KeyResults/KeyResults';
+import OwnerTooltipContent from '../OwnerTooltipContent/OwnerTooltipContent';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
 import type { Deliverable } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -39,10 +41,14 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
     >
       <HeaderContainer>
         <TitleContainer>
-          <Title isLight={isLight}>{deliverable.title}</Title>
+          <Title isLight={isLight} viewMode={viewMode}>
+            {deliverable.title}
+          </Title>
         </TitleContainer>
         <DeliverableOwnerContainer>
-          <OwnerImage src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
+          <SESTooltip content={<OwnerTooltipContent title="Deliverable Owner" items={[deliverable.owner]} />}>
+            <OwnerImage src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
+          </SESTooltip>
         </DeliverableOwnerContainer>
       </HeaderContainer>
       <ProgressContainer>
@@ -113,14 +119,16 @@ const TitleContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  gap: 15,
   flex: '1 0 0',
+  marginBottom: 8,
 });
 
-const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
+const Title = styled.div<WithIsLight & { viewMode: DeliverableViewMode }>(({ isLight, viewMode }) => ({
+  ...(viewMode !== 'detailed' && {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }),
   alignSelf: 'stretch',
   color: isLight ? '#25273D' : '#D2D4EF',
   fontSize: 16,
