@@ -40,7 +40,15 @@ const NotFound404: React.FC = () => {
         />
         <ContainerData>
           <LogoContainer>
-            <Image src={isLight ? Logo404 : Logo404Dark} layout="fill" objectFit="contain" objectPosition="center" />
+            <Image
+              src={isLight ? Logo404 : Logo404Dark}
+              alt=""
+              layout="fill"
+              style={{
+                objectFit: 'contain',
+                objectPosition: 'center',
+              }}
+            />
           </LogoContainer>
           <ContainerText>
             <TextUps isLight={isLight}>Oops!</TextUps>

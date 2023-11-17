@@ -78,7 +78,7 @@ export const CuTableColumnSummary = ({
   }
 
   return (
-    <Link href={`core-unit/${props.code}/${queryStrings}`} passHref>
+    <Link href={`core-unit/${props.code}/${queryStrings}`} passHref legacyBehavior>
       <Container onClick={props.onClick} style={props.style}>
         <CircleContainer>
           <PopupWrapper

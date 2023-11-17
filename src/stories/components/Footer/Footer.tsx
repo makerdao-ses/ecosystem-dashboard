@@ -50,8 +50,10 @@ const Footer = ({ governesses, products, developer }: Props) => {
             ? FooterDark
             : MobileFooterDark
         }
-        objectFit="cover"
-        objectPosition={isTable ? 'right bottom' : upTable ? 'right bottom' : 'center bottom'}
+        style={{
+          objectFit: 'cover',
+          objectPosition: isTable ? 'right bottom' : upTable ? 'right bottom' : 'center bottom',
+        }}
         alt="Footer"
         layout="fill"
       />

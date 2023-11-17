@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ArrowOutline: React.FC<Props> = ({ className, height = 28, width = 40, href, ...props }) => (
-  <Link href={href}>
+  <Link href={href} legacyBehavior>
     <svg
       cursor="pointer"
       className={className}

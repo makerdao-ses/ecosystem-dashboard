@@ -39,7 +39,7 @@ const Tab: React.FC<TabProps> = ({ children, id, href, tabQuery, active = false,
   if (!id && !href) return content;
 
   return (
-    <Link href={url} passHref shallow={true}>
+    <Link href={url} passHref shallow={true} legacyBehavior>
       {content}
     </Link>
   );

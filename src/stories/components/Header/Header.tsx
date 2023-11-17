@@ -76,7 +76,7 @@ const Header: React.FC = () => {
           {Object.values(menuItems)
             .filter((item) => !item.mobileOnly)
             .map((item) => (
-              <Link href={item.link} passHref key={item.title}>
+              <Link href={item.link} passHref key={item.title} legacyBehavior>
                 <ItemMenuStyle
                   isLight={isLight}
                   style={{ marginRight: item.marginRight }}

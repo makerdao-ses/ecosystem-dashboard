@@ -26,7 +26,7 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return !isLoading ? (
-    <Link href={`/core-unit/${props.code}/finances/reports${queryStrings}`} passHref>
+    <Link href={`/core-unit/${props.code}/finances/reports${queryStrings}`} passHref legacyBehavior>
       <Wrapper>
         <Container>
           <DataWrapper>

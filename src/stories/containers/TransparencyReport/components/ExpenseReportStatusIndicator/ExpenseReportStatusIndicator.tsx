@@ -31,7 +31,7 @@ const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> 
     <IndicatorContainer className={className}>
       <ExpenseReportStatus status={budgetStatus} />
       {showCTA && budgetStatus !== BudgetStatus.Final && (
-        <Link href={url} shallow={true}>
+        <Link href={url} shallow={true} legacyBehavior>
           <StyledLink>Go to {budgetStatus}</StyledLink>
         </Link>
       )}

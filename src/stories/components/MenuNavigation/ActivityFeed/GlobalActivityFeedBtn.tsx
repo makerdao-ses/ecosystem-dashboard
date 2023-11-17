@@ -10,7 +10,7 @@ const GlobalActivityFeedBtn: React.FC = () => {
   const { isLight } = useThemeContext();
 
   return (
-    <Link href={siteRoutes.globalActivityFeed}>
+    <Link href={siteRoutes.globalActivityFeed} legacyBehavior>
       <Button isLight={isLight}>
         <svg
           width="20"

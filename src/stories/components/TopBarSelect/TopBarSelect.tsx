@@ -53,7 +53,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
             />
           </CloseWrapper>
           {Object.values(menuItems).map((item) => (
-            <Link href={item.link} passHref>
+            <Link href={item.link} passHref legacyBehavior>
               <LinkWrapper
                 isLight={isLight}
                 isActive={item.title === props.selectedOption || item.titleMobile === props.selectedOption}
@@ -71,6 +71,7 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
               background: 'white',
               borderColor: isLight ? '#D4D9E1' : '',
             }}
+            legacyBehavior
           >
             <LinkWrapper isActive={false} isLight={isLight} hasMarginBottom={false}>
               <CustomLink

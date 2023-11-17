@@ -25,7 +25,9 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
         src="/assets/img/endgame/maker_endgame.png"
         alt="Endgame"
         layout="fill"
-        objectFit="cover"
+        style={{
+          objectFit: 'cover',
+        }}
         placeholder="blur"
         blurDataURL="/assets/img/endgame/maker_endgame.png"
       />
