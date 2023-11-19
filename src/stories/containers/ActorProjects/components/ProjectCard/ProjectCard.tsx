@@ -131,14 +131,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
                       deliverable={deliverable}
                       viewMode={deliverableViewMode}
                       isShownBelow={showDeliverablesBelow}
-                      maxKeyResultsOnRow={row
-                        .map((d) => d.keyResults.length)
-                        .reduce(
-                          (a, b) =>
-                            // isUpDesktop1280 && !showDeliverablesBelow ? Math.min(3, Math.max(a, b)) : Math.max(a, b),
-                            Math.max(a, b),
-                          0
-                        )}
+                      maxKeyResultsOnRow={row.map((d) => d.keyResults.length).reduce((a, b) => Math.max(a, b), 0)}
                     />
                   ))
                 )}
