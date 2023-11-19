@@ -34,11 +34,7 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
   const handleToggleExpand = () => setExpanded((prev) => !prev);
 
   return (
-    <Card
-      isLight={isLight}
-      fixedHeight={!expanded && viewMode === 'compacted' && isShownBelow && !isMobile}
-      maxKeyResultsOnRow={maxKeyResultsOnRow}
-    >
+    <Card isLight={isLight} fitContent={!isMobile && viewMode === 'compacted' && !expanded}>
       <HeaderContainer>
         <TitleContainer>
           <Title isLight={isLight} viewMode={viewMode}>
@@ -81,31 +77,19 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
 
 export default DeliverableCard;
 
-const Card = styled.div<WithIsLight & { fixedHeight: boolean; maxKeyResultsOnRow: number }>(
-  ({ isLight, fixedHeight, maxKeyResultsOnRow }) => {
-    let height: string | number;
-
-    if (fixedHeight) {
-      height = maxKeyResultsOnRow < 4 ? 'auto' : 247;
-    } else {
-      height = 'auto';
-    }
-
-    return {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      gap: 7,
-      borderRadius: 6,
-      background: isLight ? '#fff' : '#1E2C37',
-      boxShadow: isLight
-        ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
-        : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
-      padding: 16,
-      height: fixedHeight ? height : 'auto',
-    };
-  }
-);
+const Card = styled.div<WithIsLight & { fitContent: boolean }>(({ isLight, fitContent }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: 7,
+  borderRadius: 6,
+  background: isLight ? '#fff' : '#1E2C37',
+  boxShadow: isLight
+    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
+    : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
+  padding: 16,
+  height: fitContent ? 'fit-content' : 'auto',
+}));
 
 const HeaderContainer = styled.div({
   display: 'flex',

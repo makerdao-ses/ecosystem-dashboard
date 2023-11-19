@@ -28,4 +28,5 @@ const ResultList = styled.ul({
   gap: 8,
   margin: 0,
   padding: 0,
+  height: '100%',
 });
