@@ -36,7 +36,7 @@ const variantsArgs = [
       .withProgress(0.5)
       .addDeliverable(
         new DeliverableBuilder()
-          .withId('1')
+          .withId('6')
           .withTitle('PEA-01 On-chain Data Reconciliation')
           .withDescription(
             "On-chain Data Reconciliation will help ensure that all data related to Maker Protocol's expenses are accurate and up-to-date. This component will include a thorough analysis of all on-chain data related to expenses, which will help to identify any discrepancies."
@@ -60,7 +60,7 @@ const variantsArgs = [
       )
       .addDeliverable(
         new DeliverableBuilder()
-          .withId('2')
+          .withId('5')
           .withTitle('PEA-02 Delegates Transparency')
           .withDescription('Comprehensive overview of Delegates costs and changes over time.')
           .withOwnerData(
@@ -82,7 +82,7 @@ const variantsArgs = [
       )
       .addDeliverable(
         new DeliverableBuilder()
-          .withId('3')
+          .withId('1')
           .withTitle('PEA-02 Delegates Transparency')
           .withOwnerData(
             '3',
@@ -95,7 +95,7 @@ const variantsArgs = [
       )
       .addDeliverable(
         new DeliverableBuilder()
-          .withId('3')
+          .withId('2')
           .withTitle('PEA-02 Delegates Transparency')
           .withOwnerData(
             '2',
@@ -119,6 +119,32 @@ const variantsArgs = [
       .addDeliverable(
         new DeliverableBuilder()
           .withId('3')
+          .withTitle('PEA-03 SPF Finances')
+          .withOwnerData(
+            '4',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
+            'BA Labs',
+            'BA-LABS'
+          )
+          .withStatus(DeliverableStatus.DELIVERED)
+          .build()
+      )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('4')
+          .withTitle('PEA-03 SPF Finances')
+          .withOwnerData(
+            '4',
+            'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
+            'BA Labs',
+            'BA-LABS'
+          )
+          .withStatus(DeliverableStatus.DELIVERED)
+          .build()
+      )
+      .addDeliverable(
+        new DeliverableBuilder()
+          .withId('5')
           .withTitle('PEA-03 SPF Finances')
           .withOwnerData(
             '4',

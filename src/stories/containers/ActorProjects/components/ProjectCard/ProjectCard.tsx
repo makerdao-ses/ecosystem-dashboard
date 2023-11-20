@@ -71,7 +71,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
     </StatusData>
   );
 
-  const deliverables = showAllDeliverables ? project.deliverables : project.deliverables.slice(0, 4);
+  const deliverables = showAllDeliverables
+    ? project.deliverables
+    : project.deliverables.slice(0, deliverableViewMode === 'detailed' && isUpDesktop1280 ? 6 : 4);
   // transforming deliverables into rows we can predict the max height needed to the cards
   const deliverablesRows = splitInRows(deliverables, isUpDesktop1280 ? 3 : 2);
 
@@ -129,13 +131,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
                       deliverable={deliverable}
                       viewMode={deliverableViewMode}
                       isShownBelow={showDeliverablesBelow}
-                      maxKeyResultsOnRow={row
-                        .map((d) => d.keyResults.length)
-                        .reduce(
-                          (a, b) =>
-                            isUpDesktop1280 && !showDeliverablesBelow ? Math.min(3, Math.max(a, b)) : Math.max(a, b),
-                          0
-                        )}
+                      maxKeyResultsOnRow={row.map((d) => d.keyResults.length).reduce((a, b) => Math.max(a, b), 0)}
                     />
                   ))
                 )}
