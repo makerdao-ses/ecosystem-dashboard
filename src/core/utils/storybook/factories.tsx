@@ -1,6 +1,6 @@
-import React from 'react';
 import { withThemeContext } from './decorators';
-import type { Story } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
+import type React from 'react';
 import type { ElementType } from 'react';
 
 export const createThemeModeVariants = (
@@ -8,8 +8,6 @@ export const createThemeModeVariants = (
   args?: { [key: keyof React.ComponentProps<typeof Component>]: unknown }[] | number,
   useBackground = true
 ) => {
-  const Template: Story = (args) => <Component {...args} />;
-
   let normalizedArgs = [{}];
   if (typeof args === 'number') {
     normalizedArgs = Array.from({ length: args }, () => ({}));
@@ -17,15 +15,20 @@ export const createThemeModeVariants = (
     normalizedArgs = args;
   }
 
-  const components = [];
+  type Story = StoryObj<React.ComponentProps<typeof Component>>;
+
+  const components: Story[][] = [];
   for (const currentArgs of normalizedArgs) {
-    const lightVariant = Template.bind({});
-    lightVariant.args = currentArgs;
+    const lightVariant: Story = {
+      args: currentArgs,
+      decorators: [withThemeContext(true, useBackground)],
+    };
     lightVariant.decorators = [withThemeContext(true, useBackground)];
 
-    const darkVariant = Template.bind({});
-    darkVariant.args = currentArgs;
-    darkVariant.decorators = [withThemeContext(false, useBackground)];
+    const darkVariant: Story = {
+      args: currentArgs,
+      decorators: [withThemeContext(false, useBackground)],
+    };
     components.push([lightVariant, darkVariant]);
   }
   return components;

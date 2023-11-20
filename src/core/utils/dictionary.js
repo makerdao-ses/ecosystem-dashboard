@@ -1,4 +1,8 @@
 const dictionary = [
+  'nextjs',
+  'autodocs',
+  'webpack',
+  'matchers',
   'touchmove',
   'useFormik',
   'formik',

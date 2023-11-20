@@ -5,9 +5,10 @@ import AppLayout from '../AppLayout/AppLayout';
 import ActorsContainer from './ActorsContainer';
 import { defaultSocials } from './utils/utils';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
-export default {
+
+const meta: Meta<typeof ActorsContainer> = {
   title: 'Pages/Actors',
   component: ActorsContainer,
   parameters: {
@@ -21,7 +22,8 @@ export default {
     },
     date: new Date('2023-08-02T09:56:16Z'),
   },
-} as ComponentMeta<typeof ActorsContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -234,7 +236,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <ActorsContainer {...props} />
@@ -242,6 +244,8 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+
+export { LightMode, DarkMode };
 
 const optionStyles = {
   style: {
