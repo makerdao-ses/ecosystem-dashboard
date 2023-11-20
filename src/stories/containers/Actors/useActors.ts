@@ -132,8 +132,8 @@ export const useActors = (actors: Team[], stories = false) => {
       const multiplier = headersSort[sortColumn] === SortEnum.Asc ? 1 : -1;
 
       const name = (a: Team, b: Team) => a.name.localeCompare(b.name) * multiplier;
-      const role = (a: Team, b: Team) => a.category[0].localeCompare(b.category[0]) * multiplier;
-      const scope = (a: Team, b: Team) => a.scopes[0].name.localeCompare(b.scopes[0].name) * multiplier;
+      const role = (a: Team, b: Team) => a.category?.[0]?.localeCompare(b.category?.[0]) * multiplier;
+      const scope = (a: Team, b: Team) => a.scopes?.[0]?.name?.localeCompare(b.scopes?.[0]?.name) * multiplier;
       const lastModified = (a: Team, b: Team) => {
         if (multiplier === 1) {
           return (
