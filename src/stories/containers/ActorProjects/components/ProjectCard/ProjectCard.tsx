@@ -6,7 +6,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import BudgetTypeBadge from '../BudgetTypeBadge/BudgetTypeBadge';
 import DeliverableCard from '../DeliverableCard/DeliverableCard';
 import DeliverableViewModeToggle from '../DeliverableViewModeToggle/DeliverableViewModeToggle';
@@ -15,7 +15,7 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 import ProjectStatusChip from '../ProjectStatusChip/ProjectStatusChip';
 import SupportedTeamsAvatarGroup from '../SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import ViewAllButton from '../ViewAllButton/ViewAllButton';
-import type { Project } from '@ses/core/models/interfaces/projects';
+import type { Owner, Project } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ProjectCardProps {
@@ -50,8 +50,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
   const showGrayBackground = showAllDeliverables || !isUpDesktop1280;
   const showDeliverablesBelow = !isUpDesktop1280 || showAllDeliverables || deliverableViewMode === 'detailed';
 
+  const supporters = useMemo(
+    () =>
+      // the supporters are the owners of the deliverables (they can be duplicated)
+      Array.from(
+        project.deliverables
+          .filter((deliverable) => deliverable.owner.id !== project.owner.id)
+          .reduce((prev, current) => prev.set(current.owner.id, current.owner), new Map<string, Owner>())
+          .values()
+      ),
+    [project.deliverables, project.owner.id]
+  );
+
   const statusSection = (
-    <StatusData>
+    <StatusData showDeliverablesBelow={showDeliverablesBelow}>
       <ProjectStatusChip status={project.status} />
       <ProgressContainer>
         <ProjectProgress percentage={project.progress?.value ?? 0} />
@@ -59,7 +71,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
     </StatusData>
   );
 
-  const deliverables = showAllDeliverables ? project.deliverables : project.deliverables.slice(0, 4);
+  const deliverables = showAllDeliverables
+    ? project.deliverables
+    : project.deliverables.slice(0, deliverableViewMode === 'detailed' && isUpDesktop1280 ? 6 : 4);
   // transforming deliverables into rows we can predict the max height needed to the cards
   const deliverablesRows = splitInRows(deliverables, isUpDesktop1280 ? 3 : 2);
 
@@ -76,14 +90,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
 
           <ParticipantsContainer>
             <ProjectOwnerChip owner={project.owner} />
-            <SupportedTeamsAvatarGroup />
+            <SupportedTeamsAvatarGroup supporters={supporters} />
           </ParticipantsContainer>
         </ProjectHeader>
 
         <Row showDeliverablesBelow={showDeliverablesBelow}>
           <LeftColumn showDeliverablesBelow={showDeliverablesBelow}>
             {isUpDesktop1280 && !showDeliverablesBelow && statusSection}
-            <ImageContainer>
+            <ImageContainer isBigger={showDeliverablesBelow}>
               <Image src="/assets/img/project_placeholder.png" alt={project.title} layout="fill" unoptimized />
             </ImageContainer>
             <DataContainer showDeliverablesBelow={showDeliverablesBelow}>
@@ -117,13 +131,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
                       deliverable={deliverable}
                       viewMode={deliverableViewMode}
                       isShownBelow={showDeliverablesBelow}
-                      maxKeyResultsOnRow={row
-                        .map((d) => d.keyResults.length)
-                        .reduce(
-                          (a, b) =>
-                            isUpDesktop1280 && !showDeliverablesBelow ? Math.min(3, Math.max(a, b)) : Math.max(a, b),
-                          0
-                        )}
+                      maxKeyResultsOnRow={row.map((d) => d.keyResults.length).reduce((a, b) => Math.max(a, b), 0)}
                     />
                   ))
                 )}
@@ -158,7 +166,7 @@ const Card = styled.article<WithIsLight>(({ isLight }) => ({
 }));
 
 const MainContent = styled.div({
-  padding: '16px 16px 24px 16px',
+  padding: '15px 15px 23px 15px',
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '15px 23px 23px 23px',
@@ -283,16 +291,22 @@ const LeftColumn = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliver
     gap: 24,
   },
 
-  ...(!showDeliverablesBelow && {
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      flexDirection: 'column',
-      flex: 0.632,
-    },
+  ...(showDeliverablesBelow
+    ? {
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          gap: 64,
+        },
+      }
+    : {
+        [lightTheme.breakpoints.up('desktop_1280')]: {
+          flexDirection: 'column',
+          flex: 0.632,
+        },
 
-    [lightTheme.breakpoints.up('desktop_1440')]: {
-      flex: 0.639,
-    },
-  }),
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          flex: 0.639,
+        },
+      }),
 }));
 
 const RightColumn = styled.div({
@@ -306,7 +320,7 @@ const RightColumn = styled.div({
   },
 });
 
-const ImageContainer = styled.div({
+const ImageContainer = styled.div<{ isBigger: boolean }>(({ isBigger }) => ({
   position: 'relative',
   width: '100%',
   height: 175,
@@ -322,7 +336,18 @@ const ImageContainer = styled.div({
     minHeight: 256,
     flex: 1,
   },
-});
+
+  ...(isBigger && {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      height: 320,
+      minHeight: 320,
+    },
+  }),
+
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    maxWidth: 578,
+  },
+}));
 
 const DataContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
@@ -343,13 +368,20 @@ const DataContainer = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeli
   },
 }));
 
-const StatusData = styled.div({
+const StatusData = styled.div<{ showDeliverablesBelow: boolean }>(({ showDeliverablesBelow }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 16,
   width: '100%',
   justifyContent: 'space-between',
-});
+
+  ...(showDeliverablesBelow && {
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      justifyContent: 'normal',
+      gap: 64,
+    },
+  }),
+}));
 
 const ProgressContainer = styled.div({
   maxWidth: 256,

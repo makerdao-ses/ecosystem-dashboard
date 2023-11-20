@@ -105,7 +105,7 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       <FieldsContainer>
         <CustomMultiSelect
           legacyBreakpoints={false}
-          popupContainerHeight={182}
+          popupContainerHeight={186}
           positionRight={true}
           label="Status"
           customAll={{
