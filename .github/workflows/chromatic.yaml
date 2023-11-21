@@ -28,3 +28,14 @@ jobs:
           onlyChanged: true # enable TurboSnap https://www.chromatic.com/docs/turbosnap
         env:
           STORYBOOK_FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+      
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-preview
+          message: |
+            > :rocket: Deployed preview of ${{ github.event.pull_request.head.sha }}
+
+            | name      | url |
+            |-----------|-----|
+            | Chromatic Build | ${{ steps.chromatic.outputs.buildUrl }} |
+            | Chromatic Storybook | ${{ steps.chromatic.outputs.storybookUrl }} |
