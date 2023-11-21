@@ -113,6 +113,6 @@
   "_id": "makerdao-ses-typescript@0.1.0",
   "resolutions": {
     "react-countup/countup.js": "2.5.0",
-    "jackspeak": "2.1.1"
+    "jackspeak": "2.3.5"
   }
 }
