@@ -90,7 +90,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
 
           <ParticipantsContainer>
             <ProjectOwnerChip owner={project.owner} />
-            <SupportedTeamsAvatarGroup supporters={supporters} />
+            {supporters.length > 0 && <SupportedTeamsAvatarGroup supporters={supporters} />}
           </ParticipantsContainer>
         </ProjectHeader>
 
