@@ -113,6 +113,5 @@
   "_id": "makerdao-ses-typescript@0.1.0",
   "resolutions": {
     "react-countup/countup.js": "2.5.0"
-  },
-  "packageManager": "yarn@4.0.2"
+  }
 }
