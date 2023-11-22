@@ -62,6 +62,16 @@ const useActorProjectsContainer = (projects: Project[]) => {
     [activeStatuses, projects, searchQuery]
   );
 
+  const filteredSupporterProjects = useMemo(
+    () =>
+      projects.filter(
+        (project) =>
+          project.title.toLocaleLowerCase().includes(searchQuery) &&
+          (activeStatuses.length === 0 || activeStatuses.includes(project.status))
+      ),
+    [activeStatuses, projects, searchQuery]
+  );
+
   return {
     ref,
     height,
@@ -77,6 +87,7 @@ const useActorProjectsContainer = (projects: Project[]) => {
     handleSearchChange,
     handleResetFilters,
     filteredProjects,
+    filteredSupporterProjects,
   };
 };
 

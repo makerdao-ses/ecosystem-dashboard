@@ -38,6 +38,7 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
     handleSearchChange,
     handleResetFilters,
     filteredProjects,
+    filteredSupporterProjects,
   } = useActorProjectsContainer(projects);
 
   return (
@@ -90,7 +91,7 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
                   </SESTooltip>
                 </SupportedProjects>
 
-                <ProjectList projects={[projects[0]]} isSupportedProjects />
+                <ProjectList projects={filteredSupporterProjects} isSupportedProjects />
               </>
             )}
           </ContainerResponsive>
