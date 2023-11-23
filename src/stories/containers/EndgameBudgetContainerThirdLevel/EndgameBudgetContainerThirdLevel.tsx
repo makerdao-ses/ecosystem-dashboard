@@ -6,7 +6,7 @@ import IconTitle from '@ses/components/IconTitle/IconTitle';
 import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
-import { Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import BreakdownChartSection from '../Finances/components/BreakdownChartSection/BreakdownChartSection';
 import CardCoreUnitThirdLevelBudget from '../Finances/components/CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';
