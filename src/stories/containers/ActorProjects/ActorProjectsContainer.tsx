@@ -74,7 +74,8 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
 
             <ProjectList projects={filteredProjects} />
 
-            {projects.length > 0 && (
+            {/* TODO: instead of `projects.length` it should be `supportedProjects.length` once it is integrated with the API */}
+            {(filteredProjects.length > 0 || filteredSupporterProjects.length > 0) && projects.length > 0 && (
               <>
                 <SupportedProjects isLight={isLight}>
                   <span>Projects supported by {actor.name}</span>
