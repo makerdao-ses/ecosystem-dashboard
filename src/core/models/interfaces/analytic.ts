@@ -1,6 +1,18 @@
+export type AnalyticGranularity =
+  | 'total'
+  | 'annual'
+  | 'semiAnnual'
+  | 'quarterly'
+  | 'monthly'
+  | 'weekly'
+  | 'daily'
+  | 'hourly';
+
+export type AnalyticMetric = 'Actuals' | 'Budget' | 'Forecast' | 'PaymentsOnChain' | 'PaymentsOffChainIncluded';
+
 export interface Analytic {
   series: {
-    period: 'total' | 'annual' | 'semiAnnual' | 'quarterly' | 'monthly' | 'weekly' | 'daily' | 'hourly';
+    period: AnalyticGranularity;
     start: string;
     end: string;
     rows: {
@@ -8,7 +20,7 @@ export interface Analytic {
         name: 'budget';
         path: string;
       }[];
-      metric: 'Actuals' | 'Budget' | 'Forecast' | 'PaymentsOnChain' | 'PaymentsOffChainIncluded';
+      metric: AnalyticMetric;
       unit: 'DAI';
       value: number;
       sum: number;
@@ -18,10 +30,10 @@ export interface Analytic {
 
 export interface AnalyticFilter {
   filter: {
-    granularity: 'total' | 'annual' | 'semiAnnual' | 'quarterly' | 'monthly' | 'weekly' | 'daily' | 'hourly';
+    granularity: AnalyticGranularity;
     start: string;
     end: string;
-    metrics: ('Actuals' | 'Budget' | 'Forecast' | 'PaymentsOnChain' | 'PaymentsOffChainIncluded')[];
+    metrics: AnalyticMetric[];
     currency: 'DAI';
     dimensions: {
       name: 'budget';

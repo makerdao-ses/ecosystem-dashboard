@@ -1,6 +1,6 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
-import type { Analytic, AnalyticFilter } from '@ses/core/models/interfaces/analytic';
+import type { AnalyticGranularity, Analytic, AnalyticFilter } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const fetchBudgets = async (): Promise<Budget[]> => {
@@ -27,7 +27,7 @@ export const fetchBudgets = async (): Promise<Budget[]> => {
 };
 
 export const fetchAnalytics = async (
-  granularity: 'total' | 'annual' | 'semiAnnual' | 'quarterly' | 'monthly' | 'weekly' | 'daily' | 'hourly',
+  granularity: AnalyticGranularity,
   initialYear: string,
   select: string,
   lod: number

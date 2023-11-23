@@ -1,4 +1,5 @@
 import { useMediaQuery } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
 import { getMetricByPeriod } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
@@ -102,7 +103,7 @@ export const useBreakdownTable = (initialYear: string) => {
 
   const handleChangeYears = (value: string) => {
     setYear(value);
-    router.push(`/finances?year=${value}` /* undefined, { shallow: true } */);
+    router.push(`${siteRoutes.newFinancesOverview}?year=${value}` /* undefined, { shallow: true } */);
   };
   const handlePeriodChange = (value: string) => {
     setPeriodFilter(value as PeriodicSelectionFilter);

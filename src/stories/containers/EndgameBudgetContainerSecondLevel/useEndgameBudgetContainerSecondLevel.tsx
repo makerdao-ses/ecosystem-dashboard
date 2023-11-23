@@ -59,7 +59,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     setYear(value);
     router.push(
       {
-        pathname: '/finances/[firstPath]',
+        pathname: `${siteRoutes.newFinancesOverview}/[firstPath]`,
         query: {
           firstPath: router.query.firstPath,
           year: value,

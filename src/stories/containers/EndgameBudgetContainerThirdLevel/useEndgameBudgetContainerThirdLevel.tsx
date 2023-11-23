@@ -79,7 +79,7 @@ export const useEndgameBudgetContainerThirdLevel = (
     setYear(value);
     router.push(
       {
-        pathname: '/finances/[firstPath]/[...secondPath]',
+        pathname: `${siteRoutes.newFinancesOverview}/[firstPath]/[...secondPath]`,
         query: {
           firstPath: router.query.firstPath,
           secondPath: router.query.secondPath,

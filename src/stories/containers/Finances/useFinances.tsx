@@ -1,3 +1,4 @@
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -24,7 +25,7 @@ export const useFinances = (budgets: Budget[], initialYear: string, budgetsAnaly
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-      href: `/finances/${item.codePath.replace('atlas/', '')}`,
+      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
       totalDai: budgetMetric?.metric.budget.value,
       valueDai: budgetMetric?.metric.actuals.value,
       color: isLight ? colors[index] : colorsDark[index],
