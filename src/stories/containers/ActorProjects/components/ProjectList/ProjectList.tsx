@@ -39,15 +39,15 @@ const List = styled.div({
   gap: 32,
 });
 
-const NoResults = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: 20,
+const NoResults = styled.div<WithIsLight>({
+  color: '#546978',
+  fontSize: 18,
   fontWeight: 500,
   textAlign: 'center',
   fontStyle: 'italic',
   margin: '32px 0',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 24,
+    fontSize: 20,
   },
-}));
+});
