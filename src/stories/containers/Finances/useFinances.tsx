@@ -1,3 +1,4 @@
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -7,24 +8,29 @@ import { useCardChartOverview } from './components/SectionPages/CardChartOvervie
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
 import { prefixToRemove, removePrefix } from './utils/utils';
+import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useFinances = (budgets: Budget[]) => {
-  const cardsNavigation: Budget[] = budgets.filter((budget) => budget.parentId === null);
+export const useFinances = (budgets: Budget[], initialYear: string, budgetsAnalytics: BudgetAnalytic[]) => {
+  console.log(budgetsAnalytics); // temporary
   const { isLight } = useThemeContext();
   const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
   const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
   const router = useRouter();
 
-  const cardsNavigationInformation = cardsNavigation.map((item, index) => ({
-    image: item.image || '',
-    title: removePrefix(item.name, prefixToRemove),
-    description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-    href: `finances/${item.codePath}`,
-    totalDai: 132345,
-    valueDai: 12345,
-    color: isLight ? colors[index] : colorsDark[index],
-  }));
+  const cardsNavigationInformation = budgets.map((item, index) => {
+    const budgetMetric = budgetsAnalytics.find((ba) => ba.codePath === item.codePath);
+
+    return {
+      image: item.image || '',
+      title: removePrefix(item.name, prefixToRemove),
+      description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
+      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
+      totalDai: budgetMetric?.metric.budget.value,
+      valueDai: budgetMetric?.metric.actuals.value,
+      color: isLight ? colors[index] : colorsDark[index],
+    };
+  });
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
 
   const handleLoadMoreCards = () => {
@@ -32,17 +38,17 @@ export const useFinances = (budgets: Budget[]) => {
   };
   const cardsToShow = loadMoreCards ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
-  // all the logic required by the breakdown chart section
+  // All the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart();
 
   // All the logic required by the Expense Reports
   const expenseTrendFinances = useDelegateExpenseTrendFinances();
 
   // All the logic required by the CardChartOverview section
-  const cardOverViewSectionData = useCardChartOverview(budgets);
+  const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics);
 
-  // All the logic required by the CardChartOverview section
-  const breakdownTable = useBreakdownTable();
+  // All the logic required by the BreakdownTable section
+  const breakdownTable = useBreakdownTable(initialYear);
 
   // All the logic required by the MakerDAOExpenseMetrics
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics();

@@ -16,4 +16,3 @@ export const COOKIES_POLICY_PARAGRAPH_FOUR =
 export const LOCAL_STORAGE_AUTH_KEY = 'auth';
 export const DELEGATE_PAGE = 'https://vote.makerdao.com/delegates';
 export const NUMBER_ROWS_FINANCES_TABLE = 16;
-export const YEARS_FINANCES_SELECTED = ['2022', '2023'];

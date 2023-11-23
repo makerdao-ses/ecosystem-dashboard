@@ -1,3 +1,4 @@
+import { BudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/budgetAnalyticBuilder';
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
@@ -53,6 +54,35 @@ const variantsArgs = [
         .withDescription('Description of the budget')
         .withCodePath('atlas/sds/fds')
         .withCode('fds')
+        .build(),
+    ],
+    yearsRange: ['2023', '2022'],
+    initialYear: '2023',
+    budgetsAnalytics: [
+      new BudgetAnalyticBuilder()
+        .withCodePath('test')
+        .withMetric({
+          actuals: {
+            value: 5000,
+            unit: 'DAI',
+          },
+          budget: {
+            value: 10000,
+            unit: 'DAI',
+          },
+          forecast: {
+            value: 0,
+            unit: 'DAI',
+          },
+          paymentsOnChain: {
+            value: 0,
+            unit: 'DAI',
+          },
+          paymentsOffChainIncluded: {
+            value: 0,
+            unit: 'DAI',
+          },
+        })
         .build(),
     ],
   },

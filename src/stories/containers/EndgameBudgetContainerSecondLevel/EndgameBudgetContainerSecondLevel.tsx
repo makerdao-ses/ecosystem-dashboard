@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
-import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreakdownChartSection from '../Finances/components/BreakdownChartSection/BreakdownChartSection';
@@ -16,12 +15,13 @@ import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/De
 import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
 import type { Budget } from '@ses/core/models/interfaces/budget';
-
 interface Props {
   budgets: Budget[];
+  yearsRange: string[];
+  initialYear: string;
 }
 
-const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
+const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear }) => {
   const {
     trailingAddressDesk,
     trailingAddress,
@@ -64,13 +64,13 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets }) => {
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
-  } = useEndgameBudgetContainerSecondLevel(budgets);
+  } = useEndgameBudgetContainerSecondLevel(budgets, initialYear);
 
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
-        years={YEARS_FINANCES_SELECTED}
+        years={yearsRange}
         handleChange={handleChangeYearsEndgameAtlasBudget}
         selectedValue={year}
         trailingAddressDesk={trailingAddressDesk}

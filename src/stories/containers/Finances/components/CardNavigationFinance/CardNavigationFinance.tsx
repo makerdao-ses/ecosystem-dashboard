@@ -21,7 +21,7 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
   return (
     <StyleCardNavigationGeneric>
       <ContainerImage>
-        <ImageStyle src={image} width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} alt="Picture" />
+        <ImageStyle src={image} width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} alt="Picture" unoptimized />
       </ContainerImage>
       <CardInformation>
         <Title isLight={isLight}>{title}</Title>

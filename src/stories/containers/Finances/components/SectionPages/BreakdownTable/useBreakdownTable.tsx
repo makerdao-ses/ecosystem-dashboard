@@ -1,4 +1,5 @@
 import { useMediaQuery } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
 import { getMetricByPeriod } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
@@ -7,7 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { Metric, MetricsWithAmount, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 
-export const useBreakdownTable = () => {
+export const useBreakdownTable = (initialYear: string) => {
   const router = useRouter();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -82,7 +83,7 @@ export const useBreakdownTable = () => {
     };
   }, [isDesk1024, isDesk1280, isDesk1440, isMobile, periodFilter]);
 
-  const [year, setYears] = useState<string>('2022');
+  const [year, setYear] = useState(initialYear);
 
   const routes = ['Finances'];
 
@@ -101,7 +102,8 @@ export const useBreakdownTable = () => {
     : ['Annually', 'Quarterly', 'Monthly'];
 
   const handleChangeYears = (value: string) => {
-    setYears(value);
+    setYear(value);
+    router.push(`${siteRoutes.newFinancesOverview}?year=${value}` /* undefined, { shallow: true } */);
   };
   const handlePeriodChange = (value: string) => {
     setPeriodFilter(value as PeriodicSelectionFilter);

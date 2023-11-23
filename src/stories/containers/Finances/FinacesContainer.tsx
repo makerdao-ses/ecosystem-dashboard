@@ -3,7 +3,6 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -18,14 +17,18 @@ import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpe
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
 import { mockDataTableQuarterlyArray } from './utils/mockData';
+import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   budgets: Budget[];
+  yearsRange: string[];
+  initialYear: string;
+  budgetsAnalytics: BudgetAnalytic[];
 }
 
-const FinancesContainer: React.FC<Props> = ({ budgets }) => {
+const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear, budgetsAnalytics }) => {
   const [isEnabled] = useFlagsActive();
   const {
     trailingAddress,
@@ -73,7 +76,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
     newNetExpensesOnChain,
     isDisabled,
     handleResetFilterBreakDownChart,
-  } = useFinances(budgets);
+  } = useFinances(budgets, initialYear, budgetsAnalytics);
 
   return (
     <PageContainer>
@@ -89,7 +92,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets }) => {
       />
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
-        years={YEARS_FINANCES_SELECTED}
+        years={yearsRange}
         handleChange={handleChangeYears}
         selectedValue={year}
         trailingAddressDesk={trailingAddress}
