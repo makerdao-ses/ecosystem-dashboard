@@ -7,6 +7,7 @@ import { DateTime } from 'luxon';
 
 import type { QuarterlyBudget, RowsItems } from './mockData';
 import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem, PeriodicSelectionFilter } from './types';
+import type { ValueAndUnit, BudgetMetric, Analytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export const calculateValuesByBreakpoint = (
@@ -946,4 +947,61 @@ const fillArrayWhenNoData = (series: { value: number }[]) => {
 export const processingData = (series: { value: number }[]) => {
   const fillingArray = fillArrayWhenNoData(series);
   return fillingArray;
+};
+
+export const getYearsRange = () => {
+  const year = DateTime.utc().year;
+  const yearsRange = Array(1 + year - 2022)
+    .fill('')
+    .map((_, i) => (year - i).toString());
+  return yearsRange;
+};
+
+const setMetric = (value: number, unit: string) =>
+  ({
+    value: Math.abs(value),
+    unit,
+  } as ValueAndUnit);
+
+const newBudgetMetric = () =>
+  ({
+    actuals: setMetric(0, ''),
+    budget: setMetric(0, ''),
+    forecast: setMetric(0, ''),
+    paymentsOnChain: setMetric(0, ''),
+    paymentsOffChainIncluded: setMetric(0, ''),
+  } as BudgetMetric);
+
+export const getBudgetsAnalytics = (analytics: Analytic) => {
+  const analyticsMap: Map<string, BudgetMetric> = new Map();
+
+  for (const row of analytics.series[0]?.rows) {
+    let codePath = row.dimensions[0].path;
+    codePath = codePath === 'atlas/legacy' ? '86' : codePath; // temporary
+    const budgetMetric = analyticsMap.has(codePath) ? (analyticsMap.get(codePath) as BudgetMetric) : newBudgetMetric();
+    switch (row.metric) {
+      case 'Actuals':
+        budgetMetric.actuals = setMetric(row.value, row.unit);
+        break;
+      case 'Budget':
+        budgetMetric.budget = setMetric(row.value, row.unit);
+        break;
+      case 'Forecast':
+        budgetMetric.forecast = setMetric(row.value, row.unit);
+        break;
+      case 'PaymentsOnChain':
+        budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
+        break;
+      case 'PaymentsOffChainIncluded':
+        budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
+        break;
+      default:
+    }
+    analyticsMap.set(codePath, budgetMetric);
+  }
+
+  return Array.from(analyticsMap, ([codePath, metric]) => ({
+    codePath,
+    metric,
+  })) as BudgetAnalytic[];
 };

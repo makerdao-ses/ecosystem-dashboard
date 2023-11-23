@@ -19,9 +19,9 @@ import type { Metric, MetricsWithAmount } from '../Finances/utils/types';
 
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
+export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialYear: string) => {
   const router = useRouter();
-  const levelCode = router.query.codePath as string;
+  const levelPath = 'atlas/' + router.query.firstPath?.toString();
 
   // Hooks for Doughnut Series
   const { filters, filterSelected, handleSelectFilter } = useCardChartOverview(budgets);
@@ -43,20 +43,31 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
     handlePeriodChange,
     periodicSelectionFilter,
     handleSelectChangeMetrics,
-  } = useBreakdownTable();
+  } = useBreakdownTable(initialYear);
 
   const { headersExpenseReport, reportExpenseItems, handleLoadMore, showSome, onSortClick } =
     useDelegateExpenseTrendFinances();
 
-  const levelBudget = budgets?.find((budget) => budget.codePath === levelCode);
+  const levelBudget = budgets.find((budget) => budget.codePath === levelPath);
   const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
   const { isLight } = useThemeContext();
-  const [year, setYears] = useState<string>('2022');
+  const [year, setYear] = useState(initialYear);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const icon = levelBudget?.image || '';
   // const icon = itemTitle?.image || '';
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
-    setYears(value);
+    setYear(value);
+    router.push(
+      {
+        pathname: '/finances/[firstPath]',
+        query: {
+          firstPath: router.query.firstPath,
+          year: value,
+        },
+      }
+      /* undefined,
+      { shallow: true } */
+    );
   };
   const cardsNavigation: Budget[] = budgets.filter((budget) => budget.parentId === levelBudget?.id);
 
@@ -86,7 +97,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[]) => {
     image: item.image || '',
     title: removePrefix(item.name, prefixToRemove),
     description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-    href: `${item.codePath}`,
+    href: `${item.codePath.replace('atlas/', '')}`,
     totalDai: 132345,
     valueDai: 12345,
     color: isLight ? colorsLight[index] : colorsDark[index],

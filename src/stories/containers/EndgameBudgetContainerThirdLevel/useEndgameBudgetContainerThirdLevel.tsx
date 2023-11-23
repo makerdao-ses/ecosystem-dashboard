@@ -24,7 +24,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css';
 
-export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], coreUnits: CoreUnitDto[]) => {
+export const useEndgameBudgetContainerThirdLevel = (
+  budgets: Budget[],
+  initialYear: string,
+  coreUnits: CoreUnitDto[]
+) => {
   const router = useRouter();
   const { isLight } = useThemeContext();
   // Remove when Api is connected
@@ -69,10 +73,22 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], coreUnits
   const levelBudgetName = budgets?.find((budget) => budget.code === momentValue);
 
   const title = removePrefix(levelBudgetName?.name || '', prefixToRemove) || '';
-  const [year, setYears] = useState<string>('2022');
+  const [year, setYear] = useState(initialYear);
 
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
-    setYears(value);
+    setYear(value);
+    router.push(
+      {
+        pathname: '/finances/[firstPath]/[...secondPath]',
+        query: {
+          firstPath: router.query.firstPath,
+          secondPath: router.query.secondPath,
+          year: value,
+        },
+      },
+      undefined,
+      { shallow: true }
+    );
   };
 
   const numColors = budgets.length;
@@ -169,7 +185,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], coreUnits
     allowSelectAll,
     periodicSelectionFilter,
     popupContainerHeight,
-  } = useBreakdownTable();
+  } = useBreakdownTable(initialYear);
 
   return {
     router,

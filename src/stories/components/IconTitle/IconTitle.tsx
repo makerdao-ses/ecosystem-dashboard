@@ -19,7 +19,7 @@ const IconTitle: React.FC<Props> = ({ icon, title, className }) => {
   return (
     <Container className={className}>
       <Icon>
-        <ImageStyle src={icon} width={isMobile ? 29 : 32} height={isMobile ? 29 : 32} alt="Picture" />
+        <ImageStyle src={icon} width={isMobile ? 29 : 32} height={isMobile ? 29 : 32} alt="Picture" unoptimized />
       </Icon>
       <Title isLight={isLight}>{title}</Title>
     </Container>

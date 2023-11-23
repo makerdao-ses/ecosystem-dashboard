@@ -3,7 +3,6 @@ import BigButton from '@ses/components/Button/BigButton/BigButton';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
-import { YEARS_FINANCES_SELECTED } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper';
@@ -30,10 +29,12 @@ import 'swiper/css';
 
 interface Props {
   budgets: Budget[];
+  yearsRange: string[];
+  initialYear: string;
   coreUnits: CoreUnitDto[];
 }
 
-const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, coreUnits }) => {
+const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, coreUnits }) => {
   const {
     trailingAddress,
     trailingAddressDesk,
@@ -77,7 +78,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, coreUnits 
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
-  } = useEndgameBudgetContainerThirdLevel(budgets, coreUnits);
+  } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, coreUnits);
   const ref = useRef<SwiperRef>(null);
   const totalItems = cardsToShow.length;
   const itemsPerPage = calculateItemsPerPage();
@@ -117,7 +118,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, coreUnits 
     <PageContainer>
       <BreadcrumbYearNavigation
         trailingAddress={trailingAddress}
-        years={YEARS_FINANCES_SELECTED}
+        years={yearsRange}
         handleChange={handleChangeYearsEndgameAtlasBudget}
         selectedValue={year}
         trailingAddressDesk={trailingAddressDesk}
