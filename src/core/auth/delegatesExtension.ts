@@ -1,7 +1,7 @@
 import { RoleEnum } from '../enums/roleEnum';
+import type PermissionManager from './permissionManager';
 import type { UserDTO } from '../models/dto/authDTO';
 import type { User } from '../models/interfaces/users';
-import type PermissionManager from './permissionManager';
 
 class DelegatesExtension {
   static UPDATE_PERMISSION = 'Delegates/Update';

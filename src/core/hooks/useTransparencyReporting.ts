@@ -7,10 +7,10 @@ import { budgetStatementCommentsCollectionId } from '../utils/collectionsIds';
 import { LastVisitHandler } from '../utils/lastVisitHandler';
 import useBudgetStatementComments from './useBudgetStatementComments';
 import useBudgetStatementPager from './useBudgetStatementPager';
+import type { SnapshotLimitPeriods } from './useBudgetStatementPager';
 import type { CoreUnit } from '../models/interfaces/coreUnit';
 import type { WithActivityFeed, WithBudgetStatement } from '../models/interfaces/generics';
 import type { Team } from '../models/interfaces/team';
-import type { SnapshotLimitPeriods } from './useBudgetStatementPager';
 
 interface TransparencyReportingOptions<TabIds extends string> {
   commentTabId?: TabIds;
