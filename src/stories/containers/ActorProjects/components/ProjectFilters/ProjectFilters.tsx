@@ -68,7 +68,7 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
         <StatusMobileContainer>
           <CustomMultiSelect
             legacyBreakpoints={false}
-            popupContainerHeight={182}
+            popupContainerHeight={166}
             positionRight={true}
             label="Status"
             customAll={{
@@ -105,7 +105,7 @@ const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       <FieldsContainer>
         <CustomMultiSelect
           legacyBreakpoints={false}
-          popupContainerHeight={186}
+          popupContainerHeight={166}
           positionRight={true}
           label="Status"
           customAll={{
