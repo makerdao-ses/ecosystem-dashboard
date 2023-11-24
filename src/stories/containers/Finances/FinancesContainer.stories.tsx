@@ -9,8 +9,10 @@ const meta: Meta<typeof FinancesContainer> = {
   component: FinancesContainer,
   parameters: {
     layout: 'fullscreen',
-    nextRouter: {
-      pathname: '/finances',
+    nextjs: {
+      router: {
+        pathname: '/finances',
+      },
     },
 
     chromatic: {

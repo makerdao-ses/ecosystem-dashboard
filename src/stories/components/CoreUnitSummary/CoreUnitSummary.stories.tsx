@@ -18,11 +18,13 @@ const meta: Meta<typeof CoreUnitSummary> = {
 };
 export default meta;
 
-const nextRouter = {
-  path: '/core-unit/[code]',
-  asPath: '/core-unit/SES',
-  query: {
-    code: 'SES',
+const nextjs = {
+  router: {
+    path: '/core-unit/[code]',
+    asPath: '/core-unit/SES',
+    query: {
+      code: 'SES',
+    },
   },
 };
 
@@ -42,7 +44,7 @@ const [[WithDescription, WithDescriptionDark], [WithoutDescription, WithoutDescr
 export { WithDescription, WithDescriptionDark, WithoutDescription, WithoutDescriptionDarkMode };
 
 WithDescription.parameters = {
-  nextRouter,
+  nextjs,
   figma: {
     component: {
       0: {
@@ -83,10 +85,10 @@ WithDescription.parameters = {
   } as FigmaParams,
 };
 WithDescriptionDark.parameters = {
-  nextRouter,
+  nextjs,
 };
 WithoutDescription.parameters = {
-  nextRouter,
+  nextjs,
   figma: {
     component: {
       0: {
@@ -127,5 +129,5 @@ WithoutDescription.parameters = {
   } as FigmaParams,
 };
 WithoutDescriptionDarkMode.parameters = {
-  nextRouter,
+  nextjs,
 };

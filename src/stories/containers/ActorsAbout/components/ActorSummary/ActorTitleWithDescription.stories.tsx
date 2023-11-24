@@ -9,11 +9,13 @@ const meta: Meta<typeof ActorTitleWithDescription> = {
   title: 'Components/Actor/ActorTitleWithDescription',
   component: ActorTitleWithDescription,
   parameters: {
-    nextRouter: {
-      path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/PH',
-      query: {
-        code: 'PH',
+    nextjs: {
+      router: {
+        path: '/ecosystem-actors/[code]',
+        asPath: '/ecosystem-actors/PH',
+        query: {
+          code: 'PH',
+        },
       },
     },
     chromatic: {

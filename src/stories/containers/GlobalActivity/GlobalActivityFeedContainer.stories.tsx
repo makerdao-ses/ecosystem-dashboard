@@ -13,8 +13,10 @@ const meta: Meta<typeof GlobalActivityFeedContainer> = {
   decorators: [withoutSBPadding],
 
   parameters: {
-    nextRouter: {
-      pathname: '/activity-feed',
+    nextjs: {
+      router: {
+        pathname: '/activity-feed',
+      },
     },
     chromatic: {
       viewports: [375, 834, 1194],

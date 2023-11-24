@@ -1,6 +1,6 @@
+import React from 'react';
 import { withThemeContext } from './decorators';
 import type { StoryObj } from '@storybook/react';
-import type React from 'react';
 import type { ElementType } from 'react';
 
 export const createThemeModeVariants = (
@@ -17,17 +17,21 @@ export const createThemeModeVariants = (
 
   type Story = StoryObj<React.ComponentProps<typeof Component>>;
 
+  const render = (args: unknown) => <Component {...(args as React.ComponentProps<typeof Component>)} />;
+
   const components: Story[][] = [];
   for (const currentArgs of normalizedArgs) {
     const lightVariant: Story = {
       args: currentArgs,
       decorators: [withThemeContext(true, useBackground)],
+      render,
     };
     lightVariant.decorators = [withThemeContext(true, useBackground)];
 
     const darkVariant: Story = {
       args: currentArgs,
       decorators: [withThemeContext(false, useBackground)],
+      render,
     };
     components.push([lightVariant, darkVariant]);
   }

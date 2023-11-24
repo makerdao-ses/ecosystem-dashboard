@@ -13,11 +13,13 @@ const meta: Meta<typeof CUActivityFeedContainer> = {
   decorators: [withoutSBPadding],
 
   parameters: {
-    nextRouter: {
-      path: '/core-unit/[code]/activity-feed',
-      asPath: '/core-unit/SES/activity-feed',
-      query: {
-        code: 'SES',
+    nextjs: {
+      router: {
+        path: '/core-unit/[code]/activity-feed',
+        asPath: '/core-unit/SES/activity-feed',
+        query: {
+          code: 'SES',
+        },
       },
     },
     chromatic: {

@@ -63,12 +63,14 @@ const meta: Meta<typeof ActorAboutContainer> = {
   component: ActorAboutContainer,
   decorators: [withoutSBPadding],
   parameters: {
-    nextRouter: {
-      pathname: '/ecosystem-actors',
-      path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/DEWIZ',
-      query: {
-        code: 'DEWIZ',
+    nextjs: {
+      router: {
+        pathname: '/ecosystem-actors',
+        path: '/ecosystem-actors/[code]',
+        asPath: '/ecosystem-actors/DEWIZ',
+        query: {
+          code: 'DEWIZ',
+        },
       },
     },
     chromatic: {

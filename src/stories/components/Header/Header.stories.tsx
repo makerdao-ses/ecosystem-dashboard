@@ -14,8 +14,10 @@ const meta: Meta<typeof Header> = {
       viewports: [375, 834, 1194],
       pauseAnimationAtEnd: true,
     },
-    nextRouter: {
-      pathname: '/ecosystem-actors',
+    nextjs: {
+      router: {
+        pathname: '/ecosystem-actors',
+      },
     },
   },
 };

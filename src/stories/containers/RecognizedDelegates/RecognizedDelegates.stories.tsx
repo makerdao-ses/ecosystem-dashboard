@@ -13,8 +13,10 @@ const meta: Meta<typeof RecognizedDelegatesContainer> = {
   component: RecognizedDelegatesContainer,
   parameters: {
     layout: 'fullscreen',
-    nextRouter: {
-      pathname: '/delegates',
+    nextjs: {
+      router: {
+        pathname: '/delegates',
+      },
     },
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440],

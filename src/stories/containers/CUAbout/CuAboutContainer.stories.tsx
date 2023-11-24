@@ -14,11 +14,13 @@ const meta: Meta<typeof CuAboutContainer> = {
   decorators: [withoutSBPadding],
 
   parameters: {
-    nextRouter: {
-      path: '/core-unit/[code]',
-      asPath: '/core-unit/SES',
-      query: {
-        code: 'SES',
+    nextjs: {
+      router: {
+        path: '/core-unit/[code]',
+        asPath: '/core-unit/SES',
+        query: {
+          code: 'SES',
+        },
       },
     },
     chromatic: {

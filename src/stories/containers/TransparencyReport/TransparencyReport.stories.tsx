@@ -15,11 +15,13 @@ const meta: Meta<typeof TransparencyReport> = {
   decorators: [withoutSBPadding],
 
   parameters: {
-    nextRouter: {
-      path: '/core-unit/[code]/finances/reports',
-      asPath: '/core-unit/SES/finances/reports',
-      query: {
-        code: 'SES',
+    nextjs: {
+      router: {
+        path: '/core-unit/[code]/finances/reports',
+        asPath: '/core-unit/SES/finances/reports',
+        query: {
+          code: 'SES',
+        },
       },
     },
     chromatic: {
@@ -102,11 +104,13 @@ export {
 };
 
 const forecastParams = {
-  nextRouter: {
-    path: '/core-unit/[code]/finances/reports?section=forecast',
-    asPath: '/core-unit/SES/finances/reports?section=forecast',
-    query: {
-      section: 'forecast',
+  nextjs: {
+    router: {
+      path: '/core-unit/[code]/finances/reports?section=forecast',
+      asPath: '/core-unit/SES/finances/reports?section=forecast',
+      query: {
+        section: 'forecast',
+      },
     },
   },
 };
@@ -114,11 +118,13 @@ ForecastTabLightMode.parameters = forecastParams;
 ForecastTabDarkMode.parameters = forecastParams;
 
 const mkrVestingParams = {
-  nextRouter: {
-    path: '/core-unit/[code]/finances/reports?section=mkr-vesting',
-    asPath: '/core-unit/SES/finances/reports?section=mkr-vesting',
-    query: {
-      section: 'mkr-vesting',
+  nextjs: {
+    router: {
+      path: '/core-unit/[code]/finances/reports?section=mkr-vesting',
+      asPath: '/core-unit/SES/finances/reports?section=mkr-vesting',
+      query: {
+        section: 'mkr-vesting',
+      },
     },
   },
 };
@@ -126,11 +132,13 @@ MKRVestingLightMode.parameters = mkrVestingParams;
 MKRVestingDarkMode.parameters = mkrVestingParams;
 
 const transferRequestsParams = {
-  nextRouter: {
-    path: '/core-unit/[code]/finances/reports?section=transfer-requests',
-    asPath: '/core-unit/SES/finances/reports?section=transfer-requests',
-    query: {
-      section: 'transfer-requests',
+  nextjs: {
+    router: {
+      path: '/core-unit/[code]/finances/reports?section=transfer-requests',
+      asPath: '/core-unit/SES/finances/reports?section=transfer-requests',
+      query: {
+        section: 'transfer-requests',
+      },
     },
   },
 };
@@ -138,12 +146,14 @@ TransferRequestsLightMode.parameters = transferRequestsParams;
 TransferRequestsDarkMode.parameters = transferRequestsParams;
 
 const expenseReportParams = {
-  nextRouter: {
-    path: '/core-unit/[code]/finances/reports?view=auditor&section=budget-report',
-    asPath: '/core-unit/SES/finances/reports?view=auditor&section=budget-report',
-    query: {
-      view: 'auditor',
-      section: 'budget-report',
+  nextjs: {
+    router: {
+      path: '/core-unit/[code]/finances/reports?view=auditor&section=budget-report',
+      asPath: '/core-unit/SES/finances/reports?view=auditor&section=budget-report',
+      query: {
+        view: 'auditor',
+        section: 'budget-report',
+      },
     },
   },
 };
