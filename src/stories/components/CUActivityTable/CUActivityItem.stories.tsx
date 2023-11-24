@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CUActivityItem from './CUActivityItem';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof CUActivityItem> = {
   title: 'Components/Activity Feed/Activity Item',
   component: CUActivityItem,
   parameters: {
@@ -14,7 +14,8 @@ export default {
     date: new Date('2022-09-22T12:23:00Z'), // 2 day ago
   },
   argTypes: {},
-} as ComponentMeta<typeof CUActivityItem>;
+};
+export default meta;
 
 const args = [
   {
@@ -61,10 +62,9 @@ const args = [
     isNew: true,
   },
 ];
-export const [[GlobalLightMode, GlobalDarkMode], [CULightMode, CUDarkMode]] = createThemeModeVariants(
-  CUActivityItem,
-  args
-);
+const [[GlobalLightMode, GlobalDarkMode], [CULightMode, CUDarkMode]] = createThemeModeVariants(CUActivityItem, args);
+export { GlobalLightMode, GlobalDarkMode, CULightMode, CUDarkMode };
+
 GlobalLightMode.parameters = {
   figma: {
     component: {

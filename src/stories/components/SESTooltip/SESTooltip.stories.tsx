@@ -4,7 +4,7 @@ import { withThemeContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
 import SESTooltip from './SESTooltip';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ComponentStory, Meta } from '@storybook/react';
 
 const ALIGNMENTS = [
   'top-start',
@@ -21,7 +21,7 @@ const ALIGNMENTS = [
   'bottom-end',
 ];
 
-export default {
+const meta: Meta<typeof SESTooltip> = {
   title: 'Components/General/SESTooltip',
   component: SESTooltip,
   decorators: [withThemeContext(true, false)],
@@ -41,7 +41,8 @@ export default {
       defaultValue: false,
     },
   },
-} as ComponentMeta<typeof SESTooltip>;
+};
+export default meta;
 
 const getCustomBtnTemplate: (btnText?: string) => ComponentStory<typeof SESTooltip> =
   (btnText = 'Hover me') =>
@@ -169,9 +170,10 @@ ModalBottomSheet.args = {
   showAsModalBottomSheet: true,
 };
 
-export const [[withArrowLight, withArrowDark]] = createThemeModeVariants(getCustomBtnTemplate('With Arrow'), [
+const [[withArrowLight, withArrowDark]] = createThemeModeVariants(getCustomBtnTemplate('With Arrow'), [
   { arrow: true },
 ]);
+export { withArrowLight, withArrowDark };
 
 /** Styling is made throw regular styled components though in this case as the arrow is also
  * styled, the approach used is similar to the one suggested in the MUI docs:

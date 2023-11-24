@@ -1,9 +1,9 @@
 import { RecognizedDelegatesBuilder } from '@ses/core/businessLogic/builders/recognizedDelegatesBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateExpenseBreakdownCard from '../components/DelegateExpenseBreakdownCard';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof DelegateExpenseBreakdownCard> = {
   title: 'Components/Delegate/DelegateExpenseBreakdownCard',
   component: DelegateExpenseBreakdownCard,
   parameters: {
@@ -11,7 +11,9 @@ export default {
       viewports: [375],
     },
   },
-} as ComponentMeta<typeof DelegateExpenseBreakdownCard>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     delegateCard: new RecognizedDelegatesBuilder()
@@ -32,7 +34,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[BreakdownCard, BreakdownCardDark]] = createThemeModeVariants(DelegateExpenseBreakdownCard, variantsArgs);
+const [[BreakdownCard, BreakdownCardDark]] = createThemeModeVariants(DelegateExpenseBreakdownCard, variantsArgs);
+export { BreakdownCard, BreakdownCardDark };
 
 BreakdownCard.parameters = {
   figma: {

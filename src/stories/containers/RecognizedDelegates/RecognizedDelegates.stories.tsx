@@ -5,10 +5,10 @@ import AppLayout from '../AppLayout/AppLayout';
 import RecognizedDelegatesContainer from './RecognizedDelegatesContainer';
 import type { TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof RecognizedDelegatesContainer> = {
   title: 'Pages/Recognized Delegates',
   component: RecognizedDelegatesContainer,
   parameters: {
@@ -21,7 +21,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof RecognizedDelegatesContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -264,7 +265,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <RecognizedDelegatesContainer {...props} />
@@ -272,6 +273,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+export { LightMode, DarkMode };
 
 const optionStyles = {
   style: {

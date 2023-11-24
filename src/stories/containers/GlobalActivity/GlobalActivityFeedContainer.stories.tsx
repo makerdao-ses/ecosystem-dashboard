@@ -5,9 +5,9 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import AppLayout from '../AppLayout/AppLayout';
 import GlobalActivityFeedContainer from './GlobalActivityFeedContainer';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof GlobalActivityFeedContainer> = {
   title: 'Pages/Global Activity Feed',
   component: GlobalActivityFeedContainer,
   decorators: [withoutSBPadding],
@@ -23,7 +23,8 @@ export default {
     date: new Date('2022-09-22T12:23:00Z'),
   },
   loaders: [withLocalStorageItem('activity-visit-global', '1662812570000')],
-} as ComponentMeta<typeof GlobalActivityFeedContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -86,7 +87,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[EmptyLightMode, EmptyDarkMode], [WithDataLightMode, WithDataDarkMode]] = createThemeModeVariants(
+const [[EmptyLightMode, EmptyDarkMode], [WithDataLightMode, WithDataDarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <GlobalActivityFeedContainer {...props} />
@@ -94,3 +95,4 @@ export const [[EmptyLightMode, EmptyDarkMode], [WithDataLightMode, WithDataDarkM
   ),
   variantsArgs
 );
+export { EmptyLightMode, EmptyDarkMode, WithDataLightMode, WithDataDarkMode };

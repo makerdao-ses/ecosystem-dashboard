@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ArrowPopoverTargetValueComponent from './ArrowPopoverTargetValueComponent';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ArrowPopoverTargetValueComponent> = {
   title: 'Components/General/ArrowPopoverTargetValueComponent',
   component: ArrowPopoverTargetValueComponent,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof ArrowPopoverTargetValueComponent>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -35,10 +36,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[PopoverContainerWithoutArrow, PopoverContainerWithoutArrowDark]] = createThemeModeVariants(
+const [[PopoverContainerWithoutArrow, PopoverContainerWithoutArrowDark]] = createThemeModeVariants(
   ArrowPopoverTargetValueComponent,
   variantsArgs
 );
+export { PopoverContainerWithoutArrow, PopoverContainerWithoutArrowDark };
 
 PopoverContainerWithoutArrow.parameters = {
   figma: {

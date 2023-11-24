@@ -1,13 +1,13 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import HorizontalBudgetBar from './HorizontalBudgetBar';
-import type { ComponentMeta, Story } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof HorizontalBudgetBar> = {
   title: 'Components/Finances/Horizontal Budget Bar',
   component: HorizontalBudgetBar,
   decorators: [
-    (Story: Story) => (
+    (Story) => (
       <div style={{ maxWidth: 210 }}>
         <Story />
       </div>
@@ -20,7 +20,8 @@ export default {
     },
   },
   argTypes: {},
-} as ComponentMeta<typeof HorizontalBudgetBar>;
+};
+export default meta;
 
 const args = [
   {
@@ -29,7 +30,9 @@ const args = [
     budgetCap: 8394564.0,
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(HorizontalBudgetBar, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(HorizontalBudgetBar, args);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

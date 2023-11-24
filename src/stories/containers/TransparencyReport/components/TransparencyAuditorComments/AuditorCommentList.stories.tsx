@@ -1,16 +1,17 @@
 import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
-import { withTeamContext } from '@ses/core/utils/storybook/decorators';
+import { withGenericTeamContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentList from './AuditorCommentList';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof AuditorCommentList> = {
   title: 'Components/AuditorComments/AuditorCommentList',
   component: AuditorCommentList,
-  decorators: [withTeamContext],
-} as ComponentMeta<typeof AuditorCommentList>;
+  decorators: [withGenericTeamContext],
+};
+export default meta;
 
 const args = [
   {
@@ -29,4 +30,5 @@ const args = [
   },
 ];
 
-export const [[WithComments, WithCommentsDarkMode]] = createThemeModeVariants(AuditorCommentList, args);
+const [[WithComments, WithCommentsDarkMode]] = createThemeModeVariants(AuditorCommentList, args);
+export { WithComments, WithCommentsDarkMode };

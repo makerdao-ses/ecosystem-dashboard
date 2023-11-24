@@ -1,11 +1,11 @@
+import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { ResourceType } from '@ses/core/models/interfaces/types';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import React from 'react';
-import { UserBuilder } from '../../../../../core/businessLogic/builders/userBuilder';
-import { createThemeModeVariants } from '../../../../../core/utils/storybook/factories';
 import ParticipantRoles from './ParticipantRoles';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ParticipantRoles> = {
   title: 'Components/AuditorComments/ParticipantRoles',
   component: ParticipantRoles,
   decorators: [
@@ -15,7 +15,8 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof ParticipantRoles>;
+};
+export default meta;
 
 export const [[Empty, EmptyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
@@ -36,7 +37,7 @@ const facilitators = [
   new UserBuilder().addCoreUnitFacilitatorRole().withUsername('facilitator2').build(),
 ];
 
-export const [[WithFacilitatorsOnly, WithFacilitatorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
+const [[WithFacilitatorsOnly, WithFacilitatorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
     teamShortCode: 'EXA',
     auditors: [],
@@ -44,8 +45,9 @@ export const [[WithFacilitatorsOnly, WithFacilitatorsOnlyDarkMode]] = createThem
     resource: ResourceType.CoreUnit,
   },
 ]);
+export { WithFacilitatorsOnly, WithFacilitatorsOnlyDarkMode };
 
-export const [[WithAuditorsOnly, WithAuditorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
+const [[WithAuditorsOnly, WithAuditorsOnlyDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
     teamShortCode: 'EXA',
     auditors,
@@ -53,8 +55,9 @@ export const [[WithAuditorsOnly, WithAuditorsOnlyDarkMode]] = createThemeModeVar
     resource: ResourceType.CoreUnit,
   },
 ]);
+export { WithAuditorsOnly, WithAuditorsOnlyDarkMode };
 
-export const [[WithAll, WithAllDarkMode]] = createThemeModeVariants(ParticipantRoles, [
+const [[WithAll, WithAllDarkMode]] = createThemeModeVariants(ParticipantRoles, [
   {
     teamShortCode: 'EXA',
     auditors,
@@ -62,3 +65,4 @@ export const [[WithAll, WithAllDarkMode]] = createThemeModeVariants(ParticipantR
     resource: ResourceType.CoreUnit,
   },
 ]);
+export { WithAll, WithAllDarkMode };

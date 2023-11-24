@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BreadcrumbNavigation from './BreadcrumbNavigation';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof BreadcrumbNavigation> = {
   title: 'Components/Actor/BreadcrumbNavigation',
   component: BreadcrumbNavigation,
   parameters: {
@@ -11,7 +11,9 @@ export default {
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof BreadcrumbNavigation>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     totalElements: 6,
@@ -30,7 +32,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Actors, ActorsDark]] = createThemeModeVariants(BreadcrumbNavigation, variantsArgs);
+const [[Actors, ActorsDark]] = createThemeModeVariants(BreadcrumbNavigation, variantsArgs);
+export { Actors, ActorsDark };
 
 Actors.parameters = {
   figma: {

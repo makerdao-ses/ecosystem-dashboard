@@ -2,10 +2,10 @@ import AppLayout from '@ses/containers/AppLayout/AppLayout';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import LoginContainer from './LoginContainer';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof LoginContainer> = {
   title: 'Pages/Auth/Login',
   component: LoginContainer,
   decorators: [withoutSBPadding],
@@ -15,11 +15,12 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof LoginContainer>;
+};
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <LoginContainer {...props} />
@@ -27,6 +28,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

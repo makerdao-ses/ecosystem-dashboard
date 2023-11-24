@@ -1,19 +1,19 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BreakdownTableFinances from './BreakdownTableFinances';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof BreakdownTableFinances> = {
   title: 'Components/NewFinances/Section/BreakdownTableFinances',
   component: BreakdownTableFinances,
-
   parameters: {
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof BreakdownTableFinances>;
+};
+export default meta;
 
 const args = [
   {
@@ -29,7 +29,8 @@ const args = [
     isOpen: false,
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(BreakdownTableFinances, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(BreakdownTableFinances, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

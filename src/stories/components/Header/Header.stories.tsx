@@ -1,10 +1,10 @@
 import { withFixedPositionRelative } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import Header from './Header';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof Header> = {
   title: 'Components/General/Header/Header',
   component: Header,
   decorators: [withFixedPositionRelative],
@@ -18,11 +18,13 @@ export default {
       pathname: '/ecosystem-actors',
     },
   },
-} as ComponentMeta<typeof Header>;
+};
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(Header, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(Header, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

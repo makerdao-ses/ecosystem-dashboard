@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import OverviewCardMobile from './OverviewCardMobile';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof OverviewCardMobile> = {
   title: 'Components/NewFinances/OverviewCardMobile',
   component: OverviewCardMobile,
 
@@ -13,7 +13,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof OverviewCardMobile>;
+};
+export default meta;
 
 const args = [
   {
@@ -22,7 +23,8 @@ const args = [
     prediction: 4436,
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(OverviewCardMobile, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(OverviewCardMobile, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

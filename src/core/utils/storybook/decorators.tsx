@@ -6,10 +6,10 @@ import { ThemeProvider } from '@ses/core/context/ThemeContext';
 import type { TeamContextValues } from '@ses/core/context/TeamContext';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { User } from '@ses/core/models/interfaces/users';
-import type { Story } from '@storybook/react';
+import type { StoryFn } from '@storybook/react';
 import type { PropsWithChildren } from 'react';
 
-export const withUserLoggedIn = (user: User) => (Story: Story) =>
+export const withUserLoggedIn = (user: User) => (Story: StoryFn) =>
   (
     <AuthContext.Provider
       value={{
@@ -22,39 +22,33 @@ export const withUserLoggedIn = (user: User) => (Story: Story) =>
     </AuthContext.Provider>
   );
 
-export const withTeamContext = (CuOrStory: Story | Team) => {
-  if (typeof CuOrStory === 'function') {
-    // it is a Story
-    return (
-      <TeamContext.Provider
-        value={
-          {
-            currentTeam: { shortCode: 'EXA' },
-          } as TeamContextValues
-        }
-      >
-        <CuOrStory />
-      </TeamContext.Provider>
-    );
-  } else {
-    // it is a Team instance
-    return (Story: Story) => (
-      <TeamContext.Provider
-        value={
-          {
-            currentTeam: CuOrStory as unknown as Team,
-          } as TeamContextValues
-        }
-      >
-        <Story />
-      </TeamContext.Provider>
-    );
-  }
-};
+export const withGenericTeamContext = (Story: StoryFn) => (
+  <TeamContext.Provider
+    value={
+      {
+        currentTeam: { shortCode: 'EXA' },
+      } as TeamContextValues
+    }
+  >
+    <Story />
+  </TeamContext.Provider>
+);
+
+export const withTeamContext = (CuOrStory: Team) => (Story: StoryFn) =>
+  (
+    <TeamContext.Provider
+      value={{
+        currentTeam: CuOrStory,
+        setCurrentTeam: () => null,
+      }}
+    >
+      <Story />
+    </TeamContext.Provider>
+  );
 
 export const withThemeContext =
   (isLight: boolean, useBackground = true) =>
-  (Story: Story) => {
+  (Story: StoryFn) => {
     const Background = useBackground ? TemplateThemeWrapper : ({ children }: PropsWithChildren) => <>{children}</>;
     return (
       <ThemeProvider isLightApp={isLight}>
@@ -72,16 +66,16 @@ const TemplateThemeWrapper = styled.div<{ isLight: boolean }>(({ isLight }) => (
   backgroundSize: 'cover',
 }));
 
-export const withWrappedStyles = (styles: React.CSSProperties) => (Story: Story) =>
+export const withWrappedStyles = (styles: React.CSSProperties) => (Story: StoryFn) =>
   (
     <div style={styles}>
       <Story />
     </div>
   );
 
-export const withoutSBPadding = (Story: Story) => withWrappedStyles({ margin: '-1rem' })(Story);
+export const withoutSBPadding = (Story: StoryFn) => withWrappedStyles({ margin: '-1rem' })(Story);
 
-export const withFixedPositionRelative = (Story: Story) => withWrappedStyles({ transform: 'translateZ(0)' })(Story);
+export const withFixedPositionRelative = (Story: StoryFn) => withWrappedStyles({ transform: 'translateZ(0)' })(Story);
 
 const Container = styled.div({
   '& div:first-of-type': {
@@ -89,7 +83,7 @@ const Container = styled.div({
   },
 });
 
-export const withoutMarginTopInFixedPosition = (Story: Story) => (
+export const withoutMarginTopInFixedPosition = (Story: StoryFn) => (
   <Container>
     <Story />
   </Container>

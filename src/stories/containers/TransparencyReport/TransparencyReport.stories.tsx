@@ -7,9 +7,9 @@ import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMock
 import { featureFlags } from 'feature-flags/feature-flags';
 import AppLayout from '../AppLayout/AppLayout';
 import { TransparencyReport } from './TransparencyReport';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof TransparencyReport> = {
   title: 'Pages/CU Transparency Report',
   component: TransparencyReport,
   decorators: [withoutSBPadding],
@@ -29,7 +29,8 @@ export default {
     date: new Date('2022-09-22T12:23:00Z'),
   },
   loaders: [withLocalStorageItem('activity-visit-SES', '1662812570000')],
-} as ComponentMeta<typeof TransparencyReport>;
+};
+export default meta;
 
 const variantsArgs = [
   // actuals
@@ -67,7 +68,7 @@ const variantsArgs = [
   },
 ];
 
-export const [
+const [
   [ActualsWithDataLightMode, ActualsWithDataDarkMode],
   [ActualsWithoutDataLightMode, ActualsWithoutDataDarkMode],
   [ForecastTabLightMode, ForecastTabDarkMode],
@@ -85,6 +86,20 @@ export const [
   variantsArgs,
   false
 );
+export {
+  ActualsWithDataLightMode,
+  ActualsWithDataDarkMode,
+  ActualsWithoutDataLightMode,
+  ActualsWithoutDataDarkMode,
+  ForecastTabLightMode,
+  ForecastTabDarkMode,
+  MKRVestingLightMode,
+  MKRVestingDarkMode,
+  TransferRequestsLightMode,
+  TransferRequestsDarkMode,
+  ExpenseReportLightMode,
+  ExpenseReportDarkMode,
+};
 
 const forecastParams = {
   nextRouter: {

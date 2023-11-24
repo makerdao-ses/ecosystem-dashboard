@@ -3,10 +3,10 @@ import EndgameAtlasBudgets from '../../EndgameAtlasBudgets';
 import EndgameScopeBudgets from '../../EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from '../../MakerDAOLegacyBudgets';
 import CardsNavigation from './CardsNavigation';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof CardsNavigation> = {
   title: 'Components/NewFinances/Section/CardsNavigation',
   component: CardsNavigation,
 
@@ -16,7 +16,8 @@ export default {
       delay: 1000,
     },
   },
-} as ComponentMeta<typeof CardsNavigation>;
+};
+export default meta;
 
 const args = [
   {
@@ -80,7 +81,8 @@ const args = [
     ],
   },
 ];
-export const [[LightMode, DarkMode], [Mobile, MobileDark]] = createThemeModeVariants(CardsNavigation, args);
+const [[LightMode, DarkMode], [Mobile, MobileDark]] = createThemeModeVariants(CardsNavigation, args);
+export { LightMode, DarkMode, Mobile, MobileDark };
 
 LightMode.parameters = {
   chromatic: {

@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardCoreUnitThirdLevelBudget from './CardCoreUnitThirdLevelBudget';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof CardCoreUnitThirdLevelBudget> = {
   title: 'Components/NewFinances/CardCoreUnitThirdLevelBudget',
   component: CardCoreUnitThirdLevelBudget,
 
@@ -13,7 +13,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof CardCoreUnitThirdLevelBudget>;
+};
+export default meta;
 
 const args = [
   {
@@ -23,7 +24,8 @@ const args = [
     image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ces-001/ces_logo.png',
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(CardCoreUnitThirdLevelBudget, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CardCoreUnitThirdLevelBudget, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

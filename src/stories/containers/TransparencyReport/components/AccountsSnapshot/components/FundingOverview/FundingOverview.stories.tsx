@@ -1,10 +1,10 @@
 import { SnapshotAccountTransactionBuilder } from '@ses/core/businessLogic/builders/accountSnapshot/snapshotAccountTransactionBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import FundingOverview from './FundingOverview';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof FundingOverview> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Funding Overview',
   component: FundingOverview,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof FundingOverview>;
+};
+export default meta;
 
 const CommonArgs = {
   snapshotOwner: 'SES Core Unit',
@@ -62,10 +63,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
   FundingOverview,
   variantsArgs
 );
+export { LightMode, DarkMode, ExpandedLightMode, ExpandedDarkMode };
 
 LightMode.parameters = {
   figma: {

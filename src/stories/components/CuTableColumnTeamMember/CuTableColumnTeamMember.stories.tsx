@@ -1,16 +1,14 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
 import { CuJobEnum } from '../../../core/enums/cuJobEnum';
-
 import { CuTableColumnTeamMember } from './CuTableColumnTeamMember';
 import type { ContributorCommitmentDto } from '../../../core/models/dto/coreUnitDTO';
+import type { Meta } from '@storybook/react';
 
-import type { ComponentMeta } from '@storybook/react';
-
-export default {
+const meta: Meta<typeof CuTableColumnTeamMember> = {
   title: 'Components/CUTable/ColumnTeamMember',
-  components: CuTableColumnTeamMember,
-} as ComponentMeta<typeof CuTableColumnTeamMember>;
+  component: CuTableColumnTeamMember,
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -50,7 +48,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[TeamMember, TeamMemberDark]] = createThemeModeVariants(CuTableColumnTeamMember, variantsArgs);
+const [[TeamMember, TeamMemberDark]] = createThemeModeVariants(CuTableColumnTeamMember, variantsArgs);
+export { TeamMember, TeamMemberDark };
 
 TeamMember.parameters = {
   figma: {

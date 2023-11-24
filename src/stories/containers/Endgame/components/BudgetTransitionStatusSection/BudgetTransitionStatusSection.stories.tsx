@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BudgetTransitionStatusSection from './BudgetTransitionStatusSection';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof BudgetTransitionStatusSection> = {
   title: 'Components/Endgame/Budget Transition Status Section',
   component: BudgetTransitionStatusSection,
   parameters: {
@@ -12,11 +12,13 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof BudgetTransitionStatusSection>;
+};
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(BudgetTransitionStatusSection, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(BudgetTransitionStatusSection, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

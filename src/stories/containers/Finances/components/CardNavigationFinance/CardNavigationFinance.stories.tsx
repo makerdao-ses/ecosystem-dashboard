@@ -1,10 +1,10 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
 import CardNavigationFinance from './CardNavigationFinance';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof CardNavigationFinance> = {
   title: 'Components/NewFinances/CardNavigationFinance',
   component: CardNavigationFinance,
 
@@ -14,7 +14,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof CardNavigationFinance>;
+};
+export default meta;
 
 const args = [
   {
@@ -24,7 +25,8 @@ const args = [
     href: '#',
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationFinance, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationFinance, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

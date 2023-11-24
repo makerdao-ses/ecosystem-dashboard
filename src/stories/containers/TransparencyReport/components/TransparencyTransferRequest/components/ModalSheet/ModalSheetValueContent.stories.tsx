@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ModalSheetValueContent from './ModalSheetValueContent';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ModalSheetValueContent> = {
   title: 'Components/General/ModalSheetValueContent',
   component: ModalSheetValueContent,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof ModalSheetValueContent>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -26,10 +27,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[PopoverContainerWithoutArrow, PopoverContainerWithoutArrowDark]] = createThemeModeVariants(
+const [[PopoverContainerWithoutArrow, PopoverContainerWithoutArrowDark]] = createThemeModeVariants(
   ModalSheetValueContent,
   variantsArgs
 );
+export { PopoverContainerWithoutArrow, PopoverContainerWithoutArrowDark };
 
 PopoverContainerWithoutArrow.parameters = {
   figma: {

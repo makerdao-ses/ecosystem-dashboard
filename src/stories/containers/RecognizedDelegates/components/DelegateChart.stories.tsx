@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { DateTime } from 'luxon';
 import DelegateChart from './DelegateChart';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof DelegateChart> = {
   title: 'Components/Delegate/Chart',
   component: DelegateChart,
   parameters: {
@@ -12,7 +12,9 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof DelegateChart>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     expenses: [
@@ -25,7 +27,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Chart, ChartDark]] = createThemeModeVariants(DelegateChart, variantsArgs);
+const [[Chart, ChartDark]] = createThemeModeVariants(DelegateChart, variantsArgs);
+export { Chart, ChartDark };
 
 Chart.parameters = {
   figma: {

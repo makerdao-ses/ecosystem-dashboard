@@ -2,10 +2,10 @@ import { withoutMarginTopInFixedPosition, withoutSBPadding } from '@ses/core/uti
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import { CoreUnitSummary } from './CoreUnitSummary';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof CoreUnitSummary> = {
   title: 'Components/General/CoreUnitSummary',
   component: CoreUnitSummary,
   parameters: {
@@ -15,7 +15,8 @@ export default {
     },
   },
   decorators: [withoutSBPadding, withoutMarginTopInFixedPosition],
-} as ComponentMeta<typeof CoreUnitSummary>;
+};
+export default meta;
 
 const nextRouter = {
   path: '/core-unit/[code]',
@@ -36,8 +37,10 @@ const variantsArgs = [
   },
 ];
 
-export const [[WithDescription, WithDescriptionDark], [WithoutDescription, WithoutDescriptionDarkMode]] =
+const [[WithDescription, WithDescriptionDark], [WithoutDescription, WithoutDescriptionDarkMode]] =
   createThemeModeVariants(CoreUnitSummary, variantsArgs);
+export { WithDescription, WithDescriptionDark, WithoutDescription, WithoutDescriptionDarkMode };
+
 WithDescription.parameters = {
   nextRouter,
   figma: {

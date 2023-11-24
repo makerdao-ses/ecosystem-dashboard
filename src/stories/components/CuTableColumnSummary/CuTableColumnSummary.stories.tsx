@@ -2,12 +2,13 @@ import { CuStatusEnum } from '@ses/core/enums/cuStatusEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { DateTime } from 'luxon';
 import { CuTableColumnSummary } from './CuTableColumnSummary';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CuTableColumnSummary> = {
   title: 'Components/CUTable/ColumnSummary',
   component: CuTableColumnSummary,
-} as ComponentMeta<typeof CuTableColumnSummary>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -19,7 +20,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Summary, SummaryDark]] = createThemeModeVariants(CuTableColumnSummary, variantsArgs);
+const [[Summary, SummaryDark]] = createThemeModeVariants(CuTableColumnSummary, variantsArgs);
+export { Summary, SummaryDark };
 
 Summary.parameters = {
   figma: {

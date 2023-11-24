@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 import ExpenseReportStatus from './ExpenseReportStatus';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ExpenseReportStatus> = {
   title: 'Components/AuditorComments/ExpenseReportStatus',
   component: ExpenseReportStatus,
   argTypes: {
@@ -13,7 +13,8 @@ export default {
       control: { type: 'select' },
     },
   },
-} as ComponentMeta<typeof ExpenseReportStatus>;
+};
+export default meta;
 
 const variantsArgs = [
   { status: BudgetStatus.Draft },
@@ -22,12 +23,9 @@ const variantsArgs = [
   { status: BudgetStatus.Final },
 ];
 
-export const [
-  [Draft, DraftDarkMode],
-  [Review, ReviewDarkMode],
-  [Escalated, EscalatedDarkMode],
-  [Final, FinalDarkMode],
-] = createThemeModeVariants(ExpenseReportStatus, variantsArgs);
+const [[Draft, DraftDarkMode], [Review, ReviewDarkMode], [Escalated, EscalatedDarkMode], [Final, FinalDarkMode]] =
+  createThemeModeVariants(ExpenseReportStatus, variantsArgs);
+export { Draft, DraftDarkMode, Review, ReviewDarkMode, Escalated, EscalatedDarkMode, Final, FinalDarkMode };
 
 Draft.parameters = {
   figma: {

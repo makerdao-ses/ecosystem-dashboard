@@ -1,9 +1,9 @@
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import GenericCommentCard from './GenericCommentCard';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof GenericCommentCard> = {
   title: 'Components/AuditorComments/GenericCommentCard',
   component: GenericCommentCard,
   argTypes: {
@@ -13,7 +13,8 @@ export default {
       control: { type: 'select' },
     },
   },
-} as ComponentMeta<typeof GenericCommentCard>;
+};
+export default meta;
 
 const args = [
   { variant: BudgetStatus.Draft },
@@ -21,9 +22,6 @@ const args = [
   { variant: BudgetStatus.Escalated },
   { variant: BudgetStatus.Final },
 ];
-export const [
-  [Draft, DraftDarkMode],
-  [Review, ReviewDarkMode],
-  [Escalated, EscalatedDarkMode],
-  [Final, FinalDarkMode],
-] = createThemeModeVariants((props) => <GenericCommentCard {...props}>Lorem ipsum</GenericCommentCard>, args);
+const [[Draft, DraftDarkMode], [Review, ReviewDarkMode], [Escalated, EscalatedDarkMode], [Final, FinalDarkMode]] =
+  createThemeModeVariants((props) => <GenericCommentCard {...props}>Lorem ipsum</GenericCommentCard>, args);
+export { Draft, DraftDarkMode, Review, ReviewDarkMode, Escalated, EscalatedDarkMode, Final, FinalDarkMode };

@@ -4,9 +4,9 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import FinancesOverviewContainer from './FinancesOverviewContainer';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof FinancesOverviewContainer> = {
   title: 'Pages/Finances Overview',
   component: FinancesOverviewContainer,
   decorators: [withoutSBPadding],
@@ -17,7 +17,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof FinancesOverviewContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -242,7 +243,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <FinancesOverviewContainer {...props} />
@@ -250,3 +251,4 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+export { LightMode, DarkMode };

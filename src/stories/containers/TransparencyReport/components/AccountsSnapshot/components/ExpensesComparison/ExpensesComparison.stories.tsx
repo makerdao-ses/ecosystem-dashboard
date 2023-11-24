@@ -2,10 +2,10 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { buildRow, buildRowWithoutOffChain } from '../../utils/expenseComparisonUtils';
 import ExpensesComparison from './ExpensesComparison';
 import type { RowProps } from '@ses/components/AdvanceTable/types';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof ExpensesComparison> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Expenses Comparison',
   component: ExpensesComparison,
   parameters: {
@@ -14,7 +14,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof ExpensesComparison>;
+};
+export default meta;
 
 const rows = [
   buildRow(['MAY-2023', '221,503.00 DAI', '240,000.00 DAI', '8.35%', '221,504.00 DAI', '0.00%'], true, false),
@@ -30,16 +31,18 @@ const rowsWithoutOffChain = [
   buildRowWithoutOffChain(['Totals', '681,509.00 DAI', '681,509.00 DAI', '1.25%'], false, true),
 ] as RowProps[];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   // it is required to initialized this way due the rows has react components and they can not be serialized
   () => <ExpensesComparison hasOffChainData={true} rows={rows} />,
   [{}]
 );
+export { LightMode, DarkMode };
 
-export const [[WithoutOffChainLightMode, WithoutOffChainDarkMode]] = createThemeModeVariants(
+const [[WithoutOffChainLightMode, WithoutOffChainDarkMode]] = createThemeModeVariants(
   () => <ExpensesComparison hasOffChainData={false} rows={rowsWithoutOffChain} />,
   [{}]
 );
+export { WithoutOffChainLightMode, WithoutOffChainDarkMode };
 
 LightMode.parameters = {
   figma: {

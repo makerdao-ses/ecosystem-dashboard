@@ -6,9 +6,9 @@ import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMock
 import { featureFlags } from 'feature-flags/feature-flags';
 import AppLayout from '../AppLayout/AppLayout';
 import CuAboutContainer from './CuAboutContainer';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CuAboutContainer> = {
   title: 'Pages/CU About',
   component: CuAboutContainer,
   decorators: [withoutSBPadding],
@@ -26,7 +26,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof CuAboutContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -36,7 +37,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
@@ -46,3 +47,4 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+export { LightMode, DarkMode };

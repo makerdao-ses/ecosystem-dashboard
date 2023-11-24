@@ -1,8 +1,8 @@
 import CookiesPolicyBanner from '@ses/components/CookiesPolicyBanner/CookiesPolicyBanner';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CookiesPolicyBanner> = {
   title: 'Components/General/CookiesPolicyBanner',
   component: CookiesPolicyBanner,
   parameters: {
@@ -41,7 +41,8 @@ export default {
       action: 'setAnalyticsCheckbox',
     },
   },
-} as ComponentMeta<typeof CookiesPolicyBanner>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -50,7 +51,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Banner, BannerDarkMode]] = createThemeModeVariants(CookiesPolicyBanner, variantsArgs);
+const [[Banner, BannerDarkMode]] = createThemeModeVariants(CookiesPolicyBanner, variantsArgs);
+export { Banner, BannerDarkMode };
 
 Banner.parameters = {
   figma: {

@@ -1,8 +1,8 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BarWithDottedLine from './BarWithDottedLine';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof BarWithDottedLine> = {
   title: 'Components/BarWithDottedLine',
   component: BarWithDottedLine,
   parameters: {
@@ -10,7 +10,9 @@ export default {
       viewports: [375],
     },
   },
-} as ComponentMeta<typeof BarWithDottedLine>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     value: 7500,
@@ -34,7 +36,7 @@ const variantsArgs = [
   },
 ];
 
-export const [
+const [
   [ProgressiveGreen, ProgressiveGreenDark],
   [ProgressiveYellow, ProgressiveYellowDark],
   [ProgressiveRed, ProgressiveRedDark],
@@ -42,6 +44,18 @@ export const [
   [ProgressiveGray, ProgressiveGrayDark],
   [ProgressiveGrayStrong, ProgressiveGrayStrongDark],
 ] = createThemeModeVariants(BarWithDottedLine, variantsArgs);
+export {
+  ProgressiveGreen,
+  ProgressiveGreenDark,
+  ProgressiveYellow,
+  ProgressiveYellowDark,
+  ProgressiveRed,
+  ProgressiveRedDark,
+  ProgressiveGray,
+  ProgressiveGrayDark,
+  ProgressiveGrayStrong,
+  ProgressiveGrayStrongDark,
+};
 
 ProgressiveGreen.parameters = {
   figma: {

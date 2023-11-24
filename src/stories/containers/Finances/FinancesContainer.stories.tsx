@@ -1,11 +1,10 @@
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
-
 import FinancesContainer from './FinacesContainer';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof FinancesContainer> = {
   title: 'Pages/FinancesContainer',
   component: FinancesContainer,
   parameters: {
@@ -19,7 +18,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof FinancesContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -58,7 +58,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <FinancesContainer {...props} />
@@ -66,5 +66,4 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
-
-LightMode.parameters = {};
+export { LightMode, DarkMode };

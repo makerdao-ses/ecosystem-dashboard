@@ -1,10 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { mockDataApiTeam } from '../../utils/utils';
 import DelegateExpenseTrendItem from './DelegateExpenseTrendItem';
+import type { Meta } from '@storybook/react';
 
-import type { ComponentMeta } from '@storybook/react';
-
-export default {
+const meta: Meta<typeof DelegateExpenseTrendItem> = {
   title: 'Components/NewFinances/DelegateExpenseTrendItem',
   component: DelegateExpenseTrendItem,
   parameters: {
@@ -13,7 +12,9 @@ export default {
     },
     date: new Date('2023-09-24T09:08:34.123'),
   },
-} as ComponentMeta<typeof DelegateExpenseTrendItem>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     handleLinkToPage: () => null,
@@ -29,8 +30,9 @@ const variantsArgs = [
   },
 ];
 
-export const [[DelegateExpense, DelegateExpenseDark], [DelegateExpenseMobile, DelegateExpenseMobileDark]] =
+const [[DelegateExpense, DelegateExpenseDark], [DelegateExpenseMobile, DelegateExpenseMobileDark]] =
   createThemeModeVariants(DelegateExpenseTrendItem, variantsArgs);
+export { DelegateExpense, DelegateExpenseDark, DelegateExpenseMobile, DelegateExpenseMobileDark };
 
 DelegateExpense.parameters = {
   figma: {

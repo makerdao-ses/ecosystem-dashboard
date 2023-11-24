@@ -1,13 +1,13 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
 import { enumForStories, getHeadersExpenseReport } from '../../utils/utils';
 import HeaderDelegateExpense from './HeaderDelegateExpense';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof HeaderDelegateExpense> = {
   title: 'Components/NewFinances/HeaderDelegateExpense',
   component: HeaderDelegateExpense,
-} as ComponentMeta<typeof HeaderDelegateExpense>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -18,8 +18,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[HeaderDelegate, HeaderDelegateDark], [HeaderDelegate1024, HeaderDelegate1024Dark]] =
-  createThemeModeVariants(HeaderDelegateExpense, variantsArgs);
+const [[HeaderDelegate, HeaderDelegateDark], [HeaderDelegate1024, HeaderDelegate1024Dark]] = createThemeModeVariants(
+  HeaderDelegateExpense,
+  variantsArgs
+);
+export { HeaderDelegate, HeaderDelegateDark, HeaderDelegate1024, HeaderDelegate1024Dark };
 
 HeaderDelegate.parameters = {
   chromatic: {

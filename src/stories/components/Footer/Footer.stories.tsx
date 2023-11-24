@@ -2,12 +2,12 @@ import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import Footer from './Footer';
 import { developer, governesses, products } from './iconsData';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof Footer> = {
   title: 'Components/General/Footer',
-  components: Footer,
+  component: Footer,
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
@@ -15,7 +15,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof Footer>;
+};
+export default meta;
 
 const args = [
   {
@@ -24,7 +25,9 @@ const args = [
     products,
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(Footer, args, false);
+const [[LightMode, DarkMode]] = createThemeModeVariants(Footer, args, false);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

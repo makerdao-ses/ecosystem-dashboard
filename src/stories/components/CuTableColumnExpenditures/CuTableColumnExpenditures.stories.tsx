@@ -1,8 +1,8 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { CuTableColumnExpenditures } from './CuTableColumnExpenditures';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CuTableColumnExpenditures> = {
   title: 'Components/CUTable/ColumnExpenditures',
   component: CuTableColumnExpenditures,
   parameters: {
@@ -11,7 +11,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof CuTableColumnExpenditures>;
+};
+export default meta;
 
 const args = [
   {
@@ -23,7 +24,9 @@ const args = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(CuTableColumnExpenditures, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CuTableColumnExpenditures, args);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

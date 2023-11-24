@@ -1,16 +1,17 @@
 import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
-import { withTeamContext } from '@ses/core/utils/storybook/decorators';
+import { withGenericTeamContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentsContainer from './AuditorCommentsContainer';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof AuditorCommentsContainer> = {
   title: 'Components/AuditorComments/AuditorCommentsContainer',
   component: AuditorCommentsContainer,
-  decorators: [withTeamContext],
-} as ComponentMeta<typeof AuditorCommentsContainer>;
+  decorators: [withGenericTeamContext],
+};
+export default meta;
 
 const args = [
   {
@@ -31,11 +32,13 @@ const args = [
     resource: ResourceType.CoreUnit,
   },
 ];
-export const [[WithComments, DarkModeWithComments]] = createThemeModeVariants(AuditorCommentsContainer, args);
+const [[WithComments, DarkModeWithComments]] = createThemeModeVariants(AuditorCommentsContainer, args);
+export { WithComments, DarkModeWithComments };
 
-export const [[EmptyLight, EmptyDark]] = createThemeModeVariants(AuditorCommentsContainer, [
+const [[EmptyLight, EmptyDark]] = createThemeModeVariants(AuditorCommentsContainer, [
   {
     comments: [],
     resource: ResourceType.CoreUnit,
   },
 ]);
+export { EmptyLight, EmptyDark };

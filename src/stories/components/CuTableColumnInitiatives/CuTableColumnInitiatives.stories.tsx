@@ -1,8 +1,8 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { CuTableColumnInitiatives } from './CuTableColumnInitiatives';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CuTableColumnInitiatives> = {
   title: 'Components/CUTable/ColumnInitiatives',
   component: CuTableColumnInitiatives,
   decorators: [
@@ -12,7 +12,8 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof CuTableColumnInitiatives>;
+};
+export default meta;
 
 const args = [
   {

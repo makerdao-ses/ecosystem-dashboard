@@ -9,7 +9,7 @@
     "start-staging": "next start -p 3001",
     "lint-fix": "yarn run eslint --fix src/**/*{.ts,.tsx}",
     "test": "jest --watchAll",
-    "storybook": "storybook dev -s ./public -p 6006",
+    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prettier": "prettier --write .",
     "prepare": "husky install"

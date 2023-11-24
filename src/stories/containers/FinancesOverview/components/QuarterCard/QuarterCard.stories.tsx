@@ -1,13 +1,13 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import QuarterCard from './QuarterCard';
-import type { ComponentMeta, Story } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof QuarterCard> = {
   title: 'Components/Finances/QuarterCard',
   component: QuarterCard,
   decorators: [
-    (Story: Story) => (
+    (Story) => (
       <div style={{ maxWidth: 310 }}>
         <Story />
       </div>
@@ -20,7 +20,8 @@ export default {
     },
   },
   argTypes: {},
-} as ComponentMeta<typeof QuarterCard>;
+};
+export default meta;
 
 const args = [
   {
@@ -30,7 +31,9 @@ const args = [
     budgetCap: 8394564.0,
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(QuarterCard, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(QuarterCard, args);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

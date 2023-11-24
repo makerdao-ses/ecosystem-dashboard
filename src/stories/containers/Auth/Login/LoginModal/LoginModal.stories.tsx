@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import LoginModal from './LoginModal';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
 
-export default {
+const meta: Meta<typeof LoginModal> = {
   title: 'Components/General/Auth/Login Modal',
   component: LoginModal,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof LoginModal>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -21,7 +22,9 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(LoginModal, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(LoginModal, variantsArgs);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

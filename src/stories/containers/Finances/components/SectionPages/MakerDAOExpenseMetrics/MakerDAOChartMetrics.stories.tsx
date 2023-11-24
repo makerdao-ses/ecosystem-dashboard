@@ -1,10 +1,9 @@
 import { atlasBudget, legacyBudget, scopeBudget } from '@ses/containers/Finances/utils/utils';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
 import MakerDAOExpenseMetricsFinances from './MakerDAOExpenseMetrics';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof MakerDAOExpenseMetricsFinances> = {
   title: 'Components/NewFinances/Section/MakerDAOExpenseMetricsFinances',
   component: MakerDAOExpenseMetricsFinances,
 
@@ -14,7 +13,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof MakerDAOExpenseMetricsFinances>;
+};
+export default meta;
 
 const args = [
   {
@@ -31,7 +31,8 @@ const args = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(MakerDAOExpenseMetricsFinances, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(MakerDAOExpenseMetricsFinances, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {
