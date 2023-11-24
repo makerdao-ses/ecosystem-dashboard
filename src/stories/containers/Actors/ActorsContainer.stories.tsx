@@ -6,7 +6,7 @@ import ActorsContainer from './ActorsContainer';
 import { defaultSocials } from './utils/utils';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof ActorsContainer> = {
   title: 'Pages/Actors',

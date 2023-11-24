@@ -3,7 +3,7 @@ import { buildRow, buildRowWithoutOffChain } from '../../utils/expenseComparison
 import ExpensesComparison from './ExpensesComparison';
 import type { RowProps } from '@ses/components/AdvanceTable/types';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof ExpensesComparison> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Expenses Comparison',

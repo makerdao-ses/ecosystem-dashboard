@@ -4,7 +4,7 @@ import EndgameScopeBudgets from '../../EndgameScopeBudgets';
 import MakerDAOLegacyBudgets from '../../MakerDAOLegacyBudgets';
 import CardsNavigation from './CardsNavigation';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof CardsNavigation> = {
   title: 'Components/NewFinances/Section/CardsNavigation',

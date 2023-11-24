@@ -3909,6 +3909,11 @@
     "@typescript-eslint/types" "6.12.0"
     eslint-visitor-keys "^3.4.1"
 
+"@uidotdev/usehooks@^2.3.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@uidotdev/usehooks/-/usehooks-2.4.1.tgz#4b733eaeae09a7be143c6c9ca158b56cc1ea75bf"
+  integrity sha512-1I+RwWyS+kdv3Mv0Vmc+p0dPYH0DTRAo04HLyXReYBL9AeseDWUJyi4THuksBJcu9F0Pih69Ak150VDnqbVnXg==
+
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.6.tgz#db046555d3c413f8966ca50a95176a0e2c642e24"
@@ -10520,6 +10525,14 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
+sb-figma-comparator@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/sb-figma-comparator/-/sb-figma-comparator-0.1.7.tgz#a79b45a9ea6ec92f92648461cdcc6b938336ab43"
+  integrity sha512-Ej0X+5F6iN2v6tmxrhpEe1IKN2+fws6lZUkbr75JJOWWimgBbyYEF/pvQ1PMK9/AvAUL32SL7Ym38cyNI20Wgw==
+  dependencies:
+    "@uidotdev/usehooks" "^2.3.1"
+    figma-js "^1.16.0"
+
 scheduler@^0.23.0:
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.23.0.tgz#ba8041afc3d30eb206a487b6b384002e4e61fdfe"
@@ -10838,11 +10851,6 @@ store2@^2.12.0, store2@^2.14.2:
   version "2.14.2"
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.14.2.tgz#56138d200f9fe5f582ad63bc2704dbc0e4a45068"
   integrity sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==
-
-storybook-addon-figma-comparator@0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/storybook-addon-figma-comparator/-/storybook-addon-figma-comparator-0.0.12.tgz#e940b02f4211a6ae921c3deadfc90c9e5a9eff50"
-  integrity sha512-RwvXUXkMF/KljZO9z0yb9w1hs30NN7vbTUCQGi0qhrMqBqsGlOXLwNwpqoXbd6JD11z6bACGbPPLbwVOUwRApQ==
 
 storybook-mock-date-decorator@^1.0.1:
   version "1.0.1"

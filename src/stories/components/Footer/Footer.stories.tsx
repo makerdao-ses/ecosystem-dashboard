@@ -3,7 +3,7 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import Footer from './Footer';
 import { developer, governesses, products } from './iconsData';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof Footer> = {
   title: 'Components/General/Footer',

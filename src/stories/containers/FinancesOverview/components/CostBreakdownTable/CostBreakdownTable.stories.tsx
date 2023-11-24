@@ -4,7 +4,7 @@ import useFinancesOverview from '../../useFinancesOverview';
 import CostBreakdownTable from './CostBreakdownTable';
 import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof CostBreakdownTable> = {
   title: 'Components/Finances/Cost Breakdown Table',

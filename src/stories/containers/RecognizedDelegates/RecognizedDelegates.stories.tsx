@@ -6,7 +6,7 @@ import RecognizedDelegatesContainer from './RecognizedDelegatesContainer';
 import type { TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof RecognizedDelegatesContainer> = {
   title: 'Pages/Recognized Delegates',

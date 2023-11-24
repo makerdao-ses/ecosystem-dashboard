@@ -2,7 +2,7 @@ import { withWrappedStyles } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import EssentialWebsites from './EssentialWebsites';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof EssentialWebsites> = {
   title: 'Components/General/Header/Essential Websites',

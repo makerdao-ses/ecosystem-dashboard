@@ -5,7 +5,7 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import RecognizedDelegatesReportContainer from './RecognizedDelegatesReportContainer';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof RecognizedDelegatesReportContainer> = {
   title: 'Pages/Recognized Delegates Report',

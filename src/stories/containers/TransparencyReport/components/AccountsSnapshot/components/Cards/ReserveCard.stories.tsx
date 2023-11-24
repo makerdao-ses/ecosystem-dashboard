@@ -4,7 +4,7 @@ import { SnapshotAccountTransactionBuilder } from '@ses/core/businessLogic/build
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ReserveCard from './ReserveCard';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof ReserveCard> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Reserve Card',

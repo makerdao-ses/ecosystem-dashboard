@@ -2,7 +2,7 @@ import { SnapshotAccountTransactionBuilder } from '@ses/core/businessLogic/build
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import FundingOverview from './FundingOverview';
 import type { Meta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof FundingOverview> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Funding Overview',
