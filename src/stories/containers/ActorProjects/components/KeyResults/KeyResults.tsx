@@ -81,28 +81,28 @@ const KeyResults: React.FC<KeyResultsProps> = ({
     return height;
   }, [expanded, isShownBelow, maxKeyResultsOnRow, viewMode]);
 
-  if (isMobile && isEmpty) return null;
-
   return (
     <ResultsContainer height={componentHeight}>
-      <Title isLight={isLight}>Key results</Title>
-      <MaybeScrollableList scrollable={!isMobile && (viewMode === 'detailed' || expanded) && keyResults.length > 6}>
-        {isEmpty ? (
-          <NoKeyContainer>
-            <NoKeyResults>No Key results yet</NoKeyResults>
-          </NoKeyContainer>
-        ) : (
-          <>
-            {results.map((keyResult) => (
-              <ResultItem key={keyResult.id}>
-                <KeyLink href={keyResult.link} target="_blank">
-                  {keyResult.title}
-                </KeyLink>
-              </ResultItem>
-            ))}
-          </>
-        )}
-      </MaybeScrollableList>
+      <Title isLight={isLight}>{isMobile && isEmpty ? 'No Key Results' : 'Key results'}</Title>
+      {((isMobile && !isEmpty) || !isMobile) && (
+        <MaybeScrollableList scrollable={!isMobile && (viewMode === 'detailed' || expanded) && keyResults.length > 6}>
+          {isEmpty ? (
+            <NoKeyContainer>
+              <NoKeyResults>No Key results yet</NoKeyResults>
+            </NoKeyContainer>
+          ) : (
+            <>
+              {results.map((keyResult) => (
+                <ResultItem key={keyResult.id}>
+                  <KeyLink href={keyResult.link} target="_blank">
+                    {keyResult.title}
+                  </KeyLink>
+                </ResultItem>
+              ))}
+            </>
+          )}
+        </MaybeScrollableList>
+      )}
       {isShownBelow && viewMode === 'compacted' && keyResults.length > 4 && (
         <ExpandableButtonItem expanded={expanded} handleToggleExpand={handleToggleExpand} />
       )}
@@ -133,7 +133,6 @@ const ResultsContainer = styled.div<{
 }));
 
 const Title = styled.h4<WithIsLight>(({ isLight }) => ({
-  display: 'none',
   margin: 0,
   fontSize: 16,
   fontWeight: 500,
@@ -141,10 +140,6 @@ const Title = styled.h4<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   padding: '2px 8px',
   background: isLight ? 'rgba(236, 239, 249, 0.50)' : 'rgba(35, 21, 54, 0.30)',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'block',
-  },
 }));
 
 const NoKeyContainer = styled.div({
