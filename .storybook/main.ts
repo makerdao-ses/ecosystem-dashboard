@@ -20,14 +20,6 @@ const config: StorybookConfig = {
     ...config,
     NEXT_PUBLIC_ENVIRONMENT: 'development', // storybook should run on development environment
   }),
-  webpackFinal: async (config) => {
-    // use custom next/image to avoid image issues
-    if (config.resolve?.alias) {
-      config.resolve.alias['next/image'] = require.resolve('./NextImage.js');
-    }
-
-    return config;
-  },
 };
 
 export default config;
