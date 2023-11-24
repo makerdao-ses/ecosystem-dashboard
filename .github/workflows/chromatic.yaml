@@ -32,7 +32,7 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GH_TOKEN }}
-          exitZeroOnChanges: true # 👈 fails if there are new changes or additions that requires approval
+          exitZeroOnChanges: false # 👈 fails if there are new changes or additions that requires approval
           onlyChanged: true # enable TurboSnap https://www.chromatic.com/docs/turbosnap
         env:
           STORYBOOK_FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
