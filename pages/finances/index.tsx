@@ -1,10 +1,9 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import FinancesContainer from '@ses/containers/Finances/FinacesContainer';
-import { fetchBudgets, fetchAnalytics } from '@ses/containers/Finances/api/queries';
+import { fetchBudgets } from '@ses/containers/Finances/api/queries';
 import { getYearsRange, getBudgetsAnalytics } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
-// eslint-disable-next-line spellcheck/spell-checker
-// import { SWRConfig } from 'swr';
+import { SWRConfig } from 'swr';
 import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { GetServerSidePropsContext } from 'next';
@@ -13,19 +12,16 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
-  budgetsAnalytics: BudgetAnalytic[];
+  fallback: {
+    [key: string]: BudgetAnalytic[];
+  };
 }
 
-export default function Finances({ budgets, yearsRange, initialYear, budgetsAnalytics /*, fallback */ }: Props) {
+export default function Finances({ budgets, yearsRange, initialYear, fallback }: Props) {
   return (
-    // <SWRConfig value={{ fallback }}>
-    <FinancesContainer
-      budgets={budgets}
-      yearsRange={yearsRange}
-      initialYear={initialYear}
-      budgetsAnalytics={budgetsAnalytics}
-    />
-    // </SWRConfig>
+    <SWRConfig value={{ fallback }}>
+      <FinancesContainer budgets={budgets} yearsRange={yearsRange} initialYear={initialYear} />
+    </SWRConfig>
   );
 }
 
@@ -46,18 +42,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const budgets = (await fetchBudgets()).filter((budget) => budget.parentId === null);
 
-  const analytics = await fetchAnalytics('annual', initialYear, 'atlas', 2);
-  const budgetsAnalytics = getBudgetsAnalytics(analytics);
+  const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, 'atlas', 2);
 
   return {
     props: {
       budgets,
       yearsRange,
       initialYear,
-      budgetsAnalytics,
-      /* fallback: {
-        '/finances/analytics/annual': budgetsAnalytics,
-      }, */
+      fallback: {
+        'analytics/annual': budgetsAnalytics,
+      },
     },
   };
 }

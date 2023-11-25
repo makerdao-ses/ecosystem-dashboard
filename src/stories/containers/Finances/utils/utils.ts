@@ -1,4 +1,5 @@
 import { siteRoutes } from '@ses/config/routes';
+import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { NUMBER_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
@@ -7,7 +8,13 @@ import { DateTime } from 'luxon';
 
 import type { QuarterlyBudget, RowsItems } from './mockData';
 import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem, PeriodicSelectionFilter } from './types';
-import type { ValueAndUnit, BudgetMetric, Analytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type {
+  ValueAndUnit,
+  BudgetMetric,
+  Analytic,
+  BudgetAnalytic,
+  AnalyticGranularity,
+} from '@ses/core/models/interfaces/analytic';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export const calculateValuesByBreakpoint = (
@@ -972,7 +979,7 @@ const newBudgetMetric = () =>
     paymentsOffChainIncluded: setMetric(0, ''),
   } as BudgetMetric);
 
-export const getBudgetsAnalytics = (analytics: Analytic) => {
+const getAnalytics = (analytics: Analytic) => {
   const analyticsMap: Map<string, BudgetMetric> = new Map();
 
   for (const row of analytics.series[0]?.rows) {
@@ -1004,4 +1011,14 @@ export const getBudgetsAnalytics = (analytics: Analytic) => {
     codePath,
     metric,
   })) as BudgetAnalytic[];
+};
+
+export const getBudgetsAnalytics = async (
+  granularity: AnalyticGranularity,
+  year: string,
+  select: string,
+  lod: number
+) => {
+  const analytics = await fetchAnalytics(granularity, year, select, lod);
+  return getAnalytics(analytics);
 };

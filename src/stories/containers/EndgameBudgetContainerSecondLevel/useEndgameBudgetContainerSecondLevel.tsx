@@ -43,7 +43,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     handlePeriodChange,
     periodicSelectionFilter,
     handleSelectChangeMetrics,
-  } = useBreakdownTable(initialYear);
+  } = useBreakdownTable();
 
   const { headersExpenseReport, reportExpenseItems, handleLoadMore, showSome, onSortClick } =
     useDelegateExpenseTrendFinances();

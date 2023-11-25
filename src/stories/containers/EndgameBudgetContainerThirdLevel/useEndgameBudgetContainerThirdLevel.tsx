@@ -185,7 +185,7 @@ export const useEndgameBudgetContainerThirdLevel = (
     allowSelectAll,
     periodicSelectionFilter,
     popupContainerHeight,
-  } = useBreakdownTable(initialYear);
+  } = useBreakdownTable();
 
   return {
     router,

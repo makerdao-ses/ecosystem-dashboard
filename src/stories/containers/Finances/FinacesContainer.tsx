@@ -17,7 +17,6 @@ import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpe
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
 import { mockDataTableQuarterlyArray } from './utils/mockData';
-import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -25,10 +24,9 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
-  budgetsAnalytics: BudgetAnalytic[];
 }
 
-const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear, budgetsAnalytics }) => {
+const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }) => {
   const [isEnabled] = useFlagsActive();
   const {
     trailingAddress,
@@ -76,7 +74,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear, 
     newNetExpensesOnChain,
     isDisabled,
     handleResetFilterBreakDownChart,
-  } = useFinances(budgets, initialYear, budgetsAnalytics);
+  } = useFinances(budgets, initialYear);
 
   return (
     <PageContainer>
