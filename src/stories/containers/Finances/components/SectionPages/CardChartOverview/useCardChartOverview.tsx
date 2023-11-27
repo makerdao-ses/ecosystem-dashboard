@@ -23,18 +23,19 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics?: Budge
 
   const metric = {
     actuals: 0,
+    forecast: 0,
     budget: 0,
   };
 
-  // temporary if
+  // remove the if when budgetsAnalytics exists in all pages/levels
   if (budgetsAnalytics !== undefined) {
     for (const ba of budgetsAnalytics) {
       metric.actuals += ba.metric.actuals.value;
+      metric.forecast += ba.metric.forecast.value;
       metric.budget += ba.metric.budget.value;
     }
   }
 
-  const prediction = 0; // temporary
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
 
@@ -53,8 +54,8 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics?: Budge
 
   return {
     actuals: metric.actuals,
+    prediction: metric.forecast,
     budgetCap: metric.budget,
-    prediction,
     filterSelected,
     setFilterSelected,
     handleSelectFilter,
