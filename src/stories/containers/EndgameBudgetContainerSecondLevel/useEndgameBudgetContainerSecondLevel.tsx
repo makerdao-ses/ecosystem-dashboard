@@ -24,7 +24,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
 
   // Hooks for Doughnut Series
-  const { filters, filterSelected, handleSelectFilter } = useCardChartOverview(budgets);
+  const { filters, filterSelected, handleSelectFilter } = useCardChartOverview(budgets, undefined);
 
   // all the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart();

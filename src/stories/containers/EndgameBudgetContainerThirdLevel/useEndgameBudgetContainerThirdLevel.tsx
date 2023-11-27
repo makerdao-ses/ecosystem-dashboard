@@ -49,7 +49,7 @@ export const useEndgameBudgetContainerThirdLevel = (
     filters: filtersThirdLevel,
     filterSelected: selectedThirdLevel,
     handleSelectFilter: handleSelectFilterThirdLevel,
-  } = useCardChartOverview(budgets);
+  } = useCardChartOverview(budgets, undefined);
 
   // all the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart();

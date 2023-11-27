@@ -4,40 +4,11 @@ export class BudgetAnalyticBuilder {
   private readonly _budgetAnalytic: BudgetAnalytic;
 
   constructor() {
-    this._budgetAnalytic = {
-      codePath: '',
-      metric: {
-        actuals: {
-          value: 0,
-          unit: 'DAI',
-        },
-        budget: {
-          value: 0,
-          unit: 'DAI',
-        },
-        forecast: {
-          value: 0,
-          unit: 'DAI',
-        },
-        paymentsOnChain: {
-          value: 0,
-          unit: 'DAI',
-        },
-        paymentsOffChainIncluded: {
-          value: 0,
-          unit: 'DAI',
-        },
-      },
-    };
+    this._budgetAnalytic = {};
   }
 
-  withCodePath(codePath: string): BudgetAnalyticBuilder {
-    this._budgetAnalytic.codePath = codePath;
-    return this;
-  }
-
-  withMetric(metric: BudgetMetric): BudgetAnalyticBuilder {
-    this._budgetAnalytic.metric = metric;
+  withMetric(key: string, metric: BudgetMetric): BudgetAnalyticBuilder {
+    this._budgetAnalytic[key] = metric;
     return this;
   }
 

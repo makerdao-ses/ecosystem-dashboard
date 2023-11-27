@@ -9,7 +9,8 @@ import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useB
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
-import { getBudgetsAnalytics, prefixToRemove, removePrefix } from './utils/utils';
+import { getBudgetsAnalytics, newBudgetMetric, removePrefix, prefixToRemove } from './utils/utils';
+import type { BudgetAnalytic, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], initialYear: string) => {
@@ -19,9 +20,25 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     router.push(`${siteRoutes.newFinancesOverview}?year=${value}`, undefined, { shallow: true });
   };
 
-  const { data: budgetsAnalytics } = useSWRImmutable('analytics/annual', () =>
-    getBudgetsAnalytics('annual', year, 'atlas', 2)
+  const { data: budgetsAnalytics } = useSWRImmutable(
+    'analytics/annual',
+    async () => getBudgetsAnalytics('annual', year, 'atlas', 2) as Promise<BudgetAnalytic>
   );
+  const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
+    'analytics/semiAnnual',
+    async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2) as Promise<BreakdownBudgetAnalytic>
+  );
+  const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
+    'analytics/quarterly',
+    async () => getBudgetsAnalytics('quarterly', year, 'atlas', 2) as Promise<BreakdownBudgetAnalytic>
+  );
+  const { data: budgetsAnalyticsMonthly } = useSWRImmutable(
+    'analytics/monthly',
+    async () => getBudgetsAnalytics('monthly', year, 'atlas', 2) as Promise<BreakdownBudgetAnalytic>
+  );
+  console.log(budgetsAnalyticsSemiAnnual); // temporary
+  console.log(budgetsAnalyticsQuarterly); // temporary
+  console.log(budgetsAnalyticsMonthly); // temporary
   const { mutate } = useSWRConfig();
 
   const { isLight } = useThemeContext();
@@ -30,15 +47,18 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   const router = useRouter();
 
   const cardsNavigationInformation = budgets.map((item, index) => {
-    const budgetMetric = budgetsAnalytics?.find((ba) => ba.codePath === item.codePath);
+    const budgetMetric =
+      budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
+        ? budgetsAnalytics[item.codePath]
+        : newBudgetMetric();
 
     return {
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-      totalDai: budgetMetric?.metric.budget.value,
-      valueDai: budgetMetric?.metric.actuals.value,
+      valueDai: budgetMetric.actuals.value,
+      totalDai: budgetMetric.budget.value,
       color: isLight ? colors[index] : colorsDark[index],
     };
   });
@@ -66,6 +86,9 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
 
   useEffect(() => {
     mutate('analytics/annual');
+    mutate('analytics/semiAnnual');
+    mutate('analytics/quarterly');
+    mutate('analytics/monthly');
   }, [mutate, year]);
 
   return {
