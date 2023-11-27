@@ -60,8 +60,7 @@ const variantsArgs = [
     initialYear: '2023',
     budgetsAnalytics: [
       new BudgetAnalyticBuilder()
-        .withCodePath('test')
-        .withMetric({
+        .withMetric('test', {
           actuals: {
             value: 5000,
             unit: 'DAI',

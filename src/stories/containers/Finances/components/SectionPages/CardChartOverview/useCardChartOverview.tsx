@@ -11,7 +11,7 @@ import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 const prefixToRemove = 'End-game';
 
-export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics?: BudgetAnalytic[]) => {
+export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BudgetAnalytic | undefined) => {
   const { isLight } = useThemeContext();
   const colorsLight = generateColorPalette(
     existingColors.length,
@@ -27,12 +27,11 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics?: Budge
     budget: 0,
   };
 
-  // remove the if when budgetsAnalytics exists in all pages/levels
   if (budgetsAnalytics !== undefined) {
-    for (const ba of budgetsAnalytics) {
-      metric.actuals += ba.metric.actuals.value;
-      metric.forecast += ba.metric.forecast.value;
-      metric.budget += ba.metric.budget.value;
+    for (const budgetMetric of Object.values(budgetsAnalytics)) {
+      metric.actuals += budgetMetric.actuals.value;
+      metric.forecast += budgetMetric.forecast.value;
+      metric.budget += budgetMetric.budget.value;
     }
   }
 

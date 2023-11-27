@@ -13,6 +13,7 @@ import type {
   BudgetMetric,
   Analytic,
   BudgetAnalytic,
+  BreakdownBudgetAnalytic,
   AnalyticGranularity,
 } from '@ses/core/models/interfaces/analytic';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -970,7 +971,7 @@ const setMetric = (value: number, unit: string) =>
     unit,
   } as ValueAndUnit);
 
-const newBudgetMetric = () =>
+export const newBudgetMetric = () =>
   ({
     actuals: setMetric(0, ''),
     budget: setMetric(0, ''),
@@ -980,21 +981,21 @@ const newBudgetMetric = () =>
   } as BudgetMetric);
 
 const getAnalytics = (analytics: Analytic) => {
-  const analyticsMap: Map<string, BudgetMetric> = new Map();
+  const budgetsAnalytics: BudgetAnalytic = {};
 
   for (const row of analytics.series[0]?.rows) {
-    let codePath = row.dimensions[0].path;
-    codePath = codePath === 'atlas/legacy' ? '86' : codePath; // temporary
-    const budgetMetric = analyticsMap.has(codePath) ? (analyticsMap.get(codePath) as BudgetMetric) : newBudgetMetric();
+    let codePath = row.dimensions[0].path; // change to a const when the line below is removed
+    codePath = codePath === 'atlas/legacy' ? '86' : codePath; // remove this line when API data is fixed
+    const budgetMetric = budgetsAnalytics[codePath] !== undefined ? budgetsAnalytics[codePath] : newBudgetMetric();
     switch (row.metric) {
       case 'Actuals':
         budgetMetric.actuals = setMetric(row.value, row.unit);
         break;
-      case 'Budget':
-        budgetMetric.budget = setMetric(row.value, row.unit);
-        break;
       case 'Forecast':
         budgetMetric.forecast = setMetric(row.value, row.unit);
+        break;
+      case 'Budget':
+        budgetMetric.budget = setMetric(row.value, row.unit);
         break;
       case 'PaymentsOnChain':
         budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
@@ -1002,15 +1003,24 @@ const getAnalytics = (analytics: Analytic) => {
       case 'PaymentsOffChainIncluded':
         budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
         break;
-      default:
     }
-    analyticsMap.set(codePath, budgetMetric);
+    budgetsAnalytics[codePath] = budgetMetric;
   }
 
-  return Array.from(analyticsMap, ([codePath, metric]) => ({
-    codePath,
-    metric,
-  })) as BudgetAnalytic[];
+  return budgetsAnalytics;
+};
+
+const getBreakdownAnalytics = (analytics: Analytic) => {
+  const budgetsAnalytics: BreakdownBudgetAnalytic = {};
+
+  // This must be finished by Ale
+  for (const series of analytics.series) {
+    for (const row of series.rows) {
+      console.log(row);
+    }
+  }
+
+  return budgetsAnalytics;
 };
 
 export const getBudgetsAnalytics = async (
@@ -1020,5 +1030,5 @@ export const getBudgetsAnalytics = async (
   lod: number
 ) => {
   const analytics = await fetchAnalytics(granularity, year, select, lod);
-  return getAnalytics(analytics);
+  return granularity === 'annual' ? getAnalytics(analytics) : getBreakdownAnalytics(analytics); // temporary
 };

@@ -12,9 +12,7 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
-  fallback: {
-    [key: string]: BudgetAnalytic[];
-  };
+  fallback: BudgetAnalytic;
 }
 
 export default function Finances({ budgets, yearsRange, initialYear, fallback }: Props) {

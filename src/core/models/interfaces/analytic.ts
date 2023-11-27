@@ -57,6 +57,9 @@ export interface BudgetMetric {
 }
 
 export interface BudgetAnalytic {
-  codePath: string;
-  metric: BudgetMetric;
+  [key: string]: BudgetMetric;
+}
+
+export interface BreakdownBudgetAnalytic {
+  [key: string]: BudgetMetric[];
 }
