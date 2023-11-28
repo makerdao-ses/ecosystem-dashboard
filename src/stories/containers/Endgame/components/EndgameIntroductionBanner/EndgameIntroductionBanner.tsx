@@ -6,6 +6,7 @@ import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
 import React from 'react';
@@ -18,6 +19,7 @@ interface EndgameIntroductionBannerProps {
 const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
   const { isLight } = useThemeContext();
   const isUpDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
+  const [isEnabled] = useFlagsActive();
 
   const image = (
     <ImageWrapper>
@@ -47,13 +49,31 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
             This kicks off the biggest restructuring of MakerDAO since the dissolution of the Maker Foundation in June
             2021.
           </Paragraph>
-          {isKeyChanges ? (
+          {isKeyChanges && (
             <Paragraph isLight={isLight} noMargin={true}>
               Below are some key changes that will take place as a result of the transition.{' '}
             </Paragraph>
-          ) : (
-            <LearMore isLight={isLight} href={siteRoutes.endgame} buttonType={ButtonType.Primary} label="Learn More" />
           )}
+          <LinkContainer>
+            {!isKeyChanges && (
+              <ButtonLink
+                isLight={isLight}
+                href={siteRoutes.endgame}
+                buttonType={ButtonType.Primary}
+                label="Learn More"
+              />
+            )}
+
+            {isEnabled('FEATURE_ENDGAME_MILESTONES_PHASE_1') && (
+              <ButtonLink
+                isLight={isLight}
+                // TODO: replace with correct link
+                href={siteRoutes.endgamePhaseOneProgress}
+                buttonType={ButtonType.Primary}
+                label="Phase 1 Progress"
+              />
+            )}
+          </LinkContainer>
         </InfoContainer>
         {isUpDesktop1280 && <ImageContainer isLight={isLight}>{image}</ImageContainer>}
       </ContentContainer>
@@ -244,10 +264,22 @@ const ExternalLink = styled(CustomLink)({
   },
 });
 
-const LearMore = styled(LinkButton)<WithIsLight>(({ isLight }) => ({
-  padding: '7px 39px',
+const LinkContainer = styled.div({
+  display: 'flex',
+  gap: 24,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 32,
+  },
+});
+
+const ButtonLink = styled(LinkButton)<WithIsLight>(({ isLight }) => ({
+  padding: '7px 7px',
   background: '#06554C',
   marginTop: 24,
+  flex: 1,
+  display: 'flex',
+  justifyContent: 'center',
 
   // label
   '& > div': {
@@ -260,6 +292,7 @@ const LearMore = styled(LinkButton)<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '13px 39px',
     marginTop: 32,
+    flex: 'none',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
