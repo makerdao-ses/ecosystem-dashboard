@@ -3,9 +3,9 @@ import { ProjectBuilder } from '@ses/core/businessLogic/builders/actors/projectB
 import { DeliverableStatus, OwnerType, ProjectStatus } from '@ses/core/models/interfaces/projects';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ProjectCard from './ProjectCard';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ProjectCard> = {
   title: 'Components/Actor/Project Card',
   component: ProjectCard,
   parameters: {
@@ -13,7 +13,8 @@ export default {
       viewports: [375, 768, 1024, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof ProjectCard>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -159,7 +160,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(ProjectCard, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(ProjectCard, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

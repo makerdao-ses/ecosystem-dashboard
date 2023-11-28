@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { DateTime } from 'luxon';
 import { CuTableColumnLastModified } from './CuTableColumnLastModified';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CuTableColumnLastModified> = {
   title: 'Components/CUTable/LastModified',
   component: CuTableColumnLastModified,
   parameters: {
@@ -12,7 +12,8 @@ export default {
     },
     date: new Date('2022-12-26T09:08:34.123'),
   },
-} as ComponentMeta<typeof CuTableColumnLastModified>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -25,8 +26,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[ModifiedData, ModifiedDataDark], [ModifiedWithoutData, ModifiedWithoutDataDark]] =
-  createThemeModeVariants(CuTableColumnLastModified, variantsArgs);
+const [[ModifiedData, ModifiedDataDark], [ModifiedWithoutData, ModifiedWithoutDataDark]] = createThemeModeVariants(
+  CuTableColumnLastModified,
+  variantsArgs
+);
+export { ModifiedData, ModifiedDataDark, ModifiedWithoutData, ModifiedWithoutDataDark };
 
 ModifiedData.parameters = {
   figma: {

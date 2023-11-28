@@ -40,7 +40,7 @@ const CreateAccount: React.FC = () => {
           }}
           onClick={handleGoBack}
         />
-        <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
+        <Image src={'/assets/img/ses-logo-64x64.png'} alt="logo" width={64} height={64} />
         <Title isLight={isLight}>Create New Account</Title>
         <Description isLight={isLight}>
           Create a new user account to provide access to the administration area.

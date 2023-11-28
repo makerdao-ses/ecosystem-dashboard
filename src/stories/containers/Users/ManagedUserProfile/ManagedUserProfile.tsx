@@ -145,7 +145,7 @@ const ManagedUserProfile: React.FC = () => {
             ) : (
               <ContainerPasswordLink>
                 <ContainerAlignedPassword />
-                <Link href={`/auth/manage/user/${userProfile?.username}/change-password`}>
+                <Link href={`/auth/manage/user/${userProfile?.username}/change-password`} legacyBehavior>
                   <ChangePasswordLink>Change user password</ChangePasswordLink>
                 </Link>
               </ContainerPasswordLink>

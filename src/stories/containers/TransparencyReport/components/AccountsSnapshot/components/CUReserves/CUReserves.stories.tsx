@@ -2,13 +2,14 @@ import { SnapshotAccountBuilder } from '@ses/core/businessLogic/builders/account
 import { SnapshotAccountBalanceBuilder } from '@ses/core/businessLogic/builders/accountSnapshot/snapshotAccountBalanceBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CUReserves from './CUReserves';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof CUReserves> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Core Unit Reserves',
   component: CUReserves,
-} as ComponentMeta<typeof CUReserves>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -95,7 +96,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(CUReserves, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CUReserves, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

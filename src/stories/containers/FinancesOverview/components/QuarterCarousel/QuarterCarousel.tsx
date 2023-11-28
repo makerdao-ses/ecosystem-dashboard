@@ -3,7 +3,7 @@ import ArrowSwiperNext from '@ses/components/svg/ArrowSwiperNext';
 import ArrowSwiperPrevious from '@ses/components/svg/ArrowSwiperPrevious';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef, useState } from 'react';
-import { Navigation } from 'swiper';
+import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { isQuarter4 } from '../../utils/quarters';
 import QuarterCard from '../QuarterCard/QuarterCard';
@@ -24,6 +24,9 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
   const swiper = useSwiper();
   const { showDivider, swiperOptions, isLight } = useQuarterCarousel(quarters);
   const ref = useRef<SwiperRef>(null);
+  // Add a state that will trigger a re-render later as ref.current is null on first render
+  // ref changes don't trigger a re-render
+  const [, setInit] = useState(false);
   const navigationPrevRef = useRef<SVGSVGElement>(null);
   const navigationNextRef = useRef<SVGSVGElement>(null);
   const [isBegin, setIsBegin] = useState(false);
@@ -61,12 +64,7 @@ const QuarterCarousel: React.FC<QuarterCarouselProps> = ({ quarters }) => {
           prevEl: navigationPrevRef.current as HTMLElement | null,
           nextEl: navigationNextRef.current as HTMLElement | null,
         }}
-        onBeforeInit={(swiper) => {
-          swiper.params.navigation = {
-            prevEl: navigationPrevRef?.current as unknown as HTMLElement | null,
-            nextEl: navigationNextRef?.current as unknown as HTMLElement | null,
-          };
-        }}
+        onInit={() => setInit(true)}
       >
         {quarters.map((item, index) => (
           <SwiperSlide key={index}>

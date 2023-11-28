@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import FundingOverviewSkeleton from './FundingOverviewSkeleton';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof FundingOverviewSkeleton> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Funding Overview Skeleton',
   component: FundingOverviewSkeleton,
   parameters: {
@@ -11,11 +11,13 @@ export default {
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof FundingOverviewSkeleton>;
+};
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(FundingOverviewSkeleton, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(FundingOverviewSkeleton, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

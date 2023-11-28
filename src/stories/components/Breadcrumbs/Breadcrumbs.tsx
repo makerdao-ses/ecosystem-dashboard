@@ -38,6 +38,7 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
             style={{
               pointerEvents: item.url && !(i === props.items.length - 1) ? 'all' : 'none',
             }}
+            legacyBehavior
           >
             <Crumb
               className="crumb"

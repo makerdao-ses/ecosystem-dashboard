@@ -1,8 +1,8 @@
 import { RoleEnum } from '../enums/roleEnum';
 import { ResourceType } from '../models/interfaces/types';
+import type PermissionManager from './permissionManager';
 import type { Team } from '../models/interfaces/team';
 import type { User } from '../models/interfaces/users';
-import type PermissionManager from './permissionManager';
 
 class TeamExtension {
   permissionManager;

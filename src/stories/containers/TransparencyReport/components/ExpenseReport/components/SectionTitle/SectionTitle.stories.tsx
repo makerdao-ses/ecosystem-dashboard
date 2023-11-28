@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import SectionTitle from './SectionTitle';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof SectionTitle> = {
   title: 'Components/CUTransparencyReport/Section Title',
   component: SectionTitle,
   argTypes: {
@@ -16,7 +16,8 @@ export default {
       control: { type: 'text' },
     },
   },
-} as ComponentMeta<typeof SectionTitle>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -33,8 +34,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[L1WithoutIconLightMode, L1WithoutIconDarkMode], [L2FullLightMode, L2FullDarkMode]] =
-  createThemeModeVariants(SectionTitle, variantsArgs);
+const [[L1WithoutIconLightMode, L1WithoutIconDarkMode], [L2FullLightMode, L2FullDarkMode]] = createThemeModeVariants(
+  SectionTitle,
+  variantsArgs
+);
+export { L1WithoutIconLightMode, L1WithoutIconDarkMode, L2FullLightMode, L2FullDarkMode };
 
 L1WithoutIconLightMode.parameters = {
   figma: {

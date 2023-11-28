@@ -1,15 +1,14 @@
 import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
-import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { withTeamContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './AuditorCommentCard';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof AuditorCommentCard> = {
   title: 'Components/AuditorComments/CommentCard',
   component: AuditorCommentCard,
   parameters: {
@@ -20,21 +19,13 @@ export default {
   },
   decorators: [withTeamContext({ shortCode: 'SES' } as Team)],
   argTypes: {
-    status: {
-      defaultValue: BudgetStatus.Draft,
-      options: BudgetStatus,
-      control: { type: 'select' },
-    },
     hasStatusChange: {
       defaultValue: true,
       control: { type: 'boolean' },
     },
-    commentDescription: {
-      defaultValue: undefined,
-      control: { type: 'text' },
-    },
   },
-} as ComponentMeta<typeof AuditorCommentCard>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -58,10 +49,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[StatusChange, StatusChangeDarkMode], [Comment, DarkModeComment]] = createThemeModeVariants(
+const [[StatusChange, StatusChangeDarkMode], [Comment, DarkModeComment]] = createThemeModeVariants(
   AuditorCommentCard,
   variantsArgs
 );
+export { StatusChange, StatusChangeDarkMode, Comment, DarkModeComment };
 
 StatusChange.parameters = {
   figma: {

@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import MobileTransaction from './MobileTransaction';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof MobileTransaction> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/MobileTransaction',
   component: MobileTransaction,
   parameters: {
@@ -11,7 +11,8 @@ export default {
       viewports: [375],
     },
   },
-} as ComponentMeta<typeof MobileTransaction>;
+};
+export default meta;
 
 const commonArgs = {
   name: 'DSS Blow',
@@ -29,10 +30,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[CollapsedLightMode, CollapsedDarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
+const [[CollapsedLightMode, CollapsedDarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
   MobileTransaction,
   variantsArgs
 );
+export { CollapsedLightMode, CollapsedDarkMode, ExpandedLightMode, ExpandedDarkMode };
 
 CollapsedLightMode.parameters = {
   figma: {

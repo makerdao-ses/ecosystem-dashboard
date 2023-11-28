@@ -98,7 +98,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
           <LeftColumn showDeliverablesBelow={showDeliverablesBelow}>
             {isUpDesktop1280 && !showDeliverablesBelow && statusSection}
             <ImageContainer isBigger={showDeliverablesBelow}>
-              <Image src="/assets/img/project_placeholder.png" layout="fill" unoptimized />
+              <Image src="/assets/img/project_placeholder.png" alt={project.title} layout="fill" unoptimized />
             </ImageContainer>
             <DataContainer showDeliverablesBelow={showDeliverablesBelow}>
               {(!isUpDesktop1280 || showDeliverablesBelow) && statusSection}

@@ -3,24 +3,28 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ActorTitleWithDescription> = {
   title: 'Components/Actor/ActorTitleWithDescription',
   component: ActorTitleWithDescription,
   parameters: {
-    nextRouter: {
-      path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/PH',
-      query: {
-        code: 'PH',
+    nextjs: {
+      router: {
+        path: '/ecosystem-actors/[code]',
+        asPath: '/ecosystem-actors/PH',
+        query: {
+          code: 'PH',
+        },
       },
     },
     chromatic: {
       viewports: [834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof ActorTitleWithDescription>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     actorAbout: new EcosystemActorBuilder()
@@ -56,7 +60,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Actors, ActorsDark]] = createThemeModeVariants(ActorTitleWithDescription, variantsArgs);
+const [[Actors, ActorsDark]] = createThemeModeVariants(ActorTitleWithDescription, variantsArgs);
+export { Actors, ActorsDark };
 
 Actors.parameters = {
   figma: {

@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { DateTime } from 'luxon';
 import TotalExpenseReportCard from './TotalExpenseReportCard';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof TotalExpenseReportCard> = {
   title: 'Components/Delegate/TotalExpenseReportCard',
   component: TotalExpenseReportCard,
   parameters: {
@@ -12,7 +12,9 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof TotalExpenseReportCard>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     start: DateTime.fromISO('2021-11-01'),
@@ -21,7 +23,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[TotalExpense, TotalExpenseDark]] = createThemeModeVariants(TotalExpenseReportCard, variantsArgs);
+const [[TotalExpense, TotalExpenseDark]] = createThemeModeVariants(TotalExpenseReportCard, variantsArgs);
+export { TotalExpense, TotalExpenseDark };
 
 TotalExpense.parameters = {
   figma: {

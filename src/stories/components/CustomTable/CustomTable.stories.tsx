@@ -3,9 +3,9 @@ import { columns, CoreUnit, headersSort } from '@ses/core/utils/tests';
 import { CustomTable2 } from './CustomTable2';
 import type { CustomTableColumn, CustomTableRow } from './CustomTable2';
 import type { SortEnum } from '@ses/core/enums/sortEnum';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CustomTable2> = {
   title: 'Components/CuTable/CustomTable2',
   component: CustomTable2,
   parameters: {
@@ -16,7 +16,8 @@ export default {
     },
     date: new Date('2022-12-26T09:08:34.123'),
   },
-} as ComponentMeta<typeof CustomTable2>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -43,4 +44,5 @@ const variantsArgs = [
   },
 ];
 
-export const [[Table, TableDark]] = createThemeModeVariants(CustomTable2, variantsArgs);
+const [[Table, TableDark]] = createThemeModeVariants(CustomTable2, variantsArgs);
+export { Table, TableDark };

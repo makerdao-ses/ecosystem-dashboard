@@ -2,9 +2,9 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import KeyChangeSection from '../../KeyChangeSection/KeyChangeSection';
 import { SectionContainer } from '../KeyChangesSections';
 import OperationsSection from './OperationsSection';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof OperationsSection> = {
   title: 'Components/Endgame/Operations Section',
   component: OperationsSection,
   parameters: {
@@ -13,11 +13,12 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof OperationsSection>;
+};
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   () => (
     <KeyChangeSection title="Operations" expanded={true} onExpand={() => null}>
       <SectionContainer>
@@ -28,3 +29,4 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   variantsArgs,
   false
 );
+export { LightMode, DarkMode };

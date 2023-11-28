@@ -1,10 +1,10 @@
 import { TotalExpenseReportsBuilder } from '@ses/core/businessLogic/builders/totalExpenseReportsBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import QuarterCarousel from './QuarterCarousel';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof QuarterCarousel> = {
   title: 'Components/Finances/QuarterCarousel',
   component: QuarterCarousel,
   parameters: {
@@ -14,7 +14,8 @@ export default {
     },
   },
   argTypes: {},
-} as ComponentMeta<typeof QuarterCarousel>;
+};
+export default meta;
 
 const args = [
   {
@@ -64,7 +65,9 @@ const args = [
     ],
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(QuarterCarousel, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(QuarterCarousel, args);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

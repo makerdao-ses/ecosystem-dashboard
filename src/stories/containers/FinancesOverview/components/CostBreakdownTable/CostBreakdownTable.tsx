@@ -13,8 +13,8 @@ import ByExpenseCategoryTableHeader from './ByExpenseCategoryTableHeader';
 import ByExpenseCategoryTableRow from './ByExpenseCategoryTableRow';
 import ExpenseCategoryGroup from './ExpenseCategoryGroup';
 import TableFooter from './TableFooter';
-import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
 import type { TableFooterProps } from './TableFooter';
+import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 

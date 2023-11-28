@@ -4,9 +4,9 @@ import { withoutMarginTopInFixedPosition } from '@ses/core/utils/storybook/decor
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import DelegateSummary from './DelegateSummary';
 import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof DelegateSummary> = {
   title: 'Components/DelegateReport/DelegateSummary',
   component: DelegateSummary,
   decorators: [withoutMarginTopInFixedPosition],
@@ -17,7 +17,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof DelegateSummary>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -54,7 +55,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(DelegateSummary, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(DelegateSummary, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

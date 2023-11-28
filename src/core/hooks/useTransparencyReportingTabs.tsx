@@ -9,8 +9,8 @@ import { useCookiesContextTracking } from '../context/CookiesContext';
 import { removeEmptyProperties } from '../utils/urls';
 import UserActivityManager from '../utils/userActivity';
 import { useFlagsActive } from './useFlagsActive';
-import type { LastVisitHandler } from '../utils/lastVisitHandler';
 import type { CommentsLastVisitState } from './useBudgetStatementComments';
+import type { LastVisitHandler } from '../utils/lastVisitHandler';
 import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
 import type { TableItems } from '@ses/containers/TransparencyReport/TransparencyReport';
 

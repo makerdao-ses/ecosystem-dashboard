@@ -1,8 +1,8 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import VisualizationCard from './VisualizationCard';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof VisualizationCard> = {
   title: 'Components/Delegate/VisualizationCard',
   component: VisualizationCard,
   parameters: {
@@ -11,7 +11,8 @@ export default {
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof VisualizationCard>;
+};
+export default meta;
 const variantsArgs = [
   {
     delegatesExpenses: 2222252,
@@ -20,7 +21,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[TotalExpense, TotalExpenseDark]] = createThemeModeVariants(VisualizationCard, variantsArgs);
+const [[TotalExpense, TotalExpenseDark]] = createThemeModeVariants(VisualizationCard, variantsArgs);
+export { TotalExpense, TotalExpenseDark };
 
 TotalExpense.parameters = {
   figma: {

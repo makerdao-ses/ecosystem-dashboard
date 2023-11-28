@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import IconTitle from './IconTitle';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof IconTitle> = {
   title: 'Components/IconTitle/IconTitle',
   component: IconTitle,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof IconTitle>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -21,7 +22,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(IconTitle, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(IconTitle, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

@@ -4,10 +4,10 @@ import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import RecognizedDelegatesReportContainer from './RecognizedDelegatesReportContainer';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof RecognizedDelegatesReportContainer> = {
   title: 'Pages/Recognized Delegates Report',
   component: RecognizedDelegatesReportContainer,
   decorators: [withoutSBPadding],
@@ -18,7 +18,8 @@ export default {
     },
     date: '2023-02-23T04:02:02Z',
   },
-} as ComponentMeta<typeof RecognizedDelegatesReportContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -28,7 +29,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <RecognizedDelegatesReportContainer {...props} />
@@ -36,6 +37,8 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+
+export { LightMode, DarkMode };
 
 const optionStyles = {
   style: {

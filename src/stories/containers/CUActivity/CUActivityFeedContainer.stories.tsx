@@ -5,19 +5,21 @@ import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import AppLayout from '../AppLayout/AppLayout';
 import CUActivityFeedContainer from './CUActivityFeedContainer';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CUActivityFeedContainer> = {
   title: 'Pages/CU Activity Feed',
   component: CUActivityFeedContainer,
   decorators: [withoutSBPadding],
 
   parameters: {
-    nextRouter: {
-      path: '/core-unit/[code]/activity-feed',
-      asPath: '/core-unit/SES/activity-feed',
-      query: {
-        code: 'SES',
+    nextjs: {
+      router: {
+        path: '/core-unit/[code]/activity-feed',
+        asPath: '/core-unit/SES/activity-feed',
+        query: {
+          code: 'SES',
+        },
       },
     },
     chromatic: {
@@ -27,7 +29,8 @@ export default {
     date: new Date('2022-09-22T12:23:00Z'),
   },
   loaders: [withLocalStorageItem('activity-visit-SES', '1662812570000')],
-} as ComponentMeta<typeof CUActivityFeedContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -75,7 +78,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[EmptyLightMode, EmptyDarkMode], [WithDataLightMode, WithDataDarkMode]] = createThemeModeVariants(
+const [[EmptyLightMode, EmptyDarkMode], [WithDataLightMode, WithDataDarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <CUActivityFeedContainer {...props} />
@@ -83,3 +86,4 @@ export const [[EmptyLightMode, EmptyDarkMode], [WithDataLightMode, WithDataDarkM
   ),
   variantsArgs
 );
+export { EmptyLightMode, EmptyDarkMode, WithDataLightMode, WithDataDarkMode };

@@ -123,6 +123,7 @@ const BreadCrumbWithIcons = ({ title, items = [], className, marginRightSeparato
               style={{
                 pointerEvents: item.url ? 'all' : 'none',
               }}
+              legacyBehavior
             >
               <ItemMenu>{item.label}</ItemMenu>
             </Link>

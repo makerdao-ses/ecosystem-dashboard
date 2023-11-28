@@ -3,13 +3,14 @@ import { SnapshotAccountBalanceBuilder } from '@ses/core/businessLogic/builders/
 import { SnapshotAccountTransactionBuilder } from '@ses/core/businessLogic/builders/accountSnapshot/snapshotAccountTransactionBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ReserveCard from './ReserveCard';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof ReserveCard> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Reserve Card',
   component: ReserveCard,
-} as ComponentMeta<typeof ReserveCard>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -148,8 +149,10 @@ const variantsArgs = [
   },
 ];
 
-export const [[WithSingularLightMode, WithSingularDarkMode], [WithGroupLightMode, WithGroupDarkMode]] =
+const [[WithSingularLightMode, WithSingularDarkMode], [WithGroupLightMode, WithGroupDarkMode]] =
   createThemeModeVariants(ReserveCard, variantsArgs);
+
+export { WithSingularLightMode, WithSingularDarkMode, WithGroupLightMode, WithGroupDarkMode };
 
 WithSingularLightMode.parameters = {
   figma: {

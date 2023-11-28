@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { DateTime } from 'luxon';
 import TotalAndKeyStatsComponent from './TotalAndkeyStatusComponent';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof TotalAndKeyStatsComponent> = {
   title: 'Components/Delegate/TotalAndKeyStatsComponent',
   component: TotalAndKeyStatsComponent,
   parameters: {
@@ -11,7 +11,8 @@ export default {
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof TotalAndKeyStatsComponent>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -28,10 +29,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[TotalAndKeyStats, TotalAndKeyStatsDark]] = createThemeModeVariants(
-  TotalAndKeyStatsComponent,
-  variantsArgs
-);
+const [[TotalAndKeyStats, TotalAndKeyStatsDark]] = createThemeModeVariants(TotalAndKeyStatsComponent, variantsArgs);
+export { TotalAndKeyStats, TotalAndKeyStatsDark };
 
 TotalAndKeyStats.parameters = {
   figma: {

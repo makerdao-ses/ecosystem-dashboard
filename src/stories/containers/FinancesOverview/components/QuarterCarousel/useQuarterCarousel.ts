@@ -61,11 +61,11 @@ const useQuarterCarousel = (quarters: ExpenseDto[]) => {
         slidesPerView: 4,
       },
     },
-    onActiveIndexChange: (swiper) => handleDivider(swiper),
-    onAfterInit: (swiper) => moveToRightQuarter(swiper),
-    onBreakpoint: (swiper) => moveToRightQuarter(swiper),
+    onActiveIndexChange: (swiper: SwiperCore) => handleDivider(swiper),
+    onAfterInit: (swiper: SwiperCore) => moveToRightQuarter(swiper),
+    onBreakpoint: (swiper: SwiperCore) => moveToRightQuarter(swiper),
     onSliderMove: () => setShowDivider(true),
-    onTouchEnd: (swiper) => handleDivider(swiper),
+    onTouchEnd: (swiper: SwiperCore) => handleDivider(swiper),
   } as SwiperProps;
 
   return {

@@ -1,11 +1,12 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { CustomBarChart } from './CustomBarChart';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CustomBarChart> = {
   title: 'Components/CUTable/CustomBarChart',
   component: CustomBarChart,
-} as ComponentMeta<typeof CustomBarChart>;
+};
+export default meta;
 
 const args = [
   {
@@ -20,10 +21,8 @@ const args = [
   },
 ];
 
-export const [[LightMode, DarkMode], [WithoutValue, WithoutValueDarkMode]] = createThemeModeVariants(
-  CustomBarChart,
-  args
-);
+const [[LightMode, DarkMode], [WithoutValue, WithoutValueDarkMode]] = createThemeModeVariants(CustomBarChart, args);
+export { LightMode, DarkMode, WithoutValue, WithoutValueDarkMode };
 
 const options = {
   style: {

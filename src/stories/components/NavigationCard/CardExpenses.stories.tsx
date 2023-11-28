@@ -1,10 +1,10 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardExpenses from './CardExpenses';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CardExpenses> = {
   title: 'Components/CUAbout/CardExpenses',
-  components: CardExpenses,
+  component: CardExpenses,
   decorators: [
     (Story) => (
       <div style={{ width: '405px' }}>
@@ -12,7 +12,8 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof CardExpenses>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -33,7 +34,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Expense, CardExpenseDarkMode]] = createThemeModeVariants(CardExpenses, variantsArgs);
+const [[Expense, CardExpenseDarkMode]] = createThemeModeVariants(CardExpenses, variantsArgs);
+export { Expense, CardExpenseDarkMode };
 
 Expense.parameters = {
   figma: {

@@ -3,9 +3,9 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ActorItem from './ActorItem';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ActorItem> = {
   title: 'Components/Actor/ActorItem',
   component: ActorItem,
   parameters: {
@@ -14,7 +14,9 @@ export default {
     },
     date: new Date('2023-07-12T09:08:34.123'),
   },
-} as ComponentMeta<typeof ActorItem>;
+};
+export default meta;
+
 const variantsArgs = [
   {
     actor: new EcosystemActorBuilder()
@@ -82,10 +84,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Actors, ActorsDark], [ActorsNoData, ActorsNoDataDark]] = createThemeModeVariants(
-  ActorItem,
-  variantsArgs
-);
+const [[Actors, ActorsDark], [ActorsNoData, ActorsNoDataDark]] = createThemeModeVariants(ActorItem, variantsArgs);
+export { Actors, ActorsDark, ActorsNoData, ActorsNoDataDark };
 
 Actors.parameters = {
   figma: {

@@ -1,8 +1,8 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import InlineUser from './InlineUser';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof InlineUser> = {
   title: 'Components/CUTransparencyReport/InlineUser',
   component: InlineUser,
   argTypes: {
@@ -11,6 +11,8 @@ export default {
       control: { type: 'text' },
     },
   },
-} as ComponentMeta<typeof InlineUser>;
+};
+export default meta;
 
-export const [[Light, Dark]] = createThemeModeVariants(InlineUser);
+const [[Light, Dark]] = createThemeModeVariants(InlineUser);
+export { Light, Dark };

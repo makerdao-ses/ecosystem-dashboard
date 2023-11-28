@@ -3,10 +3,10 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import useFinancesOverview from '../../useFinancesOverview';
 import CostBreakdownTable from './CostBreakdownTable';
 import type { CostBreakdownFilterValue, ExtendedExpense } from '../../financesOverviewTypes';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof CostBreakdownTable> = {
   title: 'Components/Finances/Cost Breakdown Table',
   component: CostBreakdownTable,
   parameters: {
@@ -14,7 +14,8 @@ export default {
       viewports: [375, 768],
     },
   },
-} as ComponentMeta<typeof CostBreakdownTable>;
+};
+export default meta;
 
 const byBudgetBreakdownExpenses = [
   new TotalExpenseReportsBuilder()
@@ -197,13 +198,13 @@ const BuilderComponent: React.FC<{ filter: CostBreakdownFilterValue }> = ({ filt
     />
   );
 };
-export const [[ByBudgetLightMode, ByBudgetDarkMode]] = createThemeModeVariants(BuilderComponent, [
-  { filter: 'By budget' },
-]);
+const [[ByBudgetLightMode, ByBudgetDarkMode]] = createThemeModeVariants(BuilderComponent, [{ filter: 'By budget' }]);
+export { ByBudgetLightMode, ByBudgetDarkMode };
 
-export const [[ByCategoryLightMode, ByCategoryDarkMode]] = createThemeModeVariants(BuilderComponent, [
+const [[ByCategoryLightMode, ByCategoryDarkMode]] = createThemeModeVariants(BuilderComponent, [
   { filter: 'By Category' },
 ]);
+export { ByCategoryLightMode, ByCategoryDarkMode };
 
 ByBudgetLightMode.parameters = {
   figma: {

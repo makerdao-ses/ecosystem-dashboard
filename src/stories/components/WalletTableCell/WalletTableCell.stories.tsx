@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { WalletTableCell } from './WalletTableCell';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof WalletTableCell> = {
   title: 'Components/CUTransparencyReport/WalletTableCell',
   component: WalletTableCell,
   parameters: {
@@ -11,7 +11,8 @@ export default {
       viewports: [375, 834, 1194],
     },
   },
-} as ComponentMeta<typeof WalletTableCell>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -21,7 +22,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(WalletTableCell, variantsArgs, false);
+const [[LightMode, DarkMode]] = createThemeModeVariants(WalletTableCell, variantsArgs, false);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

@@ -89,7 +89,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   }
 
   return (
-    <Link href={`${siteRoutes.coreUnitReports(coreUnit.shortCode)}/${queryStrings}`} passHref>
+    <Link href={`${siteRoutes.coreUnitReports(coreUnit.shortCode)}/${queryStrings}`} passHref legacyBehavior>
       <CuCard>
         <Container isLight={isLight}>
           <Summary>
@@ -107,7 +107,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
               isCard={true}
             />
           </Summary>
-          <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`} passHref>
+          <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`} passHref legacyBehavior>
             <Expenditure>
               <Title isExpenditure isLight={isLight}>
                 Expenditure
@@ -129,7 +129,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
               fte={getFTEsFromCoreUnit(coreUnit)}
             />
           </Team>
-          <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`} passHref>
+          <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`} passHref legacyBehavior>
             <LastModified>
               <Title isLight={isLight}>Last Modified</Title>
               <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.code)} />

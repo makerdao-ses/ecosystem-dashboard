@@ -68,7 +68,7 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
   };
 
   return (
-    <Link href={detailsUrl} passHref>
+    <Link href={detailsUrl} passHref legacyBehavior>
       <ActivityItem isLight={isLight} isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
           {isGlobal &&

@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardNavigationMobile from './CardNavigationMobile';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof CardNavigationMobile> = {
   title: 'Components/NewFinances/CardNavigationMobile',
   component: CardNavigationMobile,
 
@@ -13,7 +13,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof CardNavigationMobile>;
+};
+export default meta;
 
 const args = [
   {
@@ -25,7 +26,8 @@ const args = [
     barColor: '#F99374',
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationMobile, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationMobile, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

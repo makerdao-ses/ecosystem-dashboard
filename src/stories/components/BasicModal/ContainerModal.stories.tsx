@@ -2,10 +2,10 @@ import { ParsedExpenseCategoryBuilder } from '@ses/core/businessLogic/builders/c
 import { withFixedPositionRelative } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ContainerModal from './ContainerModal';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof ContainerModal> = {
   title: 'Components/General/ContainerModal',
   component: ContainerModal,
   decorators: [withFixedPositionRelative],
@@ -16,7 +16,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof ContainerModal>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -95,10 +96,11 @@ const variantsArgs = [
   },
 ];
 
-export const [[UnExpanded, UnExpandedDarkMode], [Expanded, ExpandedDarkMode]] = createThemeModeVariants(
+const [[UnExpanded, UnExpandedDarkMode], [Expanded, ExpandedDarkMode]] = createThemeModeVariants(
   ContainerModal,
   variantsArgs
 );
+export { UnExpanded, UnExpandedDarkMode, Expanded, ExpandedDarkMode };
 
 UnExpanded.parameters = {
   figma: {

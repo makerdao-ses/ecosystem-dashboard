@@ -8,7 +8,8 @@ import { featureFlags } from 'feature-flags/feature-flags';
 import { defaultSocials } from '../Actors/utils/utils';
 import AppLayout from '../AppLayout/AppLayout';
 import ActorAboutContainer from './ActorAboutContainer';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
+
 const actorsItems = [
   new EcosystemActorBuilder()
     .withId('43')
@@ -56,17 +57,20 @@ const actorsItems = [
     .withSocials(defaultSocials)
     .build(),
 ];
-export default {
+
+const meta: Meta<typeof ActorAboutContainer> = {
   title: 'Pages/Actor About',
   component: ActorAboutContainer,
   decorators: [withoutSBPadding],
   parameters: {
-    nextRouter: {
-      pathname: '/ecosystem-actors',
-      path: '/ecosystem-actors/[code]',
-      asPath: '/ecosystem-actors/DEWIZ',
-      query: {
-        code: 'DEWIZ',
+    nextjs: {
+      router: {
+        pathname: '/ecosystem-actors',
+        path: '/ecosystem-actors/[code]',
+        asPath: '/ecosystem-actors/DEWIZ',
+        query: {
+          code: 'DEWIZ',
+        },
       },
     },
     chromatic: {
@@ -74,7 +78,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof ActorAboutContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -84,7 +89,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
@@ -94,6 +99,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+export { LightMode, DarkMode };
 
 LightMode.parameters = {};
 

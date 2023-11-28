@@ -2,10 +2,10 @@ import { withoutMarginTopInFixedPosition, withoutSBPadding } from '@ses/core/uti
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import { CoreUnitSummary } from './CoreUnitSummary';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof CoreUnitSummary> = {
   title: 'Components/General/CoreUnitSummary',
   component: CoreUnitSummary,
   parameters: {
@@ -15,13 +15,16 @@ export default {
     },
   },
   decorators: [withoutSBPadding, withoutMarginTopInFixedPosition],
-} as ComponentMeta<typeof CoreUnitSummary>;
+};
+export default meta;
 
-const nextRouter = {
-  path: '/core-unit/[code]',
-  asPath: '/core-unit/SES',
-  query: {
-    code: 'SES',
+const nextjs = {
+  router: {
+    path: '/core-unit/[code]',
+    asPath: '/core-unit/SES',
+    query: {
+      code: 'SES',
+    },
   },
 };
 
@@ -36,10 +39,12 @@ const variantsArgs = [
   },
 ];
 
-export const [[WithDescription, WithDescriptionDark], [WithoutDescription, WithoutDescriptionDarkMode]] =
+const [[WithDescription, WithDescriptionDark], [WithoutDescription, WithoutDescriptionDarkMode]] =
   createThemeModeVariants(CoreUnitSummary, variantsArgs);
+export { WithDescription, WithDescriptionDark, WithoutDescription, WithoutDescriptionDarkMode };
+
 WithDescription.parameters = {
-  nextRouter,
+  nextjs,
   figma: {
     component: {
       0: {
@@ -80,10 +85,10 @@ WithDescription.parameters = {
   } as FigmaParams,
 };
 WithDescriptionDark.parameters = {
-  nextRouter,
+  nextjs,
 };
 WithoutDescription.parameters = {
-  nextRouter,
+  nextjs,
   figma: {
     component: {
       0: {
@@ -124,5 +129,5 @@ WithoutDescription.parameters = {
   } as FigmaParams,
 };
 WithoutDescriptionDarkMode.parameters = {
-  nextRouter,
+  nextjs,
 };

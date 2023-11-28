@@ -1,10 +1,12 @@
-import { createThemeModeVariants } from '../../../../../core/utils/storybook/factories';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import NoComments from './NoComments';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof NoComments> = {
   title: 'Components/AuditorComments/NoComments',
   component: NoComments,
-} as ComponentMeta<typeof NoComments>;
+};
+export default meta;
 
-export const [[Light, Dark]] = createThemeModeVariants(NoComments);
+const [[Light, Dark]] = createThemeModeVariants(NoComments);
+export { Light, Dark };

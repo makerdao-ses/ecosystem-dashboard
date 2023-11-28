@@ -1,10 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { columns, headersSort } from '@ses/core/utils/tests';
 import { HeadCustomTable } from './HeadCustomTable';
+import type { Meta } from '@storybook/react';
 
-import type { ComponentMeta } from '@storybook/react';
-
-export default {
+const meta: Meta<typeof HeadCustomTable> = {
   title: 'Components/CuTable/HeadCustomTable',
   component: HeadCustomTable,
   parameters: {
@@ -13,7 +12,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof HeadCustomTable>;
+};
+export default meta;
 
 const variantsArgs = [
   {

@@ -1,16 +1,17 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardSomethingWrong from './CardSomethingWrong';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CardSomethingWrong> = {
   title: 'Components/CUAbout/CardSomethingWrong',
-  components: CardSomethingWrong,
+  component: CardSomethingWrong,
   parameters: {
     chromatic: {
       viewports: [834, 1194, 1280],
     },
   },
-} as ComponentMeta<typeof CardSomethingWrong>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -19,7 +20,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Card, CardDark]] = createThemeModeVariants(CardSomethingWrong, variantsArgs);
+const [[Card, CardDark]] = createThemeModeVariants(CardSomethingWrong, variantsArgs);
+export { Card, CardDark };
 
 Card.parameters = {
   figma: {

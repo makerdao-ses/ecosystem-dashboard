@@ -2,12 +2,13 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { CuStatusEnum } from '../../../core/enums/cuStatusEnum';
 import RelateMips from './RelateMips';
 import type { CuMipDto } from '../../../core/models/dto/coreUnitDTO';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof RelateMips> = {
   title: 'Components/CUAbout/RelateMips',
   component: RelateMips,
-} as ComponentMeta<typeof RelateMips>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -47,5 +48,6 @@ const variantsArgs = [
   },
 ];
 
-export const [[WithDataLightMode, WithDataDarkMode], [WithLargeTextLightMode, WithLargeTextDarkMode]] =
+const [[WithDataLightMode, WithDataDarkMode], [WithLargeTextLightMode, WithLargeTextDarkMode]] =
   createThemeModeVariants(RelateMips, variantsArgs, false);
+export { WithDataLightMode, WithDataDarkMode, WithLargeTextLightMode, WithLargeTextDarkMode };

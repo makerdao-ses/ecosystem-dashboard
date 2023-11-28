@@ -22,7 +22,7 @@ export const CuTableColumnLastModified = ({ date, isLoading, code, now = DateTim
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return !isLoading ? (
-    <Link href={`/core-unit/${code}/activity-feed${queryStrings}`} passHref>
+    <Link href={`/core-unit/${code}/activity-feed${queryStrings}`} passHref legacyBehavior>
       <Wrapper>
         <Container>
           <DateLabel isLight={isLight}>{date?.toFormat('dd-MMM-yyyy')?.toUpperCase() ?? 'No Data'}</DateLabel>

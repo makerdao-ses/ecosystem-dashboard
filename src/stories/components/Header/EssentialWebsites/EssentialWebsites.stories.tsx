@@ -1,10 +1,10 @@
 import { withWrappedStyles } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import EssentialWebsites from './EssentialWebsites';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof EssentialWebsites> = {
   title: 'Components/General/Header/Essential Websites',
   component: EssentialWebsites,
   decorators: [withWrappedStyles({ margin: 16 })],
@@ -20,15 +20,17 @@ export default {
       control: { type: 'boolean' },
     },
   },
-} as ComponentMeta<typeof EssentialWebsites>;
+};
+export default meta;
 
 const variantsArgs = [{ showButtons: false }, { showButtons: true }];
 
-export const [[Default, DefaultDarkMode], [Mobile, MobileDarkMode]] = createThemeModeVariants(
+const [[Default, DefaultDarkMode], [Mobile, MobileDarkMode]] = createThemeModeVariants(
   EssentialWebsites,
   variantsArgs,
   false
 );
+export { Default, DefaultDarkMode, Mobile, MobileDarkMode };
 
 Mobile.parameters = {
   chromatic: {

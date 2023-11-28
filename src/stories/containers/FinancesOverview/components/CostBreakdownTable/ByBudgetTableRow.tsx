@@ -59,7 +59,7 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
             <MobileArrowSvg />
           </MobileArrow>
         ) : (
-          <Link href={link} passHref>
+          <Link href={link} passHref legacyBehavior>
             <ViewLink isLight={isLight}>View</ViewLink>
           </Link>
         )}
@@ -113,7 +113,7 @@ const NavigableOnMobileRow: React.FC<WithIsLight & React.PropsWithChildren & { i
 }) => {
   if (isMobile) {
     return (
-      <Link href={href} passHref>
+      <Link href={href} passHref legacyBehavior>
         <Row isLight={isLight} as={'a'}>
           {children}
         </Row>

@@ -1,10 +1,10 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BreadcrumbYearNavigation from './BreadcrumbYearNavigation';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof BreadcrumbYearNavigation> = {
   title: 'Components/NewFinances/Section/BreadcrumbYearNavigation',
   component: BreadcrumbYearNavigation,
 
@@ -14,7 +14,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof BreadcrumbYearNavigation>;
+};
+export default meta;
 
 const args = [
   {
@@ -32,7 +33,8 @@ const args = [
     ] as NavigationBreadcrumb[],
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(BreadcrumbYearNavigation, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(BreadcrumbYearNavigation, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

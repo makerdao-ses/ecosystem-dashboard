@@ -2,9 +2,9 @@ import { useMediaQuery } from '@mui/material';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import lightTheme from '@ses/styles/theme/light';
 import PageSubheader from './PageSubheader';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof PageSubheader> = {
   title: 'Components/Actor/ProjectsPageSubheader',
   component: PageSubheader,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       viewports: [375, 768, 1024, 1280],
     },
   },
-} as ComponentMeta<typeof PageSubheader>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -22,11 +23,12 @@ const variantsArgs = [
     searchQuery: '',
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants((props) => {
+const [[LightMode, DarkMode]] = createThemeModeVariants((props) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   return <PageSubheader {...props} isMobile={isMobile} />;
 }, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

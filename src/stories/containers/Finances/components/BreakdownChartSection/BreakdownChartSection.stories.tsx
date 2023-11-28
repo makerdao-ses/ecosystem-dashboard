@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { atlasBudget, legacyBudget, scopeBudget } from '../../utils/utils';
 import BreakdownChartSection from './BreakdownChartSection';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof BreakdownChartSection> = {
   title: 'Components/NewFinances/Section/BreakdownChartSection',
   component: BreakdownChartSection,
 
@@ -13,7 +13,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof BreakdownChartSection>;
+};
+export default meta;
 
 const args = [
   {
@@ -24,7 +25,8 @@ const args = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(BreakdownChartSection, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(BreakdownChartSection, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

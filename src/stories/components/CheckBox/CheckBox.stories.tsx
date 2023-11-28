@@ -1,10 +1,12 @@
 import CheckBox from '@ses/components/CheckBox/CheckBox';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import type { ComponentMeta } from '@storybook/react';
-export default {
+import type { Meta } from '@storybook/react';
+
+const meta: Meta<typeof CheckBox> = {
   title: 'Components/General/CheckBox',
   component: CheckBox,
-} as ComponentMeta<typeof CheckBox>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -17,10 +19,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Checked, CheckedDarkMode], [Unchecked, UncheckedDarkMode]] = createThemeModeVariants(
-  CheckBox,
-  variantsArgs
-);
+const [[Checked, CheckedDarkMode], [Unchecked, UncheckedDarkMode]] = createThemeModeVariants(CheckBox, variantsArgs);
+export { Checked, CheckedDarkMode, Unchecked, UncheckedDarkMode };
 
 Checked.parameters = {
   figma: {

@@ -5,7 +5,7 @@ import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
-import { Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import BreakdownChartSection from '../Finances/components/BreakdownChartSection/BreakdownChartSection';
 import CardCoreUnitThirdLevelBudget from '../Finances/components/CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';

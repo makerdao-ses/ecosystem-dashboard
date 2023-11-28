@@ -1,10 +1,10 @@
 import { TotalExpenseReportsBuilder } from '@ses/core/businessLogic/builders/totalExpenseReportsBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ExpensesChart from './ExpensesChart';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof ExpensesChart> = {
   title: 'Components/Finances/ExpensesChart',
   component: ExpensesChart,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       viewports: [375, 768],
     },
   },
-} as ComponentMeta<typeof ExpensesChart>;
+};
+export default meta;
 
 const args = [
   {
@@ -238,7 +239,9 @@ const args = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(ExpensesChart, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(ExpensesChart, args);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

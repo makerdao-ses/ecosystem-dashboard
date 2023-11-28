@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { columns, CoreUnit } from '@ses/core/utils/tests';
 import ItemCoreUnit from './ItemCoreUnit';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ItemCoreUnit> = {
   title: 'Components/CUTable/ItemCoreUnit',
   component: ItemCoreUnit,
   parameters: {
@@ -13,7 +13,8 @@ export default {
     },
     date: new Date('2023-03-02T09:56:16Z'),
   },
-} as ComponentMeta<typeof ItemCoreUnit>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -23,7 +24,8 @@ const variantsArgs = [
     cu: CoreUnit,
   },
 ];
-export const [[CoreUnitItem, CoreUnitItemDark]] = createThemeModeVariants(ItemCoreUnit, variantsArgs);
+const [[CoreUnitItem, CoreUnitItemDark]] = createThemeModeVariants(ItemCoreUnit, variantsArgs);
+export { CoreUnitItem, CoreUnitItemDark };
 
 CoreUnitItem.parameters = {
   figma: {

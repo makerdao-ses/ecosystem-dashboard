@@ -25,7 +25,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ form, clearErrors, hasUserInactiv
 
   return (
     <Container>
-      <Image src={'/assets/img/ses-logo-64x64.png'} width={64} height={64} />
+      <Image src={'/assets/img/ses-logo-64x64.png'} alt="logo" width={64} height={64} />
       <Title isLight={isLight}>Log In</Title>
       <Description isLight={isLight}>
         Enter your username and password to get access to the administration area.

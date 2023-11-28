@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CUReservesSkeleton from './CUReservesSkeleton';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof CUReservesSkeleton> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/Core Unit Reserves Skeleton',
   component: CUReservesSkeleton,
   parameters: {
@@ -11,11 +11,13 @@ export default {
       viewports: [375, 834, 1194, 1280, 1440],
     },
   },
-} as ComponentMeta<typeof CUReservesSkeleton>;
+};
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(CUReservesSkeleton, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CUReservesSkeleton, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

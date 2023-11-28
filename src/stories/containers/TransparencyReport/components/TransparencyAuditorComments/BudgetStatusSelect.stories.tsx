@@ -2,9 +2,9 @@ import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import { createThemeModeVariants } from '../../../../../core/utils/storybook/factories';
 import BudgetStatusSelect from './BudgetStatusSelect';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof BudgetStatusSelect> = {
   title: 'Components/AuditorComments/BudgetStatusSelect',
   component: BudgetStatusSelect,
   decorators: [
@@ -22,9 +22,11 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof BudgetStatusSelect>;
+};
+export default meta;
 
-export const [[Light, Dark]] = createThemeModeVariants(BudgetStatusSelect);
+const [[Light, Dark]] = createThemeModeVariants(BudgetStatusSelect);
+export { Light, Dark };
 
 Light.parameters = {
   figma: {

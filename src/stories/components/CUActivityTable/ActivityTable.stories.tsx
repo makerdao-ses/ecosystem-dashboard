@@ -3,9 +3,9 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import lightTheme from '@ses/styles/theme/light';
 import ActivityTable from './ActivityTable';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof ActivityTable> = {
   title: 'Components/Activity Feed/Activity Table',
   component: ActivityTable,
   parameters: {
@@ -17,7 +17,8 @@ export default {
   },
   loaders: [withLocalStorageItem('activity-visit-SES', '1663540180000')],
   argTypes: {},
-} as ComponentMeta<typeof ActivityTable>;
+};
+export default meta;
 
 const globalActivityTableArgs = {
   activityFeed: [
@@ -94,6 +95,7 @@ const globalActivityTableArgs = {
   shortCode: 'SES',
   isGlobal: true,
 };
+
 const args = [
   globalActivityTableArgs,
   {
@@ -127,5 +129,7 @@ const args = [
     isGlobal: false,
   },
 ];
-export const [[ActivityTableLightMode, ActivityTableDarkMode], [CUActivityTableLightMode, CUActivityTableDarkMode]] =
+
+const [[ActivityTableLightMode, ActivityTableDarkMode], [CUActivityTableLightMode, CUActivityTableDarkMode]] =
   createThemeModeVariants(ActivityTable, args);
+export { ActivityTableLightMode, ActivityTableDarkMode, CUActivityTableLightMode, CUActivityTableDarkMode };

@@ -2,9 +2,9 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import MultiUsers from '../svg/MultiUsers';
 import MultiUsersMobile from '../svg/MultiUsersMobile';
 import CircleAvatarWithIcon from './CircleAvatarWithIcon';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CircleAvatarWithIcon> = {
   title: 'Components/General/CircleAvatarWithIcon',
   component: CircleAvatarWithIcon,
   parameters: {
@@ -12,7 +12,8 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof CircleAvatarWithIcon>;
+};
+export default meta;
 
 const args = [
   {
@@ -27,10 +28,8 @@ const args = [
   },
 ];
 
-export const [[DeskLightMode, DeskDarkMode], [Mobile, MobileDark]] = createThemeModeVariants(
-  CircleAvatarWithIcon,
-  args
-);
+const [[DeskLightMode, DeskDarkMode], [Mobile, MobileDark]] = createThemeModeVariants(CircleAvatarWithIcon, args);
+export { DeskLightMode, DeskDarkMode, Mobile, MobileDark };
 
 DeskLightMode.parameters = {
   chromatic: {

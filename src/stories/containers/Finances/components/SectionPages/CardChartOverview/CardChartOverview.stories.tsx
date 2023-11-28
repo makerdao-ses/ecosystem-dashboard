@@ -1,10 +1,10 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardChartOverview from './CardChartOverview';
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof CardChartOverview> = {
   title: 'Components/NewFinances/Section/CardChartOverview',
   component: CardChartOverview,
 
@@ -15,7 +15,8 @@ export default {
       delay: 5000,
     },
   },
-} as ComponentMeta<typeof CardChartOverview>;
+};
+export default meta;
 
 const args = [
   {
@@ -54,7 +55,9 @@ const args = [
     ] as DoughnutSeries[],
   },
 ];
-export const [[LightMode, DarkMode]] = createThemeModeVariants(CardChartOverview, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CardChartOverview, args);
+export { LightMode, DarkMode };
+
 LightMode.parameters = {
   figma: {
     component: {

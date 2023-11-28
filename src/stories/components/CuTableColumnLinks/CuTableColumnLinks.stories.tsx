@@ -1,9 +1,9 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { LinkTypeEnum } from '../../../core/enums/linkTypeEnum';
 import { CuTableColumnLinks } from './CuTableColumnLinks';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CuTableColumnLinks> = {
   title: 'Components/CUTable/ColumnLinks',
   component: CuTableColumnLinks,
   parameters: {
@@ -20,7 +20,8 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof CuTableColumnLinks>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -57,7 +58,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Links, LinksDark]] = createThemeModeVariants(CuTableColumnLinks, variantsArgs);
+const [[Links, LinksDark]] = createThemeModeVariants(CuTableColumnLinks, variantsArgs);
+export { Links, LinksDark };
 
 Links.parameters = {
   figma: {

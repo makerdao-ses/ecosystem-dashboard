@@ -1,12 +1,13 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { SortEnum } from '../../../core/enums/sortEnum';
 import { CustomTableHeader } from './CustomTableHeader';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof CustomTableHeader> = {
   title: 'Components/CuTable/CustomTableHeader',
-  components: CustomTableHeader,
-} as ComponentMeta<typeof CustomTableHeader>;
+  component: CustomTableHeader,
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -17,7 +18,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[Header, HeaderDarkMode]] = createThemeModeVariants(CustomTableHeader, variantsArgs);
+const [[Header, HeaderDarkMode]] = createThemeModeVariants(CustomTableHeader, variantsArgs);
+export { Header, HeaderDarkMode };
 
 Header.parameters = {
   figma: {

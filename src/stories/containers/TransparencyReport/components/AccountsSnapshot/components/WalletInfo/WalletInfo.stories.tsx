@@ -1,12 +1,13 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import WalletInfo from './WalletInfo';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta<typeof WalletInfo> = {
   title: 'Components/CUTransparencyReport/Accounts Snapshot/WalletInfo',
   component: WalletInfo,
-} as ComponentMeta<typeof WalletInfo>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -15,7 +16,8 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(WalletInfo, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(WalletInfo, variantsArgs);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

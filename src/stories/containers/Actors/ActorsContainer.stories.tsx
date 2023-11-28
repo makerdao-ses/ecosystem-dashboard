@@ -5,15 +5,18 @@ import AppLayout from '../AppLayout/AppLayout';
 import ActorsContainer from './ActorsContainer';
 import { defaultSocials } from './utils/utils';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { ComponentMeta } from '@storybook/react';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
-export default {
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
+
+const meta: Meta<typeof ActorsContainer> = {
   title: 'Pages/Actors',
   component: ActorsContainer,
   parameters: {
     layout: 'fullscreen',
-    nextRouter: {
-      pathname: '/ecosystem-actors',
+    nextjs: {
+      router: {
+        pathname: '/ecosystem-actors',
+      },
     },
     chromatic: {
       viewports: [375, 834, 1194, 1280, 1440, 1920],
@@ -21,7 +24,8 @@ export default {
     },
     date: new Date('2023-08-02T09:56:16Z'),
   },
-} as ComponentMeta<typeof ActorsContainer>;
+};
+export default meta;
 
 const variantsArgs = [
   {
@@ -234,7 +238,7 @@ const variantsArgs = [
   },
 ];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
       <ActorsContainer {...props} />
@@ -242,6 +246,8 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
+
+export { LightMode, DarkMode };
 
 const optionStyles = {
   style: {

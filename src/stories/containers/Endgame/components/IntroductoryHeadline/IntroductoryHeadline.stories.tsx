@@ -4,9 +4,10 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { NavigationTabEnum } from '../../useEndgameContainer';
 import NavigationTabs from '../NavigationTabs/NavigationTabs';
 import IntroductoryHeadline from './IntroductoryHeadline';
-import type { FigmaParams } from 'storybook-addon-figma-comparator/dist/ts/types';
+import type { Meta } from '@storybook/react';
+import type { FigmaParams } from 'sb-figma-comparator';
 
-export default {
+const meta: Meta = {
   title: 'Components/Endgame/Introduction Endgame',
   decorators: [withoutSBPadding],
   parameters: {
@@ -16,10 +17,11 @@ export default {
     },
   },
 };
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   () => (
     <>
       <Container>
@@ -31,6 +33,7 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   variantsArgs,
   false
 );
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

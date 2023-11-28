@@ -77,7 +77,7 @@ const SocialMediaComponent = ({
                 color: isLight ? '#231536' : '#D2D4EF',
               }}
             >
-              <Link href={link.href} passHref>
+              <Link href={link.href} passHref legacyBehavior>
                 <LinkImage
                   marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
                   isLight={isLight}
@@ -90,7 +90,7 @@ const SocialMediaComponent = ({
               </Link>
             </CustomPopover>
           ) : (
-            <Link href={link.href} passHref>
+            <Link href={link.href} passHref legacyBehavior>
               <LinkImage
                 marginBottom={link.linkType === LinkTypeEnum.VotingSocialPortal}
                 isLight={isLight}

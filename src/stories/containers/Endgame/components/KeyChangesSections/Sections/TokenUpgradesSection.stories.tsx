@@ -2,9 +2,9 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import KeyChangeSection from '../../KeyChangeSection/KeyChangeSection';
 import { SectionContainer } from '../KeyChangesSections';
 import TokenUpgradesSection from './TokenUpgradesSection';
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof TokenUpgradesSection> = {
   title: 'Components/Endgame/Token Upgrades Section',
   component: TokenUpgradesSection,
   parameters: {
@@ -13,11 +13,12 @@ export default {
       pauseAnimationAtEnd: true,
     },
   },
-} as ComponentMeta<typeof TokenUpgradesSection>;
+};
+export default meta;
 
 const variantsArgs = [{}];
 
-export const [[LightMode, DarkMode]] = createThemeModeVariants(
+const [[LightMode, DarkMode]] = createThemeModeVariants(
   () => (
     <KeyChangeSection title="Token upgrades" expanded={true} onExpand={() => null}>
       <SectionContainer>
@@ -28,3 +29,4 @@ export const [[LightMode, DarkMode]] = createThemeModeVariants(
   variantsArgs,
   false
 );
+export { LightMode, DarkMode };
