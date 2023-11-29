@@ -1,4 +1,5 @@
 import type { SortEnum } from '@ses/core/enums/sortEnum';
+import type { BudgetMetric } from '@ses/core/models/interfaces/analytic';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { DateTime } from 'luxon';
 
@@ -73,4 +74,8 @@ export interface MakerDAOExpenseMetricsLineChart {
   Actuals: boolean;
   'Net Expenses On-chain': boolean;
   'Net Expenses Off-chain': boolean;
+}
+
+export interface BudgetMetricWithName extends BudgetMetric {
+  name: string;
 }
