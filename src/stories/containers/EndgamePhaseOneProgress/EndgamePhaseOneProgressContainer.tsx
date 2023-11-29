@@ -2,8 +2,10 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
+import { siteRoutes } from '@ses/config/routes';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
+import Breadcrumb from './components/Breadcrumb/Breadcrumb';
 import PageHeader from './components/PageHeader/PageHeader';
 import DetailsSection from './components/sections/DetailsSection/DetailsSection';
 import OverviewSection from './components/sections/OverviewSection/OverviewSection';
@@ -25,15 +27,26 @@ const EndgamePhaseOneProgressContainer: React.FC = () => {
         }}
         twitterImage={toAbsoluteURL('/assets/img/endgame/endgame-social-1200x630.png')}
       />
-      <div>Breadcrumb</div>
-      <Container>
+      <Breadcrumb
+        items={[
+          {
+            label: 'Endgame',
+            url: siteRoutes.endgame,
+          },
+          {
+            label: 'Phase 1 Progress',
+            url: siteRoutes.endgamePhaseOneProgress,
+          },
+        ]}
+      />
+      <ContainerWithMargin>
         <PageHeader />
 
         <SectionsContainer>
           <OverviewSection />
           <DetailsSection />
         </SectionsContainer>
-      </Container>
+      </ContainerWithMargin>
     </PageContainer>
   );
 };
@@ -44,4 +57,8 @@ const SectionsContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 32,
+});
+
+const ContainerWithMargin = styled(Container)({
+  marginTop: 100,
 });
