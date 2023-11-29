@@ -115,7 +115,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
           </LeftColumn>
           <RightColumn>
             <DeliverableTitleContainer>
-              <DeliverablesTitle isLight={isLight}>Deliverables</DeliverablesTitle>
+              <DeliverablesTitle isLight={isLight}>Highlighted Deliverables</DeliverablesTitle>
               <DeliverableViewModeToggle
                 deliverableViewMode={deliverableViewMode}
                 onChangeDeliverableViewMode={handleChangeDeliverableViewMode}
