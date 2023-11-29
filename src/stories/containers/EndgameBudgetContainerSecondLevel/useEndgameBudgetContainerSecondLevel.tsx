@@ -88,6 +88,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     budgetCap: 34,
     color: isLight ? colorsLight[index] : colorsDark[index],
   }));
+
   const actuals = 9120;
   const budgetCap = 9120;
   const prediction = 4436;
