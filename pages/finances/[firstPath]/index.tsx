@@ -1,8 +1,10 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import EndgameBudgetContainerSecondLevel from '@ses/containers/EndgameBudgetContainerSecondLevel/EndgameBudgetContainerSecondLevel';
 import { fetchBudgets } from '@ses/containers/Finances/api/queries';
-import { getYearsRange } from '@ses/containers/Finances/utils/utils';
+import { getBudgetsAnalytics, getLevelOfBudget, getYearsRange } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
+import { SWRConfig } from 'swr';
+import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -10,10 +12,21 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
+  fallback: BudgetAnalytic;
+  allBudgets: Budget[];
 }
 
-export default function EndgameBudgetSecondLevel({ budgets, yearsRange, initialYear }: Props) {
-  return <EndgameBudgetContainerSecondLevel budgets={budgets} yearsRange={yearsRange} initialYear={initialYear} />;
+export default function EndgameBudgetSecondLevel({ budgets, yearsRange, initialYear, fallback, allBudgets }: Props) {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <EndgameBudgetContainerSecondLevel
+        budgets={budgets}
+        yearsRange={yearsRange}
+        initialYear={initialYear}
+        allBudgets={allBudgets}
+      />
+    </SWRConfig>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -30,14 +43,36 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       notFound: true,
     };
   }
+  const allBudgets = await fetchBudgets();
+  const levelPath = 'atlas/' + context.query.firstPath?.toString();
+  // Remove the if when the API match
+  let levelPathAnalytics = 'atlas/' + context.query.firstPath?.toString();
+  if (levelPathAnalytics === 'atlas/immutable') {
+    levelPathAnalytics = 'atlas/atlas';
+  }
+  if (levelPathAnalytics === 'atlas/86') {
+    levelPathAnalytics = 'atlas/legacy';
+  }
 
-  const budgets = await fetchBudgets();
+  const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
+  const budgets: Budget[] = allBudgets.filter((budget) => budget.parentId === levelBudget?.id);
+  console.log('levelPath', levelPath, budgets);
+  const budgetsAnalytics = await getBudgetsAnalytics(
+    'annual',
+    initialYear,
+    levelPathAnalytics,
+    getLevelOfBudget(levelPath)
+  );
 
   return {
     props: {
       budgets,
       yearsRange,
       initialYear,
+      allBudgets,
+      fallback: {
+        'analytics/annual': budgetsAnalytics,
+      },
     },
   };
 }

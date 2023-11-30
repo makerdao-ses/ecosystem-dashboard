@@ -40,7 +40,7 @@ const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDa
                     <Image src={image} width={32} height={32} alt="Picture" unoptimized />
                   </ContainerImage>
                   <Title isLight={isLight}>
-                    {code && <span>SES</span>} {title}
+                    {code && <span>{code}</span>} {title}
                   </Title>
                 </ContainerIcon>
                 <CardInformation>

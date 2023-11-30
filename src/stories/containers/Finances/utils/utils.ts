@@ -985,8 +985,11 @@ const getAnalytics = (analytics: Analytic) => {
 
   for (const row of analytics.series[0]?.rows) {
     let codePath = row.dimensions[0].path; // change to a const when the line below is removed
-    codePath = codePath === 'atlas/legacy' ? '86' : codePath; // remove this line when API data is fixed
+
+    codePath = codePath === 'atlas/legacy' ? '86' : codePath === 'atlas/atlas' ? 'atlas/inmutable' : codePath; // remove this line when API data is fixed
+
     const budgetMetric = budgetsAnalytics[codePath] !== undefined ? budgetsAnalytics[codePath] : newBudgetMetric();
+
     switch (row.metric) {
       case 'Actuals':
         budgetMetric.actuals = setMetric(row.value, row.unit);
@@ -1006,7 +1009,6 @@ const getAnalytics = (analytics: Analytic) => {
     }
     budgetsAnalytics[codePath] = budgetMetric;
   }
-
   return budgetsAnalytics;
 };
 
@@ -1032,3 +1034,10 @@ export const getBudgetsAnalytics = async (
   const analytics = await fetchAnalytics(granularity, year, select, lod);
   return granularity === 'annual' ? getAnalytics(analytics) : getBreakdownAnalytics(analytics); // temporary
 };
+
+export const getLevelOfBudget = (levelPath: string) => {
+  if (!levelPath) return 1;
+  return levelPath.split('/').length + 1;
+};
+export const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
+export const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];

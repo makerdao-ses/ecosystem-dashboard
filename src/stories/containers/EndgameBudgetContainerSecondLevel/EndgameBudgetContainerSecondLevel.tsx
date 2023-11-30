@@ -19,9 +19,10 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
+  allBudgets: Budget[];
 }
 
-const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear }) => {
+const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, allBudgets }) => {
   const {
     trailingAddressDesk,
     trailingAddress,
@@ -64,7 +65,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
-  } = useEndgameBudgetContainerSecondLevel(budgets, initialYear);
+  } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
   return (
     <PageContainer>
