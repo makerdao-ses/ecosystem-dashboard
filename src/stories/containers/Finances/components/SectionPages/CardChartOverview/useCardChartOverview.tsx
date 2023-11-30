@@ -32,7 +32,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
     paymentsOffChainIncluded: 0,
   };
 
-  const metricMoment: Record<string, BudgetMetricWithName> = {};
+  const budgetMetrics: Record<string, BudgetMetricWithName> = {};
 
   if (budgetsAnalytics !== undefined) {
     for (const budgetMetricKey of Object.keys(budgetsAnalytics)) {
@@ -41,6 +41,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
       const correspondingBudget = budgets.find((budget) => {
         // Remove this when the codePath match
         const momentBudget = budget.codePath === 'atlas/immutable' ? 'atlas/atlas' : budget.codePath;
+
         return momentBudget === budgetMetricKey;
       });
 
@@ -52,7 +53,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
       metric.forecast += budgetMetric.forecast.value;
       metric.budget += budgetMetric.budget.value;
       metric.paymentsOnChain += budgetMetric.paymentsOnChain.value;
-      metricMoment[budgetMetricKey] = {
+      budgetMetrics[budgetMetricKey] = {
         name: budgetName,
         actuals: budgetMetric.actuals,
         forecast: budgetMetric.forecast,
@@ -66,33 +67,33 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
   const handleSelectFilter = (item: FilterDoughnut) => {
     setFilterSelected(item);
   };
-  const doughnutSeriesData: DoughnutSeries[] = Object.keys(metricMoment)
+  const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics)
     .map((item, index) => {
       let value;
       switch (filterSelected) {
         case 'Actual':
-          value = metricMoment[item].actuals.value;
+          value = budgetMetrics[item].actuals.value;
           break;
         case 'Forecast':
-          value = metricMoment[item].forecast.value;
+          value = budgetMetrics[item].forecast.value;
           break;
         case 'Net Expenses On-chain':
-          value = metricMoment[item].paymentsOnChain.value;
+          value = budgetMetrics[item].paymentsOnChain.value;
           break;
         case 'Net Expenses Off-chain':
-          value = metricMoment[item].paymentsOffChainIncluded.value;
+          value = budgetMetrics[item].paymentsOffChainIncluded.value;
           break;
         case 'Budget':
         default:
-          value = metricMoment[item].budget.value;
+          value = budgetMetrics[item].budget.value;
           break;
       }
 
       return {
-        name: metricMoment[item].name || 'No name',
+        name: budgetMetrics[item].name || 'No name',
         value,
-        actuals: metricMoment[item].actuals.value,
-        budgetCap: metricMoment[item].budget.value,
+        actuals: budgetMetrics[item].actuals.value,
+        budgetCap: budgetMetrics[item].budget.value,
         percent: Math.round(percentageRespectTo(value, metric.budget)),
         color: value !== 0 ? (isLight ? colorsLight[index] : colorsDark[index]) : 'rgb(204, 204, 204)',
       };

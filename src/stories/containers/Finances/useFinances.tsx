@@ -9,12 +9,13 @@ import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useB
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
-import { getBudgetsAnalytics, newBudgetMetric, removePrefix, prefixToRemove } from './utils/utils';
+import { getBudgetsAnalytics, newBudgetMetric, removePrefix, prefixToRemove, colors, colorsDark } from './utils/utils';
 import type { BudgetAnalytic, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], initialYear: string) => {
   const [year, setYear] = useState(initialYear);
+  const { isLight } = useThemeContext();
   const handleChangeYears = (value: string) => {
     setYear(value);
     router.push(`${siteRoutes.newFinancesOverview}?year=${value}`, undefined, { shallow: true });
@@ -41,9 +42,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   console.log(budgetsAnalyticsMonthly); // temporary
   const { mutate } = useSWRConfig();
 
-  const { isLight } = useThemeContext();
-  const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
-  const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
   const router = useRouter();
 
   const cardsNavigationInformation = budgets.map((item, index) => {

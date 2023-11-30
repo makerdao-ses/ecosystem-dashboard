@@ -54,6 +54,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 16,
     width: 150,
+    minHeight: 173,
   },
 }));
 const Avatar = styled.div({
@@ -69,10 +70,13 @@ const CircleAvatarStyled = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
 const Information = styled.div({
   display: 'flex',
   flexDirection: 'row',
+  flexWrap: 'wrap',
   gap: 2,
   marginBottom: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 23,
+    width: 115,
+    minHeight: 34,
     gap: 4,
   },
 });

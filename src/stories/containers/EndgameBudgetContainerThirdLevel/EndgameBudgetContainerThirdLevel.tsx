@@ -18,7 +18,6 @@ import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/De
 import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
 import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainerThirdLevel';
 import type { NavigationCard } from '../Finances/utils/types';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
@@ -31,10 +30,10 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
-  coreUnits: CoreUnitDto[];
+  allBudgets: Budget[];
 }
 
-const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, coreUnits }) => {
+const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, allBudgets }) => {
   const {
     trailingAddress,
     trailingAddressDesk,
@@ -78,7 +77,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
-  } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, coreUnits);
+  } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
   const totalItems = cardsToShow.length;
   const itemsPerPage = calculateItemsPerPage();
@@ -271,11 +270,6 @@ const CardWrapper = styled.div({
   marginTop: 4,
   display: 'flex',
   flex: '1',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    // marginLeft: 16,
-    // marginRight: 16,
-  },
 });
 
 const SwiperWrapper = styled.div({

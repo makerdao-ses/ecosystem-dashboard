@@ -4,6 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
@@ -12,11 +13,13 @@ import {
   existingColors,
   existingColorsDark,
   generateColorPalette,
-  getNumbersFromIdPath,
+  getBudgetsAnalytics,
+  getLevelOfBudget,
+  newBudgetMetric,
   prefixToRemove,
   removePrefix,
 } from '../Finances/utils/utils';
-import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
+import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 import 'swiper/css/navigation';
@@ -24,15 +27,17 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css';
 
-export const useEndgameBudgetContainerThirdLevel = (
-  budgets: Budget[],
-  initialYear: string,
-  coreUnits: CoreUnitDto[]
-) => {
+export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYear: string, allBudgets: Budget[]) => {
   const router = useRouter();
+  const levelPath = 'atlas/' + router.query.firstPath?.toString() + '/' + router.query.secondPath?.toString();
   const { isLight } = useThemeContext();
-  // Remove when Api is connected
-  console.log('core-units', coreUnits);
+  const { data: budgetsAnalytics } = useSWRImmutable(
+    ['analytics/annual', levelPath],
+    async () => getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath)) as Promise<BudgetAnalytic>
+  );
+  // Take the first path to pass breadCrumb navigation
+  const firstPath = 'atlas' + '/' + router.query.firstPath?.toString();
+
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
@@ -49,30 +54,21 @@ export const useEndgameBudgetContainerThirdLevel = (
     filters: filtersThirdLevel,
     filterSelected: selectedThirdLevel,
     handleSelectFilter: handleSelectFilterThirdLevel,
-  } = useCardChartOverview(budgets, undefined);
+    doughnutSeriesData,
+    actuals,
+    budgetCap,
+    prediction,
+  } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart();
 
-  const momentValue = (router.query && router.query.code && router.query.code[0]) || '';
+  const titleFirstPathBudget = allBudgets.find((budget) => budget.codePath === levelPath);
+  const levelBudgetPath = allBudgets.find((budget) => budget.codePath === firstPath);
 
-  const secondLevelBudget = budgets.find((budget) => budget.code === router.query.codePath);
-  const iDLevelCode = budgets.find((budget) => budget.code === momentValue)?.id || '';
-  const levelBudget = budgets.find((budget) => budget.code === momentValue);
+  const icon = titleFirstPathBudget?.image || '';
 
-  const icon = levelBudget?.image || '';
-
-  // get all core unit base in the budget (use this code when api is ready)
-  const childBudgetCoreUnits = budgets?.filter((budget) => getNumbersFromIdPath(budget.idPath).includes(iDLevelCode));
-  // Remove this while when the API is ready
-  while (childBudgetCoreUnits.length < 20) {
-    const getValue = childBudgetCoreUnits[0];
-    childBudgetCoreUnits.push(getValue);
-  }
-
-  const levelBudgetName = budgets?.find((budget) => budget.code === momentValue);
-
-  const title = removePrefix(levelBudgetName?.name || '', prefixToRemove) || '';
+  const title = removePrefix(titleFirstPathBudget?.name || '', prefixToRemove) || '';
   const [year, setYear] = useState(initialYear);
 
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
@@ -94,30 +90,26 @@ export const useEndgameBudgetContainerThirdLevel = (
   const numColors = budgets.length;
   const colorsLight = generateColorPalette(existingColors.length, numColors - existingColors.length, existingColors);
   const colorsDark = generateColorPalette(180, numColors, existingColorsDark);
-  const doughnutSeriesData = childBudgetCoreUnits.map((item, index) => ({
-    name: removePrefix(item?.name || '', prefixToRemove),
-    value: 4345,
-    percent: 30,
-    actuals: 45,
-    budgetCap: 34,
-    color: isLight ? colorsLight[index] : colorsDark[index],
-  }));
-
-  const actuals = 9120;
-  const budgetCap = 9120;
-  const prediction = 4436;
   const breadcrumbs = [title];
-  const cardsNavigationInformation = childBudgetCoreUnits.map((item: Budget, index) => ({
-    image: item?.image || '',
-    title: removePrefix(item?.name || '', prefixToRemove),
-    description: item?.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-    href: `${item?.codePath}`,
-    totalDai: 132345,
-    valueDai: 12345,
-    color: isLight ? colorsLight[index] : colorsDark[index],
-    code: 'SES',
-  }));
-  console.log('childBudgetCoreUnits', childBudgetCoreUnits);
+
+  const cardsNavigationInformation = budgets.map((item, index) => {
+    const budgetMetric =
+      budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
+        ? budgetsAnalytics[item.codePath]
+        : newBudgetMetric();
+
+    return {
+      image: item.image || '',
+      title: removePrefix(item.name, prefixToRemove),
+      description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
+      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
+      valueDai: budgetMetric.actuals.value,
+      totalDai: budgetMetric.budget.value,
+      code: item.code,
+      color: isLight ? colorsLight[index] : colorsDark[index],
+    };
+  });
+
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
 
   const handleLoadMoreCards = () => {
@@ -131,8 +123,8 @@ export const useEndgameBudgetContainerThirdLevel = (
       url: `${siteRoutes.newFinancesOverview}`,
     },
     {
-      label: removePrefix(secondLevelBudget?.name || '', prefixToRemove),
-      url: `${siteRoutes.newFinancesOverview}/${secondLevelBudget?.codePath}`,
+      label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
+      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}`,
     },
     ...breadcrumbs.map((adr) => ({
       label: adr,
@@ -146,6 +138,10 @@ export const useEndgameBudgetContainerThirdLevel = (
       url: router.asPath,
       style: { color: isLight ? '#25273D' : '#D2D4EF' },
     })),
+    {
+      label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
+      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}`,
+    },
     {
       label: 'Finances',
       url: `${siteRoutes.newFinancesOverview}`,
@@ -194,7 +190,6 @@ export const useEndgameBudgetContainerThirdLevel = (
     year,
     handleChangeYearsEndgameAtlasBudget,
     title,
-    childBudgetCoreUnits,
     icon,
     headersExpenseReport,
     reportExpenseItems,

@@ -1,23 +1,23 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import { fetchCoreUnits } from '@ses/containers/CUTable/cuTableAPI';
 import EndgameBudgetContainerThirdLevel from '@ses/containers/EndgameBudgetContainerThirdLevel/EndgameBudgetContainerThirdLevel';
 import { fetchBudgets } from '@ses/containers/Finances/api/queries';
-import { getYearsRange } from '@ses/containers/Finances/utils/utils';
+import { getBudgetsAnalytics, getLevelOfBudget, getYearsRange } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
 const EndgameBudgetThirdLevel: NextPage = ({
   budgets,
   yearsRange,
   initialYear,
-  coreUnits,
+  allBudgets,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
   <EndgameBudgetContainerThirdLevel
     budgets={budgets}
     yearsRange={yearsRange}
     initialYear={initialYear}
-    coreUnits={coreUnits}
+    allBudgets={allBudgets}
   />
 );
 
@@ -38,14 +38,25 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     };
   }
 
-  const [budgets, coreUnits] = await Promise.all([fetchBudgets(), fetchCoreUnits()]);
+  const allBudgets = await fetchBudgets();
+
+  const levelPath = 'atlas/' + context.query.firstPath?.toString() + '/' + context.query.secondPath?.toString();
+
+  const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
+
+  const budgets: Budget[] = allBudgets.filter((budget) => budget.parentId === levelBudget?.id);
+
+  const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, levelPath, getLevelOfBudget(levelPath));
 
   return {
     props: {
       budgets,
       yearsRange,
       initialYear,
-      coreUnits,
+      allBudgets,
+      fallback: {
+        'analytics/annual': budgetsAnalytics,
+      },
     },
   };
 };
