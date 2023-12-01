@@ -12,11 +12,11 @@ const MilestoneCard: React.FC = () => {
     <Card isLight={isLight}>
       <TitleBox>
         <TitleContainer>
-          <MilestoneNumber isLight={isLight}>M1</MilestoneNumber>
+          <MilestoneNumber>M1</MilestoneNumber>
           <Code isLight={isLight}>BASE</Code>
           <Title isLight={isLight}>Exploration base</Title>
         </TitleContainer>
-        <Quarter isLight={isLight}>Q4’23</Quarter>
+        <Quarter>Q4’23</Quarter>
       </TitleBox>
       <DescriptionBox isLight={isLight}>
         <DescriptionTitle isLight={isLight}>Exploration Base</DescriptionTitle>
@@ -46,9 +46,9 @@ const MilestoneCard: React.FC = () => {
 export default MilestoneCard;
 
 const Card = styled.div<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#FFF' : 'red',
+  background: isLight ? '#FFF' : '#1E2C37',
   borderRadius: 6,
-  boxShadow: isLight ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)' : '0px 4px 6px 0px red',
+  boxShadow: isLight ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
   padding: 16,
   display: 'flex',
   flexDirection: 'column',
@@ -91,9 +91,9 @@ const TitleContainer = styled.div({
   },
 });
 
-const MilestoneNumber = styled.span<WithIsLight>(({ isLight }) => ({
+const MilestoneNumber = styled.span(() => ({
   display: 'none',
-  color: isLight ? '#708390' : 'red',
+  color: '#708390',
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
@@ -108,7 +108,7 @@ const MilestoneNumber = styled.span<WithIsLight>(({ isLight }) => ({
 }));
 
 const Code = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 600,
   lineHeight: 'normal',
@@ -120,7 +120,7 @@ const Code = styled.span<WithIsLight>(({ isLight }) => ({
 }));
 
 const Title = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#25273D' : 'red',
+  color: isLight ? '#25273D' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',
@@ -130,8 +130,8 @@ const Title = styled.span<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Quarter = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#708390' : 'red',
+const Quarter = styled.span(() => ({
+  color: '#708390',
   fontSize: 14,
   fontWeight: 600,
   lineHeight: 'normal',
@@ -185,7 +185,7 @@ const ProgressBox = styled.div({
 });
 
 const Label = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#708390' : 'red',
+  color: '#708390',
   fontSize: 11,
   fontWeight: 600,
   lineHeight: 'normal',
@@ -193,7 +193,7 @@ const Label = styled.div<WithIsLight>(({ isLight }) => ({
   textTransform: 'uppercase',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    color: isLight ? '#434358' : 'red',
+    color: isLight ? '#434358' : '#708390',
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -228,8 +228,10 @@ const ProgressBarBox = styled.div({
 const ProgressBar = styled.div<WithIsLight & { progress: number }>(({ isLight, progress }) => ({
   position: 'relative',
   borderRadius: 6,
-  background: isLight ? '#ECF1F3' : 'red',
-  boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.11)' : '2px 4px 7px 0px red',
+  background: isLight ? '#ECF1F3' : '#10191F',
+  boxShadow: isLight
+    ? '2px 4px 7px 0px rgba(26, 171, 155, 0.11)'
+    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   height: 12,
   width: '100%',
 
@@ -245,14 +247,14 @@ const ProgressBar = styled.div<WithIsLight & { progress: number }>(({ isLight, p
     content: '""',
     position: 'absolute',
     borderRadius: 6,
-    background: isLight ? '#1AAB9B' : 'red',
+    background: '#1AAB9B',
     height: '100%',
     width: `${progress * 100}%`,
   },
 }));
 
 const ProgressLabel = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   lineHeight: 'normal',
 
@@ -269,8 +271,8 @@ const DescriptionBox = styled.div<WithIsLight>(({ isLight }) => ({
   gap: 16,
   padding: 16,
   borderRadius: 6,
-  background: isLight ? 'rgba(246, 248, 249, 0.50)' : '1px 3px 7px 0px rgba(0, 0, 0, 0.05) inset',
-  boxShadow: isLight ? '1px 3px 7px 0px rgba(0, 0, 0, 0.05) inset' : '1px 3px 7px 0px red inset',
+  background: isLight ? 'rgba(246, 248, 249, 0.50)' : 'rgba(112, 129, 144, 0.20)',
+  boxShadow: isLight ? '1px 3px 7px 0px rgba(0, 0, 0, 0.05) inset' : '1px 3px 7px 0px rgba(9, 35, 68, 0.40) inset',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
@@ -278,7 +280,7 @@ const DescriptionBox = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const DescriptionTitle = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#434358' : 'red',
+  color: isLight ? '#434358' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 600,
   lineHeight: 'normal',
@@ -293,7 +295,7 @@ const DescriptionTitle = styled.div<WithIsLight>(({ isLight }) => ({
 
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  color: isLight ? '#546978' : 'red',
+  color: isLight ? '#546978' : '#D2D4EF',
   fontSize: 14,
   lineHeight: 'normal',
   textAlign: 'center',
