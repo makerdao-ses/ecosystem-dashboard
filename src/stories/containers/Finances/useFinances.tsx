@@ -14,6 +14,7 @@ import type { BudgetAnalytic, BreakdownBudgetAnalytic } from '@ses/core/models/i
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], initialYear: string) => {
+  const router = useRouter();
   const [year, setYear] = useState(initialYear);
   const { isLight } = useThemeContext();
   const handleChangeYears = (value: string) => {
@@ -41,8 +42,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   console.log(budgetsAnalyticsQuarterly); // temporary
   console.log(budgetsAnalyticsMonthly); // temporary
   const { mutate } = useSWRConfig();
-
-  const router = useRouter();
 
   const cardsNavigationInformation = budgets.map((item, index) => {
     const budgetMetric =

@@ -43,6 +43,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
       const budgetName = correspondingBudget
         ? removePrefix(correspondingBudget.name, prefixToRemove)
         : 'There is not name';
+      const budgetCode = correspondingBudget?.code || 'No-code';
       metric.actuals += budgetMetric.actuals.value || 0;
       metric.forecast += budgetMetric.forecast.value || 0;
       metric.budget += budgetMetric.budget.value || 0;
@@ -54,6 +55,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
         budget: budgetMetric.budget,
         paymentsOnChain: budgetMetric.paymentsOnChain,
         paymentsOffChainIncluded: budgetMetric.paymentsOffChainIncluded,
+        code: budgetCode,
       };
     }
   }
@@ -84,6 +86,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
 
     return {
       name: budgetMetrics[item].name || 'No name',
+      code: budgetMetrics[item].code || 'No code',
       value,
       actuals: budgetMetrics[item].actuals.value,
       budgetCap: budgetMetrics[item].budget.value,

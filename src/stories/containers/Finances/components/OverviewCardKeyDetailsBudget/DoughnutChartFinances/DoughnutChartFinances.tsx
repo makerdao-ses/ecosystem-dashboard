@@ -13,9 +13,10 @@ import type { EChartsOption } from 'echarts-for-react';
 interface Props {
   doughnutSeriesData: DoughnutSeries[];
   className?: string;
+  isCoreThirdLevel?: boolean;
 }
 
-const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className }) => {
+const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className, isCoreThirdLevel = true }) => {
   const chartRef = useRef<EChartsOption | null>(null);
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -135,9 +136,10 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className 
           opts={{ renderer: 'svg' }}
         />
       </ContainerChart>
-      <ContainerLegend>
+      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel}>
         {doughnutSeriesData.map((data, index: number) => (
           <LegendItem
+            isCoreThirdLevel={isCoreThirdLevel}
             isLight={isLight}
             key={index}
             onClick={() => console.log('console', data.name)}
@@ -146,9 +148,11 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className 
           >
             <IconWithName>
               <LegendIcon backgroundColor={data.color} />
-              <Name>{data.name}</Name>
+              <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+                {isCoreThirdLevel ? data.code : data.name}
+              </NameOrCode>
             </IconWithName>
-            <Value isLight={isLight}>
+            <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
               {data.value?.toLocaleString('es-US')}
               <span>DAI</span>
               <span>{`(${data.percent}%)`}</span>
@@ -197,40 +201,40 @@ const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor })
   height: 8,
   borderRadius: '50%',
 }));
-const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
+const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
+  flexDirection: isCoreThirdLevel ? 'row' : 'column',
+  gap: isCoreThirdLevel ? 4 : 8,
   fontSize: 12,
   fontFamily: 'Inter, sans-serif',
   color: isLight ? '#43435' : '#EDEFFF',
   cursor: 'pointer',
 }));
-const Value = styled.div<WithIsLight>(({ isLight }) => ({
+const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  marginLeft: 16,
+  marginLeft: isCoreThirdLevel ? 4 : 16,
   '& span': {
     marginLeft: 4,
   },
 }));
 
-const ContainerLegend = styled.div({
+const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
   flexWrap: 'wrap',
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
-  gap: '8px',
+  gap: isCoreThirdLevel ? 16 : 8,
   maxWidth: '100%',
   maxHeight: '230px',
   overflow: 'hidden',
-});
+}));
 
 const IconWithName = styled.div({
   display: 'flex',
@@ -239,4 +243,11 @@ const IconWithName = styled.div({
   alignItems: 'center',
 });
 
-const Name = styled.div({});
+const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
+  color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : 'red',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 12,
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
+}));

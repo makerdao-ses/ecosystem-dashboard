@@ -5,4 +5,5 @@ export interface DoughnutSeries {
   actuals: number;
   budgetCap: number;
   color: string;
+  code?: string;
 }

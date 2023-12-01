@@ -16,6 +16,7 @@ interface Props {
   budgetCap: number;
   prediction: number;
   doughnutSeriesData: DoughnutSeries[];
+  isCoreThirdLevel: boolean;
 }
 const CardChartOverview: React.FC<Props> = ({
   filterSelected,
@@ -25,6 +26,7 @@ const CardChartOverview: React.FC<Props> = ({
   budgetCap,
   prediction,
   doughnutSeriesData,
+  isCoreThirdLevel,
 }) => {
   const { isLight } = useThemeContext();
   const handleOnclick = (item: FilterDoughnut) => () => {
@@ -32,14 +34,16 @@ const CardChartOverview: React.FC<Props> = ({
   };
 
   return (
-    <Container isLight={isLight}>
-      <ContainerFilters>
-        {filters.map((item, index) => (
-          <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
-            {item}
-          </Item>
-        ))}
-      </ContainerFilters>
+    <Container isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+      {!isCoreThirdLevel && (
+        <ContainerFilters>
+          {filters.map((item, index) => (
+            <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
+              {item}
+            </Item>
+          ))}
+        </ContainerFilters>
+      )}
 
       <ContainerCardChart>
         <ContainerCardAndLine>
@@ -49,7 +53,7 @@ const CardChartOverview: React.FC<Props> = ({
           <Divider isLight={isLight} />
         </ContainerCardAndLine>
         <ContainerChat>
-          <DoughnutChartFinances doughnutSeriesData={doughnutSeriesData} />
+          <DoughnutChartFinances doughnutSeriesData={doughnutSeriesData} isCoreThirdLevel={isCoreThirdLevel} />
         </ContainerChat>
       </ContainerCardChart>
     </Container>
@@ -58,7 +62,7 @@ const CardChartOverview: React.FC<Props> = ({
 
 export default CardChartOverview;
 
-const Container = styled.div<WithIsLight>(({ isLight }) => ({
+const Container = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
@@ -79,13 +83,12 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
     height: 223,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    padding: '16px 24px 48px 64px',
-    height: 311,
+    padding: `${isCoreThirdLevel ? '48px' : '16px'} 16px  48px 64px`,
+    height: isCoreThirdLevel ? 297 : 311,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 16px 48px 64px',
-
-    height: 311,
+    padding: `${isCoreThirdLevel ? '48px' : '16px'} 16px  48px 64px`,
+    height: isCoreThirdLevel ? 297 : 311,
   },
 }));
 

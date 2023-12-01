@@ -33,7 +33,8 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const { isLight } = useThemeContext();
   const { data: budgetsAnalytics } = useSWRImmutable(
     ['analytics/annual', levelPath],
-    async () => getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath)) as Promise<BudgetAnalytic>
+    async () =>
+      getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
   );
   // Take the first path to pass breadCrumb navigation
   const firstPath = 'atlas' + '/' + router.query.firstPath?.toString();
