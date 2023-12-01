@@ -43,7 +43,7 @@ const Wrapper = styled.div({
 
 const Title = styled.h2<WithIsLight>(({ isLight }) => ({
   margin: 0,
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',

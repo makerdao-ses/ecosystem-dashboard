@@ -20,7 +20,7 @@ const RoadmapTimeline = () => {
   return (
     <div>
       {isMobile ? (
-        <MobileTimeline isLight={isLight}>
+        <MobileTimeline>
           <MilestoneCard />
           <MilestoneCard />
           <MilestoneCard />
@@ -48,17 +48,17 @@ const RoadmapTimeline = () => {
         </MobileTimeline>
       ) : (
         <DesktopTimeline>
-          <Up shouldAddPadding={shouldAddPadding}>
+          <Up shouldAddPadding={shouldAddPadding} isLight={isLight}>
             {up.map((_, i) => (
-              <CardWrapper key={i}>
+              <CardWrapper key={i} isLight={isLight}>
                 <MilestoneCard />
               </CardWrapper>
             ))}
           </Up>
           {milestones.length > 4 && (
-            <Down shouldAddPadding={shouldAddPadding}>
+            <Down shouldAddPadding={shouldAddPadding} isLight={isLight}>
               {down.map((_, i) => (
-                <CardWrapper key={i}>
+                <CardWrapper key={i} isLight={isLight}>
                   <MilestoneCard />
                 </CardWrapper>
               ))}
@@ -72,7 +72,7 @@ const RoadmapTimeline = () => {
 
 export default RoadmapTimeline;
 
-const MobileTimeline = styled.div<WithIsLight>(({ isLight }) => ({
+const MobileTimeline = styled.div(() => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
@@ -87,7 +87,7 @@ const MobileTimeline = styled.div<WithIsLight>(({ isLight }) => ({
     left: '50%',
     width: 5,
     height: '100%',
-    background: isLight ? '#6EDBD0' : 'red',
+    background: '#6EDBD0',
   },
 }));
 
@@ -131,11 +131,11 @@ const DesktopTimeline = styled.div({
   flexDirection: 'column',
 });
 
-const Up = styled.div<{ shouldAddPadding: boolean }>(({ shouldAddPadding }) => ({
+const Up = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight, shouldAddPadding }) => ({
   display: 'flex',
   justifyContent: 'center',
   gap: 24,
-  borderBottom: '2.5px solid #B6EDE7',
+  borderBottom: `2.5px solid ${isLight ? '#B6EDE7' : '#06554C'}`,
   ...(shouldAddPadding && { paddingRight: 'calc(12.5% - 12px)' }),
 
   '& > div': {
@@ -151,11 +151,11 @@ const Up = styled.div<{ shouldAddPadding: boolean }>(({ shouldAddPadding }) => (
   },
 }));
 
-const Down = styled.div<{ shouldAddPadding: boolean }>(({ shouldAddPadding }) => ({
+const Down = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight, shouldAddPadding }) => ({
   display: 'flex',
   justifyContent: 'center',
   gap: 24,
-  borderTop: '2.5px solid #B6EDE7',
+  borderTop: `2.5px solid ${isLight ? '#B6EDE7' : '#06554C'}`,
   ...(shouldAddPadding && { paddingLeft: 'calc(12.5% - 12px)' }),
 
   '& > div': {
@@ -173,7 +173,7 @@ const Down = styled.div<{ shouldAddPadding: boolean }>(({ shouldAddPadding }) =>
   },
 }));
 
-const CardWrapper = styled.div({
+const CardWrapper = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
   width: 'calc(25% - 12px)',
 
@@ -189,7 +189,7 @@ const CardWrapper = styled.div({
     left: 'calc(50% - 1px)',
     width: 2,
     height: 32,
-    background: '#1AAB9B',
+    background: isLight ? '#1AAB9B' : '#06554C',
   },
 
   '&:after': {
@@ -200,7 +200,7 @@ const CardWrapper = styled.div({
     width: 12,
     height: 12,
     borderRadius: '50%',
-    border: '2px solid #1AAB9B',
+    border: `2px solid ${isLight ? '#1AAB9B' : '#06554C'}`,
     background: '#fff',
   },
-});
+}));

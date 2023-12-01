@@ -30,7 +30,7 @@ const Header = styled.div({
 });
 
 const Title = styled.h1<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   margin: 0,
   fontSize: 20,
   fontWeight: 600,
@@ -43,7 +43,7 @@ const Title = styled.h1<WithIsLight>(({ isLight }) => ({
 }));
 
 const Subtitle = styled.p<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   margin: 0,
   fontSize: 16,
   lineHeight: '22px',
