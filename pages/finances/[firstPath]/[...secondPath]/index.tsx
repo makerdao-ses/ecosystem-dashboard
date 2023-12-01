@@ -46,7 +46,13 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   const budgets: Budget[] = allBudgets.filter((budget) => budget.parentId === levelBudget?.id);
 
-  const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, levelPath, getLevelOfBudget(levelPath));
+  const budgetsAnalytics = await getBudgetsAnalytics(
+    'annual',
+    initialYear,
+    levelPath,
+    getLevelOfBudget(levelPath),
+    budgets
+  );
 
   return {
     props: {
