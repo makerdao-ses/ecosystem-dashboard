@@ -23,19 +23,19 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
 
   const { data: budgetsAnalytics } = useSWRImmutable(
     'analytics/annual',
-    async () => getBudgetsAnalytics('annual', year, 'atlas', 2) as Promise<BudgetAnalytic>
+    async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BudgetAnalytic>
   );
   const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
     'analytics/semiAnnual',
-    async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2) as Promise<BreakdownBudgetAnalytic>
+    async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
     'analytics/quarterly',
-    async () => getBudgetsAnalytics('quarterly', year, 'atlas', 2) as Promise<BreakdownBudgetAnalytic>
+    async () => getBudgetsAnalytics('quarterly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
   const { data: budgetsAnalyticsMonthly } = useSWRImmutable(
     'analytics/monthly',
-    async () => getBudgetsAnalytics('monthly', year, 'atlas', 2) as Promise<BreakdownBudgetAnalytic>
+    async () => getBudgetsAnalytics('monthly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
   console.log(budgetsAnalyticsSemiAnnual); // temporary
   console.log(budgetsAnalyticsQuarterly); // temporary

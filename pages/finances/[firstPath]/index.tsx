@@ -45,25 +45,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
   const allBudgets = await fetchBudgets();
   const levelPath = 'atlas/' + context.query.firstPath?.toString();
-  // Remove the if when the API match
-  let levelPathAnalytics = 'atlas/' + context.query.firstPath?.toString();
-  if (levelPathAnalytics === 'atlas/immutable') {
-    levelPathAnalytics = 'atlas/atlas';
-  }
-  if (levelPathAnalytics === 'atlas/86') {
-    levelPathAnalytics = 'atlas/legacy';
-  }
 
   const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const budgets: Budget[] = allBudgets.filter((budget) => budget.parentId === levelBudget?.id);
-  console.log('levelPath', levelPath, budgets);
   const budgetsAnalytics = await getBudgetsAnalytics(
     'annual',
     initialYear,
-    levelPathAnalytics,
-    getLevelOfBudget(levelPath)
+    levelPath,
+    getLevelOfBudget(levelPath),
+    budgets
   );
-
   return {
     props: {
       budgets,

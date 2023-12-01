@@ -1,5 +1,5 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import FinancesContainer from '@ses/containers/Finances/FinacesContainer';
+import FinancesContainer from '@ses/containers/Finances/FinancesContainer';
 import { fetchBudgets } from '@ses/containers/Finances/api/queries';
 import { getYearsRange, getBudgetsAnalytics } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
@@ -40,7 +40,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const budgets = (await fetchBudgets()).filter((budget) => budget.parentId === null);
 
-  const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, 'atlas', 2);
+  const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, 'atlas', 2, budgets);
 
   return {
     props: {

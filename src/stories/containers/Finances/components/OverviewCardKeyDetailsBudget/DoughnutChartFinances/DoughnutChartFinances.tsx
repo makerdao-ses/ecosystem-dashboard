@@ -5,29 +5,25 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React from 'react';
+import React, { useRef } from 'react';
 import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { EChartsOption } from 'echarts-for-react';
 
 interface Props {
   doughnutSeriesData: DoughnutSeries[];
+  className?: string;
 }
 
-const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
+const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className }) => {
+  const chartRef = useRef<EChartsOption | null>(null);
   const { isLight } = useThemeContext();
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
-  const {
-    center,
-    paddingLegend,
-    paddingRichTextDai,
-    paddingRichTextName,
-    paddingRichTextPercent,
-    paddingRichTextValue,
-    radius,
-  } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
+  const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
   const options = {
     color: doughnutSeriesData.map((data) => data.color),
@@ -92,81 +88,74 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData }) => {
         data: doughnutSeriesData,
       },
     ],
-    legend: {
-      orient: 'vertical',
-      align: 'left',
-      padding: paddingLegend,
-      left: 'right',
-
-      data: doughnutSeriesData.map((data) => data.name),
-      icon: 'circle',
-      itemWidth: 8,
-      itemHeight: 8,
-
-      itemGap: 16,
-      formatter: function (value: string) {
-        const index = doughnutSeriesData.findIndex((data) => data.name === value);
-        if (index !== -1) {
-          const data = doughnutSeriesData[index];
-          return `{name|${data.name}}\n{value|${data.value.toLocaleString('es-US') || '0'}}{dai|DAI}{percent|(${
-            data.percent
-          }%)}`;
-        }
-        return '';
-      },
-
-      textStyle: {
-        fontFamily: 'Inter, sans-serif',
-        fontStyle: 'normal',
-        fontWeight: 400,
-        color: isLight ? '#43435' : '#EDEFFF',
-        rich: {
-          name: {
-            fontSize: 12,
-            fontFamily: 'Inter, sans-serif',
-            padding: paddingRichTextName,
-
-            color: isLight ? '#43435' : '#EDEFFF',
-          },
-          value: {
-            fontSize: 14,
-            width: 'fit-content',
-            fontFamily: 'Inter, sans-serif',
-            color: isLight ? '#9FAFB9' : '#546978',
-            padding: paddingRichTextValue,
-          },
-          dai: {
-            fontSize: 14,
-            width: 'fit-content',
-            fontFamily: 'Inter, sans-serif',
-            color: isLight ? '#9FAFB9' : '#546978',
-            padding: paddingRichTextDai,
-          },
-          percent: {
-            fontSize: 14,
-            fontFamily: 'Inter, sans-serif',
-            color: isLight ? '#9FAFB9' : '#546978',
-            padding: paddingRichTextPercent,
-          },
-        },
-      },
-      label: {
-        show: false,
-        position: 'top',
-      },
-    },
   };
+
+  const onLegendItemHover = (legendName: string) => {
+    const dataIndex = doughnutSeriesData.findIndex((data) => data.name === legendName);
+
+    if (dataIndex !== -1) {
+      const chartInstance = chartRef.current.getEchartsInstance();
+
+      chartInstance.dispatchAction({
+        type: 'highlight',
+        name: legendName,
+        seriesIndex: 0,
+      });
+
+      chartInstance.dispatchAction({
+        type: 'showTip',
+        name: legendName,
+        seriesIndex: 0,
+      });
+    }
+  };
+
+  const onLegendItemLeave = (legendName: string) => {
+    const chartInstance = chartRef.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'downplay',
+      name: legendName,
+    });
+    chartInstance.dispatchAction({
+      type: 'hideTip',
+    });
+  };
+
   return (
-    <Container>
-      <ReactECharts
-        className="chart-container"
-        option={options}
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
-        opts={{ renderer: 'svg' }}
-      />
+    <Container className={className}>
+      <ContainerChart>
+        <ReactECharts
+          ref={chartRef}
+          className="chart-container"
+          option={options}
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+          opts={{ renderer: 'svg' }}
+        />
+      </ContainerChart>
+      <ContainerLegend>
+        {doughnutSeriesData.map((data, index: number) => (
+          <LegendItem
+            isLight={isLight}
+            key={index}
+            onClick={() => console.log('console', data.name)}
+            onMouseEnter={() => onLegendItemHover(data.name)}
+            onMouseLeave={() => onLegendItemLeave(data.name)}
+          >
+            <IconWithName>
+              <LegendIcon backgroundColor={data.color} />
+              <Name>{data.name}</Name>
+            </IconWithName>
+            <Value isLight={isLight}>
+              {data.value?.toLocaleString('es-US')}
+              <span>DAI</span>
+              <span>{`(${data.percent}%)`}</span>
+            </Value>
+          </LegendItem>
+        ))}
+      </ContainerLegend>
     </Container>
   );
 };
@@ -175,17 +164,21 @@ export default DoughnutChartFinances;
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  width: '100%',
+  gap: 64,
+});
+
+const ContainerChart = styled.div({
+  display: 'flex',
+  justifyContent: 'flex-start',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    width: 390,
-    marginLeft: 32,
+    width: 392,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 420,
     marginLeft: 0,
     marginRight: 22,
-    transition: 'all .4s ease',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     height: 210,
@@ -194,6 +187,56 @@ const Container = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 430,
+    width: 210,
   },
 });
+
+const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor }) => ({
+  backgroundColor,
+  width: 8,
+  height: 8,
+  borderRadius: '50%',
+}));
+const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  fontSize: 12,
+  fontFamily: 'Inter, sans-serif',
+  color: isLight ? '#43435' : '#EDEFFF',
+  cursor: 'pointer',
+}));
+const Value = styled.div<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#9FAFB9' : '#546978',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 14,
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
+  marginLeft: 16,
+  '& span': {
+    marginLeft: 4,
+  },
+}));
+
+const ContainerLegend = styled.div({
+  display: 'flex',
+  flex: 1,
+  flexDirection: 'column',
+  flexWrap: 'wrap',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+  gap: '8px',
+  maxWidth: '100%',
+  maxHeight: '230px',
+  overflow: 'hidden',
+});
+
+const IconWithName = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 6,
+  alignItems: 'center',
+});
+
+const Name = styled.div({});

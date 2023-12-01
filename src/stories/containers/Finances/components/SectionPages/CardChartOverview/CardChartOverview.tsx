@@ -134,8 +134,6 @@ const ContainerCardChart = styled.div({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-
-    flex: 1,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
@@ -195,6 +193,7 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
 
 const ContainerChat = styled.div({
   display: 'flex',
+  flex: 1,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 420,
@@ -202,16 +201,14 @@ const ContainerChat = styled.div({
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 440,
-    marginRight: 32,
+
     transition: 'all .3s ease',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 440,
-    marginRight: 166,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 430,
-    marginRight: 242,
+    marginLeft: 142,
   },
 });
 
