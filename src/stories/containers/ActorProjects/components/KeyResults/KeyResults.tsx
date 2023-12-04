@@ -13,7 +13,6 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface KeyResultsProps {
   keyResults: KeyResult[];
   viewMode: DeliverableViewMode;
-  isShownBelow: boolean;
   expanded: boolean;
   handleToggleExpand: () => void;
   maxKeyResultsOnRow: number;
@@ -22,7 +21,6 @@ interface KeyResultsProps {
 const KeyResults: React.FC<KeyResultsProps> = ({
   keyResults,
   viewMode,
-  isShownBelow,
   expanded,
   handleToggleExpand,
   maxKeyResultsOnRow,
@@ -33,15 +31,11 @@ const KeyResults: React.FC<KeyResultsProps> = ({
 
   const results = useMemo(() => {
     if (viewMode === 'compacted') {
-      if (isShownBelow) {
-        return expanded ? keyResults : keyResults.slice(0, keyResults.length > 4 ? 3 : 4);
-      }
-      // it is shown in the right side and it is > 1280px width
-      return keyResults.slice(0, 3);
+      return expanded ? keyResults : keyResults.slice(0, keyResults.length > 4 ? 3 : 4);
     }
 
     return keyResults;
-  }, [expanded, isShownBelow, keyResults, viewMode]);
+  }, [expanded, keyResults, viewMode]);
 
   const componentHeight = useMemo(() => {
     let height: number | 'auto' = 'auto';
@@ -50,45 +44,39 @@ const KeyResults: React.FC<KeyResultsProps> = ({
 
     // calculate the height of the key results based on which card
     // on the row has more items
-    if (isShownBelow) {
-      if (viewMode === 'detailed') {
-        if (maxKeyResultsOnRow > 0) {
-          const items = Math.min(6, maxKeyResultsOnRow);
-          // items * its height + gap between items
+    if (viewMode === 'detailed') {
+      if (maxKeyResultsOnRow > 0) {
+        const items = Math.min(6, maxKeyResultsOnRow);
+        // items * its height + gap between items
+        height = NON_VARIABLE_HEIGHTS + items * 18 + (items - 1) * 8;
+      }
+    } else {
+      // compacted:
+      if (!expanded) {
+        if (maxKeyResultsOnRow === 0) {
+          // all on the row are empty
+          height = 'auto';
+        } else if (maxKeyResultsOnRow <= 4) {
+          const items = Math.min(4, maxKeyResultsOnRow);
           height = NON_VARIABLE_HEIGHTS + items * 18 + (items - 1) * 8;
-        }
-      } else {
-        // compacted:
-        if (!expanded) {
-          if (maxKeyResultsOnRow === 0) {
-            // all on the row are empty
-            height = 'auto';
-          } else if (maxKeyResultsOnRow <= 4) {
-            const items = Math.min(4, maxKeyResultsOnRow);
-            height = NON_VARIABLE_HEIGHTS + items * 18 + (items - 1) * 8;
-          } else {
-            // more than 4 so we have at least one card with the expand button
-            height = NON_VARIABLE_HEIGHTS + 70 + 26;
-          }
+        } else {
+          // more than 4 so we have at least one card with the expand button
+          height = NON_VARIABLE_HEIGHTS + 70 + 26;
         }
       }
-    } else if (maxKeyResultsOnRow > 0) {
-      // is up 1280, they are at the right and at least one card has some items
-      const items = Math.min(3, maxKeyResultsOnRow);
-      height = NON_VARIABLE_HEIGHTS - 8 + items * 18 + (items - 1) * 8;
     }
 
     return height;
-  }, [expanded, isShownBelow, maxKeyResultsOnRow, viewMode]);
+  }, [expanded, maxKeyResultsOnRow, viewMode]);
 
   return (
     <ResultsContainer height={componentHeight}>
-      <Title isLight={isLight}>{isMobile && isEmpty ? 'No Key Results' : 'Key results'}</Title>
+      <Title isLight={isLight}>{isMobile && isEmpty ? 'No Key Results' : 'Key Results'}</Title>
       {((isMobile && !isEmpty) || !isMobile) && (
         <MaybeScrollableList scrollable={!isMobile && (viewMode === 'detailed' || expanded) && keyResults.length > 6}>
           {isEmpty ? (
             <NoKeyContainer>
-              <NoKeyResults>No Key results yet</NoKeyResults>
+              <NoKeyResults>No Key Results</NoKeyResults>
             </NoKeyContainer>
           ) : (
             <>
@@ -103,7 +91,7 @@ const KeyResults: React.FC<KeyResultsProps> = ({
           )}
         </MaybeScrollableList>
       )}
-      {isShownBelow && viewMode === 'compacted' && keyResults.length > 4 && (
+      {viewMode === 'compacted' && keyResults.length > 4 && (
         <ExpandableButtonItem expanded={expanded} handleToggleExpand={handleToggleExpand} />
       )}
     </ResultsContainer>
@@ -118,8 +106,7 @@ const ResultsContainer = styled.div<{
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  paddingTop: 17,
-  marginTop: 'auto',
+  paddingTop: 16,
   gap: 8,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
