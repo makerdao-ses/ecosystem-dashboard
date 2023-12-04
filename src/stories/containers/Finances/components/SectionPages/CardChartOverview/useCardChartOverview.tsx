@@ -63,37 +63,42 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
   const handleSelectFilter = (item: FilterDoughnut) => {
     setFilterSelected(item);
   };
-  const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics).map((item, index) => {
-    let value;
-    switch (filterSelected) {
-      case 'Actual':
-        value = budgetMetrics[item].actuals.value || 0;
-        break;
-      case 'Forecast':
-        value = budgetMetrics[item].forecast.value || 0;
-        break;
-      case 'Net Expenses On-chain':
-        value = budgetMetrics[item].paymentsOnChain.value || 0;
-        break;
-      case 'Net Expenses Off-chain':
-        value = budgetMetrics[item].paymentsOffChainIncluded.value || 0;
-        break;
-      case 'Budget':
-      default:
-        value = budgetMetrics[item].budget.value || 0;
-        break;
-    }
+  const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics)
+    .map((item, index) => {
+      let value;
+      switch (filterSelected) {
+        case 'Actual':
+          value = budgetMetrics[item].actuals.value || 0;
+          break;
+        case 'Forecast':
+          value = budgetMetrics[item].forecast.value || 0;
+          break;
+        case 'Net Expenses On-chain':
+          value = budgetMetrics[item].paymentsOnChain.value || 0;
+          break;
+        case 'Net Expenses Off-chain':
+          value = budgetMetrics[item].paymentsOffChainIncluded.value || 0;
+          break;
+        case 'Budget':
+        default:
+          value = budgetMetrics[item].budget.value || 0;
+          break;
+      }
 
-    return {
-      name: budgetMetrics[item].name || 'No name',
-      code: budgetMetrics[item].code || 'No code',
-      value,
-      actuals: budgetMetrics[item].actuals.value,
-      budgetCap: budgetMetrics[item].budget.value,
-      percent: Math.round(percentageRespectTo(value, metric.budget)),
-      color: value !== 0 ? (isLight ? colorsLight[index] : colorsDark[index]) : 'rgb(204, 204, 204)',
-    };
-  });
+      return {
+        name: budgetMetrics[item].name || 'No name',
+        code: budgetMetrics[item].code || 'No code',
+        value,
+        originalValue: value,
+        actuals: budgetMetrics[item].actuals.value,
+        budgetCap: budgetMetrics[item].budget.value,
+        percent: Math.round(percentageRespectTo(value, metric.budget)),
+        color: isLight ? colorsLight[index] : colorsDark[index],
+        isVisible: true,
+        originalColor: isLight ? colorsLight[index] : colorsDark[index],
+      };
+    })
+    .filter((item) => item.name !== 'Other' && item.name !== 'Example budget code');
 
   return {
     actuals: metric.actuals,
