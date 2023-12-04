@@ -23,6 +23,9 @@ export interface DoughnutSeries {
   budgetCap: number;
   color: string;
   code?: string;
+  isVisible?: boolean;
+  originalColor: string;
+  originalValue: number;
 }
 
 export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually' | 'Semi-annual';
