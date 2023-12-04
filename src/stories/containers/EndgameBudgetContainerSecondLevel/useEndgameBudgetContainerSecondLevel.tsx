@@ -31,7 +31,8 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
 
   const { data: budgetsAnalytics } = useSWRImmutable(
     ['analytics/annual', levelPath],
-    async () => getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath)) as Promise<BudgetAnalytic>
+    async () =>
+      getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
   );
 
   const cardsNavigationInformation = budgets.map((item, index) => {

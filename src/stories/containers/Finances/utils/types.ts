@@ -22,6 +22,7 @@ export interface DoughnutSeries {
   actuals: number;
   budgetCap: number;
   color: string;
+  code?: string;
 }
 
 export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually' | 'Semi-annual';
@@ -78,4 +79,5 @@ export interface MakerDAOExpenseMetricsLineChart {
 
 export interface BudgetMetricWithName extends BudgetMetric {
   name: string;
+  code?: string;
 }

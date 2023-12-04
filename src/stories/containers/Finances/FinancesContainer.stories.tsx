@@ -2,7 +2,7 @@ import { BudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/budgetAn
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
-import FinancesContainer from './FinacesContainer';
+import FinancesContainer from './FinancesContainer';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof FinancesContainer> = {

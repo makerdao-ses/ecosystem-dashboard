@@ -16,6 +16,7 @@ import type {
   BreakdownBudgetAnalytic,
   AnalyticGranularity,
 } from '@ses/core/models/interfaces/analytic';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export const calculateValuesByBreakpoint = (
@@ -25,7 +26,13 @@ export const calculateValuesByBreakpoint = (
   isDesktop1440: boolean
 ) => {
   const radius = isTable || isDesktop1024 ? [32, 64] : isDesktop1280 ? [50, 96] : isDesktop1440 ? [48, 96] : [48, 96];
-  const center = isTable ? [68, '50%'] : isDesktop1024 ? [94, '50%'] : isDesktop1280 ? ['24%', '48%'] : ['24%', '48%'];
+  const center = isTable
+    ? [68, '50%']
+    : isDesktop1024
+    ? ['50%', '50%']
+    : isDesktop1280
+    ? ['50%', '50%']
+    : ['50%', '50%'];
   const paddingLegend = isTable
     ? [20, 60, 0, 0]
     : isDesktop1024
@@ -980,35 +987,46 @@ export const newBudgetMetric = () =>
     paymentsOffChainIncluded: setMetric(0, ''),
   } as BudgetMetric);
 
-const getAnalytics = (analytics: Analytic) => {
+export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]) => {
   const budgetsAnalytics: BudgetAnalytic = {};
 
-  for (const row of analytics.series[0]?.rows) {
-    let codePath = row.dimensions[0].path; // change to a const when the line below is removed
+  budgets?.forEach((budget) => {
+    let found = false;
 
-    codePath = codePath === 'atlas/legacy' ? '86' : codePath === 'atlas/atlas' ? 'atlas/inmutable' : codePath; // remove this line when API data is fixed
+    analytics.series[0].rows.forEach((row) => {
+      if (budget.codePath === row.dimensions[0].path) {
+        found = true;
 
-    const budgetMetric = budgetsAnalytics[codePath] !== undefined ? budgetsAnalytics[codePath] : newBudgetMetric();
+        const budgetMetric = budgetsAnalytics[budget.codePath] || newBudgetMetric();
 
-    switch (row.metric) {
-      case 'Actuals':
-        budgetMetric.actuals = setMetric(row.value, row.unit);
-        break;
-      case 'Forecast':
-        budgetMetric.forecast = setMetric(row.value, row.unit);
-        break;
-      case 'Budget':
-        budgetMetric.budget = setMetric(row.value, row.unit);
-        break;
-      case 'PaymentsOnChain':
-        budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
-        break;
-      case 'PaymentsOffChainIncluded':
-        budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
-        break;
+        switch (row.metric) {
+          case 'Actuals':
+            budgetMetric.actuals = setMetric(row.value, row.unit);
+            break;
+          case 'Forecast':
+            budgetMetric.forecast = setMetric(row.value, row.unit);
+            break;
+          case 'Budget':
+            budgetMetric.budget = setMetric(row.value, row.unit);
+            break;
+          case 'PaymentsOnChain':
+            budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
+            break;
+          case 'PaymentsOffChainIncluded':
+            budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
+            break;
+          default:
+            break;
+        }
+
+        budgetsAnalytics[budget.codePath] = budgetMetric;
+      }
+    });
+    if (!found) {
+      budgetsAnalytics[budget.codePath] = newBudgetMetric();
     }
-    budgetsAnalytics[codePath] = budgetMetric;
-  }
+  });
+
   return budgetsAnalytics;
 };
 
@@ -1029,10 +1047,11 @@ export const getBudgetsAnalytics = async (
   granularity: AnalyticGranularity,
   year: string,
   select: string,
-  lod: number
+  lod: number,
+  budgets: Budget[]
 ) => {
   const analytics = await fetchAnalytics(granularity, year, select, lod);
-  return granularity === 'annual' ? getAnalytics(analytics) : getBreakdownAnalytics(analytics); // temporary
+  return granularity === 'annual' ? getAnalyticsAnnual(analytics, budgets) : getBreakdownAnalytics(analytics); // temporary
 };
 
 export const getLevelOfBudget = (levelPath: string) => {

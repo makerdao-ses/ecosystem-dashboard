@@ -110,6 +110,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               budgetCap={budgetCap}
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
+              isCoreThirdLevel={false}
             />
           </WrapperDesk>
           <WrapperMobile>

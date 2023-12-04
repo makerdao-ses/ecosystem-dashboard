@@ -137,6 +137,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               budgetCap={budgetCap}
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
+              isCoreThirdLevel={true}
             />
           </WrapperDesk>
           <WrapperMobile>
