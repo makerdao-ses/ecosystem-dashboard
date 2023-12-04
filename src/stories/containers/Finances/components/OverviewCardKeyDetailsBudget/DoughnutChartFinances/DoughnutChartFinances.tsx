@@ -218,15 +218,20 @@ const Container = styled.div({
   width: '100%',
   gap: 64,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 32,
+    gap: 22,
     justifyContent: 'center',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 32,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 64,
   },
 });
 
 const ContainerChart = styled.div({
   display: 'flex',
   justifyContent: 'flex-start',
-  border: '2px solid blue',
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 138,
   },
@@ -235,13 +240,13 @@ const ContainerChart = styled.div({
     width: 138,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    // height: 210,
     width: 210,
-    // width: 440,
-    // marginRight: 0,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 210,
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
     width: 210,
   },
 });
@@ -255,12 +260,15 @@ const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor })
 const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   display: 'flex',
   flexDirection: isCoreThirdLevel ? 'row' : 'column',
-  gap: isCoreThirdLevel ? 4 : 8,
+  gap: isCoreThirdLevel ? 4 : 4,
   fontSize: 12,
   fontFamily: 'Inter, sans-serif',
   color: isLight ? '#43435' : '#EDEFFF',
   cursor: 'pointer',
   minWidth: 190,
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 8,
+  },
 }));
 const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
@@ -269,8 +277,9 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  marginLeft: isCoreThirdLevel ? 4 : 16,
+  marginLeft: isCoreThirdLevel ? 4 : 14,
   '& span': {
+    display: 'inline-block',
     marginLeft: 4,
   },
 }));
@@ -281,11 +290,18 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThird
   flexWrap: 'wrap',
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
-  gap: isCoreThirdLevel ? 16 : 8,
+  gap: isCoreThirdLevel ? 16 : 14,
   maxWidth: '100%',
   maxHeight: '210px',
   overflow: 'hidden',
-  padding: isCoreThirdLevel ? 'unset' : '20px 0',
+  marginTop: 20,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 18,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 22,
+    gap: 16,
+  },
 }));
 
 const IconWithName = styled.div({

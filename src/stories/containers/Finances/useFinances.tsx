@@ -60,7 +60,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
         color: isLight ? colors[index] : colorsDark[index],
       };
     })
-    .filter((item) => item.title !== 'Other' && item.title !== 'Example budget code');
+    .filter((item) => item.title !== 'Example budget code' && item.title !== 'Other');
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
 
   const handleLoadMoreCards = () => {

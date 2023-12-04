@@ -198,25 +198,16 @@ const ContainerChat = styled.div({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
-  // border: '2px solid red',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    // width: 420,
-    // border: '2px solid red',
     marginLeft: 32,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    // width: 440,
-
     justifyContent: 'center',
-    // marginLeft: 60,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    // width: 440,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    // marginLeft: 142,
+    marginRight: 75,
   },
 });
 

@@ -26,6 +26,7 @@ const args = [
     actuals: 9120,
     budgetCap: 9120,
     prediction: 4436,
+    isCoreThirdLevel: false,
 
     doughnutSeriesData: [
       {
@@ -63,7 +64,7 @@ LightMode.parameters = {
     component: {
       768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24369:101411&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:331224&mode=dev',
         options: {
           componentStyle: {
             width: 704,
@@ -76,7 +77,7 @@ LightMode.parameters = {
       },
       1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:201488&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:329579&mode=dev',
         options: {
           componentStyle: {
             width: 960,
@@ -90,7 +91,7 @@ LightMode.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:213618&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:334248&mode=dev',
         options: {
           componentStyle: {
             width: 1184,
@@ -103,7 +104,7 @@ LightMode.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:199880&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:335777&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
@@ -116,7 +117,7 @@ LightMode.parameters = {
       },
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:204180&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:332693&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
