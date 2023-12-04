@@ -115,7 +115,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
           </LeftColumn>
           <RightColumn>
             <DeliverableTitleContainer>
-              <DeliverablesTitle isLight={isLight}>Highlighted Deliverables</DeliverablesTitle>
+              <DeliverablesTitle isLight={isLight}>
+                {showAllDeliverables ? 'All' : 'Highlighted'} Deliverables
+              </DeliverablesTitle>
               <DeliverableViewModeToggle
                 deliverableViewMode={deliverableViewMode}
                 onChangeDeliverableViewMode={handleChangeDeliverableViewMode}
@@ -130,7 +132,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
                       key={deliverable.id}
                       deliverable={deliverable}
                       viewMode={deliverableViewMode}
-                      isShownBelow={showDeliverablesBelow}
                       maxKeyResultsOnRow={row.map((d) => d.keyResults.length).reduce((a, b) => Math.max(a, b), 0)}
                     />
                   ))

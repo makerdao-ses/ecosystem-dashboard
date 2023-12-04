@@ -10,6 +10,7 @@ import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePer
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
 import KeyResults from '../KeyResults/KeyResults';
+import MilestoneLink from '../MilestoneLink/MilestoneLink';
 import OwnerTooltipContent from '../OwnerTooltipContent/OwnerTooltipContent';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
 import type { Deliverable } from '@ses/core/models/interfaces/projects';
@@ -18,16 +19,10 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface DeliverableCardProps {
   deliverable: Deliverable;
   viewMode: DeliverableViewMode;
-  isShownBelow: boolean;
   maxKeyResultsOnRow: number;
 }
 
-const DeliverableCard: React.FC<DeliverableCardProps> = ({
-  deliverable,
-  viewMode,
-  isShownBelow,
-  maxKeyResultsOnRow,
-}) => {
+const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable, viewMode, maxKeyResultsOnRow }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -58,19 +53,21 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
           ))}
       </ProgressContainer>
 
-      {viewMode === 'detailed' && (
+      {(viewMode === 'detailed' || expanded) && (
         <Description isLight={isLight}>
           Purely financial view of SPFs with generalized financial categories applicable across all budget categories.
         </Description>
       )}
-      <KeyResults
-        keyResults={deliverable.keyResults}
-        viewMode={viewMode}
-        isShownBelow={isShownBelow}
-        expanded={expanded}
-        handleToggleExpand={handleToggleExpand}
-        maxKeyResultsOnRow={maxKeyResultsOnRow}
-      />
+      <KeyBox>
+        <MilestoneLink />
+        <KeyResults
+          keyResults={deliverable.keyResults}
+          viewMode={viewMode}
+          expanded={expanded}
+          handleToggleExpand={handleToggleExpand}
+          maxKeyResultsOnRow={maxKeyResultsOnRow}
+        />
+      </KeyBox>
     </Card>
   );
 };
@@ -153,3 +150,11 @@ const Description = styled.p<WithIsLight>(({ isLight }) => ({
     lineHeight: '22px',
   },
 }));
+
+const KeyBox = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  paddingTop: 9,
+  marginTop: 'auto',
+});
