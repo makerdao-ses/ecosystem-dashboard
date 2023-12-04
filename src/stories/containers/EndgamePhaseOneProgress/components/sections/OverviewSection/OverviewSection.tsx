@@ -29,4 +29,8 @@ const Section = styled.section({
 
 const TimelineContainer = styled.div({
   marginTop: 18,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: 40,
+  },
 });

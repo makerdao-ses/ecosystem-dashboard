@@ -37,7 +37,7 @@ const MilestoneCard: React.FC = () => {
           </ProgressBox>
         </XBox>
 
-        <ViewButton label="View" />
+        <ViewButton isLight={isLight} label="View" />
       </BottomBox>
     </Card>
   );
@@ -201,9 +201,10 @@ const Label = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ViewButton = styled(CustomButton)({
+const ViewButton = styled(CustomButton)<WithIsLight>(({ isLight }) => ({
   width: '100%',
   padding: '8px 23px',
+  borderColor: isLight ? '#D4D9E1' : '#405361',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '2px 23px',
@@ -212,7 +213,7 @@ const ViewButton = styled(CustomButton)({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '7px 23px',
   },
-});
+}));
 
 const ProgressBarBox = styled.div({
   display: 'flex',

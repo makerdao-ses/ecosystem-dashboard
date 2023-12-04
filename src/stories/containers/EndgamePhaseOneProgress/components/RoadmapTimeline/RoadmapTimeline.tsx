@@ -138,6 +138,10 @@ const Up = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight, s
   borderBottom: `2.5px solid ${isLight ? '#B6EDE7' : '#06554C'}`,
   ...(shouldAddPadding && { paddingRight: 'calc(12.5% - 12px)' }),
 
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 56,
+  },
+
   '& > div': {
     paddingBottom: 32,
 
@@ -157,6 +161,10 @@ const Down = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight,
   gap: 24,
   borderTop: `2.5px solid ${isLight ? '#B6EDE7' : '#06554C'}`,
   ...(shouldAddPadding && { paddingLeft: 'calc(12.5% - 12px)' }),
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 56,
+  },
 
   '& > div': {
     paddingTop: 32,
@@ -201,6 +209,6 @@ const CardWrapper = styled.div<WithIsLight>(({ isLight }) => ({
     height: 12,
     borderRadius: '50%',
     border: `2px solid ${isLight ? '#1AAB9B' : '#06554C'}`,
-    background: '#fff',
+    background: isLight ? '#fff' : '#10191F',
   },
 }));
