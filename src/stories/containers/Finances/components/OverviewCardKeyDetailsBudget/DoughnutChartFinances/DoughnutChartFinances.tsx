@@ -110,7 +110,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
         return {
           ...item,
           isVisible,
-          value: isVisible ? item.originalValue : -1,
+          value: isVisible ? item.originalValue || 0 : -1,
         };
       }
       return item;
@@ -122,12 +122,11 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
           type: 'hideTip',
         });
         const isVisible = !item.isVisible;
-        console.log('item.value', item.originalValue, item.value);
         return {
           ...item,
-          color: isVisible ? item?.originalColor : 'rgb(204, 204, 204)',
+          color: isVisible ? item?.originalColor || 'red' : 'rgb(204, 204, 204)',
           isVisible,
-          value: item.originalValue,
+          value: item.originalValue || 0,
         };
       }
       return item;
