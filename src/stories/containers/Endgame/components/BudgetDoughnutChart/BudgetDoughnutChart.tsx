@@ -7,7 +7,7 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React from 'react';
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 
 interface Props {
   doughnutSeriesData: DoughnutSeries[];

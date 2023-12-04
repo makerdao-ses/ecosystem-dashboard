@@ -68,14 +68,13 @@ const Container = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isL
     flexDirection: 'column',
     padding: '16px 16px 24px 32px',
     borderRadius: 6,
-
+    border: isLight ? '1px solid rgba(212, 217, 225, 0.25)' : '#31424E',
     background: isLight ? '#FFF' : '#1E2C37',
     boxShadow: isLight
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
       : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 
     height: 223,
-
     minWidth: 704,
   },
 
@@ -199,26 +198,16 @@ const ContainerChat = styled.div({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
-  // border: '2px solid red',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    // width: 420,
-    // border: '2px solid red',
     marginLeft: 32,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    // width: 440,
-
     justifyContent: 'center',
-    // marginLeft: 60,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    // width: 440,
     marginRight: 75,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    // marginLeft: 142,
   },
 });
 

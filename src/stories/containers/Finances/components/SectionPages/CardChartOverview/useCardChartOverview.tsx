@@ -89,13 +89,16 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
         name: budgetMetrics[item].name || 'No name',
         code: budgetMetrics[item].code || 'No code',
         value,
+        originalValue: value,
         actuals: budgetMetrics[item].actuals.value,
         budgetCap: budgetMetrics[item].budget.value,
         percent: Math.round(percentageRespectTo(value, metric.budget)),
-        color: value !== 0 ? (isLight ? colorsLight[index] : colorsDark[index]) : 'rgb(204, 204, 204)',
+        color: isLight ? colorsLight[index] : colorsDark[index],
+        isVisible: true,
+        originalColor: isLight ? colorsLight[index] : colorsDark[index],
       };
     })
-    .filter((item) => item.name !== 'Example budget code' && item.name !== 'Other');
+    .filter((item) => item.name !== 'Other' && item.name !== 'Example budget code');
 
   return {
     actuals: metric.actuals,

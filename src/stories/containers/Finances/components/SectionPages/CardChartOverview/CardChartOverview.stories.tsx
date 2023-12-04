@@ -1,6 +1,6 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardChartOverview from './CardChartOverview';
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 

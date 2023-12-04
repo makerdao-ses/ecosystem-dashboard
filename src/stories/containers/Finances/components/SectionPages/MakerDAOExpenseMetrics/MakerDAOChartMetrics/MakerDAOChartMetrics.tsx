@@ -416,7 +416,7 @@ const LegendContainer = styled.div({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: -20,
     gap: 40,
-    minWidth: 960,
+    minWidth: 940,
     bottom: -12,
     justifyContent: 'start',
   },

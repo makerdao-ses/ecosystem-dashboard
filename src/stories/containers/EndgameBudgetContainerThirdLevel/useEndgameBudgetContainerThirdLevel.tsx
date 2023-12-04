@@ -21,6 +21,7 @@ import {
 } from '../Finances/utils/utils';
 import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
+import type { SwiperProps } from 'swiper/react';
 
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -40,11 +41,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const firstPath = 'atlas' + '/' + router.query.firstPath?.toString();
 
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const isDesk1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const isDesk1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
-  const isDesk1920 = useMediaQuery(lightTheme.breakpoints.up('desktop_1920'));
 
   // All Logic for the Expense Report
   const { headersExpenseReport, reportExpenseItems, handleLoadMore, showSome, onSortClick } =
@@ -148,23 +144,40 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
       url: `${siteRoutes.newFinancesOverview}`,
     },
   ];
-  const calculateItemsPerPage = () => {
-    if (isDesk1920) {
-      return 8;
-    } else if (isDesk1440) {
-      return 6;
-    } else if (isDesk1280) {
-      return 5;
-    } else if (isDesk1024) {
-      return 4;
-    } else if (isTable) {
-      return 3;
-    } else if (isMobile) {
-      return 2;
-    } else {
-      return 6;
-    }
-  };
+
+  // Options of Swiper
+  const swiperOptions = {
+    controller: {
+      inverse: true,
+    },
+    pagination: {
+      type: 'bullets',
+      enabled: true,
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 4,
+        spaceBetween: 24,
+      },
+      1024: {
+        slidesPerView: 6,
+        spaceBetween: 24,
+      },
+      1280: {
+        slidesPerView: 8,
+        spaceBetween: 16,
+      },
+      1440: {
+        slidesPerView: 8,
+        spaceBetween: 16,
+      },
+      1920: {
+        slidesPerView: 8,
+        spaceBetween: 16,
+      },
+    },
+  } as SwiperProps;
 
   // All Logic for the table
   const {
@@ -206,7 +219,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     filtersThirdLevel,
     selectedThirdLevel,
     handleSelectFilterThirdLevel,
-    calculateItemsPerPage,
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
@@ -224,5 +236,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     allowSelectAll,
     popupContainerHeight,
     periodicSelectionFilter,
+    swiperOptions,
   };
 };

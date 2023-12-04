@@ -20,7 +20,7 @@ import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainer
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-import type { SwiperProps, SwiperRef } from 'swiper/react';
+import type { SwiperRef } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
@@ -69,7 +69,6 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     allowSelectAll,
     maxItems,
     minItems,
-    calculateItemsPerPage,
     popupContainerHeight,
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
@@ -77,42 +76,10 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
+    swiperOptions,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
-  const totalItems = cardsToShow.length;
-  const itemsPerPage = calculateItemsPerPage();
-  const totalShow = Math.ceil(totalItems / itemsPerPage);
-  console.log('totalShow', totalItems, itemsPerPage, totalShow);
-  // Options of Swiper
-  const swiperOptions = {
-    pagination: {
-      type: 'bullets',
-      enabled: true,
-      clickable: true,
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 4,
-        spaceBetween: 16,
-      },
-      1024: {
-        slidesPerView: 4,
-        spaceBetween: 2,
-      },
-      1280: {
-        slidesPerView: 5,
-        spaceBetween: 2,
-      },
-      1440: {
-        slidesPerView: 6,
-        spaceBetween: 2,
-      },
-      1920: {
-        slidesPerView: 8,
-        spaceBetween: 2,
-      },
-    },
-  } as SwiperProps;
+
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -277,6 +244,7 @@ const SwiperWrapper = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 32,
+    height: 340,
     display: 'block',
   },
 
@@ -289,10 +257,12 @@ const SwiperWrapper = styled.div({
       maxWidth: 150,
     },
   },
+  '& .swiper-wrapper': {
+    height: 230,
+  },
 
-  '& .swiper-pagination': {
-    marginTop: 24,
-    height: 16,
+  '& .swiper-pagination-horizontal': {
+    marginTop: 59,
   },
   '& .swiper-pagination-bullet': {
     width: 16,

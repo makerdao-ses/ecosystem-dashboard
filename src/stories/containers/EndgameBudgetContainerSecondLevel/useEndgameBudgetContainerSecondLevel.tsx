@@ -3,7 +3,8 @@ import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSWRConfig } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
@@ -26,6 +27,7 @@ import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialYear: string, allBudgets: Budget[]) => {
   const { isLight } = useThemeContext();
+  const { mutate } = useSWRConfig();
   const router = useRouter();
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
 
@@ -105,6 +107,9 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     );
   };
 
+  useEffect(() => {
+    mutate('analytics/annual');
+  }, [mutate, year]);
   const numColors = budgets.length;
   const colorsDark = generateColorPalette(180, numColors, existingColorsDark);
 

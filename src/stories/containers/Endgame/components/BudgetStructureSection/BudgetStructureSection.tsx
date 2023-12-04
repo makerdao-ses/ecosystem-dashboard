@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import BudgetDoughnutChart from '../BudgetDoughnutChart/BudgetDoughnutChart';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TotalBudgetContent from '../TotalBudgetContent/TotalBudgetContent';
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const BudgetStructureSection: React.FC = () => {
