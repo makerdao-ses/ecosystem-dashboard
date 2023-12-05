@@ -8,7 +8,6 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
-import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from './components/SectionPages/BreakdownTable';
 import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
@@ -115,9 +114,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             />
           </WrapperDesk>
-          <WrapperMobile>
-            <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
-          </WrapperMobile>
           <CardsNavigation
             cardsNavigationInformation={cardsToShow}
             handleLoadMoreCards={handleLoadMoreCards}
@@ -220,15 +216,6 @@ const WrapperDesk = styled.div({
     display: 'flex',
     flexDirection: 'column',
     gap: 64,
-  },
-});
-
-const WrapperMobile = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'none',
   },
 });
 
