@@ -8,6 +8,7 @@ import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
+import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import {
   existingColors,
@@ -90,6 +91,9 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const colorsDark = generateColorPalette(180, numColors, existingColorsDark);
   const breadcrumbs = [title];
 
+  // Show total of all the metric of actual budget
+  const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
+
   const cardsNavigationInformation = budgets.map((item, index) => {
     const budgetMetric =
       budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
@@ -101,8 +105,8 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-      valueDai: budgetMetric.actuals.value,
-      totalDai: budgetMetric.budget.value,
+      valueDai: budgetMetric.budget.value,
+      totalDai: allMetrics.budget,
       code: item.code,
       color: isLight ? colorsLight[index] : colorsDark[index],
     };
