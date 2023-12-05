@@ -74,6 +74,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     newNetExpensesOnChain,
     isDisabled,
     handleResetFilterBreakDownChart,
+    cutTextForBigNumberLegend,
   } = useFinances(budgets, initialYear);
 
   return (
@@ -111,6 +112,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={false}
+              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             />
           </WrapperDesk>
           <WrapperMobile>

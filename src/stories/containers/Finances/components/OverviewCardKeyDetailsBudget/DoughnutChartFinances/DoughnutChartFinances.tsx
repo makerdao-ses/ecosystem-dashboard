@@ -14,9 +14,15 @@ interface Props {
   doughnutSeriesData: DoughnutSeries[];
   className?: string;
   isCoreThirdLevel?: boolean;
+  cutTextForBigNumberLegend: boolean;
 }
 
-const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className, isCoreThirdLevel = true }) => {
+const DoughnutChartFinances: React.FC<Props> = ({
+  doughnutSeriesData,
+  className,
+  isCoreThirdLevel = true,
+  cutTextForBigNumberLegend,
+}) => {
   const chartRef = useRef<EChartsOption | null>(null);
   const { isLight } = useThemeContext();
   const [visibleSeries, setVisibleSeries] = useState<DoughnutSeries[]>(doughnutSeriesData);
@@ -32,7 +38,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
-
+  console.log('minWidth: 190,', cutTextForBigNumberLegend);
   const options = {
     color: visibleSeries.map((data) => data.color),
     tooltip: {
@@ -182,9 +188,10 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
           opts={{ renderer: 'svg' }}
         />
       </ContainerChart>
-      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel}>
+      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} cutTextForBigNumberLegend={cutTextForBigNumberLegend}>
         {legends.map((data, index: number) => (
           <LegendItem
+            cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             isCoreThirdLevel={isCoreThirdLevel}
             isLight={isLight}
             key={index}
@@ -200,6 +207,7 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
             </IconWithName>
             <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
               {data.value?.toLocaleString('es-US')}
+
               <span>DAI</span>
               <span>{`(${data.percent}%)`}</span>
             </Value>
@@ -215,6 +223,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
+  // flex: 1,
   gap: 64,
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 22,
@@ -252,23 +261,31 @@ const ContainerChart = styled.div({
 
 const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor }) => ({
   backgroundColor,
-  width: 8,
-  height: 8,
+  minWidth: 8,
+  maxWidth: 8,
+  maxHeight: 8,
+  minHeight: 8,
   borderRadius: '50%',
 }));
-const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  display: 'flex',
-  flexDirection: isCoreThirdLevel ? 'row' : 'column',
-  gap: isCoreThirdLevel ? 4 : 4,
-  fontSize: 12,
-  fontFamily: 'Inter, sans-serif',
-  color: isLight ? '#43435' : '#EDEFFF',
-  cursor: 'pointer',
-  minWidth: 190,
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 8,
-  },
-}));
+const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; cutTextForBigNumberLegend: boolean }>(
+  ({ isLight, isCoreThirdLevel, cutTextForBigNumberLegend }) => ({
+    display: 'flex',
+    flexDirection: isCoreThirdLevel ? 'row' : 'column',
+    gap: isCoreThirdLevel ? 4 : 4,
+    fontSize: 12,
+    fontFamily: 'Inter, sans-serif',
+    color: isLight ? '#43435' : '#EDEFFF',
+    cursor: 'pointer',
+    minWidth: 190,
+    ...(cutTextForBigNumberLegend && {
+      width: !isCoreThirdLevel ? 130 : 190,
+      minWidth: 0,
+    }),
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      gap: 8,
+    },
+  })
+);
 const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   fontFamily: 'Inter, sans-serif',
@@ -276,32 +293,45 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
   marginLeft: isCoreThirdLevel ? 4 : 14,
+  ...(isCoreThirdLevel && {
+    whiteSpace: 'revert',
+    overflow: 'revert',
+    textOverflow: 'revert',
+  }),
   '& span': {
     display: 'inline-block',
     marginLeft: 4,
   },
 }));
 
-const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  flexWrap: 'wrap',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-start',
-  gap: isCoreThirdLevel ? 16 : 14,
-  maxWidth: '100%',
-  maxHeight: '210px',
-  overflow: 'hidden',
-  marginTop: 20,
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: 18,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 22,
-    gap: 16,
-  },
-}));
+const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; cutTextForBigNumberLegend: boolean }>(
+  ({ isCoreThirdLevel, cutTextForBigNumberLegend }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    gap: isCoreThirdLevel ? 16 : 14,
+    maxWidth: '100%',
+    maxHeight: '210px',
+    overflow: 'hidden',
+    marginTop: 20,
+    ...(cutTextForBigNumberLegend && {
+      flex: 1,
+    }),
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      marginTop: 18,
+    },
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      marginTop: 22,
+      gap: 16,
+    },
+  })
+);
 
 const IconWithName = styled.div({
   display: 'flex',
@@ -317,4 +347,7 @@ const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ is
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 }));

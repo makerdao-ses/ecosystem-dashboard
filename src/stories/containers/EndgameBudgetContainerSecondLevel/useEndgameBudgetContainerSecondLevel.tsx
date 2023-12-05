@@ -61,8 +61,16 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const cardsToShow = loadMoreCards ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // Hooks for Doughnut Series
-  const { filters, filterSelected, handleSelectFilter, doughnutSeriesData, actuals, budgetCap, prediction } =
-    useCardChartOverview(budgets, budgetsAnalytics);
+  const {
+    filters,
+    filterSelected,
+    handleSelectFilter,
+    doughnutSeriesData,
+    actuals,
+    budgetCap,
+    prediction,
+    cutTextForBigNumberLegend,
+  } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart();
@@ -211,5 +219,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
+    cutTextForBigNumberLegend,
   };
 };

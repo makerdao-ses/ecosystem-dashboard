@@ -55,6 +55,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     actuals,
     budgetCap,
     prediction,
+    cutTextForBigNumberLegend,
   } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
@@ -237,5 +238,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     popupContainerHeight,
     periodicSelectionFilter,
     swiperOptions,
+    cutTextForBigNumberLegend,
   };
 };
