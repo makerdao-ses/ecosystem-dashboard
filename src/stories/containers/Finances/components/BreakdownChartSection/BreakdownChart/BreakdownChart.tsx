@@ -143,9 +143,12 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>
         )}
-        <LegendContainer>
-          {series.map((element) => (
-            <LegendItem isLight={isLight} onMouseEnter={() => null} onMouseLeave={() => null} onClick={() => null}>
+      </ChartContainer>
+      <LegendContainer>
+        {series.map((element) => (
+          <LegendItem isLight={isLight} onMouseEnter={() => null} onMouseLeave={() => null} onClick={() => null}>
+            <div>
+              {' '}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={isMobile ? 13 : 16}
@@ -156,11 +159,11 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
                 <circle cx="6.5" cy="6.5" r="5.5" stroke={element.itemStyle.color} />
                 <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.color} />
               </svg>
-              {element.name}
-            </LegendItem>
-          ))}
-        </LegendContainer>
-      </ChartContainer>
+            </div>
+            {element.name}
+          </LegendItem>
+        ))}
+      </LegendContainer>
     </Wrapper>
   );
 };
@@ -179,7 +182,7 @@ const ChartContainer = styled.div({
   width: '100%',
 
   maxWidth: 343,
-  height: 347,
+  height: 260,
   marginLeft: 'auto',
   marginRight: 'auto',
   marginTop: 24,
@@ -205,7 +208,7 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 
   return {
     position: 'absolute',
-    bottom: 107,
+    bottom: 10,
     left: 40,
     right: 5,
     height: 11,
@@ -238,26 +241,20 @@ const LegendContainer = styled.div({
   paddingLeft: 8,
   paddingRight: 6,
   gap: 22,
-  position: 'absolute',
-  bottom: 30,
   rowGap: 10,
+  marginTop: 10,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 32,
     marginBottom: 2,
-    paddingLeft: 'revert',
-    paddingRight: 'revert',
-    flexWrap: 'revert',
-    position: 'revert',
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 60,
-  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {},
 });
 
 const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
@@ -265,6 +262,7 @@ const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   position: 'relative',
   display: 'flex',
+  flexDirection: 'row',
   alignItems: 'center',
   gap: 6,
   cursor: 'pointer',
