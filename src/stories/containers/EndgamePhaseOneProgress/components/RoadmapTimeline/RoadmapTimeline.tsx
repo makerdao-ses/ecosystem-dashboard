@@ -55,15 +55,14 @@ const RoadmapTimeline = () => {
               </CardWrapper>
             ))}
           </Up>
-          {milestones.length > 4 && (
-            <Down shouldAddPadding={shouldAddPadding} isLight={isLight}>
-              {down.map((_, i) => (
+          <Down shouldAddPadding={shouldAddPadding} isLight={isLight}>
+            {milestones.length > 4 &&
+              down.map((_, i) => (
                 <CardWrapper key={i} isLight={isLight}>
                   <MilestoneCard />
                 </CardWrapper>
               ))}
-            </Down>
-          )}
+          </Down>
         </DesktopTimeline>
       )}
     </div>

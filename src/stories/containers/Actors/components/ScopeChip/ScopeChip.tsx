@@ -3,13 +3,13 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { getScopeColor } from '@ses/core/utils/colors';
 import React from 'react';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
-
 import type { CSSProperties } from 'react';
 
 interface ScopeChipProps {
   status: ActorScopeEnum;
   style?: CSSProperties;
   code: string;
+  codeOnly?: boolean;
 }
 
 const ScopeChip = (props: ScopeChipProps) => {
@@ -21,11 +21,15 @@ const ScopeChip = (props: ScopeChipProps) => {
       style={{
         color: isLight ? colorsChip.color : colorsChip.darkColor,
         background: isLight ? colorsChip.background : colorsChip.darkBackground,
+        ...(props.codeOnly && {
+          width: 46,
+          justifyContent: 'center',
+        }),
         ...props.style,
       }}
     >
       <Code>{props.code}</Code>
-      <Scope>{props.status}</Scope>
+      {!props.codeOnly && <Scope>{props.status}</Scope>}
     </Chip>
   );
 };
