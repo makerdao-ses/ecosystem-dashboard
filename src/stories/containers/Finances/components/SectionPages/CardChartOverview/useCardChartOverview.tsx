@@ -99,7 +99,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
       };
     })
     .filter((item) => item.name !== 'Other' && item.name !== 'Example budget code');
-
+  const cutTextForBigNumberLegend = doughnutSeriesData.length > 4;
   return {
     actuals: metric.actuals,
     prediction: metric.forecast,
@@ -109,5 +109,6 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
     handleSelectFilter,
     filters,
     doughnutSeriesData,
+    cutTextForBigNumberLegend,
   };
 };

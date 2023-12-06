@@ -9,9 +9,10 @@ import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
+import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import {
-  colors,
+  existingColors,
   existingColorsDark,
   generateColorPalette,
   getBudgetsAnalytics,
@@ -37,6 +38,17 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
       getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
   );
 
+  const colorsLight = generateColorPalette(
+    existingColors.length,
+    budgets.length - existingColors.length,
+    existingColors
+  );
+
+  const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
+
+  // Show total of all the metric of actual budget
+  const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
+
   const cardsNavigationInformation = budgets.map((item, index) => {
     const budgetMetric =
       budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
@@ -48,9 +60,9 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-      valueDai: budgetMetric.actuals.value,
-      totalDai: budgetMetric.budget.value,
-      color: isLight ? colors[index] : colorsDark[index],
+      valueDai: budgetMetric.budget.value,
+      totalDai: allMetrics.budget,
+      color: isLight ? colorsLight[index] : colorsDark[index],
     };
   });
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
@@ -61,8 +73,16 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const cardsToShow = loadMoreCards ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // Hooks for Doughnut Series
-  const { filters, filterSelected, handleSelectFilter, doughnutSeriesData, actuals, budgetCap, prediction } =
-    useCardChartOverview(budgets, budgetsAnalytics);
+  const {
+    filters,
+    filterSelected,
+    handleSelectFilter,
+    doughnutSeriesData,
+    actuals,
+    budgetCap,
+    prediction,
+    cutTextForBigNumberLegend,
+  } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart();
@@ -110,8 +130,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   useEffect(() => {
     mutate('analytics/annual');
   }, [mutate, year]);
-  const numColors = budgets.length;
-  const colorsDark = generateColorPalette(180, numColors, existingColorsDark);
 
   const breadcrumbs = [title];
 
@@ -211,5 +229,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
+    cutTextForBigNumberLegend,
   };
 };

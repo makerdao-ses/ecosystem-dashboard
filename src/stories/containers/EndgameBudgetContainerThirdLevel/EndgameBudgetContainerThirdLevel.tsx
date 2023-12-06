@@ -11,6 +11,7 @@ import BreakdownChartSection from '../Finances/components/BreakdownChartSection/
 import CardCoreUnitThirdLevelBudget from '../Finances/components/CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';
 import CardNavigationMobile from '../Finances/components/CardNavigationMobile/CardNavigationMobile';
 import ConditionalWrapper from '../Finances/components/ConditionalWrapper/ConditionalWrapper';
+import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
@@ -77,6 +78,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     isDisabled,
     handleResetFilterBreakDownChart,
     swiperOptions,
+    cutTextForBigNumberLegend,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
@@ -105,8 +107,12 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={true}
+              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             />
           </WrapperDesk>
+          <WrapperMobile>
+            <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+          </WrapperMobile>
           <WrapperMobile>
             {cardsToShow.map((card: NavigationCard, index: number) => (
               <CardNavigationMobile
