@@ -1,9 +1,8 @@
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSWRConfig } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
@@ -20,12 +19,13 @@ import {
   removePrefix,
 } from '../Finances/utils/utils';
 import type { Metric, MetricsWithAmount } from '../Finances/utils/types';
-import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialYear: string, allBudgets: Budget[]) => {
   const { isLight } = useThemeContext();
+  const { mutate } = useSWRConfig();
   const router = useRouter();
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
 
@@ -33,6 +33,28 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     ['analytics/annual', levelPath],
     async () =>
       getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
+  );
+  const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
+    ['analytics/quarterly', levelPath],
+    async () =>
+      getBudgetsAnalytics(
+        'quarterly',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
+  );
+  const { data: budgetsAnalyticsMonthly } = useSWRImmutable(
+    ['analytics/monthly', levelPath],
+    async () =>
+      getBudgetsAnalytics(
+        'monthly',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
   );
 
   const cardsNavigationInformation = budgets.map((item, index) => {
@@ -63,7 +85,12 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
-  const breakdownChartSectionData = useBreakdownChart();
+  const breakdownChartSectionData = useBreakdownChart(
+    budgets,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalytics
+  );
 
   // Hooks Logic of Table Second Level
   const {
@@ -88,7 +115,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
 
   const [year, setYear] = useState(initialYear);
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const icon = levelBudget?.image || '';
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
@@ -167,13 +193,18 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     return metricValues;
   }, [activeMetrics, mapMetricValuesTotal, periodFilter]);
 
+  useEffect(() => {
+    mutate(['analytics/annual', levelPath]);
+    mutate(['analytics/quarterly', levelPath]);
+    mutate(['analytics/monthly', levelPath]);
+  }, [levelPath, mutate, year]);
+
   return {
     breadcrumbs,
     trailingAddressDesk,
     handleChangeYearsEndgameAtlasBudget,
     year,
     trailingAddress,
-    isMobile,
     title,
     icon,
     filters,

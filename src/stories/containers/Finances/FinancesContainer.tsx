@@ -74,6 +74,14 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     newNetExpensesOnChain,
     isDisabled,
     handleResetFilterBreakDownChart,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    series,
+    refBreakDownChart,
+    isMobile,
+    isTablet,
+    upTable,
+    isDesktop1024,
   } = useFinances(budgets, initialYear);
 
   return (
@@ -132,6 +140,15 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
             onGranularityChange={handleBreakdownGranularityChange}
             isDisabled={isDisabled}
             handleResetFilter={handleResetFilterBreakDownChart}
+            budgets={budgets}
+            budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
+            budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
+            series={series}
+            refBreakDownChart={refBreakDownChart}
+            isMobile={isMobile}
+            isTablet={isTablet}
+            isDesktop1024={isDesktop1024}
+            upTable={upTable}
           />
         )}
       </Container>

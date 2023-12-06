@@ -77,12 +77,21 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    isMobile,
+    isDesktop1024,
+    series,
+    refBreakDownChart,
+    isTablet,
+    upTable,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
   const totalItems = cardsToShow.length;
   const itemsPerPage = calculateItemsPerPage();
   const totalShow = Math.ceil(totalItems / itemsPerPage);
   console.log('totalShow', totalItems, itemsPerPage, totalShow);
+  console.log('first', series);
   // Options of Swiper
   const swiperOptions = {
     pagination: {
@@ -192,6 +201,15 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
             onGranularityChange={handleBreakdownGranularityChange}
             isDisabled={isDisabled}
             handleResetFilter={handleResetFilterBreakDownChart}
+            budgets={budgets}
+            budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
+            budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
+            series={series}
+            refBreakDownChart={refBreakDownChart}
+            isMobile={isMobile}
+            isTablet={isTablet}
+            isDesktop1024={isDesktop1024}
+            upTable={upTable}
           />
         </ContainerSections>
         <ConditionalWrapper period={periodFilter}>

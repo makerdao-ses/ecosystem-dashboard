@@ -3,7 +3,8 @@ import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSWRConfig } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from '../Finances/components/SectionPages/BreakdownTable/useBreakdownTable';
@@ -19,7 +20,7 @@ import {
   prefixToRemove,
   removePrefix,
 } from '../Finances/utils/utils';
-import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 import 'swiper/css/navigation';
@@ -31,10 +32,35 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const router = useRouter();
   const levelPath = 'atlas/' + router.query.firstPath?.toString() + '/' + router.query.secondPath?.toString();
   const { isLight } = useThemeContext();
+  const { mutate } = useSWRConfig();
+
   const { data: budgetsAnalytics } = useSWRImmutable(
     ['analytics/annual', levelPath],
     async () =>
       getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
+  );
+
+  const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
+    ['analytics/quarterly', levelPath],
+    async () =>
+      getBudgetsAnalytics(
+        'quarterly',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
+  );
+  const { data: budgetsAnalyticsMonthly } = useSWRImmutable(
+    ['analytics/monthly', levelPath],
+    async () =>
+      getBudgetsAnalytics(
+        'monthly',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
   );
   // Take the first path to pass breadCrumb navigation
   const firstPath = 'atlas' + '/' + router.query.firstPath?.toString();
@@ -62,7 +88,12 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
-  const breakdownChartSectionData = useBreakdownChart();
+  const breakdownChartSectionData = useBreakdownChart(
+    budgets,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalytics
+  );
 
   const titleFirstPathBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const levelBudgetPath = allBudgets.find((budget) => budget.codePath === firstPath);
@@ -183,6 +214,12 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     periodicSelectionFilter,
     popupContainerHeight,
   } = useBreakdownTable();
+
+  useEffect(() => {
+    mutate(['analytics/annual', levelPath]);
+    mutate(['analytics/quarterly', levelPath]);
+    mutate(['analytics/monthly', levelPath]);
+  }, [levelPath, mutate, year]);
 
   return {
     router,

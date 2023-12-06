@@ -54,7 +54,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
           useSelectedAsLabel
           selected={selectedGranularity}
           onChange={onGranularityChange}
-          items={['Monthly', 'Quarterly', 'Semi-annual', 'Annually']}
+          items={['Monthly', 'Quarterly', 'Annually']}
           PopperProps={{
             placement: 'bottom-end',
           }}

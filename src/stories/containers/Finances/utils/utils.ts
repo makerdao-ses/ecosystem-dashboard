@@ -8,7 +8,6 @@ import { DateTime } from 'luxon';
 
 import type { QuarterlyBudget, RowsItems } from './mockData';
 import type {
-  BreakdownChartSeriesData,
   DelegateExpenseTableHeader,
   Metric,
   MetricsWithAmount,
@@ -808,9 +807,10 @@ export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]): Budg
 
   budgets.forEach((budget) => {
     const budgetMetric = newBudgetMetric();
-
+    // Remove this when the Api are ready with the correct codePath
+    const codePath = budget.codePath === '142' ? 'legacy' : budget.codePath;
     series.rows.forEach((row) => {
-      if (row.dimensions.some((dimension) => dimension.name === 'budget' && dimension.path === budget.codePath)) {
+      if (row.dimensions.some((dimension) => dimension.name === 'budget' && dimension.path === codePath)) {
         switch (row.metric) {
           case 'Actuals':
             budgetMetric.actuals = setMetric(row.value, row.unit);
@@ -969,7 +969,6 @@ export const breakdownChartMonthly = (isMobile: boolean) => [
 export const breakdownChartQuarterly = () => ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
 export const breakdownChartAnnually = () => ['Year'];
 export const getGranularity = (granularity: AnalyticGranularity, isMobile: boolean) => {
-  console.log('granularity', granularity);
   switch (granularity.toLocaleLowerCase()) {
     case 'monthly':
       return breakdownChartMonthly(isMobile);
@@ -1025,46 +1024,4 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Met
   }
 
   return budgetMetric[metricKey]?.value || 0;
-};
-
-export const parseAnalyticsToSeriesBreakDownChart = (
-  budgetsAnalytics: BreakdownBudgetAnalytic | undefined,
-  budgets: Budget[],
-  isLight: boolean,
-  barWidth: number,
-  metric: Metric
-) => {
-  const colorsLight = generateColorPalette(
-    existingColors.length,
-    budgets.length - existingColors.length,
-    existingColors
-  );
-
-  const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
-
-  const series: BreakdownChartSeriesData[] = [];
-  if (budgetsAnalytics) {
-    const budgetKeys = Object.keys(budgetsAnalytics);
-
-    budgetKeys.forEach((budgetKey, index) => {
-      const nameBudget = budgets.find((budget) => budget.codePath === budgetKey)?.name;
-      const budgetData = budgetsAnalytics[budgetKey];
-      const dataForSeries = budgetData.map((budgetMetric) => getCorrectMetric(budgetMetric, metric));
-
-      series[index] = {
-        name: nameBudget || 'Not name',
-        data: dataForSeries,
-        type: 'bar',
-        stack: 'x',
-        barWidth,
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? colorsLight[index] : colorsDark[index],
-        },
-        isVisible: true,
-      };
-    });
-  }
-
-  return series;
 };

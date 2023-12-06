@@ -64,7 +64,15 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     handleBreakdownMetricChange,
     handleBreakdownGranularityChange,
     isDisabled,
+    isDesktop1024,
     handleResetFilterBreakDownChart,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    isMobile,
+    isTablet,
+    upTable,
+    series,
+    refBreakDownChart,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
   return (
@@ -102,6 +110,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
             loadMoreCards={loadMoreCards}
             handleLoadMoreCards={handleLoadMoreCards}
           />
+
           <BreakdownChartSection
             year={year}
             selectedMetric={selectedBreakdownMetric}
@@ -110,7 +119,17 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
             onGranularityChange={handleBreakdownGranularityChange}
             isDisabled={isDisabled}
             handleResetFilter={handleResetFilterBreakDownChart}
+            budgets={budgets}
+            budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
+            budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
+            series={series}
+            refBreakDownChart={refBreakDownChart}
+            isMobile={isMobile}
+            isTablet={isTablet}
+            isDesktop1024={isDesktop1024}
+            upTable={upTable}
           />
+
           <ConditionalWrapper period={'Quarterly'}>
             <BreakdownTable
               handleResetMetrics={defaultMetricsWithAllSelected}

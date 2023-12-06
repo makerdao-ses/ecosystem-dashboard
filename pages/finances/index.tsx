@@ -38,10 +38,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const budgets = (await fetchBudgets()).filter((budget) => budget.parentId === null);
+  const budgets = (await fetchBudgets())
+    .filter((budget) => budget.parentId === null)
+    .map((item) => {
+      if (item.codePath === '142') {
+        return {
+          ...item,
+          codePath: 'atlas/legacy',
+        };
+      } else {
+        return item;
+      }
+    });
 
-  const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, 'atlas', 2, budgets);
-
+  const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, 'atlas', 1, budgets);
   return {
     props: {
       budgets,

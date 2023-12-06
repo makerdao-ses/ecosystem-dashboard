@@ -4,6 +4,10 @@ import React from 'react';
 import BreakdownChart from './BreakdownChart/BreakdownChart';
 import BreakdownChartFilter from './BreakdownChartFilter/BreakdownChartFilter';
 import SectionTitle from './SectionTitle/SectionTitle';
+import type { BreakdownChartSeriesData } from '../../utils/types';
+import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { Budget } from '@ses/core/models/interfaces/budget';
+import type { EChartsOption } from 'echarts-for-react';
 
 interface BreakdownChartSectionProps {
   selectedMetric: string;
@@ -13,6 +17,15 @@ interface BreakdownChartSectionProps {
   year: string;
   isDisabled?: boolean;
   handleResetFilter: () => void;
+  budgets: Budget[];
+  budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined;
+  budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
+  series: BreakdownChartSeriesData[];
+  refBreakDownChart: React.RefObject<EChartsOption | null>;
+  isMobile: boolean;
+  isTablet: boolean;
+  upTable: boolean;
+  isDesktop1024: boolean;
 }
 
 const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
@@ -23,6 +36,15 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
   onGranularityChange,
   isDisabled,
   handleResetFilter,
+  budgets,
+  budgetsAnalyticsMonthly,
+  budgetsAnalyticsQuarterly,
+  series,
+  refBreakDownChart,
+  isDesktop1024,
+  isMobile,
+  isTablet,
+  upTable,
 }) => (
   <Section>
     <HeaderContainer>
@@ -37,7 +59,19 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
       />
     </HeaderContainer>
 
-    <BreakdownChart year={year} />
+    <BreakdownChart
+      year={year}
+      budgets={budgets}
+      budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
+      budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
+      selectedGranularity={selectedGranularity as AnalyticGranularity}
+      series={series}
+      refBreakDownChart={refBreakDownChart}
+      isMobile={isMobile}
+      isTablet={isTablet}
+      upTable={upTable}
+      isDesktop1024={isDesktop1024}
+    />
   </Section>
 );
 
