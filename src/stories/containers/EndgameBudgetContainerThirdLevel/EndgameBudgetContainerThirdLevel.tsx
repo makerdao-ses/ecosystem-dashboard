@@ -11,6 +11,7 @@ import BreakdownChartSection from '../Finances/components/BreakdownChartSection/
 import CardCoreUnitThirdLevelBudget from '../Finances/components/CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';
 import CardNavigationMobile from '../Finances/components/CardNavigationMobile/CardNavigationMobile';
 import ConditionalWrapper from '../Finances/components/ConditionalWrapper/ConditionalWrapper';
+import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
@@ -69,7 +70,6 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     allowSelectAll,
     maxItems,
     minItems,
-    calculateItemsPerPage,
     popupContainerHeight,
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
@@ -85,13 +85,10 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     refBreakDownChart,
     isTablet,
     upTable,
+    cutTextForBigNumberLegend,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
-  const totalItems = cardsToShow.length;
-  const itemsPerPage = calculateItemsPerPage();
-  const totalShow = Math.ceil(totalItems / itemsPerPage);
-  console.log('totalShow', totalItems, itemsPerPage, totalShow);
-  console.log('first', series);
+
   // Options of Swiper
   const swiperOptions = {
     pagination: {
@@ -147,8 +144,12 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={true}
+              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             />
           </WrapperDesk>
+          <WrapperMobile>
+            <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+          </WrapperMobile>
           <WrapperMobile>
             {cardsToShow.map((card: NavigationCard, index: number) => (
               <CardNavigationMobile
@@ -295,6 +296,7 @@ const SwiperWrapper = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 32,
+    height: 340,
     display: 'block',
   },
 
@@ -307,10 +309,12 @@ const SwiperWrapper = styled.div({
       maxWidth: 150,
     },
   },
+  '& .swiper-wrapper': {
+    height: 230,
+  },
 
-  '& .swiper-pagination': {
-    marginTop: 24,
-    height: 16,
+  '& .swiper-pagination-horizontal': {
+    marginTop: 59,
   },
   '& .swiper-pagination-bullet': {
     width: 16,

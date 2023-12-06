@@ -7,9 +7,18 @@ import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from './components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
+import { getTotalAllMetricsBudget } from './components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
-import { getBudgetsAnalytics, newBudgetMetric, removePrefix, prefixToRemove, colors, colorsDark } from './utils/utils';
+import {
+  getBudgetsAnalytics,
+  newBudgetMetric,
+  removePrefix,
+  prefixToRemove,
+  generateColorPalette,
+  existingColors,
+  existingColorsDark,
+} from './utils/utils';
 import type { BudgetAnalytic, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
@@ -43,6 +52,16 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   console.log(budgetsAnalyticsQuarterly); // temporary
   console.log(budgetsAnalyticsMonthly); // temporary
 
+  const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
+
+  const colorsLight = generateColorPalette(
+    existingColors.length,
+    budgets.length - existingColors.length,
+    existingColors
+  );
+
+  const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
+
   const cardsNavigationInformation = budgets
     .map((item, index) => {
       const budgetMetric =
@@ -55,9 +74,9 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
         title: removePrefix(item.name, prefixToRemove),
         description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
         href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-        valueDai: budgetMetric.actuals.value,
-        totalDai: budgetMetric.budget.value,
-        color: isLight ? colors[index] : colorsDark[index],
+        valueDai: budgetMetric.budget.value,
+        totalDai: allMetrics.budget,
+        color: isLight ? colorsLight[index] : colorsDark[index],
       };
     })
     .filter((item) => item.title !== 'Example budget code' && item.title !== 'Other');

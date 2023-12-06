@@ -73,6 +73,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     upTable,
     series,
     refBreakDownChart,
+    cutTextForBigNumberLegend,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
   return (
@@ -100,6 +101,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={false}
+              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             />
           </WrapperDesk>
           <WrapperMobile>

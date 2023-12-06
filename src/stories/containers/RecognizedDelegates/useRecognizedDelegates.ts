@@ -42,10 +42,10 @@ export const useRecognizedDelegates = (
   // TODO: Those number will be delete next release
   const shadowTotal = 178;
   const mediaAnnual = 73254.1;
-  const delegatesExpenses = totalQuarterlyExpenses.delegatesExpenses[0]?.actuals;
+  const delegatesExpenses = totalQuarterlyExpenses.delegatesExpenses[0]?.actuals ?? 0;
 
   const otherExpenses =
-    totalQuarterlyExpenses.totalExpenses[0].actuals - totalQuarterlyExpenses.delegatesExpenses[0]?.actuals;
+    totalQuarterlyExpenses.totalExpenses[0].actuals - (totalQuarterlyExpenses.delegatesExpenses[0]?.actuals ?? 0);
 
   const selectElements = useMemo(
     () =>
@@ -68,6 +68,7 @@ export const useRecognizedDelegates = (
 
   const resultFilteredChart =
     activeElements.length === 0 ? totalDelegateMonthly : filteredDelegatesChart(orderAllMonthExpense, activeElements);
+
   return {
     totalDAI,
     recognizedDelegates,

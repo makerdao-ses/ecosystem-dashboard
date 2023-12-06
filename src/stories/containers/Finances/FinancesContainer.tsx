@@ -82,6 +82,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     isTablet,
     upTable,
     isDesktop1024,
+    cutTextForBigNumberLegend,
   } = useFinances(budgets, initialYear);
 
   return (
@@ -119,6 +120,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={false}
+              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             />
           </WrapperDesk>
           <WrapperMobile>
@@ -238,18 +240,17 @@ const WrapperDesk = styled.div({
   },
 });
 
+const ContainerLastReport = styled.div({
+  marginTop: 40,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: 64,
+  },
+});
 const WrapperMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
-  },
-});
-
-const ContainerLastReport = styled.div({
-  marginTop: 40,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 64,
   },
 });

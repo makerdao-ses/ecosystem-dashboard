@@ -5,8 +5,8 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React, { useRef } from 'react';
-import type { DoughnutSeries } from '@ses/core/models/interfaces/doughnutSeries';
+import React, { useEffect, useRef, useState } from 'react';
+import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 
@@ -14,20 +14,33 @@ interface Props {
   doughnutSeriesData: DoughnutSeries[];
   className?: string;
   isCoreThirdLevel?: boolean;
+  cutTextForBigNumberLegend: boolean;
 }
 
-const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className, isCoreThirdLevel = true }) => {
+const DoughnutChartFinances: React.FC<Props> = ({
+  doughnutSeriesData,
+  className,
+  isCoreThirdLevel = true,
+  cutTextForBigNumberLegend,
+}) => {
   const chartRef = useRef<EChartsOption | null>(null);
   const { isLight } = useThemeContext();
+  const [visibleSeries, setVisibleSeries] = useState<DoughnutSeries[]>(doughnutSeriesData);
+  const [legends, setLegends] = useState<DoughnutSeries[]>(doughnutSeriesData);
+
+  useEffect(() => {
+    setVisibleSeries(doughnutSeriesData);
+    setLegends(doughnutSeriesData);
+  }, [doughnutSeriesData]);
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
-
+  console.log('minWidth: 190,', cutTextForBigNumberLegend);
   const options = {
-    color: doughnutSeriesData.map((data) => data.color),
+    color: visibleSeries.map((data) => data.color),
     tooltip: {
       show: true,
       trigger: 'item',
@@ -41,8 +54,8 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
       padding: 0,
       borderWidth: 2,
       formatter: function (params: DoughnutSeries) {
-        const index = doughnutSeriesData.findIndex((data) => data.name === params.name);
-        const itemRender = doughnutSeriesData[index];
+        const index = visibleSeries.findIndex((data) => data.name === params.name);
+        const itemRender = visibleSeries[index];
         const customTooltip = `
         <div style="background-color:${
           isLight ? '#fff' : '#000A13'
@@ -86,28 +99,67 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
             show: false,
           },
         },
-        data: doughnutSeriesData,
+        data: visibleSeries,
       },
     ],
   };
 
+  const toggleSeriesVisibility = (seriesName: string) => {
+    const chartInstance = chartRef.current?.getEchartsInstance();
+
+    const newArray = visibleSeries.map((item) => {
+      if (item.name === seriesName) {
+        chartInstance.dispatchAction({
+          type: 'hideTip',
+        });
+        const isVisible = !item.isVisible;
+        return {
+          ...item,
+          isVisible,
+          value: isVisible ? item.originalValue || 0 : -1,
+        };
+      }
+      return item;
+    });
+    // iterate through legends
+    const newLegend = legends.map((item) => {
+      if (item.name === seriesName) {
+        chartInstance.dispatchAction({
+          type: 'hideTip',
+        });
+        const isVisible = !item.isVisible;
+        return {
+          ...item,
+          color: isVisible ? item?.originalColor || 'red' : 'rgb(204, 204, 204)',
+          isVisible,
+          value: item.originalValue || 0,
+        };
+      }
+      return item;
+    });
+    setLegends(newLegend);
+
+    setVisibleSeries(newArray);
+  };
   const onLegendItemHover = (legendName: string) => {
-    const dataIndex = doughnutSeriesData.findIndex((data) => data.name === legendName);
+    const dataIndex = visibleSeries.find((data) => data.name === legendName);
 
-    if (dataIndex !== -1) {
-      const chartInstance = chartRef.current.getEchartsInstance();
+    if (dataIndex) {
+      if (dataIndex.value !== 0) {
+        const chartInstance = chartRef.current.getEchartsInstance();
 
-      chartInstance.dispatchAction({
-        type: 'highlight',
-        name: legendName,
-        seriesIndex: 0,
-      });
+        chartInstance.dispatchAction({
+          type: 'highlight',
+          name: legendName,
+          seriesIndex: 0,
+        });
 
-      chartInstance.dispatchAction({
-        type: 'showTip',
-        name: legendName,
-        seriesIndex: 0,
-      });
+        chartInstance.dispatchAction({
+          type: 'showTip',
+          name: legendName,
+          seriesIndex: 0,
+        });
+      }
     }
   };
 
@@ -136,24 +188,26 @@ const DoughnutChartFinances: React.FC<Props> = ({ doughnutSeriesData, className,
           opts={{ renderer: 'svg' }}
         />
       </ContainerChart>
-      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel}>
-        {doughnutSeriesData.map((data, index: number) => (
+      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} cutTextForBigNumberLegend={cutTextForBigNumberLegend}>
+        {legends.map((data, index: number) => (
           <LegendItem
+            cutTextForBigNumberLegend={cutTextForBigNumberLegend}
             isCoreThirdLevel={isCoreThirdLevel}
             isLight={isLight}
             key={index}
-            onClick={() => console.log('console', data.name)}
+            onClick={() => toggleSeriesVisibility(data.name)}
             onMouseEnter={() => onLegendItemHover(data.name)}
             onMouseLeave={() => onLegendItemLeave(data.name)}
           >
             <IconWithName>
-              <LegendIcon backgroundColor={data.color} />
+              <LegendIcon backgroundColor={data.color || 'blue'} />
               <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
                 {isCoreThirdLevel ? data.code : data.name}
               </NameOrCode>
             </IconWithName>
             <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
               {data.value?.toLocaleString('es-US')}
+
               <span>DAI</span>
               <span>{`(${data.percent}%)`}</span>
             </Value>
@@ -169,6 +223,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
+  // flex: 1,
   gap: 64,
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 22,
@@ -185,7 +240,6 @@ const Container = styled.div({
 const ContainerChart = styled.div({
   display: 'flex',
   justifyContent: 'flex-start',
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 138,
   },
@@ -207,23 +261,31 @@ const ContainerChart = styled.div({
 
 const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor }) => ({
   backgroundColor,
-  width: 8,
-  height: 8,
+  minWidth: 8,
+  maxWidth: 8,
+  maxHeight: 8,
+  minHeight: 8,
   borderRadius: '50%',
 }));
-const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  display: 'flex',
-  flexDirection: isCoreThirdLevel ? 'row' : 'column',
-  gap: isCoreThirdLevel ? 4 : 4,
-  fontSize: 12,
-  fontFamily: 'Inter, sans-serif',
-  color: isLight ? '#43435' : '#EDEFFF',
-  cursor: 'pointer',
-  minWidth: 190,
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 8,
-  },
-}));
+const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; cutTextForBigNumberLegend: boolean }>(
+  ({ isLight, isCoreThirdLevel, cutTextForBigNumberLegend }) => ({
+    display: 'flex',
+    flexDirection: isCoreThirdLevel ? 'row' : 'column',
+    gap: isCoreThirdLevel ? 4 : 4,
+    fontSize: 12,
+    fontFamily: 'Inter, sans-serif',
+    color: isLight ? '#43435' : '#EDEFFF',
+    cursor: 'pointer',
+    minWidth: 190,
+    ...(cutTextForBigNumberLegend && {
+      width: !isCoreThirdLevel ? 130 : 190,
+      minWidth: 0,
+    }),
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      gap: 8,
+    },
+  })
+);
 const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   fontFamily: 'Inter, sans-serif',
@@ -231,32 +293,45 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
   marginLeft: isCoreThirdLevel ? 4 : 14,
+  ...(isCoreThirdLevel && {
+    whiteSpace: 'revert',
+    overflow: 'revert',
+    textOverflow: 'revert',
+  }),
   '& span': {
     display: 'inline-block',
     marginLeft: 4,
   },
 }));
 
-const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  flexWrap: 'wrap',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-start',
-  gap: isCoreThirdLevel ? 16 : 14,
-  maxWidth: '100%',
-  maxHeight: '210px',
-  overflow: 'hidden',
-  marginTop: 20,
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: 18,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 22,
-    gap: 16,
-  },
-}));
+const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; cutTextForBigNumberLegend: boolean }>(
+  ({ isCoreThirdLevel, cutTextForBigNumberLegend }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    gap: isCoreThirdLevel ? 16 : 14,
+    maxWidth: '100%',
+    maxHeight: '210px',
+    overflow: 'hidden',
+    marginTop: 20,
+    ...(cutTextForBigNumberLegend && {
+      flex: 1,
+    }),
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      marginTop: 18,
+    },
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      marginTop: 22,
+      gap: 16,
+    },
+  })
+);
 
 const IconWithName = styled.div({
   display: 'flex',
@@ -272,4 +347,7 @@ const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ is
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 }));
