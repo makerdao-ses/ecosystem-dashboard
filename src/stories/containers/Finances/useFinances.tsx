@@ -24,6 +24,7 @@ import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], initialYear: string) => {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
   const [year, setYear] = useState(initialYear);
   const { isLight } = useThemeContext();
   const handleChangeYears = (value: string) => {
@@ -50,7 +51,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   console.log(budgetsAnalyticsSemiAnnual); // temporary
   console.log(budgetsAnalyticsQuarterly); // temporary
   console.log(budgetsAnalyticsMonthly); // temporary
-  const { mutate } = useSWRConfig();
 
   const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
 
@@ -88,7 +88,12 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   const cardsToShow = loadMoreCards ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // All the logic required by the breakdown chart section
-  const breakdownChartSectionData = useBreakdownChart();
+  const breakdownChartSectionData = useBreakdownChart(
+    budgets,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalytics
+  );
 
   // All the logic required by the Expense Reports
   const expenseTrendFinances = useDelegateExpenseTrendFinances();
@@ -114,7 +119,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     handleChangeYears,
     ...cardOverViewSectionData,
     router,
-    isLight,
     cardsToShow,
     ...breakdownChartSectionData,
     ...expenseTrendFinances,

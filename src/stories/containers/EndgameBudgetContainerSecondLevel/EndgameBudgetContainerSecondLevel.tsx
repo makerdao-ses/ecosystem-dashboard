@@ -65,6 +65,10 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    series,
+    refBreakDownChart,
     cutTextForBigNumberLegend,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
@@ -82,6 +86,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
         <ContainerTitle>
           <IconTitle icon={icon} title={title} />
         </ContainerTitle>
+
         <ContainerSections>
           <WrapperDesk>
             <CardChartOverview
@@ -104,36 +109,43 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
             loadMoreCards={loadMoreCards}
             handleLoadMoreCards={handleLoadMoreCards}
           />
-          <BreakdownChartSection
-            year={year}
-            selectedMetric={selectedBreakdownMetric}
-            selectedGranularity={selectedBreakdownGranularity}
-            onMetricChange={handleBreakdownMetricChange}
-            onGranularityChange={handleBreakdownGranularityChange}
-            isDisabled={isDisabled}
-            handleResetFilter={handleResetFilterBreakDownChart}
-          />
-          <ConditionalWrapper period={'Quarterly'}>
-            <BreakdownTable
-              handleResetMetrics={defaultMetricsWithAllSelected}
-              activeItems={activeMetrics}
-              handleResetFilter={handleResetMetrics}
-              handleChange={handlePeriodChange}
-              metrics={selectMetrics}
-              periodicSelectionFilter={periodicSelectionFilter}
-              selectedValue={periodFilter}
-              year={year}
-              headerTableMetrics={getAllMetricsValuesTotal()}
-              metricTotal={getAllMetricsValuesTotal()}
-              maxItems={maxItems}
-              minItems={minItems}
-              allowSelectAll={allowSelectAll}
-              popupContainerHeight={popupContainerHeight}
-              handleSelectChange={handleSelectChangeMetrics}
-              breakdownTable={mockDataTableQuarterlyArray}
-            />
-          </ConditionalWrapper>
         </ContainerSections>
+        <BreakdownChartSection
+          year={year}
+          selectedMetric={selectedBreakdownMetric}
+          selectedGranularity={selectedBreakdownGranularity}
+          onMetricChange={handleBreakdownMetricChange}
+          onGranularityChange={handleBreakdownGranularityChange}
+          isDisabled={isDisabled}
+          handleResetFilter={handleResetFilterBreakDownChart}
+          budgets={budgets}
+          budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
+          budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
+          series={series}
+          refBreakDownChart={refBreakDownChart}
+        />
+      </Container>
+      <ConditionalWrapper period={periodFilter}>
+        <BreakdownTable
+          handleResetMetrics={defaultMetricsWithAllSelected}
+          activeItems={activeMetrics}
+          handleResetFilter={handleResetMetrics}
+          handleChange={handlePeriodChange}
+          metrics={selectMetrics}
+          periodicSelectionFilter={periodicSelectionFilter}
+          selectedValue={periodFilter}
+          year={year}
+          headerTableMetrics={getAllMetricsValuesTotal()}
+          metricTotal={getAllMetricsValuesTotal()}
+          maxItems={maxItems}
+          minItems={minItems}
+          allowSelectAll={allowSelectAll}
+          popupContainerHeight={popupContainerHeight}
+          handleSelectChange={handleSelectChangeMetrics}
+          breakdownTable={mockDataTableQuarterlyArray}
+        />
+      </ConditionalWrapper>
+      <Container>
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             columns={headersExpenseReport}

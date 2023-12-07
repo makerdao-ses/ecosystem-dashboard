@@ -21,7 +21,7 @@ import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainer
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-import type { SwiperRef } from 'swiper/react';
+import type { SwiperProps, SwiperRef } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
@@ -77,11 +77,44 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleBreakdownGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
-    swiperOptions,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    series,
+    refBreakDownChart,
     cutTextForBigNumberLegend,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
+  // Options of Swiper
+  const swiperOptions = {
+    pagination: {
+      type: 'bullets',
+      enabled: true,
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 4,
+        spaceBetween: 16,
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 2,
+      },
+      1280: {
+        slidesPerView: 5,
+        spaceBetween: 2,
+      },
+      1440: {
+        slidesPerView: 6,
+        spaceBetween: 2,
+      },
+      1920: {
+        slidesPerView: 8,
+        spaceBetween: 2,
+      },
+    },
+  } as SwiperProps;
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -157,36 +190,48 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               ))}
             </Swiper>
           </SwiperWrapper>
-          <BreakdownChartSection
-            year={year}
-            selectedMetric={selectedBreakdownMetric}
-            selectedGranularity={selectedBreakdownGranularity}
-            onMetricChange={handleBreakdownMetricChange}
-            onGranularityChange={handleBreakdownGranularityChange}
-            isDisabled={isDisabled}
-            handleResetFilter={handleResetFilterBreakDownChart}
-          />
         </ContainerSections>
-        <ConditionalWrapper period={periodFilter}>
-          <BreakdownTable
-            handleResetMetrics={defaultMetricsWithAllSelected}
-            activeItems={activeMetrics}
-            handleChange={handlePeriodChange}
-            handleResetFilter={handleResetMetrics}
-            handleSelectChange={handleSelectChangeMetrics}
-            metrics={selectMetrics}
-            periodicSelectionFilter={periodicSelectionFilter}
-            selectedValue={periodFilter}
-            year={year}
-            headerTableMetrics={getAllMetricsValuesTotal()}
-            metricTotal={getAllMetricsValuesTotal()}
-            maxItems={maxItems}
-            minItems={minItems}
-            allowSelectAll={allowSelectAll}
-            popupContainerHeight={popupContainerHeight}
-            breakdownTable={[mockDataTableQuarterlyArray[0]]}
-          />
-        </ConditionalWrapper>
+        <BreakdownChartSection
+          year={year}
+          selectedMetric={selectedBreakdownMetric}
+          selectedGranularity={selectedBreakdownGranularity}
+          onMetricChange={handleBreakdownMetricChange}
+          onGranularityChange={handleBreakdownGranularityChange}
+          isDisabled={isDisabled}
+          handleResetFilter={handleResetFilterBreakDownChart}
+          budgets={budgets}
+          budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
+          budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
+          series={series}
+          refBreakDownChart={refBreakDownChart}
+          // isMobile={isMobile}
+          // isTablet={isTablet}
+          // isDesktop1024={isDesktop1024}
+          // upTable={upTable}
+        />
+      </Container>
+
+      <ConditionalWrapper period={periodFilter}>
+        <BreakdownTable
+          handleResetMetrics={defaultMetricsWithAllSelected}
+          activeItems={activeMetrics}
+          handleChange={handlePeriodChange}
+          handleResetFilter={handleResetMetrics}
+          handleSelectChange={handleSelectChangeMetrics}
+          metrics={selectMetrics}
+          periodicSelectionFilter={periodicSelectionFilter}
+          selectedValue={periodFilter}
+          year={year}
+          headerTableMetrics={getAllMetricsValuesTotal()}
+          metricTotal={getAllMetricsValuesTotal()}
+          maxItems={maxItems}
+          minItems={minItems}
+          allowSelectAll={allowSelectAll}
+          popupContainerHeight={popupContainerHeight}
+          breakdownTable={[mockDataTableQuarterlyArray[0]]}
+        />
+      </ConditionalWrapper>
+      <Container>
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             columns={headersExpenseReport}
@@ -250,14 +295,11 @@ const SwiperWrapper = styled.div({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 32,
-    height: 340,
     display: 'block',
   },
 
   '& .swiper-slide': {
     maxWidth: 100,
-
-    marginBottom: 20,
 
     [lightTheme.breakpoints.up('tablet_768')]: {
       maxWidth: 150,

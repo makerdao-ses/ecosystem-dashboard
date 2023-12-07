@@ -74,6 +74,10 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     newNetExpensesOnChain,
     isDisabled,
     handleResetFilterBreakDownChart,
+    budgetsAnalyticsMonthly,
+    budgetsAnalyticsQuarterly,
+    series,
+    refBreakDownChart,
     cutTextForBigNumberLegend,
   } = useFinances(budgets, initialYear);
 
@@ -134,6 +138,11 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
             onGranularityChange={handleBreakdownGranularityChange}
             isDisabled={isDisabled}
             handleResetFilter={handleResetFilterBreakDownChart}
+            budgets={budgets}
+            budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
+            budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
+            series={series}
+            refBreakDownChart={refBreakDownChart}
           />
         )}
       </Container>

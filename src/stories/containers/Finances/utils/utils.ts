@@ -7,7 +7,13 @@ import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 
 import type { QuarterlyBudget, RowsItems } from './mockData';
-import type { DelegateExpenseTableHeader, MetricsWithAmount, MomentDataItem, PeriodicSelectionFilter } from './types';
+import type {
+  DelegateExpenseTableHeader,
+  Metric,
+  MetricsWithAmount,
+  MomentDataItem,
+  PeriodicSelectionFilter,
+} from './types';
 import type {
   ValueAndUnit,
   BudgetMetric,
@@ -286,198 +292,6 @@ export const mockDataApiTeam: MomentDataItem[] = [
     lastActivity: {
       id: '343',
       created_at: '2023-09-01T09:08:34.123',
-      event: 'event',
-      params: {},
-      description: '',
-    },
-    legacyBudgetStatementUrl: '',
-    budgetId: '',
-    type: ResourceType.CoreUnit,
-    auditors: [],
-    socialMediaChannels: [],
-    contributorCommitment: [],
-    cuGithubContribution: [],
-    updates: [],
-    scopes: [],
-    budgetStatements: [],
-    cuMip: null,
-  },
-  {
-    id: '34',
-    code: 'GRO-001',
-    shortCode: 'GRO',
-    name: 'Growth',
-    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
-    category: [],
-    sentenceDescription: '',
-    paragraphDescription: '',
-    paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-09-02T09:08:34.123'),
-    reportMonth: DateTime.fromISO('2012-04-25T09:08:34.123'),
-    totalActuals: 244567,
-    lastActivity: {
-      id: '343',
-      created_at: '2023-09-01T09:08:34.123',
-      event: 'event',
-      params: {},
-      description: '',
-    },
-    legacyBudgetStatementUrl: '',
-    budgetId: '',
-    type: ResourceType.CoreUnit,
-    auditors: [],
-    socialMediaChannels: [],
-    contributorCommitment: [],
-    cuGithubContribution: [],
-    updates: [],
-    scopes: [],
-    budgetStatements: [],
-    cuMip: null,
-  },
-  {
-    id: '34',
-    code: 'GRO-001',
-    shortCode: 'GRO',
-    name: 'Growth',
-    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
-    category: [],
-    sentenceDescription: '',
-    paragraphDescription: '',
-    paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-09-02T09:08:34.123'),
-    reportMonth: DateTime.fromISO('2012-04-25T09:08:34.123'),
-    totalActuals: 244567,
-    lastActivity: {
-      id: '343',
-      created_at: '2023-09-01T09:08:34.123',
-      event: 'event',
-      params: {},
-      description: '',
-    },
-    legacyBudgetStatementUrl: '',
-    budgetId: '',
-    type: ResourceType.CoreUnit,
-    auditors: [],
-    socialMediaChannels: [],
-    contributorCommitment: [],
-    cuGithubContribution: [],
-    updates: [],
-    scopes: [],
-    budgetStatements: [],
-    cuMip: null,
-  },
-  {
-    id: '34',
-    code: 'GRO-001',
-    shortCode: 'GRO',
-    name: 'Growth',
-    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
-    category: [],
-    sentenceDescription: '',
-    paragraphDescription: '',
-    paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-09-02T09:08:34.123'),
-    reportMonth: DateTime.fromISO('2012-04-25T09:08:34.123'),
-    totalActuals: 244567,
-    lastActivity: {
-      id: '343',
-      created_at: '2023-09-01T09:08:34.123',
-      event: 'event',
-      params: {},
-      description: '',
-    },
-    legacyBudgetStatementUrl: '',
-    budgetId: '',
-    type: ResourceType.CoreUnit,
-    auditors: [],
-    socialMediaChannels: [],
-    contributorCommitment: [],
-    cuGithubContribution: [],
-    updates: [],
-    scopes: [],
-    budgetStatements: [],
-    cuMip: null,
-  },
-  {
-    id: '34',
-    code: 'GRO-001',
-    shortCode: 'GRO',
-    name: 'Growth',
-    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
-    category: [],
-    sentenceDescription: '',
-    paragraphDescription: '',
-    paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-09-02T09:08:34.123'),
-    reportMonth: DateTime.fromISO('2012-04-25T09:08:34.123'),
-    totalActuals: 244567,
-    lastActivity: {
-      id: '343',
-      created_at: '2023-09-01T09:08:34.123',
-      event: 'event',
-      params: {},
-      description: '',
-    },
-    legacyBudgetStatementUrl: '',
-    budgetId: '',
-    type: ResourceType.CoreUnit,
-    auditors: [],
-    socialMediaChannels: [],
-    contributorCommitment: [],
-    cuGithubContribution: [],
-    updates: [],
-    scopes: [],
-    budgetStatements: [],
-    cuMip: null,
-  },
-  {
-    id: '34',
-    code: 'GRO-001',
-    shortCode: 'GRO',
-    name: 'Growth',
-    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
-    category: [],
-    sentenceDescription: '',
-    paragraphDescription: '',
-    paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-09-02T09:08:34.123'),
-    reportMonth: DateTime.fromISO('2012-04-25T09:08:34.123'),
-    totalActuals: 244567,
-    lastActivity: {
-      id: '343',
-      created_at: '2023-08-30T09:08:34.123',
-      event: 'event',
-      params: {},
-      description: '',
-    },
-    legacyBudgetStatementUrl: '',
-    budgetId: '',
-    type: ResourceType.CoreUnit,
-    auditors: [],
-    socialMediaChannels: [],
-    contributorCommitment: [],
-    cuGithubContribution: [],
-    updates: [],
-    scopes: [],
-    budgetStatements: [],
-    cuMip: null,
-  },
-  {
-    id: '34',
-    code: 'GRO-001',
-    shortCode: 'GRO',
-    name: 'Growth',
-    image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
-    category: [],
-    sentenceDescription: '',
-    paragraphDescription: '',
-    paragraphImage: '',
-    lastModified: DateTime.fromISO('2023-09-02T09:08:34.123'),
-    reportMonth: DateTime.fromISO('2012-04-25T09:08:34.123'),
-    totalActuals: 244567,
-    lastActivity: {
-      id: '343',
-      created_at: '2023-08-30T09:08:34.123',
       event: 'event',
       params: {},
       description: '',
@@ -987,18 +801,16 @@ export const newBudgetMetric = () =>
     paymentsOffChainIncluded: setMetric(0, ''),
   } as BudgetMetric);
 
-export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]) => {
+export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]): BudgetAnalytic => {
   const budgetsAnalytics: BudgetAnalytic = {};
+  const series = analytics.series[0];
 
-  budgets?.forEach((budget) => {
-    let found = false;
-
-    analytics.series[0].rows.forEach((row) => {
-      if (budget.codePath === row.dimensions[0].path) {
-        found = true;
-
-        const budgetMetric = budgetsAnalytics[budget.codePath] || newBudgetMetric();
-
+  budgets.forEach((budget) => {
+    const budgetMetric = newBudgetMetric();
+    // Remove this when the Api are ready with the correct codePath
+    const codePath = budget.codePath === '142' ? 'legacy' : budget.codePath;
+    series?.rows?.forEach((row) => {
+      if (row.dimensions.some((dimension) => dimension.name === 'budget' && dimension.path === codePath)) {
         switch (row.metric) {
           case 'Actuals':
             budgetMetric.actuals = setMetric(row.value, row.unit);
@@ -1018,27 +830,102 @@ export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]) => {
           default:
             break;
         }
-
-        budgetsAnalytics[budget.codePath] = budgetMetric;
       }
     });
-    if (!found) {
-      budgetsAnalytics[budget.codePath] = newBudgetMetric();
-    }
+
+    budgetsAnalytics[budget.codePath] = budgetMetric;
   });
 
   return budgetsAnalytics;
 };
 
-const getBreakdownAnalytics = (analytics: Analytic) => {
-  const budgetsAnalytics: BreakdownBudgetAnalytic = {};
+const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric[] => {
+  const createBudgetMetric = () => ({
+    actuals: {
+      value: 0,
+      unit: 'DAI',
+    },
+    budget: {
+      value: 0,
+      unit: 'DAI',
+    },
+    forecast: {
+      value: 0,
+      unit: 'DAI',
+    },
+    paymentsOnChain: {
+      value: 0,
+      unit: 'DAI',
+    },
+    paymentsOffChainIncluded: {
+      value: 0,
+      unit: 'DAI',
+    },
+  });
 
-  // This must be finished by Ale
-  for (const series of analytics.series) {
-    for (const row of series.rows) {
-      console.log(row);
-    }
+  let arrayLength;
+  switch (granularity) {
+    case 'monthly':
+      arrayLength = 12;
+      break;
+    case 'quarterly':
+      arrayLength = 4;
+      break;
+    case 'annual':
+      arrayLength = 1;
+      break;
+    case 'semiAnnual':
+      arrayLength = 2;
+      break;
+    default:
+      arrayLength = 4;
   }
+
+  return Array.from({ length: arrayLength }, createBudgetMetric);
+};
+
+const getBreakdownAnalytics = (
+  analytics: Analytic,
+  budgets: Budget[],
+  granularity: AnalyticGranularity
+): BreakdownBudgetAnalytic => {
+  const budgetsAnalytics: BreakdownBudgetAnalytic = {};
+  budgets.forEach((budget) => {
+    const analyticsArray = getArrayAnalytic(granularity);
+
+    budgetsAnalytics[`${budget.codePath}`] = analyticsArray;
+
+    analytics.series.forEach((seriesItem, index) => {
+      const budgetMetric = budgetsAnalytics[budget.codePath][index] || newBudgetMetric();
+
+      seriesItem.rows.forEach((row) => {
+        const budgetPath = row.dimensions.find((dimension) => dimension.name === 'budget')?.path;
+
+        if (budget.codePath === budgetPath) {
+          switch (row.metric) {
+            case 'Actuals':
+              budgetMetric.actuals = setMetric(row.value, row.unit);
+              break;
+            case 'Forecast':
+              budgetMetric.forecast = setMetric(row.value, row.unit);
+              break;
+            case 'Budget':
+              budgetMetric.budget = setMetric(row.value, row.unit);
+              break;
+            case 'PaymentsOnChain':
+              budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
+              break;
+            case 'PaymentsOffChainIncluded':
+              budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
+              break;
+            default:
+              break;
+          }
+        }
+        budgetsAnalytics[budget.codePath][index] = budgetMetric;
+      });
+    });
+  });
 
   return budgetsAnalytics;
 };
@@ -1051,7 +938,9 @@ export const getBudgetsAnalytics = async (
   budgets: Budget[]
 ) => {
   const analytics = await fetchAnalytics(granularity, year, select, lod);
-  return granularity === 'annual' ? getAnalyticsAnnual(analytics, budgets) : getBreakdownAnalytics(analytics); // temporary
+  return granularity === 'annual'
+    ? getAnalyticsAnnual(analytics, budgets)
+    : getBreakdownAnalytics(analytics, budgets, granularity); // temporary
 };
 
 export const getLevelOfBudget = (levelPath: string) => {
@@ -1060,3 +949,79 @@ export const getLevelOfBudget = (levelPath: string) => {
 };
 export const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
 export const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
+
+// Legend for breakdown chart
+export const breakdownChartMonthly = (isMobile: boolean) => [
+  isMobile ? 'J' : 'JAN',
+  isMobile ? 'F' : 'FEB',
+  isMobile ? 'M' : 'MAR',
+  isMobile ? 'A' : 'APR',
+  isMobile ? 'M' : 'MAY',
+  isMobile ? 'J' : 'JUN',
+  isMobile ? 'J' : 'JUL',
+  isMobile ? 'A' : 'AUG',
+  isMobile ? 'S' : 'SEP',
+  isMobile ? 'O' : 'OCT',
+  isMobile ? 'N' : 'NOV',
+  isMobile ? 'D' : 'DEC',
+];
+
+export const breakdownChartQuarterly = () => ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
+export const breakdownChartAnnually = () => ['Year'];
+export const getGranularity = (granularity: AnalyticGranularity, isMobile: boolean) => {
+  switch (granularity.toLocaleLowerCase()) {
+    case 'monthly':
+      return breakdownChartMonthly(isMobile);
+    case 'quarterly':
+      return breakdownChartQuarterly();
+    case 'annually':
+      return breakdownChartAnnually();
+    default:
+      breakdownChartQuarterly();
+  }
+};
+
+export const formatterBreakDownChart = (
+  granularity: AnalyticGranularity,
+  isMobile: boolean,
+  year: string,
+  value: string
+) => {
+  switch (granularity.toLocaleLowerCase()) {
+    case 'monthly':
+      if (isMobile) return value;
+      return `{month|${value}}\n{year|${year}}`;
+    case 'quarterly':
+      return `{month|${value}}  {year|${year}}`;
+    case 'annually':
+      return `{month|${year}}`;
+    default:
+      return `{month|${value}}\n{year|${year}}`;
+  }
+};
+
+export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Metric) => {
+  let metricKey: keyof BudgetMetric;
+
+  switch (selectedMetric) {
+    case 'Budget':
+      metricKey = 'budget';
+      break;
+    case 'Actual':
+      metricKey = 'actuals';
+      break;
+    case 'Forecast':
+      metricKey = 'forecast';
+      break;
+    case 'Net Expenses On-chain':
+      metricKey = 'paymentsOnChain';
+      break;
+    case 'Net Expenses Off-chain':
+      metricKey = 'paymentsOffChainIncluded';
+      break;
+    default:
+      return 0;
+  }
+
+  return budgetMetric[metricKey]?.value || 0;
+};
