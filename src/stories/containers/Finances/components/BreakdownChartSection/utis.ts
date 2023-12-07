@@ -30,6 +30,7 @@ export const parseAnalyticsToSeriesBreakDownChart = (
         const dataForSeries = budgetData.map((budgetMetric) => getCorrectMetric(budgetMetric, metric));
         series[index] = {
           name: nameBudget || 'Not name',
+          dataOriginal: dataForSeries,
           data: dataForSeries,
           type: 'bar',
           stack: 'x',
@@ -37,6 +38,7 @@ export const parseAnalyticsToSeriesBreakDownChart = (
           showBackground: false,
           itemStyle: {
             color: isLight ? colorsLight[index] : colorsDark[index],
+            colorOriginal: isLight ? colorsLight[index] : colorsDark[index],
           },
           isVisible: true,
         };
@@ -44,6 +46,7 @@ export const parseAnalyticsToSeriesBreakDownChart = (
         const dataForSeries = getCorrectMetric(budgetData, metric);
         series[index] = {
           name: nameBudget || 'Not name',
+          dataOriginal: [dataForSeries],
           data: [dataForSeries],
           type: 'bar',
           stack: 'x',
@@ -51,6 +54,7 @@ export const parseAnalyticsToSeriesBreakDownChart = (
           showBackground: false,
           itemStyle: {
             color: isLight ? colorsLight[index] : colorsDark[index],
+            colorOriginal: isLight ? colorsLight[index] : colorsDark[index],
           },
           isVisible: true,
         };

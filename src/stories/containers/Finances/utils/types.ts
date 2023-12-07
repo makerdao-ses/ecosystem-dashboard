@@ -88,12 +88,14 @@ export interface BudgetMetricWithName extends BudgetMetric {
 export interface BreakdownChartSeriesData {
   name: string;
   data: number[];
+  dataOriginal: number[];
   type: 'bar';
   stack: 'x';
   barWidth: number;
   showBackground: boolean;
   itemStyle: {
     color: string;
+    colorOriginal: string;
   };
   isVisible: boolean;
 }

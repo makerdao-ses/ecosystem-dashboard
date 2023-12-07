@@ -223,7 +223,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
-  // flex: 1,
+
   gap: 64,
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 22,
@@ -278,7 +278,7 @@ const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; cutText
     cursor: 'pointer',
     minWidth: 190,
     ...(cutTextForBigNumberLegend && {
-      width: !isCoreThirdLevel ? 130 : 190,
+      width: !isCoreThirdLevel ? 200 : 190,
       minWidth: 0,
     }),
     [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -293,9 +293,6 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
   marginLeft: isCoreThirdLevel ? 4 : 14,
   ...(isCoreThirdLevel && {
     whiteSpace: 'revert',
