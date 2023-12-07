@@ -5,7 +5,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
@@ -30,6 +30,14 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
+  const [visibleSeries, setVisibleSeries] = useState<BreakdownChartSeriesData[]>(series);
+  const [legends, setLegends] = useState<BreakdownChartSeriesData[]>(series);
+
+  useEffect(() => {
+    setVisibleSeries(series);
+    setLegends(series);
+  }, [series]);
+
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
@@ -49,7 +57,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
     xAxis: {
       type: 'category',
       data: getGranularity(selectedGranularity, isMobile),
-
       splitLine: {
         show: false,
       },
@@ -114,7 +121,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
         },
       },
     },
-    series,
+    series: visibleSeries,
   };
 
   const onLegendItemHover = (legendName: string) => {
@@ -131,6 +138,40 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
       type: 'downplay',
       seriesName: legendName,
     });
+  };
+
+  const toggleSeriesVisibility = (seriesName: string) => {
+    const newArray = visibleSeries.map((item) => {
+      if (item.name === seriesName) {
+        const isVisible = !item.isVisible;
+        return {
+          ...item,
+          isVisible,
+          data: isVisible ? item.dataOriginal : [],
+        };
+      }
+      return item;
+    });
+    // iterate through legends
+    const newLegend = legends.map((item) => {
+      if (item.name === seriesName) {
+        const isVisible = !item.isVisible;
+        return {
+          ...item,
+          isVisible,
+          itemStyle: {
+            ...item.itemStyle,
+            color: isVisible ? item?.itemStyle.colorOriginal : 'rgb(204, 204, 204)',
+          },
+
+          data: item.dataOriginal || [],
+        };
+      }
+      return item;
+    });
+
+    setVisibleSeries(newArray);
+    setLegends(newLegend);
   };
 
   return (
@@ -152,11 +193,12 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
         )}
       </ChartContainer>
       <LegendContainer>
-        {series.map((element) => (
+        {legends.map((element) => (
           <LegendItem
             isLight={isLight}
             onMouseEnter={() => onLegendItemHover(element.name)}
             onMouseLeave={() => onLegendItemLeave(element.name)}
+            onClick={() => toggleSeriesVisibility(element.name)}
           >
             <div>
               <svg
