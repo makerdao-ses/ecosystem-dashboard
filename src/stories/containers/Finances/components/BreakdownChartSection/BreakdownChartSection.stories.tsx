@@ -1,9 +1,8 @@
 import { BudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/budgetAnalyticBuilder';
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-// import { atlasBudget, legacyBudget, scopeBudget } from '../../utils/utils';
 import BreakdownChartSection from './BreakdownChartSection';
-// import type { BreakdownChartSectionProps } from './BreakdownChartSection';
+
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof BreakdownChartSection> = {
@@ -191,10 +190,12 @@ const args = [
     series: [
       {
         name: 'Endgame Atlas ',
-        data: [4, 4, 46, 90, 34, 34, 34, 34, 34, 21, 12, 23],
+        data: [
+          4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213,
+        ],
         type: 'bar',
         stack: 'x',
-        // barWidth: 40,
+
         showBackground: false,
         itemStyle: {
           color: '#F99374',
@@ -203,10 +204,12 @@ const args = [
       },
       {
         name: 'Endgame Scopes',
-        data: [4, 4, 46, 90, 34, 34, 34, 34, 34, 21, 12, 23],
+        data: [
+          4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213,
+        ],
         type: 'bar',
         stack: 'x',
-        // barWidth: 40,
+
         showBackground: false,
         itemStyle: {
           color: '#447AFB',
@@ -215,10 +218,12 @@ const args = [
       },
       {
         name: 'MakerDAO Legacy',
-        data: [4, 4, 46, 90, 34, 34, 34, 34, 34, 21, 12, 23],
+        data: [
+          4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213, 4123213,
+        ],
         type: 'bar',
         stack: 'x',
-        // barWidth: 40,
+
         showBackground: false,
         itemStyle: {
           color: '#2DC1B1',
