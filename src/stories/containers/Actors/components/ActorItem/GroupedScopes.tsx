@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
+import lightTheme from '@ses/styles/theme/light';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { Scope } from '@ses/core/models/interfaces/scopes';
@@ -32,6 +33,15 @@ const Group = styled.div<{ columns: number }>(({ columns }) => ({
   display: 'grid',
   gap: 4,
   gridTemplateColumns: `repeat(${columns}, 1fr)`,
+  direction: 'rtl',
+
+  [lightTheme.breakpoints.up('table_834')]: {
+    direction: 'ltr',
+  },
+
+  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    display: 'flex',
+  },
 }));
 
 const TooltipContent = styled.div({
