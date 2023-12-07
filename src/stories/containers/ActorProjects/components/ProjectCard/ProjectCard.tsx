@@ -418,10 +418,14 @@ const DeliverableTitleContainer = styled.div({
 
 const DeliverablesTitle = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: 20,
+  fontSize: 16,
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: 0.4,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 20,
+  },
 }));
 
 const GrayBackground = styled.div<WithIsLight & { showBackground: boolean }>(({ isLight, showBackground }) => ({
