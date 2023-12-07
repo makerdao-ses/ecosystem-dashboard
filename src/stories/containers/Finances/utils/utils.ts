@@ -809,7 +809,7 @@ export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]): Budg
     const budgetMetric = newBudgetMetric();
     // Remove this when the Api are ready with the correct codePath
     const codePath = budget.codePath === '142' ? 'legacy' : budget.codePath;
-    series.rows.forEach((row) => {
+    series?.rows?.forEach((row) => {
       if (row.dimensions.some((dimension) => dimension.name === 'budget' && dimension.path === codePath)) {
         switch (row.metric) {
           case 'Actuals':

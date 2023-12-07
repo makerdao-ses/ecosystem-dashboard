@@ -20,24 +20,16 @@ interface BreakdownChartProps {
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
   series: BreakdownChartSeriesData[];
   refBreakDownChart: React.RefObject<EChartsOption | null>;
-  isMobile: boolean;
-  isTablet: boolean;
-  isDesktop1024: boolean;
-  upTable: boolean;
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({
-  year,
-  refBreakDownChart,
-  series,
-  selectedGranularity,
-  isMobile,
-  isTablet,
-  upTable,
-  isDesktop1024,
-}) => {
+const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart, series, selectedGranularity }) => {
   const { isLight } = useThemeContext();
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
+  const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  // const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
 
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
@@ -148,7 +140,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         {series.map((element) => (
           <LegendItem isLight={isLight} onMouseEnter={() => null} onMouseLeave={() => null} onClick={() => null}>
             <div>
-              {' '}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={isMobile ? 13 : 16}
@@ -208,7 +199,7 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 
   return {
     position: 'absolute',
-    bottom: 10,
+    bottom: 20,
     left: 40,
     right: 5,
     height: 11,
@@ -241,20 +232,22 @@ const LegendContainer = styled.div({
   paddingLeft: 8,
   paddingRight: 6,
   gap: 22,
-  rowGap: 10,
+  rowGap: 14,
   marginTop: 10,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 32,
-    marginBottom: 2,
-    marginTop: 'revert',
+    marginTop: -22,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {},
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 60,
+    rowGap: 16,
+  },
 });
 
 const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({

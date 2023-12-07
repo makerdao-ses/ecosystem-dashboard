@@ -27,7 +27,6 @@ const useBreakdownChart = (
   const [selectedBreakdownGranularity, setSelectedBreakdownGranularity] = useState<string>('Monthly');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
 
@@ -130,7 +129,6 @@ const useBreakdownChart = (
     refBreakDownChart,
     budgetsAnalyticsMonthly,
     budgetsAnalyticsQuarterly,
-    upTable,
   };
 };
 

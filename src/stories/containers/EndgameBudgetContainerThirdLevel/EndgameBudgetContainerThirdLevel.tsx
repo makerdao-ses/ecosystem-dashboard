@@ -79,12 +79,8 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleResetFilterBreakDownChart,
     budgetsAnalyticsMonthly,
     budgetsAnalyticsQuarterly,
-    isMobile,
-    isDesktop1024,
     series,
     refBreakDownChart,
-    isTablet,
-    upTable,
     cutTextForBigNumberLegend,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
@@ -208,10 +204,10 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
           budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
           series={series}
           refBreakDownChart={refBreakDownChart}
-          isMobile={isMobile}
-          isTablet={isTablet}
-          isDesktop1024={isDesktop1024}
-          upTable={upTable}
+          // isMobile={isMobile}
+          // isTablet={isTablet}
+          // isDesktop1024={isDesktop1024}
+          // upTable={upTable}
         />
       </Container>
 

@@ -64,13 +64,9 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     handleBreakdownMetricChange,
     handleBreakdownGranularityChange,
     isDisabled,
-    isDesktop1024,
     handleResetFilterBreakDownChart,
     budgetsAnalyticsMonthly,
     budgetsAnalyticsQuarterly,
-    isMobile,
-    isTablet,
-    upTable,
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
@@ -127,10 +123,6 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
           budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
           series={series}
           refBreakDownChart={refBreakDownChart}
-          isMobile={isMobile}
-          isTablet={isTablet}
-          isDesktop1024={isDesktop1024}
-          upTable={upTable}
         />
       </Container>
       <ConditionalWrapper period={periodFilter}>

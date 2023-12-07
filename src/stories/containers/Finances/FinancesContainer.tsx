@@ -78,10 +78,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     budgetsAnalyticsQuarterly,
     series,
     refBreakDownChart,
-    isMobile,
-    isTablet,
-    upTable,
-    isDesktop1024,
     cutTextForBigNumberLegend,
   } = useFinances(budgets, initialYear);
 
@@ -147,10 +143,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
             budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
             series={series}
             refBreakDownChart={refBreakDownChart}
-            isMobile={isMobile}
-            isTablet={isTablet}
-            isDesktop1024={isDesktop1024}
-            upTable={upTable}
           />
         )}
       </Container>

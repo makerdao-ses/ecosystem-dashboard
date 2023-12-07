@@ -9,7 +9,7 @@ import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/mod
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
-interface BreakdownChartSectionProps {
+export interface BreakdownChartSectionProps {
   selectedMetric: string;
   onMetricChange: (value: string) => void;
   selectedGranularity: string;
@@ -22,10 +22,6 @@ interface BreakdownChartSectionProps {
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
   series: BreakdownChartSeriesData[];
   refBreakDownChart: React.RefObject<EChartsOption | null>;
-  isMobile: boolean;
-  isTablet: boolean;
-  upTable: boolean;
-  isDesktop1024: boolean;
 }
 
 const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
@@ -41,10 +37,6 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
   budgetsAnalyticsQuarterly,
   series,
   refBreakDownChart,
-  isDesktop1024,
-  isMobile,
-  isTablet,
-  upTable,
 }) => (
   <Section>
     <HeaderContainer>
@@ -67,10 +59,6 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
       selectedGranularity={selectedGranularity as AnalyticGranularity}
       series={series}
       refBreakDownChart={refBreakDownChart}
-      isMobile={isMobile}
-      isTablet={isTablet}
-      upTable={upTable}
-      isDesktop1024={isDesktop1024}
     />
   </Section>
 );
