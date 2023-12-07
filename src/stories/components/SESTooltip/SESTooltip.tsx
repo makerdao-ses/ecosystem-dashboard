@@ -155,12 +155,5 @@ const tooltipProps = (borderColor: React.CSSProperties['color'], isLight = true)
       margin: '-0.95em 0',
       scale: '1 1.81',
     },
-
-    [lightTheme.breakpoints.down('table_834')]: {
-      // prevent the tooltip to be too close to the windows edge
-      maxWidth: 343,
-      marginRight: '16px',
-      marginLeft: '16px',
-    },
   },
 });

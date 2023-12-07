@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
@@ -11,6 +12,7 @@ import React from 'react';
 import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import ScopeChip from '../ScopeChip/ScopeChip';
+import GroupedScopes from './GroupedScopes';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -23,6 +25,8 @@ interface Props {
 
 const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   const { isLight } = useThemeContext();
+  const isUp1194 = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
+
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
     <ContainerLinkColum>
       <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
@@ -59,13 +63,18 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
             <WrapperCategoryScopeMobileInside>
               <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
             </WrapperCategoryScopeMobileInside>
-            {actor.scopes?.length > 0 && (
-              <ContainerScopeMobile>
-                {actor.scopes?.map((item, index) => (
-                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
-                ))}
-              </ContainerScopeMobile>
-            )}
+            {actor.scopes?.length > 0 &&
+              (actor.scopes?.length > 2 ? (
+                <MobileGroupedScopesBox>
+                  <GroupedScopes scopes={actor.scopes} />
+                </MobileGroupedScopesBox>
+              ) : (
+                <ContainerScopeMobile>
+                  {actor.scopes?.map((item, index) => (
+                    <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                  ))}
+                </ContainerScopeMobile>
+              ))}
           </WrapperCategoryScopeMobile>
         </ContainerActorType>
       </ActorAboutLink>
@@ -79,9 +88,13 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
           <ContainerScopeLastModified>
             <ActorAboutLink>
               <ScopeSection>
-                {actor?.scopes?.map((item, index) => (
-                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
-                ))}
+                {actor?.scopes?.length > 2 && isUp1194 ? (
+                  <GroupedScopes scopes={actor.scopes} />
+                ) : (
+                  actor?.scopes?.map((item, index) => (
+                    <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                  ))
+                )}
               </ScopeSection>
             </ActorAboutLink>
 
@@ -497,6 +510,7 @@ const WrapperCategoryScopeMobile = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: 15,
+
   [lightTheme.breakpoints.up('table_834')]: {
     display: 'none',
   },
@@ -550,4 +564,8 @@ const WrapperHiddenOnlyMobileScope = styled.div({
 const LinkSpace = styled.div({
   display: 'flex',
   flex: 1,
+});
+
+const MobileGroupedScopesBox = styled.div({
+  paddingRight: 16,
 });
