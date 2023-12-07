@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
@@ -25,7 +24,6 @@ interface Props {
 
 const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   const { isLight } = useThemeContext();
-  const isUp1194 = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
 
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
     <ContainerLinkColum>
@@ -88,7 +86,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
           <ContainerScopeLastModified>
             <ActorAboutLink>
               <ScopeSection>
-                {actor?.scopes?.length > 2 && isUp1194 ? (
+                {actor?.scopes?.length > 2 ? (
                   <GroupedScopes scopes={actor.scopes} />
                 ) : (
                   actor?.scopes?.map((item, index) => (
