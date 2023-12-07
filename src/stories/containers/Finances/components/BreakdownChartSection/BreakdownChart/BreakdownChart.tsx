@@ -29,7 +29,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  // const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
 
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
@@ -118,6 +117,22 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
     series,
   };
 
+  const onLegendItemHover = (legendName: string) => {
+    const chartInstance = refBreakDownChart.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'highlight',
+      seriesName: legendName,
+    });
+  };
+
+  const onLegendItemLeave = (legendName: string) => {
+    const chartInstance = refBreakDownChart.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'downplay',
+      seriesName: legendName,
+    });
+  };
+
   return (
     <Wrapper>
       <ChartContainer>
@@ -138,7 +153,11 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
       </ChartContainer>
       <LegendContainer>
         {series.map((element) => (
-          <LegendItem isLight={isLight} onMouseEnter={() => null} onMouseLeave={() => null} onClick={() => null}>
+          <LegendItem
+            isLight={isLight}
+            onMouseEnter={() => onLegendItemHover(element.name)}
+            onMouseLeave={() => onLegendItemLeave(element.name)}
+          >
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
