@@ -1,4 +1,5 @@
 import type { SortEnum } from '@ses/core/enums/sortEnum';
+import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 import type { BudgetMetric } from '@ses/core/models/interfaces/analytic';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { DateTime } from 'luxon';
@@ -87,8 +88,8 @@ export interface BudgetMetricWithName extends BudgetMetric {
 
 export interface BreakdownChartSeriesData {
   name: string;
-  data: number[];
-  dataOriginal: number[];
+  data: ValuesDataWithBorder[];
+  dataOriginal: ValuesDataWithBorder[];
   type: 'bar';
   stack: 'x';
   barWidth: number;
