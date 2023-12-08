@@ -6,6 +6,7 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
+import { setBorderRadiusForSeries } from '../utis';
 import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
@@ -24,11 +25,13 @@ interface BreakdownChartProps {
 
 const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart, series, selectedGranularity }) => {
   const { isLight } = useThemeContext();
+
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const barBorderRadius = isMobile ? 4 : 6;
 
   const [visibleSeries, setVisibleSeries] = useState<BreakdownChartSeriesData[]>(series);
   const [legends, setLegends] = useState<BreakdownChartSeriesData[]>(series);
@@ -141,17 +144,24 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
   };
 
   const toggleSeriesVisibility = (seriesName: string) => {
-    const newArray = visibleSeries.map((item) => {
+    const updateSeries = visibleSeries.map((item) => {
       if (item.name === seriesName) {
         const isVisible = !item.isVisible;
         return {
           ...item,
           isVisible,
-          data: isVisible ? item.dataOriginal : [],
+          // Add border 0 when element is hiddend
+          data: isVisible
+            ? item.dataOriginal
+            : item.data.map(() => ({
+                value: 0,
+                itemStyle: { borderRadius: [0, 0, 0, 0] },
+              })),
         };
       }
       return item;
     });
+
     // iterate through legends
     const newLegend = legends.map((item) => {
       if (item.name === seriesName) {
@@ -169,8 +179,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
       }
       return item;
     });
-
-    setVisibleSeries(newArray);
+    const recalculatedSeries = setBorderRadiusForSeries(updateSeries, barBorderRadius);
+    setVisibleSeries(recalculatedSeries);
     setLegends(newLegend);
   };
 

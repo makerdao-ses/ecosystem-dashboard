@@ -15,12 +15,6 @@ const useBreakdownChart = (
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined,
   budgetsAnalyticsAnnual: BudgetAnalytic | undefined
 ) => {
-  const [isShowSeries, setIsShowSeries] = useState({
-    'Endgame Atlas': true,
-    'Endgame Scopes': true,
-    'MakerDAO Legacy': true,
-  });
-
   const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const { isLight } = useThemeContext();
   const refBreakDownChart = useRef<EChartsOption | null>(null);
@@ -76,8 +70,7 @@ const useBreakdownChart = (
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
     handleBreakdownGranularityChange,
-    isShowSeries,
-    setIsShowSeries,
+
     isDisabled,
     handleResetFilterBreakDownChart,
     series,
