@@ -28,6 +28,7 @@ export const parseAnalyticsToSeriesBreakDownChart = (
       const budgetData = budgetsAnalytics[budgetKey];
       if (Array.isArray(budgetData)) {
         const dataForSeries = budgetData.map((budgetMetric) => getCorrectMetric(budgetMetric, metric));
+
         series[index] = {
           name: nameBudget || 'Not name',
           dataOriginal: dataForSeries,
@@ -61,5 +62,40 @@ export const parseAnalyticsToSeriesBreakDownChart = (
       }
     });
   }
+  return series;
+};
+
+export const setBorderRadiusForSeries = (
+  series: BreakdownChartSeriesData[],
+  barBorderRadius: number
+): BreakdownChartSeriesData[] => {
+  const seriesLength = series[0]?.data.length;
+
+  for (let dataIndex = 0; dataIndex < seriesLength; dataIndex++) {
+    let firstNonNullIndex = -1;
+    let lastNonNullIndex = -1;
+    let nonNullCount = 0;
+
+    series.forEach((s, seriesIndex) => {
+      if (s.data[dataIndex].value !== 0 && s.data[dataIndex].value !== null && s.data[dataIndex].value !== undefined) {
+        if (firstNonNullIndex === -1) firstNonNullIndex = seriesIndex;
+        lastNonNullIndex = seriesIndex;
+        nonNullCount++;
+      }
+    });
+
+    series.forEach((s, seriesIndex) => {
+      if (nonNullCount === 1) {
+        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
+      } else if (seriesIndex === firstNonNullIndex) {
+        s.data[dataIndex].itemStyle.borderRadius = [0, 0, barBorderRadius, barBorderRadius];
+      } else if (seriesIndex === lastNonNullIndex) {
+        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
+      } else {
+        s.data[dataIndex].itemStyle.borderRadius = [0, 0, 0, 0];
+      }
+    });
+  }
+
   return series;
 };
