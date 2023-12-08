@@ -14,6 +14,7 @@ import type {
   MomentDataItem,
   PeriodicSelectionFilter,
 } from './types';
+import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 import type {
   ValueAndUnit,
   BudgetMetric,
@@ -1000,13 +1001,10 @@ export const formatterBreakDownChart = (
   }
 };
 
-export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Metric) => {
+export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Metric): ValuesDataWithBorder => {
   let metricKey: keyof BudgetMetric;
 
   switch (selectedMetric) {
-    case 'Budget':
-      metricKey = 'budget';
-      break;
     case 'Actual':
       metricKey = 'actuals';
       break;
@@ -1020,8 +1018,13 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Met
       metricKey = 'paymentsOffChainIncluded';
       break;
     default:
-      return 0;
+      metricKey = 'budget';
   }
 
-  return budgetMetric[metricKey]?.value || 0;
+  return {
+    value: budgetMetric[metricKey]?.value || 0,
+    itemStyle: {
+      borderRadius: [0, 0, 0, 0],
+    },
+  };
 };
