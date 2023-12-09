@@ -42,11 +42,6 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     year,
     title,
     icon,
-    handleLoadMore,
-    onSortClick,
-    reportExpenseItems,
-    showSome,
-    headersExpenseReport,
     actuals,
     budgetCap,
     prediction,
@@ -82,6 +77,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
+    expenseReportSection,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
@@ -234,11 +230,17 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
       <Container>
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
-            columns={headersExpenseReport}
-            expenseReport={reportExpenseItems}
-            sortClick={onSortClick}
-            handleLoadMore={handleLoadMore}
-            showSome={showSome}
+            selectedMetric={expenseReportSection.selectedMetric}
+            onMetricChange={expenseReportSection.onMetricChange}
+            selectedStatuses={expenseReportSection.selectedStatuses}
+            onStatusSelectChange={expenseReportSection.onStatusSelectChange}
+            handleResetFilter={expenseReportSection.handleResetFilter}
+            statusesItems={expenseReportSection.statusesItems}
+            columns={expenseReportSection.headersExpenseReport}
+            expenseReport={expenseReportSection.reportExpenseItems}
+            sortClick={expenseReportSection.onSortClick}
+            handleLoadMore={expenseReportSection.handleLoadMore}
+            showAllItems={expenseReportSection.showAllItems}
           />
         </ContainerLastReport>
       </Container>
