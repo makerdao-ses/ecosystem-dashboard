@@ -121,10 +121,10 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     router,
     cardsToShow,
     ...breakdownChartSectionData,
-    ...expenseTrendFinances,
     ...breakdownTable,
     ...makerDAOExpensesMetrics,
     loadMoreCards,
     handleLoadMoreCards,
+    expenseReportSection: expenseTrendFinances,
   };
 };

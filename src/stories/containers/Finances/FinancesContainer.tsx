@@ -48,11 +48,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     handleSelectChangeMetrics,
     selectMetrics,
     handleResetMetrics,
-    headersExpenseReport,
-    reportExpenseItems,
-    onSortClick,
-    handleLoadMore,
-    showSome,
     getAllMetricsValuesTotal,
     defaultMetricsWithAllSelected,
     maxItems,
@@ -79,6 +74,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
+    expenseReportSection,
   } = useFinances(budgets, initialYear);
 
   return (
@@ -183,11 +179,17 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
-            columns={headersExpenseReport}
-            expenseReport={reportExpenseItems}
-            sortClick={onSortClick}
-            handleLoadMore={handleLoadMore}
-            showSome={showSome}
+            selectedMetric={expenseReportSection.selectedMetric}
+            onMetricChange={expenseReportSection.onMetricChange}
+            selectedStatuses={expenseReportSection.selectedStatuses}
+            onStatusSelectChange={expenseReportSection.onStatusSelectChange}
+            handleResetFilter={expenseReportSection.handleResetFilter}
+            statusesItems={expenseReportSection.statusesItems}
+            columns={expenseReportSection.headersExpenseReport}
+            expenseReport={expenseReportSection.reportExpenseItems}
+            sortClick={expenseReportSection.onSortClick}
+            handleLoadMore={expenseReportSection.handleLoadMore}
+            showAllItems={expenseReportSection.showAllItems}
           />
         </ContainerLastReport>
       </Container>
