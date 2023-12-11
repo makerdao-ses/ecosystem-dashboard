@@ -66,7 +66,6 @@ export default HeaderDelegateExpense;
 const TableHeader = styled.div<{ isLight: boolean; isGlobal?: boolean }>(({ isLight }) => ({
   display: 'none',
   position: 'relative',
-  zIndex: 1,
   background: isLight ? '#F7F8F9' : '#25273D',
   color: isLight ? '#231536' : '#FFFFFF',
   padding: '16px 0 14px',

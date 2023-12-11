@@ -37,7 +37,6 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     actuals,
     budgetCap,
     prediction,
-
     getAllMetricsValuesTotal,
     activeMetrics,
     allowSelectAll,
@@ -51,11 +50,6 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     handleResetMetrics,
     periodicSelectionFilter,
     handleSelectChangeMetrics,
-    headersExpenseReport,
-    reportExpenseItems,
-    onSortClick,
-    handleLoadMore,
-    showSome,
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
@@ -70,6 +64,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
+    expenseReportSection,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
   return (
@@ -148,11 +143,17 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
       <Container>
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
-            columns={headersExpenseReport}
-            expenseReport={reportExpenseItems}
-            sortClick={onSortClick}
-            handleLoadMore={handleLoadMore}
-            showSome={showSome}
+            selectedMetric={expenseReportSection.selectedMetric}
+            onMetricChange={expenseReportSection.onMetricChange}
+            selectedStatuses={expenseReportSection.selectedStatuses}
+            onStatusSelectChange={expenseReportSection.onStatusSelectChange}
+            handleResetFilter={expenseReportSection.handleResetFilter}
+            statusesItems={expenseReportSection.statusesItems}
+            columns={expenseReportSection.headersExpenseReport}
+            expenseReport={expenseReportSection.reportExpenseItems}
+            sortClick={expenseReportSection.onSortClick}
+            handleLoadMore={expenseReportSection.handleLoadMore}
+            showAllItems={expenseReportSection.showAllItems}
           />
         </ContainerLastReport>
       </Container>

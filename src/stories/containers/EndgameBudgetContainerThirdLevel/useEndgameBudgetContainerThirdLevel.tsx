@@ -70,8 +70,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   // All Logic for the Expense Report
-  const { headersExpenseReport, reportExpenseItems, handleLoadMore, showSome, onSortClick } =
-    useDelegateExpenseTrendFinances();
+  const expenseReportSection = useDelegateExpenseTrendFinances();
 
   // Logic for OverViewChart
   const {
@@ -247,11 +246,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     handleChangeYearsEndgameAtlasBudget,
     title,
     icon,
-    headersExpenseReport,
-    reportExpenseItems,
-    handleLoadMore,
-    showSome,
-    onSortClick,
     actuals,
     budgetCap,
     prediction,
@@ -280,5 +274,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     periodicSelectionFilter,
     swiperOptions,
     cutTextForBigNumberLegend,
+
+    expenseReportSection,
   };
 };
