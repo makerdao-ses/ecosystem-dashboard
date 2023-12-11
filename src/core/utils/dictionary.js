@@ -148,6 +148,7 @@ const dictionary = [
   'typename',
   'Wireframes',
   'Echarts',
+  'linecap',
 ];
 
 module.exports = dictionary;
