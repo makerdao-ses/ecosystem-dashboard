@@ -364,7 +364,7 @@ export const getHeadersExpenseReport = (
     sort: headersSort[1],
   },
   {
-    header: selectedMetric,
+    header: selectedMetric.replace('Expenses', ''),
     sort: headersSort[2],
     styles: {
       width: 130,

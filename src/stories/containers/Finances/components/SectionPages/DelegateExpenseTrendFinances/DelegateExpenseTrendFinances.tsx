@@ -71,6 +71,7 @@ const Container = styled.div({
 const HeaderContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  flexWrap: 'wrap',
   gap: 24,
   marginBottom: 24,
 
