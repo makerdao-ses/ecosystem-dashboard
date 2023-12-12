@@ -5,18 +5,18 @@ import {
   getStatus,
   mockDataApiTeam,
 } from '@ses/containers/Finances/utils/utils';
-import ExpenseReportStatus from '@ses/containers/TransparencyReport/components/ExpenseReportStatus/ExpenseReportStatus';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
+import { FilterChip } from './ExpenseReportsFilters';
 import type { MomentDataItem } from '@ses/containers/Finances/utils/types';
 
 export const useDelegateExpenseTrendFinances = () => {
   // metric filter:
-  const [selectedMetric, setSelectedMetric] = useState<string>('Actual');
+  const [selectedMetric, setSelectedMetric] = useState<string>('Actuals');
   const onMetricChange = (value: string) => setSelectedMetric(value);
 
   // status filter
@@ -24,7 +24,7 @@ export const useDelegateExpenseTrendFinances = () => {
   const onStatusSelectChange = (statuses: string[]) => setSelectedStatuses(statuses);
 
   const handleResetFilter = () => {
-    setSelectedMetric('Actual');
+    setSelectedMetric('Actuals');
     setSelectedStatuses([]);
   };
 
@@ -93,7 +93,7 @@ export const useDelegateExpenseTrendFinances = () => {
 
   const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   // headers used for the UI table
-  const headersExpenseReport = getHeadersExpenseReport(headersSort, isSmallDesk);
+  const headersExpenseReport = getHeadersExpenseReport(headersSort, selectedMetric, isSmallDesk);
 
   // actual items fetched from the API
   const expenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
@@ -119,25 +119,25 @@ export const useDelegateExpenseTrendFinances = () => {
     () => [
       {
         id: BudgetStatus.Draft,
-        content: <ExpenseReportStatus status={BudgetStatus.Draft} />,
+        content: <FilterChip status={BudgetStatus.Draft} />,
         count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Draft)
           .length,
       },
       {
         id: BudgetStatus.Review,
-        content: <ExpenseReportStatus status={BudgetStatus.Review} />,
+        content: <FilterChip status={BudgetStatus.Review} />,
         count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Review)
           .length,
       },
       {
         id: BudgetStatus.Final,
-        content: <ExpenseReportStatus status={BudgetStatus.Final} />,
+        content: <FilterChip status={BudgetStatus.Final} />,
         count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Final)
           .length,
       },
       {
         id: BudgetStatus.Escalated,
-        content: <ExpenseReportStatus status={BudgetStatus.Escalated} />,
+        content: <FilterChip status={BudgetStatus.Escalated} />,
         count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Escalated)
           .length,
       },
@@ -155,6 +155,7 @@ export const useDelegateExpenseTrendFinances = () => {
     headersExpenseReport,
     onSortClick,
     reportExpenseItems,
+    expenseItemsCount: expenseReportItems.length,
     showAllItems,
     handleLoadMore,
   };

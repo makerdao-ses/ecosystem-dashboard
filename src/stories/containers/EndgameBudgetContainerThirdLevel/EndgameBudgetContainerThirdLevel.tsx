@@ -241,6 +241,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
             sortClick={expenseReportSection.onSortClick}
             handleLoadMore={expenseReportSection.handleLoadMore}
             showAllItems={expenseReportSection.showAllItems}
+            allItemsCount={expenseReportSection.expenseItemsCount}
           />
         </ContainerLastReport>
       </Container>

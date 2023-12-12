@@ -43,6 +43,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
           <DelegateExpenseTrendItem
             key={index}
             expenseReport={expense}
+            selectedMetric={filterProps.selectedMetric}
             link={getLinkLastExpenseReport(expense.shortCode, expenseReport)}
           />
         ))}
