@@ -122,6 +122,7 @@ const FilterContainer = styled.div({
   display: 'flex',
   justifyContent: 'flex-end',
   gap: 16,
+  marginLeft: 'auto',
   zIndex: 5,
 });
 

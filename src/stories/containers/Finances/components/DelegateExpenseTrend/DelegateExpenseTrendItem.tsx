@@ -78,7 +78,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, select
 
         <ReportingMonth>
           <LabelDescription isLight={isLight}>Reporting Month</LabelDescription>
-          <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
+          <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLL yyyy')}</Date>
         </ReportingMonth>
         <TotalActualsTable>
           <LabelDescription isLight={isLight}>{selectedMetric}</LabelDescription>
@@ -110,7 +110,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, select
         <ContainerReportingMobile>
           <ReportingMobile>
             <LabelTagMobile isLight={isLight}>Reporting Month</LabelTagMobile>
-            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
+            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLL yyyy')}</Date>
           </ReportingMobile>
         </ContainerReportingMobile>
 
