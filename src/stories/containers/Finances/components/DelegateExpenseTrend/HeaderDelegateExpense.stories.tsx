@@ -11,10 +11,10 @@ export default meta;
 
 const variantsArgs = [
   {
-    columns: getHeadersExpenseReport(enumForStories, false),
+    columns: getHeadersExpenseReport(enumForStories, 'Actuals', false),
   },
   {
-    columns: getHeadersExpenseReport(enumForStories, true),
+    columns: getHeadersExpenseReport(enumForStories, 'Actuals', true),
   },
 ];
 
