@@ -333,6 +333,7 @@ export const getExpenseMonthWithData = (expense: MomentDataItem) => {
 export const isCoreUnit = (item: MomentDataItem) => item?.type === ResourceType.CoreUnit;
 export const getHeadersExpenseReport = (
   headersSort: SortEnum[],
+  selectedMetric: string,
   isSmallDesk: boolean
 ): DelegateExpenseTableHeader[] => [
   {
@@ -363,7 +364,7 @@ export const getHeadersExpenseReport = (
     sort: headersSort[1],
   },
   {
-    header: 'Total Actuals',
+    header: selectedMetric,
     sort: headersSort[2],
     styles: {
       width: 130,
