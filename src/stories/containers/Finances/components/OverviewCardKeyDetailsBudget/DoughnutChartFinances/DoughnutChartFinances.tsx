@@ -38,7 +38,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
 
   const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
-  console.log('minWidth: 190,', cutTextForBigNumberLegend);
+
   const options = {
     color: visibleSeries.map((data) => data.color),
     tooltip: {
