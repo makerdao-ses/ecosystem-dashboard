@@ -40,16 +40,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const budgets = (await fetchBudgets())
     .filter((budget) => budget.parentId === null)
-    .map((item) => {
-      if (item.codePath === '142') {
-        return {
-          ...item,
-          codePath: 'atlas/legacy',
-        };
-      } else {
-        return item;
-      }
-    });
+    .map((item) =>
+      item.codePath === '142'
+        ? {
+            ...item,
+            codePath: 'atlas/legacy',
+          }
+        : item
+    );
 
   const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, 'atlas', 1, budgets);
   return {

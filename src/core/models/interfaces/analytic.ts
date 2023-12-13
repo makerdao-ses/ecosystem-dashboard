@@ -10,22 +10,25 @@ export type AnalyticGranularity =
 
 export type AnalyticMetric = 'Actuals' | 'Budget' | 'Forecast' | 'PaymentsOnChain' | 'PaymentsOffChainIncluded';
 
-export interface Analytic {
-  series: {
-    period: AnalyticGranularity;
-    start: string;
-    end: string;
-    rows: {
-      dimensions: {
-        name: 'budget';
-        path: string;
-      }[];
-      metric: AnalyticMetric;
-      unit: 'DAI';
-      value: number;
-      sum: number;
-    }[];
+export interface AnalyticSeriesRow {
+  dimensions: {
+    name: 'budget';
+    path: string;
   }[];
+  metric: AnalyticMetric;
+  unit: 'DAI';
+  value: number;
+  sum: number;
+}
+
+export interface AnalyticSeries {
+  period: AnalyticGranularity;
+  start: string;
+  end: string;
+  rows: AnalyticSeriesRow[];
+}
+export interface Analytic {
+  series: AnalyticSeries[];
 }
 
 export interface AnalyticFilter {

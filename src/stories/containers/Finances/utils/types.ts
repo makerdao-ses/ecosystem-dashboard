@@ -73,14 +73,6 @@ export interface SeriesBreakdownChart {
   data: ValueSeriesBreakdownChart[];
 }
 
-export interface MakerDAOExpenseMetricsLineChart {
-  Atlas: boolean;
-  Forecast: boolean;
-  Actuals: boolean;
-  'Net Expenses On-chain': boolean;
-  'Net Expenses Off-chain': boolean;
-}
-
 export interface BudgetMetricWithName extends BudgetMetric {
   name: string;
   code?: string;
