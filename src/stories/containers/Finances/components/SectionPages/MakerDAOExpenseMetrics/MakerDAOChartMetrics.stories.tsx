@@ -24,10 +24,9 @@ const args = [
     newForecast: legacyBudget,
     newNetExpensesOffChain: atlasBudget,
     newNetExpensesOnChain: scopeBudget,
-    periodicSelectionFilter: ['Monthly'],
+    selectedGranularity: 'monthly',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleChange: (value: string) => null,
-    selectedValue: 'Monthly',
+    handleGranularityChange: (value: string) => null,
   },
 ];
 

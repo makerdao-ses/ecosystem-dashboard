@@ -28,7 +28,6 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   newNetExpensesOnChain,
   newNetExpensesOffChain,
 }) => {
-  console.log('>>>', newNetExpensesOffChain);
   const { isLight } = useThemeContext();
   const chartRef = useRef<EChartsOption | null>(null);
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
