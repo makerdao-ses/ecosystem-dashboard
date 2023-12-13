@@ -782,7 +782,7 @@ export const processingData = (series: { value: number }[]) => {
 
 export const getYearsRange = () => {
   const year = DateTime.utc().year;
-  const yearsRange = Array(1 + year - 2022)
+  const yearsRange = Array(1 + year - 2021)
     .fill('')
     .map((_, i) => (year - i).toString());
   return yearsRange;
