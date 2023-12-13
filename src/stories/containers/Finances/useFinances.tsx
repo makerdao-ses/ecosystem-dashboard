@@ -36,6 +36,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     'analytics/annual',
     async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BudgetAnalytic>
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
     'analytics/semiAnnual',
     async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
@@ -48,9 +49,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     'analytics/monthly',
     async () => getBudgetsAnalytics('monthly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
-  console.log(budgetsAnalyticsSemiAnnual); // temporary
-  console.log(budgetsAnalyticsQuarterly); // temporary
-  console.log(budgetsAnalyticsMonthly); // temporary
 
   const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
 
@@ -105,8 +103,9 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   const breakdownTable = useBreakdownTable();
 
   // All the logic required by the MakerDAOExpenseMetrics
-  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics();
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
+  // invalidate cache and refetch all sections when year changes
   useEffect(() => {
     mutate('analytics/annual');
     mutate('analytics/semiAnnual');
@@ -122,9 +121,9 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     cardsToShow,
     ...breakdownChartSectionData,
     ...breakdownTable,
-    ...makerDAOExpensesMetrics,
     loadMoreCards,
     handleLoadMoreCards,
+    makerDAOExpensesMetrics,
     expenseReportSection: expenseTrendFinances,
   };
 };

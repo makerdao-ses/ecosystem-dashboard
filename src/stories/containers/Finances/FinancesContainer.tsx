@@ -60,13 +60,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     handleBreakdownGranularityChange,
     loadMoreCards,
     handleLoadMoreCards,
-    periodFilterMetrics,
-    handlePeriodChangeMetrics,
-    newActuals,
-    newBudget,
-    newForecast,
-    newNetExpensesOffChain,
-    newNetExpensesOnChain,
     isDisabled,
     handleResetFilterBreakDownChart,
     budgetsAnalyticsMonthly,
@@ -74,6 +67,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
+    makerDAOExpensesMetrics,
     expenseReportSection,
   } = useFinances(budgets, initialYear);
 
@@ -166,14 +160,14 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
       <Container>
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
           <MakerDAOExpenseMetricsFinances
-            handleChange={handlePeriodChangeMetrics}
-            periodicSelectionFilter={periodicSelectionFilter}
-            selectedValue={periodFilterMetrics}
-            newActuals={newActuals}
-            newBudget={newBudget}
-            newForecast={newForecast}
-            newNetExpensesOffChain={newNetExpensesOffChain}
-            newNetExpensesOnChain={newNetExpensesOnChain}
+            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+            newActuals={makerDAOExpensesMetrics.newActuals}
+            newBudget={makerDAOExpensesMetrics.newBudget}
+            newForecast={makerDAOExpensesMetrics.newForecast}
+            newNetExpensesOffChain={makerDAOExpensesMetrics.newNetExpensesOffChain}
+            newNetExpensesOnChain={makerDAOExpensesMetrics.newNetExpensesOnChain}
+            isLoading={makerDAOExpensesMetrics.isLoading}
             year={year}
           />
         )}
