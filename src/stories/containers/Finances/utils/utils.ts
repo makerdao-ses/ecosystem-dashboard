@@ -785,7 +785,6 @@ export const getYearsRange = () => {
   const yearsRange = Array(1 + year - 2021)
     .fill('')
     .map((_, i) => (year - i).toString());
-  console.log('yearsRange', yearsRange);
   return yearsRange;
 };
 
