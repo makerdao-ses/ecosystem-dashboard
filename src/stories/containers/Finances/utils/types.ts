@@ -100,3 +100,7 @@ export interface BreakdownChartSeriesData {
   };
   isVisible: boolean;
 }
+
+export interface MetricsWithAmountSignature {
+  [key: string]: MetricsWithAmount;
+}

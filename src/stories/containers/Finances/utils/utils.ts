@@ -451,25 +451,6 @@ export const getLinkLastExpenseReport = (code: string, reportExpenseItems: Momen
   }
 };
 
-export const getPeriodForFilters = (year: string) => {
-  const quarterlies: string[] = [];
-
-  for (let i = 1; i <= 4; ++i) {
-    const quarterly = `Q${i} ${year}`;
-    quarterlies.push(quarterly);
-  }
-  return quarterlies;
-};
-
-export const getPeriodForSemiAnnual = (year: string) => {
-  const semiAnnual: string[] = [];
-  for (let i = 1; i <= 2; ++i) {
-    const quarterly = `H${i}’ ${year}`;
-    semiAnnual.push(quarterly);
-  }
-  return semiAnnual;
-};
-
 export const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export const returnShortNameForMetric = (metric: MetricsWithAmount) => {
