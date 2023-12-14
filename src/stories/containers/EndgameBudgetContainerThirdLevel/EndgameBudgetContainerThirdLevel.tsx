@@ -66,7 +66,6 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleSelectChangeMetrics,
     selectMetrics,
     periodicSelectionFilter,
-    getAllMetricsValuesTotal,
     allowSelectAll,
     maxItems,
     minItems,
@@ -82,6 +81,8 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
+    headerValuesTable,
+    summaryTotalTable,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
@@ -204,10 +205,6 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
           budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
           series={series}
           refBreakDownChart={refBreakDownChart}
-          // isMobile={isMobile}
-          // isTablet={isTablet}
-          // isDesktop1024={isDesktop1024}
-          // upTable={upTable}
         />
       </Container>
 
@@ -222,8 +219,8 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
           periodicSelectionFilter={periodicSelectionFilter}
           selectedValue={periodFilter}
           year={year}
-          headerTableMetrics={getAllMetricsValuesTotal()}
-          metricTotal={getAllMetricsValuesTotal()}
+          headerTableMetrics={headerValuesTable}
+          metricTotal={summaryTotalTable}
           maxItems={maxItems}
           minItems={minItems}
           allowSelectAll={allowSelectAll}

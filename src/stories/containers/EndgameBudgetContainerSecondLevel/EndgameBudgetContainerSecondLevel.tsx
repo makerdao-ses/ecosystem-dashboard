@@ -37,8 +37,6 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     actuals,
     budgetCap,
     prediction,
-
-    getAllMetricsValuesTotal,
     activeMetrics,
     allowSelectAll,
     defaultMetricsWithAllSelected,
@@ -70,6 +68,8 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
+    headerValuesTable,
+    summaryTotalTable,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
   return (
@@ -135,8 +135,8 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
           periodicSelectionFilter={periodicSelectionFilter}
           selectedValue={periodFilter}
           year={year}
-          headerTableMetrics={getAllMetricsValuesTotal()}
-          metricTotal={getAllMetricsValuesTotal()}
+          headerTableMetrics={headerValuesTable}
+          metricTotal={summaryTotalTable}
           maxItems={maxItems}
           minItems={minItems}
           allowSelectAll={allowSelectAll}

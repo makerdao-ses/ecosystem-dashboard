@@ -48,9 +48,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     'analytics/monthly',
     async () => getBudgetsAnalytics('monthly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
-  console.log(budgetsAnalyticsSemiAnnual); // temporary
-  console.log(budgetsAnalyticsQuarterly); // temporary
-  console.log(budgetsAnalyticsMonthly); // temporary
 
   const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
 
@@ -102,7 +99,13 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics);
 
   // All the logic required by the BreakdownTable section
-  const breakdownTable = useBreakdownTable();
+  const breakdownTable = useBreakdownTable(
+    budgetsAnalytics,
+    budgetsAnalyticsSemiAnnual,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalyticsMonthly,
+    year
+  );
 
   // All the logic required by the MakerDAOExpenseMetrics
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics();
