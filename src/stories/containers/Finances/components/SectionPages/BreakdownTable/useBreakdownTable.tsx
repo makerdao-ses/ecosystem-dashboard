@@ -3,11 +3,19 @@ import { getMetricByPeriod } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { getHeaderValuesByPeriod, getSummaryFromHeaderValues } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { Metric, MetricsWithAmount, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
+import type { PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
+import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
-export const useBreakdownTable = () => {
+export const useBreakdownTable = (
+  budgetsAnalytics: BudgetAnalytic | undefined,
+  budgetsAnalyticsSemiAnnual: BreakdownBudgetAnalytic | undefined,
+  budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined,
+  budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined,
+  year: string
+) => {
   const router = useRouter();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -28,6 +36,7 @@ export const useBreakdownTable = () => {
   const [activeMetrics, setActiveMetrics] = useState<string[]>(metricsFilter.slice(0, val));
   const maxItems = val;
   const minItems = 1;
+
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
   const popupContainerHeight = allowSelectAll ? 250 : 210;
@@ -114,43 +123,18 @@ export const useBreakdownTable = () => {
     label: adr,
     url: router.asPath,
   }));
-  const handleResetFilters = () => {
-    console.log('reset-filters');
-  };
-  const mapMetricValuesTotal = useMemo(() => {
-    const mapMetricValues: Record<Metric, number> = {
-      Budget: 11044445,
-      Actual: 11044445,
-      Forecast: 11044445,
-      'Net Expenses On-chain': 11044445,
-      'Net Expenses Off-chain': 11044445,
-    };
-    return mapMetricValues;
-  }, []);
-  const getAllMetricsValuesTotal = useCallback(() => {
-    const metricValues: MetricsWithAmount[] = [];
-    if (periodFilter === 'Quarterly') {
-      activeMetrics.forEach((metric: string) => {
-        const amount = mapMetricValuesTotal[metric as Metric] || 0;
-        if (amount !== undefined) {
-          metricValues.push({
-            name: metric as Metric,
-            amount,
-          });
-        }
-      });
-    }
-    if (periodFilter === 'Annually' || periodFilter === 'Monthly' || periodFilter === 'Semi-annual') {
-      activeMetrics.forEach((metric: string) => {
-        metricValues.push({
-          name: metric as Metric,
-          amount: 11044445,
-        });
-      });
-    }
 
-    return metricValues;
-  }, [activeMetrics, mapMetricValuesTotal, periodFilter]);
+  const headerValuesTable = getHeaderValuesByPeriod(
+    periodFilter,
+    year,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalyticsMonthly,
+    budgetsAnalytics,
+    budgetsAnalyticsSemiAnnual,
+    activeMetrics
+  );
+
+  const summaryTotalTable = getSummaryFromHeaderValues(headerValuesTable);
 
   return {
     isMobile,
@@ -170,8 +154,7 @@ export const useBreakdownTable = () => {
     handlePeriodChange,
     selectMetrics,
     trailingAddress,
-    handleResetFilters,
-    mapMetricValuesTotal,
-    getAllMetricsValuesTotal,
+    summaryTotalTable,
+    headerValuesTable,
   };
 };

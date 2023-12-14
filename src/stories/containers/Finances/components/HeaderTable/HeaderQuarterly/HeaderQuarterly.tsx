@@ -9,13 +9,13 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   title: string;
   className?: string;
-  metrics: MetricsWithAmount[];
+  metrics: Record<string, MetricsWithAmount[]>;
   metricTotal: MetricsWithAmount[];
-  periods: string[];
 }
 
-const HeaderQuarterly: React.FC<Props> = ({ title, className, metrics, periods, metricTotal }) => {
+const HeaderQuarterly: React.FC<Props> = ({ title, className, metrics, metricTotal }) => {
   const { isLight } = useThemeContext();
+  const keysMetrics = Object.keys(metrics);
   return (
     <Container isLight={isLight} className={className}>
       <TitleContainer isLight={isLight}>
@@ -23,8 +23,8 @@ const HeaderQuarterly: React.FC<Props> = ({ title, className, metrics, periods, 
       </TitleContainer>
 
       <ContainerCell>
-        {periods?.map((period, index) => (
-          <CellQuarterly metrics={metrics} quarterly={period} key={index} />
+        {keysMetrics?.map((key, index) => (
+          <CellQuarterly metrics={metrics[key]} quarterly={key} key={index} />
         ))}
         <CellQuarterlyTotal metrics={metricTotal} quarterly="Total" isTotal />
       </ContainerCell>

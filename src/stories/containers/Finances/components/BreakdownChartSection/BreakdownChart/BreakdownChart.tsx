@@ -203,8 +203,9 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
         )}
       </ChartContainer>
       <LegendContainer>
-        {legends.map((element) => (
+        {legends.map((element, index) => (
           <LegendItem
+            key={index}
             isLight={isLight}
             onMouseEnter={() => onLegendItemHover(element.name)}
             onMouseLeave={() => onLegendItemLeave(element.name)}
