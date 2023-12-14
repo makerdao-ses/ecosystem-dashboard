@@ -15,28 +15,27 @@ import DelegateExpenseTrend from './DelegateExpenseTrend';
 
 import TotalAndKeyStatsComponent from './TotalAndKeyStatsComponent/TotalAndkeyStatusComponent';
 import { useRecognizedDelegates } from './useRecognizedDelegates';
-import type { RecognizedDelegatesDto, TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
-import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
+import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegates: RecognizedDelegatesDto[];
-  delegatesNumbers: ExpenseDto[];
-  totalQuarterlyExpenses: TotalDelegateDto;
-  totalMonthlyExpenses: ExpenseDto[];
+  totalMakerDAOExpenses: number;
+  monthlyAnalytics: Analytic;
+  totalAnalytics: Analytic;
 }
 
 const RecognizedDelegatesContainer: React.FC<Props> = ({
   delegates,
-  delegatesNumbers,
-  totalQuarterlyExpenses,
-  totalMonthlyExpenses,
+  totalMakerDAOExpenses,
+  monthlyAnalytics,
+  totalAnalytics,
 }) => {
   const { isLight } = useThemeContext();
   const {
     totalDAI,
     mediaAnnual,
-
     shadowTotal,
     recognizedDelegates,
     startDate,
@@ -50,7 +49,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
     otherExpenses,
     maxValuesRelative,
     resultFilteredChart,
-  } = useRecognizedDelegates(delegates, delegatesNumbers, totalQuarterlyExpenses, totalMonthlyExpenses);
+  } = useRecognizedDelegates(delegates, totalMakerDAOExpenses, monthlyAnalytics, totalAnalytics);
 
   return (
     <ExtendedPageContainer isLight={isLight}>
