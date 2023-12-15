@@ -2,18 +2,39 @@ import { useMediaQuery } from '@mui/material';
 import {
   getExpenseMonthWithData,
   getHeadersExpenseReport,
+  getStatus,
   mockDataApiTeam,
 } from '@ses/containers/Finances/utils/utils';
 import { SortEnum } from '@ses/core/enums/sortEnum';
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
+import { FilterChip } from './ExpenseReportsFilters';
 import type { MomentDataItem } from '@ses/containers/Finances/utils/types';
 
 export const useDelegateExpenseTrendFinances = () => {
-  const [showSome, setShowSome] = useState(true);
-  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  // metric filter:
+  const [selectedMetric, setSelectedMetric] = useState<string>('Actuals');
+  const onMetricChange = (value: string) => setSelectedMetric(value);
+
+  // status filter
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+  const onStatusSelectChange = (statuses: string[]) => setSelectedStatuses(statuses);
+
+  const handleResetFilter = () => {
+    setSelectedMetric('Actuals');
+    setSelectedStatuses([]);
+  };
+
+  const [showAllItems, setShowAllItems] = useState<boolean>(false);
+
+  const handleLoadMore = () => {
+    setShowAllItems((prev) => !prev);
+  };
+
+  // column sorting
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Asc,
@@ -69,19 +90,21 @@ export const useDelegateExpenseTrendFinances = () => {
     setHeadersSort(sortNeutralState);
     setSortColumn(index);
   };
-  const headersExpenseReport = getHeadersExpenseReport(headersSort, isSmallDesk);
-  const getExpenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
-  const getItems = showSome ? getExpenseReportItems.slice(0, 10) : getExpenseReportItems;
+
+  const isSmallDesk = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  // headers used for the UI table
+  const headersExpenseReport = getHeadersExpenseReport(headersSort, selectedMetric, isSmallDesk);
+
+  // actual items fetched from the API
+  const expenseReportItems: MomentDataItem[] = useMemo(() => mockDataApiTeam, []);
+  const items = !showAllItems ? expenseReportItems.slice(0, 10) : expenseReportItems;
   const groupByStatusDefaultSorting: MomentDataItem[] = useMemo(() => {
-    const resultMoment = orderBy(getItems, 'name');
+    const resultMoment = orderBy(items, 'name');
 
     return resultMoment;
-  }, [getItems]);
+  }, [items]);
 
-  const handleLoadMore = () => {
-    setShowSome(!showSome);
-  };
-
+  // final items rendered on the UI
   const reportExpenseItems: MomentDataItem[] = useMemo(() => {
     const sortedData = sortData(groupByStatusDefaultSorting);
     return sortedData?.map((x: MomentDataItem) => ({
@@ -90,11 +113,50 @@ export const useDelegateExpenseTrendFinances = () => {
       key: x.code,
     }));
   }, [groupByStatusDefaultSorting, sortData]);
+
+  // status items used in the status multiselect filter
+  const statusesItems = useMemo(
+    () => [
+      {
+        id: BudgetStatus.Draft,
+        content: <FilterChip status={BudgetStatus.Draft} />,
+        count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Draft)
+          .length,
+      },
+      {
+        id: BudgetStatus.Review,
+        content: <FilterChip status={BudgetStatus.Review} />,
+        count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Review)
+          .length,
+      },
+      {
+        id: BudgetStatus.Final,
+        content: <FilterChip status={BudgetStatus.Final} />,
+        count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Final)
+          .length,
+      },
+      {
+        id: BudgetStatus.Escalated,
+        content: <FilterChip status={BudgetStatus.Escalated} />,
+        count: reportExpenseItems.filter((element) => getStatus(element.budgetStatements) === BudgetStatus.Escalated)
+          .length,
+      },
+    ],
+    [reportExpenseItems]
+  );
+
   return {
+    selectedMetric,
+    onMetricChange,
+    selectedStatuses,
+    onStatusSelectChange,
+    statusesItems,
+    handleResetFilter,
     headersExpenseReport,
     onSortClick,
     reportExpenseItems,
-    showSome,
+    expenseItemsCount: expenseReportItems.length,
+    showAllItems,
     handleLoadMore,
   };
 };

@@ -333,6 +333,7 @@ export const getExpenseMonthWithData = (expense: MomentDataItem) => {
 export const isCoreUnit = (item: MomentDataItem) => item?.type === ResourceType.CoreUnit;
 export const getHeadersExpenseReport = (
   headersSort: SortEnum[],
+  selectedMetric: string,
   isSmallDesk: boolean
 ): DelegateExpenseTableHeader[] => [
   {
@@ -363,7 +364,7 @@ export const getHeadersExpenseReport = (
     sort: headersSort[1],
   },
   {
-    header: 'Total Actuals',
+    header: selectedMetric.replace('Expenses', ''),
     sort: headersSort[2],
     styles: {
       width: 130,
@@ -762,7 +763,7 @@ export const processingData = (series: { value: number }[]) => {
 
 export const getYearsRange = () => {
   const year = DateTime.utc().year;
-  const yearsRange = Array(1 + year - 2022)
+  const yearsRange = Array(1 + year - 2021)
     .fill('')
     .map((_, i) => (year - i).toString());
   return yearsRange;

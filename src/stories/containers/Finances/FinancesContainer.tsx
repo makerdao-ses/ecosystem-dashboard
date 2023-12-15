@@ -48,13 +48,10 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     handleSelectChangeMetrics,
     selectMetrics,
     handleResetMetrics,
-    headersExpenseReport,
-    reportExpenseItems,
-    onSortClick,
-    handleLoadMore,
-    showSome,
+
     summaryTotalTable,
     headerValuesTable,
+
     defaultMetricsWithAllSelected,
     maxItems,
     minItems,
@@ -66,13 +63,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     handleBreakdownGranularityChange,
     loadMoreCards,
     handleLoadMoreCards,
-    periodFilterMetrics,
-    handlePeriodChangeMetrics,
-    newActuals,
-    newBudget,
-    newForecast,
-    newNetExpensesOffChain,
-    newNetExpensesOnChain,
     isDisabled,
     handleResetFilterBreakDownChart,
     budgetsAnalyticsMonthly,
@@ -80,6 +70,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
+    makerDAOExpensesMetrics,
+    expenseReportSection,
   } = useFinances(budgets, initialYear);
 
   return (
@@ -171,24 +163,31 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
       <Container>
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
           <MakerDAOExpenseMetricsFinances
-            handleChange={handlePeriodChangeMetrics}
-            periodicSelectionFilter={periodicSelectionFilter}
-            selectedValue={periodFilterMetrics}
-            newActuals={newActuals}
-            newBudget={newBudget}
-            newForecast={newForecast}
-            newNetExpensesOffChain={newNetExpensesOffChain}
-            newNetExpensesOnChain={newNetExpensesOnChain}
+            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+            newActuals={makerDAOExpensesMetrics.newActuals}
+            newBudget={makerDAOExpensesMetrics.newBudget}
+            newForecast={makerDAOExpensesMetrics.newForecast}
+            newNetExpensesOffChain={makerDAOExpensesMetrics.newNetExpensesOffChain}
+            newNetExpensesOnChain={makerDAOExpensesMetrics.newNetExpensesOnChain}
+            isLoading={makerDAOExpensesMetrics.isLoading}
             year={year}
           />
         )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
-            columns={headersExpenseReport}
-            expenseReport={reportExpenseItems}
-            sortClick={onSortClick}
-            handleLoadMore={handleLoadMore}
-            showSome={showSome}
+            selectedMetric={expenseReportSection.selectedMetric}
+            onMetricChange={expenseReportSection.onMetricChange}
+            selectedStatuses={expenseReportSection.selectedStatuses}
+            onStatusSelectChange={expenseReportSection.onStatusSelectChange}
+            handleResetFilter={expenseReportSection.handleResetFilter}
+            statusesItems={expenseReportSection.statusesItems}
+            columns={expenseReportSection.headersExpenseReport}
+            expenseReport={expenseReportSection.reportExpenseItems}
+            sortClick={expenseReportSection.onSortClick}
+            handleLoadMore={expenseReportSection.handleLoadMore}
+            showAllItems={expenseReportSection.showAllItems}
+            allItemsCount={expenseReportSection.expenseItemsCount}
           />
         </ContainerLastReport>
       </Container>

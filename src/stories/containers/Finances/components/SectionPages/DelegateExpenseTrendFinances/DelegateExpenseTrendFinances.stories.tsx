@@ -14,7 +14,7 @@ export default meta;
 
 const args = [
   {
-    columns: getHeadersExpenseReport(enumForStories, false),
+    columns: getHeadersExpenseReport(enumForStories, 'Actuals', false),
     expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
     handleLinkToPage: () => null,
@@ -22,7 +22,7 @@ const args = [
     showSome: true,
   },
   {
-    columns: getHeadersExpenseReport(enumForStories, true),
+    columns: getHeadersExpenseReport(enumForStories, 'Actuals', true),
     expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
     handleLinkToPage: () => null,

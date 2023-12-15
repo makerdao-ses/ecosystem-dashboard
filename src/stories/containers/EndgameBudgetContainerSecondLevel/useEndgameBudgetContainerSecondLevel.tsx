@@ -147,8 +147,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     year
   );
 
-  const { headersExpenseReport, reportExpenseItems, handleLoadMore, showSome, onSortClick } =
-    useDelegateExpenseTrendFinances();
+  const expenseReportSection = useDelegateExpenseTrendFinances();
 
   const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
@@ -232,16 +231,12 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     handlePeriodChange,
     periodicSelectionFilter,
     handleSelectChangeMetrics,
-    headersExpenseReport,
-    reportExpenseItems,
-    handleLoadMore,
-    showSome,
-    onSortClick,
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
     cutTextForBigNumberLegend,
     headerValuesTable,
     summaryTotalTable,
+    expenseReportSection,
   };
 };

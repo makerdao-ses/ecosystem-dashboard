@@ -4,16 +4,19 @@ import { getLinkLastExpenseReport } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import SectionTitle from '../../BreakdownChartSection/SectionTitle/SectionTitle';
 import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpenseTrendItem';
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
+import ExpenseReportsFilters from './ExpenseReportsFilters';
+import type { ExpenseReportsFiltersProps } from './ExpenseReportsFilters';
 import type { DelegateExpenseTableHeader, MomentDataItem } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-interface Props {
+interface Props extends ExpenseReportsFiltersProps {
   columns: DelegateExpenseTableHeader[];
   expenseReport: MomentDataItem[];
   sortClick: (index: number) => void;
-  showSome: boolean;
+  showAllItems: boolean;
   handleLoadMore?: () => void;
 }
 const DelegateExpenseTrendFinances: React.FC<Props> = ({
@@ -21,15 +24,17 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
   expenseReport,
   sortClick,
   handleLoadMore,
-  showSome,
+  showAllItems,
+  ...filterProps // props from ExpenseReportsFiltersProps
 }) => {
   const { isLight } = useThemeContext();
   return (
     <Container>
-      <InformationSection>
-        <Title isLight={isLight}>Expense Reports</Title>
-        <Description isLight={isLight}>Delegate Compensation / Month</Description>
-      </InformationSection>
+      <HeaderContainer>
+        <SectionTitle title="Expense Reports" tooltip="No data" />
+        <ExpenseReportsFilters {...filterProps} />
+      </HeaderContainer>
+
       <Header>
         <HeaderDelegateExpense columns={columns} sortClick={sortClick} />
       </Header>
@@ -38,11 +43,12 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
           <DelegateExpenseTrendItem
             key={index}
             expenseReport={expense}
+            selectedMetric={filterProps.selectedMetric}
             link={getLinkLastExpenseReport(expense.shortCode, expenseReport)}
           />
         ))}
       </ItemSection>
-      {showSome && (
+      {!showAllItems && (
         <ContainerButton>
           <DividerStyle isLight={isLight} />
           <BigButtonStyled title={'Load More'} onClick={handleLoadMore} />
@@ -62,49 +68,20 @@ const Container = styled.div({
   fontFamily: 'Inter, sans-serif',
 });
 
-const InformationSection = styled.div({
+const HeaderContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 4,
+  flexWrap: 'wrap',
+  gap: 24,
   marginBottom: 24,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     marginBottom: 40,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 16,
-  },
 });
-
-const Title = styled.h2<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: 18,
-  margin: 0,
-  fontStyle: 'normal',
-  fontWeight: 600,
-  lineHeight: 'normal',
-  letterSpacing: '0.75px',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 24,
-    letterSpacing: '0.4px',
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    fontSize: 32,
-  },
-}));
-
-const Description = styled.p<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: 12,
-  fontStyle: 'normal',
-  fontWeight: 400,
-  margin: 0,
-  lineHeight: 'normal',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 16,
-    lineHeight: '22px',
-  },
-}));
 
 const ItemSection = styled.div({
   display: 'flex',

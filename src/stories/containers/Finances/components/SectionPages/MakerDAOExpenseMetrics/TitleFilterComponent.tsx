@@ -5,15 +5,15 @@ import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  periodicSelectionFilter: string[];
-  handleChange: (value: string) => void;
-  selectedValue: string;
+  handleChange: (value: AnalyticGranularity) => void;
+  selectedValue: AnalyticGranularity;
 }
 
-const TitleFilterComponent: React.FC<Props> = ({ handleChange, selectedValue, periodicSelectionFilter }) => {
+const TitleFilterComponent: React.FC<Props> = ({ handleChange, selectedValue }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -37,9 +37,22 @@ const TitleFilterComponent: React.FC<Props> = ({ handleChange, selectedValue, pe
       <FilterContainer>
         <PeriodicSelectionFilter>
           <PeriodSelect
-            items={periodicSelectionFilter}
+            items={[
+              {
+                label: 'Monthly',
+                value: 'monthly',
+              },
+              {
+                label: 'Quarterly',
+                value: 'quarterly',
+              },
+              {
+                label: 'Annually',
+                value: 'annual',
+              },
+            ]}
             useSelectedAsLabel
-            onChange={handleChange}
+            onChange={(value) => handleChange(value as AnalyticGranularity)}
             selected={selectedValue}
             PopperProps={{
               style: {

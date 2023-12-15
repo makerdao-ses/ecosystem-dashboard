@@ -26,10 +26,11 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   link?: string;
   expenseReport: MomentDataItem;
+  selectedMetric: string;
   now?: DateTime;
 }
 
-const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, now = DateTime.now() }) => {
+const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, selectedMetric, now = DateTime.now() }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
   const getDateExpenseModified = getExpenseMonthWithData(expenseReport);
@@ -77,10 +78,10 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, now = 
 
         <ReportingMonth>
           <LabelDescription isLight={isLight}>Reporting Month</LabelDescription>
-          <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
+          <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLL yyyy')}</Date>
         </ReportingMonth>
         <TotalActualsTable>
-          <LabelDescription isLight={isLight}>Total Actuals</LabelDescription>
+          <LabelDescription isLight={isLight}>{selectedMetric}</LabelDescription>
           <TotalNumber isLight={isLight}>{`${
             expenseReport.totalActuals.toLocaleString('es-US') || '0'
           } DAI`}</TotalNumber>
@@ -109,12 +110,12 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, now = 
         <ContainerReportingMobile>
           <ReportingMobile>
             <LabelTagMobile isLight={isLight}>Reporting Month</LabelTagMobile>
-            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLLL yyyy')}</Date>
+            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLL yyyy')}</Date>
           </ReportingMobile>
         </ContainerReportingMobile>
 
         <TotalContainerMobile>
-          <Total isLight={isLight}>Total Actuals</Total>
+          <Total isLight={isLight}>{selectedMetric}</Total>
           <TotalNumber isLight={isLight}>
             {`${expenseReport.totalActuals.toLocaleString('es-US') || '0'} DAI`}
           </TotalNumber>

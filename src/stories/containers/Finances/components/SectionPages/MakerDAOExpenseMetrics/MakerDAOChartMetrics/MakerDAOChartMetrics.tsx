@@ -1,14 +1,17 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { breakdownChartMonthly, breakdownChartQuarterly } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
+import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 interface BreakdownChartProps {
   year: string;
+  selectedGranularity: AnalyticGranularity;
   newActuals: { value: number }[];
   newBudget: { value: number }[];
   newForecast: { value: number }[];
@@ -18,6 +21,7 @@ interface BreakdownChartProps {
 
 const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   year,
+  selectedGranularity,
   newActuals,
   newBudget,
   newForecast,
@@ -51,20 +55,12 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
     },
     xAxis: {
       type: 'category',
-      data: [
-        isMobile ? 'J' : 'JAN',
-        isMobile ? 'F' : 'FEB',
-        isMobile ? 'M' : 'MAR',
-        isMobile ? 'A' : 'APR',
-        isMobile ? 'M' : 'MAY',
-        isMobile ? 'J' : 'JUN',
-        isMobile ? 'J' : 'JUL',
-        isMobile ? 'A' : 'AUG',
-        isMobile ? 'S' : 'SEP',
-        isMobile ? 'O' : 'OCT',
-        isMobile ? 'N' : 'NOV',
-        isMobile ? 'D' : 'DEC',
-      ],
+      data:
+        selectedGranularity === 'monthly'
+          ? breakdownChartMonthly(isMobile)
+          : selectedGranularity === 'quarterly'
+          ? breakdownChartQuarterly()
+          : [''],
       splitLine: {
         show: false,
       },
@@ -173,7 +169,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         stack: 'Total',
         showBackground: false,
         itemStyle: {
-          color: isLight ? '#FBCC5F' : 'red',
+          color: isLight ? '#FBCC5F' : '#FDC134',
         },
         isVisible: true,
       },
@@ -184,7 +180,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         stack: 'Total',
         showBackground: false,
         itemStyle: {
-          color: isLight ? '#7C6B95' : 'red',
+          color: isLight ? '#7C6B95' : '#6C40AA',
         },
         isVisible: true,
       },
@@ -300,8 +296,8 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#FBCC5F' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#FBCC5F' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#FBCC5F' : '#FDC134'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#FBCC5F' : '#FDC134'} />
             </svg>
             Net Expenses On-chain
           </LegendItem>
@@ -318,8 +314,8 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
               viewBox="0 0 13 13"
               fill="none"
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#7C6B95' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#7C6B95' : 'red'} />
+              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#7C6B95' : '#6C40AA'} />
+              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#7C6B95' : '#6C40AA'} />
             </svg>
             {`${isMobile ? 'Net Expenses Off-chain' : 'Net Expenses Off-chain included'}`}
           </LegendItem>
@@ -365,7 +361,7 @@ const ChartContainer = styled.div({
 });
 
 const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
-  const border = `1px solid ${isLight ? '#6EDBD0' : 'red'}`;
+  const border = `1px solid ${isLight ? '#6EDBD0' : '#1AAB9B'}`;
 
   return {
     position: 'absolute',
@@ -384,13 +380,13 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 const YearText = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 11,
   lineHeight: 'normal',
-  color: isLight ? '#139D8D' : 'red',
+  color: isLight ? '#139D8D' : '#1AAB9B',
   position: 'absolute',
   bottom: -6,
   width: 52,
   left: '50%',
   transform: 'translateX(-50%)',
-  backgroundColor: isLight ? '#FFFFFF' : 'red',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
   textAlign: 'center',
 }));
 
