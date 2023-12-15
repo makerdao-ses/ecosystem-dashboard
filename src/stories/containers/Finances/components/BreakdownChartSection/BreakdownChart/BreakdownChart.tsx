@@ -25,7 +25,6 @@ interface BreakdownChartProps {
 
 const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart, series, selectedGranularity }) => {
   const { isLight } = useThemeContext();
-
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -35,7 +34,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
 
   const [visibleSeries, setVisibleSeries] = useState<BreakdownChartSeriesData[]>(series);
   const [legends, setLegends] = useState<BreakdownChartSeriesData[]>(series);
-
+  const showLineYear =
+    isMobile && (selectedGranularity as string) !== 'Quarterly' && (selectedGranularity as string) !== 'Annually';
   useEffect(() => {
     setVisibleSeries(series);
     setLegends(series);
@@ -196,7 +196,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
           }}
           opts={{ renderer: 'svg' }}
         />
-        {isMobile && (
+        {showLineYear && (
           <YearXAxis isLight={isLight}>
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>
