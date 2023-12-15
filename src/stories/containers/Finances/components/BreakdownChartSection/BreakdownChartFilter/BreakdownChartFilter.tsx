@@ -26,7 +26,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
 }) => {
   const { isLight } = useThemeContext();
 
-  const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#48495F';
+  const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
 
   return (
     <FilterContainer>
@@ -67,7 +67,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
     </FilterContainer>
   );
 };
-
+//
 export default BreakdownChartFilter;
 
 const FilterContainer = styled.div({
@@ -117,7 +117,7 @@ const ResponsiveButton = styled.div<WithIsLight & { isDisabled: boolean }>(({ is
   width: '34px',
   border: isLight
     ? `1px solid ${isDisabled ? '#ECEFF9' : '#D4D9E1'}`
-    : `1px solid ${isDisabled ? '#10191F' : '#48495F'}`,
+    : `1px solid ${isDisabled ? '#10191F' : '#D4D9E1'}`,
   borderRadius: '22px',
   alignItems: 'center',
   justifyContent: 'center',
