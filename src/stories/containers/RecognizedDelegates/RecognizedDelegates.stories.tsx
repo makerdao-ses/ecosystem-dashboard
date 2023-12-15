@@ -28,7 +28,7 @@ const variantsArgs = [
     delegates: [
       new RecognizedDelegatesBuilder()
         .withName('Feedblack Loops LLC')
-        .withImage('https://live.staticflickr.com/65535/52832796763_a0e2339b3b_m.jpg')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/twblack88/90/16125_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(23325)
         .withSocials({
@@ -40,8 +40,8 @@ const variantsArgs = [
         })
         .build(),
       new RecognizedDelegatesBuilder()
-        .withName('Flip Flop Flap Delegate LLC')
-        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+        .withName('Flip Flap Flop Delegate LLC')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/flipflopflapdelegate/90/24350_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(292325)
         .withSocials({
@@ -54,7 +54,7 @@ const variantsArgs = [
         .build(),
       new RecognizedDelegatesBuilder()
         .withName('GFX Labs')
-        .withImage('https://live.staticflickr.com/65535/52832350651_0506c1ff2a_m.jpg')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/gfxlabs/90/13005_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(282325)
         .withSocials({
@@ -66,8 +66,8 @@ const variantsArgs = [
         })
         .build(),
       new RecognizedDelegatesBuilder()
-        .withName('Coldirion.eth')
-        .withImage('https://live.staticflickr.com/65535/52832350671_ac70b94b13_m.jpg')
+        .withName('Coldiron.eth')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/coldiron.eth/240/25270_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(272325)
         .withSocials({
@@ -79,7 +79,7 @@ const variantsArgs = [
         })
         .build(),
     ],
-    totalMakerDAOExpenses: 1493489,
+    totalMakerDAOExpenses: 33000000,
     monthlyAnalytics: {
       series: [
         {
@@ -90,7 +90,71 @@ const variantsArgs = [
     totalAnalytics: {
       series: [
         {
-          rows: [],
+          period: 'total',
+          start: '2021-11-01T00:00:00.000Z',
+          end: '2023-04-01T00:00:00.000Z',
+          rows: [
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/Feedblack Loops LLC',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 193635,
+              sum: 193635,
+            },
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/Flip Flap Flop Delegate LLC',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 201228,
+              sum: 201228,
+            },
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/GFX Labs',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 102878,
+              sum: 102878,
+            },
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/Coldiron.eth',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 34452,
+              sum: 34452,
+            },
+          ],
         },
       ],
     },
