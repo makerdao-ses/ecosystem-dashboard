@@ -22,7 +22,22 @@ const useBreakdownChart = (
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
+  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
+  const barWidth = isMobile
+    ? selectedBreakdownGranularity === 'Quarterly'
+      ? 32
+      : selectedBreakdownGranularity === 'Annually'
+      ? 96
+      : 16
+    : isTablet
+    ? 40
+    : isDesktop1024 || isDesktop1280
+    ? selectedBreakdownGranularity === 'Annually'
+      ? 168
+      : selectedBreakdownGranularity === 'Quarterly'
+      ? 64
+      : 40
+    : 56;
 
   const handleBreakdownMetricChange = (value: string) => setSelectedBreakdownMetric(value);
   const handleBreakdownGranularityChange = (value: string) => {

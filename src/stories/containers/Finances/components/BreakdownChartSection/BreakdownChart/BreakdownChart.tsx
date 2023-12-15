@@ -25,7 +25,6 @@ interface BreakdownChartProps {
 
 const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart, series, selectedGranularity }) => {
   const { isLight } = useThemeContext();
-
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -35,7 +34,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
 
   const [visibleSeries, setVisibleSeries] = useState<BreakdownChartSeriesData[]>(series);
   const [legends, setLegends] = useState<BreakdownChartSeriesData[]>(series);
-
+  const showLineYear =
+    isMobile && (selectedGranularity as string) !== 'Quarterly' && (selectedGranularity as string) !== 'Annually';
   useEffect(() => {
     setVisibleSeries(series);
     setLegends(series);
@@ -196,7 +196,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
           }}
           opts={{ renderer: 'svg' }}
         />
-        {isMobile && (
+        {showLineYear && (
           <YearXAxis isLight={isLight}>
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>
@@ -210,7 +210,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
             onMouseLeave={() => onLegendItemLeave(element.name)}
             onClick={() => toggleSeriesVisibility(element.name)}
           >
-            <div>
+            <SVGContainer>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={isMobile ? 13 : 16}
@@ -221,7 +221,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
                 <circle cx="6.5" cy="6.5" r="5.5" stroke={element.itemStyle.color} />
                 <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.color} />
               </svg>
-            </div>
+            </SVGContainer>
             {element.name}
           </LegendItem>
         ))}
@@ -337,3 +337,8 @@ const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '22px',
   },
 }));
+
+const SVGContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
