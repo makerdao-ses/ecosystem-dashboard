@@ -48,10 +48,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     handleSelectChangeMetrics,
     selectMetrics,
     handleResetMetrics,
-
     summaryTotalTable,
     headerValuesTable,
-
     defaultMetricsWithAllSelected,
     maxItems,
     minItems,

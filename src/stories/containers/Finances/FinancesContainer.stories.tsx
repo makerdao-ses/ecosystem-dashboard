@@ -34,7 +34,7 @@ const variantsArgs = [
         .withIdPath('1/6/7')
         .withId('1')
         .withDescription('Description of the budget')
-        .withCodePath('atlas/sds/fds')
+        .withCodePath('atlas/inmutable')
         .withCode('fds')
         .build(),
       new BudgetBuilder()
@@ -44,7 +44,7 @@ const variantsArgs = [
         .withIdPath('1/6/7')
         .withId('2')
         .withDescription('Description of the budget')
-        .withCodePath('atlas/sds/fds')
+        .withCodePath('atlas/scope')
         .withCode('fds')
         .build(),
       new BudgetBuilder()
@@ -54,7 +54,7 @@ const variantsArgs = [
         .withIdPath('1/6/7')
         .withId('3')
         .withDescription('Description of the budget')
-        .withCodePath('atlas/sds/fds')
+        .withCodePath('atlas/legacy')
         .withCode('fds')
         .build(),
     ],
@@ -72,15 +72,15 @@ const variantsArgs = [
             unit: 'DAI',
           },
           forecast: {
-            value: 0,
+            value: 3440,
             unit: 'DAI',
           },
           paymentsOnChain: {
-            value: 0,
+            value: 3430,
             unit: 'DAI',
           },
           paymentsOffChainIncluded: {
-            value: 0,
+            value: 343430,
             unit: 'DAI',
           },
         })
