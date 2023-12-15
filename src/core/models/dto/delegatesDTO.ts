@@ -1,4 +1,3 @@
-import type { ExpenseDto } from './expensesDTO';
 import type { ChangeTrackingEvent } from '../interfaces/activity';
 import type { BudgetStatement } from '../interfaces/budgetStatement';
 import type { ResourceType } from '../interfaces/types';
@@ -27,9 +26,4 @@ export interface RecognizedDelegatesDto {
   latestVotingContract: string;
   socials: DelegateSocialDto;
   actuals: number;
-}
-
-export interface TotalDelegateDto {
-  delegatesExpenses: ExpenseDto[];
-  totalExpenses: ExpenseDto[];
 }

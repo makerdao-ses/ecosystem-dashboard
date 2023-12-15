@@ -123,6 +123,7 @@ const dictionary = [
   'deco',
   'Feedblack',
   'Coldirion',
+  'Coldiron',
   'Gnosis',
   'Blockies',
   'Blockie',
