@@ -94,8 +94,8 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   );
 
   const expensesComparisonRows = useMemo(
-    () => buildExpensesComparisonRows(actualsComparison, selectedToken, snapshot.period),
-    [actualsComparison, selectedToken, snapshot.period]
+    () => buildExpensesComparisonRows(actualsComparison, selectedToken, snapshot.period, hasOffChainData),
+    [actualsComparison, hasOffChainData, selectedToken, snapshot.period]
   );
 
   return {

@@ -179,12 +179,9 @@ export const getTotals = (values: ActualsComparison[]): ActualsComparison =>
 export const buildExpensesComparisonRows = (
   values: ActualsComparison[],
   currency: Token,
-  currentPeriod: string
+  currentPeriod: string,
+  hasOffChainData: boolean
 ): RowProps[] => {
-  const hasOffChainData = values.some(
-    (value) => value.netExpenses.offChainIncluded.amount || value.netExpenses.offChainIncluded.difference
-  );
-
   const rows: RowProps[] = [];
   if (hasOffChainData) {
     values.forEach((comparison) => {
