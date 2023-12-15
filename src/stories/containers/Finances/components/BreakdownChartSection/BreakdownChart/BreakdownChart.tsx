@@ -210,7 +210,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
             onMouseLeave={() => onLegendItemLeave(element.name)}
             onClick={() => toggleSeriesVisibility(element.name)}
           >
-            <div>
+            <SVGContainer>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={isMobile ? 13 : 16}
@@ -221,7 +221,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
                 <circle cx="6.5" cy="6.5" r="5.5" stroke={element.itemStyle.color} />
                 <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.color} />
               </svg>
-            </div>
+            </SVGContainer>
             {element.name}
           </LegendItem>
         ))}
@@ -337,3 +337,8 @@ const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '22px',
   },
 }));
+
+const SVGContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
