@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { formatterBreakDownChart, getGranularity } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
+import { formatNumber, replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
-import { setBorderRadiusForSeries } from '../utis';
-import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
+import { setBorderRadiusForSeries } from '../utils';
+import type { BarChartSeries, BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -51,6 +51,45 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
     interval: 0,
   };
   const options: EChartsOption = {
+    tooltip: {
+      show: !isMobile,
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+      },
+      padding: 0,
+      borderWidth: 1,
+      borderColor: isLight ? '#D4D9E1' : '#231536',
+      formatter: function (params: BarChartSeries[]) {
+        return `
+        <div style="background-color:${
+          isLight ? '#fff' : '#000A13'
+        };padding:16px;minWidth:194px;overflow:auto;border-radius:3px;">
+          <div style="margin-bottom:16px;color:${isLight ? '#000' : '#EDEFFF'};">${params?.[0]?.name}</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            ${params
+              .reverse()
+              .map(
+                (item) => `<div style="display: flex;align-items:center;gap: 6px">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="${isMobile ? 13 : 16}"
+                height="${isMobile ? 13 : 16}"
+                viewBox="0 0 13 13"
+                fill="none"
+              >
+                <circle cx="6.5" cy="6.5" r="5.5" stroke="${item.color}" />
+                <circle cx="6.5" cy="6.5" r="4" fill="${item.color}" />
+              </svg>
+              <span style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};"> ${item.seriesName}:</span>
+              ${formatNumber(item.value)}</div>`
+              )
+              .join('')}
+          </div>
+        </div>
+        `;
+      },
+    },
     grid: {
       height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
       width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,

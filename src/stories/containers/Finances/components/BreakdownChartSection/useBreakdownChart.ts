@@ -3,7 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useRef, useState } from 'react';
 
-import { parseAnalyticsToSeriesBreakDownChart, setBorderRadiusForSeries } from './utis';
+import { parseAnalyticsToSeriesBreakDownChart, setBorderRadiusForSeries } from './utils';
 import type { Metric } from '../../utils/types';
 import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
