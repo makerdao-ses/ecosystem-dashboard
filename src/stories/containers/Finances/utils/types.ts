@@ -16,6 +16,7 @@ export interface NavigationCard {
   color: string;
   code?: string;
 }
+
 export interface DoughnutSeries {
   name: string;
   value: number;
@@ -27,6 +28,13 @@ export interface DoughnutSeries {
   isVisible?: boolean;
   originalColor?: string;
   originalValue?: number;
+}
+
+export interface BarChartSeries {
+  name: string;
+  seriesName: string;
+  color: string;
+  value: number;
 }
 
 export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually' | 'Semi-annual';
