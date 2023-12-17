@@ -3,16 +3,14 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import MakerDAOChartMetrics from './MakerDAOChartMetrics/MakerDAOChartMetrics';
 import TitleFilterComponent from './TitleFilterComponent';
+import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 interface Props {
   handleGranularityChange: (value: AnalyticGranularity) => void;
   selectedGranularity: AnalyticGranularity;
-  newActuals: { value: number }[];
-  newBudget: { value: number }[];
-  newForecast: { value: number }[];
-  newNetExpensesOffChain: { value: number }[];
-  newNetExpensesOnChain: { value: number }[];
+  series: LineChartSeriesData[];
+  handleToggleSeries: (series: string) => void;
   year: string;
   isLoading: boolean;
 }
@@ -20,11 +18,8 @@ interface Props {
 const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
   handleGranularityChange,
   selectedGranularity,
-  newActuals,
-  newBudget,
-  newForecast,
-  newNetExpensesOffChain,
-  newNetExpensesOnChain,
+  series,
+  handleToggleSeries,
   year,
   isLoading,
 }) => (
@@ -47,11 +42,8 @@ const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
         <MakerDAOChartMetrics
           year={year}
           selectedGranularity={selectedGranularity}
-          newActuals={newActuals}
-          newBudget={newBudget}
-          newForecast={newForecast}
-          newNetExpensesOffChain={newNetExpensesOffChain}
-          newNetExpensesOnChain={newNetExpensesOnChain}
+          series={series}
+          handleToggleSeries={handleToggleSeries}
         />
       )}
     </ContainerChart>

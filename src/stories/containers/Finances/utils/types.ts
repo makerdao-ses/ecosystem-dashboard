@@ -100,3 +100,13 @@ export interface BreakdownChartSeriesData {
   };
   isVisible: boolean;
 }
+
+export interface LineChartSeriesData {
+  name: string;
+  data: number[];
+  type: 'line';
+  itemStyle: {
+    color: string;
+  };
+  isVisible: boolean;
+}
