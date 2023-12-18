@@ -1,7 +1,7 @@
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
@@ -19,13 +19,13 @@ import {
   prefixToRemove,
   removePrefix,
 } from '../Finances/utils/utils';
-import type { Metric, MetricsWithAmount } from '../Finances/utils/types';
 import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialYear: string, allBudgets: Budget[]) => {
   const { isLight } = useThemeContext();
+  const [year, setYear] = useState(initialYear);
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
@@ -34,6 +34,17 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     ['analytics/annual', levelPath],
     async () =>
       getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
+  );
+  const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
+    'analytics/semiAnnual',
+    async () =>
+      getBudgetsAnalytics(
+        'semiAnnual',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
   );
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
     ['analytics/quarterly', levelPath],
@@ -126,14 +137,21 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     handlePeriodChange,
     periodicSelectionFilter,
     handleSelectChangeMetrics,
-  } = useBreakdownTable();
+    headerValuesTable,
+    summaryTotalTable,
+  } = useBreakdownTable(
+    budgetsAnalytics,
+    budgetsAnalyticsSemiAnnual,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalyticsMonthly,
+    year
+  );
 
   const expenseReportSection = useDelegateExpenseTrendFinances();
 
   const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
 
-  const [year, setYear] = useState(initialYear);
   const icon = levelBudget?.image || '';
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
@@ -177,41 +195,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
       url: `${siteRoutes.newFinancesOverview}`,
     },
   ];
-  const mapMetricValuesTotal = useMemo(() => {
-    const mapMetricValues: Record<Metric, number> = {
-      Budget: 11044445,
-      Actual: 11044445,
-      Forecast: 11044445,
-      'Net Expenses On-chain': 11044445,
-      'Net Expenses Off-chain': 11044445,
-    };
-    return mapMetricValues;
-  }, []);
-
-  const getAllMetricsValuesTotal = useCallback(() => {
-    const metricValues: MetricsWithAmount[] = [];
-    if (periodFilter === 'Quarterly') {
-      activeMetrics.forEach((metric: string) => {
-        const amount = mapMetricValuesTotal[metric as Metric] || 0;
-        if (amount !== undefined) {
-          metricValues.push({
-            name: metric as Metric,
-            amount,
-          });
-        }
-      });
-    }
-    if (periodFilter === 'Annually' || periodFilter === 'Monthly' || periodFilter === 'Semi-annual') {
-      activeMetrics.forEach((metric: string) => {
-        metricValues.push({
-          name: metric as Metric,
-          amount: 11044445,
-        });
-      });
-    }
-
-    return metricValues;
-  }, [activeMetrics, mapMetricValuesTotal, periodFilter]);
 
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
@@ -236,7 +219,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     prediction,
     handleSelectFilter,
     cardsNavigationInformation,
-    getAllMetricsValuesTotal,
     activeMetrics,
     allowSelectAll,
     defaultMetricsWithAllSelected,
@@ -253,7 +235,8 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     loadMoreCards,
     cardsToShow,
     cutTextForBigNumberLegend,
-
+    headerValuesTable,
+    summaryTotalTable,
     expenseReportSection,
   };
 };

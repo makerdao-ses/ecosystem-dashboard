@@ -9,14 +9,14 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   title: string;
   className?: string;
-  metrics: MetricsWithAmount[];
+  metrics: Record<string, MetricsWithAmount[]>;
   metricTotal: MetricsWithAmount[];
-  periods: string[];
   period: PeriodicSelectionFilter;
 }
 
-const HeaderSemiAnnual: React.FC<Props> = ({ title, className, metrics, periods, metricTotal }) => {
+const HeaderSemiAnnual: React.FC<Props> = ({ title, className, metrics, metricTotal }) => {
   const { isLight } = useThemeContext();
+  const semiAnnualKeys = Object.keys(metrics);
 
   return (
     <Container isLight={isLight} className={className}>
@@ -25,8 +25,8 @@ const HeaderSemiAnnual: React.FC<Props> = ({ title, className, metrics, periods,
       </TitleContainer>
 
       <ContainerCell>
-        {periods?.map((period, index) => (
-          <CellSemiAnnual metrics={metrics} semiannual={period} key={index} />
+        {semiAnnualKeys?.map((period, index) => (
+          <CellSemiAnnual metrics={metrics[period]} semiannual={period} key={index} />
         ))}
         <CellSemiAnnualTotal metrics={metricTotal} semiannual="Total" isTotal />
       </ContainerCell>

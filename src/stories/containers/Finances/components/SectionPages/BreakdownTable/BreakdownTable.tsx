@@ -20,7 +20,7 @@ interface Props {
 
   widthPaper?: number;
   year: string;
-  headerTableMetrics: MetricsWithAmount[];
+  headerTableMetrics: Record<string, MetricsWithAmount[]>;
   metricTotal: MetricsWithAmount[];
   handleResetMetrics?: string[];
   maxItems?: number;
