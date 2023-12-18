@@ -163,11 +163,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
           <MakerDAOExpenseMetricsFinances
             handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
             selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
-            newActuals={makerDAOExpensesMetrics.newActuals}
-            newBudget={makerDAOExpensesMetrics.newBudget}
-            newForecast={makerDAOExpensesMetrics.newForecast}
-            newNetExpensesOffChain={makerDAOExpensesMetrics.newNetExpensesOffChain}
-            newNetExpensesOnChain={makerDAOExpensesMetrics.newNetExpensesOnChain}
+            series={makerDAOExpensesMetrics.series}
+            handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
             isLoading={makerDAOExpensesMetrics.isLoading}
             year={year}
           />

@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 import type { QuarterlyBudget, RowsItems } from './mockData';
 import type {
   DelegateExpenseTableHeader,
+  LineChartSeriesData,
   Metric,
   MetricsWithAmount,
   MomentDataItem,
@@ -625,123 +626,6 @@ export const getNumbersFromIdPath = (idPath: string) => {
   return numbers;
 };
 
-export const atlasBudget = [
-  {
-    value: 1450000,
-  },
-  {
-    value: 1450000,
-  },
-  {
-    value: 1450000,
-  },
-  {
-    value: 1300000,
-  },
-  {
-    value: 1400000,
-  },
-  {
-    value: 1280000,
-  },
-  {
-    value: 640000,
-  },
-  {
-    value: 320000,
-  },
-  {
-    value: 160000,
-  },
-  {
-    value: 80000,
-  },
-  {
-    value: 25000,
-  },
-  {
-    value: 10000,
-  },
-];
-
-export const scopeBudget = [
-  {
-    value: 123434,
-  },
-  {
-    value: 123434,
-  },
-  {
-    value: 123434,
-  },
-  {
-    value: 123434,
-  },
-  {
-    value: 100000,
-  },
-  {
-    value: 250000,
-  },
-  {
-    value: 900000,
-  },
-  {
-    value: 1250000,
-  },
-  {
-    value: 0,
-  },
-  {
-    value: 1400000,
-  },
-  {
-    value: 1400000,
-  },
-  {
-    value: 1500000,
-  },
-];
-
-export const legacyBudget = [
-  {
-    value: 0,
-  },
-  {
-    value: 43434,
-  },
-  {
-    value: 452342,
-  },
-  {
-    value: 23543,
-  },
-  {
-    value: 43434,
-  },
-  {
-    value: 0,
-  },
-  {
-    value: 54456,
-  },
-  {
-    value: 235425,
-  },
-  {
-    value: 175000,
-  },
-  {
-    value: 180000,
-  },
-  {
-    value: 220000,
-  },
-  {
-    value: 200000,
-  },
-];
-
 const fillArrayWhenNoData = (series: { value: number }[]) => {
   const filledArray = new Array<{ value: number }>(12).fill({ value: 0 });
 
@@ -1009,4 +893,72 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Met
       borderRadius: [0, 0, 0, 0],
     },
   };
+};
+
+export const buildExpenseMetricsLineChartSeries = (
+  data: {
+    budget: number[];
+    forecast: number[];
+    actuals: number[];
+    onChain: number[];
+    offChain: number[];
+  },
+  inactiveSeries: string[],
+  isLight: boolean
+) => {
+  const disabled = {
+    Budget: inactiveSeries.includes('Budget'),
+    Forecast: inactiveSeries.includes('Forecast'),
+    Actuals: inactiveSeries.includes('Actuals'),
+    'Net Expenses On-chain': inactiveSeries.includes('Net Expenses On-chain'),
+    'Net Expenses Off-chain': inactiveSeries.includes('Net Expenses Off-chain'),
+  };
+
+  return [
+    {
+      name: 'Budget',
+      data: disabled.Budget ? [] : data?.budget,
+      type: 'line',
+      itemStyle: {
+        color: disabled.Budget ? '#ccc' : isLight ? '#F99374' : '#F77249',
+      },
+      isVisible: !disabled.Budget,
+    },
+    {
+      name: 'Forecast',
+      data: disabled.Forecast ? [] : data?.forecast,
+      type: 'line',
+      itemStyle: {
+        color: disabled.Forecast ? '#ccc' : isLight ? '#447AFB' : '#447AFB',
+      },
+      isVisible: !disabled.Forecast,
+    },
+    {
+      name: 'Actuals',
+      data: disabled.Actuals ? [] : data?.actuals,
+      type: 'line',
+      itemStyle: {
+        color: disabled.Actuals ? '#ccc' : isLight ? '#2DC1B1' : '#1AAB9B',
+      },
+      isVisible: !disabled.Actuals,
+    },
+    {
+      name: 'Net Expenses On-chain',
+      data: disabled['Net Expenses On-chain'] ? [] : data?.onChain,
+      type: 'line',
+      itemStyle: {
+        color: disabled['Net Expenses On-chain'] ? '#ccc' : isLight ? '#FBCC5F' : '#FDC134',
+      },
+      isVisible: !disabled['Net Expenses On-chain'],
+    },
+    {
+      name: 'Net Expenses Off-chain',
+      data: disabled['Net Expenses Off-chain'] ? [] : data?.offChain,
+      type: 'line',
+      itemStyle: {
+        color: disabled['Net Expenses Off-chain'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
+      },
+      isVisible: !disabled['Net Expenses Off-chain'],
+    },
+  ] as LineChartSeriesData[];
 };
