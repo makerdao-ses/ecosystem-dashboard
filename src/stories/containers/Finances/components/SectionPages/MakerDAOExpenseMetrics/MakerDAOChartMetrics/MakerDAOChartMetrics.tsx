@@ -177,7 +177,9 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
                 <circle cx="6.5" cy="6.5" r="5.5" stroke={seriesItem.itemStyle.color} />
                 <circle cx="6.5" cy="6.5" r="4" fill={seriesItem.itemStyle.color} />
               </svg>
-              {seriesItem.name}
+              {seriesItem.name === 'Net Expenses Off-chain'
+                ? `${isMobile ? 'Net Expenses Off-chain' : 'Net Expenses Off-chain included'}`
+                : seriesItem.name}
             </LegendItem>
           ))}
         </LegendContainer>
