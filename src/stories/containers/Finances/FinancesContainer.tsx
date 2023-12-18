@@ -48,7 +48,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     handleSelectChangeMetrics,
     selectMetrics,
     handleResetMetrics,
-    getAllMetricsValuesTotal,
+    summaryTotalTable,
+    headerValuesTable,
     defaultMetricsWithAllSelected,
     maxItems,
     minItems,
@@ -148,8 +149,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
           periodicSelectionFilter={periodicSelectionFilter}
           selectedValue={periodFilter}
           year={year}
-          headerTableMetrics={getAllMetricsValuesTotal()}
-          metricTotal={getAllMetricsValuesTotal()}
+          headerTableMetrics={headerValuesTable}
+          metricTotal={summaryTotalTable}
           maxItems={maxItems}
           minItems={minItems}
           allowSelectAll={allowSelectAll}

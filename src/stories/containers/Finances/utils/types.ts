@@ -110,3 +110,7 @@ export interface LineChartSeriesData {
   };
   isVisible: boolean;
 }
+
+export interface MetricsWithAmountSignature {
+  [key: string]: MetricsWithAmount;
+}

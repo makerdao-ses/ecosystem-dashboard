@@ -36,7 +36,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     'analytics/annual',
     async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BudgetAnalytic>
   );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
     'analytics/semiAnnual',
     async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
@@ -100,7 +100,13 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics);
 
   // All the logic required by the BreakdownTable section
-  const breakdownTable = useBreakdownTable();
+  const breakdownTable = useBreakdownTable(
+    budgetsAnalytics,
+    budgetsAnalyticsSemiAnnual,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalyticsMonthly,
+    year
+  );
 
   // All the logic required by the MakerDAOExpenseMetrics
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);

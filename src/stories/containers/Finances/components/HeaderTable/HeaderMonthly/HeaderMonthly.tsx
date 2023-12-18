@@ -7,12 +7,14 @@ import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  metrics: MetricsWithAmount[];
+  metricTotal: MetricsWithAmount[];
+  metrics: Record<string, MetricsWithAmount[]>;
   title: string;
-  months: string[];
 }
 
-export const HeaderMonthly: React.FC<Props> = ({ metrics, title, months }) => {
+export const HeaderMonthly: React.FC<Props> = ({ metrics, title, metricTotal }) => {
+  const monthsKeys = Object.keys(metrics);
+
   const { isLight } = useThemeContext();
   return (
     <Container isLight={isLight}>
@@ -22,10 +24,10 @@ export const HeaderMonthly: React.FC<Props> = ({ metrics, title, months }) => {
         </ContainerTitle>
         <ContainerYear>
           <ContainerAnnuallyCell>
-            {months.map((month) => (
-              <CellMonthly metrics={metrics} title={month} key={month} />
+            {monthsKeys.map((month) => (
+              <CellMonthly metrics={metrics[month]} title={month} key={month} />
             ))}
-            <CellMonthlyTotally metrics={metrics} title="Total" isTotal />
+            <CellMonthlyTotally metrics={metricTotal} title="Total" isTotal />
           </ContainerAnnuallyCell>
         </ContainerYear>
       </ContainerAnnually>

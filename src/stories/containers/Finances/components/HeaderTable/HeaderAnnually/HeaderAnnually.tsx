@@ -8,12 +8,13 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   year: string;
-  metrics: MetricsWithAmount[];
+  metrics: Record<string, MetricsWithAmount[]>;
   title: string;
 }
 
 export const HeaderAnnually: React.FC<Props> = ({ year, metrics, title }) => {
   const { isLight } = useThemeContext();
+  const years = Object.keys(metrics);
   return (
     <Container isLight={isLight}>
       <ContainerAnnually>
@@ -23,7 +24,7 @@ export const HeaderAnnually: React.FC<Props> = ({ year, metrics, title }) => {
         <ContainerYear>
           <Year isLight={isLight}>{year}</Year>
           <ContainerAnnuallyCell>
-            <CellAnnually metrics={metrics} />
+            <CellAnnually metrics={metrics[years[0]]} />
           </ContainerAnnuallyCell>
         </ContainerYear>
       </ContainerAnnually>

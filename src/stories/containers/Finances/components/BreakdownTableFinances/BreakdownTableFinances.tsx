@@ -52,7 +52,9 @@ const BreakdownTableFinances = ({
 
         <Tooltip>
           <SESTooltip
-            content={'Description is missing'}
+            content={
+              'Adjust the table to display financial data by selecting the time period and types, with a variable column limit based on screen size, all neatly organized by budget/scope with corresponding subtotals.'
+            }
             placement="bottom-start"
             enterTouchDelay={0}
             leaveTouchDelay={15000}

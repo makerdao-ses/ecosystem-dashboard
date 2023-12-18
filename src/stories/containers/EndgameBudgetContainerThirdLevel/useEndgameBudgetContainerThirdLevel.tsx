@@ -31,6 +31,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css';
 
 export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYear: string, allBudgets: Budget[]) => {
+  const [year, setYear] = useState(initialYear);
   const router = useRouter();
   const levelPath = 'atlas/' + router.query.firstPath?.toString() + '/' + router.query.secondPath?.toString();
   const { isLight } = useThemeContext();
@@ -40,6 +41,18 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     ['analytics/annual', levelPath],
     async () =>
       getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
+  );
+
+  const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
+    'analytics/semiAnnual',
+    async () =>
+      getBudgetsAnalytics(
+        'semiAnnual',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
   );
 
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
@@ -98,7 +111,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const icon = titleFirstPathBudget?.image || '';
 
   const title = removePrefix(titleFirstPathBudget?.name || '', prefixToRemove) || '';
-  const [year, setYear] = useState(initialYear);
 
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
@@ -223,14 +235,20 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     handleResetMetrics,
     handleSelectChangeMetrics,
     selectMetrics,
-
-    getAllMetricsValuesTotal,
     maxItems,
     minItems,
     allowSelectAll,
     periodicSelectionFilter,
     popupContainerHeight,
-  } = useBreakdownTable();
+    headerValuesTable,
+    summaryTotalTable,
+  } = useBreakdownTable(
+    budgetsAnalytics,
+    budgetsAnalyticsSemiAnnual,
+    budgetsAnalyticsQuarterly,
+    budgetsAnalyticsMonthly,
+    year
+  );
 
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
@@ -266,7 +284,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     handleResetMetrics,
     handleSelectChangeMetrics,
     selectMetrics,
-    getAllMetricsValuesTotal,
     maxItems,
     minItems,
     allowSelectAll,
@@ -274,7 +291,8 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     periodicSelectionFilter,
     swiperOptions,
     cutTextForBigNumberLegend,
-
+    headerValuesTable,
+    summaryTotalTable,
     expenseReportSection,
   };
 };
