@@ -125,5 +125,4 @@ export interface TableFinances {
   tableName: string;
   rows: ItemRow[];
   others?: boolean;
-  othersRow?: MetricValues[];
 }

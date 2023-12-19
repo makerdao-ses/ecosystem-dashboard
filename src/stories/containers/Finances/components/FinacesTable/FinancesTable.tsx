@@ -32,9 +32,6 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
 
-  // Show color for others depending if number are odd or even
-  const isEven = showFooterAndCorrectNumber.length % 2 === 0;
-
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
@@ -63,27 +60,6 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
               </TableRow>
             ))}
           </TableBody>
-          {table.others && (
-            <Footer isLight={isLight} isEven={isEven} period={period}>
-              <FooterRow>
-                <FooterCell>Others</FooterCell>
-                {showAnnual &&
-                  metrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => (
-                      <Cell isLight={isLight} period={period}>
-                        11044445
-                      </Cell>
-                    )
-                  )}
-                {!showAnnual &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} value={{} as MetricValues} />
-                  )}
-              </FooterRow>
-            </Footer>
-          )}
         </TableContainer>
       ))}
     </>
@@ -207,41 +183,3 @@ const Cell = styled.td<WithIsLight & { period: PeriodicSelectionFilter }>(({ isL
     padding: '16px 20px',
   },
 }));
-
-const Footer = styled.tfoot<WithIsLight & { isEven: boolean; period: PeriodicSelectionFilter }>(
-  ({ isLight, isEven, period }) => ({
-    color: isLight ? '#231536' : '#D2D4EF',
-
-    '& td:first-of-type': {
-      borderBottomLeftRadius: 6,
-      borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
-      padding: '16px 4px 16px 8px',
-      fontFamily: 'Inter, sans-serif',
-      fontWeight: 400,
-      fontSize: 14,
-      [lightTheme.breakpoints.up('desktop_1280')]: {
-        padding: '16px 0px 16px 32px',
-      },
-    },
-    backgroundColor: isLight ? (!isEven ? '#ffffff' : '#F5F5F5') : isEven ? '#18252E' : '#1f2d37',
-
-    '& td:last-of-type': {
-      borderBottomRightRadius: 6,
-      borderRight: 'none',
-
-      backgroundColor: isLight
-        ? isEven
-          ? 'rgba(209, 222, 230, 0.20)'
-          : 'rgba(159, 175, 185, 0.10)'
-        : !isEven
-        ? '#17232C'
-        : '#111C23',
-    },
-    '& tr:last-of-type td:last-of-type': {
-      borderBottomRightRadius: 6,
-    },
-  })
-);
-
-const FooterRow = styled.tr({});
-const FooterCell = styled.td({});

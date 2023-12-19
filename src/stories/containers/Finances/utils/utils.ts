@@ -10,6 +10,7 @@ import type {
   ItemRow,
   LineChartSeriesData,
   Metric,
+  MetricValues,
   MetricsWithAmount,
   MomentDataItem,
   PeriodicSelectionFilter,
@@ -518,6 +519,7 @@ export const getFirstElementEachTable = (data: TableFinances[]): ItemRow[] => {
 
 export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
   const maxRows = NUMBER_ROWS_FINANCES_TABLE;
+  const others: ItemRow[] = [];
   let totalRowsPerTable = 0;
   let itemArrayTableHasOthers: TableFinances = {
     rows: [],
@@ -527,7 +529,7 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
 
   const orderData = sortDataByElementCount(data);
   const firstElementOfArray = getFirstElementEachTable(orderData);
-  console.log('firstElementOfArray', firstElementOfArray);
+
   const result = firstElementOfArray.map((row, index) => ({
     tableName: orderData[index].tableName,
     rows: [firstElementOfArray[index]],
@@ -548,6 +550,7 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
       break;
     }
     const indexItem = result.findIndex((element) => element.tableName === item.tableName);
+
     const takeAllElementLessOne = item.rows.slice(1, item.rows.length);
 
     result[indexItem].rows.push(...takeAllElementLessOne);
@@ -558,15 +561,23 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
     const indexItem = result.findIndex((element) => element.tableName === itemArrayTableHasOthers.tableName);
 
     itemArrayTableHasOthers.rows.forEach((item, index) => {
-      // Les than 12 because 3 of head of each table and now new one is others dont get the firsts element
-      if (totalRowsPerTable <= 12 && index !== 0) {
+      const numberHeaders = data.length;
+
+      // Number of row maxRows less numberHeaders (number of the table) less 1 because the others row
+      if (totalRowsPerTable < maxRows - numberHeaders - 1 && index !== 0) {
         result[indexItem].rows.push(item);
         totalRowsPerTable++;
+      } else {
+        // Only put if if not the one element
+        if (index !== 0) {
+          others.push(item);
+        }
       }
     });
     if (indexItem !== orderData.length - 1) {
-      console.log('result', orderData.length);
       result[indexItem].others = true;
+      const resultOthers = getMetricsForOthersRow(others);
+      result[indexItem].rows.push(resultOthers);
     } else {
       result[indexItem].others = false;
     }
@@ -945,4 +956,44 @@ export const buildExpenseMetricsLineChartSeries = (
       isVisible: !disabled['Net Expenses Off-chain'],
     },
   ] as LineChartSeriesData[];
+};
+
+export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
+  const defaultValue: ItemRow = {
+    name: 'Others',
+    rows: [],
+  } as ItemRow;
+
+  if (metrics.length === 0) {
+    return defaultValue;
+  }
+
+  const firstItem = metrics[0];
+  const sumRow: MetricValues[] = [];
+
+  for (let i = 0; i < firstItem.rows.length; i++) {
+    const sumMetric: MetricValues = {
+      actual: 0,
+      forecast: 0,
+      budget: 0,
+      'net expenses on-chain': 0,
+      'net expenses off-chain': 0,
+    };
+
+    for (const item of metrics) {
+      const row = item.rows[i];
+      sumMetric.actual += row.actual;
+      sumMetric.forecast += row.forecast;
+      sumMetric.budget += row.budget;
+      sumMetric['net expenses on-chain'] += row['net expenses on-chain'];
+      sumMetric['net expenses off-chain'] += row['net expenses off-chain'];
+    }
+
+    sumRow.push(sumMetric);
+  }
+
+  return {
+    name: 'Others',
+    rows: [...sumRow],
+  } as ItemRow;
 };
