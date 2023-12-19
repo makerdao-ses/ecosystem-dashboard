@@ -9,6 +9,7 @@ import { useBreakdownTable } from '../Finances/components/SectionPages/Breakdown
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
 import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
+import { useMakerDAOExpenseMetrics } from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
 import {
   existingColors,
   existingColorsDark,
@@ -196,6 +197,9 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     },
   ];
 
+  // All the logic required by the MakerDAOExpenseMetrics
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
+
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
     mutate(['analytics/quarterly', levelPath]);
@@ -237,6 +241,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     cutTextForBigNumberLegend,
     headerValuesTable,
     summaryTotalTable,
+    makerDAOExpensesMetrics,
     expenseReportSection,
   };
 };

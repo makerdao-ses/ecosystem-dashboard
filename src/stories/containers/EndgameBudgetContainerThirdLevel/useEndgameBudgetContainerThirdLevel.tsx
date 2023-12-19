@@ -11,6 +11,7 @@ import { useBreakdownTable } from '../Finances/components/SectionPages/Breakdown
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
 import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
+import { useMakerDAOExpenseMetrics } from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
 import {
   existingColors,
   existingColorsDark,
@@ -24,7 +25,6 @@ import {
 import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { SwiperProps } from 'swiper/react';
-
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
@@ -250,6 +250,9 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     year
   );
 
+  // All the logic required by the MakerDAOExpenseMetrics
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
+
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
     mutate(['analytics/quarterly', levelPath]);
@@ -293,6 +296,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     cutTextForBigNumberLegend,
     headerValuesTable,
     summaryTotalTable,
+    makerDAOExpensesMetrics,
     expenseReportSection,
   };
 };

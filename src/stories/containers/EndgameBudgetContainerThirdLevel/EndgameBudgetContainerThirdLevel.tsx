@@ -3,6 +3,7 @@ import BigButton from '@ses/components/Button/BigButton/BigButton';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -16,6 +17,7 @@ import BreadcrumbYearNavigation from '../Finances/components/SectionPages/Breadc
 import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
+import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
 import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainerThirdLevel';
 import type { NavigationCard } from '../Finances/utils/types';
@@ -35,6 +37,7 @@ interface Props {
 }
 
 const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, allBudgets }) => {
+  const [isEnabled] = useFlagsActive();
   const {
     trailingAddress,
     trailingAddressDesk,
@@ -78,6 +81,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     cutTextForBigNumberLegend,
     headerValuesTable,
     summaryTotalTable,
+    makerDAOExpensesMetrics,
     expenseReportSection,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
@@ -225,6 +229,16 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
         />
       </ConditionalWrapper>
       <Container>
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
+          <MakerDAOExpenseMetricsFinances
+            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+            series={makerDAOExpensesMetrics.series}
+            handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
+            isLoading={makerDAOExpensesMetrics.isLoading}
+            year={year}
+          />
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}
