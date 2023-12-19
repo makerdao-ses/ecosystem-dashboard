@@ -22,7 +22,9 @@ const TitleFilterComponent: React.FC<Props> = ({ handleChange, selectedValue }) 
         <Title isLight={isLight}>MakerDAO Expense Metrics</Title>
         <Tooltip>
           <SESTooltip
-            content={'Description is missing'}
+            content={
+              'View monthly expense metrics for the current year on this line chart, with a fixed legend of Budget, Forecast, Actuals, Net Expenses Off-Chain, and Net Expenses On-Chain, all toggleable for customized visualization.'
+            }
             placement="bottom-start"
             enterTouchDelay={0}
             leaveTouchDelay={15000}
