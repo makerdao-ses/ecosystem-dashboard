@@ -10,8 +10,16 @@ import type {
   MetricValues,
   MetricsWithAmount,
   PeriodicSelectionFilter,
+  TableFinances,
 } from '@ses/containers/Finances/utils/types';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic, BudgetMetric } from '@ses/core/models/interfaces/analytic';
+import type {
+  Analytic,
+  AnalyticGranularity,
+  BreakdownBudgetAnalytic,
+  BudgetAnalytic,
+  BudgetMetric,
+} from '@ses/core/models/interfaces/analytic';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const headerTableQuarterlyPeriod = (analytics: BreakdownBudgetAnalytic | undefined, year: string) => {
   const quarterly: Record<string, BudgetMetric> = {};
@@ -351,4 +359,24 @@ export const getDataTableFromPeriod = (period: PeriodicSelectionFilter) => {
     default:
       return mockDataTableQuarterlyArray;
   }
+};
+
+export const convertFilterToGranularity = (period: PeriodicSelectionFilter): AnalyticGranularity => {
+  switch (period) {
+    case 'Annually':
+      return 'annual';
+    case 'Quarterly':
+      return 'quarterly';
+    case 'Monthly':
+      return 'monthly';
+    case 'Semi-annual':
+      return 'semiAnnual';
+    default:
+      return 'quarterly';
+  }
+};
+
+export const parseAnalyticsForTable = (analytic: Analytic | undefined, budgets: Budget[]): TableFinances[] => {
+  console.log('analytic', analytic, budgets);
+  return [];
 };

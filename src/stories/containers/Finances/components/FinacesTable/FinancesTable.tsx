@@ -10,7 +10,6 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   className?: string;
-
   breakdownTable: TableFinances[];
   metrics: string[];
   year: string;
@@ -31,32 +30,43 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
-
+  const newMetrics = metrics.map((metric) =>
+    metric === 'Net Expenses On-chain'
+      ? 'PaymentsOnChain'
+      : metric === 'Net Expenses Off-chain'
+      ? 'PaymentsOffChainIncluded'
+      : metric
+  );
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {showFooterAndCorrectNumber.map((table: TableFinances, index) => (
         <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
           <TableBody isLight={isLight}>
-            {table.rows.map((row: ItemRow) => (
-              <TableRow isLight={isLight} isMain={row.isMain}>
+            {table.rows.map((row: ItemRow, index) => (
+              <TableRow key={index} isLight={isLight} isMain={row.isMain}>
                 <Headed isLight={isLight} period={period}>
                   {row.name}
                 </Headed>
                 {showAnnual &&
-                  metrics.map((metric) => (
-                    <Cell isLight={isLight} period={period}>
-                      {row.rows[0][metric.toLowerCase() as keyof MetricValues]}
+                  newMetrics.map((metric) => (
+                    <Cell key={index} isLight={isLight} period={period}>
+                      {row.rows[0][metric as keyof MetricValues]}
                     </Cell>
                   ))}
                 {showQuarterly &&
                   arrayMetrics.map((_, index) => {
                     console.log('value');
-                    return <CellTable metrics={metrics} value={row.rows[index]} />;
+                    return <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />;
                   })}
                 {showSemiAnnual &&
-                  arrayMetrics.map((_, index) => <CellTable metrics={metrics} value={row.rows[index]} />)}
-                {showMonthly && arrayMetrics.map((_, index) => <CellTable metrics={metrics} value={row.rows[index]} />)}
+                  arrayMetrics.map((_, index) => (
+                    <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />
+                  ))}
+                {showMonthly &&
+                  arrayMetrics.map((_, index) => (
+                    <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />
+                  ))}
               </TableRow>
             ))}
           </TableBody>

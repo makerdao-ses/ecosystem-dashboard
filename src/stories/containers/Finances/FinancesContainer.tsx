@@ -10,7 +10,7 @@ import BreakdownChartSection from './components/BreakdownChartSection/BreakdownC
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
-import BreakdownTable from './components/SectionPages/BreakdownTable';
+import BreakdownTable from './components/SectionPages/BreakdownTable/BreakdownTable';
 import { getDataTableFromPeriod } from './components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
@@ -29,7 +29,6 @@ interface Props {
 const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }) => {
   const [isEnabled] = useFlagsActive();
   const {
-    trailingAddress,
     filters,
     filterSelected,
     handleSelectFilter,
@@ -38,24 +37,14 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     budgetCap,
     prediction,
     doughnutSeriesData,
-    periodicSelectionFilter,
+
     handleChangeYears,
-    handlePeriodChange,
-    periodFilter,
+
     year,
     cardsToShow,
-    activeMetrics,
-    handleSelectChangeMetrics,
-    selectMetrics,
-    handleResetMetrics,
-    summaryTotalTable,
-    headerValuesTable,
-    defaultMetricsWithAllSelected,
-    maxItems,
-    minItems,
-    allowSelectAll,
-    popupContainerHeight,
+
     selectedBreakdownMetric,
+    breakdownTable,
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
     handleBreakdownGranularityChange,
@@ -85,11 +74,11 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
       <BreadcrumbYearNavigation
-        trailingAddress={trailingAddress}
+        trailingAddress={breakdownTable.trailingAddress}
         years={yearsRange}
         handleChange={handleChangeYears}
         selectedValue={year}
-        trailingAddressDesk={trailingAddress}
+        trailingAddressDesk={breakdownTable.trailingAddress}
         title="Finances"
         hasIcon={false}
       />
@@ -138,24 +127,25 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         )}
       </Container>
 
-      <ConditionalWrapper period={periodFilter}>
+      <ConditionalWrapper period={breakdownTable.periodFilter}>
         <BreakdownTable
-          handleResetMetrics={defaultMetricsWithAllSelected}
-          activeItems={activeMetrics}
-          handleChange={handlePeriodChange}
-          handleResetFilter={handleResetMetrics}
-          handleSelectChange={handleSelectChangeMetrics}
-          metrics={selectMetrics}
-          periodicSelectionFilter={periodicSelectionFilter}
-          selectedValue={periodFilter}
+          handleResetMetrics={breakdownTable.defaultMetricsWithAllSelected}
+          activeItems={breakdownTable.activeMetrics}
+          handleChange={breakdownTable.handlePeriodChange}
+          handleResetFilter={breakdownTable.handleResetMetrics}
+          handleSelectChange={breakdownTable.handleSelectChangeMetrics}
+          metrics={breakdownTable.selectMetrics}
+          periodicSelectionFilter={breakdownTable.periodicSelectionFilter}
+          selectedValue={breakdownTable.periodFilter}
           year={year}
-          headerTableMetrics={headerValuesTable}
-          metricTotal={summaryTotalTable}
-          maxItems={maxItems}
-          minItems={minItems}
-          allowSelectAll={allowSelectAll}
-          popupContainerHeight={popupContainerHeight}
-          breakdownTable={getDataTableFromPeriod(periodFilter)}
+          headerTableMetrics={breakdownTable.headerValuesTable}
+          metricTotal={breakdownTable.summaryTotalTable}
+          maxItems={breakdownTable.maxItems}
+          minItems={breakdownTable.minItems}
+          allowSelectAll={breakdownTable.allowSelectAll}
+          popupContainerHeight={breakdownTable.popupContainerHeight}
+          breakdownTable={getDataTableFromPeriod(breakdownTable.periodFilter)}
+          isLoading={breakdownTable.isLoading}
         />
       </ConditionalWrapper>
       <Container>

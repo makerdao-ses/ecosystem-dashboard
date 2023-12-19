@@ -12,14 +12,12 @@ interface Props {
 }
 
 const CellTable: React.FC<Props> = ({ metrics, value }) => {
-  const newMetrics = metrics.map((metric) => metric.toLowerCase());
-  const element = filterMetricValues(value, newMetrics as (keyof MetricValues)[]);
+  const element = filterMetricValues(value, metrics as (keyof MetricValues)[]);
   const { isLight } = useThemeContext();
-
   return (
     <Cell isLight={isLight}>
       <SpacedValues>
-        {newMetrics.map((metric, index) => (
+        {metrics.map((metric, index) => (
           <Span key={index} isLight={isLight}>
             {element[metric as keyof MetricValues]}
           </Span>

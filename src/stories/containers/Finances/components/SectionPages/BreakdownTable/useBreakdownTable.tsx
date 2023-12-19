@@ -1,22 +1,28 @@
 import { useMediaQuery } from '@mui/material';
+import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { getMetricByPeriod } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
-import { getHeaderValuesByPeriod, getSummaryFromHeaderValues } from './utils';
+import useSWRImmutable from 'swr/immutable';
+import { convertFilterToGranularity, getHeaderValuesByPeriod, getSummaryFromHeaderValues } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useBreakdownTable = (
   budgetsAnalytics: BudgetAnalytic | undefined,
   budgetsAnalyticsSemiAnnual: BreakdownBudgetAnalytic | undefined,
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined,
   budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined,
-  year: string
+  year: string,
+  budgets: Budget[],
+  allBudgets: Budget[]
 ) => {
   const router = useRouter();
+
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
@@ -37,6 +43,13 @@ export const useBreakdownTable = (
   const maxItems = val;
   const minItems = 1;
 
+  // fetch data from the API
+  const { data: analytics, error } = useSWRImmutable(
+    ['analytics', year, convertFilterToGranularity(periodFilter)],
+    async () => fetchAnalytics(convertFilterToGranularity(periodFilter), year, 'atlas', 3)
+  );
+  console.log(budgets, allBudgets);
+  const isLoading = !analytics && !error;
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
   const popupContainerHeight = allowSelectAll ? 250 : 210;
@@ -156,5 +169,6 @@ export const useBreakdownTable = (
     trailingAddress,
     summaryTotalTable,
     headerValuesTable,
+    isLoading,
   };
 };

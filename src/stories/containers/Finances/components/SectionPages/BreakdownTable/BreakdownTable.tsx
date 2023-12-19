@@ -27,6 +27,7 @@ interface Props {
   allowSelectAll?: boolean;
   popupContainerHeight?: number;
   breakdownTable: TableFinances[];
+  isLoading: boolean;
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -48,6 +49,7 @@ const BreakdownTable: React.FC<Props> = ({
   allowSelectAll,
   popupContainerHeight,
   breakdownTable,
+  isLoading,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -64,23 +66,39 @@ const BreakdownTable: React.FC<Props> = ({
       allowSelectAll={allowSelectAll}
       popupContainerHeight={popupContainerHeight}
     />
-    <TableHeader>
-      <HeaderTable
-        title="MakerDAO Budget"
-        metrics={headerTableMetrics}
-        year={year}
-        metricTotal={metricTotal}
-        period={selectedValue as PeriodicSelectionFilter}
-      />
-    </TableHeader>
-    <TableWrapper>
-      <FinancesTable
-        breakdownTable={breakdownTable}
-        metrics={activeItems}
-        year={year}
-        period={selectedValue as PeriodicSelectionFilter}
-      />
-    </TableWrapper>
+    {isLoading ? (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 300,
+          color: 'red',
+        }}
+      >
+        Loading...
+      </div>
+    ) : (
+      <>
+        <TableHeader>
+          <HeaderTable
+            title="MakerDAO Budget"
+            metrics={headerTableMetrics}
+            year={year}
+            metricTotal={metricTotal}
+            period={selectedValue as PeriodicSelectionFilter}
+          />
+        </TableHeader>
+        <TableWrapper>
+          <FinancesTable
+            breakdownTable={breakdownTable}
+            metrics={activeItems}
+            year={year}
+            period={selectedValue as PeriodicSelectionFilter}
+          />
+        </TableWrapper>
+      </>
+    )}
   </MainContainer>
 );
 

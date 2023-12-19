@@ -227,22 +227,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   } as SwiperProps;
 
   // All Logic for the table
-  const {
-    periodFilter,
-    defaultMetricsWithAllSelected,
-    activeMetrics,
-    handlePeriodChange,
-    handleResetMetrics,
-    handleSelectChangeMetrics,
-    selectMetrics,
-    maxItems,
-    minItems,
-    allowSelectAll,
-    periodicSelectionFilter,
-    popupContainerHeight,
-    headerValuesTable,
-    summaryTotalTable,
-  } = useBreakdownTable(
+  const breakdownTableThirdLevel = useBreakdownTable(
     budgetsAnalytics,
     budgetsAnalyticsSemiAnnual,
     budgetsAnalyticsQuarterly,
@@ -277,22 +262,9 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     loadMoreCards,
     cardsToShow,
     isLight,
-    periodFilter,
-    defaultMetricsWithAllSelected,
-    activeMetrics,
-    handlePeriodChange,
-    handleResetMetrics,
-    handleSelectChangeMetrics,
-    selectMetrics,
-    maxItems,
-    minItems,
-    allowSelectAll,
-    popupContainerHeight,
-    periodicSelectionFilter,
+    breakdownTableThirdLevel,
     swiperOptions,
     cutTextForBigNumberLegend,
-    headerValuesTable,
-    summaryTotalTable,
     expenseReportSection,
   };
 };

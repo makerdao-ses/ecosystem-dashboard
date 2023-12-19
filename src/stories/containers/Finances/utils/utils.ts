@@ -973,20 +973,20 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
 
   for (let i = 0; i < firstItem.rows.length; i++) {
     const sumMetric: MetricValues = {
-      actual: 0,
-      forecast: 0,
-      budget: 0,
-      'net expenses on-chain': 0,
-      'net expenses off-chain': 0,
+      Actual: 0,
+      Budget: 0,
+      Forecast: 0,
+      PaymentsOnChain: 0,
+      PaymentsOffChainIncluded: 0,
     };
 
     for (const item of metrics) {
       const row = item.rows[i];
-      sumMetric.actual += row.actual;
-      sumMetric.forecast += row.forecast;
-      sumMetric.budget += row.budget;
-      sumMetric['net expenses on-chain'] += row['net expenses on-chain'];
-      sumMetric['net expenses off-chain'] += row['net expenses off-chain'];
+      sumMetric.Actual += row.Actual;
+      sumMetric.Forecast += row.Forecast;
+      sumMetric.Budget += row.Budget;
+      sumMetric.PaymentsOnChain += row.PaymentsOnChain;
+      sumMetric.PaymentsOffChainIncluded += row.PaymentsOffChainIncluded;
     }
 
     sumRow.push(sumMetric);
