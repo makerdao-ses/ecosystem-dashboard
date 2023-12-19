@@ -6,27 +6,22 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
+import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 interface BreakdownChartProps {
   year: string;
   selectedGranularity: AnalyticGranularity;
-  newActuals: { value: number }[];
-  newBudget: { value: number }[];
-  newForecast: { value: number }[];
-  newNetExpensesOffChain: { value: number }[];
-  newNetExpensesOnChain: { value: number }[];
+  series: LineChartSeriesData[];
+  handleToggleSeries: (series: string) => void;
 }
 
 const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   year,
   selectedGranularity,
-  newActuals,
-  newBudget,
-  newForecast,
-  newNetExpensesOnChain,
-  newNetExpensesOffChain,
+  series,
+  handleToggleSeries,
 }) => {
   const { isLight } = useThemeContext();
   const chartRef = useRef<EChartsOption | null>(null);
@@ -128,63 +123,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         },
       },
     },
-    series: [
-      {
-        name: 'Budget',
-        data: newBudget,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#F99374' : '#F77249',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Forecast',
-        data: newForecast,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#447AFB' : '#447AFB',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Actuals',
-        data: newActuals,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#2DC1B1' : '#1AAB9B',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Net Expenses On-chain',
-        data: newNetExpensesOnChain,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#FBCC5F' : '#FDC134',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Net Expenses Off-chain',
-        data: newNetExpensesOffChain,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#7C6B95' : '#6C40AA',
-        },
-        isVisible: true,
-      },
-    ],
+    series,
   };
 
   const onLegendItemHover = (legendName: string) => {
@@ -201,14 +140,6 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
       type: 'downplay',
       seriesName: legendName,
     });
-  };
-
-  const onLegendItemClick = (legendName: string, data: { value: number }[]) => {
-    const chartInstance = chartRef.current.getEchartsInstance();
-    const seriesIndex: number = options.series.findIndex((s: { name: string }) => s.name === legendName);
-    options.series[seriesIndex].isVisible = !options.series[seriesIndex].isVisible;
-    options.series[seriesIndex].data = options.series[seriesIndex].isVisible ? data : [];
-    chartInstance.setOption(options);
   };
 
   return (
@@ -229,96 +160,28 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
           </YearXAxis>
         )}
         <LegendContainer>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Budget')}
-            onMouseLeave={() => onLegendItemLeave('Budget')}
-            onClick={() => onLegendItemClick('Budget', newBudget)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
+          {series.map((seriesItem: LineChartSeriesData) => (
+            <LegendItem
+              isLight={isLight}
+              onMouseEnter={() => onLegendItemHover(seriesItem.name)}
+              onMouseLeave={() => onLegendItemLeave(seriesItem.name)}
+              onClick={() => handleToggleSeries(seriesItem.name)}
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : '#F77249'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : '#F77249'} />
-            </svg>
-            Budget
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Forecast')}
-            onMouseLeave={() => onLegendItemLeave('Forecast')}
-            onClick={() => onLegendItemClick('Forecast', newForecast)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : '#447AFB'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : '#447AFB'} />
-            </svg>
-            Forecast
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Actuals')}
-            onMouseLeave={() => onLegendItemLeave('Actuals')}
-            onClick={() => onLegendItemClick('Actuals', newActuals)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : '#1AAB9B'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : '#1AAB9B'} />
-            </svg>
-            Actuals
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Net Expenses On-chain')}
-            onMouseLeave={() => onLegendItemLeave('Net Expenses On-chain')}
-            onClick={() => onLegendItemClick('Net Expenses On-chain', newNetExpensesOnChain)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#FBCC5F' : '#FDC134'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#FBCC5F' : '#FDC134'} />
-            </svg>
-            Net Expenses On-chain
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Net Expenses Off-chain')}
-            onMouseLeave={() => onLegendItemLeave('Net Expenses Off-chain')}
-            onClick={() => onLegendItemClick('Net Expenses Off-chain', newNetExpensesOffChain)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#7C6B95' : '#6C40AA'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#7C6B95' : '#6C40AA'} />
-            </svg>
-            {`${isMobile ? 'Net Expenses Off-chain' : 'Net Expenses Off-chain included'}`}
-          </LegendItem>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={isMobile ? 13 : 16}
+                height={isMobile ? 13 : 16}
+                viewBox="0 0 13 13"
+                fill="none"
+              >
+                <circle cx="6.5" cy="6.5" r="5.5" stroke={seriesItem.itemStyle.color} />
+                <circle cx="6.5" cy="6.5" r="4" fill={seriesItem.itemStyle.color} />
+              </svg>
+              {seriesItem.name === 'Net Expenses Off-chain'
+                ? `${isMobile ? 'Net Expenses Off-chain' : 'Net Expenses Off-chain included'}`
+                : seriesItem.name}
+            </LegendItem>
+          ))}
         </LegendContainer>
       </ChartContainer>
     </Wrapper>

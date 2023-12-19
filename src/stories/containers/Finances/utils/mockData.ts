@@ -2214,3 +2214,120 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
     ],
   },
 ];
+
+export const atlasBudget = [
+  {
+    value: 1450000,
+  },
+  {
+    value: 1450000,
+  },
+  {
+    value: 1450000,
+  },
+  {
+    value: 1300000,
+  },
+  {
+    value: 1400000,
+  },
+  {
+    value: 1280000,
+  },
+  {
+    value: 640000,
+  },
+  {
+    value: 320000,
+  },
+  {
+    value: 160000,
+  },
+  {
+    value: 80000,
+  },
+  {
+    value: 25000,
+  },
+  {
+    value: 10000,
+  },
+];
+
+export const scopeBudget = [
+  {
+    value: 123434,
+  },
+  {
+    value: 123434,
+  },
+  {
+    value: 123434,
+  },
+  {
+    value: 123434,
+  },
+  {
+    value: 100000,
+  },
+  {
+    value: 250000,
+  },
+  {
+    value: 900000,
+  },
+  {
+    value: 1250000,
+  },
+  {
+    value: 0,
+  },
+  {
+    value: 1400000,
+  },
+  {
+    value: 1400000,
+  },
+  {
+    value: 1500000,
+  },
+];
+
+export const legacyBudget = [
+  {
+    value: 0,
+  },
+  {
+    value: 43434,
+  },
+  {
+    value: 452342,
+  },
+  {
+    value: 23543,
+  },
+  {
+    value: 43434,
+  },
+  {
+    value: 0,
+  },
+  {
+    value: 54456,
+  },
+  {
+    value: 235425,
+  },
+  {
+    value: 175000,
+  },
+  {
+    value: 180000,
+  },
+  {
+    value: 220000,
+  },
+  {
+    value: 200000,
+  },
+];

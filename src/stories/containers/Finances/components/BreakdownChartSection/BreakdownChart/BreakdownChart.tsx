@@ -9,10 +9,10 @@ import React, { useEffect, useState } from 'react';
 import { setBorderRadiusForSeries } from '../utils';
 import type { BarChartSeries, BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
-
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
+
 interface BreakdownChartProps {
   year: string;
   budgets: Budget[];
