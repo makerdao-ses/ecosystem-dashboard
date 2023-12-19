@@ -4,8 +4,7 @@ import React from 'react';
 import BreakdownTableFinances from '../../BreakdownTableFinances/BreakdownTableFinances';
 import FinancesTable from '../../FinacesTable/FinancesTable';
 import HeaderTable from '../../HeaderTable/HeaderTable';
-import type { QuarterlyBudget } from '../../../utils/mockData';
-import type { MetricsWithAmount, PeriodicSelectionFilter } from '../../../utils/types';
+import type { MetricsWithAmount, PeriodicSelectionFilter, TableFinances } from '../../../utils/types';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {
@@ -27,7 +26,7 @@ interface Props {
   minItems?: number;
   allowSelectAll?: boolean;
   popupContainerHeight?: number;
-  breakdownTable: QuarterlyBudget[];
+  breakdownTable: TableFinances[];
 }
 
 const BreakdownTable: React.FC<Props> = ({

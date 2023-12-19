@@ -1,5 +1,16 @@
+import {
+  mockDataTableAnnualArray,
+  mockDataTableMonthlyArray,
+  mockDataTableQuarterlyArray,
+  mockDataTableSemiAnnualArray,
+} from '@ses/containers/Finances/utils/mockData';
 import { monthAbbreviations } from '@ses/containers/Finances/utils/utils';
-import type { Metric, MetricsWithAmount, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
+import type {
+  Metric,
+  MetricValues,
+  MetricsWithAmount,
+  PeriodicSelectionFilter,
+} from '@ses/containers/Finances/utils/types';
 import type { BreakdownBudgetAnalytic, BudgetAnalytic, BudgetMetric } from '@ses/core/models/interfaces/analytic';
 
 export const headerTableQuarterlyPeriod = (analytics: BreakdownBudgetAnalytic | undefined, year: string) => {
@@ -315,3 +326,29 @@ export const getHeaderValuesByPeriod = (
 
 export const getSummaryFromHeaderValues = (headerValues: Record<string, MetricsWithAmount[]>) =>
   totalQuarterly(headerValues);
+
+export const filterMetricValues = (metric: MetricValues, keys: (keyof MetricValues)[]): MetricValues => {
+  const filteredMetrics: MetricValues = {} as MetricValues;
+  for (const key of keys) {
+    if (Object.prototype.hasOwnProperty.call(metric, key)) {
+      filteredMetrics[key] = metric[key];
+    }
+  }
+  return filteredMetrics;
+};
+
+// TODO:This is the function to map the analytics of the table
+export const getDataTableFromPeriod = (period: PeriodicSelectionFilter) => {
+  switch (period) {
+    case 'Quarterly':
+      return mockDataTableQuarterlyArray;
+    case 'Annually':
+      return mockDataTableAnnualArray;
+    case 'Monthly':
+      return mockDataTableMonthlyArray;
+    case 'Semi-annual':
+      return mockDataTableSemiAnnualArray;
+    default:
+      return mockDataTableQuarterlyArray;
+  }
+};

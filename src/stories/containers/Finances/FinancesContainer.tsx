@@ -11,12 +11,12 @@ import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapp
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from './components/SectionPages/BreakdownTable';
+import { getDataTableFromPeriod } from './components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useFinances } from './useFinances';
-import { mockDataTableQuarterlyArray } from './utils/mockData';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -155,7 +155,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
           minItems={minItems}
           allowSelectAll={allowSelectAll}
           popupContainerHeight={popupContainerHeight}
-          breakdownTable={mockDataTableQuarterlyArray}
+          breakdownTable={getDataTableFromPeriod(periodFilter)}
         />
       </ConditionalWrapper>
       <Container>

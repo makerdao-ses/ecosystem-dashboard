@@ -5,13 +5,13 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { showOnlySixteenRowsWithOthers, sortDataByElementCount } from '../../utils/utils';
 import CellTable from './CellTable';
-import type { QuarterlyBudget, RowsItems } from '../../utils/mockData';
-import type { PeriodicSelectionFilter } from '../../utils/types';
+import type { MetricValues, PeriodicSelectionFilter, ItemRow, TableFinances } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   className?: string;
-  breakdownTable: QuarterlyBudget[];
+
+  breakdownTable: TableFinances[];
   metrics: string[];
   year: string;
   period: PeriodicSelectionFilter;
@@ -19,8 +19,8 @@ interface Props {
 
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period }) => {
   const { isLight } = useThemeContext();
-  const orderData = sortDataByElementCount(breakdownTable);
 
+  const orderData = sortDataByElementCount(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
 
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : 3;
@@ -38,38 +38,28 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-      {showFooterAndCorrectNumber.map((table, index) => (
+      {showFooterAndCorrectNumber.map((table: TableFinances, index) => (
         <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
           <TableBody isLight={isLight}>
-            {table.rows.map((row: RowsItems) => (
+            {table.rows.map((row: ItemRow) => (
               <TableRow isLight={isLight} isMain={row.isMain}>
                 <Headed isLight={isLight} period={period}>
                   {row.name}
                 </Headed>
                 {showAnnual &&
-                  metrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => (
-                      <Cell isLight={isLight} period={period}>
-                        11044445
-                      </Cell>
-                    )
-                  )}
+                  metrics.map((metric) => (
+                    <Cell isLight={isLight} period={period}>
+                      {row.rows[0][metric.toLowerCase() as keyof MetricValues]}
+                    </Cell>
+                  ))}
                 {showQuarterly &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
+                  arrayMetrics.map((_, index) => {
+                    console.log('value');
+                    return <CellTable metrics={metrics} value={row.rows[index]} />;
+                  })}
                 {showSemiAnnual &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
-                {showMonthly &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
+                  arrayMetrics.map((_, index) => <CellTable metrics={metrics} value={row.rows[index]} />)}
+                {showMonthly && arrayMetrics.map((_, index) => <CellTable metrics={metrics} value={row.rows[index]} />)}
               </TableRow>
             ))}
           </TableBody>
@@ -89,7 +79,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                 {!showAnnual &&
                   arrayMetrics.map(
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
+                    (_) => <CellTable metrics={metrics} value={{} as MetricValues} />
                   )}
               </FooterRow>
             </Footer>

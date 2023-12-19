@@ -1,22 +1,27 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { filterMetricValues } from '../SectionPages/BreakdownTable/utils';
+import type { MetricValues } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   metrics: string[];
+  value: MetricValues;
 }
 
-const CellTable: React.FC<Props> = ({ metrics }) => {
+const CellTable: React.FC<Props> = ({ metrics, value }) => {
+  const newMetrics = metrics.map((metric) => metric.toLowerCase());
+  const element = filterMetricValues(value, newMetrics as (keyof MetricValues)[]);
   const { isLight } = useThemeContext();
+
   return (
     <Cell isLight={isLight}>
       <SpacedValues>
-        {metrics.map((_, index) => (
+        {newMetrics.map((metric, index) => (
           <Span key={index} isLight={isLight}>
-            {usLocalizedNumber(2208889)}
+            {element[metric as keyof MetricValues]}
           </Span>
         ))}
       </SpacedValues>

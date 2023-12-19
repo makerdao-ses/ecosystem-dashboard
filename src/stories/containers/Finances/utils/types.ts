@@ -62,11 +62,11 @@ export interface MetricsWithAmount {
 }
 
 export interface MetricValues {
-  Budget: number;
-  Actual: number;
-  Forecast: number;
-  'Net Expenses On-chain': number;
-  'Net Expenses Off-chain': number;
+  budget: number;
+  actual: number;
+  forecast: number;
+  'net expenses on-chain': number;
+  'net expenses off-chain': number;
 }
 
 export interface ValueSeriesBreakdownChart {
@@ -103,4 +103,17 @@ export interface BreakdownChartSeriesData {
 
 export interface MetricsWithAmountSignature {
   [key: string]: MetricsWithAmount;
+}
+
+export interface ItemRow {
+  name: string;
+  isMain?: boolean;
+  rows: MetricValues[];
+}
+
+export interface TableFinances {
+  tableName: string;
+  rows: ItemRow[];
+  others?: boolean;
+  othersRow?: MetricValues[];
 }

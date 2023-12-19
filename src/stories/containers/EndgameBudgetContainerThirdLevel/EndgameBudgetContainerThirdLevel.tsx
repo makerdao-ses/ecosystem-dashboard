@@ -14,9 +14,9 @@ import ConditionalWrapper from '../Finances/components/ConditionalWrapper/Condit
 import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable';
+import { getDataTableFromPeriod } from '../Finances/components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
-import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
 import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainerThirdLevel';
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -221,7 +221,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
           minItems={minItems}
           allowSelectAll={allowSelectAll}
           popupContainerHeight={popupContainerHeight}
-          breakdownTable={[mockDataTableQuarterlyArray[0]]}
+          breakdownTable={getDataTableFromPeriod(periodFilter)}
         />
       </ConditionalWrapper>
       <Container>

@@ -6,13 +6,15 @@ import { NUMBER_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 
-import type { QuarterlyBudget, RowsItems } from './mockData';
+// import type { QuarterlyBudget, RowsItems } from './mockData';
 import type {
   DelegateExpenseTableHeader,
+  ItemRow,
   Metric,
   MetricsWithAmount,
   MomentDataItem,
   PeriodicSelectionFilter,
+  TableFinances,
 } from './types';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 import type {
@@ -470,23 +472,6 @@ export const returnShortNameForMetric = (metric: MetricsWithAmount) => {
   return metric;
 };
 
-export const searchMetric = (obj: RowsItems, metric: string) => {
-  switch (metric.toLocaleLowerCase()) {
-    case 'budget':
-      return obj.budget;
-    case 'actual':
-      return obj.actual;
-    case 'Net Expenses Off-chain':
-      return obj['Net Expenses Off-chain'];
-    case 'Net Expenses On-chain':
-      return obj['Net Expenses On-chain'];
-    case 'forecast':
-      return obj.forecast;
-    default:
-      return undefined;
-  }
-};
-
 export const getMetricByPeriod = (
   period: PeriodicSelectionFilter,
   isMobile: boolean,
@@ -518,7 +503,7 @@ export const getMetricByPeriod = (
   return metricsCount;
 };
 
-export const sortDataByElementCount = (data: QuarterlyBudget[]) => {
+export const sortDataByElementCount = (data: TableFinances[]) => {
   if (!data) {
     return [];
   }
@@ -526,16 +511,16 @@ export const sortDataByElementCount = (data: QuarterlyBudget[]) => {
 };
 
 // Get first element of each table that always have to appear
-export const getFirstElementEachTable = (data: QuarterlyBudget[]): RowsItems[] => {
+export const getFirstElementEachTable = (data: TableFinances[]): ItemRow[] => {
   const orderData = sortDataByElementCount(data);
-  const getFirstElements = orderData.map((item: QuarterlyBudget) => item.rows[0]);
+  const getFirstElements = orderData.map((item: TableFinances) => item.rows[0]);
   return getFirstElements;
 };
 
-export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
+export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
   const maxRows = NUMBER_ROWS_FINANCES_TABLE;
   let totalRowsPerTable = 0;
-  let itemArrayTableHasOthers: QuarterlyBudget = {
+  let itemArrayTableHasOthers: TableFinances = {
     rows: [],
     tableName: '',
     others: false,
@@ -543,7 +528,7 @@ export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
 
   const orderData = sortDataByElementCount(data);
   const firstElementOfArray = getFirstElementEachTable(orderData);
-
+  console.log('firstElementOfArray', firstElementOfArray);
   const result = firstElementOfArray.map((row, index) => ({
     tableName: orderData[index].tableName,
     rows: [firstElementOfArray[index]],
@@ -581,6 +566,7 @@ export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
       }
     });
     if (indexItem !== orderData.length - 1) {
+      console.log('result', orderData.length);
       result[indexItem].others = true;
     } else {
       result[indexItem].others = false;
