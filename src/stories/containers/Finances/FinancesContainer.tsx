@@ -37,12 +37,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     budgetCap,
     prediction,
     doughnutSeriesData,
-
     handleChangeYears,
-
     year,
     cardsToShow,
-
     selectedBreakdownMetric,
     breakdownTable,
     selectedBreakdownGranularity,

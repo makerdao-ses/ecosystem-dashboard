@@ -12,6 +12,17 @@ import type { PeriodicSelectionFilter } from '@ses/containers/Finances/utils/typ
 import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
+interface MetricValues {
+  Actuals: number;
+  Budget: number;
+  PaymentsOnChain: number;
+  Forecast: number;
+  PaymentsOffChainIncluded: number;
+}
+interface TableData {
+  [key: string]: Record<string, MetricValues>;
+}
+
 export const useBreakdownTable = (
   budgetsAnalytics: BudgetAnalytic | undefined,
   budgetsAnalyticsSemiAnnual: BreakdownBudgetAnalytic | undefined,
@@ -42,6 +53,80 @@ export const useBreakdownTable = (
   const [activeMetrics, setActiveMetrics] = useState<string[]>(metricsFilter.slice(0, val));
   const maxItems = val;
   const minItems = 1;
+
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const selectedGranularity = convertFilterToGranularity(periodFilter);
+
+  // fetch data from the API
+  const { data: analytics2, error: error2 } = useSWRImmutable([selectedGranularity, year, 'atlas', 3], async () =>
+    fetchAnalytics(selectedGranularity, year, 'atlas', 3)
+  );
+
+  const structuredTableData = useMemo(() => {
+    // occurred an error or the data is loading
+    if (error2 || !analytics2) {
+      return null;
+    }
+
+    const data = {} as TableData;
+
+    analytics2.series.forEach((series) => {
+      series.rows.forEach((row) => {
+        const path = row.dimensions[0].path;
+        if (!data[path]) {
+          // create the path as it does not exist
+          data[path] = {};
+        }
+        if (!data[path][series.period]) {
+          // create the period as it does not exist
+          data[path][series.period] = {
+            Actuals: 0,
+            Budget: 0,
+            PaymentsOnChain: 0,
+            Forecast: 0,
+            PaymentsOffChainIncluded: 0,
+          };
+        }
+
+        // add the metric value to the period
+        data[path][series.period][row.metric] += row.value;
+      });
+    });
+
+    return data;
+  }, [analytics2, error2]);
+
+  const headerTotals = useMemo(() => {
+    if (!structuredTableData) {
+      return null;
+    }
+
+    const totalByPeriods = {} as Record<string, MetricValues>;
+    Object.keys(structuredTableData).forEach((path) => {
+      Object.keys(structuredTableData[path]).forEach((period) => {
+        if (!totalByPeriods[period]) {
+          totalByPeriods[period] = {
+            Actuals: 0,
+            Budget: 0,
+            PaymentsOnChain: 0,
+            Forecast: 0,
+            PaymentsOffChainIncluded: 0,
+          };
+        }
+
+        totalByPeriods[period].Actuals += structuredTableData[path][period].Actuals;
+        totalByPeriods[period].Budget += structuredTableData[path][period].Budget;
+        totalByPeriods[period].PaymentsOnChain += structuredTableData[path][period].PaymentsOnChain;
+        totalByPeriods[period].Forecast += structuredTableData[path][period].Forecast;
+        totalByPeriods[period].PaymentsOffChainIncluded += structuredTableData[path][period].PaymentsOffChainIncluded;
+      });
+    });
+
+    return totalByPeriods;
+  }, [structuredTableData]);
+  console.log('>>>>', headerTotals);
+
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   // fetch data from the API
   const { data: analytics, error } = useSWRImmutable(
