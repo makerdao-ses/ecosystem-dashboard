@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { filterMetricValues } from '../SectionPages/BreakdownTable/utils';
@@ -19,7 +20,7 @@ const CellTable: React.FC<Props> = ({ metrics, value }) => {
       <SpacedValues>
         {metrics.map((metric, index) => (
           <Span key={index} isLight={isLight}>
-            {element[metric as keyof MetricValues]}
+            {usLocalizedNumber(element[metric as keyof MetricValues], 0)}
           </Span>
         ))}
       </SpacedValues>
