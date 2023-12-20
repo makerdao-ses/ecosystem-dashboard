@@ -338,9 +338,7 @@ export const getSummaryFromHeaderValues = (headerValues: Record<string, MetricsW
 export const filterMetricValues = (metric: MetricValues, keys: (keyof MetricValues)[]): MetricValues => {
   const filteredMetrics: MetricValues = {} as MetricValues;
   for (const key of keys) {
-    if (Object.prototype.hasOwnProperty.call(metric, key)) {
-      filteredMetrics[key] = metric[key];
-    }
+    filteredMetrics[key] = metric[key];
   }
   return filteredMetrics;
 };
