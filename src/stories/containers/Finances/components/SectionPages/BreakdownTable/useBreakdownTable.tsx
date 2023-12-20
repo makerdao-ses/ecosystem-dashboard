@@ -8,17 +8,10 @@ import { useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { convertFilterToGranularity, getHeaderValuesByPeriod, getSummaryFromHeaderValues } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
+import type { MetricValues, PeriodicSelectionFilter, TableFinances } from '@ses/containers/Finances/utils/types';
 import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-interface MetricValues {
-  Actuals: number;
-  Budget: number;
-  PaymentsOnChain: number;
-  Forecast: number;
-  PaymentsOffChainIncluded: number;
-}
 interface TableData {
   [key: string]: Record<string, MetricValues>;
 }
@@ -29,7 +22,9 @@ export const useBreakdownTable = (
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined,
   budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined,
   year: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   budgets: Budget[],
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   allBudgets: Budget[]
 ) => {
   const router = useRouter();
@@ -62,7 +57,7 @@ export const useBreakdownTable = (
     fetchAnalytics(selectedGranularity, year, 'atlas', 3)
   );
 
-  const structuredTableData = useMemo(() => {
+  const tableData = useMemo(() => {
     // occurred an error or the data is loading
     if (error2 || !analytics2) {
       return null;
@@ -70,6 +65,7 @@ export const useBreakdownTable = (
 
     const data = {} as TableData;
 
+    // group data
     analytics2.series.forEach((series) => {
       series.rows.forEach((row) => {
         const path = row.dimensions[0].path;
@@ -93,38 +89,77 @@ export const useBreakdownTable = (
       });
     });
 
-    return data;
-  }, [analytics2, error2]);
+    console.log('data', data);
 
-  const headerTotals = useMemo(() => {
-    if (!structuredTableData) {
-      return null;
-    }
+    const table = {
+      tableName: 'General',
+      rows: [],
+    } as TableFinances;
 
-    const totalByPeriods = {} as Record<string, MetricValues>;
-    Object.keys(structuredTableData).forEach((path) => {
-      Object.keys(structuredTableData[path]).forEach((period) => {
-        if (!totalByPeriods[period]) {
-          totalByPeriods[period] = {
-            Actuals: 0,
-            Budget: 0,
-            PaymentsOnChain: 0,
-            Forecast: 0,
-            PaymentsOffChainIncluded: 0,
-          };
+    // table header...
+    // todo: create the header...
+
+    Object.keys(data).forEach((path) => {
+      const columns = Object.values(data[path]);
+      const total = columns.reduce(
+        (acc, current) => {
+          acc.Actuals += current.Actuals;
+          acc.Budget += current.Budget;
+          acc.PaymentsOnChain += current.PaymentsOnChain;
+          acc.Forecast += current.Forecast;
+          acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
+          return acc;
+        },
+        {
+          Actuals: 0,
+          Budget: 0,
+          PaymentsOnChain: 0,
+          Forecast: 0,
+          PaymentsOffChainIncluded: 0,
         }
+      );
 
-        totalByPeriods[period].Actuals += structuredTableData[path][period].Actuals;
-        totalByPeriods[period].Budget += structuredTableData[path][period].Budget;
-        totalByPeriods[period].PaymentsOnChain += structuredTableData[path][period].PaymentsOnChain;
-        totalByPeriods[period].Forecast += structuredTableData[path][period].Forecast;
-        totalByPeriods[period].PaymentsOffChainIncluded += structuredTableData[path][period].PaymentsOffChainIncluded;
+      columns.push(total);
+
+      table.rows.push({
+        name: path,
+        rows: columns,
       });
     });
 
-    return totalByPeriods;
-  }, [structuredTableData]);
-  console.log('>>>>', headerTotals);
+    console.log('table', table);
+
+    return [table];
+  }, [analytics2, error2]);
+
+  // const headerTotals = useMemo(() => {
+  //   if (!structuredTableData) {
+  //     return null;
+  //   }
+
+  //   const totalByPeriods = {} as Record<string, MetricValues>;
+  //   Object.keys(structuredTableData).forEach((path) => {
+  //     Object.keys(structuredTableData[path]).forEach((period) => {
+  //       if (!totalByPeriods[period]) {
+  //         totalByPeriods[period] = {
+  //           Actuals: 0,
+  //           Budget: 0,
+  //           PaymentsOnChain: 0,
+  //           Forecast: 0,
+  //           PaymentsOffChainIncluded: 0,
+  //         };
+  //       }
+
+  //       totalByPeriods[period].Actuals += structuredTableData[path][period].Actuals;
+  //       totalByPeriods[period].Budget += structuredTableData[path][period].Budget;
+  //       totalByPeriods[period].PaymentsOnChain += structuredTableData[path][period].PaymentsOnChain;
+  //       totalByPeriods[period].Forecast += structuredTableData[path][period].Forecast;
+  //       totalByPeriods[period].PaymentsOffChainIncluded += structuredTableData[path][period].PaymentsOffChainIncluded;
+  //     });
+  //   });
+
+  //   return totalByPeriods;
+  // }, [structuredTableData]);
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -133,7 +168,7 @@ export const useBreakdownTable = (
     ['analytics', year, convertFilterToGranularity(periodFilter)],
     async () => fetchAnalytics(convertFilterToGranularity(periodFilter), year, 'atlas', 3)
   );
-  console.log(budgets, allBudgets);
+
   const isLoading = !analytics && !error;
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
@@ -254,6 +289,7 @@ export const useBreakdownTable = (
     trailingAddress,
     summaryTotalTable,
     headerValuesTable,
+    tableData,
     isLoading,
   };
 };

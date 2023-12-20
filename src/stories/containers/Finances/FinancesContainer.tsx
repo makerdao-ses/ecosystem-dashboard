@@ -11,7 +11,6 @@ import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapp
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from './components/SectionPages/BreakdownTable/BreakdownTable';
-import { getDataTableFromPeriod } from './components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
@@ -141,7 +140,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
           minItems={breakdownTable.minItems}
           allowSelectAll={breakdownTable.allowSelectAll}
           popupContainerHeight={breakdownTable.popupContainerHeight}
-          breakdownTable={getDataTableFromPeriod(breakdownTable.periodFilter)}
+          breakdownTable={breakdownTable.tableData ?? []}
           isLoading={breakdownTable.isLoading}
         />
       </ConditionalWrapper>
