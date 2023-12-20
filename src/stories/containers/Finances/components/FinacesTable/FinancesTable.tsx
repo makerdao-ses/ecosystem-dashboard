@@ -55,10 +55,9 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                     </Cell>
                   ))}
                 {showQuarterly &&
-                  arrayMetrics.map((_, index) => {
-                    console.log('value');
-                    return <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />;
-                  })}
+                  arrayMetrics.map((_, index) => (
+                    <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />
+                  ))}
                 {showSemiAnnual &&
                   arrayMetrics.map((_, index) => (
                     <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />

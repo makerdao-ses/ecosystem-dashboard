@@ -63,7 +63,7 @@ export interface MetricsWithAmount {
 
 export interface MetricValues {
   Budget: number;
-  Actual: number;
+  Actuals: number;
   Forecast: number;
   PaymentsOnChain: number;
   PaymentsOffChainIncluded: number;
