@@ -866,7 +866,7 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Met
   let metricKey: keyof BudgetMetric;
 
   switch (selectedMetric) {
-    case 'Actual':
+    case 'Actuals':
       metricKey = 'actuals';
       break;
     case 'Forecast':
@@ -973,7 +973,7 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
 
   for (let i = 0; i < firstItem.rows.length; i++) {
     const sumMetric: MetricValues = {
-      Actual: 0,
+      Actuals: 0,
       Budget: 0,
       Forecast: 0,
       PaymentsOnChain: 0,
@@ -982,7 +982,7 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
 
     for (const item of metrics) {
       const row = item.rows[i];
-      sumMetric.Actual += row.Actual;
+      sumMetric.Actuals += row.Actuals;
       sumMetric.Forecast += row.Forecast;
       sumMetric.Budget += row.Budget;
       sumMetric.PaymentsOnChain += row.PaymentsOnChain;
