@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { showOnlySixteenRowsWithOthers, sortDataByElementCount } from '../../utils/utils';
@@ -51,7 +52,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                 {showAnnual &&
                   newMetrics.map((metric) => (
                     <Cell key={index} isLight={isLight} period={period}>
-                      {row.rows[0][metric as keyof MetricValues]}
+                      {usLocalizedNumber(row.rows[0][metric as keyof MetricValues], 0)}
                     </Cell>
                   ))}
                 {showQuarterly &&
