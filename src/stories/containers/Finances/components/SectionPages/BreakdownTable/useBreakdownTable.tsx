@@ -51,7 +51,7 @@ export const useBreakdownTable = (
   const initialValue: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(initialValue);
   const metricsFilter = useMemo(
-    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
+    () => ['Budget', 'Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
     []
   );
   const val = useMemo(

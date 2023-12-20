@@ -93,7 +93,7 @@ const getCorrectMetricHeaderTable = (metric: string) => {
   switch (metric) {
     case 'Budget':
       return 'budget';
-    case 'Actual':
+    case 'Actuals':
       return 'actuals';
     case 'Forecast':
       return 'forecast';
@@ -110,7 +110,7 @@ const getLabelFromKeyBudget = (metric: string) => {
     case 'budget':
       return 'Budget';
     case 'actuals':
-      return 'Actual';
+      return 'Actuals';
     case 'forecast':
       return 'Forecast';
     case 'paymentsOnChain':
