@@ -140,7 +140,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
           minItems={breakdownTable.minItems}
           allowSelectAll={breakdownTable.allowSelectAll}
           popupContainerHeight={breakdownTable.popupContainerHeight}
-          breakdownTable={breakdownTable.tableData ?? []}
+          breakdownTable={breakdownTable.tableBody ?? []}
           isLoading={breakdownTable.isLoading}
         />
       </ConditionalWrapper>

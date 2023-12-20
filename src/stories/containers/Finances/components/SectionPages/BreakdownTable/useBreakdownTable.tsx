@@ -40,7 +40,6 @@ export const useBreakdownTable = (
   allBudgets: Budget[]
 ) => {
   const router = useRouter();
-  console.log(budgets, allBudgets);
 
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -69,10 +68,11 @@ export const useBreakdownTable = (
     fetchAnalytics(selectedGranularity, year, 'atlas', 3)
   );
 
-  const tableData = useMemo(() => {
+  // create the required data for the table
+  const [tableHeader, tableBody] = useMemo(() => {
     // occurred an error or the data is loading
     if (error || !analytics) {
-      return null;
+      return [null, null];
     }
 
     const data = {} as TableData;
@@ -164,75 +164,24 @@ export const useBreakdownTable = (
       tables.push(table);
     });
 
-    // const table = {
-    //   tableName: 'General',
-    //   rows: [],
-    // } as TableFinances;
+    // now we create the main table header
+    // it is guaranteed that all the sub-tables have a header
+    const subTableHeaders = tables.map((table) => table.rows.filter((row) => row.isMain)[0].rows);
+    const tableHeader = subTableHeaders.reduce((acc, current) => {
+      for (let i = 0; i < current.length; i++) {
+        acc[i].Actuals += current[i].Actuals;
+        acc[i].Budget += current[i].Budget;
+        acc[i].PaymentsOnChain += current[i].PaymentsOnChain;
+        acc[i].Forecast += current[i].Forecast;
+        acc[i].PaymentsOffChainIncluded += current[i].PaymentsOffChainIncluded;
+      }
+      return acc;
+    }, Array.from({ length: subTableHeaders?.[0]?.length }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
 
-    // table header...
-    // todo: create the header...
-
-    // Object.keys(data).forEach((path) => {
-    //   const columns = Object.values(data[path]);
-    //   const total = columns.reduce(
-    //     (acc, current) => {
-    //       acc.Actuals += current.Actuals;
-    //       acc.Budget += current.Budget;
-    //       acc.PaymentsOnChain += current.PaymentsOnChain;
-    //       acc.Forecast += current.Forecast;
-    //       acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
-    //       return acc;
-    //     },
-    //     {
-    //       Actuals: 0,
-    //       Budget: 0,
-    //       PaymentsOnChain: 0,
-    //       Forecast: 0,
-    //       PaymentsOffChainIncluded: 0,
-    //     }
-    //   );
-
-    //   columns.push(total);
-
-    //   table.rows.push({
-    //     name: allBudgets.find((item) => item.codePath === path)?.name ?? `Unknown: ${path}`,
-    //     rows: columns,
-    //   });
-    // });
-
-    return tables;
+    return [tableHeader, tables];
   }, [allBudgets, analytics, budgets, error]);
 
-  // const headerTotals = useMemo(() => {
-  //   if (!structuredTableData) {
-  //     return null;
-  //   }
-
-  //   const totalByPeriods = {} as Record<string, MetricValues>;
-  //   Object.keys(structuredTableData).forEach((path) => {
-  //     Object.keys(structuredTableData[path]).forEach((period) => {
-  //       if (!totalByPeriods[period]) {
-  //         totalByPeriods[period] = {
-  //           Actuals: 0,
-  //           Budget: 0,
-  //           PaymentsOnChain: 0,
-  //           Forecast: 0,
-  //           PaymentsOffChainIncluded: 0,
-  //         };
-  //       }
-
-  //       totalByPeriods[period].Actuals += structuredTableData[path][period].Actuals;
-  //       totalByPeriods[period].Budget += structuredTableData[path][period].Budget;
-  //       totalByPeriods[period].PaymentsOnChain += structuredTableData[path][period].PaymentsOnChain;
-  //       totalByPeriods[period].Forecast += structuredTableData[path][period].Forecast;
-  //       totalByPeriods[period].PaymentsOffChainIncluded += structuredTableData[path][period].PaymentsOffChainIncluded;
-  //     });
-  //   });
-
-  //   return totalByPeriods;
-  // }, [structuredTableData]);
-
-  const isLoading = !analytics && !error;
+  const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
 
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
@@ -353,7 +302,8 @@ export const useBreakdownTable = (
     trailingAddress,
     summaryTotalTable,
     headerValuesTable,
-    tableData,
+    tableHeader,
+    tableBody,
     isLoading,
   };
 };
