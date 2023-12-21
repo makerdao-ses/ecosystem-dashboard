@@ -109,7 +109,7 @@ export interface LineChartSeriesData {
 export interface ItemRow {
   name: string;
   isMain?: boolean;
-  rows: MetricValues[];
+  columns: MetricValues[];
 }
 
 export interface TableFinances {
