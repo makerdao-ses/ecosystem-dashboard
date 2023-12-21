@@ -190,7 +190,7 @@ export const useBreakdownTable = (
     // it is guaranteed below that all the sub-tables have a header
     const subTableHeaders = tables.map((table) => table.rows.filter((row) => row.isMain)[0].rows);
     const tableHeader = subTableHeaders.reduce((acc, current) => {
-      for (let i = 0; i < current.length; i++) {
+      for (let i = 0; i < acc.length; i++) {
         acc[i].Actuals += current[i].Actuals;
         acc[i].Budget += current[i].Budget;
         acc[i].PaymentsOnChain += current[i].PaymentsOnChain;
