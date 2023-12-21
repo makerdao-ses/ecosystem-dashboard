@@ -14,7 +14,6 @@ import type {
   PeriodicSelectionFilter,
   TableFinances,
 } from '@ses/containers/Finances/utils/types';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 interface TableData {
@@ -29,15 +28,7 @@ const EMPTY_METRIC_VALUE = {
   PaymentsOffChainIncluded: 0,
 } as MetricValues;
 
-export const useBreakdownTable = (
-  budgetsAnalytics: BudgetAnalytic | undefined,
-  budgetsAnalyticsSemiAnnual: BreakdownBudgetAnalytic | undefined,
-  budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined,
-  budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined,
-  year: string,
-  budgets: Budget[],
-  allBudgets: Budget[]
-) => {
+export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: Budget[]) => {
   const router = useRouter();
 
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
