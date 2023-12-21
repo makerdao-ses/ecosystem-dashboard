@@ -1,4 +1,5 @@
 import { siteRoutes } from '@ses/config/routes';
+import { useBudgetContext } from '@ses/core/context/BudgetContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -24,6 +25,7 @@ import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], initialYear: string) => {
   const router = useRouter();
+  const { allBudgets } = useBudgetContext();
   const { mutate } = useSWRConfig();
   const [year, setYear] = useState(initialYear);
   const { isLight } = useThemeContext();
@@ -37,6 +39,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BudgetAnalytic>
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
     'analytics/semiAnnual',
     async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
@@ -105,7 +108,9 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     budgetsAnalyticsSemiAnnual,
     budgetsAnalyticsQuarterly,
     budgetsAnalyticsMonthly,
-    year
+    year,
+    budgets,
+    allBudgets
   );
 
   // All the logic required by the MakerDAOExpenseMetrics
@@ -126,7 +131,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     router,
     cardsToShow,
     ...breakdownChartSectionData,
-    ...breakdownTable,
+    breakdownTable,
     loadMoreCards,
     handleLoadMoreCards,
     makerDAOExpensesMetrics,

@@ -1,21 +1,25 @@
 import styled from '@emotion/styled';
+import { filterActiveMetrics, getQuarterlyForFilters } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import CellQuarterly from './CellQuarterly';
-import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
+import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   title: string;
   className?: string;
-  metrics: Record<string, MetricsWithAmount[]>;
-  metricTotal: MetricsWithAmount[];
+  headerTable: MetricValues[];
+  activeMetrics: string[];
+  year: string;
 }
 
-const HeaderQuarterly: React.FC<Props> = ({ title, className, metrics, metricTotal }) => {
+const HeaderQuarterly: React.FC<Props> = ({ title, className, headerTable, year, activeMetrics }) => {
   const { isLight } = useThemeContext();
-  const keysMetrics = Object.keys(metrics);
+  const keysMetrics = [...getQuarterlyForFilters(year), 'Total'];
+  const metricsActive = filterActiveMetrics(activeMetrics, headerTable);
+
   return (
     <Container isLight={isLight} className={className}>
       <TitleContainer isLight={isLight}>
@@ -23,10 +27,14 @@ const HeaderQuarterly: React.FC<Props> = ({ title, className, metrics, metricTot
       </TitleContainer>
 
       <ContainerCell>
-        {keysMetrics?.map((key, index) => (
-          <CellQuarterly metrics={metrics[key]} quarterly={key} key={index} />
+        {keysMetrics?.map((quarterly, index) => (
+          <CellQuarterly
+            metrics={metricsActive[index]}
+            quarterly={quarterly}
+            key={index}
+            activeMetrics={activeMetrics}
+          />
         ))}
-        <CellQuarterlyTotal metrics={metricTotal} quarterly="Total" isTotal />
       </ContainerCell>
     </Container>
   );
@@ -102,8 +110,4 @@ const ContainerCell = styled.div({
   flexDirection: 'row',
   flex: 1,
   alignItems: 'center',
-});
-
-const CellQuarterlyTotal = styled(CellQuarterly)({
-  minHeight: 80,
 });

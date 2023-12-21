@@ -5,15 +5,15 @@ import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { NUMBER_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
-
-import type { QuarterlyBudget, RowsItems } from './mockData';
 import type {
   DelegateExpenseTableHeader,
+  ItemRow,
   LineChartSeriesData,
   Metric,
-  MetricsWithAmount,
+  MetricValues,
   MomentDataItem,
   PeriodicSelectionFilter,
+  TableFinances,
 } from './types';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 import type {
@@ -315,10 +315,18 @@ export const mockDataApiTeam: MomentDataItem[] = [
 // TODO: Update function when are data in the API
 export const getStatus = (budget: BudgetStatement[]) => budget[0]?.status;
 export const getShowCTA = () => false;
-export const getQuarterlyForFilters = (year: number): string[] => {
+export const getQuarterlyForFilters = (year: string): string[] => {
   const period: string[] = [];
-  for (let i = 2; i <= 5; i++) {
+  for (let i = 1; i <= 4; i++) {
     const quarter = `Q${i} ${year}`;
+    period.push(quarter);
+  }
+  return period;
+};
+export const getSemiAnnualForFilters = (year: string): string[] => {
+  const period: string[] = [];
+  for (let i = 1; i <= 2; i++) {
+    const quarter = `H${i} ${year}`;
     period.push(quarter);
   }
   return period;
@@ -455,39 +463,6 @@ export const getLinkLastExpenseReport = (code: string, reportExpenseItems: Momen
 
 export const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export const returnShortNameForMetric = (metric: MetricsWithAmount) => {
-  if (metric.name === 'Net Expenses On-chain') {
-    return {
-      ...metric,
-      name: 'On-chain',
-    };
-  }
-  if (metric.name === 'Net Expenses Off-chain') {
-    return {
-      ...metric,
-      name: 'Off-chain',
-    };
-  }
-  return metric;
-};
-
-export const searchMetric = (obj: RowsItems, metric: string) => {
-  switch (metric.toLocaleLowerCase()) {
-    case 'budget':
-      return obj.budget;
-    case 'actual':
-      return obj.actual;
-    case 'Net Expenses Off-chain':
-      return obj['Net Expenses Off-chain'];
-    case 'Net Expenses On-chain':
-      return obj['Net Expenses On-chain'];
-    case 'forecast':
-      return obj.forecast;
-    default:
-      return undefined;
-  }
-};
-
 export const getMetricByPeriod = (
   period: PeriodicSelectionFilter,
   isMobile: boolean,
@@ -519,7 +494,7 @@ export const getMetricByPeriod = (
   return metricsCount;
 };
 
-export const sortDataByElementCount = (data: QuarterlyBudget[]) => {
+export const sortDataByElementCount = (data: TableFinances[]) => {
   if (!data) {
     return [];
   }
@@ -527,16 +502,17 @@ export const sortDataByElementCount = (data: QuarterlyBudget[]) => {
 };
 
 // Get first element of each table that always have to appear
-export const getFirstElementEachTable = (data: QuarterlyBudget[]): RowsItems[] => {
+export const getFirstElementEachTable = (data: TableFinances[]): ItemRow[] => {
   const orderData = sortDataByElementCount(data);
-  const getFirstElements = orderData.map((item: QuarterlyBudget) => item.rows[0]);
+  const getFirstElements = orderData.map((item: TableFinances) => item.rows[0]);
   return getFirstElements;
 };
 
-export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
+export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
   const maxRows = NUMBER_ROWS_FINANCES_TABLE;
+  const others: ItemRow[] = [];
   let totalRowsPerTable = 0;
-  let itemArrayTableHasOthers: QuarterlyBudget = {
+  let itemArrayTableHasOthers: TableFinances = {
     rows: [],
     tableName: '',
     others: false,
@@ -565,6 +541,7 @@ export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
       break;
     }
     const indexItem = result.findIndex((element) => element.tableName === item.tableName);
+
     const takeAllElementLessOne = item.rows.slice(1, item.rows.length);
 
     result[indexItem].rows.push(...takeAllElementLessOne);
@@ -575,14 +552,23 @@ export const showOnlySixteenRowsWithOthers = (data: QuarterlyBudget[]) => {
     const indexItem = result.findIndex((element) => element.tableName === itemArrayTableHasOthers.tableName);
 
     itemArrayTableHasOthers.rows.forEach((item, index) => {
-      // Les than 12 because 3 of head of each table and now new one is others dont get the firsts element
-      if (totalRowsPerTable <= 12 && index !== 0) {
+      const numberHeaders = data.length;
+
+      // Number of row maxRows less numberHeaders (number of the table) less 1 because the others row
+      if (totalRowsPerTable < maxRows - numberHeaders - 1 && index !== 0) {
         result[indexItem].rows.push(item);
         totalRowsPerTable++;
+      } else {
+        // Only put if if not the one element
+        if (index !== 0) {
+          others.push(item);
+        }
       }
     });
     if (indexItem !== orderData.length - 1) {
       result[indexItem].others = true;
+      const resultOthers = getMetricsForOthersRow(others);
+      result[indexItem].rows.push(resultOthers);
     } else {
       result[indexItem].others = false;
     }
@@ -871,7 +857,7 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Met
   let metricKey: keyof BudgetMetric;
 
   switch (selectedMetric) {
-    case 'Actual':
+    case 'Actuals':
       metricKey = 'actuals';
       break;
     case 'Forecast':
@@ -961,4 +947,67 @@ export const buildExpenseMetricsLineChartSeries = (
       isVisible: !disabled['Net Expenses Off-chain'],
     },
   ] as LineChartSeriesData[];
+};
+
+export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
+  const defaultValue: ItemRow = {
+    name: 'Others',
+    rows: [],
+  } as ItemRow;
+
+  if (metrics.length === 0) {
+    return defaultValue;
+  }
+
+  const firstItem = metrics[0];
+  const sumRow: MetricValues[] = [];
+
+  for (let i = 0; i < firstItem.rows.length; i++) {
+    const sumMetric: MetricValues = {
+      Actuals: 0,
+      Budget: 0,
+      Forecast: 0,
+      PaymentsOnChain: 0,
+      PaymentsOffChainIncluded: 0,
+    };
+
+    for (const item of metrics) {
+      const row = item.rows[i];
+      sumMetric.Actuals += row.Actuals;
+      sumMetric.Forecast += row.Forecast;
+      sumMetric.Budget += row.Budget;
+      sumMetric.PaymentsOnChain += row.PaymentsOnChain;
+      sumMetric.PaymentsOffChainIncluded += row.PaymentsOffChainIncluded;
+    }
+
+    sumRow.push(sumMetric);
+  }
+
+  return {
+    name: 'Others',
+    rows: [...sumRow],
+  } as ItemRow;
+};
+
+export const filterActiveMetrics = (activeMetrics: string[], headerTable: MetricValues[]) =>
+  headerTable.map((header) => {
+    const filteredMetrics: Partial<MetricValues> = {};
+
+    activeMetrics.forEach((metric) => {
+      if (metric in header) {
+        filteredMetrics[metric as keyof MetricValues] = header[metric as keyof MetricValues];
+      }
+    });
+
+    return filteredMetrics;
+  });
+
+export const getShortNameForMetric = (metric: string): string => {
+  if (metric === 'Net Expenses On-chain') {
+    return 'On-chain';
+  }
+  if (metric === 'Net Expenses Off-chain') {
+    return 'Off-chain';
+  }
+  return metric;
 };

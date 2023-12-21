@@ -1,20 +1,24 @@
 import styled from '@emotion/styled';
+import { filterActiveMetrics } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import CellAnnually from './CellAnnually';
-import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
+import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   year: string;
-  metrics: Record<string, MetricsWithAmount[]>;
   title: string;
+  headerTable: MetricValues[];
+  activeMetrics: string[];
 }
 
-export const HeaderAnnually: React.FC<Props> = ({ year, metrics, title }) => {
+export const HeaderAnnually: React.FC<Props> = ({ year, title, activeMetrics, headerTable }) => {
   const { isLight } = useThemeContext();
-  const years = Object.keys(metrics);
+
+  const metricsActive = filterActiveMetrics(activeMetrics, headerTable);
+
   return (
     <Container isLight={isLight}>
       <ContainerAnnually>
@@ -24,7 +28,7 @@ export const HeaderAnnually: React.FC<Props> = ({ year, metrics, title }) => {
         <ContainerYear>
           <Year isLight={isLight}>{year}</Year>
           <ContainerAnnuallyCell>
-            <CellAnnually metrics={metrics[years[0]]} />
+            <CellAnnually metrics={metricsActive[0]} activeMetrics={activeMetrics} />
           </ContainerAnnuallyCell>
         </ContainerYear>
       </ContainerAnnually>

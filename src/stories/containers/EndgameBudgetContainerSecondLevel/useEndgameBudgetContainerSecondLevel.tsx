@@ -125,27 +125,14 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   );
 
   // Hooks Logic of Table Second Level
-  const {
-    activeMetrics,
-    allowSelectAll,
-    defaultMetricsWithAllSelected,
-    maxItems,
-    minItems,
-    selectMetrics,
-    handleResetMetrics,
-    popupContainerHeight,
-    periodFilter,
-    handlePeriodChange,
-    periodicSelectionFilter,
-    handleSelectChangeMetrics,
-    headerValuesTable,
-    summaryTotalTable,
-  } = useBreakdownTable(
+  const breakdownTableSecondLevel = useBreakdownTable(
     budgetsAnalytics,
     budgetsAnalyticsSemiAnnual,
     budgetsAnalyticsQuarterly,
     budgetsAnalyticsMonthly,
-    year
+    year,
+    budgets,
+    allBudgets
   );
 
   const expenseReportSection = useDelegateExpenseTrendFinances();
@@ -223,25 +210,13 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     prediction,
     handleSelectFilter,
     cardsNavigationInformation,
-    activeMetrics,
-    allowSelectAll,
-    defaultMetricsWithAllSelected,
-    maxItems,
-    minItems,
-    selectMetrics,
-    handleResetMetrics,
-    popupContainerHeight,
-    periodFilter,
-    handlePeriodChange,
-    periodicSelectionFilter,
-    handleSelectChangeMetrics,
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
     cutTextForBigNumberLegend,
-    headerValuesTable,
-    summaryTotalTable,
+
     makerDAOExpensesMetrics,
     expenseReportSection,
+    breakdownTableSecondLevel,
   };
 };

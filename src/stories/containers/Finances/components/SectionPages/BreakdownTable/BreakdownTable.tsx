@@ -4,8 +4,7 @@ import React from 'react';
 import BreakdownTableFinances from '../../BreakdownTableFinances/BreakdownTableFinances';
 import FinancesTable from '../../FinacesTable/FinancesTable';
 import HeaderTable from '../../HeaderTable/HeaderTable';
-import type { QuarterlyBudget } from '../../../utils/mockData';
-import type { MetricsWithAmount, PeriodicSelectionFilter } from '../../../utils/types';
+import type { MetricValues, PeriodicSelectionFilter, TableFinances } from '../../../utils/types';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {
@@ -15,19 +14,17 @@ interface Props {
   handleResetFilter: () => void;
   periodicSelectionFilter: string[];
   handleChange: (value: string) => void;
-
   selectedValue: string;
-
   widthPaper?: number;
   year: string;
-  headerTableMetrics: Record<string, MetricsWithAmount[]>;
-  metricTotal: MetricsWithAmount[];
   handleResetMetrics?: string[];
   maxItems?: number;
   minItems?: number;
   allowSelectAll?: boolean;
   popupContainerHeight?: number;
-  breakdownTable: QuarterlyBudget[];
+  breakdownTable: TableFinances[];
+  isLoading: boolean;
+  headerTable: MetricValues[];
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -39,8 +36,6 @@ const BreakdownTable: React.FC<Props> = ({
   metrics,
   periodicSelectionFilter,
 
-  headerTableMetrics,
-  metricTotal,
   selectedValue,
   year,
   handleResetMetrics,
@@ -49,6 +44,8 @@ const BreakdownTable: React.FC<Props> = ({
   allowSelectAll,
   popupContainerHeight,
   breakdownTable,
+  isLoading,
+  headerTable,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -65,23 +62,39 @@ const BreakdownTable: React.FC<Props> = ({
       allowSelectAll={allowSelectAll}
       popupContainerHeight={popupContainerHeight}
     />
-    <TableHeader>
-      <HeaderTable
-        title="MakerDAO Budget"
-        metrics={headerTableMetrics}
-        year={year}
-        metricTotal={metricTotal}
-        period={selectedValue as PeriodicSelectionFilter}
-      />
-    </TableHeader>
-    <TableWrapper>
-      <FinancesTable
-        breakdownTable={breakdownTable}
-        metrics={activeItems}
-        year={year}
-        period={selectedValue as PeriodicSelectionFilter}
-      />
-    </TableWrapper>
+    {isLoading ? (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 300,
+          color: 'red',
+        }}
+      >
+        Loading...
+      </div>
+    ) : (
+      <>
+        <TableHeader>
+          <HeaderTable
+            title="MakerDAO Budget"
+            year={year}
+            period={selectedValue as PeriodicSelectionFilter}
+            headerTable={headerTable}
+            activeMetrics={activeItems}
+          />
+        </TableHeader>
+        <TableWrapper>
+          <FinancesTable
+            breakdownTable={breakdownTable}
+            metrics={activeItems}
+            year={year}
+            period={selectedValue as PeriodicSelectionFilter}
+          />
+        </TableWrapper>
+      </>
+    )}
   </MainContainer>
 );
 

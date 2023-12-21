@@ -55,18 +55,13 @@ export interface MomentDataItem extends Team {
   totalActuals: number;
   lastModified: DateTime;
 }
-export type Metric = 'Budget' | 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
-export interface MetricsWithAmount {
-  name: Metric;
-  amount: number;
-}
-
+export type Metric = 'Budget' | 'Actuals' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
 export interface MetricValues {
   Budget: number;
-  Actual: number;
+  Actuals: number;
   Forecast: number;
-  'Net Expenses On-chain': number;
-  'Net Expenses Off-chain': number;
+  PaymentsOnChain: number;
+  PaymentsOffChainIncluded: number;
 }
 
 export interface ValueSeriesBreakdownChart {
@@ -111,6 +106,18 @@ export interface LineChartSeriesData {
   isVisible: boolean;
 }
 
-export interface MetricsWithAmountSignature {
-  [key: string]: MetricsWithAmount;
+export interface ItemRow {
+  name: string;
+  isMain?: boolean;
+  rows: MetricValues[];
+}
+
+export interface TableFinances {
+  tableName: string;
+  rows: ItemRow[];
+  others?: boolean;
+}
+
+export interface RowItemMetrics {
+  [key: string]: MetricValues[];
 }

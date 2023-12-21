@@ -10,11 +10,11 @@ import ConditionalWrapper from '../Finances/components/ConditionalWrapper/Condit
 import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/BreakdownTable';
+import { getDataTableFromPeriod } from '../Finances/components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from '../Finances/components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
-import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 interface Props {
@@ -40,18 +40,6 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     actuals,
     budgetCap,
     prediction,
-    activeMetrics,
-    allowSelectAll,
-    defaultMetricsWithAllSelected,
-    maxItems,
-    minItems,
-    selectMetrics,
-    popupContainerHeight,
-    periodFilter,
-    handlePeriodChange,
-    handleResetMetrics,
-    periodicSelectionFilter,
-    handleSelectChangeMetrics,
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
@@ -66,8 +54,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
-    headerValuesTable,
-    summaryTotalTable,
+    breakdownTableSecondLevel,
     makerDAOExpensesMetrics,
     expenseReportSection,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
@@ -125,24 +112,24 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
           refBreakDownChart={refBreakDownChart}
         />
       </Container>
-      <ConditionalWrapper period={periodFilter}>
+      <ConditionalWrapper period={breakdownTableSecondLevel.periodFilter}>
         <BreakdownTable
-          handleResetMetrics={defaultMetricsWithAllSelected}
-          activeItems={activeMetrics}
-          handleResetFilter={handleResetMetrics}
-          handleChange={handlePeriodChange}
-          metrics={selectMetrics}
-          periodicSelectionFilter={periodicSelectionFilter}
-          selectedValue={periodFilter}
+          handleResetMetrics={breakdownTableSecondLevel.defaultMetricsWithAllSelected}
+          activeItems={breakdownTableSecondLevel.activeMetrics}
+          handleResetFilter={breakdownTableSecondLevel.handleResetMetrics}
+          handleChange={breakdownTableSecondLevel.handlePeriodChange}
+          metrics={breakdownTableSecondLevel.selectMetrics}
+          periodicSelectionFilter={breakdownTableSecondLevel.periodicSelectionFilter}
+          selectedValue={breakdownTableSecondLevel.periodFilter}
           year={year}
-          headerTableMetrics={headerValuesTable}
-          metricTotal={summaryTotalTable}
-          maxItems={maxItems}
-          minItems={minItems}
-          allowSelectAll={allowSelectAll}
-          popupContainerHeight={popupContainerHeight}
-          handleSelectChange={handleSelectChangeMetrics}
-          breakdownTable={mockDataTableQuarterlyArray}
+          maxItems={breakdownTableSecondLevel.maxItems}
+          minItems={breakdownTableSecondLevel.minItems}
+          allowSelectAll={breakdownTableSecondLevel.allowSelectAll}
+          popupContainerHeight={breakdownTableSecondLevel.popupContainerHeight}
+          handleSelectChange={breakdownTableSecondLevel.handleSelectChangeMetrics}
+          breakdownTable={getDataTableFromPeriod(breakdownTableSecondLevel.periodFilter)}
+          isLoading={breakdownTableSecondLevel.isLoading}
+          headerTable={breakdownTableSecondLevel.tableHeader ?? []}
         />
       </ConditionalWrapper>
       <Container>

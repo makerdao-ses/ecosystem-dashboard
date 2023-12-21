@@ -14,11 +14,11 @@ import CardNavigationMobile from '../Finances/components/CardNavigationMobile/Ca
 import ConditionalWrapper from '../Finances/components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
-import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable';
+import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/BreakdownTable';
+import { getDataTableFromPeriod } from '../Finances/components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
-import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
 import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainerThirdLevel';
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -56,18 +56,8 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleLoadMoreCards,
     isLight,
     cardsToShow,
-    periodFilter,
-    defaultMetricsWithAllSelected,
-    activeMetrics,
-    handlePeriodChange,
-    handleResetMetrics,
-    handleSelectChangeMetrics,
-    selectMetrics,
-    periodicSelectionFilter,
-    allowSelectAll,
-    maxItems,
-    minItems,
-    popupContainerHeight,
+
+    breakdownTableThirdLevel,
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
@@ -79,8 +69,6 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
-    headerValuesTable,
-    summaryTotalTable,
     makerDAOExpensesMetrics,
     expenseReportSection,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
@@ -208,24 +196,24 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
         />
       </Container>
 
-      <ConditionalWrapper period={periodFilter}>
+      <ConditionalWrapper period={breakdownTableThirdLevel.periodFilter}>
         <BreakdownTable
-          handleResetMetrics={defaultMetricsWithAllSelected}
-          activeItems={activeMetrics}
-          handleChange={handlePeriodChange}
-          handleResetFilter={handleResetMetrics}
-          handleSelectChange={handleSelectChangeMetrics}
-          metrics={selectMetrics}
-          periodicSelectionFilter={periodicSelectionFilter}
-          selectedValue={periodFilter}
+          handleResetMetrics={breakdownTableThirdLevel.defaultMetricsWithAllSelected}
+          activeItems={breakdownTableThirdLevel.activeMetrics}
+          handleChange={breakdownTableThirdLevel.handlePeriodChange}
+          handleResetFilter={breakdownTableThirdLevel.handleResetMetrics}
+          handleSelectChange={breakdownTableThirdLevel.handleSelectChangeMetrics}
+          metrics={breakdownTableThirdLevel.selectMetrics}
+          periodicSelectionFilter={breakdownTableThirdLevel.periodicSelectionFilter}
+          selectedValue={breakdownTableThirdLevel.periodFilter}
           year={year}
-          headerTableMetrics={headerValuesTable}
-          metricTotal={summaryTotalTable}
-          maxItems={maxItems}
-          minItems={minItems}
-          allowSelectAll={allowSelectAll}
-          popupContainerHeight={popupContainerHeight}
-          breakdownTable={[mockDataTableQuarterlyArray[0]]}
+          maxItems={breakdownTableThirdLevel.maxItems}
+          minItems={breakdownTableThirdLevel.minItems}
+          allowSelectAll={breakdownTableThirdLevel.allowSelectAll}
+          popupContainerHeight={breakdownTableThirdLevel.popupContainerHeight}
+          breakdownTable={getDataTableFromPeriod(breakdownTableThirdLevel.periodFilter)}
+          isLoading={breakdownTableThirdLevel.isLoading}
+          headerTable={breakdownTableThirdLevel.tableHeader ?? []}
         />
       </ConditionalWrapper>
       <Container>
