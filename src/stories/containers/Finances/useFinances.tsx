@@ -103,15 +103,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics);
 
   // All the logic required by the BreakdownTable section
-  const breakdownTable = useBreakdownTable(
-    budgetsAnalytics,
-    budgetsAnalyticsSemiAnnual,
-    budgetsAnalyticsQuarterly,
-    budgetsAnalyticsMonthly,
-    year,
-    budgets,
-    allBudgets
-  );
+  const breakdownTable = useBreakdownTable(year, budgets, allBudgets);
 
   // All the logic required by the MakerDAOExpenseMetrics
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);

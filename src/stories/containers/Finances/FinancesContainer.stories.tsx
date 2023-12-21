@@ -274,6 +274,7 @@ const variantsArgs = [
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
@@ -282,4 +283,5 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
   ),
   variantsArgs
 );
-export { LightMode, DarkMode };
+// TODO: uncomment the following line. This is to temporary disable the finances story
+// export { LightMode, DarkMode };

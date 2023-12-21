@@ -36,17 +36,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     async () =>
       getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
   );
-  const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
-    'analytics/semiAnnual',
-    async () =>
-      getBudgetsAnalytics(
-        'semiAnnual',
-        year,
-        levelPath,
-        getLevelOfBudget(levelPath),
-        budgets
-      ) as Promise<BreakdownBudgetAnalytic>
-  );
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
     ['analytics/quarterly', levelPath],
     async () =>
@@ -125,15 +114,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   );
 
   // Hooks Logic of Table Second Level
-  const breakdownTableSecondLevel = useBreakdownTable(
-    budgetsAnalytics,
-    budgetsAnalyticsSemiAnnual,
-    budgetsAnalyticsQuarterly,
-    budgetsAnalyticsMonthly,
-    year,
-    budgets,
-    allBudgets
-  );
+  const breakdownTableSecondLevel = useBreakdownTable(year, budgets, allBudgets);
 
   const expenseReportSection = useDelegateExpenseTrendFinances();
 
