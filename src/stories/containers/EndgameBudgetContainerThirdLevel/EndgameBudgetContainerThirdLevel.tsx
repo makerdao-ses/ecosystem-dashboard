@@ -15,7 +15,6 @@ import ConditionalWrapper from '../Finances/components/ConditionalWrapper/Condit
 import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/BreakdownTable';
-import { getDataTableFromPeriod } from '../Finances/components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
@@ -211,7 +210,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
           minItems={breakdownTableThirdLevel.minItems}
           allowSelectAll={breakdownTableThirdLevel.allowSelectAll}
           popupContainerHeight={breakdownTableThirdLevel.popupContainerHeight}
-          breakdownTable={getDataTableFromPeriod(breakdownTableThirdLevel.periodFilter)}
+          breakdownTable={breakdownTableThirdLevel.tableBody ?? []}
           isLoading={breakdownTableThirdLevel.isLoading}
           headerTable={breakdownTableThirdLevel.tableHeader ?? []}
         />

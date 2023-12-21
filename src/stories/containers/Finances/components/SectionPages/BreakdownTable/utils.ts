@@ -1,9 +1,3 @@
-import {
-  mockDataTableAnnualArray,
-  mockDataTableMonthlyArray,
-  mockDataTableQuarterlyArray,
-  mockDataTableSemiAnnualArray,
-} from '@ses/containers/Finances/utils/mockData';
 import type { MetricValues, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic, BudgetMetric } from '@ses/core/models/interfaces/analytic';
 
@@ -99,22 +93,6 @@ export const filterMetricValues = (
     }
   }
   return filteredMetrics;
-};
-
-// TODO:This is the function to map the analytics of the table
-export const getDataTableFromPeriod = (period: PeriodicSelectionFilter) => {
-  switch (period) {
-    case 'Quarterly':
-      return mockDataTableQuarterlyArray;
-    case 'Annually':
-      return mockDataTableAnnualArray;
-    case 'Monthly':
-      return mockDataTableMonthlyArray;
-    case 'Semi-annual':
-      return mockDataTableSemiAnnualArray;
-    default:
-      return mockDataTableQuarterlyArray;
-  }
 };
 
 export const convertFilterToGranularity = (period: PeriodicSelectionFilter): AnalyticGranularity => {
