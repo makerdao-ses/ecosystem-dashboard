@@ -10,7 +10,6 @@ import ConditionalWrapper from '../Finances/components/ConditionalWrapper/Condit
 import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/BreakdownTable';
-import { getDataTableFromPeriod } from '../Finances/components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from '../Finances/components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
@@ -127,7 +126,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
           allowSelectAll={breakdownTableSecondLevel.allowSelectAll}
           popupContainerHeight={breakdownTableSecondLevel.popupContainerHeight}
           handleSelectChange={breakdownTableSecondLevel.handleSelectChangeMetrics}
-          breakdownTable={getDataTableFromPeriod(breakdownTableSecondLevel.periodFilter)}
+          breakdownTable={breakdownTableSecondLevel.tableBody ?? []}
           isLoading={breakdownTableSecondLevel.isLoading}
           headerTable={breakdownTableSecondLevel.tableHeader ?? []}
         />

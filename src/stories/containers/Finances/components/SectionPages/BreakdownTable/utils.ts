@@ -88,10 +88,15 @@ export const filterPropertiesHeader = (
   return filteredData;
 };
 
-export const filterMetricValues = (metric: MetricValues, keys: (keyof MetricValues)[]): MetricValues => {
+export const filterMetricValues = (
+  metric: MetricValues,
+  activeMetrics: (keyof MetricValues)[]
+): Partial<MetricValues> => {
   const filteredMetrics: MetricValues = {} as MetricValues;
-  for (const key of keys) {
-    filteredMetrics[key] = metric[key];
+  if (metric && filteredMetrics) {
+    for (const key of activeMetrics) {
+      filteredMetrics[key] = metric[key];
+    }
   }
   return filteredMetrics;
 };

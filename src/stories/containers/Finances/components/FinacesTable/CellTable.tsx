@@ -20,7 +20,7 @@ const CellTable: React.FC<Props> = ({ metrics, value }) => {
       <SpacedValues>
         {metrics.map((metric, index) => (
           <Span key={index} isLight={isLight}>
-            {usLocalizedNumber(element[metric as keyof MetricValues], 0)}
+            {usLocalizedNumber(element[metric as keyof MetricValues] ?? 0, 0)}
           </Span>
         ))}
       </SpacedValues>
