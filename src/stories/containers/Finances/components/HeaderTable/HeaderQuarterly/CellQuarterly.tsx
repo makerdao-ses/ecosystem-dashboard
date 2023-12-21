@@ -25,7 +25,7 @@ export const CellQuarterly: React.FC<Props> = ({ metrics, activeMetrics, quarter
           {activeMetrics?.map((metric, index) => (
             <Metrics key={index}>
               <Name isLight={isLight}>{getShortNameForMetric(metric)}</Name>
-              <Amount isLight={isLight}>{usLocalizedNumber(metrics[metric as keyof MetricValues] ?? 0)}</Amount>
+              <Amount isLight={isLight}>{usLocalizedNumber(metrics?.[metric as keyof MetricValues] ?? 0)}</Amount>
             </Metrics>
           ))}
         </ContainerMetricsData>
