@@ -96,14 +96,12 @@ export const useBreakdownTable = (
 
     // create a table for each budget for the current level
     const tables = [] as TableFinances[];
+    // a sub-table should be created for each budget available in the current level
     budgets.forEach((budget) => {
       const table = {
         tableName: budget.name,
         rows: [],
       } as TableFinances;
-
-      // table header...
-      // Todo: add table header...
 
       // sub-table rows
       const rows = Object.keys(data)
@@ -125,10 +123,35 @@ export const useBreakdownTable = (
           columns.push(total);
 
           return {
-            name: allBudgets.find((item) => item.codePath === path)?.name ?? `Unknown: ${path}`,
+            name: path,
             rows: columns,
           } as ItemRow;
         });
+
+      const columnsCount =
+        rows?.[0]?.rows?.length ?? selectedGranularity === 'annual'
+          ? 1
+          : selectedGranularity === 'semiAnnual'
+          ? 3
+          : selectedGranularity === 'quarterly'
+          ? 5
+          : 13;
+
+      // complete sub-table rows with missing sub-budgets
+      const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
+      subBudgets.forEach((subBudget) => {
+        if (!rows.some((row) => row.name === subBudget.codePath)) {
+          rows.push({
+            name: subBudget.codePath,
+            rows: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
+          });
+        }
+      });
+
+      // add correct rows name
+      rows.forEach((row) => {
+        row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `Unknown: ${row.name}`;
+      });
 
       if (rows.length === 0) {
         // this sub table has no data so the sub table should be shown
@@ -164,7 +187,7 @@ export const useBreakdownTable = (
     });
 
     // now we create the main table header
-    // it is guaranteed that all the sub-tables have a header
+    // it is guaranteed below that all the sub-tables have a header
     const subTableHeaders = tables.map((table) => table.rows.filter((row) => row.isMain)[0].rows);
     const tableHeader = subTableHeaders.reduce((acc, current) => {
       for (let i = 0; i < current.length; i++) {
@@ -178,7 +201,7 @@ export const useBreakdownTable = (
     }, Array.from({ length: subTableHeaders?.[0]?.length }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
 
     return [tableHeader, tables];
-  }, [allBudgets, analytics, budgets, error]);
+  }, [allBudgets, analytics, budgets, error, selectedGranularity]);
 
   const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
 
