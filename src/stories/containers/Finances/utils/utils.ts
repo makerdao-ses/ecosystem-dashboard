@@ -532,10 +532,10 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
     return data;
   }
   for (const item of orderData) {
-    if (item.rows.length + totalRowsPerTable > 16) {
+    if (item.rows.length + totalRowsPerTable + firstElementOfArray.length > maxRows) {
       itemArrayTableHasOthers = {
         rows: item.rows,
-        others: false,
+        others: true,
         tableName: item.tableName,
       };
       break;
@@ -555,7 +555,8 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
       const numberHeaders = data.length;
 
       // Number of row maxRows less numberHeaders (number of the table) less 1 because the others row
-      if (totalRowsPerTable < maxRows - numberHeaders - 1 && index !== 0) {
+
+      if (totalRowsPerTable + numberHeaders < maxRows && index !== 0) {
         result[indexItem].rows.push(item);
         totalRowsPerTable++;
       } else {

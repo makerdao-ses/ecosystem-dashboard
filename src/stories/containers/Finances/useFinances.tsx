@@ -63,24 +63,23 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
 
   const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
 
-  const cardsNavigationInformation = budgets
-    .map((item, index) => {
-      const budgetMetric =
-        budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
-          ? budgetsAnalytics[item.codePath]
-          : newBudgetMetric();
+  const cardsNavigationInformation = budgets.map((item, index) => {
+    const budgetMetric =
+      budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
+        ? budgetsAnalytics[item.codePath]
+        : newBudgetMetric();
 
-      return {
-        image: item.image || '',
-        title: removePrefix(item.name, prefixToRemove),
-        description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-        href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-        valueDai: budgetMetric.budget.value,
-        totalDai: allMetrics.budget,
-        color: isLight ? colorsLight[index] : colorsDark[index],
-      };
-    })
-    .filter((item) => item.title !== 'Example budget code' && item.title !== 'Other');
+    return {
+      image: item.image || '',
+      title: removePrefix(item.name, prefixToRemove),
+      description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
+      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
+      valueDai: budgetMetric.budget.value,
+      totalDai: allMetrics.budget,
+      color: isLight ? colorsLight[index] : colorsDark[index],
+    };
+  });
+
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
 
   const handleLoadMoreCards = () => {

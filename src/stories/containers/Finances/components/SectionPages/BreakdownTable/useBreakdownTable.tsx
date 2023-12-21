@@ -54,8 +54,18 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const selectedGranularity = convertFilterToGranularity(periodFilter);
 
   // fetch data from the API
-  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, 'atlas', 3], async () =>
-    fetchAnalytics(selectedGranularity, year, 'atlas', 3)
+  const secondLevel = router.query.firstPath?.toString();
+  const thirdLevel = router.query.secondPath?.toString();
+  const path = `atlas${secondLevel ? `/${secondLevel}${thirdLevel ? `/${thirdLevel}` : ''}` : ''}`;
+
+  let lod = 3;
+  if (secondLevel) lod += 1;
+  if (thirdLevel) {
+    const levels = (thirdLevel ?? '').split('/').filter((level) => level.trim() !== '').length;
+    lod += levels;
+  }
+  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, path, lod], async () =>
+    fetchAnalytics(selectedGranularity, year, path, lod)
   );
 
   // create the required data for the table
@@ -99,19 +109,23 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         .filter((path) => path.startsWith(budget.codePath))
         .map((path) => {
           const columns = Object.values(data[path]);
-          const total = columns.reduce(
-            (acc, current) => {
-              acc.Actuals += current.Actuals;
-              acc.Budget += current.Budget;
-              acc.PaymentsOnChain += current.PaymentsOnChain;
-              acc.Forecast += current.Forecast;
-              acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
-              return acc;
-            },
-            { ...EMPTY_METRIC_VALUE }
-          );
 
-          columns.push(total);
+          if (selectedGranularity !== 'annual') {
+            // annual does not have totals
+            const total = columns.reduce(
+              (acc, current) => {
+                acc.Actuals += current.Actuals;
+                acc.Budget += current.Budget;
+                acc.PaymentsOnChain += current.PaymentsOnChain;
+                acc.Forecast += current.Forecast;
+                acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
+                return acc;
+              },
+              { ...EMPTY_METRIC_VALUE }
+            );
+
+            columns.push(total);
+          }
 
           return {
             name: path,
@@ -119,15 +133,17 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           } as ItemRow;
         });
 
+      const defaultCount = rows?.[0]?.rows?.length ?? 0;
       const columnsCount =
-        rows?.[0]?.rows?.length ?? selectedGranularity === 'annual'
+        defaultCount !== 0
+          ? defaultCount
+          : selectedGranularity === 'annual'
           ? 1
           : selectedGranularity === 'semiAnnual'
           ? 3
           : selectedGranularity === 'quarterly'
           ? 5
           : 13;
-
       // complete sub-table rows with missing sub-budgets
       const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
       subBudgets.forEach((subBudget) => {
