@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreakdownChartSection from '../Finances/components/BreakdownChartSection/BreakdownChartSection';
@@ -13,6 +14,7 @@ import { getDataTableFromPeriod } from '../Finances/components/SectionPages/Brea
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from '../Finances/components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
+import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 interface Props {
@@ -23,6 +25,7 @@ interface Props {
 }
 
 const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, allBudgets }) => {
+  const [isEnabled] = useFlagsActive();
   const {
     trailingAddressDesk,
     trailingAddress,
@@ -52,6 +55,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     refBreakDownChart,
     cutTextForBigNumberLegend,
     breakdownTableSecondLevel,
+    makerDAOExpensesMetrics,
     expenseReportSection,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
@@ -118,8 +122,6 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
           periodicSelectionFilter={breakdownTableSecondLevel.periodicSelectionFilter}
           selectedValue={breakdownTableSecondLevel.periodFilter}
           year={year}
-          headerTableMetrics={breakdownTableSecondLevel.headerValuesTable}
-          metricTotal={breakdownTableSecondLevel.summaryTotalTable}
           maxItems={breakdownTableSecondLevel.maxItems}
           minItems={breakdownTableSecondLevel.minItems}
           allowSelectAll={breakdownTableSecondLevel.allowSelectAll}
@@ -127,9 +129,20 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
           handleSelectChange={breakdownTableSecondLevel.handleSelectChangeMetrics}
           breakdownTable={getDataTableFromPeriod(breakdownTableSecondLevel.periodFilter)}
           isLoading={breakdownTableSecondLevel.isLoading}
+          headerTable={breakdownTableSecondLevel.tableHeader ?? []}
         />
       </ConditionalWrapper>
       <Container>
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
+          <MakerDAOExpenseMetricsFinances
+            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+            series={makerDAOExpensesMetrics.series}
+            handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
+            isLoading={makerDAOExpensesMetrics.isLoading}
+            year={year}
+          />
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}

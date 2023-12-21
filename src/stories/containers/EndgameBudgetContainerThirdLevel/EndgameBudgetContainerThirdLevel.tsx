@@ -3,6 +3,7 @@ import BigButton from '@ses/components/Button/BigButton/BigButton';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -17,6 +18,7 @@ import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/B
 import { getDataTableFromPeriod } from '../Finances/components/SectionPages/BreakdownTable/utils';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
+import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainerThirdLevel';
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -35,6 +37,7 @@ interface Props {
 }
 
 const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, allBudgets }) => {
+  const [isEnabled] = useFlagsActive();
   const {
     trailingAddress,
     trailingAddressDesk,
@@ -66,7 +69,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     series,
     refBreakDownChart,
     cutTextForBigNumberLegend,
-
+    makerDAOExpensesMetrics,
     expenseReportSection,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
@@ -204,17 +207,26 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
           periodicSelectionFilter={breakdownTableThirdLevel.periodicSelectionFilter}
           selectedValue={breakdownTableThirdLevel.periodFilter}
           year={year}
-          headerTableMetrics={breakdownTableThirdLevel.headerValuesTable}
-          metricTotal={breakdownTableThirdLevel.summaryTotalTable}
           maxItems={breakdownTableThirdLevel.maxItems}
           minItems={breakdownTableThirdLevel.minItems}
           allowSelectAll={breakdownTableThirdLevel.allowSelectAll}
           popupContainerHeight={breakdownTableThirdLevel.popupContainerHeight}
           breakdownTable={getDataTableFromPeriod(breakdownTableThirdLevel.periodFilter)}
           isLoading={breakdownTableThirdLevel.isLoading}
+          headerTable={breakdownTableThirdLevel.tableHeader ?? []}
         />
       </ConditionalWrapper>
       <Container>
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
+          <MakerDAOExpenseMetricsFinances
+            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+            series={makerDAOExpensesMetrics.series}
+            handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
+            isLoading={makerDAOExpensesMetrics.isLoading}
+            year={year}
+          />
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}

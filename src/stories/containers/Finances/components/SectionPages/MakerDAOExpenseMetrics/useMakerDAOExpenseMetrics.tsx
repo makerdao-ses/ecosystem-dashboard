@@ -1,6 +1,7 @@
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { buildExpenseMetricsLineChartSeries } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
@@ -13,9 +14,14 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
     setSelectedGranularity(value);
   };
 
+  const router = useRouter();
+  const secondLevel = router.query.firstPath?.toString();
+  const thirdLevel = router.query.secondPath?.toString();
+  const path = `atlas${secondLevel ? `/${secondLevel}${thirdLevel ? `/${thirdLevel}` : ''}` : ''}`;
+
   // fetch actual data from the API
-  const { data: analytics, error } = useSWRImmutable(['analytics', year, selectedGranularity], async () =>
-    fetchAnalytics(selectedGranularity, year, 'atlas', 2)
+  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, path, 2], async () =>
+    fetchAnalytics(selectedGranularity, year, path, 2)
   );
 
   const isLoading = !analytics && !error;
@@ -28,7 +34,13 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
       onChain: [] as number[],
       offChain: [] as number[],
     };
-    if (!analytics || !analytics.series) {
+    if (!analytics || !analytics.series?.length) {
+      // return 0 values to avoid having an empty UI
+      Object.keys(data).forEach((key) => {
+        data[key as keyof typeof data] = Array(
+          selectedGranularity === 'monthly' ? 12 : selectedGranularity === 'quarterly' ? 4 : 1
+        ).fill(0);
+      });
       return data;
     }
 
@@ -45,7 +57,7 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
     });
 
     return data;
-  }, [analytics]);
+  }, [analytics, selectedGranularity]);
 
   // series to be "hidden" in the line chart
   const [inactiveSeries, setInactiveSeries] = useState<string[]>([]);
