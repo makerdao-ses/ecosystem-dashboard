@@ -222,9 +222,9 @@ export const buildExpensesComparisonRows = (
       const row = buildRowWithoutOffChain(
         [
           formatExpenseMonth(comparison.month),
-          formatExpenseWithCurrency(comparison.reportedActuals, currency),
-          formatExpenseWithCurrency(comparison.netExpenses.onChainOnly.amount, currency),
-          formatExpenseDifference(comparison.netExpenses.onChainOnly.difference),
+          formatExpenseWithCurrency(comparison.reportedActuals || 0, currency),
+          formatExpenseWithCurrency(comparison.netExpenses.onChainOnly.amount || 0, currency),
+          formatExpenseDifference(comparison.netExpenses.onChainOnly.difference || 0),
         ],
         comparison.month === currentPeriod,
         false
@@ -238,9 +238,9 @@ export const buildExpensesComparisonRows = (
         buildRowWithoutOffChain(
           [
             'Totals',
-            formatExpenseWithCurrency(totals.reportedActuals, currency),
-            formatExpenseWithCurrency(totals.netExpenses.onChainOnly.amount, currency),
-            formatExpenseDifference(totals.netExpenses.onChainOnly.difference),
+            formatExpenseWithCurrency(totals.reportedActuals || 0, currency),
+            formatExpenseWithCurrency(totals.netExpenses.onChainOnly.amount || 0, currency),
+            formatExpenseDifference(totals.netExpenses.onChainOnly.difference || 0),
           ],
           false,
           true
