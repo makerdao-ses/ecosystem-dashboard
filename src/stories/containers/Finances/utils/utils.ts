@@ -519,6 +519,7 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
   };
 
   const orderData = sortDataByElementCount(data);
+  // take the first element of each table
   const firstElementOfArray = getFirstElementEachTable(orderData);
 
   const result = firstElementOfArray.map((row, index) => ({
@@ -526,16 +527,16 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
     rows: [firstElementOfArray[index]],
     others: false,
   }));
-  const totalRows = data.reduce((acc, element) => acc + element.rows.length, 0);
 
+  const totalRows = data.reduce((acc, element) => acc + element.rows.length, 0);
   if (totalRows <= maxRows) {
     return data;
   }
   for (const item of orderData) {
-    if (item.rows.length + totalRowsPerTable > 16) {
+    if (item.rows.length + totalRowsPerTable + firstElementOfArray.length > maxRows) {
       itemArrayTableHasOthers = {
         rows: item.rows,
-        others: false,
+        others: true,
         tableName: item.tableName,
       };
       break;
@@ -555,7 +556,7 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
       const numberHeaders = data.length;
 
       // Number of row maxRows less numberHeaders (number of the table) less 1 because the others row
-      if (totalRowsPerTable < maxRows - numberHeaders - 1 && index !== 0) {
+      if (totalRowsPerTable + numberHeaders < maxRows && index !== 0) {
         result[indexItem].rows.push(item);
         totalRowsPerTable++;
       } else {

@@ -88,94 +88,96 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     // create a table for each budget for the current level
     const tables = [] as TableFinances[];
     // a sub-table should be created for each budget available in the current level
-    budgets.forEach((budget) => {
-      const table = {
-        tableName: budget.name,
-        rows: [],
-      } as TableFinances;
+    budgets
+      .filter((item) => item.name !== 'Example budget code' && item.name !== 'Other')
+      .forEach((budget) => {
+        const table = {
+          tableName: budget.name,
+          rows: [],
+        } as TableFinances;
 
-      // sub-table rows
-      const rows = Object.keys(data)
-        .filter((path) => path.startsWith(budget.codePath))
-        .map((path) => {
-          const columns = Object.values(data[path]);
-          const total = columns.reduce(
-            (acc, current) => {
-              acc.Actuals += current.Actuals;
-              acc.Budget += current.Budget;
-              acc.PaymentsOnChain += current.PaymentsOnChain;
-              acc.Forecast += current.Forecast;
-              acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
-              return acc;
-            },
-            { ...EMPTY_METRIC_VALUE }
-          );
+        // sub-table rows
+        const rows = Object.keys(data)
+          .filter((path) => path.startsWith(budget.codePath))
+          .map((path) => {
+            const columns = Object.values(data[path]);
+            const total = columns.reduce(
+              (acc, current) => {
+                acc.Actuals += current.Actuals;
+                acc.Budget += current.Budget;
+                acc.PaymentsOnChain += current.PaymentsOnChain;
+                acc.Forecast += current.Forecast;
+                acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
+                return acc;
+              },
+              { ...EMPTY_METRIC_VALUE }
+            );
 
-          columns.push(total);
+            columns.push(total);
 
-          return {
-            name: path,
-            rows: columns,
-          } as ItemRow;
+            return {
+              name: path,
+              rows: columns,
+            } as ItemRow;
+          });
+
+        const columnsCount =
+          rows?.[0]?.rows?.length ?? selectedGranularity === 'annual'
+            ? 1
+            : selectedGranularity === 'semiAnnual'
+            ? 3
+            : selectedGranularity === 'quarterly'
+            ? 5
+            : 13;
+
+        // complete sub-table rows with missing sub-budgets
+        const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
+        subBudgets.forEach((subBudget) => {
+          if (!rows.some((row) => row.name === subBudget.codePath)) {
+            rows.push({
+              name: subBudget.codePath,
+              rows: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
+            });
+          }
         });
 
-      const columnsCount =
-        rows?.[0]?.rows?.length ?? selectedGranularity === 'annual'
-          ? 1
-          : selectedGranularity === 'semiAnnual'
-          ? 3
-          : selectedGranularity === 'quarterly'
-          ? 5
-          : 13;
+        // add correct rows name
+        rows.forEach((row) => {
+          row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `Unknown: ${row.name}`;
+        });
 
-      // complete sub-table rows with missing sub-budgets
-      const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
-      subBudgets.forEach((subBudget) => {
-        if (!rows.some((row) => row.name === subBudget.codePath)) {
-          rows.push({
-            name: subBudget.codePath,
-            rows: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
-          });
+        if (rows.length === 0) {
+          // this sub table has no data so the sub table should be shown
+          return; // continue
         }
+
+        // sub-table header
+        const header = {
+          name: budget.name,
+          isMain: true,
+          rows: rows
+            .reduce((acc, current) => {
+              current.rows.forEach((row, index) => {
+                if (!acc[index]) {
+                  acc[index] = { ...EMPTY_METRIC_VALUE };
+                }
+
+                acc[index].Actuals += row.Actuals;
+                acc[index].Budget += row.Budget;
+                acc[index].PaymentsOnChain += row.PaymentsOnChain;
+                acc[index].Forecast += row.Forecast;
+                acc[index].PaymentsOffChainIncluded += row.PaymentsOffChainIncluded;
+              });
+
+              return acc;
+            }, Array(rows?.[0]?.rows?.length).fill(null))
+            .filter((item) => item !== null),
+        };
+
+        table.rows = [header, ...rows];
+
+        tables.push(table);
       });
-
-      // add correct rows name
-      rows.forEach((row) => {
-        row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `Unknown: ${row.name}`;
-      });
-
-      if (rows.length === 0) {
-        // this sub table has no data so the sub table should be shown
-        return; // continue
-      }
-
-      // sub-table header
-      const header = {
-        name: budget.name,
-        isMain: true,
-        rows: rows
-          .reduce((acc, current) => {
-            current.rows.forEach((row, index) => {
-              if (!acc[index]) {
-                acc[index] = { ...EMPTY_METRIC_VALUE };
-              }
-
-              acc[index].Actuals += row.Actuals;
-              acc[index].Budget += row.Budget;
-              acc[index].PaymentsOnChain += row.PaymentsOnChain;
-              acc[index].Forecast += row.Forecast;
-              acc[index].PaymentsOffChainIncluded += row.PaymentsOffChainIncluded;
-            });
-
-            return acc;
-          }, Array(rows?.[0]?.rows?.length).fill(null))
-          .filter((item) => item !== null),
-      };
-
-      table.rows = [header, ...rows];
-
-      tables.push(table);
-    });
 
     // now we create the main table header
     // it is guaranteed below that all the sub-tables have a header
