@@ -4,7 +4,7 @@ import React from 'react';
 import BreakdownTableFinances from '../../BreakdownTableFinances/BreakdownTableFinances';
 import FinancesTable from '../../FinacesTable/FinancesTable';
 import HeaderTable from '../../HeaderTable/HeaderTable';
-import type { MetricsWithAmount, PeriodicSelectionFilter, TableFinances } from '../../../utils/types';
+import type { MetricValues, PeriodicSelectionFilter, TableFinances } from '../../../utils/types';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 interface Props {
@@ -14,13 +14,9 @@ interface Props {
   handleResetFilter: () => void;
   periodicSelectionFilter: string[];
   handleChange: (value: string) => void;
-
   selectedValue: string;
-
   widthPaper?: number;
   year: string;
-  headerTableMetrics: Record<string, MetricsWithAmount[]>;
-  metricTotal: MetricsWithAmount[];
   handleResetMetrics?: string[];
   maxItems?: number;
   minItems?: number;
@@ -28,6 +24,7 @@ interface Props {
   popupContainerHeight?: number;
   breakdownTable: TableFinances[];
   isLoading: boolean;
+  headerTable: MetricValues[];
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -39,8 +36,6 @@ const BreakdownTable: React.FC<Props> = ({
   metrics,
   periodicSelectionFilter,
 
-  headerTableMetrics,
-  metricTotal,
   selectedValue,
   year,
   handleResetMetrics,
@@ -50,6 +45,7 @@ const BreakdownTable: React.FC<Props> = ({
   popupContainerHeight,
   breakdownTable,
   isLoading,
+  headerTable,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -83,10 +79,10 @@ const BreakdownTable: React.FC<Props> = ({
         <TableHeader>
           <HeaderTable
             title="MakerDAO Budget"
-            metrics={headerTableMetrics}
             year={year}
-            metricTotal={metricTotal}
             period={selectedValue as PeriodicSelectionFilter}
+            headerTable={headerTable}
+            activeMetrics={activeItems}
           />
         </TableHeader>
         <TableWrapper>

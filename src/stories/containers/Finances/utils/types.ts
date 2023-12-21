@@ -56,11 +56,6 @@ export interface MomentDataItem extends Team {
   lastModified: DateTime;
 }
 export type Metric = 'Budget' | 'Actuals' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
-export interface MetricsWithAmount {
-  name: Metric;
-  amount: number;
-}
-
 export interface MetricValues {
   Budget: number;
   Actuals: number;
@@ -109,10 +104,6 @@ export interface LineChartSeriesData {
     color: string;
   };
   isVisible: boolean;
-}
-
-export interface MetricsWithAmountSignature {
-  [key: string]: MetricsWithAmount;
 }
 
 export interface ItemRow {

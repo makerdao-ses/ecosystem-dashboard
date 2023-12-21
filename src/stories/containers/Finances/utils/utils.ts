@@ -11,7 +11,6 @@ import type {
   LineChartSeriesData,
   Metric,
   MetricValues,
-  MetricsWithAmount,
   MomentDataItem,
   PeriodicSelectionFilter,
   TableFinances,
@@ -316,10 +315,18 @@ export const mockDataApiTeam: MomentDataItem[] = [
 // TODO: Update function when are data in the API
 export const getStatus = (budget: BudgetStatement[]) => budget[0]?.status;
 export const getShowCTA = () => false;
-export const getQuarterlyForFilters = (year: number): string[] => {
+export const getQuarterlyForFilters = (year: string): string[] => {
   const period: string[] = [];
-  for (let i = 2; i <= 5; i++) {
+  for (let i = 1; i <= 4; i++) {
     const quarter = `Q${i} ${year}`;
+    period.push(quarter);
+  }
+  return period;
+};
+export const getSemiAnnualForFilters = (year: string): string[] => {
+  const period: string[] = [];
+  for (let i = 1; i <= 2; i++) {
+    const quarter = `H${i} ${year}`;
     period.push(quarter);
   }
   return period;
@@ -455,22 +462,6 @@ export const getLinkLastExpenseReport = (code: string, reportExpenseItems: Momen
 };
 
 export const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-export const returnShortNameForMetric = (metric: MetricsWithAmount) => {
-  if (metric.name === 'Net Expenses On-chain') {
-    return {
-      ...metric,
-      name: 'On-chain',
-    };
-  }
-  if (metric.name === 'Net Expenses Off-chain') {
-    return {
-      ...metric,
-      name: 'Off-chain',
-    };
-  }
-  return metric;
-};
 
 export const getMetricByPeriod = (
   period: PeriodicSelectionFilter,
@@ -996,4 +987,27 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
     name: 'Others',
     rows: [...sumRow],
   } as ItemRow;
+};
+
+export const filterActiveMetrics = (activeMetrics: string[], headerTable: MetricValues[]) =>
+  headerTable.map((header) => {
+    const filteredMetrics: Partial<MetricValues> = {};
+
+    activeMetrics.forEach((metric) => {
+      if (metric in header) {
+        filteredMetrics[metric as keyof MetricValues] = header[metric as keyof MetricValues];
+      }
+    });
+
+    return filteredMetrics;
+  });
+
+export const getShortNameForMetric = (metric: string): string => {
+  if (metric === 'Net Expenses On-chain') {
+    return 'On-chain';
+  }
+  if (metric === 'Net Expenses Off-chain') {
+    return 'Off-chain';
+  }
+  return metric;
 };

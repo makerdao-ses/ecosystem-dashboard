@@ -134,14 +134,13 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
           periodicSelectionFilter={breakdownTable.periodicSelectionFilter}
           selectedValue={breakdownTable.periodFilter}
           year={year}
-          headerTableMetrics={breakdownTable.headerValuesTable}
-          metricTotal={breakdownTable.summaryTotalTable}
           maxItems={breakdownTable.maxItems}
           minItems={breakdownTable.minItems}
           allowSelectAll={breakdownTable.allowSelectAll}
           popupContainerHeight={breakdownTable.popupContainerHeight}
           breakdownTable={breakdownTable.tableBody ?? []}
           isLoading={breakdownTable.isLoading}
+          headerTable={breakdownTable.tableHeader ?? []}
         />
       </ConditionalWrapper>
       <Container>

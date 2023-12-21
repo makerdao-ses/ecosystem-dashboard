@@ -6,11 +6,10 @@ import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
-import { convertFilterToGranularity, getHeaderValuesByPeriod, getSummaryFromHeaderValues } from './utils';
+import { convertFilterToGranularity } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   ItemRow,
-  // MetricsWithAmount,
   MetricValues,
   PeriodicSelectionFilter,
   TableFinances,
@@ -270,18 +269,6 @@ export const useBreakdownTable = (
     url: router.asPath,
   }));
 
-  const headerValuesTable = getHeaderValuesByPeriod(
-    periodFilter,
-    year,
-    budgetsAnalyticsQuarterly,
-    budgetsAnalyticsMonthly,
-    budgetsAnalytics,
-    budgetsAnalyticsSemiAnnual,
-    activeMetrics
-  );
-
-  const summaryTotalTable = getSummaryFromHeaderValues(headerValuesTable);
-
   return {
     isMobile,
     initialValue,
@@ -300,8 +287,6 @@ export const useBreakdownTable = (
     handlePeriodChange,
     selectMetrics,
     trailingAddress,
-    summaryTotalTable,
-    headerValuesTable,
     tableHeader,
     tableBody,
     isLoading,
