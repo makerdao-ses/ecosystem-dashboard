@@ -52,7 +52,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     budgetsAnalyticsQuarterly,
     series,
     refBreakDownChart,
-    cutTextForBigNumberLegend,
+    changeAlignment,
     breakdownTableSecondLevel,
     makerDAOExpensesMetrics,
     expenseReportSection,
@@ -84,7 +84,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={false}
-              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
+              changeAlignment={changeAlignment}
             />
           </WrapperDesk>
           <WrapperMobile>

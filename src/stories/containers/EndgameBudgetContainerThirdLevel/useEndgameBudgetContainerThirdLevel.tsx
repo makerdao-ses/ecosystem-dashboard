@@ -82,7 +82,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     actuals,
     budgetCap,
     prediction,
-    cutTextForBigNumberLegend,
+    changeAlignment,
   } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
@@ -249,7 +249,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     isLight,
     breakdownTableThirdLevel,
     swiperOptions,
-    cutTextForBigNumberLegend,
+    changeAlignment,
     makerDAOExpensesMetrics,
     expenseReportSection,
   };

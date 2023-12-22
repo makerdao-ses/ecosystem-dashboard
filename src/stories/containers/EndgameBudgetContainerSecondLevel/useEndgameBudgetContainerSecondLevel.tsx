@@ -102,7 +102,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     actuals,
     budgetCap,
     prediction,
-    cutTextForBigNumberLegend,
+    changeAlignment,
   } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
@@ -194,7 +194,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
-    cutTextForBigNumberLegend,
+    changeAlignment,
 
     makerDAOExpensesMetrics,
     expenseReportSection,

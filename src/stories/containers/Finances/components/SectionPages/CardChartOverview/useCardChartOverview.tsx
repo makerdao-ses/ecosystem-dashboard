@@ -97,7 +97,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
       originalColor: isLight ? colorsLight[index] : colorsDark[index],
     };
   });
-  const cutTextForBigNumberLegend = doughnutSeriesData.length > 4;
+  const changeAlignment = doughnutSeriesData.length > 4;
   return {
     actuals: metric.actuals,
     prediction: metric.forecast,
@@ -107,6 +107,6 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
     handleSelectFilter,
     filters,
     doughnutSeriesData,
-    cutTextForBigNumberLegend,
+    changeAlignment,
   };
 };
