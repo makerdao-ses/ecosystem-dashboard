@@ -80,7 +80,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
+      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
       valueDai: budgetMetric.budget.value,
       totalDai: allMetrics.budget,
       color: isLight ? colorsLight[index] : colorsDark[index],
@@ -146,7 +146,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const trailingAddressDesk = [
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
     ...breadcrumbs.map((adr) => ({
       label: adr,
@@ -161,7 +161,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     })),
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
   ];
 
