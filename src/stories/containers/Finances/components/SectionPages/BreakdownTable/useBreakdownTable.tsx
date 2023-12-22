@@ -129,11 +129,11 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
           return {
             name: path,
-            rows: columns,
+            columns,
           } as ItemRow;
         });
 
-      const defaultCount = rows?.[0]?.rows?.length ?? 0;
+      const defaultCount = rows?.[0]?.columns?.length ?? 0;
       const columnsCount =
         defaultCount !== 0
           ? defaultCount
@@ -150,7 +150,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         if (!rows.some((row) => row.name === subBudget.codePath)) {
           rows.push({
             name: subBudget.codePath,
-            rows: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
+            columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
           });
         }
       });
@@ -166,12 +166,12 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       }
 
       // sub-table header
-      const header = {
+      const header: ItemRow = {
         name: budget.name,
         isMain: true,
-        rows: rows
+        columns: rows
           .reduce((acc, current) => {
-            current.rows.forEach((row, index) => {
+            current.columns.forEach((row, index) => {
               if (!acc[index]) {
                 acc[index] = { ...EMPTY_METRIC_VALUE };
               }
@@ -184,7 +184,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
             });
 
             return acc;
-          }, Array(rows?.[0]?.rows?.length).fill(null))
+          }, Array(rows?.[0]?.columns?.length).fill(null))
           .filter((item) => item !== null),
       };
 
@@ -195,7 +195,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
     // now we create the main table header
     // it is guaranteed below that all the sub-tables have a header
-    const subTableHeaders = tables.map((table) => table.rows.filter((row) => row.isMain)[0].rows);
+    const subTableHeaders = tables.map((table) => table.rows.filter((column) => column.isMain)[0].columns);
     const tableHeader = subTableHeaders.reduce((acc, current) => {
       for (let i = 0; i < acc.length; i++) {
         acc[i].Actuals += current[i].Actuals;

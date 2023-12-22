@@ -953,7 +953,7 @@ export const buildExpenseMetricsLineChartSeries = (
 export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
   const defaultValue: ItemRow = {
     name: 'Others',
-    rows: [],
+    columns: [],
   } as ItemRow;
 
   if (metrics.length === 0) {
@@ -961,9 +961,9 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
   }
 
   const firstItem = metrics[0];
-  const sumRow: MetricValues[] = [];
+  const sumCol: MetricValues[] = [];
 
-  for (let i = 0; i < firstItem.rows.length; i++) {
+  for (let i = 0; i < firstItem.columns.length; i++) {
     const sumMetric: MetricValues = {
       Actuals: 0,
       Budget: 0,
@@ -973,20 +973,20 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
     };
 
     for (const item of metrics) {
-      const row = item.rows[i];
-      sumMetric.Actuals += row.Actuals;
-      sumMetric.Forecast += row.Forecast;
-      sumMetric.Budget += row.Budget;
-      sumMetric.PaymentsOnChain += row.PaymentsOnChain;
-      sumMetric.PaymentsOffChainIncluded += row.PaymentsOffChainIncluded;
+      const column = item.columns[i];
+      sumMetric.Actuals += column.Actuals;
+      sumMetric.Forecast += column.Forecast;
+      sumMetric.Budget += column.Budget;
+      sumMetric.PaymentsOnChain += column.PaymentsOnChain;
+      sumMetric.PaymentsOffChainIncluded += column.PaymentsOffChainIncluded;
     }
 
-    sumRow.push(sumMetric);
+    sumCol.push(sumMetric);
   }
 
   return {
     name: 'Others',
-    rows: [...sumRow],
+    columns: [...sumCol],
   } as ItemRow;
 };
 

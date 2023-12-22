@@ -52,20 +52,20 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                 {showAnnual &&
                   newMetrics.map((metric) => (
                     <Cell key={index} isLight={isLight} period={period}>
-                      {usLocalizedNumber(row.rows[0][metric as keyof MetricValues], 0)}
+                      {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
                     </Cell>
                   ))}
                 {showQuarterly &&
                   arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
                   ))}
                 {showSemiAnnual &&
                   arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
                   ))}
                 {showMonthly &&
                   arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.rows[index]} />
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
                   ))}
               </TableRow>
             ))}

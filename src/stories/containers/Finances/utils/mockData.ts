@@ -8,7 +8,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -48,7 +48,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates2',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -88,7 +88,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates3',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -128,7 +128,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates4',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -168,7 +168,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates5',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -208,7 +208,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates6',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -248,7 +248,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates7',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -288,7 +288,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates8',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -328,7 +328,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates9',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -368,7 +368,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates10',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -408,7 +408,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates11',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -448,7 +448,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates12',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -488,7 +488,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates13',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -528,7 +528,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates14',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -568,7 +568,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates15',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -608,7 +608,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates16',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -648,7 +648,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates17',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -688,7 +688,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates18',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -728,7 +728,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates19',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -768,7 +768,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates20',
-        rows: [
+        columns: [
           {
             Actuals: 100,
             Forecast: 100,
@@ -814,7 +814,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       {
         name: 'Alignment Scope Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -860,7 +860,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       {
         name: 'MakerDAO Legacy Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -900,7 +900,7 @@ export const mockDataTableQuarterlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -949,7 +949,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -961,7 +961,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates2',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -973,7 +973,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates3',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -985,7 +985,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates4',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -997,7 +997,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates6',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1015,7 +1015,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1033,7 +1033,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1045,7 +1045,7 @@ export const mockDataTableAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1066,7 +1066,7 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1163,7 +1163,7 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
 
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1259,104 +1259,7 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       },
       {
         name: 'Atlas Immutable AA Budgets',
-        rows: [
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-          {
-            Actuals: 1234567,
-            Forecast: 123,
-            Budget: 3455,
-            PaymentsOnChain: 345436,
-            PaymentsOffChainIncluded: 34354,
-          },
-        ],
-      },
-      {
-        name: 'Atlas Immutable AA Budgets',
-
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1453,7 +1356,104 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
 
-        rows: [
+        columns: [
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+          {
+            Actuals: 1234567,
+            Forecast: 123,
+            Budget: 3455,
+            PaymentsOnChain: 345436,
+            PaymentsOffChainIncluded: 34354,
+          },
+        ],
+      },
+      {
+        name: 'Atlas Immutable AA Budgets',
+
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1555,7 +1555,7 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1652,7 +1652,7 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         // isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1754,7 +1754,7 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1850,7 +1850,7 @@ export const mockDataTableMonthlyArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1955,7 +1955,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -1981,7 +1981,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates2',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -2007,7 +2007,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates3',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -2033,7 +2033,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates4',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -2059,7 +2059,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates6',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -2091,7 +2091,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -2124,7 +2124,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       {
         name: 'Atlas Immutable AA Budgets',
         isMain: true,
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
@@ -2150,7 +2150,7 @@ export const mockDataTableSemiAnnualArray: TableFinances[] = [
       },
       {
         name: 'Aligned Delegates',
-        rows: [
+        columns: [
           {
             Actuals: 1234567,
             Forecast: 123,
