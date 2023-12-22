@@ -49,8 +49,11 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   width: 100,
   flex: 1,
   borderRadius: 6,
-  background: isLight ? '#FFF' : 'red',
-  boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
+  background: isLight ? '#FFF' : '#1E2C37',
+  boxShadow: isLight
+    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
+    : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 16,
     width: 150,
@@ -82,7 +85,7 @@ const Information = styled.div({
 });
 
 const Code = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   fontStyle: 'normal',
   fontWeight: 600,
@@ -91,7 +94,7 @@ const Code = styled.div<WithIsLight>(({ isLight }) => ({
   textTransform: 'uppercase',
 }));
 const Name = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
 
   fontStyle: 'normal',
