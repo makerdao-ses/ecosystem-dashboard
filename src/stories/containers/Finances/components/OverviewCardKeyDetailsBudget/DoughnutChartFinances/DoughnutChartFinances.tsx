@@ -14,14 +14,14 @@ interface Props {
   doughnutSeriesData: DoughnutSeries[];
   className?: string;
   isCoreThirdLevel?: boolean;
-  cutTextForBigNumberLegend: boolean;
+  changeAlignment: boolean;
 }
 
 const DoughnutChartFinances: React.FC<Props> = ({
   doughnutSeriesData,
   className,
   isCoreThirdLevel = true,
-  cutTextForBigNumberLegend,
+  changeAlignment,
 }) => {
   const chartRef = useRef<EChartsOption | null>(null);
   const { isLight } = useThemeContext();
@@ -188,10 +188,10 @@ const DoughnutChartFinances: React.FC<Props> = ({
           opts={{ renderer: 'svg' }}
         />
       </ContainerChart>
-      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} cutTextForBigNumberLegend={cutTextForBigNumberLegend}>
+      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
         {legends.map((data, index: number) => (
           <LegendItem
-            cutTextForBigNumberLegend={cutTextForBigNumberLegend}
+            changeAlignment={changeAlignment}
             isCoreThirdLevel={isCoreThirdLevel}
             isLight={isLight}
             key={index}
@@ -267,8 +267,8 @@ const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor })
   minHeight: 8,
   borderRadius: '50%',
 }));
-const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; cutTextForBigNumberLegend: boolean }>(
-  ({ isLight, isCoreThirdLevel, cutTextForBigNumberLegend }) => ({
+const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; changeAlignment: boolean }>(
+  ({ isLight, isCoreThirdLevel, changeAlignment }) => ({
     display: 'flex',
     flexDirection: isCoreThirdLevel ? 'row' : 'column',
     gap: isCoreThirdLevel ? 4 : 4,
@@ -277,8 +277,7 @@ const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; cutText
     color: isLight ? '#43435' : '#EDEFFF',
     cursor: 'pointer',
     minWidth: 190,
-    ...(cutTextForBigNumberLegend && {
-      width: !isCoreThirdLevel ? 200 : 190,
+    ...(changeAlignment && {
       minWidth: 0,
     }),
     [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -305,26 +304,21 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
   },
 }));
 
-const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; cutTextForBigNumberLegend: boolean }>(
-  ({ isCoreThirdLevel, cutTextForBigNumberLegend }) => ({
+const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
+  ({ isCoreThirdLevel, changeAlignment }) => ({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
+    justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
-    maxHeight: '210px',
+    maxHeight: 210,
     overflow: 'hidden',
-    marginTop: 20,
-    ...(cutTextForBigNumberLegend && {
+    ...(changeAlignment && {
       flex: 1,
     }),
-    [lightTheme.breakpoints.up('desktop_1024')]: {
-      marginTop: 18,
-    },
+
     [lightTheme.breakpoints.up('desktop_1280')]: {
-      marginTop: 22,
       gap: 16,
     },
   })
@@ -347,4 +341,5 @@ const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ is
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  width: isCoreThirdLevel ? 'fit-content' : 170,
 }));

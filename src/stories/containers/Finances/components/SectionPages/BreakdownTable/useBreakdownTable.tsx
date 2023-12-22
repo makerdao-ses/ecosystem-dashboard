@@ -296,7 +296,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   );
   const trailingAddress = routes.map((adr) => ({
     label: adr,
-    url: router.asPath,
+    url: `${router.asPath}${year}`,
   }));
 
   return {

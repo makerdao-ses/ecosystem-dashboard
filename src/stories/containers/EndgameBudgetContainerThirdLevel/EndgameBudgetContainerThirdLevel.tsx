@@ -67,7 +67,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     budgetsAnalyticsQuarterly,
     series,
     refBreakDownChart,
-    cutTextForBigNumberLegend,
+    changeAlignment,
     makerDAOExpensesMetrics,
     expenseReportSection,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
@@ -128,7 +128,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={true}
-              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
+              changeAlignment={changeAlignment}
             />
           </WrapperDesk>
           <WrapperMobile>

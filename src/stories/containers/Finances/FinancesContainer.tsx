@@ -52,7 +52,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     budgetsAnalyticsQuarterly,
     series,
     refBreakDownChart,
-    cutTextForBigNumberLegend,
+    changeAlignment,
     makerDAOExpensesMetrics,
     expenseReportSection,
   } = useFinances(budgets, initialYear);
@@ -92,7 +92,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={false}
-              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
+              changeAlignment={changeAlignment}
             />
           </WrapperDesk>
           <WrapperMobile>

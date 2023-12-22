@@ -82,7 +82,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     actuals,
     budgetCap,
     prediction,
-    cutTextForBigNumberLegend,
+    changeAlignment,
   } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
@@ -152,11 +152,11 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const trailingAddressDesk = [
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
     {
       label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
-      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}`,
+      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}?year=${year}`,
     },
     ...breadcrumbs.map((adr) => ({
       label: adr,
@@ -172,11 +172,11 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     })),
     {
       label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
-      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}`,
+      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}?year=${year}`,
     },
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
   ];
 
@@ -249,7 +249,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     isLight,
     breakdownTableThirdLevel,
     swiperOptions,
-    cutTextForBigNumberLegend,
+    changeAlignment,
     makerDAOExpensesMetrics,
     expenseReportSection,
   };
