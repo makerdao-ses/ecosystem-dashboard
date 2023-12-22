@@ -520,26 +520,29 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
 
   const orderData = sortDataByElementCount(data);
   const firstElementOfArray = getFirstElementEachTable(orderData);
-
+  // Take the first element of each table
   const result = firstElementOfArray.map((row, index) => ({
     tableName: orderData[index].tableName,
     rows: [firstElementOfArray[index]],
     others: false,
   }));
   const totalRows = data.reduce((acc, element) => acc + element.rows.length, 0);
-
+  const numberHeaders = data.length;
   if (totalRows <= maxRows) {
     return data;
   }
   for (const item of orderData) {
-    if (item.rows.length + totalRowsPerTable + firstElementOfArray.length > maxRows) {
+    // Stop if some table with the header of all table sum 16
+    if (item.rows.length + totalRowsPerTable + firstElementOfArray.length - 1 > maxRows) {
       itemArrayTableHasOthers = {
         rows: item.rows,
         others: true,
         tableName: item.tableName,
       };
+
       break;
     }
+
     const indexItem = result.findIndex((element) => element.tableName === item.tableName);
 
     const takeAllElementLessOne = item.rows.slice(1, item.rows.length);
@@ -547,25 +550,23 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
     result[indexItem].rows.push(...takeAllElementLessOne);
     totalRowsPerTable += item.rows.length;
   }
-
-  if (itemArrayTableHasOthers.rows) {
+  // Rest on, because already take from each table
+  if (itemArrayTableHasOthers.rows.length <= maxRows && totalRowsPerTable - 1 + numberHeaders !== maxRows) {
     const indexItem = result.findIndex((element) => element.tableName === itemArrayTableHasOthers.tableName);
 
     itemArrayTableHasOthers.rows.forEach((item, index) => {
-      const numberHeaders = data.length;
-
-      // Number of row maxRows less numberHeaders (number of the table) less 1 because the others row
-
       if (totalRowsPerTable + numberHeaders < maxRows && index !== 0) {
         result[indexItem].rows.push(item);
+
         totalRowsPerTable++;
       } else {
-        // Only put if if not the one element
+        // Only put if not the one element
         if (index !== 0) {
           others.push(item);
         }
       }
     });
+
     if (indexItem !== orderData.length - 1) {
       result[indexItem].others = true;
       const resultOthers = getMetricsForOthersRow(others);
