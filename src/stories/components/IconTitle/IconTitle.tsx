@@ -40,8 +40,8 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   fontSize: 20,
   letterSpacing: '0.4px',
+  color: isLight ? '#231536' : '#D2D4EF',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    color: isLight ? '#231536' : 'red',
     fontSize: 32,
     lineHeight: 'normal',
   },

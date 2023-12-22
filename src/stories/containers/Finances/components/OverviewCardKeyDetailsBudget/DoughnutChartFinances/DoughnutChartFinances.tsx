@@ -338,7 +338,7 @@ const IconWithName = styled.div({
 });
 
 const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : 'red',
+  color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : '#EDEFFF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 12,
   fontStyle: 'normal',
