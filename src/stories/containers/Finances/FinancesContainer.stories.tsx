@@ -1,7 +1,10 @@
+import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { BreakdownBudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/analyticBuilder';
 import { BudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/budgetAnalyticBuilder';
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
+import { FeatureFlagsProvider } from '@ses/core/context/FeatureFlagsProvider';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { featureFlags } from 'feature-flags/feature-flags';
 import AppLayout from '../AppLayout/AppLayout';
 import FinancesContainer from './FinancesContainer';
 import type { Meta } from '@storybook/react';
@@ -274,14 +277,15 @@ const variantsArgs = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
-    <AppLayout>
-      <FinancesContainer {...props} />
-    </AppLayout>
+    <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+      <AppLayout>
+        <FinancesContainer {...props} />
+      </AppLayout>
+    </FeatureFlagsProvider>
   ),
   variantsArgs
 );
-// TODO: uncomment the following line. This is to temporary disable the finances story
-// export { LightMode, DarkMode };
+
+export { LightMode, DarkMode };
