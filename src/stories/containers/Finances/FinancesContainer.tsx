@@ -38,6 +38,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     makerDAOExpensesMetrics,
     breakdownChartSectionData,
     expenseReportSection,
+    trailingAddress,
   } = useFinances(budgets, initialYear);
 
   return (
@@ -53,11 +54,11 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
       <BreadcrumbYearNavigation
-        trailingAddress={breakdownTable.trailingAddress}
+        trailingAddress={trailingAddress}
         years={yearsRange}
         handleChange={handleChangeYears}
         selectedValue={year}
-        trailingAddressDesk={breakdownTable.trailingAddress}
+        trailingAddressDesk={trailingAddress}
         title="Finances"
         hasIcon={false}
       />

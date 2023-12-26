@@ -48,6 +48,12 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     async () => getBudgetsAnalytics('monthly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
 
+  const routes = ['Finances'];
+  const trailingAddress = routes.map((adr) => ({
+    label: adr,
+    url: `${router.asPath}${year}`,
+  }));
+
   const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
 
   const colorsLight = generateColorPalette(
@@ -121,5 +127,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     handleLoadMoreCards,
     makerDAOExpensesMetrics,
     expenseReportSection: expenseTrendFinances,
+    trailingAddress,
   };
 };

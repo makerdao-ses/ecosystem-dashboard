@@ -266,9 +266,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     };
   }, [isDesk1024, isDesk1280, isDesk1440, isMobile, periodFilter]);
 
-  const routes = ['Finances'];
-
-  const totalCardsNavigation = 34223;
   const handleSelectChangeMetrics = (value: string[]) => {
     setActiveMetrics(value);
   };
@@ -294,10 +291,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       })) as MultiSelectItem[],
     [metricsFilter]
   );
-  const trailingAddress = routes.map((adr) => ({
-    label: adr,
-    url: `${router.asPath}${year}`,
-  }));
 
   return {
     isMobile,
@@ -308,15 +301,12 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     minItems,
     allowSelectAll,
     popupContainerHeight,
-    totalCardsNavigation,
-    routes,
     handleSelectChangeMetrics,
     handleResetMetrics,
     defaultMetricsWithAllSelected,
     periodicSelectionFilter,
     handlePeriodChange,
     selectMetrics,
-    trailingAddress,
     tableHeader,
     tableBody,
     isLoading,
