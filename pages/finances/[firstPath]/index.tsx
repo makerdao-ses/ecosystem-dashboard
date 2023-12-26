@@ -4,7 +4,7 @@ import { fetchBudgets } from '@ses/containers/Finances/api/queries';
 import { getBudgetsAnalytics, getLevelOfBudget, getYearsRange } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { SWRConfig } from 'swr';
-import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -12,7 +12,7 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
-  fallback: BudgetAnalytic;
+  fallback: BreakdownBudgetAnalytic;
   allBudgets: Budget[];
 }
 
