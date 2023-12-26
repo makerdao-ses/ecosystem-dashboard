@@ -20,7 +20,7 @@ import {
   existingColors,
   existingColorsDark,
 } from './utils/utils';
-import type { BudgetAnalytic, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], initialYear: string) => {
@@ -36,7 +36,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
 
   const { data: budgetsAnalytics } = useSWRImmutable(
     'analytics/annual',
-    async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BudgetAnalytic>
+    async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
 
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
@@ -62,14 +62,14 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     const budgetMetric =
       budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
         ? budgetsAnalytics[item.codePath]
-        : newBudgetMetric();
+        : [newBudgetMetric()];
 
     return {
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
-      valueDai: budgetMetric.budget.value,
+      valueDai: budgetMetric[0].budget.value,
       totalDai: allMetrics.budget,
       color: isLight ? colorsLight[index] : colorsDark[index],
     };
@@ -112,10 +112,10 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   return {
     year,
     handleChangeYears,
-    ...cardOverViewSectionData,
+    cardOverViewSectionData,
     router,
     cardsToShow,
-    ...breakdownChartSectionData,
+    breakdownChartSectionData,
     breakdownTable,
     loadMoreCards,
     handleLoadMoreCards,

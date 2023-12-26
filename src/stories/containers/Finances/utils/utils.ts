@@ -20,7 +20,6 @@ import type {
   ValueAndUnit,
   BudgetMetric,
   Analytic,
-  BudgetAnalytic,
   BreakdownBudgetAnalytic,
   AnalyticGranularity,
 } from '@ses/core/models/interfaces/analytic';
@@ -656,31 +655,32 @@ export const newBudgetMetric = () =>
     paymentsOffChainIncluded: setMetric(0, ''),
   } as BudgetMetric);
 
-export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]): BudgetAnalytic => {
-  const budgetsAnalytics: BudgetAnalytic = {};
+export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]): BreakdownBudgetAnalytic => {
+  const budgetsAnalytics: BreakdownBudgetAnalytic = {};
   const series = analytics.series[0];
 
   budgets.forEach((budget) => {
-    const budgetMetric = newBudgetMetric();
+    const budgetMetric: BudgetMetric[] = [newBudgetMetric()];
+
     // Remove this when the Api are ready with the correct codePath
     const codePath = budget.codePath === '142' ? 'legacy' : budget.codePath;
     series?.rows?.forEach((row) => {
       if (row.dimensions.some((dimension) => dimension.name === 'budget' && dimension.path === codePath)) {
         switch (row.metric) {
           case 'Actuals':
-            budgetMetric.actuals = setMetric(row.value, row.unit);
+            budgetMetric[0].actuals = setMetric(row.value, row.unit);
             break;
           case 'Forecast':
-            budgetMetric.forecast = setMetric(row.value, row.unit);
+            budgetMetric[0].forecast = setMetric(row.value, row.unit);
             break;
           case 'Budget':
-            budgetMetric.budget = setMetric(row.value, row.unit);
+            budgetMetric[0].budget = setMetric(row.value, row.unit);
             break;
           case 'PaymentsOnChain':
-            budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
+            budgetMetric[0].paymentsOnChain = setMetric(row.value, row.unit);
             break;
           case 'PaymentsOffChainIncluded':
-            budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
+            budgetMetric[0].paymentsOffChainIncluded = setMetric(row.value, row.unit);
             break;
           default:
             break;

@@ -28,32 +28,15 @@ interface Props {
 const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }) => {
   const [isEnabled] = useFlagsActive();
   const {
-    filters,
-    filterSelected,
-    handleSelectFilter,
-    isLight,
-    actuals,
-    budgetCap,
-    prediction,
-    doughnutSeriesData,
+    cardOverViewSectionData,
     handleChangeYears,
     year,
     cardsToShow,
-    selectedBreakdownMetric,
     breakdownTable,
-    selectedBreakdownGranularity,
-    handleBreakdownMetricChange,
-    handleBreakdownGranularityChange,
     loadMoreCards,
     handleLoadMoreCards,
-    isDisabled,
-    handleResetFilterBreakDownChart,
-    budgetsAnalyticsMonthly,
-    budgetsAnalyticsQuarterly,
-    series,
-    refBreakDownChart,
-    changeAlignment,
     makerDAOExpensesMetrics,
+    breakdownChartSectionData,
     expenseReportSection,
   } = useFinances(budgets, initialYear);
 
@@ -80,23 +63,27 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
       />
 
       <Container>
-        <ContainerTitle isLight={isLight}>MakerDAO Finances</ContainerTitle>
+        <ContainerTitle isLight={breakdownChartSectionData.isLight}>MakerDAO Finances</ContainerTitle>
         <ContainerSections>
           <WrapperDesk>
             <CardChartOverview
-              filters={filters}
-              filterSelected={filterSelected}
-              handleSelectFilter={handleSelectFilter}
-              actuals={actuals}
-              budgetCap={budgetCap}
-              prediction={prediction}
-              doughnutSeriesData={doughnutSeriesData}
+              filters={cardOverViewSectionData.filters}
+              filterSelected={cardOverViewSectionData.filterSelected}
+              handleSelectFilter={cardOverViewSectionData.handleSelectFilter}
+              actuals={cardOverViewSectionData.actuals}
+              budgetCap={cardOverViewSectionData.budgetCap}
+              prediction={cardOverViewSectionData.prediction}
+              doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
               isCoreThirdLevel={false}
-              changeAlignment={changeAlignment}
+              changeAlignment={cardOverViewSectionData.changeAlignment}
             />
           </WrapperDesk>
           <WrapperMobile>
-            <OverviewCardMobile actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+            <OverviewCardMobile
+              actuals={cardOverViewSectionData.actuals}
+              budgetCap={cardOverViewSectionData.budgetCap}
+              prediction={cardOverViewSectionData.prediction}
+            />
           </WrapperMobile>
           <CardsNavigation
             cardsNavigationInformation={cardsToShow}
@@ -108,17 +95,17 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         {isEnabled('FEATURE_FINANCES_BREAKDOWN_CHART_SECTION') && (
           <BreakdownChartSection
             year={year}
-            selectedMetric={selectedBreakdownMetric}
-            selectedGranularity={selectedBreakdownGranularity}
-            onMetricChange={handleBreakdownMetricChange}
-            onGranularityChange={handleBreakdownGranularityChange}
-            isDisabled={isDisabled}
-            handleResetFilter={handleResetFilterBreakDownChart}
+            selectedMetric={breakdownChartSectionData.selectedBreakdownMetric}
+            selectedGranularity={breakdownChartSectionData.selectedBreakdownGranularity}
+            onMetricChange={breakdownChartSectionData.handleBreakdownMetricChange}
+            onGranularityChange={breakdownChartSectionData.handleBreakdownGranularityChange}
+            isDisabled={breakdownChartSectionData.isDisabled}
+            handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
             budgets={budgets}
-            budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
-            budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
-            series={series}
-            refBreakDownChart={refBreakDownChart}
+            budgetsAnalyticsMonthly={breakdownChartSectionData.budgetsAnalyticsMonthly}
+            budgetsAnalyticsQuarterly={breakdownChartSectionData.budgetsAnalyticsQuarterly}
+            series={breakdownChartSectionData.series}
+            refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
           />
         )}
       </Container>

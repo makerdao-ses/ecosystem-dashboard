@@ -59,10 +59,6 @@ export interface BudgetMetric {
   paymentsOffChainIncluded: ValueAndUnit;
 }
 
-export interface BudgetAnalytic {
-  [key: string]: BudgetMetric;
-}
-
 export interface BreakdownBudgetAnalytic {
   [key: string]: BudgetMetric[];
 }
