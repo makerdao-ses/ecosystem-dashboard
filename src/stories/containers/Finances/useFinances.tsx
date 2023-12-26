@@ -39,11 +39,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BudgetAnalytic>
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
-    'analytics/semiAnnual',
-    async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
-  );
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
     'analytics/quarterly',
     async () => getBudgetsAnalytics('quarterly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
@@ -110,7 +105,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   // invalidate cache and refetch all sections when year changes
   useEffect(() => {
     mutate('analytics/annual');
-    mutate('analytics/semiAnnual');
     mutate('analytics/quarterly');
     mutate('analytics/monthly');
   }, [mutate, year]);
