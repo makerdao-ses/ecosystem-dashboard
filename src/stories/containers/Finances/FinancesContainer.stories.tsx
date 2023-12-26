@@ -1,6 +1,5 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { BreakdownBudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/analyticBuilder';
-import { BudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/budgetAnalyticBuilder';
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { FeatureFlagsProvider } from '@ses/core/context/FeatureFlagsProvider';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
@@ -249,29 +248,31 @@ const variantsArgs = [
       .build(),
 
     budgetsAnalytics: [
-      new BudgetAnalyticBuilder()
-        .withMetric('test', {
-          actuals: {
-            value: 5000,
-            unit: 'DAI',
+      new BreakdownBudgetAnalyticBuilder()
+        .withCategory('test', [
+          {
+            actuals: {
+              value: 5000,
+              unit: 'DAI',
+            },
+            budget: {
+              value: 10000,
+              unit: 'DAI',
+            },
+            forecast: {
+              value: 3440,
+              unit: 'DAI',
+            },
+            paymentsOnChain: {
+              value: 3430,
+              unit: 'DAI',
+            },
+            paymentsOffChainIncluded: {
+              value: 343430,
+              unit: 'DAI',
+            },
           },
-          budget: {
-            value: 10000,
-            unit: 'DAI',
-          },
-          forecast: {
-            value: 3440,
-            unit: 'DAI',
-          },
-          paymentsOnChain: {
-            value: 3430,
-            unit: 'DAI',
-          },
-          paymentsOffChainIncluded: {
-            value: 343430,
-            unit: 'DAI',
-          },
-        })
+        ])
         .build(),
     ],
   },
