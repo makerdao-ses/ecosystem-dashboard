@@ -22,7 +22,7 @@ import {
   prefixToRemove,
   removePrefix,
 } from '../Finances/utils/utils';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { SwiperProps } from 'swiper/react';
 import 'swiper/css/navigation';
@@ -40,7 +40,13 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const { data: budgetsAnalytics } = useSWRImmutable(
     ['analytics/annual', levelPath],
     async () =>
-      getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
+      getBudgetsAnalytics(
+        'annual',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
   );
 
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
@@ -128,14 +134,14 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     const budgetMetric =
       budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
         ? budgetsAnalytics[item.codePath]
-        : newBudgetMetric();
+        : [newBudgetMetric()];
 
     return {
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-      valueDai: budgetMetric.budget.value,
+      valueDai: budgetMetric[0].budget.value,
       totalDai: allMetrics.budget,
       code: item.code,
       color: isLight ? colorsLight[index] : colorsDark[index],

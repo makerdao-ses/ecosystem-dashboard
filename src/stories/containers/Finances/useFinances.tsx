@@ -20,7 +20,7 @@ import {
   existingColors,
   existingColorsDark,
 } from './utils/utils';
-import type { BudgetAnalytic, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], initialYear: string) => {
@@ -36,14 +36,9 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
 
   const { data: budgetsAnalytics } = useSWRImmutable(
     'analytics/annual',
-    async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BudgetAnalytic>
+    async () => getBudgetsAnalytics('annual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: budgetsAnalyticsSemiAnnual } = useSWRImmutable(
-    'analytics/semiAnnual',
-    async () => getBudgetsAnalytics('semiAnnual', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
-  );
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
     'analytics/quarterly',
     async () => getBudgetsAnalytics('quarterly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
@@ -52,6 +47,12 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     'analytics/monthly',
     async () => getBudgetsAnalytics('monthly', year, 'atlas', 2, budgets) as Promise<BreakdownBudgetAnalytic>
   );
+
+  const routes = ['Finances'];
+  const trailingAddress = routes.map((adr) => ({
+    label: adr,
+    url: `${router.asPath}${year}`,
+  }));
 
   const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
 
@@ -67,14 +68,14 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     const budgetMetric =
       budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
         ? budgetsAnalytics[item.codePath]
-        : newBudgetMetric();
+        : [newBudgetMetric()];
 
     return {
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
-      valueDai: budgetMetric.budget.value,
+      valueDai: budgetMetric[0].budget.value,
       totalDai: allMetrics.budget,
       color: isLight ? colorsLight[index] : colorsDark[index],
     };
@@ -110,7 +111,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   // invalidate cache and refetch all sections when year changes
   useEffect(() => {
     mutate('analytics/annual');
-    mutate('analytics/semiAnnual');
     mutate('analytics/quarterly');
     mutate('analytics/monthly');
   }, [mutate, year]);
@@ -118,14 +118,15 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   return {
     year,
     handleChangeYears,
-    ...cardOverViewSectionData,
+    cardOverViewSectionData,
     router,
     cardsToShow,
-    ...breakdownChartSectionData,
+    breakdownChartSectionData,
     breakdownTable,
     loadMoreCards,
     handleLoadMoreCards,
     makerDAOExpensesMetrics,
     expenseReportSection: expenseTrendFinances,
+    trailingAddress,
   };
 };

@@ -20,7 +20,6 @@ import type {
   ValueAndUnit,
   BudgetMetric,
   Analytic,
-  BudgetAnalytic,
   BreakdownBudgetAnalytic,
   AnalyticGranularity,
 } from '@ses/core/models/interfaces/analytic';
@@ -656,44 +655,6 @@ export const newBudgetMetric = () =>
     paymentsOffChainIncluded: setMetric(0, ''),
   } as BudgetMetric);
 
-export const getAnalyticsAnnual = (analytics: Analytic, budgets: Budget[]): BudgetAnalytic => {
-  const budgetsAnalytics: BudgetAnalytic = {};
-  const series = analytics.series[0];
-
-  budgets.forEach((budget) => {
-    const budgetMetric = newBudgetMetric();
-    // Remove this when the Api are ready with the correct codePath
-    const codePath = budget.codePath === '142' ? 'legacy' : budget.codePath;
-    series?.rows?.forEach((row) => {
-      if (row.dimensions.some((dimension) => dimension.name === 'budget' && dimension.path === codePath)) {
-        switch (row.metric) {
-          case 'Actuals':
-            budgetMetric.actuals = setMetric(row.value, row.unit);
-            break;
-          case 'Forecast':
-            budgetMetric.forecast = setMetric(row.value, row.unit);
-            break;
-          case 'Budget':
-            budgetMetric.budget = setMetric(row.value, row.unit);
-            break;
-          case 'PaymentsOnChain':
-            budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
-            break;
-          case 'PaymentsOffChainIncluded':
-            budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
-            break;
-          default:
-            break;
-        }
-      }
-    });
-
-    budgetsAnalytics[budget.codePath] = budgetMetric;
-  });
-
-  return budgetsAnalytics;
-};
-
 const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric[] => {
   const createBudgetMetric = () => ({
     actuals: {
@@ -793,9 +754,8 @@ export const getBudgetsAnalytics = async (
   budgets: Budget[]
 ) => {
   const analytics = await fetchAnalytics(granularity, year, select, lod);
-  return granularity === 'annual'
-    ? getAnalyticsAnnual(analytics, budgets)
-    : getBreakdownAnalytics(analytics, budgets, granularity); // temporary
+
+  return getBreakdownAnalytics(analytics, budgets, granularity); // temporary
 };
 
 export const getLevelOfBudget = (levelPath: string) => {

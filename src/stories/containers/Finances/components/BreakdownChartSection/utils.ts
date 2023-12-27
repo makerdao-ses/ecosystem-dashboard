@@ -1,10 +1,10 @@
 import { existingColors, existingColorsDark, generateColorPalette, getCorrectMetric } from '../../utils/utils';
 import type { BreakdownChartSeriesData, Metric } from '../../utils/types';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const parseAnalyticsToSeriesBreakDownChart = (
-  budgetsAnalytics: BreakdownBudgetAnalytic | BudgetAnalytic | undefined,
+  budgetsAnalytics: BreakdownBudgetAnalytic | undefined,
   budgets: Budget[],
   isLight: boolean,
   barWidth: number,

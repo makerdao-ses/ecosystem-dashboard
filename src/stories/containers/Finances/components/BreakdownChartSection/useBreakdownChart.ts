@@ -5,7 +5,7 @@ import { useMemo, useRef, useState } from 'react';
 
 import { parseAnalyticsToSeriesBreakDownChart, setBorderRadiusForSeries } from './utils';
 import type { Metric } from '../../utils/types';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
@@ -13,7 +13,7 @@ const useBreakdownChart = (
   budgets: Budget[],
   budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined,
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined,
-  budgetsAnalyticsAnnual: BudgetAnalytic | undefined
+  budgetsAnalyticsAnnual: BreakdownBudgetAnalytic | undefined
 ) => {
   const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const { isLight } = useThemeContext();
@@ -51,7 +51,7 @@ const useBreakdownChart = (
     setSelectedBreakdownGranularity('Monthly');
   };
 
-  let budgetsAnalytics: BreakdownBudgetAnalytic | BudgetAnalytic | undefined;
+  let budgetsAnalytics: BreakdownBudgetAnalytic | undefined;
   switch (selectedBreakdownGranularity) {
     case 'Monthly':
       budgetsAnalytics = budgetsAnalyticsMonthly;

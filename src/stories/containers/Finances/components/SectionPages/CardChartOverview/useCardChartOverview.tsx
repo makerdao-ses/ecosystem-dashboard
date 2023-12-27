@@ -8,11 +8,11 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { useState } from 'react';
 import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
-import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 const prefixToRemove = 'End-game';
 
-export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BudgetAnalytic | undefined) => {
+export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BreakdownBudgetAnalytic | undefined) => {
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
   const { isLight } = useThemeContext();
@@ -44,17 +44,17 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
         ? removePrefix(correspondingBudget.name, prefixToRemove)
         : 'There is not name';
       const budgetCode = correspondingBudget?.code || 'No-code';
-      metric.actuals += budgetMetric.actuals.value || 0;
-      metric.forecast += budgetMetric.forecast.value || 0;
-      metric.budget += budgetMetric.budget.value || 0;
-      metric.paymentsOnChain += budgetMetric.paymentsOnChain.value || 0;
+      metric.actuals += budgetMetric[0].actuals.value || 0;
+      metric.forecast += budgetMetric[0].forecast.value || 0;
+      metric.budget += budgetMetric[0].budget.value || 0;
+      metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
       budgetMetrics[budgetMetricKey] = {
         name: budgetName,
-        actuals: budgetMetric.actuals,
-        forecast: budgetMetric.forecast,
-        budget: budgetMetric.budget,
-        paymentsOnChain: budgetMetric.paymentsOnChain,
-        paymentsOffChainIncluded: budgetMetric.paymentsOffChainIncluded,
+        actuals: budgetMetric[0].actuals,
+        forecast: budgetMetric[0].forecast,
+        budget: budgetMetric[0].budget,
+        paymentsOnChain: budgetMetric[0].paymentsOnChain,
+        paymentsOffChainIncluded: budgetMetric[0].paymentsOffChainIncluded,
         code: budgetCode,
       };
     }
