@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
 import { breakdownChartMonthly, breakdownChartQuarterly } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
@@ -42,6 +43,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   };
 
   const options: EChartsOption = {
+    tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile),
     grid: {
       height: isMobile ? 192 : isTablet ? 409 : isDesktop1024 ? 398 : isDesktop1280 ? 399 : 399,
       width: isMobile ? 304 : isTablet ? 645 : isDesktop1024 ? 704 : isDesktop1280 ? 955 : 955,

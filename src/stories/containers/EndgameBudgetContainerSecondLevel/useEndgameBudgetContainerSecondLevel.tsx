@@ -130,17 +130,13 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const icon = levelBudget?.image || '';
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
-    router.push(
-      {
-        pathname: `${siteRoutes.newFinancesOverview}/[firstPath]`,
-        query: {
-          firstPath: router.query.firstPath,
-          year: value,
-        },
-      }
-      /* undefined,
-      { shallow: true } */
-    );
+    router.push({
+      pathname: `${siteRoutes.newFinancesOverview}/[firstPath]`,
+      query: {
+        firstPath: router.query.firstPath,
+        year: value,
+      },
+    });
   };
 
   useEffect(() => {
