@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material';
 import {
   existingColors,
   existingColorsDark,
@@ -6,6 +7,7 @@ import {
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import lightTheme from '@ses/styles/theme/light';
 import { useState } from 'react';
 import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -13,6 +15,8 @@ import type { Budget } from '@ses/core/models/interfaces/budget';
 const prefixToRemove = 'End-game';
 
 export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BreakdownBudgetAnalytic | undefined) => {
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
   const { isLight } = useThemeContext();
@@ -98,6 +102,9 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
     };
   });
   const changeAlignment = doughnutSeriesData.length > 4;
+
+  const showSwiper = !!((isTable || isDesk1024) && doughnutSeriesData.length > 4);
+
   return {
     actuals: metric.actuals,
     prediction: metric.forecast,
@@ -108,5 +115,6 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
     filters,
     doughnutSeriesData,
     changeAlignment,
+    showSwiper,
   };
 };

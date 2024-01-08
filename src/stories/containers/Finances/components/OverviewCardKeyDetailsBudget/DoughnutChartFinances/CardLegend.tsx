@@ -1,0 +1,142 @@
+import styled from '@emotion/styled';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
+import React from 'react';
+import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+
+interface Props {
+  isCoreThirdLevel?: boolean;
+  changeAlignment: boolean;
+  doughnutSeriesData: DoughnutSeries[];
+  toggleSeriesVisibility: (seriesName: string) => void;
+  onLegendItemLeave: (legendName: string) => void;
+  onLegendItemHover: (legendName: string) => void;
+}
+
+const CardLegend: React.FC<Props> = ({
+  changeAlignment,
+  isCoreThirdLevel = true,
+  doughnutSeriesData,
+  onLegendItemHover,
+  onLegendItemLeave,
+  toggleSeriesVisibility,
+}) => {
+  const { isLight } = useThemeContext();
+  return (
+    <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
+      {doughnutSeriesData.map((data, index) => (
+        <LegendItem
+          key={index}
+          changeAlignment={changeAlignment}
+          isCoreThirdLevel={isCoreThirdLevel}
+          isLight={isLight}
+          onClick={() => toggleSeriesVisibility(data.name)}
+          onMouseEnter={() => onLegendItemHover(data.name)}
+          onMouseLeave={() => onLegendItemLeave(data.name)}
+        >
+          <IconWithName>
+            <LegendIcon backgroundColor={data.color || 'blue'} />
+            <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+              {isCoreThirdLevel ? data.code : data.name}
+            </NameOrCode>
+          </IconWithName>
+          <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+            {data.value?.toLocaleString('es-US')}
+
+            <span>DAI</span>
+            <span>{`(${data.percent}%)`}</span>
+          </Value>
+        </LegendItem>
+      ))}
+    </ContainerLegend>
+  );
+};
+
+export default CardLegend;
+
+const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor }) => ({
+  backgroundColor,
+  minWidth: 8,
+  maxWidth: 8,
+  maxHeight: 8,
+  minHeight: 8,
+  borderRadius: '50%',
+}));
+const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; changeAlignment: boolean }>(
+  ({ isLight, isCoreThirdLevel, changeAlignment }) => ({
+    display: 'flex',
+    flexDirection: isCoreThirdLevel ? 'row' : 'column',
+    gap: isCoreThirdLevel ? 4 : 4,
+    fontSize: 12,
+    fontFamily: 'Inter, sans-serif',
+    color: isLight ? '#43435' : '#EDEFFF',
+    cursor: 'pointer',
+    minWidth: 190,
+    ...(changeAlignment && {
+      minWidth: 0,
+    }),
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      gap: 8,
+    },
+  })
+);
+const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
+  color: isLight ? '#9FAFB9' : '#546978',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 14,
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
+  marginLeft: isCoreThirdLevel ? 4 : 14,
+  ...(isCoreThirdLevel && {
+    whiteSpace: 'revert',
+    overflow: 'revert',
+    textOverflow: 'revert',
+  }),
+  '& span': {
+    display: 'inline-block',
+    marginLeft: 4,
+  },
+}));
+
+const IconWithName = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 6,
+  alignItems: 'center',
+});
+
+const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
+  color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : '#EDEFFF',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 12,
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  width: isCoreThirdLevel ? 'fit-content' : 170,
+}));
+
+const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
+  ({ isCoreThirdLevel, changeAlignment }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
+    gap: isCoreThirdLevel ? 16 : 14,
+    maxWidth: '100%',
+    maxHeight: 210,
+
+    overflow: 'hidden',
+    ...(changeAlignment && {
+      flex: 1,
+    }),
+
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      gap: 16,
+    },
+  })
+);

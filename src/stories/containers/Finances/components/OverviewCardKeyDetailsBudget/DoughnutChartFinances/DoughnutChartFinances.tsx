@@ -2,19 +2,28 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { calculateValuesByBreakpoint } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useRef, useState } from 'react';
+import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import CardLegend from './CardLegend';
+import { chunkArray } from './utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
+import type { SwiperProps, SwiperRef } from 'swiper/react';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css';
 
 interface Props {
   doughnutSeriesData: DoughnutSeries[];
   className?: string;
   isCoreThirdLevel?: boolean;
   changeAlignment: boolean;
+  showSwiper: boolean;
+  numberSliderPerLevel?: number;
 }
 
 const DoughnutChartFinances: React.FC<Props> = ({
@@ -22,8 +31,11 @@ const DoughnutChartFinances: React.FC<Props> = ({
   className,
   isCoreThirdLevel = true,
   changeAlignment,
+  showSwiper,
+  numberSliderPerLevel = 5,
 }) => {
   const chartRef = useRef<EChartsOption | null>(null);
+  const ref = useRef<SwiperRef>(null);
   const { isLight } = useThemeContext();
   const [visibleSeries, setVisibleSeries] = useState<DoughnutSeries[]>(doughnutSeriesData);
   const [legends, setLegends] = useState<DoughnutSeries[]>(doughnutSeriesData);
@@ -39,6 +51,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
 
   const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
+  const doughnutSeriesChunks = chunkArray(doughnutSeriesData, numberSliderPerLevel);
   const options = {
     color: visibleSeries.map((data) => data.color),
     tooltip: {
@@ -174,6 +187,32 @@ const DoughnutChartFinances: React.FC<Props> = ({
     });
   };
 
+  // Options of Swiper
+  const swiperOptions = {
+    pagination: {
+      type: 'bullets',
+      enabled: true,
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        spaceBetween: 16,
+      },
+      1024: {
+        spaceBetween: 2,
+      },
+      1280: {
+        spaceBetween: 2,
+      },
+      1440: {
+        spaceBetween: 2,
+      },
+      1920: {
+        spaceBetween: 2,
+      },
+    },
+  } as SwiperProps;
+
   return (
     <Container className={className}>
       <ContainerChart>
@@ -188,32 +227,47 @@ const DoughnutChartFinances: React.FC<Props> = ({
           opts={{ renderer: 'svg' }}
         />
       </ContainerChart>
-      <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
-        {legends.map((data, index: number) => (
-          <LegendItem
-            changeAlignment={changeAlignment}
-            isCoreThirdLevel={isCoreThirdLevel}
-            isLight={isLight}
-            key={index}
-            onClick={() => toggleSeriesVisibility(data.name)}
-            onMouseEnter={() => onLegendItemHover(data.name)}
-            onMouseLeave={() => onLegendItemLeave(data.name)}
+      {showSwiper ? (
+        <SwiperWrapper isCoreThirdLevel={isCoreThirdLevel}>
+          <Swiper
+            direction="horizontal"
+            ref={ref}
+            modules={[Pagination, Navigation]}
+            centerInsufficientSlides
+            pagination={true}
+            {...swiperOptions}
           >
-            <IconWithName>
-              <LegendIcon backgroundColor={data.color || 'blue'} />
-              <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-                {isCoreThirdLevel ? data.code : data.name}
-              </NameOrCode>
-            </IconWithName>
-            <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-              {data.value?.toLocaleString('es-US')}
-
-              <span>DAI</span>
-              <span>{`(${data.percent}%)`}</span>
-            </Value>
-          </LegendItem>
-        ))}
-      </ContainerLegend>
+            <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
+              {Array.from(doughnutSeriesChunks.entries()).map(([index, dataChunk]) => (
+                <SwiperSlide key={index}>
+                  <CardLegend
+                    key={index}
+                    changeAlignment={changeAlignment}
+                    doughnutSeriesData={dataChunk}
+                    toggleSeriesVisibility={toggleSeriesVisibility}
+                    onLegendItemHover={onLegendItemHover}
+                    onLegendItemLeave={onLegendItemLeave}
+                    isCoreThirdLevel={isCoreThirdLevel}
+                  />
+                </SwiperSlide>
+              ))}
+            </ContainerLegend>
+          </Swiper>
+        </SwiperWrapper>
+      ) : (
+        <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
+          {
+            <CardLegend
+              changeAlignment={changeAlignment}
+              doughnutSeriesData={doughnutSeriesData}
+              toggleSeriesVisibility={toggleSeriesVisibility}
+              onLegendItemHover={onLegendItemHover}
+              onLegendItemLeave={onLegendItemLeave}
+              isCoreThirdLevel={isCoreThirdLevel}
+            />
+          }
+        </ContainerLegend>
+      )}
     </Container>
   );
 };
@@ -259,51 +313,6 @@ const ContainerChart = styled.div({
   },
 });
 
-const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor }) => ({
-  backgroundColor,
-  minWidth: 8,
-  maxWidth: 8,
-  maxHeight: 8,
-  minHeight: 8,
-  borderRadius: '50%',
-}));
-const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; changeAlignment: boolean }>(
-  ({ isLight, isCoreThirdLevel, changeAlignment }) => ({
-    display: 'flex',
-    flexDirection: isCoreThirdLevel ? 'row' : 'column',
-    gap: isCoreThirdLevel ? 4 : 4,
-    fontSize: 12,
-    fontFamily: 'Inter, sans-serif',
-    color: isLight ? '#43435' : '#EDEFFF',
-    cursor: 'pointer',
-    minWidth: 190,
-    ...(changeAlignment && {
-      minWidth: 0,
-    }),
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      gap: 8,
-    },
-  })
-);
-const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  color: isLight ? '#9FAFB9' : '#546978',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 14,
-  fontStyle: 'normal',
-  fontWeight: 400,
-  lineHeight: 'normal',
-  marginLeft: isCoreThirdLevel ? 4 : 14,
-  ...(isCoreThirdLevel && {
-    whiteSpace: 'revert',
-    overflow: 'revert',
-    textOverflow: 'revert',
-  }),
-  '& span': {
-    display: 'inline-block',
-    marginLeft: 4,
-  },
-}));
-
 const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
   ({ isCoreThirdLevel, changeAlignment }) => ({
     display: 'flex',
@@ -312,34 +321,50 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
-    maxHeight: 210,
-    overflow: 'hidden',
-    ...(changeAlignment && {
-      flex: 1,
-    }),
-
+    position: 'relative',
     [lightTheme.breakpoints.up('desktop_1280')]: {
       gap: 16,
     },
   })
 );
 
-const IconWithName = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  gap: 6,
-  alignItems: 'center',
-});
+const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
+  display: 'none',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: !isCoreThirdLevel ? 10 : 0,
+    display: 'flex',
+    width: 200,
+  },
 
-const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : '#EDEFFF',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 12,
-  fontStyle: 'normal',
-  fontWeight: 400,
-  lineHeight: 'normal',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  width: isCoreThirdLevel ? 'fit-content' : 170,
+  '& .swiper-slide': {
+    height: 'fit-content',
+    [lightTheme.breakpoints.up('tablet_768')]: {},
+  },
+
+  '& .swiper-pagination': {
+    bottom: '0 !important', // Its necessary for override the styles
+  },
+
+  '& .swiper-pagination-horizontal': {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  '& .swiper-pagination-bullet': {
+    width: 8,
+    height: 8,
+    borderRadius: 1,
+    '&:first-child': {
+      borderRadius: '6px 1px 1px 6px',
+    },
+    '&:last-child': {
+      borderRadius: '1px 6px 6px 1px',
+    },
+  },
+  '& .swiper-pagination-bullet-active': {
+    backgroundColor: '#2DC1B1 !important',
+  },
+  '& .swiper-slide-active': {
+    [lightTheme.breakpoints.up('tablet_768')]: {},
+  },
 }));

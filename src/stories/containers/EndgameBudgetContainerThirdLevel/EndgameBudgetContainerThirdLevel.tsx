@@ -22,7 +22,7 @@ import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainer
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-import type { SwiperProps, SwiperRef } from 'swiper/react';
+import type { SwiperRef, SwiperProps } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
@@ -60,6 +60,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     changeAlignment,
     makerDAOExpensesMetrics,
     expenseReportSection,
+    showSwiper,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
@@ -120,6 +121,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={true}
               changeAlignment={changeAlignment}
+              showSwiper={showSwiper}
             />
           </WrapperDesk>
           <WrapperMobile>

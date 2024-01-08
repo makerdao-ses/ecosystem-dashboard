@@ -21,7 +21,7 @@ export const CellMonthly: React.FC<Props> = ({ metrics, title, isTotal = false, 
       <Month isLight={isLight}>{title}</Month>
       {activeMetrics?.map((metric, index) => (
         <Metrics key={index}>
-          <Name isLight={isLight}>Actulas</Name>
+          <Name isLight={isLight}>Actuals</Name>
           <Amount isLight={isLight}>{usLocalizedNumber(metrics[metric as keyof MetricValues] ?? 0)}</Amount>
         </Metrics>
       ))}
