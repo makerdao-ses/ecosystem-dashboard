@@ -103,7 +103,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
   });
   const changeAlignment = doughnutSeriesData.length > 4;
 
-  const showSwiper = (isTable || isDesk1024) && doughnutSeriesData.length > 4;
+  const showSwiper = !!((isTable || isDesk1024) && doughnutSeriesData.length > 4);
 
   return {
     actuals: metric.actuals,

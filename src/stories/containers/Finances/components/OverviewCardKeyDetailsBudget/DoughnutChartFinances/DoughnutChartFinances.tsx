@@ -321,6 +321,7 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
+    position: 'relative',
     [lightTheme.breakpoints.up('desktop_1280')]: {
       gap: 16,
     },
@@ -329,11 +330,9 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
 
 const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
   display: 'none',
-  position: 'relative',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: !isCoreThirdLevel ? 10 : 0,
     display: 'flex',
-
     width: 200,
   },
 
@@ -341,7 +340,10 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
     height: 'fit-content',
     [lightTheme.breakpoints.up('tablet_768')]: {},
   },
-  '& .swiper-wrapper': {},
+
+  '& .swiper-pagination': {
+    bottom: '0 !important', // Its necessary for override the styles
+  },
 
   '& .swiper-pagination-horizontal': {
     display: 'flex',
@@ -351,6 +353,13 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
   '& .swiper-pagination-bullet': {
     width: 8,
     height: 8,
+    borderRadius: 1,
+    '&:first-child': {
+      borderRadius: '6px 1px 1px 6px',
+    },
+    '&:last-child': {
+      borderRadius: '1px 6px 6px 1px',
+    },
   },
   '& .swiper-pagination-bullet-active': {
     backgroundColor: '#2DC1B1 !important',
