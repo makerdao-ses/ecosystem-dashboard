@@ -77,6 +77,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
               isCoreThirdLevel={false}
               changeAlignment={cardOverViewSectionData.changeAlignment}
+              showSwiper={cardOverViewSectionData.showSwiper}
             />
           </WrapperDesk>
           <WrapperMobile>

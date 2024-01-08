@@ -56,6 +56,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     breakdownTableSecondLevel,
     makerDAOExpensesMetrics,
     expenseReportSection,
+    showSwiper,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
   return (
@@ -85,6 +86,8 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={false}
               changeAlignment={changeAlignment}
+              showSwiper={showSwiper}
+              numberSliderPerLevel={3}
             />
           </WrapperDesk>
           <WrapperMobile>
