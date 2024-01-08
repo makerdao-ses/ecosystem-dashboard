@@ -187,7 +187,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     filters,
     filterSelected,
     doughnutSeriesData,
-    ...breakdownChartSectionData,
+    breakdownChartSectionData,
     actuals,
     budgetCap,
     prediction,

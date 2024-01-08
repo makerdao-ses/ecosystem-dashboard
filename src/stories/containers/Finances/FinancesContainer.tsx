@@ -106,6 +106,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
             budgetsAnalyticsMonthly={breakdownChartSectionData.budgetsAnalyticsMonthly}
             budgetsAnalyticsQuarterly={breakdownChartSectionData.budgetsAnalyticsQuarterly}
             series={breakdownChartSectionData.series}
+            handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
             refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
           />
         )}
