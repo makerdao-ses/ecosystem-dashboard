@@ -245,7 +245,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     prediction,
     cardsNavigationInformation,
     doughnutSeriesData,
-    ...breakdownChartSectionData,
+    breakdownChartSectionData,
     filtersThirdLevel,
     selectedThirdLevel,
     handleSelectFilterThirdLevel,

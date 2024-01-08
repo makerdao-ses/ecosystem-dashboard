@@ -55,18 +55,8 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleLoadMoreCards,
     isLight,
     cardsToShow,
-
     breakdownTableThirdLevel,
-    selectedBreakdownMetric,
-    selectedBreakdownGranularity,
-    handleBreakdownMetricChange,
-    handleBreakdownGranularityChange,
-    isDisabled,
-    handleResetFilterBreakDownChart,
-    budgetsAnalyticsMonthly,
-    budgetsAnalyticsQuarterly,
-    series,
-    refBreakDownChart,
+    breakdownChartSectionData,
     changeAlignment,
     makerDAOExpensesMetrics,
     expenseReportSection,
@@ -103,6 +93,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
       },
     },
   } as SwiperProps;
+
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -181,17 +172,18 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
         </ContainerSections>
         <BreakdownChartSection
           year={year}
-          selectedMetric={selectedBreakdownMetric}
-          selectedGranularity={selectedBreakdownGranularity}
-          onMetricChange={handleBreakdownMetricChange}
-          onGranularityChange={handleBreakdownGranularityChange}
-          isDisabled={isDisabled}
-          handleResetFilter={handleResetFilterBreakDownChart}
+          selectedMetric={breakdownChartSectionData.selectedBreakdownMetric}
+          selectedGranularity={breakdownChartSectionData.selectedBreakdownGranularity}
+          onMetricChange={breakdownChartSectionData.handleBreakdownMetricChange}
+          onGranularityChange={breakdownChartSectionData.handleBreakdownGranularityChange}
+          isDisabled={breakdownChartSectionData.isDisabled}
+          handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
           budgets={budgets}
-          budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
-          budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
-          series={series}
-          refBreakDownChart={refBreakDownChart}
+          budgetsAnalyticsMonthly={breakdownChartSectionData.budgetsAnalyticsMonthly}
+          budgetsAnalyticsQuarterly={breakdownChartSectionData.budgetsAnalyticsQuarterly}
+          series={breakdownChartSectionData.series}
+          handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
+          refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
         />
       </Container>
 

@@ -78,7 +78,39 @@ const useBreakdownChart = (
     [barWidth, budgets, budgetsAnalytics, isLight, selectedBreakdownMetric]
   );
 
-  const series = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);
+  const allSeries = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);
+
+  // series to be "hidden" in the chart
+  const [inactiveSeries, setInactiveSeries] = useState<string[]>([]);
+  const handleToggleSeries = (toggleSeries: string) => {
+    setInactiveSeries(
+      inactiveSeries.includes(toggleSeries)
+        ? inactiveSeries.filter((series) => series !== toggleSeries)
+        : [...inactiveSeries, toggleSeries]
+    );
+  };
+  const series = useMemo(() => {
+    const xx = allSeries.map((item) => {
+      if (inactiveSeries.includes(item.name)) {
+        return {
+          ...item,
+          isVisible: false,
+          itemStyle: {
+            ...item.itemStyle,
+            colorOriginal: '#ccc',
+          },
+          data: item.data.map(() => ({
+            value: 0, // set value to 0 to hide the bar
+            itemStyle: { borderRadius: [0, 0, 0, 0] },
+          })),
+        };
+      }
+
+      return item;
+    });
+
+    return setBorderRadiusForSeries(xx, barBorderRadius);
+  }, [allSeries, barBorderRadius, inactiveSeries]);
 
   return {
     selectedBreakdownMetric,
@@ -88,6 +120,7 @@ const useBreakdownChart = (
 
     isDisabled,
     handleResetFilterBreakDownChart,
+    handleToggleSeries,
     series,
     isMobile,
     isTablet,

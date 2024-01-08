@@ -7,7 +7,6 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
-import { setBorderRadiusForSeries } from '../utils';
 import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -21,17 +20,23 @@ interface BreakdownChartProps {
   budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined;
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
   series: BreakdownChartSeriesData[];
+  handleToggleSeries: (series: string) => void;
   refBreakDownChart: React.RefObject<EChartsOption | null>;
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart, series, selectedGranularity }) => {
+const BreakdownChart: React.FC<BreakdownChartProps> = ({
+  year,
+  refBreakDownChart,
+  series,
+  handleToggleSeries,
+  selectedGranularity,
+}) => {
   const { isLight } = useThemeContext();
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const barBorderRadius = isMobile ? 4 : 6;
 
   const [visibleSeries, setVisibleSeries] = useState<BreakdownChartSeriesData[]>(series);
   const [legends, setLegends] = useState<BreakdownChartSeriesData[]>(series);
@@ -145,47 +150,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
     });
   };
 
-  const toggleSeriesVisibility = (seriesName: string) => {
-    const updateSeries = visibleSeries.map((item) => {
-      if (item.name === seriesName) {
-        const isVisible = !item.isVisible;
-        return {
-          ...item,
-          isVisible,
-          // Add border 0 when element is hiddend
-          data: isVisible
-            ? item.dataOriginal
-            : item.data.map(() => ({
-                value: 0,
-                itemStyle: { borderRadius: [0, 0, 0, 0] },
-              })),
-        };
-      }
-      return item;
-    });
-
-    // iterate through legends
-    const newLegend = legends.map((item) => {
-      if (item.name === seriesName) {
-        const isVisible = !item.isVisible;
-        return {
-          ...item,
-          isVisible,
-          itemStyle: {
-            ...item.itemStyle,
-            color: isVisible ? item?.itemStyle.colorOriginal : 'rgb(204, 204, 204)',
-          },
-
-          data: item.dataOriginal || [],
-        };
-      }
-      return item;
-    });
-    const recalculatedSeries = setBorderRadiusForSeries(updateSeries, barBorderRadius);
-    setVisibleSeries(recalculatedSeries);
-    setLegends(newLegend);
-  };
-
   return (
     <Wrapper>
       <ChartContainer>
@@ -211,7 +175,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
             isLight={isLight}
             onMouseEnter={() => onLegendItemHover(element.name)}
             onMouseLeave={() => onLegendItemLeave(element.name)}
-            onClick={() => toggleSeriesVisibility(element.name)}
+            onClick={() => handleToggleSeries(element.name)}
           >
             <SVGContainer>
               <svg
@@ -221,8 +185,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
                 viewBox="0 0 13 13"
                 fill="none"
               >
-                <circle cx="6.5" cy="6.5" r="5.5" stroke={element.itemStyle.color} />
-                <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.color} />
+                <circle cx="6.5" cy="6.5" r="5.5" stroke={element.itemStyle.colorOriginal} />
+                <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.colorOriginal} />
               </svg>
             </SVGContainer>
             {element.name}

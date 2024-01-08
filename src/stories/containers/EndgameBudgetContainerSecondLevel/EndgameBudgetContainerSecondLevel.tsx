@@ -42,16 +42,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
-    selectedBreakdownMetric,
-    selectedBreakdownGranularity,
-    handleBreakdownMetricChange,
-    handleBreakdownGranularityChange,
-    isDisabled,
-    handleResetFilterBreakDownChart,
-    budgetsAnalyticsMonthly,
-    budgetsAnalyticsQuarterly,
-    series,
-    refBreakDownChart,
+    breakdownChartSectionData,
     changeAlignment,
     breakdownTableSecondLevel,
     makerDAOExpensesMetrics,
@@ -98,17 +89,18 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
         </ContainerSections>
         <BreakdownChartSection
           year={year}
-          selectedMetric={selectedBreakdownMetric}
-          selectedGranularity={selectedBreakdownGranularity}
-          onMetricChange={handleBreakdownMetricChange}
-          onGranularityChange={handleBreakdownGranularityChange}
-          isDisabled={isDisabled}
-          handleResetFilter={handleResetFilterBreakDownChart}
+          selectedMetric={breakdownChartSectionData.selectedBreakdownMetric}
+          selectedGranularity={breakdownChartSectionData.selectedBreakdownGranularity}
+          onMetricChange={breakdownChartSectionData.handleBreakdownMetricChange}
+          onGranularityChange={breakdownChartSectionData.handleBreakdownGranularityChange}
+          isDisabled={breakdownChartSectionData.isDisabled}
+          handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
           budgets={budgets}
-          budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
-          budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
-          series={series}
-          refBreakDownChart={refBreakDownChart}
+          budgetsAnalyticsMonthly={breakdownChartSectionData.budgetsAnalyticsMonthly}
+          budgetsAnalyticsQuarterly={breakdownChartSectionData.budgetsAnalyticsQuarterly}
+          series={breakdownChartSectionData.series}
+          handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
+          refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
         />
       </Container>
       <ConditionalWrapper period={breakdownTableSecondLevel.periodFilter}>

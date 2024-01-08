@@ -21,6 +21,7 @@ export interface BreakdownChartSectionProps {
   budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined;
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
   series: BreakdownChartSeriesData[];
+  handleToggleSeries: (series: string) => void;
   refBreakDownChart: React.RefObject<EChartsOption | null>;
 }
 
@@ -36,11 +37,15 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
   budgetsAnalyticsMonthly,
   budgetsAnalyticsQuarterly,
   series,
+  handleToggleSeries,
   refBreakDownChart,
 }) => (
   <Section>
     <HeaderContainer>
-      <SectionTitle title="Breakdown Chart" tooltip="No data" />
+      <SectionTitle
+        title="Breakdown Chart"
+        tooltip="Explore comprehensive financial data by adjusting the chart's time granularity and selecting specific metrics for tailored insights."
+      />
       <BreakdownChartFilter
         selectedMetric={selectedMetric}
         selectedGranularity={selectedGranularity}
@@ -58,6 +63,7 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
       budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
       selectedGranularity={selectedGranularity as AnalyticGranularity}
       series={series}
+      handleToggleSeries={handleToggleSeries}
       refBreakDownChart={refBreakDownChart}
     />
   </Section>
