@@ -44,14 +44,19 @@ const SpacedValues = styled.div({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    gap: 16,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 32,
-  },
 });
 
 const Span = styled.span<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
+  minWidth: 77.5,
+  textAlign: 'center',
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: 83.5,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    minWidth: 93.5,
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    minWidth: 80,
+  },
 }));
