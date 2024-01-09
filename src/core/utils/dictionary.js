@@ -150,6 +150,7 @@ const dictionary = [
   'Wireframes',
   'Echarts',
   'toggleable',
+  'Roadmaps',
 ];
 
 module.exports = dictionary;

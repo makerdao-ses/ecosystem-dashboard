@@ -12,11 +12,15 @@ const MilestoneCard: React.FC = () => {
     <Card isLight={isLight}>
       <TitleBox>
         <TitleContainer>
-          <MilestoneNumber>M1</MilestoneNumber>
-          <Code isLight={isLight}>BASE</Code>
-          <Title isLight={isLight}>Exploration base</Title>
+          <CodeBox>
+            <MilestoneNumber>M1</MilestoneNumber>
+            <Code isLight={isLight}>BASE</Code>
+          </CodeBox>
+          <NameBox>
+            <Name isLight={isLight}>Exploration base</Name>
+            <Quarter>Q4’23</Quarter>
+          </NameBox>
         </TitleContainer>
-        <Quarter>Q4’23</Quarter>
       </TitleBox>
       <DescriptionBox isLight={isLight}>
         <DescriptionTitle isLight={isLight}>Exploration Base</DescriptionTitle>
@@ -49,14 +53,13 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#FFF' : '#1E2C37',
   borderRadius: 6,
   boxShadow: isLight ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
-  padding: 16,
+  padding: 8,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: 24,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: 8,
     gap: 8,
   },
 
@@ -71,13 +74,13 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
 
 const TitleBox = styled.div({
   display: 'flex',
-  justifyContent: 'space-between',
-  width: '100%',
+  justifyContent: 'center',
   alignItems: 'center',
-  alignSelf: 'stretch',
+  padding: '4px 0',
+  width: '100%',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingBottom: 8,
+    padding: '0 0 8px',
   },
 });
 
@@ -85,27 +88,34 @@ const TitleContainer = styled.div({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
+  justifyContent: 'space-between',
+  width: '100%',
+});
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    gap: 12,
+const CodeBox = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 4,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 8,
   },
 });
 
-const MilestoneNumber = styled.span(() => ({
-  display: 'none',
-  color: '#708390',
+const MilestoneNumber = styled.span({
+  color: '#B6BCC2',
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'inline',
+    fontWeight: 600,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
   },
-}));
+});
 
 const Code = styled.span<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
@@ -119,11 +129,27 @@ const Code = styled.span<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Title = styled.span<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#25273D' : '#D2D4EF',
-  fontSize: 14,
-  fontWeight: 500,
-  lineHeight: '18px',
+const NameBox = styled.div({
+  display: 'flex',
+  padding: '0 4px',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  borderRadius: 4,
+  background: 'rgba(236, 239, 249, 0.50)',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    background: 'none',
+    justifyContent: 'flex-end',
+    padding: 0,
+  },
+});
+
+const Name = styled.span<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#231536' : '#D2D4EF',
+  fontSize: 16,
+  fontWeight: 600,
+  lineHeight: 'normal',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
@@ -131,10 +157,15 @@ const Title = styled.span<WithIsLight>(({ isLight }) => ({
 }));
 
 const Quarter = styled.span(() => ({
-  color: '#708390',
-  fontSize: 14,
-  fontWeight: 600,
+  color: '#B6BCC2',
+  fontSize: 16,
+  fontWeight: 700,
   lineHeight: 'normal',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+    fontWeight: 600,
+  },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
