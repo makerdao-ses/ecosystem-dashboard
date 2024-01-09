@@ -73,24 +73,24 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     },
     breakpoints: {
       768: {
-        slidesPerView: 4,
+        slidesPerView: 'auto',
         spaceBetween: 16,
       },
       1024: {
-        slidesPerView: 4,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
       1280: {
-        slidesPerView: 5,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
       1440: {
-        slidesPerView: 6,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
       1920: {
-        slidesPerView: 8,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
     },
   } as SwiperProps;
@@ -301,12 +301,9 @@ const SwiperWrapper = styled.div({
       maxWidth: 150,
     },
   },
-  '& .swiper-wrapper': {
-    height: 225,
-  },
-
   '& .swiper-pagination-horizontal': {
-    bottom: '0px !important',
+    position: 'relative',
+    marginTop: 24,
   },
   '& .swiper-pagination-bullet': {
     width: 16,
