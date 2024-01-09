@@ -3,6 +3,7 @@ import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import MobileProgressBar from './MobileProgressBar';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const MilestoneCard: React.FC = () => {
@@ -22,27 +23,45 @@ const MilestoneCard: React.FC = () => {
           </NameBox>
         </TitleContainer>
       </TitleBox>
-      <DescriptionBox isLight={isLight}>
-        <DescriptionTitle isLight={isLight}>Exploration Base</DescriptionTitle>
-        <Description isLight={isLight}>
-          A first deployment that integrates the different deliverables. Focus is on exploration of open design
-          questions (removing uncertainty).
-        </Description>
-      </DescriptionBox>
-      <BottomBox>
-        <XBox>
-          <ProgressBox>
-            <Label isLight={isLight}>Progress</Label>
+      <MobileOnlyBox>
+        <DescriptionBox isLight={isLight}>
+          <Description isLight={isLight}>
+            A first deployment that integrates the different deliverables. Focus is on exploration of open design
+            questions (removing uncertainty).
+          </Description>
+        </DescriptionBox>
 
-            <ProgressBarBox>
-              <ProgressBar isLight={isLight} progress={0.75} />
-              <ProgressLabel isLight={isLight}>75%</ProgressLabel>
-            </ProgressBarBox>
-          </ProgressBox>
-        </XBox>
+        <MobileProgressBox>
+          <ProgressContainer>
+            <MobileProgressBar value={55} />
+          </ProgressContainer>
+          <ViewButton isLight={isLight} label="View" />
+        </MobileProgressBox>
+      </MobileOnlyBox>
 
-        <ViewButton isLight={isLight} label="View" />
-      </BottomBox>
+      <TabletAndDesktopOnlyBox>
+        <DescriptionBox isLight={isLight}>
+          <DescriptionTitle isLight={isLight}>Exploration Base</DescriptionTitle>
+          <Description isLight={isLight}>
+            A first deployment that integrates the different deliverables. Focus is on exploration of open design
+            questions (removing uncertainty).
+          </Description>
+        </DescriptionBox>
+        <BottomBox>
+          <XBox>
+            <ProgressBox>
+              <Label isLight={isLight}>Progress</Label>
+
+              <ProgressBarBox>
+                <ProgressBar isLight={isLight} progress={0.75} />
+                <ProgressLabel isLight={isLight}>75%</ProgressLabel>
+              </ProgressBarBox>
+            </ProgressBox>
+          </XBox>
+
+          <ViewButton isLight={isLight} label="View" />
+        </BottomBox>
+      </TabletAndDesktopOnlyBox>
     </Card>
   );
 };
@@ -57,7 +76,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: 24,
+  gap: 4,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 8,
@@ -172,6 +191,45 @@ const Quarter = styled.span(() => ({
     fontWeight: 700,
   },
 }));
+
+const MobileOnlyBox = styled.div({
+  display: 'flex',
+  alignSelf: 'stretch',
+  gap: 8,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+});
+
+const TabletAndDesktopOnlyBox = styled.div({
+  display: 'none',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'stretch',
+    gap: 10,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 16,
+  },
+});
+
+const MobileProgressBox = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  minWidth: 114,
+  padding: '8px 4px 0px 4px',
+  gap: 8,
+});
+
+const ProgressContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+});
 
 const BottomBox = styled.div({
   display: 'flex',
@@ -296,18 +354,18 @@ const ProgressLabel = styled.span<WithIsLight>(({ isLight }) => ({
 }));
 
 const DescriptionBox = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'none',
   flexDirection: 'column',
   alignItems: 'center',
   alignSelf: 'stretch',
   gap: 16,
-  padding: 16,
+  padding: 8,
   borderRadius: 6,
   background: isLight ? 'rgba(246, 248, 249, 0.50)' : 'rgba(112, 129, 144, 0.20)',
   boxShadow: isLight ? '1px 3px 7px 0px rgba(0, 0, 0, 0.05) inset' : '1px 3px 7px 0px rgba(9, 35, 68, 0.40) inset',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
+    padding: 16,
   },
 }));
 
@@ -326,18 +384,22 @@ const DescriptionTitle = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'none',
   color: isLight ? '#546978' : '#D2D4EF',
   fontSize: 14,
   lineHeight: 'normal',
-  textAlign: 'center',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
+  textAlign: 'left',
   maxWidth: '100%',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+    textAlign: 'center',
+  },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
