@@ -73,24 +73,24 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     },
     breakpoints: {
       768: {
-        slidesPerView: 4,
+        slidesPerView: 'auto',
         spaceBetween: 16,
       },
       1024: {
-        slidesPerView: 4,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
       1280: {
-        slidesPerView: 5,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
       1440: {
-        slidesPerView: 6,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
       1920: {
-        slidesPerView: 8,
-        spaceBetween: 2,
+        slidesPerView: 'auto',
+        spaceBetween: 8,
       },
     },
   } as SwiperProps;
@@ -288,6 +288,7 @@ const CardWrapper = styled.div({
 
 const SwiperWrapper = styled.div({
   display: 'none',
+  position: 'relative',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 32,
     display: 'block',
@@ -300,12 +301,9 @@ const SwiperWrapper = styled.div({
       maxWidth: 150,
     },
   },
-  '& .swiper-wrapper': {
-    height: 230,
-  },
-
   '& .swiper-pagination-horizontal': {
-    marginTop: 59,
+    position: 'relative',
+    marginTop: 24,
   },
   '& .swiper-pagination-bullet': {
     width: 16,
