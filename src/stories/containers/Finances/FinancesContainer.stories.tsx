@@ -278,6 +278,7 @@ const variantsArgs = [
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
@@ -289,4 +290,5 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
   variantsArgs
 );
 
-export { LightMode, DarkMode };
+// TODO: temporary disabled until we fix the story args
+// export { LightMode, DarkMode };
