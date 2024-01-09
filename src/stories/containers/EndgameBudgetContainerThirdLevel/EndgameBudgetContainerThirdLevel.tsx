@@ -288,6 +288,7 @@ const CardWrapper = styled.div({
 
 const SwiperWrapper = styled.div({
   display: 'none',
+  position: 'relative',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 32,
     display: 'block',
@@ -301,11 +302,11 @@ const SwiperWrapper = styled.div({
     },
   },
   '& .swiper-wrapper': {
-    height: 230,
+    height: 225,
   },
 
   '& .swiper-pagination-horizontal': {
-    marginTop: 59,
+    bottom: '0px !important',
   },
   '& .swiper-pagination-bullet': {
     width: 16,
