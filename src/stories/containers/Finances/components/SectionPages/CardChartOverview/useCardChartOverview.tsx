@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material';
 import {
   existingColors,
   existingColorsDark,
@@ -6,13 +7,16 @@ import {
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import lightTheme from '@ses/styles/theme/light';
 import { useState } from 'react';
 import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
-import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 const prefixToRemove = 'End-game';
 
-export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BudgetAnalytic | undefined) => {
+export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BreakdownBudgetAnalytic | undefined) => {
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
   const { isLight } = useThemeContext();
@@ -44,17 +48,17 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
         ? removePrefix(correspondingBudget.name, prefixToRemove)
         : 'There is not name';
       const budgetCode = correspondingBudget?.code || 'No-code';
-      metric.actuals += budgetMetric.actuals.value || 0;
-      metric.forecast += budgetMetric.forecast.value || 0;
-      metric.budget += budgetMetric.budget.value || 0;
-      metric.paymentsOnChain += budgetMetric.paymentsOnChain.value || 0;
+      metric.actuals += budgetMetric[0].actuals.value || 0;
+      metric.forecast += budgetMetric[0].forecast.value || 0;
+      metric.budget += budgetMetric[0].budget.value || 0;
+      metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
       budgetMetrics[budgetMetricKey] = {
         name: budgetName,
-        actuals: budgetMetric.actuals,
-        forecast: budgetMetric.forecast,
-        budget: budgetMetric.budget,
-        paymentsOnChain: budgetMetric.paymentsOnChain,
-        paymentsOffChainIncluded: budgetMetric.paymentsOffChainIncluded,
+        actuals: budgetMetric[0].actuals,
+        forecast: budgetMetric[0].forecast,
+        budget: budgetMetric[0].budget,
+        paymentsOnChain: budgetMetric[0].paymentsOnChain,
+        paymentsOffChainIncluded: budgetMetric[0].paymentsOffChainIncluded,
         code: budgetCode,
       };
     }
@@ -63,43 +67,44 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
   const handleSelectFilter = (item: FilterDoughnut) => {
     setFilterSelected(item);
   };
-  const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics)
-    .map((item, index) => {
-      let value;
-      switch (filterSelected) {
-        case 'Actual':
-          value = budgetMetrics[item].actuals.value || 0;
-          break;
-        case 'Forecast':
-          value = budgetMetrics[item].forecast.value || 0;
-          break;
-        case 'Net Expenses On-chain':
-          value = budgetMetrics[item].paymentsOnChain.value || 0;
-          break;
-        case 'Net Expenses Off-chain':
-          value = budgetMetrics[item].paymentsOffChainIncluded.value || 0;
-          break;
-        case 'Budget':
-        default:
-          value = budgetMetrics[item].budget.value || 0;
-          break;
-      }
+  const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics).map((item, index) => {
+    let value;
+    switch (filterSelected) {
+      case 'Actual':
+        value = budgetMetrics[item].actuals.value || 0;
+        break;
+      case 'Forecast':
+        value = budgetMetrics[item].forecast.value || 0;
+        break;
+      case 'Net Expenses On-chain':
+        value = budgetMetrics[item].paymentsOnChain.value || 0;
+        break;
+      case 'Net Expenses Off-chain':
+        value = budgetMetrics[item].paymentsOffChainIncluded.value || 0;
+        break;
+      case 'Budget':
+      default:
+        value = budgetMetrics[item].budget.value || 0;
+        break;
+    }
 
-      return {
-        name: budgetMetrics[item].name || 'No name',
-        code: budgetMetrics[item].code || 'No code',
-        value,
-        originalValue: value,
-        actuals: budgetMetrics[item].actuals.value,
-        budgetCap: budgetMetrics[item].budget.value,
-        percent: Math.round(percentageRespectTo(value, metric.budget)),
-        color: isLight ? colorsLight[index] : colorsDark[index],
-        isVisible: true,
-        originalColor: isLight ? colorsLight[index] : colorsDark[index],
-      };
-    })
-    .filter((item) => item.name !== 'Other' && item.name !== 'Example budget code');
-  const cutTextForBigNumberLegend = doughnutSeriesData.length > 4;
+    return {
+      name: budgetMetrics[item].name || 'No name',
+      code: budgetMetrics[item].code || 'No code',
+      value,
+      originalValue: value,
+      actuals: budgetMetrics[item].actuals.value,
+      budgetCap: budgetMetrics[item].budget.value,
+      percent: Math.round(percentageRespectTo(value, metric.budget)),
+      color: isLight ? colorsLight[index] : colorsDark[index],
+      isVisible: true,
+      originalColor: isLight ? colorsLight[index] : colorsDark[index],
+    };
+  });
+  const changeAlignment = doughnutSeriesData.length > 4;
+
+  const showSwiper = !!((isTable || isDesk1024) && doughnutSeriesData.length > 4);
+
   return {
     actuals: metric.actuals,
     prediction: metric.forecast,
@@ -109,6 +114,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Budget
     handleSelectFilter,
     filters,
     doughnutSeriesData,
-    cutTextForBigNumberLegend,
+    changeAlignment,
+    showSwiper,
   };
 };

@@ -1,4 +1,5 @@
 import type { SortEnum } from '@ses/core/enums/sortEnum';
+import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 import type { BudgetMetric } from '@ses/core/models/interfaces/analytic';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { DateTime } from 'luxon';
@@ -15,6 +16,7 @@ export interface NavigationCard {
   color: string;
   code?: string;
 }
+
 export interface DoughnutSeries {
   name: string;
   value: number;
@@ -26,6 +28,13 @@ export interface DoughnutSeries {
   isVisible?: boolean;
   originalColor?: string;
   originalValue?: number;
+}
+
+export interface BarChartSeries {
+  name: string;
+  seriesName: string;
+  color: string;
+  value: number;
 }
 
 export type PeriodicSelectionFilter = 'Monthly' | 'Quarterly' | 'Annually' | 'Semi-annual';
@@ -46,18 +55,13 @@ export interface MomentDataItem extends Team {
   totalActuals: number;
   lastModified: DateTime;
 }
-export type Metric = 'Budget' | 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
-export interface MetricsWithAmount {
-  name: Metric;
-  amount: number;
-}
-
+export type Metric = 'Budget' | 'Actuals' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain';
 export interface MetricValues {
   Budget: number;
-  Actual: number;
+  Actuals: number;
   Forecast: number;
-  'Net Expenses On-chain': number;
-  'Net Expenses Off-chain': number;
+  PaymentsOnChain: number;
+  PaymentsOffChainIncluded: number;
 }
 
 export interface ValueSeriesBreakdownChart {
@@ -72,14 +76,6 @@ export interface SeriesBreakdownChart {
   data: ValueSeriesBreakdownChart[];
 }
 
-export interface MakerDAOExpenseMetricsLineChart {
-  Atlas: boolean;
-  Forecast: boolean;
-  Actuals: boolean;
-  'Net Expenses On-chain': boolean;
-  'Net Expenses Off-chain': boolean;
-}
-
 export interface BudgetMetricWithName extends BudgetMetric {
   name: string;
   code?: string;
@@ -87,8 +83,8 @@ export interface BudgetMetricWithName extends BudgetMetric {
 
 export interface BreakdownChartSeriesData {
   name: string;
-  data: number[];
-  dataOriginal: number[];
+  data: ValuesDataWithBorder[];
+  dataOriginal: ValuesDataWithBorder[];
   type: 'bar';
   stack: 'x';
   barWidth: number;
@@ -98,4 +94,30 @@ export interface BreakdownChartSeriesData {
     colorOriginal: string;
   };
   isVisible: boolean;
+}
+
+export interface LineChartSeriesData {
+  name: string;
+  data: number[];
+  type: 'line';
+  itemStyle: {
+    color: string;
+  };
+  isVisible: boolean;
+}
+
+export interface ItemRow {
+  name: string;
+  isMain?: boolean;
+  columns: MetricValues[];
+}
+
+export interface TableFinances {
+  tableName: string;
+  rows: ItemRow[];
+  others?: boolean;
+}
+
+export interface RowItemMetrics {
+  [key: string]: MetricValues[];
 }

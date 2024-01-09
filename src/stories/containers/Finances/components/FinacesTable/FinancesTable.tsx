@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { showOnlySixteenRowsWithOthers, sortDataByElementCount } from '../../utils/utils';
 import CellTable from './CellTable';
-import type { QuarterlyBudget, RowsItems } from '../../utils/mockData';
-import type { PeriodicSelectionFilter } from '../../utils/types';
+import type { MetricValues, PeriodicSelectionFilter, ItemRow, TableFinances } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   className?: string;
-  breakdownTable: QuarterlyBudget[];
+  breakdownTable: TableFinances[];
   metrics: string[];
   year: string;
   period: PeriodicSelectionFilter;
@@ -19,8 +19,8 @@ interface Props {
 
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period }) => {
   const { isLight } = useThemeContext();
-  const orderData = sortDataByElementCount(breakdownTable);
 
+  const orderData = sortDataByElementCount(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
 
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : 3;
@@ -31,69 +31,45 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
-
-  // Show color for others depending if number are odd or even
-  const isEven = showFooterAndCorrectNumber.length % 2 === 0;
-
+  const newMetrics = metrics.map((metric) =>
+    metric === 'Net Expenses On-chain'
+      ? 'PaymentsOnChain'
+      : metric === 'Net Expenses Off-chain'
+      ? 'PaymentsOffChainIncluded'
+      : metric
+  );
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-      {showFooterAndCorrectNumber.map((table, index) => (
+      {showFooterAndCorrectNumber.map((table: TableFinances, index) => (
         <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
           <TableBody isLight={isLight}>
-            {table.rows.map((row: RowsItems) => (
-              <TableRow isLight={isLight} isMain={row.isMain}>
+            {table.rows.map((row: ItemRow, index) => (
+              <TableRow key={index} isLight={isLight} isMain={row.isMain}>
                 <Headed isLight={isLight} period={period}>
                   {row.name}
                 </Headed>
                 {showAnnual &&
-                  metrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => (
-                      <Cell isLight={isLight} period={period}>
-                        11044445
-                      </Cell>
-                    )
-                  )}
+                  newMetrics.map((metric) => (
+                    <Cell key={index} isLight={isLight} period={period}>
+                      {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
+                    </Cell>
+                  ))}
                 {showQuarterly &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
+                  arrayMetrics.map((_, index) => (
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
+                  ))}
                 {showSemiAnnual &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
+                  arrayMetrics.map((_, index) => (
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
+                  ))}
                 {showMonthly &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
+                  arrayMetrics.map((_, index) => (
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
+                  ))}
               </TableRow>
             ))}
           </TableBody>
-          {table.others && (
-            <Footer isLight={isLight} isEven={isEven} period={period}>
-              <FooterRow>
-                <FooterCell>Others</FooterCell>
-                {showAnnual &&
-                  metrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => (
-                      <Cell isLight={isLight} period={period}>
-                        11044445
-                      </Cell>
-                    )
-                  )}
-                {!showAnnual &&
-                  arrayMetrics.map(
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    (_) => <CellTable metrics={metrics} />
-                  )}
-              </FooterRow>
-            </Footer>
-          )}
         </TableContainer>
       ))}
     </>
@@ -217,41 +193,3 @@ const Cell = styled.td<WithIsLight & { period: PeriodicSelectionFilter }>(({ isL
     padding: '16px 20px',
   },
 }));
-
-const Footer = styled.tfoot<WithIsLight & { isEven: boolean; period: PeriodicSelectionFilter }>(
-  ({ isLight, isEven, period }) => ({
-    color: isLight ? '#231536' : '#D2D4EF',
-
-    '& td:first-of-type': {
-      borderBottomLeftRadius: 6,
-      borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
-      padding: '16px 4px 16px 8px',
-      fontFamily: 'Inter, sans-serif',
-      fontWeight: 400,
-      fontSize: 14,
-      [lightTheme.breakpoints.up('desktop_1280')]: {
-        padding: '16px 0px 16px 32px',
-      },
-    },
-    backgroundColor: isLight ? (!isEven ? '#ffffff' : '#F5F5F5') : isEven ? '#18252E' : '#1f2d37',
-
-    '& td:last-of-type': {
-      borderBottomRightRadius: 6,
-      borderRight: 'none',
-
-      backgroundColor: isLight
-        ? isEven
-          ? 'rgba(209, 222, 230, 0.20)'
-          : 'rgba(159, 175, 185, 0.10)'
-        : !isEven
-        ? '#17232C'
-        : '#111C23',
-    },
-    '& tr:last-of-type td:last-of-type': {
-      borderBottomRightRadius: 6,
-    },
-  })
-);
-
-const FooterRow = styled.tr({});
-const FooterCell = styled.td({});

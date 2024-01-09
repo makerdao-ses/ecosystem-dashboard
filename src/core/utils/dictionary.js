@@ -123,6 +123,7 @@ const dictionary = [
   'deco',
   'Feedblack',
   'Coldirion',
+  'Coldiron',
   'Gnosis',
   'Blockies',
   'Blockie',
@@ -149,6 +150,8 @@ const dictionary = [
   'Wireframes',
   'Echarts',
   'linecap',
+  'toggleable',
+  'Roadmaps',
 ];
 
 module.exports = dictionary;

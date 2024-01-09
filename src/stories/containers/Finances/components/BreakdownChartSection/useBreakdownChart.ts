@@ -2,10 +2,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useRef, useState } from 'react';
-import { atlasBudget, legacyBudget, processingData, scopeBudget } from '../../utils/utils';
-import { parseAnalyticsToSeriesBreakDownChart } from './utis';
-import type { Metric, ValueSeriesBreakdownChart } from '../../utils/types';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+
+import { parseAnalyticsToSeriesBreakDownChart, setBorderRadiusForSeries } from './utils';
+import type { Metric } from '../../utils/types';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
@@ -13,14 +13,8 @@ const useBreakdownChart = (
   budgets: Budget[],
   budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined,
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined,
-  budgetsAnalyticsAnnual: BudgetAnalytic | undefined
+  budgetsAnalyticsAnnual: BreakdownBudgetAnalytic | undefined
 ) => {
-  const [isShowSeries, setIsShowSeries] = useState({
-    'Endgame Atlas': true,
-    'Endgame Scopes': true,
-    'MakerDAO Legacy': true,
-  });
-
   const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const { isLight } = useThemeContext();
   const refBreakDownChart = useRef<EChartsOption | null>(null);
@@ -28,61 +22,36 @@ const useBreakdownChart = (
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const barWidth = isMobile ? 16 : isTablet ? 40 : isDesktop1024 ? 40 : 56;
+  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
+  const barWidth = isMobile
+    ? selectedBreakdownGranularity === 'Quarterly'
+      ? 32
+      : selectedBreakdownGranularity === 'Annually'
+      ? 96
+      : 16
+    : isTablet
+    ? 40
+    : isDesktop1024 || isDesktop1280
+    ? selectedBreakdownGranularity === 'Annually'
+      ? 168
+      : selectedBreakdownGranularity === 'Quarterly'
+      ? 64
+      : 40
+    : 56;
 
   const handleBreakdownMetricChange = (value: string) => setSelectedBreakdownMetric(value);
   const handleBreakdownGranularityChange = (value: string) => {
     setSelectedBreakdownGranularity(value);
   };
   const barBorderRadius = isMobile ? 4 : 6;
-  const itemStyleBottom = {
-    borderRadius: [0, 0, barBorderRadius, barBorderRadius],
-  };
-  const itemStyleTop = {
-    borderRadius: [barBorderRadius, barBorderRadius, 0, 0],
-  };
-  const itemStyleFull = {
-    borderRadius: [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius],
-  };
-  const itemStyledNoBorders = {
-    borderRadius: [0, 0, 0, 0],
-  };
-  const valuesAtlasBudget = processingData(isShowSeries['Endgame Atlas'] ? atlasBudget : []);
-  const valuesScopeBudget = processingData(isShowSeries['Endgame Scopes'] ? scopeBudget : []);
-  const valuesLegacyBudget = processingData(isShowSeries['MakerDAO Legacy'] ? legacyBudget : []);
 
-  const newAtlasBudgetWithBorders = valuesAtlasBudget.map((item, index: number) => ({
-    value: item.value,
-    itemStyle:
-      valuesScopeBudget[index].value === 0 && valuesLegacyBudget[index].value === 0 ? itemStyleFull : itemStyleBottom,
-  })) as ValueSeriesBreakdownChart[];
-
-  const newScopeBudgetWithBorders = valuesScopeBudget.map((item, index: number) => ({
-    value: item.value,
-    itemStyle:
-      valuesAtlasBudget[index].value === 0 && valuesLegacyBudget[index].value === 0
-        ? itemStyleFull
-        : valuesAtlasBudget[index].value === 0 && valuesLegacyBudget[index].value !== 0
-        ? itemStyleBottom
-        : valuesAtlasBudget[index].value !== 0 && valuesLegacyBudget[index].value === 0
-        ? itemStyleTop
-        : valuesAtlasBudget[index].value !== 0 && valuesLegacyBudget[index].value !== 0
-        ? itemStyledNoBorders
-        : itemStyleTop,
-  })) as ValueSeriesBreakdownChart[];
-
-  const newLegacyBudgetWithBorders = valuesLegacyBudget.map((item, index: number) => ({
-    value: item.value,
-    itemStyle:
-      valuesAtlasBudget[index].value === 0 && valuesScopeBudget[index].value === 0 ? itemStyleFull : itemStyleTop,
-  })) as ValueSeriesBreakdownChart[];
   const isDisabled = selectedBreakdownMetric === 'Budget' && selectedBreakdownGranularity === 'Monthly';
   const handleResetFilterBreakDownChart = () => {
     setSelectedBreakdownMetric('Budget');
     setSelectedBreakdownGranularity('Monthly');
   };
 
-  let budgetsAnalytics: BreakdownBudgetAnalytic | BudgetAnalytic | undefined;
+  let budgetsAnalytics: BreakdownBudgetAnalytic | undefined;
   switch (selectedBreakdownGranularity) {
     case 'Monthly':
       budgetsAnalytics = budgetsAnalyticsMonthly;
@@ -97,7 +66,7 @@ const useBreakdownChart = (
       budgetsAnalytics = undefined;
   }
 
-  const series = useMemo(
+  const seriesWithoutBorder = useMemo(
     () =>
       parseAnalyticsToSeriesBreakDownChart(
         budgetsAnalytics,
@@ -109,18 +78,49 @@ const useBreakdownChart = (
     [barWidth, budgets, budgetsAnalytics, isLight, selectedBreakdownMetric]
   );
 
+  const allSeries = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);
+
+  // series to be "hidden" in the chart
+  const [inactiveSeries, setInactiveSeries] = useState<string[]>([]);
+  const handleToggleSeries = (toggleSeries: string) => {
+    setInactiveSeries(
+      inactiveSeries.includes(toggleSeries)
+        ? inactiveSeries.filter((series) => series !== toggleSeries)
+        : [...inactiveSeries, toggleSeries]
+    );
+  };
+  const series = useMemo(() => {
+    const xx = allSeries.map((item) => {
+      if (inactiveSeries.includes(item.name)) {
+        return {
+          ...item,
+          isVisible: false,
+          itemStyle: {
+            ...item.itemStyle,
+            colorOriginal: '#ccc',
+          },
+          data: item.data.map(() => ({
+            value: 0, // set value to 0 to hide the bar
+            itemStyle: { borderRadius: [0, 0, 0, 0] },
+          })),
+        };
+      }
+
+      return item;
+    });
+
+    return setBorderRadiusForSeries(xx, barBorderRadius);
+  }, [allSeries, barBorderRadius, inactiveSeries]);
+
   return {
     selectedBreakdownMetric,
     selectedBreakdownGranularity,
     handleBreakdownMetricChange,
     handleBreakdownGranularityChange,
-    newAtlasBudgetWithBorders,
-    newScopeBudgetWithBorders,
-    newLegacyBudgetWithBorders,
-    isShowSeries,
-    setIsShowSeries,
+
     isDisabled,
     handleResetFilterBreakDownChart,
+    handleToggleSeries,
     series,
     isMobile,
     isTablet,

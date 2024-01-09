@@ -11,6 +11,7 @@ import { useBreakdownTable } from '../Finances/components/SectionPages/Breakdown
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
 import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
+import { useMakerDAOExpenseMetrics } from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
 import {
   existingColors,
   existingColorsDark,
@@ -21,16 +22,16 @@ import {
   prefixToRemove,
   removePrefix,
 } from '../Finances/utils/utils';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { SwiperProps } from 'swiper/react';
-
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css';
 
 export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYear: string, allBudgets: Budget[]) => {
+  const [year, setYear] = useState(initialYear);
   const router = useRouter();
   const levelPath = 'atlas/' + router.query.firstPath?.toString() + '/' + router.query.secondPath?.toString();
   const { isLight } = useThemeContext();
@@ -39,7 +40,13 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const { data: budgetsAnalytics } = useSWRImmutable(
     ['analytics/annual', levelPath],
     async () =>
-      getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
+      getBudgetsAnalytics(
+        'annual',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
   );
 
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
@@ -81,7 +88,8 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     actuals,
     budgetCap,
     prediction,
-    cutTextForBigNumberLegend,
+    changeAlignment,
+    showSwiper,
   } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
@@ -98,7 +106,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const icon = titleFirstPathBudget?.image || '';
 
   const title = removePrefix(titleFirstPathBudget?.name || '', prefixToRemove) || '';
-  const [year, setYear] = useState(initialYear);
 
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
@@ -128,14 +135,14 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     const budgetMetric =
       budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
         ? budgetsAnalytics[item.codePath]
-        : newBudgetMetric();
+        : [newBudgetMetric()];
 
     return {
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-      valueDai: budgetMetric.budget.value,
+      valueDai: budgetMetric[0].budget.value,
       totalDai: allMetrics.budget,
       code: item.code,
       color: isLight ? colorsLight[index] : colorsDark[index],
@@ -152,11 +159,11 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const trailingAddressDesk = [
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
     {
       label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
-      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}`,
+      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}?year=${year}`,
     },
     ...breadcrumbs.map((adr) => ({
       label: adr,
@@ -172,11 +179,11 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     })),
     {
       label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
-      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}`,
+      url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}?year=${year}`,
     },
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
   ];
 
@@ -215,22 +222,10 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   } as SwiperProps;
 
   // All Logic for the table
-  const {
-    periodFilter,
-    defaultMetricsWithAllSelected,
-    activeMetrics,
-    handlePeriodChange,
-    handleResetMetrics,
-    handleSelectChangeMetrics,
-    selectMetrics,
+  const breakdownTableThirdLevel = useBreakdownTable(year, budgets, allBudgets);
 
-    getAllMetricsValuesTotal,
-    maxItems,
-    minItems,
-    allowSelectAll,
-    periodicSelectionFilter,
-    popupContainerHeight,
-  } = useBreakdownTable();
+  // All the logic required by the MakerDAOExpenseMetrics
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
@@ -251,7 +246,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     prediction,
     cardsNavigationInformation,
     doughnutSeriesData,
-    ...breakdownChartSectionData,
+    breakdownChartSectionData,
     filtersThirdLevel,
     selectedThirdLevel,
     handleSelectFilterThirdLevel,
@@ -259,22 +254,11 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     loadMoreCards,
     cardsToShow,
     isLight,
-    periodFilter,
-    defaultMetricsWithAllSelected,
-    activeMetrics,
-    handlePeriodChange,
-    handleResetMetrics,
-    handleSelectChangeMetrics,
-    selectMetrics,
-    getAllMetricsValuesTotal,
-    maxItems,
-    minItems,
-    allowSelectAll,
-    popupContainerHeight,
-    periodicSelectionFilter,
+    breakdownTableThirdLevel,
     swiperOptions,
-    cutTextForBigNumberLegend,
-
+    changeAlignment,
+    makerDAOExpensesMetrics,
     expenseReportSection,
+    showSwiper,
   };
 };

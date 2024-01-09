@@ -1,18 +1,22 @@
 import styled from '@emotion/styled';
+import { filterActiveMetrics, monthAbbreviations } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import CellMonthly from './CellMonthly';
-import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
+import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  metrics: MetricsWithAmount[];
   title: string;
-  months: string[];
+  headerTable: MetricValues[];
+  activeMetrics: string[];
 }
 
-export const HeaderMonthly: React.FC<Props> = ({ metrics, title, months }) => {
+export const HeaderMonthly: React.FC<Props> = ({ title, activeMetrics, headerTable }) => {
+  const keysMetrics = [...monthAbbreviations, 'Total'];
+  const metricsActive = filterActiveMetrics(activeMetrics, headerTable);
+
   const { isLight } = useThemeContext();
   return (
     <Container isLight={isLight}>
@@ -22,10 +26,9 @@ export const HeaderMonthly: React.FC<Props> = ({ metrics, title, months }) => {
         </ContainerTitle>
         <ContainerYear>
           <ContainerAnnuallyCell>
-            {months.map((month) => (
-              <CellMonthly metrics={metrics} title={month} key={month} />
+            {keysMetrics.map((month, index) => (
+              <CellMonthly metrics={metricsActive[index]} title={month} key={month} activeMetrics={activeMetrics} />
             ))}
-            <CellMonthlyTotally metrics={metrics} title="Total" isTotal />
           </ContainerAnnuallyCell>
         </ContainerYear>
       </ContainerAnnually>
@@ -69,6 +72,8 @@ const ContainerAnnuallyCell = styled.div({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
+  paddingTop: 10,
+  paddingBottom: 10,
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
@@ -96,8 +101,4 @@ const ContainerYear = styled.div({
   flex: 1,
   flexDirection: 'column',
   alignItems: 'center',
-});
-
-const CellMonthlyTotally = styled(CellMonthly)({
-  width: 85,
 });

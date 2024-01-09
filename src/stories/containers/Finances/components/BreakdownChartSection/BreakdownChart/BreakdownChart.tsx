@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
 import { formatterBreakDownChart, getGranularity } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
@@ -8,10 +9,10 @@ import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
 import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
-
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
+
 interface BreakdownChartProps {
   year: string;
   budgets: Budget[];
@@ -19,10 +20,17 @@ interface BreakdownChartProps {
   budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined;
   budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
   series: BreakdownChartSeriesData[];
+  handleToggleSeries: (series: string) => void;
   refBreakDownChart: React.RefObject<EChartsOption | null>;
 }
 
-const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart, series, selectedGranularity }) => {
+const BreakdownChart: React.FC<BreakdownChartProps> = ({
+  year,
+  refBreakDownChart,
+  series,
+  handleToggleSeries,
+  selectedGranularity,
+}) => {
   const { isLight } = useThemeContext();
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -32,7 +40,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
 
   const [visibleSeries, setVisibleSeries] = useState<BreakdownChartSeriesData[]>(series);
   const [legends, setLegends] = useState<BreakdownChartSeriesData[]>(series);
-
+  const showLineYear =
+    isMobile && (selectedGranularity as string) !== 'Quarterly' && (selectedGranularity as string) !== 'Annually';
   useEffect(() => {
     setVisibleSeries(series);
     setLegends(series);
@@ -48,6 +57,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
     interval: 0,
   };
   const options: EChartsOption = {
+    tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile),
     grid: {
       height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
       width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
@@ -140,40 +150,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
     });
   };
 
-  const toggleSeriesVisibility = (seriesName: string) => {
-    const newArray = visibleSeries.map((item) => {
-      if (item.name === seriesName) {
-        const isVisible = !item.isVisible;
-        return {
-          ...item,
-          isVisible,
-          data: isVisible ? item.dataOriginal : [],
-        };
-      }
-      return item;
-    });
-    // iterate through legends
-    const newLegend = legends.map((item) => {
-      if (item.name === seriesName) {
-        const isVisible = !item.isVisible;
-        return {
-          ...item,
-          isVisible,
-          itemStyle: {
-            ...item.itemStyle,
-            color: isVisible ? item?.itemStyle.colorOriginal : 'rgb(204, 204, 204)',
-          },
-
-          data: item.dataOriginal || [],
-        };
-      }
-      return item;
-    });
-
-    setVisibleSeries(newArray);
-    setLegends(newLegend);
-  };
-
   return (
     <Wrapper>
       <ChartContainer>
@@ -186,21 +162,22 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
           }}
           opts={{ renderer: 'svg' }}
         />
-        {isMobile && (
+        {showLineYear && (
           <YearXAxis isLight={isLight}>
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>
         )}
       </ChartContainer>
       <LegendContainer>
-        {legends.map((element) => (
+        {legends.map((element, index) => (
           <LegendItem
+            key={index}
             isLight={isLight}
             onMouseEnter={() => onLegendItemHover(element.name)}
             onMouseLeave={() => onLegendItemLeave(element.name)}
-            onClick={() => toggleSeriesVisibility(element.name)}
+            onClick={() => handleToggleSeries(element.name)}
           >
-            <div>
+            <SVGContainer>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={isMobile ? 13 : 16}
@@ -208,10 +185,10 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({ year, refBreakDownChart
                 viewBox="0 0 13 13"
                 fill="none"
               >
-                <circle cx="6.5" cy="6.5" r="5.5" stroke={element.itemStyle.color} />
-                <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.color} />
+                <circle cx="6.5" cy="6.5" r="5.5" stroke={element.itemStyle.colorOriginal} />
+                <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.colorOriginal} />
               </svg>
-            </div>
+            </SVGContainer>
             {element.name}
           </LegendItem>
         ))}
@@ -327,3 +304,8 @@ const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '22px',
   },
 }));
+
+const SVGContainer = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});

@@ -2,9 +2,11 @@ import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import FinancesContainer from '@ses/containers/Finances/FinancesContainer';
 import { fetchBudgets } from '@ses/containers/Finances/api/queries';
 import { getYearsRange, getBudgetsAnalytics } from '@ses/containers/Finances/utils/utils';
+import { BudgetContext } from '@ses/core/context/BudgetContext';
 import { featureFlags } from 'feature-flags/feature-flags';
+import { useEffect, useState } from 'react';
 import { SWRConfig } from 'swr';
-import type { BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -12,14 +14,26 @@ interface Props {
   budgets: Budget[];
   yearsRange: string[];
   initialYear: string;
-  fallback: BudgetAnalytic;
+  fallback: BreakdownBudgetAnalytic;
+  allBudget: Budget[];
 }
 
-export default function Finances({ budgets, yearsRange, initialYear, fallback }: Props) {
+export default function Finances({ budgets, yearsRange, initialYear, fallback, allBudget }: Props) {
+  const [allBudgets, setAllBudgets] = useState<Budget[]>(allBudget);
+  useEffect(() => {
+    setAllBudgets(allBudgets);
+  }, [allBudgets]);
   return (
-    <SWRConfig value={{ fallback }}>
-      <FinancesContainer budgets={budgets} yearsRange={yearsRange} initialYear={initialYear} />
-    </SWRConfig>
+    <BudgetContext.Provider
+      value={{
+        allBudgets,
+        setCurrentBudget: setAllBudgets,
+      }}
+    >
+      <SWRConfig value={{ fallback }}>
+        <FinancesContainer budgets={budgets} yearsRange={yearsRange} initialYear={initialYear} />
+      </SWRConfig>
+    </BudgetContext.Provider>
   );
 }
 
@@ -37,19 +51,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       notFound: true,
     };
   }
-
-  const budgets = (await fetchBudgets())
+  const allBudget = await fetchBudgets();
+  const budgets = allBudget
     .filter((budget) => budget.parentId === null)
-    .map((item) => {
-      if (item.codePath === '142') {
-        return {
-          ...item,
-          codePath: 'atlas/legacy',
-        };
-      } else {
-        return item;
-      }
-    });
+    .map((item) =>
+      item.codePath === '142'
+        ? {
+            ...item,
+            codePath: 'atlas/legacy',
+          }
+        : item
+    );
 
   const budgetsAnalytics = await getBudgetsAnalytics('annual', initialYear, 'atlas', 1, budgets);
   return {
@@ -57,6 +69,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       budgets,
       yearsRange,
       initialYear,
+      allBudget,
       fallback: {
         'analytics/annual': budgetsAnalytics,
       },

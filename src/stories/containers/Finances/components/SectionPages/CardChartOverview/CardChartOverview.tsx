@@ -16,7 +16,9 @@ interface Props {
   prediction: number;
   doughnutSeriesData: DoughnutSeries[];
   isCoreThirdLevel: boolean;
-  cutTextForBigNumberLegend: boolean;
+  changeAlignment: boolean;
+  showSwiper: boolean;
+  numberSliderPerLevel?: number;
 }
 const CardChartOverview: React.FC<Props> = ({
   filterSelected,
@@ -27,7 +29,9 @@ const CardChartOverview: React.FC<Props> = ({
   prediction,
   doughnutSeriesData,
   isCoreThirdLevel,
-  cutTextForBigNumberLegend,
+  changeAlignment,
+  showSwiper,
+  numberSliderPerLevel,
 }) => {
   const { isLight } = useThemeContext();
   const handleOnclick = (item: FilterDoughnut) => () => {
@@ -57,7 +61,9 @@ const CardChartOverview: React.FC<Props> = ({
           <DoughnutChartFinances
             doughnutSeriesData={doughnutSeriesData}
             isCoreThirdLevel={isCoreThirdLevel}
-            cutTextForBigNumberLegend={cutTextForBigNumberLegend}
+            changeAlignment={changeAlignment}
+            showSwiper={showSwiper}
+            numberSliderPerLevel={numberSliderPerLevel}
           />
         </ContainerChat>
       </ContainerCardChart>

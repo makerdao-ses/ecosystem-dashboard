@@ -1,4 +1,4 @@
-import { BudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/budgetAnalyticBuilder';
+import { BreakdownBudgetAnalyticBuilder } from '@ses/core/businessLogic/builders/analyticBuilder';
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BreakdownChartSection from './BreakdownChartSection';
@@ -13,6 +13,7 @@ const meta: Meta<typeof BreakdownChartSection> = {
     chromatic: {
       viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
+      delay: 5000,
     },
   },
 };
@@ -40,149 +41,161 @@ const args = [
     ],
     budgetsAnalyticsMonthly: {
       'atlas/legacy': [
-        new BudgetAnalyticBuilder()
-          .withMetric('atlas/legacy', {
-            actuals: {
-              unit: 'DAI',
-              value: 456,
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
             },
-            budget: {
-              unit: 'DAI',
-              value: 456,
-            },
-            forecast: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOffChainIncluded: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOnChain: {
-              unit: 'DAI',
-              value: 456,
-            },
-          })
+          ])
           .build(),
-        new BudgetAnalyticBuilder()
-          .withMetric('atlas/legacy', {
-            actuals: {
-              unit: 'DAI',
-              value: 456,
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
             },
-            budget: {
-              unit: 'DAI',
-              value: 456,
-            },
-            forecast: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOffChainIncluded: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOnChain: {
-              unit: 'DAI',
-              value: 456,
-            },
-          })
+          ])
           .build(),
-        new BudgetAnalyticBuilder()
-          .withMetric('atlas/legacy', {
-            actuals: {
-              unit: 'DAI',
-              value: 456,
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
             },
-            budget: {
-              unit: 'DAI',
-              value: 456,
-            },
-            forecast: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOffChainIncluded: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOnChain: {
-              unit: 'DAI',
-              value: 456,
-            },
-          })
+          ])
           .build(),
-        new BudgetAnalyticBuilder()
-          .withMetric('atlas/legacy', {
-            actuals: {
-              unit: 'DAI',
-              value: 456,
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
             },
-            budget: {
-              unit: 'DAI',
-              value: 456,
-            },
-            forecast: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOffChainIncluded: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOnChain: {
-              unit: 'DAI',
-              value: 456,
-            },
-          })
+          ])
           .build(),
-        new BudgetAnalyticBuilder()
-          .withMetric('atlas/legacy', {
-            actuals: {
-              unit: 'DAI',
-              value: 456,
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
             },
-            budget: {
-              unit: 'DAI',
-              value: 456,
-            },
-            forecast: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOffChainIncluded: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOnChain: {
-              unit: 'DAI',
-              value: 456,
-            },
-          })
+          ])
           .build(),
-        new BudgetAnalyticBuilder()
-          .withMetric('atlas/legacy', {
-            actuals: {
-              unit: 'DAI',
-              value: 456,
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
             },
-            budget: {
-              unit: 'DAI',
-              value: 456,
-            },
-            forecast: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOffChainIncluded: {
-              unit: 'DAI',
-              value: 456,
-            },
-            paymentsOnChain: {
-              unit: 'DAI',
-              value: 456,
-            },
-          })
+          ])
           .build(),
       ],
     },

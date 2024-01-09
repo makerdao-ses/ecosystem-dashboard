@@ -172,7 +172,7 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
                         onChange?.(typeof item === 'string' ? item : item.value);
                       }}
                     >
-                      {typeof item === 'string' ? item : 'Object Not Supported!'}
+                      {typeof item === 'string' ? item : item.label}
                     </CustomMenuItem>
                   ))}
                 </MenuList>

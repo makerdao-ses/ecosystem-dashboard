@@ -1,7 +1,7 @@
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from '../Finances/components/BreakdownChartSection/useBreakdownChart';
@@ -9,6 +9,7 @@ import { useBreakdownTable } from '../Finances/components/SectionPages/Breakdown
 import { useCardChartOverview } from '../Finances/components/SectionPages/CardChartOverview/useCardChartOverview';
 import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
+import { useMakerDAOExpenseMetrics } from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
 import {
   existingColors,
   existingColorsDark,
@@ -19,13 +20,13 @@ import {
   prefixToRemove,
   removePrefix,
 } from '../Finances/utils/utils';
-import type { Metric, MetricsWithAmount } from '../Finances/utils/types';
-import type { BreakdownBudgetAnalytic, BudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialYear: string, allBudgets: Budget[]) => {
   const { isLight } = useThemeContext();
+  const [year, setYear] = useState(initialYear);
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
@@ -33,7 +34,13 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const { data: budgetsAnalytics } = useSWRImmutable(
     ['analytics/annual', levelPath],
     async () =>
-      getBudgetsAnalytics('annual', year, levelPath, getLevelOfBudget(levelPath), budgets) as Promise<BudgetAnalytic>
+      getBudgetsAnalytics(
+        'annual',
+        year,
+        levelPath,
+        getLevelOfBudget(levelPath),
+        budgets
+      ) as Promise<BreakdownBudgetAnalytic>
   );
   const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
     ['analytics/quarterly', levelPath],
@@ -73,14 +80,14 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     const budgetMetric =
       budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
         ? budgetsAnalytics[item.codePath]
-        : newBudgetMetric();
+        : [newBudgetMetric()];
 
     return {
       image: item.image || '',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
-      valueDai: budgetMetric.budget.value,
+      href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
+      valueDai: budgetMetric[0].budget.value,
       totalDai: allMetrics.budget,
       color: isLight ? colorsLight[index] : colorsDark[index],
     };
@@ -101,7 +108,8 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     actuals,
     budgetCap,
     prediction,
-    cutTextForBigNumberLegend,
+    changeAlignment,
+    showSwiper,
   } = useCardChartOverview(budgets, budgetsAnalytics);
 
   // all the logic required by the breakdown chart section
@@ -113,41 +121,23 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   );
 
   // Hooks Logic of Table Second Level
-  const {
-    activeMetrics,
-    allowSelectAll,
-    defaultMetricsWithAllSelected,
-    maxItems,
-    minItems,
-    selectMetrics,
-    handleResetMetrics,
-    popupContainerHeight,
-    periodFilter,
-    handlePeriodChange,
-    periodicSelectionFilter,
-    handleSelectChangeMetrics,
-  } = useBreakdownTable();
+  const breakdownTableSecondLevel = useBreakdownTable(year, budgets, allBudgets);
 
   const expenseReportSection = useDelegateExpenseTrendFinances();
 
   const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
 
-  const [year, setYear] = useState(initialYear);
   const icon = levelBudget?.image || '';
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
-    router.push(
-      {
-        pathname: `${siteRoutes.newFinancesOverview}/[firstPath]`,
-        query: {
-          firstPath: router.query.firstPath,
-          year: value,
-        },
-      }
-      /* undefined,
-      { shallow: true } */
-    );
+    router.push({
+      pathname: `${siteRoutes.newFinancesOverview}/[firstPath]`,
+      query: {
+        firstPath: router.query.firstPath,
+        year: value,
+      },
+    });
   };
 
   useEffect(() => {
@@ -159,7 +149,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const trailingAddressDesk = [
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
     ...breadcrumbs.map((adr) => ({
       label: adr,
@@ -174,44 +164,12 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     })),
     {
       label: 'Finances',
-      url: `${siteRoutes.newFinancesOverview}`,
+      url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
   ];
-  const mapMetricValuesTotal = useMemo(() => {
-    const mapMetricValues: Record<Metric, number> = {
-      Budget: 11044445,
-      Actual: 11044445,
-      Forecast: 11044445,
-      'Net Expenses On-chain': 11044445,
-      'Net Expenses Off-chain': 11044445,
-    };
-    return mapMetricValues;
-  }, []);
 
-  const getAllMetricsValuesTotal = useCallback(() => {
-    const metricValues: MetricsWithAmount[] = [];
-    if (periodFilter === 'Quarterly') {
-      activeMetrics.forEach((metric: string) => {
-        const amount = mapMetricValuesTotal[metric as Metric] || 0;
-        if (amount !== undefined) {
-          metricValues.push({
-            name: metric as Metric,
-            amount,
-          });
-        }
-      });
-    }
-    if (periodFilter === 'Annually' || periodFilter === 'Monthly' || periodFilter === 'Semi-annual') {
-      activeMetrics.forEach((metric: string) => {
-        metricValues.push({
-          name: metric as Metric,
-          amount: 11044445,
-        });
-      });
-    }
-
-    return metricValues;
-  }, [activeMetrics, mapMetricValuesTotal, periodFilter]);
+  // All the logic required by the MakerDAOExpenseMetrics
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
@@ -230,30 +188,20 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     filters,
     filterSelected,
     doughnutSeriesData,
-    ...breakdownChartSectionData,
+    breakdownChartSectionData,
     actuals,
     budgetCap,
     prediction,
     handleSelectFilter,
     cardsNavigationInformation,
-    getAllMetricsValuesTotal,
-    activeMetrics,
-    allowSelectAll,
-    defaultMetricsWithAllSelected,
-    maxItems,
-    minItems,
-    selectMetrics,
-    handleResetMetrics,
-    popupContainerHeight,
-    periodFilter,
-    handlePeriodChange,
-    periodicSelectionFilter,
-    handleSelectChangeMetrics,
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
-    cutTextForBigNumberLegend,
+    changeAlignment,
 
+    makerDAOExpensesMetrics,
     expenseReportSection,
+    breakdownTableSecondLevel,
+    showSwiper,
   };
 };

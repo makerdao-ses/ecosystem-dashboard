@@ -43,6 +43,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
           <DelegateExpenseTrendItem
             key={index}
             expenseReport={expense}
+            selectedMetric={filterProps.selectedMetric}
             link={getLinkLastExpenseReport(expense.shortCode, expenseReport)}
           />
         ))}
@@ -70,6 +71,7 @@ const Container = styled.div({
 const HeaderContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  flexWrap: 'wrap',
   gap: 24,
   marginBottom: 24,
 

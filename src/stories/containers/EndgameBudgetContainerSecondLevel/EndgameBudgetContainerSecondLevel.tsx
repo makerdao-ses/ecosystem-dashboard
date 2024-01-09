@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreakdownChartSection from '../Finances/components/BreakdownChartSection/BreakdownChartSection';
@@ -12,7 +13,7 @@ import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/B
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from '../Finances/components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
-import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
+import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useEndgameBudgetContainerSecondLevel } from './useEndgameBudgetContainerSecondLevel';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 interface Props {
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, allBudgets }) => {
+  const [isEnabled] = useFlagsActive();
   const {
     trailingAddressDesk,
     trailingAddress,
@@ -37,34 +39,15 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
     actuals,
     budgetCap,
     prediction,
-    getAllMetricsValuesTotal,
-    activeMetrics,
-    allowSelectAll,
-    defaultMetricsWithAllSelected,
-    maxItems,
-    minItems,
-    selectMetrics,
-    popupContainerHeight,
-    periodFilter,
-    handlePeriodChange,
-    handleResetMetrics,
-    periodicSelectionFilter,
-    handleSelectChangeMetrics,
     handleLoadMoreCards,
     loadMoreCards,
     cardsToShow,
-    selectedBreakdownMetric,
-    selectedBreakdownGranularity,
-    handleBreakdownMetricChange,
-    handleBreakdownGranularityChange,
-    isDisabled,
-    handleResetFilterBreakDownChart,
-    budgetsAnalyticsMonthly,
-    budgetsAnalyticsQuarterly,
-    series,
-    refBreakDownChart,
-    cutTextForBigNumberLegend,
+    breakdownChartSectionData,
+    changeAlignment,
+    breakdownTableSecondLevel,
+    makerDAOExpensesMetrics,
     expenseReportSection,
+    showSwiper,
   } = useEndgameBudgetContainerSecondLevel(budgets, initialYear, allBudgets);
 
   return (
@@ -93,7 +76,9 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={false}
-              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
+              changeAlignment={changeAlignment}
+              showSwiper={showSwiper}
+              numberSliderPerLevel={3}
             />
           </WrapperDesk>
           <WrapperMobile>
@@ -107,40 +92,51 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
         </ContainerSections>
         <BreakdownChartSection
           year={year}
-          selectedMetric={selectedBreakdownMetric}
-          selectedGranularity={selectedBreakdownGranularity}
-          onMetricChange={handleBreakdownMetricChange}
-          onGranularityChange={handleBreakdownGranularityChange}
-          isDisabled={isDisabled}
-          handleResetFilter={handleResetFilterBreakDownChart}
+          selectedMetric={breakdownChartSectionData.selectedBreakdownMetric}
+          selectedGranularity={breakdownChartSectionData.selectedBreakdownGranularity}
+          onMetricChange={breakdownChartSectionData.handleBreakdownMetricChange}
+          onGranularityChange={breakdownChartSectionData.handleBreakdownGranularityChange}
+          isDisabled={breakdownChartSectionData.isDisabled}
+          handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
           budgets={budgets}
-          budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
-          budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
-          series={series}
-          refBreakDownChart={refBreakDownChart}
+          budgetsAnalyticsMonthly={breakdownChartSectionData.budgetsAnalyticsMonthly}
+          budgetsAnalyticsQuarterly={breakdownChartSectionData.budgetsAnalyticsQuarterly}
+          series={breakdownChartSectionData.series}
+          handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
+          refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
         />
       </Container>
-      <ConditionalWrapper period={periodFilter}>
+      <ConditionalWrapper period={breakdownTableSecondLevel.periodFilter}>
         <BreakdownTable
-          handleResetMetrics={defaultMetricsWithAllSelected}
-          activeItems={activeMetrics}
-          handleResetFilter={handleResetMetrics}
-          handleChange={handlePeriodChange}
-          metrics={selectMetrics}
-          periodicSelectionFilter={periodicSelectionFilter}
-          selectedValue={periodFilter}
+          handleResetMetrics={breakdownTableSecondLevel.defaultMetricsWithAllSelected}
+          activeItems={breakdownTableSecondLevel.activeMetrics}
+          handleResetFilter={breakdownTableSecondLevel.handleResetMetrics}
+          handleChange={breakdownTableSecondLevel.handlePeriodChange}
+          metrics={breakdownTableSecondLevel.selectMetrics}
+          periodicSelectionFilter={breakdownTableSecondLevel.periodicSelectionFilter}
+          selectedValue={breakdownTableSecondLevel.periodFilter}
           year={year}
-          headerTableMetrics={getAllMetricsValuesTotal()}
-          metricTotal={getAllMetricsValuesTotal()}
-          maxItems={maxItems}
-          minItems={minItems}
-          allowSelectAll={allowSelectAll}
-          popupContainerHeight={popupContainerHeight}
-          handleSelectChange={handleSelectChangeMetrics}
-          breakdownTable={mockDataTableQuarterlyArray}
+          maxItems={breakdownTableSecondLevel.maxItems}
+          minItems={breakdownTableSecondLevel.minItems}
+          allowSelectAll={breakdownTableSecondLevel.allowSelectAll}
+          popupContainerHeight={breakdownTableSecondLevel.popupContainerHeight}
+          handleSelectChange={breakdownTableSecondLevel.handleSelectChangeMetrics}
+          breakdownTable={breakdownTableSecondLevel.tableBody ?? []}
+          isLoading={breakdownTableSecondLevel.isLoading}
+          headerTable={breakdownTableSecondLevel.tableHeader ?? []}
         />
       </ConditionalWrapper>
       <Container>
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
+          <MakerDAOExpenseMetricsFinances
+            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+            series={makerDAOExpensesMetrics.series}
+            handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
+            isLoading={makerDAOExpensesMetrics.isLoading}
+            year={year}
+          />
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}
@@ -154,6 +150,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
             sortClick={expenseReportSection.onSortClick}
             handleLoadMore={expenseReportSection.handleLoadMore}
             showAllItems={expenseReportSection.showAllItems}
+            allItemsCount={expenseReportSection.expenseItemsCount}
           />
         </ContainerLastReport>
       </Container>

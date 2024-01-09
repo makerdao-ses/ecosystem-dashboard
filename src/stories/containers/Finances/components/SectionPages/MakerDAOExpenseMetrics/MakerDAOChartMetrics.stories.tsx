@@ -1,4 +1,4 @@
-import { atlasBudget, legacyBudget, scopeBudget } from '@ses/containers/Finances/utils/utils';
+import { buildExpenseMetricsLineChartSeries } from '@ses/containers/Finances/utils/utils';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import MakerDAOExpenseMetricsFinances from './MakerDAOExpenseMetrics';
 import type { Meta } from '@storybook/react';
@@ -16,22 +16,31 @@ const meta: Meta<typeof MakerDAOExpenseMetricsFinances> = {
 };
 export default meta;
 
+const chartData = {
+  budget: [123434, 123434, 123434, 123434, 100000, 250000, 900000, 1250000, 0, 1400000, 1400000, 1500000],
+  forecast: [123434, 123434, 123434, 123434, 100000, 250000, 900000, 1250000, 0, 1400000, 1400000, 1500000],
+  actuals: [123434, 123434, 123434, 123434, 100000, 250000, 900000, 1250000, 0, 1400000, 1400000, 1500000],
+  onChain: [123434, 123434, 123434, 123434, 100000, 250000, 900000, 1250000, 0, 1400000, 1400000, 1500000],
+  offChain: [123434, 123434, 123434, 123434, 100000, 250000, 900000, 1250000, 0, 1400000, 1400000, 1500000],
+};
 const args = [
   {
     year: 2023,
-    newActuals: atlasBudget,
-    newBudget: scopeBudget,
-    newForecast: legacyBudget,
-    newNetExpensesOffChain: atlasBudget,
-    newNetExpensesOnChain: scopeBudget,
-    periodicSelectionFilter: ['Monthly'],
+    series: buildExpenseMetricsLineChartSeries(chartData, [], true),
+    selectedGranularity: 'monthly',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handleChange: (value: string) => null,
-    selectedValue: 'Monthly',
+    handleGranularityChange: (value: string) => null,
+  },
+  {
+    year: 2023,
+    series: buildExpenseMetricsLineChartSeries(chartData, [], false),
+    selectedGranularity: 'monthly',
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    handleGranularityChange: (value: string) => null,
   },
 ];
 
-const [[LightMode, DarkMode]] = createThemeModeVariants(MakerDAOExpenseMetricsFinances, args);
+const [[LightMode], [, DarkMode]] = createThemeModeVariants(MakerDAOExpenseMetricsFinances, args, false);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {

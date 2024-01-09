@@ -3,6 +3,7 @@ import BigButton from '@ses/components/Button/BigButton/BigButton';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -13,15 +14,15 @@ import CardNavigationMobile from '../Finances/components/CardNavigationMobile/Ca
 import ConditionalWrapper from '../Finances/components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from '../Finances/components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from '../Finances/components/SectionPages/BreadcrumbYearNavigation';
-import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable';
+import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/BreakdownTable';
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
-import { mockDataTableQuarterlyArray } from '../Finances/utils/mockData';
+import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainerThirdLevel';
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-import type { SwiperProps, SwiperRef } from 'swiper/react';
+import type { SwiperRef, SwiperProps } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
@@ -35,6 +36,7 @@ interface Props {
 }
 
 const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange, initialYear, allBudgets }) => {
+  const [isEnabled] = useFlagsActive();
   const {
     trailingAddress,
     trailingAddressDesk,
@@ -53,31 +55,12 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     handleLoadMoreCards,
     isLight,
     cardsToShow,
-    periodFilter,
-    defaultMetricsWithAllSelected,
-    activeMetrics,
-    handlePeriodChange,
-    handleResetMetrics,
-    handleSelectChangeMetrics,
-    selectMetrics,
-    periodicSelectionFilter,
-    getAllMetricsValuesTotal,
-    allowSelectAll,
-    maxItems,
-    minItems,
-    popupContainerHeight,
-    selectedBreakdownMetric,
-    selectedBreakdownGranularity,
-    handleBreakdownMetricChange,
-    handleBreakdownGranularityChange,
-    isDisabled,
-    handleResetFilterBreakDownChart,
-    budgetsAnalyticsMonthly,
-    budgetsAnalyticsQuarterly,
-    series,
-    refBreakDownChart,
-    cutTextForBigNumberLegend,
+    breakdownTableThirdLevel,
+    breakdownChartSectionData,
+    changeAlignment,
+    makerDAOExpensesMetrics,
     expenseReportSection,
+    showSwiper,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
@@ -111,6 +94,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
       },
     },
   } as SwiperProps;
+
   return (
     <PageContainer>
       <BreadcrumbYearNavigation
@@ -136,7 +120,8 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               prediction={prediction}
               doughnutSeriesData={doughnutSeriesData}
               isCoreThirdLevel={true}
-              cutTextForBigNumberLegend={cutTextForBigNumberLegend}
+              changeAlignment={changeAlignment}
+              showSwiper={showSwiper}
             />
           </WrapperDesk>
           <WrapperMobile>
@@ -189,45 +174,52 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
         </ContainerSections>
         <BreakdownChartSection
           year={year}
-          selectedMetric={selectedBreakdownMetric}
-          selectedGranularity={selectedBreakdownGranularity}
-          onMetricChange={handleBreakdownMetricChange}
-          onGranularityChange={handleBreakdownGranularityChange}
-          isDisabled={isDisabled}
-          handleResetFilter={handleResetFilterBreakDownChart}
+          selectedMetric={breakdownChartSectionData.selectedBreakdownMetric}
+          selectedGranularity={breakdownChartSectionData.selectedBreakdownGranularity}
+          onMetricChange={breakdownChartSectionData.handleBreakdownMetricChange}
+          onGranularityChange={breakdownChartSectionData.handleBreakdownGranularityChange}
+          isDisabled={breakdownChartSectionData.isDisabled}
+          handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
           budgets={budgets}
-          budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
-          budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
-          series={series}
-          refBreakDownChart={refBreakDownChart}
-          // isMobile={isMobile}
-          // isTablet={isTablet}
-          // isDesktop1024={isDesktop1024}
-          // upTable={upTable}
+          budgetsAnalyticsMonthly={breakdownChartSectionData.budgetsAnalyticsMonthly}
+          budgetsAnalyticsQuarterly={breakdownChartSectionData.budgetsAnalyticsQuarterly}
+          series={breakdownChartSectionData.series}
+          handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
+          refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
         />
       </Container>
 
-      <ConditionalWrapper period={periodFilter}>
+      <ConditionalWrapper period={breakdownTableThirdLevel.periodFilter}>
         <BreakdownTable
-          handleResetMetrics={defaultMetricsWithAllSelected}
-          activeItems={activeMetrics}
-          handleChange={handlePeriodChange}
-          handleResetFilter={handleResetMetrics}
-          handleSelectChange={handleSelectChangeMetrics}
-          metrics={selectMetrics}
-          periodicSelectionFilter={periodicSelectionFilter}
-          selectedValue={periodFilter}
+          handleResetMetrics={breakdownTableThirdLevel.defaultMetricsWithAllSelected}
+          activeItems={breakdownTableThirdLevel.activeMetrics}
+          handleChange={breakdownTableThirdLevel.handlePeriodChange}
+          handleResetFilter={breakdownTableThirdLevel.handleResetMetrics}
+          handleSelectChange={breakdownTableThirdLevel.handleSelectChangeMetrics}
+          metrics={breakdownTableThirdLevel.selectMetrics}
+          periodicSelectionFilter={breakdownTableThirdLevel.periodicSelectionFilter}
+          selectedValue={breakdownTableThirdLevel.periodFilter}
           year={year}
-          headerTableMetrics={getAllMetricsValuesTotal()}
-          metricTotal={getAllMetricsValuesTotal()}
-          maxItems={maxItems}
-          minItems={minItems}
-          allowSelectAll={allowSelectAll}
-          popupContainerHeight={popupContainerHeight}
-          breakdownTable={[mockDataTableQuarterlyArray[0]]}
+          maxItems={breakdownTableThirdLevel.maxItems}
+          minItems={breakdownTableThirdLevel.minItems}
+          allowSelectAll={breakdownTableThirdLevel.allowSelectAll}
+          popupContainerHeight={breakdownTableThirdLevel.popupContainerHeight}
+          breakdownTable={breakdownTableThirdLevel.tableBody ?? []}
+          isLoading={breakdownTableThirdLevel.isLoading}
+          headerTable={breakdownTableThirdLevel.tableHeader ?? []}
         />
       </ConditionalWrapper>
       <Container>
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
+          <MakerDAOExpenseMetricsFinances
+            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+            series={makerDAOExpensesMetrics.series}
+            handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
+            isLoading={makerDAOExpensesMetrics.isLoading}
+            year={year}
+          />
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}
@@ -241,6 +233,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
             sortClick={expenseReportSection.onSortClick}
             handleLoadMore={expenseReportSection.handleLoadMore}
             showAllItems={expenseReportSection.showAllItems}
+            allItemsCount={expenseReportSection.expenseItemsCount}
           />
         </ContainerLastReport>
       </Container>

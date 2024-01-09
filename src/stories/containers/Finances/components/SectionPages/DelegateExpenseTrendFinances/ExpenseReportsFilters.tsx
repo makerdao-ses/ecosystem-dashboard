@@ -4,8 +4,10 @@ import ResetButton from '@ses/components/ResetButton/ResetButton';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { getExpenseReportStatusColor } from '@ses/core/utils/colors';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -16,6 +18,7 @@ export interface ExpenseReportsFiltersProps {
   onStatusSelectChange: (value: string[]) => void;
   statusesItems: MultiSelectItem[];
   handleResetFilter: () => void;
+  allItemsCount: number;
 }
 
 const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
@@ -25,10 +28,11 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
   onStatusSelectChange,
   statusesItems,
   handleResetFilter,
+  allItemsCount,
 }) => {
   const { isLight } = useThemeContext();
   const isDisabled = selectedMetric === 'Actual' && selectedStatuses.length === 0;
-  const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? 'red' : '#48495F';
+  const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
 
   return (
     <FilterContainer>
@@ -47,7 +51,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           useSelectedAsLabel
           selected={selectedMetric}
           onChange={onMetricChange}
-          items={['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain']}
+          items={['Budget', 'Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain']}
           PopperProps={{
             placement: 'bottom-end',
           }}
@@ -64,13 +68,12 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           popupContainerWidth={256}
           listItemWidth={224}
           customAll={{
-            content: 'All',
+            content: <FilterChip text="All" />,
             id: 'all',
             params: { isAll: true },
-            count: 0,
+            count: allItemsCount,
           }}
           popupContainerHeight={220}
-          //   customItemRender={(props: SelectItemProps) => <ExpenseReportStatus status={BudgetStatus.Draft} />}
         />
       </SelectContainer>
 
@@ -83,11 +86,44 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
 
 export default ExpenseReportsFilters;
 
+export const FilterChip: React.FC<{ status?: BudgetStatus; text?: string }> = ({
+  status = BudgetStatus.Draft,
+  text,
+}) => {
+  const { isLight } = useThemeContext();
+  const variantColor = useMemo(() => getExpenseReportStatusColor(status), [status]);
+
+  return (
+    <ExpenseReportStatusStyled isLight={isLight} variantColorSet={variantColor}>
+      {text ?? status}
+    </ExpenseReportStatusStyled>
+  );
+};
+
+const ExpenseReportStatusStyled = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string } }>(
+  ({ isLight, variantColorSet }) => ({
+    fontFamily: 'Inter, sans-serif',
+    display: 'flex',
+    alignItems: 'center',
+    fontWeight: 400,
+    fontSize: '11px',
+    borderRadius: '12px',
+    padding: '4px 8px',
+    height: '22px',
+    width: 'fit-content',
+    lineHeight: '13px',
+    border: `1px solid ${isLight ? variantColorSet.color : variantColorSet.darkColor}`,
+    background: isLight ? variantColorSet.background : variantColorSet.darkBackground,
+    color: isLight ? variantColorSet.color : variantColorSet.darkColor,
+  })
+);
+
 const FilterContainer = styled.div({
   display: 'flex',
   justifyContent: 'flex-end',
   gap: 16,
-  zIndex: 1,
+  marginLeft: 'auto',
+  zIndex: 5,
 });
 
 const Reset = styled.div({
@@ -119,7 +155,9 @@ const ResponsiveButton = styled.div<WithIsLight & { isDisabled: boolean }>(({ is
   justifySelf: 'flex-end',
   height: '34px',
   width: '34px',
-  border: isLight ? `1px solid ${isDisabled ? '#ECEFF9' : '#D4D9E1'}` : `1px solid ${isDisabled ? 'red' : '#10191F'}`,
+  border: isLight
+    ? `1px solid ${isDisabled ? '#ECEFF9' : '#D4D9E1'}`
+    : `1px solid ${isDisabled ? '#10191F' : '#D4D9E1'}`,
   borderRadius: '22px',
   alignItems: 'center',
   justifyContent: 'center',

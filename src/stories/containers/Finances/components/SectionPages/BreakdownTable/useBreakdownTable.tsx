@@ -1,14 +1,36 @@
 import { useMediaQuery } from '@mui/material';
+import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { getMetricByPeriod } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import useSWRImmutable from 'swr/immutable';
+import { convertFilterToGranularity } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { Metric, MetricsWithAmount, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
+import type {
+  ItemRow,
+  MetricValues,
+  PeriodicSelectionFilter,
+  TableFinances,
+} from '@ses/containers/Finances/utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useBreakdownTable = () => {
+interface TableData {
+  [key: string]: Record<string, MetricValues>;
+}
+
+const EMPTY_METRIC_VALUE = {
+  Actuals: 0,
+  Budget: 0,
+  PaymentsOnChain: 0,
+  Forecast: 0,
+  PaymentsOffChainIncluded: 0,
+} as MetricValues;
+
+export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: Budget[]) => {
   const router = useRouter();
+
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
@@ -18,7 +40,7 @@ export const useBreakdownTable = () => {
   const initialValue: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(initialValue);
   const metricsFilter = useMemo(
-    () => ['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
+    () => ['Budget', 'Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
     []
   );
   const val = useMemo(
@@ -28,6 +50,168 @@ export const useBreakdownTable = () => {
   const [activeMetrics, setActiveMetrics] = useState<string[]>(metricsFilter.slice(0, val));
   const maxItems = val;
   const minItems = 1;
+
+  const selectedGranularity = convertFilterToGranularity(periodFilter);
+
+  // fetch data from the API
+  const secondLevel = router.query.firstPath?.toString();
+  const thirdLevel = router.query.secondPath?.toString();
+  const path = `atlas${secondLevel ? `/${secondLevel}${thirdLevel ? `/${thirdLevel}` : ''}` : ''}`;
+
+  let lod = 3;
+  if (secondLevel) lod += 1;
+  if (thirdLevel) {
+    const levels = (thirdLevel ?? '').split('/').filter((level) => level.trim() !== '').length;
+    lod += levels;
+  }
+  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, path, lod], async () =>
+    fetchAnalytics(selectedGranularity, year, path, lod)
+  );
+
+  // create the required data for the table
+  const [tableHeader, tableBody] = useMemo(() => {
+    // occurred an error or the data is loading
+    if (error || !analytics) {
+      return [null, null];
+    }
+
+    const data = {} as TableData;
+
+    // group data in an easier structure to manage
+    analytics.series.forEach((series) => {
+      series.rows.forEach((row) => {
+        const path = row.dimensions[0].path;
+        if (!data[path]) {
+          // create the path as it does not exist
+          data[path] = {};
+        }
+        if (!data[path][series.period]) {
+          // create the period as it does not exist
+          data[path][series.period] = { ...EMPTY_METRIC_VALUE };
+        }
+
+        // add the metric value to the period
+        data[path][series.period][row.metric] += row.value;
+      });
+    });
+
+    // create a table for each budget for the current level
+    const tables = [] as TableFinances[];
+    // a sub-table should be created for each budget available in the current level
+    budgets.forEach((budget) => {
+      const table = {
+        tableName: budget.name,
+        rows: [],
+      } as TableFinances;
+
+      // sub-table rows
+      const rows = Object.keys(data)
+        .filter((path) => path.startsWith(budget.codePath))
+        .map((path) => {
+          const columns = Object.values(data[path]);
+
+          if (selectedGranularity !== 'annual') {
+            // annual does not have totals
+            const total = columns.reduce(
+              (acc, current) => {
+                acc.Actuals += current.Actuals;
+                acc.Budget += current.Budget;
+                acc.PaymentsOnChain += current.PaymentsOnChain;
+                acc.Forecast += current.Forecast;
+                acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
+                return acc;
+              },
+              { ...EMPTY_METRIC_VALUE }
+            );
+
+            columns.push(total);
+          }
+
+          return {
+            name: path,
+            columns,
+          } as ItemRow;
+        });
+
+      const defaultCount = rows?.[0]?.columns?.length ?? 0;
+      const columnsCount =
+        defaultCount !== 0
+          ? defaultCount
+          : selectedGranularity === 'annual'
+          ? 1
+          : selectedGranularity === 'semiAnnual'
+          ? 3
+          : selectedGranularity === 'quarterly'
+          ? 5
+          : 13;
+      // complete sub-table rows with missing sub-budgets
+      const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
+      subBudgets.forEach((subBudget) => {
+        if (!rows.some((row) => row.name === subBudget.codePath)) {
+          rows.push({
+            name: subBudget.codePath,
+            columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
+          });
+        }
+      });
+
+      // add correct rows name
+      rows.forEach((row) => {
+        row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `Unknown: ${row.name}`;
+      });
+
+      if (rows.length === 0) {
+        // this sub table has no data so the sub table should be shown
+        return; // continue
+      }
+
+      // sub-table header
+      const header: ItemRow = {
+        name: budget.name,
+        isMain: true,
+        columns: rows
+          .reduce((acc, current) => {
+            current.columns.forEach((row, index) => {
+              if (!acc[index]) {
+                acc[index] = { ...EMPTY_METRIC_VALUE };
+              }
+
+              acc[index].Actuals += row.Actuals;
+              acc[index].Budget += row.Budget;
+              acc[index].PaymentsOnChain += row.PaymentsOnChain;
+              acc[index].Forecast += row.Forecast;
+              acc[index].PaymentsOffChainIncluded += row.PaymentsOffChainIncluded;
+            });
+
+            return acc;
+          }, Array(rows?.[0]?.columns?.length).fill(null))
+          .filter((item) => item !== null),
+      };
+
+      table.rows = [header, ...rows];
+
+      tables.push(table);
+    });
+
+    // now we create the main table header
+    // it is guaranteed below that all the sub-tables have a header
+    const subTableHeaders = tables.map((table) => table.rows.filter((column) => column.isMain)[0].columns);
+    const tableHeader = subTableHeaders.reduce((acc, current) => {
+      for (let i = 0; i < acc.length; i++) {
+        acc[i].Actuals += current[i].Actuals;
+        acc[i].Budget += current[i].Budget;
+        acc[i].PaymentsOnChain += current[i].PaymentsOnChain;
+        acc[i].Forecast += current[i].Forecast;
+        acc[i].PaymentsOffChainIncluded += current[i].PaymentsOffChainIncluded;
+      }
+      return acc;
+    }, Array.from({ length: subTableHeaders?.[0]?.length }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
+
+    return [tableHeader, tables];
+  }, [allBudgets, analytics, budgets, error, selectedGranularity]);
+
+  const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
+
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
   const popupContainerHeight = allowSelectAll ? 250 : 210;
@@ -82,9 +266,6 @@ export const useBreakdownTable = () => {
     };
   }, [isDesk1024, isDesk1280, isDesk1440, isMobile, periodFilter]);
 
-  const routes = ['Finances'];
-
-  const totalCardsNavigation = 34223;
   const handleSelectChangeMetrics = (value: string[]) => {
     setActiveMetrics(value);
   };
@@ -110,47 +291,6 @@ export const useBreakdownTable = () => {
       })) as MultiSelectItem[],
     [metricsFilter]
   );
-  const trailingAddress = routes.map((adr) => ({
-    label: adr,
-    url: router.asPath,
-  }));
-  const handleResetFilters = () => {
-    console.log('reset-filters');
-  };
-  const mapMetricValuesTotal = useMemo(() => {
-    const mapMetricValues: Record<Metric, number> = {
-      Budget: 11044445,
-      Actual: 11044445,
-      Forecast: 11044445,
-      'Net Expenses On-chain': 11044445,
-      'Net Expenses Off-chain': 11044445,
-    };
-    return mapMetricValues;
-  }, []);
-  const getAllMetricsValuesTotal = useCallback(() => {
-    const metricValues: MetricsWithAmount[] = [];
-    if (periodFilter === 'Quarterly') {
-      activeMetrics.forEach((metric: string) => {
-        const amount = mapMetricValuesTotal[metric as Metric] || 0;
-        if (amount !== undefined) {
-          metricValues.push({
-            name: metric as Metric,
-            amount,
-          });
-        }
-      });
-    }
-    if (periodFilter === 'Annually' || periodFilter === 'Monthly' || periodFilter === 'Semi-annual') {
-      activeMetrics.forEach((metric: string) => {
-        metricValues.push({
-          name: metric as Metric,
-          amount: 11044445,
-        });
-      });
-    }
-
-    return metricValues;
-  }, [activeMetrics, mapMetricValuesTotal, periodFilter]);
 
   return {
     isMobile,
@@ -161,17 +301,14 @@ export const useBreakdownTable = () => {
     minItems,
     allowSelectAll,
     popupContainerHeight,
-    totalCardsNavigation,
-    routes,
     handleSelectChangeMetrics,
     handleResetMetrics,
     defaultMetricsWithAllSelected,
     periodicSelectionFilter,
     handlePeriodChange,
     selectMetrics,
-    trailingAddress,
-    handleResetFilters,
-    mapMetricValuesTotal,
-    getAllMetricsValuesTotal,
+    tableHeader,
+    tableBody,
+    isLoading,
   };
 };

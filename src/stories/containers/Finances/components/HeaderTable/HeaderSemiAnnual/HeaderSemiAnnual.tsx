@@ -1,22 +1,25 @@
 import styled from '@emotion/styled';
+import { filterActiveMetrics, getSemiAnnualForFilters } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import CellSemiAnnual from './CellSemiAnnual';
-import type { MetricsWithAmount, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
+import type { MetricValues, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   title: string;
   className?: string;
-  metrics: MetricsWithAmount[];
-  metricTotal: MetricsWithAmount[];
-  periods: string[];
   period: PeriodicSelectionFilter;
+  headerTable: MetricValues[];
+  activeMetrics: string[];
+  year: string;
 }
 
-const HeaderSemiAnnual: React.FC<Props> = ({ title, className, metrics, periods, metricTotal }) => {
+const HeaderSemiAnnual: React.FC<Props> = ({ title, className, activeMetrics, headerTable, year }) => {
   const { isLight } = useThemeContext();
+  const keysMetrics = [...getSemiAnnualForFilters(year), 'Total'];
+  const metricsActive = filterActiveMetrics(activeMetrics, headerTable);
 
   return (
     <Container isLight={isLight} className={className}>
@@ -25,10 +28,14 @@ const HeaderSemiAnnual: React.FC<Props> = ({ title, className, metrics, periods,
       </TitleContainer>
 
       <ContainerCell>
-        {periods?.map((period, index) => (
-          <CellSemiAnnual metrics={metrics} semiannual={period} key={index} />
+        {keysMetrics?.map((period, index) => (
+          <CellSemiAnnual
+            metrics={metricsActive[index]}
+            semiannual={period}
+            key={index}
+            activeMetrics={activeMetrics}
+          />
         ))}
-        <CellSemiAnnualTotal metrics={metricTotal} semiannual="Total" isTotal />
       </ContainerCell>
     </Container>
   );
@@ -89,8 +96,7 @@ const ContainerCell = styled.div({
   flexDirection: 'row',
   flex: 1,
   alignItems: 'center',
-});
-
-const CellSemiAnnualTotal = styled(CellSemiAnnual)({
-  minHeight: 87,
+  '& > div:last-of-type': {
+    minHeight: 87,
+  },
 });

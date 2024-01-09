@@ -1,28 +1,28 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
+import { breakdownChartMonthly, breakdownChartQuarterly } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
+import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
+import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 interface BreakdownChartProps {
   year: string;
-  newActuals: { value: number }[];
-  newBudget: { value: number }[];
-  newForecast: { value: number }[];
-  newNetExpensesOffChain: { value: number }[];
-  newNetExpensesOnChain: { value: number }[];
+  selectedGranularity: AnalyticGranularity;
+  series: LineChartSeriesData[];
+  handleToggleSeries: (series: string) => void;
 }
 
 const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   year,
-  newActuals,
-  newBudget,
-  newForecast,
-  newNetExpensesOnChain,
-  newNetExpensesOffChain,
+  selectedGranularity,
+  series,
+  handleToggleSeries,
 }) => {
   const { isLight } = useThemeContext();
   const chartRef = useRef<EChartsOption | null>(null);
@@ -43,6 +43,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   };
 
   const options: EChartsOption = {
+    tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile),
     grid: {
       height: isMobile ? 192 : isTablet ? 409 : isDesktop1024 ? 398 : isDesktop1280 ? 399 : 399,
       width: isMobile ? 304 : isTablet ? 645 : isDesktop1024 ? 704 : isDesktop1280 ? 955 : 955,
@@ -51,20 +52,12 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
     },
     xAxis: {
       type: 'category',
-      data: [
-        isMobile ? 'J' : 'JAN',
-        isMobile ? 'F' : 'FEB',
-        isMobile ? 'M' : 'MAR',
-        isMobile ? 'A' : 'APR',
-        isMobile ? 'M' : 'MAY',
-        isMobile ? 'J' : 'JUN',
-        isMobile ? 'J' : 'JUL',
-        isMobile ? 'A' : 'AUG',
-        isMobile ? 'S' : 'SEP',
-        isMobile ? 'O' : 'OCT',
-        isMobile ? 'N' : 'NOV',
-        isMobile ? 'D' : 'DEC',
-      ],
+      data:
+        selectedGranularity === 'monthly'
+          ? breakdownChartMonthly(isMobile)
+          : selectedGranularity === 'quarterly'
+          ? breakdownChartQuarterly()
+          : [''],
       splitLine: {
         show: false,
       },
@@ -132,63 +125,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         },
       },
     },
-    series: [
-      {
-        name: 'Budget',
-        data: newBudget,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#F99374' : '#F77249',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Forecast',
-        data: newForecast,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#447AFB' : '#447AFB',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Actuals',
-        data: newActuals,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#2DC1B1' : '#1AAB9B',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Net Expenses On-chain',
-        data: newNetExpensesOnChain,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#FBCC5F' : 'red',
-        },
-        isVisible: true,
-      },
-      {
-        name: 'Net Expenses Off-chain',
-        data: newNetExpensesOffChain,
-        type: 'line',
-        stack: 'Total',
-        showBackground: false,
-        itemStyle: {
-          color: isLight ? '#7C6B95' : 'red',
-        },
-        isVisible: true,
-      },
-    ],
+    series,
   };
 
   const onLegendItemHover = (legendName: string) => {
@@ -205,14 +142,6 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
       type: 'downplay',
       seriesName: legendName,
     });
-  };
-
-  const onLegendItemClick = (legendName: string, data: { value: number }[]) => {
-    const chartInstance = chartRef.current.getEchartsInstance();
-    const seriesIndex: number = options.series.findIndex((s: { name: string }) => s.name === legendName);
-    options.series[seriesIndex].isVisible = !options.series[seriesIndex].isVisible;
-    options.series[seriesIndex].data = options.series[seriesIndex].isVisible ? data : [];
-    chartInstance.setOption(options);
   };
 
   return (
@@ -233,96 +162,28 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
           </YearXAxis>
         )}
         <LegendContainer>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Budget')}
-            onMouseLeave={() => onLegendItemLeave('Budget')}
-            onClick={() => onLegendItemClick('Budget', newBudget)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
+          {series.map((seriesItem: LineChartSeriesData) => (
+            <LegendItem
+              isLight={isLight}
+              onMouseEnter={() => onLegendItemHover(seriesItem.name)}
+              onMouseLeave={() => onLegendItemLeave(seriesItem.name)}
+              onClick={() => handleToggleSeries(seriesItem.name)}
             >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#F99374' : '#F77249'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#F99374' : '#F77249'} />
-            </svg>
-            Budget
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Forecast')}
-            onMouseLeave={() => onLegendItemLeave('Forecast')}
-            onClick={() => onLegendItemClick('Forecast', newForecast)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#447AFB' : '#447AFB'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#447AFB' : '#447AFB'} />
-            </svg>
-            Forecast
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Actuals')}
-            onMouseLeave={() => onLegendItemLeave('Actuals')}
-            onClick={() => onLegendItemClick('Actuals', newActuals)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#2DC1B1' : '#1AAB9B'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#2DC1B1' : '#1AAB9B'} />
-            </svg>
-            Actuals
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Net Expenses On-chain')}
-            onMouseLeave={() => onLegendItemLeave('Net Expenses On-chain')}
-            onClick={() => onLegendItemClick('Net Expenses On-chain', newNetExpensesOnChain)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#FBCC5F' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#FBCC5F' : 'red'} />
-            </svg>
-            Net Expenses On-chain
-          </LegendItem>
-          <LegendItem
-            isLight={isLight}
-            onMouseEnter={() => onLegendItemHover('Net Expenses Off-chain')}
-            onMouseLeave={() => onLegendItemLeave('Net Expenses Off-chain')}
-            onClick={() => onLegendItemClick('Net Expenses Off-chain', newNetExpensesOffChain)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={isMobile ? 13 : 16}
-              height={isMobile ? 13 : 16}
-              viewBox="0 0 13 13"
-              fill="none"
-            >
-              <circle cx="6.5" cy="6.5" r="5.5" stroke={isLight ? '#7C6B95' : 'red'} />
-              <circle cx="6.5" cy="6.5" r="4" fill={isLight ? '#7C6B95' : 'red'} />
-            </svg>
-            {`${isMobile ? 'Net Expenses Off-chain' : 'Net Expenses Off-chain included'}`}
-          </LegendItem>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={isMobile ? 13 : 16}
+                height={isMobile ? 13 : 16}
+                viewBox="0 0 13 13"
+                fill="none"
+              >
+                <circle cx="6.5" cy="6.5" r="5.5" stroke={seriesItem.itemStyle.color} />
+                <circle cx="6.5" cy="6.5" r="4" fill={seriesItem.itemStyle.color} />
+              </svg>
+              {seriesItem.name === 'Net Expenses Off-chain'
+                ? `${isMobile ? 'Net Expenses Off-chain' : 'Net Expenses Off-chain included'}`
+                : seriesItem.name}
+            </LegendItem>
+          ))}
         </LegendContainer>
       </ChartContainer>
     </Wrapper>
@@ -365,7 +226,7 @@ const ChartContainer = styled.div({
 });
 
 const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
-  const border = `1px solid ${isLight ? '#6EDBD0' : 'red'}`;
+  const border = `1px solid ${isLight ? '#6EDBD0' : '#1AAB9B'}`;
 
   return {
     position: 'absolute',
@@ -384,13 +245,13 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 const YearText = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 11,
   lineHeight: 'normal',
-  color: isLight ? '#139D8D' : 'red',
+  color: isLight ? '#139D8D' : '#1AAB9B',
   position: 'absolute',
   bottom: -6,
   width: 52,
   left: '50%',
   transform: 'translateX(-50%)',
-  backgroundColor: isLight ? '#FFFFFF' : 'red',
+  backgroundColor: isLight ? '#FFFFFF' : '#000000',
   textAlign: 'center',
 }));
 

@@ -1,25 +1,26 @@
 import styled from '@emotion/styled';
-import { returnShortNameForMetric } from '@ses/containers/Finances/utils/utils';
+import { getShortNameForMetric } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { MetricsWithAmount } from '@ses/containers/Finances/utils/types';
+import type { MetricValues } from '@ses/containers/Finances/utils/types';
 
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  metrics: MetricsWithAmount[];
+  metrics: Partial<MetricValues>;
+  activeMetrics: string[];
 }
 
-export const CellAnnually: React.FC<Props> = ({ metrics }) => {
+export const CellAnnually: React.FC<Props> = ({ metrics, activeMetrics }) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerCell isLight={isLight}>
-      {metrics?.map((metric, index) => (
+      {activeMetrics?.map((metric, index) => (
         <Metrics isLight={isLight} key={index}>
-          <Name isLight={isLight}>{returnShortNameForMetric(metric).name}</Name>
-          <Amount isLight={isLight}>{usLocalizedNumber(metric.amount)}</Amount>
+          <Name isLight={isLight}>{getShortNameForMetric(metric)}</Name>
+          <Amount isLight={isLight}>{usLocalizedNumber(metrics[metric as keyof MetricValues] ?? 0)}</Amount>
         </Metrics>
       ))}
     </ContainerCell>

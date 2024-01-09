@@ -1,52 +1,56 @@
-import {
-  delegateWithActuals,
-  filteredDelegatesChart,
-  sumActualsByPeriod,
-} from '@ses/core/businessLogic/recognizedDelegate';
-import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
-
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { RecognizedDelegatesDto, TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
-import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
+import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
+import type { Analytic } from '@ses/core/models/interfaces/analytic';
 
 export const useRecognizedDelegates = (
   delegates: RecognizedDelegatesDto[],
-  delegatesNumbers: ExpenseDto[],
-  totalQuarterlyExpenses: TotalDelegateDto,
-  totalMonthlyExpenses: ExpenseDto[]
+  totalMakerDAOExpenses: number,
+  monthlyAnalytics: Analytic,
+  totalAnalytics: Analytic
 ) => {
+  // delegates selected on the bar chart
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
-  const orderAllMonthExpense = orderBy(totalMonthlyExpenses, ['period']);
-  const totalDelegateMonthly = sumActualsByPeriod(orderAllMonthExpense);
-
-  const resultDelegatesWithActuals = delegateWithActuals(delegates, delegatesNumbers);
-  const totalDAI = delegatesNumbers
-    .map((delegate: ExpenseDto) => delegate.actuals)
-    .reduce((prev, next) => prev + next, 0);
-
   const handleResetFilter = () => {
     setActiveElements([]);
   };
+
+  // add to the delegates the actuals value coming from the "totalAnalytics"
+  const resultDelegatesWithActuals = delegates.map(
+    (delegate) =>
+      ({
+        ...delegate,
+        actuals: totalAnalytics.series?.[0]?.rows?.find((row) =>
+          row.dimensions.some((dimension) => dimension.path.replace('atlas/', '') === delegate.name)
+        )?.value,
+      } as RecognizedDelegatesDto)
+  );
+
+  // Total Reported Expenses using analytics
+  const totalDAI = totalAnalytics.series.reduce(
+    (acc, current) => acc + current.rows.reduce((rowAcc, rowCurrent) => rowCurrent.value + rowAcc, 0),
+    0
+  );
 
   const maxValuesRelative = Math.max(...resultDelegatesWithActuals.map((item) => item.actuals ?? 0));
   const startDate = DateTime.fromISO('2021-11-01');
   const endDate = DateTime.fromISO('2023-03-01');
 
   const recognizedDelegates = delegates.length;
-  // TODO: Those number will be delete next release
   const shadowTotal = 178;
   const mediaAnnual = 73254.1;
-  const delegatesExpenses = totalQuarterlyExpenses.delegatesExpenses[0]?.actuals ?? 0;
+  const delegatesExpenses = totalAnalytics.series.reduce(
+    (acc, current) => acc + current.rows.reduce((rowAcc, rowCurrent) => rowCurrent.value + rowAcc, 0),
+    0
+  );
+  const otherExpenses = totalMakerDAOExpenses - delegatesExpenses;
 
-  const otherExpenses =
-    totalQuarterlyExpenses.totalExpenses[0].actuals - (totalQuarterlyExpenses.delegatesExpenses[0]?.actuals ?? 0);
-
+  // elements for the delegates select filter
   const selectElements = useMemo(
     () =>
       sortBy(resultDelegatesWithActuals, (del) => del.name).map((delegates) => ({
@@ -58,16 +62,38 @@ export const useRecognizedDelegates = (
       })) as MultiSelectItem[],
     [resultDelegatesWithActuals]
   );
+
   const filteredCardsDelegates = resultDelegatesWithActuals.filter((delegate: RecognizedDelegatesDto) =>
     activeElements.includes(delegate.name)
   );
+  // element to render all the delegates in the UI
   const resultFilteredCards =
     activeElements.length === 0
       ? sortBy(resultDelegatesWithActuals, (items) => -items.actuals)
       : sortBy(filteredCardsDelegates, (items) => -items.actuals);
 
-  const resultFilteredChart =
-    activeElements.length === 0 ? totalDelegateMonthly : filteredDelegatesChart(orderAllMonthExpense, activeElements);
+  // get the data for the chart filtering it if there are active elements
+  const resultFilteredChart = useMemo(() => {
+    const data: number[] = [];
+    // each series item represent a month period
+    monthlyAnalytics.series.forEach((item) => {
+      const sum = item.rows
+        .filter((element) =>
+          // we only need the "Actuals" rows
+          element.metric === 'Actuals' && activeElements.length === 0
+            ? true
+            : element.dimensions.some(
+                // if there are active elements, then we can match its name with the dimension path
+                // as it follow the pattern "atlas/<delegate name>"
+                (dimension) => activeElements.includes(dimension.path.replace('atlas/', ''))
+              )
+        )
+        .reduce((acc, current) => acc + current.value, 0);
+      data.push(sum);
+    });
+
+    return data;
+  }, [monthlyAnalytics, activeElements]);
 
   return {
     totalDAI,
@@ -83,7 +109,6 @@ export const useRecognizedDelegates = (
     activeElements,
     handleResetFilter,
     resultFilteredCards,
-    totalDelegateMonthly,
     resultDelegatesWithActuals,
     resultFilteredChart,
     maxValuesRelative,

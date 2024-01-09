@@ -30,11 +30,11 @@ const EndgamePhaseOneProgressContainer: React.FC = () => {
       <Breadcrumb
         items={[
           {
-            label: 'Endgame',
+            label: 'Roadmaps',
             url: siteRoutes.endgame,
           },
           {
-            label: 'Phase 1 Progress',
+            label: 'Endgame Phase 1',
             url: siteRoutes.endgamePhaseOneProgress,
           },
         ]}

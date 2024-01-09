@@ -175,14 +175,6 @@ export const formatAddressForOutputDelegateWallet = (address: string | undefined
   return `${address.slice(0, 7)}...${address.slice(address.length - 4, address.length)}`;
 };
 
-export const getNameDelegates = (format: string) => {
-  if (!format) return 'No name';
-  const words = format.split('/');
-  const lastWord = words[words.length - 1];
-  const fullName = lastWord.replace('\\', '');
-  return fullName;
-};
-
 export const getResourceLabel = (resourceType?: ResourceType): string => {
   switch (resourceType) {
     case ResourceType.AlignedDelegates:

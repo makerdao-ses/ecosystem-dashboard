@@ -1,10 +1,7 @@
 import { RecognizedDelegatesBuilder } from '@ses/core/businessLogic/builders/recognizedDelegatesBuilder';
-import { TotalExpenseReportsBuilder } from '@ses/core/businessLogic/builders/totalExpenseReportsBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../AppLayout/AppLayout';
 import RecognizedDelegatesContainer from './RecognizedDelegatesContainer';
-import type { TotalDelegateDto } from '@ses/core/models/dto/delegatesDTO';
-import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
@@ -31,7 +28,7 @@ const variantsArgs = [
     delegates: [
       new RecognizedDelegatesBuilder()
         .withName('Feedblack Loops LLC')
-        .withImage('https://live.staticflickr.com/65535/52832796763_a0e2339b3b_m.jpg')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/twblack88/90/16125_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(23325)
         .withSocials({
@@ -43,8 +40,8 @@ const variantsArgs = [
         })
         .build(),
       new RecognizedDelegatesBuilder()
-        .withName('Flip Flop Flap Delegate LLC')
-        .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+        .withName('Flip Flap Flop Delegate LLC')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/flipflopflapdelegate/90/24350_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(292325)
         .withSocials({
@@ -57,7 +54,7 @@ const variantsArgs = [
         .build(),
       new RecognizedDelegatesBuilder()
         .withName('GFX Labs')
-        .withImage('https://live.staticflickr.com/65535/52832350651_0506c1ff2a_m.jpg')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/gfxlabs/90/13005_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(282325)
         .withSocials({
@@ -69,8 +66,8 @@ const variantsArgs = [
         })
         .build(),
       new RecognizedDelegatesBuilder()
-        .withName('Coldirion.eth')
-        .withImage('https://live.staticflickr.com/65535/52832350671_ac70b94b13_m.jpg')
+        .withName('Coldiron.eth')
+        .withImage('https://forum.makerdao.com/user_avatar/forum.makerdao.com/coldiron.eth/240/25270_2.png')
         .withLatestVotingContract('0xF1792852BF860b4ef84a2869DF1550BC80eC0aB7')
         .withNumberDai(272325)
         .withSocials({
@@ -82,188 +79,85 @@ const variantsArgs = [
         })
         .build(),
     ],
-    delegatesNumbers: [
-      new TotalExpenseReportsBuilder()
-        .withPrediction(1821236)
-        .withActuals(20144)
-        .withBudget('makerdao/delegates/Flip Flop Flap Delegate LLC')
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 4)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(1236845)
-        .withActuals(192)
-        .withBudget('makerdao/delegates/Feedblack Loops LLC')
-        .withBudgetCap(6523658)
-        .withQuarterPeriod(2022, 1)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(3690)
-        .withActuals(14292)
-        .withBudget('makerdao/delegates/GFX Labs')
-        .withBudgetCap(9562451)
-        .withQuarterPeriod(2022, 2)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4232845)
-        .withActuals(13292)
-        .withBudget('makerdao/delegates/Coldirion.eth')
-        .withBudgetCap(6392563)
-        .withQuarterPeriod(2022, 3)
-        .build(),
-    ] as ExpenseDto[],
-    totalQuarterlyExpenses: {
-      delegatesExpenses: [
-        new TotalExpenseReportsBuilder()
-          .withPrediction(5821236)
-          .withActuals(2082362)
-          .withBudgetCap(8392323)
-          .withQuarterPeriod(2022, 4)
-          .build(),
-        new TotalExpenseReportsBuilder()
-          .withPrediction(4231563)
-          .withActuals(2082362)
-          .withBudgetCap(8392323)
-          .withQuarterPeriod(2023, 1)
-          .build(),
-        new TotalExpenseReportsBuilder()
-          .withPrediction(4231563)
-          .withActuals(2082362)
-          .withBudgetCap(8392323)
-          .withQuarterPeriod(2023, 1)
-          .build(),
-        new TotalExpenseReportsBuilder()
-          .withPrediction(4231563)
-          .withActuals(12394)
-          .withBudgetCap(8392323)
-          .withQuarterPeriod(2023, 1)
-          .build(),
-        new TotalExpenseReportsBuilder()
-          .withPrediction(4231563)
-          .withActuals(5082362)
-          .withBudgetCap(8392323)
-          .withQuarterPeriod(2023, 1)
-          .build(),
-      ] as ExpenseDto[],
-      totalExpenses: [
-        new TotalExpenseReportsBuilder()
-          .withPrediction(5821236)
-          .withActuals(5082362)
-          .withBudgetCap(8392323)
-          .withQuarterPeriod(2022, 4)
-          .build(),
-        new TotalExpenseReportsBuilder()
-          .withPrediction(4231563)
-          .withActuals(5082362)
-          .withBudgetCap(8392323)
-          .withQuarterPeriod(2023, 1)
-          .build(),
-      ] as ExpenseDto[],
-    } as TotalDelegateDto,
-    totalMonthlyExpenses: [
-      new TotalExpenseReportsBuilder()
-        .withPrediction(5821236)
-        .withActuals(22362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2021, 11)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(245362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2021, 12)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(345452)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 1)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(432345)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 2)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(332362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 3)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(332362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 4)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(332362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 5)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(482362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 6)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(482362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 7)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(482362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 8)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(562362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 9)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(562362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 10)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(562362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 11)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(562362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2022, 12)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(562362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2023, 1)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(562362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2023, 2)
-        .build(),
-      new TotalExpenseReportsBuilder()
-        .withPrediction(4231563)
-        .withActuals(562362)
-        .withBudgetCap(8392323)
-        .withQuarterPeriod(2023, 3)
-        .build(),
-    ] as ExpenseDto[],
+    totalMakerDAOExpenses: 33000000,
+    monthlyAnalytics: {
+      series: [
+        {
+          rows: [],
+        },
+      ],
+    },
+    totalAnalytics: {
+      series: [
+        {
+          period: 'total',
+          start: '2021-11-01T00:00:00.000Z',
+          end: '2023-04-01T00:00:00.000Z',
+          rows: [
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/Feedblack Loops LLC',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 193635,
+              sum: 193635,
+            },
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/Flip Flap Flop Delegate LLC',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 201228,
+              sum: 201228,
+            },
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/GFX Labs',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 102878,
+              sum: 102878,
+            },
+            {
+              dimensions: [
+                {
+                  path: 'atlas/legacy/recognized-delegates/*/*',
+                  name: 'budget',
+                },
+                {
+                  path: 'atlas/Coldiron.eth',
+                  name: 'project',
+                },
+              ],
+              metric: 'Actuals',
+              value: 34452,
+              sum: 34452,
+            },
+          ],
+        },
+      ],
+    },
   },
 ];
 
