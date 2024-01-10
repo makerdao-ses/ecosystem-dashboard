@@ -9,15 +9,14 @@ import Breadcrumb from './components/Breadcrumb/Breadcrumb';
 import PageHeader from './components/PageHeader/PageHeader';
 import DetailsSection from './components/sections/DetailsSection/DetailsSection';
 import OverviewSection from './components/sections/OverviewSection/OverviewSection';
-import useEndgamePhaseOneProgressContainer from './useEndgamePhaseOneProgressContainer';
+import useRoadmapMilestonesContainer from './useRoadmapMilestonesContainer';
 
-const EndgamePhaseOneProgressContainer: React.FC = () => {
-  useEndgamePhaseOneProgressContainer();
+const RoadmapMilestonesContainer: React.FC = () => {
+  useRoadmapMilestonesContainer();
 
   return (
     <PageContainer hasImageBackground>
       <SEOHead
-        // TODO: Update SEO props
         title="MakerDAO Endgame | Roadmaps and Milestones"
         description="MakerDAO Roadmaps and Milestones page provides a comprehensive overview of Milestones and Deliverables, their status, and progress."
         image={{
@@ -35,7 +34,7 @@ const EndgamePhaseOneProgressContainer: React.FC = () => {
           },
           {
             label: 'Endgame Phase 1',
-            url: siteRoutes.endgamePhaseOneProgress,
+            url: siteRoutes.roadmapMilestones('endgame-phase-1'),
           },
         ]}
       />
@@ -51,7 +50,7 @@ const EndgamePhaseOneProgressContainer: React.FC = () => {
   );
 };
 
-export default EndgamePhaseOneProgressContainer;
+export default RoadmapMilestonesContainer;
 
 const SectionsContainer = styled.div({
   display: 'flex',
