@@ -68,7 +68,10 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                 <ByBudgetTableRow
                   expense={budget}
                   total={total}
-                  relativePercentage={percentageRespectTo(budget.prediction, maxValueByBudget)}
+                  relativePercentage={percentageRespectTo(
+                    Math.max(budget.actuals, budget.prediction),
+                    maxValueByBudget
+                  )}
                   rowType={
                     isCoreUnitExpense(budget)
                       ? 'coreUnit'
@@ -84,30 +87,27 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                 <ByBudgetTableRow
                   expense={remainingBudgetCU}
                   total={total}
-                  relativePercentage={percentageRespectTo(
-                    remainingBudgetCU?.prediction,
-                    byBudgetExpenses[0]?.prediction
-                  )}
+                  relativePercentage={percentageRespectTo(remainingBudgetCU?.actuals, byBudgetExpenses[0]?.actuals)}
                   rowType={'remaining'}
                 />
-                {remainingBudgetDelegates?.prediction > 0 && (
+                {remainingBudgetDelegates?.actuals > 0 && (
                   <ByBudgetTableRow
                     expense={remainingBudgetDelegates}
                     total={total}
                     relativePercentage={percentageRespectTo(
-                      remainingBudgetDelegates?.prediction,
-                      byBudgetExpenses[0]?.prediction
+                      remainingBudgetDelegates?.actuals,
+                      byBudgetExpenses[0]?.actuals
                     )}
                     rowType={'remaining'}
                   />
                 )}
-                {remainingEcosystemActors?.prediction > 0 && (
+                {remainingEcosystemActors?.actuals > 0 && (
                   <ByBudgetTableRow
                     expense={remainingEcosystemActors}
                     total={total}
                     relativePercentage={percentageRespectTo(
-                      remainingEcosystemActors?.prediction,
-                      byBudgetExpenses[0]?.prediction
+                      remainingEcosystemActors?.actuals,
+                      byBudgetExpenses[0]?.actuals
                     )}
                     rowType={'remaining'}
                   />
@@ -125,7 +125,10 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                   <ByExpenseCategoryTableRow
                     name={pascalCaseToNormalString(expense.category.split('/')[1])}
                     expense={expense}
-                    relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
+                    relativePercentage={percentageRespectTo(
+                      Math.max(expense.actuals, expense.prediction),
+                      maxValueByCategory
+                    )}
                     total={total}
                     key={i}
                   />
@@ -136,7 +139,10 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                   <ByExpenseCategoryTableRow
                     name={pascalCaseToNormalString(expense.category.split('/')[1])}
                     expense={expense}
-                    relativePercentage={percentageRespectTo(expense.prediction, maxValueByCategory)}
+                    relativePercentage={percentageRespectTo(
+                      Math.max(expense.actuals, expense.prediction),
+                      maxValueByCategory
+                    )}
                     total={total}
                     key={i}
                   />
@@ -146,7 +152,7 @@ const CostBreakdownTable: React.FC<CostBreakdownTableProps> = ({
                   <ByExpenseCategoryTableRow
                     name="All Remaining Categories"
                     expense={remainingCategories}
-                    relativePercentage={percentageRespectTo(remainingCategories.prediction, maxValueByCategory)}
+                    relativePercentage={percentageRespectTo(remainingCategories.actuals, maxValueByCategory)}
                     total={total}
                   />
                 </RemainingContainer>
