@@ -331,20 +331,18 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
 const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: !isCoreThirdLevel ? 10 : 0,
+    marginTop: !isCoreThirdLevel ? 10 : 10,
     display: 'flex',
+    position: 'relative',
     flexGrow: 1,
     flexShrink: 1,
     width: 200,
+    height: 'calc(100% + 16px)',
   },
 
-  '& .swiper-slide': {
-    height: 'fit-content',
-  },
+  '& .swiper-slide': {},
 
-  '& .swiper-pagination': {
-    bottom: '0 !important', // Its necessary for override the styles
-  },
+  '& .swiper-pagination': {},
 
   '& .swiper-pagination-horizontal': {
     display: 'flex',
