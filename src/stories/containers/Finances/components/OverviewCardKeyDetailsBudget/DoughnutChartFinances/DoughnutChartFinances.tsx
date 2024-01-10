@@ -248,6 +248,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
                     onLegendItemHover={onLegendItemHover}
                     onLegendItemLeave={onLegendItemLeave}
                     isCoreThirdLevel={isCoreThirdLevel}
+                    isShowSwiper={showSwiper}
                   />
                 </SwiperSlide>
               ))}
@@ -264,6 +265,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
               onLegendItemHover={onLegendItemHover}
               onLegendItemLeave={onLegendItemLeave}
               isCoreThirdLevel={isCoreThirdLevel}
+              isShowSwiper={showSwiper}
             />
           }
         </ContainerLegend>

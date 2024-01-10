@@ -12,6 +12,7 @@ interface Props {
   toggleSeriesVisibility: (seriesName: string) => void;
   onLegendItemLeave: (legendName: string) => void;
   onLegendItemHover: (legendName: string) => void;
+  isShowSwiper: boolean;
 }
 
 const CardLegend: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const CardLegend: React.FC<Props> = ({
   onLegendItemHover,
   onLegendItemLeave,
   toggleSeriesVisibility,
+  isShowSwiper,
 }) => {
   const { isLight } = useThemeContext();
   return (
@@ -37,7 +39,7 @@ const CardLegend: React.FC<Props> = ({
         >
           <IconWithName>
             <LegendIcon backgroundColor={data.color || 'blue'} />
-            <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+            <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel} isShowSwiper={isShowSwiper}>
               {isCoreThirdLevel ? data.code : data.name}
             </NameOrCode>
           </IconWithName>
@@ -107,18 +109,23 @@ const IconWithName = styled.div({
   alignItems: 'center',
 });
 
-const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : '#EDEFFF',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 12,
-  fontStyle: 'normal',
-  fontWeight: 400,
-  lineHeight: 'normal',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  width: isCoreThirdLevel ? 'fit-content' : 170,
-}));
+const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean; isShowSwiper: boolean }>(
+  ({ isLight, isCoreThirdLevel, isShowSwiper }) => ({
+    color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : '#EDEFFF',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: 12,
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: 'normal',
+    ...(!isShowSwiper && {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    }),
+
+    width: isCoreThirdLevel ? 'fit-content' : 170,
+  })
+);
 
 const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
   ({ isCoreThirdLevel, changeAlignment }) => ({
