@@ -64,11 +64,11 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
               />
             )}
 
-            {isEnabled('FEATURE_ENDGAME_MILESTONES_PHASE_1') && (
+            {isEnabled('FEATURE_ROADMAP_MILESTONES') && (
               <ButtonLink
                 isLight={isLight}
                 // TODO: replace with correct link
-                href={siteRoutes.endgamePhaseOneProgress}
+                href={siteRoutes.roadmapMilestones('endgame-phase-1')}
                 buttonType={ButtonType.Primary}
                 label="Phase 1 Progress"
               />
