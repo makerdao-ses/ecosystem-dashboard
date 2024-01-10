@@ -109,6 +109,9 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
   textAlign: 'center',
   verticalAlign: 'center',
   padding: '16px 4px 16px 8px',
+  whiteSpace: 'normal',
+  overflowWrap: 'break-word',
+  wordBreak: 'break-word',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
