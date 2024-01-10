@@ -51,7 +51,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                 </Headed>
                 {showAnnual &&
                   newMetrics.map((metric) => (
-                    <Cell key={index} isLight={isLight} period={period}>
+                    <Cell key={index} isLight={isLight}>
                       {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
                     </Cell>
                   ))}
@@ -102,13 +102,16 @@ const TableContainer = styled.table<WithIsLight & { hasOthers: boolean }>(({ isL
 }));
 
 const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ isLight, period }) => ({
-  borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   fontSize: 11,
   color: isLight ? '#231536' : '#D2D4EF',
   width: 87,
   textAlign: 'center',
   verticalAlign: 'center',
   padding: '16px 4px 16px 8px',
+  whiteSpace: 'normal',
+  overflowWrap: 'break-word',
+  wordBreak: 'break-word',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
@@ -182,11 +185,11 @@ const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
     backgroundColor: isLight ? 'rgba(209, 222, 230, 0.20)' : '#17232C',
   },
 }));
-const Cell = styled.td<WithIsLight & { period: PeriodicSelectionFilter }>(({ isLight, period }) => ({
-  borderRight: period !== 'Annually' ? `1px solid ${isLight ? '#D8E0E3' : '#405361'}` : 'none',
+const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   color: isLight ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
