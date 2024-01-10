@@ -149,6 +149,7 @@ const dictionary = [
   'typename',
   'Wireframes',
   'Echarts',
+  'linecap',
   'toggleable',
   'Roadmaps',
 ];
