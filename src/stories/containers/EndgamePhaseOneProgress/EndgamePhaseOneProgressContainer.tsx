@@ -18,14 +18,14 @@ const EndgamePhaseOneProgressContainer: React.FC = () => {
     <PageContainer hasImageBackground>
       <SEOHead
         // TODO: Update SEO props
-        title="MakerDAO Endgame | Phase 1 Progress"
-        description="MakerDAO Endgame provides a comprehensive overview of Endgame governance, operations, token upgrades and budget structure."
+        title="MakerDAO Endgame | Roadmaps and Milestones"
+        description="MakerDAO Roadmaps and Milestones page provides a comprehensive overview of Milestones and Deliverables, their status, and progress."
         image={{
-          src: toAbsoluteURL('/assets/img/endgame/endgame-social-385x200.png'),
+          src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
           height: 200,
         }}
-        twitterImage={toAbsoluteURL('/assets/img/endgame/endgame-social-1200x630.png')}
+        twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
       <Breadcrumb
         items={[
