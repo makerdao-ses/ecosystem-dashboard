@@ -9,7 +9,7 @@ const MilestoneLink: React.FC = () => {
   const { isLight } = useThemeContext();
 
   return (
-    <LinkCard isLight={isLight} href={siteRoutes.endgamePhaseOneProgress}>
+    <LinkCard isLight={isLight} href={siteRoutes.roadmapMilestones('endgame-phase-1')}>
       <TextBox>
         <Milestone isLight={isLight}>Milestone</Milestone>
         <Code isLight={isLight}>Base</Code>

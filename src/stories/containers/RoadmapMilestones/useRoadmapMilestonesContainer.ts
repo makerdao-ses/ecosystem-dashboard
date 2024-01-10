@@ -1,9 +1,9 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
-const useEndgamePhaseOneProgressContainer = () => {
+const useRoadmapMilestonesContainer = () => {
   const { isLight } = useThemeContext();
 
   return { isLight };
 };
 
-export default useEndgamePhaseOneProgressContainer;
+export default useRoadmapMilestonesContainer;

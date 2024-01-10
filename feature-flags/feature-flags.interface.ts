@@ -26,5 +26,5 @@ export interface FeatureFlagsInterface {
   FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION: boolean; // disable MakerDAOExpenseMetrics section in Finances
   FEATURE_TEAM_PROJECTS: boolean; // disable Team Projects page and related features
   FEATURE_ECOSYSTEM_FINANCES_DASHBOARD_PAGE: boolean; // disable Accounts Finances Page
-  FEATURE_ENDGAME_MILESTONES_PHASE_1: boolean; // disable Milestone Phase 1 in Endgame page
+  FEATURE_ROADMAP_MILESTONES: boolean; // disable roadmap milestones page
 }
