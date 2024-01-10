@@ -333,12 +333,13 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: !isCoreThirdLevel ? 10 : 0,
     display: 'flex',
+    flexGrow: 1,
+    flexShrink: 1,
     width: 200,
   },
 
   '& .swiper-slide': {
     height: 'fit-content',
-    [lightTheme.breakpoints.up('tablet_768')]: {},
   },
 
   '& .swiper-pagination': {
