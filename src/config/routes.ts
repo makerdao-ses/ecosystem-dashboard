@@ -20,7 +20,7 @@ export const siteRoutes = {
   recognizedDelegateReport: '/recognized-delegates/finances/reports',
   recognizedDelegate: '/delegates',
   endgame: '/endgame',
-  endgamePhaseOneProgress: '/endgame/phase-1-progress',
+  roadmapMilestones: (slug: string) => `/roadmaps/${slug}`,
   // auth
   login: '/login',
   manageAccounts: '/auth/manage/accounts',
