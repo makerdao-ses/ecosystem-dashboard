@@ -78,6 +78,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               isCoreThirdLevel={false}
               changeAlignment={cardOverViewSectionData.changeAlignment}
               showSwiper={cardOverViewSectionData.showSwiper}
+              numberSliderPerLevel={3}
             />
           </WrapperDesk>
           <WrapperMobile>
