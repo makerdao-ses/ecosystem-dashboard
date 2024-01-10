@@ -49,7 +49,7 @@ const MainContainer = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
       content: '""',
       position: 'relative',
       height: 48,
-      borderLeft: `1px solid ${isLight ? '#D1DEE6' : 'none'}`,
+      borderLeft: `1px solid ${isLight ? '#D1DEE6' : '#546978'}`,
     },
   }),
 }));
