@@ -59,7 +59,7 @@ const YearButton = styled(CustomButton)<WithIsLight & { selected: boolean }>(({ 
   borderRadius: '22px',
   fontFamily: 'Inter, sans serif',
   fontStyle: 'normal',
-  width: 83,
+  width: 75,
   height: 34,
 
   [lightTheme.breakpoints.up('tablet_768')]: {

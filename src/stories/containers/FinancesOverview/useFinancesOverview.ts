@@ -39,7 +39,7 @@ const useFinancesOverview = (
 
   const { isLight } = useThemeContext();
   const isDownDesktop1280 = useMediaQuery(lightTheme.breakpoints.down('desktop_1280'));
-  const years = [2021, 2022, 2023];
+  const years = Array.from({ length: new Date().getFullYear() - 2020 }, (_, i) => 2021 + i);
 
   const handleChangeSelectYear = (year: number) => {
     setSelectedYear(year);
