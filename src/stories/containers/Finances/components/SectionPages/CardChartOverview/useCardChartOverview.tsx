@@ -37,11 +37,68 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
   };
 
   const budgetMetrics: Record<string, BudgetMetricWithName> = {};
+  budgets.forEach((budget) => {
+    const budgetKey = budget.codePath;
+    const budgetName = removePrefix(budget.name, prefixToRemove);
+    if (budgetMetrics[budget.codePath]) {
+      const uniqueKey = `${budgetKey}-${budget.id}`;
+      budgetMetrics[uniqueKey] = {
+        name: budgetName,
+        actuals: {
+          unit: 'DAI',
+          value: 0,
+        },
+
+        forecast: {
+          unit: 'DAI',
+          value: 0,
+        },
+        budget: {
+          unit: 'DAI',
+          value: 0,
+        },
+        paymentsOnChain: {
+          unit: 'DAI',
+          value: 0,
+        },
+        paymentsOffChainIncluded: {
+          unit: 'DAI',
+          value: 0,
+        },
+        code: budget.code || 'No-code',
+      };
+    } else {
+      budgetMetrics[budgetKey] = {
+        name: budgetName,
+        actuals: {
+          unit: 'DAI',
+          value: 0,
+        },
+
+        forecast: {
+          unit: 'DAI',
+          value: 0,
+        },
+        budget: {
+          unit: 'DAI',
+          value: 0,
+        },
+        paymentsOnChain: {
+          unit: 'DAI',
+          value: 0,
+        },
+        paymentsOffChainIncluded: {
+          unit: 'DAI',
+          value: 0,
+        },
+        code: budget.code || 'No-code',
+      };
+    }
+  });
 
   if (budgetsAnalytics !== undefined) {
     for (const budgetMetricKey of Object.keys(budgetsAnalytics)) {
       const budgetMetric = budgetsAnalytics[budgetMetricKey];
-
       const correspondingBudget = budgets.find((budget) => budget.codePath === budgetMetricKey);
       // use the name of budget or add label
       const budgetName = correspondingBudget
