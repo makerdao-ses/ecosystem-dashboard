@@ -11,7 +11,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   image: string;
   title: string;
-  description: React.ReactNode;
+  description: string;
   href: string;
 }
 
@@ -23,11 +23,15 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
       <ContainerImage>
         <ImageStyle src={image} width={isMobile ? 32 : 64} height={isMobile ? 32 : 64} alt="Picture" unoptimized />
       </ContainerImage>
-      <CardInformation>
-        <Title isLight={isLight}>{title}</Title>
-        <Description isLight={isLight}>{description}</Description>
-      </CardInformation>
-      <ReadMore href={href} />
+      <ContainerWithButton>
+        <CardInformation>
+          <Title isLight={isLight}>{title}</Title>
+          <Description isLight={isLight}>{description}</Description>
+        </CardInformation>
+        <ContainerReadMore>
+          <ReadMore href={href} />
+        </ContainerReadMore>
+      </ContainerWithButton>
     </StyleCardNavigationGeneric>
   );
 };
@@ -37,20 +41,22 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '16px 8px 24px',
     flex: 1,
     width: 224,
+    minHeight: 250,
     height: 250,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '16px 8px 24px',
     width: 309.33,
+    minHeight: 235,
     height: 235,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 373.33,
-    height: 'revert',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -59,7 +65,11 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
 });
 
 const ContainerImage = styled.div({
-  marginBottom: 8,
+  marginBottom: 16,
+  width: 64,
+  height: 64,
+  minWidth: 64,
+  minHeight: 64,
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
@@ -79,8 +89,6 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   lineHeight: 'normal',
   width: 208,
-  margin: '0px auto 24px',
-
   color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 293.3,
@@ -92,9 +100,21 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
 
 const CardInformation = styled.div({
   textAlign: 'center',
-  marginBottom: -1,
 });
 
 const ImageStyle = styled(Image)({
   borderRadius: 22,
+});
+
+const ContainerReadMore = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  marginBottom: -2,
+});
+
+const ContainerWithButton = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  justifyContent: 'space-between',
 });

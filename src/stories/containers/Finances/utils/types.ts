@@ -9,7 +9,7 @@ export type FilterDoughnut = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | '
 export interface NavigationCard {
   image: string;
   title: string;
-  description?: React.ReactNode;
+  description?: string;
   href: string;
   totalDai?: number;
   valueDai?: number;
