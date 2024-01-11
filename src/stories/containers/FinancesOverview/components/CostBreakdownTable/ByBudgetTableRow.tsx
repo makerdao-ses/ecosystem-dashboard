@@ -42,7 +42,7 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
     <NavigableOnMobileRow isLight={isLight} isMobile={isMobile} href={link}>
       <MobileColumn>
         <NameColumnComponent isLight={isLight} shortCode={expense.shortCode ?? ''} name={expense.name} />
-        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
+        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.actuals} />}
       </MobileColumn>
 
       <TotalPercentageColumnComponent
@@ -51,7 +51,7 @@ const ByBudgetTableRow: React.FC<ByBudgetTableRowProps> = ({
         expense={expense}
         maxPercentage={relativePercentage}
       />
-      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
+      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.actuals} />}
 
       <ViewColumn isLight={isLight}>
         {isMobile ? (
@@ -92,7 +92,7 @@ const TotalPercentageColumnComponent: React.FC<
         prediction={expense.prediction || 0}
         maxPercentage={maxPercentage}
       />
-      <TotalPercentage isLight={isLight}>{Math.floor((expense.prediction * 100) / total)}%</TotalPercentage>
+      <TotalPercentage isLight={isLight}>{Math.floor((expense.actuals * 100) / total) || 0}%</TotalPercentage>
     </TotalBarContainer>
   </TotalPercentageColumn>
 );

@@ -50,8 +50,8 @@ const useFinancesOverview = (
       (charValue) => DateTime.fromISO(charValue?.period || '').year === selectedYear
     );
 
-    const prediction = valuesYearSelect.map((item) => item?.prediction) || [];
-    const total = prediction?.reduce((current, next) => (current || 0) + (next || 0), 0);
+    const actuals = valuesYearSelect.map((item) => item?.actuals) || [];
+    const total = actuals?.reduce((current, next) => (current || 0) + (next || 0), 0);
 
     return Math.trunc(total || 0);
   }, [monthly, selectedYear]);
@@ -190,9 +190,9 @@ const useFinancesOverview = (
 
     byBudgetBreakdownExpenses
       .filter((expense) => expense.period === selectedYear.toString())
-      .sort((a, b) => b.prediction - a.prediction)
+      .sort((a, b) => b.actuals - a.actuals)
       .forEach((expense, index) => {
-        costBreakdownTotal += expense.prediction;
+        costBreakdownTotal += expense.actuals;
         if (index < 10) {
           byBudgetExpenses.push(expense);
         } else if (isCoreUnitExpense(expense)) {
@@ -205,8 +205,8 @@ const useFinancesOverview = (
       });
 
     const maxValueByBudget = Math.max(
-      ...[...byBudgetExpenses, remainingBudgetCU, remainingBudgetDelegates, remainingEcosystemActors].map(
-        (item) => item.prediction
+      ...[...byBudgetExpenses, remainingBudgetCU, remainingBudgetDelegates, remainingEcosystemActors].map((item) =>
+        Math.max(item.actuals, item.prediction)
       )
     );
 
@@ -237,7 +237,7 @@ const useFinancesOverview = (
 
     byCategoryBreakdownExpenses
       .filter((expense) => expense.period === selectedYear.toString())
-      .sort((a, b) => b.prediction - a.prediction)
+      .sort((a, b) => b.actuals - a.actuals)
       .forEach((expense) => {
         if (isHeadcountExpense(expense)) {
           byCategoryExpenses.headcount.push(expense);
@@ -249,8 +249,8 @@ const useFinancesOverview = (
       });
 
     const maxValueByCategory = Math.max(
-      ...[...byCategoryExpenses.headcount, ...byCategoryExpenses.nonHeadcount, remainingCategories].map(
-        (item) => item.prediction
+      ...[...byCategoryExpenses.headcount, ...byCategoryExpenses.nonHeadcount, remainingCategories].map((item) =>
+        Math.max(item.actuals, item.prediction)
       )
     );
 

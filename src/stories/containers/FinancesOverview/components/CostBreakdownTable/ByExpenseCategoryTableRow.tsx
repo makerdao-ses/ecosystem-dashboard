@@ -28,7 +28,7 @@ const ByExpenseCategoryTableRow: React.FC<ByExpenseCategoryTableRowProps> = ({
     <Row isLight={isLight}>
       <MobileColumn>
         <NameColumnComponent name={name} isLight={isLight} />
-        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
+        {isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.actuals} />}
       </MobileColumn>
 
       <TotalPercentageColumnComponent
@@ -38,7 +38,7 @@ const ByExpenseCategoryTableRow: React.FC<ByExpenseCategoryTableRowProps> = ({
         maxPercentage={relativePercentage}
       />
 
-      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.prediction} />}
+      {!isMobile && <TotalSpendColumnComponent isLight={isLight} total={expense.actuals} />}
     </Row>
   );
 };
@@ -99,7 +99,7 @@ const TotalPercentageColumnComponent: React.FC<
         prediction={expense.prediction || 0}
         maxPercentage={maxPercentage}
       />
-      <TotalPercentage isLight={isLight}>{Math.floor((expense.prediction * 100) / total)}%</TotalPercentage>
+      <TotalPercentage isLight={isLight}>{Math.floor((expense.actuals * 100) / total) || 0}%</TotalPercentage>
     </TotalBarContainer>
   </TotalPercentageColumn>
 );
