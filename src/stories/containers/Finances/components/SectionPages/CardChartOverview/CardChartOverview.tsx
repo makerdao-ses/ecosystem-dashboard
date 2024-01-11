@@ -57,7 +57,7 @@ const CardChartOverview: React.FC<Props> = ({
           </ContainerCardInformation>
           <Divider isLight={isLight} />
         </ContainerCardAndLine>
-        <ContainerChat>
+        <ContainerChat isCoreThirdLevel={isCoreThirdLevel}>
           <DoughnutChartFinances
             doughnutSeriesData={doughnutSeriesData}
             isCoreThirdLevel={isCoreThirdLevel}
@@ -206,11 +206,10 @@ const Divider = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ContainerChat = styled.div({
+const ContainerChat = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 32,
   },
@@ -219,9 +218,9 @@ const ContainerChat = styled.div({
     justifyContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginRight: 75,
+    marginRight: isCoreThirdLevel ? 0 : 75,
   },
-});
+}));
 
 const ContainerCardAndLine = styled.div({
   [lightTheme.breakpoints.up('tablet_768')]: {

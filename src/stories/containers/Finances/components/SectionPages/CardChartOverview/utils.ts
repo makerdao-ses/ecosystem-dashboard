@@ -20,3 +20,11 @@ export const getTotalAllMetricsBudget = (budgetsAnalytics: BreakdownBudgetAnalyt
   }
   return metric;
 };
+
+export const getShortCode = (code: string) => {
+  if (code.length <= 6) {
+    return code;
+  }
+  const shortCode = code.substring(0, 6);
+  return shortCode;
+};
