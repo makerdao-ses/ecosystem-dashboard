@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
+import { formatNumber, replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 
@@ -24,6 +24,42 @@ const ExpensesChart: React.FC<Props> = ({ newActual, newDiscontinued, newPredict
   const isZeroValue = false;
 
   const options = {
+    tooltip: {
+      show: upTable,
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+        shadowStyle: {
+          color: isLight ? '#D4D9E1' : '#231536',
+          opacity: 0.15,
+        },
+      },
+      padding: 0,
+      borderWidth: 1,
+      borderColor: isLight ? '#D4D9E1' : '#231536',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      formatter: function (params: any[]) {
+        return `
+          <div style="background-color:${
+            isLight ? '#fff' : '#000A13'
+          };padding:16px;minWidth:194px;overflow:auto;border-radius:3px;"> 
+            <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${params?.[0]?.name}</div> 
+            <div style="display:flex;flex-direction:column;gap:12px">
+              ${params
+                .map(
+                  (item) => `<div style="display: flex;align-items:center;gap: 6px">
+                    <span style="width: 8px;height: 8px;border-radius: 50%;background-color:${item.color}"></span>
+                    <span style="font-size:14px;color:${isLight ? '#231536' : '#B6BCC2'};"> ${item.seriesName}:</span>
+                    <span style="font-size:16px;font-weight:700;color:${
+                      isLight ? '#231536' : '#EDEFFF'
+                    };">${formatNumber(item.value)}</span></div>`
+                )
+                .join('')}
+            </div>
+          </div>
+          `;
+      },
+    },
     grid: {
       height: upTable ? 300 : 204,
       right: '0%',
