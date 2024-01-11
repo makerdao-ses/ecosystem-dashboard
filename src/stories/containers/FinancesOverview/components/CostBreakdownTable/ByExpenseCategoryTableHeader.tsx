@@ -18,7 +18,7 @@ const ByExpenseCategoryTableHeader: React.FC<Props> = ({ onClick }) => (
     </CategoryColumn>
 
     <TotalPercentageColumn>% of total</TotalPercentageColumn>
-    <TotalSpendColumn>Total spend</TotalSpendColumn>
+    <TotalSpendColumn>Actuals</TotalSpendColumn>
   </TableHeader>
 );
 

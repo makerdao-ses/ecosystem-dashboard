@@ -35,7 +35,7 @@ const useFinancesOverview = (
       }),
     [quarterExpenses]
   );
-  const [selectedYear, setSelectedYear] = useState<number>(() => DateTime.local().year);
+  const [selectedYear, setSelectedYear] = useState<number>(2023);
 
   const { isLight } = useThemeContext();
   const isDownDesktop1280 = useMediaQuery(lightTheme.breakpoints.down('desktop_1280'));

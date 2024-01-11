@@ -12,7 +12,7 @@ const ByBudgetTableHeader: React.FC = () => {
     <TableHeader isLight={isLight}>
       <BudgetColumn>Budget</BudgetColumn>
       <TotalPercentageColumn>% of total</TotalPercentageColumn>
-      <TotalSpendColumn>Total Spend</TotalSpendColumn>
+      <TotalSpendColumn>Actuals</TotalSpendColumn>
       <ViewColumn />
     </TableHeader>
   );
