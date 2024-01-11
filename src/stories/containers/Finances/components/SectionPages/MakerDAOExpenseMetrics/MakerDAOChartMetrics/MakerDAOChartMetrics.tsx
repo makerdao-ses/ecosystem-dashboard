@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
-import { breakdownChartMonthly, breakdownChartQuarterly } from '@ses/containers/Finances/utils/utils';
+import { breakdownChartMonthly, breakdownChartQuarterlyMetric } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -56,7 +56,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         selectedGranularity === 'monthly'
           ? breakdownChartMonthly(isMobile)
           : selectedGranularity === 'quarterly'
-          ? breakdownChartQuarterly()
+          ? breakdownChartQuarterlyMetric()
           : [''],
       splitLine: {
         show: false,
@@ -86,10 +86,16 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
           if (isMobile) {
             return value;
           }
-          return `{month|${value}}\n{year|${year}}`;
+          if (selectedGranularity === 'monthly') {
+            return `{value|${value}} \n {year|${year}}`;
+          }
+          if (selectedGranularity === 'quarterly') {
+            return `{value|${value}} {year|${year}}`;
+          }
+          return `{year|${year}}`;
         },
         rich: {
-          month: xAxisStyles,
+          value: xAxisStyles,
           year: xAxisStyles,
         },
       },
