@@ -2,20 +2,41 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useState } from 'react';
 import MilestoneCard from '../MilestoneCard/MilestoneCard';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const RoadmapTimeline = () => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const viewAll = false;
+  const [viewAll, setViewAll] = useState(false);
   const milestones = Array.from({ length: 8 });
 
   const up = milestones.length <= 4 ? milestones : milestones.filter((_, i) => i % 2 === 0);
   const down = milestones.filter((_, i) => i % 2 !== 0);
 
   const shouldAddPadding = milestones.length % 2 === 0 && milestones.length > 4;
+
+  const viewAllButton = (
+    <ButtonBox>
+      <Button isLight={isLight} onClick={() => setViewAll((prev) => !prev)}>
+        <span>Expand {viewAll ? 'Less' : 'All'}</span>
+        <svg
+          style={{ transform: `rotate(${viewAll ? '180' : 0}deg)` }}
+          width="17"
+          height="16"
+          viewBox="0 0 17 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.19339 10.8631C8.35404 11.0456 8.64598 11.0456 8.80664 10.8631L13.4036 5.63952C13.6255 5.38735 13.4398 5 13.097 5H3.90306C3.56023 5 3.37451 5.38735 3.59643 5.63952L8.19339 10.8631Z"
+            fill={isLight ? '#25273D' : '#B7A6CD'}
+          />
+        </svg>
+      </Button>
+    </ButtonBox>
+  );
 
   return (
     <div>
@@ -27,24 +48,7 @@ const RoadmapTimeline = () => {
           <MilestoneCard />
           <MilestoneCard />
 
-          <ButtonBox>
-            <Button isLight={isLight}>
-              <span>View all Roadmap</span>
-              <svg
-                style={{ transform: `rotate(${viewAll ? '180' : 0}deg)` }}
-                width="17"
-                height="16"
-                viewBox="0 0 17 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8.19339 10.8631C8.35404 11.0456 8.64598 11.0456 8.80664 10.8631L13.4036 5.63952C13.6255 5.38735 13.4398 5 13.097 5H3.90306C3.56023 5 3.37451 5.38735 3.59643 5.63952L8.19339 10.8631Z"
-                  fill={isLight ? '#25273D' : '#B7A6CD'}
-                />
-              </svg>
-            </Button>
-          </ButtonBox>
+          {viewAllButton}
         </MobileTimeline>
       ) : (
         <DesktopTimeline>
