@@ -24,7 +24,7 @@ const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation, loadMore
             href={card.href}
             image={card.image}
             title={card.title}
-            description={card.description}
+            description={card.description || ''}
             key={index}
           />
         ))}
@@ -67,33 +67,17 @@ const WrapperDesk = styled.div({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
-    '& > div:nth-of-type(2) > div:nth-of-type(2)': {
-      marginBottom: 14,
-    },
-    '& > div:nth-of-type(3) > div:nth-of-type(2)': {
-      marginBottom: 'auto',
-      height: 81,
-    },
   },
   [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
-    '& > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)': {
-      width: 210,
-    },
-    '& > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2)': {
-      width: 250,
-    },
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    '& > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)': {
-      width: 205,
-    },
     gap: 32,
   },
 });

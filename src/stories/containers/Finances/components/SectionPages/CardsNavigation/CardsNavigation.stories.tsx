@@ -1,7 +1,4 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import EndgameAtlasBudgets from '../../EndgameAtlasBudgets';
-import EndgameScopeBudgets from '../../EndgameScopeBudgets';
-import MakerDAOLegacyBudgets from '../../MakerDAOLegacyBudgets';
 import CardsNavigation from './CardsNavigation';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
@@ -23,7 +20,8 @@ const args = [
   {
     cardsNavigationInformation: [
       {
-        svgImage: <EndgameAtlasBudgets />,
+        image:
+          'https://raw.githubusercontent.com/makerdao-ses/makerdao-ses.github.io/16f73df6917a57915cd07e79f7a42e55293b8225/ecosystem-dashboard/budgets/endgame_atlas_budgets.svg',
         title: 'Endgame Atlas Budgets',
         description: 'Finances of the core governance constructs described in the Maker Atlas.',
         href: '#',
@@ -31,7 +29,8 @@ const args = [
         color: '#F99374',
       },
       {
-        svgImage: <EndgameScopeBudgets />,
+        image:
+          'https://raw.githubusercontent.com/makerdao-ses/makerdao-ses.github.io/16f73df6917a57915cd07e79f7a42e55293b8225/ecosystem-dashboard/budgets/endgame_scope_budgets.svg',
         title: 'Endgame Scope Budgets',
         description: 'Detailed budgets of the practical DAO activities within Endgame.',
         href: '#',
@@ -39,7 +38,8 @@ const args = [
         color: '#447AFB',
       },
       {
-        svgImage: <MakerDAOLegacyBudgets />,
+        image:
+          'https://raw.githubusercontent.com/makerdao-ses/makerdao-ses.github.io/16f73df6917a57915cd07e79f7a42e55293b8225/ecosystem-dashboard/budgets/endgame_scope_budgets.svg',
         title: 'MakerDAO Legacy Budgets',
         description: 'Historical records of MakerDAO expenses, prior to Endgame',
         href: '#',
@@ -51,7 +51,8 @@ const args = [
   {
     cardsNavigationInformation: [
       {
-        svgImage: <EndgameAtlasBudgets width={32} height={32} />,
+        image:
+          'https://raw.githubusercontent.com/makerdao-ses/makerdao-ses.github.io/16f73df6917a57915cd07e79f7a42e55293b8225/ecosystem-dashboard/budgets/endgame_atlas_budgets.svg',
         title: 'Endgame Atlas Budgets',
         description: 'Finances of the core governance constructs described in the Maker Atlas.',
         href: '#',
@@ -61,7 +62,8 @@ const args = [
         isMobile: true,
       },
       {
-        svgImage: <EndgameScopeBudgets width={32} height={32} />,
+        image:
+          'https://raw.githubusercontent.com/makerdao-ses/makerdao-ses.github.io/16f73df6917a57915cd07e79f7a42e55293b8225/ecosystem-dashboard/budgets/endgame_scope_budgets.svg',
         title: 'Endgame Scope Budgets',
         description: 'Detailed budgets of the practical DAO activities within Endgame.',
         href: '#',
@@ -70,7 +72,8 @@ const args = [
         color: '#447AFB',
       },
       {
-        svgImage: <MakerDAOLegacyBudgets width={32} height={32} />,
+        image:
+          'https://raw.githubusercontent.com/makerdao-ses/makerdao-ses.github.io/16f73df6917a57915cd07e79f7a42e55293b8225/ecosystem-dashboard/budgets/endgame_scope_budgets.svg',
         title: 'MakerDAO Legacy Budgets',
         description: 'Historical records of MakerDAO expenses, prior to Endgame',
         href: '#',
@@ -92,7 +95,7 @@ LightMode.parameters = {
     component: {
       768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24369:99759&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:331292&mode=dev',
         options: {
           componentStyle: {
             width: 704,
@@ -105,7 +108,7 @@ LightMode.parameters = {
       },
       1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:201556&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:329647&mode=dev',
         options: {
           componentStyle: {
             width: 960,
@@ -119,7 +122,7 @@ LightMode.parameters = {
 
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:213686&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:334316&mode=dev',
         options: {
           componentStyle: {
             width: 1184,
@@ -132,7 +135,7 @@ LightMode.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22641:221346&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:335845&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
@@ -145,7 +148,7 @@ LightMode.parameters = {
       },
       1920: {
         component:
-          'https:///www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:204248&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:332761&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
@@ -170,7 +173,7 @@ Mobile.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24365:94856&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:337388&mode=dev',
         options: {
           componentStyle: {
             width: 343,
