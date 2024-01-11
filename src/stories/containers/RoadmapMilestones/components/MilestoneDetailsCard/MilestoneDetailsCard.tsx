@@ -2,7 +2,8 @@ import { styled } from '@mui/system';
 import ProjectOwnerChip from '@ses/containers/ActorProjects/components/ProjectOwnerChip/ProjectOwnerChip';
 import SupportedTeamsAvatarGroup from '@ses/containers/ActorProjects/components/SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import { OwnerType } from '@ses/core/models/interfaces/projects';
-import PercentageProgressBar from './PercentageProgressBar';
+import MilestoneProgress from './MilestoneProgress';
+import StatsData from './StatsData';
 
 const MilestoneDetailsCard: React.FC = () => (
   <Card>
@@ -41,7 +42,8 @@ const MilestoneDetailsCard: React.FC = () => (
       </HeaderGroupBox>
     </MobileHeader>
     <Aside>
-      <PercentageProgressBar value={75.0} />
+      <MilestoneProgress />
+      <StatsData />
       stats, charts, coordinators and ecosystem actors
     </Aside>
     <MilestoneContent>
@@ -127,7 +129,12 @@ const MilestoneNumber = styled('div')(({ theme }) => ({
   },
 }));
 
-const Aside = styled('aside')({});
+const Aside = styled('aside')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  marginTop: 16,
+});
 
 const MilestoneContent = styled('div')({});
 
