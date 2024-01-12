@@ -6,8 +6,8 @@ interface PercentageProgressBarProps {
 
 const PercentageProgressBar: React.FC<PercentageProgressBarProps> = ({ value }) => (
   <BarContainer>
-    <CircularBarBase variant="determinate" size={103} thickness={6} value={100} />
-    <CircularBarProgress variant="determinate" dir="rtl" size={103} thickness={6} value={value} />
+    <CircularBarBase variant="determinate" size={103} thickness={7} value={100} />
+    <CircularBarProgress variant="determinate" dir="rtl" size={103} thickness={7} value={value} />
     <LabelContainer>{Math.round(value)}%</LabelContainer>
   </BarContainer>
 );

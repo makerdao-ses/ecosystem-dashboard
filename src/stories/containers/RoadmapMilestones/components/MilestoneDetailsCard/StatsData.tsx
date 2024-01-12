@@ -53,7 +53,7 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   alignItems: 'flex-start',
   gap: 16,
   alignSelf: 'stretch',
-  padding: 16,
+  padding: 15,
   borderRadius: 6,
   border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : 'red'}`,
 }));
@@ -64,6 +64,7 @@ const Row = styled('div')(() => ({
   alignItems: 'center',
   alignSelf: 'stretch',
   gap: 16,
+  lineHeight: 'normal',
 }));
 
 const Label = styled('div')(({ theme }) => ({
@@ -72,6 +73,7 @@ const Label = styled('div')(({ theme }) => ({
   letterSpacing: 1,
   textTransform: 'uppercase',
   color: theme.palette.mode === 'light' ? '#434358' : 'red',
+  alignSelf: 'normal',
 }));
 
 const Value = styled('div')(({ theme }) => ({
@@ -95,7 +97,7 @@ const BudgetBox = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: 8,
+  gap: 3,
   alignSelf: 'stretch',
 }));
 
@@ -121,17 +123,17 @@ const Legend = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
+  marginTop: 5,
 });
 
 const LegendItem = styled('div')<{ dotColor: string }>(({ theme, dotColor }) => ({
   position: 'relative',
-  fontSize: 10,
-  lineHeight: '12px',
-  fontWeight: 500,
+  fontSize: 14,
+  lineHeight: 'normal',
   color: theme.palette.mode === 'light' ? '#231536' : '#EDEFFF',
-  paddingRight: 6,
+  paddingRight: 10,
   display: 'flex',
-  alignItems: 'flex-start ',
+  alignItems: 'baseline',
   height: 'fit-content',
 
   [theme.breakpoints.up('tablet_768')]: {
@@ -153,10 +155,10 @@ const LegendItem = styled('div')<{ dotColor: string }>(({ theme, dotColor }) => 
     content: '""',
     display: 'block',
     position: 'absolute',
-    top: 'calc(50% - 0.5px)',
+    top: 'calc(50% - 4px)',
     right: 0,
-    width: 4,
-    height: 4,
+    width: 8,
+    height: 8,
     borderRadius: '50%',
     backgroundColor: dotColor,
 
@@ -175,9 +177,10 @@ const LegendNumberWrapper = styled('div')({
 
 const LegendNumber = styled('div')(({ theme }) => ({
   fontWeight: 700,
-  fontSize: 10,
-  lineHeight: '12px',
-  fontFeatureSettings: "'tnum' on, 'lnum' on",
+  fontSize: 16,
+  lineHeight: 'normal',
+  fontVariantNumeric: 'lining-nums tabular-nums',
+  letterSpacing: '0.3px',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 12,
@@ -198,15 +201,15 @@ const LegendNumber = styled('div')(({ theme }) => ({
 }));
 
 const LegendNumberSuffix = styled('div')(({ theme }) => ({
-  fontSize: 7,
-  lineHeight: '8px',
+  fontSize: 12,
+  lineHeight: 'normal',
   marginLeft: 1.1,
+  letterSpacing: '1px',
+  fontWeight: 600,
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 10,
-    fontWeight: 600,
     lineHeight: 'normal',
-    letterSpacing: '1px',
     textTransform: 'uppercase',
   },
 
