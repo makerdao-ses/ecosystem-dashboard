@@ -103,7 +103,7 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
   }),
   '& span': {
     display: 'inline-block',
-    marginLeft: 4,
+    marginLeft: isCoreThirdLevel ? 2 : 4,
   },
 }));
 
@@ -141,6 +141,7 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
     maxHeight: 210,
+    // border: '2px solid red',
 
     overflow: 'hidden',
     ...(changeAlignment && {

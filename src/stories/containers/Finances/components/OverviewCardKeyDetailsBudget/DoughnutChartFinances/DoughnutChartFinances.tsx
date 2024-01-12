@@ -337,12 +337,26 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
 const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: isCoreThirdLevel ? 10 : 16,
+    display: 'flex',
+    position: 'relative',
+    width: 200,
+    height: isCoreThirdLevel ? 'calc(100% + 16px)' : '100%',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: isCoreThirdLevel ? 10 : 16,
+    display: 'flex',
+    height: isCoreThirdLevel ? 'calc(100% + 16px)' : '100%',
+
+    width: 250,
+    minWidth: 250,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: !isCoreThirdLevel ? 10 : 10,
     display: 'flex',
     position: 'relative',
     flexGrow: 1,
     flexShrink: 1,
-    width: 200,
     height: 'calc(100% + 16px)',
   },
 
