@@ -186,10 +186,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     // now we create the main table header
     // it is guaranteed below that all the sub-tables have a header
     const subTableHeaders = tables.map((table) => table.rows.filter((column) => column.isMain)[0].columns);
-    console.log('subTableHeaders', subTableHeaders);
-    // if (subTableHeaders.length) {
-    //   // console.log('columnsCount', columnsCount)
-    // }
+
     const tableHeader = subTableHeaders.reduce((acc, current) => {
       for (let i = 0; i < acc.length; i++) {
         acc[i].Actuals += current[i]?.Actuals ?? 0;
@@ -286,7 +283,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     [metricsFilter]
   );
 
-  console.log('tableBody', tableBody);
   return {
     isMobile,
     initialValue,
