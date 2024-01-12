@@ -51,7 +51,7 @@ const CardLegend: React.FC<Props> = ({
             <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
               {valueRounded}
               <span>DAI</span>
-              {<span>{`(${data.percent}%)`}</span>}
+              <span>{`(${data.percent}%)`}</span>
             </Value>
           </LegendItem>
         );
@@ -141,7 +141,6 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
     maxHeight: 210,
-    // border: '2px solid red',
 
     overflow: 'hidden',
     ...(changeAlignment && {
