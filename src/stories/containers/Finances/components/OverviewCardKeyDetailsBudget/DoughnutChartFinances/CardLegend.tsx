@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { getShortCode } from '../../SectionPages/CardChartOverview/utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -25,32 +27,35 @@ const CardLegend: React.FC<Props> = ({
   isShowSwiper,
 }) => {
   const { isLight } = useThemeContext();
+
   return (
     <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
-      {doughnutSeriesData.map((data, index) => (
-        <LegendItem
-          key={index}
-          changeAlignment={changeAlignment}
-          isCoreThirdLevel={isCoreThirdLevel}
-          isLight={isLight}
-          onClick={() => toggleSeriesVisibility(data.name)}
-          onMouseEnter={() => onLegendItemHover(data.name)}
-          onMouseLeave={() => onLegendItemLeave(data.name)}
-        >
-          <IconWithName>
-            <LegendIcon backgroundColor={data.color || 'blue'} />
-            <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel} isShowSwiper={isShowSwiper}>
-              {isCoreThirdLevel ? data.code : data.name}
-            </NameOrCode>
-          </IconWithName>
-          <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-            {data.value?.toLocaleString('es-US')}
-
-            <span>DAI</span>
-            <span>{`(${data.percent}%)`}</span>
-          </Value>
-        </LegendItem>
-      ))}
+      {doughnutSeriesData.map((data, index) => {
+        const valueRounded = usLocalizedNumber(data?.value);
+        return (
+          <LegendItem
+            key={index}
+            changeAlignment={changeAlignment}
+            isCoreThirdLevel={isCoreThirdLevel}
+            isLight={isLight}
+            onClick={() => toggleSeriesVisibility(data.name)}
+            onMouseEnter={() => onLegendItemHover(data.name)}
+            onMouseLeave={() => onLegendItemLeave(data.name)}
+          >
+            <IconWithName>
+              <LegendIcon backgroundColor={data.color || 'blue'} />
+              <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel} isShowSwiper={isShowSwiper}>
+                {isCoreThirdLevel ? getShortCode(data?.code || '') : data.name}
+              </NameOrCode>
+            </IconWithName>
+            <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+              {valueRounded}
+              <span>DAI</span>
+              {!isCoreThirdLevel && <span>{`(${data.percent}%)`}</span>}
+            </Value>
+          </LegendItem>
+        );
+      })}
     </ContainerLegend>
   );
 };

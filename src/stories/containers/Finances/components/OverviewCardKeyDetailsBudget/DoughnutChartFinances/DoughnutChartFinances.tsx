@@ -52,6 +52,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
   const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
   const doughnutSeriesChunks = chunkArray(doughnutSeriesData, numberSliderPerLevel);
+  const numberSlider = doughnutSeriesChunks.size;
   const options = {
     color: visibleSeries.map((data) => data.color),
     tooltip: {
@@ -214,7 +215,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
   } as SwiperProps;
 
   return (
-    <Container className={className}>
+    <Container className={className} isCoreThirdLevel={isCoreThirdLevel}>
       <ContainerChart>
         <ReactECharts
           ref={chartRef}
@@ -237,7 +238,11 @@ const DoughnutChartFinances: React.FC<Props> = ({
             pagination={true}
             {...swiperOptions}
           >
-            <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
+            <ContainerLegend
+              isCoreThirdLevel={isCoreThirdLevel}
+              changeAlignment={changeAlignment}
+              numberSlider={numberSlider}
+            >
               {Array.from(doughnutSeriesChunks.entries()).map(([index, dataChunk]) => (
                 <SwiperSlide key={index}>
                   <CardLegend
@@ -256,7 +261,11 @@ const DoughnutChartFinances: React.FC<Props> = ({
           </Swiper>
         </SwiperWrapper>
       ) : (
-        <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
+        <ContainerLegend
+          isCoreThirdLevel={isCoreThirdLevel}
+          changeAlignment={changeAlignment}
+          numberSlider={numberSlider}
+        >
           {
             <CardLegend
               changeAlignment={changeAlignment}
@@ -275,7 +284,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
 };
 export default DoughnutChartFinances;
 
-const Container = styled.div({
+const Container = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
@@ -289,9 +298,9 @@ const Container = styled.div({
     gap: 32,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 64,
+    gap: isCoreThirdLevel ? 40 : 64,
   },
-});
+}));
 
 const ContainerChart = styled.div({
   display: 'flex',
@@ -305,19 +314,14 @@ const ContainerChart = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 210,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 210,
-  },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    width: 210,
+    minWidth: 210,
   },
 });
 
-const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
-  ({ isCoreThirdLevel, changeAlignment }) => ({
+const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean; numberSlider: number }>(
+  ({ isCoreThirdLevel, changeAlignment, numberSlider }) => ({
     display: 'flex',
+    flex: isCoreThirdLevel && numberSlider >= 2 ? 1 : 'none',
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
