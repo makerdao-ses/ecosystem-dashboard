@@ -29,6 +29,10 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   padding: '16px 0',
   borderRadius: 6,
   border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : 'red'}`,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    borderRadius: 16,
+  },
 }));
 
 const TextProgressBox = styled('div')(() => ({

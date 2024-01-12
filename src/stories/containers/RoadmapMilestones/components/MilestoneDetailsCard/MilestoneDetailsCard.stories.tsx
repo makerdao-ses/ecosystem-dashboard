@@ -37,14 +37,14 @@ LightMode.parameters = {
         },
       },
       768: {
-        component: '',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28417-454588',
         options: {
           componentStyle: {
-            width: 133,
+            width: 704,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -3,
+            left: -17,
           },
         },
       },

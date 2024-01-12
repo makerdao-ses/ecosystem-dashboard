@@ -56,6 +56,10 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   padding: 15,
   borderRadius: 6,
   border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : 'red'}`,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    borderRadius: 16,
+  },
 }));
 
 const Row = styled('div')(() => ({
@@ -85,6 +89,10 @@ const Value = styled('div')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 700,
   color: theme.palette.mode === 'light' ? '#231536' : 'red',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+  },
 
   '& span': {
     fontSize: 16,
@@ -136,13 +144,6 @@ const LegendItem = styled('div')<{ dotColor: string }>(({ theme, dotColor }) => 
   alignItems: 'baseline',
   height: 'fit-content',
 
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 14,
-    lineHeight: '17px',
-    alignItems: 'center',
-    paddingRight: 10,
-  },
-
   [theme.breakpoints.up('desktop_1024')]: {
     paddingRight: 10,
   },
@@ -182,12 +183,6 @@ const LegendNumber = styled('div')(({ theme }) => ({
   fontVariantNumeric: 'lining-nums tabular-nums',
   letterSpacing: '0.3px',
 
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 12,
-    lineHeight: 'normal',
-    letterSpacing: '0.3px',
-  },
-
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
     letterSpacing: 'normal',
@@ -207,12 +202,6 @@ const LegendNumberSuffix = styled('div')(({ theme }) => ({
   letterSpacing: '1px',
   fontWeight: 600,
 
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 10,
-    lineHeight: 'normal',
-    textTransform: 'uppercase',
-  },
-
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 12,
     marginLeft: 0,
@@ -226,13 +215,6 @@ const LegendNumberSuffix = styled('div')(({ theme }) => ({
 
 const LegendLabel = styled('div')(({ theme }) => ({
   marginLeft: 3.1,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    marginLeft: 2,
-    fontWeight: 400,
-    fontSize: 12,
-    lineHeight: 'normal',
-  },
 
   [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: 6,
