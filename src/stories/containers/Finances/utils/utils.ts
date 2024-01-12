@@ -782,6 +782,7 @@ export const breakdownChartMonthly = (isMobile: boolean) => [
 ];
 
 export const breakdownChartQuarterly = () => ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
+export const breakdownChartQuarterlyMetric = () => ['1ST QUARTER ', '2ND QUARTER', '3RD QUARTER', '4TH QUARTER'];
 export const breakdownChartAnnually = () => ['Year'];
 export const getGranularity = (granularity: AnalyticGranularity, isMobile: boolean) => {
   switch (granularity.toLocaleLowerCase()) {
