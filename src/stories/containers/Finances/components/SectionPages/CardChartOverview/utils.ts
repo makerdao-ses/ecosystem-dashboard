@@ -22,9 +22,9 @@ export const getTotalAllMetricsBudget = (budgetsAnalytics: BreakdownBudgetAnalyt
 };
 
 export const getShortCode = (code: string) => {
-  if (code.length <= 6) {
+  if (code.length <= 7) {
     return code;
   }
-  const shortCode = code.substring(0, 6);
+  const shortCode = code.substring(0, 7);
   return shortCode;
 };

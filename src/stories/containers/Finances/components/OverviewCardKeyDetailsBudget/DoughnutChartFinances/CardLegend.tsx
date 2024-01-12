@@ -51,7 +51,7 @@ const CardLegend: React.FC<Props> = ({
             <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
               {valueRounded}
               <span>DAI</span>
-              {!isCoreThirdLevel && <span>{`(${data.percent}%)`}</span>}
+              {<span>{`(${data.percent}%)`}</span>}
             </Value>
           </LegendItem>
         );
