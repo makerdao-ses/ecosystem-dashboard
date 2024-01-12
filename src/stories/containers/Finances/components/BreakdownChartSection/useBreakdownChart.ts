@@ -38,8 +38,18 @@ const useBreakdownChart = (
       ? 64
       : 40
     : 56;
+  const mobileValueMap: Record<string, string> = {
+    'Net Expenses On-chain': 'On-chain',
+    'Net Expenses Off-chain': 'Off-chain',
+  };
 
-  const handleBreakdownMetricChange = (value: string) => setSelectedBreakdownMetric(value);
+  const handleBreakdownMetricChange = (value: string) => {
+    // Use the map to find a mobile value or fallback to the original value if not on mobile or no mapping is found.
+    const valueForState = isMobile ? mobileValueMap[value] || value : '';
+    console.log('valueForState', valueForState);
+    setSelectedBreakdownMetric(valueForState);
+  };
+
   const handleBreakdownGranularityChange = (value: string) => {
     setSelectedBreakdownGranularity(value);
   };
