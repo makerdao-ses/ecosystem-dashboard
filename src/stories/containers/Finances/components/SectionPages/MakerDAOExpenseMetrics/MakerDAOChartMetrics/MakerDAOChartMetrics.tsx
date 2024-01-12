@@ -87,7 +87,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
             return value;
           }
           if (selectedGranularity === 'monthly') {
-            return `{value|${value}} \n {year|${year}}`;
+            return `{value|${value}}\n{year|${year}}`;
           }
           if (selectedGranularity === 'quarterly') {
             return `{value|${value}} {year|${year}}`;
