@@ -148,7 +148,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               </ContainerButton>
             )}
           </WrapperMobile>
-          <SwiperWrapper>
+          <SwiperWrapper isLight={isLight}>
             <Swiper
               direction="horizontal"
               ref={ref}
@@ -286,7 +286,7 @@ const CardWrapper = styled.div({
   flex: '1',
 });
 
-const SwiperWrapper = styled.div({
+const SwiperWrapper = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   position: 'relative',
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -305,20 +305,27 @@ const SwiperWrapper = styled.div({
     position: 'relative',
     marginTop: 24,
   },
+  '& .swiper-pagination > .swiper-pagination-bullet': {
+    opacity: 1,
+  },
   '& .swiper-pagination-bullet': {
     width: 16,
     height: 16,
+    backgroundColor: isLight ? '#ECF1F3 !important' : '#1E2C37 !important',
+    opacity: '1px !important',
   },
+
   '& .swiper-pagination-bullet-active': {
-    backgroundColor: '#2DC1B1 !important',
+    backgroundColor: isLight ? '#2DC1B1 !important' : '#098C7D !important',
   },
+
   '& .swiper-slide-active': {
     marginLeft: -8,
     [lightTheme.breakpoints.up('tablet_768')]: {
       marginLeft: -16,
     },
   },
-});
+}));
 
 const WrapperMobile = styled.div({
   display: 'flex',
