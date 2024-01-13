@@ -43,7 +43,9 @@ const MilestoneDetailsCard: React.FC = () => (
     </MobileHeader>
     <Aside>
       <AsideContent>
-        <Code>BASE</Code>
+        <CodeBox>
+          <Code>BASE</Code>
+        </CodeBox>
         <MilestoneProgress />
         <Divider />
         <StatsData />
@@ -118,6 +120,10 @@ const Card = styled('article')(({ theme }) => ({
     boxShadow: 'none',
     display: 'flex',
     gap: 24,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    gap: 48,
   },
 }));
 
@@ -223,6 +229,7 @@ const Aside = styled('aside')(({ theme }) => ({
     flexDirection: 'column',
     marginTop: 0,
     width: 306,
+    minWidth: 306,
     height: 'fit-content',
     padding: '24px 16px',
     alignItems: 'flex-start',
@@ -231,7 +238,12 @@ const Aside = styled('aside')(({ theme }) => ({
     background: theme.palette.mode === 'light' ? '#F6F8F9' : 'red',
     position: 'sticky',
     top: 140,
-    gap: 40,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 383,
+    minWidth: 383,
+    padding: '24px 32px 24px 24px',
   },
 }));
 
@@ -247,8 +259,17 @@ const AsideContent = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
+    gap: 40,
     width: '100%',
     minWidth: '100%',
+  },
+}));
+
+const CodeBox = styled('div')(({ theme }) => ({
+  display: 'none',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
   },
 }));
 

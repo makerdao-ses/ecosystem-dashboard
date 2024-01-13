@@ -1,10 +1,12 @@
-import { styled } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
+import type { Theme } from '@mui/material';
 
 const StatsData: React.FC = () => {
   const { isLight } = useThemeContext();
+  const isUp1024 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
   const humanizedActuals = threeDigitsPrecisionHumanization(20252244);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(45225544);
 
@@ -15,7 +17,7 @@ const StatsData: React.FC = () => {
         <Value>Q4 2023</Value>
       </Row>
       <Row>
-        <Label>Estimated Budget Cap</Label>
+        <Label>{isUp1024 ? 'Est.' : 'Estimated'} Budget Cap</Label>
         <Value>
           {usLocalizedNumber(12927312, 0)} <span>DAI</span>
         </Value>
@@ -64,6 +66,7 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     padding: 0,
     border: 'none',
+    gap: 24,
   },
 }));
 
@@ -121,6 +124,10 @@ const Percentage = styled('div')(({ theme }) => ({
   letterSpacing: 0.4,
   color: theme.palette.mode === 'light' ? '#231536' : 'red',
   fontVariantNumeric: 'lining-nums tabular-nums',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 24,
+  },
 }));
 
 const ExtendedHorizontalBudgetBar = styled(HorizontalBudgetBar)({

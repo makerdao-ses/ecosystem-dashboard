@@ -49,26 +49,26 @@ LightMode.parameters = {
         },
       },
       1024: {
-        component: '',
+        component: 'https://www.figma.com/file/nubRdNZLDrQJLDgh8caMrQ/Untitled?type=design&node-id=1612-34674',
         options: {
           componentStyle: {
-            width: 181.4,
+            width: 960,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -4,
+            left: 0,
           },
         },
       },
       1280: {
-        component: '',
+        component: 'https://www.figma.com/file/nubRdNZLDrQJLDgh8caMrQ/Untitled?type=design&node-id=1616-37493',
         options: {
           componentStyle: {
-            width: 223.8,
+            width: 1184,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -4,
+            left: 0,
           },
         },
       },

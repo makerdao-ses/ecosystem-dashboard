@@ -40,11 +40,15 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   },
 }));
 
-const TextProgressBox = styled('div')(() => ({
+const TextProgressBox = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: 16,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 12,
+  },
 }));
 
 const TextProgress = styled('span')(({ theme }) => ({
