@@ -39,7 +39,9 @@ const useBreakdownChart = (
       : 40
     : 56;
 
-  const handleBreakdownMetricChange = (value: string) => setSelectedBreakdownMetric(value);
+  const handleBreakdownMetricChange = (value: string) => {
+    setSelectedBreakdownMetric(value);
+  };
 
   const handleBreakdownGranularityChange = (value: string) => {
     setSelectedBreakdownGranularity(value);

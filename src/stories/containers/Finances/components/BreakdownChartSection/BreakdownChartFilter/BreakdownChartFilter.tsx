@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { Close } from '@ses/components/svg/close';
@@ -25,6 +26,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
   handleResetFilter,
 }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
 
@@ -45,7 +47,13 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
           useSelectedAsLabel
           selected={selectedMetric}
           onChange={onMetricChange}
-          items={['Budget', 'Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain']}
+          items={[
+            'Budget',
+            'Actuals',
+            'Forecast',
+            !isMobile ? 'Net Expenses On-chain' : 'On-chain',
+            !isMobile ? 'Net Expenses Off-chain' : 'Off-chain',
+          ]}
           PopperProps={{
             placement: 'bottom-end',
           }}

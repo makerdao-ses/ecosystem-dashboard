@@ -818,7 +818,6 @@ export const formatterBreakDownChart = (
 
 export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Metric): ValuesDataWithBorder => {
   let metricKey: keyof BudgetMetric;
-
   switch (selectedMetric) {
     case 'Actuals':
       metricKey = 'actuals';
@@ -829,7 +828,13 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Met
     case 'Net Expenses On-chain':
       metricKey = 'paymentsOnChain';
       break;
+    case 'On-chain':
+      metricKey = 'paymentsOnChain';
+      break;
     case 'Net Expenses Off-chain':
+      metricKey = 'paymentsOffChainIncluded';
+      break;
+    case 'Off-chain':
       metricKey = 'paymentsOffChainIncluded';
       break;
     default:
