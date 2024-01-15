@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { getShortCode } from '../../SectionPages/CardChartOverview/utils';
@@ -31,7 +31,8 @@ const CardLegend: React.FC<Props> = ({
   return (
     <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
       {doughnutSeriesData.map((data, index) => {
-        const valueRounded = usLocalizedNumber(data?.value);
+        const valueRounded = threeDigitsPrecisionHumanization(data?.value);
+
         return (
           <LegendItem
             key={index}
@@ -49,9 +50,9 @@ const CardLegend: React.FC<Props> = ({
               </NameOrCode>
             </IconWithName>
             <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-              {valueRounded}
-              <span>DAI</span>
               <span>{`(${data.percent}%)`}</span>
+              <div>{valueRounded.value}</div>
+              <span>{valueRounded.suffix}</span>
             </Value>
           </LegendItem>
         );
@@ -95,6 +96,7 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  display: 'flex',
   marginLeft: isCoreThirdLevel ? 4 : 14,
   ...(isCoreThirdLevel && {
     whiteSpace: 'revert',
@@ -121,6 +123,7 @@ const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean; isShowS
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: 400,
+
     lineHeight: 'normal',
     ...(!isShowSwiper && {
       whiteSpace: 'nowrap',
