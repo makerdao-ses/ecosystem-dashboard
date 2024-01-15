@@ -27,12 +27,12 @@ const TitleToolTipArrowLink: React.FC<Props> = ({ title }) => {
           leaveTouchDelay={15000}
         >
           <IconWrapper>
-            <Information />
+            <Information height={18} width={18} />
           </IconWrapper>
         </SESTooltip>
       </Tooltip>
       <ArrowLinkWrapper>
-        <ArrowLink />
+        <ArrowLink width={18} height={18} />
       </ArrowLinkWrapper>
     </Container>
   );
@@ -43,8 +43,8 @@ export default TitleToolTipArrowLink;
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  gap: 8,
   alignItems: 'center',
+  gap: 8,
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
@@ -61,25 +61,38 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Tooltip = styled.div({});
+const Tooltip = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+});
 const IconWrapper = styled.div({
   display: 'flex',
+  justifyContent: 'flex-start',
+  width: 24,
+  height: 24,
+  paddingLeft: 2,
+  alignItems: 'center',
 
-  paddingTop: 2,
   [lightTheme.breakpoints.up('tablet_768')]: {
+    paddingTop: 6,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    paddingLeft: 4,
     paddingTop: 4,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingTop: 8,
+    paddingTop: 4,
   },
 });
 
 const ArrowLinkWrapper = styled.div({
-  width: 24,
-  height: 24,
-  paddingTop: 2,
+  display: 'flex',
+  justifyContent: 'end',
+
   [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingTop: 3,
+    paddingTop: 8,
+    alignItems: 'baseline',
+    paddingLeft: 4,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     paddingTop: 8,

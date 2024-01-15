@@ -7,7 +7,7 @@ interface Props {
   title: string;
 }
 
-const ReservesWaterFallChart: React.FC<Props> = ({ title }) => (
+const ReservesWaterFallChartSection: React.FC<Props> = ({ title }) => (
   <Container>
     <ContainerTitleFilter>
       <TitleToolTipArrowLink title={title} />
@@ -15,7 +15,7 @@ const ReservesWaterFallChart: React.FC<Props> = ({ title }) => (
   </Container>
 );
 
-export default ReservesWaterFallChart;
+export default ReservesWaterFallChartSection;
 
 const Container = styled.div({
   display: 'flex',
