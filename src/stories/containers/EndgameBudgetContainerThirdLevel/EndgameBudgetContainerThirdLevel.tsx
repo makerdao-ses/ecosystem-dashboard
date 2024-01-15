@@ -18,6 +18,7 @@ import BreakdownTable from '../Finances/components/SectionPages/BreakdownTable/B
 import CardChartOverview from '../Finances/components/SectionPages/CardChartOverview/CardChartOverview';
 import DelegateExpenseTrendFinances from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetricsFinances from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
+import ReservesWaterFallChart from '../Finances/components/SectionPages/ReservesWaterFallChartSection/ReservesWaterFallChartSection';
 import { useEndgameBudgetContainerThirdLevel } from './useEndgameBudgetContainerThirdLevel';
 import type { NavigationCard } from '../Finances/utils/types';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -220,6 +221,11 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
             year={year}
           />
         )}
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
+          <ContainerReservesWaterFallChart>
+            <ReservesWaterFallChart title={title} />
+          </ContainerReservesWaterFallChart>
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}
@@ -360,5 +366,12 @@ const BigButtonStyled = styled(BigButton)({
   letterSpacing: 1,
   [lightTheme.breakpoints.up('tablet_768')]: {
     minWidth: 207,
+  },
+});
+
+const ContainerReservesWaterFallChart = styled.div({
+  marginTop: 40,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: 64,
   },
 });
