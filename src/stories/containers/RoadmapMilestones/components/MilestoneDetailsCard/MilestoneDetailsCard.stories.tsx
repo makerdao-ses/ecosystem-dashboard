@@ -25,50 +25,50 @@ LightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: '',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28869-260079',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: -2,
-            left: -6,
+            top: -20,
+            left: -40,
           },
         },
       },
       768: {
-        component: '',
+        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28417-454588',
         options: {
           componentStyle: {
-            width: 133,
+            width: 704,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -3,
+            left: -17,
           },
         },
       },
       1024: {
-        component: '',
+        component: 'https://www.figma.com/file/nubRdNZLDrQJLDgh8caMrQ/Untitled?type=design&node-id=1612-34674',
         options: {
           componentStyle: {
-            width: 181.4,
+            width: 960,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -4,
+            left: 0,
           },
         },
       },
       1280: {
-        component: '',
+        component: 'https://www.figma.com/file/nubRdNZLDrQJLDgh8caMrQ/Untitled?type=design&node-id=1616-37493',
         options: {
           componentStyle: {
-            width: 223.8,
+            width: 1184,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -4,
+            left: 0,
           },
         },
       },

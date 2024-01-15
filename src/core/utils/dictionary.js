@@ -152,6 +152,7 @@ const dictionary = [
   'linecap',
   'toggleable',
   'Roadmaps',
+  'nums',
 ];
 
 module.exports = dictionary;
