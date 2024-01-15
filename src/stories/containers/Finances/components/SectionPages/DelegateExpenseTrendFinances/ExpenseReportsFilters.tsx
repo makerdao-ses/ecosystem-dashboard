@@ -57,8 +57,8 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
             'Budget',
             'Actuals',
             'Forecast',
-            !isMobile ? 'Net Expenses On-chain' : 'On-chain',
-            !isMobile ? 'Net Expenses Off-chain' : 'Off-chain',
+            !isMobile ? 'Net Expenses On-chain' : 'Net On-chain',
+            !isMobile ? 'Net Expenses Off-chain' : 'Net Off-chain',
           ]}
           PopperProps={{
             placement: 'bottom-end',

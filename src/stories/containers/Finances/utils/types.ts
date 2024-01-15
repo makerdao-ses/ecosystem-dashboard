@@ -61,8 +61,8 @@ export type Metric =
   | 'Forecast'
   | 'Net Expenses On-chain'
   | 'Net Expenses Off-chain'
-  | 'On-chain'
-  | 'Off-chain';
+  | 'Net On-chain'
+  | 'Net Off-chain';
 export interface MetricValues {
   Budget: number;
   Actuals: number;
