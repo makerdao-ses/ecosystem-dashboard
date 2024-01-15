@@ -71,7 +71,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
         : [newBudgetMetric()];
 
     return {
-      image: item.image || '',
+      image: item.image || '/assets/img/default-icon-cards-budget.svg',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
