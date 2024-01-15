@@ -22,7 +22,6 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
   const orderData = sortDataByElementCount(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
-  //
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : period === 'Annually' ? 1 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
