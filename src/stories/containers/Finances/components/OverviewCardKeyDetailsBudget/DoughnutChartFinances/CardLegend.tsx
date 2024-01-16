@@ -49,11 +49,17 @@ const CardLegend: React.FC<Props> = ({
                 {isCoreThirdLevel ? getShortCode(data?.code || '') : data.name}
               </NameOrCode>
             </IconWithName>
-            <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-              <span>{`(${data.percent}%)`}</span>
-              <div>{valueRounded.value}</div>
-              <span>{valueRounded.suffix}</span>
-            </Value>
+            <ValueDescription isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+              <Percent isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>{`(${data.percent}%)`}</Percent>
+              <ContainerValue>
+                <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+                  {valueRounded.value}
+                </Value>
+                <Suffix isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+                  {valueRounded.suffix}
+                </Suffix>
+              </ContainerValue>
+            </ValueDescription>
           </LegendItem>
         );
       })}
@@ -75,7 +81,7 @@ const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; changeA
   ({ isLight, isCoreThirdLevel, changeAlignment }) => ({
     display: 'flex',
     flexDirection: isCoreThirdLevel ? 'row' : 'column',
-    gap: isCoreThirdLevel ? 4 : 4,
+    gap: isCoreThirdLevel ? 0 : 4,
     fontSize: 12,
     fontFamily: 'Inter, sans-serif',
     color: isLight ? '#43435' : '#EDEFFF',
@@ -85,11 +91,11 @@ const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; changeA
       minWidth: 0,
     }),
     [lightTheme.breakpoints.up('desktop_1280')]: {
-      gap: 8,
+      gap: isCoreThirdLevel ? 0 : 8,
     },
   })
 );
-const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
+const ValueDescription = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
   color: isLight ? '#9FAFB9' : '#546978',
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
@@ -103,10 +109,6 @@ const Value = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight
     overflow: 'revert',
     textOverflow: 'revert',
   }),
-  '& span': {
-    display: 'inline-block',
-    marginLeft: isCoreThirdLevel ? 2 : 4,
-  },
 }));
 
 const IconWithName = styled.div({
@@ -118,11 +120,11 @@ const IconWithName = styled.div({
 
 const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean; isShowSwiper: boolean }>(
   ({ isLight, isCoreThirdLevel, isShowSwiper }) => ({
-    color: isLight ? (isCoreThirdLevel ? '#708390' : '#434358') : '#EDEFFF',
+    color: isLight ? (isCoreThirdLevel ? '#B6BCC2' : '#434358') : '#EDEFFF',
     fontFamily: 'Inter, sans-serif',
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: 400,
+    fontWeight: isCoreThirdLevel ? 700 : 600,
 
     lineHeight: 'normal',
     ...(!isShowSwiper && {
@@ -155,3 +157,21 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     },
   })
 );
+
+const Percent = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCoreThirdLevel, isLight }) => ({
+  color: isLight ? (isCoreThirdLevel ? '#6F7A85' : '#B6BCC2') : '#6F7A85',
+}));
+
+const Value = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCoreThirdLevel, isLight }) => ({
+  color: isLight ? (isCoreThirdLevel ? '#0E1010' : '#6F7A85') : '#B6BCC2',
+}));
+
+const Suffix = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCoreThirdLevel, isLight }) => ({
+  color: isLight ? (isCoreThirdLevel ? '#0E1010' : '#6F7A85') : '#B6BCC2',
+}));
+
+const ContainerValue = styled.div({
+  display: 'flex',
+  marginLeft: 4,
+  gap: 4,
+});

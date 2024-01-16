@@ -212,13 +212,16 @@ const ContainerChat = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
   flex: 1,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 32,
+    marginTop: 4,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     justifyContent: 'center',
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginRight: isCoreThirdLevel ? 0 : 75,
+    marginTop: -4,
   },
 }));
 
