@@ -117,7 +117,7 @@ LightMode.parameters = {
       },
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:332693&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=31002:29277&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
