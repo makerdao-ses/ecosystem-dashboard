@@ -22,8 +22,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
   const orderData = sortDataByElementCount(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
-
-  const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : 3;
+  const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : period === 'Annually' ? 1 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
   const showSemiAnnual = isMobile && period === 'Semi-annual';
@@ -38,6 +37,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
       ? 'PaymentsOffChainIncluded'
       : metric
   );
+
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
@@ -49,12 +49,25 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                 <Headed isLight={isLight} period={period}>
                   {row.name}
                 </Headed>
+
                 {showAnnual &&
-                  newMetrics.map((metric) => (
-                    <Cell key={index} isLight={isLight}>
-                      {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
-                    </Cell>
-                  ))}
+                  newMetrics.map((metric, index) => {
+                    // Check if don't have columns to show add cero
+                    const value = row.columns.length !== 0;
+                    if (!value) {
+                      return (
+                        <Cell key={index} isLight={isLight}>
+                          0
+                        </Cell>
+                      );
+                    }
+                    return (
+                      <Cell key={index} isLight={isLight}>
+                        {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
+                      </Cell>
+                    );
+                  })}
+
                 {showQuarterly &&
                   arrayMetrics.map((_, index) => (
                     <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
