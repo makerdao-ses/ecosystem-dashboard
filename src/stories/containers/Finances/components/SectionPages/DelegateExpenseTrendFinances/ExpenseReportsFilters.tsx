@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
@@ -31,6 +32,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
   allItemsCount,
 }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isDisabled = selectedMetric === 'Actual' && selectedStatuses.length === 0;
   const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
 
@@ -51,7 +53,13 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           useSelectedAsLabel
           selected={selectedMetric}
           onChange={onMetricChange}
-          items={['Budget', 'Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain']}
+          items={[
+            'Budget',
+            'Actuals',
+            'Forecast',
+            !isMobile ? 'Net Expenses On-chain' : 'Net On-chain',
+            !isMobile ? 'Net Expenses Off-chain' : 'Net Off-chain',
+          ]}
           PopperProps={{
             placement: 'bottom-end',
           }}
