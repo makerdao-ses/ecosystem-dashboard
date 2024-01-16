@@ -32,7 +32,7 @@ const TitleToolTipArrowLink: React.FC<Props> = ({ title }) => {
         </SESTooltip>
       </Tooltip>
       <ArrowLinkWrapper>
-        <ArrowLink width={18} height={18} />
+        <ArrowLink width={22} height={22} fill={isLight ? '#B6BCC2' : 'red'} />
       </ArrowLinkWrapper>
     </Container>
   );
@@ -71,30 +71,25 @@ const IconWrapper = styled.div({
   width: 24,
   height: 24,
   paddingLeft: 2,
-  alignItems: 'center',
-
+  marginTop: 2,
+  alignItems: 'flex-start',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingTop: 6,
+    alignItems: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     paddingLeft: 4,
-    paddingTop: 4,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingTop: 4,
   },
 });
 
 const ArrowLinkWrapper = styled.div({
   display: 'flex',
-  justifyContent: 'end',
-
+  justifyContent: 'flex-end',
+  width: 22,
+  height: 22,
+  marginBottom: 4,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingTop: 8,
+    marginBottom: 'revert',
+    marginLeft: 2,
     alignItems: 'baseline',
-    paddingLeft: 4,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingTop: 8,
   },
 });
