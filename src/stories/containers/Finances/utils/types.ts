@@ -2,6 +2,7 @@ import type { SortEnum } from '@ses/core/enums/sortEnum';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 import type { BudgetMetric } from '@ses/core/models/interfaces/analytic';
 import type { Team } from '@ses/core/models/interfaces/team';
+import type { EChartsOption } from 'echarts-for-react';
 import type { DateTime } from 'luxon';
 
 export type FilterDoughnut = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
@@ -120,4 +121,35 @@ export interface TableFinances {
 
 export interface RowItemMetrics {
   [key: string]: MetricValues[];
+}
+
+export interface LegendItemsWaterFall {
+  title: string;
+  color: string;
+}
+
+export interface WaterFallChartSeriesData {
+  name: string;
+  data: (number | string)[];
+  barWidth?: number;
+  stack?: string;
+  type: string;
+  label?: {
+    formatter?: (params: EChartsOption) => string;
+    show: boolean;
+    color?: string;
+    position?: string;
+    fontSize?: number;
+  };
+  itemStyle?: {
+    borderRadius?: number;
+    color?: ((params: EChartsOption) => string) | string;
+  };
+  zIndex?: number;
+  isVisible?: boolean;
+}
+
+export interface WaterFallLineData {
+  value: number;
+  color: string;
 }

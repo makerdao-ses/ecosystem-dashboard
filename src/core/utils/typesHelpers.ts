@@ -44,6 +44,7 @@ export interface SVGIconProps {
   width?: number;
   height?: number;
   className?: string;
+  fill?: string;
 }
 
 export interface SVGIconWithFillProps {
