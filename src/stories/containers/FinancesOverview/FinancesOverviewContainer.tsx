@@ -41,7 +41,6 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     newActual,
     newDiscontinued,
     newPrediction,
-    totalExpenses,
     sortedQuarters,
     isDownDesktop1280,
     selectedFilter,
@@ -53,7 +52,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
     byCategoryExpenses,
     remainingCategories,
     maxValueByCategory,
-    costBreakdownTotal,
+    totalExpenses,
     remainingEcosystemActors,
   } = useFinancesOverview(quarterExpenses, monthlyExpenses, byBudgetBreakdownExpenses, byCategoryBreakdownExpenses);
 
@@ -83,7 +82,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         </ContainerYearPicker>
         <TotalReported>
           <div>
-            <Label isLight={isLight}>{`${totalExpenses()?.toLocaleString('es-US') || '0'} dai`}</Label>
+            <Label isLight={isLight}>{`${totalExpenses?.toLocaleString('es-US') || '0'} dai`}</Label>
             <Line isLight={isLight} />
           </div>
           <TotalDescription isLight={isLight}>Total Reported Expenses</TotalDescription>
@@ -107,7 +106,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
               byCategoryExpenses={byCategoryExpenses}
               remainingCategories={remainingCategories}
               maxValueByCategory={maxValueByCategory}
-              total={costBreakdownTotal}
+              total={totalExpenses}
               handleOnClick={handleOpenModal}
             />
           </BreakdownTableColumn>

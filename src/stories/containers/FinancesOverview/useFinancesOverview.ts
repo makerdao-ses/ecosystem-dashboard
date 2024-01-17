@@ -45,17 +45,6 @@ const useFinancesOverview = (
     setSelectedYear(year);
   };
 
-  const totalExpenses = useCallback(() => {
-    const valuesYearSelect = monthly.filter(
-      (charValue) => DateTime.fromISO(charValue?.period || '').year === selectedYear
-    );
-
-    const actuals = valuesYearSelect.map((item) => item?.actuals) || [];
-    const total = actuals?.reduce((current, next) => (current || 0) + (next || 0), 0);
-
-    return Math.trunc(total || 0);
-  }, [monthly, selectedYear]);
-
   const fillArrayWhenNoData = useCallback((series: { period: string; value: number }[]) => {
     const filledArr = new Array<{ period: string; value: number }>(12);
 
@@ -149,13 +138,13 @@ const useFinancesOverview = (
 
   const {
     byBudgetExpenses,
-    costBreakdownTotal,
+    totalExpenses,
     remainingBudgetCU,
     maxValueByBudget,
     remainingBudgetDelegates,
     remainingEcosystemActors,
   } = useMemo(() => {
-    let costBreakdownTotal = 0;
+    let totalExpenses = 0;
     const byBudgetExpenses: ExtendedExpense[] = [];
     const remainingBudgetCU = {
       shortCode: 'CU',
@@ -192,7 +181,7 @@ const useFinancesOverview = (
       .filter((expense) => expense.period === selectedYear.toString())
       .sort((a, b) => b.actuals - a.actuals)
       .forEach((expense, index) => {
-        costBreakdownTotal += expense.actuals;
+        totalExpenses += expense.actuals;
         if (index < 10) {
           byBudgetExpenses.push(expense);
         } else if (isCoreUnitExpense(expense)) {
@@ -216,7 +205,7 @@ const useFinancesOverview = (
       remainingEcosystemActors,
       remainingBudgetDelegates,
       maxValueByBudget,
-      costBreakdownTotal,
+      totalExpenses,
     };
   }, [byBudgetBreakdownExpenses, selectedYear]);
 
@@ -271,7 +260,6 @@ const useFinancesOverview = (
     newDiscontinued,
     newPrediction,
     newActual,
-    totalExpenses,
     isDownDesktop1280,
     selectedFilter,
     setSelectedFilter,
@@ -282,7 +270,7 @@ const useFinancesOverview = (
     byCategoryExpenses,
     remainingCategories,
     maxValueByCategory,
-    costBreakdownTotal,
+    totalExpenses,
     remainingEcosystemActors,
   };
 };
