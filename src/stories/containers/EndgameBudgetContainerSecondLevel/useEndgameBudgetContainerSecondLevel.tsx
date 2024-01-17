@@ -10,6 +10,7 @@ import { useCardChartOverview } from '../Finances/components/SectionPages/CardCh
 import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { useMakerDAOExpenseMetrics } from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
+import { useReservesWaterFallChart } from '../Finances/components/SectionPages/ReservesWaterFallChartSection/useReservesWaterFallChart';
 import {
   existingColors,
   existingColorsDark,
@@ -123,9 +124,16 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   // Hooks Logic of Table Second Level
   const breakdownTableSecondLevel = useBreakdownTable(year, budgets, allBudgets);
 
+  // All the logic required by the MakerDAOExpenseMetrics
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
+
+  // All the logic required by the ReservesWaterFallChart
+  const reserveChartSecondLevel = useReservesWaterFallChart();
+
+  // All the logic Expense Report Second Level
   const expenseReportSection = useDelegateExpenseTrendFinances();
 
-  const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
+  const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
   const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
 
   const icon = levelBudget?.image || '';
@@ -168,9 +176,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     },
   ];
 
-  // All the logic required by the MakerDAOExpenseMetrics
-  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
-
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
     mutate(['analytics/quarterly', levelPath]);
@@ -203,5 +208,6 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     expenseReportSection,
     breakdownTableSecondLevel,
     showSwiper,
+    reserveChartSecondLevel,
   };
 };

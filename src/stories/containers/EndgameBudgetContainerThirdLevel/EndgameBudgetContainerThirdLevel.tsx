@@ -62,6 +62,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     makerDAOExpensesMetrics,
     expenseReportSection,
     showSwiper,
+    reserveChartThirdLevel,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
@@ -223,7 +224,13 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
         )}
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
           <ContainerReservesWaterFallChart>
-            <ReservesWaterFallChart title={title} />
+            <ReservesWaterFallChart
+              title={title}
+              series={reserveChartThirdLevel.series}
+              legends={reserveChartThirdLevel.legendItems}
+              selectedGranularity={reserveChartThirdLevel.selectedGranularity}
+              year={year}
+            />
           </ContainerReservesWaterFallChart>
         )}
         <ContainerLastReport>
