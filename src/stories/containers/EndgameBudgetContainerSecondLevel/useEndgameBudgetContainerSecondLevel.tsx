@@ -83,7 +83,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
         : [newBudgetMetric()];
 
     return {
-      image: item.image || '',
+      image: item.image || '/assets/img/default-icon-cards-budget.svg',
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
@@ -128,7 +128,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
 
-  const icon = levelBudget?.image || '';
+  const icon = levelBudget?.image;
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
     router.push({

@@ -108,7 +108,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
       />
       <Container>
         <ContainerTitle>
-          <IconTitle icon={icon} title={title} />
+          <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
         </ContainerTitle>
         <ContainerSections>
           <WrapperDesk>
@@ -134,7 +134,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
                 valueDai={card?.valueDai || 0}
                 totalDai={card?.totalDai || 0}
                 href={card.href || '#'}
-                image={card.image || ''}
+                image={card.image || '/assets/img/default-icon-cards-budget.svg'}
                 title={card.title}
                 barColor={card.color}
                 key={index}
@@ -164,7 +164,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
                     <CardCoreUnitThirdLevelBudget
                       code={coreUnit.code}
                       href="#"
-                      image={coreUnit.image}
+                      image={coreUnit.image || '/assets/img/default-icon-cards-budget.svg'}
                       name={coreUnit.title}
                     />
                   </CardWrapper>

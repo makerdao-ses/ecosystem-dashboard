@@ -63,7 +63,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
       />
       <Container>
         <ContainerTitle>
-          <IconTitle icon={icon} title={title} />
+          <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
         </ContainerTitle>
 
         <ContainerSections>

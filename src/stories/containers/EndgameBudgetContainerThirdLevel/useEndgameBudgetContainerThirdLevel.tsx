@@ -103,7 +103,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const titleFirstPathBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const levelBudgetPath = allBudgets.find((budget) => budget.codePath === firstPath);
 
-  const icon = titleFirstPathBudget?.image || '';
+  const icon = titleFirstPathBudget?.image;
 
   const title = removePrefix(titleFirstPathBudget?.name || '', prefixToRemove) || '';
 
@@ -138,7 +138,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
         : [newBudgetMetric()];
 
     return {
-      image: item.image || '',
+      image: item.image,
       title: removePrefix(item.name, prefixToRemove),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
