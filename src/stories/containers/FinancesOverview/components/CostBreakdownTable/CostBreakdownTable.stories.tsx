@@ -178,7 +178,7 @@ const BuilderComponent: React.FC<{ filter: CostBreakdownFilterValue }> = ({ filt
     byCategoryExpenses,
     remainingCategories,
     maxValueByCategory,
-    costBreakdownTotal,
+    totalExpenses,
     remainingEcosystemActors,
   } = useFinancesOverview([], [], byBudgetBreakdownExpenses as ExtendedExpense[], byCategoryBreakdownExpenses);
 
@@ -194,7 +194,7 @@ const BuilderComponent: React.FC<{ filter: CostBreakdownFilterValue }> = ({ filt
       byCategoryExpenses={byCategoryExpenses}
       remainingCategories={remainingCategories}
       maxValueByCategory={maxValueByCategory}
-      total={costBreakdownTotal}
+      total={totalExpenses}
     />
   );
 };
