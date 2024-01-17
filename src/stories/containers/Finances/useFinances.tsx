@@ -11,6 +11,7 @@ import { useCardChartOverview } from './components/SectionPages/CardChartOvervie
 import { getTotalAllMetricsBudget } from './components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
+import { useReservesWaterFallChart } from './components/SectionPages/ReservesWaterFallChartSection/useReservesWaterFallChart';
 import {
   getBudgetsAnalytics,
   newBudgetMetric,
@@ -108,6 +109,11 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   // All the logic required by the MakerDAOExpenseMetrics
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
+  // All the logic for the Reserve Chart
+  // This should be calculate
+
+  const reserveChart = useReservesWaterFallChart();
+
   // invalidate cache and refetch all sections when year changes
   useEffect(() => {
     mutate('analytics/annual');
@@ -128,5 +134,6 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
     makerDAOExpensesMetrics,
     expenseReportSection: expenseTrendFinances,
     trailingAddress,
+    reserveChart,
   };
 };

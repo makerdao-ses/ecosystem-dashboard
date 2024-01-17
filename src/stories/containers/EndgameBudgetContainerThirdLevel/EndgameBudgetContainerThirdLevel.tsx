@@ -62,6 +62,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
     makerDAOExpensesMetrics,
     expenseReportSection,
     showSwiper,
+    reserveChartThirdLevel,
   } = useEndgameBudgetContainerThirdLevel(budgets, initialYear, allBudgets);
   const ref = useRef<SwiperRef>(null);
 
@@ -223,7 +224,13 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
         )}
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
           <ContainerReservesWaterFallChart>
-            <ReservesWaterFallChart title={title} />
+            <ReservesWaterFallChart
+              title={title}
+              series={reserveChartThirdLevel.series}
+              legends={reserveChartThirdLevel.legendItems}
+              selectedGranularity={reserveChartThirdLevel.selectedGranularity}
+              year={year}
+            />
           </ContainerReservesWaterFallChart>
         )}
         <ContainerLastReport>
@@ -319,6 +326,12 @@ const SwiperWrapper = styled.div<WithIsLight>(({ isLight }) => ({
     height: 16,
     backgroundColor: isLight ? '#ECF1F3 !important' : '#1E2C37 !important',
     opacity: '1px !important',
+    '&:first-child': {
+      borderRadius: '20px 0px 0px 20px',
+    },
+    '&:last-child': {
+      borderRadius: '0px 20px 20px 0px',
+    },
   },
 
   '& .swiper-pagination-bullet-active': {

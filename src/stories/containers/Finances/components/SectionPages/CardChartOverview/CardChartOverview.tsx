@@ -84,7 +84,7 @@ const Container = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isL
     background: isLight ? '#FFF' : '#1E2C37',
     boxShadow: isLight
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-      : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+      : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 
     height: 223,
     minWidth: 704,

@@ -766,28 +766,37 @@ export const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
 export const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
 
 // Legend for breakdown chart
-export const breakdownChartMonthly = (isMobile: boolean) => [
-  isMobile ? 'J' : 'JAN',
-  isMobile ? 'F' : 'FEB',
-  isMobile ? 'M' : 'MAR',
-  isMobile ? 'A' : 'APR',
-  isMobile ? 'M' : 'MAY',
-  isMobile ? 'J' : 'JUN',
-  isMobile ? 'J' : 'JUL',
-  isMobile ? 'A' : 'AUG',
-  isMobile ? 'S' : 'SEP',
-  isMobile ? 'O' : 'OCT',
-  isMobile ? 'N' : 'NOV',
-  isMobile ? 'D' : 'DEC',
-];
+export const breakdownChartMonthly = (isMobile: boolean, isWaterFall = false) => {
+  const defaultArray = [
+    isMobile ? 'J' : 'JAN',
+    isMobile ? 'F' : 'FEB',
+    isMobile ? 'M' : 'MAR',
+    isMobile ? 'A' : 'APR',
+    isMobile ? 'M' : 'MAY',
+    isMobile ? 'J' : 'JUN',
+    isMobile ? 'J' : 'JUL',
+    isMobile ? 'A' : 'AUG',
+    isMobile ? 'S' : 'SEP',
+    isMobile ? 'O' : 'OCT',
+    isMobile ? 'N' : 'NOV',
+    isMobile ? 'D' : 'DEC',
+  ];
+  if (isWaterFall) {
+    const start = isMobile ? 'S' : 'START';
+    const finish = isMobile ? 'F' : 'FINISH';
+    defaultArray.unshift(start);
+    defaultArray.push(finish);
+  }
+  return defaultArray;
+};
 
 export const breakdownChartQuarterly = () => ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
 export const breakdownChartQuarterlyMetric = () => ['1ST QUARTER ', '2ND QUARTER', '3RD QUARTER', '4TH QUARTER'];
 export const breakdownChartAnnually = () => ['Year'];
-export const getGranularity = (granularity: AnalyticGranularity, isMobile: boolean) => {
-  switch (granularity.toLocaleLowerCase()) {
+export const getGranularity = (granularity: AnalyticGranularity, isMobile: boolean, isWaterFall = false) => {
+  switch (granularity?.toLocaleLowerCase()) {
     case 'monthly':
-      return breakdownChartMonthly(isMobile);
+      return breakdownChartMonthly(isMobile, isWaterFall);
     case 'quarterly':
       return breakdownChartQuarterly();
     case 'annually':

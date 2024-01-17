@@ -12,6 +12,7 @@ import { useCardChartOverview } from '../Finances/components/SectionPages/CardCh
 import { getTotalAllMetricsBudget } from '../Finances/components/SectionPages/CardChartOverview/utils';
 import { useDelegateExpenseTrendFinances } from '../Finances/components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
 import { useMakerDAOExpenseMetrics } from '../Finances/components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
+import { useReservesWaterFallChart } from '../Finances/components/SectionPages/ReservesWaterFallChartSection/useReservesWaterFallChart';
 import {
   existingColors,
   existingColorsDark,
@@ -99,6 +100,15 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     budgetsAnalyticsQuarterly,
     budgetsAnalytics
   );
+
+  // All Logic for the table
+  const breakdownTableThirdLevel = useBreakdownTable(year, budgets, allBudgets);
+
+  // All the logic required by the MakerDAOExpenseMetrics
+  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
+
+  // All the logic required by the ReservesWaterFallChart
+  const reserveChartThirdLevel = useReservesWaterFallChart();
 
   const titleFirstPathBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const levelBudgetPath = allBudgets.find((budget) => budget.codePath === firstPath);
@@ -221,12 +231,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     },
   } as SwiperProps;
 
-  // All Logic for the table
-  const breakdownTableThirdLevel = useBreakdownTable(year, budgets, allBudgets);
-
-  // All the logic required by the MakerDAOExpenseMetrics
-  const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
-
   useEffect(() => {
     mutate(['analytics/annual', levelPath]);
     mutate(['analytics/quarterly', levelPath]);
@@ -260,5 +264,6 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
     makerDAOExpensesMetrics,
     expenseReportSection,
     showSwiper,
+    reserveChartThirdLevel,
   };
 };

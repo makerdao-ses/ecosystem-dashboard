@@ -15,7 +15,7 @@ import CardChartOverview from './components/SectionPages/CardChartOverview/CardC
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
-import ReservesWaterFallChart from './components/SectionPages/ReservesWaterFallChartSection/ReservesWaterFallChartSection';
+import ReservesWaterFallChartSection from './components/SectionPages/ReservesWaterFallChartSection/ReservesWaterFallChartSection';
 import { useFinances } from './useFinances';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -40,6 +40,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     breakdownChartSectionData,
     expenseReportSection,
     trailingAddress,
+    reserveChart,
   } = useFinances(budgets, initialYear);
 
   return (
@@ -148,7 +149,13 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         )}
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
           <ContainerReservesWaterFallChart>
-            <ReservesWaterFallChart title={'MakerDAO Finances'} />
+            <ReservesWaterFallChartSection
+              title={'MakerDAO Finances'}
+              legends={reserveChart.legendItems}
+              series={reserveChart.series}
+              selectedGranularity={reserveChart.selectedGranularity}
+              year={year}
+            />
           </ContainerReservesWaterFallChart>
         )}
         <ContainerLastReport>
