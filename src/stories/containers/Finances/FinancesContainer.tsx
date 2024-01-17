@@ -15,6 +15,7 @@ import CardChartOverview from './components/SectionPages/CardChartOverview/CardC
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
+import ReservesWaterFallChart from './components/SectionPages/ReservesWaterFallChartSection/ReservesWaterFallChartSection';
 import { useFinances } from './useFinances';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -145,6 +146,11 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
             year={year}
           />
         )}
+        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
+          <ContainerReservesWaterFallChart>
+            <ReservesWaterFallChart title={'MakerDAO Finances'} />
+          </ContainerReservesWaterFallChart>
+        )}
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}
@@ -215,5 +221,12 @@ const WrapperMobile = styled.div({
   gap: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
+  },
+});
+
+const ContainerReservesWaterFallChart = styled.div({
+  marginTop: 40,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginTop: 64,
   },
 });

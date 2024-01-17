@@ -291,11 +291,11 @@ const Container = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel 
 
   gap: 64,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 22,
+    gap: 20,
     justifyContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    gap: 32,
+    gap: 30,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: isCoreThirdLevel ? 40 : 64,

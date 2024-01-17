@@ -2,6 +2,8 @@ import { styled } from '@mui/system';
 import ProjectOwnerChip from '@ses/containers/ActorProjects/components/ProjectOwnerChip/ProjectOwnerChip';
 import SupportedTeamsAvatarGroup from '@ses/containers/ActorProjects/components/SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import { OwnerType } from '@ses/core/models/interfaces/projects';
+import Coordinators from './Coordinators';
+import EcosystemActors from './EcosystemAcotrs';
 import MilestoneProgress from './MilestoneProgress';
 import StatsData from './StatsData';
 
@@ -50,9 +52,9 @@ const MilestoneDetailsCard: React.FC = () => (
         <Divider />
         <StatsData />
         <Divider />
-        <div>coordinators</div>
+        <Coordinators />
         <Divider />
-        <div>Ecosystem Actors</div>
+        <EcosystemActors />
       </AsideContent>
       <DescriptionContent>
         <Paragraph>
