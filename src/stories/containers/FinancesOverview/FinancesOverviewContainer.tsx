@@ -5,6 +5,7 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useCategoriesModalContext } from '@ses/core/context/CategoryModalContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
@@ -82,7 +83,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         </ContainerYearPicker>
         <TotalReported>
           <div>
-            <Label isLight={isLight}>{`${totalExpenses?.toLocaleString('es-US') || '0'} dai`}</Label>
+            <Label isLight={isLight}>{`${usLocalizedNumber(totalExpenses, 0)} dai`}</Label>
             <Line isLight={isLight} />
           </div>
           <TotalDescription isLight={isLight}>Total Reported Expenses</TotalDescription>
