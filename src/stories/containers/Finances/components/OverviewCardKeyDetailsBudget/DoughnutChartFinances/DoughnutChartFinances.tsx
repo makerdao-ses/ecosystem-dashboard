@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CardLegend from './CardLegend';
+import DaiToolTipIcon from './DaiToolTipIcon';
 import { chunkArray } from './utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { EChartsOption } from 'echarts-for-react';
@@ -227,6 +228,9 @@ const DoughnutChartFinances: React.FC<Props> = ({
           }}
           opts={{ renderer: 'svg' }}
         />
+        <ContainerDaiIcon>
+          <DaiToolTipIcon />
+        </ContainerDaiIcon>
       </ContainerChart>
       {showSwiper ? (
         <SwiperWrapper isCoreThirdLevel={isCoreThirdLevel}>
@@ -305,6 +309,7 @@ const Container = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel 
 const ContainerChart = styled.div({
   display: 'flex',
   justifyContent: 'flex-start',
+  position: 'relative',
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 138,
   },
@@ -387,3 +392,17 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
     [lightTheme.breakpoints.up('tablet_768')]: {},
   },
 }));
+
+const ContainerDaiIcon = styled.div({
+  width: 64,
+  height: 64,
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  margin: 'auto',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  position: 'absolute',
+});
