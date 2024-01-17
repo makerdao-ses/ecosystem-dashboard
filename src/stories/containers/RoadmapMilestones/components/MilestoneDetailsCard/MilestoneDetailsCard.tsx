@@ -3,6 +3,7 @@ import ProjectOwnerChip from '@ses/containers/ActorProjects/components/ProjectOw
 import SupportedTeamsAvatarGroup from '@ses/containers/ActorProjects/components/SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import { OwnerType } from '@ses/core/models/interfaces/projects';
 import Coordinators from './Coordinators';
+import DeliverablesSection from './DeliverablesSection';
 import EcosystemActors from './EcosystemAcotrs';
 import MilestoneProgress from './MilestoneProgress';
 import StatsData from './StatsData';
@@ -92,7 +93,9 @@ const MilestoneDetailsCard: React.FC = () => (
         </DescriptionContentForDesktop>
       </ShowOn1024Up>
 
-      <DeliverablesSection>Deliverables section WIP</DeliverablesSection>
+      <DeliverablesContainer>
+        <DeliverablesSection />
+      </DeliverablesContainer>
     </MilestoneContent>
   </Card>
 );
@@ -337,12 +340,12 @@ const DescriptionContentForDesktop = styled('div')(() => ({
   gap: 16,
 }));
 
-const DeliverablesSection = styled('div')({
+const DeliverablesContainer = styled('div')({
   marginTop: 32,
-  borderRadius: 8,
-  background: '#F6F8F9',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '16px 0',
+  // borderRadius: 8,
+  // background: '#F6F8F9',
+  // display: 'flex',
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // padding: '16px 0',
 });
