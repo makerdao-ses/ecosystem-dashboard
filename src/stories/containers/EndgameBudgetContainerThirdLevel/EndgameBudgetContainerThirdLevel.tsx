@@ -326,6 +326,12 @@ const SwiperWrapper = styled.div<WithIsLight>(({ isLight }) => ({
     height: 16,
     backgroundColor: isLight ? '#ECF1F3 !important' : '#1E2C37 !important',
     opacity: '1px !important',
+    '&:first-child': {
+      borderRadius: '20px 0px 0px 20px',
+    },
+    '&:last-child': {
+      borderRadius: '0px 20px 20px 0px',
+    },
   },
 
   '& .swiper-pagination-bullet-active': {

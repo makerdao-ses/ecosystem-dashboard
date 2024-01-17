@@ -133,7 +133,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         {isMobile && <LineYearBorderBottomChart year={year} />}
       </ChartContainer>
       <LegendContainer>
-        {legends.map((legend, index) => (
+        {legends?.map((legend, index) => (
           <LegendItemChart isSvg={false} key={index} title={legend.title} color={legend.color} />
         ))}
       </LegendContainer>
