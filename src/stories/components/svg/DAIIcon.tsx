@@ -3,7 +3,6 @@ import type { SVGIconProps } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   backGroundColor?: string;
-  // classNameCircle?: string
 }
 
 const DAIIcon: React.FC<SVGIconProps & Props> = ({
