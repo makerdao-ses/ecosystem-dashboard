@@ -342,10 +342,4 @@ const DescriptionContentForDesktop = styled('div')(() => ({
 
 const DeliverablesContainer = styled('div')({
   marginTop: 32,
-  // borderRadius: 8,
-  // background: '#F6F8F9',
-  // display: 'flex',
-  // justifyContent: 'center',
-  // alignItems: 'center',
-  // padding: '16px 0',
 });
