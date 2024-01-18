@@ -11,6 +11,7 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 export const useReservesWaterFallChart = () => {
   const router = useRouter();
+  const { allBudgets } = useBudgetContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const handleGranularityChange = (value: AnalyticGranularity) => {
@@ -18,8 +19,8 @@ export const useReservesWaterFallChart = () => {
   };
   const defaultTitle = 'MakerDAO Finances';
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
-  const { allBudgets } = useBudgetContext();
-  const levelBudget = allBudgets.find((budget) => budget.codePath === levelPath);
+
+  const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
   const getTitleLevelBudget = removePrefix(levelBudget?.name || '', prefixToRemove);
 
   // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
