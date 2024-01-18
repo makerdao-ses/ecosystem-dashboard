@@ -14,7 +14,6 @@ export const getArraysWaterFall = (data: number[]) => {
       outFlow.push('-');
     } else {
       inFlow.push('-');
-      console.log('-data[i]', -data[i]);
       outFlow.push(-data[i]);
     }
     sum += data[i - 1];

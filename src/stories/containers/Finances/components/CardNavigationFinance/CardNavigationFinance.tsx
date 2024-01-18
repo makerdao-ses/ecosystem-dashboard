@@ -89,6 +89,13 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   lineHeight: 'normal',
   width: 208,
+  display: '-webkit-box',
+  '-webkit-box-orient': 'vertical',
+  '-webkit-line-clamp': '3',
+  lineClamp: 3,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+
   color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 293.3,
