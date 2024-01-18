@@ -15,8 +15,6 @@ import { useReservesWaterFallChart } from './components/SectionPages/ReservesWat
 import {
   getBudgetsAnalytics,
   newBudgetMetric,
-  removePrefix,
-  prefixToRemove,
   generateColorPalette,
   existingColors,
   existingColorsDark,
@@ -73,7 +71,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
 
     return {
       image: item.image || '/assets/img/default-icon-cards-budget.svg',
-      title: removePrefix(item.name, prefixToRemove),
+      title: item.name || '',
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
       valueDai: budgetMetric[0].budget.value,
