@@ -20,7 +20,7 @@ export default meta;
 const args = [
   {
     image: 'https://i.ibb.co/vXD0xDp/atlas.png',
-    title: 'Endgame Atlas Budgets',
+    title: 'Atlas Immutable Budget',
     description: 'Finances of the core governance constructs described in the Maker Atlas.',
     href: '#',
   },
