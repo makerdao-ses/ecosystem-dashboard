@@ -32,7 +32,7 @@ const TitleToolTipArrowLink: React.FC<Props> = ({ title }) => {
         </SESTooltip>
       </Tooltip>
       <ArrowLinkWrapper>
-        <ArrowLink width={22} height={22} fill={isLight ? '#B6BCC2' : 'red'} />
+        <ArrowLink width={22} height={22} fill={isLight ? '#B6BCC2' : '#787A9B'} />
       </ArrowLinkWrapper>
     </Container>
   );
@@ -48,7 +48,7 @@ const Container = styled.div({
 });
 
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : 'red',
+  color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 18,
   fontStyle: 'normal',
