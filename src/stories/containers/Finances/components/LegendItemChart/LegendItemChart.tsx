@@ -29,7 +29,7 @@ const Container = styled('div')(({ theme }) => ({
     gap: 8,
   },
 }));
-const ContainerIcon = styled('div')<{ isSvg: boolean }>(({ isSvg, theme }) => ({
+const ContainerIcon = styled('div')<{ isSvg?: boolean }>(({ isSvg, theme }) => ({
   display: 'flex',
   width: isSvg ? 12 : 8,
   height: isSvg ? 12 : 8,
@@ -57,6 +57,7 @@ const Title = styled('div')(({ theme }) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 400,

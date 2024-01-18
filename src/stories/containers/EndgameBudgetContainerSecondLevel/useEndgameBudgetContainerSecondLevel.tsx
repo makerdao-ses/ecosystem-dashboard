@@ -18,8 +18,6 @@ import {
   getBudgetsAnalytics,
   getLevelOfBudget,
   newBudgetMetric,
-  prefixToRemove,
-  removePrefix,
 } from '../Finances/utils/utils';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
@@ -85,7 +83,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
 
     return {
       image: item.image || '/assets/img/default-icon-cards-budget.svg',
-      title: removePrefix(item.name, prefixToRemove),
+      title: item.name || '',
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
       valueDai: budgetMetric[0].budget.value,
@@ -134,7 +132,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const expenseReportSection = useDelegateExpenseTrendFinances();
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
-  const title = removePrefix(levelBudget?.name || '', prefixToRemove) || '';
+  const title = levelBudget?.name || '';
 
   const icon = levelBudget?.image;
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {

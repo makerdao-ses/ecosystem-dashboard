@@ -20,8 +20,6 @@ import {
   getBudgetsAnalytics,
   getLevelOfBudget,
   newBudgetMetric,
-  prefixToRemove,
-  removePrefix,
 } from '../Finances/utils/utils';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -115,7 +113,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
 
   const icon = titleFirstPathBudget?.image;
 
-  const title = removePrefix(titleFirstPathBudget?.name || '', prefixToRemove) || '';
+  const title = titleFirstPathBudget?.name || '';
 
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
@@ -149,7 +147,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
 
     return {
       image: item.image,
-      title: removePrefix(item.name, prefixToRemove),
+      title: item.name || '',
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}`,
       valueDai: budgetMetric[0].budget.value,
@@ -172,12 +170,12 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
       url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
     {
-      label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
+      label: levelBudgetPath?.name || '',
       url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}?year=${year}`,
     },
     ...breadcrumbs.map((adr) => ({
       label: adr,
-      url: removePrefix(router.asPath, prefixToRemove),
+      url: router.asPath,
     })),
   ];
 
@@ -188,7 +186,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
       style: { color: isLight ? '#25273D' : '#D2D4EF' },
     })),
     {
-      label: removePrefix(levelBudgetPath?.name || '', prefixToRemove),
+      label: levelBudgetPath?.name || '',
       url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}?year=${year}`,
     },
     {

@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
-import { prefixToRemove, removePrefix } from '@ses/containers/Finances/utils/utils';
 import { useBudgetContext } from '@ses/core/context/BudgetContext';
 
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -11,6 +11,7 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 export const useReservesWaterFallChart = () => {
   const router = useRouter();
+  const { isLight } = useThemeContext();
   const { allBudgets } = useBudgetContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
@@ -21,7 +22,7 @@ export const useReservesWaterFallChart = () => {
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
-  const getTitleLevelBudget = removePrefix(levelBudget?.name || '', prefixToRemove);
+  const getTitleLevelBudget = levelBudget?.name || '';
 
   // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
   // The firs element will be point to start its don't bellow to the serie
@@ -33,15 +34,15 @@ export const useReservesWaterFallChart = () => {
   const legendItems: LegendItemsWaterFall[] = [
     {
       title: 'Reserves Balance',
-      color: '#83A7FF',
+      color: isLight ? '#83A7FF' : '#447AFB',
     },
     {
       title: 'Outflow',
-      color: '#CB3A0D',
+      color: isLight ? '#CB3A0D' : '#A83815',
     },
     {
       title: 'InFlow',
-      color: '#2DC1B1',
+      color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
   ];
 

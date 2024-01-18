@@ -1,10 +1,5 @@
 import { useMediaQuery } from '@mui/material';
-import {
-  existingColors,
-  existingColorsDark,
-  generateColorPalette,
-  removePrefix,
-} from '@ses/containers/Finances/utils/utils';
+import { existingColors, existingColorsDark, generateColorPalette } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
@@ -12,7 +7,6 @@ import { useState } from 'react';
 import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
-const prefixToRemove = 'End-game';
 
 export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BreakdownBudgetAnalytic | undefined) => {
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -39,7 +33,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
   const budgetMetrics: Record<string, BudgetMetricWithName> = {};
   budgets.forEach((budget) => {
     const budgetKey = budget.codePath;
-    const budgetName = removePrefix(budget.name, prefixToRemove);
+    const budgetName = budget.name;
     if (budgetMetrics[budget.codePath]) {
       const uniqueKey = `${budgetKey}-${budget.id}`;
       budgetMetrics[uniqueKey] = {
@@ -101,9 +95,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
       const budgetMetric = budgetsAnalytics[budgetMetricKey];
       const correspondingBudget = budgets.find((budget) => budget.codePath === budgetMetricKey);
       // use the name of budget or add label
-      const budgetName = correspondingBudget
-        ? removePrefix(correspondingBudget.name, prefixToRemove)
-        : 'There is not name';
+      const budgetName = correspondingBudget ? correspondingBudget.name : 'There is not name';
       const budgetCode = correspondingBudget?.code || 'No-code';
       metric.actuals += budgetMetric[0].actuals.value || 0;
       metric.forecast += budgetMetric[0].forecast.value || 0;
