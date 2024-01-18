@@ -1,6 +1,6 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
 import ReservesWaterFallChartSection from './ReservesWaterFallChartSection';
+import { builderWaterFallSeries } from './utils';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ReservesWaterFallChartSection> = {
@@ -16,9 +16,70 @@ const meta: Meta<typeof ReservesWaterFallChartSection> = {
 };
 export default meta;
 
+const data = [
+  129200, 232251, 124393, 123108, -121954, 122535, 213078, 212286, -1111921, -131261, -222203, 222500, 270021,
+];
+
 const args = [
   {
+    selectedGranularity: 'monthly',
     title: 'MakerDAO Finances',
+    legends: [
+      {
+        title: 'Reserves Balance',
+        color: '#83A7FF',
+      },
+      {
+        title: 'Outflow',
+        color: '#CB3A0D',
+      },
+      {
+        title: 'Inflow',
+        color: '#2DC1B1',
+      },
+    ],
+    year: '2023',
+    series: builderWaterFallSeries(data, true, false),
+  },
+  {
+    selectedGranularity: 'monthly',
+    title: 'MakerDAO Finances',
+    legends: [
+      {
+        title: 'Reserves Balance',
+        color: '#83A7FF',
+      },
+      {
+        title: 'Outflow',
+        color: '#CB3A0D',
+      },
+      {
+        title: 'Inflow',
+        color: '#2DC1B1',
+      },
+    ],
+    year: '2023',
+    series: builderWaterFallSeries(data, false, true),
+  },
+  {
+    selectedGranularity: 'monthly',
+    title: 'MakerDAO Finances',
+    legends: [
+      {
+        title: 'Reserves Balance',
+        color: '#83A7FF',
+      },
+      {
+        title: 'Outflow',
+        color: '#CB3A0D',
+      },
+      {
+        title: 'Inflow',
+        color: '#2DC1B1',
+      },
+    ],
+    year: '2023',
+    series: builderWaterFallSeries(data, false, false),
   },
 ];
 
@@ -30,7 +91,7 @@ LightMode.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:338005&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:338004&mode=dev',
         options: {
           componentStyle: {
             width: 343,
@@ -43,66 +104,66 @@ LightMode.parameters = {
       },
       768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:331965&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:331963&mode=dev',
         options: {
           componentStyle: {
             width: 704,
           },
           style: {
-            top: 0,
-            left: 0,
+            top: 26,
+            left: -244,
           },
         },
       },
       1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:335078&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:330409&mode=dev',
         options: {
           componentStyle: {
             width: 960,
           },
           style: {
-            top: 0,
-            left: 0,
+            top: 26,
+            left: -116,
           },
         },
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:335078&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966-335076&mode=dev',
         options: {
           componentStyle: {
             width: 1184,
           },
           style: {
-            top: 0,
-            left: 0,
+            top: 26,
+            left: -6,
           },
         },
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:336608&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:336606&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
           },
           style: {
-            top: 0,
-            left: 0,
+            top: 26,
+            left: -2,
           },
         },
       },
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:333609&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:333607&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
           },
           style: {
-            top: 0,
-            left: 0,
+            top: 26,
+            left: -2,
           },
         },
       },

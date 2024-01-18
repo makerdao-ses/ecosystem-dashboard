@@ -14,6 +14,7 @@ export const useReservesWaterFallChart = () => {
   const { isLight } = useThemeContext();
   const { allBudgets } = useBudgetContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const handleGranularityChange = (value: AnalyticGranularity) => {
     setSelectedGranularity(value);
@@ -28,7 +29,7 @@ export const useReservesWaterFallChart = () => {
   // The firs element will be point to start its don't bellow to the serie
   const data = [12900, 3245, 4393, 3108, -1954, 1535, 1078, 2286, -1119, -1361, -2203, 2500, 2700];
 
-  const series = builderWaterFallSeries(data, isMobile);
+  const series = builderWaterFallSeries(data, isMobile, isTable);
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 
   const legendItems: LegendItemsWaterFall[] = [
@@ -41,7 +42,7 @@ export const useReservesWaterFallChart = () => {
       color: isLight ? '#CB3A0D' : '#A83815',
     },
     {
-      title: 'InFlow',
+      title: 'Inflow',
       color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
   ];

@@ -26,21 +26,24 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
 
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
-    color: '#708390',
+    color: '#B6BCC2',
     fontWeight: 600,
     fontSize: upTable ? 12 : 9,
     verticalAlign: 'top',
+    letterSpacing: '1px',
     interval: 0,
   };
   const options: EChartsOption = {
     grid: {
       top: isMobile ? 5 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
-      left: isMobile ? 42 : isTablet ? 42 : 42,
+      left: isMobile ? 36 : isTablet ? 66 : isDesktop1024 ? 62 : isDesktop1280 ? 50 : isDesktop1440 ? 65 : 65,
       right: isMobile ? 2 : isTablet ? 12 : isDesktop1024 ? 2 : isDesktop1280 ? 4 : 4,
+      height: isMobile ? 200 : isTablet ? 390 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
     },
     xAxis: {
       type: 'category',
@@ -58,12 +61,13 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
       axisTick: {
         show: false,
       },
+      offset: isMobile ? -14 : isTablet ? -16 : 14,
       axisLabel: {
-        margin: isMobile ? 12 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 16 : 16,
-        color: isLight ? '#434358' : '#708390',
+        margin: isMobile ? 20 : isTablet ? 30 : isDesktop1024 ? 0 : isDesktop1280 ? 2 : isDesktop1440 ? 2 : -2,
+        color: isLight ? '#B6BCC2' : '#546978',
         align: 'center',
         fontFamily: 'Inter,san-serif',
-        fontWeight: 400,
+        fontWeight: isMobile ? 400 : 600,
         fontSize: upTable ? 12 : 9,
         height: upTable ? 15 : 11,
         baseline: 'top',
@@ -90,13 +94,24 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
     yAxis: {
       min: 0,
       axisLabel: {
+        padding: isMobile
+          ? [0, 0, 0, 2]
+          : isTablet
+          ? [0, 14, 0, 0]
+          : isDesktop1024
+          ? [0, 12, 0, 0]
+          : isDesktop1280
+          ? [0, 6, 0, 0]
+          : isDesktop1440
+          ? [0, 12, 0, 0]
+          : [0, 12, 0, 0],
         formatter: function (value: number, index: number) {
           if (index === 0) {
             return value.toString();
           }
           return replaceAllNumberLetOneBeforeDot(value);
         },
-        color: isLight ? '#231536' : '#EDEFFF',
+        color: isLight ? '#231536' : '#D2D4EF',
         fontSize: isMobile ? 10 : isTablet ? 14 : 14,
         height: upTable ? 15 : 12,
         fontFamily: 'Inter, sans-serif',
@@ -144,7 +159,6 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
 export default WaterFallChart;
 
 const Wrapper = styled.div({
-  marginTop: 32,
   width: '100%',
 });
 
@@ -155,10 +169,9 @@ const ChartContainer = styled.div({
   position: 'relative',
   width: '100%',
   maxWidth: 343,
-  height: 260,
+  height: 275,
   marginLeft: 'auto',
   marginRight: 'auto',
-  marginTop: 24,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     height: 446,
@@ -173,9 +186,9 @@ const ChartContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    maxWidth: 1028,
+    maxWidth: 1185,
+    width: 1185,
     height: 508,
-    width: 1028,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     maxWidth: 1192,
@@ -189,20 +202,29 @@ const LegendContainer = styled.div({
   flexDirection: 'row',
   justifyContent: 'center',
   flexWrap: 'wrap',
-  paddingLeft: 8,
+  paddingLeft: 2,
   gap: 32,
-  marginTop: 10,
+  marginTop: -6,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 64,
+    paddingLeft: 0,
+    marginTop: 42,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 0,
+    marginTop: -20,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 60,
-    rowGap: 16,
+    gap: 64,
+    marginTop: -20,
+    marginLeft: -6,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    gap: 64,
+    marginTop: -22,
+    marginLeft: -6,
   },
 });
