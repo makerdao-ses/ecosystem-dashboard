@@ -31,18 +31,22 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
-    color: '#B6BCC2',
     fontWeight: 600,
     fontSize: upTable ? 12 : 9,
     verticalAlign: 'top',
-    letterSpacing: '1px',
     interval: 0,
+    padding: [0, 0, 3, 0],
   };
+  const xYearStyles = {
+    ...xAxisStyles,
+    padding: [0, 0, 0, 0],
+  };
+
   const options: EChartsOption = {
     grid: {
       top: isMobile ? 5 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
-      left: isMobile ? 36 : isTablet ? 66 : isDesktop1024 ? 62 : isDesktop1280 ? 50 : isDesktop1440 ? 65 : 65,
-      right: isMobile ? 2 : isTablet ? 12 : isDesktop1024 ? 2 : isDesktop1280 ? 4 : 4,
+      left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
+      right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
       height: isMobile ? 200 : isTablet ? 390 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
     },
     xAxis: {
@@ -61,33 +65,32 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
       axisTick: {
         show: false,
       },
-      offset: isMobile ? -14 : isTablet ? -16 : 14,
       axisLabel: {
-        margin: isMobile ? 20 : isTablet ? 30 : isDesktop1024 ? 0 : isDesktop1280 ? 2 : isDesktop1440 ? 2 : -2,
+        margin: isMobile ? 8 : isTablet ? 17 : isDesktop1024 ? 14 : isDesktop1280 ? 16 : isDesktop1440 ? 16 : 16,
         color: isLight ? '#B6BCC2' : '#546978',
         align: 'center',
         fontFamily: 'Inter,san-serif',
         fontWeight: isMobile ? 400 : 600,
         fontSize: upTable ? 12 : 9,
         height: upTable ? 15 : 11,
-        baseline: 'top',
         interval: 0,
         formatter: function (value: string) {
           if (isMobile) {
             return value;
           }
           if (selectedGranularity === 'monthly') {
-            return `{value|${value}}\n{year|${year}}`;
+            return `{month|${value}}\n{year|${year}}`;
           }
+
           if (selectedGranularity === 'quarterly') {
-            return `{value|${value}}  {year|${year}}`;
+            return `{month|${value}}  {year|${year}}`;
           }
           return `{year|${year}}`;
         },
 
         rich: {
           month: xAxisStyles,
-          year: xAxisStyles,
+          year: xYearStyles,
         },
       },
     },
