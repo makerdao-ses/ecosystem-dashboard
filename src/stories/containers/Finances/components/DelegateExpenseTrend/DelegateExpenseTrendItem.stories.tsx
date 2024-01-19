@@ -17,18 +17,14 @@ export default meta;
 
 const variantsArgs = [
   {
-    handleLinkToPage: () => null,
     link: '#',
-    isMobile: false,
     selectedMetric: 'Actuals',
-    expenseReport: mockDataApiTeam[0],
+    budget: mockDataApiTeam[0].budgetStatements[0],
   },
   {
-    handleLinkToPage: () => null,
     link: '#',
-    isMobile: true,
     selectedMetric: 'Actuals',
-    expenseReport: mockDataApiTeam[0],
+    budget: mockDataApiTeam[0].budgetStatements[0],
   },
 ];
 
