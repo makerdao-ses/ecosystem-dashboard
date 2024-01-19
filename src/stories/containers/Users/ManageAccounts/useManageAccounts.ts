@@ -6,12 +6,13 @@ import lightTheme from '../../../../../styles/theme/light';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { QUERY_USERS } from '../UsersManager/userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
+import type { Fetcher } from 'swr';
 
 const useManageAccounts = () => {
   const router = useRouter();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
 
-  const { data, error } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, fetcher);
+  const { data, error } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, fetcher as Fetcher<{ users: UserDTO[] }>);
   const users: UserDTO[] = useMemo(() => data?.users || [], [data?.users]);
 
   const [searchValue, setSearchValue] = useState('');

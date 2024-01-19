@@ -167,11 +167,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
             handleResetFilter={expenseReportSection.handleResetFilter}
             statusesItems={expenseReportSection.statusesItems}
             columns={expenseReportSection.headersExpenseReport}
-            expenseReport={expenseReportSection.reportExpenseItems}
             sortClick={expenseReportSection.onSortClick}
-            handleLoadMore={expenseReportSection.handleLoadMore}
-            showAllItems={expenseReportSection.showAllItems}
-            allItemsCount={expenseReportSection.expenseItemsCount}
+            expenseReportResponse={expenseReportSection.expenseReportResponse}
           />
         </ContainerLastReport>
       </Container>

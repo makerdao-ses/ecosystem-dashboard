@@ -8,11 +8,15 @@ import { ManagerTabs } from './managerTabsEnum';
 import { QUERY_USERS } from './userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
 import type { TabItem } from '@ses/components/Tabs/Tabs';
+import type { Fetcher } from 'swr';
 
 export const useManagerAccountLayout = () => {
   const { hasToken, authToken, isAdmin } = useAuthContext();
 
-  const { data, error: errorFetchingUsers } = useSWR<{ users: UserDTO[] }, string>(QUERY_USERS, fetcher);
+  const { data, error: errorFetchingUsers } = useSWR<{ users: UserDTO[] }, string>(
+    QUERY_USERS,
+    fetcher as Fetcher<{ users: UserDTO[] }>
+  );
   const users: UserDTO[] = useMemo(() => data?.users || [], [data?.users]);
 
   const tabItems = useMemo<TabItem[]>(

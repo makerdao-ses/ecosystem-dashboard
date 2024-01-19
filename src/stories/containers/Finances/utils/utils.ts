@@ -98,7 +98,12 @@ export const mockDataApiTeam: MomentDataItem[] = [
     budgetStatements: [
       {
         id: '234',
-        ownerId: '34',
+        owner: {
+          id: '34',
+          icon: '',
+          name: '',
+          shortCode: '',
+        },
         status: BudgetStatus.Draft,
         ownerType: '',
         month: 'some',
@@ -111,6 +116,10 @@ export const mockDataApiTeam: MomentDataItem[] = [
         budgetStatementMKRVest: [],
         budgetStatementWallet: [],
         comments: [],
+        actualExpenses: 0,
+        forecastExpenses: 0,
+        paymentsOnChain: 0,
+        paymentsOffChain: 0,
       },
     ],
     cuMip: null,
@@ -147,7 +156,12 @@ export const mockDataApiTeam: MomentDataItem[] = [
     budgetStatements: [
       {
         id: '234',
-        ownerId: '34',
+        owner: {
+          id: '34',
+          icon: '',
+          name: '',
+          shortCode: '',
+        },
         status: BudgetStatus.Draft,
         ownerType: '',
         month: 'some',
@@ -160,6 +174,10 @@ export const mockDataApiTeam: MomentDataItem[] = [
         budgetStatementMKRVest: [],
         budgetStatementWallet: [],
         comments: [],
+        actualExpenses: 0,
+        forecastExpenses: 0,
+        paymentsOnChain: 0,
+        paymentsOffChain: 0,
       },
     ],
     cuMip: null,
@@ -196,7 +214,12 @@ export const mockDataApiTeam: MomentDataItem[] = [
     budgetStatements: [
       {
         id: '234',
-        ownerId: '34',
+        owner: {
+          id: '34',
+          icon: '',
+          name: '',
+          shortCode: '',
+        },
         status: BudgetStatus.Final,
         ownerType: '',
         month: 'some',
@@ -209,6 +232,10 @@ export const mockDataApiTeam: MomentDataItem[] = [
         budgetStatementMKRVest: [],
         budgetStatementWallet: [],
         comments: [],
+        actualExpenses: 0,
+        forecastExpenses: 0,
+        paymentsOnChain: 0,
+        paymentsOffChain: 0,
       },
     ],
     cuMip: null,
@@ -317,28 +344,21 @@ export const getShowCTA = () => false;
 export const getQuarterlyForFilters = (year: string): string[] => {
   const period: string[] = [];
   for (let i = 1; i <= 4; i++) {
-    const quarter = `Q${i} ${year}`;
-    period.push(quarter);
+    period.push(`Q${i} ${year}`);
   }
   return period;
 };
-export const getSemiAnnualForFilters = (year: string): string[] => {
-  const period: string[] = [];
-  for (let i = 1; i <= 2; i++) {
-    const quarter = `H${i} ${year}`;
-    period.push(quarter);
-  }
-  return period;
-};
-export const getExpenseMonthWithData = (expense: MomentDataItem) => {
-  if (expense?.lastActivity?.created_at) {
-    return DateTime.fromISO(expense.lastActivity?.created_at);
+export const getSemiAnnualForFilters = (year: string): string[] => [`H${1} ${year}`, `H${2} ${year}`];
+export const getExpenseMonthWithData = (budget: BudgetStatement) => {
+  if (budget.activityFeed?.length) {
+    return DateTime.fromISO(budget.activityFeed?.[0]?.created_at);
   }
 
   return undefined;
 };
 
 export const isCoreUnit = (item: MomentDataItem) => item?.type === ResourceType.CoreUnit;
+
 export const getHeadersExpenseReport = (
   headersSort: SortEnum[],
   selectedMetric: string,

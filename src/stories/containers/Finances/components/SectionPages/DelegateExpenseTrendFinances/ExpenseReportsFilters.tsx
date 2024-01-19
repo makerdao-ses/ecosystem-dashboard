@@ -16,10 +16,9 @@ export interface ExpenseReportsFiltersProps {
   selectedMetric: string;
   onMetricChange: (value: string) => void;
   selectedStatuses: string[];
-  onStatusSelectChange: (value: string[]) => void;
+  onStatusSelectChange: (value: BudgetStatus[]) => void;
   statusesItems: MultiSelectItem[];
   handleResetFilter: () => void;
-  allItemsCount: number;
 }
 
 const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
@@ -29,7 +28,6 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
   onStatusSelectChange,
   statusesItems,
   handleResetFilter,
-  allItemsCount,
 }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -71,7 +69,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           activeItems={selectedStatuses}
           items={statusesItems}
           width={120}
-          onChange={onStatusSelectChange}
+          onChange={(items: string[]) => onStatusSelectChange(items as BudgetStatus[])}
           withAll={true}
           popupContainerWidth={256}
           listItemWidth={224}
@@ -79,7 +77,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
             content: <FilterChip text="All" />,
             id: 'all',
             params: { isAll: true },
-            count: allItemsCount,
+            count: 0,
           }}
           popupContainerHeight={220}
         />
