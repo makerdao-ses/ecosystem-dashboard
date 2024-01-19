@@ -4,7 +4,7 @@ import SupportedTeamsAvatarGroup from '@ses/containers/ActorProjects/components/
 import { OwnerType } from '@ses/core/models/interfaces/projects';
 import Coordinators from './Coordinators';
 import DeliverablesSection from './DeliverablesSection';
-import EcosystemActors from './EcosystemAcotrs';
+import EcosystemActors from './EcosystemActors';
 import MilestoneProgress from './MilestoneProgress';
 import StatsData from './StatsData';
 
@@ -340,6 +340,14 @@ const DescriptionContentForDesktop = styled('div')(() => ({
   gap: 16,
 }));
 
-const DeliverablesContainer = styled('div')({
-  marginTop: 32,
-});
+const DeliverablesContainer = styled('div')(({ theme }) => ({
+  marginTop: 40,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 56,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: 32,
+  },
+}));
