@@ -54,7 +54,6 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           selected={selectedMetric}
           onChange={onMetricChange}
           items={[
-            'Budget',
             'Actuals',
             'Forecast',
             !isMobile ? 'Net Expenses On-chain' : 'Net On-chain',
