@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import CircleAvatarWithIcon from '@ses/components/CircleAvatar/CircleAvatarWithIcon';
-
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
 import MultiUsers from '@ses/components/svg/MultiUsers';
 import MultiUsersMobile from '@ses/components/svg/MultiUsersMobile';
@@ -9,39 +8,52 @@ import ActorLastModified from '@ses/containers/Actors/components/ActorLastModifi
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import ExpenseReportStatusIndicator from '@ses/containers/TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-
-import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { capitalizeSentence } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
-
 import { DateTime } from 'luxon';
 import Link from 'next/link';
-import React from 'react';
-
-import { getExpenseMonthWithData, getShowCTA, getStatus, isCoreUnit } from '../../utils/utils';
+import React, { useMemo } from 'react';
+import { getExpenseMonthWithData, getShowCTA } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
-import type { MomentDataItem } from '../../utils/types';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   link?: string;
-  expenseReport: MomentDataItem;
+  budget: BudgetStatement;
   selectedMetric: string;
   now?: DateTime;
 }
 
-const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, selectedMetric, now = DateTime.now() }) => {
+const DelegateExpenseTrendItem: React.FC<Props> = ({ link, budget, selectedMetric, now = DateTime.now() }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
-  const getDateExpenseModified = getExpenseMonthWithData(expenseReport);
-  const lasModified = capitalizeSentence(
-    getDateExpenseModified?.toRelative({
+  const lastModified = getExpenseMonthWithData(budget);
+  const lastModifiedRelative = capitalizeSentence(
+    lastModified?.toRelative({
       base: now,
       unit: 'days',
     }) ?? ''
   );
+  const reportMonth = DateTime.fromFormat(budget.month, 'yyyy-LL-dd')?.toFormat('LLL yyyy');
+  const isCoreUnitElement = budget.ownerType === 'CoreUnit';
 
-  const isCoreUnitElement = isCoreUnit(expenseReport);
+  const value = useMemo(() => {
+    switch (selectedMetric) {
+      case 'Actuals':
+        return budget.actualExpenses ?? 0;
+      case 'Forecast':
+        return budget.forecastExpenses ?? 0;
+      case 'Net Expenses On-chain':
+      case 'Net On-chain':
+        return budget.paymentsOnChain ?? 0;
+      case 'Net Expenses Off-chain':
+      case 'Net Off-chain':
+        return budget.paymentsOffChain ?? 0;
+    }
+    return 0;
+  }, [budget, selectedMetric]);
 
   const elementInDesk = (
     <ContainerInside isLight={isLight}>
@@ -55,18 +67,15 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, select
               width={isMobile ? '42px' : '34px'}
               height={isMobile ? '42px' : '34px'}
               icon={isMobile ? <MultiUsersMobile /> : <MultiUsers />}
-              image={expenseReport.image}
+              image={budget.owner.icon}
             />
             <ContainerStatus>
               <TitleCode>
-                <Code isLight={isLight}>{expenseReport.shortCode}</Code>
-                <Title isLight={isLight}>{expenseReport.name}</Title>
+                <Code isLight={isLight}>{budget.owner.shortCode}</Code>
+                <Title isLight={isLight}>{budget.owner.name}</Title>
               </TitleCode>
               <StatusMobile>
-                <ExpenseReportStatusIndicatorMobile
-                  budgetStatus={getStatus(expenseReport.budgetStatements) || BudgetStatus.Draft}
-                  showCTA={getShowCTA()}
-                />
+                <ExpenseReportStatusIndicatorMobile budgetStatus={budget.status} showCTA={getShowCTA()} />
               </StatusMobile>
             </ContainerStatus>
           </ContainerIconName>
@@ -78,28 +87,23 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, select
 
         <ReportingMonth>
           <LabelDescription isLight={isLight}>Reporting Month</LabelDescription>
-          <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLL yyyy')}</Date>
+          <Date isLight={isLight}>{reportMonth}</Date>
         </ReportingMonth>
         <TotalActualsTable>
           <LabelDescription isLight={isLight}>{selectedMetric}</LabelDescription>
-          <TotalNumber isLight={isLight}>{`${
-            expenseReport.totalActuals.toLocaleString('es-US') || '0'
-          } DAI`}</TotalNumber>
+          <TotalNumber isLight={isLight}>{usLocalizedNumber(value)} DAI</TotalNumber>
         </TotalActualsTable>
         <ContainerStatusTable>
           <StatusTable>
             <LabelStatus isLight={isLight}>Status</LabelStatus>
-            <ExpenseReportStatusIndicatorTable
-              budgetStatus={getStatus(expenseReport.budgetStatements)}
-              showCTA={getShowCTA()}
-            />
+            <ExpenseReportStatusIndicatorTable budgetStatus={budget.status} showCTA={getShowCTA()} />
           </StatusTable>
           <ContainerArrow isLight={isLight}>
             <ArrowNavigationForCards width={32} height={32} fill={isLight ? '#434358' : '#B7A6CD'} />
           </ContainerArrow>
         </ContainerStatusTable>
         <LastModifiedDesk>
-          <LabelLastModifiedText isLight={isLight}>{lasModified}</LabelLastModifiedText>
+          <LabelLastModifiedText isLight={isLight}>{lastModifiedRelative}</LabelLastModifiedText>
         </LastModifiedDesk>
         <ViewContainer>
           <ViewButton title="View" />
@@ -110,15 +114,13 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, select
         <ContainerReportingMobile>
           <ReportingMobile>
             <LabelTagMobile isLight={isLight}>Reporting Month</LabelTagMobile>
-            <Date isLight={isLight}>{expenseReport.reportMonth?.toFormat('LLL yyyy')}</Date>
+            <Date isLight={isLight}>{reportMonth}</Date>
           </ReportingMobile>
         </ContainerReportingMobile>
 
         <TotalContainerMobile>
           <Total isLight={isLight}>{selectedMetric}</Total>
-          <TotalNumber isLight={isLight}>
-            {`${expenseReport.totalActuals.toLocaleString('es-US') || '0'} DAI`}
-          </TotalNumber>
+          <TotalNumber isLight={isLight}>{usLocalizedNumber(value)} DAI</TotalNumber>
         </TotalContainerMobile>
       </ContainerCardMobile>
     </ContainerInside>
@@ -131,7 +133,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, expenseReport, select
       </Link>
 
       <FooterMobile isLight={isLight}>
-        <ActorLastModifiedStyled href={link || '#'} date={getDateExpenseModified} />
+        <ActorLastModifiedStyled href={link || '#'} date={lastModified} />
       </FooterMobile>
     </ExtendedGenericDelegate>
   );

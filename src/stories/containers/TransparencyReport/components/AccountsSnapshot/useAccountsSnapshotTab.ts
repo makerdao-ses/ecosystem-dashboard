@@ -5,6 +5,7 @@ import useSWRImmutable from 'swr/immutable';
 import { accountsSnapshotQuery, allAccountsSnapshotsForStartDateQuery } from './api/queries';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
+import type { Fetcher } from 'swr';
 
 const useAccountsSnapshotTab = (
   ownerId: string,
@@ -27,7 +28,7 @@ const useAccountsSnapshotTab = (
       query,
       input: filter,
     },
-    fetcher
+    fetcher as Fetcher<{ snapshots: Snapshots[] }>
   );
 
   const { query: dateQuery, filter: dateFilter } = useMemo(
@@ -46,7 +47,7 @@ const useAccountsSnapshotTab = (
       query: dateQuery,
       input: dateFilter,
     },
-    fetcher
+    fetcher as Fetcher<{ snapshots: Pick<Snapshots, 'start'>[] }>
   );
 
   const sinceDate = useMemo(() => {

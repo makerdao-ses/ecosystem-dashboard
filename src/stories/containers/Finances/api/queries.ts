@@ -77,3 +77,37 @@ export const fetchAnalytics = async (
 
   return res.analytics;
 };
+
+export const getExpenseReportsQuery = (page: number) => ({
+  query: gql`
+    query BudgetStatements($filter: BudgetStatementFilter, $limit: Int, $offset: Int) {
+      budgetStatements(filter: $filter, limit: $limit, offset: $offset) {
+        id
+        month
+        status
+        ownerType
+        owner {
+          id
+          icon
+          name
+          shortCode
+        }
+        activityFeed {
+          created_at
+        }
+        actualExpenses
+        forecastExpenses
+        paymentsOnChain
+        paymentsOffChain
+      }
+    }
+  `,
+  options: {
+    filter: {
+      ownerType: 'CoreUnit',
+      ownerCode: 'SES-001',
+    },
+    limit: 10,
+    offset: (page - 1) * 10,
+  },
+});
