@@ -17,6 +17,7 @@ const ReservesWaterFallChartSection: React.FC<Props> = ({ title, legends, select
   <Container>
     <ContainerTitleFilter>
       <TitleToolTipArrowLink title={title} />
+      <Filters />
     </ContainerTitleFilter>
     <ContainerChart>
       <WaterFallChart legends={legends} year={year} selectedGranularity={selectedGranularity} series={series} />
@@ -45,3 +46,10 @@ const ContainerTitleFilter = styled('div')({
 });
 
 const ContainerChart = styled('div')({});
+
+const Filters = styled('div')(({ theme }) => ({
+  height: 34,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 48,
+  },
+}));

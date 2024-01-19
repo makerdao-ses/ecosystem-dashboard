@@ -28,7 +28,11 @@ export const getArraysWaterFall = (data: number[]) => {
   };
 };
 
-export const builderWaterFallSeries = (data: number[], isMobile: boolean): WaterFallChartSeriesData[] => {
+export const builderWaterFallSeries = (
+  data: number[],
+  isMobile: boolean,
+  isTable: boolean
+): WaterFallChartSeriesData[] => {
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
 
   // Add the same value at the end to simulate the end
@@ -56,7 +60,7 @@ export const builderWaterFallSeries = (data: number[], isMobile: boolean): Water
   const series = [
     {
       name: 'Reserves Balance',
-      barWidth: isMobile ? 19 : 39,
+      barWidth: isMobile ? 19 : isTable ? 39 : 48,
       data: help,
       itemStyle: {
         borderRadius: 2,

@@ -14,7 +14,7 @@ const ReadMore: React.FC<Props> = ({ href }) => {
     <Link href={href} passHref legacyBehavior>
       <ContainerTag>
         <ContainerReadMoreLink isLight={isLight}>
-          <ReadMoreText isLight={isLight}>Expore</ReadMoreText>
+          <ReadMoreText isLight={isLight}>Explore</ReadMoreText>
           <CircleWithArrow />
         </ContainerReadMoreLink>
       </ContainerTag>
