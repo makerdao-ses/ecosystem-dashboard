@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import TitleToolTipArrowLink from '../../TitleToolTipArrowLink/TitleToolTipArrowLink';
+import SectionTitle from '../../SectionTitle/SectionTitle';
 import WaterFallChart from '../../WaterFallChart/WaterFallChart';
 import type { LegendItemsWaterFall, WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -16,7 +16,13 @@ interface Props {
 const ReservesWaterFallChartSection: React.FC<Props> = ({ title, legends, selectedGranularity, series, year }) => (
   <Container>
     <ContainerTitleFilter>
-      <TitleToolTipArrowLink title={title} />
+      {/* <TitleToolTipArrowLink title={title} /> */}
+      <SectionTitle
+        title={title}
+        tooltip={
+          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
+        }
+      />
       <Filters />
     </ContainerTitleFilter>
     <ContainerChart>

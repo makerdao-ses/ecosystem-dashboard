@@ -1,13 +1,10 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
-import Information from '@ses/components/svg/information';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import FilterTable from '../FiltersTable/FilterTable';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   metrics: MultiSelectItem[];
@@ -42,29 +39,15 @@ const BreakdownTableFinances = ({
   allowSelectAll,
   popupContainerHeight,
 }: Props) => {
-  const { isLight } = useThemeContext();
   const phoneLess = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   return (
     <Container>
-      <TitleTooltip>
-        <Title isLight={isLight}>{`${phoneLess ? 'MakerDAO Budget' : 'Breakdown Table'}`}</Title>
-
-        <Tooltip>
-          <SESTooltip
-            content={
-              'Adjust the table to display financial data by selecting the time period and types, with a variable column limit based on screen size, all neatly organized by budget/scope with corresponding subtotals.'
-            }
-            placement="bottom-start"
-            enterTouchDelay={0}
-            leaveTouchDelay={15000}
-          >
-            <IconWrapper>
-              <Information />
-            </IconWrapper>
-          </SESTooltip>
-        </Tooltip>
-      </TitleTooltip>
+      <SectionTitle
+        title={`${phoneLess ? 'MakerDAO Budget' : 'Breakdown Table'}`}
+        tooltip="Adjust the table to display financial data by selecting the time period and types, with a variable column limit based on screen size, all neatly organized by budget/scope with corresponding subtotals."
+        hash="breakdown-table"
+      />
 
       <FilterContainer>
         <FilterTable
@@ -96,42 +79,6 @@ const Container = styled.div({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-  },
-});
-
-const TitleTooltip = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  gap: 12,
-  height: 24,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 10,
-  },
-});
-
-const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 20,
-  fontStyle: 'normal',
-  fontWeight: 600,
-  lineHeight: 'normal',
-  letterSpacing: '0.5px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 24,
-    letterSpacing: '0.4px',
-  },
-}));
-const Tooltip = styled.div({});
-
-const IconWrapper = styled.div({
-  display: 'flex',
-
-  paddingTop: 2,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingTop: 8,
   },
 });
 

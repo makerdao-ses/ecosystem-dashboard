@@ -150,7 +150,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
           <ContainerReservesWaterFallChart>
             <ReservesWaterFallChartSection
-              title={'MakerDAO Finances'}
+              title={'MakerDAO Finances Reserves'}
               legends={reserveChart.legendItems}
               series={reserveChart.series}
               selectedGranularity={reserveChart.selectedGranularity}

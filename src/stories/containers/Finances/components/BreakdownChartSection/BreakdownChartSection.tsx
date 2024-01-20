@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import BreakdownChart from './BreakdownChart/BreakdownChart';
 import BreakdownChartFilter from './BreakdownChartFilter/BreakdownChartFilter';
-import SectionTitle from './SectionTitle/SectionTitle';
 import type { BreakdownChartSeriesData } from '../../utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
