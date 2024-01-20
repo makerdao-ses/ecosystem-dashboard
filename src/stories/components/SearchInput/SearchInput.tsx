@@ -16,6 +16,7 @@ interface SearchInputProps extends Partial<WithLegacyBreakpoints> {
   handleClearSearch?: () => void;
   inputRef?: React.RefObject<HTMLInputElement>;
   small?: boolean;
+  className?: string;
 }
 
 export const SearchInput: React.FC<SearchInputProps> = ({
@@ -28,6 +29,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   inputRef,
   small,
   legacyBreakpoints = true,
+  className,
 }) => {
   const { isLight } = useThemeContext();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +41,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   const [focus, setFocus] = useState(false);
 
   return (
-    <Container style={style}>
+    <Container style={style} className={className}>
       <InputWrapper>
         <Input
           legacyBreakpoints={legacyBreakpoints}
