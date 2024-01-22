@@ -4,6 +4,7 @@ import CircleAvatarWithIcon from '@ses/components/CircleAvatar/CircleAvatarWithI
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
 import MultiUsers from '@ses/components/svg/MultiUsers';
 import MultiUsersMobile from '@ses/components/svg/MultiUsersMobile';
+import { siteRoutes } from '@ses/config/routes';
 import ActorLastModified from '@ses/containers/Actors/components/ActorLastModified/ActorLastModified';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import ExpenseReportStatusIndicator from '@ses/containers/TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
@@ -20,13 +21,12 @@ import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatemen
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  link?: string;
   budget: BudgetStatement;
   selectedMetric: string;
   now?: DateTime;
 }
 
-const DelegateExpenseTrendItem: React.FC<Props> = ({ link, budget, selectedMetric, now = DateTime.now() }) => {
+const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now = DateTime.now() }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
   const lastModified = getExpenseMonthWithData(budget);
@@ -38,6 +38,21 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ link, budget, selectedMetri
   );
   const reportMonth = DateTime.fromFormat(budget.month, 'yyyy-LL-dd')?.toFormat('LLL yyyy');
   const isCoreUnitElement = budget.ownerType === 'CoreUnit';
+
+  const link = useMemo(() => {
+    if (budget.ownerType === 'CoreUnit') {
+      return `${siteRoutes.coreUnitReports(budget.owner.shortCode)}?viewMonth=${DateTime.fromFormat(
+        budget.month,
+        'yyyy-LL-dd'
+      ).toFormat('LLLyyyy')}`;
+    }
+
+    // ecosystem actor by default
+    return `${siteRoutes.ecosystemActorReports(budget.owner.shortCode)}?viewMonth=${DateTime.fromFormat(
+      budget.month,
+      'yyyy-LL-dd'
+    ).toFormat('LLLyyyy')}`;
+  }, [budget]);
 
   const value = useMemo(() => {
     switch (selectedMetric) {

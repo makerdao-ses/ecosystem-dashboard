@@ -46,12 +46,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
         {expenseReportResponse.data?.map((page, index) => (
           <React.Fragment key={`page-${index}`}>
             {page.map((budget) => (
-              <DelegateExpenseTrendItem
-                key={index}
-                budget={budget}
-                selectedMetric={filterProps.selectedMetric}
-                link={'getLinkLastExpenseReport(expense.shortCode, expenseReport)'}
-              />
+              <DelegateExpenseTrendItem key={index} budget={budget} selectedMetric={filterProps.selectedMetric} />
             ))}
           </React.Fragment>
         ))}
