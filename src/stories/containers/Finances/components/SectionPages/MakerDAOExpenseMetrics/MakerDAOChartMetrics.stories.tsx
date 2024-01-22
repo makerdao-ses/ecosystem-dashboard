@@ -25,6 +25,7 @@ const chartData = {
 };
 const args = [
   {
+    title: 'MakerDAO Expense Metrics',
     year: 2023,
     series: buildExpenseMetricsLineChartSeries(chartData, [], true),
     selectedGranularity: 'monthly',
@@ -32,6 +33,7 @@ const args = [
     handleGranularityChange: (value: string) => null,
   },
   {
+    title: 'MakerDAO Expense Metrics',
     year: 2023,
     series: buildExpenseMetricsLineChartSeries(chartData, [], false),
     selectedGranularity: 'monthly',

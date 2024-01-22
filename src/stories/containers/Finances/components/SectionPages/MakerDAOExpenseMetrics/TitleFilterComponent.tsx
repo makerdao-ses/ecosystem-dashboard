@@ -6,14 +6,15 @@ import SectionTitle from '../../SectionTitle/SectionTitle';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 interface Props {
+  title: string;
   handleChange: (value: AnalyticGranularity) => void;
   selectedValue: AnalyticGranularity;
 }
 
-const TitleFilterComponent: React.FC<Props> = ({ handleChange, selectedValue }) => (
+const TitleFilterComponent: React.FC<Props> = ({ title, handleChange, selectedValue }) => (
   <Container>
     <SectionTitle
-      title="MakerDAO Expense Metrics"
+      title={title}
       tooltip="View monthly expense metrics for the current year on this line chart, with a fixed legend of Budget, Forecast, Actuals, Net Expenses Off-Chain, and Net Expenses On-Chain, all toggleable for customized visualization."
     />
 

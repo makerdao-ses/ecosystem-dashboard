@@ -7,6 +7,7 @@ import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 interface Props {
+  title: string;
   handleGranularityChange: (value: AnalyticGranularity) => void;
   selectedGranularity: AnalyticGranularity;
   series: LineChartSeriesData[];
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
+  title,
   handleGranularityChange,
   selectedGranularity,
   series,
@@ -24,7 +26,7 @@ const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
   isLoading,
 }) => (
   <Container>
-    <TitleFilterComponent handleChange={handleGranularityChange} selectedValue={selectedGranularity} />
+    <TitleFilterComponent title={title} handleChange={handleGranularityChange} selectedValue={selectedGranularity} />
     <ContainerChart>
       {isLoading ? (
         <div
