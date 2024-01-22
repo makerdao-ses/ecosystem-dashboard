@@ -11,6 +11,7 @@ interface Props {
 
 const ArrowLink = ({ width = 16, height = 16, href, target, fill = '#626472', className, ...props }: Props) => {
   const Wrapper = href ? Link : Container;
+
   return (
     <Wrapper href={href} target={target} className={className}>
       <svg width={width} height={height} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -29,5 +30,9 @@ const ArrowLink = ({ width = 16, height = 16, href, target, fill = '#626472', cl
 
 export default ArrowLink;
 
-const Link = styled.a({});
+const Link = styled.a({
+  '&:hover *': {
+    fill: '#447AFB',
+  },
+});
 const Container = styled.div({});

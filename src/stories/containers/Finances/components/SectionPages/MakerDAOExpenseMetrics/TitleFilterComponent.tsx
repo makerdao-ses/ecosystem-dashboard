@@ -1,73 +1,53 @@
 import styled from '@emotion/styled';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
-import Information from '@ses/components/svg/information';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import SectionTitle from '../../SectionTitle/SectionTitle';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   handleChange: (value: AnalyticGranularity) => void;
   selectedValue: AnalyticGranularity;
 }
 
-const TitleFilterComponent: React.FC<Props> = ({ handleChange, selectedValue }) => {
-  const { isLight } = useThemeContext();
+const TitleFilterComponent: React.FC<Props> = ({ handleChange, selectedValue }) => (
+  <Container>
+    <SectionTitle
+      title="MakerDAO Expense Metrics"
+      tooltip="View monthly expense metrics for the current year on this line chart, with a fixed legend of Budget, Forecast, Actuals, Net Expenses Off-Chain, and Net Expenses On-Chain, all toggleable for customized visualization."
+    />
 
-  return (
-    <Container>
-      <TitleTooltip>
-        <Title isLight={isLight}>MakerDAO Expense Metrics</Title>
-        <Tooltip>
-          <SESTooltip
-            content={
-              'View monthly expense metrics for the current year on this line chart, with a fixed legend of Budget, Forecast, Actuals, Net Expenses Off-Chain, and Net Expenses On-Chain, all toggleable for customized visualization.'
-            }
-            placement="bottom-start"
-            enterTouchDelay={0}
-            leaveTouchDelay={15000}
-          >
-            <IconWrapper>
-              <Information />
-            </IconWrapper>
-          </SESTooltip>
-        </Tooltip>
-      </TitleTooltip>
-
-      <FilterContainer>
-        <PeriodicSelectionFilter>
-          <PeriodSelect
-            items={[
-              {
-                label: 'Monthly',
-                value: 'monthly',
-              },
-              {
-                label: 'Quarterly',
-                value: 'quarterly',
-              },
-              {
-                label: 'Annually',
-                value: 'annual',
-              },
-            ]}
-            useSelectedAsLabel
-            onChange={(value) => handleChange(value as AnalyticGranularity)}
-            selected={selectedValue}
-            PopperProps={{
-              style: {
-                zIndex: 2,
-              },
-              placement: 'bottom-end',
-            }}
-          />
-        </PeriodicSelectionFilter>
-      </FilterContainer>
-    </Container>
-  );
-};
+    <FilterContainer>
+      <PeriodicSelectionFilter>
+        <PeriodSelect
+          items={[
+            {
+              label: 'Monthly',
+              value: 'monthly',
+            },
+            {
+              label: 'Quarterly',
+              value: 'quarterly',
+            },
+            {
+              label: 'Annually',
+              value: 'annual',
+            },
+          ]}
+          useSelectedAsLabel
+          onChange={(value) => handleChange(value as AnalyticGranularity)}
+          selected={selectedValue}
+          PopperProps={{
+            style: {
+              zIndex: 2,
+            },
+            placement: 'bottom-end',
+          }}
+        />
+      </PeriodicSelectionFilter>
+    </FilterContainer>
+  </Container>
+);
 
 export default TitleFilterComponent;
 const Container = styled.div({
@@ -79,49 +59,6 @@ const Container = styled.div({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-  },
-});
-
-const TitleTooltip = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'flex-start',
-  gap: 12,
-  height: 24,
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 12,
-  },
-});
-
-const Title = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 18,
-  fontStyle: 'normal',
-  fontWeight: 600,
-  lineHeight: 'normal',
-  letterSpacing: '0.75px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 20,
-    letterSpacing: '0.4px',
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    fontSize: 24,
-  },
-}));
-const Tooltip = styled.div({});
-
-const IconWrapper = styled.div({
-  display: 'flex',
-
-  paddingTop: 2,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingTop: 4,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingTop: 8,
   },
 });
 
