@@ -322,7 +322,7 @@ const Paragraph = styled('p')(({ theme }) => ({
 
 const MilestoneContent = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
-    paddingTop: 24,
+    paddingTop: 20,
   },
 }));
 
