@@ -94,8 +94,11 @@ export default ReservesWaterFallFilters;
 const FilterContainer = styled.div({
   display: 'flex',
   justifyContent: 'flex-end',
-  gap: 16,
+  gap: 10,
   zIndex: 1,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 8,
+  },
 });
 
 const Reset = styled.div({
@@ -111,7 +114,13 @@ const Reset = styled.div({
 const SelectContainer = styled.div({
   display: 'flex',
   gap: 16,
-  marginTop: -22,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 8,
+    marginTop: -22,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 16,
+  },
 });
 
 const GranularitySelect = styled(SingleItemSelect)({
