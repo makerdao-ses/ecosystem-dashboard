@@ -17,12 +17,10 @@ export default meta;
 
 const variantsArgs = [
   {
-    link: '#',
     selectedMetric: 'Actuals',
     budget: mockDataApiTeam[0].budgetStatements[0],
   },
   {
-    link: '#',
     selectedMetric: 'Actuals',
     budget: mockDataApiTeam[0].budgetStatements[0],
   },
