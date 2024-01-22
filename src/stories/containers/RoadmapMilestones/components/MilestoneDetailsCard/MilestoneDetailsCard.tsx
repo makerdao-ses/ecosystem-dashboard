@@ -3,7 +3,8 @@ import ProjectOwnerChip from '@ses/containers/ActorProjects/components/ProjectOw
 import SupportedTeamsAvatarGroup from '@ses/containers/ActorProjects/components/SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import { OwnerType } from '@ses/core/models/interfaces/projects';
 import Coordinators from './Coordinators';
-import EcosystemActors from './EcosystemAcotrs';
+import DeliverablesSection from './DeliverablesSection';
+import EcosystemActors from './EcosystemActors';
 import MilestoneProgress from './MilestoneProgress';
 import StatsData from './StatsData';
 
@@ -92,7 +93,9 @@ const MilestoneDetailsCard: React.FC = () => (
         </DescriptionContentForDesktop>
       </ShowOn1024Up>
 
-      <DeliverablesSection>Deliverables section WIP</DeliverablesSection>
+      <DeliverablesContainer>
+        <DeliverablesSection />
+      </DeliverablesContainer>
     </MilestoneContent>
   </Card>
 );
@@ -337,12 +340,14 @@ const DescriptionContentForDesktop = styled('div')(() => ({
   gap: 16,
 }));
 
-const DeliverablesSection = styled('div')({
-  marginTop: 32,
-  borderRadius: 8,
-  background: '#F6F8F9',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '16px 0',
-});
+const DeliverablesContainer = styled('div')(({ theme }) => ({
+  marginTop: 40,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 56,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: 32,
+  },
+}));
