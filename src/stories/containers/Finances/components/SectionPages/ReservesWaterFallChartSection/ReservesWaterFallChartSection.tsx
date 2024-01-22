@@ -36,7 +36,12 @@ const ReservesWaterFallChartSection: React.FC<Props> = ({
 }) => (
   <Container>
     <ContainerTitleFilter>
-      <TitleToolTipArrowLink title={title} />
+      <SectionTitle
+        title={title}
+        tooltip={
+          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
+        }
+      />
       <Filters>
         <ReservesWaterFallFilters
           activeItems={activeItems}
@@ -49,14 +54,6 @@ const ReservesWaterFallChartSection: React.FC<Props> = ({
           isDisabled={activeItems.length <= 0}
         />
       </Filters>
-      {/* <TitleToolTipArrowLink title={title} /> */}
-      <SectionTitle
-        title={title}
-        tooltip={
-          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
-        }
-      />
-      <Filters />
     </ContainerTitleFilter>
     <ContainerChart>
       <WaterFallChart legends={legends} year={year} selectedGranularity={selectedGranularity} series={series} />

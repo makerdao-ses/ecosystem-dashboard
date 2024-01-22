@@ -23,7 +23,7 @@ const data = [
 const args = [
   {
     selectedGranularity: 'monthly',
-    title: 'MakerDAO Finances',
+    title: 'MakerDAO Finances Reserves',
     legends: [
       {
         title: 'Reserves Balance',
@@ -50,7 +50,7 @@ const args = [
   },
   {
     selectedGranularity: 'monthly',
-    title: 'MakerDAO Finances',
+    title: 'MakerDAO Finances Reserves',
     legends: [
       {
         title: 'Reserves Balance',
@@ -77,7 +77,7 @@ const args = [
   },
   {
     selectedGranularity: 'monthly',
-    title: 'MakerDAO Finances',
+    title: 'MakerDAO Finances Reserves',
     legends: [
       {
         title: 'Reserves Balance',

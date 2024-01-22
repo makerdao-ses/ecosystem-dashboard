@@ -115,7 +115,7 @@ const SelectContainer = styled.div({
   display: 'flex',
   gap: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 8,
+    gap: 16,
     marginTop: -22,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
