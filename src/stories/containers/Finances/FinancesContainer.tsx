@@ -139,6 +139,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
       <Container>
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
           <MakerDAOExpenseMetricsFinances
+            title="MakerDAO Expense Metrics"
             handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
             selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
             series={makerDAOExpensesMetrics.series}
