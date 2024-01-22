@@ -1,35 +1,44 @@
 import { useMediaQuery } from '@mui/material';
 import { useBudgetContext } from '@ses/core/context/BudgetContext';
-
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import sortBy from 'lodash/sortBy';
+// import { useRouter } from 'next/router';
+import { useMemo, useState } from 'react';
 import { builderWaterFallSeries } from './utils';
+import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
-export const useReservesWaterFallChart = () => {
-  const router = useRouter();
+export const useReservesWaterFallChart = (levelPath: string | null) => {
+  const [activeElements, setActiveElements] = useState<string[]>([]);
+  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
+  const handleSelectChange = (value: string[]) => {
+    setActiveElements(value);
+  };
+  const handleResetFilter = () => {
+    setActiveElements([]);
+  };
+
   const { isLight } = useThemeContext();
   const { allBudgets } = useBudgetContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
+
   const handleGranularityChange = (value: AnalyticGranularity) => {
     setSelectedGranularity(value);
   };
   const defaultTitle = 'MakerDAO Finances';
-  const levelPath = 'atlas/' + router.query.firstPath?.toString();
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
   const getTitleLevelBudget = levelBudget?.name || '';
 
   // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
   // The firs element will be point to start its don't bellow to the serie
-  const data = [12900, 3245, 4393, 3108, -1954, 1535, 1078, 2286, -1119, -1361, -2203, 2500, 2700];
+  const data = [1900, 2300, 1195, 2100, -1110, 2100, 1400, 4300, -1400, -3500, -4200, 1250, 2700];
 
   const series = builderWaterFallSeries(data, isMobile, isTable);
+
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 
   const legendItems: LegendItemsWaterFall[] = [
@@ -47,11 +56,31 @@ export const useReservesWaterFallChart = () => {
     },
   ];
 
+  // get all the budget for the current level
+  const allSubBudgets = allBudgets?.filter((budget) => budget.parentId === levelPath);
+  const items = useMemo(
+    () =>
+      sortBy(allSubBudgets, (subBudget) => subBudget.name).map((budget) => ({
+        id: budget.id,
+        content: budget.name,
+        params: {
+          url: budget.image,
+        },
+      })) as MultiSelectItem[],
+    [allSubBudgets]
+  );
+  const popupContainerHeight = 220;
+
   return {
     titleChart,
     legendItems,
     selectedGranularity,
     handleGranularityChange,
     series,
+    items,
+    popupContainerHeight,
+    handleResetFilter,
+    activeElements,
+    handleSelectChange,
   };
 };

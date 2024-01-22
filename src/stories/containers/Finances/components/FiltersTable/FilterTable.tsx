@@ -70,6 +70,7 @@ const FilterTable: React.FC<Props> = ({
           allowSelectAll={allowSelectAll}
           maxItems={maxItems}
           minItems={minItems}
+          selectNumberItemPerResolution
           defaultMetricsWithAllSelected={defaultMetricsWithAllSelected}
           positionRight={!isMobile}
           label="Metrics"
