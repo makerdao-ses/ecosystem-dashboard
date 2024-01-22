@@ -11,6 +11,7 @@ import { ENABLE_DISABLE_USER_REQUEST } from '../../Auth/ToggleAccountsActiveFlag
 import { QUERY_USERS } from '../UsersManager/userManagerAPI';
 import { FETCH_USER_BY_USERNAME } from './managedUserProfileAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
+import type { Fetcher } from 'swr';
 
 const useManagedUserProfile = () => {
   const { authToken } = useAuthContext();
@@ -25,10 +26,13 @@ const useManagedUserProfile = () => {
   const [userRoles, setUserRoles] = useState<string[]>([]);
 
   const { mutate } = useSWRConfig();
-  const { data: response, error: errorFetchingUser } = useSWR(FETCH_USER_BY_USERNAME(username as string), fetcher);
+  const { data: response, error: errorFetchingUser } = useSWR<{ users: UserDTO[] }, unknown>(
+    FETCH_USER_BY_USERNAME(username as string),
+    fetcher as Fetcher<{ users: UserDTO[] }>
+  );
   const isToLong = (userProfile?.username || '').length > 17;
   useEffect(() => {
-    if (response?.users?.length > 0) {
+    if (response && (response.users?.length ?? 0) > 0) {
       // otherwise, the user is not found
       setUserProfile(response.users[0]);
       const allRoles = getCorrectRoleApi(response.users[0]).allRoles;
@@ -52,7 +56,8 @@ const useManagedUserProfile = () => {
         // update the user list
         mutate(
           QUERY_USERS,
-          (cachedData: { users?: UserDTO[] }) => {
+          (args: unknown) => {
+            const cachedData = args as { users?: UserDTO[] };
             if (cachedData?.users) {
               const index = cachedData.users.findIndex((u) => u.id === userProfile.id);
               if (index !== -1) {

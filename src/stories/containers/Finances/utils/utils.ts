@@ -16,6 +16,7 @@ import type {
   TableFinances,
 } from './types';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
+import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type {
   ValueAndUnit,
   BudgetMetric,
@@ -98,10 +99,15 @@ export const mockDataApiTeam: MomentDataItem[] = [
     budgetStatements: [
       {
         id: '234',
-        ownerId: '34',
+        owner: {
+          id: '34',
+          icon: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
+          name: 'Sustainable Ecosystem Scaling',
+          shortCode: 'SES',
+        },
         status: BudgetStatus.Draft,
         ownerType: '',
-        month: 'some',
+        month: '2023-09-01',
         ownerCode: 'ses',
         mkrProgramLength: 34,
         publicationUrl: '3432',
@@ -111,6 +117,10 @@ export const mockDataApiTeam: MomentDataItem[] = [
         budgetStatementMKRVest: [],
         budgetStatementWallet: [],
         comments: [],
+        actualExpenses: 865423,
+        forecastExpenses: 0,
+        paymentsOnChain: 0,
+        paymentsOffChain: 0,
       },
     ],
     cuMip: null,
@@ -147,19 +157,28 @@ export const mockDataApiTeam: MomentDataItem[] = [
     budgetStatements: [
       {
         id: '234',
-        ownerId: '34',
+        owner: {
+          id: '34',
+          icon: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
+          name: 'Sustainable Ecosystem Scaling',
+          shortCode: 'SES',
+        },
         status: BudgetStatus.Draft,
         ownerType: '',
-        month: 'some',
+        month: '2023-05-01',
         ownerCode: 'ses',
         mkrProgramLength: 34,
         publicationUrl: '3432',
-        activityFeed: [],
+        activityFeed: [{ created_at: '2023-09-01T09:08:34.123' } as ChangeTrackingEvent],
         auditReport: [],
         budgetStatementFTEs: [],
         budgetStatementMKRVest: [],
         budgetStatementWallet: [],
         comments: [],
+        actualExpenses: 1125789,
+        forecastExpenses: 0,
+        paymentsOnChain: 0,
+        paymentsOffChain: 0,
       },
     ],
     cuMip: null,
@@ -196,10 +215,15 @@ export const mockDataApiTeam: MomentDataItem[] = [
     budgetStatements: [
       {
         id: '234',
-        ownerId: '34',
+        owner: {
+          id: '34',
+          icon: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
+          name: 'Sustainable Ecosystem Scaling',
+          shortCode: 'SES',
+        },
         status: BudgetStatus.Final,
         ownerType: '',
-        month: 'some',
+        month: '2024-04-01',
         ownerCode: 'ses',
         mkrProgramLength: 34,
         publicationUrl: '3432',
@@ -209,6 +233,10 @@ export const mockDataApiTeam: MomentDataItem[] = [
         budgetStatementMKRVest: [],
         budgetStatementWallet: [],
         comments: [],
+        actualExpenses: 256365,
+        forecastExpenses: 0,
+        paymentsOnChain: 0,
+        paymentsOffChain: 0,
       },
     ],
     cuMip: null,
@@ -317,28 +345,21 @@ export const getShowCTA = () => false;
 export const getQuarterlyForFilters = (year: string): string[] => {
   const period: string[] = [];
   for (let i = 1; i <= 4; i++) {
-    const quarter = `Q${i} ${year}`;
-    period.push(quarter);
+    period.push(`Q${i} ${year}`);
   }
   return period;
 };
-export const getSemiAnnualForFilters = (year: string): string[] => {
-  const period: string[] = [];
-  for (let i = 1; i <= 2; i++) {
-    const quarter = `H${i} ${year}`;
-    period.push(quarter);
-  }
-  return period;
-};
-export const getExpenseMonthWithData = (expense: MomentDataItem) => {
-  if (expense?.lastActivity?.created_at) {
-    return DateTime.fromISO(expense.lastActivity?.created_at);
+export const getSemiAnnualForFilters = (year: string): string[] => [`H${1} ${year}`, `H${2} ${year}`];
+export const getExpenseMonthWithData = (budget: BudgetStatement) => {
+  if (budget.activityFeed?.length) {
+    return DateTime.fromISO(budget.activityFeed?.[0]?.created_at);
   }
 
   return undefined;
 };
 
 export const isCoreUnit = (item: MomentDataItem) => item?.type === ResourceType.CoreUnit;
+
 export const getHeadersExpenseReport = (
   headersSort: SortEnum[],
   selectedMetric: string,

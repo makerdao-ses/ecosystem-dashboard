@@ -214,6 +214,7 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
       <Container>
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
           <MakerDAOExpenseMetricsFinances
+            title={`${title} Expense Metrics`}
             handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
             selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
             series={makerDAOExpensesMetrics.series}
@@ -248,11 +249,8 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
             handleResetFilter={expenseReportSection.handleResetFilter}
             statusesItems={expenseReportSection.statusesItems}
             columns={expenseReportSection.headersExpenseReport}
-            expenseReport={expenseReportSection.reportExpenseItems}
             sortClick={expenseReportSection.onSortClick}
-            handleLoadMore={expenseReportSection.handleLoadMore}
-            showAllItems={expenseReportSection.showAllItems}
-            allItemsCount={expenseReportSection.expenseItemsCount}
+            expenseReportResponse={expenseReportSection.expenseReportResponse}
           />
         </ContainerLastReport>
       </Container>

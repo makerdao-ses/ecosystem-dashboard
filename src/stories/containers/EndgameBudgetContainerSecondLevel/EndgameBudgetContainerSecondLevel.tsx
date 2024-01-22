@@ -131,6 +131,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
       <Container>
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
           <MakerDAOExpenseMetricsFinances
+            title={`${title} Expense Metrics`}
             handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
             selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
             series={makerDAOExpensesMetrics.series}
@@ -142,7 +143,7 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
           <ContainerReservesWaterFallChart>
             <ReservesWaterFallChart
-              title={title}
+              title={`${title} Reserves`}
               series={reserveChartSecondLevel.series}
               legends={reserveChartSecondLevel.legendItems}
               selectedGranularity={reserveChartSecondLevel.selectedGranularity}
@@ -165,11 +166,8 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
             handleResetFilter={expenseReportSection.handleResetFilter}
             statusesItems={expenseReportSection.statusesItems}
             columns={expenseReportSection.headersExpenseReport}
-            expenseReport={expenseReportSection.reportExpenseItems}
             sortClick={expenseReportSection.onSortClick}
-            handleLoadMore={expenseReportSection.handleLoadMore}
-            showAllItems={expenseReportSection.showAllItems}
-            allItemsCount={expenseReportSection.expenseItemsCount}
+            expenseReportResponse={expenseReportSection.expenseReportResponse}
           />
         </ContainerLastReport>
       </Container>

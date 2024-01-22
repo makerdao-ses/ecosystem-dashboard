@@ -12,22 +12,24 @@ const meta: Meta<typeof DelegateExpenseTrendFinances> = {
 };
 export default meta;
 
+const expenseReportResponse = {
+  isLoading: false,
+  error: undefined,
+  data: [mockDataApiTeam.filter((item) => item.budgetStatements.length >= 1).map((item) => item.budgetStatements[0])],
+};
+
 const args = [
   {
     columns: getHeadersExpenseReport(enumForStories, 'Actuals', false),
-    expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
-    handleLinkToPage: () => null,
-    handleLoadMore: () => null,
-    showSome: true,
+    selectedMetric: 'Actuals',
+    expenseReportResponse,
   },
   {
     columns: getHeadersExpenseReport(enumForStories, 'Actuals', true),
-    expenseReport: mockDataApiTeam.slice(0, 9),
     sortClick: () => null,
-    handleLinkToPage: () => null,
-    handleLoadMore: () => null,
-    showSome: true,
+    selectedMetric: 'Actuals',
+    expenseReportResponse,
   },
 ];
 const [[LightMode, DarkMode], [DeskLightMode1024, DeskLightMode1024Dark]] = createThemeModeVariants(

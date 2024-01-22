@@ -6,7 +6,7 @@ import type { Theme } from '@mui/material';
 
 const StatsData: React.FC = () => {
   const { isLight } = useThemeContext();
-  const isUp1024 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
+  const is1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const humanizedActuals = threeDigitsPrecisionHumanization(20252244);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(45225544);
 
@@ -17,7 +17,7 @@ const StatsData: React.FC = () => {
         <Value>Q4 2023</Value>
       </Row>
       <Row>
-        <Label>{isUp1024 ? 'Est.' : 'Estimated'} Budget Cap</Label>
+        <Label>{is1024 ? 'Est.' : 'Estimated'} Budget Cap</Label>
         <Value>
           {usLocalizedNumber(12927312, 0)} <span>DAI</span>
         </Value>

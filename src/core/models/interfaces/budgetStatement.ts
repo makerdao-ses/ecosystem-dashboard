@@ -22,7 +22,12 @@ export interface BudgetStatementMKRVest {
 
 export interface BudgetStatement {
   id: string;
-  ownerId: string;
+  owner: {
+    id: string;
+    icon: string;
+    name: string;
+    shortCode: string;
+  };
   ownerType: string;
   month: string;
   status: BudgetStatus;
@@ -35,4 +40,8 @@ export interface BudgetStatement {
   budgetStatementMKRVest: BudgetStatementMKRVest[];
   budgetStatementWallet: BudgetStatementWallet[];
   comments: BudgetStatementComment[];
+  actualExpenses: number | null;
+  forecastExpenses: number | null;
+  paymentsOnChain: number | null;
+  paymentsOffChain: number | null;
 }

@@ -1,33 +1,37 @@
 import styled from '@emotion/styled';
 import BigButton from '@ses/components/Button/BigButton/BigButton';
-import { getLinkLastExpenseReport } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import SectionTitle from '../../BreakdownChartSection/SectionTitle/SectionTitle';
 import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpenseTrendItem';
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
+import SectionTitle from '../../SectionTitle/SectionTitle';
 import ExpenseReportsFilters from './ExpenseReportsFilters';
 import type { ExpenseReportsFiltersProps } from './ExpenseReportsFilters';
-import type { DelegateExpenseTableHeader, MomentDataItem } from '@ses/containers/Finances/utils/types';
+import type { DelegateExpenseTableHeader } from '@ses/containers/Finances/utils/types';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { SWRInfiniteResponse } from 'swr/infinite';
 
 interface Props extends ExpenseReportsFiltersProps {
   columns: DelegateExpenseTableHeader[];
-  expenseReport: MomentDataItem[];
   sortClick: (index: number) => void;
-  showAllItems: boolean;
-  handleLoadMore?: () => void;
+  expenseReportResponse: SWRInfiniteResponse<BudgetStatement[], unknown>;
 }
+
 const DelegateExpenseTrendFinances: React.FC<Props> = ({
   columns,
-  expenseReport,
   sortClick,
-  handleLoadMore,
-  showAllItems,
+  expenseReportResponse,
   ...filterProps // props from ExpenseReportsFiltersProps
 }) => {
   const { isLight } = useThemeContext();
+  const isLoading =
+    expenseReportResponse.isLoading ||
+    (expenseReportResponse.size > 0 &&
+      expenseReportResponse.data &&
+      typeof expenseReportResponse.data[expenseReportResponse.size - 1] === 'undefined');
+
   return (
     <Container>
       <HeaderContainer>
@@ -39,22 +43,35 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
         <HeaderDelegateExpense columns={columns} sortClick={sortClick} />
       </Header>
       <ItemSection>
-        {expenseReport.map((expense, index) => (
-          <DelegateExpenseTrendItem
-            key={index}
-            expenseReport={expense}
-            selectedMetric={filterProps.selectedMetric}
-            link={getLinkLastExpenseReport(expense.shortCode, expenseReport)}
-          />
+        {expenseReportResponse.data?.map((page, index) => (
+          <React.Fragment key={`page-${index}`}>
+            {page.map((budget) => (
+              <DelegateExpenseTrendItem key={index} budget={budget} selectedMetric={filterProps.selectedMetric} />
+            ))}
+          </React.Fragment>
         ))}
+        {isLoading && (
+          <div
+            style={{
+              textAlign: 'center',
+              color: 'red',
+            }}
+          >
+            Loading...
+          </div>
+        )}
       </ItemSection>
-      {!showAllItems && (
-        <ContainerButton>
-          <DividerStyle isLight={isLight} />
-          <BigButtonStyled title={'Load More'} onClick={handleLoadMore} />
-          <DividerStyle isLight={isLight} />
-        </ContainerButton>
-      )}
+      {!isLoading &&
+        !((expenseReportResponse.data?.[(expenseReportResponse.data?.length ?? 0) - 1]?.length ?? 0) < 10) && (
+          <ContainerButton>
+            <DividerStyle isLight={isLight} />
+            <BigButtonStyled
+              title={'Load More'}
+              onClick={() => expenseReportResponse.setSize(expenseReportResponse.size + 1)}
+            />
+            <DividerStyle isLight={isLight} />
+          </ContainerButton>
+        )}
     </Container>
   );
 };

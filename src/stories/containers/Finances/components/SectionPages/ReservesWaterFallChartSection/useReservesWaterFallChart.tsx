@@ -3,7 +3,6 @@ import { useBudgetContext } from '@ses/core/context/BudgetContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
-// import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { builderWaterFallSeries } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -24,7 +23,6 @@ export const useReservesWaterFallChart = (levelPath: string | null) => {
   const { allBudgets } = useBudgetContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-
   const handleGranularityChange = (value: AnalyticGranularity) => {
     setSelectedGranularity(value);
   };
