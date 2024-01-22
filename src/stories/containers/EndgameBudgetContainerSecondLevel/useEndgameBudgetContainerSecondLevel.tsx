@@ -119,6 +119,8 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
     budgetsAnalytics
   );
 
+  const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
+
   // Hooks Logic of Table Second Level
   const breakdownTableSecondLevel = useBreakdownTable(year, budgets, allBudgets);
 
@@ -126,12 +128,11 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
   // All the logic required by the ReservesWaterFallChart
-  const reserveChartSecondLevel = useReservesWaterFallChart();
+  const reserveChartSecondLevel = useReservesWaterFallChart(levelPath);
 
   // All the logic Expense Report Second Level
   const expenseReportSection = useDelegateExpenseTrendFinances();
 
-  const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
   const title = levelBudget?.name || '';
 
   const icon = levelBudget?.image;

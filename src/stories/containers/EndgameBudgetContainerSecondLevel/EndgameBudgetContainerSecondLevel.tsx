@@ -147,6 +147,12 @@ const EndgameBudgetContainerSecondLevel: React.FC<Props> = ({ budgets, yearsRang
               legends={reserveChartSecondLevel.legendItems}
               selectedGranularity={reserveChartSecondLevel.selectedGranularity}
               year={year}
+              activeItems={reserveChartSecondLevel.activeElements}
+              items={reserveChartSecondLevel.items}
+              handleGranularityChange={reserveChartSecondLevel.handleGranularityChange}
+              handleResetFilter={reserveChartSecondLevel.handleResetFilter}
+              handleSelectChangeItem={reserveChartSecondLevel.handleSelectChange}
+              popupContainerHeight={reserveChartSecondLevel.popupContainerHeight}
             />
           </ContainerReservesWaterFallChart>
         )}

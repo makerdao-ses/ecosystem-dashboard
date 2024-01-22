@@ -82,5 +82,6 @@ export const useReservesWaterFallChart = (levelPath: string | null) => {
     handleResetFilter,
     activeElements,
     handleSelectChange,
+    allSubBudgets,
   };
 };
