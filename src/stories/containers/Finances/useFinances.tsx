@@ -18,6 +18,7 @@ import {
   generateColorPalette,
   existingColors,
   existingColorsDark,
+  nameChanged,
 } from './utils/utils';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -71,7 +72,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
 
     return {
       image: item.image || '/assets/img/default-icon-cards-budget.svg',
-      title: item.name || '',
+      title: nameChanged(item.name),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.newFinancesOverview}/${item.codePath.replace('atlas/', '')}?year=${year}`,
       valueDai: budgetMetric[0].budget.value,

@@ -1009,3 +1009,12 @@ export const getShortNameForMetric = (metric: string): string => {
   }
   return metric;
 };
+// Remove this when API return correct data
+export const nameChanged = (name: string) => {
+  const newName = removePrefix(name, prefixToRemove);
+  return newName === 'Atlas Immutable AA Budgets'
+    ? 'Atlas Immutable Budget'
+    : newName === 'Alignment Scope Budgets'
+    ? 'Scope Frameworks Budget'
+    : newName;
+};
