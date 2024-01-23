@@ -1,4 +1,5 @@
 import { useMediaQuery } from '@mui/material';
+import { nameChanged } from '@ses/containers/Finances/utils/utils';
 import { useBudgetContext } from '@ses/core/context/BudgetContext';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -23,7 +24,7 @@ export const useReservesWaterFallChart = () => {
   const levelPath = 'atlas/' + router.query.firstPath?.toString();
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
-  const getTitleLevelBudget = levelBudget?.name || '';
+  const getTitleLevelBudget = nameChanged(levelBudget?.name || '');
 
   // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
   // The firs element will be point to start its don't bellow to the serie

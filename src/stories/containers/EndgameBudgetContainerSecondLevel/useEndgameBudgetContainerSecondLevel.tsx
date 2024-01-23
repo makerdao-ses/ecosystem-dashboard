@@ -17,6 +17,7 @@ import {
   generateColorPalette,
   getBudgetsAnalytics,
   getLevelOfBudget,
+  nameChanged,
   newBudgetMetric,
 } from '../Finances/utils/utils';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -132,7 +133,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const expenseReportSection = useDelegateExpenseTrendFinances();
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
-  const title = levelBudget?.name || '';
+  const title = nameChanged(levelBudget?.name || '');
 
   const icon = levelBudget?.image;
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
