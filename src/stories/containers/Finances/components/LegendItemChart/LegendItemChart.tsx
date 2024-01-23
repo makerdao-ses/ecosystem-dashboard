@@ -1,4 +1,3 @@
-// import { styled } from '@mui/material';
 import styled from '@emotion/styled';
 import CircleLegendChart from '@ses/components/svg/CircleLegendChart';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -16,7 +15,7 @@ interface Props {
 const LegendItemChart: React.FC<Props> = ({ className, isSvg = true, title, color }) => {
   const { isLight } = useThemeContext();
   return (
-    <Container className={className} isLight={isLight}>
+    <Container className={className}>
       <ContainerIcon isSvg={isSvg} color={color}>
         {isSvg ? <CircleLegendChart fill={color} /> : <Circle color={color} />}
       </ContainerIcon>
@@ -28,7 +27,7 @@ const LegendItemChart: React.FC<Props> = ({ className, isSvg = true, title, colo
 
 export default LegendItemChart;
 
-const Container = styled.div<WithIsLight>({
+const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
