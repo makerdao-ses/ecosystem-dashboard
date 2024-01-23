@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
-import { formatterBreakDownChart, getGranularity } from '@ses/containers/Finances/utils/utils';
+import { formatterBreakDownChart, getGranularity, nameChanged } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -189,7 +189,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
                 <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.colorOriginal} />
               </svg>
             </SVGContainer>
-            {element.name}
+            {nameChanged(element.name)}
           </LegendItem>
         ))}
       </LegendContainer>

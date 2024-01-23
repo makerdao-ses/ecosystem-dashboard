@@ -19,6 +19,7 @@ import {
   generateColorPalette,
   getBudgetsAnalytics,
   getLevelOfBudget,
+  nameChanged,
   newBudgetMetric,
 } from '../Finances/utils/utils';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -112,7 +113,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const reserveChartThirdLevel = useReservesWaterFallChart(levelBudgetPath?.id ?? '');
   const icon = titleFirstPathBudget?.image;
 
-  const title = titleFirstPathBudget?.name || '';
+  const title = nameChanged(titleFirstPathBudget?.name || '');
 
   const handleChangeYearsEndgameAtlasBudget = (value: string) => {
     setYear(value);
@@ -169,11 +170,11 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
       url: `${siteRoutes.newFinancesOverview}?year=${year}`,
     },
     {
-      label: levelBudgetPath?.name || '',
+      label: nameChanged(levelBudgetPath?.name || ''),
       url: `${siteRoutes.newFinancesOverview}/${levelBudgetPath?.codePath.replace('atlas/', '')}?year=${year}`,
     },
     ...breadcrumbs.map((adr) => ({
-      label: adr,
+      label: nameChanged(adr),
       url: router.asPath,
     })),
   ];
