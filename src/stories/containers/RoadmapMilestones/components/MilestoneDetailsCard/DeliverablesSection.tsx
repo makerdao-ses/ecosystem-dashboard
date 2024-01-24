@@ -3,6 +3,7 @@ import { SearchInput } from '@ses/components/SearchInput/SearchInput';
 import DeliverableCard from '@ses/containers/ActorProjects/components/DeliverableCard/DeliverableCard';
 import DeliverableViewModeToggle from '@ses/containers/ActorProjects/components/DeliverableViewModeToggle/DeliverableViewModeToggle';
 import { splitInRows } from '@ses/containers/ActorProjects/components/ProjectCard/ProjectCard';
+import ViewAllButton from '@ses/containers/ActorProjects/components/ViewAllButton/ViewAllButton';
 import { DeliverableBuilder } from '@ses/core/businessLogic/builders/actors/deliverableBuilder';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import { useState } from 'react';
@@ -10,6 +11,7 @@ import type { DeliverableViewMode } from '@ses/containers/ActorProjects/componen
 
 const DeliverablesSection: React.FC = () => {
   const [deliverableViewMode, setDeliverableViewMode] = useState<DeliverableViewMode>('compacted');
+  const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(false);
 
   // mocked deliverables
   const deliverables = [
@@ -121,14 +123,14 @@ const DeliverablesSection: React.FC = () => {
       .withStatus(DeliverableStatus.DELIVERED)
       .build(),
   ];
-  const deliverablesRows = splitInRows(deliverables, 2);
+  const deliverablesRows = splitInRows(showAllDeliverables ? deliverables : deliverables.slice(0, 6), 2);
 
   return (
     <DeliverablesContainer>
       <Header>
         <TitleBox>
           <Title>Highlighted Deliverables</Title>
-          <Count>6</Count>
+          <Count>{deliverables.length}</Count>
         </TitleBox>
 
         <DeliverableViewModeToggle
@@ -156,6 +158,11 @@ const DeliverablesSection: React.FC = () => {
             ))
           )}
         </DeliverablesGrid>
+        {deliverables.length > 6 && (
+          <ViewAllButton viewAll={showAllDeliverables} onClick={() => setShowAllDeliverables((prev) => !prev)}>
+            View {showAllDeliverables ? 'less' : 'all'} Deliverables
+          </ViewAllButton>
+        )}
       </BackgroundContainer>
     </DeliverablesContainer>
   );
@@ -267,18 +274,22 @@ const CustomSearchInput = styled(SearchInput)(({ theme }) => ({
 }));
 
 const BackgroundContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
   background:
     theme.palette.mode === 'light' ? 'linear-gradient(0deg, #F6F8F9 85.04%, rgba(246, 248, 249, 0.00) 121.04%)' : 'red',
   margin: '8px -16px -24px',
   padding: '8px 16px 24px',
+  borderRadius: 6,
 
   [theme.breakpoints.up('tablet_768')]: {
-    margin: '8px 0 -24px',
+    margin: '8px -24px -24px',
     padding: '8px 24px 24px',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    borderRadius: 6,
+    gap: 24,
     margin: '8px 0 0 -8px',
     padding: '8px 8px 16px',
   },
