@@ -61,7 +61,7 @@ export const useReservesWaterFallChart = (levelPath: string | null) => {
     () =>
       sortBy(allSubBudgets, (subBudget) => subBudget.name).map((budget) => ({
         id: budget.id,
-        content: budget.name,
+        content: nameChanged(budget.name),
         params: {
           url: budget.image,
         },
