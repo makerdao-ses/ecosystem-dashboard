@@ -54,8 +54,8 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           onChange={onMetricChange}
           items={[
             {
-              label: 'Actual',
-              value: 'Actual',
+              label: 'Actuals',
+              value: 'Actuals',
             },
             {
               label: 'Forecast',
