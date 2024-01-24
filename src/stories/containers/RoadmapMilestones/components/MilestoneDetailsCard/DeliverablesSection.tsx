@@ -137,9 +137,10 @@ const DeliverablesSection: React.FC = () => {
         />
       </Header>
 
-      <SearchContainer>
+      {/* Disable temporary the search */}
+      {/* <SearchContainer>
         <CustomSearchInput placeholder="Search" legacyBreakpoints={false} />
-      </SearchContainer>
+      </SearchContainer> */}
 
       <BackgroundContainer>
         {/* {deliverables.map((deliverable) => (
@@ -215,6 +216,8 @@ const Count = styled('div')(({ theme }) => ({
   },
 }));
 
+// Disabled temporary the search
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SearchContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
@@ -233,6 +236,8 @@ const SearchContainer = styled('div')(({ theme }) => ({
   },
 }));
 
+// Disabled temporary the search
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CustomSearchInput = styled(SearchInput)(({ theme }) => ({
   [theme.breakpoints.down('tablet_768')]: {
     width: '100%',
