@@ -83,8 +83,7 @@ interface ExpenseReportInput {
   page: number;
   budgetPath: string;
   sortByMonth: 'asc' | 'desc' | null;
-  // eslint-disable-next-line spellcheck/spell-checker
-  sortyByLastModified: 'asc' | 'desc' | null;
+  sortByLastModified: 'asc' | 'desc' | null;
   status: BudgetStatus[] | null;
 }
 
@@ -92,8 +91,7 @@ export const getExpenseReportsQuery = ({
   page,
   budgetPath,
   sortByMonth,
-  // eslint-disable-next-line spellcheck/spell-checker
-  sortyByLastModified,
+  sortByLastModified,
   status,
 }: ExpenseReportInput) => ({
   query: gql`
@@ -123,8 +121,7 @@ export const getExpenseReportsQuery = ({
     filter: {
       budgetPath,
       sortByMonth,
-      // eslint-disable-next-line spellcheck/spell-checker
-      sortyByLastModified,
+      sortByLastModified,
       status,
     },
     limit: 10,
