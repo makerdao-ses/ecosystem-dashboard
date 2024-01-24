@@ -231,6 +231,12 @@ const EndgameBudgetContainerThirdLevel: React.FC<Props> = ({ budgets, yearsRange
               legends={reserveChartThirdLevel.legendItems}
               selectedGranularity={reserveChartThirdLevel.selectedGranularity}
               year={year}
+              activeItems={reserveChartThirdLevel.activeElements}
+              items={reserveChartThirdLevel.items}
+              handleGranularityChange={reserveChartThirdLevel.handleGranularityChange}
+              handleResetFilter={reserveChartThirdLevel.handleResetFilter}
+              handleSelectChangeItem={reserveChartThirdLevel.handleSelectChange}
+              popupContainerHeight={reserveChartThirdLevel.popupContainerHeight}
             />
           </ContainerReservesWaterFallChart>
         )}

@@ -139,12 +139,13 @@ export interface WaterFallChartSeriesData {
   name: string;
   data: (number | string)[];
   barWidth?: number;
+  barMinHeight?: number;
   stack?: string;
   type: string;
   label?: {
     formatter?: (params: EChartsOption) => string;
-    show: boolean;
-    color?: string;
+    show?: boolean;
+    color?: string | ((params: EChartsOption) => string);
     position?: string;
     fontSize?: number;
   };

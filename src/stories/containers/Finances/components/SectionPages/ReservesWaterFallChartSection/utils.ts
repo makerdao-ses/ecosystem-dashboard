@@ -16,9 +16,15 @@ export const getArraysWaterFall = (data: number[]) => {
       inFlow.push('-');
       outFlow.push(-data[i]);
     }
-    sum += data[i - 1];
 
-    auxiliaryArray.push(sum);
+    sum += data[i - 1];
+    // This to simulate correct the water fall
+    if (data[i] < 0) {
+      auxiliaryArray.push(sum + data[i]);
+    } else {
+      auxiliaryArray.push(sum);
+    }
+    // auxiliaryArray.push(sum);
   }
 
   return {
@@ -50,7 +56,7 @@ export const builderWaterFallSeries = (
   });
 
   // Get the colors of each bar
-  const helpBarColors = help.map((value, index) => {
+  const helpBarColors = help.map((_, index: number) => {
     if (index === 0 || index === help.length - 1) {
       return '#83A7FF';
     } else {
@@ -64,12 +70,37 @@ export const builderWaterFallSeries = (
       data: help,
       itemStyle: {
         borderRadius: 2,
+
         color: (params: EChartsOption) => helpBarColors[params.dataIndex],
       },
       isVisible: true,
+      color: 'rgba(0,0,0,0)',
+
       label: {
+        formatter: (params: EChartsOption) => {
+          const formatted = threeDigitsPrecisionHumanization(params.value);
+          if (isMobile) {
+            if (params.dataIndex === 0 || params.dataIndex === help.length - 1) {
+              return `{colorful|${formatted.value}}`;
+            }
+            return `{hidden|${formatted.value}}`;
+          } else {
+            if (params.dataIndex === 0 || params.dataIndex === help.length - 1) {
+              return `{colorful|${formatted.value}${formatted.suffix}}`;
+            }
+            return `{hidden|${formatted.value}}`;
+          }
+        },
+
+        rich: {
+          colorful: {
+            color: '#FFF',
+          },
+          hidden: {
+            color: 'rgba(0,0,0,0)',
+          },
+        },
         show: true,
-        color: 'transparent',
         position: 'insideTop',
         fontSize: isMobile ? 8 : 12,
       },
@@ -80,6 +111,7 @@ export const builderWaterFallSeries = (
       name: 'Outflow',
       barWidth: isMobile ? 19 : 39,
       data: outFlow,
+      barMinHeight: 30,
       itemStyle: {
         borderRadius: 2,
         color: '#CB3A0D',
@@ -87,6 +119,8 @@ export const builderWaterFallSeries = (
       isVisible: true,
       label: {
         show: true,
+        color: '#FFF',
+
         fontSize: isMobile ? 8 : 12,
         position: 'insideTop',
         formatter: (params: EChartsOption) => {
@@ -104,6 +138,7 @@ export const builderWaterFallSeries = (
       name: 'IntFlow',
       barWidth: isMobile ? 19 : 39,
       data: inFlow,
+      barMinHeight: 30,
       itemStyle: {
         borderRadius: 2,
         color: '#2DC1B1',
@@ -111,6 +146,8 @@ export const builderWaterFallSeries = (
       isVisible: true,
       label: {
         show: true,
+        color: '#FFF',
+
         fontSize: isMobile ? 8 : 12,
         position: 'insideTop',
         formatter: (params: EChartsOption) => {
@@ -118,6 +155,7 @@ export const builderWaterFallSeries = (
           if (isMobile) {
             return formatted.value;
           }
+
           return `${formatted.value}${formatted.suffix}`;
         },
       },
@@ -126,4 +164,14 @@ export const builderWaterFallSeries = (
     },
   ];
   return series;
+};
+
+export const calculateAccumulatedArray = (data: number[]) => {
+  let accumulated = 0;
+  const accumulatedArray = data.map((value) => {
+    accumulated += value;
+    return accumulated;
+  });
+
+  return accumulatedArray;
 };

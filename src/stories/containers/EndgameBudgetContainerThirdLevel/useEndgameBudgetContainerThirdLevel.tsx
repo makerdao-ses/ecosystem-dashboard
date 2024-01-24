@@ -77,7 +77,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   // All Logic for the Expense Report
-  const expenseReportSection = useDelegateExpenseTrendFinances();
+  const expenseReportSection = useDelegateExpenseTrendFinances(levelPath);
 
   // Logic for OverViewChart
   const {
@@ -106,12 +106,11 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   // All the logic required by the MakerDAOExpenseMetrics
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
-  // All the logic required by the ReservesWaterFallChart
-  const reserveChartThirdLevel = useReservesWaterFallChart();
-
   const titleFirstPathBudget = allBudgets.find((budget) => budget.codePath === levelPath);
   const levelBudgetPath = allBudgets.find((budget) => budget.codePath === firstPath);
 
+  // All the logic required by the ReservesWaterFallChart
+  const reserveChartThirdLevel = useReservesWaterFallChart(levelBudgetPath?.id ?? '');
   const icon = titleFirstPathBudget?.image;
 
   const title = nameChanged(titleFirstPathBudget?.name || '');

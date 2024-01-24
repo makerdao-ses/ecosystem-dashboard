@@ -42,6 +42,16 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
     padding: [0, 0, 0, 0],
   };
 
+  const startStyles = {
+    ...xAxisStyles,
+    color: isLight ? (isMobile ? '#231536' : '#434358') : '#B6BCC2',
+  };
+
+  const startYearStyles = {
+    ...xYearStyles,
+    color: isLight ? (isMobile ? '#231536' : '#434358') : '#B6BCC2',
+  };
+
   const options: EChartsOption = {
     grid: {
       top: isMobile ? 5 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
@@ -74,11 +84,17 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         fontSize: upTable ? 12 : 9,
         height: upTable ? 15 : 11,
         interval: 0,
-        formatter: function (value: string) {
+        formatter: function (value: string, index: number) {
           if (isMobile) {
+            if (selectedGranularity === 'monthly' && (index === 0 || index === 13)) {
+              return `{start|${value}}`;
+            }
             return value;
           }
           if (selectedGranularity === 'monthly') {
+            if (index === 0 || index === 13) {
+              return `{start|${value}}\n{startYear|${year}}`;
+            }
             return `{month|${value}}\n{year|${year}}`;
           }
 
@@ -91,6 +107,8 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         rich: {
           month: xAxisStyles,
           year: xYearStyles,
+          start: startStyles,
+          startYear: startYearStyles,
         },
       },
     },

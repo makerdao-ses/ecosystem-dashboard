@@ -1,6 +1,9 @@
-import { styled } from '@mui/material';
+import styled from '@emotion/styled';
 import CircleLegendChart from '@ses/components/svg/CircleLegendChart';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   className?: string;
@@ -9,56 +12,60 @@ interface Props {
   isSvg?: boolean;
 }
 
-const LegendItemChart: React.FC<Props> = ({ className, isSvg = true, title, color }) => (
-  <Container className={className}>
-    <ContainerIcon isSvg={isSvg} color={color}>
-      {isSvg ? <CircleLegendChart fill={color} /> : <Circle color={color} />}
-    </ContainerIcon>
-    <Title>{title}</Title>
-  </Container>
-);
+const LegendItemChart: React.FC<Props> = ({ className, isSvg = true, title, color }) => {
+  const { isLight } = useThemeContext();
+  return (
+    <Container className={className}>
+      <ContainerIcon isSvg={isSvg} color={color}>
+        {isSvg ? <CircleLegendChart fill={color} /> : <Circle color={color} />}
+      </ContainerIcon>
+
+      <Title isLight={isLight}>{title}</Title>
+    </Container>
+  );
+};
 
 export default LegendItemChart;
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   gap: 4,
-  [theme.breakpoints.up('tablet_768')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 8,
   },
-}));
-const ContainerIcon = styled('div')<{ isSvg?: boolean }>(({ isSvg, theme }) => ({
+});
+const ContainerIcon = styled('div')<{ isSvg?: boolean }>(({ isSvg }) => ({
   display: 'flex',
   width: isSvg ? 12 : 8,
   height: isSvg ? 12 : 8,
 
-  [theme.breakpoints.up('tablet_768')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 12,
     height: 12,
   },
 }));
 
-const Circle = styled('div')<{ color: string }>(({ color, theme }) => ({
+const Circle = styled('div')<{ color: string }>(({ color }) => ({
   width: 8,
   height: 8,
   borderRadius: '50%',
   backgroundColor: color,
-  [theme.breakpoints.up('tablet_768')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: 12,
     height: 12,
   },
 }));
 
-const Title = styled('div')(({ theme }) => ({
+const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 12,
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
-  [theme.breakpoints.up('tablet_768')]: {
+  color: isLight ? '#231536' : '#D2D4EF',
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 400,
     lineHeight: '22px',

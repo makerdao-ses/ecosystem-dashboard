@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
-import { getMetricByPeriod } from '@ses/containers/Finances/utils/utils';
+import { getMetricByPeriod, nameChanged } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
@@ -158,7 +158,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
       // sub-table header
       const header: ItemRow = {
-        name: budget.name,
+        name: nameChanged(budget.name),
         isMain: true,
         columns: rows
           .reduce((acc, current) => {

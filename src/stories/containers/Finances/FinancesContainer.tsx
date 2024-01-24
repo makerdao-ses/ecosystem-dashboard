@@ -156,6 +156,12 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               series={reserveChart.series}
               selectedGranularity={reserveChart.selectedGranularity}
               year={year}
+              activeItems={reserveChart.activeElements}
+              handleSelectChangeItem={reserveChart.handleSelectChange}
+              items={reserveChart.items}
+              popupContainerHeight={reserveChart.popupContainerHeight}
+              handleGranularityChange={reserveChart.handleGranularityChange}
+              handleResetFilter={reserveChart.handleResetFilter}
             />
           </ContainerReservesWaterFallChart>
         )}
