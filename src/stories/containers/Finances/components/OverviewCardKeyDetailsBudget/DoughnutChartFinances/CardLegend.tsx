@@ -173,5 +173,4 @@ const Suffix = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCor
 const ContainerValue = styled.div({
   display: 'flex',
   marginLeft: 4,
-  gap: 4,
 });

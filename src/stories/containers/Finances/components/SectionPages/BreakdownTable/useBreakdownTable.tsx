@@ -154,7 +154,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
       // add correct rows name
       rows.forEach((row) => {
-        row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `Unknown: ${row.name}`;
+        row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `:${row.name}`;
       });
 
       // sub-table header

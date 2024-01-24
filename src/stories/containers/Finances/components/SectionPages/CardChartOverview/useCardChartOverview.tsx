@@ -9,6 +9,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import { useState } from 'react';
+import { getCorrectMetricValuesOverViewChart } from './utils';
 import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -16,7 +17,14 @@ import type { Budget } from '@ses/core/models/interfaces/budget';
 export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BreakdownBudgetAnalytic | undefined) => {
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const filters: FilterDoughnut[] = ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'];
+
+  const filters: FilterDoughnut[] = [
+    'Actuals',
+    'Forecast',
+    'Net Expenses On-chain',
+    'Net Expenses Off-chain',
+    'Budget',
+  ];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
   const { isLight } = useThemeContext();
   const colorsLight = generateColorPalette(
@@ -27,7 +35,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
 
   const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
 
-  const metric = {
+  const metric: { [index: string]: number } = {
     actuals: 0,
     forecast: 0,
     budget: 0,
@@ -106,6 +114,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
       metric.forecast += budgetMetric[0].forecast.value || 0;
       metric.budget += budgetMetric[0].budget.value || 0;
       metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
+      metric.paymentsOffChainIncluded += budgetMetric[0].paymentsOffChainIncluded.value || 0;
       budgetMetrics[budgetMetricKey] = {
         name: budgetName,
         actuals: budgetMetric[0].actuals,
@@ -124,7 +133,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
   const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics).map((item, index) => {
     let value;
     switch (filterSelected) {
-      case 'Actual':
+      case 'Actuals':
         value = budgetMetrics[item].actuals.value || 0;
         break;
       case 'Forecast':
@@ -137,10 +146,13 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
         value = budgetMetrics[item].paymentsOffChainIncluded.value || 0;
         break;
       case 'Budget':
+        value = budgetMetrics[item].budget.value || 0;
+        break;
       default:
         value = budgetMetrics[item].budget.value || 0;
         break;
     }
+    const keyMetricValue = getCorrectMetricValuesOverViewChart(filterSelected);
 
     return {
       name: budgetMetrics[item].name || 'No name',
@@ -149,7 +161,7 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
       originalValue: value,
       actuals: budgetMetrics[item].actuals.value,
       budgetCap: budgetMetrics[item].budget.value,
-      percent: Math.round(percentageRespectTo(value, metric.budget)),
+      percent: Math.round(percentageRespectTo(value, metric[keyMetricValue])),
       color: isLight ? colorsLight[index] : colorsDark[index],
       isVisible: true,
       originalColor: isLight ? colorsLight[index] : colorsDark[index],
