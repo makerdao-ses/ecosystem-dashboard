@@ -129,7 +129,7 @@ const DeliverablesSection: React.FC = () => {
     <DeliverablesContainer>
       <Header>
         <TitleBox>
-          <Title>Highlighted Deliverables</Title>
+          <Title>{showAllDeliverables ? 'All' : 'Highlighted'} Deliverables</Title>
           <Count>{deliverables.length}</Count>
         </TitleBox>
 
