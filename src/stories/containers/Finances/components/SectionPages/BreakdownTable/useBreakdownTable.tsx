@@ -47,6 +47,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     () => getMetricByPeriod(periodFilter, isMobile, isTable, isDesk1024, isDesk1280, isDesk1440, isDesk1920),
     [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]
   );
+  const [numberMetrics, setNumberMetrics] = useState(val);
   const [activeMetrics, setActiveMetrics] = useState<string[]>(metricsFilter.slice(0, val));
   const maxItems = val;
   const minItems = 1;
@@ -220,33 +221,58 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   useEffect(() => {
     if (periodFilter === 'Quarterly') {
       if (isTable) {
-        setActiveMetrics(metricsFilter.slice(0, val));
+        if (numberMetrics !== val) {
+          setActiveMetrics(metricsFilter.slice(0, val));
+        }
       }
       if (isDesk1024 || isDesk1280 || isDesk1440) {
-        setActiveMetrics(metricsFilter.slice(0, val));
+        if (numberMetrics !== val) {
+          setActiveMetrics(metricsFilter.slice(0, val));
+        }
       }
       if (isDesk1920) {
-        setActiveMetrics(metricsFilter.slice(0, val));
+        if (numberMetrics !== val) {
+          setActiveMetrics(metricsFilter.slice(0, val));
+        }
       }
     }
     if (periodFilter === 'Monthly') {
-      setActiveMetrics(metricsFilter.slice(0, val));
+      if (numberMetrics !== val) {
+        setActiveMetrics(metricsFilter.slice(0, val));
+      }
     }
     if (periodFilter === 'Annually') {
       if (isMobile) {
-        setActiveMetrics(metricsFilter.slice(0, val));
+        if (numberMetrics !== val) {
+          setActiveMetrics(metricsFilter.slice(0, val));
+        }
       } else {
-        setActiveMetrics(metricsFilter.slice(0, val));
+        if (numberMetrics !== val) {
+          setActiveMetrics(metricsFilter.slice(0, val));
+        }
       }
     }
     if (periodFilter === 'Semi-annual') {
       setActiveMetrics(metricsFilter.slice(0, val));
     }
-  }, [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, metricsFilter, periodFilter, val]);
+  }, [
+    activeMetrics.length,
+    isDesk1024,
+    isDesk1280,
+    isDesk1440,
+    isDesk1920,
+    isMobile,
+    isTable,
+    metricsFilter,
+    numberMetrics,
+    periodFilter,
+    val,
+  ]);
 
   // Only show monthly filter in dimension bigger than isDesk1440
   useEffect(() => {
     const handleResize = () => {
+      setNumberMetrics(val);
       if (periodFilter === 'Monthly' && (isMobile || isDesk1024 || isDesk1280)) {
         setPeriodFilter('Quarterly');
       }
@@ -255,9 +281,10 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [isDesk1024, isDesk1280, isDesk1440, isMobile, periodFilter]);
+  }, [isDesk1024, isDesk1280, isDesk1440, isMobile, periodFilter, val]);
 
   const handleSelectChangeMetrics = (value: string[]) => {
+    setNumberMetrics(val);
     setActiveMetrics(value);
   };
   const handleResetMetrics = () => {
