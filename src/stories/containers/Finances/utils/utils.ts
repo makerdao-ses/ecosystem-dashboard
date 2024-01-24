@@ -858,13 +858,13 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Met
     case 'Net Expenses On-chain':
       metricKey = 'paymentsOnChain';
       break;
-    case 'Net On-chain':
+    case 'Net Exp. On-Chain':
       metricKey = 'paymentsOnChain';
       break;
     case 'Net Expenses Off-chain':
       metricKey = 'paymentsOffChainIncluded';
       break;
-    case 'Net Off-chain':
+    case 'Net Exp. Off-Chain Incl.':
       metricKey = 'paymentsOffChainIncluded';
       break;
     default:

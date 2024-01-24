@@ -44,15 +44,33 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
 
       <SelectContainer>
         <MetricSelect
+          isMobile={isMobile}
           useSelectedAsLabel
           selected={selectedMetric}
           onChange={onMetricChange}
           items={[
-            'Budget',
-            'Actuals',
-            'Forecast',
-            !isMobile ? 'Net Expenses On-chain' : 'Net On-chain',
-            !isMobile ? 'Net Expenses Off-chain' : 'Net Off-chain',
+            {
+              label: 'Budget',
+              value: 'Budget',
+            },
+            {
+              label: 'Actuals',
+              value: 'Actuals',
+            },
+            {
+              label: 'Forecast',
+              value: 'Forecast',
+            },
+            {
+              label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
+              value: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
+              labelWhenSelected: 'Net On-chain',
+            },
+            {
+              label: !isMobile ? 'Net Expenses Off-chain' : 'Net Exp. Off-Chain Incl.',
+              value: !isMobile ? 'Net Expenses Off-chain' : 'Net Exp. Off-Chain Incl.',
+              labelWhenSelected: 'Net Off-chain',
+            },
           ]}
           PopperProps={{
             placement: 'bottom-end',

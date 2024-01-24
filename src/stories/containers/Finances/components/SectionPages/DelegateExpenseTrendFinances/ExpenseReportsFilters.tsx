@@ -48,14 +48,29 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
 
       <SelectContainer>
         <MetricSelect
+          isMobile={isMobile}
           useSelectedAsLabel
           selected={selectedMetric}
           onChange={onMetricChange}
           items={[
-            'Actuals',
-            'Forecast',
-            !isMobile ? 'Net Expenses On-chain' : 'Net On-chain',
-            !isMobile ? 'Net Expenses Off-chain' : 'Net Off-chain',
+            {
+              label: 'Actual',
+              value: 'Actual',
+            },
+            {
+              label: 'Forecast',
+              value: 'Forecast',
+            },
+            {
+              label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
+              value: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
+              labelWhenSelected: 'Net On-chain',
+            },
+            {
+              label: !isMobile ? 'Net Expenses Off-chain' : 'Net Exp. Off-Chain Incl.',
+              value: !isMobile ? 'Net Off-chain' : 'Net Exp. Off-Chain Incl.',
+              labelWhenSelected: 'Net Off-chain',
+            },
           ]}
           PopperProps={{
             placement: 'bottom-end',

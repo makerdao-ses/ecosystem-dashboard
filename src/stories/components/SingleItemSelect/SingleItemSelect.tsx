@@ -10,6 +10,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 export interface SelectItem {
   label: string;
   value: string;
+  labelWhenSelected?: string;
 }
 
 interface SingleItemSelectProps {
@@ -23,6 +24,7 @@ interface SingleItemSelectProps {
   className?: string;
   selected?: string;
   onChange?: (value: string) => unknown;
+  isMobile?: boolean;
 }
 
 const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
@@ -35,6 +37,7 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
   className,
   selected,
   onChange,
+  isMobile = false,
 }) => {
   const { isLight } = useThemeContext();
   const menuListId = useId();
@@ -121,17 +124,23 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
 
       const index = items.findIndex((item) => compareItemWithValue(item, selected));
       if (index === -1) {
-        // the "selected" item is not present in the item list
-        // so get label or first item
         return label === undefined ? (typeof items[0] === 'string' ? items[0] : items[0].label) : label;
       }
 
       const item = items[index];
-      return typeof item === 'string' ? item : item.label;
+      if (typeof item === 'string') {
+        return item;
+      } else {
+        // Use the labelWhenSelected if its present and its mobile
+        if (open && isMobile) {
+          return item.labelWhenSelected ? item.labelWhenSelected : item.label;
+        }
+        return open || !isMobile ? item.label : item.labelWhenSelected || item.label;
+      }
     } else {
       return label;
     }
-  }, [items, label, selected, useSelectedAsLabel]);
+  }, [useSelectedAsLabel, label, items, selected, open, isMobile]);
 
   return (
     <div>
