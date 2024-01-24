@@ -25,7 +25,7 @@ interface ProjectCardProps {
 
 export type DeliverableViewMode = 'compacted' | 'detailed';
 
-function splitInRows<T = unknown>(arr: T[], rowLength: number): T[][] {
+export function splitInRows<T = unknown>(arr: T[], rowLength: number): T[][] {
   const result: T[][] = [];
 
   for (let i = 0; i < arr.length; i += rowLength) {

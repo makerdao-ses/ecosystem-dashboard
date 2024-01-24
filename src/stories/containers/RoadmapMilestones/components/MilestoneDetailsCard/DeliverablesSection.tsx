@@ -1,37 +1,172 @@
 import { styled } from '@mui/system';
 import { SearchInput } from '@ses/components/SearchInput/SearchInput';
+import DeliverableCard from '@ses/containers/ActorProjects/components/DeliverableCard/DeliverableCard';
 import DeliverableViewModeToggle from '@ses/containers/ActorProjects/components/DeliverableViewModeToggle/DeliverableViewModeToggle';
+import { splitInRows } from '@ses/containers/ActorProjects/components/ProjectCard/ProjectCard';
+import ViewAllButton from '@ses/containers/ActorProjects/components/ViewAllButton/ViewAllButton';
+import { DeliverableBuilder } from '@ses/core/businessLogic/builders/actors/deliverableBuilder';
+import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
+import { useState } from 'react';
+import type { DeliverableViewMode } from '@ses/containers/ActorProjects/components/ProjectCard/ProjectCard';
 
-const DeliverablesSection: React.FC = () => (
-  <DeliverablesContainer>
-    <Header>
-      <TitleBox>
-        <Title>Highlighted Deliverables</Title>
-        <Count>6</Count>
-      </TitleBox>
+const DeliverablesSection: React.FC = () => {
+  const [deliverableViewMode, setDeliverableViewMode] = useState<DeliverableViewMode>('compacted');
+  const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(false);
 
-      <DeliverableViewModeToggle deliverableViewMode="compacted" onChangeDeliverableViewMode={() => null} />
-    </Header>
+  // mocked deliverables
+  const deliverables = [
+    new DeliverableBuilder()
+      .withId('6')
+      .withTitle('PEA-01 On-chain Data Reconciliation')
+      .withDescription(
+        "On-chain Data Reconciliation will help ensure that all data related to Maker Protocol's expenses are accurate and up-to-date. This component will include a thorough analysis of all on-chain data related to expenses, which will help to identify any discrepancies."
+      )
+      .withOwnerData(
+        '1',
+        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
+        'Powerhouse',
+        'POWERHOUSE'
+      )
+      .withStatus(DeliverableStatus.DELIVERED)
+      .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
+      .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
+      .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
+      .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
+      .addKeyResult('5', 'API Playground - Production', 'https://makerdao.com')
+      .addKeyResult('6', 'API Playground - Staging', 'https://makerdao.com')
+      .addKeyResult('7', 'Extra 1', 'https://makerdao.com')
+      .addKeyResult('8', 'Extra 2', 'https://makerdao.com')
+      .build(),
+    new DeliverableBuilder()
+      .withId('5')
+      .withTitle('PEA-02 Delegates Transparency')
+      .withDescription('Comprehensive overview of Delegates costs and changes over time.')
+      .withOwnerData(
+        '2',
+        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+        'Phoenix Lab',
+        'PHOENIX'
+      )
+      .withStatus(DeliverableStatus.INPROGRESS)
+      .withProgress({
+        __typename: 'Percentage',
+        value: 0.73,
+      })
+      .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
+      .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
+      .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
+      .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
+      .build(),
+    new DeliverableBuilder()
+      .withId('1')
+      .withTitle('PEA-02 Delegates Transparency')
+      .withOwnerData(
+        '3',
+        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/DEWIZ/DEWIZ_logo.png',
+        'Dewiz',
+        'DEWIZ'
+      )
+      .withStatus(DeliverableStatus.TODO)
+      .build(),
+    new DeliverableBuilder()
+      .withId('2')
+      .withTitle('PEA-02 Delegates Transparency')
+      .withOwnerData(
+        '2',
+        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
+        'Phoenix Lab',
+        'PHOENIX'
+      )
+      .withStatus(DeliverableStatus.INPROGRESS)
+      .withProgress({
+        __typename: 'StoryPoints',
+        total: 5,
+        completed: 3,
+      })
+      .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
+      .addKeyResult('2', 'API Playground - Production', 'https://makerdao.com')
+      .addKeyResult('3', 'Dashboard - Production', 'https://makerdao.com')
+      .addKeyResult('4', 'Dashboard - Staging ', 'https://makerdao.com')
+      .addKeyResult('5', 'Dashboard - Staging ', 'https://makerdao.com')
+      .build(),
+    new DeliverableBuilder()
+      .withId('3')
+      .withTitle('PEA-03 SPF Finances')
+      .withOwnerData(
+        '4',
+        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
+        'BA Labs',
+        'BA-LABS'
+      )
+      .withStatus(DeliverableStatus.DELIVERED)
+      .build(),
+    new DeliverableBuilder()
+      .withId('4')
+      .withTitle('PEA-03 SPF Finances')
+      .withOwnerData(
+        '4',
+        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
+        'BA Labs',
+        'BA-LABS'
+      )
+      .withStatus(DeliverableStatus.DELIVERED)
+      .build(),
+    new DeliverableBuilder()
+      .withId('1')
+      .withTitle('PEA-03 SPF Finances')
+      .withOwnerData(
+        '4',
+        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
+        'BA Labs',
+        'BA-LABS'
+      )
+      .withStatus(DeliverableStatus.DELIVERED)
+      .build(),
+  ];
+  const deliverablesRows = splitInRows(showAllDeliverables ? deliverables : deliverables.slice(0, 6), 2);
 
-    <SearchContainer>
-      <CustomSearchInput placeholder="Search" legacyBreakpoints={false} />
-    </SearchContainer>
+  return (
+    <DeliverablesContainer>
+      <Header>
+        <TitleBox>
+          <Title>Highlighted Deliverables</Title>
+          <Count>{deliverables.length}</Count>
+        </TitleBox>
 
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 1200,
-        backgroundColor: 'gray',
-        marginTop: 32,
-        borderRadius: 8,
-      }}
-    >
-      Testing...
-    </div>
-  </DeliverablesContainer>
-);
+        <DeliverableViewModeToggle
+          deliverableViewMode={deliverableViewMode}
+          onChangeDeliverableViewMode={(mode: DeliverableViewMode) => setDeliverableViewMode(mode)}
+        />
+      </Header>
+
+      {/* Disable temporary the search */}
+      {/* <SearchContainer>
+        <CustomSearchInput placeholder="Search" legacyBreakpoints={false} />
+      </SearchContainer> */}
+
+      <BackgroundContainer>
+        <DeliverablesGrid showDeliverablesBelow={false}>
+          {deliverablesRows.map((row) =>
+            row.map((deliverable) => (
+              <DeliverableCard
+                key={deliverable.id}
+                isProjectCard={false}
+                deliverable={deliverable}
+                viewMode={deliverableViewMode}
+                maxKeyResultsOnRow={row.map((d) => d.keyResults.length).reduce((a, b) => Math.max(a, b), 0)}
+              />
+            ))
+          )}
+        </DeliverablesGrid>
+        {deliverables.length > 6 && (
+          <ViewAllButton viewAll={showAllDeliverables} onClick={() => setShowAllDeliverables((prev) => !prev)}>
+            View {showAllDeliverables ? 'less' : 'all'} Deliverables
+          </ViewAllButton>
+        )}
+      </BackgroundContainer>
+    </DeliverablesContainer>
+  );
+};
 
 export default DeliverablesSection;
 
@@ -85,6 +220,8 @@ const Count = styled('div')(({ theme }) => ({
   },
 }));
 
+// Disabled temporary the search
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SearchContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
@@ -103,6 +240,8 @@ const SearchContainer = styled('div')(({ theme }) => ({
   },
 }));
 
+// Disabled temporary the search
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CustomSearchInput = styled(SearchInput)(({ theme }) => ({
   [theme.breakpoints.down('tablet_768')]: {
     width: '100%',
@@ -131,5 +270,80 @@ const CustomSearchInput = styled(SearchInput)(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1280')]: {
     width: 320,
+  },
+}));
+
+const BackgroundContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  background:
+    theme.palette.mode === 'light' ? 'linear-gradient(0deg, #F6F8F9 85.04%, rgba(246, 248, 249, 0.00) 121.04%)' : 'red',
+  margin: '8px -16px -24px',
+  padding: '8px 16px 24px',
+  borderRadius: 6,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    margin: '8px -24px -24px',
+    padding: '8px 24px 24px',
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 24,
+    margin: '8px 0 0 -8px',
+    padding: '8px 8px 16px',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    margin: '8px 0 0 -16px',
+    padding: '8px 16px 24px',
+  },
+}));
+
+const DeliverablesGrid = styled('div')<{ showDeliverablesBelow: boolean }>(({ theme, showDeliverablesBelow }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+
+    '& > *': {
+      width: '100%',
+      maxWidth: 'calc(50% - 8px)',
+    },
+  },
+
+  ...(showDeliverablesBelow && {
+    [theme.breakpoints.up('desktop_1024')]: {
+      gap: 24,
+
+      '& > *': {
+        maxWidth: 'calc(50% - 12px)',
+      },
+    },
+
+    [theme.breakpoints.up('desktop_1280')]: {
+      gap: 16,
+
+      '& > *': {
+        maxWidth: 'calc(33% - 7px)',
+      },
+    },
+  }),
+
+  [theme.breakpoints.up('desktop_1440')]: {
+    gap: 24,
+
+    '& > *': {
+      ...(showDeliverablesBelow
+        ? {
+            maxWidth: 'calc(33% - 12px)',
+          }
+        : {
+            maxWidth: 'calc(50% - 12px)',
+          }),
+    },
   },
 }));
