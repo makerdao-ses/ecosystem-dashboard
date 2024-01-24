@@ -56,6 +56,9 @@ const Container = styled('div')({
   flexDirection: 'row',
   alignItems: 'center',
   gap: 8,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 6,
+  },
   scrollMarginTop: 150,
 });
 
