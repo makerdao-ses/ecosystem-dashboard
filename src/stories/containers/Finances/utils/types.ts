@@ -5,7 +5,7 @@ import type { Team } from '@ses/core/models/interfaces/team';
 import type { EChartsOption } from 'echarts-for-react';
 import type { DateTime } from 'luxon';
 
-export type FilterDoughnut = 'Actual' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
+export type FilterDoughnut = 'Actuals' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
 
 export interface NavigationCard {
   image: string;
