@@ -98,7 +98,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   );
 
   // All the logic required by the Expense Reports
-  const expenseTrendFinances = useDelegateExpenseTrendFinances();
+  const expenseTrendFinances = useDelegateExpenseTrendFinances('atlas');
 
   // All the logic required by the CardChartOverview section
   const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics);

@@ -2,6 +2,7 @@ import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
 import type { AnalyticGranularity, Analytic, AnalyticFilter } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
+import type { BudgetStatus } from '@ses/core/models/interfaces/types';
 
 export const fetchBudgets = async (): Promise<Budget[]> => {
   const query = gql`
@@ -78,7 +79,23 @@ export const fetchAnalytics = async (
   return res.analytics;
 };
 
-export const getExpenseReportsQuery = (page: number) => ({
+interface ExpenseReportInput {
+  page: number;
+  budgetPath: string;
+  sortByMonth: 'asc' | 'desc' | null;
+  // eslint-disable-next-line spellcheck/spell-checker
+  sortyByLastModified: 'asc' | 'desc' | null;
+  status: BudgetStatus[] | null;
+}
+
+export const getExpenseReportsQuery = ({
+  page,
+  budgetPath,
+  sortByMonth,
+  // eslint-disable-next-line spellcheck/spell-checker
+  sortyByLastModified,
+  status,
+}: ExpenseReportInput) => ({
   query: gql`
     query BudgetStatements($filter: BudgetStatementFilter, $limit: Int, $offset: Int) {
       budgetStatements(filter: $filter, limit: $limit, offset: $offset) {
@@ -104,8 +121,11 @@ export const getExpenseReportsQuery = (page: number) => ({
   `,
   options: {
     filter: {
-      ownerType: 'CoreUnit',
-      ownerCode: 'SES-001',
+      budgetPath,
+      sortByMonth,
+      // eslint-disable-next-line spellcheck/spell-checker
+      sortyByLastModified,
+      status,
     },
     limit: 10,
     offset: (page - 1) * 10,
