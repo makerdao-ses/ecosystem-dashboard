@@ -12,6 +12,7 @@ import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableS
 import KeyResults from '../KeyResults/KeyResults';
 import MilestoneLink from '../MilestoneLink/MilestoneLink';
 import OwnerTooltipContent from '../OwnerTooltipContent/OwnerTooltipContent';
+import ProjectLink from '../ProjectLink/ProjectLink';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
 import type { Deliverable } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -20,9 +21,15 @@ interface DeliverableCardProps {
   deliverable: Deliverable;
   viewMode: DeliverableViewMode;
   maxKeyResultsOnRow: number;
+  isProjectCard?: boolean;
 }
 
-const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable, viewMode, maxKeyResultsOnRow }) => {
+const DeliverableCard: React.FC<DeliverableCardProps> = ({
+  deliverable,
+  viewMode,
+  maxKeyResultsOnRow,
+  isProjectCard = true,
+}) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -59,7 +66,7 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({ deliverable, viewMode
         </Description>
       )}
       <KeyBox>
-        <MilestoneLink />
+        {isProjectCard ? <MilestoneLink /> : <ProjectLink />}
         <KeyResults
           keyResults={deliverable.keyResults}
           viewMode={viewMode}
