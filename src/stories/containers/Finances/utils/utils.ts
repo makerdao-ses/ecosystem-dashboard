@@ -992,8 +992,9 @@ export const filterActiveMetrics = (activeMetrics: string[], headerTable: Metric
     const filteredMetrics: Partial<MetricValues> = {};
 
     activeMetrics.forEach((metric) => {
-      if (metric in header) {
-        filteredMetrics[metric as keyof MetricValues] = header[metric as keyof MetricValues];
+      const matchKey = getKeyMetric(metric);
+      if (matchKey in header) {
+        filteredMetrics[matchKey as keyof MetricValues] = header[matchKey as keyof MetricValues];
       }
     });
 
@@ -1019,4 +1020,14 @@ export const nameChanged = (name: string) => {
     : newName === 'MakerDAO Legacy Budgets'
     ? 'MakerDAO Legacy Budget'
     : newName;
+};
+
+export const getKeyMetric = (metric: string) => {
+  if (metric === 'Net Expenses On-chain') {
+    return 'PaymentsOnChain';
+  }
+  if (metric === 'Net Expenses Off-chain') {
+    return 'PaymentsOffChainIncluded';
+  }
+  return metric;
 };
