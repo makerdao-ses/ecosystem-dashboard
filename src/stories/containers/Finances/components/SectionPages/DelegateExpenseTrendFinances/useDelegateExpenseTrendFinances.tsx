@@ -78,8 +78,7 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
               ? 'desc'
               : null
             : null,
-        // eslint-disable-next-line spellcheck/spell-checker
-        sortyByLastModified:
+        sortByLastModified:
           sortColumn === 4
             ? headersSort[4] === SortEnum.Asc
               ? 'asc'
