@@ -51,6 +51,7 @@ interface CustomMultiSelectProps extends Partial<WithLegacyBreakpoints> {
   minItems?: number;
   defaultMetricsWithAllSelected?: string[];
   allowSelectAll?: boolean;
+  selectNumberItemPerResolution?: boolean;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -66,6 +67,8 @@ export const CustomMultiSelect = ({
   defaultMetricsWithAllSelected = [],
   allowSelectAll = true,
   legacyBreakpoints = true,
+  selectNumberItemPerResolution = false,
+
   ...props
 }: CustomMultiSelectProps) => {
   const { isLight } = useThemeContext();
@@ -79,7 +82,19 @@ export const CustomMultiSelect = ({
     popupVisible && setPopupVisible(false);
   });
 
-  const toggleItem = (item: string) => {
+  const defaultToggleItem = (item: string) => {
+    const pos = activeItems.indexOf(item);
+    if (pos > -1) {
+      const temp = [...activeItems];
+      temp.splice(pos, 1);
+      props.onChange && props.onChange(temp);
+    } else {
+      const temp = [...activeItems, item];
+      props.onChange && props.onChange(temp);
+    }
+  };
+
+  const toggleItemLimitedNumberItems = (item: string) => {
     const pos = activeItems.indexOf(item);
     if (pos > -1) {
       if (minItems && activeItems.length > minItems) {
@@ -108,6 +123,8 @@ export const CustomMultiSelect = ({
     }
   };
 
+  // Select witch type select are going to use
+  const handleToggleItem = selectNumberItemPerResolution ? toggleItemLimitedNumberItems : defaultToggleItem;
   const toggleVisible = () => setPopupVisible(!popupVisible);
 
   const toggleAll = () => {
@@ -219,7 +236,7 @@ export const CustomMultiSelect = ({
                   customItemRender({
                     key: `item-${i}`,
                     checked: activeItems.indexOf(item.id) > -1,
-                    onClick: () => toggleItem(item.id),
+                    onClick: () => handleToggleItem(item.id),
                     label: item.content,
                     count: item.count,
                     params: item.params,

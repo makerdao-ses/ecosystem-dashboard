@@ -29,6 +29,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   const { mutate } = useSWRConfig();
   const [year, setYear] = useState(initialYear);
   const { isLight } = useThemeContext();
+  const levelPath = null;
   const handleChangeYears = (value: string) => {
     setYear(value);
     router.push(`${siteRoutes.newFinancesOverview}?year=${value}`, undefined, { shallow: true });
@@ -111,7 +112,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   // All the logic for the Reserve Chart
   // This should be calculate
 
-  const reserveChart = useReservesWaterFallChart();
+  const reserveChart = useReservesWaterFallChart(levelPath);
 
   // invalidate cache and refetch all sections when year changes
   useEffect(() => {
