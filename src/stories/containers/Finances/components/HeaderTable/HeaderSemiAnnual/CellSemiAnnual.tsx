@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { getShortNameForMetric } from '@ses/containers/Finances/utils/utils';
+import { getKeyMetric, getShortNameForMetric } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React from 'react';
@@ -25,7 +25,9 @@ export const CellSemiAnnual: React.FC<Props> = ({ metrics, semiannual, isTotal =
           {activeMetrics?.map((metric, index) => (
             <Metrics key={index}>
               <Name isLight={isLight}>{getShortNameForMetric(metric)}</Name>
-              <Amount isLight={isLight}>{usLocalizedNumber(metrics[metric as keyof MetricValues] ?? 0)}</Amount>
+              <Amount isLight={isLight}>
+                {usLocalizedNumber(metrics[getKeyMetric(metric) as keyof MetricValues] ?? 0)}
+              </Amount>
             </Metrics>
           ))}
         </ContainerMetricsData>

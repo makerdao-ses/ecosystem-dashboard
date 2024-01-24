@@ -992,8 +992,9 @@ export const filterActiveMetrics = (activeMetrics: string[], headerTable: Metric
     const filteredMetrics: Partial<MetricValues> = {};
 
     activeMetrics.forEach((metric) => {
-      if (metric in header) {
-        filteredMetrics[metric as keyof MetricValues] = header[metric as keyof MetricValues];
+      const matchKey = getKeyMetric(metric);
+      if (matchKey in header) {
+        filteredMetrics[matchKey as keyof MetricValues] = header[matchKey as keyof MetricValues];
       }
     });
 
@@ -1012,9 +1013,21 @@ export const getShortNameForMetric = (metric: string): string => {
 // Remove this when API return correct data
 export const nameChanged = (name: string) => {
   const newName = removePrefix(name, prefixToRemove);
-  return newName === 'Atlas Immutable AA Budgets'
+  return newName === 'Atlas Immutable'
     ? 'Atlas Immutable Budget'
     : newName === 'Alignment Scope Budgets'
     ? 'Scope Frameworks Budget'
+    : newName === 'MakerDAO Legacy Budgets'
+    ? 'MakerDAO Legacy Budget'
     : newName;
+};
+
+export const getKeyMetric = (metric: string) => {
+  if (metric === 'Net Expenses On-chain') {
+    return 'PaymentsOnChain';
+  }
+  if (metric === 'Net Expenses Off-chain') {
+    return 'PaymentsOffChainIncluded';
+  }
+  return metric;
 };
