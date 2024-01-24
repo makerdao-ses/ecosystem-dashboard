@@ -143,9 +143,6 @@ const DeliverablesSection: React.FC = () => {
       </SearchContainer> */}
 
       <BackgroundContainer>
-        {/* {deliverables.map((deliverable) => (
-          <div key={deliverable.id}>{deliverable.title}</div>
-        ))} */}
         <DeliverablesGrid showDeliverablesBelow={false}>
           {deliverablesRows.map((row) =>
             row.map((deliverable) => (
