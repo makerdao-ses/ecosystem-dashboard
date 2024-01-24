@@ -1012,9 +1012,11 @@ export const getShortNameForMetric = (metric: string): string => {
 // Remove this when API return correct data
 export const nameChanged = (name: string) => {
   const newName = removePrefix(name, prefixToRemove);
-  return newName === 'Atlas Immutable AA Budgets'
+  return newName === 'Atlas Immutable'
     ? 'Atlas Immutable Budget'
     : newName === 'Alignment Scope Budgets'
     ? 'Scope Frameworks Budget'
+    : newName === 'MakerDAO Legacy Budgets'
+    ? 'MakerDAO Legacy Budget'
     : newName;
 };
