@@ -77,7 +77,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   // All Logic for the Expense Report
-  const expenseReportSection = useDelegateExpenseTrendFinances();
+  const expenseReportSection = useDelegateExpenseTrendFinances(levelPath);
 
   // Logic for OverViewChart
   const {

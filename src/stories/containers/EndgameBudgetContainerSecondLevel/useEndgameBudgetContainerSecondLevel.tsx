@@ -132,7 +132,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const reserveChartSecondLevel = useReservesWaterFallChart(levelPath);
 
   // All the logic Expense Report Second Level
-  const expenseReportSection = useDelegateExpenseTrendFinances();
+  const expenseReportSection = useDelegateExpenseTrendFinances(levelPath);
 
   const title = nameChanged(levelBudget?.name || '');
 

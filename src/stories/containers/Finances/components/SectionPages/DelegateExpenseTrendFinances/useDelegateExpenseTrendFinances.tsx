@@ -11,7 +11,7 @@ import useSWRInfinite from 'swr/infinite';
 import { FilterChip } from './ExpenseReportsFilters';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
-export const useDelegateExpenseTrendFinances = () => {
+export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
   // metric filter:
   const [selectedMetric, setSelectedMetric] = useState<string>('Actuals');
   const onMetricChange = (value: string) => setSelectedMetric(value);
@@ -26,18 +26,15 @@ export const useDelegateExpenseTrendFinances = () => {
   };
 
   // column sorting
-  // todo: sort column should be used when sorting is implemented
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [sortColumn, setSortColumn] = useState<number>(-1);
+  const [sortColumn, setSortColumn] = useState<number>(1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Disabled,
-    SortEnum.Neutral,
+    SortEnum.Desc,
     SortEnum.Disabled,
     SortEnum.Disabled,
     SortEnum.Neutral,
   ]);
 
-  // todo: instead of this function, we should have a status to change it and and fetch the data sorted from the API
   const onSortClick = (index: number) => {
     const sortNeutralState = headersExpenseReport.map((header) =>
       header.sort ? SortEnum.Neutral : SortEnum.Disabled
@@ -66,7 +63,31 @@ export const useDelegateExpenseTrendFinances = () => {
     (pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.length) return null; // reached the end
 
-      return getExpenseReportsQuery(pageIndex + 1);
+      return getExpenseReportsQuery({
+        page: pageIndex + 1,
+        budgetPath,
+        status:
+          selectedStatuses.length > 0
+            ? selectedStatuses
+            : [BudgetStatus.Draft, BudgetStatus.Review, BudgetStatus.Final, BudgetStatus.Escalated],
+        sortByMonth:
+          sortColumn === 1
+            ? headersSort[1] === SortEnum.Asc
+              ? 'asc'
+              : headersSort[1] === SortEnum.Desc
+              ? 'desc'
+              : null
+            : null,
+        // eslint-disable-next-line spellcheck/spell-checker
+        sortyByLastModified:
+          sortColumn === 4
+            ? headersSort[4] === SortEnum.Asc
+              ? 'asc'
+              : headersSort[4] === SortEnum.Desc
+              ? 'desc'
+              : null
+            : null,
+      });
     },
     async (args) => {
       const res = await request<{
