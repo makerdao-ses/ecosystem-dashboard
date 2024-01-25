@@ -86,6 +86,7 @@ const Row = styled('div')(() => ({
   alignSelf: 'stretch',
   gap: 16,
   lineHeight: 'normal',
+  marginTop: -3,
 }));
 
 const Label = styled('div')(({ theme }) => ({
