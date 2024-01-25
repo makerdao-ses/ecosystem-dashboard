@@ -58,8 +58,8 @@ const ReservesWaterFallFilters: React.FC<FiltersProps> = ({
             onChange={(value: string[]) => {
               handleSelectChangeItem(value);
             }}
-            popupContainerWidth={280}
-            listItemWidth={260}
+            popupContainerWidth={300}
+            listItemWidth={280}
             customAll={{
               content: 'All MakerDAO',
               id: 'all',

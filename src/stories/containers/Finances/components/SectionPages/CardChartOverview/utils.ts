@@ -24,7 +24,6 @@ export const getTotalAllMetricsBudget = (budgetsAnalytics: BreakdownBudgetAnalyt
 export const getShortCode = (code: string) => (code.length > 8 ? code.substring(0, 8) + '...' : code);
 
 export const getCorrectMetricValuesOverViewChart = (metric: string) => {
-  console.log('metric', metric);
   if (metric === 'Forecast' || metric === 'Actuals' || metric === 'Budget') return metric.toLocaleLowerCase();
   switch (metric) {
     case 'Net Expenses On-chain':

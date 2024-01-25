@@ -1,6 +1,5 @@
 import { useMediaQuery } from '@mui/material';
 import { nameChanged } from '@ses/containers/Finances/utils/utils';
-import { useBudgetContext } from '@ses/core/context/BudgetContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
@@ -9,9 +8,11 @@ import { builderWaterFallSeries } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useReservesWaterFallChart = (levelPath: string | null) => {
-  const [activeElements, setActiveElements] = useState<string[]>([]);
+export const useReservesWaterFallChart = (levelPath: string | null, budgets: Budget[], allBudgets: Budget[]) => {
+  const selectAll = budgets.map((budget) => budget.id);
+  const [activeElements, setActiveElements] = useState<string[]>(selectAll);
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -21,7 +22,6 @@ export const useReservesWaterFallChart = (levelPath: string | null) => {
   };
 
   const { isLight } = useThemeContext();
-  const { allBudgets } = useBudgetContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const handleGranularityChange = (value: AnalyticGranularity) => {
@@ -36,7 +36,7 @@ export const useReservesWaterFallChart = (levelPath: string | null) => {
   // The firs element will be point to start its don't bellow to the serie
   const data = [1900, 2300, 1195, 2100, -1110, 2100, 1400, 4300, -1400, -3500, -4200, 1250, 2700];
 
-  const series = builderWaterFallSeries(data, isMobile, isTable);
+  const series = builderWaterFallSeries(data, isMobile, isTable, isLight);
 
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 
@@ -55,20 +55,19 @@ export const useReservesWaterFallChart = (levelPath: string | null) => {
     },
   ];
 
-  // get all the budget for the current level
-  const allSubBudgets = allBudgets?.filter((budget) => budget.parentId === levelPath);
   const items = useMemo(
     () =>
-      sortBy(allSubBudgets, (subBudget) => subBudget.name).map((budget) => ({
+      sortBy(budgets, (subBudget) => subBudget.name).map((budget) => ({
         id: budget.id,
         content: nameChanged(budget.name),
         params: {
           url: budget.image,
         },
       })) as MultiSelectItem[],
-    [allSubBudgets]
+    [budgets]
   );
-  const popupContainerHeight = 220;
+
+  const popupContainerHeight = 180;
 
   return {
     titleChart,
@@ -81,6 +80,5 @@ export const useReservesWaterFallChart = (levelPath: string | null) => {
     handleResetFilter,
     activeElements,
     handleSelectChange,
-    allSubBudgets,
   };
 };

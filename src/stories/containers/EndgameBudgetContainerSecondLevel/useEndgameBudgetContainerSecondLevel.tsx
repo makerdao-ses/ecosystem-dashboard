@@ -129,7 +129,7 @@ export const useEndgameBudgetContainerSecondLevel = (budgets: Budget[], initialY
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
   // All the logic required by the ReservesWaterFallChart
-  const reserveChartSecondLevel = useReservesWaterFallChart(levelPath);
+  const reserveChartSecondLevel = useReservesWaterFallChart(levelPath, budgets, allBudgets);
 
   // All the logic Expense Report Second Level
   const expenseReportSection = useDelegateExpenseTrendFinances(levelPath);

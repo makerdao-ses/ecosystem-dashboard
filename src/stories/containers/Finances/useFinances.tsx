@@ -112,7 +112,7 @@ export const useFinances = (budgets: Budget[], initialYear: string) => {
   // All the logic for the Reserve Chart
   // This should be calculate
 
-  const reserveChart = useReservesWaterFallChart(levelPath);
+  const reserveChart = useReservesWaterFallChart(levelPath, budgets, allBudgets);
 
   // invalidate cache and refetch all sections when year changes
   useEffect(() => {
