@@ -4,7 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
 import { useMemo, useState } from 'react';
-import { builderWaterFallSeries } from './utils';
+import { builderWaterFallSeries, processDataWaterFall } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -34,9 +34,13 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
 
   // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
   // The firs element will be point to start its don't bellow to the serie
-  const data = [1900, 2300, 1195, 2100, -1110, 2100, 1400, 4300, -1400, -3500, -4200, 1250, 2700];
+  const data = [6362922, 4067832, 5917607, 5503865, 6223761, 6163892, 491565, 491565, 566959, 720343, 604022, 623935];
 
-  const series = builderWaterFallSeries(data, isMobile, isTable, isLight);
+  // Total to start de waterfall chart
+  const total = 10451688;
+  const newData = processDataWaterFall(data, total);
+
+  const series = builderWaterFallSeries(newData, isMobile, isTable, isLight);
 
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 

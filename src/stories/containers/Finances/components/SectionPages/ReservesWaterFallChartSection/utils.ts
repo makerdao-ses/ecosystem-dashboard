@@ -8,6 +8,7 @@ export const getArraysWaterFall = (data: number[]) => {
   const auxiliaryArray = [];
   inFlow.unshift('-');
   outFlow.unshift('-');
+  auxiliaryArray.push(data[0]);
   for (let i = 1, sum = 0; i < data.length; i++) {
     if (data[i] >= 0) {
       inFlow.push(data[i]);
@@ -24,8 +25,8 @@ export const getArraysWaterFall = (data: number[]) => {
     } else {
       auxiliaryArray.push(sum);
     }
-    // auxiliaryArray.push(sum);
   }
+  auxiliaryArray.push(Math.abs(auxiliaryArray[auxiliaryArray.length - 1]));
 
   return {
     inFlow,
@@ -42,14 +43,10 @@ export const builderWaterFallSeries = (
 ): WaterFallChartSeriesData[] => {
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
 
-  // Add the same value at the end to simulate the end
-  auxiliaryArray.push(auxiliaryArray[auxiliaryArray.length - 1]);
-  auxiliaryArray.push(auxiliaryArray[auxiliaryArray.length - 1]);
-
   // This this to put the start element with the same hight
   const help = auxiliaryArray.map((element, index) => {
     if (index === 0) {
-      const moment = data[index] + data[index + 1];
+      const moment = data[index];
 
       return moment;
     }
@@ -112,7 +109,7 @@ export const builderWaterFallSeries = (
       name: 'Outflow',
       barWidth: isMobile ? 19 : 39,
       data: outFlow,
-      barMinHeight: 30,
+      barMinHeight: 20,
       itemStyle: {
         borderRadius: 2,
         color: isLight ? '#CB3A0D' : '#A83815',
@@ -139,7 +136,7 @@ export const builderWaterFallSeries = (
       name: 'IntFlow',
       barWidth: isMobile ? 19 : 39,
       data: inFlow,
-      barMinHeight: 30,
+      barMinHeight: 20,
       itemStyle: {
         borderRadius: 2,
         color: isLight ? '#2DC1B1' : '#1AAB9B',
@@ -175,4 +172,23 @@ export const calculateAccumulatedArray = (data: number[]) => {
   });
 
   return accumulatedArray;
+};
+
+export const processDataWaterFall = (data: number[], total = 0) => {
+  const waterFallValues: number[] = [];
+  if (!data || data.length === 0) return waterFallValues;
+
+  // total its the amount of budget to start
+  waterFallValues.push(total);
+
+  // Difference relate the start point with the first element
+  const differenceToStart = total > data[0] ? -(total - data[0]) : data[0] - total;
+  waterFallValues.push(differenceToStart);
+
+  // Add start point that its the total first element
+  for (let i = 1; i < data.length; i++) {
+    waterFallValues.push(data[i] - data[i - 1]);
+  }
+
+  return waterFallValues;
 };
