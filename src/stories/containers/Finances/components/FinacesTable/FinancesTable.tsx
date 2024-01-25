@@ -3,8 +3,10 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
+import Link from 'next/link';
 import React from 'react';
 import { showOnlySixteenRowsWithOthers, sortDataByElementCount } from '../../utils/utils';
+import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
 import CellTable from './CellTable';
 import type { MetricValues, PeriodicSelectionFilter, ItemRow, TableFinances } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -37,6 +39,8 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
       ? 'PaymentsOffChainIncluded'
       : metric
   );
+  // Remove this when got the correct route
+  const href = '#';
 
   return (
     <>
@@ -47,7 +51,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
             {table.rows.map((row: ItemRow, index) => (
               <TableRow key={index} isLight={isLight} isMain={row.isMain}>
                 <Headed isLight={isLight} period={period}>
-                  {row.name}
+                  <Link href="#">{row.name}</Link>
                 </Headed>
 
                 {showAnnual &&
@@ -57,28 +61,30 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                     if (!value) {
                       return (
                         <Cell key={index} isLight={isLight}>
-                          0
+                          <LinkCellComponent href={href}>0</LinkCellComponent>
                         </Cell>
                       );
                     }
                     return (
                       <Cell key={index} isLight={isLight}>
-                        {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
+                        <LinkCellComponent href={href}>
+                          {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
+                        </LinkCellComponent>
                       </Cell>
                     );
                   })}
 
                 {showQuarterly &&
                   arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
                   ))}
                 {showSemiAnnual &&
                   arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
                   ))}
                 {showMonthly &&
                   arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} />
+                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
                   ))}
               </TableRow>
             ))}
@@ -125,7 +131,20 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
   whiteSpace: 'normal',
   overflowWrap: 'break-word',
   wordBreak: 'break-word',
-
+  position: 'relative',
+  '& .link': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    color: 'inherit',
+    zIndex: 1,
+  },
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
     ...(period === 'Monthly' && {
@@ -204,7 +223,7 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   fontSize: 12,
   borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   color: isLight ? '#231536' : '#D2D4EF',
-
+  position: 'relative',
   [lightTheme.breakpoints.up('desktop_1280')]: {
     padding: '16px 20px',
   },
