@@ -57,7 +57,7 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   alignSelf: 'stretch',
   padding: 15,
   borderRadius: 6,
-  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : 'red'}`,
+  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : '#31424E'}`,
 
   [theme.breakpoints.up('tablet_768')]: {
     borderRadius: 16,
@@ -84,7 +84,7 @@ const Label = styled('div')(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: theme.palette.mode === 'light' ? '#434358' : 'red',
+  color: theme.palette.mode === 'light' ? '#434358' : '#B6BCC2',
   alignSelf: 'normal',
 }));
 
@@ -96,7 +96,7 @@ const Value = styled('div')(({ theme }) => ({
   gap: 4,
   fontSize: 14,
   fontWeight: 700,
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
@@ -105,7 +105,7 @@ const Value = styled('div')(({ theme }) => ({
   '& span': {
     fontSize: 16,
     fontWeight: 700,
-    color: theme.palette.mode === 'light' ? '#9FAFB9' : 'red',
+    color: theme.palette.mode === 'light' ? '#9FAFB9' : '#B6BCC2',
   },
 }));
 
@@ -122,7 +122,7 @@ const Percentage = styled('div')(({ theme }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: 0.4,
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   fontVariantNumeric: 'lining-nums tabular-nums',
 
   [theme.breakpoints.up('desktop_1024')]: {

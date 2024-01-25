@@ -104,18 +104,19 @@ export default MilestoneDetailsCard;
 
 const Card = styled('article')(({ theme }) => ({
   position: 'relative',
-  background: theme.palette.mode === 'light' ? '#fff' : 'red',
-  border: `1px solid ${theme.palette.mode === 'light' ? '#D1DEE6' : 'red'}`,
+  background:
+    theme.palette.mode === 'light' ? '#fff' : 'linear-gradient(180deg, #1E2C37 0%, #1E2C37 24.48%, #101E26 100%)',
+  border: `1px solid ${theme.palette.mode === 'light' ? '#D1DEE6' : '#31424E'}`,
   borderRadius: 6,
   padding: '16px 16px 24px 16px',
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: 24,
-    border: `1px solid ${theme.palette.mode === 'light' ? '#F6F8F9' : 'red'}`,
+    border: `1px solid ${theme.palette.mode === 'light' ? '#F6F8F9' : '#31424E'}`,
     boxShadow:
       theme.palette.mode === 'light'
         ? '1px 1px 5px 0px rgba(190, 190, 190, 0.25), 0px 12px 16px 0px rgba(219, 227, 237, 0.40)'
-        : '1px 1px 5px 0px red, 0px 12px 16px 0px red',
+        : 'none',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -167,7 +168,7 @@ const NameBox = styled('div')(() => ({
 }));
 
 const Code = styled('div')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#B6BCC2',
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
@@ -180,7 +181,7 @@ const Code = styled('div')(({ theme }) => ({
 }));
 
 const Name = styled('div')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#25273D' : 'red',
+  color: theme.palette.mode === 'light' ? '#25273D' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',
@@ -195,17 +196,17 @@ const Name = styled('div')(({ theme }) => ({
     fontWeight: 600,
     lineHeight: 'normal',
     letterSpacing: 0.4,
-    color: theme.palette.mode === 'light' ? '#231536' : 'red',
+    color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   },
 }));
 
 const MilestoneNumber = styled('div')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#708390' : 'red',
+  color: theme.palette.mode === 'light' ? '#708390' : '#B6BCC2',
   fontSize: 11,
   lineHeight: 'normal',
   padding: '3px 7px',
   borderRadius: 3,
-  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : 'red'}`,
+  border: '1px solid #D4D9E1',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
@@ -240,7 +241,7 @@ const Aside = styled('aside')(({ theme }) => ({
     alignItems: 'flex-start',
     alignSelf: 'stretch',
     borderRadius: '0 0 6px 6px',
-    background: theme.palette.mode === 'light' ? '#F6F8F9' : 'red',
+    background: theme.palette.mode === 'light' ? '#F6F8F9' : '#1E2C37',
     position: 'sticky',
     top: 140,
   },
@@ -292,7 +293,7 @@ const Divider = styled('div')(({ theme }) => ({
       position: 'absolute',
       width: 'calc(100% - 32px)',
       height: 1,
-      background: theme.palette.mode === 'light' ? '#D4D9E1' : 'red',
+      background: theme.palette.mode === 'light' ? '#D4D9E1' : '#31424E',
       top: 8,
       left: 16,
     },
@@ -317,7 +318,7 @@ const Paragraph = styled('p')(({ theme }) => ({
   margin: 0,
   fontSize: 16,
   lineHeight: '22px',
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 }));
 
 const MilestoneContent = styled('div')(({ theme }) => ({

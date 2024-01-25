@@ -197,7 +197,7 @@ const Title = styled('h3')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   margin: 0,
 
   [theme.breakpoints.up('tablet_768')]: {
@@ -211,7 +211,7 @@ const Count = styled('div')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 20,
@@ -278,7 +278,9 @@ const BackgroundContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: 16,
   background:
-    theme.palette.mode === 'light' ? 'linear-gradient(0deg, #F6F8F9 85.04%, rgba(246, 248, 249, 0.00) 121.04%)' : 'red',
+    theme.palette.mode === 'light'
+      ? 'linear-gradient(0deg, #F6F8F9 85.04%, rgba(246, 248, 249, 0.00) 121.04%)'
+      : 'linear-gradient(180deg, rgba(16, 30, 38, 0.60) 0%, #101E26 100%)',
   margin: '8px -16px -24px',
   padding: '8px 16px 24px',
   borderRadius: 6,

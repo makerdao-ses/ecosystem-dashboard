@@ -1,4 +1,5 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { breakpoints } from './light';
 
 const darkTheme = responsiveFontSizes(
   createTheme({
@@ -13,6 +14,11 @@ const darkTheme = responsiveFontSizes(
     },
     typography: {
       fontFamily: 'Inter, sans-serif',
+    },
+    breakpoints: {
+      values: {
+        ...breakpoints,
+      },
     },
   })
 );

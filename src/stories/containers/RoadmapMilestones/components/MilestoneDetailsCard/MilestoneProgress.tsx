@@ -28,7 +28,7 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   alignSelf: 'stretch',
   padding: '16px 0',
   borderRadius: 6,
-  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : 'red'}`,
+  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : '#31424E'}`,
 
   [theme.breakpoints.up('tablet_768')]: {
     borderRadius: 16,
@@ -55,14 +55,14 @@ const TextProgress = styled('span')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 
   '& span:nth-child(1)': {
-    color: theme.palette.mode === 'light' ? '#1AAB9B' : 'red',
+    color: '#1AAB9B',
   },
 
   '& span:nth-child(2)': {
-    color: theme.palette.mode === 'light' ? '#708390' : 'red',
+    color: theme.palette.mode === 'light' ? '#708390' : '#B6BCC2',
     fontWeight: 700,
   },
 }));
