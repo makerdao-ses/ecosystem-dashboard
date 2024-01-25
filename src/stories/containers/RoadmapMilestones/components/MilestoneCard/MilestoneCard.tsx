@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/system';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
@@ -68,7 +68,7 @@ const MilestoneCard: React.FC = () => {
 
 export default MilestoneCard;
 
-const Card = styled.div<WithIsLight>(({ isLight }) => ({
+const Card = styled('div')<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#FFF' : '#1E2C37',
   borderRadius: 6,
   boxShadow: isLight ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)' : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
@@ -91,7 +91,7 @@ const Card = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const TitleBox = styled.div({
+const TitleBox = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -103,7 +103,7 @@ const TitleBox = styled.div({
   },
 });
 
-const TitleContainer = styled.div({
+const TitleContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
@@ -111,7 +111,7 @@ const TitleContainer = styled.div({
   width: '100%',
 });
 
-const CodeBox = styled.div({
+const CodeBox = styled('div')({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
@@ -121,7 +121,7 @@ const CodeBox = styled.div({
   },
 });
 
-const MilestoneNumber = styled.span({
+const MilestoneNumber = styled('span')({
   color: '#B6BCC2',
   fontSize: 14,
   fontWeight: 700,
@@ -136,7 +136,7 @@ const MilestoneNumber = styled.span({
   },
 });
 
-const Code = styled.span<WithIsLight>(({ isLight }) => ({
+const Code = styled('span')<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 600,
@@ -148,23 +148,23 @@ const Code = styled.span<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const NameBox = styled.div({
+const NameBox = styled('div')(({ theme }) => ({
   display: 'flex',
   padding: '0 4px',
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
   borderRadius: 4,
-  background: 'rgba(236, 239, 249, 0.50)',
+  background: theme.palette.mode === 'light' ? 'rgba(236, 239, 249, 0.50)' : '#1F2537',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     background: 'none',
     justifyContent: 'flex-end',
     padding: 0,
   },
-});
+}));
 
-const Name = styled.span<WithIsLight>(({ isLight }) => ({
+const Name = styled('span')<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 16,
   fontWeight: 600,
@@ -175,7 +175,7 @@ const Name = styled.span<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Quarter = styled.span(() => ({
+const Quarter = styled('span')(() => ({
   color: '#B6BCC2',
   fontSize: 16,
   fontWeight: 700,
@@ -192,7 +192,7 @@ const Quarter = styled.span(() => ({
   },
 }));
 
-const MobileOnlyBox = styled.div({
+const MobileOnlyBox = styled('div')({
   display: 'flex',
   alignSelf: 'stretch',
   gap: 8,
@@ -202,7 +202,7 @@ const MobileOnlyBox = styled.div({
   },
 });
 
-const TabletAndDesktopOnlyBox = styled.div({
+const TabletAndDesktopOnlyBox = styled('div')({
   display: 'none',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -217,7 +217,7 @@ const TabletAndDesktopOnlyBox = styled.div({
   },
 });
 
-const MobileProgressBox = styled.div({
+const MobileProgressBox = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -226,12 +226,12 @@ const MobileProgressBox = styled.div({
   gap: 8,
 });
 
-const ProgressContainer = styled.div({
+const ProgressContainer = styled('div')({
   display: 'flex',
   justifyContent: 'center',
 });
 
-const BottomBox = styled.div({
+const BottomBox = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignSelf: 'stretch',
@@ -246,14 +246,14 @@ const BottomBox = styled.div({
   },
 });
 
-const XBox = styled.div({
+const XBox = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: 16,
 });
 
-const ProgressBox = styled.div({
+const ProgressBox = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
@@ -273,7 +273,7 @@ const ProgressBox = styled.div({
   },
 });
 
-const Label = styled.div<WithIsLight>(({ isLight }) => ({
+const Label = styled('div')<WithIsLight>(({ isLight }) => ({
   color: '#708390',
   fontSize: 11,
   fontWeight: 600,
@@ -304,7 +304,7 @@ const ViewButton = styled(CustomButton)<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ProgressBarBox = styled.div({
+const ProgressBarBox = styled('div')({
   display: 'flex',
   alignItems: 'center',
   alignSelf: 'stretch',
@@ -315,7 +315,7 @@ const ProgressBarBox = styled.div({
   },
 });
 
-const ProgressBar = styled.div<WithIsLight & { progress: number }>(({ isLight, progress }) => ({
+const ProgressBar = styled('div')<WithIsLight & { progress: number }>(({ isLight, progress }) => ({
   position: 'relative',
   borderRadius: 6,
   background: isLight ? '#ECF1F3' : '#10191F',
@@ -343,7 +343,7 @@ const ProgressBar = styled.div<WithIsLight & { progress: number }>(({ isLight, p
   },
 }));
 
-const ProgressLabel = styled.span<WithIsLight>(({ isLight }) => ({
+const ProgressLabel = styled('span')<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   lineHeight: 'normal',
@@ -353,7 +353,7 @@ const ProgressLabel = styled.span<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const DescriptionBox = styled.div<WithIsLight>(({ isLight }) => ({
+const DescriptionBox = styled('div')<WithIsLight>(({ isLight }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   alignSelf: 'stretch',
@@ -369,7 +369,7 @@ const DescriptionBox = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const DescriptionTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const DescriptionTitle = styled('div')<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#434358' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 600,
@@ -383,7 +383,7 @@ const DescriptionTitle = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Description = styled.div<WithIsLight>(({ isLight }) => ({
+const Description = styled('div')<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#546978' : '#D2D4EF',
   fontSize: 14,
   lineHeight: 'normal',

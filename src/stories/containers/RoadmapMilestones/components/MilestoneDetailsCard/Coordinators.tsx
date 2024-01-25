@@ -36,7 +36,7 @@ const Title = styled('div')(({ theme }) => ({
   lineHeight: 'normal',
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: theme.palette.mode === 'light' ? '#434358' : 'red',
+  color: theme.palette.mode === 'light' ? '#434358' : '#B6BCC2',
 }));
 
 const CoordinatorsList = styled('div')(() => ({
@@ -56,5 +56,5 @@ const CoordinatorName = styled('div')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 }));
