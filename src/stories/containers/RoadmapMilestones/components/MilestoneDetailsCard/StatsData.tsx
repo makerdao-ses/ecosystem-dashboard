@@ -1,4 +1,6 @@
 import { styled, useMediaQuery } from '@mui/material';
+import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
+import Information from '@ses/components/svg/information';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
@@ -13,7 +15,14 @@ const StatsData: React.FC = () => {
   return (
     <OutlinedCard>
       <Row>
-        <Label>Target date</Label>
+        <Label>
+          Target date
+          <SESTooltip content="Target dates are meant as internal project management indicators. They are subject to change without notice and offer no guarantee for the delivery time of the milestone">
+            <IconWrapper>
+              <Information />
+            </IconWrapper>
+          </SESTooltip>
+        </Label>
         <Value>Q4 2023</Value>
       </Row>
       <Row>
@@ -77,15 +86,32 @@ const Row = styled('div')(() => ({
   alignSelf: 'stretch',
   gap: 16,
   lineHeight: 'normal',
+  marginTop: -3,
 }));
 
 const Label = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
   fontSize: 12,
   fontWeight: 600,
   letterSpacing: 1,
   textTransform: 'uppercase',
   color: theme.palette.mode === 'light' ? '#434358' : 'red',
   alignSelf: 'normal',
+}));
+
+const IconWrapper = styled('div')(({ theme }) => ({
+  display: 'inline-flex',
+  justifyContent: 'flex-start',
+  width: 24,
+  height: 24,
+  paddingLeft: 2,
+  alignItems: 'center',
+  cursor: 'pointer',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    paddingLeft: 4,
+  },
 }));
 
 const Value = styled('div')(({ theme }) => ({
