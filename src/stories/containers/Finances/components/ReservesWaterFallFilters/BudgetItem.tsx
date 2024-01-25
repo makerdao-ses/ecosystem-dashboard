@@ -74,4 +74,7 @@ const Title = styled.span<WithIsLight & { checked: boolean }>(({ isLight, checke
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  display: 'flex',
+  flexWrap: 'wrap',
+  width: 200,
 }));

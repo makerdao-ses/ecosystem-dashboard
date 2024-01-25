@@ -37,7 +37,8 @@ export const getArraysWaterFall = (data: number[]) => {
 export const builderWaterFallSeries = (
   data: number[],
   isMobile: boolean,
-  isTable: boolean
+  isTable: boolean,
+  isLight: boolean
 ): WaterFallChartSeriesData[] => {
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
 
@@ -58,7 +59,7 @@ export const builderWaterFallSeries = (
   // Get the colors of each bar
   const helpBarColors = help.map((_, index: number) => {
     if (index === 0 || index === help.length - 1) {
-      return '#83A7FF';
+      return isLight ? '#83A7FF' : '#447AFB';
     } else {
       return 'rgba(0,0,0,0)';
     }
@@ -114,7 +115,7 @@ export const builderWaterFallSeries = (
       barMinHeight: 30,
       itemStyle: {
         borderRadius: 2,
-        color: '#CB3A0D',
+        color: isLight ? '#CB3A0D' : '#A83815',
       },
       isVisible: true,
       label: {
@@ -141,7 +142,7 @@ export const builderWaterFallSeries = (
       barMinHeight: 30,
       itemStyle: {
         borderRadius: 2,
-        color: '#2DC1B1',
+        color: isLight ? '#2DC1B1' : '#1AAB9B',
       },
       isVisible: true,
       label: {

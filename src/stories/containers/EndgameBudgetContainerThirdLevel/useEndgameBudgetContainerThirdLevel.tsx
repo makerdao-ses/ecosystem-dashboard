@@ -110,7 +110,7 @@ export const useEndgameBudgetContainerThirdLevel = (budgets: Budget[], initialYe
   const levelBudgetPath = allBudgets.find((budget) => budget.codePath === firstPath);
 
   // All the logic required by the ReservesWaterFallChart
-  const reserveChartThirdLevel = useReservesWaterFallChart(levelBudgetPath?.id ?? '');
+  const reserveChartThirdLevel = useReservesWaterFallChart(levelPath, budgets, allBudgets);
   const icon = titleFirstPathBudget?.image;
 
   const title = nameChanged(titleFirstPathBudget?.name || '');
