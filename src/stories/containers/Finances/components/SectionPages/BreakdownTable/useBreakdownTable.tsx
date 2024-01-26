@@ -55,18 +55,12 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const selectedGranularity = convertFilterToGranularity(periodFilter);
 
   // fetch data from the API
-  const secondLevel = router.query.firstPath?.toString();
-  const thirdLevel = router.query.secondPath?.toString();
-  const path = `atlas${secondLevel ? `/${secondLevel}${thirdLevel ? `/${thirdLevel}` : ''}` : ''}`;
+  const urlPath = Array.isArray(router.query.path) ? router.query.path.join('/') : router.query.path;
+  const codePath = urlPath ? `atlas/${urlPath}` : 'atlas';
+  const lod = 3 + codePath.split('/').length - 1;
 
-  let lod = 3;
-  if (secondLevel) lod += 1;
-  if (thirdLevel) {
-    const levels = (thirdLevel ?? '').split('/').filter((level) => level.trim() !== '').length;
-    lod += levels;
-  }
-  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, path, lod], async () =>
-    fetchAnalytics(selectedGranularity, year, path, lod)
+  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, codePath, lod], async () =>
+    fetchAnalytics(selectedGranularity, year, codePath, lod)
   );
 
   // create the required data for the table

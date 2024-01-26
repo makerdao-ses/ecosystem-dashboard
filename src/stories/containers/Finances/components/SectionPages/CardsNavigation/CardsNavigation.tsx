@@ -2,11 +2,15 @@ import styled from '@emotion/styled';
 import BigButton from '@ses/components/Button/BigButton/BigButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import React from 'react';
+import React, { useRef } from 'react';
+import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import CardCoreUnitThirdLevelBudget from '../../CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';
 import CardNavigationFinance from '../../CardNavigationFinance/CardNavigationFinance';
 import CardNavigationMobile from '../../CardNavigationMobile/CardNavigationMobile';
 import type { NavigationCard } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { SwiperProps, SwiperRef } from 'swiper/react';
 
 interface Props {
   cardsNavigationInformation: NavigationCard[];
@@ -16,18 +20,77 @@ interface Props {
 
 const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation, loadMoreCards, handleLoadMoreCards }) => {
   const { isLight } = useThemeContext();
+  const ref = useRef<SwiperRef>(null);
+
+  // Options of Swiper
+  const swiperOptions = {
+    pagination: {
+      type: 'bullets',
+      enabled: true,
+      clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 'auto',
+        spaceBetween: 16,
+      },
+      1024: {
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+      },
+      1280: {
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+      },
+      1440: {
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+      },
+      1920: {
+        slidesPerView: 'auto',
+        spaceBetween: 8,
+      },
+    },
+  } as SwiperProps;
+
   return (
     <ContainerCardsNavigation>
       <WrapperDesk>
-        {cardsNavigationInformation.map((card: NavigationCard, index) => (
-          <CardNavigationFinance
-            href={card.href}
-            image={card.image}
-            title={card.title}
-            description={card.description || ''}
-            key={index}
-          />
-        ))}
+        {cardsNavigationInformation.length > 6 ? (
+          <SwiperWrapper isLight={isLight}>
+            <Swiper
+              direction="horizontal"
+              ref={ref}
+              modules={[Pagination, Navigation]}
+              centerInsufficientSlides
+              pagination={true}
+              {...swiperOptions}
+            >
+              {cardsNavigationInformation.map((coreUnit, index) => (
+                <SwiperSlide key={index}>
+                  <CardWrapper>
+                    <CardCoreUnitThirdLevelBudget
+                      code={coreUnit.code ?? ''}
+                      href="#"
+                      image={coreUnit.image || '/assets/img/default-icon-cards-budget.svg'}
+                      name={coreUnit.title}
+                    />
+                  </CardWrapper>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </SwiperWrapper>
+        ) : (
+          cardsNavigationInformation.map((card: NavigationCard, index) => (
+            <CardNavigationFinance
+              href={card.href}
+              image={card.image}
+              title={card.title}
+              description={card.description || ''}
+              key={index}
+            />
+          ))
+        )}
       </WrapperDesk>
       <WrapperMobile>
         {cardsNavigationInformation.map((card: NavigationCard, index) => (
@@ -62,18 +125,21 @@ const ContainerCardsNavigation = styled.div({
 
 const WrapperDesk = styled.div({
   display: 'none',
+
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
   },
+
   [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
     flexDirection: 'row',
@@ -81,6 +147,65 @@ const WrapperDesk = styled.div({
     gap: 32,
   },
 });
+
+const SwiperWrapper = styled.div<WithIsLight>(({ isLight }) => ({
+  display: 'none',
+  position: 'relative',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginBottom: 32,
+    display: 'block',
+    maxWidth: '100%',
+  },
+
+  '& .swiper-slide': {
+    maxWidth: 100,
+
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      maxWidth: 150,
+    },
+  },
+  '& .swiper-pagination-horizontal': {
+    position: 'relative',
+    marginTop: 24,
+  },
+  '& .swiper-pagination > .swiper-pagination-bullet': {
+    opacity: 1,
+  },
+  '& .swiper-pagination-bullet': {
+    width: 16,
+    height: 16,
+    backgroundColor: isLight ? '#ECF1F3 !important' : '#1E2C37 !important',
+    opacity: '1px !important',
+    '&:first-child': {
+      borderRadius: '20px 0px 0px 20px',
+    },
+    '&:last-child': {
+      borderRadius: '0px 20px 20px 0px',
+    },
+  },
+
+  '& .swiper-pagination-bullet-active': {
+    backgroundColor: isLight ? '#2DC1B1 !important' : '#098C7D !important',
+  },
+
+  '& .swiper-slide-active': {
+    marginLeft: -8,
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      marginLeft: -16,
+    },
+  },
+}));
+
+const CardWrapper = styled.div({
+  marginLeft: 8,
+  marginRight: 8,
+  marginBottom: 4,
+  marginTop: 4,
+  display: 'flex',
+  flex: '1',
+});
+
 const WrapperMobile = styled.div({
   display: 'flex',
   flexDirection: 'column',
