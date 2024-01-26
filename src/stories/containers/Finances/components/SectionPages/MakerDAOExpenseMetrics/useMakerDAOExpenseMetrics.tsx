@@ -15,13 +15,13 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
   };
 
   const router = useRouter();
-  const secondLevel = router.query.firstPath?.toString();
-  const thirdLevel = router.query.secondPath?.toString();
-  const path = `atlas${secondLevel ? `/${secondLevel}${thirdLevel ? `/${thirdLevel}` : ''}` : ''}`;
+  const urlPath = Array.isArray(router.query.path) ? router.query.path.join('/') : router.query.path;
+  const codePath = urlPath ? `atlas/${urlPath}` : 'atlas';
+  const levelOfDetail = codePath.split('/').length + 1;
 
   // fetch actual data from the API
-  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, path, 2], async () =>
-    fetchAnalytics(selectedGranularity, year, path, 2)
+  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, codePath, levelOfDetail], async () =>
+    fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
   );
 
   const isLoading = !analytics && !error;
