@@ -65,6 +65,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
       right: isMobile ? 2 : isTablet ? 7 : isDesktop1024 ? 50 : isDesktop1280 ? 4 : 4,
     },
     xAxis: {
+      show: true,
       type: 'category',
       data: getGranularity(selectedGranularity, isMobile),
       splitLine: {
@@ -101,7 +102,11 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
       },
     },
     yAxis: {
+      min: visibleSeries.length === 0 ? 0 : null,
+      max: visibleSeries.length === 0 ? 1 : null,
+      show: true,
       axisLabel: {
+        show: true,
         margin: isMobile ? 10 : isTablet ? 22 : isDesktop1024 ? 32 : isDesktop1280 ? 20 : 20,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
@@ -118,7 +123,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
       },
       verticalAlign: 'middle',
       height: upTable ? 15 : 12,
-
       type: 'value',
       zlevel: 1,
       axisLine: {
