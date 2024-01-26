@@ -46,7 +46,11 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
 
   const handleChangeYears = (value: string) => {
     setYear(value);
-    router.push(`${siteRoutes.finances()}?year=${value}`, undefined, { shallow: true });
+    router.push(
+      `${siteRoutes.finances(codePath.split('/').slice(1, levelNumber).join('/'))}?year=${value}`,
+      undefined,
+      { shallow: true }
+    );
   };
 
   // TODO: we should be using only one query and refetch the data depending on the selected granularity
@@ -169,7 +173,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     mutate('analytics/annual');
     mutate('analytics/quarterly');
     mutate('analytics/monthly');
-  }, [mutate, year]);
+  }, [mutate, year, codePath]);
 
   return {
     isEnabled,
