@@ -1,5 +1,5 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import FinancesContainer from '@ses/containers/Finances/FinancesContainer2';
+import FinancesContainer from '@ses/containers/Finances/FinancesContainer';
 import { fetchBudgets } from '@ses/containers/Finances/api/queries';
 import { getYearsRange, getBudgetsAnalytics } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
