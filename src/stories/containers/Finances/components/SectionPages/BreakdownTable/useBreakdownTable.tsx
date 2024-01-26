@@ -6,7 +6,7 @@ import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
-import { convertFilterToGranularity } from './utils';
+import { convertFilterToGranularity, removePatternAfterSlash } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   ItemRow,
@@ -154,7 +154,8 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
       // add correct rows name
       rows.forEach((row) => {
-        row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `:${row.name}`;
+        row.name =
+          subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `${removePatternAfterSlash(row.name)}`;
       });
 
       // sub-table header
