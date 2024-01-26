@@ -46,14 +46,14 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
     padding: '16px 8px 24px',
     flex: 1,
     width: 224,
-    minHeight: 250,
     height: 250,
+    minHeight: 250,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '16px 8px 24px',
     width: 309.33,
-    minHeight: 235,
     height: 235,
+    minHeight: 235,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 373.33,
@@ -95,7 +95,6 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   lineClamp: 3,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-
   color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 293.3,
@@ -107,6 +106,10 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
 
 const CardInformation = styled.div({
   textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 const ImageStyle = styled(Image)({
