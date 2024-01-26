@@ -14,7 +14,11 @@ import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: BreakdownBudgetAnalytic | undefined) => {
+export const useCardChartOverview = (
+  budgets: Budget[],
+  budgetsAnalytics: BreakdownBudgetAnalytic | undefined,
+  levelNumber: number
+) => {
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
@@ -169,7 +173,8 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
   });
   const changeAlignment = doughnutSeriesData.length > 4;
 
-  const showSwiper = !!((isTable || isDesk1024) && doughnutSeriesData.length > 4);
+  const showSwiper = !!((isTable || isDesk1024) && doughnutSeriesData.length >= 4);
+  const numberSliderPerLevel = (isTable || isDesk1024) && levelNumber < 3 ? 3 : 5;
 
   return {
     actuals: metric.actuals,
@@ -182,5 +187,6 @@ export const useCardChartOverview = (budgets: Budget[], budgetsAnalytics: Breakd
     doughnutSeriesData,
     changeAlignment,
     showSwiper,
+    numberSliderPerLevel,
   };
 };

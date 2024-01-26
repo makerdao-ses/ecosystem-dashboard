@@ -155,7 +155,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const expenseTrendFinances = useDelegateExpenseTrendFinances('atlas');
 
   // All the logic required by the CardChartOverview section
-  const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics);
+  const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics, levelNumber);
 
   // All the logic required by the BreakdownTable section
   const breakdownTable = useBreakdownTable(year, budgets, allBudgets);
