@@ -4,7 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
 import { useMemo, useState } from 'react';
-import { builderWaterFallSeries } from './utils';
+import { builderWaterFallSeries, processDataForWaterFall } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -34,9 +34,18 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
 
   // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
   // The firs element will be point to start its don't bellow to the serie
-  const data = [1900, 2300, 1195, 2100, -1110, 2100, 1400, 4300, -1400, -3500, -4200, 1250, 2700];
+  // const data = [4000000, 4067832, 3917607, 2503865, 1223761, 9163892, 391565, 591565, 591565, 420343, 404022, 323935]
+  // const total = 8000000
+  // const data = [100, 95, 50, 5, 10, 20, 30, 50, 100, 130, 150, 160];
+  // const total = 200;
+  const data = [
+    4000000, 4500000, 4300000, 4800000, 4600000, 5000000, 4700000, 5200000, 4900000, 5400000, 5100000, 5600000,
+  ];
+  const total = 8000000;
 
-  const series = builderWaterFallSeries(data, isMobile, isTable, isLight);
+  const dataReady = processDataForWaterFall(data, total);
+
+  const series = builderWaterFallSeries(dataReady, isMobile, isTable, isLight);
 
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 
