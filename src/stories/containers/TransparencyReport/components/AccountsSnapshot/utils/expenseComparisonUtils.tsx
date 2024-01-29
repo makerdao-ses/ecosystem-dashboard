@@ -154,10 +154,11 @@ export const getTotals = (values: ActualsComparison[]): ActualsComparison =>
     (acc, curr) => {
       acc.reportedActuals += curr.reportedActuals;
       acc.netExpenses.onChainOnly.amount += curr.netExpenses.onChainOnly.amount;
-      acc.netExpenses.onChainOnly.difference = (acc.reportedActuals * 100) / acc.netExpenses.onChainOnly.amount - 100;
+      acc.netExpenses.onChainOnly.difference =
+        acc.reportedActuals === 0 ? 0 : (acc.netExpenses.onChainOnly.amount * 100) / acc.reportedActuals - 100;
       acc.netExpenses.offChainIncluded.amount += curr.netExpenses.offChainIncluded.amount;
       acc.netExpenses.offChainIncluded.difference =
-        (acc.reportedActuals * 100) / acc.netExpenses.offChainIncluded.amount - 100;
+        acc.reportedActuals === 0 ? 0 : (acc.netExpenses.offChainIncluded.amount * 100) / acc.reportedActuals - 100;
 
       return acc;
     },
@@ -190,9 +191,9 @@ export const buildExpensesComparisonRows = (
           formatExpenseMonth(comparison.month),
           formatExpenseWithCurrency(comparison.reportedActuals || 0, currency),
           formatExpenseWithCurrency(comparison.netExpenses.onChainOnly.amount || 0, currency),
-          formatExpenseDifference(comparison.netExpenses.onChainOnly.difference || 0),
+          formatExpenseDifference((comparison.netExpenses.onChainOnly.difference || 0) * 100),
           formatExpenseWithCurrency(comparison.netExpenses.offChainIncluded.amount || 0, currency),
-          formatExpenseDifference(comparison.netExpenses.offChainIncluded.difference || 0),
+          formatExpenseDifference((comparison.netExpenses.offChainIncluded.difference || 0) * 100),
         ],
         comparison.month === currentPeriod,
         false
