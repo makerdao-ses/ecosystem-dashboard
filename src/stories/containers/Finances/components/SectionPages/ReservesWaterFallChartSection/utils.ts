@@ -78,7 +78,7 @@ export const builderWaterFallSeries = (
       barWidth: isMobile ? 19 : isTable ? 39 : 48,
       data: help,
       itemStyle: {
-        borderRadius: 2,
+        borderRadius: 4,
 
         color: (params: EChartsOption) => helpBarColors[params.dataIndex],
       },
@@ -122,7 +122,7 @@ export const builderWaterFallSeries = (
       data: outFlow,
       // barMinHeight: 30,
       itemStyle: {
-        borderRadius: 2,
+        borderRadius: 4,
         color: isLight ? '#CB3A0D' : '#A83815',
       },
       isVisible: true,
@@ -149,7 +149,7 @@ export const builderWaterFallSeries = (
       data: inFlow,
       // barMinHeight: 30,
       itemStyle: {
-        borderRadius: 2,
+        borderRadius: 4,
         color: isLight ? '#2DC1B1' : '#1AAB9B',
       },
       isVisible: true,
