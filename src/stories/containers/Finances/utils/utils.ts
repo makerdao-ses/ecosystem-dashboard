@@ -698,6 +698,10 @@ const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric[] => {
       value: 0,
       unit: 'DAI',
     },
+    protocolNetOutflow: {
+      value: 0,
+      unit: 'DAI',
+    },
   });
 
   let arrayLength;
@@ -755,7 +759,8 @@ const getBreakdownAnalytics = (
             case 'PaymentsOffChainIncluded':
               budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
               break;
-            default:
+            case 'ProtocolNetOutflow':
+              budgetMetric.protocolNetOutflow = setMetric(row.value, row.unit);
               break;
           }
         }
@@ -849,26 +854,26 @@ export const formatterBreakDownChart = (
 export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Metric): ValuesDataWithBorder => {
   let metricKey: keyof BudgetMetric;
   switch (selectedMetric) {
+    case 'Budget':
+      metricKey = 'budget';
+      break;
     case 'Actuals':
       metricKey = 'actuals';
       break;
     case 'Forecast':
       metricKey = 'forecast';
       break;
-    case 'Net Expenses On-chain':
+    case 'PaymentsOnChain':
       metricKey = 'paymentsOnChain';
       break;
-    case 'Net Exp. On-Chain':
-      metricKey = 'paymentsOnChain';
-      break;
-    case 'Net Expenses Off-chain':
+    case 'PaymentsOffChainIncluded':
       metricKey = 'paymentsOffChainIncluded';
       break;
-    case 'Net Exp. Off-Chain Incl.':
-      metricKey = 'paymentsOffChainIncluded';
+    case 'ProtocolNetOutflow':
+      metricKey = 'protocolNetOutflow';
       break;
     default:
-      metricKey = 'budget';
+      throw new Error('Unsupported Metric');
   }
 
   return {

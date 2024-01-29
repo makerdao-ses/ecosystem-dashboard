@@ -63,13 +63,13 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
             },
             {
               label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
-              value: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
+              value: 'PaymentsOnChain',
               labelWhenSelected: 'Net On-chain',
             },
             {
-              label: !isMobile ? 'Net Expenses Off-chain' : 'Net Exp. Off-Chain Incl.',
-              value: !isMobile ? 'Net Expenses Off-chain' : 'Net Exp. Off-Chain Incl.',
-              labelWhenSelected: 'Net Off-chain',
+              label: 'Net Protocol Outflow',
+              value: 'ProtocolNetOutflow',
+              labelWhenSelected: 'Protocol Outflow',
             },
           ]}
           PopperProps={{

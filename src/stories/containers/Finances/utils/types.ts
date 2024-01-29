@@ -60,10 +60,10 @@ export type Metric =
   | 'Budget'
   | 'Actuals'
   | 'Forecast'
-  | 'Net Expenses On-chain'
-  | 'Net Expenses Off-chain'
-  | 'Net Exp. On-Chain'
-  | 'Net Exp. Off-Chain Incl.';
+  | 'PaymentsOnChain'
+  | 'PaymentsOffChainIncluded'
+  | 'ProtocolNetOutflow';
+
 export interface MetricValues {
   Budget: number;
   Actuals: number;

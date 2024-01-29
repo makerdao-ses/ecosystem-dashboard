@@ -8,17 +8,13 @@ import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
 import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
-import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
-import type { Budget } from '@ses/core/models/interfaces/budget';
+import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 
 interface BreakdownChartProps {
   year: string;
-  budgets: Budget[];
   selectedGranularity: AnalyticGranularity;
-  budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined;
-  budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
   series: BreakdownChartSeriesData[];
   handleToggleSeries: (series: string) => void;
   refBreakDownChart: React.RefObject<EChartsOption | null>;
