@@ -130,6 +130,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
           return {
             name: path,
+            codePath: path,
             columns,
           } as ItemRow;
         });
@@ -141,6 +142,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         if (!rows.some((row) => row.name === subBudget.codePath)) {
           rows.push({
             name: subBudget.codePath,
+            codePath: subBudget.codePath,
             columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
           });
         }
@@ -156,6 +158,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       const header: ItemRow = {
         name: nameChanged(budget.name),
         isMain: true,
+        codePath: budget.codePath,
         columns: rows
           .reduce((acc, current) => {
             current.columns.forEach((row, index) => {

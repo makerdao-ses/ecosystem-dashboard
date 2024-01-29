@@ -3,6 +3,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
 import { filterMetricValues } from '../SectionPages/BreakdownTable/utils';
 import type { MetricValues } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -10,20 +11,23 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   metrics: string[];
   value: MetricValues;
+  href: string;
 }
 
-const CellTable: React.FC<Props> = ({ metrics, value }) => {
+const CellTable: React.FC<Props> = ({ metrics, value, href }) => {
   const element = filterMetricValues(value, metrics as (keyof MetricValues)[]);
   const { isLight } = useThemeContext();
   return (
     <Cell isLight={isLight}>
-      <SpacedValues>
-        {metrics.map((metric, index) => (
-          <Span key={index} isLight={isLight}>
-            {usLocalizedNumber(element[metric as keyof MetricValues] ?? 0, 0)}
-          </Span>
-        ))}
-      </SpacedValues>
+      <LinkCellComponent href={href}>
+        <SpacedValues>
+          {metrics.map((metric, index) => (
+            <Span key={index} isLight={isLight}>
+              {usLocalizedNumber(element[metric as keyof MetricValues] ?? 0, 0)}
+            </Span>
+          ))}
+        </SpacedValues>
+      </LinkCellComponent>
     </Cell>
   );
 };
@@ -35,6 +39,7 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   padding: '16px 8px',
   textAlign: 'center',
   fontSize: 12,
+  position: 'relative',
   [lightTheme.breakpoints.up('desktop_1280')]: {
     padding: '16px 20px',
   },
