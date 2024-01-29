@@ -3,16 +3,20 @@ import { nameChanged } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
-import { useMemo, useState } from 'react';
+
+import { useEffect, useMemo, useState } from 'react';
 import { builderWaterFallSeries } from './utils';
+
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useReservesWaterFallChart = (levelPath: string | null, budgets: Budget[], allBudgets: Budget[]) => {
-  const selectAll = budgets.map((budget) => budget.id);
+  const selectAll = useMemo(() => budgets.map((budget) => budget.id), [budgets]);
+
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);
+
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -20,6 +24,10 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
   const handleResetFilter = () => {
     setActiveElements([]);
   };
+
+  useEffect(() => {
+    setActiveElements(selectAll);
+  }, [selectAll]);
 
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -67,7 +75,8 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
     [budgets]
   );
 
-  const popupContainerHeight = 180;
+  const popupContainerHeight =
+    budgets.length === 1 ? 100 : budgets.length === 2 ? 130 : budgets.length === 3 ? 150 : 180;
 
   return {
     titleChart,

@@ -15,8 +15,8 @@ const BudgetItem: React.FC<SelectItemProps> = ({ checked = false, ...props }) =>
       className="no-select"
       style={{
         flex: 1,
+        alignItems: 'center',
         minHeight: 40,
-        maxHeight: 40,
         padding: 4,
       }}
       checked={checked}
@@ -51,11 +51,11 @@ const CheckWrapper = styled.span({
   alignSelf: 'center',
   position: 'absolute',
   right: 8,
-  top: 8,
 });
 
 const StyledContainer = styled(Container)<{ isLight: boolean; checked: boolean }>(({ isLight, checked }) => ({
   gap: 16,
+  position: 'relative',
   '&:hover': {
     background: isLight ? (checked ? '#EDEFFF' : '#F6F8F9') : checked ? '#231536' : '#25273D',
   },
