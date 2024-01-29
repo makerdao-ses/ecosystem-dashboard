@@ -75,7 +75,8 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
     [budgets]
   );
 
-  const popupContainerHeight = 180;
+  const popupContainerHeight =
+    budgets.length === 1 ? 100 : budgets.length === 2 ? 130 : budgets.length === 3 ? 150 : 180;
 
   return {
     titleChart,
