@@ -64,7 +64,7 @@ const ReservesWaterFallFilters: React.FC<FiltersProps> = ({
               content: 'All MakerDAO',
               id: 'all',
               params: { isAll: true },
-              count: activeItems.length,
+              count: 0,
             }}
             popupContainerHeight={popupContainerHeight}
             customItemRender={(props: SelectItemProps) => <BudgetItem {...props} />}
