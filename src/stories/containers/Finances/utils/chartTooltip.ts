@@ -10,6 +10,7 @@ export const createChartTooltip = (
 ) => ({
   show: !isMobile,
   trigger: 'axis',
+
   axisPointer: {
     type: 'shadow',
     shadowStyle: {
@@ -21,8 +22,9 @@ export const createChartTooltip = (
   borderWidth: 1,
   borderColor: isLight ? '#D4D9E1' : '#231536',
   formatter: function (params: BarChartSeries[]) {
-    const flexDirection = params.length > 10 ? 'row' : 'column';
-    const gap = params.length > 10 ? '16px' : '12px';
+    const shortAmount = params.length > 10;
+    const flexDirection = shortAmount ? 'row' : 'column';
+    const gap = shortAmount ? '16px' : '12px';
 
     return `
       <div style="background-color:${
@@ -35,20 +37,20 @@ export const createChartTooltip = (
           ${params
             .reverse()
             .map(
-              (item) => `
-            <div style="display: flex;align-items:center;gap: 6px">
+              (item) =>
+                `<div style="display: flex;align-items:center;gap: 6px">
               <svg xmlns="http://www.w3.org/2000/svg" width="${isMobile ? 13 : 16}" height="${
-                isMobile ? 13 : 16
-              }" viewBox="0 0 13 13" fill="none">
+                  isMobile ? 13 : 16
+                }" viewBox="0 0 13 13" fill="none">
                 <circle cx="6.5" cy="6.5" r="5.5" stroke="${item.color}" />
                 <circle cx="6.5" cy="6.5" r="4" fill="${item.color}" />
               </svg>
               <span style="font-size:14px;color:${isLight ? '#231536' : '#B6BCC2'};"> ${nameChanged(
-                item.seriesName
-              )}:</span>
+                  item.seriesName
+                )}:</span>
               <span style="font-size:16px;font-weight:700;color:${isLight ? '#231536' : '#EDEFFF'};">${formatNumber(
-                item.value
-              )}</span>
+                  item.value
+                )}</span>
             </div>`
             )
             .join('')}

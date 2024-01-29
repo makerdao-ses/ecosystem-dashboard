@@ -82,7 +82,6 @@ const useBreakdownChart = (
   );
 
   const allSeries = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);
-
   // series to be "hidden" in the chart
   const [inactiveSeries, setInactiveSeries] = useState<string[]>([]);
   const handleToggleSeries = (toggleSeries: string) => {
