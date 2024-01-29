@@ -34,10 +34,6 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
 
   // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
   // The firs element will be point to start its don't bellow to the serie
-  // const data = [4000000, 4067832, 3917607, 2503865, 1223761, 9163892, 391565, 591565, 591565, 420343, 404022, 323935]
-  // const total = 8000000
-  // const data = [100, 95, 50, 5, 10, 20, 30, 50, 100, 130, 150, 160];
-  // const total = 200;
   const data = [
     4000000, 4500000, 4300000, 4800000, 4600000, 5000000, 4700000, 5200000, 4900000, 5400000, 5100000, 5600000,
   ];
