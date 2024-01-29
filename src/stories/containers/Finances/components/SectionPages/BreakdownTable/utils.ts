@@ -109,3 +109,5 @@ export const convertFilterToGranularity = (period: PeriodicSelectionFilter): Ana
       return 'quarterly';
   }
 };
+
+export const removePatternAfterSlash = (input: string) => input.replace(/\/\*.*$/, '');

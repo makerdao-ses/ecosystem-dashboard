@@ -74,9 +74,11 @@ const DoughnutChartFinances: React.FC<Props> = ({
         const customTooltip = `
         <div style="background-color:${
           isLight ? '#fff' : '#000A13'
-        };padding:16px;minWidth:194px;overflow:auto;border-radius:3px;">
+        };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
           <div style="margin-bottom:4px;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.percent} %</div>
-          <div style="margin-bottom:16px;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.name}</div>
+          <div style="margin-bottom:16px;color:${
+            isLight ? '#000' : '#EDEFFF'
+          };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">${itemRender.name}</div>
           <div style="display:flex;flex-direction:row;gap:20px">
               <div style="display:flex;flex-direction:column">
                 <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.actuals.toLocaleString(
@@ -257,7 +259,6 @@ const DoughnutChartFinances: React.FC<Props> = ({
                     onLegendItemHover={onLegendItemHover}
                     onLegendItemLeave={onLegendItemLeave}
                     isCoreThirdLevel={isCoreThirdLevel}
-                    isShowSwiper={showSwiper}
                   />
                 </SwiperSlide>
               ))}
@@ -278,7 +279,6 @@ const DoughnutChartFinances: React.FC<Props> = ({
               onLegendItemHover={onLegendItemHover}
               onLegendItemLeave={onLegendItemLeave}
               isCoreThirdLevel={isCoreThirdLevel}
-              isShowSwiper={showSwiper}
             />
           }
         </ContainerLegend>
@@ -346,12 +346,12 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
     display: 'flex',
     position: 'relative',
     width: 200,
-    height: isCoreThirdLevel ? 'calc(100% + 16px)' : '100%',
+    height: isCoreThirdLevel ? 'calc(100% + 16px)' : 'calc(100% - 16px)',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginTop: isCoreThirdLevel ? 10 : 16,
     display: 'flex',
-    height: isCoreThirdLevel ? 'calc(100% + 16px)' : '100%',
+    height: isCoreThirdLevel ? 'calc(100% + 16px)' : 'calc(100% - 16px)',
 
     width: 250,
     minWidth: 250,

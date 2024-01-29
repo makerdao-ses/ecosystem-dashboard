@@ -11,7 +11,7 @@ export const siteRoutes = {
   ecosystemActorProjects: (code: string) => `/ecosystem-actors/${code}/projects`,
   coreUnitsOverview: featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? '/core-units' : '/',
   financesOverview: '/',
-  newFinancesOverview: '/finances',
+  finances: (path?: string) => `/finances${path ? `/${path}` : ''}`,
   coreUnitAbout: (shortCode: string) => `/core-unit/${shortCode}`,
   coreUnitReports: (shortCode: string) => `/core-unit/${shortCode}/finances/reports`,
   coreUnitActivityFeed: (shortCode: string) => `/core-unit/${shortCode}/activity-feed`,

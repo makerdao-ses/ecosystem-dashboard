@@ -6,7 +6,7 @@ import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
-import { convertFilterToGranularity } from './utils';
+import { convertFilterToGranularity, removePatternAfterSlash } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   ItemRow,
@@ -55,18 +55,12 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const selectedGranularity = convertFilterToGranularity(periodFilter);
 
   // fetch data from the API
-  const secondLevel = router.query.firstPath?.toString();
-  const thirdLevel = router.query.secondPath?.toString();
-  const path = `atlas${secondLevel ? `/${secondLevel}${thirdLevel ? `/${thirdLevel}` : ''}` : ''}`;
+  const urlPath = Array.isArray(router.query.path) ? router.query.path.join('/') : router.query.path;
+  const codePath = urlPath ? `atlas/${urlPath}` : 'atlas';
+  const lod = 3 + codePath.split('/').length - 1;
 
-  let lod = 3;
-  if (secondLevel) lod += 1;
-  if (thirdLevel) {
-    const levels = (thirdLevel ?? '').split('/').filter((level) => level.trim() !== '').length;
-    lod += levels;
-  }
-  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, path, lod], async () =>
-    fetchAnalytics(selectedGranularity, year, path, lod)
+  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, codePath, lod], async () =>
+    fetchAnalytics(selectedGranularity, year, codePath, lod)
   );
 
   // create the required data for the table
@@ -154,7 +148,8 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
       // add correct rows name
       rows.forEach((row) => {
-        row.name = subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `:${row.name}`;
+        row.name =
+          subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `${removePatternAfterSlash(row.name)}`;
       });
 
       // sub-table header

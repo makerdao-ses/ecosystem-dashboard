@@ -95,7 +95,6 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   lineClamp: 3,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-
   color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 293.3,

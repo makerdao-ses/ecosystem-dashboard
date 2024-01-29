@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
+import IconTitle from '@ses/components/IconTitle/IconTitle';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -22,16 +22,22 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   budgets: Budget[];
+  allBudgets: Budget[];
   yearsRange: string[];
   initialYear: string;
 }
 
-const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }) => {
-  const [isEnabled] = useFlagsActive();
+const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initialYear }) => {
   const {
+    isEnabled,
+    year,
+    levelNumber,
+    icon,
+    title,
+    trailingAddressMobile,
+    trailingAddressDesktop,
     cardOverViewSectionData,
     handleChangeYears,
-    year,
     cardsToShow,
     breakdownTable,
     loadMoreCards,
@@ -39,9 +45,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
     makerDAOExpensesMetrics,
     breakdownChartSectionData,
     expenseReportSection,
-    trailingAddress,
     reserveChart,
-  } = useFinances(budgets, initialYear);
+  } = useFinances(budgets, allBudgets, initialYear);
 
   return (
     <PageContainer>
@@ -56,17 +61,25 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
       <BreadcrumbYearNavigation
-        trailingAddress={trailingAddress}
+        trailingAddress={trailingAddressMobile}
         years={yearsRange}
         handleChange={handleChangeYears}
         selectedValue={year}
-        trailingAddressDesk={trailingAddress}
-        title="Finances"
-        hasIcon={false}
+        trailingAddressDesk={trailingAddressDesktop}
+        title={levelNumber === 1 ? 'Finances' : title}
+        hasIcon={levelNumber !== 1}
       />
 
       <Container>
-        <ContainerTitle isLight={breakdownChartSectionData.isLight}>MakerDAO Finances</ContainerTitle>
+        {/* Page title */}
+        {levelNumber === 1 ? (
+          <FirstLevelTitle isLight={breakdownChartSectionData.isLight}>MakerDAO Finances</FirstLevelTitle>
+        ) : (
+          <NthTitleBox>
+            <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
+          </NthTitleBox>
+        )}
+
         <ContainerSections>
           <WrapperDesk>
             <CardChartOverview
@@ -77,10 +90,10 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
               budgetCap={cardOverViewSectionData.budgetCap}
               prediction={cardOverViewSectionData.prediction}
               doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
-              isCoreThirdLevel={false}
+              isCoreThirdLevel={levelNumber >= 3}
               changeAlignment={cardOverViewSectionData.changeAlignment}
               showSwiper={cardOverViewSectionData.showSwiper}
-              numberSliderPerLevel={3}
+              numberSliderPerLevel={cardOverViewSectionData.numberSliderPerLevel}
             />
           </WrapperDesk>
           <WrapperMobile>
@@ -139,7 +152,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
       <Container>
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
           <MakerDAOExpenseMetricsFinances
-            title="MakerDAO Expense Metrics"
+            title={`${levelNumber === 1 ? 'MakerDAO' : title} Expense Metrics`}
             handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
             selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
             series={makerDAOExpensesMetrics.series}
@@ -151,7 +164,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
           <ContainerReservesWaterFallChart>
             <ReservesWaterFallChartSection
-              title={'MakerDAO Finances Reserves'}
+              title={`${levelNumber === 1 ? 'MakerDAO Finances' : title} Reserves`}
               legends={reserveChart.legendItems}
               series={reserveChart.series}
               selectedGranularity={reserveChart.selectedGranularity}
@@ -185,7 +198,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, yearsRange, initialYear }
 
 export default FinancesContainer;
 
-const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const FirstLevelTitle = styled.h1<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 20,
   fontStyle: 'normal',
@@ -195,12 +208,24 @@ const ContainerTitle = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 24,
   marginBottom: 24,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 32,
     marginTop: 32,
     marginBottom: 64,
   },
 }));
+
+const NthTitleBox = styled.h1({
+  marginTop: 24,
+  marginBottom: 24,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 32,
+    marginTop: 32,
+    marginBottom: 64,
+  },
+});
 
 const ContainerSections = styled.div({
   gap: 16,
