@@ -32,7 +32,7 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
       forecast: [] as number[],
       actuals: [] as number[],
       onChain: [] as number[],
-      offChain: [] as number[],
+      protocolNetOutflow: [] as number[],
     };
     if (!analytics || !analytics.series?.length) {
       // return 0 values to avoid having an empty UI
@@ -53,7 +53,7 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
       data.forecast.push(reduceMetric(item.rows, 'Forecast'));
       data.actuals.push(reduceMetric(item.rows, 'Actuals'));
       data.onChain.push(reduceMetric(item.rows, 'PaymentsOnChain'));
-      data.offChain.push(reduceMetric(item.rows, 'PaymentsOffChainIncluded'));
+      data.protocolNetOutflow.push(reduceMetric(item.rows, 'ProtocolNetOutflow'));
     });
 
     return data;

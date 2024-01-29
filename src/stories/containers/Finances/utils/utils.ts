@@ -890,7 +890,7 @@ export const buildExpenseMetricsLineChartSeries = (
     forecast: number[];
     actuals: number[];
     onChain: number[];
-    offChain: number[];
+    protocolNetOutflow: number[];
   },
   inactiveSeries: string[],
   isLight: boolean
@@ -900,7 +900,7 @@ export const buildExpenseMetricsLineChartSeries = (
     Forecast: inactiveSeries.includes('Forecast'),
     Actuals: inactiveSeries.includes('Actuals'),
     'Net Expenses On-chain': inactiveSeries.includes('Net Expenses On-chain'),
-    'Net Expenses Off-chain': inactiveSeries.includes('Net Expenses Off-chain'),
+    'Net Protocol Outflow': inactiveSeries.includes('Net Protocol Outflow'),
   };
 
   return [
@@ -941,13 +941,13 @@ export const buildExpenseMetricsLineChartSeries = (
       isVisible: !disabled['Net Expenses On-chain'],
     },
     {
-      name: 'Net Expenses Off-chain',
-      data: disabled['Net Expenses Off-chain'] ? [] : data?.offChain,
+      name: 'Net Protocol Outflow',
+      data: disabled['Net Protocol Outflow'] ? [] : data?.protocolNetOutflow,
       type: 'line',
       itemStyle: {
-        color: disabled['Net Expenses Off-chain'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
+        color: disabled['Net Protocol Outflow'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
       },
-      isVisible: !disabled['Net Expenses Off-chain'],
+      isVisible: !disabled['Net Protocol Outflow'],
     },
   ] as LineChartSeriesData[];
 };
