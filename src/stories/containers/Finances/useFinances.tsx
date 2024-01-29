@@ -39,7 +39,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const codePath = urlPath ? `atlas/${urlPath}` : 'atlas';
   const levelNumber = codePath.split('/').length;
   const levelOfDetail = levelNumber + 1;
-
   const currentBudget = allBudgets.find((budget) => budget.codePath === codePath);
   const icon = currentBudget?.image;
   const title = nameChanged(currentBudget?.name || '');

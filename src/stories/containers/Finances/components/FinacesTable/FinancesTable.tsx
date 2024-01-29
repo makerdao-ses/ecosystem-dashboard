@@ -48,8 +48,8 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
         <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
           <TableBody isLight={isLight}>
             {table.rows.map((row: ItemRow, index) => {
-              console.log('row.codePath', row.codePath?.replace('atlas', ''));
               const href = `${siteRoutes.finances((row.codePath ?? '').replace('atlas/', ''))}?year=${year}`;
+
               return (
                 <TableRow key={index} isLight={isLight} isMain={row.isMain}>
                   <Headed isLight={isLight} period={period}>
