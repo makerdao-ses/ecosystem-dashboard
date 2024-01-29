@@ -5,6 +5,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
+import { createChartTooltip } from '../../utils/chartTooltip';
 import { getGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
@@ -53,6 +54,8 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   };
 
   const options: EChartsOption = {
+    // tooltip: true,
+    tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile, true),
     grid: {
       top: isMobile ? 5 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
       left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
@@ -118,14 +121,14 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         padding: isMobile
           ? [0, 0, 0, 2]
           : isTablet
-          ? [0, 14, 0, 0]
-          : isDesktop1024
-          ? [0, 12, 0, 0]
-          : isDesktop1280
-          ? [0, 6, 0, 0]
-          : isDesktop1440
-          ? [0, 12, 0, 0]
-          : [0, 12, 0, 0],
+            ? [0, 14, 0, 0]
+            : isDesktop1024
+              ? [0, 12, 0, 0]
+              : isDesktop1280
+                ? [0, 6, 0, 0]
+                : isDesktop1440
+                  ? [0, 12, 0, 0]
+                  : [0, 12, 0, 0],
         formatter: function (value: number, index: number) {
           if (index === 0) {
             return value.toString();
