@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
+import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
@@ -19,7 +20,7 @@ interface Props {
   period: PeriodicSelectionFilter;
 }
 
-const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period }) => {
+const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period, year }) => {
   const { isLight } = useThemeContext();
 
   const orderData = sortDataByElementCount(breakdownTable);
@@ -39,8 +40,6 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
       ? 'PaymentsOffChainIncluded'
       : metric
   );
-  // Remove this when got the correct route
-  const href = '#';
 
   return (
     <>
@@ -48,46 +47,50 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
       {showFooterAndCorrectNumber.map((table: TableFinances, index) => (
         <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
           <TableBody isLight={isLight}>
-            {table.rows.map((row: ItemRow, index) => (
-              <TableRow key={index} isLight={isLight} isMain={row.isMain}>
-                <Headed isLight={isLight} period={period}>
-                  <Link href="#">{row.name}</Link>
-                </Headed>
+            {table.rows.map((row: ItemRow, index) => {
+              console.log('row.codePath', row.codePath?.replace('atlas', ''));
+              const href = `${siteRoutes.finances((row.codePath ?? '').replace('atlas/', ''))}?year=${year}`;
+              return (
+                <TableRow key={index} isLight={isLight} isMain={row.isMain}>
+                  <Headed isLight={isLight} period={period}>
+                    <Link href={href}>{row.name}</Link>
+                  </Headed>
 
-                {showAnnual &&
-                  newMetrics.map((metric, index) => {
-                    // Check if don't have columns to show add cero
-                    const value = row.columns.length !== 0;
-                    if (!value) {
+                  {showAnnual &&
+                    newMetrics.map((metric, index) => {
+                      // Check if don't have columns to show add cero
+                      const value = row.columns.length !== 0;
+                      if (!value) {
+                        return (
+                          <Cell key={index} isLight={isLight}>
+                            <LinkCellComponent href={href}>0</LinkCellComponent>
+                          </Cell>
+                        );
+                      }
                       return (
                         <Cell key={index} isLight={isLight}>
-                          <LinkCellComponent href={href}>0</LinkCellComponent>
+                          <LinkCellComponent href={href}>
+                            {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
+                          </LinkCellComponent>
                         </Cell>
                       );
-                    }
-                    return (
-                      <Cell key={index} isLight={isLight}>
-                        <LinkCellComponent href={href}>
-                          {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
-                        </LinkCellComponent>
-                      </Cell>
-                    );
-                  })}
+                    })}
 
-                {showQuarterly &&
-                  arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
-                  ))}
-                {showSemiAnnual &&
-                  arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
-                  ))}
-                {showMonthly &&
-                  arrayMetrics.map((_, index) => (
-                    <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
-                  ))}
-              </TableRow>
-            ))}
+                  {showQuarterly &&
+                    arrayMetrics.map((_, index) => (
+                      <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
+                    ))}
+                  {showSemiAnnual &&
+                    arrayMetrics.map((_, index) => (
+                      <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
+                    ))}
+                  {showMonthly &&
+                    arrayMetrics.map((_, index) => (
+                      <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
+                    ))}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </TableContainer>
       ))}
