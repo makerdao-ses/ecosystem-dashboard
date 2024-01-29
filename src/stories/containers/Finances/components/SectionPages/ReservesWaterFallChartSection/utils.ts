@@ -120,7 +120,7 @@ export const builderWaterFallSeries = (
       name: 'Outflow',
       barWidth: isMobile ? 19 : 39,
       data: outFlow,
-      barMinHeight: 20,
+
       itemStyle: {
         borderRadius: 4,
         color: isLight ? '#CB3A0D' : '#A83815',
@@ -147,7 +147,6 @@ export const builderWaterFallSeries = (
       name: 'IntFlow',
       barWidth: isMobile ? 19 : 39,
       data: inFlow,
-      barMinHeight: 20,
       itemStyle: {
         borderRadius: 4,
         color: isLight ? '#2DC1B1' : '#1AAB9B',
