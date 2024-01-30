@@ -87,26 +87,8 @@ const variantsArgs = [
             value: 500,
             unit: 'DAI',
           },
-        },
-        {
-          actuals: {
-            value: 100,
-            unit: 'DAI',
-          },
-          budget: {
-            value: 200,
-            unit: 'DAI',
-          },
-          forecast: {
-            value: 300,
-            unit: 'DAI',
-          },
-          paymentsOnChain: {
-            value: 400,
-            unit: 'DAI',
-          },
-          paymentsOffChainIncluded: {
-            value: 500,
+          protocolNetOutflow: {
+            value: 600,
             unit: 'DAI',
           },
         },
@@ -129,6 +111,36 @@ const variantsArgs = [
           },
           paymentsOffChainIncluded: {
             value: 500,
+            unit: 'DAI',
+          },
+          protocolNetOutflow: {
+            value: 600,
+            unit: 'DAI',
+          },
+        },
+        {
+          actuals: {
+            value: 100,
+            unit: 'DAI',
+          },
+          budget: {
+            value: 200,
+            unit: 'DAI',
+          },
+          forecast: {
+            value: 300,
+            unit: 'DAI',
+          },
+          paymentsOnChain: {
+            value: 400,
+            unit: 'DAI',
+          },
+          paymentsOffChainIncluded: {
+            value: 500,
+            unit: 'DAI',
+          },
+          protocolNetOutflow: {
+            value: 600,
             unit: 'DAI',
           },
         },
@@ -151,6 +163,10 @@ const variantsArgs = [
           },
           paymentsOffChainIncluded: {
             value: 550,
+            unit: 'DAI',
+          },
+          protocolNetOutflow: {
+            value: 600,
             unit: 'DAI',
           },
         },
@@ -177,6 +193,10 @@ const variantsArgs = [
             value: 700,
             unit: 'DAI',
           },
+          protocolNetOutflow: {
+            value: 600,
+            unit: 'DAI',
+          },
         },
         {
           actuals: {
@@ -199,6 +219,10 @@ const variantsArgs = [
             value: 750,
             unit: 'DAI',
           },
+          protocolNetOutflow: {
+            value: 600,
+            unit: 'DAI',
+          },
         },
         {
           actuals: {
@@ -221,6 +245,10 @@ const variantsArgs = [
             value: 700,
             unit: 'DAI',
           },
+          protocolNetOutflow: {
+            value: 600,
+            unit: 'DAI',
+          },
         },
         {
           actuals: {
@@ -241,6 +269,10 @@ const variantsArgs = [
           },
           paymentsOffChainIncluded: {
             value: 700,
+            unit: 'DAI',
+          },
+          protocolNetOutflow: {
+            value: 600,
             unit: 'DAI',
           },
         },
@@ -269,6 +301,10 @@ const variantsArgs = [
             },
             paymentsOffChainIncluded: {
               value: 343430,
+              unit: 'DAI',
+            },
+            protocolNetOutflow: {
+              value: 600,
               unit: 'DAI',
             },
           },
