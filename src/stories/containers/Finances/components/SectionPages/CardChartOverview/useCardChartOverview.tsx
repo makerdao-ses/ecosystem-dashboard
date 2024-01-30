@@ -76,6 +76,10 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
+        protocolNetOutflow: {
+          unit: 'DAI',
+          value: 0,
+        },
         code: budget.code || 'No-code',
       };
     } else {
@@ -102,6 +106,10 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
+        protocolNetOutflow: {
+          unit: 'DAI',
+          value: 0,
+        },
         code: budget.code || 'No-code',
       };
     }
@@ -118,7 +126,7 @@ export const useCardChartOverview = (
       metric.forecast += budgetMetric[0].forecast.value || 0;
       metric.budget += budgetMetric[0].budget.value || 0;
       metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
-      metric.paymentsOffChainIncluded += budgetMetric[0].paymentsOffChainIncluded.value || 0;
+      metric.protocolNetOutflow += budgetMetric[0].protocolNetOutflow.value || 0;
       budgetMetrics[budgetMetricKey] = {
         name: budgetName,
         actuals: budgetMetric[0].actuals,
@@ -126,6 +134,7 @@ export const useCardChartOverview = (
         budget: budgetMetric[0].budget,
         paymentsOnChain: budgetMetric[0].paymentsOnChain,
         paymentsOffChainIncluded: budgetMetric[0].paymentsOffChainIncluded,
+        protocolNetOutflow: budgetMetric[0].protocolNetOutflow,
         code: budgetCode,
       };
     }
