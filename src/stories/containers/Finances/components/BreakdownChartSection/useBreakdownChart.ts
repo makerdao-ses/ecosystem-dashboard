@@ -92,7 +92,7 @@ const useBreakdownChart = (
     );
   };
   const series = useMemo(() => {
-    const xx = allSeries.map((item) => {
+    const parsedSeries = allSeries.map((item) => {
       if (inactiveSeries.includes(item.name)) {
         return {
           ...item,
@@ -111,7 +111,7 @@ const useBreakdownChart = (
       return item;
     });
 
-    return setBorderRadiusForSeries(xx, barBorderRadius);
+    return setBorderRadiusForSeries(parsedSeries, barBorderRadius);
   }, [allSeries, barBorderRadius, inactiveSeries]);
 
   return {

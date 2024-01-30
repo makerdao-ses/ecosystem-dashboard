@@ -698,6 +698,10 @@ const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric[] => {
       value: 0,
       unit: 'DAI',
     },
+    protocolNetOutflow: {
+      value: 0,
+      unit: 'DAI',
+    },
   });
 
   let arrayLength;
@@ -755,7 +759,8 @@ const getBreakdownAnalytics = (
             case 'PaymentsOffChainIncluded':
               budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
               break;
-            default:
+            case 'ProtocolNetOutflow':
+              budgetMetric.protocolNetOutflow = setMetric(row.value, row.unit);
               break;
           }
         }
@@ -849,26 +854,26 @@ export const formatterBreakDownChart = (
 export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Metric): ValuesDataWithBorder => {
   let metricKey: keyof BudgetMetric;
   switch (selectedMetric) {
+    case 'Budget':
+      metricKey = 'budget';
+      break;
     case 'Actuals':
       metricKey = 'actuals';
       break;
     case 'Forecast':
       metricKey = 'forecast';
       break;
-    case 'Net Expenses On-chain':
+    case 'PaymentsOnChain':
       metricKey = 'paymentsOnChain';
       break;
-    case 'Net Exp. On-Chain':
-      metricKey = 'paymentsOnChain';
-      break;
-    case 'Net Expenses Off-chain':
+    case 'PaymentsOffChainIncluded':
       metricKey = 'paymentsOffChainIncluded';
       break;
-    case 'Net Exp. Off-Chain Incl.':
-      metricKey = 'paymentsOffChainIncluded';
+    case 'ProtocolNetOutflow':
+      metricKey = 'protocolNetOutflow';
       break;
     default:
-      metricKey = 'budget';
+      throw new Error('Unsupported Metric');
   }
 
   return {
@@ -885,7 +890,7 @@ export const buildExpenseMetricsLineChartSeries = (
     forecast: number[];
     actuals: number[];
     onChain: number[];
-    offChain: number[];
+    protocolNetOutflow: number[];
   },
   inactiveSeries: string[],
   isLight: boolean
@@ -895,7 +900,7 @@ export const buildExpenseMetricsLineChartSeries = (
     Forecast: inactiveSeries.includes('Forecast'),
     Actuals: inactiveSeries.includes('Actuals'),
     'Net Expenses On-chain': inactiveSeries.includes('Net Expenses On-chain'),
-    'Net Expenses Off-chain': inactiveSeries.includes('Net Expenses Off-chain'),
+    'Net Protocol Outflow': inactiveSeries.includes('Net Protocol Outflow'),
   };
 
   return [
@@ -936,13 +941,13 @@ export const buildExpenseMetricsLineChartSeries = (
       isVisible: !disabled['Net Expenses On-chain'],
     },
     {
-      name: 'Net Expenses Off-chain',
-      data: disabled['Net Expenses Off-chain'] ? [] : data?.offChain,
+      name: 'Net Protocol Outflow',
+      data: disabled['Net Protocol Outflow'] ? [] : data?.protocolNetOutflow,
       type: 'line',
       itemStyle: {
-        color: disabled['Net Expenses Off-chain'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
+        color: disabled['Net Protocol Outflow'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
       },
-      isVisible: !disabled['Net Expenses Off-chain'],
+      isVisible: !disabled['Net Protocol Outflow'],
     },
   ] as LineChartSeriesData[];
 };
@@ -966,6 +971,7 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
       Budget: 0,
       Forecast: 0,
       PaymentsOnChain: 0,
+      ProtocolNetOutflow: 0,
       PaymentsOffChainIncluded: 0,
     };
 
@@ -975,7 +981,7 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
       sumMetric.Forecast += column.Forecast;
       sumMetric.Budget += column.Budget;
       sumMetric.PaymentsOnChain += column.PaymentsOnChain;
-      sumMetric.PaymentsOffChainIncluded += column.PaymentsOffChainIncluded;
+      sumMetric.ProtocolNetOutflow += column.ProtocolNetOutflow;
     }
 
     sumCol.push(sumMetric);
@@ -1008,8 +1014,12 @@ export const getShortNameForMetric = (metric: string): string => {
   if (metric === 'Net Expenses Off-chain') {
     return 'Off-chain';
   }
+  if (metric === 'Net Protocol Outflow') {
+    return 'Protocol Outflow';
+  }
   return metric;
 };
+
 // Remove this when API return correct data
 export const nameChanged = (name: string) => {
   const newName = removePrefix(name, prefixToRemove);
@@ -1028,6 +1038,9 @@ export const getKeyMetric = (metric: string) => {
   }
   if (metric === 'Net Expenses Off-chain') {
     return 'PaymentsOffChainIncluded';
+  }
+  if (metric === 'Net Protocol Outflow') {
+    return 'ProtocolNetOutflow';
   }
   return metric;
 };

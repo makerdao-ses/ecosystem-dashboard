@@ -8,7 +8,13 @@ export type AnalyticGranularity =
   | 'daily'
   | 'hourly';
 
-export type AnalyticMetric = 'Actuals' | 'Budget' | 'Forecast' | 'PaymentsOnChain' | 'PaymentsOffChainIncluded';
+export type AnalyticMetric =
+  | 'Actuals'
+  | 'Budget'
+  | 'Forecast'
+  | 'PaymentsOnChain'
+  | 'PaymentsOffChainIncluded'
+  | 'ProtocolNetOutflow';
 
 export interface AnalyticSeriesRow {
   dimensions: {
@@ -57,6 +63,7 @@ export interface BudgetMetric {
   forecast: ValueAndUnit;
   paymentsOnChain: ValueAndUnit;
   paymentsOffChainIncluded: ValueAndUnit;
+  protocolNetOutflow: ValueAndUnit;
 }
 
 export interface BreakdownBudgetAnalytic {

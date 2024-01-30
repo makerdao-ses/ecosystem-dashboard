@@ -22,13 +22,7 @@ export const useCardChartOverview = (
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
-  const filters: FilterDoughnut[] = [
-    'Actuals',
-    'Forecast',
-    'Net Expenses On-chain',
-    'Net Expenses Off-chain',
-    'Budget',
-  ];
+  const filters: FilterDoughnut[] = ['Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Protocol Outflow', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
   const { isLight } = useThemeContext();
   const colorsLight = generateColorPalette(
@@ -76,6 +70,10 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
+        protocolNetOutflow: {
+          unit: 'DAI',
+          value: 0,
+        },
         code: budget.code || 'No-code',
       };
     } else {
@@ -102,6 +100,10 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
+        protocolNetOutflow: {
+          unit: 'DAI',
+          value: 0,
+        },
         code: budget.code || 'No-code',
       };
     }
@@ -118,7 +120,7 @@ export const useCardChartOverview = (
       metric.forecast += budgetMetric[0].forecast.value || 0;
       metric.budget += budgetMetric[0].budget.value || 0;
       metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
-      metric.paymentsOffChainIncluded += budgetMetric[0].paymentsOffChainIncluded.value || 0;
+      metric.protocolNetOutflow += budgetMetric[0].protocolNetOutflow.value || 0;
       budgetMetrics[budgetMetricKey] = {
         name: budgetName,
         actuals: budgetMetric[0].actuals,
@@ -126,6 +128,7 @@ export const useCardChartOverview = (
         budget: budgetMetric[0].budget,
         paymentsOnChain: budgetMetric[0].paymentsOnChain,
         paymentsOffChainIncluded: budgetMetric[0].paymentsOffChainIncluded,
+        protocolNetOutflow: budgetMetric[0].protocolNetOutflow,
         code: budgetCode,
       };
     }
@@ -146,8 +149,8 @@ export const useCardChartOverview = (
       case 'Net Expenses On-chain':
         value = budgetMetrics[item].paymentsOnChain.value || 0;
         break;
-      case 'Net Expenses Off-chain':
-        value = budgetMetrics[item].paymentsOffChainIncluded.value || 0;
+      case 'Net Protocol Outflow':
+        value = budgetMetrics[item].protocolNetOutflow.value || 0;
         break;
       case 'Budget':
         value = budgetMetrics[item].budget.value || 0;

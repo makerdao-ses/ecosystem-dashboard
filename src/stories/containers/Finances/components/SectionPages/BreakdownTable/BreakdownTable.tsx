@@ -32,10 +32,8 @@ const BreakdownTable: React.FC<Props> = ({
   handleChange,
   handleResetFilter,
   handleSelectChange,
-
   metrics,
   periodicSelectionFilter,
-
   selectedValue,
   year,
   handleResetMetrics,

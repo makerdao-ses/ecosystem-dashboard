@@ -5,7 +5,7 @@ import type { Team } from '@ses/core/models/interfaces/team';
 import type { EChartsOption } from 'echarts-for-react';
 import type { DateTime } from 'luxon';
 
-export type FilterDoughnut = 'Actuals' | 'Forecast' | 'Net Expenses On-chain' | 'Net Expenses Off-chain' | 'Budget';
+export type FilterDoughnut = 'Actuals' | 'Forecast' | 'Net Expenses On-chain' | 'Net Protocol Outflow' | 'Budget';
 
 export interface NavigationCard {
   image: string;
@@ -60,16 +60,17 @@ export type Metric =
   | 'Budget'
   | 'Actuals'
   | 'Forecast'
-  | 'Net Expenses On-chain'
-  | 'Net Expenses Off-chain'
-  | 'Net Exp. On-Chain'
-  | 'Net Exp. Off-Chain Incl.';
+  | 'PaymentsOnChain'
+  | 'PaymentsOffChainIncluded'
+  | 'ProtocolNetOutflow';
+
 export interface MetricValues {
   Budget: number;
   Actuals: number;
   Forecast: number;
   PaymentsOnChain: number;
   PaymentsOffChainIncluded: number;
+  ProtocolNetOutflow: number;
 }
 
 export interface ValueSeriesBreakdownChart {

@@ -5,8 +5,7 @@ import SectionTitle from '../SectionTitle/SectionTitle';
 import BreakdownChart from './BreakdownChart/BreakdownChart';
 import BreakdownChartFilter from './BreakdownChartFilter/BreakdownChartFilter';
 import type { BreakdownChartSeriesData } from '../../utils/types';
-import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
-import type { Budget } from '@ses/core/models/interfaces/budget';
+import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
 export interface BreakdownChartSectionProps {
@@ -17,9 +16,6 @@ export interface BreakdownChartSectionProps {
   year: string;
   isDisabled?: boolean;
   handleResetFilter: () => void;
-  budgets: Budget[];
-  budgetsAnalyticsMonthly: BreakdownBudgetAnalytic | undefined;
-  budgetsAnalyticsQuarterly: BreakdownBudgetAnalytic | undefined;
   series: BreakdownChartSeriesData[];
   handleToggleSeries: (series: string) => void;
   refBreakDownChart: React.RefObject<EChartsOption | null>;
@@ -33,9 +29,6 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
   onGranularityChange,
   isDisabled,
   handleResetFilter,
-  budgets,
-  budgetsAnalyticsMonthly,
-  budgetsAnalyticsQuarterly,
   series,
   handleToggleSeries,
   refBreakDownChart,
@@ -58,9 +51,6 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
 
     <BreakdownChart
       year={year}
-      budgets={budgets}
-      budgetsAnalyticsMonthly={budgetsAnalyticsMonthly}
-      budgetsAnalyticsQuarterly={budgetsAnalyticsQuarterly}
       selectedGranularity={selectedGranularity as AnalyticGranularity}
       series={series}
       handleToggleSeries={handleToggleSeries}
