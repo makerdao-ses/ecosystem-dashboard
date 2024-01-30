@@ -107,6 +107,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             cardsNavigationInformation={cardsToShow}
             handleLoadMoreCards={handleLoadMoreCards}
             loadMoreCards={loadMoreCards}
+            allBudgets={allBudgets}
           />
         </ContainerSections>
 

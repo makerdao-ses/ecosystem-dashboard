@@ -9,6 +9,7 @@ import CardCoreUnitThirdLevelBudget from '../../CardCoreUnitThirdLevelBudget/Car
 import CardNavigationFinance from '../../CardNavigationFinance/CardNavigationFinance';
 import CardNavigationMobile from '../../CardNavigationMobile/CardNavigationMobile';
 import type { NavigationCard } from '@ses/containers/Finances/utils/types';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
 
@@ -16,9 +17,15 @@ interface Props {
   cardsNavigationInformation: NavigationCard[];
   loadMoreCards: boolean;
   handleLoadMoreCards: () => void;
+  allBudgets: Budget[];
 }
 
-const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation, loadMoreCards, handleLoadMoreCards }) => {
+const CardsNavigation: React.FC<Props> = ({
+  cardsNavigationInformation,
+  loadMoreCards,
+  handleLoadMoreCards,
+  allBudgets,
+}) => {
   const { isLight } = useThemeContext();
   const ref = useRef<SwiperRef>(null);
 
@@ -88,6 +95,8 @@ const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation, loadMore
               title={card.title}
               description={card.description || ''}
               key={index}
+              allBudgets={allBudgets}
+              codePath={card.codePath || ''}
             />
           ))
         )}
