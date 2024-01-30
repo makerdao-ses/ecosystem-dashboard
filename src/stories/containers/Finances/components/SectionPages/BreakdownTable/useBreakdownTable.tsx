@@ -25,7 +25,7 @@ const EMPTY_METRIC_VALUE = {
   Budget: 0,
   PaymentsOnChain: 0,
   Forecast: 0,
-  PaymentsOffChainIncluded: 0,
+  ProtocolNetOutflow: 0,
 } as MetricValues;
 
 export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: Budget[]) => {
@@ -40,7 +40,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const initialValue: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(initialValue);
   const metricsFilter = useMemo(
-    () => ['Budget', 'Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain'],
+    () => ['Budget', 'Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Protocol Outflow'],
     []
   );
   const val = useMemo(
@@ -119,7 +119,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
                 acc.Budget += current.Budget;
                 acc.PaymentsOnChain += current.PaymentsOnChain;
                 acc.Forecast += current.Forecast;
-                acc.PaymentsOffChainIncluded += current.PaymentsOffChainIncluded;
+                acc.ProtocolNetOutflow += current.ProtocolNetOutflow;
                 return acc;
               },
               { ...EMPTY_METRIC_VALUE }
@@ -167,7 +167,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
               acc[index].Budget += row.Budget;
               acc[index].PaymentsOnChain += row.PaymentsOnChain;
               acc[index].Forecast += row.Forecast;
-              acc[index].PaymentsOffChainIncluded += row.PaymentsOffChainIncluded;
+              acc[index].ProtocolNetOutflow += row.ProtocolNetOutflow;
             });
 
             return acc;
@@ -189,13 +189,14 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         acc[i].Budget += current[i]?.Budget ?? 0;
         acc[i].PaymentsOnChain += current[i]?.PaymentsOnChain ?? 0;
         acc[i].Forecast += current[i]?.Forecast ?? 0;
-        acc[i].PaymentsOffChainIncluded += current[i]?.PaymentsOffChainIncluded ?? 0;
+        acc[i].ProtocolNetOutflow += current[i]?.ProtocolNetOutflow ?? 0;
       }
       return acc;
     }, Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
 
     return [tableHeader, tables];
   }, [allBudgets, analytics, budgets, error, selectedGranularity]);
+  console.log(tableHeader, tableBody);
 
   const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
 

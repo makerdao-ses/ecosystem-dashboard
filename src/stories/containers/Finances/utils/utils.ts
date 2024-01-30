@@ -971,6 +971,7 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
       Budget: 0,
       Forecast: 0,
       PaymentsOnChain: 0,
+      ProtocolNetOutflow: 0,
       PaymentsOffChainIncluded: 0,
     };
 
@@ -980,7 +981,7 @@ export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
       sumMetric.Forecast += column.Forecast;
       sumMetric.Budget += column.Budget;
       sumMetric.PaymentsOnChain += column.PaymentsOnChain;
-      sumMetric.PaymentsOffChainIncluded += column.PaymentsOffChainIncluded;
+      sumMetric.ProtocolNetOutflow += column.ProtocolNetOutflow;
     }
 
     sumCol.push(sumMetric);
@@ -1013,8 +1014,12 @@ export const getShortNameForMetric = (metric: string): string => {
   if (metric === 'Net Expenses Off-chain') {
     return 'Off-chain';
   }
+  if (metric === 'Net Protocol Outflow') {
+    return 'Protocol Outflow';
+  }
   return metric;
 };
+
 // Remove this when API return correct data
 export const nameChanged = (name: string) => {
   const newName = removePrefix(name, prefixToRemove);
@@ -1033,6 +1038,9 @@ export const getKeyMetric = (metric: string) => {
   }
   if (metric === 'Net Expenses Off-chain') {
     return 'PaymentsOffChainIncluded';
+  }
+  if (metric === 'Net Protocol Outflow') {
+    return 'ProtocolNetOutflow';
   }
   return metric;
 };

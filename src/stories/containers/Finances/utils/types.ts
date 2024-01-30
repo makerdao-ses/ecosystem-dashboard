@@ -70,6 +70,7 @@ export interface MetricValues {
   Forecast: number;
   PaymentsOnChain: number;
   PaymentsOffChainIncluded: number;
+  ProtocolNetOutflow: number;
 }
 
 export interface ValueSeriesBreakdownChart {

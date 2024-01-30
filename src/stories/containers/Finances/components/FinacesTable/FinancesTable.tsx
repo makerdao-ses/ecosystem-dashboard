@@ -33,14 +33,13 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const newMetrics = metrics.map((metric) =>
     metric === 'Net Expenses On-chain'
       ? 'PaymentsOnChain'
-      : metric === 'Net Expenses Off-chain'
-      ? 'PaymentsOffChainIncluded'
+      : metric === 'Net Protocol Outflow'
+      ? 'ProtocolNetOutflow'
       : metric
   );
 
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {showFooterAndCorrectNumber.map((table: TableFinances, index) => (
         <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
           <TableBody isLight={isLight}>
