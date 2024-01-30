@@ -43,6 +43,8 @@ const TextBox = styled.div({
   alignItems: 'center',
   gap: 8,
   padding: 8,
+  maxWidth: 'calc(100% - 40px)',
+  width: '100%',
 });
 
 const ProjectLabel = styled.div<WithIsLight>(({ isLight }) => ({
@@ -70,16 +72,17 @@ const NameBox = styled.div({
   display: 'flex',
   alignItems: 'flex-start',
   gap: 4,
+  width: 'calc(100% - 50px)',
 });
 
-const Code = styled.div<WithIsLight>(({ isLight }) => ({
+const Code = styled.span<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#B6BCC2' : '#787A9B',
   fontSize: 14,
   fontWeight: 600,
   lineHeight: 'normal',
 }));
 
-const Name = styled.div<WithIsLight>(({ isLight }) => ({
+const Name = styled.span<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#25273D' : '#D2D4EF',
   fontSize: 14,
   fontWeight: 500,
@@ -87,6 +90,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  maxWidth: 'calc(100% - 55px)',
 }));
 
 const ArrowContainer = styled.div<WithIsLight>(({ isLight }) => ({
