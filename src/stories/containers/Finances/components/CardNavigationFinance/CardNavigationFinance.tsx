@@ -6,6 +6,7 @@ import Image from 'next/image';
 import React from 'react';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import ReadMore from '../ReadMore';
+import { truncateDescription } from './utils';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 const CardNavigationFinance: React.FC<Props> = ({ image, title, description, href }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const truncatedDescription = truncateDescription(description);
   return (
     <StyleCardNavigationGeneric>
       <ContainerImage>
@@ -26,12 +28,12 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
       <ContainerWithButton>
         <CardInformation>
           <Title isLight={isLight}>{title}</Title>
-          <Description isLight={isLight}>{description}</Description>
+          <Description isLight={isLight}>{truncatedDescription}</Description>
         </CardInformation>
-        <ContainerReadMore>
-          <ReadMore href={href} />
-        </ContainerReadMore>
       </ContainerWithButton>
+      <ContainerReadMore>
+        <ReadMore href={href} />
+      </ContainerReadMore>
     </StyleCardNavigationGeneric>
   );
 };
@@ -41,19 +43,16 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
+  gap: 16,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '16px 8px 24px',
     flex: 1,
     width: 224,
-    height: 250,
-    minHeight: 250,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '16px 8px 24px',
     width: 309.33,
-    height: 235,
-    minHeight: 235,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 373.33,
@@ -65,7 +64,6 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
 });
 
 const ContainerImage = styled.div({
-  marginBottom: 16,
   width: 64,
   height: 64,
   minWidth: 64,
@@ -89,12 +87,6 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   lineHeight: 'normal',
   width: 208,
-  display: '-webkit-box',
-  '-webkit-box-orient': 'vertical',
-  '-webkit-line-clamp': '3',
-  lineClamp: 3,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
   color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 293.3,
@@ -119,7 +111,7 @@ const ImageStyle = styled(Image)({
 const ContainerReadMore = styled.div({
   display: 'flex',
   justifyContent: 'center',
-  marginBottom: -2,
+  marginTop: 6,
 });
 
 const ContainerWithButton = styled.div({

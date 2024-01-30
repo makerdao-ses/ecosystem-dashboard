@@ -162,8 +162,8 @@ export const useCardChartOverview = (
     const keyMetricValue = getCorrectMetricValuesOverViewChart(filterSelected);
 
     return {
-      name: budgetMetrics[item].name || 'No name',
-      code: budgetMetrics[item].code || 'No code',
+      name: budgetMetrics[item].name || 'No name' + index,
+      code: budgetMetrics[item].code || 'No code' + index,
       value,
       originalValue: value,
       actuals: budgetMetrics[item].actuals.value,
