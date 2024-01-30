@@ -196,7 +196,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
     return [tableHeader, tables];
   }, [allBudgets, analytics, budgets, error, selectedGranularity]);
-  console.log(tableHeader, tableBody);
 
   const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
 
