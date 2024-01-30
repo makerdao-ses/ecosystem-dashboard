@@ -64,31 +64,9 @@ const args = [
                 unit: 'DAI',
                 value: 456,
               },
-            },
-          ])
-          .build(),
-        new BreakdownBudgetAnalyticBuilder()
-          .withCategory('atlas/legacy', [
-            {
-              actuals: {
+              protocolNetOutflow: {
+                value: 600,
                 unit: 'DAI',
-                value: 456,
-              },
-              budget: {
-                unit: 'DAI',
-                value: 456,
-              },
-              forecast: {
-                unit: 'DAI',
-                value: 456,
-              },
-              paymentsOffChainIncluded: {
-                unit: 'DAI',
-                value: 456,
-              },
-              paymentsOnChain: {
-                unit: 'DAI',
-                value: 456,
               },
             },
           ])
@@ -116,31 +94,9 @@ const args = [
                 unit: 'DAI',
                 value: 456,
               },
-            },
-          ])
-          .build(),
-        new BreakdownBudgetAnalyticBuilder()
-          .withCategory('atlas/legacy', [
-            {
-              actuals: {
+              protocolNetOutflow: {
+                value: 600,
                 unit: 'DAI',
-                value: 456,
-              },
-              budget: {
-                unit: 'DAI',
-                value: 456,
-              },
-              forecast: {
-                unit: 'DAI',
-                value: 456,
-              },
-              paymentsOffChainIncluded: {
-                unit: 'DAI',
-                value: 456,
-              },
-              paymentsOnChain: {
-                unit: 'DAI',
-                value: 456,
               },
             },
           ])
@@ -168,6 +124,10 @@ const args = [
                 unit: 'DAI',
                 value: 456,
               },
+              protocolNetOutflow: {
+                value: 600,
+                unit: 'DAI',
+              },
             },
           ])
           .build(),
@@ -193,6 +153,70 @@ const args = [
               paymentsOnChain: {
                 unit: 'DAI',
                 value: 456,
+              },
+              protocolNetOutflow: {
+                value: 600,
+                unit: 'DAI',
+              },
+            },
+          ])
+          .build(),
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
+              protocolNetOutflow: {
+                value: 600,
+                unit: 'DAI',
+              },
+            },
+          ])
+          .build(),
+        new BreakdownBudgetAnalyticBuilder()
+          .withCategory('atlas/legacy', [
+            {
+              actuals: {
+                unit: 'DAI',
+                value: 456,
+              },
+              budget: {
+                unit: 'DAI',
+                value: 456,
+              },
+              forecast: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOffChainIncluded: {
+                unit: 'DAI',
+                value: 456,
+              },
+              paymentsOnChain: {
+                unit: 'DAI',
+                value: 456,
+              },
+              protocolNetOutflow: {
+                value: 600,
+                unit: 'DAI',
               },
             },
           ])
