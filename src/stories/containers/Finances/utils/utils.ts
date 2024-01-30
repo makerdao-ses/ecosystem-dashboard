@@ -1015,7 +1015,9 @@ export const getShortNameForMetric = (metric: string): string => {
     return 'Off-chain';
   }
   if (metric === 'Net Protocol Outflow') {
-    return 'Protocol Outflow';
+    // shorten name
+    // eslint-disable-next-line spellcheck/spell-checker
+    return 'Prtcol Outfl';
   }
   return metric;
 };
