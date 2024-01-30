@@ -20,6 +20,7 @@ interface Props {
   showSwiper: boolean;
   numberSliderPerLevel?: number;
 }
+
 const CardChartOverview: React.FC<Props> = ({
   filterSelected,
   filters,
