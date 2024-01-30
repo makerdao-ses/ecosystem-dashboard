@@ -1047,7 +1047,7 @@ export const getKeyMetric = (metric: string) => {
 
 export const hasSubLevels = (codePath: string, budgets: Budget[]) => {
   const normalizedCodePath = codePath.endsWith('/') ? codePath : `${codePath}/`;
-  return budgets.some((item) => {
+  return budgets?.some((item) => {
     const normalizedItemCodePath = item.codePath.endsWith('/') ? item.codePath : `${item.codePath}/`;
     return (
       normalizedItemCodePath.startsWith(normalizedCodePath) && normalizedItemCodePath.length > normalizedCodePath.length
