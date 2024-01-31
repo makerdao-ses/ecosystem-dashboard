@@ -1,12 +1,13 @@
 import { useMediaQuery } from '@mui/material';
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
-import { getExpenseReportsQuery } from '@ses/containers/Finances/api/queries';
+import { getExpenseReportsQuery, getExpenseReportsStatusesQuery } from '@ses/containers/Finances/api/queries';
 import { getHeadersExpenseReport } from '@ses/containers/Finances/utils/utils';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import request from 'graphql-request';
 import { useMemo, useState } from 'react';
+import useSWRImmutable from 'swr/immutable';
 import useSWRInfinite from 'swr/infinite';
 import { FilterChip } from './ExpenseReportsFilters';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -97,32 +98,52 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
     }
   );
 
-  // status items used in the status multiselect filter
-  const statusesItems = useMemo(
-    () => [
-      {
-        id: BudgetStatus.Draft,
-        content: <FilterChip status={BudgetStatus.Draft} />,
-        count: 0,
-      },
-      {
-        id: BudgetStatus.Review,
-        content: <FilterChip status={BudgetStatus.Review} />,
-        count: 0,
-      },
-      {
-        id: BudgetStatus.Final,
-        content: <FilterChip status={BudgetStatus.Final} />,
-        count: 0,
-      },
-      {
-        id: BudgetStatus.Escalated,
-        content: <FilterChip status={BudgetStatus.Escalated} />,
-        count: 0,
-      },
-    ],
-    []
+  const statusesResponse = useSWRImmutable(['statuses', budgetPath], async () =>
+    getExpenseReportsStatusesQuery(budgetPath)
   );
+
+  // status items used in the status multiselect filter
+  const statusesItems = useMemo(() => {
+    const responseData = statusesResponse.data ? statusesResponse.data : [];
+
+    return responseData.reduce(
+      (acc, curr) => {
+        if (curr.status === BudgetStatus.Draft) {
+          acc[0].count += 1;
+        } else if (curr.status === BudgetStatus.Review) {
+          acc[1].count += 1;
+        } else if (curr.status === BudgetStatus.Final) {
+          acc[2].count += 1;
+        } else if (curr.status === BudgetStatus.Escalated) {
+          acc[3].count += 1;
+        }
+
+        return acc;
+      },
+      [
+        {
+          id: BudgetStatus.Draft,
+          content: <FilterChip status={BudgetStatus.Draft} />,
+          count: 0,
+        },
+        {
+          id: BudgetStatus.Review,
+          content: <FilterChip status={BudgetStatus.Review} />,
+          count: 0,
+        },
+        {
+          id: BudgetStatus.Final,
+          content: <FilterChip status={BudgetStatus.Final} />,
+          count: 0,
+        },
+        {
+          id: BudgetStatus.Escalated,
+          content: <FilterChip status={BudgetStatus.Escalated} />,
+          count: 0,
+        },
+      ]
+    );
+  }, [statusesResponse.data]);
 
   return {
     selectedMetric,

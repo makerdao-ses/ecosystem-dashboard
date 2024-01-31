@@ -153,6 +153,7 @@ const dictionary = [
   'toggleable',
   'Roadmaps',
   'nums',
+  'customizable',
 ];
 
 module.exports = dictionary;

@@ -403,8 +403,7 @@ export const getHeadersExpenseReport = (
         marginLeft: -52,
       },
       [lightTheme.breakpoints.up('desktop_1440')]: {
-        marginLeft: -102,
-        justifyContent: 'center',
+        marginLeft: -90,
       },
     },
     sortReverse: true,
@@ -421,7 +420,7 @@ export const getHeadersExpenseReport = (
       },
       [lightTheme.breakpoints.up('desktop_1440')]: {
         marginLeft: -80,
-        justifyContent: 'center',
+        paddingLeft: 10,
       },
     },
     sortReverse: true,
