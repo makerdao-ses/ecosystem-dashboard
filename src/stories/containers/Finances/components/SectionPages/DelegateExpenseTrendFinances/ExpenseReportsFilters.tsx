@@ -91,7 +91,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
             content: <FilterChip text="All" />,
             id: 'all',
             params: { isAll: true },
-            count: statusesItems.reduce((acc, curr) => acc + curr.count, 0),
+            count: statusesItems?.reduce((acc, curr) => acc + curr.count, 0),
           }}
           popupContainerHeight={220}
         />
