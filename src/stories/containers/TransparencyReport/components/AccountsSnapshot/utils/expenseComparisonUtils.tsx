@@ -225,7 +225,7 @@ export const buildExpensesComparisonRows = (
           formatExpenseMonth(comparison.month),
           formatExpenseWithCurrency(comparison.reportedActuals || 0, currency),
           formatExpenseWithCurrency(comparison.netExpenses.onChainOnly.amount || 0, currency),
-          formatExpenseDifference(comparison.netExpenses.onChainOnly.difference || 0),
+          formatExpenseDifference((comparison.netExpenses.onChainOnly.difference || 0) * 100),
         ],
         comparison.month === currentPeriod,
         false
