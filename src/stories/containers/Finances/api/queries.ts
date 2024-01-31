@@ -2,6 +2,7 @@ import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
 import type { AnalyticGranularity, Analytic, AnalyticFilter } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
+import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatus } from '@ses/core/models/interfaces/types';
 
 export const fetchBudgets = async (): Promise<Budget[]> => {
@@ -128,3 +129,24 @@ export const getExpenseReportsQuery = ({
     offset: (page - 1) * 10,
   },
 });
+
+export const getExpenseReportsStatusesQuery = async (budgetPath: string) => {
+  const query = gql`
+    query BudgetStatements($filter: BudgetStatementFilter) {
+      budgetStatements(filter: $filter) {
+        status
+      }
+    }
+  `;
+  const options = {
+    filter: {
+      budgetPath,
+    },
+  };
+
+  const res = await request<{
+    budgetStatements: Pick<BudgetStatement, 'status'>[];
+  }>(GRAPHQL_ENDPOINT, query, options);
+
+  return res.budgetStatements;
+};
