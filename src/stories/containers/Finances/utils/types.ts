@@ -16,6 +16,7 @@ export interface NavigationCard {
   valueDai?: number;
   color: string;
   code?: string;
+  codePath?: string;
 }
 
 export interface DoughnutSeries {

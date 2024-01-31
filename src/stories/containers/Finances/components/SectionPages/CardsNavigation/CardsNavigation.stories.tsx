@@ -1,3 +1,4 @@
+import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import CardsNavigation from './CardsNavigation';
 import type { Meta } from '@storybook/react';
@@ -18,6 +19,15 @@ export default meta;
 
 const args = [
   {
+    allBudgets: [
+      new BudgetBuilder()
+        .withId('1')
+        .withParentId('45')
+        .withName('End-game Atlas Immutable')
+        .withCode('atlas/immutable')
+        .withCodePath('atlas/immutable')
+        .build(),
+    ],
     cardsNavigationInformation: [
       {
         image:
@@ -27,6 +37,16 @@ const args = [
         href: '#',
         totalDai: 12345,
         color: '#F99374',
+        allBudgets: [
+          new BudgetBuilder()
+            .withId('1')
+            .withParentId('45')
+            .withName('End-game Atlas Immutable')
+            .withCode('atlas/immutable')
+            .withCodePath('atlas/immutable')
+            .build(),
+        ],
+        codePath: 'atlas/immutable',
       },
       {
         image:
@@ -36,6 +56,16 @@ const args = [
         href: '#',
         totalDai: 12345,
         color: '#447AFB',
+        allBudgets: [
+          new BudgetBuilder()
+            .withId('1')
+            .withParentId('45')
+            .withName('End-game Atlas Immutable')
+            .withCode('atlas/immutable')
+            .withCodePath('atlas/immutable/ACC')
+            .build(),
+        ],
+        codePath: 'atlas/immutable',
       },
       {
         image:
@@ -45,6 +75,16 @@ const args = [
         href: '#',
         totalDai: 12345,
         color: '#2DC1B1',
+        allBudgets: [
+          new BudgetBuilder()
+            .withId('1')
+            .withParentId('45')
+            .withName('End-game Atlas Immutable')
+            .withCode('atlas/immutable')
+            .withCodePath('atlas/immutable/ACC')
+            .build(),
+        ],
+        codePath: 'atlas/immutable',
       },
     ],
   },
