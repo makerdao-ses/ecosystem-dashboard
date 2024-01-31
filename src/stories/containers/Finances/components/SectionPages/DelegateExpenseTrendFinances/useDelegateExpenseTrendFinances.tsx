@@ -60,11 +60,6 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
   const headersExpenseReport = getHeadersExpenseReport(headersSort, selectedMetric, isSmallDesk);
 
   // fetch the data paginated
-  const statusToFilterBy =
-    selectedStatuses.length > 0
-      ? selectedStatuses
-      : [BudgetStatus.Draft, BudgetStatus.Review, BudgetStatus.Final, BudgetStatus.Escalated];
-
   const expenseReportResponse = useSWRInfinite(
     (pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.length) return null; // reached the end
@@ -72,7 +67,10 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
       return getExpenseReportsQuery({
         page: pageIndex + 1,
         budgetPath,
-        status: statusToFilterBy,
+        status:
+          selectedStatuses.length > 0
+            ? selectedStatuses
+            : [BudgetStatus.Draft, BudgetStatus.Review, BudgetStatus.Final, BudgetStatus.Escalated],
         sortByMonth:
           sortColumn === 1
             ? headersSort[1] === SortEnum.Asc
@@ -103,8 +101,6 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
   const statusesResponse = useSWRImmutable(['statuses', budgetPath], async () =>
     getExpenseReportsStatusesQuery(budgetPath)
   );
-
-  console.log(statusesResponse);
 
   // status items used in the status multiselect filter
   const statusesItems = useMemo(() => {
