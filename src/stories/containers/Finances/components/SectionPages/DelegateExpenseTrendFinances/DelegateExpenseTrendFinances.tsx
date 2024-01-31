@@ -35,7 +35,10 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
   return (
     <Container>
       <HeaderContainer>
-        <SectionTitle title="Expense Reports" tooltip="No data" />
+        <SectionTitle
+          title="Expense Reports"
+          tooltip="Explore the latest expense reports in a customizable table with options to filter by status  and selected financial metrics."
+        />
         <ExpenseReportsFilters {...filterProps} />
       </HeaderContainer>
 
