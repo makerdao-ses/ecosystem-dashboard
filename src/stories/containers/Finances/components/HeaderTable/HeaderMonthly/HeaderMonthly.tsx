@@ -83,16 +83,20 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 700,
   lineHeight: 'normal',
+  whiteSpace: 'normal',
+  wordWrap: 'break-word',
 }));
 
 const ContainerTitle = styled.div({
   display: 'flex',
   padding: '16px 0px 16px 32px',
   alignItems: 'center',
-  minWidth: 195,
+  width: 195,
   height: 48,
+  paddingTop: 10,
+  paddingBottom: 10,
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    minWidth: 230,
+    width: 230,
   },
 });
 

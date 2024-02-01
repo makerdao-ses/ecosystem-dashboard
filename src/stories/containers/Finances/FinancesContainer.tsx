@@ -145,6 +145,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           breakdownTable={breakdownTable.tableBody ?? []}
           isLoading={breakdownTable.isLoading}
           headerTable={breakdownTable.tableHeader ?? []}
+          title={levelNumber === 1 ? 'MakerDAO Budget' : title}
         />
       </ConditionalWrapper>
       <Container>
