@@ -173,6 +173,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               popupContainerHeight={reserveChart.popupContainerHeight}
               handleGranularityChange={reserveChart.handleGranularityChange}
               handleResetFilter={reserveChart.handleResetFilter}
+              isLoading={reserveChart.isLoading}
             />
           </ContainerReservesWaterFallChart>
         )}
