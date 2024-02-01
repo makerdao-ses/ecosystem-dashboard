@@ -4,7 +4,6 @@ import { nameChanged } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
-import { useRouter } from 'next/router';
 import { useMemo, useState, useEffect } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import {
@@ -19,20 +18,13 @@ import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types'
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useReservesWaterFallChart = (
-  levelPath: string | null,
-  budgets: Budget[],
-  allBudgets: Budget[],
-  year: string
-) => {
+export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
   const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
   const { isLight } = useThemeContext();
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const router = useRouter();
-  const urlPath = Array.isArray(router.query.path) ? router.query.path.join('/') : router.query.path;
-  const codePath = urlPath ? `atlas/${urlPath}` : 'atlas';
+
   const levelOfDetail = codePath.split('/').length + 1;
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);
 
@@ -48,16 +40,17 @@ export const useReservesWaterFallChart = (
   }, [selectAll]);
 
   // fetch actual data from the API
-  const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, codePath, levelOfDetail], async () =>
-    fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
+  const { data: analytics, isLoading } = useSWRImmutable(
+    [selectedGranularity, year, codePath, levelOfDetail],
+    async () => fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
   );
-  const isLoading = !analytics && !error;
+
   const handleGranularityChange = (value: AnalyticGranularity) => {
     setSelectedGranularity(value);
   };
   const defaultTitle = 'MakerDAO Finances';
 
-  const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
+  const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
   const getTitleLevelBudget = nameChanged(levelBudget?.name || '');
 
   const { summaryValues, totalToStart } = useMemo(
