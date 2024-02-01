@@ -27,6 +27,7 @@ export const useReservesWaterFallChart = (
 ) => {
   const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
   const { isLight } = useThemeContext();
+  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const router = useRouter();
@@ -35,7 +36,6 @@ export const useReservesWaterFallChart = (
   const levelOfDetail = codePath.split('/').length + 1;
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);
 
-  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };

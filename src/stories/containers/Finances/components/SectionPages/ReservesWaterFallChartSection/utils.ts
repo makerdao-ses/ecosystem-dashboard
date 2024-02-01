@@ -139,13 +139,13 @@ export const builderWaterFallSeries = (
         color: isLight ? '#CB3A0D' : '#A83815',
 
         fontSize: isMobile ? 8 : 12,
-        position: 'top',
+        position: 'bottom',
         formatter: (params: EChartsOption) => {
           const formatted = threeDigitsPrecisionHumanization(params.value);
           if (isMobile) {
-            return formatted.value;
+            return `- ${formatted.value}`;
           }
-          return `${formatted.value}${formatted.suffix}`;
+          return ` - ${formatted.value}${formatted.suffix}`;
         },
       },
       stack: 'all',
@@ -168,10 +168,10 @@ export const builderWaterFallSeries = (
         formatter: (params: EChartsOption) => {
           const formatted = threeDigitsPrecisionHumanization(params.value);
           if (isMobile) {
-            return formatted.value;
+            return `+ ${formatted.value}`;
           }
 
-          return `${formatted.value}${formatted.suffix}`;
+          return ` + ${formatted.value}${formatted.suffix}`;
         },
       },
       stack: 'all',
