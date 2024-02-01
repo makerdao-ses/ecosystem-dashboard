@@ -20,6 +20,7 @@ interface Props {
   items: MultiSelectItem[];
   handleGranularityChange: (value: AnalyticGranularity) => void;
   handleResetFilter: () => void;
+  isLoading: boolean;
 }
 const ReservesWaterFallChartSection: React.FC<Props> = ({
   title,
@@ -33,6 +34,7 @@ const ReservesWaterFallChartSection: React.FC<Props> = ({
   popupContainerHeight,
   handleGranularityChange,
   handleResetFilter,
+  isLoading,
 }) => (
   <Container>
     <ContainerTitleFilter>
@@ -56,7 +58,21 @@ const ReservesWaterFallChartSection: React.FC<Props> = ({
       </Filters>
     </ContainerTitleFilter>
     <ContainerChart>
-      <WaterFallChart legends={legends} year={year} selectedGranularity={selectedGranularity} series={series} />
+      {isLoading ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 300,
+            color: 'red',
+          }}
+        >
+          loading...
+        </div>
+      ) : (
+        <WaterFallChart legends={legends} year={year} selectedGranularity={selectedGranularity} series={series} />
+      )}
     </ContainerChart>
   </Container>
 );

@@ -75,7 +75,20 @@ const ReservesWaterFallFilters: React.FC<FiltersProps> = ({
           useSelectedAsLabel
           selected={selectedGranularity}
           onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
-          items={['Monthly', 'Quarterly', 'Annually']}
+          items={[
+            {
+              label: 'Monthly',
+              value: 'monthly',
+            },
+            {
+              label: 'Quarterly',
+              value: 'quarterly',
+            },
+            {
+              label: 'Annually',
+              value: 'annual',
+            },
+          ]}
           PopperProps={{
             placement: 'bottom-end',
           }}

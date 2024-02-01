@@ -815,19 +815,39 @@ export const breakdownChartMonthly = (isMobile: boolean, isWaterFall = false) =>
   return defaultArray;
 };
 
-export const breakdownChartQuarterly = () => ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
+export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall: boolean) => {
+  const defaultArray = ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
+
+  if (isWaterFall) {
+    const start = isMobile ? 'S' : 'START';
+    const finish = isMobile ? 'F' : 'FINISH';
+    defaultArray.unshift(start);
+    defaultArray.push(finish);
+  }
+
+  return defaultArray;
+};
 export const breakdownChartQuarterlyMetric = () => ['1ST QUARTER ', '2ND QUARTER', '3RD QUARTER', '4TH QUARTER'];
-export const breakdownChartAnnually = () => ['Year'];
+export const breakdownChartAnnually = (isMobile: boolean, isWaterFall: boolean) => {
+  const defaultArray = ['Year'];
+  if (isWaterFall) {
+    const start = isMobile ? 'S' : 'START';
+    const finish = isMobile ? 'F' : 'FINISH';
+    defaultArray.unshift(start);
+    defaultArray.push(finish);
+  }
+  return defaultArray;
+};
 export const getGranularity = (granularity: AnalyticGranularity, isMobile: boolean, isWaterFall = false) => {
-  switch (granularity?.toLocaleLowerCase()) {
+  switch (granularity) {
     case 'monthly':
       return breakdownChartMonthly(isMobile, isWaterFall);
     case 'quarterly':
-      return breakdownChartQuarterly();
-    case 'annually':
-      return breakdownChartAnnually();
+      return breakdownChartQuarterly(isMobile, isWaterFall);
+    case 'annual':
+      return breakdownChartAnnually(isMobile, isWaterFall);
     default:
-      breakdownChartQuarterly();
+      breakdownChartQuarterly(isMobile, isWaterFall);
   }
 };
 

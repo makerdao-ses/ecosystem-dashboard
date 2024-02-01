@@ -1,22 +1,33 @@
 import { useMediaQuery } from '@mui/material';
+import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { nameChanged } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
 import { useMemo, useState, useEffect } from 'react';
-import { builderWaterFallSeries, processDataForWaterFall } from './utils';
+import useSWRImmutable from 'swr/immutable';
+import {
+  builderWaterFallSeries,
+  getAnalyticForWaterFall,
+  processDataForWaterFall,
+  sumValuesFromMapKeys,
+} from './utils';
 
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useReservesWaterFallChart = (levelPath: string | null, budgets: Budget[], allBudgets: Budget[]) => {
-  const selectAll = useMemo(() => budgets.map((budget) => budget.id), [budgets]);
+export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
+  const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
+  const { isLight } = useThemeContext();
+  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
 
+  const levelOfDetail = codePath.split('/').length + 1;
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);
 
-  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
   };
@@ -28,27 +39,33 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
     setActiveElements(selectAll);
   }, [selectAll]);
 
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  // fetch actual data from the API
+  const { data: analytics, isLoading } = useSWRImmutable(
+    [selectedGranularity, year, codePath, levelOfDetail],
+    async () => fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
+  );
+
   const handleGranularityChange = (value: AnalyticGranularity) => {
     setSelectedGranularity(value);
   };
   const defaultTitle = 'MakerDAO Finances';
 
-  const levelBudget = allBudgets?.find((budget) => budget.codePath === levelPath);
+  const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
   const getTitleLevelBudget = nameChanged(levelBudget?.name || '');
 
-  // Here will be 13, the first one is only for start and the last one is calculate to by duplicate
-  // The firs element will be point to start its don't bellow to the serie
-  const data = [
-    4000000, 4500000, 4300000, 4800000, 4600000, 5000000, 4700000, 5200000, 4900000, 5400000, 5100000, 5600000,
-  ];
-  const total = 8000000;
+  const { summaryValues, totalToStart } = useMemo(
+    () => getAnalyticForWaterFall(budgets, selectedGranularity, analytics),
+    [analytics, budgets, selectedGranularity]
+  );
 
-  const dataReady = processDataForWaterFall(data, total);
+  const valuesToShow = sumValuesFromMapKeys(summaryValues, activeElements, selectedGranularity);
 
-  const series = builderWaterFallSeries(dataReady, isMobile, isTable, isLight);
+  const dataReady = processDataForWaterFall(valuesToShow, totalToStart);
+
+  const series = useMemo(
+    () => builderWaterFallSeries(dataReady, isMobile, isTable, isLight, selectedGranularity),
+    [dataReady, isLight, isMobile, isTable, selectedGranularity]
+  );
 
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 
@@ -70,7 +87,7 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
   const items = useMemo(
     () =>
       sortBy(budgets, (subBudget) => subBudget.name).map((budget) => ({
-        id: budget.id,
+        id: budget.codePath,
         content: nameChanged(budget.name),
         params: {
           url: budget.image,
@@ -93,5 +110,6 @@ export const useReservesWaterFallChart = (levelPath: string | null, budgets: Bud
     handleResetFilter,
     activeElements,
     handleSelectChange,
+    isLoading,
   };
 };
