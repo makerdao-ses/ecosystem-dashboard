@@ -20,6 +20,17 @@ const darkTheme = responsiveFontSizes(
         ...breakpoints,
       },
     },
+    components: {
+      MuiSkeleton: {
+        styleOverrides: {
+          root: ({ theme, ownerState }) =>
+            theme.unstable_sx({
+              backgroundColor: '#31424E',
+              borderRadius: ownerState.variant === 'rounded' ? '64px' : undefined,
+            }),
+        },
+      },
+    },
   })
 );
 

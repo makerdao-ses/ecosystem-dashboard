@@ -55,8 +55,6 @@ const ExpenseReports: React.FC<Props> = ({
           </React.Fragment>
         ))}
         {isLoading && <ExpenseReportsItemsSkeleton />}
-        {/* TODO: remove next link, just for testing */}
-        <ExpenseReportsItemsSkeleton />
       </ItemSection>
       {!isLoading &&
         !((expenseReportResponse.data?.[(expenseReportResponse.data?.length ?? 0) - 1]?.length ?? 0) < 10) && (
