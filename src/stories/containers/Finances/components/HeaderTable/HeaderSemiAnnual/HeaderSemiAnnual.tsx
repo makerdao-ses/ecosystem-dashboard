@@ -3,6 +3,7 @@ import { filterActiveMetrics, getSemiAnnualForFilters } from '@ses/containers/Fi
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { orderMetrics } from '../utils';
 import CellSemiAnnual from './CellSemiAnnual';
 import type { MetricValues, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -33,7 +34,7 @@ const HeaderSemiAnnual: React.FC<Props> = ({ title, className, activeMetrics, he
             metrics={metricsActive[index]}
             semiannual={period}
             key={index}
-            activeMetrics={activeMetrics}
+            activeMetrics={orderMetrics(undefined, activeMetrics)}
           />
         ))}
       </ContainerCell>
@@ -49,6 +50,8 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   flex: 1,
   justifyContent: 'flex-start',
   borderRadius: 6,
+  paddingTop: 8,
+  paddingBottom: 8,
   backgroundColor: isLight ? '#E5E9EC' : '#405361',
   boxShadow: isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
@@ -56,7 +59,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   whiteSpace: 'pre',
   overflow: 'auto',
-  height: 87,
+  minHeight: 87,
   '&::-webkit-scrollbar': {
     width: 0,
     height: 0,

@@ -3,6 +3,7 @@ import { filterActiveMetrics, monthAbbreviations } from '@ses/containers/Finance
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { orderMetrics } from '../utils';
 import CellMonthly from './CellMonthly';
 import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -27,7 +28,12 @@ export const HeaderMonthly: React.FC<Props> = ({ title, activeMetrics, headerTab
         <ContainerYear>
           <ContainerAnnuallyCell>
             {keysMetrics.map((month, index) => (
-              <CellMonthly metrics={metricsActive[index]} title={month} key={month} activeMetrics={activeMetrics} />
+              <CellMonthly
+                metrics={metricsActive[index]}
+                title={month}
+                key={month}
+                activeMetrics={orderMetrics(undefined, activeMetrics)}
+              />
             ))}
           </ContainerAnnuallyCell>
         </ContainerYear>
@@ -83,16 +89,20 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 700,
   lineHeight: 'normal',
+  whiteSpace: 'normal',
+  wordWrap: 'break-word',
 }));
 
 const ContainerTitle = styled.div({
   display: 'flex',
   padding: '16px 0px 16px 32px',
   alignItems: 'center',
-  minWidth: 195,
+  width: 195,
   height: 48,
+  paddingTop: 10,
+  paddingBottom: 10,
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    minWidth: 230,
+    width: 230,
   },
 });
 

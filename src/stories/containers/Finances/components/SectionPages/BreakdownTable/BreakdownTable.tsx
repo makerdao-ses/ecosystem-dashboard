@@ -25,6 +25,7 @@ interface Props {
   breakdownTable: TableFinances[];
   isLoading: boolean;
   headerTable: MetricValues[];
+  title: string;
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const BreakdownTable: React.FC<Props> = ({
   breakdownTable,
   isLoading,
   headerTable,
+  title,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -76,7 +78,7 @@ const BreakdownTable: React.FC<Props> = ({
       <>
         <TableHeader>
           <HeaderTable
-            title="MakerDAO Budget"
+            title={title}
             year={year}
             period={selectedValue as PeriodicSelectionFilter}
             headerTable={headerTable}

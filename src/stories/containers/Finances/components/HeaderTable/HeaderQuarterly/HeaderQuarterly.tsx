@@ -3,6 +3,7 @@ import { filterActiveMetrics, getQuarterlyForFilters } from '@ses/containers/Fin
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { orderMetrics } from '../utils';
 import CellQuarterly from './CellQuarterly';
 import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -32,7 +33,7 @@ const HeaderQuarterly: React.FC<Props> = ({ title, className, headerTable, year,
             metrics={metricsActive[index]}
             quarterly={quarterly}
             key={index}
-            activeMetrics={activeMetrics}
+            activeMetrics={orderMetrics(undefined, activeMetrics)}
           />
         ))}
       </ContainerCell>
@@ -71,7 +72,8 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   whiteSpace: 'break-spaces',
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    whiteSpace: 'revert',
+    whiteSpace: 'normal',
+    wordWrap: 'break-word',
   },
 }));
 

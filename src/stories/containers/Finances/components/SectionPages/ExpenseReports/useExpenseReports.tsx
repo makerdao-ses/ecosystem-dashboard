@@ -95,6 +95,12 @@ export const useExpenseReports = (budgetPath: string) => {
       }>(GRAPHQL_ENDPOINT, args.query, args.options);
 
       return res.budgetStatements;
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateAll: false,
+      revalidateFirstPage: false,
     }
   );
 

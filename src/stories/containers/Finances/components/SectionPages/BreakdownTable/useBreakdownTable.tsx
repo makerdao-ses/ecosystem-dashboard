@@ -297,6 +297,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
   const handlePeriodChange = (value: string) => {
     setPeriodFilter(value as PeriodicSelectionFilter);
+    setNumberMetrics(val);
   };
 
   const selectMetrics = useMemo(

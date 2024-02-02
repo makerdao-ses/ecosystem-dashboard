@@ -3,6 +3,7 @@ import { filterActiveMetrics } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { orderMetrics } from '../utils';
 import CellAnnually from './CellAnnually';
 import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -28,7 +29,7 @@ export const HeaderAnnually: React.FC<Props> = ({ year, title, activeMetrics, he
         <ContainerYear>
           <Year isLight={isLight}>{year}</Year>
           <ContainerAnnuallyCell>
-            <CellAnnually metrics={metricsActive[0]} activeMetrics={activeMetrics} />
+            <CellAnnually metrics={metricsActive[0]} activeMetrics={orderMetrics(undefined, activeMetrics)} />
           </ContainerAnnuallyCell>
         </ContainerYear>
       </ContainerAnnually>
