@@ -104,6 +104,10 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
     }
   );
 
+  const hasExpenseReports = expenseReportResponse.isLoading
+    ? true
+    : (expenseReportResponse.data ?? []).map((page) => page.length).reduce((acc, curr) => acc + curr, 0) > 0;
+
   const statusesResponse = useSWRImmutable(['statuses', budgetPath], async () =>
     getExpenseReportsStatusesQuery(budgetPath)
   );
@@ -161,5 +165,6 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
     headersExpenseReport,
     onSortClick,
     expenseReportResponse,
+    hasExpenseReports,
   };
 };

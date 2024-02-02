@@ -178,19 +178,21 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             />
           </ContainerReservesWaterFallChart>
         )}
-        <ContainerLastReport>
-          <DelegateExpenseTrendFinances
-            selectedMetric={expenseReportSection.selectedMetric}
-            onMetricChange={expenseReportSection.onMetricChange}
-            selectedStatuses={expenseReportSection.selectedStatuses}
-            onStatusSelectChange={expenseReportSection.onStatusSelectChange}
-            handleResetFilter={expenseReportSection.handleResetFilter}
-            statusesItems={expenseReportSection.statusesItems}
-            columns={expenseReportSection.headersExpenseReport}
-            sortClick={expenseReportSection.onSortClick}
-            expenseReportResponse={expenseReportSection.expenseReportResponse}
-          />
-        </ContainerLastReport>
+        {expenseReportSection.hasExpenseReports && (
+          <ContainerLastReport>
+            <DelegateExpenseTrendFinances
+              selectedMetric={expenseReportSection.selectedMetric}
+              onMetricChange={expenseReportSection.onMetricChange}
+              selectedStatuses={expenseReportSection.selectedStatuses}
+              onStatusSelectChange={expenseReportSection.onStatusSelectChange}
+              handleResetFilter={expenseReportSection.handleResetFilter}
+              statusesItems={expenseReportSection.statusesItems}
+              columns={expenseReportSection.headersExpenseReport}
+              sortClick={expenseReportSection.onSortClick}
+              expenseReportResponse={expenseReportSection.expenseReportResponse}
+            />
+          </ContainerLastReport>
+        )}
       </Container>
     </PageContainer>
   );
