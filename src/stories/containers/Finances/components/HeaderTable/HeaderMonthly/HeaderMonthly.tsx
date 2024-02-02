@@ -3,6 +3,7 @@ import { filterActiveMetrics, monthAbbreviations } from '@ses/containers/Finance
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { orderMetrics } from '../utils';
 import CellMonthly from './CellMonthly';
 import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -27,7 +28,12 @@ export const HeaderMonthly: React.FC<Props> = ({ title, activeMetrics, headerTab
         <ContainerYear>
           <ContainerAnnuallyCell>
             {keysMetrics.map((month, index) => (
-              <CellMonthly metrics={metricsActive[index]} title={month} key={month} activeMetrics={activeMetrics} />
+              <CellMonthly
+                metrics={metricsActive[index]}
+                title={month}
+                key={month}
+                activeMetrics={orderMetrics(undefined, activeMetrics)}
+              />
             ))}
           </ContainerAnnuallyCell>
         </ContainerYear>

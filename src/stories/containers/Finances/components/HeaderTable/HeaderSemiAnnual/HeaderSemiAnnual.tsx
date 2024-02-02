@@ -3,6 +3,7 @@ import { filterActiveMetrics, getSemiAnnualForFilters } from '@ses/containers/Fi
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import { orderMetrics } from '../utils';
 import CellSemiAnnual from './CellSemiAnnual';
 import type { MetricValues, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -33,7 +34,7 @@ const HeaderSemiAnnual: React.FC<Props> = ({ title, className, activeMetrics, he
             metrics={metricsActive[index]}
             semiannual={period}
             key={index}
-            activeMetrics={activeMetrics}
+            activeMetrics={orderMetrics(undefined, activeMetrics)}
           />
         ))}
       </ContainerCell>
