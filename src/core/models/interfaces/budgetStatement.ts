@@ -43,5 +43,5 @@ export interface BudgetStatement {
   actualExpenses: number | null;
   forecastExpenses: number | null;
   paymentsOnChain: number | null;
-  paymentsOffChain: number | null;
+  netProtocolOutflow: number | null;
 }
