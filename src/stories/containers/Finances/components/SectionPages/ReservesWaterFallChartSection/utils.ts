@@ -243,7 +243,7 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean, a
   }
   return series;
 };
-const getArrayLengthByGranularity = (granularity: AnalyticGranularity) => {
+export const getArrayLengthByGranularity = (granularity: AnalyticGranularity) => {
   switch (granularity) {
     case 'monthly':
       return 12;

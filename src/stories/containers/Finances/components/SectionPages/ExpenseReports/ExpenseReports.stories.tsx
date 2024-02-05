@@ -1,11 +1,11 @@
 import { enumForStories, getHeadersExpenseReport, mockDataApiTeam } from '@ses/containers/Finances/utils/utils';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import DelegateExpenseTrendFinances from './DelegateExpenseTrendFinances';
+import ExpenseReports from './ExpenseReports';
 import type { Meta } from '@storybook/react';
 
-const meta: Meta<typeof DelegateExpenseTrendFinances> = {
-  title: 'Components/NewFinances/Section/DelegateExpenseTrendFinances',
-  component: DelegateExpenseTrendFinances,
+const meta: Meta<typeof ExpenseReports> = {
+  title: 'Components/NewFinances/Section/Expense Reports Finances',
+  component: ExpenseReports,
   parameters: {
     date: new Date('2023-09-18T12:23:00Z'),
   },
@@ -33,7 +33,7 @@ const args = [
   },
 ];
 const [[LightMode, DarkMode], [DeskLightMode1024, DeskLightMode1024Dark]] = createThemeModeVariants(
-  DelegateExpenseTrendFinances,
+  ExpenseReports,
   args
 );
 export { LightMode, DarkMode, DeskLightMode1024, DeskLightMode1024Dark };

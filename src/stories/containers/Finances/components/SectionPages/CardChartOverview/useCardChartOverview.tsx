@@ -22,7 +22,7 @@ export const useCardChartOverview = (
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
-  const filters: FilterDoughnut[] = ['Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Protocol Outflow', 'Budget'];
+  const filters: FilterDoughnut[] = ['Actuals', 'Net Expenses On-chain', 'Net Protocol Outflow', 'Forecast', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
   const { isLight } = useThemeContext();
   const colorsLight = generateColorPalette(
