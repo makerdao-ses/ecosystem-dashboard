@@ -63,9 +63,10 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
               labelWhenSelected: 'Net Off-chain',
             },
             {
-              label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
-              value: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
-              labelWhenSelected: 'Net On-chain',
+              label: 'Net Protocol Outflow',
+              value: 'Protocol Outflow',
+              // eslint-disable-next-line spellcheck/spell-checker
+              labelWhenSelected: 'Prtcol Outfl',
             },
             {
               label: 'Actuals',
