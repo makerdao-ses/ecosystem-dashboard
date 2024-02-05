@@ -40,16 +40,14 @@ const CardChartOverview: React.FC<Props> = ({
   };
 
   return (
-    <Container isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-      {!isCoreThirdLevel && (
-        <ContainerFilters>
-          {filters.map((item, index) => (
-            <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
-              {item}
-            </Item>
-          ))}
-        </ContainerFilters>
-      )}
+    <Container isLight={isLight}>
+      <ContainerFilters>
+        {filters.map((item, index) => (
+          <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
+            {item}
+          </Item>
+        ))}
+      </ContainerFilters>
 
       <ContainerCardChart>
         <ContainerCardAndLine>
@@ -74,7 +72,7 @@ const CardChartOverview: React.FC<Props> = ({
 
 export default CardChartOverview;
 
-const Container = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
+const Container = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
@@ -96,12 +94,12 @@ const Container = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isL
     height: 223,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    padding: `${isCoreThirdLevel ? '48px' : '16px'} 16px  48px 64px`,
-    height: isCoreThirdLevel ? 297 : 311,
+    padding: '16px 16px  48px 64px',
+    height: 311,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    padding: `${isCoreThirdLevel ? '48px' : '16px'} 16px  48px 64px`,
-    height: isCoreThirdLevel ? 297 : 311,
+    padding: '16px 16px  48px 64px',
+    height: 311,
   },
 }));
 
