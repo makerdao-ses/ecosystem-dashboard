@@ -156,7 +156,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
       },
       splitLine: {
         lineStyle: {
-          color: isLight ? '#D4D9E3' : '#546978',
+          color: isLight ? '#31424E' : '#D8E0E3',
           width: 0.25,
         },
       },
