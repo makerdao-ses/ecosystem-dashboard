@@ -7,6 +7,7 @@ import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpense
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 import ExpenseReportsFilters from './ExpenseReportsFilters';
+import ExpenseReportsItemsSkeleton from './ExpenseReportsItemsSkeleton';
 import type { ExpenseReportsFiltersProps } from './ExpenseReportsFilters';
 import type { DelegateExpenseTableHeader } from '@ses/containers/Finances/utils/types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -19,7 +20,7 @@ interface Props extends ExpenseReportsFiltersProps {
   expenseReportResponse: SWRInfiniteResponse<BudgetStatement[], unknown>;
 }
 
-const DelegateExpenseTrendFinances: React.FC<Props> = ({
+const ExpenseReports: React.FC<Props> = ({
   columns,
   sortClick,
   expenseReportResponse,
@@ -53,16 +54,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
             ))}
           </React.Fragment>
         ))}
-        {isLoading && (
-          <div
-            style={{
-              textAlign: 'center',
-              color: 'red',
-            }}
-          >
-            Loading...
-          </div>
-        )}
+        {isLoading && <ExpenseReportsItemsSkeleton />}
       </ItemSection>
       {!isLoading &&
         !((expenseReportResponse.data?.[(expenseReportResponse.data?.length ?? 0) - 1]?.length ?? 0) < 10) && (
@@ -79,7 +71,7 @@ const DelegateExpenseTrendFinances: React.FC<Props> = ({
   );
 };
 
-export default DelegateExpenseTrendFinances;
+export default ExpenseReports;
 
 const Container = styled.div({
   display: 'flex',
