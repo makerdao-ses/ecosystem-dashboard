@@ -2,7 +2,6 @@ import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { getMetricByPeriod, nameChanged } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
-import sortBy from 'lodash/sortBy';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
@@ -40,7 +39,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const initialValue: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(initialValue);
   const metricsFilter = useMemo(
-    () => ['Budget', 'Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Protocol Outflow'],
+    () => ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals'],
     []
   );
   const val = useMemo(
@@ -302,7 +301,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
   const selectMetrics = useMemo(
     () =>
-      sortBy(metricsFilter, (item) => item).map((filter) => ({
+      metricsFilter.map((filter) => ({
         id: filter,
         content: filter,
       })) as MultiSelectItem[],

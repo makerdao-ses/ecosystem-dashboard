@@ -6,13 +6,14 @@ import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface BreakdownChartFilterProps {
   selectedMetric: string;
   onMetricChange: (value: string) => void;
   selectedGranularity: string;
-  onGranularityChange: (value: string) => void;
+  onGranularityChange: (value: AnalyticGranularity) => void;
   isDisabled?: boolean;
   handleResetFilter: () => void;
 }
@@ -54,12 +55,13 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
               value: 'Budget',
             },
             {
-              label: 'Actuals',
-              value: 'Actuals',
-            },
-            {
               label: 'Forecast',
               value: 'Forecast',
+            },
+            {
+              label: 'Net Protocol Outflow',
+              value: 'ProtocolNetOutflow',
+              labelWhenSelected: 'Protocol Outflow',
             },
             {
               label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
@@ -67,9 +69,8 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
               labelWhenSelected: 'Net On-chain',
             },
             {
-              label: 'Net Protocol Outflow',
-              value: 'ProtocolNetOutflow',
-              labelWhenSelected: 'Protocol Outflow',
+              label: 'Actuals',
+              value: 'Actuals',
             },
           ]}
           PopperProps={{
@@ -79,8 +80,21 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
         <GranularitySelect
           useSelectedAsLabel
           selected={selectedGranularity}
-          onChange={onGranularityChange}
-          items={['Monthly', 'Quarterly', 'Annually']}
+          onChange={(value) => onGranularityChange(value as AnalyticGranularity)}
+          items={[
+            {
+              label: 'Monthly',
+              value: 'monthly',
+            },
+            {
+              label: 'Quarterly',
+              value: 'quarterly',
+            },
+            {
+              label: 'Annually',
+              value: 'annual',
+            },
+          ]}
           PopperProps={{
             placement: 'bottom-end',
           }}
