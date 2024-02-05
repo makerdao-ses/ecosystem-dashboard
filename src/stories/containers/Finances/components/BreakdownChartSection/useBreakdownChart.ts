@@ -5,7 +5,7 @@ import { useMemo, useRef, useState } from 'react';
 
 import { parseAnalyticsToSeriesBreakDownChart, setBorderRadiusForSeries } from './utils';
 import type { Metric } from '../../utils/types';
-import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
@@ -18,23 +18,23 @@ const useBreakdownChart = (
   const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const { isLight } = useThemeContext();
   const refBreakDownChart = useRef<EChartsOption | null>(null);
-  const [selectedBreakdownGranularity, setSelectedBreakdownGranularity] = useState<string>('Monthly');
+  const [selectedBreakdownGranularity, setSelectedBreakdownGranularity] = useState<AnalyticGranularity>('monthly');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
   const barWidth = isMobile
-    ? selectedBreakdownGranularity === 'Quarterly'
+    ? selectedBreakdownGranularity === 'quarterly'
       ? 32
-      : selectedBreakdownGranularity === 'Annually'
+      : selectedBreakdownGranularity === 'annual'
       ? 96
       : 16
     : isTablet
     ? 40
     : isDesktop1024 || isDesktop1280
-    ? selectedBreakdownGranularity === 'Annually'
+    ? selectedBreakdownGranularity === 'annual'
       ? 168
-      : selectedBreakdownGranularity === 'Quarterly'
+      : selectedBreakdownGranularity === 'quarterly'
       ? 64
       : 40
     : 56;
@@ -43,26 +43,26 @@ const useBreakdownChart = (
     setSelectedBreakdownMetric(value);
   };
 
-  const handleBreakdownGranularityChange = (value: string) => {
+  const handleBreakdownGranularityChange = (value: AnalyticGranularity) => {
     setSelectedBreakdownGranularity(value);
   };
   const barBorderRadius = isMobile ? 4 : 6;
 
-  const isDisabled = selectedBreakdownMetric === 'Budget' && selectedBreakdownGranularity === 'Monthly';
+  const isDisabled = selectedBreakdownMetric === 'Budget' && selectedBreakdownGranularity === 'monthly';
   const handleResetFilterBreakDownChart = () => {
     setSelectedBreakdownMetric('Budget');
-    setSelectedBreakdownGranularity('Monthly');
+    setSelectedBreakdownGranularity('monthly');
   };
 
   let budgetsAnalytics: BreakdownBudgetAnalytic | undefined;
   switch (selectedBreakdownGranularity) {
-    case 'Monthly':
+    case 'monthly':
       budgetsAnalytics = budgetsAnalyticsMonthly;
       break;
-    case 'Quarterly':
+    case 'quarterly':
       budgetsAnalytics = budgetsAnalyticsQuarterly;
       break;
-    case 'Annually':
+    case 'annual':
       budgetsAnalytics = budgetsAnalyticsAnnual;
       break;
     default:

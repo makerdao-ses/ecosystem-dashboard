@@ -12,7 +12,7 @@ export interface BreakdownChartSectionProps {
   selectedMetric: string;
   onMetricChange: (value: string) => void;
   selectedGranularity: string;
-  onGranularityChange: (value: string) => void;
+  onGranularityChange: (value: AnalyticGranularity) => void;
   year: string;
   isDisabled?: boolean;
   handleResetFilter: () => void;
