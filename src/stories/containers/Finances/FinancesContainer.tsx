@@ -13,7 +13,7 @@ import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNa
 import BreakdownTable from './components/SectionPages/BreakdownTable/BreakdownTable';
 import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
-import DelegateExpenseTrendFinances from './components/SectionPages/DelegateExpenseTrendFinances/DelegateExpenseTrendFinances';
+import DelegateExpenseTrendFinances from './components/SectionPages/ExpenseReports/ExpenseReports';
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
 import ReservesWaterFallChartSection from './components/SectionPages/ReservesWaterFallChartSection/ReservesWaterFallChartSection';
 import { useFinances } from './useFinances';
