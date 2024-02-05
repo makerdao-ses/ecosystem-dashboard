@@ -12,7 +12,7 @@ import useSWRInfinite from 'swr/infinite';
 import { FilterChip } from './ExpenseReportsFilters';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
-export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
+export const useExpenseReports = (budgetPath: string) => {
   // metric filter:
   const [selectedMetric, setSelectedMetric] = useState<string>('Actuals');
   const onMetricChange = (value: string) => setSelectedMetric(value);

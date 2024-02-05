@@ -51,6 +51,17 @@ const lightTheme = responsiveFontSizes(
         ...breakpoints,
       },
     },
+    components: {
+      MuiSkeleton: {
+        styleOverrides: {
+          root: ({ theme, ownerState }) =>
+            theme.unstable_sx({
+              backgroundColor: '#ECF1F3',
+              borderRadius: ownerState.variant === 'rounded' ? '64px' : undefined,
+            }),
+        },
+      },
+    },
   })
 );
 
