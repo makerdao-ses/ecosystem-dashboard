@@ -114,7 +114,7 @@ export const getExpenseReportsQuery = ({
         actualExpenses
         forecastExpenses
         paymentsOnChain
-        paymentsOffChain
+        netProtocolOutflow
       }
     }
   `,
