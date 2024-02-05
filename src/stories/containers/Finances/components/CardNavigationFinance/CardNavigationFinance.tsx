@@ -1,11 +1,9 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import CircleWithArrow from '@ses/components/svg/CircleWithArrow';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import Image from 'next/image';
 import React from 'react';
-import { hasSubLevels } from '../../utils/utils';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import ReadMore from '../ReadMore';
 import { truncateDescription } from './utils';
@@ -21,9 +19,8 @@ interface Props {
   codePath: string;
 }
 
-const CardNavigationFinance: React.FC<Props> = ({ image, title, description, href, allBudgets, codePath }) => {
+const CardNavigationFinance: React.FC<Props> = ({ image, title, description, href }) => {
   const { isLight } = useThemeContext();
-  const isHasSubLevels = hasSubLevels(codePath, allBudgets);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const truncatedDescription = truncateDescription(description);
 
@@ -39,14 +36,7 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
         </CardInformation>
       </ContainerWithButton>
       <ContainerReadMore>
-        {isHasSubLevels ? (
-          <ReadMore href={href} />
-        ) : (
-          <ContainerMore isLight={isLight}>
-            <ReadMoreText isLight={isLight}>Explore</ReadMoreText>
-            <CircleWithArrow />
-          </ContainerMore>
-        )}
+        <ReadMore href={href} />
       </ContainerReadMore>
     </StyleCardNavigationGeneric>
   );
@@ -134,23 +124,3 @@ const ContainerWithButton = styled.div({
   height: '100%',
   justifyContent: 'space-between',
 });
-
-const ContainerMore = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  gap: 8,
-  borderRadius: 22,
-  border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
-  background: isLight ? '#FFF' : 'transparent',
-  padding: '5px 5px 5px 16px',
-  opacity: 0.6,
-}));
-
-const ReadMoreText = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#9FAFB9',
-  fontSize: 13,
-  fontStyle: 'normal',
-  fontWeight: 400,
-  lineHeight: '18px',
-}));

@@ -19,6 +19,7 @@ interface Props {
   changeAlignment: boolean;
   showSwiper: boolean;
   numberSliderPerLevel?: number;
+  isLoading?: boolean;
 }
 
 const CardChartOverview: React.FC<Props> = ({
@@ -33,6 +34,7 @@ const CardChartOverview: React.FC<Props> = ({
   changeAlignment,
   showSwiper,
   numberSliderPerLevel,
+  isLoading,
 }) => {
   const { isLight } = useThemeContext();
   const handleOnclick = (item: FilterDoughnut) => () => {
@@ -41,31 +43,49 @@ const CardChartOverview: React.FC<Props> = ({
 
   return (
     <Container isLight={isLight}>
-      <ContainerFilters>
-        {filters.map((item, index) => (
-          <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
-            {item}
-          </Item>
-        ))}
-      </ContainerFilters>
+      <>
+        {isLoading ? (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 300,
+              color: 'red',
+            }}
+          >
+            loading...
+          </div>
+        ) : (
+          <>
+            <ContainerFilters>
+              {filters.map((item, index) => (
+                <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
+                  {item}
+                </Item>
+              ))}
+            </ContainerFilters>
 
-      <ContainerCardChart>
-        <ContainerCardAndLine>
-          <ContainerCardInformation>
-            <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
-          </ContainerCardInformation>
-          <Divider isLight={isLight} />
-        </ContainerCardAndLine>
-        <ContainerChat isCoreThirdLevel={isCoreThirdLevel}>
-          <DoughnutChartFinances
-            doughnutSeriesData={doughnutSeriesData}
-            isCoreThirdLevel={isCoreThirdLevel}
-            changeAlignment={changeAlignment}
-            showSwiper={showSwiper}
-            numberSliderPerLevel={numberSliderPerLevel}
-          />
-        </ContainerChat>
-      </ContainerCardChart>
+            <ContainerCardChart>
+              <ContainerCardAndLine>
+                <ContainerCardInformation>
+                  <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+                </ContainerCardInformation>
+                <Divider isLight={isLight} />
+              </ContainerCardAndLine>
+              <ContainerChat isCoreThirdLevel={isCoreThirdLevel}>
+                <DoughnutChartFinances
+                  doughnutSeriesData={doughnutSeriesData}
+                  isCoreThirdLevel={isCoreThirdLevel}
+                  changeAlignment={changeAlignment}
+                  showSwiper={showSwiper}
+                  numberSliderPerLevel={numberSliderPerLevel}
+                />
+              </ContainerChat>
+            </ContainerCardChart>
+          </>
+        )}
+      </>
     </Container>
   );
 };

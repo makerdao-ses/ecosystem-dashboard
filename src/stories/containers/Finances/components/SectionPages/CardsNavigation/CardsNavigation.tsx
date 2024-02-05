@@ -82,7 +82,7 @@ const CardsNavigation: React.FC<Props> = ({
                   <CardWrapper>
                     <CardCoreUnitThirdLevelBudget
                       code={coreUnit.code ?? ''}
-                      href="#"
+                      href={coreUnit.href}
                       image={coreUnit.image || '/assets/img/default-icon-cards-budget.svg'}
                       name={coreUnit.title}
                     />
