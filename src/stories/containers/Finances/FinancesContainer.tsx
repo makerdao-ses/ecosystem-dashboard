@@ -94,6 +94,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               changeAlignment={cardOverViewSectionData.changeAlignment}
               showSwiper={cardOverViewSectionData.showSwiper}
               numberSliderPerLevel={cardOverViewSectionData.numberSliderPerLevel}
+              isLoading={cardOverViewSectionData.isLoading}
             />
           </WrapperDesk>
           <WrapperMobile>

@@ -42,7 +42,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const currentBudget = allBudgets.find((budget) => budget.codePath === codePath);
   const icon = currentBudget?.image;
   const title = nameChanged(currentBudget?.name || '');
-
   const handleChangeYears = (value: string) => {
     setYear(value);
     router.push(
@@ -155,7 +154,14 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const expenseTrendFinances = useDelegateExpenseTrendFinances(codePath);
 
   // All the logic required by the CardChartOverview section
-  const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics, levelNumber);
+  const cardOverViewSectionData = useCardChartOverview(
+    budgets,
+    budgetsAnalytics,
+    levelNumber,
+    allBudgets,
+    codePath,
+    year
+  );
 
   // All the logic required by the BreakdownTable section
   const breakdownTable = useBreakdownTable(year, budgets, allBudgets);

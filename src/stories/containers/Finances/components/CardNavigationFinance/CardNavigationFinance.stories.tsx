@@ -35,28 +35,9 @@ const args = [
     ],
     codePath: 'atlas/immutable',
   },
-  {
-    image: 'https://i.ibb.co/vXD0xDp/atlas.png',
-    title: 'Atlas Immutable Budget',
-    description: 'Finances of the core governance constructs described in the Maker Atlas.',
-    href: '#',
-    allBudgets: [
-      new BudgetBuilder()
-        .withId('1')
-        .withParentId('45')
-        .withName('End-game Atlas Immutable')
-        .withCode('atlas/immutable')
-        .withCodePath('atlas/immutable')
-        .build(),
-    ],
-    codePath: 'atlas/scopes',
-  },
 ];
-const [[LightMode, DarkMode], [LightModeDisable, DakModeDisable]] = createThemeModeVariants(
-  CardNavigationFinance,
-  args
-);
-export { LightMode, DarkMode, LightModeDisable, DakModeDisable };
+const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationFinance, args);
+export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {

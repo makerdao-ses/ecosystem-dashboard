@@ -1,26 +1,37 @@
 import { useMediaQuery } from '@mui/material';
+import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import {
   existingColors,
   existingColorsDark,
   generateColorPalette,
+  hasSubLevels,
   nameChanged,
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import useSWRImmutable from 'swr/immutable';
 import { getCorrectMetricValuesOverViewChart } from './utils';
 import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
-import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { AnalyticMetric, AnalyticSeriesRow, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useCardChartOverview = (
   budgets: Budget[],
   budgetsAnalytics: BreakdownBudgetAnalytic | undefined,
-  levelNumber: number
+  levelNumber: number,
+  allBudgets: Budget[],
+  codePath: string,
+  year: string
 ) => {
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+
+  const isHasSubLevels = hasSubLevels(codePath, allBudgets);
+  const { data: analytics, isLoading } = useSWRImmutable(['annual', year, codePath, levelNumber], async () =>
+    fetchAnalytics('annual', year, codePath, levelNumber)
+  );
 
   const filters: FilterDoughnut[] = ['Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Protocol Outflow', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
@@ -32,6 +43,30 @@ export const useCardChartOverview = (
   );
 
   const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
+  const budgetWithNotChildren = useMemo(() => {
+    const data = {
+      budget: 0,
+      forecast: 0,
+      actuals: 0,
+    };
+    if (!analytics || !analytics.series?.length) {
+      // return 0 values to avoid having an empty UI
+
+      return data;
+    }
+
+    // calculate the sum of all the rows for a metric
+    const reduceMetric = (rows: AnalyticSeriesRow[], metric: AnalyticMetric) =>
+      rows.filter((element) => element.metric === metric).reduce((acc, current) => acc + Math.abs(current.value), 0);
+
+    analytics.series.forEach((item) => {
+      data.budget += reduceMetric(item.rows, 'Budget');
+      data.forecast += reduceMetric(item.rows, 'Forecast');
+      data.actuals += reduceMetric(item.rows, 'Actuals');
+    });
+
+    return data;
+  }, [analytics]);
 
   const metric: { [index: string]: number } = {
     actuals: 0,
@@ -108,7 +143,6 @@ export const useCardChartOverview = (
       };
     }
   });
-
   if (budgetsAnalytics !== undefined) {
     for (const budgetMetricKey of Object.keys(budgetsAnalytics)) {
       const budgetMetric = budgetsAnalytics[budgetMetricKey];
@@ -180,9 +214,9 @@ export const useCardChartOverview = (
   const numberSliderPerLevel = (isTable || isDesk1024) && levelNumber < 3 ? 3 : 5;
 
   return {
-    actuals: metric.actuals,
-    prediction: metric.forecast,
-    budgetCap: metric.budget,
+    actuals: isHasSubLevels ? metric.actuals : budgetWithNotChildren.actuals,
+    prediction: isHasSubLevels ? metric.forecast : budgetWithNotChildren.forecast,
+    budgetCap: isHasSubLevels ? metric.budget : budgetWithNotChildren.budget,
     filterSelected,
     setFilterSelected,
     handleSelectFilter,
@@ -191,5 +225,6 @@ export const useCardChartOverview = (
     changeAlignment,
     showSwiper,
     numberSliderPerLevel,
+    isLoading,
   };
 };
