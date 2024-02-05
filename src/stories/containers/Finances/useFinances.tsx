@@ -10,7 +10,7 @@ import useBreakdownChart from './components/BreakdownChartSection/useBreakdownCh
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
 import { getTotalAllMetricsBudget } from './components/SectionPages/CardChartOverview/utils';
-import { useDelegateExpenseTrendFinances } from './components/SectionPages/DelegateExpenseTrendFinances/useDelegateExpenseTrendFinances';
+import { useExpenseReports } from './components/SectionPages/ExpenseReports/useExpenseReports';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
 import { useReservesWaterFallChart } from './components/SectionPages/ReservesWaterFallChartSection/useReservesWaterFallChart';
 import {
@@ -151,7 +151,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   );
 
   // All the logic required by the Expense Reports
-  const expenseTrendFinances = useDelegateExpenseTrendFinances(codePath);
+  const expenseTrendFinances = useExpenseReports(codePath);
 
   // All the logic required by the CardChartOverview section
   const cardOverViewSectionData = useCardChartOverview(

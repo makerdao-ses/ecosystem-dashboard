@@ -12,7 +12,7 @@ import useSWRInfinite from 'swr/infinite';
 import { FilterChip } from './ExpenseReportsFilters';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
-export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
+export const useExpenseReports = (budgetPath: string) => {
   // metric filter:
   const [selectedMetric, setSelectedMetric] = useState<string>('Actuals');
   const onMetricChange = (value: string) => setSelectedMetric(value);
@@ -104,6 +104,10 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
     }
   );
 
+  const hasExpenseReports = expenseReportResponse.isLoading
+    ? true
+    : (expenseReportResponse.data ?? []).map((page) => page.length).reduce((acc, curr) => acc + curr, 0) > 0;
+
   const statusesResponse = useSWRImmutable(['statuses', budgetPath], async () =>
     getExpenseReportsStatusesQuery(budgetPath)
   );
@@ -161,5 +165,6 @@ export const useDelegateExpenseTrendFinances = (budgetPath: string) => {
     headersExpenseReport,
     onSortClick,
     expenseReportResponse,
+    hasExpenseReports,
   };
 };

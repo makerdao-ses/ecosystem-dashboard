@@ -63,9 +63,8 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
       case 'Net Expenses On-chain':
       case 'Net On-chain':
         return budget.paymentsOnChain ?? 0;
-      case 'Net Expenses Off-chain':
-      case 'Net Off-chain':
-        return budget.paymentsOffChain ?? 0;
+      case 'Protocol Outflow':
+        return budget.netProtocolOutflow ?? 0;
     }
     return 0;
   }, [budget, selectedMetric]);

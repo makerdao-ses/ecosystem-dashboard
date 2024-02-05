@@ -120,7 +120,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
         actualExpenses: 865423,
         forecastExpenses: 0,
         paymentsOnChain: 0,
-        paymentsOffChain: 0,
+        netProtocolOutflow: 0,
       },
     ],
     cuMip: null,
@@ -178,7 +178,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
         actualExpenses: 1125789,
         forecastExpenses: 0,
         paymentsOnChain: 0,
-        paymentsOffChain: 0,
+        netProtocolOutflow: 0,
       },
     ],
     cuMip: null,
@@ -236,7 +236,7 @@ export const mockDataApiTeam: MomentDataItem[] = [
         actualExpenses: 256365,
         forecastExpenses: 0,
         paymentsOnChain: 0,
-        paymentsOffChain: 0,
+        netProtocolOutflow: 0,
       },
     ],
     cuMip: null,
@@ -918,9 +918,9 @@ export const buildExpenseMetricsLineChartSeries = (
   const disabled = {
     Budget: inactiveSeries.includes('Budget'),
     Forecast: inactiveSeries.includes('Forecast'),
-    Actuals: inactiveSeries.includes('Actuals'),
-    'Net Expenses On-chain': inactiveSeries.includes('Net Expenses On-chain'),
     'Net Protocol Outflow': inactiveSeries.includes('Net Protocol Outflow'),
+    'Net Expenses On-chain': inactiveSeries.includes('Net Expenses On-chain'),
+    Actuals: inactiveSeries.includes('Actuals'),
   };
 
   return [
@@ -943,13 +943,13 @@ export const buildExpenseMetricsLineChartSeries = (
       isVisible: !disabled.Forecast,
     },
     {
-      name: 'Actuals',
-      data: disabled.Actuals ? [] : data?.actuals,
+      name: 'Net Protocol Outflow',
+      data: disabled['Net Protocol Outflow'] ? [] : data?.protocolNetOutflow,
       type: 'line',
       itemStyle: {
-        color: disabled.Actuals ? '#ccc' : isLight ? '#2DC1B1' : '#1AAB9B',
+        color: disabled['Net Protocol Outflow'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
       },
-      isVisible: !disabled.Actuals,
+      isVisible: !disabled['Net Protocol Outflow'],
     },
     {
       name: 'Net Expenses On-chain',
@@ -961,13 +961,13 @@ export const buildExpenseMetricsLineChartSeries = (
       isVisible: !disabled['Net Expenses On-chain'],
     },
     {
-      name: 'Net Protocol Outflow',
-      data: disabled['Net Protocol Outflow'] ? [] : data?.protocolNetOutflow,
+      name: 'Actuals',
+      data: disabled.Actuals ? [] : data?.actuals,
       type: 'line',
       itemStyle: {
-        color: disabled['Net Protocol Outflow'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
+        color: disabled.Actuals ? '#ccc' : isLight ? '#2DC1B1' : '#1AAB9B',
       },
-      isVisible: !disabled['Net Protocol Outflow'],
+      isVisible: !disabled.Actuals,
     },
   ] as LineChartSeriesData[];
 };

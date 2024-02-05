@@ -23,6 +23,7 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const truncatedDescription = truncateDescription(description);
+
   return (
     <StyleCardNavigationGeneric>
       <ContainerImage>
@@ -42,6 +43,7 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
 };
 
 export default CardNavigationFinance;
+
 const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   flexDirection: 'column',
   alignItems: 'center',
@@ -51,18 +53,15 @@ const StyleCardNavigationGeneric = styled(CardNavigationGeneric)({
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '16px 8px 24px',
     flex: 1,
-    width: 224,
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    padding: '16px 8px 24px',
-    width: 309.33,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 373.33,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: 416,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    padding: '16px 8px 24px',
+    minWidth: 'calc(20% - 13px)',
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    minWidth: 'calc(20% - 20px)',
   },
 });
 
@@ -89,13 +88,15 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  width: 208,
+  maxWidth: 208,
   color: isLight ? '#708390' : '#708390',
+
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    width: 293.3,
+    maxWidth: 293.3,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 236,
+    maxWidth: 236,
   },
 }));
 
