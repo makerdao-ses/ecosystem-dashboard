@@ -54,12 +54,13 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           onChange={onMetricChange}
           items={[
             {
-              label: 'Actuals',
-              value: 'Actuals',
-            },
-            {
               label: 'Forecast',
               value: 'Forecast',
+            },
+            {
+              label: !isMobile ? 'Net Expenses Off-chain' : 'Net Exp. Off-Chain Incl.',
+              value: !isMobile ? 'Net Off-chain' : 'Net Exp. Off-Chain Incl.',
+              labelWhenSelected: 'Net Off-chain',
             },
             {
               label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
@@ -67,9 +68,8 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
               labelWhenSelected: 'Net On-chain',
             },
             {
-              label: !isMobile ? 'Net Expenses Off-chain' : 'Net Exp. Off-Chain Incl.',
-              value: !isMobile ? 'Net Off-chain' : 'Net Exp. Off-Chain Incl.',
-              labelWhenSelected: 'Net Off-chain',
+              label: 'Actuals',
+              value: 'Actuals',
             },
           ]}
           PopperProps={{
