@@ -88,7 +88,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         baseline: 'top',
         interval: 0,
         formatter: function (value: string) {
-          const formatted = formatterBreakDownChart(selectedGranularity, isMobile, year, value);
+          const formatted = formatterBreakDownChart(selectedGranularity as AnalyticGranularity, isMobile, year, value);
           return formatted;
         },
         rich: {

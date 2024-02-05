@@ -660,7 +660,7 @@ export const getYearsRange = () => {
   return yearsRange;
 };
 
-const setMetric = (value: number, unit: string) =>
+export const setMetric = (value: number, unit: string) =>
   ({
     value: Math.abs(value),
     unit,
@@ -675,7 +675,8 @@ export const newBudgetMetric = () =>
     paymentsOffChainIncluded: setMetric(0, ''),
   } as BudgetMetric);
 
-const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric[] => {
+// Create a Budget metric empty for the chart with the correct granularity
+export const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric[] => {
   const createBudgetMetric = () => ({
     actuals: {
       value: 0,
@@ -724,12 +725,13 @@ const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric[] => {
   return Array.from({ length: arrayLength }, createBudgetMetric);
 };
 
-const getBreakdownAnalytics = (
+export const getBreakdownAnalytics = (
   analytics: Analytic,
   budgets: Budget[],
   granularity: AnalyticGranularity
 ): BreakdownBudgetAnalytic => {
   const budgetsAnalytics: BreakdownBudgetAnalytic = {};
+
   budgets.forEach((budget) => {
     const analyticsArray = getArrayAnalytic(granularity);
 
@@ -815,7 +817,7 @@ export const breakdownChartMonthly = (isMobile: boolean, isWaterFall = false) =>
   return defaultArray;
 };
 
-export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall: boolean) => {
+export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall = false) => {
   const defaultArray = ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
 
   if (isWaterFall) {
@@ -827,7 +829,6 @@ export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall: boolean)
 
   return defaultArray;
 };
-export const breakdownChartQuarterlyMetric = () => ['1ST QUARTER ', '2ND QUARTER', '3RD QUARTER', '4TH QUARTER'];
 export const breakdownChartAnnually = (isMobile: boolean, isWaterFall: boolean) => {
   const defaultArray = ['Year'];
   if (isWaterFall) {
@@ -857,13 +858,13 @@ export const formatterBreakDownChart = (
   year: string,
   value: string
 ) => {
-  switch (granularity.toLocaleLowerCase()) {
+  switch (granularity) {
     case 'monthly':
       if (isMobile) return value;
       return `{month|${value}}\n{year|${year}}`;
     case 'quarterly':
-      return `{month|${value}}  {year|${year}}`;
-    case 'annually':
+      return `{month|${value}}\n{year|${year}}`;
+    case 'annual':
       return `{month|${year}}`;
     default:
       return `{month|${value}}\n{year|${year}}`;
