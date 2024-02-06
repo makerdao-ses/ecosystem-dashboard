@@ -27,6 +27,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
+
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
@@ -53,7 +54,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
 
   const options: EChartsOption = {
     grid: {
-      top: isMobile ? 5 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
+      top: isMobile ? 5 : isTablet ? 10 : isDesktop1024 ? 8 : isDesktop1280 ? 11 : 11,
       left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
       right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
       height: isMobile ? 200 : isTablet ? 390 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
@@ -90,18 +91,18 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
             }
             return value;
           }
-          if (selectedGranularity.toLocaleLowerCase() === 'monthly') {
+          if (selectedGranularity === 'monthly') {
             if (index === 0 || index === 13) {
               return `{start|${value}}\n{startYear|${year}}`;
             }
             return `{month|${value}}\n{year|${year}}`;
           }
 
-          if (selectedGranularity.toLocaleLowerCase() === 'quarterly') {
+          if (selectedGranularity === 'quarterly') {
             if (index === 0 || index === 5) {
               return `{start|${value}}\n{startYear|${year}}`;
             }
-            return `{month|${value}}  {year|${year}}`;
+            return `{month|${value}}\n{year|${year}}`;
           }
           if (selectedGranularity === 'annual') {
             if (index === 0 || index === 2) {
