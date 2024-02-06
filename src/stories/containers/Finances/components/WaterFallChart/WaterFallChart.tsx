@@ -57,7 +57,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
       top: isMobile ? 5 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
       left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
       right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
-      height: isMobile ? 200 : isTablet ? 390 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
+      height: isMobile ? 200 : isTablet ? 385 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
     },
     xAxis: {
       type: 'category',
@@ -76,7 +76,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         show: false,
       },
       axisLabel: {
-        margin: isMobile ? 8 : isTablet ? 17 : isDesktop1024 ? 14 : isDesktop1280 ? 16 : isDesktop1440 ? 16 : 16,
+        margin: isMobile ? 16 : isTablet ? 24 : isDesktop1024 ? 24 : isDesktop1280 ? 24 : isDesktop1440 ? 26 : 26,
         color: isLight ? '#B6BCC2' : '#546978',
         align: 'center',
         fontFamily: 'Inter,san-serif',
