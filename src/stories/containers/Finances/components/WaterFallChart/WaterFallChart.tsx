@@ -34,7 +34,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
     fontSize: upTable ? 12 : 9,
     verticalAlign: 'top',
     interval: 0,
-    padding: [0, 0, 3, 0],
+    padding: [10, 0, 3, 0],
   };
   const xYearStyles = {
     ...xAxisStyles,
@@ -75,7 +75,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         show: false,
       },
       axisLabel: {
-        margin: isMobile ? 8 : isTablet ? 17 : isDesktop1024 ? 14 : isDesktop1280 ? 16 : isDesktop1440 ? 16 : 16,
+        margin: isMobile ? 8 : isTablet ? 17 : isDesktop1024 ? 14 : isDesktop1280 ? 16 : isDesktop1440 ? 16 : 20,
         color: isLight ? '#B6BCC2' : '#546978',
         align: 'center',
         fontFamily: 'Inter,san-serif',
