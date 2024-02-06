@@ -27,6 +27,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
+
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
@@ -34,7 +35,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
     fontSize: upTable ? 12 : 9,
     verticalAlign: 'top',
     interval: 0,
-    padding: [10, 0, 3, 0],
+    padding: [0, 0, 3, 0],
   };
   const xYearStyles = {
     ...xAxisStyles,
@@ -75,7 +76,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         show: false,
       },
       axisLabel: {
-        margin: isMobile ? 8 : isTablet ? 17 : isDesktop1024 ? 14 : isDesktop1280 ? 16 : isDesktop1440 ? 16 : 20,
+        margin: isMobile ? 8 : isTablet ? 17 : isDesktop1024 ? 14 : isDesktop1280 ? 16 : isDesktop1440 ? 16 : 16,
         color: isLight ? '#B6BCC2' : '#546978',
         align: 'center',
         fontFamily: 'Inter,san-serif',
@@ -101,7 +102,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
             if (index === 0 || index === 5) {
               return `{start|${value}}\n{startYear|${year}}`;
             }
-            return `{month|${value}}  {year|${year}}`;
+            return `{month|${value}}\n{year|${year}}`;
           }
           if (selectedGranularity === 'annual') {
             if (index === 0 || index === 2) {
