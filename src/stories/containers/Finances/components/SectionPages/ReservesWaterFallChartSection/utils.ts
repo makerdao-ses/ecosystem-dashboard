@@ -112,6 +112,8 @@ export const builderWaterFallSeries = (
         rich: {
           colorful: {
             color: isLight ? '#83A7FF' : '#447AFB',
+            fontSize: isMobile ? 7 : 12,
+            fontFamily: 'Inter, sans-serif',
           },
           hidden: {
             color: 'rgba(0,0,0,0)',
@@ -119,7 +121,6 @@ export const builderWaterFallSeries = (
         },
         show: true,
         position: 'top',
-        fontSize: isMobile ? 8 : 12,
       },
       stack: 'all',
       type: 'bar',
@@ -137,6 +138,7 @@ export const builderWaterFallSeries = (
       label: {
         show: true,
         color: isLight ? '#CB3A0D' : '#A83815',
+        fontFamily: 'Inter, sans-serif',
 
         fontSize: isMobile ? 8 : 12,
         position: 'bottom',
@@ -164,6 +166,7 @@ export const builderWaterFallSeries = (
         show: true,
         color: isLight ? '#2DC1B1' : '#1AAB9B',
         fontSize: isMobile ? 8 : 12,
+        fontFamily: 'Inter, sans-serif',
         position: 'top',
         formatter: (params: EChartsOption) => {
           const formatted = threeDigitsPrecisionHumanization(params.value);
