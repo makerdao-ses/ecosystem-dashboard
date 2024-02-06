@@ -41,7 +41,7 @@ const ContainerCell = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
   alignItems: 'center',
   justifyContent: 'center',
   color: isLight ? '#231536' : '#D2D4EF',
-
+  minWidth: 87,
   fontWeight: 500,
   backgroundColor: isLight ? (isTotal ? 'rgba(209, 222, 230, 0.50)' : 'transparent') : isTotal ? '#374752' : '#405361',
   ...(isTotal && {
