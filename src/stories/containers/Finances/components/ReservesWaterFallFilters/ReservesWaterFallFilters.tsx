@@ -12,7 +12,7 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface FiltersProps {
-  selectedGranularity: string;
+  selectedGranularity: AnalyticGranularity;
   handleGranularityChange: (value: AnalyticGranularity) => void;
   isDisabled?: boolean;
   handleResetFilter: () => void;

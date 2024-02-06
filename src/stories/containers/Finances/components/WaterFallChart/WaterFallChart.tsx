@@ -27,6 +27,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
+
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
@@ -90,18 +91,18 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
             }
             return value;
           }
-          if (selectedGranularity.toLocaleLowerCase() === 'monthly') {
+          if (selectedGranularity === 'monthly') {
             if (index === 0 || index === 13) {
               return `{start|${value}}\n{startYear|${year}}`;
             }
             return `{month|${value}}\n{year|${year}}`;
           }
 
-          if (selectedGranularity.toLocaleLowerCase() === 'quarterly') {
+          if (selectedGranularity === 'quarterly') {
             if (index === 0 || index === 5) {
               return `{start|${value}}\n{startYear|${year}}`;
             }
-            return `{month|${value}}  {year|${year}}`;
+            return `{month|${value}}\n{year|${year}}`;
           }
           if (selectedGranularity === 'annual') {
             if (index === 0 || index === 2) {

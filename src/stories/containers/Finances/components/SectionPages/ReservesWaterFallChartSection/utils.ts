@@ -1,3 +1,4 @@
+import { UMBRAL_CHART_WATERFALL } from '@ses/core/utils/const';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import type { MetricValues, WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { Analytic, AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -22,12 +23,9 @@ export const getArraysWaterFall = (data: number[]) => {
 
     sum += data[i - 1];
 
-    // This to simulate correct the water fall
-    if (data[i] < 0) {
-      auxiliaryArray.push(sum + data[i]);
-    } else {
-      auxiliaryArray.push(sum);
-    }
+    const auxValue = data[i] < 0 ? sum + data[i] : sum;
+    // Fix the values very small at the end of of the waterfall
+    auxiliaryArray.push(+auxValue.toFixed(3));
   }
 
   return {
@@ -44,8 +42,6 @@ export const builderWaterFallSeries = (
   isLight: boolean,
   analytic: AnalyticGranularity
 ): WaterFallChartSeriesData[] => {
-  // const showLines = data.reduce((acc, actual) => acc + actual);
-
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
 
   // Add the same value at the end to simulate the end of array can be Increase or Decrease
@@ -96,6 +92,7 @@ export const builderWaterFallSeries = (
       label: {
         formatter: (params: EChartsOption) => {
           const formatted = threeDigitsPrecisionHumanization(params.value);
+          if (formatted.value === '0.00') return '';
           if (isMobile) {
             if (params.dataIndex === 0 || params.dataIndex === help.length - 1) {
               return `{colorful|${formatted.value}}`;
@@ -129,7 +126,6 @@ export const builderWaterFallSeries = (
       name: 'Outflow',
       barWidth: isMobile ? 19 : 39,
       data: outFlow,
-
       itemStyle: {
         borderRadius: 4,
         color: isLight ? '#CB3A0D' : '#A83815',
@@ -144,10 +140,12 @@ export const builderWaterFallSeries = (
         position: 'bottom',
         formatter: (params: EChartsOption) => {
           const formatted = threeDigitsPrecisionHumanization(params.value);
+
+          if (formatted.value === '0.00') return '';
           if (isMobile) {
             return `- ${formatted.value}`;
           }
-          return ` - ${formatted.value}${formatted.suffix}`;
+          return `- ${formatted.value}${formatted.suffix}`;
         },
       },
       stack: 'all',
@@ -170,6 +168,8 @@ export const builderWaterFallSeries = (
         position: 'top',
         formatter: (params: EChartsOption) => {
           const formatted = threeDigitsPrecisionHumanization(params.value);
+
+          if (formatted.value === '0.00') return '';
           if (isMobile) {
             return `+ ${formatted.value}`;
           }
@@ -195,15 +195,17 @@ export const calculateAccumulatedArray = (data: number[]) => {
   return accumulatedArray;
 };
 
-// This create a array with positive and negative values for the waterfall chart
 export const processDataForWaterFall = (data: number[], total: number): number[] => {
   const result: number[] = [];
-  const accumulatedArray = data.reduce((acc, actual) => acc + actual);
-  if (accumulatedArray === 0) return data;
+  if (data.reduce((acc, actual) => acc + actual) === 0) return data;
+
   result.push(total);
   let accumulatedTotal = total;
   for (let i = 0; i < data.length; i++) {
-    const change = data[i] - accumulatedTotal;
+    let change = data[i] - accumulatedTotal;
+    if (Math.abs(change) < UMBRAL_CHART_WATERFALL) {
+      change = 0;
+    }
     result.push(change);
     accumulatedTotal = data[i];
   }
