@@ -23,7 +23,9 @@ const menuItems = {} as Record<RouteOnHeader, MenuType>;
 if (featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW) {
   menuItems.finances = {
     title: 'Finances',
-    link: siteRoutes.financesOverview,
+    link: featureFlags[CURRENT_ENVIRONMENT].FEATURE_ECOSYSTEM_FINANCES_DASHBOARD_PAGE
+      ? siteRoutes.finances()
+      : siteRoutes.financesOverview,
     marginRight: '32px',
   };
 }
