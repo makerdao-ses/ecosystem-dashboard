@@ -34,7 +34,7 @@ const CardsNavigation: React.FC<Props> = ({
   const MAX_ITEMS = isTablet ? 3 : 5;
 
   // Options of Swiper
-  const swiperOptions = {
+  const swiperOptions: SwiperProps = {
     pagination: {
       type: 'bullets',
       enabled: true,
@@ -44,25 +44,30 @@ const CardsNavigation: React.FC<Props> = ({
       768: {
         slidesPerView: 'auto',
         spaceBetween: 16,
+        slidesPerGroup: 3,
       },
       1024: {
         slidesPerView: 'auto',
         spaceBetween: 8,
+        slidesPerGroup: 3,
       },
       1280: {
         slidesPerView: 'auto',
         spaceBetween: 8,
+        slidesPerGroup: 5,
       },
       1440: {
         slidesPerView: 'auto',
         spaceBetween: 8,
+        slidesPerGroup: 5,
       },
       1920: {
         slidesPerView: 'auto',
         spaceBetween: 8,
+        slidesPerGroup: 5,
       },
     },
-  } as SwiperProps;
+  };
 
   return (
     <ContainerCardsNavigation>
