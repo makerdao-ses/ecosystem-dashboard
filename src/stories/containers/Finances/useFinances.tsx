@@ -41,7 +41,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const levelOfDetail = levelNumber + 1;
   const currentBudget = allBudgets.find((budget) => budget.codePath === codePath);
   const icon = currentBudget?.image;
-  const title = nameChanged(currentBudget?.name || '');
+  const title = nameChanged((currentBudget?.name || codePath) ?? '');
   const handleChangeYears = (value: string) => {
     setYear(value);
     router.push(
@@ -84,7 +84,8 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
         // it is a deeper level
         trailingAddressDesktop.push({
           label: nameChanged(
-            allBudgets.find((budget) => budget.codePath === segmentedCodePath.slice(0, index + 1).join('/'))?.name || ''
+            allBudgets.find((budget) => budget.codePath === segmentedCodePath.slice(0, index + 1).join('/'))?.name ??
+              codePath
           ),
           url: `${siteRoutes.finances(segmentedCodePath.slice(1, index + 1).join('/'))}?year=${year}`,
         });
