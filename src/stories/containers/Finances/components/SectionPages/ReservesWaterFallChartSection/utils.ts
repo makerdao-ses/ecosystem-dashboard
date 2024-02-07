@@ -275,6 +275,8 @@ export const getAnalyticForWaterFall = (
   const budgetAnalyticMap = new Map<string, WaterFallReserves[]>();
   const arrayLength = getArrayLengthByGranularity(granularity);
   const summaryValues = new Map<string, number[]>();
+  let netProtocolOutflow = 0;
+  let paymentsOnChain = 0;
 
   budgets.forEach((budget) => {
     budgetAnalyticMap.set(
@@ -294,6 +296,14 @@ export const getAnalyticForWaterFall = (
   budgets.forEach((budget) => {
     analytic.series.forEach((periods, index) => {
       periods.rows.forEach((row) => {
+        if (index === 0) {
+          if (row.metric === 'ProtocolNetOutflow') {
+            netProtocolOutflow = row.sum - row.value;
+          }
+          if (row.metric === 'PaymentsOnChain') {
+            paymentsOnChain = row.sum - row.value;
+          }
+        }
         if (row.dimensions[0].path === budget.codePath) {
           const getOldValues =
             budgetAnalyticMap.get(budget.codePath) ??
@@ -323,26 +333,8 @@ export const getAnalyticForWaterFall = (
       summaryValues.set(element, sumOfDifferences);
     }
   });
-  // Calculate total of for all the budget selected
-  const totalValues = Array.from(budgetAnalyticMap.values()).reduce(
-    (acc, currentArray) => {
-      const arrayTotals = currentArray.reduce(
-        (arrayAcc, currentItem) => {
-          arrayAcc.PaymentsOnChain += currentItem.PaymentsOnChain;
-          arrayAcc.ProtocolNetOutflow += currentItem.ProtocolNetOutflow;
-          return arrayAcc;
-        },
-        { ...EMPTY_METRIC_VALUE }
-      );
 
-      acc.PaymentsOnChain += arrayTotals.PaymentsOnChain;
-      acc.ProtocolNetOutflow += arrayTotals.ProtocolNetOutflow;
-      return acc;
-    },
-    { ...EMPTY_METRIC_VALUE }
-  );
-  const totalToStart = Math.abs(totalValues.ProtocolNetOutflow - totalValues.PaymentsOnChain);
-
+  const totalToStart = netProtocolOutflow - paymentsOnChain;
   return {
     summaryValues,
     totalToStart,
