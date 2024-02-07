@@ -90,7 +90,7 @@ const TitleContainer = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   height: 48,
   borderRight: `1px solid ${isLight ? '#D1DEE6' : '#546978'}`,
-  width: 85,
+  minWidth: 85,
   padding: '16px 16px 16px 8px',
 }));
 

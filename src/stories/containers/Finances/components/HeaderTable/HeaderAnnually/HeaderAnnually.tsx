@@ -100,7 +100,7 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const ContainerTitle = styled.div<WithIsLight>({
-  width: 76,
+  minWidth: 76,
   display: 'flex',
   alignItems: 'center',
   whiteSpace: 'break-spaces',
