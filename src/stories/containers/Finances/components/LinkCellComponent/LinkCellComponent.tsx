@@ -8,7 +8,9 @@ interface Props {
 }
 
 const LinkCellComponent: React.FC<Props & PropsWithChildren> = ({ href, children }) => (
-  <StyledLink href={href}>{children}</StyledLink>
+  <StyledLink href={href} scroll={false}>
+    {children}
+  </StyledLink>
 );
 export default LinkCellComponent;
 const StyledLink = styled(Link)({
