@@ -9,6 +9,7 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
 export interface BreakdownChartSectionProps {
+  isLoading: boolean;
   selectedMetric: string;
   onMetricChange: (value: string) => void;
   selectedGranularity: string;
@@ -22,6 +23,7 @@ export interface BreakdownChartSectionProps {
 }
 
 const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
+  isLoading,
   year,
   selectedMetric,
   onMetricChange,
@@ -49,13 +51,27 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
       />
     </HeaderContainer>
 
-    <BreakdownChart
-      year={year}
-      selectedGranularity={selectedGranularity as AnalyticGranularity}
-      series={series}
-      handleToggleSeries={handleToggleSeries}
-      refBreakDownChart={refBreakDownChart}
-    />
+    {isLoading ? (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 300,
+          color: 'red',
+        }}
+      >
+        loading...
+      </div>
+    ) : (
+      <BreakdownChart
+        year={year}
+        selectedGranularity={selectedGranularity as AnalyticGranularity}
+        series={series}
+        handleToggleSeries={handleToggleSeries}
+        refBreakDownChart={refBreakDownChart}
+      />
+    )}
   </Section>
 );
 

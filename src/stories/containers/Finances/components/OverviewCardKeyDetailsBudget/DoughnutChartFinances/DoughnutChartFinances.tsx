@@ -4,7 +4,7 @@ import { calculateValuesByBreakpoint } from '@ses/containers/Finances/utils/util
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CardLegend from './CardLegend';
@@ -54,24 +54,25 @@ const DoughnutChartFinances: React.FC<Props> = ({
 
   const doughnutSeriesChunks = chunkArray(doughnutSeriesData, numberSliderPerLevel);
   const numberSlider = doughnutSeriesChunks.size;
-  const options = {
-    color: visibleSeries.map((data) => data.color),
-    tooltip: {
-      show: true,
-      trigger: 'item',
-      label: {
-        show: false,
-        position: 'center',
-      },
-      emphasis: {
-        width: 40,
-      },
-      padding: 0,
-      borderWidth: 2,
-      formatter: function (params: DoughnutSeries) {
-        const index = visibleSeries.findIndex((data) => data.name === params.name);
-        const itemRender = visibleSeries[index];
-        const customTooltip = `
+  const options = useMemo(
+    () => ({
+      color: visibleSeries.map((data) => data.color),
+      tooltip: {
+        show: true,
+        trigger: 'item',
+        label: {
+          show: false,
+          position: 'center',
+        },
+        emphasis: {
+          width: 40,
+        },
+        padding: 0,
+        borderWidth: 2,
+        formatter: function (params: DoughnutSeries) {
+          const index = visibleSeries.findIndex((data) => data.name === params.name);
+          const itemRender = visibleSeries[index];
+          const customTooltip = `
         <div style="background-color:${
           isLight ? '#fff' : '#000A13'
         };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
@@ -82,8 +83,8 @@ const DoughnutChartFinances: React.FC<Props> = ({
           <div style="display:flex;flex-direction:row;gap:20px">
               <div style="display:flex;flex-direction:column">
                 <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.actuals.toLocaleString(
-          'es-US'
-        )}</div>
+            'es-US'
+          )}</div>
                 <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Actuals</div>
              </div>
               <div style="display:flex;flex-direction:column">
@@ -96,30 +97,32 @@ const DoughnutChartFinances: React.FC<Props> = ({
         </div>
         `;
 
-        return customTooltip;
+          return customTooltip;
+        },
       },
-    },
 
-    series: [
-      {
-        name: 'Overview Card',
-        type: 'pie',
-        radius,
-        center,
-        label: {
-          normal: {
-            show: false,
+      series: [
+        {
+          name: 'Overview Card',
+          type: 'pie',
+          radius,
+          center,
+          label: {
+            normal: {
+              show: false,
+            },
           },
-        },
-        labelLine: {
-          normal: {
-            show: false,
+          labelLine: {
+            normal: {
+              show: false,
+            },
           },
+          data: visibleSeries,
         },
-        data: visibleSeries,
-      },
-    ],
-  };
+      ],
+    }),
+    [center, isLight, radius, visibleSeries]
+  );
 
   const toggleSeriesVisibility = (seriesName: string) => {
     const chartInstance = chartRef.current?.getEchartsInstance();
@@ -216,6 +219,12 @@ const DoughnutChartFinances: React.FC<Props> = ({
       },
     },
   } as SwiperProps;
+
+  useEffect(() => {
+    // avoid to merge data when moving between levels
+    const chartInstance = chartRef?.current?.getEchartsInstance();
+    chartInstance?.setOption(options, { notMerge: true });
+  }, [options]);
 
   return (
     <Container className={className} isCoreThirdLevel={isCoreThirdLevel}>

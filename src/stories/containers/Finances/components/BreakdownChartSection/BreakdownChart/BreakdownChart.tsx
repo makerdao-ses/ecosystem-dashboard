@@ -6,7 +6,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -33,106 +33,117 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-
-  const [visibleSeries, setVisibleSeries] = useState<BreakdownChartSeriesData[]>(series);
-  const [legends, setLegends] = useState<BreakdownChartSeriesData[]>(series);
   const showLineYear =
     isMobile && (selectedGranularity as string) !== 'Quarterly' && (selectedGranularity as string) !== 'Annually';
-  useEffect(() => {
-    setVisibleSeries(series);
-    setLegends(series);
-  }, [series]);
 
-  const xAxisStyles = {
-    fontFamily: 'Inter, sans-serif',
-    textAlign: 'center',
-    color: '#708390',
-    fontWeight: 600,
-    fontSize: upTable ? 12 : 9,
-    verticalAlign: 'top',
-    interval: 0,
-  };
-  const options: EChartsOption = {
-    tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile),
-    grid: {
-      height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
-      width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
-      top: isMobile ? 10 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
-      right: isMobile ? 2 : isTablet ? 7 : isDesktop1024 ? 50 : isDesktop1280 ? 4 : 4,
-    },
-    xAxis: {
-      show: true,
-      type: 'category',
-      data: getGranularity(selectedGranularity, isMobile),
-      splitLine: {
-        show: false,
+  const xAxisStyles = useMemo(
+    () => ({
+      fontFamily: 'Inter, sans-serif',
+      textAlign: 'center',
+      color: '#708390',
+      fontWeight: 600,
+      fontSize: upTable ? 12 : 9,
+      verticalAlign: 'top',
+      interval: 0,
+    }),
+    [upTable]
+  );
+
+  const options: EChartsOption = useMemo(
+    () => ({
+      tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile),
+      grid: {
+        height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
+        width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
+        top: isMobile ? 10 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
+        right: isMobile ? 2 : isTablet ? 7 : isDesktop1024 ? 50 : isDesktop1280 ? 4 : 4,
       },
-      axisLine: {
-        show: false,
-        symbolOffset: 'left',
-        lineStyle: {
-          color: 'transparent',
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLabel: {
-        margin: isMobile ? 12 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 16 : 16,
-        color: isLight ? '#434358' : '#708390',
-        align: 'center',
-        fontFamily: 'Inter,san-serif',
-        fontWeight: 400,
-        fontSize: upTable ? 12 : 9,
-        height: upTable ? 15 : 11,
-        baseline: 'top',
-        interval: 0,
-        formatter: function (value: string) {
-          const formatted = formatterBreakDownChart(selectedGranularity as AnalyticGranularity, isMobile, year, value);
-          return formatted;
-        },
-        rich: {
-          month: xAxisStyles,
-          year: xAxisStyles,
-        },
-      },
-    },
-    yAxis: {
-      min: visibleSeries.length === 0 ? 0 : null,
-      max: visibleSeries.length === 0 ? 1 : null,
-      show: true,
-      axisLabel: {
+      xAxis: {
         show: true,
-        margin: isMobile ? 10 : isTablet ? 22 : isDesktop1024 ? 32 : isDesktop1280 ? 20 : 20,
-        formatter: function (value: number, index: number) {
-          if (value === 0 && index === 0) {
-            return value.toString();
-          }
+        type: 'category',
+        data: getGranularity(selectedGranularity, isMobile),
+        splitLine: {
+          show: false,
+        },
+        axisLine: {
+          show: false,
+          symbolOffset: 'left',
+          lineStyle: {
+            color: 'transparent',
+          },
+        },
+        axisTick: {
+          show: false,
+        },
+        axisLabel: {
+          margin: isMobile ? 12 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 16 : 16,
+          color: isLight ? '#434358' : '#708390',
+          align: 'center',
+          fontFamily: 'Inter,san-serif',
+          fontWeight: 400,
+          fontSize: upTable ? 12 : 9,
+          height: upTable ? 15 : 11,
+          baseline: 'top',
+          interval: 0,
+          formatter: function (value: string) {
+            const formatted = formatterBreakDownChart(
+              selectedGranularity as AnalyticGranularity,
+              isMobile,
+              year,
+              value
+            );
+            return formatted;
+          },
+          rich: {
+            month: xAxisStyles,
+            year: xAxisStyles,
+          },
+        },
+      },
+      yAxis: {
+        min: series.length === 0 ? 0 : null,
+        max: series.length === 0 ? 1 : null,
+        show: true,
+        axisLabel: {
+          show: true,
+          margin: isMobile ? 10 : isTablet ? 22 : isDesktop1024 ? 32 : isDesktop1280 ? 20 : 20,
+          formatter: function (value: number, index: number) {
+            if (value === 0 && index === 0) {
+              return value.toString();
+            }
 
-          return replaceAllNumberLetOneBeforeDot(value);
+            return replaceAllNumberLetOneBeforeDot(value);
+          },
+          color: isLight ? '#231536' : '#EDEFFF',
+          fontSize: isMobile ? 10 : isTablet ? 14 : 14,
+          height: upTable ? 15 : 12,
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: upTable ? 600 : 400,
         },
-        color: isLight ? '#231536' : '#EDEFFF',
-        fontSize: isMobile ? 10 : isTablet ? 14 : 14,
+        verticalAlign: 'middle',
         height: upTable ? 15 : 12,
-        fontFamily: 'Inter, sans-serif',
-        fontWeight: upTable ? 600 : 400,
-      },
-      verticalAlign: 'middle',
-      height: upTable ? 15 : 12,
-      type: 'value',
-      zlevel: 1,
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        lineStyle: {
-          color: isLight ? '#31424E' : '#D8E0E3',
-          width: 0.25,
+        type: 'value',
+        zlevel: 1,
+        axisLine: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            color: isLight ? '#31424E' : '#D8E0E3',
+            width: 0.25,
+          },
         },
       },
-    },
-    series: visibleSeries,
-  };
+      series,
+    }),
+    [isDesktop1024, isDesktop1280, isLight, isMobile, isTablet, selectedGranularity, series, upTable, xAxisStyles, year]
+  );
+
+  useEffect(() => {
+    // avoid to merge data when moving between levels
+    const chartInstance = refBreakDownChart?.current?.getEchartsInstance();
+    chartInstance?.setOption(options, { notMerge: true });
+  }, [options, refBreakDownChart]);
 
   const onLegendItemHover = (legendName: string) => {
     const chartInstance = refBreakDownChart.current.getEchartsInstance();
@@ -169,7 +180,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         )}
       </ChartContainer>
       <LegendContainer>
-        {legends.map((element, index) => (
+        {series.map((element, index) => (
           <LegendItem
             key={index}
             isLight={isLight}

@@ -114,6 +114,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
 
         {isEnabled('FEATURE_FINANCES_BREAKDOWN_CHART_SECTION') && (
           <BreakdownChartSection
+            isLoading={breakdownChartSectionData.isLoading}
             year={year}
             selectedMetric={breakdownChartSectionData.selectedBreakdownMetric}
             selectedGranularity={breakdownChartSectionData.selectedBreakdownGranularity}
