@@ -145,12 +145,17 @@ export interface WaterFallChartSeriesData {
   barMinHeight?: number;
   stack?: string;
   type: string;
+  color?: string;
+
   label?: {
+    fontFamily?: string;
     formatter?: (params: EChartsOption) => string;
     show?: boolean;
     color?: string | ((params: EChartsOption) => string);
     position?: string;
     fontSize?: number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rich?: any;
   };
   itemStyle?: {
     borderRadius?: number;
@@ -158,6 +163,25 @@ export interface WaterFallChartSeriesData {
   };
   zIndex?: number;
   isVisible?: boolean;
+}
+
+export interface LineWaterFall {
+  name?: string;
+  lineStyle?: {
+    width?: number;
+    zIndex?: number;
+    z: number;
+    join?: string;
+    borderType?: string;
+    type?: string;
+    color?: string;
+    cap?: string;
+  };
+  type?: string;
+  symbol?: string;
+  z?: number;
+  step?: string;
+  data?: (number | string)[];
 }
 
 export interface WaterFallLineData {
