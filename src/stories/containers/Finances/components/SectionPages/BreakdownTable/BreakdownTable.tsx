@@ -12,7 +12,7 @@ interface Props {
   activeItems: string[];
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
-  periodicSelectionFilter: string[];
+  periodSelectOptions: string[];
   handleChange: (value: string) => void;
   selectedValue: string;
   widthPaper?: number;
@@ -34,7 +34,7 @@ const BreakdownTable: React.FC<Props> = ({
   handleResetFilter,
   handleSelectChange,
   metrics,
-  periodicSelectionFilter,
+  periodSelectOptions,
   selectedValue,
   year,
   handleResetMetrics,
@@ -54,7 +54,7 @@ const BreakdownTable: React.FC<Props> = ({
       handleResetFilter={handleResetFilter}
       handleSelectChange={handleSelectChange}
       metrics={metrics}
-      periodicSelectionFilter={periodicSelectionFilter}
+      periodSelectOptions={periodSelectOptions}
       selectedValue={selectedValue}
       defaultMetricsWithAllSelected={handleResetMetrics}
       maxItems={maxItems}

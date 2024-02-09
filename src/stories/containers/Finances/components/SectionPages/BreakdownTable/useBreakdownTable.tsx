@@ -3,7 +3,7 @@ import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { getMetricByPeriod, nameChanged } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { convertFilterToGranularity, removePatternAfterSlash } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -27,29 +27,73 @@ const EMPTY_METRIC_VALUE = {
   ProtocolNetOutflow: 0,
 } as MetricValues;
 
+const METRIC_FILTER_OPTIONS = ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals'];
+
 export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: Budget[]) => {
   const router = useRouter();
-
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesk1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesk1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
   const isDesk1920 = useMediaQuery(lightTheme.breakpoints.up('desktop_1920'));
-  const initialValue: PeriodicSelectionFilter = isMobile ? 'Semi-annual' : 'Quarterly';
-  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(initialValue);
-  const metricsFilter = useMemo(
-    () => ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals'],
-    []
-  );
-  const val = useMemo(
+  const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(() => {
+    const urlPeriod = router.query.period as PeriodicSelectionFilter;
+    if (urlPeriod) {
+      // add extra validation here!
+      return urlPeriod;
+    }
+
+    return 'Quarterly';
+  });
+
+  const maxAmountOfActiveMetrics = useMemo(
     () => getMetricByPeriod(periodFilter, isMobile, isTable, isDesk1024, isDesk1280, isDesk1440, isDesk1920),
     [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]
   );
-  const [numberMetrics, setNumberMetrics] = useState(val);
-  const [activeMetrics, setActiveMetrics] = useState<string[]>(metricsFilter.slice(0, val));
-  const maxItems = val;
-  const minItems = 1;
+  const [activeMetrics, setActiveMetrics] = useState<string[]>(() => {
+    const urlMetrics = router.query.metric;
+    if (urlMetrics) {
+      // add extra validation here!
+      return Array.isArray(urlMetrics) ? urlMetrics : [urlMetrics];
+    }
+
+    // no select any metric, this is delegate to a side effect
+    return [];
+  });
+  const defaultMetricsWithAllSelected = METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics);
+  const periodSelectOptions = isMobile
+    ? ['Annually', 'Semi-annual']
+    : isTable || isDesk1024 || isDesk1280
+    ? ['Annually', 'Quarterly']
+    : ['Annually', 'Quarterly', 'Monthly'];
+
+  // function to add the period and metrics to the URL as search params
+  const updateUrl = useCallback(
+    (granularity: PeriodicSelectionFilter, metrics: string[]) => {
+      router
+        .replace(
+          {
+            query: {
+              year,
+              metric: metrics,
+              period: granularity,
+            },
+            hash: 'breakdown-table',
+          },
+          undefined,
+          {
+            shallow: true,
+          }
+        )
+        .catch((error) => {
+          if (!error.cancelled) {
+            throw error;
+          }
+        });
+    },
+    [router, year]
+  );
 
   const selectedGranularity = convertFilterToGranularity(periodFilter);
 
@@ -205,52 +249,48 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
   const popupContainerHeight = allowSelectAll ? 250 : 210;
 
-  // Show correct value in the filter when got from useMediaQuery
+  // change the period to the default value if the current period is not allowed for current resolution
   useEffect(() => {
-    if (isMobile) {
+    if (isMobile && periodFilter !== 'Annually' && periodFilter !== 'Semi-annual') {
+      // set default for mobile
       setPeriodFilter('Semi-annual');
-    } else {
+      updateUrl('Semi-annual', activeMetrics);
+    } else if ((isTable || isDesk1024 || isDesk1280) && periodFilter !== 'Annually' && periodFilter !== 'Quarterly') {
+      // set default for small desktop
       setPeriodFilter('Quarterly');
+      updateUrl('Quarterly', activeMetrics);
+    } else if (
+      (isDesk1440 || isDesk1920) &&
+      periodFilter !== 'Annually' &&
+      periodFilter !== 'Quarterly' &&
+      periodFilter !== 'Monthly'
+    ) {
+      // set default for big desktop
+      setPeriodFilter('Quarterly');
+      updateUrl('Quarterly', activeMetrics);
     }
-  }, [isMobile]);
+  }, [activeMetrics, isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter, updateUrl]);
 
   // Default metric per dimension
   useEffect(() => {
-    if (periodFilter === 'Quarterly') {
-      if (isTable) {
-        if (numberMetrics !== val) {
-          setActiveMetrics(metricsFilter.slice(0, val));
-        }
-      }
-      if (isDesk1024 || isDesk1280 || isDesk1440) {
-        if (numberMetrics !== val) {
-          setActiveMetrics(metricsFilter.slice(0, val));
-        }
-      }
-      if (isDesk1920) {
-        if (numberMetrics !== val) {
-          setActiveMetrics(metricsFilter.slice(0, val));
-        }
-      }
+    if (maxAmountOfActiveMetrics === 0) {
+      // minimum is 1, so if it is 0 it means that it not initialized yet
+      return;
     }
-    if (periodFilter === 'Monthly') {
-      if (numberMetrics !== val) {
-        setActiveMetrics(metricsFilter.slice(0, val));
-      }
-    }
-    if (periodFilter === 'Annually') {
-      if (isMobile) {
-        if (numberMetrics !== val) {
-          setActiveMetrics(metricsFilter.slice(0, val));
+    switch (periodFilter) {
+      case 'Quarterly':
+        if (!isMobile && (activeMetrics.length > maxAmountOfActiveMetrics || activeMetrics.length === 0)) {
+          setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+          if (activeMetrics.length !== 0) {
+            updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+          }
         }
-      } else {
-        if (numberMetrics !== val) {
-          setActiveMetrics(metricsFilter.slice(0, val));
+        break;
+      default:
+        if (activeMetrics.length > maxAmountOfActiveMetrics || activeMetrics.length === 0) {
+          setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+          updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
         }
-      }
-    }
-    if (periodFilter === 'Semi-annual') {
-      setActiveMetrics(metricsFilter.slice(0, val));
     }
   }, [
     activeMetrics.length,
@@ -260,67 +300,46 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     isDesk1920,
     isMobile,
     isTable,
-    metricsFilter,
-    numberMetrics,
     periodFilter,
-    val,
+    maxAmountOfActiveMetrics,
+    updateUrl,
   ]);
 
-  // Only show monthly filter in dimension bigger than isDesk1440
-  useEffect(() => {
-    const handleResize = () => {
-      setNumberMetrics(val);
-      if (periodFilter === 'Monthly' && (isMobile || isDesk1024 || isDesk1280)) {
-        setPeriodFilter('Quarterly');
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isDesk1024, isDesk1280, isDesk1440, isMobile, periodFilter, val]);
-
+  // handlers to change the period and metrics or reset those values to the default ones
   const handleSelectChangeMetrics = (value: string[]) => {
-    setNumberMetrics(val);
     setActiveMetrics(value);
+    updateUrl(periodFilter, value);
   };
   const handleResetMetrics = () => {
-    setActiveMetrics(metricsFilter.slice(0, val));
+    setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+    updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
   };
-  const defaultMetricsWithAllSelected = metricsFilter.slice(0, val);
-  const periodicSelectionFilter = isMobile
-    ? ['Annually', 'Semi-annual']
-    : isTable || isDesk1024 || isDesk1280
-    ? ['Annually', 'Quarterly']
-    : ['Annually', 'Quarterly', 'Monthly'];
-
   const handlePeriodChange = (value: string) => {
     setPeriodFilter(value as PeriodicSelectionFilter);
-    setNumberMetrics(val);
+    updateUrl(value as PeriodicSelectionFilter, activeMetrics);
   };
 
   const selectMetrics = useMemo(
     () =>
-      metricsFilter.map((filter) => ({
+      METRIC_FILTER_OPTIONS.map((filter) => ({
         id: filter,
         content: filter,
       })) as MultiSelectItem[],
-    [metricsFilter]
+    []
   );
 
   return {
     isMobile,
-    initialValue,
     periodFilter,
     activeMetrics,
-    maxItems,
-    minItems,
+    maxItems: maxAmountOfActiveMetrics,
+    minItems: 1,
     allowSelectAll,
     popupContainerHeight,
     handleSelectChangeMetrics,
     handleResetMetrics,
     defaultMetricsWithAllSelected,
-    periodicSelectionFilter,
+    periodSelectOptions,
     handlePeriodChange,
     selectMetrics,
     tableHeader,
