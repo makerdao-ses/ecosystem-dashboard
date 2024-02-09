@@ -222,7 +222,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
 
   useEffect(() => {
     // avoid to merge data when moving between levels
-    const chartInstance = chartRef.current?.getEchartsInstance();
+    const chartInstance = chartRef?.current?.getEchartsInstance();
     chartInstance?.setOption(options, { notMerge: true });
   }, [options]);
 

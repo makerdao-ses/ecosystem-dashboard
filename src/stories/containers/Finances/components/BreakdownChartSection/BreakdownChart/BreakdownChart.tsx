@@ -141,8 +141,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
 
   useEffect(() => {
     // avoid to merge data when moving between levels
-    const chartInstance = refBreakDownChart.current.getEchartsInstance();
-    chartInstance.setOption(options, { notMerge: true });
+    const chartInstance = refBreakDownChart?.current?.getEchartsInstance();
+    chartInstance?.setOption(options, { notMerge: true });
   }, [options, refBreakDownChart]);
 
   const onLegendItemHover = (legendName: string) => {
