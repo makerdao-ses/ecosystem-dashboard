@@ -4,10 +4,12 @@ import { nameChanged } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import {
   builderWaterFallSeries,
+  calculateAccumulatedArray,
+  generateLineSeries,
   getAnalyticForWaterFall,
   processDataForWaterFall,
   sumValuesFromMapKeys,
@@ -19,14 +21,15 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
-  const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
+  const selectAll = budgets.map((budget) => budget.codePath);
+
+  const [activeElements, setActiveElements] = useState<string[]>(selectAll);
   const { isLight } = useThemeContext();
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
 
   const levelOfDetail = codePath.split('/').length + 1;
-  const [activeElements, setActiveElements] = useState<string[]>(selectAll);
 
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -35,10 +38,6 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
     setActiveElements([]);
   };
 
-  useEffect(() => {
-    setActiveElements(selectAll);
-  }, [selectAll]);
-
   // fetch actual data from the API
   const { data: analytics, isLoading } = useSWRImmutable(
     [selectedGranularity, year, codePath, levelOfDetail],
@@ -46,6 +45,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
   );
 
   const handleGranularityChange = (value: AnalyticGranularity) => {
+    setActiveElements(activeElements);
     setSelectedGranularity(value);
   };
   const defaultTitle = 'MakerDAO Finances';
@@ -62,10 +62,15 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
 
   const dataReady = processDataForWaterFall(valuesToShow, totalToStart);
 
-  const series = useMemo(
-    () => builderWaterFallSeries(dataReady, isMobile, isTable, isLight, selectedGranularity),
-    [dataReady, isLight, isMobile, isTable, selectedGranularity]
+  const series = builderWaterFallSeries(dataReady, isMobile, isTable, isLight, selectedGranularity);
+
+  const valuesLine = useMemo(() => calculateAccumulatedArray(dataReady), [dataReady]);
+  const linesChart = useMemo(
+    () => generateLineSeries(valuesLine, isLight, selectedGranularity),
+    [isLight, selectedGranularity, valuesLine]
   );
+
+  series.push(...linesChart);
 
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 

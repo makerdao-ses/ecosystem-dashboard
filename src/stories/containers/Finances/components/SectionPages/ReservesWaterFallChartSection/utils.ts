@@ -1,6 +1,6 @@
 import { UMBRAL_CHART_WATERFALL } from '@ses/core/utils/const';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
-import type { MetricValues, WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
+import type { LineWaterFall, MetricValues, WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { Analytic, AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
@@ -41,8 +41,14 @@ export const builderWaterFallSeries = (
   isTable: boolean,
   isLight: boolean,
   analytic: AnalyticGranularity
-): WaterFallChartSeriesData[] => {
+): (WaterFallChartSeriesData | LineWaterFall)[] => {
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
+
+  const showLines = data.reduce((acc, curr) => acc + curr, 0);
+  if (showLines === 0) {
+    const series = defaultWaterFallValues(analytic);
+    return series;
+  }
 
   // Add the same value at the end to simulate the end of array can be Increase or Decrease
   const lastInFlow = inFlow[inFlow.length - 1];
@@ -54,9 +60,6 @@ export const builderWaterFallSeries = (
   } else {
     auxiliaryArray.push(auxiliaryArray[auxiliaryArray.length - 1]);
   }
-
-  const valuesLine = calculateAccumulatedArray(data);
-  const linesChart = generateLineSeries(valuesLine, isLight, analytic);
 
   // This this to put the start element with the same hight
   const help = auxiliaryArray.map((element, index) => {
@@ -180,7 +183,37 @@ export const builderWaterFallSeries = (
       stack: 'all',
       type: 'bar',
     },
-    ...linesChart,
+  ];
+  return series;
+};
+
+export const defaultWaterFallValues = (analytic: AnalyticGranularity) => {
+  const lengthArrayEmpty = getArrayLengthByGranularity(analytic);
+  const lengthArray = Array.from({ length: lengthArrayEmpty }, () => 0);
+  const lengthArrayLines = Array.from({ length: lengthArrayEmpty + 6 }, () => ({
+    name: 'Line ',
+    type: 'line',
+    data: [],
+  }));
+
+  const series = [
+    {
+      name: 'Reserves Balance',
+      data: lengthArray,
+      isVisible: false,
+    },
+    {
+      name: 'Inflow',
+      data: lengthArray,
+
+      isVisible: false,
+    },
+    {
+      name: 'OutFlow',
+      data: lengthArray,
+      isVisible: false,
+    },
+    ...lengthArrayLines,
   ];
   return series;
 };
@@ -214,12 +247,37 @@ export const processDataForWaterFall = (data: number[], total: number): number[]
 };
 
 export const generateLineSeries = (lineSeriesData: number[], isLight: boolean, analytic: AnalyticGranularity) => {
+  const showLines = lineSeriesData.reduce((acc, curr) => acc + curr, 0);
+  const series = [];
+  if (showLines === 0) {
+    for (let i = 1; i < lineSeriesData.length - 1; i++) {
+      series.push({
+        name: `Line ${i}`,
+        lineStyle: {
+          width: 3,
+          zIndex: -1,
+          z: 2,
+          join: 'end',
+          borderType: 'solid',
+          type: 'line',
+          color: 'transparent',
+          cap: 'butt',
+        },
+
+        type: 'line',
+        symbol: 'none',
+        z: 1,
+        step: 'end',
+        data: [],
+      });
+    }
+    return series;
+  }
   const newLineSeries = [...lineSeriesData];
   newLineSeries.push(lineSeriesData[lineSeriesData.length - 1]);
 
-  const series = [];
-
   for (let i = 1; i < newLineSeries.length - 1; i++) {
+    // fix the colors
     const isAscending = newLineSeries[i] > newLineSeries[i - 1];
     const color = isLight ? (isAscending ? '#06554C' : '#A83815') : isAscending ? '#06554C' : '#A83815';
     const seriesData = new Array(newLineSeries.length).fill('-');
