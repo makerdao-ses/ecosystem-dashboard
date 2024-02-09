@@ -39,16 +39,9 @@ export const builderWaterFallSeries = (
   data: number[],
   isMobile: boolean,
   isTable: boolean,
-  isLight: boolean,
-  analytic: AnalyticGranularity
+  isLight: boolean
 ): (WaterFallChartSeriesData | LineWaterFall)[] => {
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
-
-  const showLines = data.reduce((acc, curr) => acc + curr, 0);
-  if (showLines === 0) {
-    const series = defaultWaterFallValues(analytic);
-    return series;
-  }
 
   // Add the same value at the end to simulate the end of array can be Increase or Decrease
   const lastInFlow = inFlow[inFlow.length - 1];
