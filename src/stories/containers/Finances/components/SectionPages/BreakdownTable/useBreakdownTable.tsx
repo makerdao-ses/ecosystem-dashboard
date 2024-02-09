@@ -39,8 +39,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const isDesk1920 = useMediaQuery(lightTheme.breakpoints.up('desktop_1920'));
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(() => {
     const urlPeriod = router.query.period as PeriodicSelectionFilter;
-    if (urlPeriod) {
-      // add extra validation here!
+    if (urlPeriod && ['Annually', 'Semi-annual', 'Quarterly', 'Monthly'].includes(urlPeriod)) {
       return urlPeriod;
     }
 
@@ -52,10 +51,11 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]
   );
   const [activeMetrics, setActiveMetrics] = useState<string[]>(() => {
-    const urlMetrics = router.query.metric;
-    if (urlMetrics) {
+    let urlMetrics = router.query.metric as string[] | undefined;
+    urlMetrics = Array.isArray(urlMetrics) ? urlMetrics : urlMetrics ? [urlMetrics] : undefined;
+    if (urlMetrics && urlMetrics.every((metric) => METRIC_FILTER_OPTIONS.includes(metric))) {
       // add extra validation here!
-      return Array.isArray(urlMetrics) ? urlMetrics : [urlMetrics];
+      return urlMetrics;
     }
 
     // no select any metric, this is delegate to a side effect
