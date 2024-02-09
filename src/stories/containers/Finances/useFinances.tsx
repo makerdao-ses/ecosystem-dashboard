@@ -53,19 +53,9 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
 
   // TODO: we should be using only one query and refetch the data depending on the selected granularity
   const { data: budgetsAnalytics } = useSWRImmutable(
-    'analytics/annual',
+    ['annual', year, codePath, levelOfDetail, budgets],
     async () =>
       getBudgetsAnalytics('annual', year, codePath, levelOfDetail, budgets) as Promise<BreakdownBudgetAnalytic>
-  );
-  const { data: budgetsAnalyticsQuarterly } = useSWRImmutable(
-    'analytics/quarterly',
-    async () =>
-      getBudgetsAnalytics('quarterly', year, codePath, levelOfDetail, budgets) as Promise<BreakdownBudgetAnalytic>
-  );
-  const { data: budgetsAnalyticsMonthly } = useSWRImmutable(
-    'analytics/monthly',
-    async () =>
-      getBudgetsAnalytics('monthly', year, codePath, levelOfDetail, budgets) as Promise<BreakdownBudgetAnalytic>
   );
 
   // generate the breadcrumb routes
@@ -114,6 +104,16 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
 
   const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
 
+  // All the logic required by the CardChartOverview section
+  const cardOverViewSectionData = useCardChartOverview(
+    budgets,
+    budgetsAnalytics,
+    levelNumber,
+    allBudgets,
+    codePath,
+    year
+  );
+
   // All the logic required by the CardNavigation section
   const cardsNavigationInformation = budgets.map((item, index) => {
     const budgetMetric =
@@ -144,25 +144,10 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const cardsToShow = loadMoreCards && isMobile ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // All the logic required by the breakdown chart section
-  const breakdownChartSectionData = useBreakdownChart(
-    budgets,
-    budgetsAnalyticsMonthly,
-    budgetsAnalyticsQuarterly,
-    budgetsAnalytics
-  );
+  const breakdownChartSectionData = useBreakdownChart(budgets, year, codePath);
 
   // All the logic required by the Expense Reports
   const expenseTrendFinances = useExpenseReports(codePath);
-
-  // All the logic required by the CardChartOverview section
-  const cardOverViewSectionData = useCardChartOverview(
-    budgets,
-    budgetsAnalytics,
-    levelNumber,
-    allBudgets,
-    codePath,
-    year
-  );
 
   // All the logic required by the BreakdownTable section
   const breakdownTable = useBreakdownTable(year, budgets, allBudgets);
