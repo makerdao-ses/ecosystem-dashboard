@@ -62,7 +62,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
 
   const dataReady = processDataForWaterFall(valuesToShow, totalToStart);
 
-  const series = builderWaterFallSeries(dataReady, isMobile, isTable, isLight, selectedGranularity);
+  const series = builderWaterFallSeries(dataReady, isMobile, isTable, isLight);
 
   const valuesLine = useMemo(() => calculateAccumulatedArray(dataReady), [dataReady]);
   const linesChart = useMemo(
