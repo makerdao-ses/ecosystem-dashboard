@@ -8,7 +8,7 @@ import ReactECharts from 'echarts-for-react';
 import { getGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
-import type { LegendItemsWaterFall, WaterFallChartSeriesData } from '../../utils/types';
+import type { LegendItemsWaterFall, LineWaterFall, WaterFallChartSeriesData } from '../../utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
@@ -16,7 +16,7 @@ interface Props {
   legends: LegendItemsWaterFall[];
   year: string;
   selectedGranularity: AnalyticGranularity;
-  series: WaterFallChartSeriesData[];
+  series: (WaterFallChartSeriesData | LineWaterFall)[];
 }
 
 const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, series }) => {
