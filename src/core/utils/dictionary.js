@@ -154,6 +154,7 @@ const dictionary = [
   'Roadmaps',
   'nums',
   'customizable',
+  'cancelled',
 ];
 
 module.exports = dictionary;

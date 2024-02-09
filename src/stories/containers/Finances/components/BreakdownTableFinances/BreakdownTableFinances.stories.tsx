@@ -21,7 +21,7 @@ const args = [
     activeItems: [],
     handleSelectChange: () => null,
     handleResetFilter: () => null,
-    periodicSelectionFilter: ['Monthly', 'Quarterly', 'Annualy'],
+    periodSelectOptions: ['Monthly', 'Quarterly', 'Annualy'],
     handleChange: () => null,
     onOpen: () => null,
     onClose: () => null,

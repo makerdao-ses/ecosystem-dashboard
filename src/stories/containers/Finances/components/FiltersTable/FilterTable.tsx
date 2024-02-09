@@ -16,11 +16,9 @@ interface Props {
   activeItems: string[];
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
-  periodicSelectionFilter: string[];
+  periodSelectOptions: string[];
   handleChange: (value: string) => void;
-
   selectedValue: string;
-
   className?: string;
   maxItems?: number;
   minItems?: number;
@@ -30,14 +28,13 @@ interface Props {
 }
 
 const FilterTable: React.FC<Props> = ({
-  periodicSelectionFilter,
+  periodSelectOptions,
   activeItems,
   handleSelectChange,
   handleResetFilter,
   metrics,
   handleChange,
   selectedValue,
-
   maxItems,
   minItems,
   defaultMetricsWithAllSelected,
@@ -95,7 +92,7 @@ const FilterTable: React.FC<Props> = ({
       </ContainerFiltersMetric>
       <PeriodicSelectionFilter>
         <PeriodSelect
-          items={periodicSelectionFilter}
+          items={periodSelectOptions}
           useSelectedAsLabel
           onChange={handleChange}
           selected={selectedValue}

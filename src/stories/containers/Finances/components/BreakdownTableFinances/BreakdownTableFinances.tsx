@@ -11,11 +11,9 @@ interface Props {
   activeItems: string[];
   handleSelectChange: (value: string[]) => void;
   handleResetFilter: () => void;
-  periodicSelectionFilter: string[];
+  periodSelectOptions: string[];
   handleChange: (value: string) => void;
-
   selectedValue: string;
-
   maxItems?: number;
   minItems?: number;
   defaultMetricsWithAllSelected?: string[];
@@ -28,11 +26,9 @@ const BreakdownTableFinances = ({
   handleChange,
   handleResetFilter,
   handleSelectChange,
-
-  periodicSelectionFilter,
+  periodSelectOptions,
   metrics,
   selectedValue,
-
   defaultMetricsWithAllSelected,
   maxItems,
   minItems,
@@ -60,7 +56,7 @@ const BreakdownTableFinances = ({
           handleResetFilter={handleResetFilter}
           handleChange={handleChange}
           selectedValue={selectedValue}
-          periodicSelectionFilter={periodicSelectionFilter}
+          periodSelectOptions={periodSelectOptions}
           allowSelectAll={allowSelectAll}
           popupContainerHeight={popupContainerHeight}
         />
