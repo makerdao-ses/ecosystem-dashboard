@@ -5,7 +5,11 @@ import ReservesWaterFallFilters from '../../ReservesWaterFallFilters/ReservesWat
 import SectionTitle from '../../SectionTitle/SectionTitle';
 import WaterFallChart from '../../WaterFallChart/WaterFallChart';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { LegendItemsWaterFall, WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
+import type {
+  LegendItemsWaterFall,
+  LineWaterFall,
+  WaterFallChartSeriesData,
+} from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 interface Props {
@@ -13,7 +17,7 @@ interface Props {
   legends: LegendItemsWaterFall[];
   year: string;
   selectedGranularity: AnalyticGranularity;
-  series: WaterFallChartSeriesData[];
+  series: (WaterFallChartSeriesData | LineWaterFall)[];
   activeItems: string[];
   handleSelectChangeItem: (value: string[]) => void;
   popupContainerHeight: number;
