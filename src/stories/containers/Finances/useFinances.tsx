@@ -3,8 +3,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useMemo } from 'react';
-import { useSWRConfig } from 'swr';
+import { useState, useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from './components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
@@ -31,8 +30,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const router = useRouter();
-  // TODO: this should not be used, instead we should use different keys to use different data/params
-  const { mutate } = useSWRConfig();
   const [year, setYear] = useState(initialYear);
 
   const urlPath = Array.isArray(router.query.path) ? router.query.path.join('/') : router.query.path;
@@ -51,7 +48,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     );
   };
 
-  // TODO: we should be using only one query and refetch the data depending on the selected granularity
   const { data: budgetsAnalytics } = useSWRImmutable(
     ['annual', year, codePath, levelOfDetail, budgets],
     async () =>
@@ -105,14 +101,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
 
   // All the logic required by the CardChartOverview section
-  const cardOverViewSectionData = useCardChartOverview(
-    budgets,
-    budgetsAnalytics,
-    levelNumber,
-    allBudgets,
-    codePath,
-    year
-  );
+  const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics, levelNumber, allBudgets, codePath);
 
   // All the logic required by the CardNavigation section
   const cardsNavigationInformation = budgets.map((item, index) => {
@@ -159,13 +148,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   // This should be calculate
 
   const reserveChart = useReservesWaterFallChart(codePath, budgets, allBudgets, year);
-
-  // invalidate cache and refetch all sections when year changes
-  useEffect(() => {
-    mutate('analytics/annual');
-    mutate('analytics/quarterly');
-    mutate('analytics/monthly');
-  }, [mutate, year, codePath]);
 
   return {
     isEnabled,
