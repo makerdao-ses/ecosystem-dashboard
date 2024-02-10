@@ -4,6 +4,7 @@ import React from 'react';
 import ReservesWaterFallFilters from '../../ReservesWaterFallFilters/ReservesWaterFallFilters';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 import WaterFallChart from '../../WaterFallChart/WaterFallChart';
+import WaterFallSkeleton from '../../WaterFallChart/WaterFallSkeleton';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   LegendItemsWaterFall,
@@ -63,17 +64,7 @@ const ReservesWaterFallChartSection: React.FC<Props> = ({
     </ContainerTitleFilter>
     <ContainerChart>
       {isLoading ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 300,
-            color: 'red',
-          }}
-        >
-          loading...
-        </div>
+        <WaterFallSkeleton />
       ) : (
         <WaterFallChart legends={legends} year={year} selectedGranularity={selectedGranularity} series={series} />
       )}
