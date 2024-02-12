@@ -35,7 +35,7 @@ DelegateExpense.parameters = {
     component: {
       768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24369:100466&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:332118&mode=dev',
         options: {
           style: {
             left: -12,
@@ -48,7 +48,7 @@ DelegateExpense.parameters = {
       },
       1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204291&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:330577&mode=dev',
         options: {
           style: {
             left: -1,
@@ -61,7 +61,7 @@ DelegateExpense.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:214505&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:335244&mode=dev',
         options: {
           style: {
             left: -4,
@@ -75,7 +75,7 @@ DelegateExpense.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:200767&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:336774&mode=dev',
         options: {
           style: {
             left: -4,
@@ -89,7 +89,7 @@ DelegateExpense.parameters = {
       },
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:205067&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:333775&mode=dev',
         options: {
           style: {
             left: -4,
@@ -113,7 +113,7 @@ DelegateExpenseMobile.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24365:95547&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:338145&mode=dev',
         options: {
           style: {
             left: -40,

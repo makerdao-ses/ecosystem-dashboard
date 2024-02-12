@@ -169,11 +169,12 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: 0,
-    minHeight: 113,
+    gap: 12,
     flexDirection: 'column',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     minHeight: 'revert',
+    gap: 'revert',
   },
 }));
 
@@ -200,7 +201,7 @@ const ContainerInside = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '16px 16px 8px',
   cursor: 'pointer',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: '8px 8px 16px 16px',
+    padding: '8px 8px 0px 16px',
     flexDirection: 'row',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -216,12 +217,14 @@ const ContainerIconName = styled.div({
   flexDirection: 'row',
   gap: 8,
   height: 51,
+  minHeight: 51,
   [lightTheme.breakpoints.up('tablet_768')]: {
     height: 'unset',
     alignItems: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     gap: 16,
+    minHeight: 'revert',
   },
 });
 
@@ -231,12 +234,10 @@ const TitleCode = styled.div({
   flexDirection: 'row',
   alignItems: 'center',
   gap: 4,
-
+  width: 200,
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 237,
-
     gap: 6,
-    marginTop: 4,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 4,
@@ -260,22 +261,9 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  width: 175,
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    width: 171,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    width: 180,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 224,
-  },
 }));
 
 const Date = styled.div<WithIsLight>(({ isLight }) => ({
@@ -350,7 +338,6 @@ const ActorLabel = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
-    marginBottom: 8,
     color: isLight ? '#9FAFB9' : '#D2D4EF',
     fontSize: 14,
     fontStyle: 'normal',
@@ -506,7 +493,6 @@ const ViewContainer = styled.div({
     display: 'flex',
 
     justifyContent: 'flex-end',
-    marginTop: 3,
     marginRight: -2,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -575,7 +561,7 @@ const ContainerMobile = styled.div({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     flex: 'unset',
-    width: 250,
+    // width: 250,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 'revert',
@@ -590,7 +576,7 @@ const ContainerCardMobile = styled.div({
   marginBottom: 16,
 
   paddingLeft: 32,
-  paddingRight: 32,
+  paddingRight: 42,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
@@ -637,12 +623,12 @@ const ContainerStatus = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
+  alignItems: 'center',
 });
 const ContainerStatusTable = styled.div({
   display: 'flex',
   flexDirection: 'row',
   gap: 22,
-  alignItems: 'center',
   marginLeft: -2,
 });
 const ReportingMobile = styled.div({
@@ -660,8 +646,8 @@ const ActorLastModifiedStyled = styled(ActorLastModified)({
     color: '#708390',
   },
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    padding: '2px 10px',
-    height: 26,
+    padding: '4px 10px',
+    minHeight: 26,
     '& > div:last-of-type': {
       marginTop: -4,
     },
