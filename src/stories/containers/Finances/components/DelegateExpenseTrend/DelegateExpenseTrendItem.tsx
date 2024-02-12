@@ -644,10 +644,7 @@ const ActorLastModifiedStyled = styled(ActorLastModified)({
     color: '#708390',
   },
   [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    padding: '4px 10px',
-    minHeight: 26,
-    '& > div:last-of-type': {
-      marginTop: -4,
-    },
+    padding: '3px 10px',
+    minHeight: 25,
   },
 });
