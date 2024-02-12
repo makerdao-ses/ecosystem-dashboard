@@ -75,6 +75,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         .replace(
           {
             query: {
+              path: router.query.path,
               year,
               metric: metrics,
               period: granularity,
