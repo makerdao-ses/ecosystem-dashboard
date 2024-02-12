@@ -561,7 +561,6 @@ const ContainerMobile = styled.div({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     flex: 'unset',
-    // width: 250,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 'revert',
