@@ -51,7 +51,7 @@ export const ActorLastModified = ({ date, now = DateTime.now(), href, className 
           </a>
         </Link>
       ) : (
-        <ContainerNoData isLight={isLight}>
+        <ContainerNoData isLight={isLight} className={className}>
           <LastModifiedTextNoData isLight={isLight} hasUppercase={!isDesk}>
             {textDescription}
           </LastModifiedTextNoData>
