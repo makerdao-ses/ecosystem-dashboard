@@ -1,5 +1,4 @@
 import { useMediaQuery } from '@mui/material';
-import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import {
   existingColors,
   existingColorsDark,
@@ -11,10 +10,9 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useState } from 'react';
-import useSWRImmutable from 'swr/immutable';
 import { getCorrectMetricValuesOverViewChart } from './utils';
 import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
-import type { AnalyticMetric, AnalyticSeriesRow, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useCardChartOverview = (
@@ -22,16 +20,12 @@ export const useCardChartOverview = (
   budgetsAnalytics: BreakdownBudgetAnalytic | undefined,
   levelNumber: number,
   allBudgets: Budget[],
-  codePath: string,
-  year: string
+  codePath: string
 ) => {
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
   const isHasSubLevels = hasSubLevels(codePath, allBudgets);
-  const { data: analytics, isLoading } = useSWRImmutable(['annual', year, codePath, levelNumber], async () =>
-    fetchAnalytics('annual', year, codePath, levelNumber)
-  );
 
   const filters: FilterDoughnut[] = ['Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Protocol Outflow', 'Budget'];
   const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
@@ -49,24 +43,24 @@ export const useCardChartOverview = (
       forecast: 0,
       actuals: 0,
     };
-    if (!analytics || !analytics.series?.length) {
+
+    if (!budgetsAnalytics) {
       // return 0 values to avoid having an empty UI
 
       return data;
     }
 
-    // calculate the sum of all the rows for a metric
-    const reduceMetric = (rows: AnalyticSeriesRow[], metric: AnalyticMetric) =>
-      rows.filter((element) => element.metric === metric).reduce((acc, current) => acc + Math.abs(current.value), 0);
-
-    analytics.series.forEach((item) => {
-      data.budget += reduceMetric(item.rows, 'Budget');
-      data.forecast += reduceMetric(item.rows, 'Forecast');
-      data.actuals += reduceMetric(item.rows, 'Actuals');
+    const values = Object.values(budgetsAnalytics ?? {});
+    values.forEach((item) => {
+      item.forEach((element) => {
+        data.budget += element.budget.value;
+        data.forecast += element.forecast.value;
+        data.actuals += element.actuals.value;
+      });
     });
 
     return data;
-  }, [analytics]);
+  }, [budgetsAnalytics]);
 
   const metric: { [index: string]: number } = {
     actuals: 0,
@@ -225,6 +219,6 @@ export const useCardChartOverview = (
     changeAlignment,
     showSwiper,
     numberSliderPerLevel,
-    isLoading,
+    isLoading: false,
   };
 };
