@@ -622,7 +622,6 @@ const ContainerStatus = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  alignItems: 'center',
 });
 const ContainerStatusTable = styled.div({
   display: 'flex',
