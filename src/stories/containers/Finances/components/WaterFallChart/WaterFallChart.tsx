@@ -5,6 +5,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
+import { useEffect, useMemo, useRef } from 'react';
 import { getGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
@@ -21,6 +22,7 @@ interface Props {
 
 const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, series }) => {
   const { isLight } = useThemeContext();
+  const refWaterfallChart = useRef<EChartsOption | null>(null);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -28,147 +30,185 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
 
-  const xAxisStyles = {
-    fontFamily: 'Inter, sans-serif',
-    textAlign: 'center',
-    fontWeight: 600,
-    fontSize: upTable ? 12 : 9,
-    verticalAlign: 'top',
-    interval: 0,
-    padding: [0, 0, 3, 0],
-  };
-  const xYearStyles = {
-    ...xAxisStyles,
-    padding: [0, 0, 0, 0],
-  };
+  const xAxisStyles = useMemo(
+    () => ({
+      fontFamily: 'Inter, sans-serif',
+      textAlign: 'center',
+      fontWeight: 600,
+      fontSize: upTable ? 12 : 9,
+      verticalAlign: 'top',
+      interval: 0,
+      padding: [0, 0, 3, 0],
+    }),
+    [upTable]
+  );
 
-  const startStyles = {
-    ...xAxisStyles,
-    color: isLight ? (isMobile ? '#231536' : '#434358') : '#B6BCC2',
-  };
+  const xYearStyles = useMemo(
+    () => ({
+      ...xAxisStyles,
+      padding: [0, 0, 0, 0],
+    }),
+    [xAxisStyles]
+  );
 
-  const startYearStyles = {
-    ...xYearStyles,
-    color: isLight ? (isMobile ? '#231536' : '#434358') : '#B6BCC2',
-  };
+  const startStyles = useMemo(
+    () => ({
+      ...xAxisStyles,
+      color: isLight ? (isMobile ? '#231536' : '#434358') : '#B6BCC2',
+    }),
+    [xAxisStyles, isLight, isMobile]
+  );
 
-  const options: EChartsOption = {
-    grid: {
-      top: isMobile ? 16 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 22 : 22,
-      left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
-      right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
-      height: isMobile ? 200 : isTablet ? 385 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
-    },
-    xAxis: {
-      type: 'category',
-      data: getGranularity(selectedGranularity, isMobile, true),
-      splitLine: {
-        show: false,
+  const startYearStyles = useMemo(
+    () => ({
+      ...xYearStyles,
+      color: isLight ? (isMobile ? '#231536' : '#434358') : '#B6BCC2',
+    }),
+    [xYearStyles, isLight, isMobile]
+  );
+
+  const options: EChartsOption = useMemo(
+    () => ({
+      grid: {
+        top: isMobile ? 16 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 22 : 22,
+        left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
+        right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
+        height: isMobile ? 200 : isTablet ? 385 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
       },
-      axisLine: {
-        show: false,
-        symbolOffset: 'left',
-        lineStyle: {
-          color: 'transparent',
+      xAxis: {
+        type: 'category',
+        data: getGranularity(selectedGranularity, isMobile, true),
+        splitLine: {
+          show: false,
         },
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLabel: {
-        margin: isMobile ? 16 : isTablet ? 24 : isDesktop1024 ? 24 : isDesktop1280 ? 24 : isDesktop1440 ? 26 : 26,
-        color: isLight ? '#B6BCC2' : '#546978',
-        align: 'center',
-        fontFamily: 'Inter,san-serif',
-        fontWeight: isMobile ? 400 : 600,
-        fontSize: upTable ? 12 : 9,
-        height: upTable ? 15 : 11,
-        interval: 0,
-        formatter: function (value: string, index: number) {
-          if (isMobile) {
-            if (selectedGranularity === 'monthly' && (index === 0 || index === 13)) {
-              return `{start|${value}}`;
+        axisLine: {
+          show: false,
+          symbolOffset: 'left',
+          lineStyle: {
+            color: 'transparent',
+          },
+        },
+        axisTick: {
+          show: false,
+        },
+        axisLabel: {
+          margin: isMobile ? 16 : isTablet ? 24 : isDesktop1024 ? 24 : isDesktop1280 ? 24 : isDesktop1440 ? 26 : 26,
+          color: isLight ? '#B6BCC2' : '#546978',
+          align: 'center',
+          fontFamily: 'Inter,san-serif',
+          fontWeight: isMobile ? 400 : 600,
+          fontSize: upTable ? 12 : 9,
+          height: upTable ? 15 : 11,
+          interval: 0,
+          formatter: function (value: string, index: number) {
+            if (isMobile) {
+              if (selectedGranularity === 'monthly' && (index === 0 || index === 13)) {
+                return `{start|${value}}`;
+              }
+              return value;
             }
-            return value;
-          }
-          if (selectedGranularity === 'monthly') {
-            if (index === 0 || index === 13) {
-              return `{start|${value}}\n{startYear|${year}}`;
+            if (selectedGranularity === 'monthly') {
+              if (index === 0 || index === 13) {
+                return `{start|${value}}\n{startYear|${year}}`;
+              }
+              return `{month|${value}}\n{year|${year}}`;
             }
-            return `{month|${value}}\n{year|${year}}`;
-          }
 
-          if (selectedGranularity === 'quarterly') {
-            if (index === 0 || index === 5) {
-              return `{start|${value}}\n{startYear|${year}}`;
+            if (selectedGranularity === 'quarterly') {
+              if (index === 0 || index === 5) {
+                return `{start|${value}}\n{startYear|${year}}`;
+              }
+              return `{month|${value}}\n{year|${year}}`;
             }
-            return `{month|${value}}\n{year|${year}}`;
-          }
-          if (selectedGranularity === 'annual') {
-            if (index === 0 || index === 2) {
-              return `{start|${value}}\n{startYear|${year}}`;
+            if (selectedGranularity === 'annual') {
+              if (index === 0 || index === 2) {
+                return `{start|${value}}\n{startYear|${year}}`;
+              }
+              return `{year|${year}}`;
             }
             return `{year|${year}}`;
-          }
-          return `{year|${year}}`;
-        },
+          },
 
-        rich: {
-          month: xAxisStyles,
-          year: xYearStyles,
-          start: startStyles,
-          startYear: startYearStyles,
+          rich: {
+            month: xAxisStyles,
+            year: xYearStyles,
+            start: startStyles,
+            startYear: startYearStyles,
+          },
         },
       },
-    },
-    yAxis: {
-      min: 0,
-      axisLabel: {
-        padding: isMobile
-          ? [0, 0, 0, 2]
-          : isTablet
-          ? [0, 14, 0, 0]
-          : isDesktop1024
-          ? [0, 12, 0, 0]
-          : isDesktop1280
-          ? [0, 6, 0, 0]
-          : isDesktop1440
-          ? [0, 12, 0, 0]
-          : [0, 12, 0, 0],
-        formatter: function (value: number, index: number) {
-          if (index === 0) {
-            return value.toString();
-          }
-          return replaceAllNumberLetOneBeforeDot(value);
+      yAxis: {
+        min: 0,
+        axisLabel: {
+          padding: isMobile
+            ? [0, 0, 0, 2]
+            : isTablet
+            ? [0, 14, 0, 0]
+            : isDesktop1024
+            ? [0, 12, 0, 0]
+            : isDesktop1280
+            ? [0, 6, 0, 0]
+            : isDesktop1440
+            ? [0, 12, 0, 0]
+            : [0, 12, 0, 0],
+          formatter: function (value: number, index: number) {
+            if (index === 0) {
+              return value.toString();
+            }
+            return replaceAllNumberLetOneBeforeDot(value);
+          },
+          color: isLight ? '#231536' : '#D2D4EF',
+          fontSize: isMobile ? 10 : isTablet ? 14 : 14,
+          height: upTable ? 15 : 12,
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: upTable ? 600 : 400,
         },
-        color: isLight ? '#231536' : '#D2D4EF',
-        fontSize: isMobile ? 10 : isTablet ? 14 : 14,
+        verticalAlign: 'middle',
         height: upTable ? 15 : 12,
-        fontFamily: 'Inter, sans-serif',
-        fontWeight: upTable ? 600 : 400,
-      },
-      verticalAlign: 'middle',
-      height: upTable ? 15 : 12,
 
-      type: 'value',
-      zlevel: 1,
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        lineStyle: {
-          color: isLight ? '#31424E' : '#D8E0E3',
-          width: 0.25,
+        type: 'value',
+        zlevel: 1,
+        axisLine: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            color: isLight ? '#31424E' : '#D8E0E3',
+            width: 0.25,
+          },
         },
       },
-    },
-    series,
-  };
+      series,
+    }),
+    [
+      isDesktop1024,
+      isDesktop1280,
+      isDesktop1440,
+      isLight,
+      isMobile,
+      isTablet,
+      selectedGranularity,
+      series,
+      startStyles,
+      startYearStyles,
+      upTable,
+      xAxisStyles,
+      xYearStyles,
+      year,
+    ]
+  );
+
+  useEffect(() => {
+    // avoid to merge data for lines
+    const chartInstance = refWaterfallChart?.current?.getEchartsInstance();
+    chartInstance?.setOption(options, { notMerge: true });
+  }, [options]);
 
   return (
     <Wrapper>
       <ChartContainer>
         <ReactECharts
+          ref={refWaterfallChart}
           option={options}
           style={{
             height: '100%',
