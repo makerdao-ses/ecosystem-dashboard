@@ -2,7 +2,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
-import { NUMBER_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
+import { MAX_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import type {
@@ -528,74 +528,74 @@ export const getFirstElementEachTable = (data: TableFinances[]): ItemRow[] => {
 };
 
 export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
-  const maxRows = NUMBER_ROWS_FINANCES_TABLE;
-  const others: ItemRow[] = [];
-  let totalRowsPerTable = 0;
-  let itemArrayTableHasOthers: TableFinances = {
-    rows: [],
-    tableName: '',
-    others: false,
-  };
-
-  const orderData = sortDataByElementCount(data);
-  const firstElementOfArray = getFirstElementEachTable(orderData);
-  // Take the first element of each table
-  const result = firstElementOfArray.map((row, index) => ({
-    tableName: orderData[index].tableName,
-    rows: [firstElementOfArray[index]],
-    others: false,
-  }));
   const totalRows = data.reduce((acc, element) => acc + element.rows.length, 0);
-  const numberHeaders = data.length;
-  if (totalRows <= maxRows) {
+
+  if (totalRows <= MAX_ROWS_FINANCES_TABLE) {
+    // If the total rows are less than 16, return the data as it is
     return data;
   }
-  for (const item of orderData) {
-    // Stop if some table with the header of all table sum 16
-    if (item.rows.length + totalRowsPerTable + firstElementOfArray.length - 1 > maxRows) {
-      itemArrayTableHasOthers = {
-        rows: item.rows,
-        others: true,
-        tableName: item.tableName,
-      };
 
-      break;
+  if (data.length > MAX_ROWS_FINANCES_TABLE) {
+    // there are more sub-tables than allowed rows so we return just the headers
+    return data.map((item) => ({
+      tableName: item.tableName,
+      rows: [item.rows[0]],
+      others: false,
+    }));
+  }
+
+  // at this point there are less sub-tables than allowed rows but more rows than allowed
+  const finalSubTables = [] as TableFinances[];
+  let remainingRows = MAX_ROWS_FINANCES_TABLE - data.length; // we already take in count the headers
+  for (const subTable of data) {
+    const finalSubTable = {
+      ...subTable,
+      rows: [subTable.rows[0]], // header
+    };
+
+    if (remainingRows === 0) {
+      // we already have the maximum number of rows
+      finalSubTables.push(finalSubTable);
+      continue;
     }
 
-    const indexItem = result.findIndex((element) => element.tableName === item.tableName);
-
-    const takeAllElementLessOne = item.rows.slice(1, item.rows.length);
-
-    result[indexItem].rows.push(...takeAllElementLessOne);
-    totalRowsPerTable += item.rows.length;
-  }
-  // Rest on, because already take from each table
-  if (itemArrayTableHasOthers.rows.length <= maxRows && totalRowsPerTable - 1 + numberHeaders !== maxRows) {
-    const indexItem = result.findIndex((element) => element.tableName === itemArrayTableHasOthers.tableName);
-
-    itemArrayTableHasOthers.rows.forEach((item, index) => {
-      if (totalRowsPerTable + numberHeaders < maxRows && index !== 0) {
-        result[indexItem].rows.push(item);
-
-        totalRowsPerTable++;
-      } else {
-        // Only put if not the one element
-        if (index !== 0) {
-          others.push(item);
-        }
-      }
-    });
-
-    if (indexItem !== orderData.length - 1) {
-      result[indexItem].others = true;
-      const resultOthers = getMetricsForOthersRow(others);
-      result[indexItem].rows.push(resultOthers);
+    if (subTable.rows.length - 1 <= remainingRows) {
+      // we can add all the rows
+      finalSubTable.rows.push(...subTable.rows.slice(1));
+      remainingRows -= subTable.rows.length - 1;
     } else {
-      result[indexItem].others = false;
+      // we can just add a few rows (we need to reserve space for the "others" row)
+      finalSubTable.rows.push(...subTable.rows.slice(1, remainingRows));
+      // now add the "others" row
+      finalSubTable.rows.push(
+        subTable.rows.slice(remainingRows, subTable.rows.length).reduce(
+          (acc, current) => {
+            for (let index = 0; index < current.columns.length; index++) {
+              Object.keys(acc.columns[0]).forEach((key) => {
+                acc.columns[index][key as keyof MetricValues] += current.columns[index][key as keyof MetricValues];
+              });
+            }
+            return acc;
+          },
+          {
+            name: 'Others',
+            columns: subTable.rows[0].columns.map(() => ({
+              Actuals: 0,
+              Budget: 0,
+              Forecast: 0,
+              PaymentsOnChain: 0,
+              ProtocolNetOutflow: 0,
+            })),
+          } as ItemRow
+        )
+      );
+      remainingRows = 0;
     }
+
+    finalSubTables.push(finalSubTable);
   }
 
-  return result;
+  return finalSubTables;
 };
 export const generateColorPalette = (index: number, numColors: number, existingColors: string[] = []) => {
   const baseHue = (index * (360 / numColors)) % 360;
