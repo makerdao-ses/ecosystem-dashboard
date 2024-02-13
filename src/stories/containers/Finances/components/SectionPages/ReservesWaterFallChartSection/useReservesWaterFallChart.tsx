@@ -36,6 +36,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
   };
   const handleResetFilter = () => {
     setActiveElements(selectAll);
+    setSelectedGranularity('monthly');
   };
 
   // fetch actual data from the API
