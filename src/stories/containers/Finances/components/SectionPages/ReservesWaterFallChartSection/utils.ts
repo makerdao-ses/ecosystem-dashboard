@@ -239,7 +239,7 @@ export const processDataForWaterFall = (data: number[], total: number): number[]
   return result;
 };
 
-export const generateLineSeries = (lineSeriesData: number[], isLight: boolean, analytic: AnalyticGranularity) => {
+export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) => {
   const showLines = lineSeriesData.reduce((acc, curr) => acc + curr, 0);
   const series = [];
   if (showLines === 0) {
@@ -266,12 +266,15 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean, a
     }
     return series;
   }
-  const newLineSeries = [...lineSeriesData];
-  newLineSeries.push(lineSeriesData[lineSeriesData.length - 1]);
+  // Array to determine the position of the change
+  const positiveNegativeLine = lineSeriesData.map((value, index, array) =>
+    index === 0 ? null : value > array[index - 1]
+  );
 
-  for (let i = 1; i < newLineSeries.length - 1; i++) {
-    // fix the colors
-    const isAscending = newLineSeries[i] > newLineSeries[i - 1];
+  const newLineSeries = [...lineSeriesData, lineSeriesData[lineSeriesData.length - 1]];
+
+  for (let i = 1; i < newLineSeries.length; i++) {
+    const isAscending = positiveNegativeLine[i - 1];
     const color = isLight ? (isAscending ? '#06554C' : '#A83815') : isAscending ? '#06554C' : '#A83815';
     const seriesData = new Array(newLineSeries.length).fill('-');
     seriesData[i - 1] = newLineSeries[i - 1];
@@ -286,7 +289,7 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean, a
         join: 'end',
         borderType: 'solid',
         type: 'line',
-        color: i === 1 ? (analytic === 'annual' ? color : '#5D48FF') : color,
+        color: i === 1 ? '#5D48FF' : color,
         cap: 'butt',
       },
 

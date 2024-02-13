@@ -66,10 +66,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
   const series = builderWaterFallSeries(dataReady, isMobile, isTable, isLight);
 
   const valuesLine = useMemo(() => calculateAccumulatedArray(dataReady), [dataReady]);
-  const linesChart = useMemo(
-    () => generateLineSeries(valuesLine, isLight, selectedGranularity),
-    [isLight, selectedGranularity, valuesLine]
-  );
+  const linesChart = useMemo(() => generateLineSeries(valuesLine, isLight), [isLight, valuesLine]);
 
   series.push(...linesChart);
 
