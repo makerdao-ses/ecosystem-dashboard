@@ -125,7 +125,7 @@ const BreadCrumbWithIcons = ({ title, items = [], className, marginRightSeparato
               }}
               legacyBehavior
             >
-              <ItemMenu>{item.label}</ItemMenu>
+              <ItemMenu onClick={handleClose}>{item.label}</ItemMenu>
             </Link>
           </MenuItem>
         ))}
