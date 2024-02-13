@@ -16,7 +16,7 @@ interface Props {
 export const CellAnnually: React.FC<Props> = ({ metrics, activeMetrics }) => {
   const { isLight } = useThemeContext();
   return (
-    <ContainerCell isLight={isLight}>
+    <ContainerCell isLight={isLight} activeMetrics={activeMetrics.length}>
       {activeMetrics?.map((metric, index) => (
         <Metrics isLight={isLight} key={index}>
           <Name isLight={isLight}>{getShortNameForMetric(metric)}</Name>
@@ -31,7 +31,7 @@ export const CellAnnually: React.FC<Props> = ({ metrics, activeMetrics }) => {
 
 export default CellAnnually;
 
-const ContainerCell = styled.div<WithIsLight>(({ isLight }) => ({
+const ContainerCell = styled.div<WithIsLight & { activeMetrics: number }>(({ isLight, activeMetrics }) => ({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
   flexDirection: 'row',
@@ -39,6 +39,22 @@ const ContainerCell = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   width: '100%',
   fontWeight: 500,
+  ...(activeMetrics === 3 && {
+    '& > div:nth-of-type(3)': {
+      ':after': {
+        left: 4,
+      },
+    },
+  }),
+  ...(activeMetrics === 2 && {
+    '& > div:nth-of-type(2)': {
+      ':after': {
+        left: 2,
+        bottom: -6,
+        height: 42,
+      },
+    },
+  }),
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 60,
     paddingLeft: 20,
@@ -48,7 +64,7 @@ const ContainerCell = styled.div<WithIsLight>(({ isLight }) => ({
 const Metrics = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'column',
-  width: 78,
+  width: 80,
   flex: 1,
   position: 'relative',
   ':after': {
