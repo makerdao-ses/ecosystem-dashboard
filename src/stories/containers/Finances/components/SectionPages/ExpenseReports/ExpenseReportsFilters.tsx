@@ -2,15 +2,14 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
+import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFilter/ResponsiveButtonClearFilter';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
-import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import { getExpenseReportStatusColor } from '@ses/core/utils/colors';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useMemo } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface ExpenseReportsFiltersProps {
   selectedMetric: string;
@@ -19,6 +18,7 @@ export interface ExpenseReportsFiltersProps {
   onStatusSelectChange: (value: BudgetStatus[]) => void;
   statusesItems: MultiSelectItem[];
   handleResetFilter: () => void;
+  isDisabled?: boolean;
 }
 
 const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
@@ -28,11 +28,9 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
   onStatusSelectChange,
   statusesItems,
   handleResetFilter,
+  isDisabled = true,
 }) => {
-  const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const isDisabled = selectedMetric === 'Actual' && selectedStatuses.length === 0;
-  const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
 
   return (
     <FilterContainer>
@@ -97,10 +95,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           popupContainerHeight={220}
         />
       </SelectContainer>
-
-      <ResponsiveButton onClick={handleResetFilter} isLight={isLight} isDisabled={isDisabled}>
-        <Close width={10} height={10} fill={colorButton} fillDark={colorButton} />
-      </ResponsiveButton>
+      <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
     </FilterContainer>
   );
 };
@@ -169,24 +164,6 @@ const MetricSelect = styled(SingleItemSelect)({
     padding: '14px 15px 14px 16px',
   },
 });
-
-const ResponsiveButton = styled.div<WithIsLight & { isDisabled: boolean }>(({ isLight, isDisabled }) => ({
-  display: 'flex',
-  gridArea: 'buttonFilter',
-  justifySelf: 'flex-end',
-  height: '34px',
-  width: '34px',
-  border: isLight
-    ? `1px solid ${isDisabled ? '#ECEFF9' : '#D4D9E1'}`
-    : `1px solid ${isDisabled ? '#10191F' : '#D4D9E1'}`,
-  borderRadius: '22px',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'none',
-  },
-}));
 
 const CustomMultiSelectStyled = styled(CustomMultiSelect)({
   '& > div:first-of-type': {

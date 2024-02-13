@@ -177,6 +177,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               handleGranularityChange={reserveChart.handleGranularityChange}
               handleResetFilter={reserveChart.handleResetFilter}
               isLoading={reserveChart.isLoading}
+              isDisabled={reserveChart.isDisabled}
             />
           </ContainerReservesWaterFallChart>
         )}
@@ -192,6 +193,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               columns={expenseReportSection.headersExpenseReport}
               sortClick={expenseReportSection.onSortClick}
               expenseReportResponse={expenseReportSection.expenseReportResponse}
+              isDisabled={expenseReportSection.isDisabled}
             />
           </ContainerLastReport>
         )}

@@ -155,6 +155,8 @@ export const useExpenseReports = (budgetPath: string) => {
     );
   }, [statusesResponse.data]);
 
+  const isDisabled = selectedMetric === 'Actuals' && selectedStatuses.length === 0;
+
   return {
     selectedMetric,
     onMetricChange,
@@ -166,5 +168,6 @@ export const useExpenseReports = (budgetPath: string) => {
     onSortClick,
     expenseReportResponse,
     hasExpenseReports,
+    isDisabled,
   };
 };
