@@ -809,8 +809,8 @@ export const breakdownChartMonthly = (isMobile: boolean, isWaterFall = false) =>
     isMobile ? 'D' : 'DEC',
   ];
   if (isWaterFall) {
-    const start = isMobile ? 'S' : 'START';
-    const finish = isMobile ? 'F' : 'FINISH';
+    const start = isMobile ? '' : 'START';
+    const finish = isMobile ? '' : 'FINISH';
     defaultArray.unshift(start);
     defaultArray.push(finish);
   }
@@ -821,8 +821,8 @@ export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall = false) 
   const defaultArray = ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
 
   if (isWaterFall) {
-    const start = isMobile ? 'S' : 'START';
-    const finish = isMobile ? 'F' : 'FINISH';
+    const start = isMobile ? '' : 'START';
+    const finish = isMobile ? '' : 'FINISH';
     defaultArray.unshift(start);
     defaultArray.push(finish);
   }
@@ -832,8 +832,8 @@ export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall = false) 
 export const breakdownChartAnnually = (isMobile: boolean, isWaterFall: boolean) => {
   const defaultArray = ['Year'];
   if (isWaterFall) {
-    const start = isMobile ? 'S' : 'START';
-    const finish = isMobile ? 'F' : 'FINISH';
+    const start = isMobile ? '' : 'START';
+    const finish = isMobile ? '' : 'FINISH';
     defaultArray.unshift(start);
     defaultArray.push(finish);
   }
