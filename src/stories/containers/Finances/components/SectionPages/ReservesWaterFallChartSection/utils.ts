@@ -274,7 +274,7 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
   }
   // Array to determine the position of the change
   const positiveNegativeLine = lineSeriesData.map((value, index, array) =>
-    index === 0 ? null : value > array[index - 1]
+    index === 0 ? null : value >= array[index - 1]
   );
 
   const newLineSeries = [...lineSeriesData, lineSeriesData[lineSeriesData.length - 1]];
