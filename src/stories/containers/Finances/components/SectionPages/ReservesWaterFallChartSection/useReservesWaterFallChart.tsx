@@ -4,7 +4,7 @@ import { nameChanged } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import {
   builderWaterFallSeries,
@@ -21,7 +21,7 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
-  const selectAll = budgets.map((budget) => budget.codePath);
+  const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
 
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);
   const { isLight } = useThemeContext();
@@ -30,6 +30,10 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
 
   const levelOfDetail = codePath.split('/').length + 1;
+
+  useEffect(() => {
+    setActiveElements(selectAll);
+  }, [selectAll]);
 
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
