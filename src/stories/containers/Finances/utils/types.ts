@@ -126,7 +126,6 @@ export interface ItemRow {
 export interface TableFinances {
   tableName: string;
   rows: ItemRow[];
-  others?: boolean;
 }
 
 export interface RowItemMetrics {
