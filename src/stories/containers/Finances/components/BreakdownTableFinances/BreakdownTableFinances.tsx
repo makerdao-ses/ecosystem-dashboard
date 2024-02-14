@@ -19,6 +19,7 @@ interface Props {
   defaultMetricsWithAllSelected?: string[];
   allowSelectAll?: boolean;
   popupContainerHeight?: number;
+  isDisabled?: boolean;
 }
 
 const BreakdownTableFinances = ({
@@ -34,6 +35,7 @@ const BreakdownTableFinances = ({
   minItems,
   allowSelectAll,
   popupContainerHeight,
+  isDisabled,
 }: Props) => {
   const phoneLess = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
@@ -59,6 +61,7 @@ const BreakdownTableFinances = ({
           periodSelectOptions={periodSelectOptions}
           allowSelectAll={allowSelectAll}
           popupContainerHeight={popupContainerHeight}
+          isDisabled={isDisabled}
         />
       </FilterContainer>
     </Container>

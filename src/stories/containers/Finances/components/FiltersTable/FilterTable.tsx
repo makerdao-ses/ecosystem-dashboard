@@ -2,14 +2,12 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
+import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFilter/ResponsiveButtonClearFilter';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
-import { Close } from '@ses/components/svg/close';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import MetricItem from './MetricItem';
 import type { SelectItemProps, MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   metrics: MultiSelectItem[];
@@ -25,6 +23,7 @@ interface Props {
   defaultMetricsWithAllSelected?: string[];
   allowSelectAll?: boolean;
   popupContainerHeight?: number;
+  isDisabled?: boolean;
 }
 
 const FilterTable: React.FC<Props> = ({
@@ -40,26 +39,14 @@ const FilterTable: React.FC<Props> = ({
   defaultMetricsWithAllSelected,
   allowSelectAll,
   popupContainerHeight,
+  isDisabled = true,
 }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const { isLight } = useThemeContext();
-  const isEnable = isLight
-    ? activeItems.length > 0
-      ? '#231536'
-      : '#d1dee6'
-    : activeItems.length > 0
-    ? '#D2D4EF'
-    : '#48495F';
 
   return (
     <FiltersContainer>
       <Reset>
-        <ResetButton
-          onClick={handleResetFilter}
-          disabled={activeItems.length <= 0}
-          hasIcon={false}
-          label="Reset filters"
-        />
+        <ResetButton onClick={handleResetFilter} disabled={isDisabled} hasIcon={false} label="Reset filters" />
       </Reset>
 
       <ContainerFiltersMetric>
@@ -104,10 +91,7 @@ const FilterTable: React.FC<Props> = ({
           }}
         />
       </PeriodicSelectionFilter>
-
-      <ResponsiveButton onClick={handleResetFilter} isLight={isLight}>
-        <Close width={10} height={10} fill={isEnable} fillDark={isEnable} />
-      </ResponsiveButton>
+      <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
     </FiltersContainer>
   );
 };
@@ -158,21 +142,6 @@ const PeriodicSelectionFilter = styled.div({
     display: 'flex',
   },
 });
-
-const ResponsiveButton = styled.div<WithIsLight>(({ isLight }) => ({
-  display: 'flex',
-  gridArea: 'buttonFilter',
-  justifySelf: 'flex-end',
-  height: '34px',
-  width: '34px',
-  border: isLight ? '1px solid #D4D9E1' : '1px solid #10191F',
-  borderRadius: '22px',
-  alignItems: 'center',
-  justifyContent: 'center',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'none',
-  },
-}));
 
 const CustomMultiSelectStyled = styled(CustomMultiSelect)({
   '& > div:first-of-type': {

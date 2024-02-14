@@ -26,6 +26,7 @@ interface Props {
   isLoading: boolean;
   headerTable: MetricValues[];
   title: string;
+  isDisabled?: boolean;
 }
 
 const BreakdownTable: React.FC<Props> = ({
@@ -46,6 +47,7 @@ const BreakdownTable: React.FC<Props> = ({
   isLoading,
   headerTable,
   title,
+  isDisabled,
 }) => (
   <MainContainer>
     <BreakdownTableFinances
@@ -61,6 +63,7 @@ const BreakdownTable: React.FC<Props> = ({
       minItems={minItems}
       allowSelectAll={allowSelectAll}
       popupContainerHeight={popupContainerHeight}
+      isDisabled={isDisabled}
     />
     {isLoading ? (
       <div

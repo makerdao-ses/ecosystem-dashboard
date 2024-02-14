@@ -312,7 +312,23 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     updateUrl(periodFilter, value);
   };
   const handleResetMetrics = () => {
-    setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+    if (isMobile) {
+      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+      setPeriodFilter('Semi-annual');
+    }
+    if (isTable) {
+      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+      setPeriodFilter('Quarterly');
+    }
+    if (isDesk1024 || isDesk1280 || isDesk1440) {
+      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+      setPeriodFilter('Quarterly');
+    }
+
+    if (isDesk1920) {
+      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+      setPeriodFilter('Quarterly');
+    }
     updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
   };
   const handlePeriodChange = (value: string) => {
@@ -328,6 +344,13 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       })) as MultiSelectItem[],
     []
   );
+
+  const metricsMatch =
+    JSON.stringify(activeMetrics) === JSON.stringify(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+
+  const isDisabled =
+    (isMobile && selectedGranularity === 'semiAnnual' && metricsMatch) ||
+    ((isTable || isDesk1024 || isDesk1280 || isDesk1920) && selectedGranularity === 'quarterly' && metricsMatch);
 
   return {
     isMobile,
@@ -346,5 +369,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     tableHeader,
     tableBody,
     isLoading,
+    isDisabled,
   };
 };
