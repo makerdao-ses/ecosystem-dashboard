@@ -125,6 +125,8 @@ export const builderWaterFallSeries = (
       itemStyle: {
         borderRadius: 4,
         color: isLight ? '#CB3A0D' : '#A83815',
+        shadowOffsetY: -2,
+        shadowColor: isLight ? '#CB3A0D' : '#A83815',
       },
       isVisible: true,
       label: {
@@ -152,6 +154,8 @@ export const builderWaterFallSeries = (
       barWidth: isMobile ? 19 : 39,
       data: inFlow,
       itemStyle: {
+        shadowOffsetY: -2,
+        shadowColor: isLight ? '#2DC1B1' : '#1AAB9B',
         borderRadius: 4,
         color: isLight ? '#2DC1B1' : '#1AAB9B',
       },
@@ -170,7 +174,7 @@ export const builderWaterFallSeries = (
             return `+ ${formatted.value}`;
           }
 
-          return ` + ${formatted.value}${formatted.suffix}`;
+          return `+ ${formatted.value}${formatted.suffix}`;
         },
       },
       stack: 'all',
@@ -246,8 +250,10 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean, a
     for (let i = 1; i < lineSeriesData.length - 1; i++) {
       series.push({
         name: `Line ${i}`,
+
         lineStyle: {
           width: 3,
+
           zIndex: -1,
           z: 2,
           join: 'end',
