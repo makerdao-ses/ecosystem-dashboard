@@ -44,7 +44,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   return (
     <>
       {showFooterAndCorrectNumber.map((table: TableFinances, index) => (
-        <TableContainer isLight={isLight} className={className} key={index} hasOthers={table.others || false}>
+        <TableContainer isLight={isLight} className={className} key={index}>
           <TableBody isLight={isLight}>
             {table.rows.map((row: ItemRow, index) => {
               const href = `${siteRoutes.finances(
@@ -103,7 +103,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
 export default FinancesTable;
 
-const TableContainer = styled.table<WithIsLight & { hasOthers: boolean }>(({ isLight, hasOthers }) => ({
+const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   borderCollapse: 'collapse',
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
   fontFamily: 'Inter, sans-serif',
@@ -112,18 +112,7 @@ const TableContainer = styled.table<WithIsLight & { hasOthers: boolean }>(({ isL
   width: '100%',
   backgroundColor: isLight ? 'white' : '#1E2C37',
   borderRadius: '6px',
-  '& tr:last-of-type td:last-of-type': {
-    borderBottomRightRadius: hasOthers ? 0 : 6,
-  },
-
-  '& tr:last-of-type th:last-of-type': {
-    borderBottomLeftRadius: hasOthers ? 0 : 6,
-  },
-
-  '& tfoot td:last-of-type': {
-    borderBottomLeftRadius: 6,
-    borderBottomRightRadius: 6,
-  },
+  overflow: 'hidden',
 }));
 
 const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ isLight, period }) => ({
@@ -138,6 +127,7 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
   overflowWrap: 'break-word',
   wordBreak: 'break-word',
   position: 'relative',
+
   '& .link': {
     position: 'absolute',
     top: 0,
@@ -151,6 +141,7 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
     color: 'inherit',
     zIndex: 1,
   },
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
     ...(period === 'Monthly' && {
@@ -158,13 +149,16 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
     }),
     width: 150,
   },
+
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 150,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 220,
     padding: '16px 0px 16px 32px',
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: period === 'Quarterly' ? 261 : period === 'Annually' ? 200 : 188,
     padding: '16px 0px 16px 32px',
@@ -180,6 +174,7 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
       overflow: 'hidden',
     }),
   },
+
   [lightTheme.breakpoints.up('desktop_1920')]: {
     width: period === 'Annually' ? 212 : 230,
     padding: period === 'Quarterly' ? '16px 0px 16px 16px' : '16px 0px 16px 32px',
@@ -188,18 +183,20 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ 
 
 const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false, isLight }) => ({
   '& th': {
-    borderTopLeftRadius: isMain ? 6 : '0',
-    borderBottomLeftRadius: isMain ? 6 : '0',
+    borderTopLeftRadius: isMain ? 6 : 0,
+    borderBottomLeftRadius: isMain ? 6 : 0,
     fontWeight: isMain ? 700 : 400,
     textAlign: 'left',
   },
+
   '& td:last-of-type': {
     backgroundColor: isLight ? (isMain ? 'rgba(159, 175, 185, 0.17)' : 'inherit') : isMain ? '#2D3C48;' : 'inherit',
     fontWeight: isMain ? 600 : 400,
     borderRight: 'none',
-    borderTopRightRadius: isMain ? 6 : '0',
-    borderBottomRightRadius: isMain ? 6 : '0',
+    borderTopRightRadius: isMain ? 6 : 0,
+    borderBottomRightRadius: isMain ? 6 : 0,
   },
+
   '& td': {
     fontWeight: isMain ? 600 : 400,
   },
@@ -230,6 +227,7 @@ const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
   color: isLight ? '#231536' : '#D2D4EF',
   position: 'relative',
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     padding: '16px 20px',
   },
