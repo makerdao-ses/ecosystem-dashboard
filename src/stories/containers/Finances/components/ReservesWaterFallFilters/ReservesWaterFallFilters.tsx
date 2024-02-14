@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
+import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFilter/ResponsiveButtonClearFilter';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
-import { Close } from '@ses/components/svg/close';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BudgetItem from './BudgetItem';
 import type { MultiSelectItem, SelectItemProps } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface FiltersProps {
   selectedGranularity: AnalyticGranularity;
@@ -27,80 +25,71 @@ const ReservesWaterFallFilters: React.FC<FiltersProps> = ({
   selectedGranularity,
   popupContainerHeight,
   handleGranularityChange,
-  isDisabled = false,
+  isDisabled = true,
   handleResetFilter,
   handleSelectChangeItem,
   items,
-}) => {
-  const { isLight } = useThemeContext();
+}) => (
+  <FilterContainer>
+    <Reset>
+      <ResetButton
+        onClick={handleResetFilter}
+        disabled={isDisabled}
+        hasIcon={false}
+        label="Reset filters"
+        legacyBreakpoints={false}
+      />
+    </Reset>
 
-  const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
-
-  return (
-    <FilterContainer>
-      <Reset>
-        <ResetButton
-          onClick={handleResetFilter}
-          disabled={isDisabled}
-          hasIcon={false}
-          label="Reset filters"
-          legacyBreakpoints={false}
-        />
-      </Reset>
-
-      <SelectContainer>
-        <ContainerFiltersMetric>
-          <CustomMultiSelectStyled
-            label="All MakerDAO"
-            activeItems={activeItems}
-            withAll
-            items={items}
-            onChange={(value: string[]) => {
-              handleSelectChangeItem(value);
-            }}
-            popupContainerWidth={300}
-            listItemWidth={280}
-            customAll={{
-              content: 'All MakerDAO',
-              id: 'all',
-              params: { isAll: true },
-              count: 0,
-            }}
-            popupContainerHeight={popupContainerHeight}
-            customItemRender={(props: SelectItemProps) => <BudgetItem {...props} />}
-          />
-        </ContainerFiltersMetric>
-
-        <GranularitySelect
-          useSelectedAsLabel
-          selected={selectedGranularity}
-          onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
-          items={[
-            {
-              label: 'Monthly',
-              value: 'monthly',
-            },
-            {
-              label: 'Quarterly',
-              value: 'quarterly',
-            },
-            {
-              label: 'Annually',
-              value: 'annual',
-            },
-          ]}
-          PopperProps={{
-            placement: 'bottom-end',
+    <SelectContainer>
+      <ContainerFiltersMetric>
+        <CustomMultiSelectStyled
+          label="All MakerDAO"
+          activeItems={activeItems}
+          withAll
+          items={items}
+          onChange={(value: string[]) => {
+            handleSelectChangeItem(value);
           }}
+          popupContainerWidth={300}
+          listItemWidth={280}
+          customAll={{
+            content: 'All MakerDAO',
+            id: 'all',
+            params: { isAll: true },
+            count: 0,
+          }}
+          popupContainerHeight={popupContainerHeight}
+          customItemRender={(props: SelectItemProps) => <BudgetItem {...props} />}
         />
-      </SelectContainer>
+      </ContainerFiltersMetric>
 
-      <ResponsiveButton onClick={!isDisabled ? handleResetFilter : undefined} isLight={isLight} isDisabled={isDisabled}>
-        <Close width={10} height={10} fill={colorButton} fillDark={colorButton} />
-      </ResponsiveButton>
-    </FilterContainer>
-  );
-};
+      <GranularitySelect
+        useSelectedAsLabel
+        selected={selectedGranularity}
+        onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
+        items={[
+          {
+            label: 'Monthly',
+            value: 'monthly',
+          },
+          {
+            label: 'Quarterly',
+            value: 'quarterly',
+          },
+          {
+            label: 'Annually',
+            value: 'annual',
+          },
+        ]}
+        PopperProps={{
+          placement: 'bottom-end',
+        }}
+      />
+    </SelectContainer>
+    <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
+  </FilterContainer>
+);
 //
 export default ReservesWaterFallFilters;
 
@@ -143,25 +132,6 @@ const GranularitySelect = styled(SingleItemSelect)({
     padding: '14px 15px 14px 16px',
   },
 });
-
-const ResponsiveButton = styled.div<WithIsLight & { isDisabled: boolean }>(({ isLight, isDisabled }) => ({
-  display: 'flex',
-  gridArea: 'buttonFilter',
-  justifySelf: 'flex-end',
-  height: '34px',
-  cursor: 'pointer',
-  width: '34px',
-  border: isLight
-    ? `1px solid ${isDisabled ? '#ECEFF9' : '#D4D9E1'}`
-    : `1px solid ${isDisabled ? '#10191F' : '#D4D9E1'}`,
-  borderRadius: '22px',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    display: 'none',
-  },
-}));
 
 const ContainerFiltersMetric = styled.div({
   display: 'flex',

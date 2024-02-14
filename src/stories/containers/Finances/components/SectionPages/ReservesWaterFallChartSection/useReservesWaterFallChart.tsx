@@ -102,6 +102,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
   const popupContainerHeight =
     budgets.length === 1 ? 100 : budgets.length === 2 ? 130 : budgets.length === 3 ? 150 : 180;
 
+  const isDisabled = activeElements.length === selectAll.length && selectedGranularity === 'monthly';
   return {
     titleChart,
     legendItems,
@@ -114,5 +115,6 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
     activeElements,
     handleSelectChange,
     isLoading,
+    isDisabled,
   };
 };
