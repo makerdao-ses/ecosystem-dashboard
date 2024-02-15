@@ -93,6 +93,9 @@ const TitleContainer = styled.div<WithIsLight>(({ isLight }) => ({
   width: 85,
   minWidth: 85,
   padding: '16px 16px 16px 8px',
+  whiteSpace: 'normal',
+  overflowWrap: 'break-word',
+  wordBreak: 'break-word',
 }));
 
 const ContainerCell = styled.div({

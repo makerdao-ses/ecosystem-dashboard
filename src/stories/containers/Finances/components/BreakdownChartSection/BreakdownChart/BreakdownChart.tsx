@@ -308,11 +308,14 @@ const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   gap: 6,
   cursor: 'pointer',
-
+  maxWidth: 270,
+  minWidth: 270,
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     gap: 8,
     lineHeight: '22px',
+    maxWidth: 'revert',
+    minWidth: 'revert',
   },
 }));
 
