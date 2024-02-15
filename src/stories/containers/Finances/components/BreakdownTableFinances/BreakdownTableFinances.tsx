@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import FilterTable from '../FiltersTable/FilterTable';
@@ -36,38 +35,33 @@ const BreakdownTableFinances = ({
   allowSelectAll,
   popupContainerHeight,
   isDisabled,
-}: Props) => {
-  const phoneLess = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+}: Props) => (
+  <Container>
+    <SectionTitle
+      title={'Breakdown Table'}
+      tooltip="Adjust the table to display financial data by selecting the time period and types, with a variable column limit based on screen size, all neatly organized by budget/scope with corresponding subtotals."
+      hash="breakdown-table"
+    />
 
-  return (
-    <Container>
-      <SectionTitle
-        title={`${phoneLess ? 'MakerDAO Budget' : 'Breakdown Table'}`}
-        tooltip="Adjust the table to display financial data by selecting the time period and types, with a variable column limit based on screen size, all neatly organized by budget/scope with corresponding subtotals."
-        hash="breakdown-table"
+    <FilterContainer>
+      <FilterTable
+        maxItems={maxItems}
+        minItems={minItems}
+        defaultMetricsWithAllSelected={defaultMetricsWithAllSelected}
+        activeItems={activeItems}
+        metrics={metrics}
+        handleSelectChange={handleSelectChange}
+        handleResetFilter={handleResetFilter}
+        handleChange={handleChange}
+        selectedValue={selectedValue}
+        periodSelectOptions={periodSelectOptions}
+        allowSelectAll={allowSelectAll}
+        popupContainerHeight={popupContainerHeight}
+        isDisabled={isDisabled}
       />
-
-      <FilterContainer>
-        <FilterTable
-          maxItems={maxItems}
-          minItems={minItems}
-          defaultMetricsWithAllSelected={defaultMetricsWithAllSelected}
-          activeItems={activeItems}
-          metrics={metrics}
-          handleSelectChange={handleSelectChange}
-          handleResetFilter={handleResetFilter}
-          handleChange={handleChange}
-          selectedValue={selectedValue}
-          periodSelectOptions={periodSelectOptions}
-          allowSelectAll={allowSelectAll}
-          popupContainerHeight={popupContainerHeight}
-          isDisabled={isDisabled}
-        />
-      </FilterContainer>
-    </Container>
-  );
-};
-
+    </FilterContainer>
+  </Container>
+);
 export default BreakdownTableFinances;
 const Container = styled.div({
   display: 'flex',
