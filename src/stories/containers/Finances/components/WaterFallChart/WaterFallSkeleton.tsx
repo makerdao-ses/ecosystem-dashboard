@@ -13,7 +13,6 @@ const WaterFallSkeleton = () => {
     <ContainerBar>
       <AuxiliaryContainer height={auxiliaryHeight} />
       <ContainerBarLine top={top} isHasLine={isHasLine}>
-        {' '}
         <SkeletonBarStyle variant="rectangular" width={isMobile ? 19 : isTablet ? 39 : 39} height={height} />
       </ContainerBarLine>
     </ContainerBar>

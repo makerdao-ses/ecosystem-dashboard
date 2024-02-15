@@ -210,9 +210,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
 
 export default BreakdownChart;
 
-const Wrapper = styled.div({
-  marginTop: 32,
-});
+const Wrapper = styled.div({});
 
 const ChartContainer = styled.div({
   display: 'flex',
@@ -220,7 +218,6 @@ const ChartContainer = styled.div({
   justifyContent: 'center',
   position: 'relative',
   width: '100%',
-
   maxWidth: 343,
   height: 260,
   marginLeft: 'auto',
