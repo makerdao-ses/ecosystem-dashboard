@@ -274,14 +274,14 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
   }
   // Array to determine the position of the change
   const positiveNegativeLine = lineSeriesData.map((value, index, array) =>
-    index === 0 ? null : value > array[index - 1]
+    index === 0 ? null : value >= array[index - 1]
   );
 
   const newLineSeries = [...lineSeriesData, lineSeriesData[lineSeriesData.length - 1]];
 
   for (let i = 1; i < newLineSeries.length; i++) {
     const isAscending = positiveNegativeLine[i - 1];
-    const color = isLight ? (isAscending ? '#06554C' : '#A83815') : isAscending ? '#06554C' : '#A83815';
+    const color = isLight ? (isAscending ? '#06554C' : '#A83815') : isAscending ? '#06554C' : '#641E08';
     const seriesData = new Array(newLineSeries.length).fill('-');
     seriesData[i - 1] = newLineSeries[i - 1];
     seriesData[i] = newLineSeries[i];
