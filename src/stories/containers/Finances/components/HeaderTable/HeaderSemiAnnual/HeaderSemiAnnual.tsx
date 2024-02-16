@@ -69,7 +69,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
-  fontSize: 12,
+  fontSize: 11,
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
@@ -92,7 +92,10 @@ const TitleContainer = styled.div<WithIsLight>(({ isLight }) => ({
   borderRight: `1px solid ${isLight ? '#D1DEE6' : '#546978'}`,
   width: 85,
   minWidth: 85,
-  padding: '16px 16px 16px 8px',
+  padding: '16px 0px 16px 8px',
+  whiteSpace: 'normal',
+  overflowWrap: 'break-word',
+  wordBreak: 'break-word',
 }));
 
 const ContainerCell = styled.div({
