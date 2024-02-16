@@ -281,23 +281,25 @@ const LegendContainer = styled.div({
     rowGap: 16,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginLeft: -20,
+    marginLeft: -6,
     gap: 40,
     minWidth: 940,
     bottom: -12,
-    justifyContent: 'start',
+    justifyContent: 'center',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 65,
-    marginLeft: 22,
-    marginBottom: 36,
-    bottom: -50,
+    marginLeft: -46,
+    width: '100%',
+    bottom: -14,
     minWidth: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 65,
-    marginLeft: 22,
-    marginBottom: 36,
+    marginLeft: 2,
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    marginLeft: -45,
   },
 });
 

@@ -53,6 +53,8 @@ const Icon = styled.div({
   alignItems: 'center',
   width: 32,
   height: 32,
+  minWidth: 32,
+  minHeight: 32,
   backgroundColor: '#ECF1F3',
   boxShadow: '2px 4px 7px 0px rgba(26, 171, 155, 0.25)',
   borderRadius: '50%',
@@ -60,6 +62,8 @@ const Icon = styled.div({
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 48,
     height: 48,
+    minWidth: 48,
+    minHeight: 48,
   },
 });
 

@@ -248,7 +248,7 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 
   return {
     position: 'absolute',
-    bottom: 20,
+    bottom: 22,
     left: 40,
     right: 5,
     height: 11,
@@ -281,8 +281,8 @@ const LegendContainer = styled.div({
   paddingLeft: 8,
   paddingRight: 6,
   gap: 22,
-  rowGap: 14,
-  marginTop: 10,
+  rowGap: 12,
+  marginTop: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
@@ -308,11 +308,12 @@ const LegendItem = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   gap: 6,
   cursor: 'pointer',
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     gap: 8,
     lineHeight: '22px',
+    maxWidth: 'revert',
+    minWidth: 'revert',
   },
 }));
 
