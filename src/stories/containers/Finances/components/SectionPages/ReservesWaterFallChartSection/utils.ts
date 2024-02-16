@@ -6,6 +6,7 @@ import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
 export const getArraysWaterFall = (data: number[]) => {
+  // console.log('water-fall', data);
   const inFlow = [];
   const outFlow = [];
   const auxiliaryArray = [];
@@ -41,6 +42,7 @@ export const builderWaterFallSeries = (
   isTable: boolean,
   isLight: boolean
 ): (WaterFallChartSeriesData | LineWaterFall)[] => {
+  // console.log('data en series', data);
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
 
   // Add the same value at the end to simulate the end of array can be Increase or Decrease
@@ -226,19 +228,14 @@ export const calculateAccumulatedArray = (data: number[]) => {
 };
 
 export const processDataForWaterFall = (data: number[], total: number): number[] => {
-  const result: number[] = [];
+  const result: number[] = [...data];
   if (data.reduce((acc, actual) => acc + actual) === 0) return data;
-
-  result.push(total);
-  let accumulatedTotal = total;
-  for (let i = 0; i < data.length; i++) {
-    let change = data[i] - accumulatedTotal;
-    if (Math.abs(change) < UMBRAL_CHART_WATERFALL) {
-      change = 0;
+  for (let i = 0; i < result.length; i++) {
+    if (Math.abs(result[i]) < UMBRAL_CHART_WATERFALL) {
+      result[i] = 0;
     }
-    result.push(change);
-    accumulatedTotal = data[i];
   }
+  result.unshift(total);
 
   return result;
 };
@@ -389,7 +386,7 @@ export const getAnalyticForWaterFall = (
         Array.from({ length: arrayLength }, () => 0)
       );
     } else {
-      const sumOfDifferences = values?.map((item) => Math.abs(item.ProtocolNetOutflow - item.PaymentsOnChain));
+      const sumOfDifferences = values?.map((item) => item.ProtocolNetOutflow - item.PaymentsOnChain);
       summaryValues.set(element, sumOfDifferences);
     }
   });
