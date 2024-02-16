@@ -289,15 +289,17 @@ const LegendContainer = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 65,
-    flex: 'revert',
+    marginLeft: -46,
     width: '100%',
-    bottom: -50,
+    bottom: -14,
     minWidth: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 65,
-    marginLeft: 22,
-    marginBottom: 36,
+    marginLeft: 2,
+  },
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    marginLeft: -45,
   },
 });
 
