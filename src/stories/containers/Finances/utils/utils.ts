@@ -579,6 +579,7 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
           },
           {
             name: 'Others',
+            isSummaryRow: true,
             columns: subTable.rows[0].columns.map(() => ({
               Actuals: 0,
               Budget: 0,
