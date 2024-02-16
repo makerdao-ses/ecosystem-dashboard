@@ -6,7 +6,6 @@ import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
 export const getArraysWaterFall = (data: number[]) => {
-  // console.log('water-fall', data);
   const inFlow = [];
   const outFlow = [];
   const auxiliaryArray = [];
@@ -42,7 +41,6 @@ export const builderWaterFallSeries = (
   isTable: boolean,
   isLight: boolean
 ): (WaterFallChartSeriesData | LineWaterFall)[] => {
-  // console.log('data en series', data);
   const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
 
   // Add the same value at the end to simulate the end of array can be Increase or Decrease
