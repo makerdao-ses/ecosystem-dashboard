@@ -61,7 +61,8 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
             {
               label: 'Net Protocol Outflow',
               value: 'ProtocolNetOutflow',
-              labelWhenSelected: 'Protocol Outflow',
+              // eslint-disable-next-line spellcheck/spell-checker
+              labelWhenSelected: isMobile ? 'Prtcol Outfl' : 'Protocol Outflow',
             },
             {
               label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
