@@ -407,9 +407,8 @@ export const sumValuesFromMapKeys = (
 
   budgetAnalyticMap.forEach((values, key) => {
     if (activeItems.includes(key)) {
-      sums = sums.map((sum, index) => Math.abs(sum + values[index]));
+      sums = sums.map((sum, index) => sum + values[index]);
     }
   });
-
   return sums;
 };
