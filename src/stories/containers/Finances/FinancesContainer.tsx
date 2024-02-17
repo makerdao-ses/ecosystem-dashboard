@@ -15,7 +15,7 @@ import CardChartOverview from './components/SectionPages/CardChartOverview/CardC
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/ExpenseReports/ExpenseReports';
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
-import ReservesWaterFallChartSection from './components/SectionPages/ReservesWaterfallChartSection/ReservesWaterfallChartSection';
+import ReservesWaterfallChartSection from './components/SectionPages/ReservesWaterfallChartSection/ReservesWaterfallChartSection';
 import { useFinances } from './useFinances';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -164,8 +164,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           />
         )}
         {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
-          <ContainerReservesWaterFallChart>
-            <ReservesWaterFallChartSection
+          <ContainerReservesWaterfallChart>
+            <ReservesWaterfallChartSection
               title={`${levelNumber === 1 ? 'MakerDAO Finances' : title} Reserves`}
               legends={reserveChart.legendItems}
               series={reserveChart.series}
@@ -180,7 +180,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               isLoading={reserveChart.isLoading}
               isDisabled={reserveChart.isDisabled}
             />
-          </ContainerReservesWaterFallChart>
+          </ContainerReservesWaterfallChart>
         )}
         {expenseReportSection.hasExpenseReports && (
           <ContainerLastReport>
@@ -267,7 +267,7 @@ const WrapperMobile = styled.div({
   },
 });
 
-const ContainerReservesWaterFallChart = styled.div({
+const ContainerReservesWaterfallChart = styled.div({
   marginTop: 40,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 64,

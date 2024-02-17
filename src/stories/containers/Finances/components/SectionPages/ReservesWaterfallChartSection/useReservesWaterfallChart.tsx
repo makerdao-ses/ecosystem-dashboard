@@ -16,7 +16,7 @@ import {
 } from './utils';
 
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
+import type { LegendItemsWaterfall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
@@ -76,7 +76,7 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
 
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 
-  const legendItems: LegendItemsWaterFall[] = [
+  const legendItems: LegendItemsWaterfall[] = [
     {
       title: 'Reserves Balance',
       color: isLight ? '#83A7FF' : '#447AFB',

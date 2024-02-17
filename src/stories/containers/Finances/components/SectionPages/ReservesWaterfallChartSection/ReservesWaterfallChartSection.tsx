@@ -1,24 +1,24 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import ReservesWaterFallFilters from '../../ReservesWaterFallFilters/ReservesWaterFallFilters';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 import WaterFallChart from '../../WaterfallChart/WaterfallChart';
 import WaterFallSkeleton from '../../WaterfallChart/WaterfallSkeleton';
+import ReservesWaterfallFilters from '../../_ReservesWaterfallFilters/_ReservesWaterfallFilters';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
-  LegendItemsWaterFall,
-  LineWaterFall,
-  WaterFallChartSeriesData,
+  LegendItemsWaterfall,
+  LineWaterfall,
+  WaterfallChartSeriesData,
 } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 interface Props {
   title: string;
-  legends: LegendItemsWaterFall[];
+  legends: LegendItemsWaterfall[];
   year: string;
   selectedGranularity: AnalyticGranularity;
-  series: (WaterFallChartSeriesData | LineWaterFall)[];
+  series: (WaterfallChartSeriesData | LineWaterfall)[];
   activeItems: string[];
   handleSelectChangeItem: (value: string[]) => void;
   popupContainerHeight: number;
@@ -53,7 +53,7 @@ const ReservesWaterfallChartSection: React.FC<Props> = ({
         }
       />
       <Filters>
-        <ReservesWaterFallFilters
+        <ReservesWaterfallFilters
           activeItems={activeItems}
           handleSelectChangeItem={handleSelectChangeItem}
           handleGranularityChange={handleGranularityChange}

@@ -9,15 +9,15 @@ import { useEffect, useMemo, useRef } from 'react';
 import { getChartAxisLabelByGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
-import type { LegendItemsWaterFall, LineWaterFall, WaterFallChartSeriesData } from '../../utils/types';
+import type { LegendItemsWaterfall, LineWaterfall, WaterfallChartSeriesData } from '../../utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
 interface Props {
-  legends: LegendItemsWaterFall[];
+  legends: LegendItemsWaterfall[];
   year: string;
   selectedGranularity: AnalyticGranularity;
-  series: (WaterFallChartSeriesData | LineWaterFall)[];
+  series: (WaterfallChartSeriesData | LineWaterfall)[];
 }
 
 const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, series }) => {
