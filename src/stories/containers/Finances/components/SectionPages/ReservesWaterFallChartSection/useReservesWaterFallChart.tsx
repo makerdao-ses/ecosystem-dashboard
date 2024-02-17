@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
-import { nameChanged } from '@ses/containers/Finances/utils/utils';
+import { formatBudgetName } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
@@ -56,7 +56,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
   const defaultTitle = 'MakerDAO Finances';
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
-  const getTitleLevelBudget = nameChanged(levelBudget?.name || '');
+  const getTitleLevelBudget = formatBudgetName(levelBudget?.name || '');
 
   const { summaryValues, totalToStart } = useMemo(
     () => getAnalyticForWaterFall(budgets, selectedGranularity, analytics),
@@ -95,7 +95,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
     () =>
       sortBy(budgets, (subBudget) => subBudget.name).map((budget) => ({
         id: budget.codePath,
-        content: nameChanged(budget.name),
+        content: formatBudgetName(budget.name),
         params: {
           url: budget.image,
         },

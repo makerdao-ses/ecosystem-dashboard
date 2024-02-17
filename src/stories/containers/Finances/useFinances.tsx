@@ -18,7 +18,7 @@ import {
   generateColorPalette,
   existingColors,
   existingColorsDark,
-  nameChanged,
+  formatBudgetName,
 } from './utils/utils';
 import type { Theme } from '@mui/material';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
@@ -38,7 +38,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const levelOfDetail = levelNumber + 1;
   const currentBudget = allBudgets.find((budget) => budget.codePath === codePath);
   const icon = currentBudget?.image;
-  const title = nameChanged((currentBudget?.name || codePath) ?? '');
+  const title = formatBudgetName((currentBudget?.name || codePath) ?? '');
   const handleChangeYears = (value: string) => {
     setYear(value);
     router.push(
@@ -69,7 +69,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
       } else {
         // it is a deeper level
         trailingAddressDesktop.push({
-          label: nameChanged(
+          label: formatBudgetName(
             allBudgets.find((budget) => budget.codePath === segmentedCodePath.slice(0, index + 1).join('/'))?.name ??
               codePath
           ),
@@ -113,7 +113,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     return {
       image: item.image || '/assets/img/default-icon-cards-budget.svg',
       codePath: item.codePath,
-      title: nameChanged(item.name),
+      title: formatBudgetName(item.name),
       description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
       href: `${siteRoutes.finances(item.codePath.replace('atlas/', ''))}?year=${year}`,
       valueDai: budgetMetric[0].budget.value,

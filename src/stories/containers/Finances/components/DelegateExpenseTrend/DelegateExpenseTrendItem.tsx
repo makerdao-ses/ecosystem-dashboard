@@ -15,7 +15,7 @@ import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
-import { getExpenseMonthWithData, getShowCTA } from '../../utils/utils';
+import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -29,7 +29,7 @@ interface Props {
 const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now = DateTime.now() }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
-  const lastModified = getExpenseMonthWithData(budget);
+  const lastModified = getLastActivityDate(budget);
   const lastModifiedRelative = capitalizeSentence(
     lastModified?.toRelative({
       base: now,
@@ -89,7 +89,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
                 <Title isLight={isLight}>{budget.owner.name}</Title>
               </TitleCode>
               <StatusMobile>
-                <ExpenseReportStatusIndicatorMobile budgetStatus={budget.status} showCTA={getShowCTA()} />
+                <ExpenseReportStatusIndicatorMobile budgetStatus={budget.status} showCTA={false} />
               </StatusMobile>
             </ContainerStatus>
           </ContainerIconName>
@@ -110,7 +110,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
         <ContainerStatusTable>
           <StatusTable>
             <LabelStatus isLight={isLight}>Status</LabelStatus>
-            <ExpenseReportStatusIndicatorTable budgetStatus={budget.status} showCTA={getShowCTA()} />
+            <ExpenseReportStatusIndicatorTable budgetStatus={budget.status} showCTA={false} />
           </StatusTable>
           <ContainerArrow isLight={isLight}>
             <ArrowNavigationForCards width={32} height={32} fill={isLight ? '#434358' : '#B7A6CD'} />

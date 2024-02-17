@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { filterActiveMetrics, getSemiAnnualForFilters } from '@ses/containers/Finances/utils/utils';
+import { filterActiveMetrics } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -19,7 +19,7 @@ interface Props {
 
 const HeaderSemiAnnual: React.FC<Props> = ({ title, className, activeMetrics, headerTable, year }) => {
   const { isLight } = useThemeContext();
-  const keysMetrics = [...getSemiAnnualForFilters(year), 'Total'];
+  const keysMetrics = [`H${1} ${year}`, `H${2} ${year}`, 'Total'];
   const metricsActive = filterActiveMetrics(activeMetrics, headerTable);
 
   return (

@@ -6,7 +6,7 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import { useEffect, useMemo, useRef } from 'react';
-import { getGranularity } from '../../utils/utils';
+import { getChartAxisLabelByGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
 import type { LegendItemsWaterFall, LineWaterFall, WaterFallChartSeriesData } from '../../utils/types';
@@ -77,7 +77,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
       },
       xAxis: {
         type: 'category',
-        data: getGranularity(selectedGranularity, isMobile, true),
+        data: getChartAxisLabelByGranularity(selectedGranularity, isMobile, true),
         splitLine: {
           show: false,
         },
