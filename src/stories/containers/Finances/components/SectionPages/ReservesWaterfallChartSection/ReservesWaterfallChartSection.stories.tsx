@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import ReservesWaterfallChartSection from './_ReservesWaterfallChartSection';
+import ReservesWaterfallChartSection from './ReservesWaterfallChartSection';
 import { builderWaterFallSeries } from './utils';
 import type { Meta } from '@storybook/react';
 

@@ -11,7 +11,7 @@ import { useCardChartOverview } from './components/SectionPages/CardChartOvervie
 import { getTotalAllMetricsBudget } from './components/SectionPages/CardChartOverview/utils';
 import { useExpenseReports } from './components/SectionPages/ExpenseReports/useExpenseReports';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
-import { useReservesWaterfallChart } from './components/SectionPages/_ReservesWaterfallChartSection/_useReservesWaterfallChart';
+import { useReservesWaterfallChart } from './components/SectionPages/ReservesWaterfallChartSection/useReservesWaterfallChart';
 import {
   getBudgetsAnalytics,
   newBudgetMetric,
