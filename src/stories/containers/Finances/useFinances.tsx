@@ -135,9 +135,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   // All the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart(budgets, year, codePath);
 
-  // All the logic required by the Expense Reports
-  const expenseTrendFinances = useExpenseReports(codePath);
-
   // All the logic required by the BreakdownTable section
   const breakdownTable = useBreakdownTable(year, budgets, allBudgets);
 
@@ -145,9 +142,10 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const makerDAOExpensesMetrics = useMakerDAOExpenseMetrics(year);
 
   // All the logic for the Reserve Chart
-  // This should be calculate
-
   const reserveChart = useReservesWaterfallChart(codePath, budgets, allBudgets, year);
+
+  // All the logic required by the Expense Reports
+  const expenseTrendFinances = useExpenseReports(codePath);
 
   return {
     isEnabled,
