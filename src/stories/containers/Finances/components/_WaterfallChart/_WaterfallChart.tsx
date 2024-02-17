@@ -20,7 +20,7 @@ interface Props {
   series: (WaterFallChartSeriesData | LineWaterFall)[];
 }
 
-const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, series }) => {
+const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, series }) => {
   const { isLight } = useThemeContext();
   const refWaterfallChart = useRef<EChartsOption | null>(null);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -227,7 +227,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   );
 };
 
-export default WaterFallChart;
+export default WaterfallChart;
 
 const Wrapper = styled.div({
   width: '100%',

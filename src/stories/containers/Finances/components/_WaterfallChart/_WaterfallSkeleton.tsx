@@ -2,7 +2,7 @@ import { Skeleton, styled, useMediaQuery } from '@mui/material';
 import React from 'react';
 import type { Theme } from '@mui/material';
 
-const WaterFallSkeleton = () => {
+const WaterfallSkeleton = () => {
   const arrayLegendAxisY = Array.from({ length: 9 }, () => 0);
   const arrayLegendAxisX = Array.from({ length: 14 }, () => 0);
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
@@ -136,7 +136,7 @@ const WaterFallSkeleton = () => {
   );
 };
 
-export default WaterFallSkeleton;
+export default WaterfallSkeleton;
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',

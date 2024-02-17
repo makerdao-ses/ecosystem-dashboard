@@ -3,8 +3,8 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ReservesWaterFallFilters from '../../ReservesWaterFallFilters/ReservesWaterFallFilters';
 import SectionTitle from '../../SectionTitle/SectionTitle';
-import WaterFallChart from '../../WaterFallChart/WaterFallChart';
-import WaterFallSkeleton from '../../WaterFallChart/WaterFallSkeleton';
+import WaterFallChart from '../../_WaterfallChart/_WaterfallChart';
+import WaterFallSkeleton from '../../_WaterfallChart/_WaterfallSkeleton';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   LegendItemsWaterFall,
