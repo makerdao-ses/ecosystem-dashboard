@@ -1,11 +1,11 @@
 import { UMBRAL_CHART_WATERFALL } from '@ses/core/utils/const';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
-import type { LineWaterFall, MetricValues, WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
+import type { LineWaterfall, MetricValues, WaterfallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { Analytic, AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
-export const getArraysWaterFall = (data: number[]) => {
+export const getArraysWaterfall = (data: number[]) => {
   const inFlow = [];
   const outFlow = [];
   const auxiliaryArray = [];
@@ -40,8 +40,8 @@ export const builderWaterFallSeries = (
   isMobile: boolean,
   isTable: boolean,
   isLight: boolean
-): (WaterFallChartSeriesData | LineWaterFall)[] => {
-  const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
+): (WaterfallChartSeriesData | LineWaterfall)[] => {
+  const { inFlow, outFlow, auxiliaryArray } = getArraysWaterfall(data);
 
   // Add the same value at the end to simulate the end of array can be Increase or Decrease
   const lastInFlow = inFlow[inFlow.length - 1];
@@ -316,18 +316,18 @@ export const getArrayLengthByGranularity = (granularity: AnalyticGranularity) =>
   }
 };
 // Replace Budget for the real value
-type WaterFallReserves = Pick<MetricValues, 'ProtocolNetOutflow' | 'PaymentsOnChain'>;
+type WaterfallReserves = Pick<MetricValues, 'ProtocolNetOutflow' | 'PaymentsOnChain'>;
 const EMPTY_METRIC_VALUE = {
   PaymentsOnChain: 0,
   ProtocolNetOutflow: 0,
-} as WaterFallReserves;
+} as WaterfallReserves;
 
 export const getAnalyticForWaterFall = (
   budgets: Budget[],
   granularity: AnalyticGranularity,
   analytic: Analytic | undefined
 ) => {
-  const budgetAnalyticMap = new Map<string, WaterFallReserves[]>();
+  const budgetAnalyticMap = new Map<string, WaterfallReserves[]>();
   const arrayLength = getArrayLengthByGranularity(granularity);
   const summaryValues = new Map<string, number[]>();
   let netProtocolOutflow = 0;
