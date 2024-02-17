@@ -20,7 +20,7 @@ import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types'
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
+export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
   const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
 
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);

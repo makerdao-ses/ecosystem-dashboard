@@ -3,8 +3,8 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ReservesWaterFallFilters from '../../ReservesWaterFallFilters/ReservesWaterFallFilters';
 import SectionTitle from '../../SectionTitle/SectionTitle';
-import WaterFallChart from '../../_WaterfallChart/_WaterfallChart';
-import WaterFallSkeleton from '../../_WaterfallChart/_WaterfallSkeleton';
+import WaterFallChart from '../../WaterfallChart/WaterfallChart';
+import WaterFallSkeleton from '../../WaterfallChart/WaterfallSkeleton';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   LegendItemsWaterFall,
@@ -28,7 +28,8 @@ interface Props {
   isLoading: boolean;
   isDisabled: boolean;
 }
-const ReservesWaterFallChartSection: React.FC<Props> = ({
+
+const ReservesWaterfallChartSection: React.FC<Props> = ({
   title,
   legends,
   selectedGranularity,
@@ -74,7 +75,7 @@ const ReservesWaterFallChartSection: React.FC<Props> = ({
   </Container>
 );
 
-export default ReservesWaterFallChartSection;
+export default ReservesWaterfallChartSection;
 
 const Container = styled.div({
   display: 'flex',

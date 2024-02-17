@@ -11,7 +11,7 @@ import { useCardChartOverview } from './components/SectionPages/CardChartOvervie
 import { getTotalAllMetricsBudget } from './components/SectionPages/CardChartOverview/utils';
 import { useExpenseReports } from './components/SectionPages/ExpenseReports/useExpenseReports';
 import { useMakerDAOExpenseMetrics } from './components/SectionPages/MakerDAOExpenseMetrics/useMakerDAOExpenseMetrics';
-import { useReservesWaterFallChart } from './components/SectionPages/ReservesWaterFallChartSection/useReservesWaterFallChart';
+import { useReservesWaterfallChart } from './components/SectionPages/_ReservesWaterfallChartSection/_useReservesWaterfallChart';
 import {
   getBudgetsAnalytics,
   newBudgetMetric,
@@ -147,7 +147,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   // All the logic for the Reserve Chart
   // This should be calculate
 
-  const reserveChart = useReservesWaterFallChart(codePath, budgets, allBudgets, year);
+  const reserveChart = useReservesWaterfallChart(codePath, budgets, allBudgets, year);
 
   return {
     isEnabled,

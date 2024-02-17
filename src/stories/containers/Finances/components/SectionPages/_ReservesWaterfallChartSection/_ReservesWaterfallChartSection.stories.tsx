@@ -1,11 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import ReservesWaterFallChartSection from './ReservesWaterFallChartSection';
+import ReservesWaterfallChartSection from './_ReservesWaterfallChartSection';
 import { builderWaterFallSeries } from './utils';
 import type { Meta } from '@storybook/react';
 
-const meta: Meta<typeof ReservesWaterFallChartSection> = {
-  title: 'Components/NewFinances/Section/ReservesWaterFallChartSection',
-  component: ReservesWaterFallChartSection,
+const meta: Meta<typeof ReservesWaterfallChartSection> = {
+  title: 'Components/NewFinances/Section/ReservesWaterfallChartSection',
+  component: ReservesWaterfallChartSection,
 
   parameters: {
     chromatic: {
@@ -104,7 +104,7 @@ const args = [
   },
 ];
 
-const [[LightMode, DarkMode]] = createThemeModeVariants(ReservesWaterFallChartSection, args, false);
+const [[LightMode, DarkMode]] = createThemeModeVariants(ReservesWaterfallChartSection, args, false);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {

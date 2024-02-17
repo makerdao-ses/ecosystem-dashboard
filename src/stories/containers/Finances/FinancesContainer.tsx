@@ -15,7 +15,7 @@ import CardChartOverview from './components/SectionPages/CardChartOverview/CardC
 import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/ExpenseReports/ExpenseReports';
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
-import ReservesWaterFallChartSection from './components/SectionPages/ReservesWaterFallChartSection/ReservesWaterFallChartSection';
+import ReservesWaterFallChartSection from './components/SectionPages/_ReservesWaterfallChartSection/_ReservesWaterfallChartSection';
 import { useFinances } from './useFinances';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
