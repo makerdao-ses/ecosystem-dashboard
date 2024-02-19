@@ -89,6 +89,4 @@ const HeaderContainer = styled.div({
 
 const Wrapper = styled.div({
   marginTop: 32,
-  display: 'flex',
-  justifyContent: 'center',
 });
