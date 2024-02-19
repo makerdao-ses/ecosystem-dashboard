@@ -115,10 +115,10 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           <BreakdownChartSection
             isLoading={breakdownChartSectionData.isLoading}
             year={year}
-            selectedMetric={breakdownChartSectionData.selectedBreakdownMetric}
-            selectedGranularity={breakdownChartSectionData.selectedBreakdownGranularity}
-            onMetricChange={breakdownChartSectionData.handleBreakdownMetricChange}
-            onGranularityChange={breakdownChartSectionData.handleBreakdownGranularityChange}
+            selectedMetric={breakdownChartSectionData.selectedMetric}
+            selectedGranularity={breakdownChartSectionData.selectedGranularity}
+            onMetricChange={breakdownChartSectionData.handleMetricChange}
+            onGranularityChange={breakdownChartSectionData.handleGranularityChange}
             isDisabled={breakdownChartSectionData.isDisabled}
             handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
             series={breakdownChartSectionData.series}
