@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import ReservesWaterfallFilters from '../../ReservesWaterFallFilters/ReservesWaterfallFilters';
+import ReservesWaterfallFilters from '../../ReservesWater_FallFilters/ReservesWaterfallFilters';
 import SectionTitle from '../../SectionTitle/SectionTitle';
-import WaterfallChart from '../../WaterFallChart/WaterfallChart';
-import WaterfallSkeleton from '../../WaterFallChart/WaterfallSkeleton';
+import WaterfallChart from '../../Water_FallChart/WaterfallChart';
+import WaterfallSkeleton from '../../Water_FallChart/WaterfallSkeleton';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   LegendItemsWaterfall,
