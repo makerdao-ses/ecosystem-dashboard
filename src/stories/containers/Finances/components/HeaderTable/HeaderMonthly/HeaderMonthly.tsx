@@ -102,7 +102,7 @@ const ContainerTitle = styled.div({
   paddingTop: 10,
   paddingBottom: 10,
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    width: 230,
+    minWidth: 230,
   },
 });
 
