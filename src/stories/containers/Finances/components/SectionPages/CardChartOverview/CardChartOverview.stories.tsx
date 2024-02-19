@@ -20,9 +20,8 @@ export default meta;
 
 const args = [
   {
-    filters: ['Actual', 'Forecast', 'Net Expenses On-chain', 'Net Expenses Off-chain', 'Budget'],
-    filterSelected: 'Budget',
-    handleSelectFilter: () => null,
+    selectedMetric: 'Budget',
+    handleSelectedMetric: () => null,
     actuals: 9120,
     budgetCap: 9120,
     prediction: 4436,
