@@ -45,7 +45,9 @@ export const createChartTooltip = (
                 <circle cx="6.5" cy="6.5" r="5.5" stroke="${item.color}" />
                 <circle cx="6.5" cy="6.5" r="4" fill="${item.color}" />
               </svg>
-              <span style="font-size:14px;color:${isLight ? '#231536' : '#B6BCC2'};"> ${formatBudgetName(
+              <span style="font-size:14px;color:${
+                isLight ? '#231536' : '#B6BCC2'
+              };max-width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"> ${formatBudgetName(
                   item.seriesName
                 )}:</span>
               <span style="font-size:16px;font-weight:700;color:${isLight ? '#231536' : '#EDEFFF'};">${formatNumber(
