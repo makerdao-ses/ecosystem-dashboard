@@ -155,6 +155,8 @@ const dictionary = [
   'nums',
   'customizable',
   'cancelled',
+  'Prtcol',
+  'Outfl',
 ];
 
 module.exports = dictionary;
