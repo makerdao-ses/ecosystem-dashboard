@@ -10,11 +10,13 @@ import { getExpenseReportStatusColor } from '@ses/core/utils/colors';
 import lightTheme from '@ses/styles/theme/light';
 import React, { useMemo } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
+import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';
+import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 
 export interface ExpenseReportsFiltersProps {
-  selectedMetric: string;
-  onMetricChange: (value: string) => void;
-  selectedStatuses: string[];
+  selectedMetric: AnalyticMetric;
+  onMetricChange: (value: AnalyticMetric) => void;
+  selectedStatuses: BudgetStatus[];
   onStatusSelectChange: (value: BudgetStatus[]) => void;
   statusesItems: MultiSelectItem[];
   handleResetFilter: () => void;
@@ -31,6 +33,29 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
   isDisabled = true,
 }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const metricItems: SelectItem<AnalyticMetric>[] = useMemo(
+    () => [
+      {
+        label: 'Forecast',
+        value: 'Forecast',
+      },
+      {
+        label: 'Net Protocol Outflow',
+        value: 'ProtocolNetOutflow',
+        labelWhenSelected: 'Prtcol Outfl',
+      },
+      {
+        label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
+        value: 'PaymentsOnChain',
+        labelWhenSelected: 'Net On-chain',
+      },
+      {
+        label: 'Actuals',
+        value: 'Actuals',
+      },
+    ],
+    [isMobile]
+  );
 
   return (
     <FilterContainer>
@@ -49,28 +74,8 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           isMobile={isMobile}
           useSelectedAsLabel
           selected={selectedMetric}
-          onChange={onMetricChange}
-          items={[
-            {
-              label: 'Forecast',
-              value: 'Forecast',
-            },
-            {
-              label: 'Net Protocol Outflow',
-              value: 'Protocol Outflow',
-              // eslint-disable-next-line spellcheck/spell-checker
-              labelWhenSelected: 'Prtcol Outfl',
-            },
-            {
-              label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
-              value: 'Net On-Chain',
-              labelWhenSelected: 'Net On-chain',
-            },
-            {
-              label: 'Actuals',
-              value: 'Actuals',
-            },
-          ]}
+          onChange={(value: string) => onMetricChange(value as AnalyticMetric)}
+          items={metricItems}
           PopperProps={{
             placement: 'bottom-end',
           }}

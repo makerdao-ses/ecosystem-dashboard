@@ -11,8 +11,8 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useState } from 'react';
 import { getCorrectMetricValuesOverViewChart } from './utils';
-import type { BudgetMetricWithName, DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
-import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BudgetMetricWithName, DoughnutSeries } from '@ses/containers/Finances/utils/types';
+import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useCardChartOverview = (
@@ -27,8 +27,7 @@ export const useCardChartOverview = (
 
   const isHasSubLevels = hasSubLevels(codePath, allBudgets);
 
-  const filters: FilterDoughnut[] = ['Actuals', 'Forecast', 'Net Expenses On-chain', 'Net Protocol Outflow', 'Budget'];
-  const [filterSelected, setFilterSelected] = useState<FilterDoughnut>('Budget');
+  const [selectedMetric, setSelectedMetric] = useState<AnalyticMetric>('Budget');
   const { isLight } = useThemeContext();
   const colorsLight = generateColorPalette(
     existingColors.length,
@@ -62,7 +61,7 @@ export const useCardChartOverview = (
     return data;
   }, [budgetsAnalytics]);
 
-  const metric: { [index: string]: number } = {
+  const metric: { [metric: string]: number } = {
     actuals: 0,
     forecast: 0,
     budget: 0,
@@ -162,22 +161,22 @@ export const useCardChartOverview = (
     }
   }
 
-  const handleSelectFilter = (item: FilterDoughnut) => {
-    setFilterSelected(item);
+  const handleSelectedMetric = (metric: AnalyticMetric) => {
+    setSelectedMetric(metric);
   };
   const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics).map((item, index) => {
     let value;
-    switch (filterSelected) {
+    switch (selectedMetric) {
       case 'Actuals':
         value = budgetMetrics[item].actuals.value || 0;
         break;
       case 'Forecast':
         value = budgetMetrics[item].forecast.value || 0;
         break;
-      case 'Net Expenses On-chain':
+      case 'PaymentsOnChain':
         value = budgetMetrics[item].paymentsOnChain.value || 0;
         break;
-      case 'Net Protocol Outflow':
+      case 'ProtocolNetOutflow':
         value = budgetMetrics[item].protocolNetOutflow.value || 0;
         break;
       case 'Budget':
@@ -187,7 +186,7 @@ export const useCardChartOverview = (
         value = budgetMetrics[item].budget.value || 0;
         break;
     }
-    const keyMetricValue = getCorrectMetricValuesOverViewChart(filterSelected);
+    const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
 
     return {
       name: budgetMetrics[item].name || 'No name' + index,
@@ -211,10 +210,8 @@ export const useCardChartOverview = (
     actuals: isHasSubLevels ? metric.actuals : budgetWithNotChildren.actuals,
     prediction: isHasSubLevels ? metric.forecast : budgetWithNotChildren.forecast,
     budgetCap: isHasSubLevels ? metric.budget : budgetWithNotChildren.budget,
-    filterSelected,
-    setFilterSelected,
-    handleSelectFilter,
-    filters,
+    selectedMetric,
+    handleSelectedMetric,
     doughnutSeriesData,
     changeAlignment,
     showSwiper,

@@ -157,6 +157,7 @@ const dictionary = [
   'cancelled',
   'Prtcol',
   'Outfl',
+  'compat',
 ];
 
 module.exports = dictionary;

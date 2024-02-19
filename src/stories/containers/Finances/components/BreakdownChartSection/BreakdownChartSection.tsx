@@ -6,14 +6,14 @@ import BreakdownChart from './BreakdownChart/BreakdownChart';
 import BreakdownChartSkeleton from './BreakdownChart/BreakdownChartSkeleton';
 import BreakdownChartFilter from './BreakdownChartFilter/BreakdownChartFilter';
 import type { BreakdownChartSeriesData } from '../../utils/types';
-import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
+import type { AnalyticGranularity, AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
 export interface BreakdownChartSectionProps {
   isLoading: boolean;
-  selectedMetric: string;
-  onMetricChange: (value: string) => void;
-  selectedGranularity: string;
+  selectedMetric: AnalyticMetric;
+  onMetricChange: (value: AnalyticMetric) => void;
+  selectedGranularity: AnalyticGranularity;
   onGranularityChange: (value: AnalyticGranularity) => void;
   year: string;
   isDisabled?: boolean;

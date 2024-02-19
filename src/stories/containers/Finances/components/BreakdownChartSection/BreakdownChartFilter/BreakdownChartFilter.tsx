@@ -6,13 +6,14 @@ import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
+import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';
+import type { AnalyticGranularity, AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface BreakdownChartFilterProps {
-  selectedMetric: string;
-  onMetricChange: (value: string) => void;
-  selectedGranularity: string;
+  selectedMetric: AnalyticMetric;
+  onMetricChange: (value: AnalyticMetric) => void;
+  selectedGranularity: AnalyticGranularity;
   onGranularityChange: (value: AnalyticGranularity) => void;
   isDisabled?: boolean;
   handleResetFilter: () => void;
@@ -28,8 +29,31 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
 }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-
   const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
+  const metricItems: SelectItem<AnalyticMetric>[] = [
+    {
+      label: 'Budget',
+      value: 'Budget',
+    },
+    {
+      label: 'Forecast',
+      value: 'Forecast',
+    },
+    {
+      label: 'Net Protocol Outflow',
+      value: 'ProtocolNetOutflow',
+      labelWhenSelected: isMobile ? 'Prtcol Outfl' : 'Protocol Outflow',
+    },
+    {
+      label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
+      value: 'PaymentsOnChain',
+      labelWhenSelected: 'Net On-chain',
+    },
+    {
+      label: 'Actuals',
+      value: 'Actuals',
+    },
+  ];
 
   return (
     <FilterContainer>
@@ -48,31 +72,8 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
           isMobile={isMobile}
           useSelectedAsLabel
           selected={selectedMetric}
-          onChange={onMetricChange}
-          items={[
-            {
-              label: 'Budget',
-              value: 'Budget',
-            },
-            {
-              label: 'Forecast',
-              value: 'Forecast',
-            },
-            {
-              label: 'Net Protocol Outflow',
-              value: 'ProtocolNetOutflow',
-              labelWhenSelected: isMobile ? 'Prtcol Outfl' : 'Protocol Outflow',
-            },
-            {
-              label: !isMobile ? 'Net Expenses On-chain' : 'Net Exp. On-Chain',
-              value: 'PaymentsOnChain',
-              labelWhenSelected: 'Net On-chain',
-            },
-            {
-              label: 'Actuals',
-              value: 'Actuals',
-            },
-          ]}
+          onChange={(metric: string) => onMetricChange(metric as AnalyticMetric)}
+          items={metricItems}
           PopperProps={{
             placement: 'bottom-end',
           }}

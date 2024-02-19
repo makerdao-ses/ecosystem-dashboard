@@ -5,56 +5,59 @@ import { useMemo, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { getBudgetsAnalytics } from '../../utils/utils';
 import { parseAnalyticsToSeriesBreakDownChart, setBorderRadiusForSeries } from './utils';
-import type { Metric } from '../../utils/types';
-import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type {
+  AnalyticGranularity,
+  AnalyticMetric,
+  BreakdownBudgetAnalytic,
+} from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
 const useBreakdownChart = (budgets: Budget[], year: string, codePath: string) => {
-  const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const { isLight } = useThemeContext();
+  const [selectedMetric, setSelectedMetric] = useState<AnalyticMetric>('Budget');
   const refBreakDownChart = useRef<EChartsOption | null>(null);
-  const [selectedBreakdownGranularity, setSelectedBreakdownGranularity] = useState<AnalyticGranularity>('monthly');
+  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
   const barWidth = isMobile
-    ? selectedBreakdownGranularity === 'quarterly'
+    ? selectedGranularity === 'quarterly'
       ? 32
-      : selectedBreakdownGranularity === 'annual'
+      : selectedGranularity === 'annual'
       ? 96
       : 16
     : isTablet
     ? 40
     : isDesktop1024 || isDesktop1280
-    ? selectedBreakdownGranularity === 'annual'
+    ? selectedGranularity === 'annual'
       ? 168
-      : selectedBreakdownGranularity === 'quarterly'
+      : selectedGranularity === 'quarterly'
       ? 64
       : 40
     : 56;
 
-  const handleBreakdownMetricChange = (value: string) => {
-    setSelectedBreakdownMetric(value);
+  const handleMetricChange = (value: AnalyticMetric) => {
+    setSelectedMetric(value);
   };
 
-  const handleBreakdownGranularityChange = (value: AnalyticGranularity) => {
-    setSelectedBreakdownGranularity(value);
+  const handleGranularityChange = (value: AnalyticGranularity) => {
+    setSelectedGranularity(value);
   };
   const barBorderRadius = isMobile ? 4 : 6;
 
-  const isDisabled = selectedBreakdownMetric === 'Budget' && selectedBreakdownGranularity === 'monthly';
+  const isDisabled = selectedMetric === 'Budget' && selectedGranularity === 'monthly';
   const handleResetFilterBreakDownChart = () => {
-    setSelectedBreakdownMetric('Budget');
-    setSelectedBreakdownGranularity('monthly');
+    setSelectedMetric('Budget');
+    setSelectedGranularity('monthly');
   };
 
   const { data: budgetsAnalytics, isLoading } = useSWRImmutable(
-    [selectedBreakdownGranularity, year, codePath, codePath.split('/').length + 1, budgets],
+    [selectedGranularity, year, codePath, codePath.split('/').length + 1, budgets],
     async () =>
       getBudgetsAnalytics(
-        selectedBreakdownGranularity,
+        selectedGranularity,
         year,
         codePath,
         codePath.split('/').length + 1,
@@ -63,15 +66,8 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string) =>
   );
 
   const seriesWithoutBorder = useMemo(
-    () =>
-      parseAnalyticsToSeriesBreakDownChart(
-        budgetsAnalytics,
-        budgets,
-        isLight,
-        barWidth,
-        selectedBreakdownMetric as Metric
-      ),
-    [barWidth, budgets, budgetsAnalytics, isLight, selectedBreakdownMetric]
+    () => parseAnalyticsToSeriesBreakDownChart(budgetsAnalytics, budgets, isLight, barWidth, selectedMetric),
+    [barWidth, budgets, budgetsAnalytics, isLight, selectedMetric]
   );
 
   const allSeries = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);
@@ -109,10 +105,10 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string) =>
 
   return {
     isLoading,
-    selectedBreakdownMetric,
-    selectedBreakdownGranularity,
-    handleBreakdownMetricChange,
-    handleBreakdownGranularityChange,
+    selectedMetric,
+    selectedGranularity,
+    handleMetricChange,
+    handleGranularityChange,
     isDisabled,
     handleResetFilterBreakDownChart,
     handleToggleSeries,

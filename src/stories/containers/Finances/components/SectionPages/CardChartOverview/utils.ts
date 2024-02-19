@@ -1,4 +1,4 @@
-import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 
 export const getTotalAllMetricsBudget = (budgetsAnalytics: BreakdownBudgetAnalytic | undefined) => {
   const metric = {
@@ -23,12 +23,12 @@ export const getTotalAllMetricsBudget = (budgetsAnalytics: BreakdownBudgetAnalyt
 
 export const getShortCode = (code: string) => (code.length > 8 ? code.substring(0, 8) + '...' : code);
 
-export const getCorrectMetricValuesOverViewChart = (metric: string) => {
+export const getCorrectMetricValuesOverViewChart = (metric: AnalyticMetric) => {
   if (metric === 'Forecast' || metric === 'Actuals' || metric === 'Budget') return metric.toLocaleLowerCase();
   switch (metric) {
-    case 'Net Expenses On-chain':
+    case 'PaymentsOnChain':
       return 'paymentsOnChain';
-    case 'Net Expenses Off-chain':
+    case 'PaymentsOffChainIncluded':
       return 'paymentsOffChainIncluded';
     default:
       return 'budget';
