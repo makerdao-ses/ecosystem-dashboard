@@ -52,6 +52,17 @@ const DoughnutChartFinances: React.FC<Props> = ({
 
   const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
+  useEffect(() => {
+    // Resize chart on window resize to avoid UI flickering
+    const onResize = () => {
+      const chartInstance = chartRef.current?.getEchartsInstance();
+      chartInstance?.resize();
+    };
+
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   const doughnutSeriesChunks = chunkArray(doughnutSeriesData, numberSliderPerLevel);
   const numberSlider = doughnutSeriesChunks.size;
   const options = useMemo(
