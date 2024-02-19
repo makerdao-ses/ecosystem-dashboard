@@ -4,12 +4,13 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
-import type { DoughnutSeries, Metric } from '@ses/containers/Finances/utils/types';
+import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
+import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  selectedMetric: Metric;
-  handleSelectedMetric: (selectedMetric: Metric) => void;
+  selectedMetric: AnalyticMetric;
+  handleSelectedMetric: (selectedMetric: AnalyticMetric) => void;
   actuals: number;
   budgetCap: number;
   prediction: number;
@@ -23,7 +24,7 @@ interface Props {
 
 const FILTERS: {
   label: string;
-  value: Metric;
+  value: AnalyticMetric;
 }[] = [
   {
     label: 'Actuals',

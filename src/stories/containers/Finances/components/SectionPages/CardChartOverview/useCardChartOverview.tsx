@@ -11,8 +11,8 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useState } from 'react';
 import { getCorrectMetricValuesOverViewChart } from './utils';
-import type { BudgetMetricWithName, DoughnutSeries, Metric } from '@ses/containers/Finances/utils/types';
-import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type { BudgetMetricWithName, DoughnutSeries } from '@ses/containers/Finances/utils/types';
+import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useCardChartOverview = (
@@ -27,7 +27,7 @@ export const useCardChartOverview = (
 
   const isHasSubLevels = hasSubLevels(codePath, allBudgets);
 
-  const [selectedMetric, setSelectedMetric] = useState<Metric>('Budget');
+  const [selectedMetric, setSelectedMetric] = useState<AnalyticMetric>('Budget');
   const { isLight } = useThemeContext();
   const colorsLight = generateColorPalette(
     existingColors.length,
@@ -161,7 +161,7 @@ export const useCardChartOverview = (
     }
   }
 
-  const handleSelectedMetric = (metric: Metric) => {
+  const handleSelectedMetric = (metric: AnalyticMetric) => {
     setSelectedMetric(metric);
   };
   const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics).map((item, index) => {

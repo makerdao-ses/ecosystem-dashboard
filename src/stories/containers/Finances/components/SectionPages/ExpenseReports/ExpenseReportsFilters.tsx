@@ -11,11 +11,11 @@ import lightTheme from '@ses/styles/theme/light';
 import React, { useMemo } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';
-import type { Metric } from '@ses/containers/Finances/utils/types';
+import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 
 export interface ExpenseReportsFiltersProps {
-  selectedMetric: Metric;
-  onMetricChange: (value: Metric) => void;
+  selectedMetric: AnalyticMetric;
+  onMetricChange: (value: AnalyticMetric) => void;
   selectedStatuses: BudgetStatus[];
   onStatusSelectChange: (value: BudgetStatus[]) => void;
   statusesItems: MultiSelectItem[];
@@ -33,7 +33,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
   isDisabled = true,
 }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const metricItems: SelectItem<Metric>[] = useMemo(
+  const metricItems: SelectItem<AnalyticMetric>[] = useMemo(
     () => [
       {
         label: 'Forecast',
@@ -74,7 +74,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
           isMobile={isMobile}
           useSelectedAsLabel
           selected={selectedMetric}
-          onChange={(value: string) => onMetricChange(value as Metric)}
+          onChange={(value: string) => onMetricChange(value as AnalyticMetric)}
           items={metricItems}
           PopperProps={{
             placement: 'bottom-end',

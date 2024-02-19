@@ -5,14 +5,17 @@ import { useMemo, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { getBudgetsAnalytics } from '../../utils/utils';
 import { parseAnalyticsToSeriesBreakDownChart, setBorderRadiusForSeries } from './utils';
-import type { Metric } from '../../utils/types';
-import type { AnalyticGranularity, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
+import type {
+  AnalyticGranularity,
+  AnalyticMetric,
+  BreakdownBudgetAnalytic,
+} from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
 const useBreakdownChart = (budgets: Budget[], year: string, codePath: string) => {
-  const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const { isLight } = useThemeContext();
+  const [selectedBreakdownMetric, setSelectedBreakdownMetric] = useState<string>('Budget');
   const refBreakDownChart = useRef<EChartsOption | null>(null);
   const [selectedBreakdownGranularity, setSelectedBreakdownGranularity] = useState<AnalyticGranularity>('monthly');
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -69,7 +72,7 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string) =>
         budgets,
         isLight,
         barWidth,
-        selectedBreakdownMetric as Metric
+        selectedBreakdownMetric as AnalyticMetric
       ),
     [barWidth, budgets, budgetsAnalytics, isLight, selectedBreakdownMetric]
   );

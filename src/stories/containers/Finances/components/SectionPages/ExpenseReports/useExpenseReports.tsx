@@ -10,13 +10,13 @@ import { useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import useSWRInfinite from 'swr/infinite';
 import { FilterChip } from './ExpenseReportsFilters';
-import type { Metric } from '@ses/containers/Finances/utils/types';
+import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 export const useExpenseReports = (budgetPath: string) => {
   // metric filter:
-  const [selectedMetric, setSelectedMetric] = useState<Metric>('Actuals');
-  const onMetricChange = (value: Metric) => setSelectedMetric(value);
+  const [selectedMetric, setSelectedMetric] = useState<AnalyticMetric>('Actuals');
+  const onMetricChange = (value: AnalyticMetric) => setSelectedMetric(value);
 
   // status filter
   const [selectedStatuses, setSelectedStatuses] = useState<BudgetStatus[]>([]);

@@ -17,13 +17,13 @@ import Link from 'next/link';
 import React, { useMemo } from 'react';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
-import type { Metric } from '../../utils/types';
+import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   budget: BudgetStatement;
-  selectedMetric: Metric;
+  selectedMetric: AnalyticMetric;
   now?: DateTime;
 }
 

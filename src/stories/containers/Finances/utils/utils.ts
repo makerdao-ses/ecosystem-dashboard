@@ -8,7 +8,6 @@ import type {
   DelegateExpenseTableHeader,
   ItemRow,
   LineChartSeriesData,
-  Metric,
   MetricValues,
   MomentDataItem,
   TableFinances,
@@ -21,6 +20,7 @@ import type {
   Analytic,
   BreakdownBudgetAnalytic,
   AnalyticGranularity,
+  AnalyticMetric,
 } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -348,7 +348,7 @@ export const getLastActivityDate = (budget: BudgetStatement) => {
 
 export const getHeadersExpenseReport = (
   headersSort: SortEnum[],
-  selectedMetric: Metric,
+  selectedMetric: AnalyticMetric,
   isSmallDesk: boolean
 ): DelegateExpenseTableHeader[] => [
   {
@@ -776,7 +776,7 @@ export const formatterBreakdownChart = (
   }
 };
 
-export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Metric): ValuesDataWithBorder => {
+export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: AnalyticMetric): ValuesDataWithBorder => {
   let metricKey: keyof BudgetMetric;
   switch (selectedMetric) {
     case 'Budget':
