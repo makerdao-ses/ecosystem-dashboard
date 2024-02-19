@@ -348,7 +348,7 @@ export const getLastActivityDate = (budget: BudgetStatement) => {
 
 export const getHeadersExpenseReport = (
   headersSort: SortEnum[],
-  selectedMetric: string,
+  selectedMetric: Metric,
   isSmallDesk: boolean
 ): DelegateExpenseTableHeader[] => [
   {
@@ -379,7 +379,12 @@ export const getHeadersExpenseReport = (
     sort: headersSort[1],
   },
   {
-    header: selectedMetric.replace('Expenses', ''),
+    header:
+      selectedMetric === 'ProtocolNetOutflow'
+        ? 'Protocol Outflow'
+        : selectedMetric === 'PaymentsOnChain'
+        ? 'Net On-chain'
+        : selectedMetric,
     sort: headersSort[2],
     styles: {
       width: 130,

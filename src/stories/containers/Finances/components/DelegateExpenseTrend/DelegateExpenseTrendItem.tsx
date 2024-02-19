@@ -17,12 +17,13 @@ import Link from 'next/link';
 import React, { useMemo } from 'react';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
+import type { Metric } from '../../utils/types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   budget: BudgetStatement;
-  selectedMetric: string;
+  selectedMetric: Metric;
   now?: DateTime;
 }
 
@@ -60,12 +61,12 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
         return budget.actualExpenses ?? 0;
       case 'Forecast':
         return budget.forecastExpenses ?? 0;
-      case 'Net On-Chain':
+      case 'PaymentsOnChain':
         return budget.paymentsOnChain ?? 0;
-      case 'Protocol Outflow':
+      case 'ProtocolNetOutflow':
         return budget.netProtocolOutflow ?? 0;
     }
-    return 0;
+    return NaN;
   }, [budget, selectedMetric]);
 
   const elementInDesk = (

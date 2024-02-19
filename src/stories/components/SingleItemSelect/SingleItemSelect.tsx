@@ -7,9 +7,9 @@ import { SelectChevronDown } from '../svg/select-chevron-down';
 import type { PaperProps, PopperProps } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-export interface SelectItem {
+export interface SelectItem<T = string> {
   label: string;
-  value: string;
+  value: T;
   labelWhenSelected?: string;
 }
 
