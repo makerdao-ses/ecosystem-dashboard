@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { filterActiveMetrics, monthAbbreviations } from '@ses/containers/Finances/utils/utils';
+import { filterActiveMetrics } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const HeaderMonthly: React.FC<Props> = ({ title, activeMetrics, headerTable }) => {
-  const keysMetrics = [...monthAbbreviations, 'Total'];
+  const keysMetrics = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Total'];
   const metricsActive = filterActiveMetrics(activeMetrics, headerTable);
 
   const { isLight } = useThemeContext();
@@ -102,7 +102,7 @@ const ContainerTitle = styled.div({
   paddingTop: 10,
   paddingBottom: 10,
   [lightTheme.breakpoints.up('desktop_1920')]: {
-    width: 230,
+    minWidth: 230,
   },
 });
 

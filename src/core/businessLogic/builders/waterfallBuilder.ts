@@ -1,8 +1,8 @@
-import type { WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
+import type { WaterfallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { EChartsOption } from 'echarts-for-react';
 
-export class WaterFallChartSeriesBuilder {
-  private readonly _seriesData: WaterFallChartSeriesData;
+export class WaterfallChartSeriesBuilder {
+  private readonly _seriesData: WaterfallChartSeriesData;
 
   constructor() {
     this._seriesData = {
@@ -15,27 +15,27 @@ export class WaterFallChartSeriesBuilder {
     };
   }
 
-  withName(name: string): WaterFallChartSeriesBuilder {
+  withName(name: string): WaterfallChartSeriesBuilder {
     this._seriesData.name = name;
     return this;
   }
 
-  withData(data: (number | string)[]): WaterFallChartSeriesBuilder {
+  withData(data: (number | string)[]): WaterfallChartSeriesBuilder {
     this._seriesData.data = data;
     return this;
   }
 
-  withBarWidth(barWidth: number): WaterFallChartSeriesBuilder {
+  withBarWidth(barWidth: number): WaterfallChartSeriesBuilder {
     this._seriesData.barWidth = barWidth;
     return this;
   }
 
-  withStack(stack: string): WaterFallChartSeriesBuilder {
+  withStack(stack: string): WaterfallChartSeriesBuilder {
     this._seriesData.stack = stack;
     return this;
   }
 
-  withType(type: string): WaterFallChartSeriesBuilder {
+  withType(type: string): WaterfallChartSeriesBuilder {
     this._seriesData.type = type;
     return this;
   }
@@ -46,7 +46,7 @@ export class WaterFallChartSeriesBuilder {
     color?: string;
     position?: string;
     fontSize?: number;
-  }): WaterFallChartSeriesBuilder {
+  }): WaterfallChartSeriesBuilder {
     this._seriesData.label = label;
     return this;
   }
@@ -54,22 +54,22 @@ export class WaterFallChartSeriesBuilder {
   withItemStyle(itemStyle: {
     borderRadius?: number;
     color?: ((params: EChartsOption) => string) | string;
-  }): WaterFallChartSeriesBuilder {
+  }): WaterfallChartSeriesBuilder {
     this._seriesData.itemStyle = itemStyle;
     return this;
   }
 
-  withZIndex(zIndex: number): WaterFallChartSeriesBuilder {
+  withZIndex(zIndex: number): WaterfallChartSeriesBuilder {
     this._seriesData.zIndex = zIndex;
     return this;
   }
 
-  withIsVisible(isVisible: boolean): WaterFallChartSeriesBuilder {
+  withIsVisible(isVisible: boolean): WaterfallChartSeriesBuilder {
     this._seriesData.isVisible = isVisible;
     return this;
   }
 
-  build(): WaterFallChartSeriesData {
+  build(): WaterfallChartSeriesData {
     return this._seriesData;
   }
 }

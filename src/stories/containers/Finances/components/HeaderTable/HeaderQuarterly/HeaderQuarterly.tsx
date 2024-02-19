@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { filterActiveMetrics, getQuarterlyForFilters } from '@ses/containers/Finances/utils/utils';
+import { filterActiveMetrics } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -18,7 +18,7 @@ interface Props {
 
 const HeaderQuarterly: React.FC<Props> = ({ title, className, headerTable, year, activeMetrics }) => {
   const { isLight } = useThemeContext();
-  const keysMetrics = [...getQuarterlyForFilters(year), 'Total'];
+  const keysMetrics = [...[1, 2, 3, 4].map((quarter) => `Q${quarter} ${year}`), 'Total'];
   const metricsActive = filterActiveMetrics(activeMetrics, headerTable);
 
   return (

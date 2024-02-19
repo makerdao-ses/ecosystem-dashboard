@@ -1,4 +1,4 @@
-import { enumForStories, getHeadersExpenseReport, mockDataApiTeam } from '@ses/containers/Finances/utils/utils';
+import { ENUM_FOR_STORIES, getHeadersExpenseReport, mockDataApiTeam } from '@ses/containers/Finances/utils/utils';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ExpenseReports from './ExpenseReports';
 import type { Meta } from '@storybook/react';
@@ -20,13 +20,13 @@ const expenseReportResponse = {
 
 const args = [
   {
-    columns: getHeadersExpenseReport(enumForStories, 'Actuals', false),
+    columns: getHeadersExpenseReport(ENUM_FOR_STORIES, 'Actuals', false),
     sortClick: () => null,
     selectedMetric: 'Actuals',
     expenseReportResponse,
   },
   {
-    columns: getHeadersExpenseReport(enumForStories, 'Actuals', true),
+    columns: getHeadersExpenseReport(ENUM_FOR_STORIES, 'Actuals', true),
     sortClick: () => null,
     selectedMetric: 'Actuals',
     expenseReportResponse,

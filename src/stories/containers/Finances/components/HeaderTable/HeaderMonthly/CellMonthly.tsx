@@ -47,6 +47,9 @@ const ContainerCell = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight,
   ...(isTotal && {
     padding: '16px 0px 16px 0px',
   }),
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    minWidth: 80,
+  },
 }));
 
 const Month = styled.div<WithIsLight>(({ isLight }) => ({

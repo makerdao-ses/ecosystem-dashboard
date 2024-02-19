@@ -20,7 +20,7 @@ interface FiltersProps {
   items: MultiSelectItem[];
 }
 
-const ReservesWaterFallFilters: React.FC<FiltersProps> = ({
+const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
   activeItems,
   selectedGranularity,
   popupContainerHeight,
@@ -91,7 +91,7 @@ const ReservesWaterFallFilters: React.FC<FiltersProps> = ({
   </FilterContainer>
 );
 //
-export default ReservesWaterFallFilters;
+export default ReservesWaterfallFilters;
 
 const FilterContainer = styled.div({
   display: 'flex',

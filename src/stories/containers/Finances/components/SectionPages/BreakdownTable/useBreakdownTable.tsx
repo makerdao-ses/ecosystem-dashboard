@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
-import { getMetricByPeriod, nameChanged } from '@ses/containers/Finances/utils/utils';
+import { formatBudgetName } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -46,10 +46,29 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     return 'Quarterly';
   });
 
-  const maxAmountOfActiveMetrics = useMemo(
-    () => getMetricByPeriod(periodFilter, isMobile, isTable, isDesk1024, isDesk1280, isDesk1440, isDesk1920),
-    [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]
-  );
+  // calculate the maximum amount of active metrics based on the resolution
+  const maxAmountOfActiveMetrics = useMemo(() => {
+    let metricsCount = 0;
+    // This is for metrics base on the resolution
+    if (periodFilter === 'Semi-annual') {
+      metricsCount = 1;
+    } else if (periodFilter === 'Annually') {
+      if (isMobile) {
+        metricsCount = 3;
+      } else {
+        metricsCount = 5;
+      }
+    } else if (periodFilter === 'Monthly' && (isDesk1440 || isDesk1920)) {
+      metricsCount = 1;
+    } else if (periodFilter === 'Quarterly') {
+      if (isTable) metricsCount = 1;
+      if (isDesk1024 || isDesk1280 || isDesk1440) metricsCount = 2;
+      if (isDesk1920) metricsCount = 3;
+    }
+
+    return metricsCount;
+  }, [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]);
+
   const [activeMetrics, setActiveMetrics] = useState<string[]>(() => {
     let urlMetrics = router.query.metric as string[] | undefined;
     urlMetrics = Array.isArray(urlMetrics) ? urlMetrics : urlMetrics ? [urlMetrics] : undefined;
@@ -200,7 +219,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
       // sub-table header
       const header: ItemRow = {
-        name: nameChanged(budget.name),
+        name: formatBudgetName(budget.name),
         isMain: true,
         codePath: budget.codePath,
         columns: rows
@@ -332,6 +351,9 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
   };
   const handlePeriodChange = (value: string) => {
+    if (value === 'Annually') {
+      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, isMobile ? 3 : 5));
+    }
     setPeriodFilter(value as PeriodicSelectionFilter);
     updateUrl(value as PeriodicSelectionFilter, activeMetrics);
   };

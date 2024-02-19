@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
-import { nameChanged } from '@ses/containers/Finances/utils/utils';
+import { formatBudgetName } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import sortBy from 'lodash/sortBy';
@@ -16,11 +16,11 @@ import {
 } from './utils';
 
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { LegendItemsWaterFall } from '@ses/containers/Finances/utils/types';
+import type { LegendItemsWaterfall } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
-export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
+export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
   const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
 
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);
@@ -56,7 +56,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
   const defaultTitle = 'MakerDAO Finances';
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
-  const getTitleLevelBudget = nameChanged(levelBudget?.name || '');
+  const getTitleLevelBudget = formatBudgetName(levelBudget?.name || '');
 
   const { summaryValues, totalToStart } = useMemo(
     () => getAnalyticForWaterFall(budgets, selectedGranularity, analytics),
@@ -76,7 +76,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
 
   const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
 
-  const legendItems: LegendItemsWaterFall[] = [
+  const legendItems: LegendItemsWaterfall[] = [
     {
       title: 'Reserves Balance',
       color: isLight ? '#83A7FF' : '#447AFB',
@@ -95,7 +95,7 @@ export const useReservesWaterFallChart = (codePath: string, budgets: Budget[], a
     () =>
       sortBy(budgets, (subBudget) => subBudget.name).map((budget) => ({
         id: budget.codePath,
-        content: nameChanged(budget.name),
+        content: formatBudgetName(budget.name),
         params: {
           url: budget.image,
         },

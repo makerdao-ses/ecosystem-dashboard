@@ -6,21 +6,21 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import { useEffect, useMemo, useRef } from 'react';
-import { getGranularity } from '../../utils/utils';
+import { getChartAxisLabelByGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
-import type { LegendItemsWaterFall, LineWaterFall, WaterFallChartSeriesData } from '../../utils/types';
+import type { LegendItemsWaterfall, LineWaterfall, WaterfallChartSeriesData } from '../../utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
 interface Props {
-  legends: LegendItemsWaterFall[];
+  legends: LegendItemsWaterfall[];
   year: string;
   selectedGranularity: AnalyticGranularity;
-  series: (WaterFallChartSeriesData | LineWaterFall)[];
+  series: (WaterfallChartSeriesData | LineWaterfall)[];
 }
 
-const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, series }) => {
+const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, series }) => {
   const { isLight } = useThemeContext();
   const refWaterfallChart = useRef<EChartsOption | null>(null);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -77,7 +77,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
       },
       xAxis: {
         type: 'category',
-        data: getGranularity(selectedGranularity, isMobile, true),
+        data: getChartAxisLabelByGranularity(selectedGranularity, isMobile, true),
         splitLine: {
           show: false,
         },
@@ -227,7 +227,7 @@ const WaterFallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   );
 };
 
-export default WaterFallChart;
+export default WaterfallChart;
 
 const Wrapper = styled.div({
   width: '100%',

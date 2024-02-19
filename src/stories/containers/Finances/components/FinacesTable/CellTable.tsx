@@ -12,14 +12,15 @@ interface Props {
   metrics: string[];
   value: MetricValues;
   href: string;
+  isSummaryRow?: boolean;
 }
 
-const CellTable: React.FC<Props> = ({ metrics, value, href }) => {
+const CellTable: React.FC<Props> = ({ metrics, value, href, isSummaryRow }) => {
   const element = filterMetricValues(value, metrics as (keyof MetricValues)[]);
   const { isLight } = useThemeContext();
   return (
     <Cell isLight={isLight}>
-      <LinkCellComponent href={href}>
+      <LinkCellComponent href={href} isSummaryRow={isSummaryRow}>
         <SpacedValues>
           {metrics.map((metric, index) => (
             <Span key={index} isLight={isLight}>

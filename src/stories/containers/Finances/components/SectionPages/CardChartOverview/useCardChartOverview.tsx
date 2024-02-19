@@ -4,7 +4,7 @@ import {
   existingColorsDark,
   generateColorPalette,
   hasSubLevels,
-  nameChanged,
+  formatBudgetName,
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
@@ -73,7 +73,7 @@ export const useCardChartOverview = (
   const budgetMetrics: Record<string, BudgetMetricWithName> = {};
   budgets.forEach((budget) => {
     const budgetKey = budget.codePath;
-    const budgetName = nameChanged(budget.name);
+    const budgetName = formatBudgetName(budget.name);
     if (budgetMetrics[budget.codePath]) {
       const uniqueKey = `${budgetKey}-${budget.id}`;
       budgetMetrics[uniqueKey] = {
@@ -142,7 +142,7 @@ export const useCardChartOverview = (
       const budgetMetric = budgetsAnalytics[budgetMetricKey];
       const correspondingBudget = budgets.find((budget) => budget.codePath === budgetMetricKey);
       // use the name of budget or add label
-      const budgetName = correspondingBudget ? nameChanged(correspondingBudget.name) : 'There is not name';
+      const budgetName = correspondingBudget ? formatBudgetName(correspondingBudget.name) : 'There is not name';
       const budgetCode = correspondingBudget?.code || 'No-code';
       metric.actuals += budgetMetric[0].actuals.value || 0;
       metric.forecast += budgetMetric[0].forecast.value || 0;

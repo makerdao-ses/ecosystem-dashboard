@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { enumForStories, getHeadersExpenseReport } from '../../utils/utils';
+import { ENUM_FOR_STORIES, getHeadersExpenseReport } from '../../utils/utils';
 import HeaderDelegateExpense from './HeaderDelegateExpense';
 import type { Meta } from '@storybook/react';
 
@@ -11,10 +11,10 @@ export default meta;
 
 const variantsArgs = [
   {
-    columns: getHeadersExpenseReport(enumForStories, 'Actuals', false),
+    columns: getHeadersExpenseReport(ENUM_FOR_STORIES, 'Actuals', false),
   },
   {
-    columns: getHeadersExpenseReport(enumForStories, 'Actuals', true),
+    columns: getHeadersExpenseReport(ENUM_FOR_STORIES, 'Actuals', true),
   },
 ];
 

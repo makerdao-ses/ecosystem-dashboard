@@ -1,11 +1,11 @@
 import { UMBRAL_CHART_WATERFALL } from '@ses/core/utils/const';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
-import type { LineWaterFall, MetricValues, WaterFallChartSeriesData } from '@ses/containers/Finances/utils/types';
+import type { LineWaterfall, MetricValues, WaterfallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { Analytic, AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
-export const getArraysWaterFall = (data: number[]) => {
+export const getArraysWaterfall = (data: number[]) => {
   const inFlow = [];
   const outFlow = [];
   const auxiliaryArray = [];
@@ -40,8 +40,8 @@ export const builderWaterFallSeries = (
   isMobile: boolean,
   isTable: boolean,
   isLight: boolean
-): (WaterFallChartSeriesData | LineWaterFall)[] => {
-  const { inFlow, outFlow, auxiliaryArray } = getArraysWaterFall(data);
+): (WaterfallChartSeriesData | LineWaterfall)[] => {
+  const { inFlow, outFlow, auxiliaryArray } = getArraysWaterfall(data);
 
   // Add the same value at the end to simulate the end of array can be Increase or Decrease
   const lastInFlow = inFlow[inFlow.length - 1];
@@ -226,19 +226,14 @@ export const calculateAccumulatedArray = (data: number[]) => {
 };
 
 export const processDataForWaterFall = (data: number[], total: number): number[] => {
-  const result: number[] = [];
+  const result: number[] = [...data];
   if (data.reduce((acc, actual) => acc + actual) === 0) return data;
-
-  result.push(total);
-  let accumulatedTotal = total;
-  for (let i = 0; i < data.length; i++) {
-    let change = data[i] - accumulatedTotal;
-    if (Math.abs(change) < UMBRAL_CHART_WATERFALL) {
-      change = 0;
+  for (let i = 0; i < result.length; i++) {
+    if (Math.abs(result[i]) < UMBRAL_CHART_WATERFALL) {
+      result[i] = 0;
     }
-    result.push(change);
-    accumulatedTotal = data[i];
   }
+  result.unshift(total);
 
   return result;
 };
@@ -274,14 +269,14 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
   }
   // Array to determine the position of the change
   const positiveNegativeLine = lineSeriesData.map((value, index, array) =>
-    index === 0 ? null : value > array[index - 1]
+    index === 0 ? null : value >= array[index - 1]
   );
 
   const newLineSeries = [...lineSeriesData, lineSeriesData[lineSeriesData.length - 1]];
 
   for (let i = 1; i < newLineSeries.length; i++) {
     const isAscending = positiveNegativeLine[i - 1];
-    const color = isLight ? (isAscending ? '#06554C' : '#A83815') : isAscending ? '#06554C' : '#A83815';
+    const color = isLight ? (isAscending ? '#06554C' : '#A83815') : isAscending ? '#06554C' : '#641E08';
     const seriesData = new Array(newLineSeries.length).fill('-');
     seriesData[i - 1] = newLineSeries[i - 1];
     seriesData[i] = newLineSeries[i];
@@ -321,18 +316,18 @@ export const getArrayLengthByGranularity = (granularity: AnalyticGranularity) =>
   }
 };
 // Replace Budget for the real value
-type WaterFallReserves = Pick<MetricValues, 'ProtocolNetOutflow' | 'PaymentsOnChain'>;
+type WaterfallReserves = Pick<MetricValues, 'ProtocolNetOutflow' | 'PaymentsOnChain'>;
 const EMPTY_METRIC_VALUE = {
   PaymentsOnChain: 0,
   ProtocolNetOutflow: 0,
-} as WaterFallReserves;
+} as WaterfallReserves;
 
 export const getAnalyticForWaterFall = (
   budgets: Budget[],
   granularity: AnalyticGranularity,
   analytic: Analytic | undefined
 ) => {
-  const budgetAnalyticMap = new Map<string, WaterFallReserves[]>();
+  const budgetAnalyticMap = new Map<string, WaterfallReserves[]>();
   const arrayLength = getArrayLengthByGranularity(granularity);
   const summaryValues = new Map<string, number[]>();
   let netProtocolOutflow = 0;
@@ -389,7 +384,7 @@ export const getAnalyticForWaterFall = (
         Array.from({ length: arrayLength }, () => 0)
       );
     } else {
-      const sumOfDifferences = values?.map((item) => Math.abs(item.ProtocolNetOutflow - item.PaymentsOnChain));
+      const sumOfDifferences = values?.map((item) => item.ProtocolNetOutflow - item.PaymentsOnChain);
       summaryValues.set(element, sumOfDifferences);
     }
   });
@@ -412,9 +407,8 @@ export const sumValuesFromMapKeys = (
 
   budgetAnalyticMap.forEach((values, key) => {
     if (activeItems.includes(key)) {
-      sums = sums.map((sum, index) => Math.abs(sum + values[index]));
+      sums = sums.map((sum, index) => sum + values[index]);
     }
   });
-
   return sums;
 };

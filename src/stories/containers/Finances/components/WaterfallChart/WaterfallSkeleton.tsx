@@ -2,14 +2,14 @@ import { Skeleton, styled, useMediaQuery } from '@mui/material';
 import React from 'react';
 import type { Theme } from '@mui/material';
 
-const WaterFallSkeleton = () => {
+const WaterfallSkeleton = () => {
   const arrayLegendAxisY = Array.from({ length: 9 }, () => 0);
   const arrayLegendAxisX = Array.from({ length: 14 }, () => 0);
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
 
-  const barWaterFall = (height: number, auxiliaryHeight: number, top = true, isHasLine = true) => (
+  const barWaterfall = (height: number, auxiliaryHeight: number, top = true, isHasLine = true) => (
     <ContainerBar>
       <AuxiliaryContainer height={auxiliaryHeight} />
       <ContainerBarLine top={top} isHasLine={isHasLine}>
@@ -63,43 +63,43 @@ const WaterFallSkeleton = () => {
           ))}
         </LegendAxisY>
         <ContainerBars>
-          <ContainerBar>{barWaterFall(isMobile ? 190 : isTablet ? 378 : 378, 0, true)}</ContainerBar>
-          <ContainerBar>{barWaterFall(isMobile ? 40 : isTablet ? 84 : 84, 0, false)}</ContainerBar>
+          <ContainerBar>{barWaterfall(isMobile ? 190 : isTablet ? 378 : 378, 0, true)}</ContainerBar>
+          <ContainerBar>{barWaterfall(isMobile ? 40 : isTablet ? 84 : 84, 0, false)}</ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 16 : isTablet ? 32 : 32, isMobile ? 40 : isTablet ? 80 : 80, false)}
+            {barWaterfall(isMobile ? 16 : isTablet ? 32 : 32, isMobile ? 40 : isTablet ? 80 : 80, false)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 17 : isTablet ? 32 : 32, isMobile ? 57 : isTablet ? 110 : 110, false)}
+            {barWaterfall(isMobile ? 17 : isTablet ? 32 : 32, isMobile ? 57 : isTablet ? 110 : 110, false)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 26 : isTablet ? 52 : 52, isMobile ? 48 : isTablet ? 90 : 90)}
+            {barWaterfall(isMobile ? 26 : isTablet ? 52 : 52, isMobile ? 48 : isTablet ? 90 : 90)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 44 : isTablet ? 78 : 78, isMobile ? 48 : isTablet ? 90 : 90, false)}
+            {barWaterfall(isMobile ? 44 : isTablet ? 78 : 78, isMobile ? 48 : isTablet ? 90 : 90, false)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 5 : isTablet ? 18 : 18, isMobile ? 90 : isTablet ? 170 : 170, false)}
+            {barWaterfall(isMobile ? 5 : isTablet ? 18 : 18, isMobile ? 90 : isTablet ? 170 : 170, false)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 17 : isTablet ? 36 : 36, isMobile ? 90 : isTablet ? 185 : 185, false)}
+            {barWaterfall(isMobile ? 17 : isTablet ? 36 : 36, isMobile ? 90 : isTablet ? 185 : 185, false)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 25 : isTablet ? 60 : 60, isMobile ? 83 : isTablet ? 160 : isDesk1024 ? 160 : 160)}
+            {barWaterfall(isMobile ? 25 : isTablet ? 60 : 60, isMobile ? 83 : isTablet ? 160 : isDesk1024 ? 160 : 160)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 24 : isTablet ? 60 : 60, isMobile ? 60 : isTablet ? 100 : isDesk1024 ? 100 : 100)}
+            {barWaterfall(isMobile ? 24 : isTablet ? 60 : 60, isMobile ? 60 : isTablet ? 100 : isDesk1024 ? 100 : 100)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 45 : isTablet ? 98 : 98, isMobile ? 60 : isTablet ? 100 : 100, false)}
+            {barWaterfall(isMobile ? 45 : isTablet ? 98 : 98, isMobile ? 60 : isTablet ? 100 : 100, false)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 14 : isTablet ? 39 : 39, isMobile ? 105 : isTablet ? 195 : 195, false)}
+            {barWaterfall(isMobile ? 14 : isTablet ? 39 : 39, isMobile ? 105 : isTablet ? 195 : 195, false)}
           </ContainerBar>
           <ContainerBar>
-            {barWaterFall(isMobile ? 12 : isTablet ? 28 : 28, isMobile ? 123 : isTablet ? 232 : 232, false)}
+            {barWaterfall(isMobile ? 12 : isTablet ? 28 : 28, isMobile ? 123 : isTablet ? 232 : 232, false)}
           </ContainerBar>
           <ContainerBar isLast>
-            {barWaterFall(isMobile ? 55 : isTablet ? 110 : 125, isMobile ? 135 : isTablet ? 260 : 260, true, false)}
+            {barWaterfall(isMobile ? 55 : isTablet ? 110 : 125, isMobile ? 135 : isTablet ? 260 : 260, true, false)}
           </ContainerBar>
         </ContainerBars>
       </ContainerLegendY>
@@ -135,7 +135,7 @@ const WaterFallSkeleton = () => {
   );
 };
 
-export default WaterFallSkeleton;
+export default WaterfallSkeleton;
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',

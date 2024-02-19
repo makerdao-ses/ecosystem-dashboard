@@ -6,7 +6,7 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
-import { showOnlySixteenRowsWithOthers, sortDataByElementCount } from '../../utils/utils';
+import { showOnlySixteenRowsWithOthers, sortTablesByRows } from '../../utils/utils';
 import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
 import CellTable from './CellTable';
 import type { MetricValues, PeriodicSelectionFilter, ItemRow, TableFinances } from '../../utils/types';
@@ -23,7 +23,7 @@ interface Props {
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period, year }) => {
   const { isLight } = useThemeContext();
 
-  const orderData = sortDataByElementCount(breakdownTable);
+  const orderData = sortTablesByRows(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : period === 'Annually' ? 1 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -54,9 +54,13 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
               return (
                 <TableRow key={index} isLight={isLight} isMain={row.isMain}>
                   <Headed isLight={isLight} period={period}>
-                    <Link href={href} scroll={false}>
-                      {row.name}
-                    </Link>
+                    {row.isSummaryRow ? (
+                      row.name
+                    ) : (
+                      <Link href={href} scroll={false}>
+                        {row.name}
+                      </Link>
+                    )}
                   </Headed>
 
                   {showAnnual &&
@@ -66,13 +70,15 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                       if (!value) {
                         return (
                           <Cell key={index} isLight={isLight}>
-                            <LinkCellComponent href={href}>0</LinkCellComponent>
+                            <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow}>
+                              0
+                            </LinkCellComponent>
                           </Cell>
                         );
                       }
                       return (
                         <Cell key={index} isLight={isLight}>
-                          <LinkCellComponent href={href}>
+                          <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow}>
                             {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
                           </LinkCellComponent>
                         </Cell>
@@ -81,15 +87,33 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
                   {showQuarterly &&
                     arrayMetrics.map((_, index) => (
-                      <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
+                      <CellTable
+                        key={index}
+                        metrics={newMetrics}
+                        value={row.columns[index]}
+                        href={href}
+                        isSummaryRow={row.isSummaryRow}
+                      />
                     ))}
                   {showSemiAnnual &&
                     arrayMetrics.map((_, index) => (
-                      <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
+                      <CellTable
+                        key={index}
+                        metrics={newMetrics}
+                        value={row.columns[index]}
+                        href={href}
+                        isSummaryRow={row.isSummaryRow}
+                      />
                     ))}
                   {showMonthly &&
                     arrayMetrics.map((_, index) => (
-                      <CellTable key={index} metrics={newMetrics} value={row.columns[index]} href={href} />
+                      <CellTable
+                        key={index}
+                        metrics={newMetrics}
+                        value={row.columns[index]}
+                        href={href}
+                        isSummaryRow={row.isSummaryRow}
+                      />
                     ))}
                 </TableRow>
               );

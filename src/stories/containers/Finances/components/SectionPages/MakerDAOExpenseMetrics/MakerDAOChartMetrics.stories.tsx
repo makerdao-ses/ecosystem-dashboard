@@ -89,7 +89,7 @@ LightMode.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:214334&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:334923&mode=dev',
         options: {
           componentStyle: {
             width: 1184,
@@ -102,7 +102,7 @@ LightMode.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:200596&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:336453&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
@@ -115,7 +115,7 @@ LightMode.parameters = {
       },
       1920: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:204896&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:333454&mode=dev',
         options: {
           componentStyle: {
             width: 1312,
