@@ -87,7 +87,7 @@ export const builderWaterfallSeries = (
 
       label: {
         formatter: (params: EChartsOption) => {
-          const formatted = threeDigitsPrecisionHumanization(params.value);
+          const formatted = threeDigitsPrecisionHumanization(params.value, true);
           if (formatted.value === '0.00') return '';
           if (isMobile) {
             if (params.dataIndex === 0 || params.dataIndex === help.length - 1) {
@@ -137,7 +137,7 @@ export const builderWaterfallSeries = (
         fontSize: isMobile ? 8 : 12,
         position: 'bottom',
         formatter: (params: EChartsOption) => {
-          const formatted = threeDigitsPrecisionHumanization(params.value);
+          const formatted = threeDigitsPrecisionHumanization(params.value, true);
 
           if (formatted.value === '0.00') return '';
           if (isMobile) {
@@ -167,7 +167,7 @@ export const builderWaterfallSeries = (
         fontFamily: 'Inter, sans-serif',
         position: 'top',
         formatter: (params: EChartsOption) => {
-          const formatted = threeDigitsPrecisionHumanization(params.value);
+          const formatted = threeDigitsPrecisionHumanization(params.value, true);
 
           if (formatted.value === '0.00') return '';
           if (isMobile) {
@@ -320,25 +320,27 @@ export const getAnalyticForWaterfall = (
   budgets.forEach((budget) => {
     analytic.series.forEach((periods, index) => {
       periods.rows.forEach((row) => {
-        if (index === 0) {
-          if (row.metric === 'ProtocolNetOutflow') {
-            netProtocolOutflow = row.sum - row.value;
-          }
-          if (row.metric === 'PaymentsOnChain') {
-            paymentsOnChain = row.sum - row.value;
-          }
-        }
         if (row.dimensions[0].path === budget.codePath) {
-          const getOldValues =
-            budgetAnalyticMap.get(budget.codePath) ??
-            Array.from({ length: arrayLength }, () => ({ ...EMPTY_METRIC_VALUE }));
-          if (row.metric === 'ProtocolNetOutflow') {
-            getOldValues[index].ProtocolNetOutflow = row.value;
+          if (index === 0) {
+            if (row.metric === 'ProtocolNetOutflow') {
+              netProtocolOutflow += row.sum - row.value;
+            }
+            if (row.metric === 'PaymentsOnChain') {
+              paymentsOnChain += row.sum - row.value;
+            }
           }
-          if (row.metric === 'PaymentsOnChain') {
-            getOldValues[index].PaymentsOnChain = row.value;
+          if (row.dimensions[0].path === budget.codePath) {
+            const getOldValues =
+              budgetAnalyticMap.get(budget.codePath) ??
+              Array.from({ length: arrayLength }, () => ({ ...EMPTY_METRIC_VALUE }));
+            if (row.metric === 'ProtocolNetOutflow') {
+              getOldValues[index].ProtocolNetOutflow += row.value;
+            }
+            if (row.metric === 'PaymentsOnChain') {
+              getOldValues[index].PaymentsOnChain += row.value;
+            }
+            budgetAnalyticMap.set(budget.codePath, [...getOldValues]);
           }
-          budgetAnalyticMap.set(budget.codePath, [...getOldValues]);
         }
       });
     });
