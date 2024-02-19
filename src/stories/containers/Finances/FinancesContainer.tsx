@@ -83,9 +83,8 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
         <ContainerSections>
           <WrapperDesk>
             <CardChartOverview
-              filters={cardOverViewSectionData.filters}
-              filterSelected={cardOverViewSectionData.filterSelected}
-              handleSelectFilter={cardOverViewSectionData.handleSelectFilter}
+              selectedMetric={cardOverViewSectionData.selectedMetric}
+              handleSelectedMetric={cardOverViewSectionData.handleSelectedMetric}
               actuals={cardOverViewSectionData.actuals}
               budgetCap={cardOverViewSectionData.budgetCap}
               prediction={cardOverViewSectionData.prediction}

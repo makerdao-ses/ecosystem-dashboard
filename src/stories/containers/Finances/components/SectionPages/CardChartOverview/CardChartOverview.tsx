@@ -4,13 +4,12 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
-import type { DoughnutSeries, FilterDoughnut } from '@ses/containers/Finances/utils/types';
+import type { DoughnutSeries, Metric } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  filters: FilterDoughnut[];
-  filterSelected: string;
-  handleSelectFilter: (filterSelected: FilterDoughnut) => void;
+  selectedMetric: Metric;
+  handleSelectedMetric: (selectedMetric: Metric) => void;
   actuals: number;
   budgetCap: number;
   prediction: number;
@@ -22,10 +21,35 @@ interface Props {
   isLoading?: boolean;
 }
 
+const FILTERS: {
+  label: string;
+  value: Metric;
+}[] = [
+  {
+    label: 'Actuals',
+    value: 'Actuals',
+  },
+  {
+    label: 'Forecast',
+    value: 'Forecast',
+  },
+  {
+    label: 'Net Expenses On-chain',
+    value: 'PaymentsOnChain',
+  },
+  {
+    label: 'Net Protocol Outflow',
+    value: 'ProtocolNetOutflow',
+  },
+  {
+    label: 'Budget',
+    value: 'Budget',
+  },
+];
+
 const CardChartOverview: React.FC<Props> = ({
-  filterSelected,
-  filters,
-  handleSelectFilter,
+  selectedMetric,
+  handleSelectedMetric,
   actuals,
   budgetCap,
   prediction,
@@ -37,9 +61,6 @@ const CardChartOverview: React.FC<Props> = ({
   isLoading,
 }) => {
   const { isLight } = useThemeContext();
-  const handleOnclick = (item: FilterDoughnut) => () => {
-    handleSelectFilter(item);
-  };
 
   return (
     <Container isLight={isLight}>
@@ -59,9 +80,14 @@ const CardChartOverview: React.FC<Props> = ({
         ) : (
           <>
             <ContainerFilters>
-              {filters.map((item, index) => (
-                <Item key={index} isLight={isLight} isSelected={filterSelected === item} onClick={handleOnclick(item)}>
-                  {item}
+              {FILTERS.map((filterItem, index) => (
+                <Item
+                  key={index}
+                  isLight={isLight}
+                  isSelected={selectedMetric === filterItem.value}
+                  onClick={() => handleSelectedMetric(filterItem.value)}
+                >
+                  {filterItem.label}
                 </Item>
               ))}
             </ContainerFilters>
