@@ -7,11 +7,11 @@ import sortBy from 'lodash/sortBy';
 import { useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import {
-  builderWaterFallSeries,
+  builderWaterfallSeries,
   calculateAccumulatedArray,
   generateLineSeries,
-  getAnalyticForWaterFall,
-  processDataForWaterFall,
+  getAnalyticForWaterfall,
+  processDataForWaterfall,
   sumValuesFromMapKeys,
 } from './utils';
 
@@ -59,15 +59,15 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
   const getTitleLevelBudget = formatBudgetName(levelBudget?.name || '');
 
   const { summaryValues, totalToStart } = useMemo(
-    () => getAnalyticForWaterFall(budgets, selectedGranularity, analytics),
+    () => getAnalyticForWaterfall(budgets, selectedGranularity, analytics),
     [analytics, budgets, selectedGranularity]
   );
 
   const valuesToShow = sumValuesFromMapKeys(summaryValues, activeElements, selectedGranularity);
 
-  const dataReady = processDataForWaterFall(valuesToShow, totalToStart);
+  const dataReady = processDataForWaterfall(valuesToShow, totalToStart);
 
-  const series = builderWaterFallSeries(dataReady, isMobile, isTable, isLight);
+  const series = builderWaterfallSeries(dataReady, isMobile, isTable, isLight);
 
   const valuesLine = useMemo(() => calculateAccumulatedArray(dataReady), [dataReady]);
   const linesChart = useMemo(() => generateLineSeries(valuesLine, isLight), [isLight, valuesLine]);

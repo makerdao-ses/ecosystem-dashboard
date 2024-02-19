@@ -1,6 +1,6 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import ReservesWaterfallChartSection from './ReservesWaterfallChartSection';
-import { builderWaterFallSeries } from './utils';
+import { builderWaterfallSeries } from './utils';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ReservesWaterfallChartSection> = {
@@ -46,7 +46,7 @@ const args = [
     items: [],
     popupContainerHeight: 120,
     isDisabled: true,
-    series: builderWaterFallSeries(data, true, false, true),
+    series: builderWaterfallSeries(data, true, false, true),
   },
   {
     selectedGranularity: 'monthly',
@@ -66,7 +66,7 @@ const args = [
       },
     ],
     year: '2023',
-    series: builderWaterFallSeries(data, false, true, true),
+    series: builderWaterfallSeries(data, false, true, true),
     activeItems: [],
     handleSelectChangeItem: () => null,
     handleGranularityChange: () => null,
@@ -93,7 +93,7 @@ const args = [
       },
     ],
     year: '2023',
-    series: builderWaterFallSeries(data, false, false, true),
+    series: builderWaterfallSeries(data, false, false, true),
     activeItems: [],
     handleSelectChangeItem: () => null,
     handleGranularityChange: () => null,

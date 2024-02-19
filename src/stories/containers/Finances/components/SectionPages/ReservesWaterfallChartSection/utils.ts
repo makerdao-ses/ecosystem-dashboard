@@ -35,7 +35,7 @@ export const getArraysWaterfall = (data: number[]) => {
   };
 };
 
-export const builderWaterFallSeries = (
+export const builderWaterfallSeries = (
   data: number[],
   isMobile: boolean,
   isTable: boolean,
@@ -184,37 +184,6 @@ export const builderWaterFallSeries = (
   return series;
 };
 
-export const defaultWaterFallValues = (analytic: AnalyticGranularity) => {
-  const lengthArrayEmpty = getArrayLengthByGranularity(analytic);
-  const lengthArray = Array.from({ length: lengthArrayEmpty }, () => 0);
-  const lengthArrayLines = Array.from({ length: lengthArrayEmpty + 6 }, () => ({
-    name: 'Line ',
-    type: 'line',
-    data: [],
-  }));
-
-  const series = [
-    {
-      name: 'Reserves Balance',
-      data: lengthArray,
-      isVisible: false,
-    },
-    {
-      name: 'Inflow',
-      data: lengthArray,
-
-      isVisible: false,
-    },
-    {
-      name: 'OutFlow',
-      data: lengthArray,
-      isVisible: false,
-    },
-    ...lengthArrayLines,
-  ];
-  return series;
-};
-
 export const calculateAccumulatedArray = (data: number[]) => {
   let accumulated = 0;
   const accumulatedArray = data.map((value) => {
@@ -225,7 +194,7 @@ export const calculateAccumulatedArray = (data: number[]) => {
   return accumulatedArray;
 };
 
-export const processDataForWaterFall = (data: number[], total: number): number[] => {
+export const processDataForWaterfall = (data: number[], total: number): number[] => {
   const result: number[] = [...data];
   if (data.reduce((acc, actual) => acc + actual) === 0) return data;
   for (let i = 0; i < result.length; i++) {
@@ -322,7 +291,7 @@ const EMPTY_METRIC_VALUE = {
   ProtocolNetOutflow: 0,
 } as WaterfallReserves;
 
-export const getAnalyticForWaterFall = (
+export const getAnalyticForWaterfall = (
   budgets: Budget[],
   granularity: AnalyticGranularity,
   analytic: Analytic | undefined

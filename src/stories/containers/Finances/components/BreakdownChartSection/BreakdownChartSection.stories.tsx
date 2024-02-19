@@ -20,6 +20,7 @@ const meta: Meta<typeof BreakdownChartSection> = {
 export default meta;
 const args = [
   {
+    isLoading: false,
     year: '2023',
     selectedMetric: 'monthly',
     onMetricChange: () => null,

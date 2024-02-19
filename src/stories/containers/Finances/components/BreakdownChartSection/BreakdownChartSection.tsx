@@ -3,6 +3,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import BreakdownChart from './BreakdownChart/BreakdownChart';
+import BreakdownChartSkeleton from './BreakdownChart/BreakdownChartSkeleton';
 import BreakdownChartFilter from './BreakdownChartFilter/BreakdownChartFilter';
 import type { BreakdownChartSeriesData } from '../../utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -52,25 +53,19 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
     </HeaderContainer>
 
     {isLoading ? (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 300,
-          color: 'red',
-        }}
-      >
-        loading...
-      </div>
+      <Wrapper>
+        <BreakdownChartSkeleton />
+      </Wrapper>
     ) : (
-      <BreakdownChart
-        year={year}
-        selectedGranularity={selectedGranularity as AnalyticGranularity}
-        series={series}
-        handleToggleSeries={handleToggleSeries}
-        refBreakDownChart={refBreakDownChart}
-      />
+      <Wrapper>
+        <BreakdownChart
+          year={year}
+          selectedGranularity={selectedGranularity as AnalyticGranularity}
+          series={series}
+          handleToggleSeries={handleToggleSeries}
+          refBreakDownChart={refBreakDownChart}
+        />
+      </Wrapper>
     )}
   </Section>
 );
@@ -85,10 +80,13 @@ const HeaderContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
+});
+
+const Wrapper = styled.div({
+  marginTop: 32,
 });
