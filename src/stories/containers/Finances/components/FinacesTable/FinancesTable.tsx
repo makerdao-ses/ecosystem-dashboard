@@ -6,7 +6,7 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
-import { showOnlySixteenRowsWithOthers, sortDataByElementCount } from '../../utils/utils';
+import { showOnlySixteenRowsWithOthers, sortTablesByRows } from '../../utils/utils';
 import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
 import CellTable from './CellTable';
 import type { MetricValues, PeriodicSelectionFilter, ItemRow, TableFinances } from '../../utils/types';
@@ -23,7 +23,7 @@ interface Props {
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period, year }) => {
   const { isLight } = useThemeContext();
 
-  const orderData = sortDataByElementCount(breakdownTable);
+  const orderData = sortTablesByRows(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : period === 'Annually' ? 1 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));

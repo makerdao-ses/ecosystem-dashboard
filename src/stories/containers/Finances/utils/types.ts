@@ -133,12 +133,12 @@ export interface RowItemMetrics {
   [key: string]: MetricValues[];
 }
 
-export interface LegendItemsWaterFall {
+export interface LegendItemsWaterfall {
   title: string;
   color: string;
 }
 
-export interface WaterFallChartSeriesData {
+export interface WaterfallChartSeriesData {
   name: string;
   data: (number | string)[];
   barWidth?: number;
@@ -165,7 +165,7 @@ export interface WaterFallChartSeriesData {
   isVisible?: boolean;
 }
 
-export interface LineWaterFall {
+export interface LineWaterfall {
   name?: string;
   lineStyle?: {
     width?: number;
@@ -184,7 +184,7 @@ export interface LineWaterFall {
   data?: (number | string)[];
 }
 
-export interface WaterFallLineData {
+export interface WaterfallLineData {
   value: number;
   color: string;
 }

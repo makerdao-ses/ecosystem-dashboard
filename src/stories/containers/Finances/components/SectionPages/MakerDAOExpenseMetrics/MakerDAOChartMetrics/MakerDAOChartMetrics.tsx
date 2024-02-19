@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
-import { breakdownChartMonthly, breakdownChartQuarterly } from '@ses/containers/Finances/utils/utils';
+import { barChartAxisLabelsMonthly, barChartAxisLabelsQuarterly } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -54,9 +54,9 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
       type: 'category',
       data:
         selectedGranularity === 'monthly'
-          ? breakdownChartMonthly(isMobile)
+          ? barChartAxisLabelsMonthly(isMobile)
           : selectedGranularity === 'quarterly'
-          ? breakdownChartQuarterly(isMobile)
+          ? barChartAxisLabelsQuarterly(isMobile)
           : [''],
       splitLine: {
         show: false,

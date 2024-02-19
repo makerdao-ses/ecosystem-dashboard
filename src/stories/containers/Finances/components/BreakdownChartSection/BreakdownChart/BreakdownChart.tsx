@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
-import { formatterBreakDownChart, getGranularity, nameChanged } from '@ses/containers/Finances/utils/utils';
+import {
+  formatterBreakdownChart,
+  getChartAxisLabelByGranularity,
+  formatBudgetName,
+} from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -61,7 +65,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
       xAxis: {
         show: true,
         type: 'category',
-        data: getGranularity(selectedGranularity, isMobile),
+        data: getChartAxisLabelByGranularity(selectedGranularity, isMobile),
         splitLine: {
           show: false,
         },
@@ -86,7 +90,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
           baseline: 'top',
           interval: 0,
           formatter: function (value: string) {
-            const formatted = formatterBreakDownChart(
+            const formatted = formatterBreakdownChart(
               selectedGranularity as AnalyticGranularity,
               isMobile,
               year,
@@ -200,7 +204,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
                 <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.colorOriginal} />
               </svg>
             </SVGContainer>
-            {nameChanged(element.name)}
+            {formatBudgetName(element.name)}
           </LegendItem>
         ))}
       </LegendContainer>

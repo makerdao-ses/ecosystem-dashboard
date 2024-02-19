@@ -1,4 +1,3 @@
-import { siteRoutes } from '@ses/config/routes';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
@@ -12,7 +11,6 @@ import type {
   Metric,
   MetricValues,
   MomentDataItem,
-  PeriodicSelectionFilter,
   TableFinances,
 } from './types';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
@@ -66,6 +64,7 @@ export const calculateValuesByBreakpoint = (
     paddingRichTextPercent,
   };
 };
+
 export const mockDataApiTeam: MomentDataItem[] = [
   {
     id: '34',
@@ -339,26 +338,13 @@ export const mockDataApiTeam: MomentDataItem[] = [
   },
 ];
 
-// TODO: Update function when are data in the API
-export const getStatus = (budget: BudgetStatement[]) => budget[0]?.status;
-export const getShowCTA = () => false;
-export const getQuarterlyForFilters = (year: string): string[] => {
-  const period: string[] = [];
-  for (let i = 1; i <= 4; i++) {
-    period.push(`Q${i} ${year}`);
-  }
-  return period;
-};
-export const getSemiAnnualForFilters = (year: string): string[] => [`H${1} ${year}`, `H${2} ${year}`];
-export const getExpenseMonthWithData = (budget: BudgetStatement) => {
+export const getLastActivityDate = (budget: BudgetStatement) => {
   if (budget.activityFeed?.length) {
     return DateTime.fromISO(budget.activityFeed?.[0]?.created_at);
   }
 
   return undefined;
 };
-
-export const isCoreUnit = (item: MomentDataItem) => item?.type === ResourceType.CoreUnit;
 
 export const getHeadersExpenseReport = (
   headersSort: SortEnum[],
@@ -460,7 +446,7 @@ export const getHeadersExpenseReport = (
   },
 ];
 
-export const enumForStories: SortEnum[] = [
+export const ENUM_FOR_STORIES: SortEnum[] = [
   SortEnum.Asc,
   SortEnum.Neutral,
   SortEnum.Neutral,
@@ -468,63 +454,11 @@ export const enumForStories: SortEnum[] = [
   SortEnum.Neutral,
 ];
 
-export const getLinkLastExpenseReport = (code: string, reportExpenseItems: MomentDataItem[]) => {
-  const reportResult = reportExpenseItems.find((report) => report.shortCode === code);
-  if (reportResult) {
-    const typeReport = isCoreUnit(reportResult);
-    if (typeReport) {
-      return siteRoutes.coreUnitAbout(code);
-    } else {
-      return siteRoutes.ecosystemActorAbout(code);
-    }
-  }
-};
-
-export const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-export const getMetricByPeriod = (
-  period: PeriodicSelectionFilter,
-  isMobile: boolean,
-  isTable: boolean,
-  isDesk1024: boolean,
-  isDesk1280: boolean,
-  isDesk1440: boolean,
-  isDesk1920: boolean
-) => {
-  let metricsCount = 0;
-
-  // This is for metrics base on the resolution
-  if (period === 'Semi-annual') {
-    metricsCount = 1;
-  } else if (period === 'Annually') {
-    if (isMobile) {
-      metricsCount = 3;
-    } else {
-      metricsCount = 5;
-    }
-  } else if (period === 'Monthly' && (isDesk1440 || isDesk1920)) {
-    metricsCount = 1;
-  } else if (period === 'Quarterly') {
-    if (isTable) metricsCount = 1;
-    if (isDesk1024 || isDesk1280 || isDesk1440) metricsCount = 2;
-    if (isDesk1920) metricsCount = 3;
-  }
-
-  return metricsCount;
-};
-
-export const sortDataByElementCount = (data: TableFinances[]) => {
+export const sortTablesByRows = (data: TableFinances[]) => {
   if (!data) {
     return [];
   }
   return data.sort((a, b) => b.rows.length - a.rows.length);
-};
-
-// Get first element of each table that always have to appear
-export const getFirstElementEachTable = (data: TableFinances[]): ItemRow[] => {
-  const orderData = sortDataByElementCount(data);
-  const getFirstElements = orderData.map((item: TableFinances) => item.rows[0]);
-  return getFirstElements;
 };
 
 export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
@@ -598,6 +532,7 @@ export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
 
   return finalSubTables;
 };
+
 export const generateColorPalette = (index: number, numColors: number, existingColors: string[] = []) => {
   const baseHue = (index * (360 / numColors)) % 360;
   const colors = [];
@@ -610,48 +545,10 @@ export const generateColorPalette = (index: number, numColors: number, existingC
 
   return [...existingColors, ...colors];
 };
-// Remove prefix in the string
-export const removePrefix = (inputString: string, prefix: string) => {
-  if (!inputString) return 'No-Name';
-  const escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const regex = new RegExp(`^${escapedPrefix}\\s*`, 'i');
-  const result = inputString.replace(regex, '');
-  return result;
-};
-// Prefix to delete from Api text
-export const prefixToRemove = 'End-game';
 
 // Colors for the first level in Finances Charts OverView
 export const existingColors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
 export const existingColorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
-
-// Got all the level
-export const getNumbersFromIdPath = (idPath: string) => {
-  if (idPath.length === 0) {
-    return idPath;
-  }
-  const numbers = idPath.split('/').map((item) => item);
-  return numbers;
-};
-
-const fillArrayWhenNoData = (series: { value: number }[]) => {
-  const filledArray = new Array<{ value: number }>(12).fill({ value: 0 });
-
-  const monthWithData = series.map((item) => ({
-    value: item.value,
-  }));
-  monthWithData.forEach((itemY, index) => {
-    filledArray[index] = {
-      value: itemY.value || 0,
-    };
-  });
-  return filledArray;
-};
-
-export const processingData = (series: { value: number }[]) => {
-  const fillingArray = fillArrayWhenNoData(series);
-  return fillingArray;
-};
 
 export const getYearsRange = () => {
   const year = DateTime.utc().year;
@@ -661,7 +558,7 @@ export const getYearsRange = () => {
   return yearsRange;
 };
 
-export const setMetric = (value: number, unit: string) =>
+const setMetric = (value: number, unit: string) =>
   ({
     value: Math.abs(value),
     unit,
@@ -726,7 +623,7 @@ export const getArrayAnalytic = (granularity: AnalyticGranularity): BudgetMetric
   return Array.from({ length: arrayLength }, createBudgetMetric);
 };
 
-export const getBreakdownAnalytics = (
+const getBreakdownAnalytics = (
   analytics: Analytic,
   budgets: Budget[],
   granularity: AnalyticGranularity
@@ -786,15 +683,11 @@ export const getBudgetsAnalytics = async (
   return getBreakdownAnalytics(analytics, budgets, granularity); // temporary
 };
 
-export const getLevelOfBudget = (levelPath: string) => {
-  if (!levelPath) return 1;
-  return levelPath.split('/').length + 1;
-};
 export const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
 export const colorsDark: string[] = ['#F77249', '#447AFB', '#1AAB9B'];
 
 // Legend for breakdown chart
-export const breakdownChartMonthly = (isMobile: boolean, isWaterFall = false) => {
+export const barChartAxisLabelsMonthly = (isMobile: boolean, isWaterfall = false) => {
   const defaultArray = [
     isMobile ? 'J' : 'JAN',
     isMobile ? 'F' : 'FEB',
@@ -809,7 +702,7 @@ export const breakdownChartMonthly = (isMobile: boolean, isWaterFall = false) =>
     isMobile ? 'N' : 'NOV',
     isMobile ? 'D' : 'DEC',
   ];
-  if (isWaterFall) {
+  if (isWaterfall) {
     const start = isMobile ? '' : 'START';
     const finish = isMobile ? '' : 'FINISH';
     defaultArray.unshift(start);
@@ -818,10 +711,10 @@ export const breakdownChartMonthly = (isMobile: boolean, isWaterFall = false) =>
   return defaultArray;
 };
 
-export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall = false) => {
+export const barChartAxisLabelsQuarterly = (isMobile: boolean, isWaterfall = false) => {
   const defaultArray = ['Q’1', 'Q’2', 'Q’3', 'Q’4'];
 
-  if (isWaterFall) {
+  if (isWaterfall) {
     const start = isMobile ? '' : 'START';
     const finish = isMobile ? '' : 'FINISH';
     defaultArray.unshift(start);
@@ -830,9 +723,10 @@ export const breakdownChartQuarterly = (isMobile: boolean, isWaterFall = false) 
 
   return defaultArray;
 };
-export const breakdownChartAnnually = (isMobile: boolean, isWaterFall: boolean) => {
+
+const barChartAxisLabelsAnnually = (isMobile: boolean, isWaterfall: boolean) => {
   const defaultArray = ['Year'];
-  if (isWaterFall) {
+  if (isWaterfall) {
     const start = isMobile ? '' : 'START';
     const finish = isMobile ? '' : 'FINISH';
     defaultArray.unshift(start);
@@ -840,20 +734,25 @@ export const breakdownChartAnnually = (isMobile: boolean, isWaterFall: boolean) 
   }
   return defaultArray;
 };
-export const getGranularity = (granularity: AnalyticGranularity, isMobile: boolean, isWaterFall = false) => {
+
+export const getChartAxisLabelByGranularity = (
+  granularity: AnalyticGranularity,
+  isMobile: boolean,
+  isWaterfall = false
+) => {
   switch (granularity) {
     case 'monthly':
-      return breakdownChartMonthly(isMobile, isWaterFall);
+      return barChartAxisLabelsMonthly(isMobile, isWaterfall);
     case 'quarterly':
-      return breakdownChartQuarterly(isMobile, isWaterFall);
+      return barChartAxisLabelsQuarterly(isMobile, isWaterfall);
     case 'annual':
-      return breakdownChartAnnually(isMobile, isWaterFall);
+      return barChartAxisLabelsAnnually(isMobile, isWaterfall);
     default:
-      breakdownChartQuarterly(isMobile, isWaterFall);
+      barChartAxisLabelsQuarterly(isMobile, isWaterfall);
   }
 };
 
-export const formatterBreakDownChart = (
+export const formatterBreakdownChart = (
   granularity: AnalyticGranularity,
   isMobile: boolean,
   year: string,
@@ -973,47 +872,6 @@ export const buildExpenseMetricsLineChartSeries = (
   ] as LineChartSeriesData[];
 };
 
-export const getMetricsForOthersRow = (metrics: ItemRow[]): ItemRow => {
-  const defaultValue: ItemRow = {
-    name: 'Others',
-    columns: [],
-  } as ItemRow;
-
-  if (metrics.length === 0) {
-    return defaultValue;
-  }
-
-  const firstItem = metrics[0];
-  const sumCol: MetricValues[] = [];
-
-  for (let i = 0; i < firstItem.columns.length; i++) {
-    const sumMetric: MetricValues = {
-      Actuals: 0,
-      Budget: 0,
-      Forecast: 0,
-      PaymentsOnChain: 0,
-      ProtocolNetOutflow: 0,
-      PaymentsOffChainIncluded: 0,
-    };
-
-    for (const item of metrics) {
-      const column = item.columns[i];
-      sumMetric.Actuals += column.Actuals;
-      sumMetric.Forecast += column.Forecast;
-      sumMetric.Budget += column.Budget;
-      sumMetric.PaymentsOnChain += column.PaymentsOnChain;
-      sumMetric.ProtocolNetOutflow += column.ProtocolNetOutflow;
-    }
-
-    sumCol.push(sumMetric);
-  }
-
-  return {
-    name: 'Others',
-    columns: [...sumCol],
-  } as ItemRow;
-};
-
 export const filterActiveMetrics = (activeMetrics: string[], headerTable: MetricValues[]) =>
   headerTable.map((header) => {
     const filteredMetrics: Partial<MetricValues> = {};
@@ -1043,16 +901,19 @@ export const getShortNameForMetric = (metric: string): string => {
   return metric;
 };
 
-// Remove this when API return correct data
-export const nameChanged = (name: string) => {
-  const newName = removePrefix(name, prefixToRemove);
-  return newName === 'Atlas Immutable'
-    ? 'Atlas Immutable Budget'
-    : newName === 'Alignment Scope Budgets'
-    ? 'Scope Frameworks Budget'
-    : newName === 'MakerDAO Legacy Budgets'
-    ? 'MakerDAO Legacy Budget'
-    : newName;
+export const formatBudgetName = (name: string) => {
+  const newName = name ? name.replace(/^End-game\s*/i, '') : 'No-Name';
+
+  switch (newName) {
+    case 'Atlas Immutable':
+      return 'Atlas Immutable Budget';
+    case 'Alignment Scope Budgets':
+      return 'Scope Frameworks Budget';
+    case 'MakerDAO Legacy Budgets':
+      return 'MakerDAO Legacy Budget';
+    default:
+      return newName;
+  }
 };
 
 export const getKeyMetric = (metric: string) => {
