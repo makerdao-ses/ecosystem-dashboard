@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import MakerDAOChartMetrics from './MakerDAOChartMetrics/MakerDAOChartMetrics';
+import MakerDAOExpenseMetricsSkeleton from './MakerDAOExpenseMetricsSkeleton';
 import TitleFilterComponent from './TitleFilterComponent';
 import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -29,17 +30,7 @@ const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
     <TitleFilterComponent title={title} handleChange={handleGranularityChange} selectedValue={selectedGranularity} />
     <ContainerChart>
       {isLoading ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 300,
-            color: 'red',
-          }}
-        >
-          loading...
-        </div>
+        <MakerDAOExpenseMetricsSkeleton />
       ) : (
         <MakerDAOChartMetrics
           year={year}
