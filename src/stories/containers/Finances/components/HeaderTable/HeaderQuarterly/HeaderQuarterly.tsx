@@ -71,6 +71,10 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   whiteSpace: 'break-spaces',
+  maxWidth: '100%',
+  wordWrap: 'break-word',
+  paddingRight: 8,
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     whiteSpace: 'normal',
     wordWrap: 'break-word',

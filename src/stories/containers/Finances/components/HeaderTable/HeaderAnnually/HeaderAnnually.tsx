@@ -94,6 +94,10 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 700,
   lineHeight: 'normal',
   whiteSpace: 'break-spaces',
+  maxWidth: '100%',
+  wordWrap: 'break-word',
+  paddingRight: 8,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
   },
