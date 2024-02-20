@@ -3,7 +3,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useRouter } from 'next/router';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import useBreakdownChart from './components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
@@ -104,27 +104,37 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const cardOverViewSectionData = useCardChartOverview(budgets, budgetsAnalytics, levelNumber, allBudgets, codePath);
 
   // All the logic required by the CardNavigation section
-  const cardsNavigationInformation = budgets.map((item, index) => {
-    const budgetMetric =
-      budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
-        ? budgetsAnalytics[item.codePath]
-        : [newBudgetMetric()];
+  const cardsNavigationInformation = useMemo(
+    () =>
+      budgets.map((item, index) => {
+        const budgetMetric =
+          budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
+            ? budgetsAnalytics[item.codePath]
+            : [newBudgetMetric()];
 
-    return {
-      image: item.image || '/assets/img/default-icon-cards-budget.svg',
-      codePath: item.codePath,
-      title: formatBudgetName(item.name),
-      description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-      href: `${siteRoutes.finances(item.codePath.replace('atlas/', ''))}?year=${year}`,
-      valueDai: budgetMetric[0].budget.value,
-      totalDai: allMetrics.budget,
-      code: item.code,
-      color: isLight ? colorsLight[index] : colorsDark[index],
-    };
-  });
+        return {
+          image: item.image || '/assets/img/default-icon-cards-budget.svg',
+          codePath: item.codePath,
+          title: formatBudgetName(item.name),
+          description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
+          href: `${siteRoutes.finances(item.codePath.replace('atlas/', ''))}?year=${year}`,
+          valueDai: budgetMetric[0].budget.value,
+          totalDai: allMetrics.budget,
+          code: item.code,
+          color: isLight ? colorsLight[index] : colorsDark[index],
+        };
+      }),
+    [allMetrics.budget, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
+  );
 
   // if there too many cards we need to use a swiper on desktop but paginated on mobile
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
+  useEffect(() => {
+    // update when the levels/budgets change
+    if (cardsNavigationInformation.length > 6) {
+      setLoadMoreCards(true);
+    }
+  }, [cardsNavigationInformation.length]);
   const handleLoadMoreCards = () => {
     setLoadMoreCards(!loadMoreCards);
   };
