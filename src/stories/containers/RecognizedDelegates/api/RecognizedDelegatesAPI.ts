@@ -61,8 +61,8 @@ export const fetchTotalExpenses = async (): Promise<number> => {
 export const fetchDelegatesAnalytics = async (granularity: ExpenseGranularity): Promise<Analytic> => {
   const query = gql`
     query Analytics($filter: AnalyticsFilter) {
-      analytics(filter: $filter) {
-        series {
+      analytics {
+        series(filter: $filter) {
           period
           start
           end
