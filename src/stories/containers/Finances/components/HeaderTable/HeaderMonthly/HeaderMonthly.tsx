@@ -90,7 +90,9 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 700,
   lineHeight: 'normal',
   whiteSpace: 'normal',
+  maxWidth: '100%',
   wordWrap: 'break-word',
+  paddingRight: 8,
 }));
 
 const ContainerTitle = styled.div({
