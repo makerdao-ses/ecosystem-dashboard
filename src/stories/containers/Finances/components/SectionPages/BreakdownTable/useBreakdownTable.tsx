@@ -351,11 +351,13 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
   };
   const handlePeriodChange = (value: string) => {
+    let metrics = activeMetrics;
     if (value === 'Annually') {
-      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, isMobile ? 3 : 5));
+      metrics = METRIC_FILTER_OPTIONS.slice(0, isMobile ? 3 : 5);
+      setActiveMetrics(metrics);
     }
     setPeriodFilter(value as PeriodicSelectionFilter);
-    updateUrl(value as PeriodicSelectionFilter, activeMetrics);
+    updateUrl(value as PeriodicSelectionFilter, metrics);
   };
 
   const selectMetrics = useMemo(
