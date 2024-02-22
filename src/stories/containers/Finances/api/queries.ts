@@ -36,8 +36,8 @@ export const fetchAnalytics = async (
 ): Promise<Analytic> => {
   const query = gql`
     query Analytics($filter: AnalyticsFilter) {
-      analytics(filter: $filter) {
-        series {
+      analytics {
+        series(filter: $filter) {
           period
           start
           end
