@@ -4,6 +4,7 @@ import React from 'react';
 import BreakdownTableFinances from '../../BreakdownTableFinances/BreakdownTableFinances';
 import FinancesTable from '../../FinacesTable/FinancesTable';
 import HeaderTable from '../../HeaderTable/HeaderTable';
+import BreakdownTableSkeleton from './BreakdownTableSkeleton/BreakdownTableSkeleton';
 import type { MetricValues, PeriodicSelectionFilter, TableFinances } from '../../../utils/types';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
@@ -66,17 +67,9 @@ const BreakdownTable: React.FC<Props> = ({
       isDisabled={isDisabled}
     />
     {isLoading ? (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 300,
-          color: 'red',
-        }}
-      >
-        Loading...
-      </div>
+      <SkeletonWrapper>
+        <BreakdownTableSkeleton />
+      </SkeletonWrapper>
     ) : (
       <>
         <TableHeader>
@@ -129,4 +122,8 @@ const MainContainer = styled.div({
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 64,
   },
+});
+
+const SkeletonWrapper = styled('div')({
+  marginTop: 24,
 });
