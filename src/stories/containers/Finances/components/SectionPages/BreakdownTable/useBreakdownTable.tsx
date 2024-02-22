@@ -269,12 +269,18 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
   const popupContainerHeight = allowSelectAll ? 250 : 210;
 
+  // this state is used to avoid adding url params on mobile on the first render
+  const [isInitializing, setIsInitializing] = useState<boolean>(false);
+  useEffect(() => {
+    setTimeout(() => setIsInitializing(true), 500);
+  }, []);
+
   // change the period to the default value if the current period is not allowed for current resolution
   useEffect(() => {
     if (isMobile && periodFilter !== 'Annually' && periodFilter !== 'Semi-annual') {
       // set default for mobile
       setPeriodFilter('Semi-annual');
-      updateUrl('Semi-annual', activeMetrics);
+      if (isInitializing) updateUrl('Semi-annual', activeMetrics);
     } else if ((isTable || isDesk1024 || isDesk1280) && periodFilter !== 'Annually' && periodFilter !== 'Quarterly') {
       // set default for small desktop
       setPeriodFilter('Quarterly');
@@ -289,7 +295,18 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       setPeriodFilter('Quarterly');
       updateUrl('Quarterly', activeMetrics);
     }
-  }, [activeMetrics, isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter, updateUrl]);
+  }, [
+    activeMetrics,
+    isDesk1024,
+    isDesk1280,
+    isDesk1440,
+    isDesk1920,
+    isMobile,
+    isTable,
+    isInitializing,
+    periodFilter,
+    updateUrl,
+  ]);
 
   // Default metric per dimension
   useEffect(() => {
@@ -309,7 +326,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       default:
         if (activeMetrics.length > maxAmountOfActiveMetrics || activeMetrics.length === 0) {
           setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
-          updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+          if (isInitializing) updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
         }
     }
   }, [
@@ -323,6 +340,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     periodFilter,
     maxAmountOfActiveMetrics,
     updateUrl,
+    isInitializing,
   ]);
 
   // handlers to change the period and metrics or reset those values to the default ones
