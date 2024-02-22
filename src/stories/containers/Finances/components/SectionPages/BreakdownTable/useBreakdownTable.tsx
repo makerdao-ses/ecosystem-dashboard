@@ -335,16 +335,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
       setPeriodFilter('Semi-annual');
     }
-    if (isTable) {
-      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
-      setPeriodFilter('Quarterly');
-    }
-    if (isDesk1024 || isDesk1280 || isDesk1440) {
-      setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
-      setPeriodFilter('Quarterly');
-    }
-
-    if (isDesk1920) {
+    if (isTable || isDesk1024 || isDesk1280 || isDesk1440 || isDesk1920) {
       setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
       setPeriodFilter('Quarterly');
     }
@@ -370,11 +361,11 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   );
 
   const metricsMatch =
-    JSON.stringify(activeMetrics) === JSON.stringify(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+    JSON.stringify(activeMetrics.sort()) ===
+    JSON.stringify(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics).sort());
 
   const isDisabled =
-    (isMobile && selectedGranularity === 'semiAnnual' && metricsMatch) ||
-    ((isTable || isDesk1024 || isDesk1280 || isDesk1920) && selectedGranularity === 'quarterly' && metricsMatch);
+    metricsMatch && (isMobile ? selectedGranularity === 'semiAnnual' : selectedGranularity === 'quarterly');
 
   return {
     isMobile,
