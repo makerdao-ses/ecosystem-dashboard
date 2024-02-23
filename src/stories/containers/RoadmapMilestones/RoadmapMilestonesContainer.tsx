@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
@@ -52,11 +52,15 @@ const RoadmapMilestonesContainer: React.FC = () => {
 
 export default RoadmapMilestonesContainer;
 
-const SectionsContainer = styled.div({
+const SectionsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 32,
-});
+
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 48,
+  },
+}));
 
 const ContainerWithMargin = styled(Container)({
   marginTop: 100,
