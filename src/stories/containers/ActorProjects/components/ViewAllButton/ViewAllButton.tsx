@@ -23,7 +23,7 @@ const ViewAllButton: React.FC<ViewAllButtonProps> = (props) => {
       >
         <path
           d="M8.19339 10.8631C8.35404 11.0456 8.64598 11.0456 8.80664 10.8631L13.4036 5.63952C13.6255 5.38735 13.4398 5 13.097 5H3.90306C3.56023 5 3.37451 5.38735 3.59643 5.63952L8.19339 10.8631Z"
-          fill={isLight ? '#25273D' : '#B7A6CD'}
+          fill={isLight ? '#25273D' : '#B6BCC2'}
         />
       </svg>
     </Button>
