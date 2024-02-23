@@ -203,6 +203,10 @@ const Item = styled.div<{ marginTop?: number }>(({ marginTop = 0 }) => ({
   justifyContent: 'space-between',
   padding: '0 8px',
   marginTop,
+
+  '& > div': {
+    whiteSpace: 'nowrap',
+  },
 }));
 
 const Value = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight, isTotal }) => ({
