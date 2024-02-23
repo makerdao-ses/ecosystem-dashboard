@@ -2,6 +2,7 @@ import { UMBRAL_CHART_WATERFALL } from '@ses/core/utils/const';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import type { LineWaterfall, MetricValues, WaterfallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { Analytic, AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
+import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
 export const getArraysWaterfall = (data: number[]) => {
@@ -290,12 +291,23 @@ const EMPTY_METRIC_VALUE = {
   ProtocolNetOutflow: 0,
 } as WaterfallReserves;
 
-export const getAnalyticForWaterfall = (granularity: AnalyticGranularity, analytic: Analytic | undefined) => {
+export const getAnalyticForWaterfall = (
+  budgets: Budget[],
+  granularity: AnalyticGranularity,
+  analytic: Analytic | undefined
+) => {
   const budgetAnalyticMap = new Map<string, WaterfallReserves[]>();
   const arrayLength = getArrayLengthByGranularity(granularity);
   const summaryValues = new Map<string, number[]>();
   let netProtocolOutflow = 0;
   let paymentsOnChain = 0;
+
+  budgets.forEach((budget) => {
+    budgetAnalyticMap.set(
+      budget.codePath,
+      Array.from({ length: arrayLength }, () => ({ ...EMPTY_METRIC_VALUE }))
+    );
+  });
 
   if (!analytic || !analytic.series?.length) {
     return {
