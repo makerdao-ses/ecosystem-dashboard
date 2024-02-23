@@ -6,6 +6,9 @@ name: 'Chromatic'
 # Event for the workflow
 on: push
 
+permissions:
+  pull-requests: write
+
 # List of jobs
 jobs:
   chromatic-deployment:
@@ -48,8 +51,7 @@ jobs:
       - uses: marocchino/sticky-pull-request-comment@v2
         id: comment_on_chromatic_pr  
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ github.event.pull_request.number }}
+          number: ${{ steps.chromatic.outputs.pr }}
           hide_and_recreate: true
           hide_classify: "OUTDATED"
           header: Chromatic
