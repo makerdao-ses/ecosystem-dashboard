@@ -46,8 +46,10 @@ jobs:
       
       # is this working?
       - uses: marocchino/sticky-pull-request-comment@v2
+        id: comment_on_chromatic_pr  
         with:
-          number: ${{ steps.finder.outputs.pr }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
           hide_and_recreate: true
           hide_classify: "OUTDATED"
           header: Chromatic
