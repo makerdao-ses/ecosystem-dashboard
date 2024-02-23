@@ -31,8 +31,8 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
   );
 
   const { summaryValues, totalToStart } = useMemo(
-    () => getAnalyticForWaterfall(selectedGranularity, analytics),
-    [analytics, selectedGranularity]
+    () => getAnalyticForWaterfall(budgets, selectedGranularity, analytics),
+    [budgets, analytics, selectedGranularity]
   );
   const selectAll = useMemo(() => Array.from(summaryValues.keys()), [summaryValues]);
 
