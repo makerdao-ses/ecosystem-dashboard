@@ -13,7 +13,6 @@ interface Props {
   handleSelectedMetric: (selectedMetric: AnalyticMetric) => void;
   actuals: number;
   budgetCap: number;
-  prediction: number;
   doughnutSeriesData: DoughnutSeries[];
   isCoreThirdLevel: boolean;
   changeAlignment: boolean;
@@ -53,7 +52,6 @@ const CardChartOverview: React.FC<Props> = ({
   handleSelectedMetric,
   actuals,
   budgetCap,
-  prediction,
   doughnutSeriesData,
   isCoreThirdLevel,
   changeAlignment,
@@ -96,7 +94,7 @@ const CardChartOverview: React.FC<Props> = ({
             <ContainerCardChart>
               <ContainerCardAndLine>
                 <ContainerCardInformation>
-                  <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} prediction={prediction} />
+                  <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} />
                 </ContainerCardInformation>
                 <Divider isLight={isLight} />
               </ContainerCardAndLine>

@@ -7,19 +7,12 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   actuals: number;
   budgetCap: number;
-  prediction: number;
 }
 
-const OverviewCardMobile: React.FC<Props> = ({ actuals, budgetCap, prediction }) => {
+const OverviewCardMobile: React.FC<Props> = ({ actuals, budgetCap }) => {
   const { isLight } = useThemeContext();
-  return (
-    <InformationBudgetCapOverviewStyled
-      isLight={isLight}
-      actuals={actuals}
-      budgetCap={budgetCap}
-      prediction={prediction}
-    />
-  );
+
+  return <InformationBudgetCapOverviewStyled isLight={isLight} actuals={actuals} budgetCap={budgetCap} />;
 };
 
 export default OverviewCardMobile;

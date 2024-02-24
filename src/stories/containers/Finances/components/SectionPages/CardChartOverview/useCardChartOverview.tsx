@@ -208,7 +208,6 @@ export const useCardChartOverview = (
 
   return {
     actuals: isHasSubLevels ? metric.actuals : budgetWithNotChildren.actuals,
-    prediction: isHasSubLevels ? metric.forecast : budgetWithNotChildren.forecast,
     budgetCap: isHasSubLevels ? metric.budget : budgetWithNotChildren.budget,
     selectedMetric,
     handleSelectedMetric,
