@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
-import { barChartAxisLabelsMonthly, barChartAxisLabelsQuarterly } from '@ses/containers/Finances/utils/utils';
+import { formatterBreakdownChart, getChartAxisLabelByGranularity } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -31,7 +31,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-
+  const showLineYear = isMobile && selectedGranularity === 'monthly';
   const xAxisStyles = {
     fontFamily: 'Inter, sans-serif',
     textAlign: 'center',
@@ -52,12 +52,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
     },
     xAxis: {
       type: 'category',
-      data:
-        selectedGranularity === 'monthly'
-          ? barChartAxisLabelsMonthly(isMobile)
-          : selectedGranularity === 'quarterly'
-          ? barChartAxisLabelsQuarterly(isMobile)
-          : [''],
+      data: getChartAxisLabelByGranularity(selectedGranularity, isMobile),
       splitLine: {
         show: false,
       },
@@ -81,21 +76,12 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         height: upTable ? 15 : 11,
         baseline: 'top',
         interval: 0,
-
         formatter: function (value: string) {
-          if (isMobile) {
-            return value;
-          }
-          if (selectedGranularity === 'monthly') {
-            return `{value|${value}}\n{year|${year}}`;
-          }
-          if (selectedGranularity === 'quarterly') {
-            return `{value|${value}}\n{year|${year}}`;
-          }
-          return `{year|${year}}`;
+          const formatted = formatterBreakdownChart(selectedGranularity as AnalyticGranularity, isMobile, year, value);
+          return formatted;
         },
         rich: {
-          value: xAxisStyles,
+          month: xAxisStyles,
           year: xAxisStyles,
         },
       },
@@ -162,7 +148,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
           }}
           opts={{ renderer: 'svg' }}
         />
-        {isMobile && (
+        {showLineYear && (
           <YearXAxis isLight={isLight}>
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>

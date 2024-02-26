@@ -204,7 +204,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       subBudgets.forEach((subBudget) => {
         if (!rows.some((row) => row.name === subBudget.codePath)) {
           rows.push({
-            name: subBudget.codePath,
+            name: isMobile ? subBudget.code : subBudget.codePath,
             codePath: subBudget.codePath,
             columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
           });
@@ -213,13 +213,18 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
       // add correct rows name
       rows.forEach((row) => {
-        row.name =
-          subBudgets.filter((item) => item.codePath === row.name)[0]?.name ?? `${removePatternAfterSlash(row.name)}`;
+        const nameOrCode = subBudgets.filter((item) => item.codePath === row.name)[0];
+        if (!nameOrCode) {
+          row.name = `${removePatternAfterSlash(row.name)}`;
+        } else {
+          row.name = isMobile ? nameOrCode.code : nameOrCode.name;
+        }
       });
 
       // sub-table header
       const header: ItemRow = {
-        name: formatBudgetName(budget.name),
+        name: isMobile ? (lod === 3 ? formatBudgetName(budget.name) : budget.code) : formatBudgetName(budget.name),
+
         isMain: true,
         codePath: budget.codePath,
         columns: rows
@@ -261,7 +266,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     }, Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
 
     return [tableHeader, tables];
-  }, [allBudgets, analytics, budgets, error, selectedGranularity]);
+  }, [allBudgets, analytics, budgets, error, isMobile, lod, selectedGranularity]);
 
   const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
 

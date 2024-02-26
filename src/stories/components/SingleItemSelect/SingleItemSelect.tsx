@@ -3,6 +3,7 @@ import { ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from '@mui
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import merge from 'deepmerge';
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
+import SimpleBar from 'simplebar-react';
 import { SelectChevronDown } from '../svg/select-chevron-down';
 import type { PaperProps, PopperProps } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -171,19 +172,26 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
             <CustomPaper isLight={isLight} {...paperProps}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id={menuListId} aria-labelledby={inputId} onKeyDown={handleListKeyDown}>
-                  {items.map((item, index) => (
-                    <CustomMenuItem
-                      selected={compareItemWithValue(item, selected)}
-                      isLight={isLight}
-                      key={index}
-                      onClick={(event: Event | React.SyntheticEvent) => {
-                        handleClose(event);
-                        onChange?.(typeof item === 'string' ? item : item.value);
-                      }}
-                    >
-                      {typeof item === 'string' ? item : item.label}
-                    </CustomMenuItem>
-                  ))}
+                  <SimpleBar
+                    style={{
+                      maxHeight: 175,
+                    }}
+                    className="filter-popup-scroll"
+                  >
+                    {items.map((item, index) => (
+                      <CustomMenuItem
+                        selected={compareItemWithValue(item, selected)}
+                        isLight={isLight}
+                        key={index}
+                        onClick={(event: Event | React.SyntheticEvent) => {
+                          handleClose(event);
+                          onChange?.(typeof item === 'string' ? item : item.value);
+                        }}
+                      >
+                        {typeof item === 'string' ? item : item.label}
+                      </CustomMenuItem>
+                    ))}
+                  </SimpleBar>
                 </MenuList>
               </ClickAwayListener>
             </CustomPaper>

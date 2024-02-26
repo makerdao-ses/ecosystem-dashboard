@@ -6,7 +6,7 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import { useEffect, useMemo, useRef } from 'react';
-import { getChartAxisLabelByGranularity } from '../../utils/utils';
+import { formatterWaterfallChart, getChartAxisLabelByGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
 import type { LegendItemsWaterfall, LineWaterfall, WaterfallChartSeriesData } from '../../utils/types';
@@ -29,6 +29,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
+  const showLineYear = isMobile && selectedGranularity === 'monthly';
 
   const xAxisStyles = useMemo(
     () => ({
@@ -101,34 +102,9 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
           height: upTable ? 15 : 11,
           interval: 0,
           formatter: function (value: string, index: number) {
-            if (isMobile) {
-              if (selectedGranularity === 'monthly' && (index === 0 || index === 13)) {
-                return `{start|${value}}`;
-              }
-              return value;
-            }
-            if (selectedGranularity === 'monthly') {
-              if (index === 0 || index === 13) {
-                return `{start|${value}}\n{startYear|${year}}`;
-              }
-              return `{month|${value}}\n{year|${year}}`;
-            }
-
-            if (selectedGranularity === 'quarterly') {
-              if (index === 0 || index === 5) {
-                return `{start|${value}}\n{startYear|${year}}`;
-              }
-              return `{month|${value}}\n{year|${year}}`;
-            }
-            if (selectedGranularity === 'annual') {
-              if (index === 0 || index === 2) {
-                return `{start|${value}}\n{startYear|${year}}`;
-              }
-              return `{year|${year}}`;
-            }
-            return `{year|${year}}`;
+            const formatted = formatterWaterfallChart(selectedGranularity, isMobile, year, value, index);
+            return formatted;
           },
-
           rich: {
             month: xAxisStyles,
             year: xYearStyles,
@@ -216,7 +192,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
           }}
           opts={{ renderer: 'svg' }}
         />
-        {isMobile && <LineYearBorderBottomChart year={year} />}
+        {showLineYear && <LineYearBorderBottomChart year={year} />}
       </ChartContainer>
       <LegendContainer>
         {legends?.map((legend, index) => (
