@@ -87,7 +87,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               handleSelectedMetric={cardOverViewSectionData.handleSelectedMetric}
               actuals={cardOverViewSectionData.actuals}
               budgetCap={cardOverViewSectionData.budgetCap}
-              prediction={cardOverViewSectionData.prediction}
               doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
               isCoreThirdLevel={levelNumber >= 3}
               changeAlignment={cardOverViewSectionData.changeAlignment}
@@ -100,7 +99,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             <OverviewCardMobile
               actuals={cardOverViewSectionData.actuals}
               budgetCap={cardOverViewSectionData.budgetCap}
-              prediction={cardOverViewSectionData.prediction}
             />
           </WrapperMobile>
           <CardsNavigation

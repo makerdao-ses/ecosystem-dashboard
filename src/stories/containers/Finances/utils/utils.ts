@@ -776,6 +776,52 @@ export const formatterBreakdownChart = (
   }
 };
 
+export const formatterWaterfallChart = (
+  granularity: AnalyticGranularity,
+  isMobile: boolean,
+  year: string,
+  value: string,
+  index: number
+) => {
+  if (isMobile) {
+    switch (granularity) {
+      case 'monthly':
+        return `{start|${value}}`;
+      case 'quarterly':
+        if (index === 0 || index === 5) {
+          return '';
+        }
+        return `{month|${value}}\n{year|${year}}`;
+      case 'annual':
+        if (index === 0 || index === 2) {
+          return '';
+        }
+        return `{month|${year}}`;
+
+      default:
+        return `{start|${value}}`;
+    }
+  }
+  switch (granularity) {
+    case 'monthly':
+      if (index === 0 || index === 13) {
+        return `{start|${value}}\n{startYear|${year}}`;
+      }
+      return `{month|${value}}\n{year|${year}}`;
+    case 'quarterly':
+      if (index === 0 || index === 5) {
+        return `{start|${value}}\n{startYear|${year}}`;
+      }
+      return `{month|${value}}\n{year|${year}}`;
+    case 'annual':
+      if (index === 0 || index === 2) {
+        return `{start|${value}}\n{startYear|${year}}`;
+      }
+      return `{month|${value}}\n{year|${year}}`;
+    default:
+      return `{month|${value}}\n{year|${year}}`;
+  }
+};
 export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: AnalyticMetric): ValuesDataWithBorder => {
   let metricKey: keyof BudgetMetric;
   switch (selectedMetric) {

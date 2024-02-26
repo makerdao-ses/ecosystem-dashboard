@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
@@ -72,11 +72,15 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
 
 export default BreakdownChartSection;
 
-const Section = styled.section({
+const Section = styled('section')(({ theme }) => ({
   marginTop: 40,
-});
 
-const HeaderContainer = styled.div({
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginTop: 64,
+  },
+}));
+
+const HeaderContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
@@ -87,6 +91,6 @@ const HeaderContainer = styled.div({
   },
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled('div')({
   marginTop: 32,
 });
