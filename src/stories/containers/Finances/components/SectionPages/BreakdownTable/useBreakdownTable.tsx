@@ -221,8 +221,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         }
       });
 
-      console.log('lod', lod);
-
       // sub-table header
       const header: ItemRow = {
         name: isMobile ? (lod === 3 ? formatBudgetName(budget.name) : budget.code) : formatBudgetName(budget.name),
