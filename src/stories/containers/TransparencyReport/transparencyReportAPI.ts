@@ -142,7 +142,11 @@ export const getLastSnapshotPeriod = async (
     return undefined;
   }
 
-  const periods = data.snapshots.map((snapshot) => DateTime.fromFormat(snapshot.period, 'yyyy/MM'));
+  const periods = data.snapshots.map((snapshot) =>
+    DateTime.fromFormat(snapshot.period, 'yyyy/MM', {
+      zone: 'UTC',
+    })
+  );
   return {
     earliest: DateTime.min(...periods),
     latest: DateTime.max(...periods),
