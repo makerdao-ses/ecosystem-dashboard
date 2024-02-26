@@ -366,12 +366,12 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
     display: 'flex',
     position: 'relative',
     width: 200,
-    height: isCoreThirdLevel ? 'calc(100% + 16px)' : 'calc(100% - 16px)',
+    height: isCoreThirdLevel ? 'calc(100% + 8px)' : 'calc(100% - 16px)',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginTop: isCoreThirdLevel ? 10 : 16,
     display: 'flex',
-    height: isCoreThirdLevel ? 'calc(100% + 16px)' : 'calc(100% - 16px)',
+    height: isCoreThirdLevel ? 'calc(100% + 8px)' : 'calc(100% - 16px)',
 
     width: 250,
     minWidth: 250,
@@ -380,7 +380,7 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
     marginTop: !isCoreThirdLevel ? 10 : 10,
     display: 'flex',
     position: 'relative',
-    height: 'calc(100% + 16px)',
+    height: 'calc(100% - 8px)',
   },
 
   '& .swiper-pagination-horizontal': {
