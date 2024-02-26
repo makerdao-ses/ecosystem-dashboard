@@ -380,14 +380,8 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
     marginTop: !isCoreThirdLevel ? 10 : 10,
     display: 'flex',
     position: 'relative',
-    flexGrow: 1,
-    flexShrink: 1,
     height: 'calc(100% + 16px)',
   },
-
-  '& .swiper-slide': {},
-
-  '& .swiper-pagination': {},
 
   '& .swiper-pagination-horizontal': {
     display: 'flex',
@@ -407,9 +401,6 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLe
   },
   '& .swiper-pagination-bullet-active': {
     backgroundColor: '#2DC1B1 !important',
-  },
-  '& .swiper-slide-active': {
-    [lightTheme.breakpoints.up('tablet_768')]: {},
   },
 }));
 
