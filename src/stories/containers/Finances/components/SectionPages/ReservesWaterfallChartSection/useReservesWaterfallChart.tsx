@@ -21,16 +21,40 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
-  const selectAll = useMemo(() => budgets.map((budget) => budget.codePath), [budgets]);
+  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
+
+  const levelOfDetail = codePath.split('/').length + 1;
+  // fetch actual data from the API
+  const { data: analytics, isLoading } = useSWRImmutable(
+    [selectedGranularity, year, codePath, levelOfDetail],
+    async () => fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
+  );
+
+  const { summaryValues, totalToStart } = useMemo(
+    () => getAnalyticForWaterfall(budgets, selectedGranularity, analytics),
+    [budgets, analytics, selectedGranularity]
+  );
+  const selectAll = useMemo(() => Array.from(summaryValues.keys()), [summaryValues]);
 
   const [activeElements, setActiveElements] = useState<string[]>(selectAll);
   const { isLight } = useThemeContext();
-  const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
+
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
 
-  const levelOfDetail = codePath.split('/').length + 1;
+  // This to catch some analitys that don't have budgets
+  const combinedElementsFromAnalytics = useMemo(() => {
+    const newElements = selectAll
+      .filter((selectAllPath) => !budgets.some((budget) => budget.codePath === selectAllPath))
+      .map((element) => ({
+        name: element,
+        codePath: element,
+        image: '',
+      }));
 
+    const combinedArray = [...budgets, ...newElements];
+    return combinedArray;
+  }, [budgets, selectAll]);
   useEffect(() => {
     setActiveElements(selectAll);
   }, [selectAll]);
@@ -39,15 +63,9 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
     setActiveElements(value);
   };
   const handleResetFilter = () => {
-    setActiveElements(selectAll);
+    setActiveElements([]);
     setSelectedGranularity('monthly');
   };
-
-  // fetch actual data from the API
-  const { data: analytics, isLoading } = useSWRImmutable(
-    [selectedGranularity, year, codePath, levelOfDetail],
-    async () => fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
-  );
 
   const handleGranularityChange = (value: AnalyticGranularity) => {
     setActiveElements(activeElements);
@@ -57,11 +75,6 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
   const getTitleLevelBudget = formatBudgetName(levelBudget?.name || '');
-
-  const { summaryValues, totalToStart } = useMemo(
-    () => getAnalyticForWaterfall(budgets, selectedGranularity, analytics),
-    [analytics, budgets, selectedGranularity]
-  );
 
   const valuesToShow = sumValuesFromMapKeys(summaryValues, activeElements, selectedGranularity);
 
@@ -93,14 +106,15 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
 
   const items = useMemo(
     () =>
-      sortBy(budgets, (subBudget) => subBudget.name).map((budget) => ({
+      sortBy(combinedElementsFromAnalytics, (subBudget) => subBudget.name).map((budget) => ({
         id: budget.codePath,
         content: formatBudgetName(budget.name),
+        count: 0,
         params: {
           url: budget.image,
         },
       })) as MultiSelectItem[],
-    [budgets]
+    [combinedElementsFromAnalytics]
   );
 
   const popupContainerHeight =

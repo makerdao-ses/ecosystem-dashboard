@@ -309,7 +309,6 @@ export const getAnalyticForWaterfall = (
     );
   });
 
-  // If there is not analytic  for the selected period we create a empty return array with zeros values
   if (!analytic || !analytic.series?.length) {
     return {
       summaryValues,
@@ -317,50 +316,46 @@ export const getAnalyticForWaterfall = (
     };
   }
 
-  budgets.forEach((budget) => {
-    analytic.series.forEach((periods, index) => {
-      periods.rows.forEach((row) => {
-        if (row.dimensions[0].path === budget.codePath) {
-          if (index === 0) {
-            if (row.metric === 'ProtocolNetOutflow') {
-              netProtocolOutflow += row.sum - row.value;
-            }
-            if (row.metric === 'PaymentsOnChain') {
-              paymentsOnChain += row.sum - row.value;
-            }
-          }
-          if (row.dimensions[0].path === budget.codePath) {
-            const getOldValues =
-              budgetAnalyticMap.get(budget.codePath) ??
-              Array.from({ length: arrayLength }, () => ({ ...EMPTY_METRIC_VALUE }));
-            if (row.metric === 'ProtocolNetOutflow') {
-              getOldValues[index].ProtocolNetOutflow += row.value;
-            }
-            if (row.metric === 'PaymentsOnChain') {
-              getOldValues[index].PaymentsOnChain += row.value;
-            }
-            budgetAnalyticMap.set(budget.codePath, [...getOldValues]);
-          }
+  analytic.series.forEach((periods, index) => {
+    periods.rows.forEach((row) => {
+      const analyticPath = row.dimensions[0].path;
+      let values = budgetAnalyticMap.get(analyticPath);
+      if (!values) {
+        values = Array.from({ length: arrayLength }, () => ({
+          ...EMPTY_METRIC_VALUE,
+        }));
+      }
+      if (index === 0) {
+        if (row.metric === 'ProtocolNetOutflow') {
+          netProtocolOutflow += Math.abs(row.sum) - Math.abs(row.value);
         }
-      });
+        if (row.metric === 'PaymentsOnChain') {
+          paymentsOnChain += Math.abs(row.sum) - Math.abs(row.value);
+        }
+      }
+      if (row.metric === 'ProtocolNetOutflow') {
+        values[index].ProtocolNetOutflow += row.value;
+      }
+      if (row.metric === 'PaymentsOnChain') {
+        values[index].PaymentsOnChain += row.value;
+      }
+
+      budgetAnalyticMap.set(analyticPath, values);
     });
   });
 
   Array.from(budgetAnalyticMap.keys()).forEach((element) => {
-    const values = budgetAnalyticMap.get(element);
+    const values = budgetAnalyticMap.get(element) ?? [];
 
-    if (!values || values.length === 0) {
-      summaryValues.set(
-        element,
-        Array.from({ length: arrayLength }, () => 0)
-      );
-    } else {
-      const sumOfDifferences = values?.map((item) => item.ProtocolNetOutflow - item.PaymentsOnChain);
-      summaryValues.set(element, sumOfDifferences);
-    }
+    const sumOfDifferences =
+      values.length > 0
+        ? values.map((item) => Math.abs(item.ProtocolNetOutflow ?? 0) - Math.abs(item.PaymentsOnChain ?? 0))
+        : Array.from({ length: arrayLength }, () => 0);
+
+    summaryValues.set(element, sumOfDifferences);
   });
-
   const totalToStart = netProtocolOutflow - paymentsOnChain;
+
   return {
     summaryValues,
     totalToStart,

@@ -44,7 +44,7 @@ const TextBox = styled.div({
 
 const Milestone = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',
-  color: isLight ? '#708390' : '#787A9B',
+  color: isLight ? '#B6BCC2' : '#787A9B',
   fontSize: 12,
   fontWeight: 600,
   lineHeight: 'normal',
