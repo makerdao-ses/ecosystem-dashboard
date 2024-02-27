@@ -5,6 +5,7 @@ import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFi
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import BudgetItem from './BudgetItem';
 import type { MultiSelectItem, SelectItemProps } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -18,6 +19,7 @@ interface FiltersProps {
   popupContainerHeight: number;
   activeItems: string[];
   items: MultiSelectItem[];
+  title: string;
 }
 
 const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
@@ -29,66 +31,76 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
   handleResetFilter,
   handleSelectChangeItem,
   items,
+  title,
 }) => (
-  <FilterContainer>
-    <Reset>
-      <ResetButton
-        onClick={handleResetFilter}
-        disabled={isDisabled}
-        hasIcon={false}
-        label="Reset filters"
-        legacyBreakpoints={false}
-      />
-    </Reset>
+  <ContainerFilterTitle>
+    <SectionTitle
+      title={title}
+      tooltip={
+        'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
+      }
+    />
 
-    <SelectContainer>
-      <ContainerFiltersMetric>
-        <CustomMultiSelectStyled
-          label="All MakerDAO"
-          activeItems={activeItems}
-          withAll
-          items={items}
-          onChange={(value: string[]) => {
-            handleSelectChangeItem(value);
-          }}
-          popupContainerWidth={300}
-          listItemWidth={280}
-          customAll={{
-            content: 'All MakerDAO',
-            id: 'all',
-            params: { isAll: true },
-            count: 0,
-          }}
-          popupContainerHeight={popupContainerHeight}
-          customItemRender={(props: SelectItemProps) => <BudgetItem {...props} />}
+    <FilterContainer>
+      <Reset>
+        <ResetButton
+          onClick={handleResetFilter}
+          disabled={isDisabled}
+          hasIcon={false}
+          label="Reset filters"
+          legacyBreakpoints={false}
         />
-      </ContainerFiltersMetric>
+      </Reset>
 
-      <GranularitySelect
-        useSelectedAsLabel
-        selected={selectedGranularity}
-        onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
-        items={[
-          {
-            label: 'Monthly',
-            value: 'monthly',
-          },
-          {
-            label: 'Quarterly',
-            value: 'quarterly',
-          },
-          {
-            label: 'Annually',
-            value: 'annual',
-          },
-        ]}
-        PopperProps={{
-          placement: 'bottom-end',
-        }}
-      />
-    </SelectContainer>
-    <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
-  </FilterContainer>
+      <SelectContainer>
+        <ContainerFiltersMetric>
+          <CustomMultiSelectStyled
+            label="All MakerDAO"
+            activeItems={activeItems}
+            withAll
+            items={items}
+            onChange={(value: string[]) => {
+              handleSelectChangeItem(value);
+            }}
+            popupContainerWidth={300}
+            listItemWidth={280}
+            customAll={{
+              content: 'All MakerDAO',
+              id: 'all',
+              params: { isAll: true },
+              count: 0,
+            }}
+            popupContainerHeight={popupContainerHeight}
+            customItemRender={(props: SelectItemProps) => <BudgetItem {...props} />}
+          />
+        </ContainerFiltersMetric>
+
+        <GranularitySelect
+          useSelectedAsLabel
+          selected={selectedGranularity}
+          onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
+          items={[
+            {
+              label: 'Monthly',
+              value: 'monthly',
+            },
+            {
+              label: 'Quarterly',
+              value: 'quarterly',
+            },
+            {
+              label: 'Annually',
+              value: 'annual',
+            },
+          ]}
+          PopperProps={{
+            placement: 'bottom-end',
+          }}
+        />
+      </SelectContainer>
+      <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
+    </FilterContainer>
+  </ContainerFilterTitle>
 );
 //
 export default ReservesWaterfallFilters;
@@ -98,8 +110,11 @@ const FilterContainer = styled.div({
   justifyContent: 'flex-end',
   gap: 10,
   zIndex: 1,
+  marginTop: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 8,
+    marginTop: 'revert',
+    alignSelf: 'flex-end',
   },
 });
 
@@ -149,5 +164,19 @@ const CustomMultiSelectStyled = styled(CustomMultiSelect)({
   },
   '& > div:nth-of-type(2)': {
     borderRadius: 6,
+  },
+});
+
+const ContainerFilterTitle = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  height: 34,
+  gap: 16,
+  flex: 1,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    height: 48,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
 });

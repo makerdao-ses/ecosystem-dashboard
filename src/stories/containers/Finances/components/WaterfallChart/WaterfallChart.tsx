@@ -73,7 +73,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         top: isMobile ? 16 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 22 : 22,
         left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
         right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
-        height: isMobile ? 200 : isTablet ? 375 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
+        height: isMobile ? 185 : isTablet ? 385 : isDesktop1024 ? 384 : isDesktop1280 ? 382 : isDesktop1440 ? 380 : 380,
       },
       xAxis: {
         type: 'category',
@@ -92,7 +92,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
           show: false,
         },
         axisLabel: {
-          margin: isMobile ? 16 : isTablet ? 24 : isDesktop1024 ? 24 : isDesktop1280 ? 24 : isDesktop1440 ? 26 : 26,
+          margin: isMobile ? 16 : isTablet ? 24 : isDesktop1024 ? 24 : isDesktop1280 ? 24 : isDesktop1440 ? 26 : 24,
           color: isLight ? '#B6BCC2' : '#546978',
           align: 'center',
           fontFamily: 'Inter,san-serif',
@@ -245,7 +245,7 @@ const ChartContainer = styled.div({
   marginRight: 'auto',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    height: 446,
+    height: 456,
     maxWidth: 700,
     width: 7040,
   },
@@ -275,7 +275,7 @@ const LegendContainer = styled.div({
   flexWrap: 'wrap',
   paddingLeft: 2,
   gap: 32,
-  marginTop: -6,
+  marginTop: -2,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
@@ -286,16 +286,16 @@ const LegendContainer = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 0,
-    marginTop: -20,
+    marginTop: -12,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 64,
-    marginTop: -20,
+    marginTop: -12,
     marginLeft: -6,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 64,
-    marginTop: -22,
+    marginTop: -12,
     marginLeft: -6,
   },
 });
