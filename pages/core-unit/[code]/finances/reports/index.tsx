@@ -45,8 +45,8 @@ const Transparency = ({ coreUnits, cu, expenseCategories, snapshotLimitPeriods }
           snapshotLimitPeriods
             ? {
                 // deserialize the ISO strings to date objects
-                earliest: DateTime.fromISO(snapshotLimitPeriods.earliest),
-                latest: DateTime.fromISO(snapshotLimitPeriods.latest),
+                earliest: DateTime.fromISO(snapshotLimitPeriods.earliest).toUTC(),
+                latest: DateTime.fromISO(snapshotLimitPeriods.latest).toUTC(),
               }
             : undefined
         }
