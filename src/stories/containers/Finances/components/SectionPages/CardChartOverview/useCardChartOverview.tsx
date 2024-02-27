@@ -66,6 +66,7 @@ export const useCardChartOverview = (
     forecast: 0,
     budget: 0,
     paymentsOnChain: 0,
+    protocolNetOutflow: 0,
     paymentsOffChainIncluded: 0,
   };
 

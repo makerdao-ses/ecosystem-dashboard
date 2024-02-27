@@ -205,7 +205,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         if (!rows.some((row) => row.name === subBudget.codePath)) {
           rows.push({
             name: isMobile ? subBudget.code : subBudget.codePath,
-            // name: subBudget.codePath,
             codePath: subBudget.codePath,
             columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
           });
