@@ -106,7 +106,6 @@ const Mobile = styled('div')(({ theme }) => ({
   gap: 4,
   height: 48,
   width: 78,
-  border: '1px solid red',
   [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
