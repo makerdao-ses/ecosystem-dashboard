@@ -74,7 +74,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         top: isMobile ? 16 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 22 : 22,
         left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
         right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
-        height: isMobile ? 200 : isTablet ? 385 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
+        height: isMobile ? 200 : isTablet ? 375 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
       },
       xAxis: {
         type: 'category',
