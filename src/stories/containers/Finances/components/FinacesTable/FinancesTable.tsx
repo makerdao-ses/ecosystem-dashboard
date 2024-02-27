@@ -7,9 +7,10 @@ import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
 import { showOnlySixteenRowsWithOthers, sortTablesByRows } from '../../utils/utils';
+import { defaultOrder, orderMetrics } from '../HeaderTable/utils';
 import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
 import CellTable from './CellTable';
-import type { MetricValues, PeriodicSelectionFilter, ItemRow, TableFinances } from '../../utils/types';
+import type { TableFinances, MetricValues, PeriodicSelectionFilter, ItemRow } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -22,7 +23,6 @@ interface Props {
 
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period, year }) => {
   const { isLight } = useThemeContext();
-
   const orderData = sortTablesByRows(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : period === 'Annually' ? 1 : 3;
@@ -33,7 +33,8 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
-  const newMetrics = metrics.map((metric) =>
+  const newMetricsOrdered = orderMetrics(defaultOrder, metrics);
+  const newMetrics = newMetricsOrdered.map((metric) =>
     metric === 'Net Expenses On-chain'
       ? 'PaymentsOnChain'
       : metric === 'Net Protocol Outflow'
