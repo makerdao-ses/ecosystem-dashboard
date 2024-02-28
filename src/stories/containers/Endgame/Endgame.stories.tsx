@@ -20,7 +20,61 @@ const meta: Meta<typeof EndgameContainer> = {
 };
 export default meta;
 
-const variantsArgs = [{}];
+const variantsArgs = [
+  {
+    budgetStructureAnalytics: {
+      series: [
+        {
+          period: 'total',
+          start: '2021-01-01T00:00:00.000Z',
+          end: '2024-04-01T00:00:00.000Z',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Actuals',
+              value: 45807453.31000002,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 36306730.765775874,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Actuals',
+              value: 2426116.26,
+            },
+          ],
+        },
+      ],
+    },
+  },
+];
 
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (

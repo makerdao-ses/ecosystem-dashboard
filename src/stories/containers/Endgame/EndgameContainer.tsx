@@ -13,9 +13,14 @@ import IntroductoryHeadline from './components/IntroductoryHeadline/Introductory
 import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
 import useEndgameContainer from './useEndgameContainer';
+import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const EndgameContainer: React.FC = () => {
+interface EndgameContainerProps {
+  budgetStructureAnalytics: Analytic;
+}
+
+const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnalytics }) => {
   const {
     isLight,
     isEnabled,
@@ -26,7 +31,8 @@ const EndgameContainer: React.FC = () => {
     handlePauseUrlUpdate,
     transitionDataSelected,
     handleTransitionDateSelectedChange,
-  } = useEndgameContainer();
+    budgetStructureData,
+  } = useEndgameContainer(budgetStructureAnalytics);
 
   return (
     <EndgamePageContainer isLight={isLight}>
@@ -59,7 +65,15 @@ const EndgameContainer: React.FC = () => {
 
           {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && (
             <div ref={structureRef}>
-              <BudgetStructureSection />
+              <BudgetStructureSection
+                totalBudgetCap={budgetStructureData.totalBudgetCap}
+                averageCapUtilization={budgetStructureData.averageCapUtilization}
+                endgameBudgets={budgetStructureData.endgameBudgets}
+                legacyBudgets={budgetStructureData.legacyBudgets}
+                scopes={budgetStructureData.scopes.budget}
+                immutable={budgetStructureData.immutable.budget}
+                legacy={budgetStructureData.legacy.budget}
+              />
             </div>
           )}
 

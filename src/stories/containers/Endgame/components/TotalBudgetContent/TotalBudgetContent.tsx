@@ -3,24 +3,38 @@ import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 type BarVariant = 'blue' | 'gray';
 
-const TotalBudgetContent: React.FC = () => {
+export interface TotalBudgetContentProps {
+  totalBudgetCap: number;
+  averageCapUtilization: number;
+  endgameBudgets: number;
+  legacyBudgets: number;
+}
+
+const TotalBudgetContent: React.FC<TotalBudgetContentProps> = ({
+  totalBudgetCap,
+  averageCapUtilization,
+  endgameBudgets,
+  legacyBudgets,
+}) => {
   const { isLight } = useThemeContext();
+  const endgameHumanized = threeDigitsPrecisionHumanization(endgameBudgets);
+  const legacyHumanized = threeDigitsPrecisionHumanization(legacyBudgets);
 
   return (
     <Content>
       <BudgetCapNumber isLight={isLight}>
-        {usLocalizedNumber(51932625)}
+        {usLocalizedNumber(totalBudgetCap)}
         <Currency isLight={isLight}>DAI</Currency>
       </BudgetCapNumber>
       <AvgBudgetCapUtilization isLight={isLight}>
-        Avg Budget Cap Utilization: <AvgPercentage>60.1%</AvgPercentage>
+        Avg Budget Cap Utilization: <AvgPercentage>{usLocalizedNumber(averageCapUtilization, 1)}%</AvgPercentage>
       </AvgBudgetCapUtilization>
 
       <Divider isLight={isLight} />
@@ -34,11 +48,17 @@ const TotalBudgetContent: React.FC = () => {
         </LegendItem>
       </Legend>
       <Bar defaultVariant="blue" isLight={isLight}>
-        <BarContent isLight={isLight} variant="gray" width="70.2%" />
+        <BarContent isLight={isLight} variant="gray" width={`${(endgameBudgets * 100) / totalBudgetCap}%`} />
       </Bar>
       <Values>
-        <Value isLight={isLight}>36.4M (70.2%)</Value>
-        <Value isLight={isLight}>15.4M (29.8%)</Value>
+        <Value isLight={isLight}>
+          {endgameHumanized.value}
+          {endgameHumanized.suffix} ({usLocalizedNumber((endgameBudgets * 100) / totalBudgetCap, 1)}%)
+        </Value>
+        <Value isLight={isLight}>
+          {legacyHumanized.value}
+          {legacyHumanized.suffix} ({usLocalizedNumber((legacyBudgets * 100) / totalBudgetCap, 1)}%)
+        </Value>
       </Values>
 
       <FinancesLink href={siteRoutes.home} buttonType={ButtonType.Primary} label="Legacy Expenses (Back to Finances)" />
