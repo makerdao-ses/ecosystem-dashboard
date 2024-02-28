@@ -1,4 +1,4 @@
-const defaultOrder = ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals'];
+export const defaultOrder = ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals'];
 export const orderMetrics = (metricOrder = defaultOrder, metricsToOrder: string[]) => {
   const orderedMetrics: string[] = [];
 

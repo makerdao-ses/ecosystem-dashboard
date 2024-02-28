@@ -1,6 +1,5 @@
-import { Skeleton, styled, useMediaQuery } from '@mui/material';
+import { Skeleton, styled } from '@mui/material';
 import React from 'react';
-import type { Theme } from '@mui/material';
 
 interface Props {
   numberItemsHeader: number;
@@ -10,11 +9,6 @@ interface Props {
 
 const RowSkeleton: React.FC<Props> = ({ numberItemsHeader, numberWith, backgroundRow }) => {
   const itemsHeader = Array.from({ length: numberItemsHeader }, () => 0);
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isDesk1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const isDesk1280 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const isDesk1440 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1440'));
 
   const TwoItemsSkeleton = () => (
     <TwoItemsSkeletonContainer>
@@ -52,153 +46,146 @@ const RowSkeleton: React.FC<Props> = ({ numberItemsHeader, numberWith, backgroun
           ))}
         </ContainerItemsHeader>
       </TitleBox>
-      <ItemsBox>
-        {isMobile && (
-          <>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-          </>
-        )}
-        {isTablet && (
-          <>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-            <ContainerItem>
-              <ItemStyledSkeleton
-                variant="rectangular"
-                width={56}
-                height={9.62}
-                sx={{
-                  borderRadius: 13.5,
-                }}
-              />
-            </ContainerItem>
-          </>
-        )}
-        {isDesk1024 && (
-          <>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-          </>
-        )}
-        {isDesk1280 && (
-          <>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-          </>
-        )}
-        {isDesk1440 && (
-          <>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-            <ContainerItem>
-              <TwoItemsSkeleton />
-            </ContainerItem>
-          </>
-        )}
-      </ItemsBox>
+
+      <Mobile>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+      </Mobile>
+
+      <Tablet>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+        <ContainerItem>
+          <ItemStyledSkeleton
+            variant="rectangular"
+            width={56}
+            height={9.62}
+            sx={{
+              borderRadius: 13.5,
+            }}
+          />
+        </ContainerItem>
+      </Tablet>
+
+      <Desk1024>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+      </Desk1024>
+
+      <Desk1280>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+      </Desk1280>
+
+      <Desk1440>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+        <ContainerItem>
+          <TwoItemsSkeleton />
+        </ContainerItem>
+      </Desk1440>
     </Container>
   );
 };
@@ -211,7 +198,6 @@ const Container = styled('div')<{ background: string }>(({ theme, background }) 
   justifyContent: 'space-between',
   width: '100%',
   padding: '16px 8px',
-
   background,
   [theme.breakpoints.up('tablet_768')]: {
     padding: '16px 0px 16px 8px',
@@ -244,44 +230,21 @@ const TitleBox = styled('div')(({ theme }) => ({
   },
 }));
 
-const ItemsBox = styled('div')(({ theme }) => ({
-  flex: 3 / 4,
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  [theme.breakpoints.up('tablet_768')]: {
-    minWidth: 'calc(100%-145px)',
-    flex: 5 / 6,
-  },
-  [theme.breakpoints.up('desktop_1024')]: {
-    minWidth: 'calc(100%-142px)',
-  },
-  [theme.breakpoints.up('desktop_1280')]: {
-    minWidth: 'calc(100%-228px)',
-  },
-  [theme.breakpoints.up('desktop_1440')]: {
-    minWidth: 'calc(100%-228px)',
-  },
-}));
 const ContainerItem = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   minWidth: 76,
-  flex: 1,
+
   [theme.breakpoints.up('tablet_768')]: {
-    minWidth: 78,
+    minWidth: 100,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     minWidth: 130,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    minWidth: 130,
-  },
-  [theme.breakpoints.up('desktop_1440')]: {
-    minWidth: 130,
+    minWidth: 180,
   },
 }));
 
@@ -302,4 +265,62 @@ const ContainerItemsHeader = styled('div')({
 
 const ItemStyledSkeleton = styled(Skeleton)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#D1DEE6' : '#31424E',
+}));
+
+const Mobile = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flex: 3 / 4,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+}));
+const Tablet = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minWidth: 'calc(100%-145px)',
+    flex: 5 / 6,
+  },
+}));
+
+const Desk1024 = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 5 / 6,
+    minWidth: 'calc(100%-228px)',
+  },
+}));
+
+const Desk1280 = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 5 / 6,
+    minWidth: 'calc(100%-228px)',
+  },
+}));
+const Desk1440 = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 5 / 6,
+    minWidth: 'calc(100%-228px)',
+  },
 }));

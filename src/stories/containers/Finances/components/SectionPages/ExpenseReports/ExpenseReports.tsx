@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import BigButton from '@ses/components/Button/BigButton/BigButton';
+import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -18,12 +19,14 @@ interface Props extends ExpenseReportsFiltersProps {
   columns: DelegateExpenseTableHeader[];
   sortClick: (index: number) => void;
   expenseReportResponse: SWRInfiniteResponse<BudgetStatement[], unknown>;
+  hasExpenseReport: boolean;
 }
 
 const ExpenseReports: React.FC<Props> = ({
   columns,
   sortClick,
   expenseReportResponse,
+  hasExpenseReport,
   ...filterProps // props from ExpenseReportsFiltersProps
 }) => {
   const { isLight } = useThemeContext();
@@ -33,6 +36,7 @@ const ExpenseReports: React.FC<Props> = ({
       expenseReportResponse.data &&
       typeof expenseReportResponse.data[expenseReportResponse.size - 1] === 'undefined');
 
+  console.log('hasExpenseReport', hasExpenseReport);
   return (
     <Container>
       <HeaderContainer>
@@ -43,9 +47,11 @@ const ExpenseReports: React.FC<Props> = ({
         <ExpenseReportsFilters {...filterProps} />
       </HeaderContainer>
 
-      <Header>
-        <HeaderDelegateExpense columns={columns} sortClick={sortClick} />
-      </Header>
+      {hasExpenseReport && (
+        <Header>
+          <HeaderDelegateExpense columns={columns} sortClick={sortClick} />
+        </Header>
+      )}
       <ItemSection>
         {expenseReportResponse.data?.map((page, index) => (
           <React.Fragment key={`page-${index}`}>
@@ -55,7 +61,11 @@ const ExpenseReports: React.FC<Props> = ({
           </React.Fragment>
         ))}
         {isLoading && <ExpenseReportsItemsSkeleton />}
+        {!hasExpenseReport && (
+          <TablePlaceholder description="There are no contributors available with this combination of filters" />
+        )}
       </ItemSection>
+
       {!isLoading &&
         !((expenseReportResponse.data?.[(expenseReportResponse.data?.length ?? 0) - 1]?.length ?? 0) < 10) && (
           <ContainerButton>

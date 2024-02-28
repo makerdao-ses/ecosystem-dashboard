@@ -24,12 +24,14 @@ const args = [
     sortClick: () => null,
     selectedMetric: 'Actuals',
     expenseReportResponse,
+    hasExpenseReport: true,
   },
   {
     columns: getHeadersExpenseReport(ENUM_FOR_STORIES, 'Actuals', true),
     sortClick: () => null,
     selectedMetric: 'Actuals',
     expenseReportResponse,
+    hasExpenseReport: true,
   },
 ];
 const [[LightMode, DarkMode], [DeskLightMode1024, DeskLightMode1024Dark]] = createThemeModeVariants(

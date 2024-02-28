@@ -158,6 +158,9 @@ const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'i
 
 const ItemMenu = styled.a({
   textDecoration: 'none',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
 });
 
 const Container = styled.div({
