@@ -346,13 +346,14 @@ export const getAnalyticForWaterfall = (
           paymentsOnChain += Math.abs(row.sum) - Math.abs(row.value);
         }
       }
-      if (row.metric === 'ProtocolNetOutflow') {
-        values[index].ProtocolNetOutflow += row.value;
+      if (values[index]) {
+        if (row.metric === 'ProtocolNetOutflow') {
+          values[index].ProtocolNetOutflow += row.value;
+        }
+        if (row.metric === 'PaymentsOnChain') {
+          values[index].PaymentsOnChain += row.value;
+        }
       }
-      if (row.metric === 'PaymentsOnChain') {
-        values[index].PaymentsOnChain += row.value;
-      }
-
       budgetAnalyticMap.set(analyticPath, values);
     });
   });
