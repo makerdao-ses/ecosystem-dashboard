@@ -32,7 +32,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
 
   const doughnutSeriesData: DoughnutSeries[] = [
     {
-      name: 'End-game Alignment Scope Budgets',
+      name: 'Scope Frameworks Budget',
       value: scopes,
       percent: (scopes * 100) / totalBudgetCap,
       actuals: 0,
@@ -40,7 +40,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       color: '#D2D4EF',
     },
     {
-      name: 'End-game Atlas Immutable AA Budgets',
+      name: 'Atlas Immutable Budget',
       value: immutable,
       percent: (immutable * 100) / totalBudgetCap,
       actuals: 0,
