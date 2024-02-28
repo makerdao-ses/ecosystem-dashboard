@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import ReservesWaterfallFilters from '../../ReservesWaterfallFilters/ReservesWaterfallFilters';
-import SectionTitle from '../../SectionTitle/SectionTitle';
 import WaterfallChart from '../../WaterfallChart/WaterfallChart';
 import WaterfallSkeleton from '../../WaterfallChart/WaterfallSkeleton';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -46,24 +45,17 @@ const ReservesWaterfallChartSection: React.FC<Props> = ({
 }) => (
   <Container>
     <ContainerTitleFilter>
-      <SectionTitle
+      <ReservesWaterfallFilters
         title={title}
-        tooltip={
-          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
-        }
+        activeItems={activeItems}
+        handleSelectChangeItem={handleSelectChangeItem}
+        handleGranularityChange={handleGranularityChange}
+        handleResetFilter={handleResetFilter}
+        selectedGranularity={selectedGranularity}
+        items={items}
+        popupContainerHeight={popupContainerHeight}
+        isDisabled={isDisabled}
       />
-      <Filters>
-        <ReservesWaterfallFilters
-          activeItems={activeItems}
-          handleSelectChangeItem={handleSelectChangeItem}
-          handleGranularityChange={handleGranularityChange}
-          handleResetFilter={handleResetFilter}
-          selectedGranularity={selectedGranularity}
-          items={items}
-          popupContainerHeight={popupContainerHeight}
-          isDisabled={isDisabled}
-        />
-      </Filters>
     </ContainerTitleFilter>
     <ContainerChart>
       {isLoading ? (
@@ -97,11 +89,3 @@ const ContainerTitleFilter = styled.div({
 });
 
 const ContainerChart = styled.div({});
-
-const Filters = styled.div({
-  height: 34,
-  zIndex: 3,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 48,
-  },
-});
