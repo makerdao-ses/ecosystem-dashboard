@@ -89,7 +89,11 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
   // function to add the period and metrics to the URL as search params
   const updateUrl = useCallback(
-    (granularity: PeriodicSelectionFilter, metrics: string[]) => {
+    (granularity: PeriodicSelectionFilter, metrics: string[], avoidance = false) => {
+      if (avoidance && !router.asPath.endsWith('#breakdown-table') && !router.query.period && !router.query.metric) {
+        return;
+      }
+
       router
         .replace(
           {
@@ -275,9 +279,9 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const popupContainerHeight = allowSelectAll ? 250 : 210;
 
   // this state is used to avoid adding url params on mobile on the first render
-  const [isInitializing, setIsInitializing] = useState<boolean>(false);
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
   useEffect(() => {
-    setTimeout(() => setIsInitializing(true), 500);
+    setTimeout(() => setIsInitialized(true), 500);
   }, []);
 
   // change the period to the default value if the current period is not allowed for current resolution
@@ -285,11 +289,11 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     if (isMobile && periodFilter !== 'Annually' && periodFilter !== 'Semi-annual') {
       // set default for mobile
       setPeriodFilter('Semi-annual');
-      if (isInitializing) updateUrl('Semi-annual', activeMetrics);
+      if (isInitialized) updateUrl('Semi-annual', activeMetrics, true);
     } else if ((isTable || isDesk1024 || isDesk1280) && periodFilter !== 'Annually' && periodFilter !== 'Quarterly') {
       // set default for small desktop
       setPeriodFilter('Quarterly');
-      updateUrl('Quarterly', activeMetrics);
+      updateUrl('Quarterly', activeMetrics, true);
     } else if (
       (isDesk1440 || isDesk1920) &&
       periodFilter !== 'Annually' &&
@@ -298,7 +302,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     ) {
       // set default for big desktop
       setPeriodFilter('Quarterly');
-      updateUrl('Quarterly', activeMetrics);
+      updateUrl('Quarterly', activeMetrics, true);
     }
   }, [
     activeMetrics,
@@ -308,7 +312,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     isDesk1920,
     isMobile,
     isTable,
-    isInitializing,
+    isInitialized,
     periodFilter,
     updateUrl,
   ]);
@@ -323,15 +327,16 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       case 'Quarterly':
         if (!isMobile && (activeMetrics.length > maxAmountOfActiveMetrics || activeMetrics.length === 0)) {
           setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+          // if there are not metrics it means that the page is initializing
           if (activeMetrics.length !== 0) {
-            updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+            updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics), true);
           }
         }
         break;
       default:
         if (activeMetrics.length > maxAmountOfActiveMetrics || activeMetrics.length === 0) {
           setActiveMetrics(METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
-          if (isInitializing) updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
+          if (isInitialized) updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics), true);
         }
     }
   }, [
@@ -345,7 +350,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     periodFilter,
     maxAmountOfActiveMetrics,
     updateUrl,
-    isInitializing,
+    isInitialized,
   ]);
 
   // handlers to change the period and metrics or reset those values to the default ones
