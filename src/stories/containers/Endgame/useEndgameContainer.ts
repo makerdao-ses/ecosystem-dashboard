@@ -4,7 +4,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import type { TransitionStatusDataShown } from './types';
+import type { BudgetTransitionPlainData, TransitionStatusDataShown } from './types';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { IntersectionOptions } from 'react-intersection-observer';
 
@@ -14,7 +14,7 @@ export enum NavigationTabEnum {
   BUDGET_TRANSITION_STATUS = 'budget-transition-status',
 }
 
-const useEndgameContainer = (budgetStructureAnalytics: Analytic) => {
+const useEndgameContainer = (budgetStructureAnalytics: Analytic, budgetTransitionAnalytics: Analytic) => {
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const [pauseUrlUpdate, setPauseUrlUpdate] = useState<boolean>(false);
@@ -113,7 +113,7 @@ const useEndgameContainer = (budgetStructureAnalytics: Analytic) => {
   ]);
 
   // transition status section
-  const [transitionDataSelected, setTransitionDataSelected] = useState<TransitionStatusDataShown>('budget-cap');
+  const [transitionDataSelected, setTransitionDataSelected] = useState<TransitionStatusDataShown>('Budget');
   const handleTransitionDateSelectedChange = (selected: TransitionStatusDataShown) =>
     setTransitionDataSelected(selected);
 
@@ -151,6 +151,28 @@ const useEndgameContainer = (budgetStructureAnalytics: Analytic) => {
     };
   }, [budgetStructureAnalytics]);
 
+  const transitionStatusData = useMemo(() => {
+    const data: BudgetTransitionPlainData = {};
+
+    // translate the data to a more usable format
+    budgetTransitionAnalytics.series.forEach((series) => {
+      const period = series.period;
+
+      const values = ['scopes', 'immutable', 'legacy'].map((budget) =>
+        series.rows
+          .filter((row) => row.dimensions[0].path === `atlas/${budget}` && row.metric === transitionDataSelected)
+          .reduce((acc, curr) => acc + curr.value, 0)
+      );
+
+      data[period] = {
+        endgame: values[0] + values[1],
+        legacy: values[2],
+      };
+    });
+
+    return data;
+  }, [budgetTransitionAnalytics.series, transitionDataSelected]);
+
   return {
     isLight,
     isEnabled,
@@ -162,6 +184,7 @@ const useEndgameContainer = (budgetStructureAnalytics: Analytic) => {
     transitionDataSelected,
     handleTransitionDateSelectedChange,
     budgetStructureData,
+    transitionStatusData,
   };
 };
 

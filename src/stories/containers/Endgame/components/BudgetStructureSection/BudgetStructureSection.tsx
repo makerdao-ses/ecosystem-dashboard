@@ -45,7 +45,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (immutable * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: '#447AFB',
+      color: '#1AAB9B',
     },
     {
       name: 'MakerDAO Legacy Budgets',
@@ -53,7 +53,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (legacy * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: '#1AAB9B',
+      color: '#447AFB',
     },
   ];
 

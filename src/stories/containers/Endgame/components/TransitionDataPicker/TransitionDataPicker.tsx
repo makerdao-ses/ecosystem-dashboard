@@ -18,15 +18,15 @@ const TransitionDataPicker: React.FC<TransitionDataPickerProps> = ({ selected, h
       <DataButton
         allowsHover={false}
         isLight={isLight}
-        onClick={() => handleChange('actuals')}
-        selected={selected === 'actuals'}
+        onClick={() => handleChange('Actuals')}
+        selected={selected === 'Actuals'}
         label={'Actuals'}
       />
       <DataButton
         allowsHover={false}
         isLight={isLight}
-        onClick={() => handleChange('budget-cap')}
-        selected={selected === 'budget-cap'}
+        onClick={() => handleChange('Budget')}
+        selected={selected === 'Budget'}
         label={'Budget Cap'}
       />
     </Content>

@@ -73,6 +73,9 @@ const variantsArgs = [
         },
       ],
     },
+    budgetTransitionAnalytics: {
+      series: [],
+    },
   },
 ];
 

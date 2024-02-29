@@ -18,9 +18,10 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface EndgameContainerProps {
   budgetStructureAnalytics: Analytic;
+  budgetTransitionAnalytics: Analytic;
 }
 
-const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnalytics }) => {
+const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnalytics, budgetTransitionAnalytics }) => {
   const {
     isLight,
     isEnabled,
@@ -32,7 +33,8 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnal
     transitionDataSelected,
     handleTransitionDateSelectedChange,
     budgetStructureData,
-  } = useEndgameContainer(budgetStructureAnalytics);
+    transitionStatusData,
+  } = useEndgameContainer(budgetStructureAnalytics, budgetTransitionAnalytics);
 
   return (
     <EndgamePageContainer isLight={isLight}>
@@ -82,6 +84,7 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnal
               <BudgetTransitionStatusSection
                 selected={transitionDataSelected}
                 handleChange={handleTransitionDateSelectedChange}
+                data={transitionStatusData}
               />
             </div>
           )}

@@ -5,15 +5,19 @@ import React from 'react';
 import BudgetTransitionChart from '../BudgetTransitionChart/BudgetTransitionChart';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TransitionDataPicker from '../TransitionDataPicker/TransitionDataPicker';
+import type { BudgetTransitionPlainData } from '../../types';
 import type { TransitionDataPickerProps } from '../TransitionDataPicker/TransitionDataPicker';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface BudgetTransitionStatusSectionProps extends TransitionDataPickerProps {
-  // TODO: add data here...
-  data?: unknown;
+  data: BudgetTransitionPlainData;
 }
 
-const BudgetTransitionStatusSection: React.FC<BudgetTransitionStatusSectionProps> = ({ selected, handleChange }) => {
+const BudgetTransitionStatusSection: React.FC<BudgetTransitionStatusSectionProps> = ({
+  selected,
+  handleChange,
+  data,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -26,7 +30,7 @@ const BudgetTransitionStatusSection: React.FC<BudgetTransitionStatusSectionProps
       <Card isLight={isLight}>
         <WidthRestriction>
           <TransitionDataPicker selected={selected} handleChange={handleChange} />
-          <BudgetTransitionChart />
+          <BudgetTransitionChart data={data} selected={selected} />
         </WidthRestriction>
       </Card>
     </Content>

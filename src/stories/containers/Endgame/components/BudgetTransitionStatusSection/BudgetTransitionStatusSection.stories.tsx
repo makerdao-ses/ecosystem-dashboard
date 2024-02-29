@@ -15,7 +15,46 @@ const meta: Meta<typeof BudgetTransitionStatusSection> = {
 };
 export default meta;
 
-const variantsArgs = [{}];
+const variantsArgs = [
+  {
+    selected: 'Budget',
+    handleChange: () => null,
+    data: {
+      '2021/Q1': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2021/Q2': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2021/Q3': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2021/Q4': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2022/Q1': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2022/Q2': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2022/Q3': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2022/Q4': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+    },
+  },
+];
 
 const [[LightMode, DarkMode]] = createThemeModeVariants(BudgetTransitionStatusSection, variantsArgs);
 export { LightMode, DarkMode };

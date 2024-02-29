@@ -4,27 +4,63 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
-import React from 'react';
+import React, { useMemo } from 'react';
+import type { BudgetTransitionPlainData, SeriesData, TransitionStatusDataShown } from '../../types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 
-const BudgetTransitionChart: React.FC = () => {
+interface BudgetTransitionChartProps {
+  data: BudgetTransitionPlainData;
+  selected: TransitionStatusDataShown;
+}
+
+const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, selected }) => {
   const { isLight } = useThemeContext();
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
-
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
-  const barWidth = isMobile ? 16 : isTablet ? 32 : isDesktop1024 ? 48 : 56;
+  const barWidth = isMobile ? 16 : isTablet ? 32 : isDesktop1024 ? 40 : 56;
 
-  const barBorderRadius = isMobile ? 4 : 6;
-  const itemStyleBottom = {
-    borderRadius: [0, 0, barBorderRadius, barBorderRadius],
-  };
-  const itemStyleTop = {
-    borderRadius: [barBorderRadius, barBorderRadius, 0, 0],
-  };
+  const { series, legendsLabels } = useMemo(() => {
+    const legacySeries = {
+      name: `Legacy Maker Budget - ${selected === 'Budget' ? 'Budget Cap' : 'Actuals'}`,
+      data: [] as SeriesData[],
+    };
+    const endgameSeries = {
+      name: `All Endgame Budgets - ${selected === 'Budget' ? 'Budget Cap' : 'Actuals'}`,
+      data: [] as SeriesData[],
+    };
+    const series = [legacySeries, endgameSeries];
+    const legendsLabels: string[] = [];
+
+    const barBorderRadius = isMobile ? 4 : 6;
+    const itemStyleBottom = [0, 0, barBorderRadius, barBorderRadius];
+    const itemStyleTop = [barBorderRadius, barBorderRadius, 0, 0];
+    const itemStyleFull = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
+    Object.entries(data).forEach(([period, values]) => {
+      legacySeries.data.push({
+        value: values.legacy,
+        itemStyle: {
+          borderRadius: values.endgame === 0 ? itemStyleFull : itemStyleBottom,
+        },
+      });
+      endgameSeries.data.push({
+        value: values.endgame,
+        itemStyle: {
+          borderRadius: values.legacy === 0 ? itemStyleFull : itemStyleTop,
+        },
+      });
+
+      legendsLabels.push(`${period.split('/')[1]}${isMobile ? '' : `’${period.split('/')[0].substring(2, 4)}`}`);
+    });
+
+    return {
+      series,
+      legendsLabels,
+    };
+  }, [data, isMobile, selected]);
 
   const options: EChartsOption = {
     grid: {
@@ -35,20 +71,7 @@ const BudgetTransitionChart: React.FC = () => {
     },
     xAxis: {
       type: 'category',
-      data: [
-        `Q1${isMobile ? '' : '’22'}`,
-        `Q2${isMobile ? '' : '’22'}`,
-        `Q3${isMobile ? '' : '’22'}`,
-        `Q4${isMobile ? '' : '’22'}`,
-        `Q1${isMobile ? '' : '’23'}`,
-        `Q2${isMobile ? '' : '’23'}`,
-        `Q3${isMobile ? '' : '’23'}`,
-        `Q4${isMobile ? '' : '’23'}`,
-        `Q1${isMobile ? '' : '’24'}`,
-        `Q2${isMobile ? '' : '’24'}`,
-        `Q3${isMobile ? '' : '’24'}`,
-        `Q4${isMobile ? '' : '’24'}`,
-      ],
+      data: legendsLabels,
       splitLine: {
         show: false,
       },
@@ -128,57 +151,7 @@ const BudgetTransitionChart: React.FC = () => {
     },
     series: [
       {
-        name: 'Legacy Maker Budget - Budget Cap',
-        data: [
-          {
-            value: 200000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000.5,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 180000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleBottom,
-          },
-        ],
+        ...series[0],
         type: 'bar',
         stack: 'x',
         showBackground: false,
@@ -188,57 +161,7 @@ const BudgetTransitionChart: React.FC = () => {
         },
       },
       {
-        name: 'All Endgame Budgets - Budget Cap',
-        data: [
-          {
-            value: 150000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 100000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 100000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 15000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 13000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 15000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 600000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 800000,
-            itemStyle: itemStyleTop,
-          },
-          {
-            value: 150000,
-            itemStyle: itemStyleTop,
-          },
-        ],
+        ...series[1],
         type: 'bar',
         stack: 'x',
         showBackground: false,
@@ -262,6 +185,7 @@ const BudgetTransitionChart: React.FC = () => {
           opts={{ renderer: 'svg' }}
         />
         <YearsContainer>
+          <Year isLight={isLight}>2021</Year>
           <Year isLight={isLight}>2022</Year>
           <Year isLight={isLight}>2023</Year>
           <Year isLight={isLight}>2024</Year>
@@ -317,7 +241,7 @@ const YearsContainer = styled.div({
   position: 'absolute',
   display: 'flex',
   flexDirection: 'row',
-  gap: 64,
+  gap: 40,
   bottom: -20,
   left: 45,
 

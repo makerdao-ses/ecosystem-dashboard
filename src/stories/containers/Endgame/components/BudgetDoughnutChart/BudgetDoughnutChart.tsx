@@ -85,7 +85,8 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
         if (index !== -1) {
           const data = doughnutSeriesData[index];
           return `{name|${data.name}}\n{value|${usLocalizedNumber(data.value)}}{dai|DAI}{percent|(${usLocalizedNumber(
-            data.percent
+            data.percent,
+            1
           )}%)}`;
         }
         return '';
