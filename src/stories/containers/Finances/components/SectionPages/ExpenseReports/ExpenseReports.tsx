@@ -36,7 +36,6 @@ const ExpenseReports: React.FC<Props> = ({
       expenseReportResponse.data &&
       typeof expenseReportResponse.data[expenseReportResponse.size - 1] === 'undefined');
 
-  console.log('hasExpenseReport', hasExpenseReport);
   return (
     <Container>
       <HeaderContainer>
