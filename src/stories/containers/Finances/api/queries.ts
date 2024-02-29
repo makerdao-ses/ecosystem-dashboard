@@ -62,7 +62,7 @@ export const fetchAnalytics = async (
     filter: {
       granularity,
       start: `${initialYear}-01-01`,
-      end: `${Number(endYear) + 1}-01-01`,
+      end: `${Number(endYear)}-01-01`,
       metrics: ['Actuals', 'Budget', 'Forecast', 'PaymentsOnChain', 'ProtocolNetOutflow'],
       currency: 'DAI',
       dimensions: [
