@@ -24,6 +24,7 @@ export const useCardChartOverview = (
 ) => {
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesk1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesk1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
 
   const isHasSubLevels = hasSubLevels(codePath, allBudgets);
 
@@ -204,7 +205,8 @@ export const useCardChartOverview = (
   });
   const changeAlignment = doughnutSeriesData.length > 4;
 
-  const showSwiper = !!((isTable || isDesk1024) && doughnutSeriesData.length >= 4);
+  const showSwiper =
+    !!((isTable || isDesk1024) && doughnutSeriesData.length >= 4) || (isDesk1280 && doughnutSeriesData.length >= 10);
   const numberSliderPerLevel = (isTable || isDesk1024) && levelNumber < 3 ? 3 : 5;
 
   return {
