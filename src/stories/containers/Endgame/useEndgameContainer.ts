@@ -2,9 +2,10 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import type { TransitionStatusDataShown } from './types';
+import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { IntersectionOptions } from 'react-intersection-observer';
 
 export enum NavigationTabEnum {
@@ -13,7 +14,7 @@ export enum NavigationTabEnum {
   BUDGET_TRANSITION_STATUS = 'budget-transition-status',
 }
 
-const useEndgameContainer = () => {
+const useEndgameContainer = (budgetStructureAnalytics: Analytic) => {
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const [pauseUrlUpdate, setPauseUrlUpdate] = useState<boolean>(false);
@@ -116,6 +117,40 @@ const useEndgameContainer = () => {
   const handleTransitionDateSelectedChange = (selected: TransitionStatusDataShown) =>
     setTransitionDataSelected(selected);
 
+  const budgetStructureData = useMemo(() => {
+    // compute the data for the budget structure section
+    const budgetData = ['scopes', 'immutable', 'legacy'].map((budget) => {
+      const values = ['Actuals', 'Budget'].map(
+        (metric) =>
+          budgetStructureAnalytics.series[0].rows.find(
+            (row) => row.dimensions[0].path === `atlas/${budget}` && row.metric === metric
+          )?.value ?? 0
+      );
+
+      return {
+        actuals: values[0],
+        budget: values[1],
+      };
+    });
+
+    const endgameBudgets = budgetData[0].budget + budgetData[1].budget;
+    const legacyBudgets = budgetData[2].budget;
+
+    return {
+      scopes: budgetData[0],
+      immutable: budgetData[1],
+      legacy: budgetData[2],
+
+      endgameBudgets,
+      legacyBudgets,
+      totalBudgetCap: endgameBudgets + legacyBudgets,
+      averageCapUtilization:
+        (budgetData.reduce((acc, curr) => acc + curr.actuals, 0) /
+          budgetData.reduce((acc, curr) => acc + curr.budget, 0)) *
+        100,
+    };
+  }, [budgetStructureAnalytics]);
+
   return {
     isLight,
     isEnabled,
@@ -126,6 +161,7 @@ const useEndgameContainer = () => {
     activeTab,
     transitionDataSelected,
     handleTransitionDateSelectedChange,
+    budgetStructureData,
   };
 };
 

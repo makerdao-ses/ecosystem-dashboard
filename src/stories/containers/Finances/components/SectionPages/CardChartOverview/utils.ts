@@ -25,11 +25,12 @@ export const getShortCode = (code: string) => (code.length > 8 ? code.substring(
 
 export const getCorrectMetricValuesOverViewChart = (metric: AnalyticMetric) => {
   if (metric === 'Forecast' || metric === 'Actuals' || metric === 'Budget') return metric.toLocaleLowerCase();
+
   switch (metric) {
     case 'PaymentsOnChain':
       return 'paymentsOnChain';
-    case 'PaymentsOffChainIncluded':
-      return 'paymentsOffChainIncluded';
+    case 'ProtocolNetOutflow':
+      return 'protocolNetOutflow';
     default:
       return 'budget';
   }

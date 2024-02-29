@@ -37,8 +37,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const showLineYear =
-    isMobile && (selectedGranularity as string) !== 'Quarterly' && (selectedGranularity as string) !== 'Annually';
+  const showLineYear = isMobile && selectedGranularity === 'monthly';
 
   const xAxisStyles = useMemo(
     () => ({

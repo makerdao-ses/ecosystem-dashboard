@@ -6,7 +6,7 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import { useEffect, useMemo, useRef } from 'react';
-import { getChartAxisLabelByGranularity } from '../../utils/utils';
+import { formatterWaterfallChart, getChartAxisLabelByGranularity } from '../../utils/utils';
 import LegendItemChart from '../LegendItemChart/LegendItemChart';
 import LineYearBorderBottomChart from '../LineYearBorderBottomChart/LineYearBorderBottomChart';
 import type { LegendItemsWaterfall, LineWaterfall, WaterfallChartSeriesData } from '../../utils/types';
@@ -29,6 +29,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
+  const showLineYear = isMobile && selectedGranularity === 'monthly';
 
   const xAxisStyles = useMemo(
     () => ({
@@ -73,7 +74,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
         top: isMobile ? 16 : isTablet ? 18 : isDesktop1024 ? 20 : isDesktop1280 ? 22 : 22,
         left: isMobile ? 36 : isTablet ? 68 : isDesktop1024 ? 66 : isDesktop1280 ? 66 : isDesktop1440 ? 68 : 65,
         right: isMobile ? 2 : isTablet ? -2 : isDesktop1024 ? -2 : isDesktop1280 ? -2 : isDesktop1440 ? 1 : 1,
-        height: isMobile ? 200 : isTablet ? 385 : isDesktop1024 ? 398 : isDesktop1280 ? 390 : isDesktop1440 ? 390 : 390,
+        height: isMobile ? 185 : isTablet ? 385 : isDesktop1024 ? 384 : isDesktop1280 ? 382 : isDesktop1440 ? 380 : 380,
       },
       xAxis: {
         type: 'category',
@@ -92,7 +93,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
           show: false,
         },
         axisLabel: {
-          margin: isMobile ? 16 : isTablet ? 24 : isDesktop1024 ? 24 : isDesktop1280 ? 24 : isDesktop1440 ? 26 : 26,
+          margin: isMobile ? 16 : isTablet ? 24 : isDesktop1024 ? 24 : isDesktop1280 ? 24 : isDesktop1440 ? 26 : 24,
           color: isLight ? '#B6BCC2' : '#546978',
           align: 'center',
           fontFamily: 'Inter,san-serif',
@@ -101,34 +102,9 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
           height: upTable ? 15 : 11,
           interval: 0,
           formatter: function (value: string, index: number) {
-            if (isMobile) {
-              if (selectedGranularity === 'monthly' && (index === 0 || index === 13)) {
-                return `{start|${value}}`;
-              }
-              return value;
-            }
-            if (selectedGranularity === 'monthly') {
-              if (index === 0 || index === 13) {
-                return `{start|${value}}\n{startYear|${year}}`;
-              }
-              return `{month|${value}}\n{year|${year}}`;
-            }
-
-            if (selectedGranularity === 'quarterly') {
-              if (index === 0 || index === 5) {
-                return `{start|${value}}\n{startYear|${year}}`;
-              }
-              return `{month|${value}}\n{year|${year}}`;
-            }
-            if (selectedGranularity === 'annual') {
-              if (index === 0 || index === 2) {
-                return `{start|${value}}\n{startYear|${year}}`;
-              }
-              return `{year|${year}}`;
-            }
-            return `{year|${year}}`;
+            const formatted = formatterWaterfallChart(selectedGranularity, isMobile, year, value, index);
+            return formatted;
           },
-
           rich: {
             month: xAxisStyles,
             year: xYearStyles,
@@ -216,7 +192,7 @@ const WaterfallChart: React.FC<Props> = ({ legends, year, selectedGranularity, s
           }}
           opts={{ renderer: 'svg' }}
         />
-        {isMobile && <LineYearBorderBottomChart year={year} />}
+        {showLineYear && <LineYearBorderBottomChart year={year} />}
       </ChartContainer>
       <LegendContainer>
         {legends?.map((legend, index) => (
@@ -245,7 +221,7 @@ const ChartContainer = styled.div({
   marginRight: 'auto',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    height: 446,
+    height: 456,
     maxWidth: 700,
     width: 7040,
   },
@@ -275,7 +251,7 @@ const LegendContainer = styled.div({
   flexWrap: 'wrap',
   paddingLeft: 2,
   gap: 32,
-  marginTop: -6,
+  marginTop: -2,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
@@ -286,16 +262,16 @@ const LegendContainer = styled.div({
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 0,
-    marginTop: -20,
+    marginTop: -12,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 64,
-    marginTop: -20,
+    marginTop: -12,
     marginLeft: -6,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 64,
-    marginTop: -22,
+    marginTop: -12,
     marginLeft: -6,
   },
 });

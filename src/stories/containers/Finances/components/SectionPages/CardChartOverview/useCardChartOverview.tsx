@@ -67,6 +67,7 @@ export const useCardChartOverview = (
     forecast: 0,
     budget: 0,
     paymentsOnChain: 0,
+    protocolNetOutflow: 0,
     paymentsOffChainIncluded: 0,
   };
 
@@ -210,7 +211,6 @@ export const useCardChartOverview = (
 
   return {
     actuals: isHasSubLevels ? metric.actuals : budgetWithNotChildren.actuals,
-    prediction: isHasSubLevels ? metric.forecast : budgetWithNotChildren.forecast,
     budgetCap: isHasSubLevels ? metric.budget : budgetWithNotChildren.budget,
     selectedMetric,
     handleSelectedMetric,

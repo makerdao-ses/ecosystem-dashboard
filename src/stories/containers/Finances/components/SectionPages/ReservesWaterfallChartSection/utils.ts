@@ -77,9 +77,11 @@ export const builderWaterfallSeries = (
       name: 'Reserves Balance',
       barWidth: isMobile ? 19 : isTable ? 39 : 48,
       data: help,
+      emphasis: {
+        disabled: true,
+      },
       itemStyle: {
         borderRadius: 4,
-
         color: (params: EChartsOption) => helpBarColors[params.dataIndex],
       },
       isVisible: true,
@@ -122,6 +124,9 @@ export const builderWaterfallSeries = (
       name: 'Outflow',
       barWidth: isMobile ? 19 : 39,
       data: outFlow,
+      emphasis: {
+        disabled: true,
+      },
       itemStyle: {
         borderRadius: 4,
         color: isLight ? '#CB3A0D' : '#A83815',
@@ -153,6 +158,9 @@ export const builderWaterfallSeries = (
       name: 'IntFlow',
       barWidth: isMobile ? 19 : 39,
       data: inFlow,
+      emphasis: {
+        disabled: true,
+      },
       itemStyle: {
         shadowOffsetY: -2,
         shadowColor: isLight ? '#2DC1B1' : '#1AAB9B',
@@ -214,7 +222,9 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
     for (let i = 1; i < lineSeriesData.length - 1; i++) {
       series.push({
         name: `Line ${i}`,
-
+        emphasis: {
+          disabled: true,
+        },
         lineStyle: {
           width: 3,
 
@@ -252,6 +262,9 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
 
     series.push({
       name: `Line ${i}`,
+      emphasis: {
+        disabled: true,
+      },
       lineStyle: {
         width: 3,
         zIndex: -1,
@@ -333,13 +346,14 @@ export const getAnalyticForWaterfall = (
           paymentsOnChain += Math.abs(row.sum) - Math.abs(row.value);
         }
       }
-      if (row.metric === 'ProtocolNetOutflow') {
-        values[index].ProtocolNetOutflow += row.value;
+      if (values[index]) {
+        if (row.metric === 'ProtocolNetOutflow') {
+          values[index].ProtocolNetOutflow += row.value;
+        }
+        if (row.metric === 'PaymentsOnChain') {
+          values[index].PaymentsOnChain += row.value;
+        }
       }
-      if (row.metric === 'PaymentsOnChain') {
-        values[index].PaymentsOnChain += row.value;
-      }
-
       budgetAnalyticMap.set(analyticPath, values);
     });
   });

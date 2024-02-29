@@ -9,13 +9,12 @@ import lightTheme from 'styles/theme/light';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
-  prediction: number;
   actuals: number;
   budgetCap: number;
   className?: string;
 };
 
-const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ prediction, actuals, budgetCap, className }) => {
+const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ actuals, budgetCap, className }) => {
   const { isLight } = useThemeContext();
 
   const humanizedActuals = threeDigitsPrecisionHumanization(actuals);
@@ -45,7 +44,7 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ prediction, 
       <DividerCardChart isLight={isLight} />
       <Percent isLight={isLight}>{percent}%</Percent>
       <BarWrapper>
-        <HorizontalBudgetBarStyled actuals={actuals} prediction={prediction} budgetCap={budgetCap} />
+        <HorizontalBudgetBarStyled actuals={actuals} prediction={0} budgetCap={budgetCap} />
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>

@@ -87,7 +87,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               handleSelectedMetric={cardOverViewSectionData.handleSelectedMetric}
               actuals={cardOverViewSectionData.actuals}
               budgetCap={cardOverViewSectionData.budgetCap}
-              prediction={cardOverViewSectionData.prediction}
               doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
               isCoreThirdLevel={levelNumber >= 3}
               changeAlignment={cardOverViewSectionData.changeAlignment}
@@ -100,7 +99,6 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             <OverviewCardMobile
               actuals={cardOverViewSectionData.actuals}
               budgetCap={cardOverViewSectionData.budgetCap}
-              prediction={cardOverViewSectionData.prediction}
             />
           </WrapperMobile>
           <CardsNavigation
@@ -181,22 +179,21 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             />
           </ContainerReservesWaterfallChart>
         )}
-        {expenseReportSection.hasExpenseReports && (
-          <ContainerLastReport>
-            <DelegateExpenseTrendFinances
-              selectedMetric={expenseReportSection.selectedMetric}
-              onMetricChange={expenseReportSection.onMetricChange}
-              selectedStatuses={expenseReportSection.selectedStatuses}
-              onStatusSelectChange={expenseReportSection.onStatusSelectChange}
-              handleResetFilter={expenseReportSection.handleResetFilter}
-              statusesItems={expenseReportSection.statusesItems}
-              columns={expenseReportSection.headersExpenseReport}
-              sortClick={expenseReportSection.onSortClick}
-              expenseReportResponse={expenseReportSection.expenseReportResponse}
-              isDisabled={expenseReportSection.isDisabled}
-            />
-          </ContainerLastReport>
-        )}
+        <ContainerLastReport>
+          <DelegateExpenseTrendFinances
+            selectedMetric={expenseReportSection.selectedMetric}
+            onMetricChange={expenseReportSection.onMetricChange}
+            selectedStatuses={expenseReportSection.selectedStatuses}
+            onStatusSelectChange={expenseReportSection.onStatusSelectChange}
+            handleResetFilter={expenseReportSection.handleResetFilter}
+            statusesItems={expenseReportSection.statusesItems}
+            columns={expenseReportSection.headersExpenseReport}
+            sortClick={expenseReportSection.onSortClick}
+            expenseReportResponse={expenseReportSection.expenseReportResponse}
+            isDisabled={expenseReportSection.isDisabled}
+            hasExpenseReport={expenseReportSection.hasExpenseReports}
+          />
+        </ContainerLastReport>
       </Container>
     </PageContainer>
   );

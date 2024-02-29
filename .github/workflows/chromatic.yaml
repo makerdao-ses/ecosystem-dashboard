@@ -6,6 +6,9 @@ name: 'Chromatic'
 # Event for the workflow
 on: push
 
+permissions:
+  pull-requests: write
+
 # List of jobs
 jobs:
   chromatic-deployment:
@@ -13,39 +16,29 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           #👇 Fetches all history so Chromatic can compare against previous builds
           fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          #👇 Sets the version of Node.js to use
-          node-version: 20.9
+
       - name: Install dependencies
         # 👇 Install dependencies with the same package manager used in the project (replace it as needed) e.g. yarn, npm, pnpm
         run: yarn
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
+        id: chromatic
+        uses: chromaui/action@latest
         # Chromatic GitHub Action options
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GH_TOKEN }}
-          exitZeroOnChanges: false # 👈 fails if there are new changes or additions that requires approval
+          exitZeroOnChanges: false
           onlyChanged: true # enable TurboSnap https://www.chromatic.com/docs/turbosnap
         env:
           STORYBOOK_FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
-      
-      - uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          hide_and_recreate: true
-          hide_classify: "OUTDATED"
-          header: Chromatic
-          message: |
-            > :rocket: Deployed preview of ${{ github.event.pull_request.head.sha }}
 
-            | name      | url |
-            |-----------|-----|
-            | Chromatic Build | ${{ steps.chromatic.outputs.buildUrl }} |
-            | Chromatic Storybook | ${{ steps.chromatic.outputs.storybookUrl }} |
+      - name: Publish Summary
+        if: ${{ always() }}
+        run: echo -e "| Results |  |\n| --- | --- |\n| Build Results | ${{steps.chromatic.outputs.buildUrl}} |\n| Storybook Preview | ${{steps.chromatic.outputs.storybookUrl}} |\n| Component Count | ${{steps.chromatic.outputs.componentCount}} |" >> $GITHUB_STEP_SUMMARY

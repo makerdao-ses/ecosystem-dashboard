@@ -44,6 +44,8 @@ const DoughnutChartFinances: React.FC<Props> = ({
   useEffect(() => {
     setVisibleSeries(doughnutSeriesData);
     setLegends(doughnutSeriesData);
+    // avoid to cut off the chart on page load
+    chartRef.current?.getEchartsInstance()?.resize();
   }, [doughnutSeriesData]);
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));

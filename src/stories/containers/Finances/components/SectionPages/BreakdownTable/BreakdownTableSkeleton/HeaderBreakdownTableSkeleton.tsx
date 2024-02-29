@@ -1,58 +1,46 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled } from '@mui/material';
 import React from 'react';
 import HeaderTitleSkeleton from './HeaderTitleSkeleton';
 import ItemHeaderSkeleton from './ItemHeaderSkeleton';
-import type { Theme } from '@mui/material';
 
-const HeaderBreakdownTableSkeleton = () => {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-  const isTable = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isDesk1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const isDesk1028 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1280'));
-  return (
-    <Container>
-      <TitleBox>
-        <HeaderTitleSkeleton />
-      </TitleBox>
-      <>
-        {isMobile && (
-          <ItemsBox>
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton isLast={true} />
-          </ItemsBox>
-        )}
-        {isTable && (
-          <ItemsBox>
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton isLast={true} />
-          </ItemsBox>
-        )}
-        {isDesk1024 && (
-          <ItemsBox>
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton isLast={true} />
-          </ItemsBox>
-        )}
-        {isDesk1028 && (
-          <ItemsBox>
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton />
-            <ItemHeaderSkeleton isLast={true} />
-          </ItemsBox>
-        )}
-      </>
-    </Container>
-  );
-};
+const HeaderBreakdownTableSkeleton = () => (
+  <Container>
+    <TitleBox>
+      <HeaderTitleSkeleton />
+    </TitleBox>
+    <>
+      <Mobile>
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton isLast={true} />
+      </Mobile>
+
+      <Table>
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton isLast={true} />
+      </Table>
+
+      <Desk1024>
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton isLast={true} />
+      </Desk1024>
+
+      <Desk10280>
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton />
+        <ItemHeaderSkeleton isLast={true} />
+      </Desk10280>
+    </>
+  </Container>
+);
 
 export default HeaderBreakdownTableSkeleton;
 const Container = styled('div')(({ theme }) => ({
@@ -76,6 +64,7 @@ const Container = styled('div')(({ theme }) => ({
 
 const TitleBox = styled('div')(({ theme }) => ({
   minWidth: 76,
+  display: 'flex',
   flex: 1 / 4,
   [theme.breakpoints.up('tablet_768')]: {
     minWidth: 136,
@@ -91,9 +80,10 @@ const TitleBox = styled('div')(({ theme }) => ({
   },
 }));
 
-const ItemsBox = styled('div')(({ theme }) => ({
-  flex: 3 / 4,
+const Mobile = styled('div')(({ theme }) => ({
   display: 'flex',
+  width: '100%',
+  flex: 3 / 4,
   flexDirection: 'row',
   alignItems: 'center',
   minWidth: 'calc(100%-76px)',
@@ -101,13 +91,47 @@ const ItemsBox = styled('div')(({ theme }) => ({
 
   gap: 8,
   [theme.breakpoints.up('tablet_768')]: {
-    minWidth: 'calc(100%-136px)',
+    display: 'none',
+  },
+}));
+
+const Table = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
     flex: 5 / 6,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+    minWidth: 'calc(100%-136px)',
   },
-  [theme.breakpoints.up('desktop_1024')]: {
+}));
+const Desk1024 = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    display: 'flex',
     minWidth: 'calc(100%-142px)',
+    flex: 5 / 6,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
   },
+}));
+
+const Desk10280 = styled('div')(({ theme }) => ({
+  display: 'none',
   [theme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
     minWidth: 'calc(100%-228px)',
+    flex: 5 / 6,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
   },
 }));

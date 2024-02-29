@@ -7,9 +7,10 @@ import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
 import { showOnlySixteenRowsWithOthers, sortTablesByRows } from '../../utils/utils';
+import { defaultOrder, orderMetrics } from '../HeaderTable/utils';
 import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
 import CellTable from './CellTable';
-import type { MetricValues, PeriodicSelectionFilter, ItemRow, TableFinances } from '../../utils/types';
+import type { TableFinances, MetricValues, PeriodicSelectionFilter, ItemRow } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -22,7 +23,6 @@ interface Props {
 
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period, year }) => {
   const { isLight } = useThemeContext();
-
   const orderData = sortTablesByRows(breakdownTable);
   const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : period === 'Annually' ? 1 : 3;
@@ -33,7 +33,8 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
-  const newMetrics = metrics.map((metric) =>
+  const newMetricsOrdered = orderMetrics(defaultOrder, metrics);
+  const newMetrics = newMetricsOrdered.map((metric) =>
     metric === 'Net Expenses On-chain'
       ? 'PaymentsOnChain'
       : metric === 'Net Protocol Outflow'
@@ -53,7 +54,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
               return (
                 <TableRow key={index} isLight={isLight} isMain={row.isMain}>
-                  <Headed isLight={isLight} period={period}>
+                  <Headed isLight={isLight} period={period} isHeader={!!row.isMain}>
                     {row.isSummaryRow ? (
                       row.name
                     ) : (
@@ -139,71 +140,70 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   overflow: 'hidden',
 }));
 
-const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter }>(({ isLight, period }) => ({
-  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
-  fontSize: 11,
-  color: isLight ? '#231536' : '#D2D4EF',
-  width: 87,
-  textAlign: 'center',
-  verticalAlign: 'center',
-  padding: '16px 4px 16px 8px',
-  whiteSpace: 'normal',
-  overflowWrap: 'break-word',
-  wordBreak: 'break-word',
-  position: 'relative',
+const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter; isHeader: boolean }>(
+  ({ isLight, period, isHeader }) => ({
+    borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
+    fontSize: 11,
+    color: isLight ? '#231536' : '#D2D4EF',
+    width: 87,
+    textAlign: 'center',
+    verticalAlign: 'center',
+    padding: '16px 4px 16px 8px',
+    whiteSpace: 'normal',
+    overflowWrap: 'break-word',
+    wordBreak: 'break-word',
+    position: 'relative',
 
-  '& .link': {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textDecoration: 'none',
-    color: 'inherit',
-    zIndex: 1,
-  },
+    '& .link': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textDecoration: 'none',
+      color: 'inherit',
+      zIndex: 1,
+    },
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 14,
-    ...(period === 'Monthly' && {
-      fontSize: 12,
-    }),
-    width: 150,
-  },
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      fontSize: isHeader ? 14 : 12,
+      width: 150,
+    },
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    width: 150,
-  },
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      width: 150,
+    },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 220,
-    padding: '16px 0px 16px 32px',
-  },
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      width: 220,
+      padding: '16px 0px 16px 32px',
+    },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    width: period === 'Quarterly' ? 261 : period === 'Annually' ? 200 : 188,
-    padding: '16px 0px 16px 32px',
-    textOverflow: period === 'Monthly' ? 'ellipsis' : 'revert',
-    ...(period === 'Monthly' && {
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-    }),
-    ...(period === 'Annually' && {
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-    }),
-  },
+    [lightTheme.breakpoints.up('desktop_1440')]: {
+      width: period === 'Quarterly' ? 261 : period === 'Annually' ? 200 : 188,
+      padding: '16px 0px 16px 32px',
+      textOverflow: period === 'Monthly' ? 'ellipsis' : 'revert',
+      ...(period === 'Monthly' && {
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+      }),
+      ...(period === 'Annually' && {
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+      }),
+    },
 
-  [lightTheme.breakpoints.up('desktop_1920')]: {
-    width: period === 'Annually' ? 212 : 230,
-    padding: period === 'Quarterly' ? '16px 0px 16px 16px' : '16px 0px 16px 32px',
-  },
-}));
+    [lightTheme.breakpoints.up('desktop_1920')]: {
+      width: period === 'Annually' ? 212 : 230,
+      padding: period === 'Quarterly' ? '16px 0px 16px 16px' : '16px 0px 16px 32px',
+    },
+  })
+);
 
 const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false, isLight }) => ({
   '& th': {

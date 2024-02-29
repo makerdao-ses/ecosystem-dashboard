@@ -5,10 +5,23 @@ import React, { useEffect, useState } from 'react';
 import BudgetDoughnutChart from '../BudgetDoughnutChart/BudgetDoughnutChart';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TotalBudgetContent from '../TotalBudgetContent/TotalBudgetContent';
+import type { TotalBudgetContentProps } from '../TotalBudgetContent/TotalBudgetContent';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const BudgetStructureSection: React.FC = () => {
+interface BudgetCompositionProps extends TotalBudgetContentProps {
+  scopes: number;
+  immutable: number;
+  legacy: number;
+}
+
+const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
+  scopes,
+  immutable,
+  legacy,
+  totalBudgetCap,
+  ...totalBudgetProps
+}) => {
   const { isLight } = useThemeContext();
 
   // avoid chart mounting flicker
@@ -19,25 +32,25 @@ const BudgetStructureSection: React.FC = () => {
 
   const doughnutSeriesData: DoughnutSeries[] = [
     {
-      name: 'End-game Alignment Scope Budgets',
-      value: 22000000,
-      percent: 82,
+      name: 'Scope Frameworks Budget',
+      value: scopes,
+      percent: (scopes * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
       color: '#D2D4EF',
     },
     {
-      name: 'End-game Atlas Immutable AA Budgets',
-      value: 12000000,
-      percent: 12,
+      name: 'Atlas Immutable Budget',
+      value: immutable,
+      percent: (immutable * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
       color: '#447AFB',
     },
     {
       name: 'MakerDAO Legacy Budgets',
-      value: 9000000,
-      percent: 8,
+      value: legacy,
+      percent: (legacy * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
       color: '#1AAB9B',
@@ -52,7 +65,7 @@ const BudgetStructureSection: React.FC = () => {
       />
 
       <Card isLight={isLight}>
-        <TotalBudgetContent />
+        <TotalBudgetContent totalBudgetCap={totalBudgetCap} {...totalBudgetProps} />
         <BudgetComposition isLight={isLight}>
           <BudgetCompositionTitle isLight={isLight}>Composition of Budget</BudgetCompositionTitle>
           {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
