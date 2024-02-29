@@ -660,9 +660,6 @@ const getBreakdownAnalytics = (
             case 'PaymentsOnChain':
               budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
               break;
-            case 'PaymentsOffChainIncluded':
-              budgetMetric.paymentsOffChainIncluded = setMetric(row.value, row.unit);
-              break;
             case 'ProtocolNetOutflow':
               budgetMetric.protocolNetOutflow = setMetric(row.value, row.unit);
               break;
@@ -836,9 +833,6 @@ export const getCorrectMetric = (budgetMetric: BudgetMetric, selectedMetric: Ana
       break;
     case 'PaymentsOnChain':
       metricKey = 'paymentsOnChain';
-      break;
-    case 'PaymentsOffChainIncluded':
-      metricKey = 'paymentsOffChainIncluded';
       break;
     case 'ProtocolNetOutflow':
       metricKey = 'protocolNetOutflow';

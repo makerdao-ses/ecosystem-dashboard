@@ -58,11 +58,10 @@ export interface MomentDataItem extends Team {
 
 export interface MetricValues {
   Budget: number;
-  Actuals: number;
   Forecast: number;
-  PaymentsOnChain: number;
-  PaymentsOffChainIncluded: number;
   ProtocolNetOutflow: number;
+  PaymentsOnChain: number;
+  Actuals: number;
 }
 
 export interface ValueSeriesBreakdownChart {
