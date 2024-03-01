@@ -257,7 +257,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
         </ContainerDaiIcon>
       </ContainerChart>
       {showSwiper ? (
-        <SwiperWrapper isCoreThirdLevel={isCoreThirdLevel}>
+        <SwiperWrapper isCoreThirdLevel={isCoreThirdLevel} numberSliderPerLevel={numberSliderPerLevel}>
           <Swiper
             direction="horizontal"
             ref={ref}
@@ -334,10 +334,12 @@ const ContainerChart = styled.div({
   position: 'relative',
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 138,
+    minWidth: 138,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     width: 138,
+    minWidth: 138,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     width: 210,
@@ -361,50 +363,69 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
   })
 );
 
-const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
-  display: 'none',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: isCoreThirdLevel ? 10 : 16,
-    display: 'flex',
-    position: 'relative',
-    width: 200,
-    height: isCoreThirdLevel ? 'calc(100% + 8px)' : 'calc(100% - 16px)',
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: isCoreThirdLevel ? 10 : 16,
-    display: 'flex',
-    height: isCoreThirdLevel ? 'calc(100% + 8px)' : 'calc(100% - 16px)',
+const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLevel: number }>(
+  ({ isCoreThirdLevel, numberSliderPerLevel }) => ({
+    display: 'none',
 
-    width: 250,
-    minWidth: 250,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: !isCoreThirdLevel ? 10 : 10,
-    display: 'flex',
-    position: 'relative',
-    height: 'calc(100% - 8px)',
-  },
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      marginTop: isCoreThirdLevel ? 10 : 16,
+      display: 'flex',
+      position: 'relative',
+      width: 200,
+      height: numberSliderPerLevel === 5 ? 'calc(100% + 8px)' : 'calc(100% - 4px)',
+    },
 
-  '& .swiper-pagination-horizontal': {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  '& .swiper-pagination-bullet': {
-    width: 8,
-    height: 8,
-    borderRadius: 1,
-    '&:first-child': {
-      borderRadius: '6px 1px 1px 6px',
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      marginTop: isCoreThirdLevel ? 10 : 16,
+      display: 'flex',
+      height: isCoreThirdLevel ? 'calc(100% + 8px)' : 'calc(100% - 16px)',
+      width: 250,
+      minWidth: 250,
     },
-    '&:last-child': {
-      borderRadius: '1px 6px 6px 1px',
+
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      marginTop: !isCoreThirdLevel ? 10 : 10,
+      display: 'flex',
+      position: 'relative',
+      height: 'calc(100% - 8px)',
+      ...(numberSliderPerLevel === 10 && {
+        minWidth: 340,
+        height: 'calc(100% + 8px)',
+      }),
     },
-  },
-  '& .swiper-pagination-bullet-active': {
-    backgroundColor: '#2DC1B1 !important',
-  },
-}));
+
+    [lightTheme.breakpoints.up('desktop_1440')]: {
+      marginTop: !isCoreThirdLevel ? 10 : 10,
+      display: 'flex',
+      position: 'relative',
+      height: 'calc(100% - 8px)',
+      ...(numberSliderPerLevel === 10 && {
+        minWidth: 440,
+        height: 'calc(100% + 8px)',
+      }),
+    },
+
+    '& .swiper-pagination-horizontal': {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    '& .swiper-pagination-bullet': {
+      width: 8,
+      height: 8,
+      borderRadius: 1,
+      '&:first-child': {
+        borderRadius: '6px 1px 1px 6px',
+      },
+      '&:last-child': {
+        borderRadius: '1px 6px 6px 1px',
+      },
+    },
+    '& .swiper-pagination-bullet-active': {
+      backgroundColor: '#2DC1B1 !important',
+    },
+  })
+);
 
 const ContainerDaiIcon = styled.div({
   width: 64,

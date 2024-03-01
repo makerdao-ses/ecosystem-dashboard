@@ -203,11 +203,25 @@ export const useCardChartOverview = (
       originalColor: isLight ? colorsLight[index] : colorsDark[index],
     };
   });
-  const changeAlignment = doughnutSeriesData.length > 4;
+
+  const numberItems = doughnutSeriesData.length;
+  const changeAlignment = numberItems > 4;
 
   const showSwiper =
-    !!((isTable || isDesk1024) && doughnutSeriesData.length >= 4) || (isDesk1280 && doughnutSeriesData.length >= 10);
-  const numberSliderPerLevel = (isTable || isDesk1024) && levelNumber < 3 ? 3 : 5;
+    (isTable && numberItems >= 4) || (isDesk1024 && numberItems >= 4) || (isDesk1280 && numberItems >= 10);
+  const numberSliderPerLevel = isTable
+    ? numberItems >= 10
+      ? 5
+      : 3
+    : isDesk1024
+    ? numberItems >= 4 && numberItems < 10
+      ? 3
+      : 5
+    : isDesk1280
+    ? numberItems >= 10
+      ? 10
+      : 5
+    : 5;
 
   return {
     actuals: isHasSubLevels ? metric.actuals : budgetWithNotChildren.actuals,
