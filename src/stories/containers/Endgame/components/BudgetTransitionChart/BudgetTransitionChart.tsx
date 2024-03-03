@@ -62,6 +62,14 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
     };
   }, [data, isMobile, selected]);
 
+  const years = useMemo(
+    () =>
+      Object.keys(data)
+        .filter((period) => period.endsWith('Q1'))
+        .map((period) => period.substring(0, 4)),
+    [data]
+  );
+
   const options: EChartsOption = {
     grid: {
       height: isMobile ? 222 : isTablet ? 312 : isDesktop1024 ? 392 : 392,
@@ -184,11 +192,12 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
           }}
           opts={{ renderer: 'svg' }}
         />
-        <YearsContainer>
-          <Year isLight={isLight}>2021</Year>
-          <Year isLight={isLight}>2022</Year>
-          <Year isLight={isLight}>2023</Year>
-          <Year isLight={isLight}>2024</Year>
+        <YearsContainer barsAmount={Object.keys(data).length}>
+          {years.map((year) => (
+            <Year isLight={isLight} key={year}>
+              {year}
+            </Year>
+          ))}
         </YearsContainer>
       </ChartContainer>
       <LegendContainer>
@@ -237,18 +246,18 @@ const ChartContainer = styled.div({
   },
 });
 
-const YearsContainer = styled.div({
+const YearsContainer = styled.div<{ barsAmount: number }>(({ barsAmount }) => ({
   position: 'absolute',
   display: 'flex',
   flexDirection: 'row',
-  gap: 40,
+  gap: (281 / barsAmount) * 4 - 30,
   bottom: -20,
   left: 45,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
-});
+}));
 
 const Year = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#139D8D' : '#2DC1B1',
