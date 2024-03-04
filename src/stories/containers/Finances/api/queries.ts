@@ -55,9 +55,16 @@ export const fetchAnalytics = async (
       }
     }
   `;
+  let initialYear, endYear;
 
-  let initialYear = `${(Array.isArray(year) ? year[0] : year).toString()}-01-01`;
-  let endYear = `${(Array.isArray(year) ? year[1] : Number(initialYear) + 1).toString()}-01-01`;
+  if (Array.isArray(year)) {
+    initialYear = `${year[0]}-01-01`;
+    endYear = `${year[1]}-01-01`;
+  } else {
+    initialYear = `${year}-01-01`;
+    endYear = `${Number(year) + 1}-01-01`;
+  }
+
   if (Array.isArray(year) && typeof year[0] === 'string') {
     initialYear = year[0];
     endYear = year[1].toString();
