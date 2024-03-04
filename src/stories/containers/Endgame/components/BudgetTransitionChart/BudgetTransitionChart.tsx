@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useMemo } from 'react';
 import type { BudgetTransitionPlainData, SeriesData, TransitionStatusDataShown } from '../../types';
+import type { BarChartSeries } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 
@@ -62,7 +64,66 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
     };
   }, [data, isMobile, selected]);
 
+  const years = useMemo(
+    () =>
+      Object.keys(data)
+        .filter((period) => period.endsWith('Q1'))
+        .map((period) => period.substring(0, 4)),
+    [data]
+  );
+
   const options: EChartsOption = {
+    tooltip: {
+      show: !isMobile,
+      trigger: 'axis',
+
+      axisPointer: {
+        type: 'shadow',
+        shadowStyle: {
+          color: isLight ? '#D4D9E1' : '#231536',
+          opacity: 0.15,
+        },
+      },
+      padding: 0,
+      borderWidth: 1,
+      borderColor: isLight ? '#D4D9E1' : '#231536',
+      formatter: function (params: BarChartSeries[]) {
+        const shortAmount = params.length > 10;
+        const flexDirection = shortAmount ? 'row' : 'column';
+        const gap = shortAmount ? '16px' : '12px';
+
+        return `
+          <div style="background-color:${
+            isLight ? '#fff' : '#000A13'
+          };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
+            <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${params?.[0]?.name}</div>
+            <div style="display:flex;flex-direction:${flexDirection};gap:${gap};min-width:194px;max-width:450px;flex-wrap:wrap;">
+              ${params
+                .reverse()
+                .map(
+                  (item) =>
+                    `<div style="display: flex;align-items:center;gap: 6px">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="${isMobile ? 13 : 16}" height="${
+                      isMobile ? 13 : 16
+                    }" viewBox="0 0 13 13" fill="none">
+                    <circle cx="6.5" cy="6.5" r="4" fill="${item.color}" />
+                  </svg>
+                  <span style="font-size:14px;color:${
+                    isLight ? '#231536' : '#B6BCC2'
+                  };max-width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"> ${
+                      item.seriesName
+                    }:</span>
+                  <span style="font-size:16px;font-weight:700;color:${
+                    isLight ? '#231536' : '#EDEFFF'
+                  };">${usLocalizedNumber(item.value, 2)}</span>
+                </div>`
+                )
+                .join('')}
+            </div>
+          </div>
+          `;
+      },
+    },
     grid: {
       height: isMobile ? 222 : isTablet ? 312 : isDesktop1024 ? 392 : 392,
       width: isMobile ? 273 : isTablet ? 588 : isDesktop1024 ? 765 : 960,
@@ -184,11 +245,12 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
           }}
           opts={{ renderer: 'svg' }}
         />
-        <YearsContainer>
-          <Year isLight={isLight}>2021</Year>
-          <Year isLight={isLight}>2022</Year>
-          <Year isLight={isLight}>2023</Year>
-          <Year isLight={isLight}>2024</Year>
+        <YearsContainer barsAmount={Object.keys(data).length}>
+          {years.map((year) => (
+            <Year isLight={isLight} key={year}>
+              {year}
+            </Year>
+          ))}
         </YearsContainer>
       </ChartContainer>
       <LegendContainer>
@@ -237,18 +299,18 @@ const ChartContainer = styled.div({
   },
 });
 
-const YearsContainer = styled.div({
+const YearsContainer = styled.div<{ barsAmount: number }>(({ barsAmount }) => ({
   position: 'absolute',
   display: 'flex',
   flexDirection: 'row',
-  gap: 40,
+  gap: (281 / barsAmount) * 4 - 30,
   bottom: -20,
   left: 45,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
-});
+}));
 
 const Year = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#139D8D' : '#2DC1B1',

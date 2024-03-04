@@ -107,7 +107,7 @@ export const builderWaterfallSeries = (
         rich: {
           colorful: {
             color: isLight ? '#83A7FF' : '#447AFB',
-            fontSize: isMobile ? 7 : 12,
+            fontSize: isMobile ? 8 : 12,
             fontFamily: 'Inter, sans-serif',
           },
           hidden: {

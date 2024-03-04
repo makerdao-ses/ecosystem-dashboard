@@ -21,7 +21,6 @@ export interface FeatureFlagsInterface {
   FEATURE_ENDGAME_NAVIGATION_SECTION: boolean; // disable navigation section in the endgame page
   FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION: boolean; // disable the budget structure section in the endgame page
   FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION: boolean; // disable the budget transition section in the endgame page
-  FEATURE_FINANCES_ENDGAME_BANNER_SECTION: boolean; // disable Banner section in Finances page (Endgame section)
   FEATURE_FINANCES_BREAKDOWN_CHART_SECTION: boolean; // disable ChartBreakDow section in Finances
   FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION: boolean; // disable MakerDAOExpenseMetrics section in Finances
   FEATURE_TEAM_PROJECTS: boolean; // disable Team Projects page and related features

@@ -53,7 +53,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
               )}?year=${year}&period=${period}${metrics.map((metric) => `&metric=${metric}`).join('')}#breakdown-table`;
 
               return (
-                <TableRow key={index} isLight={isLight} isMain={row.isMain}>
+                <TableRow key={index} isLight={isLight} isMain={row.isMain} isAnnual={showAnnual}>
                   <Headed isLight={isLight} period={period} isHeader={!!row.isMain}>
                     {row.isSummaryRow ? (
                       row.name
@@ -205,26 +205,32 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter; isHea
   })
 );
 
-const TableRow = styled.tr<WithIsLight & { isMain?: boolean }>(({ isMain = false, isLight }) => ({
-  '& th': {
-    borderTopLeftRadius: isMain ? 6 : 0,
-    borderBottomLeftRadius: isMain ? 6 : 0,
-    fontWeight: isMain ? 700 : 400,
-    textAlign: 'left',
-  },
+const TableRow = styled.tr<WithIsLight & { isMain?: boolean; isAnnual?: boolean }>(
+  ({ isMain = false, isLight, isAnnual = false }) => ({
+    '& th': {
+      borderTopLeftRadius: isMain ? 6 : 0,
+      borderBottomLeftRadius: isMain ? 6 : 0,
+      fontWeight: isMain ? 700 : 400,
+      textAlign: 'left',
+    },
 
-  '& td:last-of-type': {
-    backgroundColor: isLight ? (isMain ? 'rgba(159, 175, 185, 0.17)' : 'inherit') : isMain ? '#2D3C48;' : 'inherit',
-    fontWeight: isMain ? 600 : 400,
-    borderRight: 'none',
-    borderTopRightRadius: isMain ? 6 : 0,
-    borderBottomRightRadius: isMain ? 6 : 0,
-  },
+    '& td:last-of-type': {
+      fontWeight: isMain ? 600 : 400,
+      borderRight: 'none',
+      borderTopRightRadius: isMain ? 6 : 0,
+      borderBottomRightRadius: isMain ? 6 : 0,
+    },
 
-  '& td': {
-    fontWeight: isMain ? 600 : 400,
-  },
-}));
+    '& td': {
+      fontWeight: isMain ? 600 : 400,
+    },
+    ...(!isAnnual && {
+      '& td:last-of-type': {
+        backgroundColor: isLight ? (isMain ? 'rgba(159, 175, 185, 0.17)' : 'inherit') : isMain ? '#2D3C48;' : 'inherit',
+      },
+    }),
+  })
+);
 
 const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
   '& tr:nth-of-type(odd):not(:first-child)': {

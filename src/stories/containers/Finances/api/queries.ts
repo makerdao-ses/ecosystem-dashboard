@@ -30,7 +30,7 @@ export const fetchBudgets = async (): Promise<Budget[]> => {
 
 export const fetchAnalytics = async (
   granularity: AnalyticGranularity,
-  year: string | [number, number],
+  year: string | [number, number] | [string, string],
   select: string,
   lod: number
 ): Promise<Analytic> => {
@@ -55,14 +55,25 @@ export const fetchAnalytics = async (
       }
     }
   `;
+  let initialYear, endYear;
 
-  const initialYear = Array.isArray(year) ? year[0] : year;
-  const endYear = Array.isArray(year) ? year[1] : Number(initialYear) + 1;
+  if (Array.isArray(year)) {
+    initialYear = `${year[0]}-01-01`;
+    endYear = `${year[1]}-01-01`;
+  } else {
+    initialYear = `${year}-01-01`;
+    endYear = `${Number(year) + 1}-01-01`;
+  }
+
+  if (Array.isArray(year) && typeof year[0] === 'string') {
+    initialYear = year[0];
+    endYear = year[1].toString();
+  }
   const filter: AnalyticFilter = {
     filter: {
       granularity,
-      start: `${initialYear}-01-01`,
-      end: `${Number(endYear)}-01-01`,
+      start: initialYear,
+      end: endYear,
       metrics: ['Actuals', 'Budget', 'Forecast', 'PaymentsOnChain', 'ProtocolNetOutflow'],
       currency: 'DAI',
       dimensions: [
