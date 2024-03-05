@@ -174,7 +174,7 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
                 <MenuList autoFocusItem={open} id={menuListId} aria-labelledby={inputId} onKeyDown={handleListKeyDown}>
                   <SimpleBar
                     style={{
-                      maxHeight: 175,
+                      maxHeight: 178,
                     }}
                     className="filter-popup-scroll"
                   >
