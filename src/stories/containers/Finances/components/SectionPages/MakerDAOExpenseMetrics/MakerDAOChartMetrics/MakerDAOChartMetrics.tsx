@@ -196,24 +196,24 @@ const ChartContainer = styled.div({
   width: '100%',
 
   maxWidth: 343,
-  height: 347,
+  height: 319,
   marginLeft: 'auto',
   marginRight: 'auto',
   marginTop: -4,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     maxWidth: 756,
-    height: 510,
+    height: 560,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     maxWidth: 848,
-    height: 508,
+    height: 521,
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: 1028,
-    height: 508,
+    height: 521,
   },
 });
 
@@ -222,7 +222,7 @@ const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
 
   return {
     position: 'absolute',
-    bottom: 107,
+    bottom: 80,
     left: 40,
     right: 5,
     height: 11,
@@ -255,7 +255,7 @@ const LegendContainer = styled.div({
   flex: 1,
   gap: 24,
   position: 'absolute',
-  bottom: 28,
+  bottom: 0,
   rowGap: 14,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -263,27 +263,28 @@ const LegendContainer = styled.div({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 42,
-    bottom: -50,
     rowGap: 16,
   },
+
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: -6,
     gap: 40,
     minWidth: 940,
-    bottom: -12,
     justifyContent: 'center',
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 65,
     marginLeft: -46,
     width: '100%',
-    bottom: -14,
     minWidth: 'revert',
   },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 65,
     marginLeft: 2,
   },
+
   [lightTheme.breakpoints.up('desktop_1920')]: {
     marginLeft: -45,
   },
