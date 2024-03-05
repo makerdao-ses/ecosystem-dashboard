@@ -147,12 +147,15 @@ const Container = styled('div')(({ theme }) => ({
   height: 275,
   marginLeft: 'auto',
   marginRight: 'auto',
+  marginBottom: 32,
+
   [theme.breakpoints.up('tablet_768')]: {
-    height: 446,
+    height: 485,
     paddingLeft: 'revert',
     paddingRight: 'revert',
     maxWidth: 700,
     width: 704,
+    marginBottom: 0,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
