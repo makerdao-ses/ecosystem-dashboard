@@ -635,10 +635,54 @@ const getBreakdownAnalytics = (
 ): BreakdownBudgetAnalytic => {
   const budgetsAnalytics: BreakdownBudgetAnalytic = {};
 
+  // If there are no budgets and no analytics
+  if (!budgets.length && (!analytics || !analytics.series?.length)) {
+    Object.keys(budgetsAnalytics).forEach((key) => {
+      budgetsAnalytics[key as keyof typeof budgetsAnalytics] = Array(
+        granularity === 'monthly' ? 12 : granularity === 'quarterly' ? 4 : 1
+      ).fill(0);
+    });
+    return budgetsAnalytics;
+  }
+
+  // If there are analytics but no budgets
+  if (!budgets.length && analytics) {
+    analytics.series.forEach((item) => {
+      item.rows.forEach((row) => {
+        const analyticsArray = getArrayAnalytic(granularity);
+        const codePath = row.dimensions[0].path;
+        budgetsAnalytics[codePath] = budgetsAnalytics[codePath] || analyticsArray;
+
+        const index = analytics.series.indexOf(item);
+        const budgetMetric = budgetsAnalytics[codePath][index] || newBudgetMetric();
+
+        switch (row.metric) {
+          case 'Actuals':
+            budgetMetric.actuals = setMetric(row.value, row.unit);
+            break;
+          case 'Forecast':
+            budgetMetric.forecast = setMetric(row.value, row.unit);
+            break;
+          case 'Budget':
+            budgetMetric.budget = setMetric(row.value, row.unit);
+            break;
+          case 'PaymentsOnChain':
+            budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
+            break;
+          case 'ProtocolNetOutflow':
+            budgetMetric.protocolNetOutflow = setMetric(row.value, row.unit);
+            break;
+        }
+
+        budgetsAnalytics[codePath][index] = budgetMetric;
+      });
+    });
+  }
+
+  // If there are budgets
   budgets.forEach((budget) => {
     const analyticsArray = getArrayAnalytic(granularity);
-
-    budgetsAnalytics[`${budget.codePath}`] = analyticsArray;
+    budgetsAnalytics[budget.codePath] = analyticsArray;
 
     analytics.series.forEach((seriesItem, index) => {
       const budgetMetric = budgetsAnalytics[budget.codePath][index] || newBudgetMetric();
