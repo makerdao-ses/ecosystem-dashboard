@@ -25,14 +25,13 @@ export const threeDigitsPrecisionHumanization = (num = 0, isHasAbsoluteValue = f
 };
 
 export const usLocalizedNumber = (num: number, decimalPlace = 0): string => {
-  num = num === 0 ? 0 : num; // avoid "-0"
-
   const value = num?.toLocaleString('en-US', {
     currency: 'USD',
     currencyDisplay: 'symbol',
     minimumFractionDigits: decimalPlace,
     maximumFractionDigits: decimalPlace,
   });
+
   return value === '-0' ? '0' : value;
 };
 
