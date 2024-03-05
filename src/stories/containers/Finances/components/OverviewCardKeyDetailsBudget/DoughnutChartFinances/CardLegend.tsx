@@ -140,8 +140,7 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
-    maxHeight: 210,
-
+    maxHeight: 180,
     overflow: 'hidden',
     ...(changeAlignment && {
       flex: 1,
