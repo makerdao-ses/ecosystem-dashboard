@@ -13,7 +13,7 @@ import type {
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { EChartsOption } from 'echarts-for-react';
 
-const useBreakdownChart = (budgets: Budget[], year: string, codePath: string) => {
+const useBreakdownChart = (budgets: Budget[], year: string, codePath: string, allBudgets: Budget[]) => {
   const { isLight } = useThemeContext();
   const [selectedMetric, setSelectedMetric] = useState<AnalyticMetric>('Budget');
   const refBreakDownChart = useRef<EChartsOption | null>(null);
@@ -66,8 +66,9 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string) =>
   );
 
   const seriesWithoutBorder = useMemo(
-    () => parseAnalyticsToSeriesBreakDownChart(budgetsAnalytics, budgets, isLight, barWidth, selectedMetric),
-    [barWidth, budgets, budgetsAnalytics, isLight, selectedMetric]
+    () =>
+      parseAnalyticsToSeriesBreakDownChart(budgetsAnalytics, budgets, isLight, barWidth, selectedMetric, allBudgets),
+    [allBudgets, barWidth, budgets, budgetsAnalytics, isLight, selectedMetric]
   );
 
   const allSeries = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);

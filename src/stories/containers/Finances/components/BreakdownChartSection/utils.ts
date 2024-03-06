@@ -1,4 +1,5 @@
 import { existingColors, existingColorsDark, generateColorPalette, getCorrectMetric } from '../../utils/utils';
+import { removePatternAfterSlash } from '../SectionPages/BreakdownTable/utils';
 import type { BreakdownChartSeriesData } from '../../utils/types';
 import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -8,7 +9,8 @@ export const parseAnalyticsToSeriesBreakDownChart = (
   budgets: Budget[],
   isLight: boolean,
   barWidth: number,
-  metric: AnalyticMetric
+  metric: AnalyticMetric,
+  allBudgets: Budget[]
 ) => {
   const colorsLight = generateColorPalette(
     existingColors.length,
@@ -22,9 +24,11 @@ export const parseAnalyticsToSeriesBreakDownChart = (
 
   if (budgetsAnalytics) {
     const budgetKeys = Object.keys(budgetsAnalytics);
-
     budgetKeys.forEach((budgetKey, index) => {
-      const nameBudget = budgets.find((budget) => budget.codePath === budgetKey)?.name;
+      const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
+      const nameBudget = searchCorrectBudget.find(
+        (budget) => budget.codePath === removePatternAfterSlash(budgetKey)
+      )?.name;
       const budgetData = budgetsAnalytics[budgetKey];
       if (Array.isArray(budgetData)) {
         const dataForSeries = budgetData.map((budgetMetric) => getCorrectMetric(budgetMetric, metric));

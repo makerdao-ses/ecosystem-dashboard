@@ -10,6 +10,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useState } from 'react';
+import { removePatternAfterSlash } from '../BreakdownTable/utils';
 import { getCorrectMetricValuesOverViewChart } from './utils';
 import type { BudgetMetricWithName, DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -141,7 +142,10 @@ export const useCardChartOverview = (
   if (budgetsAnalytics !== undefined) {
     for (const budgetMetricKey of Object.keys(budgetsAnalytics)) {
       const budgetMetric = budgetsAnalytics[budgetMetricKey];
-      const correspondingBudget = budgets.find((budget) => budget.codePath === budgetMetricKey);
+      const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
+      const correspondingBudget = searchCorrectBudget.find(
+        (budget) => budget.codePath === removePatternAfterSlash(budgetMetricKey)
+      );
       // use the name of budget or add label
       const budgetName = correspondingBudget ? formatBudgetName(correspondingBudget.name) : 'There is not name';
       const budgetCode = correspondingBudget?.code || 'No-code';
