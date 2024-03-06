@@ -143,7 +143,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const cardsToShow = loadMoreCards && isMobile ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // All the logic required by the breakdown chart section
-  const breakdownChartSectionData = useBreakdownChart(budgets, year, codePath);
+  const breakdownChartSectionData = useBreakdownChart(budgets, year, codePath, allBudgets);
 
   // All the logic required by the BreakdownTable section
   const breakdownTable = useBreakdownTable(year, budgets, allBudgets);
