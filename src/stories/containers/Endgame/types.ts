@@ -1,4 +1,4 @@
-export type TransitionStatusDataShown = 'Actuals' | 'Budget';
+export type TransitionStatusDataShown = 'PaymentsOnChain' | 'Budget';
 
 export interface BudgetTransitionPlainData {
   [period: string]: {

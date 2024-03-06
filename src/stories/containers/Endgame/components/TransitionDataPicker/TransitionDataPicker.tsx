@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import type { TransitionStatusDataShown } from '../../types';
+import type { Theme } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface TransitionDataPickerProps {
@@ -12,15 +14,16 @@ export interface TransitionDataPickerProps {
 
 const TransitionDataPicker: React.FC<TransitionDataPickerProps> = ({ selected, handleChange }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
     <Content>
       <DataButton
         allowsHover={false}
         isLight={isLight}
-        onClick={() => handleChange('Actuals')}
-        selected={selected === 'Actuals'}
-        label={'Actuals'}
+        onClick={() => handleChange('PaymentsOnChain')}
+        selected={selected === 'PaymentsOnChain'}
+        label={isMobile ? 'Net On-chain' : 'Net Expenses On-chain'}
       />
       <DataButton
         allowsHover={false}
