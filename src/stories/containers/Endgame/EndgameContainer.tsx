@@ -17,11 +17,12 @@ import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface EndgameContainerProps {
-  budgetStructureAnalytics: Analytic;
   budgetTransitionAnalytics: Analytic;
+  yearsRange: string[];
+  initialYear: string;
 }
 
-const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnalytics, budgetTransitionAnalytics }) => {
+const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
   const {
     isLight,
     isEnabled,
@@ -33,8 +34,11 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnal
     transitionDataSelected,
     handleTransitionDateSelectedChange,
     budgetStructureData,
+    isLoadingBudgetStructure,
+    selectedYear,
+    handleYearChange,
     transitionStatusData,
-  } = useEndgameContainer(budgetStructureAnalytics, budgetTransitionAnalytics);
+  } = useEndgameContainer(budgetTransitionAnalytics, yearsRange, initialYear);
 
   return (
     <EndgamePageContainer isLight={isLight}>
@@ -75,6 +79,10 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetStructureAnal
                 scopes={budgetStructureData.scopes.budget}
                 immutable={budgetStructureData.immutable.budget}
                 legacy={budgetStructureData.legacy.budget}
+                isLoading={isLoadingBudgetStructure}
+                yearsRange={yearsRange}
+                selectedYear={selectedYear}
+                handleYearChange={handleYearChange}
               />
             </div>
           )}

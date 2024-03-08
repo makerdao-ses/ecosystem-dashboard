@@ -97,7 +97,9 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
     const defaultProps = {
       square: true,
       elevation: 0,
-      sx: { width: '200px' },
+      sx: {
+        width: '200px',
+      },
     } as PaperProps;
 
     return merge(defaultProps, PaperProps ?? {});
@@ -160,7 +162,7 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
           <StyledSelectChevronDown isOpen={open} fill={isLight ? '#231436' : '#E2D8EE'} />
         </ChevronContainer>
       </SelectBtn>
-      <Popper open={open} anchorEl={anchorRef.current} {...popperProps}>
+      <Popper open={open} anchorEl={anchorRef.current} style={{ zIndex: 1 }} {...popperProps}>
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}

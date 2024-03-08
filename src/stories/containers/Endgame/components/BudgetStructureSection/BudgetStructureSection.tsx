@@ -13,6 +13,10 @@ interface BudgetCompositionProps extends TotalBudgetContentProps {
   scopes: number;
   immutable: number;
   legacy: number;
+  isLoading: boolean;
+  yearsRange: string[];
+  selectedYear: string;
+  handleYearChange: (year: string) => void;
 }
 
 const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
@@ -20,6 +24,10 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
   immutable,
   legacy,
   totalBudgetCap,
+  isLoading,
+  yearsRange,
+  selectedYear,
+  handleYearChange,
   ...totalBudgetProps
 }) => {
   const { isLight } = useThemeContext();
@@ -62,15 +70,22 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       <SectionHeader
         title="Endgame Budget Structure"
         subtitle="Some simple but poignant text about what endgame budgets are about"
+        yearsRange={yearsRange}
+        selectedYear={selectedYear}
+        handleYearChange={handleYearChange}
       />
 
-      <Card isLight={isLight}>
-        <TotalBudgetContent totalBudgetCap={totalBudgetCap} {...totalBudgetProps} />
-        <BudgetComposition isLight={isLight}>
-          <BudgetCompositionTitle isLight={isLight}>Composition of Budget</BudgetCompositionTitle>
-          {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
-        </BudgetComposition>
-      </Card>
+      {isLoading ? (
+        'loading...'
+      ) : (
+        <Card isLight={isLight}>
+          <TotalBudgetContent totalBudgetCap={totalBudgetCap} {...totalBudgetProps} />
+          <BudgetComposition isLight={isLight}>
+            <BudgetCompositionTitle isLight={isLight}>Composition of Budget</BudgetCompositionTitle>
+            {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
+          </BudgetComposition>
+        </Card>
+      )}
     </Content>
   );
 };

@@ -1,33 +1,50 @@
 import EndgameContainer from '@ses/containers/Endgame/EndgameContainer';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
+import { getYearsRange } from '@ses/containers/Finances/utils/utils';
 import { DateTime } from 'luxon';
 import React from 'react';
+// eslint-disable-next-line camelcase
+import { SWRConfig, unstable_serialize } from 'swr';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
 
 interface EndgamePageProps {
-  budgetStructureAnalytics: Analytic;
   budgetTransitionAnalytics: Analytic;
+  yearsRange: string[];
+  initialYear: string;
+  fallback: Analytic;
 }
 
-const EndgamePage: React.FC<EndgamePageProps> = ({ budgetStructureAnalytics, budgetTransitionAnalytics }) => (
-  <EndgameContainer
-    budgetStructureAnalytics={budgetStructureAnalytics}
-    budgetTransitionAnalytics={budgetTransitionAnalytics}
-  />
+const EndgamePage: React.FC<EndgamePageProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear, fallback }) => (
+  <SWRConfig value={{ fallback }}>
+    <EndgameContainer
+      budgetTransitionAnalytics={budgetTransitionAnalytics}
+      yearsRange={yearsRange}
+      initialYear={initialYear}
+    />
+  </SWRConfig>
 );
 
 export default EndgamePage;
 
 export async function getServerSideProps() {
+  const now = DateTime.utc();
+  // if it is the first quarter of the year, we need to select the previous year
+  const initialYear = (now.month / 3 >= 2 ? now.year : now.year - 1).toString();
+  const yearsRange = getYearsRange();
+
   const [budgetStructureAnalytics, budgetTransitionAnalytics] = await Promise.all([
-    fetchAnalytics('total', [2021, 2025], 'atlas', 2),
+    fetchAnalytics('total', initialYear, 'atlas', 2),
     fetchAnalytics('quarterly', ['2021-01-01', DateTime.now().toFormat('yyyy-LL-dd')], 'atlas', 2),
   ]);
 
   return {
     props: {
-      budgetStructureAnalytics,
       budgetTransitionAnalytics,
+      yearsRange,
+      initialYear,
+      fallback: {
+        [unstable_serialize(['total', initialYear, 'atlas', 2])]: budgetStructureAnalytics,
+      },
     },
   };
 }
