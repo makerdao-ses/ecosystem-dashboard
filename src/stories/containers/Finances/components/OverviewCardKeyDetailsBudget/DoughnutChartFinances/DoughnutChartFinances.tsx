@@ -288,11 +288,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
           </Swiper>
         </SwiperWrapper>
       ) : (
-        <ContainerLegend
-          isCoreThirdLevel={isCoreThirdLevel}
-          changeAlignment={changeAlignment}
-          numberSlider={numberSlider}
-        >
+        <ContainerLegendNotSwiper isCoreThirdLevel={isCoreThirdLevel} numberSlider={numberSlider}>
           {
             <CardLegend
               changeAlignment={changeAlignment}
@@ -303,7 +299,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
               isCoreThirdLevel={isCoreThirdLevel}
             />
           }
-        </ContainerLegend>
+        </ContainerLegendNotSwiper>
       )}
     </Container>
   );
@@ -314,7 +310,6 @@ const Container = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel 
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
-
   gap: 64,
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 20,
@@ -354,6 +349,23 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
+    gap: isCoreThirdLevel ? 16 : 14,
+    maxWidth: '100%',
+    position: 'relative',
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      gap: 16,
+    },
+  })
+);
+
+const ContainerLegendNotSwiper = styled.div<{ isCoreThirdLevel: boolean; numberSlider: number }>(
+  ({ isCoreThirdLevel, numberSlider }) => ({
+    display: 'flex',
+    flex: isCoreThirdLevel && numberSlider >= 2 ? 1 : 'none',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
     position: 'relative',
