@@ -288,7 +288,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
           </Swiper>
         </SwiperWrapper>
       ) : (
-        <ContainerLegendNotSwiper isCoreThirdLevel={isCoreThirdLevel} numberSlider={numberSlider}>
+        <ContainerLegendNotSwiper isCoreThirdLevel={isCoreThirdLevel}>
           {
             <CardLegend
               changeAlignment={changeAlignment}
@@ -358,22 +358,19 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
   })
 );
 
-const ContainerLegendNotSwiper = styled.div<{ isCoreThirdLevel: boolean; numberSlider: number }>(
-  ({ isCoreThirdLevel, numberSlider }) => ({
-    display: 'flex',
-    flex: isCoreThirdLevel && numberSlider >= 2 ? 1 : 'none',
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: isCoreThirdLevel ? 16 : 14,
-    maxWidth: '100%',
-    position: 'relative',
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      gap: 16,
-    },
-  })
-);
+const ContainerLegendNotSwiper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: isCoreThirdLevel ? 16 : 14,
+  maxWidth: '100%',
+  position: 'relative',
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 16,
+  },
+}));
 
 const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLevel: number }>(
   ({ isCoreThirdLevel, numberSliderPerLevel }) => ({
