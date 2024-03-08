@@ -21,6 +21,10 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], allBudgets: Budget[], year: string) => {
+  const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
 
   const levelOfDetail = codePath.split('/').length + 1;
@@ -30,34 +34,19 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
     async () => fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
   );
 
-  const { summaryValues, totalToStart } = useMemo(
-    () => getAnalyticForWaterfall(budgets, selectedGranularity, analytics),
-    [budgets, analytics, selectedGranularity]
+  const { summaryValues, totalToStartEachBudget } = useMemo(
+    () => getAnalyticForWaterfall(budgets, selectedGranularity, analytics, allBudgets),
+    [budgets, selectedGranularity, analytics, allBudgets]
   );
+
   const selectAll = useMemo(() => Array.from(summaryValues.keys()), [summaryValues]);
 
-  const [activeElements, setActiveElements] = useState<string[]>(selectAll);
-  const { isLight } = useThemeContext();
+  const [activeElements, setActiveElements] = useState<string[]>([]);
 
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-
-  // This to catch some analitys that don't have budgets
-  const combinedElementsFromAnalytics = useMemo(() => {
-    const newElements = selectAll
-      .filter((selectAllPath) => !budgets.some((budget) => budget.codePath === selectAllPath))
-      .map((element) => ({
-        name: element,
-        codePath: element,
-        image: '',
-      }));
-
-    const combinedArray = [...budgets, ...newElements];
-    return combinedArray;
-  }, [budgets, selectAll]);
   useEffect(() => {
+    const selectAll = Array.from(summaryValues.keys());
     setActiveElements(selectAll);
-  }, [selectAll]);
+  }, [summaryValues]);
 
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -71,6 +60,21 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
     setActiveElements(activeElements);
     setSelectedGranularity(value);
   };
+
+  // This to catch some analitys that don't have budgets
+  const combinedElementsFromAnalytics = useMemo(() => {
+    const newElements = selectAll
+      .filter((selectAllPath) => !allBudgets.some((budget) => budget.codePath === selectAllPath))
+      .map((element) => ({
+        name: element,
+        codePath: element,
+        image: '',
+      }));
+
+    const combinedArray = [...budgets, ...newElements];
+    return combinedArray;
+  }, [allBudgets, budgets, selectAll]);
+
   const defaultTitle = 'MakerDAO Finances';
 
   const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
@@ -78,7 +82,7 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
 
   const valuesToShow = sumValuesFromMapKeys(summaryValues, activeElements, selectedGranularity);
 
-  const dataReady = processDataForWaterfall(valuesToShow, totalToStart);
+  const dataReady = processDataForWaterfall(valuesToShow, activeElements, totalToStartEachBudget);
 
   const series = builderWaterfallSeries(dataReady, isMobile, isTable, isLight);
 
