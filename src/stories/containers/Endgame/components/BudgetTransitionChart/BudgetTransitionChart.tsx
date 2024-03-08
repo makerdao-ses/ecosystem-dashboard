@@ -27,11 +27,11 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
 
   const { series, legendsLabels } = useMemo(() => {
     const legacySeries = {
-      name: `Legacy Maker Budget - ${selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}`,
+      name: `Legacy Budget - ${selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}`,
       data: [] as SeriesData[],
     };
     const endgameSeries = {
-      name: `All Endgame Budgets - ${selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}`,
+      name: `Endgame Budget - ${selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}`,
       data: [] as SeriesData[],
     };
     const series = [legacySeries, endgameSeries];
@@ -255,10 +255,10 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
       </ChartContainer>
       <LegendContainer>
         <LegendItem isLight={isLight} variant="yellow">
-          Legacy Maker Budget - {selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}
+          Legacy Budget - {selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}
         </LegendItem>
         <LegendItem isLight={isLight} variant="green">
-          All Endgame Budgets - {selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}
+          Endgame Budgets - {selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}
         </LegendItem>
       </LegendContainer>
     </Wrapper>
