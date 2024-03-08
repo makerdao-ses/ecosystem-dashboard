@@ -1,5 +1,6 @@
 import { UMBRAL_CHART_WATERFALL } from '@ses/core/utils/const';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
+import { removePatternAfterSlash } from '../BreakdownTable/utils';
 import type { LineWaterfall, MetricValues, WaterfallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { Analytic, AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -202,19 +203,6 @@ export const calculateAccumulatedArray = (data: number[]) => {
   return accumulatedArray;
 };
 
-export const processDataForWaterfall = (data: number[], total: number): number[] => {
-  const result: number[] = [...data];
-  if (data.reduce((acc, actual) => acc + actual) === 0) return data;
-  for (let i = 0; i < result.length; i++) {
-    if (Math.abs(result[i]) < UMBRAL_CHART_WATERFALL) {
-      result[i] = 0;
-    }
-  }
-  result.unshift(total);
-
-  return result;
-};
-
 export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) => {
   const showLines = lineSeriesData.reduce((acc, curr) => acc + curr, 0);
   const series = [];
@@ -307,11 +295,14 @@ const EMPTY_METRIC_VALUE = {
 export const getAnalyticForWaterfall = (
   budgets: Budget[],
   granularity: AnalyticGranularity,
-  analytic: Analytic | undefined
+  analytics: Analytic | undefined,
+  allBudgets: Budget[]
 ) => {
   const budgetAnalyticMap = new Map<string, WaterfallReserves[]>();
   const arrayLength = getArrayLengthByGranularity(granularity);
   const summaryValues = new Map<string, number[]>();
+  const totalToStartEachBudget = new Map<string, number>();
+
   let netProtocolOutflow = 0;
   let paymentsOnChain = 0;
 
@@ -320,43 +311,84 @@ export const getAnalyticForWaterfall = (
       budget.codePath,
       Array.from({ length: arrayLength }, () => ({ ...EMPTY_METRIC_VALUE }))
     );
+    totalToStartEachBudget.set(budget.codePath, 0);
   });
-
-  if (!analytic || !analytic.series?.length) {
+  if (!analytics || !analytics.series?.length) {
     return {
       summaryValues,
-      totalToStart: 0,
+      totalToStartEachBudget,
     };
   }
 
-  analytic.series.forEach((periods, index) => {
-    periods.rows.forEach((row) => {
-      const analyticPath = row.dimensions[0].path;
-      let values = budgetAnalyticMap.get(analyticPath);
-      if (!values) {
-        values = Array.from({ length: arrayLength }, () => ({
-          ...EMPTY_METRIC_VALUE,
-        }));
-      }
-      if (index === 0) {
-        if (row.metric === 'ProtocolNetOutflow') {
-          netProtocolOutflow += Math.abs(row.sum) - Math.abs(row.value);
+  if (budgets.length === 0 && analytics) {
+    const values = Array.from({ length: arrayLength }, () => ({
+      ...EMPTY_METRIC_VALUE,
+    }));
+
+    analytics.series.forEach((periods, index) => {
+      periods.rows.forEach((row) => {
+        const analyticPath = row.dimensions[0].path;
+
+        if (index === 0) {
+          if (row.metric === 'ProtocolNetOutflow') {
+            netProtocolOutflow = Math.abs(row.sum) - Math.abs(row.value);
+          }
+          if (row.metric === 'PaymentsOnChain') {
+            paymentsOnChain = Math.abs(row.sum) - Math.abs(row.value);
+          }
+
+          const getStartDifference = netProtocolOutflow - paymentsOnChain;
+
+          totalToStartEachBudget.set(removePatternAfterSlash(analyticPath), Math.abs(getStartDifference));
         }
-        if (row.metric === 'PaymentsOnChain') {
-          paymentsOnChain += Math.abs(row.sum) - Math.abs(row.value);
+        if (values[index]) {
+          if (row.metric === 'ProtocolNetOutflow') {
+            values[index].ProtocolNetOutflow += row.value;
+          }
+          if (row.metric === 'PaymentsOnChain') {
+            values[index].PaymentsOnChain += row.value;
+          }
         }
-      }
-      if (values[index]) {
-        if (row.metric === 'ProtocolNetOutflow') {
-          values[index].ProtocolNetOutflow += row.value;
-        }
-        if (row.metric === 'PaymentsOnChain') {
-          values[index].PaymentsOnChain += row.value;
-        }
-      }
-      budgetAnalyticMap.set(analyticPath, values);
+
+        budgetAnalyticMap.set(removePatternAfterSlash(analyticPath), values);
+      });
     });
-  });
+  } else {
+    analytics.series.forEach((periods, index) => {
+      periods.rows.forEach((row) => {
+        const analyticPath = row.dimensions[0].path;
+        let values = budgetAnalyticMap.get(analyticPath);
+        if (!values) {
+          values = Array.from({ length: arrayLength }, () => ({
+            ...EMPTY_METRIC_VALUE,
+          }));
+        }
+
+        if (index === 0) {
+          if (row.metric === 'ProtocolNetOutflow') {
+            netProtocolOutflow = Math.abs(row.sum) - Math.abs(row.value);
+          }
+          if (row.metric === 'PaymentsOnChain') {
+            paymentsOnChain = Math.abs(row.sum) - Math.abs(row.value);
+          }
+
+          const moment = netProtocolOutflow - paymentsOnChain;
+
+          totalToStartEachBudget.set(analyticPath, Math.abs(moment));
+        }
+        if (values[index]) {
+          if (row.metric === 'ProtocolNetOutflow') {
+            values[index].ProtocolNetOutflow += row.value;
+          }
+          if (row.metric === 'PaymentsOnChain') {
+            values[index].PaymentsOnChain += row.value;
+          }
+        }
+
+        budgetAnalyticMap.set(analyticPath, values);
+      });
+    });
+  }
 
   Array.from(budgetAnalyticMap.keys()).forEach((element) => {
     const values = budgetAnalyticMap.get(element) ?? [];
@@ -368,11 +400,32 @@ export const getAnalyticForWaterfall = (
 
     summaryValues.set(element, sumOfDifferences);
   });
-  const totalToStart = netProtocolOutflow - paymentsOnChain;
 
+  //  Add correct name when there is not SubBudgets
+  if (budgets.length === 0) {
+    // Add correct name for the analytic
+    Array.from(summaryValues.keys()).forEach((key) => {
+      const findCorrectBudget = allBudgets.find((item) => item.codePath === key)?.code || 'No-key';
+      if (summaryValues.has(key)) {
+        const value = summaryValues.get(key) || [];
+        summaryValues.delete(key);
+        summaryValues.set(findCorrectBudget, value);
+      }
+    });
+    // Add correct key for the total
+    Array.from(totalToStartEachBudget.keys()).forEach((key) => {
+      const findCorrectBudget = allBudgets.find((item) => item.codePath === key)?.code || 'No-key';
+      if (totalToStartEachBudget.has(key)) {
+        const value = totalToStartEachBudget.get(key) || 0;
+        totalToStartEachBudget.delete(key);
+        totalToStartEachBudget.set(findCorrectBudget, value);
+      }
+    });
+  }
   return {
     summaryValues,
-    totalToStart,
+
+    totalToStartEachBudget,
   };
 };
 
@@ -391,4 +444,31 @@ export const sumValuesFromMapKeys = (
     }
   });
   return sums;
+};
+export const processDataForWaterfall = (
+  data: number[],
+  activeElements: string[],
+  totalToStartEachBudget: Map<string, number>
+): number[] => {
+  let total = 0;
+
+  // Only sum the values where the filter is active
+  totalToStartEachBudget.forEach((values, key) => {
+    console.log('hello', key);
+    if (activeElements.includes(key)) {
+      total += values;
+    }
+  });
+
+  const result: number[] = [...data];
+  if (data.reduce((acc, actual) => acc + actual) === 0) return data;
+  for (let i = 0; i < result.length; i++) {
+    if (Math.abs(result[i]) < UMBRAL_CHART_WATERFALL) {
+      result[i] = 0;
+    }
+  }
+
+  result.unshift(total);
+
+  return result;
 };
