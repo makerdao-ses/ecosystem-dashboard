@@ -48,7 +48,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       color: '#1AAB9B',
     },
     {
-      name: 'MakerDAO Legacy Budgets',
+      name: 'MakerDAO Legacy Budget',
       value: legacy,
       percent: (legacy * 100) / totalBudgetCap,
       actuals: 0,
