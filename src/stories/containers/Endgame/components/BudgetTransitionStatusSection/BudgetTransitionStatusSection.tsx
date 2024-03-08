@@ -24,7 +24,7 @@ const BudgetTransitionStatusSection: React.FC<BudgetTransitionStatusSectionProps
     <Content id="section-budget-transition-status">
       <SectionHeader
         title="Budget Transition Status"
-        subtitle="Visualizing key shifts in resource allocation and expense trends in MakerDAO’s Endgame transition."
+        subtitle="Visualizing key shifts in resource allocation and expense trends in MakerDAO's Endgame transition."
       />
 
       <Card isLight={isLight}>
