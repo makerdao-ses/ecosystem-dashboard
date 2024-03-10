@@ -34,8 +34,10 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 
   return (
     <Header>
-      <Title isLight={isLight}>{title}</Title>
-      <Subtitle isLight={isLight}>{subtitle}</Subtitle>
+      <TextContainer>
+        <Title isLight={isLight}>{title}</Title>
+        <Subtitle isLight={isLight}>{subtitle}</Subtitle>
+      </TextContainer>
       {yearsRange && (
         <SingleItemSelect
           isMobile={false}
@@ -56,8 +58,15 @@ export default SectionHeader;
 
 const Header = styled.header({
   display: 'flex',
+  flexDirection: 'row',
+  gap: 16,
+});
+
+const TextContainer = styled.div({
+  display: 'flex',
   flexDirection: 'column',
   gap: 16,
+  marginRight: 'auto',
 });
 
 const Title = styled.h2<WithIsLight>(({ isLight }) => ({

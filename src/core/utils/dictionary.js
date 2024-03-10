@@ -158,6 +158,7 @@ const dictionary = [
   'Prtcol',
   'Outfl',
   'compat',
+  'keyframes',
 ];
 
 module.exports = dictionary;
