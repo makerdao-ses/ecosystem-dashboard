@@ -41,10 +41,10 @@ const TotalBudgetContent: React.FC<TotalBudgetContentProps> = ({
 
       <Legend>
         <LegendItem isLight={isLight} variant="gray">
-          Endgame Budgets
+          Endgame Budget
         </LegendItem>
         <LegendItem isLight={isLight} variant="blue">
-          Legacy Budgets
+          Legacy Budget
         </LegendItem>
       </Legend>
       <Bar defaultVariant="blue" isLight={isLight}>

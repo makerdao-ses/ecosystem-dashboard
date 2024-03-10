@@ -55,7 +55,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
       <SelectContainer>
         <ContainerFiltersMetric>
           <CustomMultiSelectStyled
-            label="All MakerDAO"
+            label="All Categories"
             activeItems={activeItems}
             withAll
             items={items}
@@ -65,7 +65,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
             popupContainerWidth={300}
             listItemWidth={280}
             customAll={{
-              content: 'All MakerDAO',
+              content: 'All Categories',
               id: 'all',
               params: { isAll: true },
               count: 0,

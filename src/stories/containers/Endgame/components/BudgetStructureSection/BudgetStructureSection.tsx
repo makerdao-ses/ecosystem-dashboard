@@ -57,7 +57,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       color: '#1AAB9B',
     },
     {
-      name: 'MakerDAO Legacy Budgets',
+      name: 'MakerDAO Legacy Budget',
       value: legacy,
       percent: (legacy * 100) / totalBudgetCap,
       actuals: 0,
@@ -70,7 +70,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
     <Content id="section-endgame-budget-structure">
       <SectionHeader
         title="Endgame Budget Structure"
-        subtitle="Some simple but poignant text about what endgame budgets are about"
+        subtitle="Optimizing MakerDAO's financial strategy through structured budgets, to ensure efficiency and effectiveness in achieving Endgame objectives."
         yearsRange={yearsRange}
         selectedYear={selectedYear}
         handleYearChange={handleYearChange}
