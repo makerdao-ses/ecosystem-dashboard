@@ -2,6 +2,7 @@ import { useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
+import { percentageRespectTo } from '@ses/core/utils/math';
 import { useRouter } from 'next/router';
 import { useState, useMemo, useEffect } from 'react';
 import useSWRImmutable from 'swr/immutable';
@@ -122,10 +123,31 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
           totalDai: allMetrics.budget,
           code: item.code,
           color: isLight ? colorsLight[index] : colorsDark[index],
+          percent: Math.round(percentageRespectTo(budgetMetric[0].budget.value, allMetrics.budget)),
         };
       }),
     [allMetrics.budget, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
   );
+  // Check some value affect the total 100%
+  const totalPercent = cardsNavigationInformation.reduce((acc, curr) => acc + curr.percent, 0);
+  // Verify that sum of percent its 100% and there its not a 0%
+  if (totalPercent !== 100 && totalPercent !== 0) {
+    const difference = 100 - totalPercent;
+    cardsNavigationInformation.forEach((item) => {
+      const adjustment = (item.percent / totalPercent) * difference;
+      item.percent = Math.round(item.percent + adjustment);
+    });
+
+    const checkForPercent = cardsNavigationInformation.reduce((acc, curr) => acc + curr.percent, 0);
+    const roundingError = 100 - checkForPercent;
+    if (roundingError !== 0) {
+      const indexToAdjust = cardsNavigationInformation.findIndex((item) => item.percent > 0);
+      // Fix the percent with some index in array of values
+      if (indexToAdjust !== -1) {
+        cardsNavigationInformation[indexToAdjust].percent += roundingError;
+      }
+    }
+  }
 
   // if there too many cards we need to use a swiper on desktop but paginated on mobile
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
