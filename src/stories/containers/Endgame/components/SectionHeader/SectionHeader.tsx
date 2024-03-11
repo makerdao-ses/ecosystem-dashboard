@@ -101,5 +101,5 @@ const Subtitle = styled('p')<WithIsLight>(({ isLight }) => ({
 }));
 
 const YearSelect = styled(SingleItemSelect)(() => ({
-  padding: '8px 16px',
+  padding: '6.2px 15.58px',
 }));
