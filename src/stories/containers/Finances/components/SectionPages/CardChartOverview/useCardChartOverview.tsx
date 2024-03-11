@@ -217,8 +217,8 @@ export const useCardChartOverview = (
       item.percent = Math.round(item.percent + adjustment);
     });
 
-    const recheckTotalPercent = doughnutSeriesData.reduce((acc, curr) => acc + curr.percent, 0);
-    const roundingError = 100 - recheckTotalPercent;
+    const checkForPercent = doughnutSeriesData.reduce((acc, curr) => acc + curr.percent, 0);
+    const roundingError = 100 - checkForPercent;
     if (roundingError !== 0) {
       const indexToAdjust = doughnutSeriesData.findIndex((item) => item.percent > 0);
       // Fix the percent with some index in array of values
