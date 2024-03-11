@@ -4,7 +4,6 @@ import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import { percentageRespectTo } from '@ses/core/utils/math';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -21,12 +20,12 @@ interface Props {
   width?: number;
   height?: number;
   code?: string;
+  percent: number;
 }
 
-const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDai, href, barColor, code }) => {
+const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDai, href, barColor, code, percent }) => {
   const { isLight } = useThemeContext();
   const formatted = usLocalizedNumber(valueDai);
-  const percent = percentageRespectTo(valueDai, totalDai);
 
   return (
     <StyleCardNavigationGeneric>

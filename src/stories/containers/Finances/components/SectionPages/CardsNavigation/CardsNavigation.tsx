@@ -120,6 +120,7 @@ const CardsNavigation: React.FC<Props> = ({
             title={card.title}
             barColor={card.color}
             key={index}
+            percent={card.percent}
           />
         ))}
         {loadMoreCards && (

@@ -15,6 +15,7 @@ export interface NavigationCard {
   color: string;
   code?: string;
   codePath?: string;
+  percent: number;
 }
 
 export interface DoughnutSeries {

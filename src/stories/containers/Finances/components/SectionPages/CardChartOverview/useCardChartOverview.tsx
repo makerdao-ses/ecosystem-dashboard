@@ -193,7 +193,6 @@ export const useCardChartOverview = (
         break;
     }
     const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
-
     return {
       name: budgetMetrics[item].name || 'No name' + index,
       code: budgetMetrics[item].code || 'No code' + index,
@@ -207,6 +206,27 @@ export const useCardChartOverview = (
       originalColor: isLight ? colorsLight[index] : colorsDark[index],
     };
   });
+
+  // Check some value affect the total 100%
+  const totalPercent = doughnutSeriesData.reduce((acc, curr) => acc + curr.percent, 0);
+  // Verify that sum of percent its 100% and there its not a 0%
+  if (totalPercent !== 100 && totalPercent !== 0) {
+    const difference = 100 - totalPercent;
+    doughnutSeriesData.forEach((item) => {
+      const adjustment = (item.percent / totalPercent) * difference;
+      item.percent = Math.round(item.percent + adjustment);
+    });
+
+    const checkForPercent = doughnutSeriesData.reduce((acc, curr) => acc + curr.percent, 0);
+    const roundingError = 100 - checkForPercent;
+    if (roundingError !== 0) {
+      const indexToAdjust = doughnutSeriesData.findIndex((item) => item.percent > 0);
+      // Fix the percent with some index in array of values
+      if (indexToAdjust !== -1) {
+        doughnutSeriesData[indexToAdjust].percent += roundingError;
+      }
+    }
+  }
 
   const numberItems = doughnutSeriesData.length;
   const changeAlignment = numberItems > 4;
