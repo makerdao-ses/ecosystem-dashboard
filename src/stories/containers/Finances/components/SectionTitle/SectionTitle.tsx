@@ -1,9 +1,10 @@
 import { styled } from '@mui/material';
+import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
-import ArrowLink from '@ses/components/svg/ArrowLink';
 import Information from '@ses/components/svg/information';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 
 interface SectionTitleProps {
@@ -13,8 +14,7 @@ interface SectionTitleProps {
 }
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => {
-  const { isLight } = useThemeContext();
-
+  const router = useRouter();
   const slugTitle = useMemo(() => {
     // Convert to lowercase
     let slug = title.toLowerCase();
@@ -26,9 +26,21 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => 
     return slug;
   }, [title]);
 
+  const href = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+
+    const url = new URL(window.location.href);
+    url.hash = hash ?? slugTitle;
+    return url.toString();
+    // router is used as dependency to update the href when the query changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hash, slugTitle, router]);
+
   return (
     <Container id={hash ?? slugTitle}>
-      <Title>{title}</Title>
+      <Title href={`#${hash ?? slugTitle}`} target="_blank">
+        {title}
+      </Title>
       <Tooltip>
         <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
           <IconWrapper>
@@ -36,15 +48,9 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => 
           </IconWrapper>
         </SESTooltip>
       </Tooltip>
-      <ArrowLinkWrapper>
-        <ArrowLink
-          width={22}
-          height={22}
-          fill={isLight ? '#B6BCC2' : '#787A9B'}
-          href={`#${hash ?? slugTitle}`}
-          target="_blank"
-        />
-      </ArrowLinkWrapper>
+      <CopyWrapper>
+        <CopyIcon text={href} width={22} height={22} />
+      </CopyWrapper>
     </Container>
   );
 };
@@ -62,7 +68,7 @@ const Container = styled('div')({
   scrollMarginTop: 150,
 });
 
-const Title = styled('div')(({ theme }) => ({
+const Title = styled(Link)(({ theme }) => ({
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 18,
@@ -70,6 +76,10 @@ const Title = styled('div')(({ theme }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: 0.75,
+
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
@@ -101,16 +111,16 @@ const IconWrapper = styled('div')({
   },
 });
 
-const ArrowLinkWrapper = styled('div')({
+const CopyWrapper = styled('div')({
   display: 'flex',
   justifyContent: 'flex-end',
   width: 22,
   height: 22,
-  marginBottom: 4,
+  marginBottom: 2,
   cursor: 'pointer',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginBottom: 'revert',
+    marginBottom: -3,
     marginLeft: 2,
     alignItems: 'baseline',
   },
