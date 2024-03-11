@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import BudgetDoughnutChart from '../BudgetDoughnutChart/BudgetDoughnutChart';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import TotalBudgetContent from '../TotalBudgetContent/TotalBudgetContent';
+import BudgetStructureSectionSkeleton from './BudgetStructureSectionSkeleton';
 import type { TotalBudgetContentProps } from '../TotalBudgetContent/TotalBudgetContent';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -13,6 +14,10 @@ interface BudgetCompositionProps extends TotalBudgetContentProps {
   scopes: number;
   immutable: number;
   legacy: number;
+  isLoading: boolean;
+  yearsRange: string[];
+  selectedYear: string;
+  handleYearChange: (year: string) => void;
 }
 
 const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
@@ -20,6 +25,10 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
   immutable,
   legacy,
   totalBudgetCap,
+  isLoading,
+  yearsRange,
+  selectedYear,
+  handleYearChange,
   ...totalBudgetProps
 }) => {
   const { isLight } = useThemeContext();
@@ -62,15 +71,22 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       <SectionHeader
         title="Endgame Budget Structure"
         subtitle="Optimizing MakerDAO's financial strategy through structured budgets, to ensure efficiency and effectiveness in achieving Endgame objectives."
+        yearsRange={yearsRange}
+        selectedYear={selectedYear}
+        handleYearChange={handleYearChange}
       />
 
-      <Card isLight={isLight}>
-        <TotalBudgetContent totalBudgetCap={totalBudgetCap} {...totalBudgetProps} />
-        <BudgetComposition isLight={isLight}>
-          <BudgetCompositionTitle isLight={isLight}>Composition of Budget</BudgetCompositionTitle>
-          {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
-        </BudgetComposition>
-      </Card>
+      {isLoading ? (
+        <BudgetStructureSectionSkeleton />
+      ) : (
+        <Card isLight={isLight}>
+          <TotalBudgetContent totalBudgetCap={totalBudgetCap} {...totalBudgetProps} />
+          <BudgetComposition isLight={isLight}>
+            <BudgetCompositionTitle isLight={isLight}>Composition of Budget</BudgetCompositionTitle>
+            {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
+          </BudgetComposition>
+        </Card>
+      )}
     </Content>
   );
 };

@@ -4,6 +4,8 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import useSWRImmutable from 'swr/immutable';
+import { fetchAnalytics } from '../Finances/api/queries';
 import type { BudgetTransitionPlainData, TransitionStatusDataShown } from './types';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { IntersectionOptions } from 'react-intersection-observer';
@@ -14,7 +16,7 @@ export enum NavigationTabEnum {
   BUDGET_TRANSITION_STATUS = 'budget-transition-status',
 }
 
-const useEndgameContainer = (budgetStructureAnalytics: Analytic, budgetTransitionAnalytics: Analytic) => {
+const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: string[], initialYear: string) => {
   const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const [pauseUrlUpdate, setPauseUrlUpdate] = useState<boolean>(false);
@@ -112,17 +114,23 @@ const useEndgameContainer = (budgetStructureAnalytics: Analytic, budgetTransitio
     structureEntryTopY,
   ]);
 
-  // transition status section
-  const [transitionDataSelected, setTransitionDataSelected] = useState<TransitionStatusDataShown>('Budget');
-  const handleTransitionDateSelectedChange = (selected: TransitionStatusDataShown) =>
-    setTransitionDataSelected(selected);
+  // budget structure section
+  const [selectedYear, setSelectedYear] = useState<string>(initialYear);
+  const handleYearChange = (year: string) => setSelectedYear(year);
 
+  // fetch budget structure analytics
+  const { data: budgetStructureAnalytics, isLoading: isLoadingBudgetStructure } = useSWRImmutable(
+    ['total', selectedYear, 'atlas', 2],
+    async () => fetchAnalytics('total', selectedYear, 'atlas', 2) as Promise<Analytic>
+  );
+
+  // compute the data for the budget structure section
   const budgetStructureData = useMemo(() => {
     // compute the data for the budget structure section
     const budgetData = ['scopes', 'immutable', 'legacy'].map((budget) => {
       const values = ['Actuals', 'Budget'].map(
         (metric) =>
-          budgetStructureAnalytics.series[0].rows.find(
+          budgetStructureAnalytics?.series[0].rows.find(
             (row) => row.dimensions[0].path === `atlas/${budget}` && row.metric === metric
           )?.value ?? 0
       );
@@ -149,7 +157,12 @@ const useEndgameContainer = (budgetStructureAnalytics: Analytic, budgetTransitio
           budgetData.reduce((acc, curr) => acc + curr.budget, 0)) *
         100,
     };
-  }, [budgetStructureAnalytics]);
+  }, [budgetStructureAnalytics?.series]);
+
+  // transition status section
+  const [transitionDataSelected, setTransitionDataSelected] = useState<TransitionStatusDataShown>('Budget');
+  const handleTransitionDateSelectedChange = (selected: TransitionStatusDataShown) =>
+    setTransitionDataSelected(selected);
 
   const transitionStatusData = useMemo(() => {
     const data: BudgetTransitionPlainData = {};
@@ -184,6 +197,9 @@ const useEndgameContainer = (budgetStructureAnalytics: Analytic, budgetTransitio
     transitionDataSelected,
     handleTransitionDateSelectedChange,
     budgetStructureData,
+    isLoadingBudgetStructure,
+    selectedYear,
+    handleYearChange,
     transitionStatusData,
   };
 };
