@@ -212,13 +212,13 @@ export const useCardChartOverview = (
   const changeAlignment = numberItems > 4;
 
   const showSwiper =
-    (isTable && numberItems >= 4) || (isDesk1024 && numberItems >= 4) || (isDesk1280 && numberItems >= 10);
+    (isTable && numberItems > 4) || (isDesk1024 && numberItems > 4) || (isDesk1280 && numberItems >= 10);
   const numberSliderPerLevel = isTable
-    ? numberItems >= 10
-      ? 5
-      : 3
+    ? numberItems >= 4 && levelNumber < 3
+      ? 3
+      : 5
     : isDesk1024
-    ? numberItems >= 4 && numberItems < 10
+    ? numberItems >= 4 && levelNumber < 3
       ? 3
       : 5
     : isDesk1280
