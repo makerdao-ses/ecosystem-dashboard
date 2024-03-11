@@ -124,26 +124,6 @@ const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ is
   width: isCoreThirdLevel ? 'fit-content' : 170,
 }));
 
-// const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
-//     ({ isCoreThirdLevel, changeAlignment }) => ({
-//         display: 'flex',
-//         flexDirection: 'column',
-//         // flexWrap: 'wrap',
-//         // justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
-//         gap: isCoreThirdLevel ? 16 : 14,
-//         maxWidth: '100%',
-//         // maxHeight: isCoreThirdLevel ? 180 : 210,
-//         // overflow: 'hidden',
-//         ...(changeAlignment && {
-//             flex: 1,
-//         }),
-
-//         [lightTheme.breakpoints.up('desktop_1280')]: {
-//             gap: 16,
-//         },
-//     })
-// );
-
 const Percent = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCoreThirdLevel, isLight }) => ({
   color: isLight ? (isCoreThirdLevel ? '#6F7A85' : '#B6BCC2') : '#6F7A85',
 }));
