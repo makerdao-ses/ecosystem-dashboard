@@ -454,7 +454,6 @@ export const processDataForWaterfall = (
 
   // Only sum the values where the filter is active
   totalToStartEachBudget.forEach((values, key) => {
-    console.log('hello', key);
     if (activeElements.includes(key)) {
       total += values;
     }

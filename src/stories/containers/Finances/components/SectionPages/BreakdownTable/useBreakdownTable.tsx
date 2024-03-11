@@ -167,7 +167,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
     // create a table for each budget for the current level
     const tables = [] as TableFinances[];
-
     if (budgets.length === 0) {
       const rows = Object.keys(data).map((path) => {
         const columns = Object.values(data[path]);
@@ -244,7 +243,9 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
             codePath: path,
             columns,
           } as ItemRow;
-        });
+          // Necessary to avoid duplicate codePAth
+        })
+        .filter((row) => removePatternAfterSlash(row.codePath || '') !== budget.codePath);
 
       // complete sub-table rows with missing sub-budgets
       // Note that will be some budgets that don't have subBudget
