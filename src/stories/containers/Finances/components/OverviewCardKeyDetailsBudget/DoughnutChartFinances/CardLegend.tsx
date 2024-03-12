@@ -50,6 +50,7 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     maxHeight: isCoreThirdLevel ? 180 : 210,
     [lightTheme.breakpoints.up('desktop_1280')]: {
       gap: 16,
+      columnGap: 32,
     },
   })
 );
