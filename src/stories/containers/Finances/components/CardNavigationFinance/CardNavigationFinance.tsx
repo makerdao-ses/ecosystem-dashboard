@@ -7,7 +7,6 @@ import React from 'react';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import ReadMore from '../ReadMore';
 import { truncateDescription } from './utils';
-import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
@@ -15,11 +14,10 @@ interface Props {
   title: string;
   description: string;
   href: string;
-  allBudgets: Budget[];
-  codePath: string;
+  code?: string;
 }
 
-const CardNavigationFinance: React.FC<Props> = ({ image, title, description, href }) => {
+const CardNavigationFinance: React.FC<Props> = ({ image, title, description, href, code }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const truncatedDescription = truncateDescription(description);
@@ -31,7 +29,9 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
       </ContainerImage>
       <ContainerWithButton>
         <CardInformation>
-          <Title isLight={isLight}>{title}</Title>
+          <Title isLight={isLight}>
+            {code && <Code isLight={isLight}>{code}</Code>} {title}
+          </Title>
           <Description isLight={isLight}>{truncatedDescription}</Description>
         </CardInformation>
       </ContainerWithButton>
@@ -81,6 +81,11 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   paddingLeft: 4,
   paddingRight: 4,
   color: isLight ? '#231536' : '#D2D4EF',
+}));
+
+const Code = styled.span<WithIsLight>(({ isLight }) => ({
+  color: isLight ? '#B6BCC2' : '#546978',
+  fontWeight: 600,
 }));
 
 const Description = styled.div<WithIsLight>(({ isLight }) => ({
