@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { calculateValuesByBreakpoint } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -71,6 +72,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
     () => ({
       color: visibleSeries.map((data) => data.color),
       tooltip: {
+        extraCssText: `z-index:${zIndexEnum.ECHART_TOOL_TIP}`,
         show: true,
         trigger: 'item',
         label: {
