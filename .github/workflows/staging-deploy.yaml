@@ -1,6 +1,9 @@
 name: Staging deployment
 on:
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00
   workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
