@@ -24,8 +24,9 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-
+  const [activeElements, setActiveElements] = useState<string[]>([]);
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
+  const [resetActiveElements, setResetActiveElements] = useState(true);
 
   const levelOfDetail = codePath.split('/').length + 1;
   // fetch actual data from the API
@@ -41,12 +42,18 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
 
   const selectAll = useMemo(() => Array.from(summaryValues.keys()), [summaryValues]);
 
-  const [activeElements, setActiveElements] = useState<string[]>([]);
-
   useEffect(() => {
-    const selectAll = Array.from(summaryValues.keys());
-    setActiveElements(selectAll);
-  }, [summaryValues]);
+    if (!isLoading && resetActiveElements) {
+      setActiveElements(selectAll);
+      setResetActiveElements(false);
+    }
+  }, [isLoading, resetActiveElements, selectAll]);
+
+  // Reset all default value when codePath Change
+  useEffect(() => {
+    setResetActiveElements(true);
+    setSelectedGranularity('monthly');
+  }, [codePath]);
 
   const handleSelectChange = (value: string[]) => {
     setActiveElements(value);
@@ -57,7 +64,6 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
   };
 
   const handleGranularityChange = (value: AnalyticGranularity) => {
-    setActiveElements(activeElements);
     setSelectedGranularity(value);
   };
 
