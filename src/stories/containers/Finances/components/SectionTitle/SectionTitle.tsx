@@ -49,7 +49,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => 
         </SESTooltip>
       </Tooltip>
       <CopyWrapper>
-        <CopyIcon text={href} width={22} height={22} />
+        <CopyIcon defaultTooltip="Copy link" text={href} width={22} height={22} />
       </CopyWrapper>
     </Container>
   );
