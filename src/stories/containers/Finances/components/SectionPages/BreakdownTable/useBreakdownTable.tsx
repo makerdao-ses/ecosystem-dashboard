@@ -243,9 +243,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
             codePath: path,
             columns,
           } as ItemRow;
-          // Necessary to avoid duplicate codePAth
-        })
-        .filter((row) => removePatternAfterSlash(row.codePath || '') !== budget.codePath);
+        });
 
       // complete sub-table rows with missing sub-budgets
       // Note that will be some budgets that don't have subBudget
@@ -259,7 +257,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           });
         }
       });
-
       // add correct rows name
       rows.forEach((row) => {
         const nameOrCode = subBudgets.filter((item) => item.codePath === row.name)[0];
@@ -294,7 +291,14 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           }, Array(rows?.[0]?.columns?.length).fill(null))
           .filter((item) => item !== null),
       };
-      table.rows = [header, ...rows];
+
+      // Check if only one element is only the header so don't need rows
+      if (rows.length === 1) {
+        table.rows = [header];
+      } else {
+        // There are its header and rows
+        table.rows = [header, ...rows];
+      }
 
       tables.push(table);
     });
