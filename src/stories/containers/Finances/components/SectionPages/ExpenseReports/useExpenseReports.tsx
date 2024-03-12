@@ -28,13 +28,13 @@ export const useExpenseReports = (budgetPath: string) => {
   };
 
   // column sorting
-  const [sortColumn, setSortColumn] = useState<number>(1);
+  const [sortColumn, setSortColumn] = useState<number>(4);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Disabled,
-    SortEnum.Desc,
-    SortEnum.Disabled,
-    SortEnum.Disabled,
     SortEnum.Neutral,
+    SortEnum.Disabled,
+    SortEnum.Disabled,
+    SortEnum.Desc,
   ]);
 
   const onSortClick = (index: number) => {
