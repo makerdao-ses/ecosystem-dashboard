@@ -1,5 +1,4 @@
 export enum zIndexEnum {
-  // HEADER and NAVIGATION has big number avoid z-index tooltip  collision with them
   HEADER_PAGE = 10,
   BREAD_CRUMB_NAVIGATION = 8,
   SMALL_ICON_AVATAR_WITH_ICON_COMPONENT = 4,
