@@ -1,3 +1,4 @@
+import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { formatNumber } from '@ses/core/utils/string';
 import { formatBudgetName } from './utils';
 import type { BarChartSeries } from './types';
@@ -10,7 +11,7 @@ export const createChartTooltip = (
 ) => ({
   show: !isMobile,
   trigger: 'axis',
-
+  extraCssText: `z-index:${zIndexEnum.ECHART_TOOL_TIP}`,
   axisPointer: {
     type: 'shadow',
     shadowStyle: {
