@@ -100,6 +100,7 @@ const args = [
         valueDai: 1734955,
         color: '#F99374',
         isMobile: true,
+        percent: 50,
       },
       {
         image:
@@ -110,6 +111,7 @@ const args = [
         totalDai: 12000000,
         valueDai: 12000000,
         color: '#447AFB',
+        percent: 38,
       },
       {
         image:
@@ -120,6 +122,7 @@ const args = [
         totalDai: 9000000,
         valueDai: 1734955,
         color: '#2DC1B1',
+        percent: 12,
       },
     ],
   },
