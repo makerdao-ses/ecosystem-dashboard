@@ -19,7 +19,7 @@ interface Props {
   barColor: string;
   width?: number;
   height?: number;
-  code?: string;
+  code: string;
   percent: number;
 }
 
@@ -101,8 +101,8 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   color: isLight ? '#231536' : '#D2D4EF',
   '& span': {
-    color: isLight ? '#708390' : '#546978',
-    fontWeight: 700,
+    color: isLight ? '#B6BCC2' : '#546978',
+    fontWeight: 600,
     lineHeight: 'normal',
   },
 }));

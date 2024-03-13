@@ -11,7 +11,6 @@ import CardNavigationFinance from '../../CardNavigationFinance/CardNavigationFin
 import CardNavigationMobile from '../../CardNavigationMobile/CardNavigationMobile';
 import type { Theme } from '@mui/material';
 import type { NavigationCard } from '@ses/containers/Finances/utils/types';
-import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
 
@@ -19,15 +18,9 @@ interface Props {
   cardsNavigationInformation: NavigationCard[];
   loadMoreCards: boolean;
   handleLoadMoreCards: () => void;
-  allBudgets: Budget[];
 }
 
-const CardsNavigation: React.FC<Props> = ({
-  cardsNavigationInformation,
-  loadMoreCards,
-  handleLoadMoreCards,
-  allBudgets,
-}) => {
+const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation, loadMoreCards, handleLoadMoreCards }) => {
   const { isLight } = useThemeContext();
   const ref = useRef<SwiperRef>(null);
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -103,9 +96,8 @@ const CardsNavigation: React.FC<Props> = ({
               image={card.image}
               title={card.title}
               description={card.description || ''}
+              code={card.code}
               key={index}
-              allBudgets={allBudgets}
-              codePath={card.codePath || ''}
             />
           ))
         )}
@@ -121,6 +113,7 @@ const CardsNavigation: React.FC<Props> = ({
             barColor={card.color}
             key={index}
             percent={card.percent}
+            code={card.code ?? ''}
           />
         ))}
         {loadMoreCards && (
