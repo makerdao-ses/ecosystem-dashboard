@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import ClipBoard from '../svg/ClipBoard';
@@ -12,6 +12,7 @@ interface CopyIconProps {
   defaultCopyTooltip?: string;
   width?: number;
   height?: number;
+  icon?: React.ReactNode;
 }
 
 const CopyIcon: React.FC<CopyIconProps> = ({
@@ -21,9 +22,11 @@ const CopyIcon: React.FC<CopyIconProps> = ({
   width,
   defaultTooltip = 'Copy',
   defaultCopyTooltip = 'Copied!',
+  icon,
 }) => {
   const { isLight } = useThemeContext();
   const [popoverText, setPopoverText] = useState<string>(defaultTooltip);
+  const id = useId();
 
   const handleOnClose = () => {
     setTimeout(() => setPopoverText(defaultTooltip), 100);
@@ -32,7 +35,7 @@ const CopyIcon: React.FC<CopyIconProps> = ({
   return (
     <IconContainer className={className}>
       <CustomPopover
-        id={'copy-id'}
+        id={id}
         title={popoverText}
         closeOnClick={false}
         onClose={handleOnClose}
@@ -41,7 +44,7 @@ const CopyIcon: React.FC<CopyIconProps> = ({
         }}
       >
         <CopyToClipboard text={text} onCopy={() => setPopoverText(defaultCopyTooltip)}>
-          <ClipBoard width={width} height={height} onClick={(e: React.MouseEvent) => e.stopPropagation()} />
+          {icon || <ClipBoard width={width} height={height} onClick={(e: React.MouseEvent) => e.stopPropagation()} />}
         </CopyToClipboard>
       </CustomPopover>
     </IconContainer>
