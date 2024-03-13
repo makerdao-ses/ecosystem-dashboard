@@ -54,7 +54,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
 
   const options: EChartsOption = useMemo(
     () => ({
-      tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile),
+      tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile, isTablet, isDesktop1024),
       grid: {
         height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
         width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
