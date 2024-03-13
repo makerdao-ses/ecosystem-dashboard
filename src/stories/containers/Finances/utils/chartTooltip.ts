@@ -2,12 +2,15 @@ import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { formatNumber } from '@ses/core/utils/string';
 import { formatBudgetName } from './utils';
 import type { BarChartSeries } from './types';
+import type { EChartsOption } from 'echarts-for-react';
 
 export const createChartTooltip = (
   selectedGranularity: string,
   year: number | string,
   isLight: boolean,
-  isMobile: boolean
+  isMobile: boolean,
+  isTable: boolean,
+  isDesktop1024: boolean
 ) => ({
   show: !isMobile,
   trigger: 'axis',
@@ -21,39 +24,66 @@ export const createChartTooltip = (
   },
   padding: 0,
   borderWidth: 1,
+  position: function (
+    point: [number, number],
+    params: EChartsOption,
+    dom: EChartsOption,
+    rect: EChartsOption,
+    size: EChartsOption
+  ) {
+    const MORE_WITH = 10;
+    console.log('point', params);
+    const withTooltip = size.contentSize[0];
+    const heightTooltip = size.contentSize[0];
+
+    let xPos = point[0];
+    let yPos = point[1];
+
+    const tooltipWidth = withTooltip;
+    const tooltipHeight = heightTooltip;
+
+    if (xPos + tooltipWidth + MORE_WITH > window.innerWidth) {
+      xPos -= tooltipWidth;
+    }
+
+    if (yPos + tooltipHeight + MORE_WITH > window.innerHeight) {
+      yPos -= tooltipHeight;
+    }
+  },
   borderColor: isLight ? '#D4D9E1' : '#231536',
   formatter: function (params: BarChartSeries[]) {
     const shortAmount = params.length > 10;
     const flexDirection = shortAmount ? 'row' : 'column';
     const gap = shortAmount ? '16px' : '12px';
-
+    const minMax = isTable ? 'max-width:300px' : isDesktop1024 ? 'max-width:400px' : 'min-width:190px;max-width:450px';
+    const maxWithTable = isTable ? 'max-width:190px' : isDesktop1024 ? 'max-width:450px' : '';
     return `
-      <div style="background-color:${
-        isLight ? '#fff' : '#000A13'
-      };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
+      <div style="background-color:${isLight ? '#fff' : '#000A13'};padding:16px;overflow:auto;border-radius:3px;">
         <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${
           (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name
         }</div>
-        <div style="display:flex;flex-direction:${flexDirection};gap:${gap};min-width:194px;max-width:450px;flex-wrap:wrap;">
+        <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${minMax}">
           ${params
             .reverse()
             .map(
               (item) =>
-                `<div style="display: flex;align-items:center;gap: 6px">
+                `<div style="display: flex;align-items:center;gap: 6px;">
               <svg xmlns="http://www.w3.org/2000/svg" width="${isMobile ? 13 : 16}" height="${
                   isMobile ? 13 : 16
-                }" viewBox="0 0 13 13" fill="none">
+                }" viewBox="0 0 13 13" fill="none" style="min-width:${isMobile ? 13 : 16};min-height:${
+                  isMobile ? 13 : 16
+                }">
                 <circle cx="6.5" cy="6.5" r="5.5" stroke="${item.color}" />
                 <circle cx="6.5" cy="6.5" r="4" fill="${item.color}" />
               </svg>
-              <span style="font-size:14px;color:${
+              <span style="display: inline-block;font-size:14px;color:${
                 isLight ? '#231536' : '#B6BCC2'
-              };max-width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"> ${formatBudgetName(
+              };white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${maxWithTable}"> ${formatBudgetName(
                   item.seriesName
                 )}:</span>
-              <span style="font-size:16px;font-weight:700;color:${isLight ? '#231536' : '#EDEFFF'};">${formatNumber(
-                  item.value
-                )}</span>
+              <span style="font-size:16px;font-weight:700;color:${
+                isLight ? '#231536' : '#EDEFFF'
+              };display: inline-block;">${formatNumber(item.value)}</span>
             </div>`
             )
             .join('')}
