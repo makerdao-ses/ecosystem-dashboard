@@ -1,9 +1,10 @@
 import { styled } from '@mui/material';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
+import { ChainLinkIcon } from '@ses/components/svg/Link';
 import Information from '@ses/components/svg/information';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 
@@ -15,6 +16,7 @@ interface SectionTitleProps {
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => {
   const router = useRouter();
+  const { isLight } = useThemeContext();
   const slugTitle = useMemo(() => {
     // Convert to lowercase
     let slug = title.toLowerCase();
@@ -38,9 +40,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => 
 
   return (
     <Container id={hash ?? slugTitle}>
-      <Title href={`#${hash ?? slugTitle}`} target="_blank">
-        {title}
-      </Title>
+      <Title>{title}</Title>
       <Tooltip>
         <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
           <IconWrapper>
@@ -49,7 +49,13 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => 
         </SESTooltip>
       </Tooltip>
       <CopyWrapper>
-        <CopyIcon defaultTooltip="Copy link" text={href} width={22} height={22} />
+        <CopyIcon
+          defaultTooltip="Copy link"
+          text={href}
+          width={22}
+          height={22}
+          icon={<ChainLinkIcon width={18} height={18} fill={isLight ? '#B6BCC2' : '#787A9B'} />}
+        />
       </CopyWrapper>
     </Container>
   );
@@ -68,7 +74,7 @@ const Container = styled('div')({
   scrollMarginTop: 150,
 });
 
-const Title = styled(Link)(({ theme }) => ({
+const Title = styled('div')(({ theme }) => ({
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   fontFamily: 'Inter, sans-serif',
   fontSize: 18,
@@ -76,10 +82,6 @@ const Title = styled(Link)(({ theme }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: 0.75,
-
-  '&:hover': {
-    textDecoration: 'underline',
-  },
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
@@ -116,11 +118,10 @@ const CopyWrapper = styled('div')({
   justifyContent: 'flex-end',
   width: 22,
   height: 22,
-  marginBottom: 2,
   cursor: 'pointer',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginBottom: -3,
+    marginBottom: -5,
     marginLeft: 2,
     alignItems: 'baseline',
   },
