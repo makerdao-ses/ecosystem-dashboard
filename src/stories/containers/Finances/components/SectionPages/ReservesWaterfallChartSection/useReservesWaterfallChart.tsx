@@ -59,7 +59,7 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
     setActiveElements(value);
   };
   const handleResetFilter = () => {
-    setActiveElements([]);
+    setActiveElements(selectAll);
     setSelectedGranularity('monthly');
   };
 
