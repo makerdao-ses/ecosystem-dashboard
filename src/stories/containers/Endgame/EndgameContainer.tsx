@@ -10,6 +10,7 @@ import BudgetStructureSection from './components/BudgetStructureSection/BudgetSt
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
 import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
 import IntroductoryHeadline from './components/IntroductoryHeadline/IntroductoryHeadline';
+import KeyChangesBudgetTransitionStatusSection from './components/KeyChangesBudgetTransitionStatusSection/KeyChangesBudgetTransitionStatusSection';
 import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
 import useEndgameContainer from './useEndgameContainer';
@@ -96,6 +97,8 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
               />
             </div>
           )}
+
+          <KeyChangesBudgetTransitionStatusSection />
         </SectionSpacing>
       </Container>
     </EndgamePageContainer>
@@ -108,7 +111,7 @@ const EndgamePageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) =>
   marginTop: 32,
   background: isLight ? 'white' : 'linear-gradient(180deg, #001020 0%, #000 100%)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 40,
   },
 
@@ -122,7 +125,7 @@ const BannerContainer = styled.div({
   marginBottom: 48,
   scrollMarginTop: 110,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 64,
     marginBottom: 64,
   },
@@ -131,5 +134,9 @@ const BannerContainer = styled.div({
 const SectionSpacing = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 40,
+  gap: 48,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 80,
+  },
 });

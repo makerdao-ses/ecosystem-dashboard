@@ -3,7 +3,6 @@ import { useMediaQuery } from '@mui/material';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import KeyChangeSection from '../KeyChangeSection/KeyChangeSection';
-import KeyChangesBudgetTransitionStatusSection from '../KeyChangesBudgetTransitionStatusSection/KeyChangesBudgetTransitionStatusSection';
 import GovernanceSection from './Sections/GovernanceSection';
 import OperationsSection from './Sections/OperationsSection';
 import TokenUpgradesSection from './Sections/TokenUpgradesSection';
@@ -61,8 +60,6 @@ const KeyChangesSections: React.FC = () => {
           <TokenUpgradesSection />
         </SectionContainer>
       </KeyChangeSection>
-
-      <KeyChangesBudgetTransitionStatusSection />
     </KeyChangesSectionsContainer>
   );
 };

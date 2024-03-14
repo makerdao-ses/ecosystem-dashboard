@@ -10,7 +10,6 @@ const KeyChangesBudgetTransitionStatusSection: React.FC = () => {
 
   return (
     <Content>
-      <Title isLight={isLight}>Budget Transition Status</Title>
       <Paragraph isLight={isLight}>
         Visit the website{' '}
         <ExternalLink isLight={isLight} href="https://endgame.makerdao.com">
@@ -30,22 +29,9 @@ export default KeyChangesBudgetTransitionStatusSection;
 const Content = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   gap: 16,
 });
-
-const Title = styled.h3<WithIsLight>(({ isLight }) => ({
-  margin: 0,
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: 'normal',
-  color: isLight ? '#231536' : '#D2D4EF',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: 20,
-    fontWeight: 600,
-    letterSpacing: 0.4,
-  },
-}));
 
 const Paragraph = styled.p<WithIsLight>(({ isLight }) => ({
   fontSize: 14,

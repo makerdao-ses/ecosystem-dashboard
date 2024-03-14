@@ -71,7 +71,7 @@ const Sticky = styled.div({
 });
 
 const Wrapper = styled.div<WithIsLight>(({ isLight }) => ({
-  backgroundColor: isLight ? 'white' : '#000d1ae8',
+  backgroundColor: isLight ? 'white' : '#000f1d',
   backdropFilter: isLight ? 'none' : 'blur(20px)',
   width: '100%',
   overflowX: 'scroll',
