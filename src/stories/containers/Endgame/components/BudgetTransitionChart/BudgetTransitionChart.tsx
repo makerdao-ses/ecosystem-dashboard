@@ -255,10 +255,10 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
       </ChartContainer>
       <LegendContainer>
         <LegendItem isLight={isLight} variant="yellow">
-          Legacy Budget - {selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}
+          Legacy - {selected === 'Budget' ? 'Budget Cap' : `Net ${!isMobile ? 'Expenses' : ''} On-chain`}
         </LegendItem>
         <LegendItem isLight={isLight} variant="green">
-          Endgame Budgets - {selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}
+          Endgame - {selected === 'Budget' ? 'Budget Cap' : `Net ${!isMobile ? 'Expenses' : ''} On-chain`}
         </LegendItem>
       </LegendContainer>
     </Wrapper>
