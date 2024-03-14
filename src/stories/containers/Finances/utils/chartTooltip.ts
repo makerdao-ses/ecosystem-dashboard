@@ -32,7 +32,6 @@ export const createChartTooltip = (
     size: EChartsOption
   ) {
     const MORE_WITH = 10;
-    console.log('point', params);
     const withTooltip = size.contentSize[0];
     const heightTooltip = size.contentSize[0];
 
