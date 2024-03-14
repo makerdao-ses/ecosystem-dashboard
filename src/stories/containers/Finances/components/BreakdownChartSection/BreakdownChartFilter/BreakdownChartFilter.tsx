@@ -108,7 +108,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
     </FilterContainer>
   );
 };
-//
+
 export default BreakdownChartFilter;
 
 const FilterContainer = styled.div({
@@ -134,19 +134,17 @@ const SelectContainer = styled.div({
 });
 
 const MetricSelect = styled(SingleItemSelect)({
-  padding: '7px 15px 7px 16px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: '14px 15px 14px 16px',
-  },
+  // padding: '7px 15px 7px 16px',
+  // [lightTheme.breakpoints.up('tablet_768')]: {
+  //   // padding: '14px 15px 14px 16px',
+  // },
 });
 
 const GranularitySelect = styled(SingleItemSelect)({
-  padding: '7px 12px 7px 16px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: '14px 15px 14px 16px',
-  },
+  // padding: '7px 12px 7px 16px',
+  // [lightTheme.breakpoints.up('tablet_768')]: {
+  //   // padding: '14px 15px 14px 16px',
+  // },
 });
 
 const ResponsiveButton = styled.div<WithIsLight & { isDisabled: boolean }>(({ isLight, isDisabled }) => ({

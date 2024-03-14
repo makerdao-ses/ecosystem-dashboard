@@ -223,7 +223,7 @@ const SelectBtn = styled.button<WithIsLight>(({ isLight }) => ({
   background: isLight ? '#ffffff' : '#10191F',
   borderRadius: 24,
   border: `1px solid ${isLight ? '#D4D9E1' : '#343442'}`,
-  padding: '15px 16px',
+  padding: '7px 16px',
   cursor: 'pointer',
   outline: 'none',
 

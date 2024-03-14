@@ -48,6 +48,7 @@ const ResetButton: React.FC<Props> = ({
           border: 'none',
           background: 'none',
         }}
+        padding="7px 16px"
         onClick={onClick}
         disabled={disabled}
       />

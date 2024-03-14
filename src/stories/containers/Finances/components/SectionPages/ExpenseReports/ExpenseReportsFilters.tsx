@@ -70,7 +70,7 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
       </Reset>
 
       <SelectContainer>
-        <MetricSelect
+        <SingleItemSelect
           isMobile={isMobile}
           useSelectedAsLabel
           selected={selectedMetric}
@@ -162,20 +162,7 @@ const SelectContainer = styled.div({
   gap: 16,
 });
 
-const MetricSelect = styled(SingleItemSelect)({
-  padding: '7px 15px 7px 16px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: '14px 15px 14px 16px',
-  },
-});
-
 const CustomMultiSelectStyled = styled(CustomMultiSelect)({
-  '& > div:first-of-type': {
-    [lightTheme.breakpoints.up('tablet_768')]: {
-      height: 48,
-    },
-  },
   '& > div:nth-of-type(2)': {
     borderRadius: 6,
   },
