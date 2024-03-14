@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import CookiesPolicyBanner from '@ses/components/CookiesPolicyBanner/CookiesPolicyBanner';
 import { useLayoutEffect } from 'react';
 import lightTheme from '../../../styles/theme/light';
+import { zIndexEnum } from '../enums/zIndexEnum';
 import { useScrollLock } from '../hooks/useScrollLock';
 import { getPageWrapper } from '../utils/dom';
 import { useCookiesContextTracking } from './CookiesContext';
@@ -64,7 +65,7 @@ const ContainerOverlay = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
   top: 0,
   width: '100%',
-  zIndex: 4,
+  zIndex: zIndexEnum.OVERLAY_MOBILE_TOOLTIP,
   height: 'calc(100vh - 282px)',
   background: 'rgba(52, 52, 66, 0.1)',
   backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
