@@ -27,11 +27,11 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
 
   const { series, legendsLabels } = useMemo(() => {
     const legacySeries = {
-      name: `Legacy Budget - ${selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}`,
+      name: `Legacy - ${selected === 'Budget' ? 'Budget Cap' : `Net ${!isMobile ? 'Expenses' : ''} On-chain`}`,
       data: [] as SeriesData[],
     };
     const endgameSeries = {
-      name: `Endgame Budget - ${selected === 'Budget' ? 'Budget Cap' : 'Net On-chain'}`,
+      name: `Endgame - ${selected === 'Budget' ? 'Budget Cap' : `Net ${!isMobile ? 'Expenses' : ''} On-chain`}`,
       data: [] as SeriesData[],
     };
     const series = [legacySeries, endgameSeries];
