@@ -57,10 +57,10 @@ const FilterTable: React.FC<Props> = ({
           selectNumberItemPerResolution
           defaultMetricsWithAllSelected={defaultMetricsWithAllSelected}
           positionRight={!isMobile}
-          label="Metrics"
+          label={activeItems.length === 1 ? activeItems[0] : 'Metrics'}
           activeItems={activeItems}
           items={metrics}
-          width={120}
+          showMetricOneItemSelect
           onChange={(value: string[]) => {
             handleSelectChange(value);
           }}

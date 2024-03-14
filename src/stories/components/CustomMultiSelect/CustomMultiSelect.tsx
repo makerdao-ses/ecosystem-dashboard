@@ -52,6 +52,7 @@ interface CustomMultiSelectProps extends Partial<WithLegacyBreakpoints> {
   defaultMetricsWithAllSelected?: string[];
   allowSelectAll?: boolean;
   selectNumberItemPerResolution?: boolean;
+  showMetricOneItemSelect?: boolean;
 }
 
 const defaultItemRender = (props: SelectItemProps) => <SelectItem {...props} />;
@@ -68,6 +69,7 @@ export const CustomMultiSelect = ({
   allowSelectAll = true,
   legacyBreakpoints = true,
   selectNumberItemPerResolution = false,
+  showMetricOneItemSelect = false,
 
   ...props
 }: CustomMultiSelectProps) => {
@@ -159,7 +161,12 @@ export const CustomMultiSelect = ({
       >
         {typeof props.label === 'string' ? (
           <Label active={activeItems.length > 0} isLight={isLight} hover={hover}>
-            {props.label} {activeItems.length > 0 ? `${activeItems.length}` : ''}
+            {props.label}{' '}
+            {showMetricOneItemSelect && activeItems.length === 1
+              ? ''
+              : activeItems.length > 0
+              ? activeItems.length
+              : ''}
           </Label>
         ) : (
           props.label({
@@ -295,7 +302,6 @@ const SelectContainer = styled.div<
   cursor: 'pointer',
   transition: 'all .3s ease',
   background: isLight ? 'white' : '#10191F',
-
   '&:hover': {
     border: isLight
       ? active
