@@ -233,8 +233,9 @@ const ContainerSections = styled.div({
   gap: 16,
   display: 'flex',
   flexDirection: 'column',
+
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 64,
+    gap: 24,
   },
 });
 

@@ -78,7 +78,7 @@ const FilterTable: React.FC<Props> = ({
         />
       </ContainerFiltersMetric>
       <PeriodicSelectionFilter>
-        <PeriodSelect
+        <SingleItemSelect
           items={periodSelectOptions}
           useSelectedAsLabel
           onChange={handleChange}
@@ -144,20 +144,7 @@ const PeriodicSelectionFilter = styled.div({
 });
 
 const CustomMultiSelectStyled = styled(CustomMultiSelect)({
-  '& > div:first-of-type': {
-    [lightTheme.breakpoints.up('tablet_768')]: {
-      height: 48,
-    },
-  },
   '& > div:nth-of-type(2)': {
     borderRadius: 6,
-  },
-});
-
-const PeriodSelect = styled(SingleItemSelect)({
-  padding: '7px 12px 7px 16px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: '14px 15px 14px 16px',
   },
 });

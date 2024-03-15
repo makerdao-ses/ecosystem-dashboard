@@ -314,7 +314,6 @@ const SelectContainer = styled.div<
   },
 
   [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: {
-    height: '48px',
     padding: '15px 40px 15px 15px',
   },
 }));

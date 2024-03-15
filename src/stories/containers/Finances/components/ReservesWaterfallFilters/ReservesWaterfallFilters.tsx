@@ -75,7 +75,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
           />
         </ContainerFiltersMetric>
 
-        <GranularitySelect
+        <SingleItemSelect
           useSelectedAsLabel
           selected={selectedGranularity}
           onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
@@ -140,14 +140,6 @@ const SelectContainer = styled.div({
   },
 });
 
-const GranularitySelect = styled(SingleItemSelect)({
-  padding: '7px 12px 7px 16px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: '14px 15px 14px 16px',
-  },
-});
-
 const ContainerFiltersMetric = styled.div({
   display: 'flex',
   gridArea: 'filterMetrics',
@@ -157,11 +149,6 @@ const ContainerFiltersMetric = styled.div({
 });
 
 const CustomMultiSelectStyled = styled(CustomMultiSelect)({
-  '& > div:first-of-type': {
-    [lightTheme.breakpoints.up('tablet_768')]: {
-      height: 48,
-    },
-  },
   '& > div:nth-of-type(2)': {
     borderRadius: 6,
   },

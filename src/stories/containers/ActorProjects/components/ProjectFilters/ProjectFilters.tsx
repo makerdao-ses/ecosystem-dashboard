@@ -170,7 +170,7 @@ const SearchContainer = styled.div({
     content: '""',
     position: 'absolute',
     [lightTheme.breakpoints.up('tablet_768')]: {
-      top: 9,
+      top: 1,
       left: 8,
       height: 32,
       width: 1,

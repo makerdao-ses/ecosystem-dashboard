@@ -59,8 +59,8 @@ const ContainerNavigation = styled.div({
   justifyContent: 'space-between',
   alignItems: 'center',
   height: 50,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
-    height: 74,
     paddingLeft: 0,
     paddingRight: 0,
   },
@@ -85,10 +85,6 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<WithIsLight>(({ isLight }) => ({
 
 const YearSelect = styled(SingleItemSelect)({
   padding: '7px 15px 7px 16px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    padding: '14px 15px 14px 16px',
-  },
 });
 
 const BreadcrumbMobile = styled.div({
