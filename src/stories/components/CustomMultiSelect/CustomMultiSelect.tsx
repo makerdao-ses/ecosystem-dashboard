@@ -165,7 +165,7 @@ export const CustomMultiSelect = ({
             {showMetricOneItemSelect && activeItems.length === 1
               ? ''
               : activeItems.length > 0
-              ? activeItems.length
+              ? `(${activeItems.length})`
               : ''}
           </Label>
         ) : (
