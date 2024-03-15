@@ -1,7 +1,9 @@
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { formatNumber } from '@ses/core/utils/string';
-import { formatBudgetName } from './utils';
+import { getSelectMetricText } from '../components/BreakdownChartSection/utils';
+import { formatBudgetName, removeBudgetWord } from './utils';
 import type { BarChartSeries } from './types';
+import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
 export const createChartTooltip = (
@@ -10,7 +12,10 @@ export const createChartTooltip = (
   isLight: boolean,
   isMobile: boolean,
   isTable: boolean,
-  isDesktop1024: boolean
+  isDesktop1024: boolean,
+  isBudgetRemove?: boolean,
+  metric?: AnalyticMetric,
+  isShowMetric?: boolean
 ) => ({
   show: !isMobile,
   trigger: 'axis',
@@ -60,7 +65,9 @@ export const createChartTooltip = (
       <div style="background-color:${isLight ? '#fff' : '#000A13'};padding:16px;overflow:auto;border-radius:3px;">
         <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${
           (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name
-        }</div>
+        }<span style="display:inline-block;margin-left:10px">${
+      isShowMetric ? getSelectMetricText(metric) : ''
+    }</span></div>
         <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${minMax}">
           ${params
             .reverse()
@@ -77,9 +84,11 @@ export const createChartTooltip = (
               </svg>
               <span style="display: inline-block;font-size:14px;color:${
                 isLight ? '#231536' : '#B6BCC2'
-              };white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${maxWithTable}"> ${formatBudgetName(
-                  item.seriesName
-                )}:</span>
+              };white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${maxWithTable}"> ${
+                  !isBudgetRemove
+                    ? formatBudgetName(item.seriesName)
+                    : removeBudgetWord(formatBudgetName(item.seriesName))
+                }:</span>
               <span style="font-size:16px;font-weight:700;color:${
                 isLight ? '#231536' : '#EDEFFF'
               };display: inline-block;">${formatNumber(item.value)}</span>

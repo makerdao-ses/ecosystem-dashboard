@@ -5,6 +5,7 @@ import {
   formatterBreakdownChart,
   getChartAxisLabelByGranularity,
   formatBudgetName,
+  removeBudgetWord,
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
@@ -12,7 +13,7 @@ import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo } from 'react';
 import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
-import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
+import type { AnalyticGranularity, AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
 
@@ -22,6 +23,7 @@ interface BreakdownChartProps {
   series: BreakdownChartSeriesData[];
   handleToggleSeries: (series: string) => void;
   refBreakDownChart: React.RefObject<EChartsOption | null>;
+  selectedMetric?: AnalyticMetric;
 }
 
 const BreakdownChart: React.FC<BreakdownChartProps> = ({
@@ -30,6 +32,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
   series,
   handleToggleSeries,
   selectedGranularity,
+  selectedMetric,
 }) => {
   const { isLight } = useThemeContext();
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
@@ -54,7 +57,17 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
 
   const options: EChartsOption = useMemo(
     () => ({
-      tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile, isTablet, isDesktop1024),
+      tooltip: createChartTooltip(
+        selectedGranularity,
+        year,
+        isLight,
+        isMobile,
+        isTablet,
+        isDesktop1024,
+        true,
+        selectedMetric,
+        true
+      ),
       grid: {
         height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
         width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
@@ -139,7 +152,19 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
       },
       series,
     }),
-    [isDesktop1024, isDesktop1280, isLight, isMobile, isTablet, selectedGranularity, series, upTable, xAxisStyles, year]
+    [
+      isDesktop1024,
+      isDesktop1280,
+      isLight,
+      isMobile,
+      isTablet,
+      selectedGranularity,
+      selectedMetric,
+      series,
+      upTable,
+      xAxisStyles,
+      year,
+    ]
   );
 
   useEffect(() => {
@@ -203,7 +228,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
                 <circle cx="6.5" cy="6.5" r="4" fill={element.itemStyle.colorOriginal} />
               </svg>
             </SVGContainer>
-            {formatBudgetName(element.name)}
+            {removeBudgetWord(formatBudgetName(element.name))}
           </LegendItem>
         ))}
       </LegendContainer>
