@@ -26,6 +26,7 @@ interface SingleItemSelectProps {
   selected?: string;
   onChange?: (value: string) => unknown;
   isMobile?: boolean;
+  maxHeightSimpleBar?: number;
 }
 
 const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
@@ -38,6 +39,7 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
   className,
   selected,
   onChange,
+  maxHeightSimpleBar = 178,
   isMobile = false,
 }) => {
   const { isLight } = useThemeContext();
@@ -176,7 +178,7 @@ const SingleItemSelect: React.FC<SingleItemSelectProps> = ({
                 <MenuList autoFocusItem={open} id={menuListId} aria-labelledby={inputId} onKeyDown={handleListKeyDown}>
                   <SimpleBar
                     style={{
-                      maxHeight: 178,
+                      maxHeight: maxHeightSimpleBar,
                     }}
                     className="filter-popup-scroll"
                   >

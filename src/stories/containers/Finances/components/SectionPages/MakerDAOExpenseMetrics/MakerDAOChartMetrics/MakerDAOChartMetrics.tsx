@@ -43,7 +43,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
   };
 
   const options: EChartsOption = {
-    tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile, false, false),
+    tooltip: createChartTooltip(selectedGranularity, year, isLight, isMobile, false, false, false),
     grid: {
       height: isMobile ? 192 : isTablet ? 409 : isDesktop1024 ? 398 : isDesktop1280 ? 399 : 399,
       width: isMobile ? 304 : isTablet ? 645 : isDesktop1024 ? 704 : isDesktop1280 ? 955 : 955,

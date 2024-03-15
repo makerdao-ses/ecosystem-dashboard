@@ -1027,3 +1027,9 @@ export const hasSubLevels = (codePath: string, budgets: Budget[]) => {
     );
   });
 };
+
+export const removeBudgetWord = (name: string) => {
+  const wordToRemove = /Budget\s*$/i;
+
+  return name.replace(wordToRemove, '');
+};

@@ -74,6 +74,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
           selected={selectedMetric}
           onChange={(metric: string) => onMetricChange(metric as AnalyticMetric)}
           items={metricItems}
+          maxHeightSimpleBar={220}
           PopperProps={{
             placement: 'bottom-end',
           }}
