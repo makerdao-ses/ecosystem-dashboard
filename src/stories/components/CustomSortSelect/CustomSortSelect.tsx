@@ -182,9 +182,8 @@ const SelectContainer = styled.div<{
       ? '1px solid#D4D9E1'
       : '1px solid #343442',
   borderRadius: '22px',
-  height: '48px',
   width: 'fit-content',
-  padding: '15px 40px 15px 15px',
+  padding: '7px 40px 7px 15px',
   boxSizing: 'border-box',
   cursor: 'pointer',
   transition: 'all .3s ease',
@@ -223,8 +222,7 @@ const Label = styled.div<{ isLight: boolean; hover: boolean }>(({ isLight, hover
 const IconWrapper = styled.div({
   position: 'absolute',
   right: '19px',
-  marginTop: '-4px',
-  top: '14px',
+  top: '3px',
 });
 
 const PopupContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({

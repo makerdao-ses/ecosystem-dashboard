@@ -105,7 +105,7 @@ const Input = styled.input<{ focus: boolean; isLight: boolean; small?: boolean }
         ? '1px solid #787A9B'
         : '1px solid #343442',
     borderRadius: '22px',
-    padding: '15px 45px 15px 16px',
+    padding: '7px 45px 7px 16px',
     boxSizing: 'border-box',
     transition: 'all .3s ease',
     backgroundColor: isLight ? '#FFFFFF' : '#10191F',
@@ -116,7 +116,6 @@ const Input = styled.input<{ focus: boolean; isLight: boolean; small?: boolean }
     [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: !small
       ? {
           width: '320px',
-          height: '48px',
           fontSize: '14px',
         }
       : undefined,
