@@ -58,6 +58,7 @@ export const createChartTooltip = (
   formatter: function (params: BarChartSeries[]) {
     const shortAmount = params.length > 10;
     const flexDirection = shortAmount ? 'row' : 'column';
+    const wrap = shortAmount ? 'flex-wrap:wrap;' : '';
     const gap = shortAmount ? '16px' : '12px';
     const minMax = isTable ? 'max-width:300px' : isDesktop1024 ? 'max-width:400px' : 'min-width:190px;max-width:450px';
     const maxWithTable = isTable ? 'max-width:190px' : isDesktop1024 ? 'max-width:450px' : '';
@@ -68,7 +69,7 @@ export const createChartTooltip = (
         }<span style="display:inline-block;margin-left:10px">${
       isShowMetric ? getSelectMetricText(metric) : ''
     }</span></div>
-        <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${minMax}">
+        <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${wrap}${minMax}">
           ${params
             .reverse()
             .map(
