@@ -111,16 +111,3 @@ export const convertFilterToGranularity = (period: PeriodicSelectionFilter): Ana
 };
 
 export const removePatternAfterSlash = (input: string) => input.replace(/\/\*.*$/, '');
-
-export const getCorrectValuesTableFilter = (metric: string, isMobile: boolean) => {
-  if (!isMobile) return metric;
-
-  switch (metric) {
-    case 'Net Protocol Outflow':
-      return 'Prtcol Outfl';
-    case 'Net Expenses On-chain':
-      return 'Net On-chain';
-    default:
-      return metric;
-  }
-};

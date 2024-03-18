@@ -6,7 +6,6 @@ import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFi
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
-import { getCorrectValuesTableFilter } from '../SectionPages/BreakdownTable/utils';
 import MetricItem from './MetricItem';
 import type { SelectItemProps, MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
@@ -58,16 +57,10 @@ const FilterTable: React.FC<Props> = ({
           selectNumberItemPerResolution
           defaultMetricsWithAllSelected={defaultMetricsWithAllSelected}
           positionRight={!isMobile}
-          label={
-            activeItems.length === 1
-              ? isMobile
-                ? getCorrectValuesTableFilter(activeItems[0], isMobile)
-                : activeItems[0]
-              : 'Metrics'
-          }
+          label={isMobile || activeItems.length !== 1 ? 'Metrics' : activeItems[0]}
           activeItems={activeItems}
           items={metrics}
-          showMetricOneItemSelect
+          showMetricOneItemSelect={!isMobile}
           onChange={(value: string[]) => {
             handleSelectChange(value);
           }}
