@@ -66,7 +66,7 @@ const Container = styled.div<{
   padding?: string;
   borderRadius?: string;
   isLight: boolean;
-}>(({ padding = '27px 0', borderRadius }) => ({
+}>(({ padding = '13.2px 0', borderRadius }) => ({
   display: 'flex',
   flex: 1,
   padding,
