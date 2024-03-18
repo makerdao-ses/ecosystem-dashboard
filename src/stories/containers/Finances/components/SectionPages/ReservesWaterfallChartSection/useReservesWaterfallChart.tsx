@@ -126,9 +126,8 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
       })) as MultiSelectItem[],
     [combinedElementsFromAnalytics]
   );
-
-  const popupContainerHeight =
-    budgets.length === 1 ? 100 : budgets.length === 2 ? 130 : budgets.length === 3 ? 150 : 180;
+  const itemsCount = Math.min(8, items.length + 1);
+  const popupContainerHeight = itemsCount * 40 + (itemsCount - 1) * 4;
 
   const isDisabled = activeElements.length === selectAll.length && selectedGranularity === 'monthly';
   return {
