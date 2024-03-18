@@ -38,6 +38,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const levelNumber = codePath.split('/').length;
   const levelOfDetail = levelNumber + 1;
   const currentBudget = allBudgets.find((budget) => budget.codePath === codePath);
+  const description = currentBudget?.description;
   const icon = currentBudget?.image;
   const title = formatBudgetName((currentBudget?.name || codePath) ?? '');
   const handleChangeYears = (value: string) => {
@@ -185,6 +186,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     levelNumber,
     icon,
     title,
+    description,
     trailingAddressMobile,
     trailingAddressDesktop,
     handleChangeYears,
