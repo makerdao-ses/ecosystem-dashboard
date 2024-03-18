@@ -41,7 +41,7 @@ const Title = styled('div')(({ theme }) => ({
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 32,
+    fontSize: 28,
     lineHeight: 'normal',
   },
 }));
