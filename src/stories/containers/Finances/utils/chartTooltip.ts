@@ -60,7 +60,7 @@ export const createChartTooltip = (
     if (params.every((item) => item.value === 0)) {
       return '';
     }
-    const filteredParams = params.filter((item) => item.value !== 0); // Filtra los items con valor 0
+    const filteredParams = params.filter((item) => item.value !== 0);
 
     const shortAmount = params.length > 10;
     const flexDirection = shortAmount ? 'row' : 'column';
