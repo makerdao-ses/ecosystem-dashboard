@@ -85,7 +85,7 @@ const Information = styled.div({
   },
 });
 
-const Code = styled.span<WithIsLight>(({ isLight }) => ({
+const Code = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   fontStyle: 'normal',
@@ -103,6 +103,11 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  width: 100,
+  textAlign: 'center',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    width: 116,
+  },
 }));
 
 const Action = styled.div({});
