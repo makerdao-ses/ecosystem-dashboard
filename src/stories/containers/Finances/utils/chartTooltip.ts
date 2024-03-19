@@ -1,7 +1,9 @@
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { formatNumber } from '@ses/core/utils/string';
-import { formatBudgetName } from './utils';
+import { getSelectMetricText } from '../components/BreakdownChartSection/utils';
+import { formatBudgetName, removeBudgetWord } from './utils';
 import type { BarChartSeries } from './types';
+import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 
 export const createChartTooltip = (
@@ -10,7 +12,10 @@ export const createChartTooltip = (
   isLight: boolean,
   isMobile: boolean,
   isTable: boolean,
-  isDesktop1024: boolean
+  isDesktop1024: boolean,
+  isBudgetRemove?: boolean,
+  metric?: AnalyticMetric,
+  isShowMetric?: boolean
 ) => ({
   show: !isMobile,
   trigger: 'axis',
@@ -32,7 +37,6 @@ export const createChartTooltip = (
     size: EChartsOption
   ) {
     const MORE_WITH = 10;
-    console.log('point', params);
     const withTooltip = size.contentSize[0];
     const heightTooltip = size.contentSize[0];
 
@@ -54,6 +58,7 @@ export const createChartTooltip = (
   formatter: function (params: BarChartSeries[]) {
     const shortAmount = params.length > 10;
     const flexDirection = shortAmount ? 'row' : 'column';
+    const wrap = shortAmount ? 'flex-wrap:wrap;' : '';
     const gap = shortAmount ? '16px' : '12px';
     const minMax = isTable ? 'max-width:300px' : isDesktop1024 ? 'max-width:400px' : 'min-width:190px;max-width:450px';
     const maxWithTable = isTable ? 'max-width:190px' : isDesktop1024 ? 'max-width:450px' : '';
@@ -61,8 +66,10 @@ export const createChartTooltip = (
       <div style="background-color:${isLight ? '#fff' : '#000A13'};padding:16px;overflow:auto;border-radius:3px;">
         <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${
           (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name
-        }</div>
-        <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${minMax}">
+        }<span style="display:inline-block;margin-left:10px">${
+      isShowMetric ? getSelectMetricText(metric) : ''
+    }</span></div>
+        <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${wrap}${minMax}">
           ${params
             .reverse()
             .map(
@@ -78,9 +85,11 @@ export const createChartTooltip = (
               </svg>
               <span style="display: inline-block;font-size:14px;color:${
                 isLight ? '#231536' : '#B6BCC2'
-              };white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${maxWithTable}"> ${formatBudgetName(
-                  item.seriesName
-                )}:</span>
+              };white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${maxWithTable}"> ${
+                  !isBudgetRemove
+                    ? formatBudgetName(item.seriesName)
+                    : removeBudgetWord(formatBudgetName(item.seriesName))
+                }:</span>
               <span style="font-size:16px;font-weight:700;color:${
                 isLight ? '#231536' : '#EDEFFF'
               };display: inline-block;">${formatNumber(item.value)}</span>

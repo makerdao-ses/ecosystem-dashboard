@@ -34,7 +34,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
       background: 'none',
       padding: '0 32px',
       marginTop: 0,
-      height: 69,
+      height: 50,
       letterSpacing: '0.4px',
     },
 

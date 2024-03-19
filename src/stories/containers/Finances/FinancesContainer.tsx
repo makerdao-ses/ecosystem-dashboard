@@ -1,10 +1,11 @@
-import styled from '@emotion/styled';
+// required till we set the correct description for the first level
+/* eslint-disable spellcheck/spell-checker */
+import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitle from '@ses/components/IconTitle/IconTitle';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
@@ -18,7 +19,6 @@ import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOEx
 import ReservesWaterfallChartSection from './components/SectionPages/ReservesWaterfallChartSection/ReservesWaterfallChartSection';
 import { useFinances } from './useFinances';
 import type { Budget } from '@ses/core/models/interfaces/budget';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   budgets: Budget[];
@@ -34,6 +34,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
     levelNumber,
     icon,
     title,
+    description,
     trailingAddressMobile,
     trailingAddressDesktop,
     cardOverViewSectionData,
@@ -71,14 +72,21 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
       />
 
       <Container>
-        {/* Page title */}
-        {levelNumber === 1 ? (
-          <FirstLevelTitle isLight={breakdownChartSectionData.isLight}>MakerDAO Finances</FirstLevelTitle>
-        ) : (
-          <NthTitleBox>
-            <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
-          </NthTitleBox>
-        )}
+        <TitleContainer>
+          {/* Page title */}
+          {levelNumber === 1 ? (
+            <FirstLevelTitle>MakerDAO Finances</FirstLevelTitle>
+          ) : (
+            <NthTitleBox>
+              <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
+            </NthTitleBox>
+          )}
+          <TitleDescription>
+            {levelNumber === 1
+              ? 'Lorem ipsum dolor sit amet consectetur. Eget imperdiet tortor dolor diam arcu consectetur nisi non mi. Tincidunt nulla risus tincidunt ornare ullamcorper ornare quis. Hendrerit turpis ac amet ut dignissim. Aliquam diam aenean ultrices aliquam nullam consectetur enim sapien. Volutpat elit tempus enim sed scelerisque. Dis habitasse quis.'
+              : description}
+          </TitleDescription>
+        </TitleContainer>
 
         <ContainerSections>
           <WrapperDesk>
@@ -200,71 +208,98 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
 
 export default FinancesContainer;
 
-const FirstLevelTitle = styled.h1<WithIsLight>(({ isLight }) => ({
+const TitleContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  marginTop: 28,
+  marginBottom: 24,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginBottom: 32,
+  },
+}));
+
+const TitleDescription = styled('p')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 14,
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
+  letterSpacing: '0.4px',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  margin: 0,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+  },
+}));
+
+const FirstLevelTitle = styled('h1')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 20,
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  marginTop: 24,
-  marginBottom: 24,
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  margin: 0,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 32,
-    marginTop: 32,
-    marginBottom: 64,
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 28,
   },
 }));
 
-const NthTitleBox = styled.h1({
-  marginTop: 24,
-  marginBottom: 24,
+const NthTitleBox = styled('h1')(({ theme }) => ({
+  margin: 0,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 32,
-    marginTop: 32,
-    marginBottom: 64,
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 28,
   },
-});
+}));
 
-const ContainerSections = styled.div({
+const ContainerSections = styled('div')(({ theme }) => ({
   gap: 16,
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 64,
-  },
-});
 
-const WrapperDesk = styled.div({
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 24,
+  },
+}));
+
+const WrapperDesk = styled('div')(({ theme }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'column',
     gap: 64,
   },
-});
+}));
 
-const ContainerLastReport = styled.div({
+const ContainerLastReport = styled('div')(({ theme }) => ({
   marginTop: 40,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 64,
   },
-});
-const WrapperMobile = styled.div({
+}));
+
+const WrapperMobile = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
-});
+}));
 
-const ContainerReservesWaterfallChart = styled.div({
+const ContainerReservesWaterfallChart = styled('div')(({ theme }) => ({
   marginTop: 40,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 64,
   },
-});
+}));

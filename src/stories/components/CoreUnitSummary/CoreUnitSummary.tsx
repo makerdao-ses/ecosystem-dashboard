@@ -180,7 +180,7 @@ const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  height: '74px',
+  height: '50px',
   paddingLeft: '32px',
   paddingRight: '32px',
   background: isLight ? 'none' : 'url(/assets/img/overlay.png)',

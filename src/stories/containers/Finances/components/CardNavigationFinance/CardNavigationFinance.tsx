@@ -22,6 +22,13 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const truncatedDescription = truncateDescription(description);
 
+  const showCode = code && code.length > 0;
+  const showCodeBelow =
+    showCode &&
+    (code.toLocaleLowerCase() === code ||
+      (code.includes('-') && code.toUpperCase() !== code) ||
+      /[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/.test(code));
+
   return (
     <StyleCardNavigationGeneric>
       <ContainerImage>
@@ -30,8 +37,13 @@ const CardNavigationFinance: React.FC<Props> = ({ image, title, description, hre
       <ContainerWithButton>
         <CardInformation>
           <Title isLight={isLight}>
-            {code && <Code isLight={isLight}>{code}</Code>} {title}
+            {showCode && !showCodeBelow && <Code isLight={isLight}>{code}</Code>} {title}
           </Title>
+          {showCodeBelow && (
+            <Title isLight={isLight}>
+              <Code isLight={isLight}>{code}</Code>
+            </Title>
+          )}
           <Description isLight={isLight}>{truncatedDescription}</Description>
         </CardInformation>
       </ContainerWithButton>

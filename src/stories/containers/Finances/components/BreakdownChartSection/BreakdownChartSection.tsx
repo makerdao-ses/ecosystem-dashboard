@@ -64,6 +64,7 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
           series={series}
           handleToggleSeries={handleToggleSeries}
           refBreakDownChart={refBreakDownChart}
+          selectedMetric={selectedMetric}
         />
       </Wrapper>
     )}

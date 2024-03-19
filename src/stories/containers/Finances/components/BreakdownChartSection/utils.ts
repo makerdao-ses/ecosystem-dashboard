@@ -103,3 +103,15 @@ export const setBorderRadiusForSeries = (
 
   return series;
 };
+
+export const getSelectMetricText = (metric: AnalyticMetric | undefined) => {
+  if (!metric) return 'Budget';
+  switch (metric) {
+    case 'ProtocolNetOutflow':
+      return 'Net Protocol Outflow';
+    case 'PaymentsOnChain':
+      return 'Net Expenses On-chain';
+    default:
+      return metric;
+  }
+};
