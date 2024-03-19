@@ -3,6 +3,7 @@ import FinancesContainer from '@ses/containers/Finances/FinancesContainer';
 import { fetchBudgets } from '@ses/containers/Finances/api/queries';
 import { getYearsRange, getBudgetsAnalytics } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
+import { DateTime } from 'luxon';
 // eslint-disable-next-line camelcase
 import { SWRConfig, unstable_serialize } from 'swr';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -34,7 +35,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   // get the allowed year range and validate the initial year
   const yearsRange = getYearsRange();
-  const initialYear = context.query.year?.toString() ?? yearsRange[0];
+
+  const now = DateTime.utc();
+  const initialYear = context.query.year?.toString() ?? (now.month / 3 >= 2 ? now.year : now.year - 1).toString();
   if (initialYear !== yearsRange[0] && !yearsRange.includes(initialYear)) {
     return {
       notFound: true,
