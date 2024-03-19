@@ -22,7 +22,7 @@ interface Props {
   maxItems?: number;
   minItems?: number;
   allowSelectAll?: boolean;
-  popupContainerHeight?: number;
+  popupContainerHeight?: number | string;
   breakdownTable: TableFinances[];
   isLoading: boolean;
   headerTable: MetricValues[];
