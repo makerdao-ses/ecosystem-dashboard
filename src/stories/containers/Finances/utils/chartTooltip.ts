@@ -56,12 +56,19 @@ export const createChartTooltip = (
   },
   borderColor: isLight ? '#D4D9E1' : '#231536',
   formatter: function (params: BarChartSeries[]) {
+    // If all values are cero, don't show tooltip
+    if (params.every((item) => item.value === 0)) {
+      return '';
+    }
+    const filteredParams = params.filter((item) => item.value !== 0);
+
     const shortAmount = params.length > 10;
     const flexDirection = shortAmount ? 'row' : 'column';
     const wrap = shortAmount ? 'flex-wrap:wrap;' : '';
     const gap = shortAmount ? '16px' : '12px';
     const minMax = isTable ? 'max-width:300px' : isDesktop1024 ? 'max-width:400px' : 'min-width:190px;max-width:450px';
     const maxWithTable = isTable ? 'max-width:190px' : isDesktop1024 ? 'max-width:450px' : '';
+
     return `
       <div style="background-color:${isLight ? '#fff' : '#000A13'};padding:16px;overflow:auto;border-radius:3px;">
         <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${
@@ -70,7 +77,7 @@ export const createChartTooltip = (
       isShowMetric ? getSelectMetricText(metric) : ''
     }</span></div>
         <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${wrap}${minMax}">
-          ${params
+          ${filteredParams
             .reverse()
             .map(
               (item) =>
