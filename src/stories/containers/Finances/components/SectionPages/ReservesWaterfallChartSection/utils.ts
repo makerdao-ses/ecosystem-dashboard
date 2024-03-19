@@ -314,6 +314,15 @@ export const getAnalyticForWaterfall = (
     totalToStartEachBudget.set(budget.codePath, 0);
   });
   if (!analytics || !analytics.series?.length) {
+    if (budgets.length > 0) {
+      budgets.forEach((budget) => {
+        summaryValues.set(
+          budget.codePath,
+          Array.from({ length: arrayLength }, () => 0)
+        );
+        totalToStartEachBudget.set(budget.codePath, 0);
+      });
+    }
     return {
       summaryValues,
       totalToStartEachBudget,
