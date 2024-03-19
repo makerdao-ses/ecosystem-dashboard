@@ -47,7 +47,10 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 name={actor.name || 'Wallet'}
                 image={actor.image}
               />
-              <Name isLight={isLight}>{actor.name}</Name>
+              <ContainerDescription>
+                <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
+                <Name isLight={isLight}>{actor.name}</Name>
+              </ContainerDescription>
             </ActorAvatar>
           </WrapperEcosystemActor>
 
@@ -246,14 +249,25 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: '14px',
   lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
+  width: 160,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    width: 'revert',
+  },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: '14px',
     lineHeight: '17px',
     marginTop: 1,
+    width: 110,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: 211,
   },
 }));
 
@@ -566,4 +580,19 @@ const LinkSpace = styled.div({
 
 const MobileGroupedScopesBox = styled.div({
   paddingRight: 16,
+});
+
+const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 800,
+  fontSize: 14,
+  lineHeight: '16.94px',
+  letterSpacing: '0.3px',
+  color: isLight ? '#B6BCC2' : 'red',
+}));
+
+const ContainerDescription = styled.div({
+  display: 'flex',
+  gap: 4,
+  alignItems: 'center',
 });
