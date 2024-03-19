@@ -81,9 +81,14 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
             </NthTitleBox>
           )}
-          <TitleDescription>
+          <TitleDescription levelNumber={levelNumber}>
             {levelNumber === 1
-              ? 'Lorem ipsum dolor sit amet consectetur. Eget imperdiet tortor dolor diam arcu consectetur nisi non mi. Tincidunt nulla risus tincidunt ornare ullamcorper ornare quis. Hendrerit turpis ac amet ut dignissim. Aliquam diam aenean ultrices aliquam nullam consectetur enim sapien. Volutpat elit tempus enim sed scelerisque. Dis habitasse quis.'
+              ? "MakerDAO Finances page provides a transparent view into the organization's financial structure. " +
+                "Here, you'll find the latest on MakerDAO's budget, actual spending, and fiscal forecasts, " +
+                'alongside a digestible snapshot of on-chain financial activity. Engage with detailed charts ' +
+                'and tables that dissect budget categories, track expense metrics, and showcase reserve allocations. ' +
+                "Whether you're exploring the strategic Endgame budgeting or delving into historical financial records, " +
+                "this page equips you with the knowledge to understand MakerDAO's financial stewardship."
               : description}
           </TitleDescription>
         </TitleContainer>
@@ -220,7 +225,7 @@ const TitleContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const TitleDescription = styled('p')(({ theme }) => ({
+const TitleDescription = styled('p')<{ levelNumber: number }>(({ theme, levelNumber }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontStyle: 'normal',
@@ -229,9 +234,10 @@ const TitleDescription = styled('p')(({ theme }) => ({
   letterSpacing: '0.4px',
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   margin: 0,
-
+  marginLeft: levelNumber === 1 ? 0 : 40,
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
+    marginLeft: levelNumber === 1 ? 0 : 56,
   },
 }));
 
