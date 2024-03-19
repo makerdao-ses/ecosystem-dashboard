@@ -38,7 +38,10 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
             <ContainerTitle>
               <ContainerSeparateData>
                 <ResponsiveTitle>
-                  {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                  <ShortCodeTitle>
+                    <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
+                    {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                  </ShortCodeTitle>
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
@@ -52,7 +55,11 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
             <ContainerTitle>
               <ContainerSeparateData>
                 <ResponsiveTitle>
-                  {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                  <ShortCodeTitle>
+                    <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
+                    {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                  </ShortCodeTitle>
+                  {/* {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>} */}
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
@@ -133,25 +140,20 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   isLight: boolean;
 }>(({ isLight }) => ({
   color: isLight ? '#231536' : '#E2D8EE',
-  [lightTheme.breakpoints.down('mobile_375')]: {
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19px',
-    marginLeft: '4px',
-    marginRight: '0px',
-  },
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19px',
-    marginLeft: '12px',
-    marginRight: '0px',
-    marginTop: 4,
-  },
+
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  marginRight: '0px',
+
   [lightTheme.breakpoints.up('table_834')]: {
     fontStyle: 'normal',
+    width: 350,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     fontWeight: 600,
     fontSize: '24px',
     letterSpacing: '0.4px',
@@ -175,8 +177,7 @@ const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
   fontStyle: 'normal',
   lineHeight: 'normal',
   borderRadius: 3,
-  marginTop: 1,
-  marginLeft: 12,
+  marginTop: 4,
   padding: '4px 0px',
   width: 'fit-content',
   borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
@@ -228,6 +229,7 @@ const CircleContainer = styled.div({
   marginRight: 10,
   display: 'flex',
   flexDirection: 'row',
+  gap: 12,
   [lightTheme.breakpoints.up('table_834')]: {
     marginRight: 16,
   },
@@ -318,13 +320,7 @@ const ContainerSeparateData = styled.div({
   [lightTheme.breakpoints.down('desktop_1194')]: {
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.down('mobile_375')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '100%',
-  },
-  [lightTheme.breakpoints.down('table_834')]: {
+  [lightTheme.breakpoints.up('table_834')]: {
     flexWrap: 'wrap',
   },
 });
@@ -369,5 +365,26 @@ const ContainerForAvatarLinks = styled.div({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+});
+
+const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 700,
+  fontSize: 16,
+  lineHeight: '19.36px',
+  color: isLight ? '#9FAFB9' : 'red',
+  [lightTheme.breakpoints.up('table_834')]: {
+    fontSize: 24,
+  },
+}));
+
+const ShortCodeTitle = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  gap: 4,
+  [lightTheme.breakpoints.up('table_834')]: {
+    alignItems: 'center',
   },
 });
