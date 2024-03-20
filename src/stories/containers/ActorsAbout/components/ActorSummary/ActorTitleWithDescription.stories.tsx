@@ -30,7 +30,7 @@ const variantsArgs = [
     actorAbout: new EcosystemActorBuilder()
       .withId('23')
       .withCode('PH-001')
-      .withShortCode('PH')
+      .withShortCode('PHX')
       .withName('Phoenix Labs')
       .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
@@ -68,11 +68,11 @@ Actors.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20296:268991&mode=design&t=GpgZz7tpji7PCidt-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-350124&mode=design&t=D00Pjjed55z050hV-4',
         options: {
           style: {
             left: 4,
-            top: -6,
+            top: -10,
           },
           componentStyle: {
             width: 375,
