@@ -59,7 +59,6 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
-                  {/* {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>} */}
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
@@ -159,6 +158,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
     letterSpacing: '0.4px',
     marginRight: '4px',
     fontFamily: 'Inter, sans-serif',
+    lineHeight: '29.05px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 'revert',
@@ -373,9 +373,10 @@ const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontWeight: 700,
   fontSize: 16,
   lineHeight: '19.36px',
-  color: isLight ? '#9FAFB9' : 'red',
+  color: isLight ? '#9FAFB9' : 'rgb(84, 105, 120)',
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 24,
+    lineHeight: '29.05px',
   },
 }));
 
