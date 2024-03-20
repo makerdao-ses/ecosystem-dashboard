@@ -158,6 +158,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
     letterSpacing: '0.4px',
     marginRight: '4px',
     fontFamily: 'Inter, sans-serif',
+    lineHeight: '29.05px',
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
     width: 'revert',
@@ -375,6 +376,7 @@ const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   color: isLight ? '#9FAFB9' : 'rgb(84, 105, 120)',
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 24,
+    lineHeight: '29.05px',
   },
 }));
 
