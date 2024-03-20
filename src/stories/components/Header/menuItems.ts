@@ -16,7 +16,8 @@ type RouteOnHeader =
   | 'coreUnits'
   | 'recognizedDelegate'
   | 'endgame'
-  | 'globalActivityFeed';
+  | 'globalActivityFeed'
+  | '';
 
 const menuItems = {} as Record<RouteOnHeader, MenuType>;
 

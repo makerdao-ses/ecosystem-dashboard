@@ -55,10 +55,12 @@ const Header: React.FC = () => {
       return menuItems.ecosystemActors;
     } else if (router.pathname.startsWith(siteRoutes.endgame)) {
       return menuItems.endgame;
-    } else return menuItems.finances;
+    } else if (router.pathname.startsWith('/finances')) {
+      return menuItems.finances;
+    } else return menuItems[''];
   }, [router.pathname]);
 
-  const activeItem = isMobile && activeMenuItem?.titleMobile ? activeMenuItem?.titleMobile : activeMenuItem.title;
+  const activeItem = isMobile && activeMenuItem?.titleMobile ? activeMenuItem?.titleMobile : activeMenuItem?.title;
   return (
     <Container isLight={isLight}>
       <LeftPart>
