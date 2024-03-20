@@ -5,6 +5,7 @@ import {
   generateColorPalette,
   hasSubLevels,
   formatBudgetName,
+  removeBudgetWord,
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
@@ -194,7 +195,7 @@ export const useCardChartOverview = (
     }
     const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
     return {
-      name: budgetMetrics[item].name || 'No name' + index,
+      name: removeBudgetWord(budgetMetrics[item].name) || 'No name' + index,
       code: budgetMetrics[item].code || 'No code' + index,
       value,
       originalValue: value,
