@@ -66,6 +66,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         isDesktop1024,
         true,
         selectedMetric,
+        true,
         true
       ),
       grid: {
