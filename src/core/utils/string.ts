@@ -142,20 +142,28 @@ export const getCommentVerb = (comment: BudgetStatementComment, previousComment?
   return 'wrote';
 };
 
-export const replaceAllNumberLetOneBeforeDot = (num: number) => {
-  if (num < 1000) {
-    return num.toString();
-  } else if (num < 1000000) {
-    return (num / 1000).toFixed(1).replace(/\.?0+$/g, '') + 'K';
-  } else if (num < 1000000000) {
-    return (num / 1000000).toFixed(1).replace(/\.?0+$/g, '') + 'M';
-  } else if (num < 1000000000000) {
-    return (num / 1000000000).toFixed(1).replace(/\.?0+$/g, '') + 'B';
-  } else if (num < 1000000000000000) {
-    return (num / 1000000000000).toFixed(1).replace(/\.?0+$/g, '') + 'T';
+export const replaceAllNumberLetOneBeforeDot = (num: number, isShowNegative = false) => {
+  // Need to be sure that its negative
+  const isNegative = num < 0;
+  const mathAbsolute = Math.abs(num);
+
+  let result;
+
+  if (mathAbsolute < 1000) {
+    result = mathAbsolute.toString();
+  } else if (mathAbsolute < 1000000) {
+    result = (mathAbsolute / 1000).toFixed(1).replace(/\.?0+$/g, '') + 'K';
+  } else if (mathAbsolute < 1000000000) {
+    result = (mathAbsolute / 1000000).toFixed(1).replace(/\.?0+$/g, '') + 'M';
+  } else if (mathAbsolute < 1000000000000) {
+    result = (mathAbsolute / 1000000000).toFixed(1).replace(/\.?0+$/g, '') + 'B';
+  } else if (mathAbsolute < 1000000000000000) {
+    result = (mathAbsolute / 1000000000000).toFixed(1).replace(/\.?0+$/g, '') + 'T';
   } else {
-    return num.toString();
+    result = mathAbsolute.toString();
   }
+
+  return isShowNegative && isNegative ? '-' + result : result;
 };
 
 export const pascalCaseToNormalString = (str: string): string => str.replace(/([a-z])([A-Z])/g, '$1 $2');
