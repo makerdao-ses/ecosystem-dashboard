@@ -89,8 +89,12 @@ const Header: React.FC = () => {
                 </ItemMenuStyle>
               </Link>
             ))}
+
           <ItemMenuResponsive>
-            <TopBarSelect selectedOption={activeItem} />
+            <TopBarSelect
+              selectedOption={activeItem !== undefined ? activeItem : menuItems.finances.title}
+              isRoot={activeItem === undefined}
+            />
           </ItemMenuResponsive>
           <RightElementsWrapper>
             {permissionManager.isAuthenticated() ? (
