@@ -15,7 +15,8 @@ export const createChartTooltip = (
   isDesktop1024: boolean,
   isBudgetRemove?: boolean,
   metric?: AnalyticMetric,
-  isShowMetric?: boolean
+  isShowMetric?: boolean,
+  isShowZeroValues?: boolean
 ) => ({
   show: !isMobile,
   trigger: 'axis',
@@ -60,7 +61,7 @@ export const createChartTooltip = (
     if (params.every((item) => item.value === 0)) {
       return '';
     }
-    const filteredParams = params.filter((item) => item.value !== 0);
+    const filteredParams = !isShowZeroValues ? params : params.filter((item) => item.value !== 0);
 
     const shortAmount = params.length > 10;
     const flexDirection = shortAmount ? 'row' : 'column';
