@@ -83,12 +83,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           )}
           <TitleDescription levelNumber={levelNumber}>
             {levelNumber === 1
-              ? "MakerDAO Finances page provides a transparent view into the organization's financial structure. " +
-                "Here, you'll find the latest on MakerDAO's budget, actual spending, and fiscal forecasts, " +
-                'alongside a digestible snapshot of on-chain financial activity. Engage with detailed charts ' +
-                'and tables that dissect budget categories, track expense metrics, and showcase reserve allocations. ' +
-                "Whether you're exploring the strategic Endgame budgeting or delving into historical financial records, " +
-                "this page equips you with the knowledge to understand MakerDAO's financial stewardship."
+              ? "The MakerDAO Finances page offers a clear snapshot of the organization's budgeting, actuals, and forecasts, complete with interactive visualizations for a comprehensive understanding of its fiscal health and activities."
               : description}
           </TitleDescription>
         </TitleContainer>
