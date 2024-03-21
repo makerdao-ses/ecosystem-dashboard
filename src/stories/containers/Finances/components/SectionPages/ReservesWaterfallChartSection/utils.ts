@@ -147,9 +147,9 @@ export const builderWaterfallSeries = (
 
           if (formatted.value === '0.00') return '';
           if (isMobile) {
-            return `- ${formatted.value}`;
+            return `-${formatted.value}`;
           }
-          return `- ${formatted.value}${formatted.suffix}`;
+          return `-${formatted.value}${formatted.suffix}`;
         },
       },
       stack: 'all',
@@ -180,10 +180,10 @@ export const builderWaterfallSeries = (
 
           if (formatted.value === '0.00') return '';
           if (isMobile) {
-            return `+ ${formatted.value}`;
+            return `+${formatted.value}`;
           }
 
-          return `+ ${formatted.value}${formatted.suffix}`;
+          return `+${formatted.value}${formatted.suffix}`;
         },
       },
       stack: 'all',
