@@ -26,9 +26,10 @@ export const parseAnalyticsToSeriesBreakDownChart = (
     const budgetKeys = Object.keys(budgetsAnalytics);
     budgetKeys.forEach((budgetKey, index) => {
       const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
-      const nameBudget = searchCorrectBudget.find(
-        (budget) => budget.codePath === removePatternAfterSlash(budgetKey)
-      )?.name;
+      const nameBudget =
+        searchCorrectBudget.find((budget) => budget.codePath === removePatternAfterSlash(budgetKey))?.name ??
+        (budgetKey.endsWith('/*') ? 'Others' : undefined);
+
       const budgetData = budgetsAnalytics[budgetKey];
       if (Array.isArray(budgetData)) {
         const dataForSeries = budgetData.map((budgetMetric) => getCorrectMetric(budgetMetric, metric));
