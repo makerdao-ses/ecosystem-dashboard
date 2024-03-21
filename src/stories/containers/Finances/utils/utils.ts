@@ -635,26 +635,17 @@ const getBreakdownAnalytics = (
 ): BreakdownBudgetAnalytic => {
   const budgetsAnalytics: BreakdownBudgetAnalytic = {};
 
-  // If there are no budgets and no analytics
-  if (!budgets.length && (!analytics || !analytics.series?.length)) {
-    Object.keys(budgetsAnalytics).forEach((key) => {
-      budgetsAnalytics[key as keyof typeof budgetsAnalytics] = Array(
-        granularity === 'monthly' ? 12 : granularity === 'quarterly' ? 4 : 1
-      ).fill(0);
-    });
-    return budgetsAnalytics;
-  }
-
-  // If there are analytics but no budgets
-  if (!budgets.length && analytics) {
-    analytics.series.forEach((item) => {
+  if (Array.isArray(analytics?.series) && analytics.series.length > 0) {
+    // add all the data to budget analytics
+    analytics.series.forEach((item, index) => {
       item.rows.forEach((row) => {
-        const analyticsArray = getArrayAnalytic(granularity);
         const codePath = row.dimensions[0].path;
-        budgetsAnalytics[codePath] = budgetsAnalytics[codePath] || analyticsArray;
+        if (!Object.hasOwn(budgetsAnalytics, codePath)) {
+          // set empty values for the current code path
+          budgetsAnalytics[codePath] = getArrayAnalytic(granularity);
+        }
 
-        const index = analytics.series.indexOf(item);
-        const budgetMetric = budgetsAnalytics[codePath][index] || newBudgetMetric();
+        const budgetMetric = budgetsAnalytics[codePath][index] ?? newBudgetMetric();
 
         switch (row.metric) {
           case 'Actuals':
@@ -679,39 +670,12 @@ const getBreakdownAnalytics = (
     });
   }
 
-  // If there are budgets
+  // check if there are budgets that are not in the analytics
+  // in that case we need to add them with empty values
   budgets.forEach((budget) => {
-    const analyticsArray = getArrayAnalytic(granularity);
-    budgetsAnalytics[budget.codePath] = analyticsArray;
-
-    analytics.series.forEach((seriesItem, index) => {
-      const budgetMetric = budgetsAnalytics[budget.codePath][index] || newBudgetMetric();
-
-      seriesItem.rows.forEach((row) => {
-        const budgetPath = row.dimensions.find((dimension) => dimension.name === 'budget')?.path;
-
-        if (budget.codePath === budgetPath) {
-          switch (row.metric) {
-            case 'Actuals':
-              budgetMetric.actuals = setMetric(row.value, row.unit);
-              break;
-            case 'Forecast':
-              budgetMetric.forecast = setMetric(row.value, row.unit);
-              break;
-            case 'Budget':
-              budgetMetric.budget = setMetric(row.value, row.unit);
-              break;
-            case 'PaymentsOnChain':
-              budgetMetric.paymentsOnChain = setMetric(row.value, row.unit);
-              break;
-            case 'ProtocolNetOutflow':
-              budgetMetric.protocolNetOutflow = setMetric(row.value, row.unit);
-              break;
-          }
-        }
-        budgetsAnalytics[budget.codePath][index] = budgetMetric;
-      });
-    });
+    if (!Object.hasOwn(budgetsAnalytics, budget.codePath)) {
+      budgetsAnalytics[budget.codePath] = getArrayAnalytic(granularity);
+    }
   });
 
   return budgetsAnalytics;
@@ -726,7 +690,7 @@ export const getBudgetsAnalytics = async (
 ) => {
   const analytics = await fetchAnalytics(granularity, year, select, lod);
 
-  return getBreakdownAnalytics(analytics, budgets, granularity); // temporary
+  return getBreakdownAnalytics(analytics, budgets, granularity);
 };
 
 export const colors: string[] = ['#F99374', '#447AFB', '#2DC1B1'];
