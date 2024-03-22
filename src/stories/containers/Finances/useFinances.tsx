@@ -40,6 +40,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const currentBudget = allBudgets.find((budget) => budget.codePath === codePath);
   const description = currentBudget?.description;
   const icon = currentBudget?.image;
+  const code = currentBudget?.code ?? '';
   const title = formatBudgetName((currentBudget?.name || codePath) ?? '');
   const handleChangeYears = (value: string) => {
     setYear(value);
@@ -200,5 +201,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     makerDAOExpensesMetrics,
     expenseReportSection: expenseTrendFinances,
     reserveChart,
+    code,
   };
 };

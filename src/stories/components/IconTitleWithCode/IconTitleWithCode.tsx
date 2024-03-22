@@ -8,9 +8,10 @@ interface Props {
   title: string;
   icon: string;
   className?: string;
+  code: string;
 }
 
-const IconTitle: React.FC<Props> = ({ icon, title, className }) => {
+const IconTitleWithCode: React.FC<Props> = ({ icon, title, className, code }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   return (
@@ -18,31 +19,38 @@ const IconTitle: React.FC<Props> = ({ icon, title, className }) => {
       <Icon>
         <ImageStyle src={icon} width={isMobile ? 29 : 32} height={isMobile ? 29 : 32} alt="Picture" unoptimized />
       </Icon>
-      <Title>{title}</Title>
+      <Title>
+        <Code>{code}</Code>
+        {title}
+      </Title>
     </Container>
   );
 };
 
-export default IconTitle;
+export default IconTitleWithCode;
 
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   gap: 8,
-  alignItems: 'center',
+  alignItems: 'flex-start',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    alignItems: 'center',
+  },
 });
 
-const Title = styled('div')(({ theme }) => ({
+const Title = styled('span')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
   fontSize: 20,
+  lineHeight: '24.2px',
   letterSpacing: '0.4px',
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 28,
-    lineHeight: 'normal',
+    lineHeight: '33.89px',
   },
 }));
 
@@ -73,5 +81,21 @@ const ImageStyle = styled(Image)(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     minWidth: 32,
+  },
+}));
+
+const Code = styled('span')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  display: 'inline-block',
+  fontWeight: 600,
+  fontSize: 20,
+  lineHeight: '24.2px',
+  marginRight: 6,
+  letterSpacing: '0.4px',
+  color: theme ? '#B6BCC2' : '#546978',
+  [theme.breakpoints.up('tablet_768')]: {
+    marginRight: 8,
+    fontSize: 28,
+    lineHeight: '33.89px',
   },
 }));
