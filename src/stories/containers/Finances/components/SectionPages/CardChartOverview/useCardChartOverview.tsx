@@ -34,11 +34,11 @@ export const useCardChartOverview = (
   const { isLight } = useThemeContext();
   const colorsLight = generateColorPalette(
     existingColors.length,
-    budgets.length - existingColors.length,
+    Object.keys(budgetsAnalytics ?? {}).length - existingColors.length,
     existingColors
   );
 
-  const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
+  const colorsDark = generateColorPalette(180, Object.keys(budgetsAnalytics ?? {}).length, existingColorsDark);
   const budgetWithNotChildren = useMemo(() => {
     const data = {
       budget: 0,
@@ -148,8 +148,8 @@ export const useCardChartOverview = (
         (budget) => budget.codePath === removePatternAfterSlash(budgetMetricKey)
       );
       // use the name of budget or add label
-      const budgetName = correspondingBudget ? formatBudgetName(correspondingBudget.name) : 'There is not name';
-      const budgetCode = correspondingBudget?.code || 'No-code';
+      const budgetName = correspondingBudget ? formatBudgetName(correspondingBudget.name) : 'Others';
+      const budgetCode = correspondingBudget?.code || 'Others';
       metric.actuals += budgetMetric[0].actuals.value || 0;
       metric.forecast += budgetMetric[0].forecast.value || 0;
       metric.budget += budgetMetric[0].budget.value || 0;
