@@ -1,9 +1,7 @@
-// required till we set the correct description for the first level
-/* eslint-disable spellcheck/spell-checker */
 import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
-import IconTitle from '@ses/components/IconTitle/IconTitle';
+import IconTitleWithCode from '@ses/components/IconTitleWithCode/IconTitleWithCode';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
@@ -47,6 +45,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
     breakdownChartSectionData,
     expenseReportSection,
     reserveChart,
+    code,
   } = useFinances(budgets, allBudgets, initialYear);
 
   return (
@@ -78,7 +77,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             <FirstLevelTitle>MakerDAO Finances</FirstLevelTitle>
           ) : (
             <NthTitleBox>
-              <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
+              <IconTitleWithCode icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} code={code} />
             </NthTitleBox>
           )}
           <TitleDescription levelNumber={levelNumber}>
