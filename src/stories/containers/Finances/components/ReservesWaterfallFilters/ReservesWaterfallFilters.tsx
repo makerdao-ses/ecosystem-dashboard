@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFilter/ResponsiveButtonClearFilter';
@@ -32,77 +33,95 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
   handleSelectChangeItem,
   items,
   title,
-}) => (
-  <ContainerFilterTitle>
-    <SectionTitle
-      title={title}
-      tooltip={
-        'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
-      }
-    />
+}) => {
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  // Show name if only one element its active
+  const singleActiveItemLabel =
+    activeItems.length === 1 ? items.find((item) => item.id === activeItems[0])?.content : null;
 
-    <FilterContainer>
-      <Reset>
-        <ResetButton
-          onClick={handleResetFilter}
-          disabled={isDisabled}
-          hasIcon={false}
-          label="Reset filters"
-          legacyBreakpoints={false}
-        />
-      </Reset>
+  const label = isMobile
+    ? activeItems.length === 1
+      ? `Categories ${activeItems.length}`
+      : 'Categories'
+    : items.length === activeItems.length
+    ? 'All Categories'
+    : activeItems.length === 1 && singleActiveItemLabel
+    ? singleActiveItemLabel
+    : 'Categories';
+  return (
+    <ContainerFilterTitle>
+      <SectionTitle
+        title={title}
+        tooltip={
+          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
+        }
+      />
 
-      <SelectContainer>
-        <ContainerFiltersMetric>
-          <CustomMultiSelectStyled
-            label="All Categories"
-            activeItems={activeItems}
-            withAll
-            items={items}
-            onChange={(value: string[]) => {
-              handleSelectChangeItem(value);
-            }}
-            popupContainerWidth={300}
-            listItemWidth={280}
-            customAll={{
-              content: 'All Categories',
-              id: 'all',
-              params: { isAll: true },
-              count: 0,
-            }}
-            popupContainerHeight={popupContainerHeight}
-            customItemRender={(props: SelectItemProps) => <BudgetItem {...props} />}
+      <FilterContainer>
+        <Reset>
+          <ResetButton
+            onClick={handleResetFilter}
+            disabled={isDisabled}
+            hasIcon={false}
+            label="Reset filters"
+            legacyBreakpoints={false}
           />
-        </ContainerFiltersMetric>
+        </Reset>
 
-        <SingleItemSelect
-          useSelectedAsLabel
-          selected={selectedGranularity}
-          onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
-          items={[
-            {
-              label: 'Monthly',
-              value: 'monthly',
-            },
-            {
-              label: 'Quarterly',
-              value: 'quarterly',
-            },
-            {
-              label: 'Annually',
-              value: 'annual',
-            },
-          ]}
-          PopperProps={{
-            placement: 'bottom-end',
-          }}
-        />
-      </SelectContainer>
-      <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
-    </FilterContainer>
-  </ContainerFilterTitle>
-);
-//
+        <SelectContainer>
+          <ContainerFiltersMetric>
+            <CustomMultiSelectStyled
+              isTextCut={activeItems.length === 1}
+              label={label as string}
+              activeItems={activeItems}
+              withAll
+              items={items}
+              onChange={(value: string[]) => {
+                handleSelectChangeItem(value);
+              }}
+              showMetricOneItemSelect
+              popupContainerWidth={300}
+              listItemWidth={280}
+              customAll={{
+                content: 'All Categories',
+                id: 'all',
+                params: { isAll: true },
+                count: 0,
+              }}
+              popupContainerHeight={popupContainerHeight}
+              customItemRender={(props: SelectItemProps) => <BudgetItem {...props} />}
+            />
+          </ContainerFiltersMetric>
+
+          <SingleItemSelect
+            useSelectedAsLabel
+            selected={selectedGranularity}
+            onChange={(value) => handleGranularityChange(value as AnalyticGranularity)}
+            items={[
+              {
+                label: 'Monthly',
+                value: 'monthly',
+              },
+              {
+                label: 'Quarterly',
+                value: 'quarterly',
+              },
+              {
+                label: 'Annually',
+                value: 'annual',
+              },
+            ]}
+            PopperProps={{
+              placement: 'bottom-end',
+            }}
+          />
+        </SelectContainer>
+        <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
+      </FilterContainer>
+    </ContainerFilterTitle>
+  );
+};
+
 export default ReservesWaterfallFilters;
 
 const FilterContainer = styled.div({
@@ -148,11 +167,32 @@ const ContainerFiltersMetric = styled.div({
   },
 });
 
-const CustomMultiSelectStyled = styled(CustomMultiSelect)({
+const CustomMultiSelectStyled = styled(CustomMultiSelect)<{ isTextCut: boolean }>(({ isTextCut }) => ({
   '& > div:nth-of-type(2)': {
     borderRadius: 6,
   },
-});
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    ...(isTextCut && {
+      '& > div': {
+        '& > div:first-of-type': {
+          width: 160,
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          overflow: ' hidden',
+        },
+      },
+    }),
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    ...(isTextCut && {
+      '& > div': {
+        '& > div:first-of-type': {
+          width: 'revert',
+        },
+      },
+    }),
+  },
+}));
 
 const ContainerFilterTitle = styled.div({
   display: 'flex',
