@@ -37,6 +37,8 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const isDesk1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isDesk1440 = useMediaQuery(lightTheme.breakpoints.between('desktop_1440', 'desktop_1920'));
   const isDesk1920 = useMediaQuery(lightTheme.breakpoints.up('desktop_1920'));
+  const isUpDesk2400 = useMediaQuery(lightTheme.breakpoints.up(2400));
+  const isUpDesk3000 = useMediaQuery(lightTheme.breakpoints.up(3000));
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(() => {
     const urlPeriod = router.query.period as PeriodicSelectionFilter;
     if (urlPeriod && ['Annually', 'Semi-annual', 'Quarterly', 'Monthly'].includes(urlPeriod)) {
@@ -63,11 +65,13 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     } else if (periodFilter === 'Quarterly') {
       if (isTable) metricsCount = 1;
       if (isDesk1024 || isDesk1280 || isDesk1440) metricsCount = 2;
-      if (isDesk1920) metricsCount = 3;
+      if (isDesk1920 && !isUpDesk2400 && !isUpDesk3000) metricsCount = 3;
+      if (isUpDesk2400 && !isUpDesk3000) metricsCount = 4;
+      if (isUpDesk3000) metricsCount = 5;
     }
 
     return metricsCount;
-  }, [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, periodFilter]);
+  }, [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, isUpDesk2400, isUpDesk3000, periodFilter]);
 
   const [activeMetrics, setActiveMetrics] = useState<string[]>(() => {
     let urlMetrics = router.query.metric as string[] | undefined;
