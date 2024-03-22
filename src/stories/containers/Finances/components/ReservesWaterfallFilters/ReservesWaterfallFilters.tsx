@@ -41,7 +41,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
 
   const label = isMobile
     ? activeItems.length === 1
-      ? `Categories ${activeItems.length}`
+      ? `Categories (${activeItems.length})`
       : 'Categories'
     : items.length === activeItems.length
     ? 'All Categories'
