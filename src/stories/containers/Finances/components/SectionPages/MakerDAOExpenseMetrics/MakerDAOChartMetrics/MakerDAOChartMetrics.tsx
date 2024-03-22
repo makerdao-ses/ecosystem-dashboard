@@ -94,7 +94,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
             return value.toString();
           }
 
-          return replaceAllNumberLetOneBeforeDot(value);
+          return replaceAllNumberLetOneBeforeDot(value, true);
         },
         color: isLight ? '#231536' : '#EDEFFF',
         fontSize: isMobile ? 10 : isTablet ? 14 : 14,

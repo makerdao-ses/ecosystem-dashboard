@@ -340,15 +340,15 @@ export const getAnalyticForWaterfall = (
 
         if (index === 0) {
           if (row.metric === 'ProtocolNetOutflow') {
-            netProtocolOutflow = Math.abs(row.sum) - Math.abs(row.value);
+            netProtocolOutflow = row.sum - row.value;
           }
           if (row.metric === 'PaymentsOnChain') {
-            paymentsOnChain = Math.abs(row.sum) - Math.abs(row.value);
+            paymentsOnChain = row.sum - row.value;
           }
 
           const getStartDifference = netProtocolOutflow - paymentsOnChain;
 
-          totalToStartEachBudget.set(removePatternAfterSlash(analyticPath), Math.abs(getStartDifference));
+          totalToStartEachBudget.set(removePatternAfterSlash(analyticPath), getStartDifference);
         }
         if (values[index]) {
           if (row.metric === 'ProtocolNetOutflow') {
@@ -375,15 +375,15 @@ export const getAnalyticForWaterfall = (
 
         if (index === 0) {
           if (row.metric === 'ProtocolNetOutflow') {
-            netProtocolOutflow = Math.abs(row.sum) - Math.abs(row.value);
+            netProtocolOutflow += row.sum - row.value;
           }
           if (row.metric === 'PaymentsOnChain') {
-            paymentsOnChain = Math.abs(row.sum) - Math.abs(row.value);
+            paymentsOnChain += row.sum - row.value;
           }
 
-          const moment = netProtocolOutflow - paymentsOnChain;
+          const difference = netProtocolOutflow - paymentsOnChain;
 
-          totalToStartEachBudget.set(analyticPath, Math.abs(moment));
+          totalToStartEachBudget.set(analyticPath, difference);
         }
         if (values[index]) {
           if (row.metric === 'ProtocolNetOutflow') {
@@ -404,7 +404,7 @@ export const getAnalyticForWaterfall = (
 
     const sumOfDifferences =
       values.length > 0
-        ? values.map((item) => Math.abs(item.ProtocolNetOutflow ?? 0) - Math.abs(item.PaymentsOnChain ?? 0))
+        ? values.map((item) => item.ProtocolNetOutflow - item.PaymentsOnChain)
         : Array.from({ length: arrayLength }, () => 0);
 
     summaryValues.set(element, sumOfDifferences);

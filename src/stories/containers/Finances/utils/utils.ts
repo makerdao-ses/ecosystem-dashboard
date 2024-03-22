@@ -565,7 +565,7 @@ export const getYearsRange = () => {
 
 const setMetric = (value: number, unit: string) =>
   ({
-    value: Math.abs(value),
+    value,
     unit,
   } as ValueAndUnit);
 
