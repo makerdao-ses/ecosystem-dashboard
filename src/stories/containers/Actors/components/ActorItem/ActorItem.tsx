@@ -32,7 +32,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
       </Link>
     </ContainerLinkColum>
   );
-
+  // TODO:Remove the slice function in the code, when the correct short code ist add from the API
   return (
     <ExtendedGenericDelegate isLight={isLight} hasScope={actor.scopes?.length > 0}>
       <ActorAboutLink>
@@ -48,7 +48,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 image={actor.image}
               />
               <ContainerDescription>
-                <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
+                <ShortCode isLight={isLight}>{actor.shortCode.slice(0, 3)}</ShortCode>
                 <Name isLight={isLight}>{actor.name}</Name>
               </ContainerDescription>
             </ActorAvatar>
@@ -588,7 +588,7 @@ const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '16.94px',
   letterSpacing: '0.3px',
-  color: isLight ? '#B6BCC2' : 'red',
+  color: isLight ? '#B6BCC2' : '#546978',
 }));
 
 const ContainerDescription = styled.div({
