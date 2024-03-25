@@ -34,6 +34,7 @@ export default ActorTitleWithDescription;
 const ContainerTitle = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  gap: 8,
 
   height: 'fit-content',
   transition: 'all .3s ease',
@@ -44,17 +45,19 @@ const ContainerTitle = styled.div({
   overflow: 'hidden',
   width: '100%',
   paddingTop: 0,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     paddingLeft: 32,
     paddingRight: 32,
+    gap: 16,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: 'auto',
     marginRight: 'auto',
     paddingLeft: 0,
     paddingRight: 0,
-    maxWidth: 1130,
+    maxWidth: 960,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: 1184,
     margin: '0 auto',
@@ -69,7 +72,8 @@ const ContainerTitle = styled.div({
 
 const SummaryDescription = styled.div({
   marginLeft: 4,
-  [lightTheme.breakpoints.up('table_834')]: {
+  marginTop: 1,
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 0,
   },
 });
@@ -84,12 +88,7 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  marginTop: '16px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    marginTop: '12px',
-  },
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    marginTop: '8px',
+  [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
     width: '100%',
     fontStyle: 'normal',
     fontWeight: 400,
