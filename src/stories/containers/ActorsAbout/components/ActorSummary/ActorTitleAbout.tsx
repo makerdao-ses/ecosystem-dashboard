@@ -58,7 +58,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
               <ContainerSeparateData>
                 <ResponsiveTitle>
                   <ShortCodeTitle>
-                    //TODO:Remove the slice when correct short code is add
+                    {/* TODO:Remove the slice when correct short code is add */}
                     <ShortCode isLight={isLight}>{actorAbout.shortCode.slice(0, 3)}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
