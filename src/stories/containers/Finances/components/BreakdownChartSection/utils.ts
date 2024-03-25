@@ -77,26 +77,49 @@ export const setBorderRadiusForSeries = (
   const seriesLength = series[0]?.data.length;
 
   for (let dataIndex = 0; dataIndex < seriesLength; dataIndex++) {
-    let firstNonNullIndex = -1;
-    let lastNonNullIndex = -1;
-    let nonNullCount = 0;
+    let firstPositiveIndex = -1;
+    let lastPositiveIndex = -1;
+    let firstNegativeIndex = -1;
+    let lastNegativeIndex = -1;
+    let positiveCount = 0;
+    let negativeCount = 0;
 
+    // Identify first and last indices for positive and negative values
     series.forEach((s, seriesIndex) => {
-      if (s.data[dataIndex].value !== 0 && s.data[dataIndex].value !== null && s.data[dataIndex].value !== undefined) {
-        if (firstNonNullIndex === -1) firstNonNullIndex = seriesIndex;
-        lastNonNullIndex = seriesIndex;
-        nonNullCount++;
+      const value = s.data[dataIndex].value ?? 0;
+      if (value > 0) {
+        if (firstPositiveIndex === -1) firstPositiveIndex = seriesIndex;
+        lastPositiveIndex = seriesIndex;
+        positiveCount++;
+      } else if (value < 0) {
+        if (firstNegativeIndex === -1) firstNegativeIndex = seriesIndex;
+        lastNegativeIndex = seriesIndex;
+        negativeCount++;
       }
     });
 
+    // Apply border styles based on position and value.
     series.forEach((s, seriesIndex) => {
-      if (nonNullCount === 1) {
+      const isPositive = (s.data[dataIndex].value ?? 0) > 0;
+      const isNegative = (s.data[dataIndex].value ?? 0) < 0;
+
+      if (positiveCount + negativeCount === 1) {
+        // Apply all borders if only one value
         s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
-      } else if (seriesIndex === firstNonNullIndex) {
+      } else if (isPositive && seriesIndex === firstPositiveIndex) {
+        // Firts postive value bottom borders
         s.data[dataIndex].itemStyle.borderRadius = [0, 0, barBorderRadius, barBorderRadius];
-      } else if (seriesIndex === lastNonNullIndex) {
+      } else if (isPositive && seriesIndex === lastPositiveIndex) {
+        // Last postive value top borders
         s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
+      } else if (isNegative && seriesIndex === firstNegativeIndex) {
+        // First value negative, top edges (inverted due to negative nature)
+        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
+      } else if (isNegative && seriesIndex === lastNegativeIndex) {
+        // Last negative value, bottom edges (inverted)
+        s.data[dataIndex].itemStyle.borderRadius = [0, 0, barBorderRadius, barBorderRadius];
       } else {
+        // No borders for intermediate values
         s.data[dataIndex].itemStyle.borderRadius = [0, 0, 0, 0];
       }
     });
