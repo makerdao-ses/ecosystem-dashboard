@@ -53,6 +53,7 @@ const variantsArgs = [
         github: '#',
         discord: '#',
         website: '#',
+        linkedIn: '#',
       } as SocialMediaChannels)
       .build(),
     showTextDescription: true,
@@ -81,7 +82,7 @@ Actors.parameters = {
       },
       768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-344615&mode=design&t=ilH4cw6Xv4Co3FZq-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=34573-237843&mode=design&t=qhjtkXxRT0krvDPA-4',
         options: {
           style: {
             left: -1,

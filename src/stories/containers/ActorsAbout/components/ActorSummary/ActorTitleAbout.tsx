@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
-import { SocialMediaComponentStyled } from '@ses/containers/Actors/components/ActorItem/ActorItem';
+import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -66,11 +66,17 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
                 </ResponsiveTitle>
+                <CategoryContainer>
+                  {actorAbout?.scopes?.map((item, index) => (
+                    <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                  ))}
+                </CategoryContainer>
               </ContainerSeparateData>
             </ContainerTitle>
             {isTable && (
               <ContainerLinks>
                 <SocialMediaComponentStyled
+                  iconsNumbers={getLinksFromRecognizedActors(actorAbout, ActorsLinkType).length ?? 0}
                   isLight={isLight}
                   links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
                   fill="#708390"
@@ -81,15 +87,18 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
           </WrapperShowDesk>
 
           <ContainerCategoryConditional>
-            <CategoryContainer>
-              {actorAbout?.scopes?.map((item, index) => (
-                <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
-              ))}
-            </CategoryContainer>
+            {phoneDimensions && (
+              <CategoryContainer>
+                {actorAbout?.scopes?.map((item, index) => (
+                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                ))}
+              </CategoryContainer>
+            )}
 
             {phoneDimensions && !isTable && (
               <ContainerLinks>
                 <SocialMediaComponentStyled
+                  iconsNumbers={getLinksFromRecognizedActors(actorAbout, ActorsLinkType).length ?? 0}
                   isLight={isLight}
                   links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
                   fill="#708390"
@@ -102,6 +111,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
         {!phoneDimensions && !isTable && (
           <ContainerLinks>
             <SocialMediaComponentStyled
+              iconsNumbers={getLinksFromRecognizedActors(actorAbout, ActorsLinkType).length ?? 0}
               isLight={isLight}
               links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
               fill="#708390"
@@ -138,6 +148,9 @@ const ContainerTitle = styled.div({
   [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
     width: '100%',
   },
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    alignItems: 'flex-start',
+  },
 });
 
 const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
@@ -158,12 +171,11 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   textOverflow: 'ellipsis',
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontStyle: 'normal',
-    maxWidth: 150,
+    maxWidth: 205,
     width: 'fit-content',
     fontWeight: 600,
     fontSize: '24px',
     letterSpacing: '0.4px',
-    marginRight: '4px',
     fontFamily: 'Inter, sans-serif',
     lineHeight: '29.05px',
   },
@@ -198,6 +210,12 @@ const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
     fontSize: 14,
     borderRadius: 'revert',
     borderBottom: 'revert',
+    // Remove this margin when the status its add
+    marginLeft: 62,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    // Remove this margin when the status its add
+    marginLeft: 0,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -226,13 +244,16 @@ const ContainerLinks = styled.div({
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginRight: 0,
-    marginTop: 8,
+    marginTop: 0,
     alignItems: 'flex-start',
     height: 'fit-content',
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginTop: 6,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 0,
   },
 });
 
@@ -413,7 +434,7 @@ const ShortCodeTitle = styled.div({
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     alignItems: 'center',
-    gap: 6,
+    gap: 4,
     width: 'fit-content',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -421,3 +442,29 @@ const ShortCodeTitle = styled.div({
     gap: 8,
   },
 });
+
+const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLight & { iconsNumbers: number }>(
+  ({ isLight, iconsNumbers }) => ({
+    '& a': {
+      '&:hover svg path': {
+        fill: isLight ? '#231536' : '#48495F',
+        stroke: 'none',
+      },
+    },
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      marginTop: 4,
+      justifyContent: 'flex-end',
+      flexWrap: 'wrap',
+      rowGap: 4,
+      flexDirection: 'row',
+      width: iconsNumbers <= 3 ? 'fit-content' : 128,
+    },
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      justifyContent: 'revert',
+      flexWrap: 'revert',
+      flexDirection: 'row',
+      width: 'revert',
+      maxWidth: 'revert',
+    },
+  })
+);
