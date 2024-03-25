@@ -1,9 +1,7 @@
-// required till we set the correct description for the first level
-/* eslint-disable spellcheck/spell-checker */
 import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
-import IconTitle from '@ses/components/IconTitle/IconTitle';
+import IconTitleWithCode from '@ses/components/IconTitleWithCode/IconTitleWithCode';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
@@ -47,6 +45,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
     breakdownChartSectionData,
     expenseReportSection,
     reserveChart,
+    code,
   } = useFinances(budgets, allBudgets, initialYear);
 
   return (
@@ -78,12 +77,12 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             <FirstLevelTitle>MakerDAO Finances</FirstLevelTitle>
           ) : (
             <NthTitleBox>
-              <IconTitle icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} />
+              <IconTitleWithCode icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} code={code} />
             </NthTitleBox>
           )}
-          <TitleDescription>
+          <TitleDescription levelNumber={levelNumber}>
             {levelNumber === 1
-              ? 'Lorem ipsum dolor sit amet consectetur. Eget imperdiet tortor dolor diam arcu consectetur nisi non mi. Tincidunt nulla risus tincidunt ornare ullamcorper ornare quis. Hendrerit turpis ac amet ut dignissim. Aliquam diam aenean ultrices aliquam nullam consectetur enim sapien. Volutpat elit tempus enim sed scelerisque. Dis habitasse quis.'
+              ? "The MakerDAO Finances page offers a clear snapshot of the organization's budgeting, actuals, and forecasts, complete with interactive visualizations for a comprehensive understanding of its fiscal health and activities."
               : description}
           </TitleDescription>
         </TitleContainer>
@@ -220,7 +219,7 @@ const TitleContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const TitleDescription = styled('p')(({ theme }) => ({
+const TitleDescription = styled('p')<{ levelNumber: number }>(({ theme, levelNumber }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontStyle: 'normal',
@@ -229,9 +228,10 @@ const TitleDescription = styled('p')(({ theme }) => ({
   letterSpacing: '0.4px',
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   margin: 0,
-
+  marginLeft: levelNumber === 1 ? 0 : 40,
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
+    marginLeft: levelNumber === 1 ? 0 : 56,
   },
 }));
 

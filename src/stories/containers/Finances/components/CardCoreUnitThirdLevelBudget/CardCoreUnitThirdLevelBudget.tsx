@@ -72,9 +72,10 @@ const CircleAvatarStyled = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
 
 const Information = styled.div({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   flexWrap: 'wrap',
   gap: 2,
+  alignItems: 'center',
   marginBottom: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 23,
@@ -96,16 +97,16 @@ const Code = styled.div<WithIsLight>(({ isLight }) => ({
 const Name = styled.div<WithIsLight>(({ isLight }) => ({
   color: isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
-
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  width: 56,
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  width: 100,
+  textAlign: 'center',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    width: 89,
+    width: 116,
   },
 }));
 

@@ -22,7 +22,7 @@ interface Props {
   minItems?: number;
   defaultMetricsWithAllSelected?: string[];
   allowSelectAll?: boolean;
-  popupContainerHeight?: number;
+  popupContainerHeight?: number | string;
   isDisabled?: boolean;
 }
 

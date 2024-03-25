@@ -62,7 +62,6 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     <ShortCode isLight={isLight}>{actorAbout.shortCode.slice(0, 3)}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
-
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>

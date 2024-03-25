@@ -26,7 +26,7 @@ interface SingleItemSelectProps {
   selected?: string;
   onChange?: (value: string) => unknown;
   isMobile?: boolean;
-  maxHeightSimpleBar?: number;
+  maxHeightSimpleBar?: number | string;
 }
 
 const SingleItemSelect: React.FC<SingleItemSelectProps> = ({

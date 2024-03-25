@@ -46,7 +46,7 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
 
     // calculate the sum of all the rows for a metric
     const reduceMetric = (rows: AnalyticSeriesRow[], metric: AnalyticMetric) =>
-      rows.filter((element) => element.metric === metric).reduce((acc, current) => acc + Math.abs(current.value), 0);
+      rows.filter((element) => element.metric === metric).reduce((acc, current) => acc + current.value, 0);
 
     analytics.series.forEach((item) => {
       data.budget.push(reduceMetric(item.rows, 'Budget'));

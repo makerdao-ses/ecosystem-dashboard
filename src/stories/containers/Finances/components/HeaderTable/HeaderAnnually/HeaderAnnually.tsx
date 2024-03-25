@@ -150,7 +150,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
 
   alignItems: 'center',
   whiteSpace: 'pre',
-  overflow: 'auto',
+  overflow: 'hidden',
   '&::-webkit-scrollbar': {
     width: 0,
     height: 0,

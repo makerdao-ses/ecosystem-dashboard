@@ -30,6 +30,7 @@ const BudgetItem: React.FC<SelectItemProps> = ({ checked = false, ...props }) =>
               src={props.params?.url || '/assets/img/default-icon-cards-budget.svg'}
               alt="Budget Icon"
               fill={true}
+              unoptimized
             />
           </ImageContainer>
         </>

@@ -54,7 +54,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   boxShadow: isLight ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)' : 'red',
   alignItems: 'center',
   whiteSpace: 'pre',
-  overflow: 'auto',
+  overflow: 'hidden',
   height: 97,
   '&::-webkit-scrollbar': {
     width: 0,

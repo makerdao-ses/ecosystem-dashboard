@@ -13,11 +13,13 @@ import { SelectChevronDown } from '../svg/select-chevron-down';
 
 interface TopBarSelectProps {
   selectedOption: JSX.Element | string;
+  isRoot?: boolean;
 }
 
-export const TopBarSelect = (props: TopBarSelectProps) => {
+export const TopBarSelect: React.FC<TopBarSelectProps> = ({ isRoot = false, selectedOption }) => {
   const { isLight } = useThemeContext();
   const router = useRouter();
+
   const [popup, setPopup] = useState(false);
   const togglePopup = () => {
     enablePageOverflow(popup);
@@ -38,9 +40,12 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
 
   return (
     <>
-      <Button onClick={togglePopup} isLight={isLight}>
-        {props.selectedOption}{' '}
-        <SelectChevronDown style={{ marginLeft: '29px' }} fill={isLight ? '#1AAB9B' : '#2DC1B1'} />
+      <Button onClick={togglePopup} isLight={isLight} isRoot={isRoot}>
+        {selectedOption}{' '}
+        <SelectChevronDown
+          style={{ marginLeft: '29px' }}
+          fill={isRoot ? (isLight ? '#25273D' : '#D2D4EF') : isLight ? '#1AAB9B' : '#2DC1B1'}
+        />
       </Button>
       {popup && (
         <Popup isLight={isLight}>
@@ -52,18 +57,21 @@ export const TopBarSelect = (props: TopBarSelectProps) => {
               }}
             />
           </CloseWrapper>
-          {Object.values(menuItems).map((item) => (
-            <Link href={item.link} passHref legacyBehavior>
-              <LinkWrapper
-                isLight={isLight}
-                isActive={item.title === props.selectedOption || item.titleMobile === props.selectedOption}
-                key={item.title}
-                onClick={item.title === props.selectedOption ? togglePopup : undefined}
-              >
-                {item.title}
-              </LinkWrapper>
-            </Link>
-          ))}
+          {Object.values(menuItems).map((item) => {
+            const isRoot = router.pathname !== '/';
+            return (
+              <Link href={item.link} passHref legacyBehavior>
+                <LinkWrapper
+                  isLight={isLight}
+                  isActive={isRoot && (item.title === selectedOption || item.titleMobile === selectedOption)}
+                  key={item.title}
+                  onClick={item.title === selectedOption ? togglePopup : undefined}
+                >
+                  {item.title}
+                </LinkWrapper>
+              </Link>
+            );
+          })}
           <Link
             href={HOW_TO_SUBMIT_EXPENSES}
             target="_blank"
@@ -113,7 +121,7 @@ const CloseWrapper = styled.div({
   cursor: 'pointer',
 });
 
-const Button = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Button = styled.div<{ isLight: boolean; isRoot: boolean }>(({ isLight, isRoot }) => ({
   display: 'flex',
   marginTop: 1,
   alignItems: 'center',
@@ -127,7 +135,7 @@ const Button = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   padding: '8px 16px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-  color: isLight ? '#1AAB9B' : '#2DC1B1',
+  color: isRoot ? (isLight ? '#25273D' : '#D2D4EF') : isLight ? '#1AAB9B' : '#2DC1B1',
   fontSize: '16px',
   lineHeight: '19px',
   '&:hover:not(:disabled)': {

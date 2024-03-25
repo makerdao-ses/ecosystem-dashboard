@@ -55,7 +55,7 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   alignItems: 'center',
   whiteSpace: 'pre',
-  overflow: 'auto',
+  overflow: 'hidden',
   height: 97,
   '&::-webkit-scrollbar': {
     width: 0,
