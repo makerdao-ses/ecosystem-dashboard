@@ -18,17 +18,18 @@ export const parseAnalyticsToSeriesBreakDownChart = (
   metric: AnalyticMetric,
   allBudgets: Budget[]
 ) => {
-  const colorsLight = generateColorPalette(
-    existingColors.length,
-    budgets.length - existingColors.length,
-    existingColors
-  );
-
-  const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
   const series: BreakdownChartSeriesData[] = [];
 
   if (budgetsAnalytics) {
     const budgetKeys = Object.keys(budgetsAnalytics);
+
+    const colorsLight = generateColorPalette(
+      existingColors.length,
+      budgetKeys.length - existingColors.length,
+      existingColors
+    );
+    const colorsDark = generateColorPalette(180, budgetKeys.length, existingColorsDark);
+
     budgetKeys.forEach((budgetKey, index) => {
       const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
       const nameBudget =

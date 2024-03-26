@@ -81,6 +81,7 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string, al
         : [...inactiveSeries, toggleSeries]
     );
   };
+  console.log('<<>>', allSeries);
   const series = useMemo(() => {
     const parsedSeries = allSeries.map((item) => {
       if (inactiveSeries.includes(item.name)) {
@@ -103,6 +104,7 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string, al
 
     return setBorderRadiusForSeries(parsedSeries, barBorderRadius);
   }, [allSeries, barBorderRadius, inactiveSeries]);
+  console.log('>>>', series);
 
   return {
     isLoading,
