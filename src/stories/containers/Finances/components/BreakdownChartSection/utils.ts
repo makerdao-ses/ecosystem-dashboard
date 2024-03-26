@@ -106,14 +106,20 @@ export const setBorderRadiusForSeries = (
       if (positiveCount + negativeCount === 1) {
         // Apply all borders if only one value
         s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
+      } else if (isPositive && positiveCount === 1) {
+        // Only one positive value, apply all borders
+        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
       } else if (isPositive && seriesIndex === firstPositiveIndex) {
-        // Firts postive value bottom borders
+        // First positive value bottom borders
         s.data[dataIndex].itemStyle.borderRadius = [0, 0, barBorderRadius, barBorderRadius];
       } else if (isPositive && seriesIndex === lastPositiveIndex) {
-        // Last postive value top borders
+        // Last positive value top borders
         s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
+      } else if (isNegative && negativeCount === 1) {
+        // Only one negative value, apply all borders
+        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
       } else if (isNegative && seriesIndex === firstNegativeIndex) {
-        // First value negative, top edges (inverted due to negative nature)
+        // First negative value, top edges (inverted due to negative nature)
         s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
       } else if (isNegative && seriesIndex === lastNegativeIndex) {
         // Last negative value, bottom edges (inverted)
