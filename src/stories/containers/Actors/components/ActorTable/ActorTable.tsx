@@ -27,7 +27,7 @@ const ActorTable: React.FC<Props> = ({ actors, columns, sortClick, queryStrings 
 const TableWrapper = styled.div({
   width: '100%',
   margin: '0 auto',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
     lineHeight: '29px',
   },
@@ -37,7 +37,7 @@ const ContainerList = styled.div({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 16,
   },
 });

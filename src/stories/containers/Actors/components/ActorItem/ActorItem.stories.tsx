@@ -10,7 +10,7 @@ const meta: Meta<typeof ActorItem> = {
   component: ActorItem,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1440],
+      viewports: [375, 768, 1024, 1440],
     },
     date: new Date('2023-07-12T09:08:34.123'),
   },
@@ -21,9 +21,9 @@ const variantsArgs = [
   {
     actor: new EcosystemActorBuilder()
       .withId('23')
-      .withCode('PH-001')
-      .withShortCode('PH')
-      .withName('Powerhouse Inc.')
+      .withCode('PWR-001')
+      .withShortCode('PWR')
+      .withName('Powerhouse')
       .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
       .withLastActivity({
@@ -94,7 +94,7 @@ Actors.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20207:261117&mode=design&t=wRmSRg2ehkFZ7VM6-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-347899&mode=design&t=ci6ePFFDVYjoFah1-4',
         options: {
           style: {
             left: -40,
@@ -105,39 +105,39 @@ Actors.parameters = {
           },
         },
       },
-      834: {
+      768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:258352&mode=dev',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-342218&mode=design&t=ci6ePFFDVYjoFah1-4',
         options: {
           style: {
             left: -12,
             top: -8,
           },
           componentStyle: {
-            width: 770,
+            width: 704,
           },
         },
       },
-      1194: {
+      1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:239621&mode=design&t=5e4k5IXzEp49OBht-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-337490&mode=design&t=ci6ePFFDVYjoFah1-4',
         options: {
           style: {
             left: -3,
-            top: -3,
+            top: 0,
           },
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
         },
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:240472&mode=design&t=lb9naPStBM41CUSA-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-333770&mode=design&t=ci6ePFFDVYjoFah1-4',
         options: {
           style: {
             left: -3,
-            top: -3,
+            top: 0,
           },
           componentStyle: {
             width: 1184,
@@ -146,11 +146,11 @@ Actors.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:242349&mode=design&t=lb9naPStBM41CUSA-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-329888&mode=design&t=ci6ePFFDVYjoFah1-4',
         options: {
           style: {
             left: -3,
-            top: -2,
+            top: 0,
           },
           componentStyle: {
             width: 1312,
@@ -176,7 +176,7 @@ ActorsNoData.parameters = {
           },
         },
       },
-      834: {
+      768: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:239020&mode=design&t=I60yJeKsDvkkmRMX-4',
         options: {
@@ -185,11 +185,11 @@ ActorsNoData.parameters = {
             top: -8,
           },
           componentStyle: {
-            width: 770,
+            width: 704,
           },
         },
       },
-      1194: {
+      1024: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:256836&mode=design&t=I60yJeKsDvkkmRMX-4',
         options: {
@@ -198,7 +198,7 @@ ActorsNoData.parameters = {
             top: -3,
           },
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
         },
       },

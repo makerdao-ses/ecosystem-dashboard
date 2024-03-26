@@ -95,10 +95,10 @@ const ContainerNoData = styled.div<WithIsLight>(({ isLight }) => ({
   padding: '7px 16px 8px 16px',
   borderRadius: 6,
   backgroundColor: isLight ? '#F5F6FB' : '#25273D',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '4px 16px',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: 'revert',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -118,7 +118,7 @@ const LastModifiedText = styled.div<WithIsLight & { hasUppercase?: boolean }>(({
   color: isLight ? '#434358' : '#708390',
   alignItems: 'center',
   marginTop: 2,
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     fontWeight: 'normal',
     fontSize: 11,
     letterSpacing: 'revert',
