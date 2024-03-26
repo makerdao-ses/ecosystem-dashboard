@@ -347,8 +347,8 @@ export const getAnalyticForWaterfall = (
           }
 
           const getStartDifference = netProtocolOutflow - paymentsOnChain;
-
-          totalToStartEachBudget.set(removePatternAfterSlash(analyticPath), getStartDifference);
+          const checkValueLessZero = Math.abs(getStartDifference) < UMBRAL_CHART_WATERFALL ? 0 : getStartDifference;
+          totalToStartEachBudget.set(removePatternAfterSlash(analyticPath), checkValueLessZero);
         }
         if (values[index]) {
           if (row.metric === 'ProtocolNetOutflow') {
@@ -382,8 +382,8 @@ export const getAnalyticForWaterfall = (
           }
 
           const difference = netProtocolOutflow - paymentsOnChain;
-
-          totalToStartEachBudget.set(analyticPath, difference);
+          const checkValueLessZero = Math.abs(difference) < UMBRAL_CHART_WATERFALL ? 0 : difference;
+          totalToStartEachBudget.set(analyticPath, checkValueLessZero);
         }
         if (values[index]) {
           if (row.metric === 'ProtocolNetOutflow') {
