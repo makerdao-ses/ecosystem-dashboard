@@ -34,8 +34,6 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
   selectedGranularity,
   selectedMetric,
 }) => {
-  const hasSomeNegative = series.some((item) => item.data.some((value) => (value.value ?? 0) < 0));
-  console.log('hasSomeNegative', hasSomeNegative);
   const { isLight } = useThemeContext();
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
