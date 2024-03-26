@@ -48,7 +48,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 image={actor.image}
               />
               <ContainerDescription>
-                <ShortCode isLight={isLight}>{actor.shortCode.slice(0, 3)}</ShortCode>
+                <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
                 <Name isLight={isLight}>{actor.name}</Name>
               </ContainerDescription>
             </ActorAvatar>

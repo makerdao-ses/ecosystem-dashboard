@@ -129,7 +129,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
               return value.toString();
             }
 
-            return replaceAllNumberLetOneBeforeDot(value);
+            return replaceAllNumberLetOneBeforeDot(value, true);
           },
           color: isLight ? '#231536' : '#EDEFFF',
           fontSize: isMobile ? 10 : isTablet ? 14 : 14,
@@ -146,8 +146,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         },
         splitLine: {
           lineStyle: {
-            color: isLight ? '#31424E' : '#D8E0E3',
             width: 0.25,
+            color: isLight ? '#31424E' : '#D8E0E3',
           },
         },
       },
