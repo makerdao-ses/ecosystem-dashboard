@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
-import { SocialMediaComponentStyled } from '@ses/containers/Actors/components/ActorItem/ActorItem';
+import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -18,8 +18,8 @@ interface Props {
 
 export const ActorTitleAbout = ({ actorAbout }: Props) => {
   const { isLight } = useThemeContext();
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
   return (
     <Container>
@@ -31,6 +31,8 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
             name={actorAbout?.name || 'Ecosystem Actors'}
             image={actorAbout?.image}
             style={{
+              minWidth: phoneDimensions ? '32px' : '68px',
+              minHeight: phoneDimensions ? '32px' : '68px',
               filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
             }}
           />
@@ -56,27 +58,25 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
               <ContainerSeparateData>
                 <ResponsiveTitle>
                   <ShortCodeTitle>
-                    <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
+                    {/* TODO:Remove the slice when correct short code is add */}
+                    <ShortCode isLight={isLight}>{actorAbout.shortCode.slice(0, 3)}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
                 </ResponsiveTitle>
+                <CategoryContainer>
+                  {actorAbout?.scopes?.map((item, index) => (
+                    <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                  ))}
+                </CategoryContainer>
               </ContainerSeparateData>
             </ContainerTitle>
-          </WrapperShowDesk>
-
-          <ContainerCategoryConditional>
-            <CategoryContainer>
-              {actorAbout?.scopes?.map((item, index) => (
-                <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
-              ))}
-            </CategoryContainer>
-
-            {phoneDimensions && !isTable && (
+            {isTable && (
               <ContainerLinks>
                 <SocialMediaComponentStyled
+                  iconsNumbers={getLinksFromRecognizedActors(actorAbout, ActorsLinkType).length ?? 0}
                   isLight={isLight}
                   links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
                   fill="#708390"
@@ -84,9 +84,21 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                 />
               </ContainerLinks>
             )}
-            {isTable && (
+          </WrapperShowDesk>
+
+          <ContainerCategoryConditional>
+            {phoneDimensions && (
+              <CategoryContainer>
+                {actorAbout?.scopes?.map((item, index) => (
+                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                ))}
+              </CategoryContainer>
+            )}
+
+            {phoneDimensions && !isTable && (
               <ContainerLinks>
                 <SocialMediaComponentStyled
+                  iconsNumbers={getLinksFromRecognizedActors(actorAbout, ActorsLinkType).length ?? 0}
                   isLight={isLight}
                   links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
                   fill="#708390"
@@ -99,6 +111,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
         {!phoneDimensions && !isTable && (
           <ContainerLinks>
             <SocialMediaComponentStyled
+              iconsNumbers={getLinksFromRecognizedActors(actorAbout, ActorsLinkType).length ?? 0}
               isLight={isLight}
               links={getLinksFromRecognizedActors(actorAbout, ActorsLinkType) || []}
               fill="#708390"
@@ -118,10 +131,12 @@ const Container = styled.div({
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
   fontWeight: 400,
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    gap: 8,
   },
 });
 
@@ -130,8 +145,11 @@ const ContainerTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'flex-end',
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
     width: '100%',
+  },
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    alignItems: 'flex-start',
   },
 });
 
@@ -146,22 +164,25 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   fontSize: '16px',
   lineHeight: '19px',
   marginRight: '0px',
-
-  [lightTheme.breakpoints.up('table_834')]: {
+  maxWidth: 216,
+  width: 'fit-content',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontStyle: 'normal',
-    width: 350,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    maxWidth: 205,
+    width: 'fit-content',
     fontWeight: 600,
     fontSize: '24px',
     letterSpacing: '0.4px',
-    marginRight: '4px',
     fontFamily: 'Inter, sans-serif',
     lineHeight: '29.05px',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    width: 'revert',
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: '100%',
+    maxWidth: 'revert',
     whiteSpace: 'normal',
   },
 }));
@@ -182,15 +203,21 @@ const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
   width: 'fit-content',
   borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
   color: '#708390',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 8,
     marginTop: 6,
-    marginLeft: 4,
     fontWeight: 400,
     fontSize: 14,
     borderRadius: 'revert',
     borderBottom: 'revert',
+    // Remove this margin when the status its add
+    marginLeft: 62,
   },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    // Remove this margin when the status its add
+    marginLeft: 0,
+  },
+
   [lightTheme.breakpoints.up('desktop_1440')]: {
     marginBottom: 2,
   },
@@ -208,31 +235,32 @@ const ContainerLinks = styled.div({
     height: 'fit-content',
     marginTop: '4px',
   },
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
     flexDirection: 'column',
     height: 'fit-content',
     marginTop: -1,
     marginLeft: 4,
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginRight: 0,
     marginTop: 0,
     alignItems: 'flex-start',
     height: 'fit-content',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginTop: 6,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 0,
   },
 });
 
 const CircleContainer = styled.div({
-  marginRight: 10,
   display: 'flex',
   flexDirection: 'row',
   gap: 12,
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginRight: 16,
-  },
 });
 
 const ContainerColum = styled.div({
@@ -265,8 +293,9 @@ const CategoryContainer = styled.div({
     },
   },
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginTop: 4,
+    marginLeft: -1,
     '> div:first-of-type': {
       marginRight: '8px',
     },
@@ -274,10 +303,11 @@ const CategoryContainer = styled.div({
       marginRight: '8px',
     },
   },
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    marginBottom: '16px',
-    marginTop: 6,
+
+  [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
+    marginBottom: 14,
     marginLeft: 4,
+    marginTop: -2,
     '> div:first-of-type': {
       marginRight: '8px',
     },
@@ -285,18 +315,25 @@ const CategoryContainer = styled.div({
       marginRight: '8px',
     },
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 4,
-    marginRight: '24px',
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 5,
+    marginLeft: 0,
     '> div:first-of-type': {
       marginRight: '8px',
     },
     '* + *': {
       marginRight: '8px',
     },
+  },
+
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 5,
+    marginLeft: 4,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 8,
+    marginTop: 10,
+    marginLeft: 3,
   },
 });
 const ContainerCategoryConditional = styled.div({
@@ -304,7 +341,7 @@ const ContainerCategoryConditional = styled.div({
   flexDirection: 'column',
   alignItems: 'flex-start',
   width: '100%',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
@@ -317,10 +354,8 @@ const ContainerSeparateData = styled.div({
   flexDirection: 'row',
   alignItems: 'flex-end',
   width: '100%',
-  [lightTheme.breakpoints.down('desktop_1194')]: {
-    alignItems: 'center',
-  },
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexWrap: 'wrap',
   },
 });
@@ -332,13 +367,13 @@ const ResponsiveTitle = styled.div({
 
   [lightTheme.breakpoints.up('mobile_375')]: {
     width: 'auto',
-    marginRight: '24px',
     marginBottom: '2px',
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     width: '100%',
     marginBottom: '6px',
     flexDirection: 'row',
+    gap: 40,
     borderRadius: 'revert',
     borderBottom: 'revert',
   },
@@ -346,14 +381,16 @@ const ResponsiveTitle = styled.div({
 
 const WrapperShowOnlyMobile = styled.div({
   display: 'flex',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
 const WrapperShowDesk = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
   },
 });
 
@@ -361,8 +398,16 @@ const ContainerForAvatarLinks = styled.div({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  [lightTheme.breakpoints.up('table_834')]: {
+  gap: 8,
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
+    gap: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    gap: 14,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -371,10 +416,11 @@ const ContainerForAvatarLinks = styled.div({
 const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: 700,
+  minWidth: 'fit-content',
   fontSize: 16,
   lineHeight: '19.36px',
   color: isLight ? '#9FAFB9' : 'rgb(84, 105, 120)',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
     lineHeight: '29.05px',
   },
@@ -385,7 +431,40 @@ const ShortCodeTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   gap: 4,
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
     alignItems: 'center',
+    gap: 4,
+    width: 'fit-content',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    alignItems: 'center',
+    gap: 8,
   },
 });
+
+const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLight & { iconsNumbers: number }>(
+  ({ isLight, iconsNumbers }) => ({
+    '& a': {
+      '&:hover svg path': {
+        fill: isLight ? '#231536' : '#48495F',
+        stroke: 'none',
+      },
+    },
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      marginTop: 4,
+      justifyContent: 'flex-end',
+      flexWrap: 'wrap',
+      rowGap: 4,
+      flexDirection: 'row',
+      width: iconsNumbers <= 3 ? 'fit-content' : 128,
+    },
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      justifyContent: 'revert',
+      flexWrap: 'revert',
+      flexDirection: 'row',
+      width: 'revert',
+      maxWidth: 'revert',
+    },
+  })
+);

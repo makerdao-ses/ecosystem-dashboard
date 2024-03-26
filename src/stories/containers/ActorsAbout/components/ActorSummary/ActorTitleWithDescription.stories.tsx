@@ -19,7 +19,7 @@ const meta: Meta<typeof ActorTitleWithDescription> = {
       },
     },
     chromatic: {
-      viewports: [834, 1194, 1280, 1440],
+      viewports: [768, 1024, 1280, 1440],
     },
   },
 };
@@ -53,6 +53,7 @@ const variantsArgs = [
         github: '#',
         discord: '#',
         website: '#',
+        linkedIn: '#',
       } as SocialMediaChannels)
       .build(),
     showTextDescription: true,
@@ -79,39 +80,39 @@ Actors.parameters = {
           },
         },
       },
-      834: {
+      768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20298:289949&mode=design&t=0HwrXMZTcoozvoKG-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=34573-237843&mode=design&t=qhjtkXxRT0krvDPA-4',
         options: {
           style: {
-            left: 0,
-            top: -6,
+            left: -1,
+            top: -4,
           },
           componentStyle: {
-            width: 834,
+            width: 768,
           },
         },
       },
-      1194: {
+      1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20298:286888&mode=design&t=P5EzeKAg9Mp9NBW9-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-340323&mode=design&t=0qX5pj1x7MZltO9q-4',
         options: {
           style: {
-            left: -32,
-            top: -6,
+            left: -2,
+            top: -3,
           },
           componentStyle: {
-            width: 1130,
+            width: 1024,
           },
         },
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20296:280014&mode=design&t=aPrHvenqWtD2de04-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-335728&mode=design&t=MQGIsdRgayKVJkln-4',
         options: {
           style: {
             left: -48,
-            top: -6,
+            top: -4,
           },
           componentStyle: {
             width: 1184,
@@ -120,7 +121,7 @@ Actors.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20296:266216&mode=design&t=aPrHvenqWtD2de04-4',
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=34076-41939&mode=design&t=MQGIsdRgayKVJkln-4',
         options: {
           style: {
             left: -64,

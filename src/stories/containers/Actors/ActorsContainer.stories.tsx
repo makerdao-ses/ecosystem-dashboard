@@ -19,7 +19,7 @@ const meta: Meta<typeof ActorsContainer> = {
       },
     },
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440, 1920],
+      viewports: [375, 768, 1024, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
     date: new Date('2023-08-02T09:56:16Z'),
@@ -277,7 +277,7 @@ LightMode.parameters = {
           },
         },
       },
-      834: {
+      768: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:258133&mode=design&t=wRmSRg2ehkFZ7VM6-4',
         options: {
@@ -286,11 +286,11 @@ LightMode.parameters = {
             left: -16,
           },
           componentStyle: {
-            width: 834,
+            width: 768,
           },
         },
       },
-      1194: {
+      1024: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:239563&mode=design&t=QsP3Vsvwutj2T5IZ-4',
         options: {
@@ -299,7 +299,7 @@ LightMode.parameters = {
             left: -16,
           },
           componentStyle: {
-            width: 1194,
+            width: 1024,
           },
         },
       },

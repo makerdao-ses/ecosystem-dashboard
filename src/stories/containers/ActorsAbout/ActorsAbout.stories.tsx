@@ -74,7 +74,7 @@ const meta: Meta<typeof ActorAboutContainer> = {
       },
     },
     chromatic: {
-      viewports: [834, 1194, 1280, 1440],
+      viewports: [768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
