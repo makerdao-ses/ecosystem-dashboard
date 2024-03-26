@@ -34,6 +34,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
   selectedGranularity,
   selectedMetric,
 }) => {
+  const hasSomeNegative = series.some((item) => item.data.some((value) => (value.value ?? 0) < 0));
+  console.log('hasSomeNegative', hasSomeNegative);
   const { isLight } = useThemeContext();
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -129,7 +131,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
               return value.toString();
             }
 
-            return replaceAllNumberLetOneBeforeDot(value);
+            return replaceAllNumberLetOneBeforeDot(value, true);
           },
           color: isLight ? '#231536' : '#EDEFFF',
           fontSize: isMobile ? 10 : isTablet ? 14 : 14,
@@ -146,8 +148,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         },
         splitLine: {
           lineStyle: {
-            color: isLight ? '#31424E' : '#D8E0E3',
             width: 0.25,
+            color: isLight ? '#31424E' : '#D8E0E3',
           },
         },
       },
