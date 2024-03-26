@@ -10,6 +10,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CardLegend from './CardLegend';
 import DaiToolTipIcon from './DaiToolTipIcon';
+import DoughnutChartFinancesSkeleton from './DoughnutChartFinancesSkeleton';
 import { chunkArray } from './utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { EChartsOption } from 'echarts-for-react';
@@ -240,6 +241,15 @@ const DoughnutChartFinances: React.FC<Props> = ({
     const chartInstance = chartRef?.current?.getEchartsInstance();
     chartInstance?.setOption(options, { notMerge: true });
   }, [options]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <DoughnutChartFinancesSkeleton />;
+  }
 
   return (
     <Container className={className} isCoreThirdLevel={isCoreThirdLevel}>

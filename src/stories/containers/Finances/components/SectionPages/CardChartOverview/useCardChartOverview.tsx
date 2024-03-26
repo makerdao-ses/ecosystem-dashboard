@@ -257,6 +257,5 @@ export const useCardChartOverview = (
     changeAlignment,
     showSwiper,
     numberSliderPerLevel,
-    isLoading: false,
   };
 };
