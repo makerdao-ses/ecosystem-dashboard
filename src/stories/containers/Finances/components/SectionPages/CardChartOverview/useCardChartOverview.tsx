@@ -6,6 +6,7 @@ import {
   hasSubLevels,
   formatBudgetName,
   removeBudgetWord,
+  transformPathToName,
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
@@ -76,7 +77,8 @@ export const useCardChartOverview = (
   const budgetMetrics: Record<string, BudgetMetricWithName> = {};
   budgets.forEach((budget) => {
     const budgetKey = budget.codePath;
-    const budgetName = formatBudgetName(budget.name);
+    const budgetName = formatBudgetName(budget.name) || transformPathToName(budget.codePath);
+    const budgetCode = budget.code || transformPathToName(budget.codePath);
     if (budgetMetrics[budget.codePath]) {
       const uniqueKey = `${budgetKey}-${budget.id}`;
       budgetMetrics[uniqueKey] = {
@@ -106,7 +108,7 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
-        code: budget.code || 'No-code',
+        code: budgetCode,
       };
     } else {
       budgetMetrics[budgetKey] = {
@@ -136,7 +138,7 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
-        code: budget.code || 'No-code',
+        code: budgetCode,
       };
     }
   });
@@ -195,8 +197,8 @@ export const useCardChartOverview = (
     }
     const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
     return {
-      name: removeBudgetWord(budgetMetrics[item].name) || 'No name' + index,
-      code: budgetMetrics[item].code || 'No code' + index,
+      name: removeBudgetWord(budgetMetrics[item].name),
+      code: budgetMetrics[item].code,
       value,
       originalValue: value,
       actuals: budgetMetrics[item].actuals.value,

@@ -969,6 +969,18 @@ export const formatBudgetName = (name: string) => {
   }
 };
 
+export const transformPathToName = (path: string) => {
+  if (!path) return '';
+  const transformedPath = path.replaceAll('/*', '');
+  const segments = transformedPath.split('/');
+
+  if (segments.length === 0) {
+    return '';
+  }
+
+  return segments[segments.length - 1] || '';
+};
+
 export const getKeyMetric = (metric: string) => {
   if (metric === 'Net Expenses On-chain') {
     return 'PaymentsOnChain';
