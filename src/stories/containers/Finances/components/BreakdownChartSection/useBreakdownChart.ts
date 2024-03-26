@@ -81,6 +81,7 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string, al
         : [...inactiveSeries, toggleSeries]
     );
   };
+
   const series = useMemo(() => {
     const parsedSeries = allSeries.map((item) => {
       if (inactiveSeries.includes(item.name)) {

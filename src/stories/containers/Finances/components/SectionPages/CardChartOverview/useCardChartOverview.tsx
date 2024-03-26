@@ -77,17 +77,17 @@ export const useCardChartOverview = (
   const budgetMetrics: Record<string, BudgetMetricWithName> = {};
   budgets.forEach((budget) => {
     const budgetKey = budget.codePath;
-    const budgetName = formatBudgetName(budget.name) || transformPathToName(budget.codePath);
-    const budgetCode = budget.code || transformPathToName(budget.codePath);
+    const budgetName = budget.name ? formatBudgetName(budget.name) : transformPathToName(budget.codePath);
+    const budgetCode = budget.code ? budget.code : transformPathToName(budget.codePath);
     if (budgetMetrics[budget.codePath]) {
       const uniqueKey = `${budgetKey}-${budget.id}`;
       budgetMetrics[uniqueKey] = {
         name: budgetName,
+        code: budgetCode,
         actuals: {
           unit: 'DAI',
           value: 0,
         },
-
         forecast: {
           unit: 'DAI',
           value: 0,
@@ -108,11 +108,11 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
-        code: budgetCode,
       };
     } else {
       budgetMetrics[budgetKey] = {
         name: budgetName,
+        code: budgetCode,
         actuals: {
           unit: 'DAI',
           value: 0,
@@ -138,7 +138,6 @@ export const useCardChartOverview = (
           unit: 'DAI',
           value: 0,
         },
-        code: budgetCode,
       };
     }
   });
@@ -150,8 +149,10 @@ export const useCardChartOverview = (
         (budget) => budget.codePath === removePatternAfterSlash(budgetMetricKey)
       );
       // use the name of budget or add label
-      const budgetName = correspondingBudget ? formatBudgetName(correspondingBudget.name) : 'Others';
-      const budgetCode = correspondingBudget?.code || 'Others';
+      const budgetName = correspondingBudget
+        ? formatBudgetName(correspondingBudget.name)
+        : transformPathToName(budgetMetricKey);
+      const budgetCode = correspondingBudget?.code || transformPathToName(budgetMetricKey);
       metric.actuals += budgetMetric[0].actuals.value || 0;
       metric.forecast += budgetMetric[0].forecast.value || 0;
       metric.budget += budgetMetric[0].budget.value || 0;
