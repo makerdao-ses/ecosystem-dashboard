@@ -33,13 +33,6 @@ export const useCardChartOverview = (
 
   const [selectedMetric, setSelectedMetric] = useState<AnalyticMetric>('Budget');
   const { isLight } = useThemeContext();
-  // const colorsLight = generateColorPalette(
-  //   existingColors.length,
-  //   Object.keys(budgetsAnalytics ?? {}).length - existingColors.length,
-  //   existingColors
-  // );
-
-  // const colorsDark = generateColorPalette(180, Object.keys(budgetsAnalytics ?? {}).length, existingColorsDark);
   const budgetWithNotChildren = useMemo(() => {
     const data = {
       budget: 0,
