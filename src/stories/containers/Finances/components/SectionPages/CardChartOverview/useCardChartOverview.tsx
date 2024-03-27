@@ -2,13 +2,13 @@ import { useMediaQuery } from '@mui/material';
 import {
   existingColors,
   existingColorsDark,
-  generateColorPalette,
   hasSubLevels,
   formatBudgetName,
   removeBudgetWord,
   transformPathToName,
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { LimitedColorAssigner } from '@ses/core/utils/colors';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useState } from 'react';
@@ -33,13 +33,6 @@ export const useCardChartOverview = (
 
   const [selectedMetric, setSelectedMetric] = useState<AnalyticMetric>('Budget');
   const { isLight } = useThemeContext();
-  const colorsLight = generateColorPalette(
-    existingColors.length,
-    Object.keys(budgetsAnalytics ?? {}).length - existingColors.length,
-    existingColors
-  );
-
-  const colorsDark = generateColorPalette(180, Object.keys(budgetsAnalytics ?? {}).length, existingColorsDark);
   const budgetWithNotChildren = useMemo(() => {
     const data = {
       budget: 0,
@@ -65,151 +58,167 @@ export const useCardChartOverview = (
     return data;
   }, [budgetsAnalytics]);
 
-  const metric: { [metric: string]: number } = {
-    actuals: 0,
-    forecast: 0,
-    budget: 0,
-    paymentsOnChain: 0,
-    protocolNetOutflow: 0,
-    paymentsOffChainIncluded: 0,
-  };
+  const { metric, budgetMetrics } = useMemo(() => {
+    const metric: { [metric: string]: number } = {
+      actuals: 0,
+      forecast: 0,
+      budget: 0,
+      paymentsOnChain: 0,
+      protocolNetOutflow: 0,
+      paymentsOffChainIncluded: 0,
+    };
 
-  const budgetMetrics: Record<string, BudgetMetricWithName> = {};
-  budgets.forEach((budget) => {
-    const budgetKey = budget.codePath;
-    const budgetName = budget.name ? formatBudgetName(budget.name) : transformPathToName(budget.codePath);
-    const budgetCode = budget.code ? budget.code : transformPathToName(budget.codePath);
-    if (budgetMetrics[budget.codePath]) {
-      const uniqueKey = `${budgetKey}-${budget.id}`;
-      budgetMetrics[uniqueKey] = {
-        name: budgetName,
-        code: budgetCode,
-        actuals: {
-          unit: 'DAI',
-          value: 0,
-        },
-        forecast: {
-          unit: 'DAI',
-          value: 0,
-        },
-        budget: {
-          unit: 'DAI',
-          value: 0,
-        },
-        paymentsOnChain: {
-          unit: 'DAI',
-          value: 0,
-        },
-        paymentsOffChainIncluded: {
-          unit: 'DAI',
-          value: 0,
-        },
-        protocolNetOutflow: {
-          unit: 'DAI',
-          value: 0,
-        },
-      };
-    } else {
-      budgetMetrics[budgetKey] = {
-        name: budgetName,
-        code: budgetCode,
-        actuals: {
-          unit: 'DAI',
-          value: 0,
-        },
+    const budgetMetrics: Record<string, BudgetMetricWithName> = {};
+    budgets.forEach((budget) => {
+      const budgetKey = budget.codePath;
+      const budgetName = budget.name ? formatBudgetName(budget.name) : transformPathToName(budget.codePath);
+      const budgetCode = budget.code ? budget.code : transformPathToName(budget.codePath);
+      if (budgetMetrics[budget.codePath]) {
+        const uniqueKey = `${budgetKey}-${budget.id}`;
+        budgetMetrics[uniqueKey] = {
+          name: budgetName,
+          code: budgetCode,
+          actuals: {
+            unit: 'DAI',
+            value: 0,
+          },
+          forecast: {
+            unit: 'DAI',
+            value: 0,
+          },
+          budget: {
+            unit: 'DAI',
+            value: 0,
+          },
+          paymentsOnChain: {
+            unit: 'DAI',
+            value: 0,
+          },
+          paymentsOffChainIncluded: {
+            unit: 'DAI',
+            value: 0,
+          },
+          protocolNetOutflow: {
+            unit: 'DAI',
+            value: 0,
+          },
+        };
+      } else {
+        budgetMetrics[budgetKey] = {
+          name: budgetName,
+          code: budgetCode,
+          actuals: {
+            unit: 'DAI',
+            value: 0,
+          },
 
-        forecast: {
-          unit: 'DAI',
-          value: 0,
-        },
-        budget: {
-          unit: 'DAI',
-          value: 0,
-        },
-        paymentsOnChain: {
-          unit: 'DAI',
-          value: 0,
-        },
-        paymentsOffChainIncluded: {
-          unit: 'DAI',
-          value: 0,
-        },
-        protocolNetOutflow: {
-          unit: 'DAI',
-          value: 0,
-        },
-      };
+          forecast: {
+            unit: 'DAI',
+            value: 0,
+          },
+          budget: {
+            unit: 'DAI',
+            value: 0,
+          },
+          paymentsOnChain: {
+            unit: 'DAI',
+            value: 0,
+          },
+          paymentsOffChainIncluded: {
+            unit: 'DAI',
+            value: 0,
+          },
+          protocolNetOutflow: {
+            unit: 'DAI',
+            value: 0,
+          },
+        };
+      }
+    });
+    if (budgetsAnalytics !== undefined) {
+      for (const budgetMetricKey of Object.keys(budgetsAnalytics)) {
+        const budgetMetric = budgetsAnalytics[budgetMetricKey];
+        const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
+        const correspondingBudget = searchCorrectBudget.find(
+          (budget) => budget.codePath === removePatternAfterSlash(budgetMetricKey)
+        );
+        // use the name of budget or add label
+        const budgetName = correspondingBudget
+          ? formatBudgetName(correspondingBudget.name)
+          : transformPathToName(budgetMetricKey);
+        const budgetCode = correspondingBudget?.code || transformPathToName(budgetMetricKey);
+        metric.actuals += budgetMetric[0].actuals.value || 0;
+        metric.forecast += budgetMetric[0].forecast.value || 0;
+        metric.budget += budgetMetric[0].budget.value || 0;
+        metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
+        metric.protocolNetOutflow += budgetMetric[0].protocolNetOutflow.value || 0;
+        budgetMetrics[budgetMetricKey] = {
+          name: budgetName,
+          actuals: budgetMetric[0].actuals,
+          forecast: budgetMetric[0].forecast,
+          budget: budgetMetric[0].budget,
+          paymentsOnChain: budgetMetric[0].paymentsOnChain,
+          paymentsOffChainIncluded: budgetMetric[0].paymentsOffChainIncluded,
+          protocolNetOutflow: budgetMetric[0].protocolNetOutflow,
+          code: budgetCode,
+        };
+      }
     }
-  });
-  if (budgetsAnalytics !== undefined) {
-    for (const budgetMetricKey of Object.keys(budgetsAnalytics)) {
-      const budgetMetric = budgetsAnalytics[budgetMetricKey];
-      const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
-      const correspondingBudget = searchCorrectBudget.find(
-        (budget) => budget.codePath === removePatternAfterSlash(budgetMetricKey)
-      );
-      // use the name of budget or add label
-      const budgetName = correspondingBudget
-        ? formatBudgetName(correspondingBudget.name)
-        : transformPathToName(budgetMetricKey);
-      const budgetCode = correspondingBudget?.code || transformPathToName(budgetMetricKey);
-      metric.actuals += budgetMetric[0].actuals.value || 0;
-      metric.forecast += budgetMetric[0].forecast.value || 0;
-      metric.budget += budgetMetric[0].budget.value || 0;
-      metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
-      metric.protocolNetOutflow += budgetMetric[0].protocolNetOutflow.value || 0;
-      budgetMetrics[budgetMetricKey] = {
-        name: budgetName,
-        actuals: budgetMetric[0].actuals,
-        forecast: budgetMetric[0].forecast,
-        budget: budgetMetric[0].budget,
-        paymentsOnChain: budgetMetric[0].paymentsOnChain,
-        paymentsOffChainIncluded: budgetMetric[0].paymentsOffChainIncluded,
-        protocolNetOutflow: budgetMetric[0].protocolNetOutflow,
-        code: budgetCode,
-      };
-    }
-  }
+
+    return {
+      metric,
+      budgetMetrics,
+    };
+  }, [allBudgets, budgets, budgetsAnalytics]);
 
   const handleSelectedMetric = (metric: AnalyticMetric) => {
     setSelectedMetric(metric);
   };
-  const doughnutSeriesData: DoughnutSeries[] = Object.keys(budgetMetrics).map((item, index) => {
-    let value;
-    switch (selectedMetric) {
-      case 'Actuals':
-        value = budgetMetrics[item].actuals.value || 0;
-        break;
-      case 'Forecast':
-        value = budgetMetrics[item].forecast.value || 0;
-        break;
-      case 'PaymentsOnChain':
-        value = budgetMetrics[item].paymentsOnChain.value || 0;
-        break;
-      case 'ProtocolNetOutflow':
-        value = budgetMetrics[item].protocolNetOutflow.value || 0;
-        break;
-      case 'Budget':
-        value = budgetMetrics[item].budget.value || 0;
-        break;
-      default:
-        value = budgetMetrics[item].budget.value || 0;
-        break;
-    }
-    const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
-    return {
-      name: removeBudgetWord(budgetMetrics[item].name),
-      code: budgetMetrics[item].code,
-      value,
-      originalValue: value,
-      actuals: budgetMetrics[item].actuals.value,
-      budgetCap: budgetMetrics[item].budget.value,
-      percent: Math.round(percentageRespectTo(value, metric[keyMetricValue])),
-      color: isLight ? colorsLight[index] : colorsDark[index],
-      isVisible: true,
-      originalColor: isLight ? colorsLight[index] : colorsDark[index],
-    };
-  });
+  const doughnutSeriesData: DoughnutSeries[] = useMemo(() => {
+    const colorAssigner = new LimitedColorAssigner(
+      Object.keys(budgetMetrics).length,
+      isLight ? existingColors : existingColorsDark
+    );
+
+    return Object.keys(budgetMetrics)
+      .sort()
+      .map((item) => {
+        let value;
+        switch (selectedMetric) {
+          case 'Actuals':
+            value = budgetMetrics[item].actuals.value || 0;
+            break;
+          case 'Forecast':
+            value = budgetMetrics[item].forecast.value || 0;
+            break;
+          case 'PaymentsOnChain':
+            value = budgetMetrics[item].paymentsOnChain.value || 0;
+            break;
+          case 'ProtocolNetOutflow':
+            value = budgetMetrics[item].protocolNetOutflow.value || 0;
+            break;
+          case 'Budget':
+            value = budgetMetrics[item].budget.value || 0;
+            break;
+          default:
+            value = budgetMetrics[item].budget.value || 0;
+            break;
+        }
+        const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
+        return {
+          name: removeBudgetWord(budgetMetrics[item].name),
+          code: budgetMetrics[item].code,
+          value,
+          originalValue: value,
+          actuals: budgetMetrics[item].actuals.value,
+          budgetCap: budgetMetrics[item].budget.value,
+          percent: Math.round(percentageRespectTo(value, metric[keyMetricValue])),
+          color: colorAssigner.getColor(item),
+          isVisible: true,
+          originalColor: colorAssigner.getColor(item),
+        };
+      });
+  }, [budgetMetrics, isLight, metric, selectedMetric]);
 
   // Check some value affect the total 100%
   const totalPercent = doughnutSeriesData.reduce((acc, curr) => acc + curr.percent, 0);
