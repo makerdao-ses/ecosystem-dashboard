@@ -19,7 +19,7 @@ const meta: Meta<typeof ActorTitleWithDescription> = {
       },
     },
     chromatic: {
-      viewports: [768, 1024, 1280, 1440],
+      viewports: [1024, 1280, 1440],
     },
   },
 };
@@ -59,10 +59,46 @@ const variantsArgs = [
     showTextDescription: true,
     showDescription: true,
   },
+  {
+    actorAbout: new EcosystemActorBuilder()
+      .withId('23')
+      .withCode('PH-001')
+      .withShortCode('PHX')
+      .withName('Phoenix Labs lo..')
+      .withType(ResourceType.EcosystemActor)
+      .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+      .addCategory('Active Ecosystem Actor')
+      .withSentenceDescription(
+        'Phoenix Labs is focused on vertically integrating existing products into Maker and sharing the value creation with developers.'
+      )
+      .addScope({
+        id: '1',
+        code: 'SUP',
+        name: 'Support Scope',
+      })
+      .addScope({
+        id: '3',
+        code: 'PRO',
+        name: 'Protocol Scope',
+      })
+      .withSocials({
+        twitter: '#',
+        github: '#',
+        discord: '#',
+        website: '#',
+        linkedIn: '#',
+      } as SocialMediaChannels)
+      .build(),
+    showTextDescription: true,
+    showDescription: true,
+  },
 ];
 
-const [[Actors, ActorsDark]] = createThemeModeVariants(ActorTitleWithDescription, variantsArgs);
-export { Actors, ActorsDark };
+const [[Actors, ActorsDark], [ActorsTable, ActorsTableDark]] = createThemeModeVariants(
+  ActorTitleWithDescription,
+  variantsArgs
+);
+export { Actors, ActorsDark, ActorsTable, ActorsTableDark };
 
 Actors.parameters = {
   figma: {
@@ -77,19 +113,6 @@ Actors.parameters = {
           },
           componentStyle: {
             width: 375,
-          },
-        },
-      },
-      768: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=34573-237843&mode=design&t=qhjtkXxRT0krvDPA-4',
-        options: {
-          style: {
-            left: -1,
-            top: -4,
-          },
-          componentStyle: {
-            width: 768,
           },
         },
       },
@@ -136,4 +159,24 @@ Actors.parameters = {
   },
 };
 
+ActorsTable.parameters = {
+  figma: {
+    component: {
+      768: {
+        component:
+          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=34573-237843&mode=design&t=qhjtkXxRT0krvDPA-4',
+        options: {
+          style: {
+            left: -1,
+            top: -4,
+          },
+          componentStyle: {
+            width: 768,
+          },
+        },
+      },
+    },
+  },
+};
 ActorsDark.parameters = {};
+ActorsTableDark.parameters = {};

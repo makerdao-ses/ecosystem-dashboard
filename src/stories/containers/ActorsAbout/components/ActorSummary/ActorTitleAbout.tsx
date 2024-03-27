@@ -68,7 +68,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
                   <Status>
-                    <StatusChip status={CuMipStatus.FormalSubmission} />
+                    <StatusChip status={CuMipStatus.RFC} />
                   </Status>
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
