@@ -1,10 +1,5 @@
-import {
-  existingColors,
-  existingColorsDark,
-  generateColorPalette,
-  getCorrectMetric,
-  transformPathToName,
-} from '../../utils/utils';
+import { LimitedColorAssigner } from '@ses/core/utils/colors';
+import { existingColors, existingColorsDark, getCorrectMetric, transformPathToName } from '../../utils/utils';
 import { removePatternAfterSlash } from '../SectionPages/BreakdownTable/utils';
 import type { BreakdownChartSeriesData } from '../../utils/types';
 import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -21,14 +16,8 @@ export const parseAnalyticsToSeriesBreakDownChart = (
   const series: BreakdownChartSeriesData[] = [];
 
   if (budgetsAnalytics) {
-    const budgetKeys = Object.keys(budgetsAnalytics);
-
-    const colorsLight = generateColorPalette(
-      existingColors.length,
-      budgetKeys.length - existingColors.length,
-      existingColors
-    );
-    const colorsDark = generateColorPalette(180, budgetKeys.length, existingColorsDark);
+    const budgetKeys = Object.keys(budgetsAnalytics).sort();
+    const colorAssigner = new LimitedColorAssigner(budgetKeys.length, isLight ? existingColors : existingColorsDark);
 
     budgetKeys.forEach((budgetKey, index) => {
       const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
@@ -49,8 +38,8 @@ export const parseAnalyticsToSeriesBreakDownChart = (
           barWidth,
           showBackground: false,
           itemStyle: {
-            color: isLight ? colorsLight[index] : colorsDark[index],
-            colorOriginal: isLight ? colorsLight[index] : colorsDark[index],
+            color: colorAssigner.getColor(budgetKey),
+            colorOriginal: colorAssigner.getColor(budgetKey),
           },
           isVisible: true,
         };
@@ -65,8 +54,8 @@ export const parseAnalyticsToSeriesBreakDownChart = (
           barWidth,
           showBackground: false,
           itemStyle: {
-            color: isLight ? colorsLight[index] : colorsDark[index],
-            colorOriginal: isLight ? colorsLight[index] : colorsDark[index],
+            color: colorAssigner.getColor(budgetKey),
+            colorOriginal: colorAssigner.getColor(budgetKey),
           },
           isVisible: true,
         };
