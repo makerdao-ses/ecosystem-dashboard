@@ -131,7 +131,7 @@ const Title = styled.h1<WithIsLight>(({ isLight }) => ({
   marginTop: 0,
   marginBottom: 0,
   color: isLight ? '#231536' : '#D2D4EF',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
     lineHeight: '29px',
   },
@@ -144,7 +144,7 @@ const SubTitle = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '17px',
   color: isLight ? '#231536' : '#D2D4EF',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '19px',
   },
@@ -157,7 +157,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '22px',
   color: isLight ? '#231536' : '#D2D4EF',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
     marginTop: 0,
@@ -170,7 +170,7 @@ const ContainerText = styled.div({
   gap: 16,
   marginTop: 24,
   marginBottom: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 0,
   },
 });
@@ -178,10 +178,10 @@ const ContainerText = styled.div({
 const ContainerList = styled.div({
   marginBottom: 64,
   marginTop: -2,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginTop: 1,
   },
 });
@@ -208,14 +208,14 @@ const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
 
 const StyledParagraph = styled.p({
   marginTop: 22,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 18,
   },
 });
 const StyledParagraphThere = styled(StyledParagraph)({
   marginTop: 22,
   marginBottom: 0,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 20,
   },
 });
@@ -228,7 +228,7 @@ const ReadMore = styled.div<WithIsLight>(({ isLight }) => ({
   cursor: 'pointer',
   color: isLight ? '#231536' : '#D2D4EF',
   marginBottom: 32,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 6,
     marginBottom: 30,
   },
@@ -256,12 +256,12 @@ const FilterContainer = styled.div({
   height: 34,
   marginBottom: 27,
   marginTop: -4,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     height: 48,
     marginBottom: 34,
     marginTop: -1,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 26,
   },
 });
