@@ -48,8 +48,8 @@ export const Container = styled.div<{ isLight: boolean; checked: boolean }>(({ i
   borderRadius: '6px',
   boxSizing: 'border-box',
   transition: 'all .3s ease',
-  border: isLight ? 'none' : '1px solid #231536',
   width: '100%',
+
   '& > input': {
     position: 'absolute',
     opacity: 0,

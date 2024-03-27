@@ -1,4 +1,10 @@
-import { existingColors, existingColorsDark, generateColorPalette, getCorrectMetric } from '../../utils/utils';
+import {
+  existingColors,
+  existingColorsDark,
+  generateColorPalette,
+  getCorrectMetric,
+  transformPathToName,
+} from '../../utils/utils';
 import { removePatternAfterSlash } from '../SectionPages/BreakdownTable/utils';
 import type { BreakdownChartSeriesData } from '../../utils/types';
 import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -12,18 +18,18 @@ export const parseAnalyticsToSeriesBreakDownChart = (
   metric: AnalyticMetric,
   allBudgets: Budget[]
 ) => {
-  const colorsLight = generateColorPalette(
-    existingColors.length,
-    budgets.length - existingColors.length,
-    existingColors
-  );
-
-  const colorsDark = generateColorPalette(180, budgets.length, existingColorsDark);
-
   const series: BreakdownChartSeriesData[] = [];
 
   if (budgetsAnalytics) {
     const budgetKeys = Object.keys(budgetsAnalytics);
+
+    const colorsLight = generateColorPalette(
+      existingColors.length,
+      budgetKeys.length - existingColors.length,
+      existingColors
+    );
+    const colorsDark = generateColorPalette(180, budgetKeys.length, existingColorsDark);
+
     budgetKeys.forEach((budgetKey, index) => {
       const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
       const nameBudget =
@@ -35,7 +41,7 @@ export const parseAnalyticsToSeriesBreakDownChart = (
         const dataForSeries = budgetData.map((budgetMetric) => getCorrectMetric(budgetMetric, metric));
 
         series[index] = {
-          name: nameBudget || 'Not name',
+          name: nameBudget || transformPathToName(budgetKey),
           dataOriginal: dataForSeries,
           data: dataForSeries,
           type: 'bar',
@@ -51,7 +57,7 @@ export const parseAnalyticsToSeriesBreakDownChart = (
       } else {
         const dataForSeries = getCorrectMetric(budgetData, metric);
         series[index] = {
-          name: nameBudget || 'Not name',
+          name: nameBudget || transformPathToName(budgetKey),
           dataOriginal: [dataForSeries],
           data: [dataForSeries],
           type: 'bar',

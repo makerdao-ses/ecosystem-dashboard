@@ -367,7 +367,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
   // Avoid select all items when is mobile and different annually filter
   const allowSelectAll = !!(periodFilter === 'Annually' && !isMobile);
-  const popupContainerHeight = allowSelectAll ? 250 : 210;
+  const popupContainerHeight = allowSelectAll ? 260 : 218;
 
   // this state is used to avoid adding url params on mobile on the first render
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
