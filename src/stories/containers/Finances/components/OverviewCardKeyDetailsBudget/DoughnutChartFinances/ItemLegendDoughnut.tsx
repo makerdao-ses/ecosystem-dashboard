@@ -25,7 +25,7 @@ const ItemLegendDoughnut: React.FC<Props> = ({
   toggleSeriesVisibility,
 }) => {
   const { isLight } = useThemeContext();
-  const valueRounded = threeDigitsPrecisionHumanization(doughnutData?.value);
+  const valueRounded = threeDigitsPrecisionHumanization(doughnutData?.value, true);
   return (
     <LegendItem
       key={doughnutData.name}

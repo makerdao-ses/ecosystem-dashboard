@@ -150,7 +150,7 @@ export const useCardChartOverview = (
         metric.actuals += budgetMetric[0].actuals.value || 0;
         metric.forecast += budgetMetric[0].forecast.value || 0;
         metric.budget += budgetMetric[0].budget.value || 0;
-        metric.paymentsOnChain += budgetMetric[0].paymentsOnChain.value || 0;
+        metric.paymentsOnChain += Math.abs(budgetMetric[0].paymentsOnChain.value || 0);
         metric.protocolNetOutflow += budgetMetric[0].protocolNetOutflow.value || 0;
         budgetMetrics[budgetMetricKey] = {
           name: budgetName,
@@ -192,6 +192,7 @@ export const useCardChartOverview = (
             value = budgetMetrics[item].forecast.value || 0;
             break;
           case 'PaymentsOnChain':
+            // todo: if we use absolute values, then the legend is positive too which is wrong
             value = budgetMetrics[item].paymentsOnChain.value || 0;
             break;
           case 'ProtocolNetOutflow':
@@ -212,7 +213,7 @@ export const useCardChartOverview = (
           originalValue: value,
           actuals: budgetMetrics[item].actuals.value,
           budgetCap: budgetMetrics[item].budget.value,
-          percent: Math.round(percentageRespectTo(value, metric[keyMetricValue])),
+          percent: Math.round(percentageRespectTo(Math.abs(value), metric[keyMetricValue])),
           color: colorAssigner.getColor(item),
           isVisible: true,
           originalColor: colorAssigner.getColor(item),
