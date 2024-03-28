@@ -264,8 +264,8 @@ const ActorAvatar = styled.div({
 
 const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '17px',
+  fontSize: 14,
+  lineHeight: '16.94px',
   color: isLight ? '#231536' : '#D2D4EF',
   width: 160,
   overflow: 'hidden',
@@ -275,13 +275,9 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
     width: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
     width: 90,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
     marginTop: 1,
     width: 110,
   },
