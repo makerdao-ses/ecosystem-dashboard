@@ -11,7 +11,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 interface Props {
   selectedMetric: AnalyticMetric;
   handleSelectedMetric: (selectedMetric: AnalyticMetric) => void;
-  actuals: number;
+  paymentsOnChain: number;
   budgetCap: number;
   doughnutSeriesData: DoughnutSeries[];
   isCoreThirdLevel: boolean;
@@ -49,7 +49,7 @@ const FILTERS: {
 const CardChartOverview: React.FC<Props> = ({
   selectedMetric,
   handleSelectedMetric,
-  actuals,
+  paymentsOnChain,
   budgetCap,
   doughnutSeriesData,
   isCoreThirdLevel,
@@ -78,7 +78,7 @@ const CardChartOverview: React.FC<Props> = ({
         <ContainerCardChart>
           <ContainerCardAndLine>
             <ContainerCardInformation>
-              <InformationBudgetCapOverview actuals={actuals} budgetCap={budgetCap} />
+              <InformationBudgetCapOverview paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
             </ContainerCardInformation>
             <Divider isLight={isLight} />
           </ContainerCardAndLine>

@@ -5,14 +5,16 @@ import InformationBudgetCapOverview from '../OverviewCardKeyDetailsBudget/Inform
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
-  actuals: number;
+  paymentsOnChain: number;
   budgetCap: number;
 }
 
-const OverviewCardMobile: React.FC<Props> = ({ actuals, budgetCap }) => {
+const OverviewCardMobile: React.FC<Props> = ({ paymentsOnChain, budgetCap }) => {
   const { isLight } = useThemeContext();
 
-  return <InformationBudgetCapOverviewStyled isLight={isLight} actuals={actuals} budgetCap={budgetCap} />;
+  return (
+    <InformationBudgetCapOverviewStyled isLight={isLight} paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
+  );
 };
 
 export default OverviewCardMobile;

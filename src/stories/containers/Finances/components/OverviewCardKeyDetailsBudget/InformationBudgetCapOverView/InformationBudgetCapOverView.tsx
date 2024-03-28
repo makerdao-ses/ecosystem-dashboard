@@ -9,17 +9,17 @@ import lightTheme from 'styles/theme/light';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
-  actuals: number;
+  paymentsOnChain: number;
   budgetCap: number;
   className?: string;
 };
 
-const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ actuals, budgetCap, className }) => {
+const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnChain, budgetCap, className }) => {
   const { isLight } = useThemeContext();
 
-  const humanizedActuals = threeDigitsPrecisionHumanization(actuals);
+  const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
-  const percent = threeDigitsPrecisionHumanization(percentageRespectTo(actuals, budgetCap)).value;
+  const percent = threeDigitsPrecisionHumanization(percentageRespectTo(paymentsOnChain, budgetCap)).value;
 
   return (
     <CardContainer className={className}>
@@ -44,11 +44,11 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ actuals, bud
       <DividerCardChart isLight={isLight} />
       <Percent isLight={isLight}>{percent}%</Percent>
       <BarWrapper>
-        <HorizontalBudgetBarStyled actuals={actuals} prediction={0} budgetCap={budgetCap} />
+        <HorizontalBudgetBarStyled actuals={paymentsOnChain} prediction={0} budgetCap={budgetCap} />
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-          <LegendLabel>Actuals</LegendLabel>
+          <LegendLabel>Net Expenses On-Chain</LegendLabel>
         </LegendItem>
         <LegendItem isLight={isLight} dotColor={'#F75524'}>
           <LegendLabel>Budget Cap</LegendLabel>

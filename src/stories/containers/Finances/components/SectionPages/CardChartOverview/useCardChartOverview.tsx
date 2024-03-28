@@ -36,6 +36,7 @@ export const useCardChartOverview = (
   const budgetWithNotChildren = useMemo(() => {
     const data = {
       budget: 0,
+      paymentsOnChain: 0,
       forecast: 0,
       actuals: 0,
     };
@@ -52,6 +53,7 @@ export const useCardChartOverview = (
         data.budget += element.budget.value;
         data.forecast += element.forecast.value;
         data.actuals += element.actuals.value;
+        data.paymentsOnChain += element.paymentsOnChain.value;
       });
     });
 
@@ -261,7 +263,7 @@ export const useCardChartOverview = (
     : 5;
 
   return {
-    actuals: isHasSubLevels ? metric.actuals : budgetWithNotChildren.actuals,
+    paymentsOnChain: isHasSubLevels ? metric.paymentsOnChain : budgetWithNotChildren.actuals,
     budgetCap: isHasSubLevels ? metric.budget : budgetWithNotChildren.budget,
     selectedMetric,
     handleSelectedMetric,
