@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
+import { StatusChip } from '@ses/components/StatusChip/StatusChip';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -43,7 +45,11 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                   <ShortCodeTitle>
                     <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
+                    <Status>
+                      <StatusChip status={CuMipStatus.RFC} />
+                    </Status>
                   </ShortCodeTitle>
+
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
@@ -61,6 +67,9 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
+                  <Status>
+                    <StatusChip status={CuMipStatus.RFC} />
+                  </Status>
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
@@ -190,7 +199,7 @@ const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'end',
-  marginBottom: 8,
+  marginBottom: 6,
   fontFamily: 'Inter, sans-serif',
   fontWeight: 700,
   fontSize: 12,
@@ -209,12 +218,6 @@ const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
     fontSize: 14,
     borderRadius: 'revert',
     borderBottom: 'revert',
-    // Remove this margin when the status its add
-    marginLeft: 62,
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    // Remove this margin when the status its add
-    marginLeft: 0,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -304,7 +307,7 @@ const CategoryContainer = styled.div({
   },
 
   [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
-    marginBottom: 14,
+    marginBottom: 16,
     marginLeft: 4,
     marginTop: -2,
     '> div:first-of-type': {
@@ -370,11 +373,21 @@ const ResponsiveTitle = styled.div({
   },
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: '100%',
-    marginBottom: '6px',
+    marginBottom: 6,
     flexDirection: 'row',
-    gap: 40,
+    alignItems: 'center',
+    gap: 8,
     borderRadius: 'revert',
     borderBottom: 'revert',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 17,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    gap: 18,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginTop: 1,
   },
 });
 
@@ -430,7 +443,6 @@ const ShortCodeTitle = styled.div({
   flexDirection: 'row',
   justifyContent: 'flex-start',
   gap: 4,
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     alignItems: 'center',
     gap: 4,
@@ -467,3 +479,8 @@ const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLight & { 
     },
   })
 );
+
+const Status = styled.div({
+  marginLeft: 14,
+  marginTop: -1,
+});
