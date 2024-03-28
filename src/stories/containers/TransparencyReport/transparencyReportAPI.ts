@@ -135,6 +135,7 @@ export const getLastSnapshotPeriod = async (
   ownerId: string,
   resourceType: ResourceType
 ): Promise<SnapshotLimitPeriods | undefined> => {
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const { query, filter } = snapshotPeriodQuery(ownerId, resourceType);
   const data = await request<{ snapshots: [{ period: string }] }>(GRAPHQL_ENDPOINT, query, filter);
 
@@ -144,7 +145,7 @@ export const getLastSnapshotPeriod = async (
 
   const periods = data.snapshots.map((snapshot) =>
     DateTime.fromFormat(snapshot.period, 'yyyy/MM', {
-      zone: 'UTC',
+      zone: userTimeZone,
     })
   );
   return {
