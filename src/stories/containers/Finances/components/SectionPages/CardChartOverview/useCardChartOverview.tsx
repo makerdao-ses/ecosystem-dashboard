@@ -192,7 +192,6 @@ export const useCardChartOverview = (
             value = budgetMetrics[item].forecast.value || 0;
             break;
           case 'PaymentsOnChain':
-            // todo: if we use absolute values, then the legend is positive too which is wrong
             value = budgetMetrics[item].paymentsOnChain.value || 0;
             break;
           case 'ProtocolNetOutflow':
