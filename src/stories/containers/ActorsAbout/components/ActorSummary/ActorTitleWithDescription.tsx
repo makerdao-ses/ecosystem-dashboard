@@ -53,14 +53,15 @@ const ContainerTitle = styled.div({
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    paddingLeft: 0,
-    paddingRight: 0,
-    maxWidth: 960,
+    paddingLeft: 32,
+    paddingRight: 32,
   },
 
   [lightTheme.breakpoints.up('desktop_1280')]: {
     maxWidth: 1184,
     margin: '0 auto',
+    paddingLeft: 0,
+    paddingRight: 0,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     margin: '0 auto',
