@@ -133,7 +133,11 @@ const DoughnutChartFinances: React.FC<Props> = ({
               show: false,
             },
           },
-          data: visibleSeries,
+          data: visibleSeries.map((data) => ({
+            ...data,
+            // transform negative values to positive to avoid hidden values on the chart
+            value: Math.abs(data.value),
+          })),
         },
       ],
     }),
