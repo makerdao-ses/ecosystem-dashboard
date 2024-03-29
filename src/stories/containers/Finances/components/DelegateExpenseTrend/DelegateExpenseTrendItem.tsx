@@ -69,6 +69,16 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
     return NaN;
   }, [budget, selectedMetric]);
 
+  const metricLabel = useMemo(() => {
+    switch (selectedMetric) {
+      case 'PaymentsOnChain':
+        return 'Net On-Chain';
+      case 'ProtocolNetOutflow':
+        return 'Protocol Outflow';
+    }
+    return selectedMetric;
+  }, [selectedMetric]);
+
   const elementInDesk = (
     <ContainerInside isLight={isLight}>
       <ContainerDesk>
@@ -104,7 +114,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
           <Date isLight={isLight}>{reportMonth}</Date>
         </ReportingMonth>
         <TotalActualsTable>
-          <LabelDescription isLight={isLight}>{selectedMetric}</LabelDescription>
+          <LabelDescription isLight={isLight}>{metricLabel}</LabelDescription>
           <TotalNumber isLight={isLight}>{usLocalizedNumber(value)} DAI</TotalNumber>
         </TotalActualsTable>
         <ContainerStatusTable>
@@ -133,7 +143,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
         </ContainerReportingMobile>
 
         <TotalContainerMobile>
-          <Total isLight={isLight}>{selectedMetric}</Total>
+          <Total isLight={isLight}>{metricLabel}</Total>
           <TotalNumber isLight={isLight}>{usLocalizedNumber(value)} DAI</TotalNumber>
         </TotalContainerMobile>
       </ContainerCardMobile>
