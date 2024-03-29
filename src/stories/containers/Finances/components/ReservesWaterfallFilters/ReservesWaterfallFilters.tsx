@@ -173,13 +173,11 @@ const CustomMultiSelectStyled = styled(CustomMultiSelect)<{ isTextCut: boolean }
   },
   [lightTheme.breakpoints.up('tablet_768')]: {
     ...(isTextCut && {
-      '& > div': {
-        '& > div:first-of-type': {
-          width: 160,
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-          overflow: ' hidden',
-        },
+      '& > div:first-of-type > div:first-of-type': {
+        maxWidth: 160,
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: ' hidden',
       },
     }),
   },
