@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -6,6 +7,7 @@ import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
+import type { Theme } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
@@ -16,6 +18,7 @@ export type QuarterCardProps = {
 
 const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnChain, budgetCap, className }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
@@ -48,7 +51,7 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-          <LegendLabel>Net Expenses On-Chain</LegendLabel>
+          <LegendLabel>{isMobile ? 'Net Exp On-Chain' : 'Net Expenses On-Chain'}</LegendLabel>
         </LegendItem>
         <LegendItem isLight={isLight} dotColor={'#F75524'}>
           <LegendLabel>Budget Cap</LegendLabel>
