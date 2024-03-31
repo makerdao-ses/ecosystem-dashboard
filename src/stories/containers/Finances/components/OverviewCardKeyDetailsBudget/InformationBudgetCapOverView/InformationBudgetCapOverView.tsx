@@ -18,7 +18,7 @@ export type QuarterCardProps = {
 
 const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnChain, budgetCap, className }) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+  const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
   const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
@@ -51,7 +51,7 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-          <LegendLabel>{isMobile ? 'Net Exp On-Chain' : 'Net Expenses On-Chain'}</LegendLabel>
+          <LegendLabel>{isMobileOrTablet ? 'Net Exp On-Chain' : 'Net Expenses On-Chain'}</LegendLabel>
         </LegendItem>
         <LegendItem isLight={isLight} dotColor={'#F75524'}>
           <LegendLabel>Budget Cap</LegendLabel>
