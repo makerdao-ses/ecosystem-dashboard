@@ -483,4 +483,10 @@ const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLight & { 
 const Status = styled.div({
   marginLeft: 14,
   marginTop: -1,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginLeft: 4,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginLeft: 0,
+  },
 });
