@@ -22,7 +22,7 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
   const router = useRouter();
   const viewMonthStr = router.query.viewMonth;
   const anchor = useUrlAnchor();
-  const [currentMonth, setCurrentMonth] = useState(DateTime.local());
+  const [currentMonth, setCurrentMonth] = useState(DateTime.utc());
 
   const prepareWalletsName = (budgetStatement?: BudgetStatement) => {
     const walletNames = new Map<string, number>();
@@ -56,12 +56,12 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
         month: 1,
       })
       .startOf('month');
-    const actualMonth = DateTime.local().startOf('month');
+    const actualMonth = DateTime.utc().startOf('month');
 
     const mostRecentMonth = snapshotLimit ? (snapshotLimit > limit ? snapshotLimit : limit) : limit;
 
     if (viewMonthStr) {
-      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy');
+      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy', { zone: 'utc' });
 
       if (month && month.isValid && month <= mostRecentMonth) {
         setCurrentMonth(month);
@@ -121,7 +121,7 @@ const useBudgetStatementPager = (element: WithBudgetStatement, options?: BudgetS
   const hasNextMonth = useCallback(() => {
     const limit = getLastMonthWithActualOrForecast(element.budgetStatements);
     const snapshotLimit = options?.latestSnapshotPeriod?.latest;
-    const actualMonth = DateTime.local().startOf('month');
+    const actualMonth = DateTime.utc().startOf('month');
     return (
       currentMonth.startOf('month') < actualMonth &&
       (currentMonth.startOf('month') < limit.startOf('month') ||
