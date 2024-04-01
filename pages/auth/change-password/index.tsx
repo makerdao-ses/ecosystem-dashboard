@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import ChangePassword from '@ses/containers/Auth/ChangePassword/ChangePassword';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { getSSRPropsDefaultAuth } from '@ses/core/utils/commonGetSSRProps';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import type { NextPage } from 'next';
@@ -17,8 +16,6 @@ const ChangePasswordPage: NextPage = () => {
 };
 
 export default ChangePasswordPage;
-
-export const getServerSideProps = getSSRPropsDefaultAuth;
 
 export const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',

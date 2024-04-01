@@ -56,7 +56,7 @@ const useTransparencyReportingTabs = ({
 
   // tabs to shown when the tabs is expanded
   const tabItems: TableItems[] = [
-    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
+    ...[accountsSnapshotTab],
     {
       item: 'Actuals',
       id: TRANSPARENCY_IDS_ENUM.ACTUALS,
@@ -65,14 +65,10 @@ const useTransparencyReportingTabs = ({
       item: 'Forecast',
       id: TRANSPARENCY_IDS_ENUM.FORECAST,
     },
-    ...(isEnabled('FEATURE_MKR_VESTING')
-      ? [
-          {
-            item: 'MKR Vesting',
-            id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
-          },
-        ]
-      : []),
+    {
+      item: 'MKR Vesting',
+      id: TRANSPARENCY_IDS_ENUM.MKR_VESTING,
+    },
     {
       item: 'Transfer Requests',
       id: TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS,
@@ -85,17 +81,17 @@ const useTransparencyReportingTabs = ({
           },
         ]
       : []),
-    ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') ? [commentTab] : []),
+    ...[commentTab],
   ];
 
   // tabs to shown when the tabs is collapsed/compressed
   const compressedTabItems: TableItems[] = [
-    ...(isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') ? [accountsSnapshotTab] : []),
+    ...[accountsSnapshotTab],
     {
       item: 'Expense Report',
       id: TRANSPARENCY_IDS_ENUM.EXPENSE_REPORT,
     },
-    ...(isEnabled('FEATURE_TRANSPARENCY_COMMENTS') ? [commentTab] : []),
+    ...[commentTab],
   ];
 
   const onTabChange = useCallback(

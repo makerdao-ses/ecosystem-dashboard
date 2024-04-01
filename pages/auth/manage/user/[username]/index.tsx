@@ -1,5 +1,4 @@
 import React from 'react';
-import { getSSRPropsDefaultAuth } from '../../../../../src/core/utils/commonGetSSRProps';
 import ManagedUserProfile from '../../../../../src/stories/containers/Users/ManagedUserProfile/ManagedUserProfile';
 import UserManagerLayout from '../../../../../src/stories/containers/Users/UsersManager/UserManagerLayout';
 import { ManagerTabs } from '../../../../../src/stories/containers/Users/UsersManager/managerTabsEnum';
@@ -12,5 +11,3 @@ const ManageUserProfilePage: NextPage = () => (
 );
 
 export default ManageUserProfilePage;
-
-export const getServerSideProps = getSSRPropsDefaultAuth;

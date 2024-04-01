@@ -27,7 +27,6 @@ interface Props {
 
 const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initialYear }) => {
   const {
-    isEnabled,
     year,
     levelNumber,
     icon,
@@ -114,21 +113,19 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           />
         </ContainerSections>
 
-        {isEnabled('FEATURE_FINANCES_BREAKDOWN_CHART_SECTION') && (
-          <BreakdownChartSection
-            isLoading={breakdownChartSectionData.isLoading}
-            year={year}
-            selectedMetric={breakdownChartSectionData.selectedMetric}
-            selectedGranularity={breakdownChartSectionData.selectedGranularity}
-            onMetricChange={breakdownChartSectionData.handleMetricChange}
-            onGranularityChange={breakdownChartSectionData.handleGranularityChange}
-            isDisabled={breakdownChartSectionData.isDisabled}
-            handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
-            series={breakdownChartSectionData.series}
-            handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
-            refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
-          />
-        )}
+        <BreakdownChartSection
+          isLoading={breakdownChartSectionData.isLoading}
+          year={year}
+          selectedMetric={breakdownChartSectionData.selectedMetric}
+          selectedGranularity={breakdownChartSectionData.selectedGranularity}
+          onMetricChange={breakdownChartSectionData.handleMetricChange}
+          onGranularityChange={breakdownChartSectionData.handleGranularityChange}
+          isDisabled={breakdownChartSectionData.isDisabled}
+          handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
+          series={breakdownChartSectionData.series}
+          handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
+          refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
+        />
       </Container>
 
       <ConditionalWrapper period={breakdownTable.periodFilter}>
@@ -154,36 +151,32 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
         />
       </ConditionalWrapper>
       <Container>
-        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_METRICS_SECTION') && (
-          <MakerDAOExpenseMetricsFinances
-            title={`${levelNumber === 1 ? 'MakerDAO' : title} Expense Metrics`}
-            handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
-            selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
-            series={makerDAOExpensesMetrics.series}
-            handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
-            isLoading={makerDAOExpensesMetrics.isLoading}
+        <MakerDAOExpenseMetricsFinances
+          title={`${levelNumber === 1 ? 'MakerDAO' : title} Expense Metrics`}
+          handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
+          selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+          series={makerDAOExpensesMetrics.series}
+          handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
+          isLoading={makerDAOExpensesMetrics.isLoading}
+          year={year}
+        />
+        <ContainerReservesWaterfallChart>
+          <ReservesWaterfallChartSection
+            title={`${levelNumber === 1 ? 'MakerDAO Finances' : title} Reserves`}
+            legends={reserveChart.legendItems}
+            series={reserveChart.series}
+            selectedGranularity={reserveChart.selectedGranularity}
             year={year}
+            activeItems={reserveChart.activeElements}
+            handleSelectChangeItem={reserveChart.handleSelectChange}
+            items={reserveChart.items}
+            popupContainerHeight={reserveChart.popupContainerHeight}
+            handleGranularityChange={reserveChart.handleGranularityChange}
+            handleResetFilter={reserveChart.handleResetFilter}
+            isLoading={reserveChart.isLoading}
+            isDisabled={reserveChart.isDisabled}
           />
-        )}
-        {isEnabled('FEATURE_FINANCES_MAKERDAO_EXPENSE_RESERVE_SECTION') && (
-          <ContainerReservesWaterfallChart>
-            <ReservesWaterfallChartSection
-              title={`${levelNumber === 1 ? 'MakerDAO Finances' : title} Reserves`}
-              legends={reserveChart.legendItems}
-              series={reserveChart.series}
-              selectedGranularity={reserveChart.selectedGranularity}
-              year={year}
-              activeItems={reserveChart.activeElements}
-              handleSelectChangeItem={reserveChart.handleSelectChange}
-              items={reserveChart.items}
-              popupContainerHeight={reserveChart.popupContainerHeight}
-              handleGranularityChange={reserveChart.handleGranularityChange}
-              handleResetFilter={reserveChart.handleResetFilter}
-              isLoading={reserveChart.isLoading}
-              isDisabled={reserveChart.isDisabled}
-            />
-          </ContainerReservesWaterfallChart>
-        )}
+        </ContainerReservesWaterfallChart>
         <ContainerLastReport>
           <DelegateExpenseTrendFinances
             selectedMetric={expenseReportSection.selectedMetric}

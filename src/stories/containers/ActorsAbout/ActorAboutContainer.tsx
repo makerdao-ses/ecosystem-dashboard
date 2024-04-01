@@ -74,23 +74,21 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
           </ContainerResponsive>
           <ContainerCardSomethingWrongDesk>
             <ContainerScroll>
-              {isEnabled('FEATURE_CARD_NAVIGATION_ACTOR_ABOUT_PAGE') && (
-                <ContainerCard>
-                  {isEnabled('FEATURE_TEAM_PROJECTS') && (
-                    <CardProjects actorName={actor.name} shortCode={actor.shortCode} />
-                  )}
-                  <CardExpenses
-                    resource={ResourceType.EcosystemActor}
-                    queryStrings={queryStrings}
-                    code={actor.code}
-                    shortCode={actor.shortCode}
-                    auditors={actor.auditors}
-                    titleCard={`View all expenses of the ${actor.name} Ecosystem Actor`}
-                    auditorMessage={`The ${actor.name} is working without auditor`}
-                    makerburnCustomMessage={`View on-chain transfers to ${actor.name} on makerburn.com`}
-                  />
-                </ContainerCard>
-              )}
+              <ContainerCard>
+                {isEnabled('FEATURE_TEAM_PROJECTS') && (
+                  <CardProjects actorName={actor.name} shortCode={actor.shortCode} />
+                )}
+                <CardExpenses
+                  resource={ResourceType.EcosystemActor}
+                  queryStrings={queryStrings}
+                  code={actor.code}
+                  shortCode={actor.shortCode}
+                  auditors={actor.auditors}
+                  titleCard={`View all expenses of the ${actor.name} Ecosystem Actor`}
+                  auditorMessage={`The ${actor.name} is working without auditor`}
+                  makerburnCustomMessage={`View on-chain transfers to ${actor.name} on makerburn.com`}
+                />
+              </ContainerCard>
 
               <ContainerCard>
                 <CardSomethingWrong
