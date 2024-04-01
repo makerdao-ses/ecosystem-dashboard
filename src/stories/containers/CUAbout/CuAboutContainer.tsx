@@ -8,7 +8,6 @@ import lightTheme from '../../../../styles/theme/light';
 import { getMarkdownInformation } from '../../../core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import BigButton from '../../components/Button/BigButton/BigButton';
 import CardInfoMember from '../../components/CardInfoMember/CardInfoMember';
@@ -35,7 +34,6 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
 
   const { isLight } = useThemeContext();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
-  const [isEnabled] = useFlagsActive();
 
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
@@ -150,23 +148,21 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 width: '39.61%',
               }}
             >
-              {isEnabled('FEATURE_CARD_NAVIGATION') && (
-                <ContainerScroll>
+              <ContainerScroll>
+                <ContainerCard>
+                  <CardExpenses
+                    queryStrings={queryStrings}
+                    code={cuAbout.code}
+                    shortCode={cuAbout.shortCode}
+                    auditors={cuAbout.auditors}
+                  />
+                </ContainerCard>
+                {!(table834 || phone || LessPhone) && (
                   <ContainerCard>
-                    <CardExpenses
-                      queryStrings={queryStrings}
-                      code={cuAbout.code}
-                      shortCode={cuAbout.shortCode}
-                      auditors={cuAbout.auditors}
-                    />
+                    <CardSomethingWrong />
                   </ContainerCard>
-                  {!(table834 || phone || LessPhone) && (
-                    <ContainerCard>
-                      <CardSomethingWrong />
-                    </ContainerCard>
-                  )}
-                </ContainerScroll>
-              )}
+                )}
+              </ContainerScroll>
             </div>
           )}
         </ContainerAllData>

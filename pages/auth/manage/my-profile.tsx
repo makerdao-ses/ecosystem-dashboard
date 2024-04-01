@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
 import UserProfile from '../../../src/stories/containers/Users/UserProfile/UserProfile';
 import UserManagerLayout from '../../../src/stories/containers/Users/UsersManager/UserManagerLayout';
 import { ManagerTabs } from '../../../src/stories/containers/Users/UsersManager/managerTabsEnum';
@@ -16,8 +15,6 @@ const MyProfilePage: NextPage = () => (
 );
 
 export default MyProfilePage;
-
-export const getServerSideProps = getSSRPropsDefaultAuth;
 
 const ContainerProfile = styled.div({
   display: 'flex',

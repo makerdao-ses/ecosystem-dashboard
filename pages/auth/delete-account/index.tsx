@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useAuthContext } from '../../../src/core/context/AuthContext';
 import { useThemeContext } from '../../../src/core/context/ThemeContext';
-import { getSSRPropsDefaultAuth } from '../../../src/core/utils/commonGetSSRProps';
 import DeleteAccount from '../../../src/stories/containers/Users/DeleteAccount/DeleteAccount';
 import lightTheme from '../../../styles/theme/light';
 import type { NextPage } from 'next';
@@ -19,8 +18,6 @@ const CreateAccountPage: NextPage = () => {
 };
 
 export default CreateAccountPage;
-
-export const getServerSideProps = getSSRPropsDefaultAuth;
 
 export const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   display: 'flex',

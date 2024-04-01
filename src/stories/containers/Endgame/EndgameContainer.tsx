@@ -26,7 +26,6 @@ interface EndgameContainerProps {
 const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
   const {
     isLight,
-    isEnabled,
     keyChangesRef,
     structureRef,
     transitionStatusRef,
@@ -56,9 +55,7 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
       <Container>
         <IntroductoryHeadline />
       </Container>
-      {isEnabled('FEATURE_ENDGAME_NAVIGATION_SECTION') && (
-        <NavigationTabs activeTab={activeTab} handlePauseUrlUpdate={handlePauseUrlUpdate} />
-      )}
+      <NavigationTabs activeTab={activeTab} handlePauseUrlUpdate={handlePauseUrlUpdate} />
 
       <BannerContainer id="section-key-changes">
         <EndgameIntroductionBanner isKeyChanges />
@@ -70,33 +67,29 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
             <KeyChangesSections />
           </div>
 
-          {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && (
-            <div ref={structureRef}>
-              <BudgetStructureSection
-                totalBudgetCap={budgetStructureData.totalBudgetCap}
-                averageCapUtilization={budgetStructureData.averageCapUtilization}
-                endgameBudgets={budgetStructureData.endgameBudgets}
-                legacyBudgets={budgetStructureData.legacyBudgets}
-                scopes={budgetStructureData.scopes.budget}
-                immutable={budgetStructureData.immutable.budget}
-                legacy={budgetStructureData.legacy.budget}
-                isLoading={isLoadingBudgetStructure}
-                yearsRange={yearsRange}
-                selectedYear={selectedYear}
-                handleYearChange={handleYearChange}
-              />
-            </div>
-          )}
+          <div ref={structureRef}>
+            <BudgetStructureSection
+              totalBudgetCap={budgetStructureData.totalBudgetCap}
+              averageCapUtilization={budgetStructureData.averageCapUtilization}
+              endgameBudgets={budgetStructureData.endgameBudgets}
+              legacyBudgets={budgetStructureData.legacyBudgets}
+              scopes={budgetStructureData.scopes.budget}
+              immutable={budgetStructureData.immutable.budget}
+              legacy={budgetStructureData.legacy.budget}
+              isLoading={isLoadingBudgetStructure}
+              yearsRange={yearsRange}
+              selectedYear={selectedYear}
+              handleYearChange={handleYearChange}
+            />
+          </div>
 
-          {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && (
-            <div ref={transitionStatusRef}>
-              <BudgetTransitionStatusSection
-                selected={transitionDataSelected}
-                handleChange={handleTransitionDateSelectedChange}
-                data={transitionStatusData}
-              />
-            </div>
-          )}
+          <div ref={transitionStatusRef}>
+            <BudgetTransitionStatusSection
+              selected={transitionDataSelected}
+              handleChange={handleTransitionDateSelectedChange}
+              data={transitionStatusData}
+            />
+          </div>
 
           <KeyChangesBudgetTransitionStatusSection />
         </SectionSpacing>

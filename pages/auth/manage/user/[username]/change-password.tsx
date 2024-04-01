@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { getSSRPropsDefaultAuth } from '../../../../../src/core/utils/commonGetSSRProps';
 import ChangePassword from '../../../../../src/stories/containers/Auth/ChangePassword/ChangePassword';
 import UserManagerLayout from '../../../../../src/stories/containers/Users/UsersManager/UserManagerLayout';
 import { ManagerTabs } from '../../../../../src/stories/containers/Users/UsersManager/managerTabsEnum';
@@ -16,8 +15,6 @@ const ChangeUserPasswordPage: NextPage = () => (
 );
 
 export default ChangeUserPasswordPage;
-
-export const getServerSideProps = getSSRPropsDefaultAuth;
 
 const Container = styled.div({
   display: 'flex',

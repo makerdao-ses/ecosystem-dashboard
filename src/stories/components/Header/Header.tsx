@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import { siteRoutes } from '@ses/config/routes';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
-import { featureFlags } from '../../../../feature-flags/feature-flags';
 import lightTheme from '../../../../styles/theme/light';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -41,14 +39,9 @@ const Header: React.FC = () => {
 
   const activeMenuItem: MenuType = useMemo(() => {
     if (router.pathname.startsWith('/core-unit')) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW ? menuItems.coreUnits : menuItems.finances;
-    } else if (
-      router.pathname.startsWith(siteRoutes.globalActivityFeed) &&
-      featureFlags[CURRENT_ENVIRONMENT].FEATURE_GLOBAL_ACTIVITIES
-    ) {
-      return featureFlags[CURRENT_ENVIRONMENT].FEATURE_FINANCES_OVERVIEW
-        ? menuItems.globalActivityFeed
-        : menuItems.finances;
+      return menuItems.coreUnits;
+    } else if (router.pathname.startsWith(siteRoutes.globalActivityFeed)) {
+      return menuItems.globalActivityFeed;
     } else if (router.pathname.startsWith(siteRoutes.recognizedDelegate)) {
       return menuItems.recognizedDelegate;
     } else if (router.pathname.startsWith(siteRoutes.ecosystemActors)) {
