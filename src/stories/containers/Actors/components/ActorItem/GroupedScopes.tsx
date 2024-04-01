@@ -35,11 +35,11 @@ const Group = styled.div<{ columns: number }>(({ columns }) => ({
   gridTemplateColumns: `repeat(${columns}, 1fr)`,
   direction: 'rtl',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     direction: 'ltr',
   },
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
   },
 }));

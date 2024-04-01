@@ -13,6 +13,7 @@ import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import GroupedScopes from './GroupedScopes';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
+import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { PropsWithChildren } from 'react';
@@ -24,7 +25,13 @@ interface Props {
 
 const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   const { isLight } = useThemeContext();
-
+  const ActorSpaceLink: React.FC<PropsWithChildren> = ({ children }) => (
+    <ContainerLinkColum>
+      <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
+        <LinkColumSpace>{children}</LinkColumSpace>
+      </Link>
+    </ContainerLinkColum>
+  );
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
     <ContainerLinkColum>
       <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
@@ -32,10 +39,16 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
       </Link>
     </ContainerLinkColum>
   );
-  // TODO:Remove the slice function in the code, when the correct short code ist add from the API
+  const socialIcons: SocialMediaChannels = actor.socialMediaChannels[0] ?? {};
+  const keysWithNonNullValues = Object.keys(socialIcons).filter(
+    (key): key is keyof SocialMediaChannels =>
+      socialIcons[key as keyof SocialMediaChannels] !== null &&
+      socialIcons[key as keyof SocialMediaChannels] !== undefined
+  );
+
   return (
-    <ExtendedGenericDelegate isLight={isLight} hasScope={actor.scopes?.length > 0}>
-      <ActorAboutLink>
+    <ExtendedGenericDelegate isLight={isLight} socialLength={keysWithNonNullValues.length}>
+      <ActorSpaceLink>
         <ContainerActorType>
           <WrapperEcosystemActor>
             <EcosystemActorText isLight={isLight}>Ecosystem Actor</EcosystemActorText>
@@ -78,7 +91,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
               ))}
           </WrapperCategoryScopeMobile>
         </ContainerActorType>
-      </ActorAboutLink>
+      </ActorSpaceLink>
       <Link href={siteRoutes.ecosystemActorAbout(actor.shortCode)} legacyBehavior passHref>
         <LineLink>
           <Line isLight={isLight} />
@@ -135,64 +148,68 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
 
 export default ActorItem;
 
-const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { hasScope?: boolean }>(({ isLight }) => ({
-  background: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { socialLength: number }>(
+  ({ isLight, socialLength }) => ({
+    background: isLight ? '#FFFFFF' : '#10191F',
+    boxShadow: isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-  display: 'flex',
-  flexDirection: 'column',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    padding: 0,
+    display: 'flex',
     flexDirection: 'column',
-    maxHeight: 'revert',
-    minHeight: 'revert',
-    height: 161,
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    height: 82,
-    flexDirection: 'row',
-    padding: 0,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    ':hover': {
-      background: isLight ? '#ECF1F3' : '#1E2C37',
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+
+    [lightTheme.breakpoints.up('tablet_768')]: {
+      padding: 0,
+      flexDirection: 'column',
+      maxHeight: 'revert',
+      minHeight: 'revert',
+      height: 161,
     },
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    flexDirection: 'row',
-    maxWidth: 1312,
-    alignItems: 'center',
-  },
-}));
+    [lightTheme.breakpoints.up('desktop_1024')]: {
+      height: socialLength >= 4 ? 104 : 82,
+      flexDirection: 'row',
+      padding: 0,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      ':hover': {
+        background: isLight ? '#ECF1F3' : '#1E2C37',
+      },
+    },
+    [lightTheme.breakpoints.up('desktop_1280')]: {
+      height: 82,
+    },
+    [lightTheme.breakpoints.up('desktop_1440')]: {
+      flexDirection: 'row',
+      maxWidth: 1312,
+      alignItems: 'center',
+    },
+  })
+);
 
 const ContainerActorType = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
     paddingTop: 8,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
-
-    flex: 1,
+    maxWidth: 'fit-content',
     paddingTop: 'revert',
     justifyContent: 'revert',
   },
 });
 const EcosystemActorText = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  [lightTheme.breakpoints.down('table_834')]: {
+  [lightTheme.breakpoints.down('tablet_768')]: {
     display: 'none',
   },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginBottom: 0,
     display: 'flex',
     fontFamily: 'Inter, sans-serif',
@@ -213,11 +230,11 @@ const ActorAvatar = styled.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  gap: 16,
+  gap: 8,
   paddingLeft: 16,
   paddingTop: 16,
   paddingBottom: 16,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -228,16 +245,17 @@ const ActorAvatar = styled.div({
     paddingBottom: 0,
     width: 343,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
     marginBottom: 0,
-    width: 210,
-
-    height: 82,
+    width: 190,
     paddingTop: 0,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 210,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     width: 292,
@@ -246,8 +264,8 @@ const ActorAvatar = styled.div({
 
 const Name = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '17px',
+  fontSize: 14,
+  lineHeight: '16.94px',
   color: isLight ? '#231536' : '#D2D4EF',
   width: 160,
   overflow: 'hidden',
@@ -256,13 +274,10 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   [lightTheme.breakpoints.up('tablet_768')]: {
     width: 'revert',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 90,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
     marginTop: 1,
     width: 110,
   },
@@ -274,10 +289,10 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
 const TypeSection = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     alignItems: 'flex-end',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -295,7 +310,7 @@ const TypeSection = styled.div({
 
 const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
@@ -306,7 +321,7 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '17px',
     alignItems: 'end',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));
@@ -315,11 +330,11 @@ const Line = styled.div<WithIsLight>(({ isLight }) => ({
   marginBottom: 16,
   marginRight: 16,
   marginLeft: 16,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 14,
     marginBottom: 4,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));
@@ -337,16 +352,20 @@ const ActorTitle = styled.div<WithIsLight>(({ isLight }) => ({
   marginLeft: 16,
   height: 23,
   borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 16,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: -1,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 6,
+    marginLeft: 12,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 6,
     marginLeft: 6,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 2,
+    marginTop: 6,
     marginLeft: 6,
   },
 }));
@@ -362,15 +381,21 @@ const WrapperScopeLinks = styled.div<{ alignEnd: boolean }>(({ alignEnd }) => ({
   flexDirection: 'column',
 
   justifyContent: alignEnd ? 'flex-end' : 'space-between',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
     alignItems: 'center',
     minHeight: 82,
+    paddingBottom: 'revert',
+    flex: 1.29,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingBottom: 'revert',
     flex: 1.5,
   },
@@ -382,26 +407,29 @@ const ScopeSection = styled.div({
   gap: 8,
   justifyContent: 'center',
   marginBottom: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     alignItems: 'flex-start',
     marginBottom: 0,
     gap: 10,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'column',
     alignItems: 'flex-start',
     minWidth: 150,
     height: 82,
     gap: 4,
+    marginLeft: -8,
     marginBottom: 0,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginLeft: 6,
+    paddingTop: 6,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
     minWidth: 150,
     marginLeft: 0,
+    paddingTop: 6,
     flexDirection: 'column',
     gap: 4,
   },
@@ -412,13 +440,13 @@ const SocialIconsSection = styled.div({
   position: 'relative',
   flexDirection: 'row',
   justifyContent: 'center',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: -2,
     paddingRight: 16,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
 
     width: 'fit-content',
@@ -440,32 +468,63 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLig
       stroke: 'none',
     },
   },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 4,
+    justifyContent: 'flex-end',
+    flexWrap: 'wrap',
+    rowGap: 4,
+    flexDirection: 'row',
+    width: 176,
+    paddingTop: 16,
+    paddingBottom: 16,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: 'revert',
+    justifyContent: 'revert',
+    flexWrap: 'revert',
+    rowGap: 'revert',
+    flexDirection: 'revert',
+    width: 'revert',
+  },
 }));
 
 const ContainerLinkColum = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
 
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flex: 1,
   },
 });
 
 const LinkColum = styled.a({
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     paddingLeft: 16,
     paddingRight: 16,
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     padding: 16,
     flex: 1,
+  },
+});
+const LinkColumSpace = styled.a({
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    paddingLeft: 16,
+    paddingRight: 16,
+    flex: 1,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    flex: 'revert',
+    minWidth: 430,
   },
 });
 
@@ -473,7 +532,7 @@ const LineLink = styled.a({});
 
 const ContainerLastModifiedDesk = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -483,21 +542,23 @@ const ContainerLastModifiedDesk = styled.div({
   [lightTheme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
     marginLeft: -14,
+    marginTop: 6,
   },
 });
 
 const ContainerScopeLastModified = styled.div({
   marginTop: 0,
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
 
     flexDirection: 'row',
     gap: 32,
     marginLeft: -30,
-    marginTop: -1,
+    marginTop: 6,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
     gap: 38,
+    marginTop: -1,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
     gap: 40,
@@ -509,10 +570,10 @@ const ContainerScopeLastModified = styled.div({
 const ContainerLastModifiedMobileTable = styled.div({
   width: '100%',
   marginTop: 16,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 10,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 });
@@ -523,7 +584,7 @@ const WrapperCategoryScopeMobile = styled.div({
   justifyContent: 'space-between',
   marginBottom: 15,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
@@ -545,7 +606,7 @@ const ContainerScopeMobile = styled.div({
 });
 const WrapperHiddenOnlyMobileCategory = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
@@ -559,12 +620,12 @@ const WrapperHiddenOnlyMobileCategory = styled.div({
 
 const WrapperHiddenOnlyMobileScope = styled.div({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
 
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flex: 1,
   },
@@ -576,6 +637,9 @@ const WrapperHiddenOnlyMobileScope = styled.div({
 const LinkSpace = styled.div({
   display: 'flex',
   flex: 1,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    height: 104,
+  },
 });
 
 const MobileGroupedScopesBox = styled.div({
@@ -595,4 +659,10 @@ const ContainerDescription = styled.div({
   display: 'flex',
   gap: 4,
   alignItems: 'center',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: -24,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginTop: -24,
+  },
 });

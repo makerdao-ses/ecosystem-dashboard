@@ -45,7 +45,7 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string, al
   const handleGranularityChange = (value: AnalyticGranularity) => {
     setSelectedGranularity(value);
   };
-  const barBorderRadius = isMobile ? 4 : 6;
+  const barBorderRadius = isMobile ? 2 : 4;
 
   const isDisabled = selectedMetric === 'Budget' && selectedGranularity === 'monthly';
   const handleResetFilterBreakDownChart = () => {

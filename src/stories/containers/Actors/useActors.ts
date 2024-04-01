@@ -43,7 +43,11 @@ export const useActors = (actors: Team[], stories = false) => {
       header: 'Ecosystem Actor',
       styles: {
         boxSizing: 'border-box',
-        [lightTheme.breakpoints.up('desktop_1194')]: {
+        [lightTheme.breakpoints.up('desktop_1024')]: {
+          width: 210,
+          paddingLeft: 16,
+        },
+        [lightTheme.breakpoints.up('desktop_1280')]: {
           minWidth: 228,
           paddingLeft: 16,
         },
@@ -56,8 +60,12 @@ export const useActors = (actors: Team[], stories = false) => {
       styles: {
         width: 182,
         paddingLeft: 4,
+        [lightTheme.breakpoints.up('desktop_1024')]: {
+          width: 210,
+        },
         [lightTheme.breakpoints.up('desktop_1280')]: {
           paddingLeft: 18,
+          width: 182,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
           paddingLeft: 122,
@@ -72,11 +80,16 @@ export const useActors = (actors: Team[], stories = false) => {
       styles: {
         width: 232,
         paddingLeft: 28,
+        [lightTheme.breakpoints.up('desktop_1024')]: {
+          paddingLeft: 0,
+          width: 200,
+        },
         [lightTheme.breakpoints.up('desktop_1280')]: {
           paddingLeft: 56,
+          width: 230,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 186,
+          paddingLeft: 190,
           justifyContent: 'center',
         },
       },
@@ -87,7 +100,7 @@ export const useActors = (actors: Team[], stories = false) => {
       sort: headersSort[3],
       styles: {
         width: 173,
-        [lightTheme.breakpoints.up('desktop_1194')]: {
+        [lightTheme.breakpoints.up('desktop_1024')]: {
           marginLeft: -32,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
