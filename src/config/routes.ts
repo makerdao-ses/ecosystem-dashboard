@@ -18,7 +18,7 @@ export const siteRoutes = {
   globalActivityFeed: '/activity-feed',
   cookiesPolicy: '/cookies-policy',
   recognizedDelegateReport: '/recognized-delegates/finances/reports',
-  recognizedDelegate: '/delegates',
+  recognizedDelegate: '/recognized-delegates',
   endgame: '/endgame',
   roadmapMilestones: (slug: string) => `/roadmaps/${slug}`,
   // auth

@@ -1,10 +1,5 @@
-import {
-  existingColors,
-  existingColorsDark,
-  generateColorPalette,
-  getCorrectMetric,
-  transformPathToName,
-} from '../../utils/utils';
+import { LimitedColorAssigner } from '@ses/core/utils/colors';
+import { existingColors, existingColorsDark, getCorrectMetric, transformPathToName } from '../../utils/utils';
 import { removePatternAfterSlash } from '../SectionPages/BreakdownTable/utils';
 import type { BreakdownChartSeriesData } from '../../utils/types';
 import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
@@ -21,14 +16,8 @@ export const parseAnalyticsToSeriesBreakDownChart = (
   const series: BreakdownChartSeriesData[] = [];
 
   if (budgetsAnalytics) {
-    const budgetKeys = Object.keys(budgetsAnalytics);
-
-    const colorsLight = generateColorPalette(
-      existingColors.length,
-      budgetKeys.length - existingColors.length,
-      existingColors
-    );
-    const colorsDark = generateColorPalette(180, budgetKeys.length, existingColorsDark);
+    const budgetKeys = Object.keys(budgetsAnalytics).sort();
+    const colorAssigner = new LimitedColorAssigner(budgetKeys.length, isLight ? existingColors : existingColorsDark);
 
     budgetKeys.forEach((budgetKey, index) => {
       const searchCorrectBudget = budgets.length > 0 ? budgets : allBudgets;
@@ -49,8 +38,8 @@ export const parseAnalyticsToSeriesBreakDownChart = (
           barWidth,
           showBackground: false,
           itemStyle: {
-            color: isLight ? colorsLight[index] : colorsDark[index],
-            colorOriginal: isLight ? colorsLight[index] : colorsDark[index],
+            color: colorAssigner.getColor(budgetKey),
+            colorOriginal: colorAssigner.getColor(budgetKey),
           },
           isVisible: true,
         };
@@ -65,8 +54,8 @@ export const parseAnalyticsToSeriesBreakDownChart = (
           barWidth,
           showBackground: false,
           itemStyle: {
-            color: isLight ? colorsLight[index] : colorsDark[index],
-            colorOriginal: isLight ? colorsLight[index] : colorsDark[index],
+            color: colorAssigner.getColor(budgetKey),
+            colorOriginal: colorAssigner.getColor(budgetKey),
           },
           isVisible: true,
         };
@@ -110,23 +99,25 @@ export const setBorderRadiusForSeries = (
       const isNegative = (s.data[dataIndex].value ?? 0) < 0;
 
       if (positiveCount + negativeCount === 1) {
-        // Apply all borders if only one value
-        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
+        // Apply borders to the top or bottom depending of positive or negative
+        s.data[dataIndex].itemStyle.borderRadius = isPositive
+          ? [barBorderRadius, barBorderRadius, 0, 0]
+          : [0, 0, barBorderRadius, barBorderRadius];
       } else if (isPositive && positiveCount === 1) {
-        // Only one positive value, apply all borders
-        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
+        // Only one positive value, apply top borders
+        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
       } else if (isPositive && seriesIndex === firstPositiveIndex) {
-        // First positive value bottom borders
-        s.data[dataIndex].itemStyle.borderRadius = [0, 0, barBorderRadius, barBorderRadius];
+        // First positive value not bottom borders
+        s.data[dataIndex].itemStyle.borderRadius = [0, 0, 0, 0];
       } else if (isPositive && seriesIndex === lastPositiveIndex) {
         // Last positive value top borders
         s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
       } else if (isNegative && negativeCount === 1) {
-        // Only one negative value, apply all borders
-        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, barBorderRadius, barBorderRadius];
+        // Only one negative value, apply bottom borders
+        s.data[dataIndex].itemStyle.borderRadius = [0, 0, barBorderRadius, barBorderRadius];
       } else if (isNegative && seriesIndex === firstNegativeIndex) {
-        // First negative value, top edges (inverted due to negative nature)
-        s.data[dataIndex].itemStyle.borderRadius = [barBorderRadius, barBorderRadius, 0, 0];
+        // First negative value, bottom borders zero
+        s.data[dataIndex].itemStyle.borderRadius = [0, 0, 0, 0];
       } else if (isNegative && seriesIndex === lastNegativeIndex) {
         // Last negative value, bottom edges (inverted)
         s.data[dataIndex].itemStyle.borderRadius = [0, 0, barBorderRadius, barBorderRadius];
