@@ -155,9 +155,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
   useEffect(() => {
     // update when the levels/budgets change
-    if (cardsNavigationInformation.length > 6) {
-      setLoadMoreCards(true);
-    }
+    setLoadMoreCards(cardsNavigationInformation.length > 6);
   }, [cardsNavigationInformation.length]);
   const handleLoadMoreCards = () => {
     setLoadMoreCards(!loadMoreCards);
