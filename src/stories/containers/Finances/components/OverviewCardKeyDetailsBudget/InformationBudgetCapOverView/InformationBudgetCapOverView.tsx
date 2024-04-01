@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -6,20 +7,22 @@ import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
+import type { Theme } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
-  actuals: number;
+  paymentsOnChain: number;
   budgetCap: number;
   className?: string;
 };
 
-const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ actuals, budgetCap, className }) => {
+const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnChain, budgetCap, className }) => {
   const { isLight } = useThemeContext();
+  const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
-  const humanizedActuals = threeDigitsPrecisionHumanization(actuals);
+  const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
-  const percent = threeDigitsPrecisionHumanization(percentageRespectTo(actuals, budgetCap)).value;
+  const percent = threeDigitsPrecisionHumanization(percentageRespectTo(paymentsOnChain, budgetCap)).value;
 
   return (
     <CardContainer className={className}>
@@ -44,11 +47,11 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ actuals, bud
       <DividerCardChart isLight={isLight} />
       <Percent isLight={isLight}>{percent}%</Percent>
       <BarWrapper>
-        <HorizontalBudgetBarStyled actuals={actuals} prediction={0} budgetCap={budgetCap} />
+        <HorizontalBudgetBarStyled actuals={paymentsOnChain} prediction={0} budgetCap={budgetCap} />
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-          <LegendLabel>Actuals</LegendLabel>
+          <LegendLabel>{isMobileOrTablet ? 'Net Exp On-Chain' : 'Net Expenses On-Chain'}</LegendLabel>
         </LegendItem>
         <LegendItem isLight={isLight} dotColor={'#F75524'}>
           <LegendLabel>Budget Cap</LegendLabel>
