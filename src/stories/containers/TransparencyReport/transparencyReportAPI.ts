@@ -1,7 +1,6 @@
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import request, { gql } from 'graphql-request';
 import { DateTime } from 'luxon';
-import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 
 export const CORE_UNIT_REQUEST = (shortCode: string) => ({
@@ -131,11 +130,15 @@ export const snapshotPeriodQuery = (ownerId: string, resourceType: ResourceType)
   },
 });
 
+export interface SnapshotLimitPeriodsString {
+  earliest: string;
+  latest: string;
+}
+
 export const getLastSnapshotPeriod = async (
   ownerId: string,
   resourceType: ResourceType
-): Promise<SnapshotLimitPeriods | undefined> => {
-  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+): Promise<SnapshotLimitPeriodsString | undefined> => {
   const { query, filter } = snapshotPeriodQuery(ownerId, resourceType);
   const data = await request<{ snapshots: [{ period: string }] }>(GRAPHQL_ENDPOINT, query, filter);
 
@@ -145,11 +148,12 @@ export const getLastSnapshotPeriod = async (
 
   const periods = data.snapshots.map((snapshot) =>
     DateTime.fromFormat(snapshot.period, 'yyyy/MM', {
-      zone: userTimeZone,
+      zone: 'UTC',
     })
   );
   return {
-    earliest: DateTime.min(...periods),
-    latest: DateTime.max(...periods),
+    // serialize the date objects to ISO strings
+    earliest: DateTime.min(...periods).toISO(),
+    latest: DateTime.max(...periods).toISO(),
   };
 };

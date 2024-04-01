@@ -85,9 +85,8 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       expenseCategories,
       snapshotLimitPeriods: snapshotLimitPeriods
         ? {
-            // serialize the date objects to ISO strings
-            earliest: snapshotLimitPeriods.earliest.toISO(),
-            latest: snapshotLimitPeriods.latest.toISO(),
+            earliest: snapshotLimitPeriods.earliest,
+            latest: snapshotLimitPeriods.latest,
           }
         : null,
     },
