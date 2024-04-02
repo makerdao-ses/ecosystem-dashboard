@@ -486,7 +486,6 @@ const Status = styled.div({
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 'revert',
     marginLeft: -2,
-    // marginLeft: 4,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: 0,
