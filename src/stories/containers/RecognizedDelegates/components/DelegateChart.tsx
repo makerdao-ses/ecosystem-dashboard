@@ -52,7 +52,7 @@ const DelegateChart: React.FC<Props> = ({ expenses, endDate, startDate }) => {
       axisLabel: {
         interval: 0,
         formatter: function (value: string, index: number) {
-          if ((value === 'J' && MONTHS_DESK[index - 1] === 'D') || MONTS_MOBILE[index - 1] === 'D') {
+          if (index === 0 || index === MONTHS_DESK.length - 1) {
             return `{bgImg|${value}}`;
           }
           return value;
