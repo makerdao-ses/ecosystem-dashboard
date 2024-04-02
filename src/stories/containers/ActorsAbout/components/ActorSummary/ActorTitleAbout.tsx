@@ -213,11 +213,13 @@ const TypographyCategory = styled.div<WithIsLight>(({ isLight }) => ({
   color: '#708390',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 8,
+    width: 'fit-content',
     marginTop: 6,
     fontWeight: 400,
     fontSize: 14,
     borderRadius: 'revert',
     borderBottom: 'revert',
+    minWidth: 'fit-content',
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {
