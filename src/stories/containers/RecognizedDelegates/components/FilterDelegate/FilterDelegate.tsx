@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 
+import { useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { Close } from '@ses/components/svg/close';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
+import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DelegateSelectItem from './DelegateSelectItem';
 import type { SelectItemProps, MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
@@ -19,6 +21,7 @@ interface Props {
 }
 
 const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChange, handleResetFilter }) => {
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const { isLight } = useThemeContext();
   const isEnable = isLight
     ? activeItems.length > 0
@@ -27,6 +30,20 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
     : activeItems.length > 0
     ? '#D2D4EF'
     : '#48495F';
+
+  // Show name if only one element its active
+  const singleActiveItemLabel =
+    activeItems.length === 1 ? items.find((item) => item.id === activeItems[0])?.content : null;
+
+  const label = isMobile
+    ? activeItems.length === 1
+      ? `Recognized Delegates (${activeItems.length})`
+      : 'Recognized Delegates'
+    : items.length === activeItems.length
+    ? 'All Recognized Delegates'
+    : activeItems.length === 1 && singleActiveItemLabel
+    ? singleActiveItemLabel
+    : 'Recognized Delegates';
 
   return (
     <FiltersContainer>
@@ -41,15 +58,15 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
       <FilterDelegatesContainer>
         <CustomMultiSelect
           positionRight={true}
-          label="Recognized Delegates"
+          label={label as string}
           activeItems={activeItems}
           items={items}
-          width={224}
           onChange={(value: string[]) => {
             handleSelectChange(value);
           }}
           withAll
           popupContainerWidth={343}
+          showMetricOneItemSelect
           listItemWidth={311}
           customAll={{
             content: 'All Recognized Delegates',
