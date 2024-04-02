@@ -81,7 +81,8 @@ export const setBorderRadiusForSeries = (
 
     // Identify first and last indices for positive and negative values
     series.forEach((s, seriesIndex) => {
-      const value = s.data[dataIndex].value ?? 0;
+      let value = s.data[dataIndex].value ?? 0;
+      value = Math.abs(value) < 0.004 ? 0 : value; // if the values es too small, consider it as 0
       if (value > 0) {
         if (firstPositiveIndex === -1) firstPositiveIndex = seriesIndex;
         lastPositiveIndex = seriesIndex;

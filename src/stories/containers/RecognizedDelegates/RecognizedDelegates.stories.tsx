@@ -12,7 +12,7 @@ const meta: Meta<typeof RecognizedDelegatesContainer> = {
     layout: 'fullscreen',
     nextjs: {
       router: {
-        pathname: '/delegates',
+        pathname: '/recognized-delegates',
       },
     },
     chromatic: {
