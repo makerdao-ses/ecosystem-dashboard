@@ -29,6 +29,53 @@ const EMPTY_METRIC_VALUE = {
 
 const METRIC_FILTER_OPTIONS = ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals'];
 
+interface ResolutionsFlags {
+  isMobile: boolean;
+  isTable: boolean;
+  isDesk1024: boolean;
+  isDesk1280: boolean;
+  isDesk1440: boolean;
+  isDesk1920: boolean;
+  isDesk2400: boolean;
+  isDesk3000: boolean;
+}
+
+const maxAllowedSelectedMetrics = (
+  periodFilter: PeriodicSelectionFilter,
+  resolutions: ResolutionsFlags = {
+    isMobile: false,
+    isTable: false,
+    isDesk1024: false,
+    isDesk1280: false,
+    isDesk1440: false,
+    isDesk1920: false,
+    isDesk2400: false,
+    isDesk3000: false,
+  }
+) => {
+  let metricsCount = 0;
+  // This is for metrics base on the resolution
+  if (periodFilter === 'Semi-annual') {
+    metricsCount = 1;
+  } else if (periodFilter === 'Annually') {
+    if (resolutions.isMobile) {
+      metricsCount = 3;
+    } else {
+      metricsCount = 5;
+    }
+  } else if (periodFilter === 'Monthly' && (resolutions.isDesk1440 || resolutions.isDesk1920)) {
+    metricsCount = 1;
+  } else if (periodFilter === 'Quarterly') {
+    if (resolutions.isTable) metricsCount = 1;
+    if (resolutions.isDesk1024 || resolutions.isDesk1280 || resolutions.isDesk1440) metricsCount = 2;
+    if (resolutions.isDesk1920 && !resolutions.isDesk2400 && !resolutions.isDesk3000) metricsCount = 3;
+    if (resolutions.isDesk2400 && !resolutions.isDesk3000) metricsCount = 4;
+    if (resolutions.isDesk3000) metricsCount = 5;
+  }
+
+  return metricsCount;
+};
+
 export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: Budget[]) => {
   const router = useRouter();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
@@ -39,6 +86,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   const isDesk1920 = useMediaQuery(lightTheme.breakpoints.up('desktop_1920'));
   const isUpDesk2400 = useMediaQuery(lightTheme.breakpoints.up(2400));
   const isUpDesk3000 = useMediaQuery(lightTheme.breakpoints.up(3000));
+
   const [periodFilter, setPeriodFilter] = useState<PeriodicSelectionFilter>(() => {
     const urlPeriod = router.query.period as PeriodicSelectionFilter;
     if (urlPeriod && ['Annually', 'Semi-annual', 'Quarterly', 'Monthly'].includes(urlPeriod)) {
@@ -49,29 +97,20 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
   });
 
   // calculate the maximum amount of active metrics based on the resolution
-  const maxAmountOfActiveMetrics = useMemo(() => {
-    let metricsCount = 0;
-    // This is for metrics base on the resolution
-    if (periodFilter === 'Semi-annual') {
-      metricsCount = 1;
-    } else if (periodFilter === 'Annually') {
-      if (isMobile) {
-        metricsCount = 3;
-      } else {
-        metricsCount = 5;
-      }
-    } else if (periodFilter === 'Monthly' && (isDesk1440 || isDesk1920)) {
-      metricsCount = 1;
-    } else if (periodFilter === 'Quarterly') {
-      if (isTable) metricsCount = 1;
-      if (isDesk1024 || isDesk1280 || isDesk1440) metricsCount = 2;
-      if (isDesk1920 && !isUpDesk2400 && !isUpDesk3000) metricsCount = 3;
-      if (isUpDesk2400 && !isUpDesk3000) metricsCount = 4;
-      if (isUpDesk3000) metricsCount = 5;
-    }
-
-    return metricsCount;
-  }, [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, isUpDesk2400, isUpDesk3000, periodFilter]);
+  const maxAmountOfActiveMetrics = useMemo(
+    () =>
+      maxAllowedSelectedMetrics(periodFilter, {
+        isMobile,
+        isTable,
+        isDesk1024,
+        isDesk1280,
+        isDesk1440,
+        isDesk1920,
+        isDesk2400: isUpDesk2400,
+        isDesk3000: isUpDesk3000,
+      }),
+    [isDesk1024, isDesk1280, isDesk1440, isDesk1920, isMobile, isTable, isUpDesk2400, isUpDesk3000, periodFilter]
+  );
 
   const [activeMetrics, setActiveMetrics] = useState<string[]>(() => {
     let urlMetrics = router.query.metric as string[] | undefined;
@@ -461,12 +500,21 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     updateUrl(periodFilter, METRIC_FILTER_OPTIONS.slice(0, maxAmountOfActiveMetrics));
   };
   const handlePeriodChange = (value: string) => {
-    let metrics = activeMetrics;
-    if (value === 'Annually') {
-      metrics = METRIC_FILTER_OPTIONS.slice(0, isMobile ? 3 : 5);
-      setActiveMetrics(metrics);
-    }
+    const metrics = METRIC_FILTER_OPTIONS.slice(
+      0,
+      maxAllowedSelectedMetrics(value as PeriodicSelectionFilter, {
+        isMobile,
+        isTable,
+        isDesk1024,
+        isDesk1280,
+        isDesk1440,
+        isDesk1920,
+        isDesk2400: isUpDesk2400,
+        isDesk3000: isUpDesk3000,
+      })
+    );
     setPeriodFilter(value as PeriodicSelectionFilter);
+    setActiveMetrics(metrics);
     updateUrl(value as PeriodicSelectionFilter, metrics);
   };
 
