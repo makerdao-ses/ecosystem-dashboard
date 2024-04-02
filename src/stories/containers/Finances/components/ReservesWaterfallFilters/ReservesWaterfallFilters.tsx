@@ -4,6 +4,7 @@ import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMulti
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFilter/ResponsiveButtonClearFilter';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
+import { getLabelMultiselectFilters } from '@ses/core/utils/filters';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
@@ -35,19 +36,9 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
   title,
 }) => {
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  // Show name if only one element its active
-  const singleActiveItemLabel =
-    activeItems.length === 1 ? items.find((item) => item.id === activeItems[0])?.content : null;
 
-  const label = isMobile
-    ? activeItems.length === 1
-      ? `Categories (${activeItems.length})`
-      : 'Categories'
-    : items.length === activeItems.length
-    ? 'All Categories'
-    : activeItems.length === 1 && singleActiveItemLabel
-    ? singleActiveItemLabel
-    : 'Categories';
+  const label = getLabelMultiselectFilters(items, activeItems, isMobile, 'Categories');
+
   return (
     <ContainerFilterTitle>
       <SectionTitle
