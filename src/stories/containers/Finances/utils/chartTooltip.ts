@@ -61,7 +61,7 @@ export const createChartTooltip = (
     if (params.every((item) => item.value === 0)) {
       return '';
     }
-    const filteredParams = !isShowZeroValues ? params : params.filter((item) => item.value !== 0);
+    const filteredParams = !isShowZeroValues ? params : params.filter((item) => item.value !== 0 && item.value > 0.004);
 
     const shortAmount = params.length > 10;
     const flexDirection = shortAmount ? 'row' : 'column';
