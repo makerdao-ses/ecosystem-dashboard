@@ -64,7 +64,7 @@ const variantsArgs = [
       .withId('23')
       .withCode('PH-001')
       .withShortCode('PHX')
-      .withName('Phoenix Labs lo..')
+      .withName('Phoenix Labs lo...')
       .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
       .addCategory('Active Ecosystem Actor')

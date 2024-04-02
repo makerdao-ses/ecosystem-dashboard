@@ -179,7 +179,7 @@ const TypographyTitle = styled(Typography, { shouldForwardProp: (prop) => prop !
   textOverflow: 'ellipsis',
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontStyle: 'normal',
-    maxWidth: 205,
+    maxWidth: 218,
     width: 'fit-content',
     fontWeight: 600,
     fontSize: '24px',
@@ -484,7 +484,8 @@ const Status = styled.div({
   marginLeft: 14,
   marginTop: -1,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginLeft: 4,
+    marginTop: 'revert',
+    marginLeft: -2,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginLeft: 0,
