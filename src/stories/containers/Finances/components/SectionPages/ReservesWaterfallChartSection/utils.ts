@@ -77,7 +77,7 @@ export const builderWaterfallSeries = (
     {
       name: 'Reserves Balance',
       barWidth: isMobile ? 19 : isTable ? 39 : 48,
-      data: help,
+      data: help.map((item) => (Math.abs(item) < UMBRAL_CHART_WATERFALL ? 0 : item)),
       emphasis: {
         disabled: true,
       },
