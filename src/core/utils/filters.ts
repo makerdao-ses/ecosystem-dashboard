@@ -1,5 +1,6 @@
 import { getStatusMip39AcceptedOrObsolete } from '../businessLogic/coreUnits';
 import type { CoreUnit } from '../models/interfaces/coreUnit';
+import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { ParsedUrlQuery } from 'querystring';
 
 const filterStatus = (lowerCaseStatuses: string[], data: CoreUnit) =>
@@ -77,4 +78,25 @@ export const getArrayParam = (key: string, urlSearchParams: ParsedUrlQuery) => {
 export const getStringParam = (key: string, urlSearchParams: ParsedUrlQuery) => {
   if (!urlSearchParams) return '';
   return (urlSearchParams[`${key}`] as string) || '';
+};
+
+export const getLabelMultiselectFilters = (
+  items: MultiSelectItem[],
+  activeItems: string[],
+  isMobile: boolean,
+  label: string
+) => {
+  // Determine single active item label for mobile and non-mobile
+  const singleActiveItemLabel =
+    activeItems.length === 1 ? items.find((item) => item.id === activeItems[0])?.content : null;
+
+  if (isMobile) {
+    return activeItems.length === 1 ? `${label} (${activeItems.length})` : `${label}`;
+  } else {
+    return items.length === activeItems.length
+      ? `All ${label}`
+      : activeItems.length === 1 && singleActiveItemLabel
+      ? singleActiveItemLabel
+      : `${label}`;
+  }
 };
