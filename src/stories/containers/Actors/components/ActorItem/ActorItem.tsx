@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
+import { StatusChip } from '@ses/components/StatusChip/StatusChip';
 import { siteRoutes } from '@ses/config/routes';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
@@ -61,8 +63,15 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 image={actor.image}
               />
               <ContainerDescription>
-                <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
-                <Name isLight={isLight}>{actor.name}</Name>
+                <ContainerShortCodeName>
+                  <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
+                  <Name isLight={isLight}>{actor.name}</Name>
+                </ContainerShortCodeName>
+
+                <StatusMobile>
+                  {' '}
+                  <StatusChip status={CuMipStatus.RFC} />
+                </StatusMobile>
               </ContainerDescription>
             </ActorAvatar>
           </WrapperEcosystemActor>
@@ -275,10 +284,11 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
     width: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
+    fontSize: '14px',
     width: 90,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 1,
+    fontSize: '14px',
     width: 110,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
@@ -657,12 +667,31 @@ const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
 const ContainerDescription = styled.div({
   display: 'flex',
-  gap: 4,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: -24,
+  width: '100%',
+  paddingRight: 16,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    paddingRight: 'revert',
+    justifyContent: 'revert',
+    gap: 16,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: -24,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    gap: 8,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+});
+
+const StatusMobile = styled('div')({
+  display: 'flex',
+});
+const ContainerShortCodeName = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 4,
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    paddingTop: 4,
   },
 });

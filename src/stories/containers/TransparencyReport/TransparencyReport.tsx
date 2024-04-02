@@ -172,7 +172,7 @@ export const TransparencyReport = ({
               {tabsIndex === TRANSPARENCY_IDS_ENUM.AUDIT_REPORTS && isEnabled('FEATURE_AUDIT_REPORTS') && (
                 <TransparencyAudit budgetStatement={currentBudgetStatement} />
               )}
-              {tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS && isEnabled('FEATURE_ACCOUNTS_SNAPSHOT') && (
+              {tabsIndex === TRANSPARENCY_IDS_ENUM.ACCOUNTS_SNAPSHOTS && (
                 <AccountsSnapshotTabContainer
                   snapshotOwner={`${code} Core Unit`}
                   currentMonth={currentMonth}

@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { NavigationTabEnum } from '../../useEndgameContainer';
@@ -14,7 +13,6 @@ interface NavigationTabsProps {
 
 const NavigationTabs: React.FC<NavigationTabsProps> = ({ activeTab, handlePauseUrlUpdate }) => {
   const { isLight } = useThemeContext();
-  const [isEnabled] = useFlagsActive();
 
   const handleOnClick = (tab: NavigationTabEnum) => () => {
     if (typeof document !== 'undefined') {
@@ -37,24 +35,20 @@ const NavigationTabs: React.FC<NavigationTabsProps> = ({ activeTab, handlePauseU
             >
               Key Changes
             </Tab>
-            {isEnabled('FEATURE_ENDGAME_BUDGET_STRUCTURE_SECTION') && (
-              <Tab
-                isLight={isLight}
-                active={activeTab === NavigationTabEnum.BUDGET_STRUCTURE}
-                onClick={handleOnClick(NavigationTabEnum.BUDGET_STRUCTURE)}
-              >
-                Endgame Budget Structure
-              </Tab>
-            )}
-            {isEnabled('FEATURE_ENDGAME_BUDGET_TRANSITION_SECTION') && (
-              <Tab
-                isLight={isLight}
-                active={activeTab === NavigationTabEnum.BUDGET_TRANSITION_STATUS}
-                onClick={handleOnClick(NavigationTabEnum.BUDGET_TRANSITION_STATUS)}
-              >
-                Budget Transition Status
-              </Tab>
-            )}
+            <Tab
+              isLight={isLight}
+              active={activeTab === NavigationTabEnum.BUDGET_STRUCTURE}
+              onClick={handleOnClick(NavigationTabEnum.BUDGET_STRUCTURE)}
+            >
+              Endgame Budget Structure
+            </Tab>
+            <Tab
+              isLight={isLight}
+              active={activeTab === NavigationTabEnum.BUDGET_TRANSITION_STATUS}
+              onClick={handleOnClick(NavigationTabEnum.BUDGET_TRANSITION_STATUS)}
+            >
+              Budget Transition Status
+            </Tab>
           </Navigation>
         </Container>
       </Wrapper>

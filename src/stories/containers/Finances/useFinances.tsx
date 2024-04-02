@@ -1,7 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { useRouter } from 'next/router';
 import { useState, useMemo, useEffect } from 'react';
@@ -27,7 +26,6 @@ import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analyt
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
 export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear: string) => {
-  const [isEnabled] = useFlagsActive();
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const router = useRouter();
@@ -155,9 +153,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
   useEffect(() => {
     // update when the levels/budgets change
-    if (cardsNavigationInformation.length > 6) {
-      setLoadMoreCards(true);
-    }
+    setLoadMoreCards(cardsNavigationInformation.length > 6);
   }, [cardsNavigationInformation.length]);
   const handleLoadMoreCards = () => {
     setLoadMoreCards(!loadMoreCards);
@@ -182,7 +178,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const expenseTrendFinances = useExpenseReports(codePath);
 
   return {
-    isEnabled,
     year,
     levelNumber,
     icon,

@@ -1,4 +1,3 @@
-import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import RecognizedDelegatesContainer from '@ses/containers/RecognizedDelegates/RecognizedDelegatesContainer';
 import {
   fetchDelegatesAnalytics,
@@ -6,7 +5,6 @@ import {
   fetchTotalExpenses,
 } from '@ses/containers/RecognizedDelegates/api/RecognizedDelegatesAPI';
 import { ExpenseGranularity } from '@ses/core/models/dto/expensesDTO';
-import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
@@ -36,12 +34,6 @@ const RecognizedDelegates: NextPage<Props> = ({
 export default RecognizedDelegates;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  if (!featureFlags[CURRENT_ENVIRONMENT].FEATURE_RECOGNIZED_DELEGATES) {
-    return {
-      notFound: true,
-    };
-  }
-
   const [delegates, totalMakerDAOExpenses, monthlyAnalytics, totalAnalytics] = await Promise.all([
     fetchRecognizedDelegates(),
     fetchTotalExpenses(),
