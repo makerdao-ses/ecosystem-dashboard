@@ -7,6 +7,7 @@ import { Close } from '@ses/components/svg/close';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
+import { getLabelMultiselectFilters } from '@ses/core/utils/filters';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DelegateSelectItem from './DelegateSelectItem';
@@ -31,20 +32,7 @@ const FilterDelegate: React.FC<Props> = ({ items, activeItems, handleSelectChang
     ? '#D2D4EF'
     : '#48495F';
 
-  // Show name if only one element its active
-  const singleActiveItemLabel =
-    activeItems.length === 1 ? items.find((item) => item.id === activeItems[0])?.content : null;
-
-  const label = isMobile
-    ? activeItems.length === 1
-      ? `Recognized Delegates (${activeItems.length})`
-      : 'Recognized Delegates'
-    : items.length === activeItems.length
-    ? 'All Recognized Delegates'
-    : activeItems.length === 1 && singleActiveItemLabel
-    ? singleActiveItemLabel
-    : 'Recognized Delegates';
-
+  const label = getLabelMultiselectFilters(items, activeItems, isMobile, 'Recognized Delegates');
   return (
     <FiltersContainer>
       <Reset>
