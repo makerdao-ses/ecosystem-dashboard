@@ -40,7 +40,7 @@ const ExpenseReports: React.FC<Props> = ({
     <Container>
       <HeaderContainer>
         <SectionTitle
-          title="Budget Statement"
+          title="Budget Statements"
           tooltip="Explore the latest expense reports in a customizable table with options to filter by status  and selected financial metrics."
         />
         <ExpenseReportsFilters {...filterProps} />
