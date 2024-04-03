@@ -2,6 +2,7 @@ import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { formatBudgetName } from '@ses/containers/Finances/utils/utils';
 import lightTheme from '@ses/styles/theme/light';
+import groupBy from 'lodash/groupBy';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
@@ -346,17 +347,23 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       tables.push(table);
     });
 
-    // add sub table for the main budget if it is in the analytics response with codePath/*
-    // this is to add possible missing values
-    Object.keys(data)
-      .filter((path) => !budgets.some((budget) => path.startsWith(budget.codePath)) && path === codePath)
-      .forEach((path) => {
-        const table = {
-          tableName: allBudgets.find((budget) => budget.codePath === path)?.name ?? path,
-          rows: [],
-        } as TableFinances;
+    // group the remaining paths that are not in the tables
+    const groups = groupBy(
+      Object.keys(data)
+        // remaining paths that are not in the tables
+        .filter((path) => !tables.some((table) => table.rows.some((row) => row.codePath === path))),
+      (path) => path.replace(`${codePath}/`, '').split('/')[0]
+    );
+    // create a sub-table for each group
+    Object.keys(groups).forEach((groupKey) => {
+      const table = {
+        tableName: groupKey,
+        rows: [],
+      } as TableFinances;
 
+      groups[groupKey].forEach((path) => {
         const columns = Object.values(data[path]);
+
         if (selectedGranularity !== 'annual') {
           // annual does not have totals
           const total = columns.reduce(
@@ -375,14 +382,38 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         }
 
         table.rows.push({
-          name: table.tableName,
-          isMain: true,
+          name: path, // TODO: maybe we can get the name from the budget list
           codePath: path,
           columns,
         } as ItemRow);
-
-        tables.unshift(table);
       });
+
+      const header: ItemRow = {
+        name: groupKey,
+        isMain: true,
+        codePath: groupKey,
+        columns: table.rows
+          .reduce((acc, current) => {
+            current.columns.forEach((row, index) => {
+              if (!acc[index]) {
+                acc[index] = { ...EMPTY_METRIC_VALUE };
+              }
+
+              acc[index].Actuals += row.Actuals;
+              acc[index].Budget += row.Budget;
+              acc[index].PaymentsOnChain += row.PaymentsOnChain;
+              acc[index].Forecast += row.Forecast;
+              acc[index].ProtocolNetOutflow += row.ProtocolNetOutflow;
+            });
+
+            return acc;
+          }, Array(table.rows?.[0]?.columns?.length).fill(null))
+          .filter((item) => item !== null),
+      };
+      table.rows.unshift(header);
+
+      tables.push(table);
+    });
 
     // now we create the main table header
     // it is guaranteed below that all the sub-tables have a header
