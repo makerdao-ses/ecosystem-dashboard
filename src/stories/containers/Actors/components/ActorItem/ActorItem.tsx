@@ -70,7 +70,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
 
                 <StatusMobile>
                   {' '}
-                  <StatusChip status={CuMipStatus.RFC} />
+                  <StatusChip status={CuMipStatus.Accepted} />
                 </StatusMobile>
               </ContainerDescription>
             </ActorAvatar>
