@@ -5,6 +5,11 @@ import type { Team } from '@ses/core/models/interfaces/team';
 import type { EChartsOption } from 'echarts-for-react';
 import type { DateTime } from 'luxon';
 
+export interface BudgetMetricWithName extends BudgetMetric {
+  name: string;
+  code?: string;
+}
+
 export interface NavigationCard {
   image: string;
   title: string;
@@ -22,8 +27,9 @@ export interface DoughnutSeries {
   name: string;
   value: number;
   percent: number;
-  actuals: number;
-  budgetCap: number;
+  // actuals: number;
+  // budgetCap: number;
+  metrics: BudgetMetricWithName;
   color: string;
   code?: string;
   isVisible?: boolean;
@@ -75,11 +81,6 @@ export interface ValueSeriesBreakdownChart {
 export interface SeriesBreakdownChart {
   name: string;
   data: ValueSeriesBreakdownChart[];
-}
-
-export interface BudgetMetricWithName extends BudgetMetric {
-  name: string;
-  code?: string;
 }
 
 export interface BreakdownChartSeriesData {
