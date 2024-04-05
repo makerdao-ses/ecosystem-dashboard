@@ -27,8 +27,6 @@ export interface DoughnutSeries {
   name: string;
   value: number;
   percent: number;
-  // actuals: number;
-  // budgetCap: number;
   metrics: BudgetMetricWithName;
   color: string;
   code?: string;
