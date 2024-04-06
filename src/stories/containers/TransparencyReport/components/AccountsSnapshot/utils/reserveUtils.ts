@@ -33,7 +33,10 @@ export const getReserveAccounts = (
             .filter((transaction) => transaction.token === token)
             .sort(transactionSort),
           children: snapshot.snapshotAccount
-            .filter((childrenAccount) => childrenAccount.groupAccountId === account.id)
+            .filter(
+              (childrenAccount) =>
+                childrenAccount.groupAccountId === account.id && childrenAccount.snapshotAccountBalance.length > 0
+            )
             .map((childrenAccount) => ({
               ...childrenAccount,
               snapshotAccountBalance: childrenAccount.snapshotAccountBalance.filter(
