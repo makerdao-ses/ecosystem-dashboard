@@ -71,7 +71,9 @@ const DoughnutChartFinances: React.FC<Props> = ({
   const numberSlider = doughnutSeriesChunks.size;
   const options = useMemo(
     () => ({
-      color: visibleSeries.map((data) => data.color),
+      color: visibleSeries.map((data) =>
+        doughnutSeriesData.length === 1 && data.value === 0 ? 'rgb(204, 204, 204)' : data.color
+      ),
       tooltip: {
         extraCssText: `z-index:${zIndexEnum.ECHART_TOOL_TIP}`,
         show: true,
@@ -141,7 +143,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
         },
       ],
     }),
-    [center, isLight, radius, visibleSeries]
+    [center, doughnutSeriesData.length, isLight, radius, visibleSeries]
   );
 
   const toggleSeriesVisibility = (seriesName: string) => {
