@@ -430,7 +430,40 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       return acc;
     }, Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
 
-    return [tableHeader, tables];
+    // limit sub-tables up to 13 rows maximum
+    tables.forEach((table) => {
+      if (table.rows.length > 12) {
+        const rows = table.rows.slice(0, 12);
+        const others = table.rows.slice(12);
+        const othersTotal = others.reduce(
+          (acc, current) => {
+            for (let index = 0; index < current.columns.length; index++) {
+              Object.keys(acc.columns[0]).forEach((key) => {
+                acc.columns[index][key as keyof MetricValues] += current.columns[index][key as keyof MetricValues];
+              });
+            }
+            return acc;
+          },
+          {
+            name: 'Others',
+            isSummaryRow: true,
+            columns: table.rows[0].columns.map(() => ({
+              Actuals: 0,
+              Budget: 0,
+              Forecast: 0,
+              PaymentsOnChain: 0,
+              ProtocolNetOutflow: 0,
+            })),
+          } as ItemRow
+        );
+
+        table.rows = [...rows, othersTotal];
+      }
+    });
+
+    // sort final tables by the amount of rows
+    const sortedTables = tables.sort((a, b) => b.rows.length - a.rows.length);
+    return [tableHeader, sortedTables];
   }, [allBudgets, analytics, budgets, codePath, error, isMobile, lod, selectedGranularity]);
 
   const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
