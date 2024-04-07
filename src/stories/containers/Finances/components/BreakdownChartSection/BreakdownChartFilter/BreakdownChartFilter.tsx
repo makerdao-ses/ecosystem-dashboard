@@ -29,7 +29,6 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
 }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
-  const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
   const metricItems: SelectItem<AnalyticMetric>[] = [
     {
@@ -46,7 +45,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
       labelWhenSelected: isMobile ? 'Prtcol Outfl' : 'Protocol Outflow',
     },
     {
-      label: isMobile ? 'Net Exp. On-Chain' : isTablet ? 'Net On-Chain' : 'Net Expenses On-chain',
+      label: isMobile ? 'Net Exp. On-Chain' : 'Net Expenses On-chain',
       value: 'PaymentsOnChain',
       labelWhenSelected: 'Net On-chain',
     },
@@ -118,6 +117,7 @@ const FilterContainer = styled.div({
   justifyContent: 'flex-end',
   gap: 16,
   zIndex: 1,
+  marginLeft: 'auto',
 });
 
 const Reset = styled.div({

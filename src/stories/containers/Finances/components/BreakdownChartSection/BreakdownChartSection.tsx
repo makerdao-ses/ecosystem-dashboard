@@ -85,8 +85,10 @@ const HeaderContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
