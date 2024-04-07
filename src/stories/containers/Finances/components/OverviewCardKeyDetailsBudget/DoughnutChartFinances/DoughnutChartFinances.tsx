@@ -118,7 +118,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
           <div style="display:flex;flex-direction:row;gap:20px">
               <div style="display:flex;flex-direction:column">
                 <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${usLocalizedNumber(
-            itemRender.metrics[selectedMetricKey === 'budget' ? 'paymentsOnChain' : selectedMetricKey].value,
+            itemRender.metrics[selectedMetricKey].value,
             2
           )}</div>
                 <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">${
