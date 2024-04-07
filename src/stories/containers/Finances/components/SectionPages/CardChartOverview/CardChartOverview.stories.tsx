@@ -32,24 +32,99 @@ const args = [
         name: 'Endgame Atlas Budgets',
         value: 1790155,
         percent: 82,
-        actuals: 9.6,
-        budgetCap: 12.9,
+        metrics: {
+          budget: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          actuals: {
+            value: 9120,
+            unit: 'DAI',
+          },
+          forecast: {
+            value: 4436,
+            unit: 'DAI',
+          },
+          paymentsOnChain: {
+            value: 0,
+            unit: 'DAI',
+          },
+          protocolNetOutflow: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          paymentsOffChainIncluded: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          name: '',
+        },
         color: '#F99374',
       },
       {
         name: 'Endgame Scope Budgets',
         value: 12000000,
         percent: 12,
-        actuals: 5.6,
-        budgetCap: 42.9,
+        metrics: {
+          budget: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          actuals: {
+            value: 9120,
+            unit: 'DAI',
+          },
+          forecast: {
+            value: 4436,
+            unit: 'DAI',
+          },
+          paymentsOnChain: {
+            value: 0,
+            unit: 'DAI',
+          },
+          protocolNetOutflow: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          paymentsOffChainIncluded: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          name: '',
+        },
         color: '#447AFB',
       },
       {
         name: 'MakerDAO Legacy Budgets',
         value: 9000000,
         percent: 8,
-        actuals: 19.6,
-        budgetCap: 12.9,
+        metrics: {
+          budget: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          actuals: {
+            value: 9120,
+            unit: 'DAI',
+          },
+          forecast: {
+            value: 4436,
+            unit: 'DAI',
+          },
+          paymentsOnChain: {
+            value: 0,
+            unit: 'DAI',
+          },
+          protocolNetOutflow: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          paymentsOffChainIncluded: {
+            value: 1790155,
+            unit: 'DAI',
+          },
+          name: '',
+        },
         color: '#2DC1B1',
       },
     ] as DoughnutSeries[],
