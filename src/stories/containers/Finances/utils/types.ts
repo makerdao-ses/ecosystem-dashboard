@@ -22,13 +22,17 @@ export interface DoughnutSeries {
   name: string;
   value: number;
   percent: number;
-  actuals: number;
   budgetCap: number;
   color: string;
   code?: string;
   isVisible?: boolean;
   originalColor?: string;
   originalValue?: number;
+  budget: number;
+  forecast: number;
+  protocolNetOutflow: number;
+  paymentsOnChain: number;
+  actuals: number;
 }
 
 export interface BarChartSeries {

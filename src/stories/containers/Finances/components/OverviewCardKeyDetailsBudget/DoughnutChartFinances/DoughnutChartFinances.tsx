@@ -3,11 +3,13 @@ import { useMediaQuery } from '@mui/material';
 import { calculateValuesByBreakpoint } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
+import { toLowerCaseFirstLetter } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { FILTERS } from '../../SectionPages/CardChartOverview/utils';
 import CardLegend from './CardLegend';
 import DaiToolTipIcon from './DaiToolTipIcon';
 import DoughnutChartFinancesSkeleton from './DoughnutChartFinancesSkeleton';
@@ -27,6 +29,7 @@ interface Props {
   changeAlignment: boolean;
   showSwiper: boolean;
   numberSliderPerLevel?: number;
+  selectedMetric: string;
 }
 
 const DoughnutChartFinances: React.FC<Props> = ({
@@ -36,13 +39,17 @@ const DoughnutChartFinances: React.FC<Props> = ({
   changeAlignment,
   showSwiper,
   numberSliderPerLevel = 5,
+  selectedMetric,
 }) => {
   const chartRef = useRef<EChartsOption | null>(null);
   const ref = useRef<SwiperRef>(null);
   const { isLight } = useThemeContext();
   const [visibleSeries, setVisibleSeries] = useState<DoughnutSeries[]>(doughnutSeriesData);
   const [legends, setLegends] = useState<DoughnutSeries[]>(doughnutSeriesData);
-
+  const convertedMetric = FILTERS.find((filter) => filter.value === selectedMetric) ?? {
+    label: '',
+    value: 'Budget',
+  };
   useEffect(() => {
     setVisibleSeries(doughnutSeriesData);
     setLegends(doughnutSeriesData);
@@ -88,6 +95,8 @@ const DoughnutChartFinances: React.FC<Props> = ({
         formatter: function (params: DoughnutSeries) {
           const index = visibleSeries.findIndex((data) => data.name === params.name);
           const itemRender = visibleSeries[index];
+          const correctMetric = toLowerCaseFirstLetter(selectedMetric);
+          const valueMetric = itemRender[correctMetric as keyof DoughnutSeries] ?? 0;
           const customTooltip = `
         <div style="background-color:${
           isLight ? '#fff' : '#000A13'
@@ -98,15 +107,15 @@ const DoughnutChartFinances: React.FC<Props> = ({
           };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">${itemRender.name}</div>
           <div style="display:flex;flex-direction:row;gap:20px">
               <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.actuals.toLocaleString(
+                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${valueMetric.toLocaleString(
             'es-US'
           )}</div>
-                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Actuals</div>
+                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">${convertedMetric.label}</div>
              </div>
               <div style="display:flex;flex-direction:column">
                 <div style="margin-bottom:4;color:${
                   isLight ? '#000' : '#EDEFFF'
-                };">${itemRender.budgetCap.toLocaleString('es-US')}</div>
+                };">${itemRender?.budgetCap?.toLocaleString('es-US')}</div>
                 <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Budget Cap</div>
              </div>
           </div>
@@ -141,7 +150,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
         },
       ],
     }),
-    [center, isLight, radius, visibleSeries]
+    [center, convertedMetric.label, isLight, radius, selectedMetric, visibleSeries]
   );
 
   const toggleSeriesVisibility = (seriesName: string) => {

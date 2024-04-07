@@ -197,3 +197,8 @@ export const getResourceLabel = (resourceType?: ResourceType): string => {
       return 'Ecosystem Actor';
   }
 };
+
+export const toLowerCaseFirstLetter = (word: string) => {
+  if (!word) return '';
+  return word?.charAt(0).toLocaleLowerCase() + word.slice(1);
+};

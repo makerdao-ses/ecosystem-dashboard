@@ -35,3 +35,29 @@ export const getCorrectMetricValuesOverViewChart = (metric: AnalyticMetric) => {
       return 'budget';
   }
 };
+
+export const FILTERS: {
+  label: string;
+  value: AnalyticMetric;
+}[] = [
+  {
+    label: 'Actuals',
+    value: 'Actuals',
+  },
+  {
+    label: 'Forecast',
+    value: 'Forecast',
+  },
+  {
+    label: 'Net Expenses On-chain',
+    value: 'PaymentsOnChain',
+  },
+  {
+    label: 'Net Protocol Outflow',
+    value: 'ProtocolNetOutflow',
+  },
+  {
+    label: 'Budget',
+    value: 'Budget',
+  },
+];

@@ -13,7 +13,6 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 import lightTheme from '@ses/styles/theme/light';
 import { useMemo, useState } from 'react';
 import { removePatternAfterSlash } from '../BreakdownTable/utils';
-import { getCorrectMetricValuesOverViewChart } from './utils';
 import type { BudgetMetricWithName, DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { AnalyticMetric, BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -206,42 +205,25 @@ export const useCardChartOverview = (
             value = budgetMetrics[item].budget.value || 0;
             break;
         }
-        const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
+
         return {
           name: removeBudgetWord(budgetMetrics[item].name),
           code: budgetMetrics[item].code,
           value,
           originalValue: value,
           actuals: budgetMetrics[item].actuals.value,
+          forecast: budgetMetrics[item].forecast.value,
+          paymentsOnChain: budgetMetrics[item].paymentsOnChain.value,
+          protocolNetOutflow: budgetMetrics[item].protocolNetOutflow.value,
+          budget: budgetMetrics[item].budget.value,
           budgetCap: budgetMetrics[item].budget.value,
-          percent: Math.round(percentageRespectTo(Math.abs(value), metric[keyMetricValue])),
+          percent: Math.round(percentageRespectTo(Math.abs(value), budgetMetrics[item].budget.value)),
           color: colorAssigner.getColor(item),
           isVisible: true,
           originalColor: colorAssigner.getColor(item),
         };
       });
-  }, [budgetMetrics, isLight, metric, selectedMetric]);
-
-  // Check some value affect the total 100%
-  const totalPercent = doughnutSeriesData.reduce((acc, curr) => acc + curr.percent, 0);
-  // Verify that sum of percent its 100% and there its not a 0%
-  if (totalPercent !== 100 && totalPercent !== 0) {
-    const difference = 100 - totalPercent;
-    doughnutSeriesData.forEach((item) => {
-      const adjustment = (item.percent / totalPercent) * difference;
-      item.percent = Math.round(item.percent + adjustment);
-    });
-
-    const checkForPercent = doughnutSeriesData.reduce((acc, curr) => acc + curr.percent, 0);
-    const roundingError = 100 - checkForPercent;
-    if (roundingError !== 0) {
-      const indexToAdjust = doughnutSeriesData.findIndex((item) => item.percent > 0);
-      // Fix the percent with some index in array of values
-      if (indexToAdjust !== -1) {
-        doughnutSeriesData[indexToAdjust].percent += roundingError;
-      }
-    }
-  }
+  }, [budgetMetrics, isLight, selectedMetric]);
 
   const numberItems = doughnutSeriesData.length;
   const changeAlignment = numberItems > 4;

@@ -4,6 +4,7 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
+import { FILTERS } from './utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -19,32 +20,6 @@ interface Props {
   showSwiper: boolean;
   numberSliderPerLevel?: number;
 }
-
-const FILTERS: {
-  label: string;
-  value: AnalyticMetric;
-}[] = [
-  {
-    label: 'Actuals',
-    value: 'Actuals',
-  },
-  {
-    label: 'Forecast',
-    value: 'Forecast',
-  },
-  {
-    label: 'Net Expenses On-chain',
-    value: 'PaymentsOnChain',
-  },
-  {
-    label: 'Net Protocol Outflow',
-    value: 'ProtocolNetOutflow',
-  },
-  {
-    label: 'Budget',
-    value: 'Budget',
-  },
-];
 
 const CardChartOverview: React.FC<Props> = ({
   selectedMetric,
@@ -89,6 +64,7 @@ const CardChartOverview: React.FC<Props> = ({
               changeAlignment={changeAlignment}
               showSwiper={showSwiper}
               numberSliderPerLevel={numberSliderPerLevel}
+              selectedMetric={selectedMetric}
             />
           </ContainerChat>
         </ContainerCardChart>
