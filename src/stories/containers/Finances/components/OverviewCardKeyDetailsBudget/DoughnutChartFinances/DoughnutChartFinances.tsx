@@ -3,18 +3,19 @@ import { useMediaQuery } from '@mui/material';
 import { calculateValuesByBreakpoint } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
-import { toLowerCaseFirstLetter } from '@ses/core/utils/string';
+import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FILTERS } from '../../SectionPages/CardChartOverview/utils';
+import { getCorrectMetricValuesOverViewChart } from '../../SectionPages/CardChartOverview/utils';
 import CardLegend from './CardLegend';
 import DaiToolTipIcon from './DaiToolTipIcon';
 import DoughnutChartFinancesSkeleton from './DoughnutChartFinancesSkeleton';
 import { chunkArray } from './utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
+import type { AnalyticMetric, BudgetMetric } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
 import 'swiper/css/navigation';
@@ -29,7 +30,7 @@ interface Props {
   changeAlignment: boolean;
   showSwiper: boolean;
   numberSliderPerLevel?: number;
-  selectedMetric: string;
+  selectedMetric: AnalyticMetric;
 }
 
 const DoughnutChartFinances: React.FC<Props> = ({
@@ -46,10 +47,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
   const { isLight } = useThemeContext();
   const [visibleSeries, setVisibleSeries] = useState<DoughnutSeries[]>(doughnutSeriesData);
   const [legends, setLegends] = useState<DoughnutSeries[]>(doughnutSeriesData);
-  const convertedMetric = FILTERS.find((filter) => filter.value === selectedMetric) ?? {
-    label: '',
-    value: 'Budget',
-  };
+
   useEffect(() => {
     setVisibleSeries(doughnutSeriesData);
     setLegends(doughnutSeriesData);
@@ -74,11 +72,24 @@ const DoughnutChartFinances: React.FC<Props> = ({
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  const tooltipSelectedMetricLabel = useMemo(() => {
+    switch (selectedMetric) {
+      case 'PaymentsOnChain':
+        return 'Net Expenses On-Chain';
+      case 'ProtocolNetOutflow':
+        return 'Net Protocol Outflow';
+      default:
+        return selectedMetric;
+    }
+  }, [selectedMetric]);
+
   const doughnutSeriesChunks = chunkArray(doughnutSeriesData, numberSliderPerLevel);
   const numberSlider = doughnutSeriesChunks.size;
   const options = useMemo(
     () => ({
-      color: visibleSeries.map((data) => data.color),
+      color: visibleSeries.map((data) =>
+        doughnutSeriesData.length === 1 && data.value === 0 ? 'rgb(204, 204, 204)' : data.color
+      ),
       tooltip: {
         extraCssText: `z-index:${zIndexEnum.ECHART_TOOL_TIP}`,
         show: true,
@@ -95,8 +106,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
         formatter: function (params: DoughnutSeries) {
           const index = visibleSeries.findIndex((data) => data.name === params.name);
           const itemRender = visibleSeries[index];
-          const correctMetric = toLowerCaseFirstLetter(selectedMetric);
-          const valueMetric = itemRender[correctMetric as keyof DoughnutSeries] ?? 0;
+          const selectedMetricKey = getCorrectMetricValuesOverViewChart(selectedMetric) as keyof BudgetMetric;
           const customTooltip = `
         <div style="background-color:${
           isLight ? '#fff' : '#000A13'
@@ -107,15 +117,19 @@ const DoughnutChartFinances: React.FC<Props> = ({
           };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">${itemRender.name}</div>
           <div style="display:flex;flex-direction:row;gap:20px">
               <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${valueMetric.toLocaleString(
-            'es-US'
+                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${usLocalizedNumber(
+            itemRender.metrics[selectedMetricKey === 'budget' ? 'paymentsOnChain' : selectedMetricKey].value,
+            2
           )}</div>
-                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">${convertedMetric.label}</div>
+                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">${
+            selectedMetric === 'Budget' ? 'Net Expenses On-Chain' : tooltipSelectedMetricLabel
+          }</div>
              </div>
               <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;color:${
-                  isLight ? '#000' : '#EDEFFF'
-                };">${itemRender?.budgetCap?.toLocaleString('es-US')}</div>
+                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${usLocalizedNumber(
+            itemRender.metrics.budget.value,
+            2
+          )}</div>
                 <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Budget Cap</div>
              </div>
           </div>
@@ -150,7 +164,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
         },
       ],
     }),
-    [center, convertedMetric.label, isLight, radius, selectedMetric, visibleSeries]
+    [center, doughnutSeriesData.length, isLight, radius, selectedMetric, tooltipSelectedMetricLabel, visibleSeries]
   );
 
   const toggleSeriesVisibility = (seriesName: string) => {
