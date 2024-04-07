@@ -6,7 +6,6 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
-import { showOnlySixteenRowsWithOthers, sortTablesByRows } from '../../utils/utils';
 import { defaultOrder, orderMetrics } from '../HeaderTable/utils';
 import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
 import CellTable from './CellTable';
@@ -23,8 +22,6 @@ interface Props {
 
 const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, period, year }) => {
   const { isLight } = useThemeContext();
-  const orderData = sortTablesByRows(breakdownTable);
-  const showFooterAndCorrectNumber = showOnlySixteenRowsWithOthers(orderData);
   const iteration = period === 'Quarterly' ? 5 : period === 'Monthly' ? 13 : period === 'Annually' ? 1 : 3;
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
@@ -44,7 +41,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
   return (
     <>
-      {showFooterAndCorrectNumber.map((table: TableFinances, index) => (
+      {breakdownTable.map((table: TableFinances, index) => (
         <TableContainer isLight={isLight} className={className} key={index}>
           <TableBody isLight={isLight}>
             {table.rows.map((row: ItemRow, index) => {
