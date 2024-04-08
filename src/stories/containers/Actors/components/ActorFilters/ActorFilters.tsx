@@ -1,4 +1,4 @@
-import { styled, useTheme } from '@mui/material';
+import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { CategoryChip } from '@ses/components/CategoryChip/CategoryChip';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
@@ -33,10 +33,13 @@ const ActorFilters: React.FC<Props> = ({
   scopeCount,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isDisabled = filteredCategories.length <= 0 && filteredScopes.length <= 0;
   const isLight = theme.palette.mode === 'light';
   const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
+  const result = FILTER_SCOPE_ACTOR.filter((item) => filteredScopes.includes(item.name.replace(/\s+/g, '')));
 
+  const label = filteredScopes.length === 1 ? (isMobile ? result[0].code : result[0].name) : 'Scopes';
   return (
     <FiltersContainer>
       <Reset>
@@ -45,7 +48,8 @@ const ActorFilters: React.FC<Props> = ({
       <FilterActorsContainer readMore={readMore}>
         <ScopeFilter>
           <CustomMultiSelectStyled
-            label="Scopes"
+            label={label}
+            showMetricOneItemSelect
             activeItems={filteredScopes}
             items={FILTER_SCOPE_ACTOR.map((scope) => ({
               id: scope.id,
