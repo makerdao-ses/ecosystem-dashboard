@@ -6,10 +6,11 @@ import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { CSSProperties } from 'react';
 
 interface ScopeChipProps {
-  status: ActorScopeEnum;
+  status: ActorScopeEnum | 'All';
   style?: CSSProperties;
   code: string;
   codeOnly?: boolean;
+  isUppercase?: boolean;
 }
 
 const ScopeChip = (props: ScopeChipProps) => {
@@ -28,7 +29,7 @@ const ScopeChip = (props: ScopeChipProps) => {
         ...props.style,
       }}
     >
-      <Code>{props.code}</Code>
+      <Code isUppercase={props.isUppercase}>{props.code}</Code>
       {!props.codeOnly && <Scope>{props.status}</Scope>}
     </Chip>
   );
@@ -46,13 +47,13 @@ const Chip = styled.div({
   width: 'fit-content',
 });
 
-const Code = styled.div({
+const Code = styled.div<{ isUppercase?: boolean }>(({ isUppercase = true }) => ({
   fontWeight: 600,
   fontSize: 12,
   lineHeight: '15px',
   letterSpacing: '1px',
-  textTransform: 'uppercase',
-});
+  textTransform: isUppercase ? 'uppercase' : 'none',
+}));
 const Scope = styled.div({
   fontWeight: 400,
   fontSize: 11,
