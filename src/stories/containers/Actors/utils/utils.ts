@@ -67,6 +67,9 @@ export const getLinksFromRecognizedActors = (actor: Team, linkTypeMap?: Record<s
 
   return result;
 };
+const filtersScopes = (lowerCaseScopes: string[], data: Team) =>
+  lowerCaseScopes.length === 0 ||
+  data.scopes?.some((scope) => lowerCaseScopes.indexOf(scope.name.replace(/\s+/g, '')) > -1);
 
 const filterCategories = (lowerCaseCategories: string[], data: Team) =>
   lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
@@ -89,6 +92,23 @@ export const filterDataActors = ({
   };
 };
 
+export const filterDataScopeActors = ({
+  filteredScopes = [],
+  data = [],
+}: {
+  filteredScopes?: string[];
+  data: Team[];
+}) => {
+  const lowerCaseCategories = filteredScopes.map((x) => x);
+  return {
+    filteredScopeData:
+      data?.filter((data) => {
+        let filterResult = true;
+        filterResult = filterResult && filtersScopes(lowerCaseCategories, data);
+        return filterResult;
+      }) ?? [],
+  };
+};
 export const defaultSocials = {
   twitter: '#',
   forumProfile: '#',

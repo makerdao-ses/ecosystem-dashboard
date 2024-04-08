@@ -1,26 +1,25 @@
 import { stringify } from 'querystring';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
+import { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { TeamCategory } from '@ses/core/models/interfaces/types';
 import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import orderBy from 'lodash/orderBy';
-import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
-import { filterDataActors, getActorLastMonthWithData } from './utils/utils';
+import { filterDataActors, filterDataScopeActors, getActorLastMonthWithData } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
-import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { Team } from '@ses/core/models/interfaces/team';
 
 export const useActors = (actors: Team[], stories = false) => {
   const router = useRouter();
   const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
-  const [activeElements, setActiveElements] = useState<string[]>([]);
+  const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
   const [readMore, setReadMore] = useState<boolean>(stories);
   const showTextDesk = readMore;
   const handleRead = () => {
@@ -123,16 +122,38 @@ export const useActors = (actors: Team[], stories = false) => {
     [actors, filteredCategories]
   );
 
+  const { filteredScopeData } = useMemo(
+    () =>
+      filterDataScopeActors({
+        data: filteredCategoryData,
+        filteredScopes,
+      }),
+    [filteredCategoryData, filteredScopes]
+  );
+
   const groupByStatusDefaultSorting: Team[] = useMemo(() => {
-    const resultMoment = orderBy(filteredCategoryData, 'name');
+    const resultMoment = orderBy(filteredScopeData, 'name');
 
     return resultMoment;
-  }, [filteredCategoryData]);
+  }, [filteredScopeData]);
 
   const categoriesCount = useMemo(() => {
     const result: { [id: string]: number } = {};
     Object.values(TeamCategory).forEach((cat) => {
       result[cat] = actors?.filter((cu) => cu.category?.indexOf(cat) > -1).length;
+    });
+    result.All = actors.length;
+    return result;
+  }, [actors]);
+
+  const scopeCount = useMemo(() => {
+    const result: { [id: string]: number } = {};
+    Object.values(ActorScopeEnum).forEach((cat) => {
+      const getActorsNumbers = actors
+        .map((actor) => actor.scopes?.map((scope) => scope.name))
+        .filter((item) => item?.indexOf(cat) > -1).length;
+
+      result[cat] = getActorsNumbers;
     });
     result.All = actors.length;
     return result;
@@ -216,22 +237,6 @@ export const useActors = (actors: Team[], stories = false) => {
     [router]
   );
 
-  const selectElements = useMemo(
-    () =>
-      sortBy(actors, (actors) => actors.name).map((actor) => ({
-        id: actor.code,
-        content: actor.name,
-        params: {
-          url: actor.image,
-          code: actor.code,
-        },
-      })) as MultiSelectItem[],
-    [actors]
-  );
-
-  const handleSelectChange = (value: string[]) => {
-    setActiveElements(value);
-  };
   return {
     handleRead,
     readMore,
@@ -241,12 +246,11 @@ export const useActors = (actors: Team[], stories = false) => {
     columns,
     onSortClick,
     clearFilters,
-    handleSelectChange,
     categoriesCount,
     handleChangeUrlFilterArrays,
-    selectElements,
-    activeElements,
     filteredCategories,
     queryStrings,
+    filteredScopes,
+    scopeCount,
   };
 };

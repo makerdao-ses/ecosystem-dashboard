@@ -252,7 +252,7 @@ export const getExpenseReportStatusColor = (
 };
 
 export const getScopeColor = (
-  variant: ActorScopeEnum
+  variant: ActorScopeEnum | 'All'
 ): { color: string; background: string; darkColor: string; darkBackground: string } => {
   switch (variant) {
     case ActorScopeEnum.SupportScope:

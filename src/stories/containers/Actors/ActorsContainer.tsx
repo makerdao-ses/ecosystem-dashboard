@@ -26,15 +26,14 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     isLessPhone,
     filtersActive,
     columns,
-    activeElements,
     categoriesCount,
     clearFilters,
     handleChangeUrlFilterArrays,
-    handleSelectChange,
-    selectElements,
     filteredCategories,
     onSortClick,
     queryStrings,
+    filteredScopes,
+    scopeCount,
   } = useActors(actors, stories);
 
   const { isLight } = useThemeContext();
@@ -89,15 +88,17 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
 
         <FilterContainer>
           <ActorFilters
-            activeElements={activeElements}
-            handleResetFilter={clearFilters}
-            handleSelectChange={handleSelectChange}
-            selectElements={selectElements}
+            filteredScopes={filteredScopes}
             readMore={readMore}
+            handleResetFilter={clearFilters}
             categoriesCount={categoriesCount}
             filteredCategories={filteredCategories}
+            scopeCount={scopeCount}
             onChange={(value: string[]) => {
               handleChangeUrlFilterArrays('filteredCategories')(value);
+            }}
+            onChangeScope={(value: string[]) => {
+              handleChangeUrlFilterArrays('filteredScopes')(value);
             }}
           />
         </FilterContainer>
