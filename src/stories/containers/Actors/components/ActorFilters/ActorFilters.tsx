@@ -106,7 +106,7 @@ const FiltersContainer = styled('div')({
   "filterScope filterRole resetMobile"
   `,
   '@media (min-width: 768px)': {
-    gap: '16px',
+    gap: 'revert',
     width: '100%',
     gridTemplateRows: 'auto',
     margin: '0px',
@@ -121,7 +121,11 @@ const Reset = styled('div')({
   justifyContent: 'flex-end',
   '@media (min-width: 768px)': {
     display: 'flex',
-    marginLeft: -20,
+    marginRight: 32,
+  },
+  '@media (min-width: 1024px)': {
+    display: 'flex',
+    marginRight: 16,
   },
 });
 
