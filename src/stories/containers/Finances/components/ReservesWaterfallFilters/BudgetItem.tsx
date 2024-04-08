@@ -56,6 +56,7 @@ const CheckWrapper = styled.span({
 
 const StyledContainer = styled(Container)<{ isLight: boolean; checked: boolean }>(({ isLight, checked }) => ({
   gap: 16,
+  display: 'flex',
   position: 'relative',
   '&:hover': {
     background: isLight ? (checked ? '#EDEFFF' : '#F6F8F9') : checked ? '#231536' : '#25273D',

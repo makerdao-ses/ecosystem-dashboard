@@ -62,7 +62,6 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
         <SelectContainer>
           <ContainerFiltersMetric>
             <CustomMultiSelectStyled
-              isTextCut={activeItems.length === 1}
               label={label as string}
               activeItems={activeItems}
               withAll
@@ -158,30 +157,11 @@ const ContainerFiltersMetric = styled.div({
   },
 });
 
-const CustomMultiSelectStyled = styled(CustomMultiSelect)<{ isTextCut: boolean }>(({ isTextCut }) => ({
+const CustomMultiSelectStyled = styled(CustomMultiSelect)({
   '& > div:nth-of-type(2)': {
     borderRadius: 6,
   },
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    ...(isTextCut && {
-      '& > div:first-of-type > div:first-of-type': {
-        maxWidth: 160,
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: ' hidden',
-      },
-    }),
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    ...(isTextCut && {
-      '& > div': {
-        '& > div:first-of-type': {
-          width: 'revert',
-        },
-      },
-    }),
-  },
-}));
+});
 
 const ContainerFilterTitle = styled.div({
   display: 'flex',
