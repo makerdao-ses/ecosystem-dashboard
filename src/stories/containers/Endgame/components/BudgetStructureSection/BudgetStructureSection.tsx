@@ -39,7 +39,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
     setMounted(true);
   }, []);
 
-  const doughnutSeriesData: DoughnutSeries[] = [
+  const doughnutSeriesData = [
     {
       name: 'Scope Frameworks Budget',
       value: scopes,
@@ -64,7 +64,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       budgetCap: 0,
       color: '#447AFB',
     },
-  ];
+  ] as unknown as DoughnutSeries[];
 
   return (
     <Content id="section-endgame-budget-structure">

@@ -1,17 +1,9 @@
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
-import { MAX_ROWS_FINANCES_TABLE } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/light';
 import { DateTime } from 'luxon';
-import type {
-  DelegateExpenseTableHeader,
-  ItemRow,
-  LineChartSeriesData,
-  MetricValues,
-  MomentDataItem,
-  TableFinances,
-} from './types';
+import type { DelegateExpenseTableHeader, LineChartSeriesData, MetricValues, MomentDataItem } from './types';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type {
@@ -458,85 +450,6 @@ export const ENUM_FOR_STORIES: SortEnum[] = [
   SortEnum.Neutral,
   SortEnum.Neutral,
 ];
-
-export const sortTablesByRows = (data: TableFinances[]) => {
-  if (!data) {
-    return [];
-  }
-  return data.sort((a, b) => b.rows.length - a.rows.length);
-};
-
-export const showOnlySixteenRowsWithOthers = (data: TableFinances[]) => {
-  const totalRows = data.reduce((acc, element) => acc + element.rows.length, 0);
-
-  if (totalRows <= MAX_ROWS_FINANCES_TABLE) {
-    // If the total rows are less than 16, return the data as it is
-    return data;
-  }
-
-  if (data.length > MAX_ROWS_FINANCES_TABLE) {
-    // there are more sub-tables than allowed rows so we return just the headers
-    return data.map((item) => ({
-      tableName: item.tableName,
-      rows: [item.rows[0]],
-      others: false,
-    }));
-  }
-
-  // at this point there are less sub-tables than allowed rows but more rows than allowed
-  const finalSubTables = [] as TableFinances[];
-  let remainingRows = MAX_ROWS_FINANCES_TABLE - data.length; // we already take in count the headers
-  for (const subTable of data) {
-    const finalSubTable = {
-      ...subTable,
-      rows: [subTable.rows[0]], // header
-    };
-
-    if (remainingRows === 0) {
-      // we already have the maximum number of rows
-      finalSubTables.push(finalSubTable);
-      continue;
-    }
-
-    if (subTable.rows.length - 1 <= remainingRows) {
-      // we can add all the rows
-      finalSubTable.rows.push(...subTable.rows.slice(1));
-      remainingRows -= subTable.rows.length - 1;
-    } else {
-      // we can just add a few rows (we need to reserve space for the "others" row)
-      finalSubTable.rows.push(...subTable.rows.slice(1, remainingRows));
-      // now add the "others" row
-      finalSubTable.rows.push(
-        subTable.rows.slice(remainingRows, subTable.rows.length).reduce(
-          (acc, current) => {
-            for (let index = 0; index < current.columns.length; index++) {
-              Object.keys(acc.columns[0]).forEach((key) => {
-                acc.columns[index][key as keyof MetricValues] += current.columns[index][key as keyof MetricValues];
-              });
-            }
-            return acc;
-          },
-          {
-            name: 'Others',
-            isSummaryRow: true,
-            columns: subTable.rows[0].columns.map(() => ({
-              Actuals: 0,
-              Budget: 0,
-              Forecast: 0,
-              PaymentsOnChain: 0,
-              ProtocolNetOutflow: 0,
-            })),
-          } as ItemRow
-        )
-      );
-      remainingRows = 0;
-    }
-
-    finalSubTables.push(finalSubTable);
-  }
-
-  return finalSubTables;
-};
 
 export const generateColorPalette = (index: number, numColors: number, existingColors: string[] = []) => {
   const baseHue = (index * (360 / numColors)) % 360;

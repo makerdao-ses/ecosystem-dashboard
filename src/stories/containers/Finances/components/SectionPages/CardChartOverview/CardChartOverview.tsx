@@ -89,6 +89,7 @@ const CardChartOverview: React.FC<Props> = ({
               changeAlignment={changeAlignment}
               showSwiper={showSwiper}
               numberSliderPerLevel={numberSliderPerLevel}
+              selectedMetric={selectedMetric}
             />
           </ContainerChat>
         </ContainerCardChart>

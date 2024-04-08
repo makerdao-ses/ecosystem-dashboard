@@ -167,11 +167,30 @@ export const useCardChartOverview = (
       }
     }
 
+    // if we don't have any data, we need to add a default value to avoid having an empty UI
+    // this mostly happens on leave nodes (last level)
+    if (Object.keys(budgetMetrics).length === 0) {
+      const emptyValue = {
+        unit: 'DAI',
+        value: 0,
+      };
+      budgetMetrics[codePath] = {
+        name: transformPathToName(codePath),
+        actuals: emptyValue,
+        forecast: emptyValue,
+        budget: emptyValue,
+        paymentsOnChain: emptyValue,
+        paymentsOffChainIncluded: emptyValue,
+        protocolNetOutflow: emptyValue,
+        code: transformPathToName(codePath),
+      };
+    }
+
     return {
       metric,
       budgetMetrics,
     };
-  }, [allBudgets, budgets, budgetsAnalytics]);
+  }, [allBudgets, budgets, budgetsAnalytics, codePath]);
 
   const handleSelectedMetric = (metric: AnalyticMetric) => {
     setSelectedMetric(metric);
@@ -212,8 +231,7 @@ export const useCardChartOverview = (
           code: budgetMetrics[item].code,
           value,
           originalValue: value,
-          actuals: budgetMetrics[item].actuals.value,
-          budgetCap: budgetMetrics[item].budget.value,
+          metrics: budgetMetrics[item],
           percent: Math.round(percentageRespectTo(Math.abs(value), metric[keyMetricValue])),
           color: colorAssigner.getColor(item),
           isVisible: true,
