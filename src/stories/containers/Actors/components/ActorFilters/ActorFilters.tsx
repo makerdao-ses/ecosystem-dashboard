@@ -57,8 +57,8 @@ const ActorFilters: React.FC<Props> = ({
               count: scopeCount[scope.name],
             }))}
             onChange={onChangeScope}
-            popupContainerWidth={300}
-            listItemWidth={280}
+            popupContainerWidth={260}
+            listItemWidth={240}
             customAll={{
               id: 'All',
               content: <ScopeChip code="All" status="All" codeOnly isUppercase={false} />,
@@ -98,7 +98,7 @@ const ActorFilters: React.FC<Props> = ({
 
 export default ActorFilters;
 
-const FiltersContainer = styled('div')({
+const FiltersContainer = styled('div')(({ theme }) => ({
   display: 'grid',
   gap: 8,
   gridTemplateColumns: 'auto auto auto',
@@ -109,7 +109,7 @@ const FiltersContainer = styled('div')({
   gridTemplateAreas: `
   "filterScope filterRole resetMobile"
   `,
-  '@media (min-width: 768px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     gap: 'revert',
     width: '100%',
     gridTemplateRows: 'auto',
@@ -117,27 +117,27 @@ const FiltersContainer = styled('div')({
     justifyContent: 'flex-end',
     gridTemplateAreas: '"reset filterScope filterRole"',
   },
-});
+}));
 
-const Reset = styled('div')({
+const Reset = styled('div')(({ theme }) => ({
   gridArea: 'reset',
   display: 'none',
   justifyContent: 'flex-end',
-  '@media (min-width: 768px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     marginRight: 32,
   },
-  '@media (min-width: 1024px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     marginRight: 16,
   },
-});
+}));
 
-const FilterActorsContainer = styled('div')<{ readMore?: boolean }>(({ readMore }) => ({
+const FilterActorsContainer = styled('div')<{ readMore?: boolean }>(({ readMore, theme }) => ({
   display: 'flex',
   marginRight: readMore ? 11 : 'unset',
   gap: 8,
-  '@media (min-width: 834px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     marginRight: 0,
     flex: 1,
