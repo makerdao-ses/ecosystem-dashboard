@@ -201,43 +201,44 @@ export const useCardChartOverview = (
       isLight ? existingColors : existingColorsDark
     );
 
-    return Object.keys(budgetMetrics)
-      .sort()
-      .map((item) => {
-        let value;
-        switch (selectedMetric) {
-          case 'Actuals':
-            value = budgetMetrics[item].actuals.value || 0;
-            break;
-          case 'Forecast':
-            value = budgetMetrics[item].forecast.value || 0;
-            break;
-          case 'PaymentsOnChain':
-            value = budgetMetrics[item].paymentsOnChain.value || 0;
-            break;
-          case 'ProtocolNetOutflow':
-            value = budgetMetrics[item].protocolNetOutflow.value || 0;
-            break;
-          case 'Budget':
-            value = budgetMetrics[item].budget.value || 0;
-            break;
-          default:
-            value = budgetMetrics[item].budget.value || 0;
-            break;
-        }
-        const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
-        return {
-          name: removeBudgetWord(budgetMetrics[item].name),
-          code: budgetMetrics[item].code,
-          value,
-          originalValue: value,
-          metrics: budgetMetrics[item],
-          percent: Math.round(percentageRespectTo(Math.abs(value), metric[keyMetricValue])),
-          color: colorAssigner.getColor(item),
-          isVisible: true,
-          originalColor: colorAssigner.getColor(item),
-        };
-      });
+    const keys = Object.keys(budgetMetrics);
+    return keys.sort().map((item) => {
+      let value;
+      switch (selectedMetric) {
+        case 'Actuals':
+          value = budgetMetrics[item].actuals.value || 0;
+          break;
+        case 'Forecast':
+          value = budgetMetrics[item].forecast.value || 0;
+          break;
+        case 'PaymentsOnChain':
+          value = budgetMetrics[item].paymentsOnChain.value || 0;
+          break;
+        case 'ProtocolNetOutflow':
+          value = budgetMetrics[item].protocolNetOutflow.value || 0;
+          break;
+        case 'Budget':
+          value = budgetMetrics[item].budget.value || 0;
+          break;
+        default:
+          value = budgetMetrics[item].budget.value || 0;
+          break;
+      }
+      const keyMetricValue = getCorrectMetricValuesOverViewChart(selectedMetric);
+
+      const color = keys.length === 1 && value === 0 ? 'rgb(204, 204, 204)' : colorAssigner.getColor(item);
+      return {
+        name: removeBudgetWord(budgetMetrics[item].name),
+        code: budgetMetrics[item].code,
+        value,
+        originalValue: value,
+        metrics: budgetMetrics[item],
+        percent: Math.round(percentageRespectTo(Math.abs(value), metric[keyMetricValue])),
+        color,
+        isVisible: true,
+        originalColor: color,
+      };
+    });
   }, [budgetMetrics, isLight, metric, selectedMetric]);
 
   // Check some value affect the total 100%
