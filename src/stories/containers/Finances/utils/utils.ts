@@ -723,17 +723,17 @@ export const formatterWaterfallChart = (
   switch (granularity) {
     case 'monthly':
       if (index === 0 || index === 13) {
-        return `{start|${value}}\n{startYear|${year}}`;
+        return `{start|${value}}\n{startYear|${index === 13 ? Number(year) + 1 : year}}`;
       }
       return `{month|${value}}\n{year|${year}}`;
     case 'quarterly':
       if (index === 0 || index === 5) {
-        return `{start|${value}}\n{startYear|${year}}`;
+        return `{start|${value}}\n{startYear|${index === 5 ? Number(year) + 1 : year}}`;
       }
       return `{month|${value}}\n{year|${year}}`;
     case 'annual':
       if (index === 0 || index === 2) {
-        return `{start|${value}}\n{startYear|${year}}`;
+        return `{start|${value}}\n{startYear|${index === 2 ? Number(year) + 1 : year}}`;
       }
       return `{month|${value}}\n{year|${year}}`;
     default:
