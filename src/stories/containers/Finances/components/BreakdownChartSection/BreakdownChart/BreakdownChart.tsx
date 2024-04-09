@@ -36,11 +36,14 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
 }) => {
   const { isLight } = useThemeContext();
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isLessMobile = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'tablet_768'));
   const isTablet = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const upTable = useMediaQuery(lightTheme.breakpoints.up('tablet_768'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const showLineYear = isMobile && selectedGranularity === 'monthly';
+
+  const isMobileOrLess = isMobile || isLessMobile;
+  const showLineYear = (isMobile || isLessMobile) && selectedGranularity === 'monthly';
 
   const xAxisStyles = useMemo(
     () => ({
@@ -48,11 +51,11 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
       textAlign: 'center',
       color: '#708390',
       fontWeight: 600,
-      fontSize: upTable ? 12 : 9,
+      fontSize: upTable ? 12 : isLessMobile ? 8 : 9,
       verticalAlign: 'top',
       interval: 0,
     }),
-    [upTable]
+    [isLessMobile, upTable]
   );
 
   const options: EChartsOption = useMemo(
@@ -70,15 +73,15 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         true
       ),
       grid: {
-        height: isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
-        width: isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
-        top: isMobile ? 10 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
+        height: isLessMobile ? 198 : isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
+        width: isLessMobile ? 300 : isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,
+        top: isLessMobile ? 10 : isMobile ? 10 : isTablet ? 10 : isDesktop1024 ? 6 : isDesktop1280 ? 11 : 11,
         right: isMobile ? 2 : isTablet ? 7 : isDesktop1024 ? 50 : isDesktop1280 ? 4 : 4,
       },
       xAxis: {
         show: true,
         type: 'category',
-        data: getChartAxisLabelByGranularity(selectedGranularity, isMobile),
+        data: getChartAxisLabelByGranularity(selectedGranularity, isMobileOrLess),
         splitLine: {
           show: false,
         },
@@ -107,7 +110,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
               selectedGranularity as AnalyticGranularity,
               isMobile,
               year,
-              value
+              value,
+              isLessMobile
             );
             return formatted;
           },
@@ -123,7 +127,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         show: true,
         axisLabel: {
           show: true,
-          margin: isMobile ? 10 : isTablet ? 22 : isDesktop1024 ? 32 : isDesktop1280 ? 20 : 20,
+          margin: isLessMobile ? 4 : isMobile ? 10 : isTablet ? 22 : isDesktop1024 ? 32 : isDesktop1280 ? 20 : 20,
           formatter: function (value: number, index: number) {
             if (value === 0 && index === 0) {
               return value.toString();
@@ -132,7 +136,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
             return replaceAllNumberLetOneBeforeDot(value, true);
           },
           color: isLight ? '#231536' : '#EDEFFF',
-          fontSize: isMobile ? 10 : isTablet ? 14 : 14,
+          fontSize: isLessMobile ? 10 : isMobile ? 10 : isTablet ? 14 : 14,
           height: upTable ? 15 : 12,
           fontFamily: 'Inter, sans-serif',
           fontWeight: upTable ? 600 : 400,
@@ -156,8 +160,10 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
     [
       isDesktop1024,
       isDesktop1280,
+      isLessMobile,
       isLight,
       isMobile,
+      isMobileOrLess,
       isTablet,
       selectedGranularity,
       selectedMetric,
@@ -203,7 +209,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
           opts={{ renderer: 'svg' }}
         />
         {showLineYear && (
-          <YearXAxis isLight={isLight}>
+          <YearXAxis isLight={isLight} isLessMobile={isLessMobile}>
             <YearText isLight={isLight}>{year}</YearText>
           </YearXAxis>
         )}
@@ -242,20 +248,37 @@ export default BreakdownChart;
 const Wrapper = styled.div({});
 
 const ChartContainer = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  position: 'relative',
-  width: '100%',
-  maxWidth: 343,
-  height: 260,
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  marginTop: 24,
+  [lightTheme.breakpoints.down('mobile_375')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    position: 'relative',
+    width: '100%',
+    minWidth: 328,
+    height: 260,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 24,
+  },
+  [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    position: 'relative',
+    width: '100%',
+    minWidth: 'revert',
+    maxWidth: 343,
+    height: 260,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 24,
+  },
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     maxWidth: 756,
     height: 510,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -269,13 +292,13 @@ const ChartContainer = styled.div({
   },
 });
 
-const YearXAxis = styled.div<WithIsLight>(({ isLight }) => {
+const YearXAxis = styled.div<WithIsLight & { isLessMobile: boolean }>(({ isLight, isLessMobile }) => {
   const border = `1px solid ${isLight ? '#6EDBD0' : '#1AAB9B'}`;
 
   return {
     position: 'absolute',
-    bottom: 22,
-    left: 40,
+    bottom: isLessMobile ? 12 : 22,
+    left: isLessMobile ? 30 : 40,
     right: 5,
     height: 11,
     borderLeft: border,
