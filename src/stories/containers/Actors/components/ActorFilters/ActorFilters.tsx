@@ -39,7 +39,8 @@ const ActorFilters: React.FC<Props> = ({
   const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
   const result = FILTER_SCOPE_ACTOR.filter((item) => filteredScopes.includes(item.name.replace(/\s+/g, '')));
 
-  const label = filteredScopes.length === 1 ? (isMobile ? result[0].code : result[0].name) : 'Scopes';
+  const label =
+    filteredScopes.length === 1 ? (isMobile ? result[0].code : `${result[0].code} ${result[0].name}`) : 'Scopes';
   return (
     <FiltersContainer>
       <Reset>
@@ -49,6 +50,7 @@ const ActorFilters: React.FC<Props> = ({
         <ScopeFilter>
           <CustomMultiSelectStyled
             label={label}
+            popupContainerHeight={260}
             showMetricOneItemSelect
             activeItems={filteredScopes}
             items={FILTER_SCOPE_ACTOR.map((scope) => ({
