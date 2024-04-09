@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
+import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import { getShortCode } from '../../SectionPages/CardChartOverview/utils';
@@ -43,7 +43,15 @@ const ItemLegendDoughnut: React.FC<Props> = ({
         </NameOrCode>
       </IconWithName>
       <ValueDescription isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-        <Percent isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>{`(${doughnutData.percent}%)`}</Percent>
+        <Percent isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>{`(${
+          doughnutData.percent === 0
+            ? 0
+            : doughnutData.percent < 0.1
+            ? '<0.1'
+            : doughnutData.percent < 1
+            ? usLocalizedNumber(doughnutData.percent, 2)
+            : Math.round(doughnutData.percent)
+        }%)`}</Percent>
         <ContainerValue>
           <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
             {valueRounded.value}
