@@ -26,6 +26,7 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
 
   return (
     <CardContainer className={className}>
+      <Description isLight={isLight}>Budget Utilization</Description>
       <PredictionWrapper>
         <TotalActual isLight={isLight}>
           <PredictionNumber>{humanizedActuals.value}</PredictionNumber>
@@ -43,7 +44,6 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
           </PredictionUnits>
         </TotalBudgeCap>
       </PredictionWrapper>
-      <Description isLight={isLight}>MakerDAO Total Budget</Description>
       <DividerCardChart isLight={isLight} />
       <Percent isLight={isLight}>{percent}%</Percent>
       <BarWrapper>
@@ -175,11 +175,10 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
   lineHeight: '12px',
   fontWeight: 500,
   color: isLight ? '#231536' : '#EDEFFF',
-  paddingLeft: 6,
+  paddingLeft: 8,
   display: 'flex',
   alignItems: 'flex-start ',
   height: 'fit-content',
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
     lineHeight: '17px',
@@ -211,18 +210,16 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
 }));
 
 const LegendLabel = styled.div({
-  marginLeft: 4,
+  marginLeft: 6,
   fontSize: 14,
   lineHeight: 'normal',
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginLeft: 3,
     fontSize: 14,
     lineHeight: 'normal',
     fontWeight: 400,
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginLeft: 6,
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '17px',
@@ -233,26 +230,21 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 12,
   fontStyle: 'normal',
-  fontWeight: 400,
+  fontWeight: 600,
   lineHeight: 'normal',
   textAlign: 'center',
-  marginTop: 8,
+  marginBottom: 8,
   color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 1,
-    marginTop: 6,
-    marginBottom: -2,
+    marginBottom: 6,
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: 8,
-    marginBottom: -1,
+    marginBottom: 8,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 6,
-    marginBottom: 'revert',
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 6,
+    marginBottom: 6,
   },
 }));
 
