@@ -295,7 +295,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       subBudgets.forEach((subBudget) => {
         if (!rows.some((row) => row.name === subBudget.codePath)) {
           rows.push({
-            name: isMobile ? subBudget.code : subBudget.codePath,
+            name: subBudget.code === 'other' ? 'Uncategorized' : isMobile ? subBudget.code : subBudget.codePath,
             codePath: subBudget.codePath,
             columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
           });
@@ -307,7 +307,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         if (!nameOrCode) {
           row.name = `${removePatternAfterSlash(row.name)}`;
         } else {
-          row.name = isMobile ? nameOrCode.code : nameOrCode.name;
+          row.name = nameOrCode.name === 'other' ? 'Uncategorized' : isMobile ? nameOrCode.code : nameOrCode.name;
         }
       });
 
