@@ -215,7 +215,6 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
         },
         lineStyle: {
           width: 3,
-
           zIndex: -1,
           z: 2,
           join: 'end',

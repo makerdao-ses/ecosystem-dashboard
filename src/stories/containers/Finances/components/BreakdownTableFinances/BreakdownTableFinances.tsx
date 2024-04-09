@@ -65,8 +65,10 @@ const BreakdownTableFinances = ({
 export default BreakdownTableFinances;
 const Container = styled.div({
   display: 'flex',
+  flexWrap: 'wrap',
   flexDirection: 'column',
   gap: 26,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 24,
     flexDirection: 'row',
@@ -80,5 +82,6 @@ const FilterContainer = styled.div({
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     height: 48,
+    marginLeft: 'auto',
   },
 });

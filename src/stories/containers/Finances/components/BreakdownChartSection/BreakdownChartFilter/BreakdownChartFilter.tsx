@@ -45,7 +45,7 @@ const BreakdownChartFilter: React.FC<BreakdownChartFilterProps> = ({
       labelWhenSelected: isMobile ? 'Prtcol Outfl' : 'Protocol Outflow',
     },
     {
-      label: isMobile ? 'Net Exp. On-Chain' : 'Net Expenses On-chain',
+      label: 'Net Expenses On-chain',
       value: 'PaymentsOnChain',
       labelWhenSelected: 'Net On-chain',
     },

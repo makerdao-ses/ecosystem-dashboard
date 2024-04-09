@@ -67,7 +67,7 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
     setSelectedGranularity(value);
   };
 
-  // This to catch some analitys that don't have budgets
+  // This to catch some analytics that don't have budgets
   const combinedElementsFromAnalytics = useMemo(() => {
     const newElements = selectAll
       .filter((selectAllPath) => !allBudgets.some((budget) => budget.codePath === selectAllPath))
