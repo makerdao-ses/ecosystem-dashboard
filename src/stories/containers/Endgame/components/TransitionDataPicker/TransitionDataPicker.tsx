@@ -23,7 +23,7 @@ const TransitionDataPicker: React.FC<TransitionDataPickerProps> = ({ selected, h
         isLight={isLight}
         onClick={() => handleChange('PaymentsOnChain')}
         selected={selected === 'PaymentsOnChain'}
-        label={isMobile ? 'Net On-chain' : 'Net Expenses On-chain'}
+        label={isMobile ? 'Net On-Chain' : 'Net Expenses On-Chain'}
       />
       <DataButton
         allowsHover={false}

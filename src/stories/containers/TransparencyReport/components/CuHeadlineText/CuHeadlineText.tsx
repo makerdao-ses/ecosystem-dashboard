@@ -36,7 +36,7 @@ const CuHeadlineText: React.FC<CuHeadlineTextProps> = ({ cuLongCode }) => {
         iconHeight={10}
         marginLeft="7px"
       >
-        {`view the ${getShortCode(cuLongCode)} Core Unit on-chain transaction history`}
+        {`view the ${getShortCode(cuLongCode)} Core Unit On-Chain transaction history`}
       </CustomLink>
     </LinkDescription>
   );

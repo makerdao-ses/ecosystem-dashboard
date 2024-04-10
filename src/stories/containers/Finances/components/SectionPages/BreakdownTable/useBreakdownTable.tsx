@@ -28,7 +28,7 @@ const EMPTY_METRIC_VALUE = {
   ProtocolNetOutflow: 0,
 } as MetricValues;
 
-const METRIC_FILTER_OPTIONS = ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals'];
+const METRIC_FILTER_OPTIONS = ['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-Chain', 'Actuals'];
 
 interface ResolutionsFlags {
   isMobile: boolean;

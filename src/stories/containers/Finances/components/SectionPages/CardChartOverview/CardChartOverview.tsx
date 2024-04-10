@@ -33,7 +33,7 @@ const FILTERS: {
     value: 'Forecast',
   },
   {
-    label: 'Net Expenses On-chain',
+    label: 'Net Expenses On-Chain',
     value: 'PaymentsOnChain',
   },
   {

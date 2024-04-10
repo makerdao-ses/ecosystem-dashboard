@@ -50,7 +50,7 @@ const getCorrectMetricHeaderTable = (metric: string) => {
       return 'actuals';
     case 'Forecast':
       return 'forecast';
-    case 'Net Expenses On-chain':
+    case 'Net Expenses On-Chain':
       return 'paymentsOnChain';
     case 'Net Expenses Off-chain':
       return 'paymentsOffChainIncluded';

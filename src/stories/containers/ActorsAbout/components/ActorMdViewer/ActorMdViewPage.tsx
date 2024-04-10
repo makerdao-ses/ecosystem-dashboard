@@ -129,7 +129,7 @@ const ActorMdViewPage = ({
                   }}
                   titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
                   auditorMessage={`The ${actorName} is working without auditor`}
-                  makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
+                  makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
                 />
               </Popover>
             </>
@@ -162,7 +162,7 @@ const ActorMdViewPage = ({
                 buttonWidth="139.5px"
                 titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
                 auditorMessage={`The ${actorName} is working without auditor`}
-                makerburnCustomMessage={`View on-chain transfers to ${actorName} on makerburn.com`}
+                makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
               />
             </div>
             {!isTable834 && (

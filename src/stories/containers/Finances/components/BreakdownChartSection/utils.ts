@@ -138,7 +138,7 @@ export const getSelectMetricText = (metric: AnalyticMetric | undefined) => {
     case 'ProtocolNetOutflow':
       return 'Net Protocol Outflow';
     case 'PaymentsOnChain':
-      return 'Net Expenses On-chain';
+      return 'Net Expenses On-Chain';
     default:
       return metric;
   }

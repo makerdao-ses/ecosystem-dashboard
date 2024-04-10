@@ -145,7 +145,7 @@ const CardExpenses = ({
             display: 'inline-block',
           }}
           target="_blank"
-          children={makerburnCustomMessage ?? `View on-chain transfers to ${shortCode} ${textLink} on makerburn.com`}
+          children={makerburnCustomMessage ?? `View On-Chain transfers to ${shortCode} ${textLink} on makerburn.com`}
         />
       </ContainerLinks>
 
