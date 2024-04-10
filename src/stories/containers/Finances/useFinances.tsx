@@ -119,14 +119,14 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
           title: formatBudgetName(item.name),
           description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
           href: `${siteRoutes.finances(item.codePath.replace('atlas/', ''))}?year=${year}`,
-          valueDai: budgetMetric[0].budget.value,
-          totalDai: allMetrics.budget,
+          valueDai: budgetMetric[0].paymentsOnChain.value,
+          totalDai: allMetrics.paymentsOnChain,
           code: item.code,
           color: isLight ? colorsLight[index] : colorsDark[index],
-          percent: Math.round(percentageRespectTo(budgetMetric[0].budget.value, allMetrics.budget)),
+          percent: percentageRespectTo(budgetMetric[0].paymentsOnChain.value, allMetrics.budget),
         };
       }),
-    [allMetrics.budget, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
+    [allMetrics.budget, allMetrics.paymentsOnChain, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
   );
   // Check some value affect the total 100%
   const totalPercent = cardsNavigationInformation.reduce((acc, curr) => acc + curr.percent, 0);
@@ -134,6 +134,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   if (totalPercent !== 100 && totalPercent !== 0) {
     const difference = 100 - totalPercent;
     cardsNavigationInformation.forEach((item) => {
+      if (item.percent < 1) return;
       const adjustment = (item.percent / totalPercent) * difference;
       item.percent = Math.round(item.percent + adjustment);
     });
