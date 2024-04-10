@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -7,7 +6,6 @@ import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
-import type { Theme } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
@@ -18,7 +16,6 @@ export type QuarterCardProps = {
 
 const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnChain, budgetCap, className }) => {
   const { isLight } = useThemeContext();
-  const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
   const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
@@ -26,6 +23,7 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
 
   return (
     <CardContainer className={className}>
+      <Description isLight={isLight}>Budget Utilization</Description>
       <PredictionWrapper>
         <TotalActual isLight={isLight}>
           <PredictionNumber>{humanizedActuals.value}</PredictionNumber>
@@ -43,7 +41,6 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
           </PredictionUnits>
         </TotalBudgeCap>
       </PredictionWrapper>
-      <Description isLight={isLight}>MakerDAO Total Budget</Description>
       <DividerCardChart isLight={isLight} />
       <Percent isLight={isLight}>{percent}%</Percent>
       <BarWrapper>
@@ -51,10 +48,11 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-          <LegendLabel>{isMobileOrTablet ? 'Net Exp On-Chain' : 'Net Expenses On-Chain'}</LegendLabel>
+          <LegendLabelMobileTable>Net Exp On-Chain</LegendLabelMobileTable>
+          <LegendLabel>Net Expenses On-Chain</LegendLabel>
         </LegendItem>
         <LegendItem isLight={isLight} dotColor={'#F75524'}>
-          <LegendLabel>Budget Cap</LegendLabel>
+          <LegendLabelCap>Budget Cap</LegendLabelCap>
         </LegendItem>
       </Legend>
     </CardContainer>
@@ -175,11 +173,10 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
   lineHeight: '12px',
   fontWeight: 500,
   color: isLight ? '#231536' : '#EDEFFF',
-  paddingLeft: 6,
+  paddingLeft: 8,
   display: 'flex',
   alignItems: 'flex-start ',
   height: 'fit-content',
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
     lineHeight: '17px',
@@ -210,7 +207,33 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
   },
 }));
 
+const LegendLabelMobileTable = styled.div({
+  marginLeft: 4,
+  fontSize: 14,
+  lineHeight: 'normal',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+    lineHeight: 'normal',
+    fontWeight: 400,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'none',
+  },
+});
 const LegendLabel = styled.div({
+  display: 'none',
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    marginLeft: 6,
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '17px',
+  },
+});
+
+const LegendLabelCap = styled.div({
   marginLeft: 4,
   fontSize: 14,
   lineHeight: 'normal',
@@ -222,6 +245,7 @@ const LegendLabel = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
     marginLeft: 6,
     fontWeight: 400,
     fontSize: 14,
@@ -233,26 +257,21 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 12,
   fontStyle: 'normal',
-  fontWeight: 400,
+  fontWeight: 600,
   lineHeight: 'normal',
   textAlign: 'center',
-  marginTop: 8,
+  marginBottom: 8,
   color: isLight ? '#708390' : '#708390',
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginLeft: 1,
-    marginTop: 6,
-    marginBottom: -2,
+    marginBottom: 6,
+    marginTop: 'revert',
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: 8,
-    marginBottom: -1,
+    marginBottom: 8,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 6,
-    marginBottom: 'revert',
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 6,
+    marginBottom: 6,
   },
 }));
 

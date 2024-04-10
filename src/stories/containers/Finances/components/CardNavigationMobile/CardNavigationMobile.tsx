@@ -58,7 +58,16 @@ const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDa
                         isLight={isLight}
                       />
                     </ContainerBar>
-                    <Percent isLight={isLight}>{Math.round(percent)}%</Percent>
+                    <Percent isLight={isLight}>
+                      {percent === 0
+                        ? 0
+                        : percent < 0.1
+                        ? '<0.1'
+                        : percent < 1
+                        ? usLocalizedNumber(percent, 2)
+                        : Math.round(percent)}
+                      %
+                    </Percent>
                   </ContainerBarPercent>
                 </CardInformation>
               </ContainerData>
