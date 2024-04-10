@@ -27,6 +27,13 @@ const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDa
   const { isLight } = useThemeContext();
   const formatted = usLocalizedNumber(valueDai);
 
+  const showCode = code && code.length > 0;
+  const showCodeBelow =
+    showCode &&
+    (code.toLocaleLowerCase() === code ||
+      (code.includes('-') && code.toUpperCase() !== code) ||
+      /[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/.test(code));
+
   return (
     <StyleCardNavigationGeneric>
       <Link href={href} legacyBehavior passHref>
@@ -38,9 +45,16 @@ const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDa
                   <ContainerImage>
                     <Image src={image} width={32} height={32} alt="Picture" unoptimized />
                   </ContainerImage>
-                  <Title isLight={isLight}>
-                    {code && <span>{code}</span>} {title}
-                  </Title>
+                  <TitleContainer>
+                    <Title isLight={isLight}>
+                      {showCode && !showCodeBelow && <span>{code}</span>} {title}
+                    </Title>
+                    {showCodeBelow && (
+                      <Title isLight={isLight}>
+                        <span>{code}</span>
+                      </Title>
+                    )}
+                  </TitleContainer>
                 </ContainerIcon>
                 <CardInformation>
                   <ContainerTotal>
@@ -103,6 +117,13 @@ const ContainerImage = styled.div({
   width: 32,
   height: 32,
 });
+
+const TitleContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 4,
+});
+
 const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontSize: 14,
   fontStyle: 'normal',
