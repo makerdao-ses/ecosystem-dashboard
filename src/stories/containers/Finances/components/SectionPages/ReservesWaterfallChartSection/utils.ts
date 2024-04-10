@@ -203,7 +203,7 @@ export const calculateAccumulatedArray = (data: number[]) => {
   return accumulatedArray;
 };
 
-export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) => {
+export const generateLineSeries = (lineSeriesData: number[], isLight: boolean, isMobile: boolean) => {
   const showLines = lineSeriesData.reduce((acc, curr) => acc + curr, 0);
   const series = [];
   if (showLines === 0) {
@@ -214,7 +214,7 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
           disabled: true,
         },
         lineStyle: {
-          width: 3,
+          width: isMobile ? 1 : 3,
           zIndex: -1,
           z: 2,
           join: 'end',
@@ -253,7 +253,7 @@ export const generateLineSeries = (lineSeriesData: number[], isLight: boolean) =
         disabled: true,
       },
       lineStyle: {
-        width: 3,
+        width: isMobile ? 1 : 3,
         zIndex: -1,
         z: 2,
         join: 'end',
