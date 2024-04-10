@@ -29,7 +29,7 @@ const NetExpenseTransactions = () => {
       Net {isMobile ? 'Exp' : 'Expense'} transactions
       <SESTooltip
         content={
-          'On-chain view offers valuable insights into on-chain dynamics, but excludes external (off-chain) transactions.'
+          'On-Chain view offers valuable insights into On-Chain dynamics, but excludes external (off-chain) transactions.'
         }
         placement="bottom-start"
         enterTouchDelay={0}
@@ -103,7 +103,7 @@ export const EXPENSES_COMPARISON_TABLE_HEADER = [
             On-Chain Only
             <SESTooltip
               content={
-                'On-chain view offers valuable insights into on-chain dynamics, but excludes external (off-chain) transactions.'
+                'On-Chain view offers valuable insights into On-Chain dynamics, but excludes external (off-chain) transactions.'
               }
               placement="bottom-start"
               enterTouchDelay={0}

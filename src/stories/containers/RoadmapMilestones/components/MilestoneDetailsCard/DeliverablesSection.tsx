@@ -17,9 +17,9 @@ const DeliverablesSection: React.FC = () => {
   const deliverables = [
     new DeliverableBuilder()
       .withId('6')
-      .withTitle('PEA-01 On-chain Data Reconciliation')
+      .withTitle('PEA-01 On-Chain Data Reconciliation')
       .withDescription(
-        "On-chain Data Reconciliation will help ensure that all data related to Maker Protocol's expenses are accurate and up-to-date. This component will include a thorough analysis of all on-chain data related to expenses, which will help to identify any discrepancies."
+        "On-Chain Data Reconciliation will help ensure that all data related to Maker Protocol's expenses are accurate and up-to-date. This component will include a thorough analysis of all On-Chain data related to expenses, which will help to identify any discrepancies."
       )
       .withOwnerData(
         '1',

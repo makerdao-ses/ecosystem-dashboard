@@ -38,7 +38,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
       <HeaderContainer>
         <SectionHeader
           title="Total Core Unit Reserves"
-          subtitle={`On-chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
+          subtitle={`On-Chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={
             'Explore on and off-chain balances in DAI and other currencies, identify the flow of funds and track the \
              total inflow from the Maker Protocol to internal operational wallets, as well as the outflow to external \
@@ -85,10 +85,10 @@ const CUReserves: React.FC<CUReservesProps> = ({
       <OnChainSubsection>
         <SectionHeader
           title="On Chain Reserves"
-          subtitle={`Unspent on-chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
+          subtitle={`Unspent On-Chain reserves${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={
             <>
-              Track and analyze the movement of <br /> on-chain assets.
+              Track and analyze the movement of <br /> On-Chain assets.
             </>
           }
           isSubsection

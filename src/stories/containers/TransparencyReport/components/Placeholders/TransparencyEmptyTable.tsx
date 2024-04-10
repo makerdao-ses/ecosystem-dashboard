@@ -295,7 +295,7 @@ export const TransparencyEmptyTable: React.FC<TransparencyEmptyTableProps> = ({
         <ContainerIndications>
           <Title>{title}</Title>
 
-          <Description>View on-chain transfers on makerburn.com </Description>
+          <Description>View On-Chain transfers on makerburn.com </Description>
 
           <ContainerButton>
             <LinkButton
@@ -452,7 +452,7 @@ export const TransparencyEmptyTable: React.FC<TransparencyEmptyTableProps> = ({
         <ContainerIndications>
           <TitleMobile>{title}</TitleMobile>
 
-          <Description>View on-chain transfers on makerburn.com </Description>
+          <Description>View On-Chain transfers on makerburn.com </Description>
           <ContainerButton>
             <LinkButton
               href={

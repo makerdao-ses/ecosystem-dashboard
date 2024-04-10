@@ -32,7 +32,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const arrayMetrics = new Array<number>(iteration).fill(0);
   const newMetricsOrdered = orderMetrics(defaultOrder, metrics);
   const newMetrics = newMetricsOrdered.map((metric) =>
-    metric === 'Net Expenses On-chain'
+    metric === 'Net Expenses On-Chain'
       ? 'PaymentsOnChain'
       : metric === 'Net Protocol Outflow'
       ? 'ProtocolNetOutflow'

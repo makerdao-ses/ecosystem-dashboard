@@ -36,7 +36,7 @@ const TeamHeadLine: React.FC<TeamHeadlineTextProps> = ({ teamLongCode, teamShort
         iconHeight={10}
         marginLeft="7px"
       >
-        {`view the ${teamShortCode} Ecosystem Actor on-chain transaction history`}
+        {`view the ${teamShortCode} Ecosystem Actor On-Chain transaction history`}
       </CustomLink>
     </LinkDescription>
   );

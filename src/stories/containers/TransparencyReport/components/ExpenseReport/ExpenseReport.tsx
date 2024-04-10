@@ -64,7 +64,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           >
             {`${code} ${
               resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor'
-            } on-chain transaction history`}
+            } On-Chain transaction history`}
           </ActualViewOnChainLink>
 
           <BudgetDateTitle isLight={isLight}>{currentMonth.toFormat('MMMM yyyy')} Expense Report</BudgetDateTitle>

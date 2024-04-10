@@ -45,9 +45,9 @@ const ExpenseReportsFilters: React.FC<ExpenseReportsFiltersProps> = ({
         labelWhenSelected: 'Prtcol Outfl',
       },
       {
-        label: 'Net Expenses On-chain',
+        label: 'Net Expenses On-Chain',
         value: 'PaymentsOnChain',
-        labelWhenSelected: 'Net On-chain',
+        labelWhenSelected: 'Net On-Chain',
       },
       {
         label: 'Actuals',

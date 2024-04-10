@@ -375,7 +375,7 @@ export const getHeadersExpenseReport = (
       selectedMetric === 'ProtocolNetOutflow'
         ? 'Protocol Outflow'
         : selectedMetric === 'PaymentsOnChain'
-        ? 'Net On-chain'
+        ? 'Net On-Chain'
         : selectedMetric,
     sort: headersSort[2],
     styles: {
@@ -786,7 +786,7 @@ export const buildExpenseMetricsLineChartSeries = (
     Budget: inactiveSeries.includes('Budget'),
     Forecast: inactiveSeries.includes('Forecast'),
     'Net Protocol Outflow': inactiveSeries.includes('Net Protocol Outflow'),
-    'Net Expenses On-chain': inactiveSeries.includes('Net Expenses On-chain'),
+    'Net Expenses On-Chain': inactiveSeries.includes('Net Expenses On-Chain'),
     Actuals: inactiveSeries.includes('Actuals'),
   };
 
@@ -819,13 +819,13 @@ export const buildExpenseMetricsLineChartSeries = (
       isVisible: !disabled['Net Protocol Outflow'],
     },
     {
-      name: 'Net Expenses On-chain',
-      data: disabled['Net Expenses On-chain'] ? [] : data?.onChain,
+      name: 'Net Expenses On-Chain',
+      data: disabled['Net Expenses On-Chain'] ? [] : data?.onChain,
       type: 'line',
       itemStyle: {
-        color: disabled['Net Expenses On-chain'] ? '#ccc' : isLight ? '#FBCC5F' : '#FDC134',
+        color: disabled['Net Expenses On-Chain'] ? '#ccc' : isLight ? '#FBCC5F' : '#FDC134',
       },
-      isVisible: !disabled['Net Expenses On-chain'],
+      isVisible: !disabled['Net Expenses On-Chain'],
     },
     {
       name: 'Actuals',
@@ -854,8 +854,8 @@ export const filterActiveMetrics = (activeMetrics: string[], headerTable: Metric
   });
 
 export const getShortNameForMetric = (metric: string): string => {
-  if (metric === 'Net Expenses On-chain') {
-    return 'On-chain';
+  if (metric === 'Net Expenses On-Chain') {
+    return 'On-Chain';
   }
   if (metric === 'Net Expenses Off-chain') {
     return 'Off-chain';
@@ -896,7 +896,7 @@ export const transformPathToName = (path: string) => {
 };
 
 export const getKeyMetric = (metric: string) => {
-  if (metric === 'Net Expenses On-chain') {
+  if (metric === 'Net Expenses On-Chain') {
     return 'PaymentsOnChain';
   }
   if (metric === 'Net Expenses Off-chain') {
