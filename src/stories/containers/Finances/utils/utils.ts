@@ -679,11 +679,12 @@ export const formatterBreakdownChart = (
   granularity: AnalyticGranularity,
   isMobile: boolean,
   year: string,
-  value: string
+  value: string,
+  isLessMobile: boolean
 ) => {
   switch (granularity) {
     case 'monthly':
-      if (isMobile) return value;
+      if (isMobile || isLessMobile) return value;
       return `{month|${value}}\n{year|${year}}`;
     case 'quarterly':
       return `{month|${value}}\n{year|${year}}`;
