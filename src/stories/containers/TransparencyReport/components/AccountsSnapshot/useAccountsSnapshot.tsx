@@ -97,7 +97,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     () => buildExpensesComparisonRows(actualsComparison, selectedToken, snapshot.period, hasOffChainData),
     [actualsComparison, hasOffChainData, selectedToken, snapshot.period]
   );
-
+  const isCoreUnit = snapshot.ownerType === 'CoreUnit';
   return {
     isLight,
     enableCurrencyPicker,
@@ -114,6 +114,7 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     // expenses comparison
     hasActualsComparison,
     expensesComparisonRows,
+    isCoreUnit,
   };
 };
 

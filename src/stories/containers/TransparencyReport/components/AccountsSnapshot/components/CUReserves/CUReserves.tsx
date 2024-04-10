@@ -19,6 +19,7 @@ interface CUReservesProps {
   balance?: SnapshotAccountBalance;
   onChainData?: UIReservesData[];
   offChainData?: UIReservesData[];
+  isCoreUnit: boolean;
 }
 
 const CUReserves: React.FC<CUReservesProps> = ({
@@ -30,14 +31,14 @@ const CUReserves: React.FC<CUReservesProps> = ({
   balance,
   onChainData,
   offChainData,
+  isCoreUnit,
 }) => {
   const { isLight } = useThemeContext();
-
   return (
     <div>
       <HeaderContainer>
         <SectionHeader
-          title="Total Core Unit Reserves"
+          title={`Total ${isCoreUnit ? 'Core Unit' : ''} Reserves`}
           subtitle={`On-chain and off-chain reserves accessible${snapshotOwner ? ` to the ${snapshotOwner}` : ''}.`}
           tooltip={
             'Explore on and off-chain balances in DAI and other currencies, identify the flow of funds and track the \
@@ -57,7 +58,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
         <SimpleStatCard
           date={startDate}
           value={balance?.initialBalance}
-          caption="Initial Core Unit Reserves"
+          caption={`Initial ${isCoreUnit ? 'Core Unit' : ''}Reserves`}
           dynamicChanges
         />
         <FundChangeCard
@@ -75,7 +76,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
         <SimpleStatCard
           date={endDate}
           value={balance?.newBalance}
-          caption="New Core Unit Reserves"
+          caption={`New ${isCoreUnit ? 'Core Unit' : ''} Reserves`}
           hasEqualSign
           isReserves
           dynamicChanges
