@@ -34,7 +34,6 @@ const CUReserves: React.FC<CUReservesProps> = ({
   isCoreUnit,
 }) => {
   const { isLight } = useThemeContext();
-  console.log('snapshotOwner', snapshotOwner);
   return (
     <div>
       <HeaderContainer>
