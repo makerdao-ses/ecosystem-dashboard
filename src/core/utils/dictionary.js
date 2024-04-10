@@ -159,6 +159,7 @@ const dictionary = [
   'Outfl',
   'compat',
   'keyframes',
+  'Uncategorized',
 ];
 
 module.exports = dictionary;

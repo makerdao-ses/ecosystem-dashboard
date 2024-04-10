@@ -140,7 +140,7 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
 const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter; isHeader: boolean }>(
   ({ isLight, period, isHeader }) => ({
     borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
-    fontSize: 11,
+    fontSize: 10,
     color: isLight ? '#231536' : '#D2D4EF',
     width: 87,
     textAlign: 'center',
