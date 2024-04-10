@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -7,7 +6,6 @@ import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
-import type { Theme } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
@@ -18,7 +16,6 @@ export type QuarterCardProps = {
 
 const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnChain, budgetCap, className }) => {
   const { isLight } = useThemeContext();
-  const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
   const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
@@ -51,10 +48,11 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-          <LegendLabel>{isMobileOrTablet ? 'Net Exp On-Chain' : 'Net Expenses On-Chain'}</LegendLabel>
+          <LegendLabelMobileTable>Net Exp On-Chain</LegendLabelMobileTable>
+          <LegendLabel>Net Expenses On-Chain</LegendLabel>
         </LegendItem>
         <LegendItem isLight={isLight} dotColor={'#F75524'}>
-          <LegendLabel>Budget Cap</LegendLabel>
+          <LegendLabelCap>Budget Cap</LegendLabelCap>
         </LegendItem>
       </Legend>
     </CardContainer>
@@ -209,8 +207,8 @@ const LegendItem = styled.div<WithIsLight & { dotColor: string }>(({ isLight, do
   },
 }));
 
-const LegendLabel = styled.div({
-  marginLeft: 6,
+const LegendLabelMobileTable = styled.div({
+  marginLeft: 4,
   fontSize: 14,
   lineHeight: 'normal',
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -220,6 +218,35 @@ const LegendLabel = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'none',
+  },
+});
+const LegendLabel = styled.div({
+  display: 'none',
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    marginLeft: 6,
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '17px',
+  },
+});
+
+const LegendLabelCap = styled.div({
+  marginLeft: 4,
+  fontSize: 14,
+  lineHeight: 'normal',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginLeft: 3,
+    fontSize: 14,
+    lineHeight: 'normal',
+    fontWeight: 400,
+  },
+
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    marginLeft: 6,
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '17px',
