@@ -93,7 +93,7 @@ const BudgetCapLine = styled.div<{ position: number }>(({ position }) => ({
   position: 'absolute',
   top: 0,
   left: `${position}%`,
-  width: 1,
+  width: 2,
   height: '100%',
-  background: '#F75524',
+  background: '#F99374',
 }));
