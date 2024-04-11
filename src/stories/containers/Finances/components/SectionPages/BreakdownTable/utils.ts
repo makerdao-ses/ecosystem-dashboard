@@ -1,4 +1,4 @@
-import type { MetricValues, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
+import type { ItemRow, MetricValues, PeriodicSelectionFilter } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, BreakdownBudgetAnalytic, BudgetMetric } from '@ses/core/models/interfaces/analytic';
 
 export const headerTableQuarterlyPeriod = (analytics: BreakdownBudgetAnalytic | undefined, year: string) => {
@@ -111,3 +111,15 @@ export const convertFilterToGranularity = (period: PeriodicSelectionFilter): Ana
 };
 
 export const removePatternAfterSlash = (input: string) => input.replace(/\/\*.*$/, '');
+
+export const isHeaderValuesZero = (header: ItemRow): boolean => {
+  if (header.columns.length === 0) return true;
+  return header.columns.some(
+    (column) =>
+      column.Actuals !== 1 ||
+      column.Budget !== 0 ||
+      column.PaymentsOnChain !== 0 ||
+      column.Forecast !== 0 ||
+      column.ProtocolNetOutflow !== 0
+  );
+};
