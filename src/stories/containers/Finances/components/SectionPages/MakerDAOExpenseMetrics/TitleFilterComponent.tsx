@@ -15,7 +15,7 @@ const TitleFilterComponent: React.FC<Props> = ({ title, handleChange, selectedVa
   <Container>
     <SectionTitle
       title={title}
-      tooltip="View monthly expense metrics for the current year on this line chart, with a fixed legend of Budget, Forecast, Actuals, Net Expenses Off-Chain, and Net Expenses On-Chain, all toggleable for customized visualization."
+      tooltip="View expense metrics for the selected year on this line chart, with a fixed legend of Budget, Forecast, Actuals, Net Expenses Off-Chain, and Net Expenses On-Chain, all toggleable for customized visualization."
     />
 
     <FilterContainer>

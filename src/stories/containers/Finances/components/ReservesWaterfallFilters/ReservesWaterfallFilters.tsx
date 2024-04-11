@@ -44,7 +44,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
       <SectionTitle
         title={title}
         tooltip={
-          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown, set to "All Components" by default, and choose your preferred granularity(Quarterly, Monthly, Yearly)'
+          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown and choose your preferred granularity (Quarterly, Monthly, Yearly) with a monthly default.'
         }
       />
 
