@@ -151,17 +151,22 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   }
 
   // if there too many cards we need to use a swiper on desktop but paginated on mobile
-  const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
+  const [canLoadMoreCards, setCanLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
+  const [showMoreCards, setShowMoreCards] = useState<boolean>(false);
   useEffect(() => {
     // update when the levels/budgets change
-    setLoadMoreCards(cardsNavigationInformation.length > 6);
+    setCanLoadMoreCards(cardsNavigationInformation.length > 6);
+    setShowMoreCards(false);
   }, [cardsNavigationInformation.length]);
-  const handleLoadMoreCards = () => {
-    setLoadMoreCards(!loadMoreCards);
+
+  const toggleShowMoreCards = () => {
+    if (!canLoadMoreCards) return;
+
+    setShowMoreCards(!showMoreCards);
   };
 
   // pagination only happens on mobile devices
-  const cardsToShow = loadMoreCards && isMobile ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
+  const cardsToShow = !showMoreCards && isMobile ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // All the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart(budgets, year, codePath, allBudgets);
@@ -192,8 +197,9 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     cardsToShow,
     breakdownChartSectionData,
     breakdownTable,
-    loadMoreCards,
-    handleLoadMoreCards,
+    canLoadMoreCards,
+    showMoreCards,
+    toggleShowMoreCards,
     makerDAOExpensesMetrics,
     expenseReportSection: expenseTrendFinances,
     reserveChart,

@@ -38,8 +38,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
     handleChangeYears,
     cardsToShow,
     breakdownTable,
-    loadMoreCards,
-    handleLoadMoreCards,
+    canLoadMoreCards,
+    showMoreCards,
+    toggleShowMoreCards,
     makerDAOExpensesMetrics,
     breakdownChartSectionData,
     expenseReportSection,
@@ -108,8 +109,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           </WrapperMobile>
           <CardsNavigation
             cardsNavigationInformation={cardsToShow}
-            handleLoadMoreCards={handleLoadMoreCards}
-            loadMoreCards={loadMoreCards}
+            canLoadMoreCards={canLoadMoreCards}
+            showMoreCards={showMoreCards}
+            toggleShowMoreCards={toggleShowMoreCards}
           />
         </ContainerSections>
 

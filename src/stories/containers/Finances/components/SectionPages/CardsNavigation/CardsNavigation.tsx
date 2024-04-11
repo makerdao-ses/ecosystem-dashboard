@@ -16,11 +16,17 @@ import type { SwiperProps, SwiperRef } from 'swiper/react';
 
 interface Props {
   cardsNavigationInformation: NavigationCard[];
-  loadMoreCards: boolean;
-  handleLoadMoreCards: () => void;
+  canLoadMoreCards: boolean;
+  showMoreCards: boolean;
+  toggleShowMoreCards: () => void;
 }
 
-const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation, loadMoreCards, handleLoadMoreCards }) => {
+const CardsNavigation: React.FC<Props> = ({
+  cardsNavigationInformation,
+  canLoadMoreCards,
+  showMoreCards,
+  toggleShowMoreCards,
+}) => {
   const { isLight } = useThemeContext();
   const ref = useRef<SwiperRef>(null);
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -116,10 +122,10 @@ const CardsNavigation: React.FC<Props> = ({ cardsNavigationInformation, loadMore
             code={card.code ?? ''}
           />
         ))}
-        {loadMoreCards && (
+        {canLoadMoreCards && (
           <ContainerButton>
             <DividerStyle isLight={isLight} />
-            <BigButtonStyled title={'Load More'} onClick={handleLoadMoreCards} />
+            <BigButtonStyled title={`Load ${showMoreCards ? 'Less' : 'More'}`} onClick={toggleShowMoreCards} />
             <DividerStyle isLight={isLight} />
           </ContainerButton>
         )}
