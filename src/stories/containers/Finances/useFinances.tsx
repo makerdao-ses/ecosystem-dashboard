@@ -38,7 +38,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const currentBudget = allBudgets.find((budget) => budget.codePath === codePath);
   const description = currentBudget?.description;
   const icon = currentBudget?.image;
-  const code = currentBudget?.code === 'other' ? 'Uncategorized' : currentBudget?.code;
+  const code = currentBudget?.code === 'other' ? 'Uncategorized' : currentBudget?.code || '';
   const formattedName = formatBudgetName((currentBudget?.name || codePath) ?? '');
   const title = formattedName === 'Other' ? 'Uncategorized' : formattedName;
 
