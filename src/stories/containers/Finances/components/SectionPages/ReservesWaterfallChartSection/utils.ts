@@ -1,5 +1,5 @@
 import { UMBRAL_CHART_WATERFALL } from '@ses/core/utils/const';
-import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
+import { twoSignificantDigitsHumanization } from '@ses/core/utils/humanization';
 import { removePatternAfterSlash } from '../BreakdownTable/utils';
 import type { LineWaterfall, MetricValues, WaterfallChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { Analytic, AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
@@ -90,8 +90,8 @@ export const builderWaterfallSeries = (
 
       label: {
         formatter: (params: EChartsOption) => {
-          const formatted = threeDigitsPrecisionHumanization(params.value, true);
-          if (formatted.value === '0.00') return '';
+          const formatted = twoSignificantDigitsHumanization(params.value, true);
+          if (formatted.value === '0.0') return '';
           if (isMobile) {
             if (params.dataIndex === 0 || params.dataIndex === help.length - 1) {
               return `{colorful|${formatted.value}}`;
@@ -143,9 +143,9 @@ export const builderWaterfallSeries = (
         fontSize: isMobile ? 8 : 12,
         position: 'bottom',
         formatter: (params: EChartsOption) => {
-          const formatted = threeDigitsPrecisionHumanization(params.value, true);
+          const formatted = twoSignificantDigitsHumanization(params.value, true);
 
-          if (formatted.value === '0.00') return '';
+          if (formatted.value === '0.0') return '';
           if (isMobile) {
             return `-${formatted.value}`;
           }
@@ -176,9 +176,9 @@ export const builderWaterfallSeries = (
         fontFamily: 'Inter, sans-serif',
         position: 'top',
         formatter: (params: EChartsOption) => {
-          const formatted = threeDigitsPrecisionHumanization(params.value, true);
+          const formatted = twoSignificantDigitsHumanization(params.value, true);
 
-          if (formatted.value === '0.00') return '';
+          if (formatted.value === '0.0') return '';
           if (isMobile) {
             return `+${formatted.value}`;
           }
