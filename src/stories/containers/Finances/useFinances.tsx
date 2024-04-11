@@ -109,25 +109,27 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   // All the logic required by the CardNavigation section
   const cardsNavigationInformation = useMemo(
     () =>
-      budgets.map((item, index) => {
-        const budgetMetric =
-          budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
-            ? budgetsAnalytics[item.codePath]
-            : [newBudgetMetric()];
+      budgets
+        .map((item, index) => {
+          const budgetMetric =
+            budgetsAnalytics !== undefined && budgetsAnalytics[item.codePath] !== undefined
+              ? budgetsAnalytics[item.codePath]
+              : [newBudgetMetric()];
 
-        return {
-          image: item.image || '/assets/img/default-icon-cards-budget.svg',
-          codePath: item.codePath,
-          title: formatBudgetName(item.name),
-          description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
-          href: `${siteRoutes.finances(item.codePath.replace('atlas/', ''))}?year=${year}`,
-          valueDai: budgetMetric[0].paymentsOnChain.value,
-          totalDai: allMetrics.paymentsOnChain,
-          code: item.code,
-          color: isLight ? colorsLight[index] : colorsDark[index],
-          percent: percentageRespectTo(budgetMetric[0].paymentsOnChain.value, allMetrics.budget),
-        };
-      }),
+          return {
+            image: item.image || '/assets/img/default-icon-cards-budget.svg',
+            codePath: item.codePath,
+            title: formatBudgetName(item.name),
+            description: item.description || 'Finances of the core governance constructs described in the Maker Atlas.',
+            href: `${siteRoutes.finances(item.codePath.replace('atlas/', ''))}?year=${year}`,
+            valueDai: budgetMetric[0].paymentsOnChain.value,
+            totalDai: allMetrics.paymentsOnChain,
+            code: item.code,
+            color: isLight ? colorsLight[index] : colorsDark[index],
+            percent: percentageRespectTo(budgetMetric[0].paymentsOnChain.value, allMetrics.budget),
+          };
+        })
+        .sort((a, b) => b.percent - a.percent),
     [allMetrics.budget, allMetrics.paymentsOnChain, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
   );
   // Check some value affect the total 100%
@@ -153,17 +155,22 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   }
 
   // if there too many cards we need to use a swiper on desktop but paginated on mobile
-  const [loadMoreCards, setLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
+  const [canLoadMoreCards, setCanLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
+  const [showMoreCards, setShowMoreCards] = useState<boolean>(false);
   useEffect(() => {
     // update when the levels/budgets change
-    setLoadMoreCards(cardsNavigationInformation.length > 6);
+    setCanLoadMoreCards(cardsNavigationInformation.length > 6);
+    setShowMoreCards(false);
   }, [cardsNavigationInformation.length]);
-  const handleLoadMoreCards = () => {
-    setLoadMoreCards(!loadMoreCards);
+
+  const toggleShowMoreCards = () => {
+    if (!canLoadMoreCards) return;
+
+    setShowMoreCards(!showMoreCards);
   };
 
   // pagination only happens on mobile devices
-  const cardsToShow = loadMoreCards && isMobile ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
+  const cardsToShow = !showMoreCards && isMobile ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 
   // All the logic required by the breakdown chart section
   const breakdownChartSectionData = useBreakdownChart(budgets, year, codePath, allBudgets);
@@ -194,8 +201,9 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     cardsToShow,
     breakdownChartSectionData,
     breakdownTable,
-    loadMoreCards,
-    handleLoadMoreCards,
+    canLoadMoreCards,
+    showMoreCards,
+    toggleShowMoreCards,
     makerDAOExpensesMetrics,
     expenseReportSection: expenseTrendFinances,
     reserveChart,

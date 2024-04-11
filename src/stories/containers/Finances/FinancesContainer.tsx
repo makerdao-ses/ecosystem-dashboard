@@ -38,8 +38,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
     handleChangeYears,
     cardsToShow,
     breakdownTable,
-    loadMoreCards,
-    handleLoadMoreCards,
+    canLoadMoreCards,
+    showMoreCards,
+    toggleShowMoreCards,
     makerDAOExpensesMetrics,
     breakdownChartSectionData,
     expenseReportSection,
@@ -81,7 +82,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           )}
           <TitleDescription levelNumber={levelNumber}>
             {levelNumber === 1
-              ? "The MakerDAO Finances page offers a clear snapshot of the organization's budgeting, actuals, and forecasts, complete with interactive visualizations for a comprehensive understanding of its fiscal health and activities."
+              ? 'Learn more about MakerDAO expense metrics by looking at the data below. The data includes information about both immutable and scope frameworks budgets as defined in the MakerDAO Atlas. Additionally, the data from the period MakerDAO period 2021-2022 can be found in the MakerDAO Legacy budget section. Available metrics are the budgets, forecasts, protocol outflow, net expenses on-chain and the actuals.'
               : description}
           </TitleDescription>
         </TitleContainer>
@@ -108,8 +109,9 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           </WrapperMobile>
           <CardsNavigation
             cardsNavigationInformation={cardsToShow}
-            handleLoadMoreCards={handleLoadMoreCards}
-            loadMoreCards={loadMoreCards}
+            canLoadMoreCards={canLoadMoreCards}
+            showMoreCards={showMoreCards}
+            toggleShowMoreCards={toggleShowMoreCards}
           />
         </ContainerSections>
 
