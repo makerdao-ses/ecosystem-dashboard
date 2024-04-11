@@ -22,6 +22,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs = (props: BreadcrumbsProps) => {
   const { isLight } = useThemeContext();
+
   return (
     <Container
       className={props.className}
@@ -49,7 +50,7 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
               marginLeft={props.marginLeft}
               marginRight={props.marginRight}
             >
-              {item.label}
+              {item.label === 'Other' ? 'Uncategorized' : item.label}
             </Crumb>
           </Link>
           {i !== props.items.length - 1 && (
