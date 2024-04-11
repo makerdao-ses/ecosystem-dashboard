@@ -15,6 +15,7 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
 
 interface Props {
+  budgetCap: number;
   cardsNavigationInformation: NavigationCard[];
   canLoadMoreCards: boolean;
   showMoreCards: boolean;
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const CardsNavigation: React.FC<Props> = ({
+  budgetCap,
   cardsNavigationInformation,
   canLoadMoreCards,
   showMoreCards,
@@ -111,6 +113,7 @@ const CardsNavigation: React.FC<Props> = ({
       <WrapperMobile>
         {cardsNavigationInformation.map((card: NavigationCard, index) => (
           <CardNavigationMobile
+            budgetCap={budgetCap}
             valueDai={card?.valueDai || 0}
             totalDai={card?.totalDai || 0}
             href={card.href}
