@@ -14,11 +14,11 @@ export const threeDigitsPrecisionHumanization = (num = 0, isHasAbsoluteValue = f
   const absNum = isHasAbsoluteValue ? Math.abs(num) : num;
   let value, suffix;
 
-  if (absNum >= 1000000) {
-    value = num / 1000000;
+  if (absNum >= 1_000_000) {
+    value = num / 1_000_000;
     suffix = 'M';
-  } else if (absNum >= 1000) {
-    value = num / 1000;
+  } else if (absNum >= 1_000) {
+    value = num / 1_000;
     suffix = 'K';
   } else {
     value = num;
@@ -31,6 +31,23 @@ export const threeDigitsPrecisionHumanization = (num = 0, isHasAbsoluteValue = f
   return {
     value: formattedValue,
     suffix,
+  };
+};
+
+export const twoSignificantDigitsHumanization = (num = 0, isHasAbsoluteValue = false) => {
+  let value = Math.abs(num);
+
+  const suffixes = ['', 'K', 'M', 'B', 'T'];
+  let suffixIndex = 0;
+
+  while (Math.round(value) >= 100) {
+    value /= 1000;
+    suffixIndex++;
+  }
+
+  return {
+    value: `${!isHasAbsoluteValue && num < 0 ? '-' : ''}${value.toPrecision(2)}`,
+    suffix: suffixes[suffixIndex],
   };
 };
 
