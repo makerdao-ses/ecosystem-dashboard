@@ -130,27 +130,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
         .sort((a, b) => b.percent - a.percent),
     [allMetrics.budget, allMetrics.paymentsOnChain, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
   );
-  // Check some value affect the total 100%
-  const totalPercent = cardsNavigationInformation.reduce((acc, curr) => acc + curr.percent, 0);
-  // Verify that sum of percent its 100% and there its not a 0%
-  if (totalPercent !== 100 && totalPercent !== 0) {
-    const difference = 100 - totalPercent;
-    cardsNavigationInformation.forEach((item) => {
-      if (item.percent < 1) return;
-      const adjustment = (item.percent / totalPercent) * difference;
-      item.percent = Math.round(item.percent + adjustment);
-    });
-
-    const checkForPercent = cardsNavigationInformation.reduce((acc, curr) => acc + curr.percent, 0);
-    const roundingError = 100 - checkForPercent;
-    if (roundingError !== 0) {
-      const indexToAdjust = cardsNavigationInformation.findIndex((item) => item.percent > 0);
-      // Fix the percent with some index in array of values
-      if (indexToAdjust !== -1) {
-        cardsNavigationInformation[indexToAdjust].percent += roundingError;
-      }
-    }
-  }
 
   // if there too many cards we need to use a swiper on desktop but paginated on mobile
   const [canLoadMoreCards, setCanLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);

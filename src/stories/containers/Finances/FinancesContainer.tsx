@@ -108,6 +108,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             />
           </WrapperMobile>
           <CardsNavigation
+            budgetCap={cardOverViewSectionData.budgetCap}
             cardsNavigationInformation={cardsToShow}
             canLoadMoreCards={canLoadMoreCards}
             showMoreCards={showMoreCards}

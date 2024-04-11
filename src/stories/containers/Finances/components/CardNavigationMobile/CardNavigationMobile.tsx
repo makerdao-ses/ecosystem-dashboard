@@ -3,7 +3,7 @@ import BarPercentRelativeToTotal from '@ses/components/BarPercentRelativeToTotal
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -11,6 +11,7 @@ import CardNavigationGeneric from '../CardNavigationGeneric';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
+  budgetCap: number;
   image: string;
   title: string;
   totalDai: number;
@@ -23,9 +24,20 @@ interface Props {
   percent: number;
 }
 
-const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDai, href, barColor, code, percent }) => {
+const CardNavigationMobile: React.FC<Props> = ({
+  budgetCap,
+  image,
+  title,
+  totalDai,
+  valueDai,
+  href,
+  barColor,
+  code,
+  percent,
+}) => {
   const { isLight } = useThemeContext();
-  const formatted = usLocalizedNumber(valueDai);
+  const budgetCapFormatted = threeDigitsPrecisionHumanization(budgetCap);
+  const valueFormatted = threeDigitsPrecisionHumanization(valueDai);
 
   const showCode = code && code.length > 0;
   const showCodeBelow =
@@ -58,10 +70,15 @@ const CardNavigationMobile: React.FC<Props> = ({ image, title, totalDai, valueDa
                 </ContainerIcon>
                 <CardInformation>
                   <ContainerTotal>
-                    <Total isLight={isLight}>
-                      {`${formatted}`}
-                      <Coin isLight={isLight}>DAI</Coin>
-                    </Total>
+                    <Value isLight={isLight}>
+                      {valueFormatted.value}
+                      <Suffix isLight={isLight}>{valueFormatted.suffix}</Suffix>
+                    </Value>
+                    <Value isLight={isLight}>/</Value>
+                    <Value isLight={isLight}>
+                      {budgetCapFormatted.value}
+                      <Suffix isLight={isLight}>{budgetCapFormatted.suffix}</Suffix>
+                    </Value>
                   </ContainerTotal>
                   <ContainerBarPercent>
                     <ContainerBar>
@@ -146,7 +163,7 @@ const CardInformation = styled.div({
   height: 17,
 });
 
-const Total = styled.div<WithIsLight>(({ isLight }) => ({
+const Value = styled.div<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -160,7 +177,7 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
 }));
 
-const Coin = styled.span<WithIsLight>(({ isLight }) => ({
+const Suffix = styled.span<WithIsLight>(({ isLight }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -252,4 +269,7 @@ const ContainerSpace = styled.div({
   flexDirection: 'row',
   justifyContent: 'space-between',
 });
-const ContainerTotal = styled.div({});
+const ContainerTotal = styled.div({
+  display: 'flex',
+  gap: 4,
+});
