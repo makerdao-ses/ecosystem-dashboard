@@ -6,7 +6,7 @@ import groupBy from 'lodash/groupBy';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
-import { convertFilterToGranularity, removePatternAfterSlash } from './utils';
+import { convertFilterToGranularity, isHeaderValuesZero, removePatternAfterSlash } from './utils';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type {
   ItemRow,
@@ -345,11 +345,13 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           .filter((item) => item !== null),
       };
       // Check if only one element is only the header so don't need rows
-      if (rows.length === 1) {
-        table.rows = [header];
-      } else {
-        // There are its header and rows
-        table.rows = [header, ...rows];
+      if (!(header.name === 'Uncategorized' && isHeaderValuesZero(header))) {
+        if (rows.length === 1) {
+          table.rows = [header];
+        } else {
+          // There are its header and rows
+          table.rows = [header, ...rows];
+        }
       }
 
       tables.push(table);
@@ -425,7 +427,10 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
     // now we create the main table header
     // it is guaranteed below that all the sub-tables have a header
-    const subTableHeaders = tables.map((table) => table.rows.filter((column) => column.isMain)[0].columns);
+    const subTableHeaders = tables.map((table) => {
+      const mainRow = table.rows.find((column) => column.isMain);
+      return mainRow ? mainRow.columns : [];
+    });
 
     const tableHeader = subTableHeaders.reduce((acc, current) => {
       for (let i = 0; i < acc.length; i++) {
