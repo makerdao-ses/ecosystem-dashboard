@@ -82,7 +82,7 @@ export const builderWaterfallSeries = (
         disabled: true,
       },
       itemStyle: {
-        borderRadius: 4,
+        borderRadius: [4, 4, 0, 0],
         color: (params: EChartsOption) => helpBarColors[params.dataIndex],
       },
       isVisible: true,
