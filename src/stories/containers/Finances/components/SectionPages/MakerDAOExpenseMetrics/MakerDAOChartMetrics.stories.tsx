@@ -27,7 +27,7 @@ const args = [
   {
     title: 'MakerDAO Expense Metrics',
     year: 2023,
-    series: buildExpenseMetricsLineChartSeries(chartData, [], true),
+    series: buildExpenseMetricsLineChartSeries(chartData, [], true, 'monthly'),
     selectedGranularity: 'monthly',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleGranularityChange: (value: string) => null,
@@ -35,7 +35,7 @@ const args = [
   {
     title: 'MakerDAO Expense Metrics',
     year: 2023,
-    series: buildExpenseMetricsLineChartSeries(chartData, [], false),
+    series: buildExpenseMetricsLineChartSeries(chartData, [], false, 'monthly'),
     selectedGranularity: 'monthly',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleGranularityChange: (value: string) => null,
