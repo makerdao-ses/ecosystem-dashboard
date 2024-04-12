@@ -160,6 +160,7 @@ const dictionary = [
   'compat',
   'keyframes',
   'Uncategorized',
+  'coord',
 ];
 
 module.exports = dictionary;
