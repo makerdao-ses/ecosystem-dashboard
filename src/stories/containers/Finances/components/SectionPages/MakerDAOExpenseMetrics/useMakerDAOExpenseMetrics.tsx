@@ -70,8 +70,8 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
   };
 
   const series: LineChartSeriesData[] = useMemo(
-    () => buildExpenseMetricsLineChartSeries(data, inactiveSeries, isLight),
-    [data, inactiveSeries, isLight]
+    () => buildExpenseMetricsLineChartSeries(data, inactiveSeries, isLight, selectedGranularity),
+    [data, inactiveSeries, isLight, selectedGranularity]
   );
 
   return {

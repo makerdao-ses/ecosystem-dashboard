@@ -780,7 +780,8 @@ export const buildExpenseMetricsLineChartSeries = (
     protocolNetOutflow: number[];
   },
   inactiveSeries: string[],
-  isLight: boolean
+  isLight: boolean,
+  granularity: AnalyticGranularity
 ) => {
   const disabled = {
     Budget: inactiveSeries.includes('Budget'),
@@ -790,51 +791,95 @@ export const buildExpenseMetricsLineChartSeries = (
     Actuals: inactiveSeries.includes('Actuals'),
   };
 
+  // there's not available types for this
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const render = (params: any, api: any) => {
+    const coord1 = api.coord([api.value(0, params.dataIndexInside), api.value(1, params.dataIndexInside)]);
+
+    return {
+      type: 'group',
+      children: [
+        {
+          type: 'line',
+          shape: {
+            x1: params.coordSys.x,
+            y1: coord1[1],
+            x2: params.coordSys.x + params.coordSys.width,
+            y2: coord1[1],
+          },
+          style: {
+            stroke: api.visual('color'),
+            lineWidth: 2,
+          },
+        },
+        {
+          type: 'circle',
+          transition: 'shape',
+          shape: {
+            cx: coord1[0],
+            cy: coord1[1],
+            r: 2,
+          },
+          style: {
+            stroke: api.visual('color'),
+            fill: 'white',
+            lineWidth: 2,
+          },
+        },
+      ],
+    };
+  };
+
   return [
     {
       name: 'Budget',
       data: disabled.Budget ? [] : data?.budget,
-      type: 'line',
+      type: granularity === 'annual' ? 'custom' : 'line',
       itemStyle: {
         color: disabled.Budget ? '#ccc' : isLight ? '#F99374' : '#F77249',
       },
       isVisible: !disabled.Budget,
+      renderItem: render,
     },
     {
       name: 'Forecast',
       data: disabled.Forecast ? [] : data?.forecast,
-      type: 'line',
+      type: granularity === 'annual' ? 'custom' : 'line',
       itemStyle: {
         color: disabled.Forecast ? '#ccc' : isLight ? '#447AFB' : '#447AFB',
       },
       isVisible: !disabled.Forecast,
+      renderItem: render,
     },
     {
       name: 'Net Protocol Outflow',
       data: disabled['Net Protocol Outflow'] ? [] : data?.protocolNetOutflow,
-      type: 'line',
+      type: granularity === 'annual' ? 'custom' : 'line',
       itemStyle: {
         color: disabled['Net Protocol Outflow'] ? '#ccc' : isLight ? '#7C6B95' : '#6C40AA',
       },
       isVisible: !disabled['Net Protocol Outflow'],
+      renderItem: render,
     },
     {
       name: 'Net Expenses On-Chain',
       data: disabled['Net Expenses On-Chain'] ? [] : data?.onChain,
-      type: 'line',
+      type: granularity === 'annual' ? 'custom' : 'line',
       itemStyle: {
         color: disabled['Net Expenses On-Chain'] ? '#ccc' : isLight ? '#FBCC5F' : '#FDC134',
       },
       isVisible: !disabled['Net Expenses On-Chain'],
+      renderItem: render,
     },
     {
       name: 'Actuals',
       data: disabled.Actuals ? [] : data?.actuals,
-      type: 'line',
+      type: granularity === 'annual' ? 'custom' : 'line',
       itemStyle: {
         color: disabled.Actuals ? '#ccc' : isLight ? '#2DC1B1' : '#1AAB9B',
       },
       isVisible: !disabled.Actuals,
+      renderItem: render,
     },
   ] as LineChartSeriesData[];
 };

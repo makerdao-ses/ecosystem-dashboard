@@ -104,6 +104,9 @@ export interface LineChartSeriesData {
     color: string;
   };
   isVisible: boolean;
+  // there's not available types for this
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderItem?(params: any, api: any): any;
 }
 
 export interface ItemRow {
