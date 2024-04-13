@@ -22,10 +22,12 @@ const CategoryModalComponent: React.FC = () => {
     <BasicModalExtended
       handleClose={handleCloseModal}
       open={openModal}
-      backdropProps={{
-        style: {
-          background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
-          backdropFilter: isLight ? 'blur(2px);' : 'blur(4px)',
+      slotProps={{
+        backdrop: {
+          sx: {
+            background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
+            backdropFilter: isLight ? 'blur(4px);' : 'blur(4px)',
+          },
         },
       }}
     >

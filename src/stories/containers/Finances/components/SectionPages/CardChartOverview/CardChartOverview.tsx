@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
+import IconOpenModal from '@ses/components/svg/IconOpenModal';
+import { useBudgetMetricsModalContext } from '@ses/core/context/BudgetMetricsModalContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';
+import type { Theme } from '@mui/material';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -58,6 +62,8 @@ const CardChartOverview: React.FC<Props> = ({
   numberSliderPerLevel,
 }) => {
   const { isLight } = useThemeContext();
+  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
+  const { handleOpenModal } = useBudgetMetricsModalContext();
 
   return (
     <Container isLight={isLight}>
@@ -73,6 +79,7 @@ const CardChartOverview: React.FC<Props> = ({
               {filterItem.label}
             </Item>
           ))}
+          <IconOpenModal width={isTablet ? 10.5 : 16} height={isTablet ? 10.5 : 16} onClick={handleOpenModal} />
         </ContainerFilters>
 
         <ContainerCardChart>
@@ -136,6 +143,7 @@ const ContainerFilters = styled.div({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     gap: 8,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
