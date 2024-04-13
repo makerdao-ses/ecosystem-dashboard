@@ -3,9 +3,11 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitleWithCode from '@ses/components/IconTitleWithCode/IconTitleWithCode';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
+import { BudgetMetricsModalProvider } from '@ses/core/context/BudgetMetricsModalContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
+import BudgetMetricButtonModalTrigger from './components/BudgetMetricButtonModalTrigger/BudgetMetricButtonModalTrigger';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
@@ -27,6 +29,7 @@ interface Props {
 
 const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initialYear }) => {
   const {
+    isMobile,
     year,
     levelNumber,
     icon,
@@ -70,66 +73,74 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
         hasIcon={levelNumber !== 1}
       />
 
-      <Container>
-        <TitleContainer>
-          {/* Page title */}
-          {levelNumber === 1 ? (
-            <FirstLevelTitle>MakerDAO Finances</FirstLevelTitle>
-          ) : (
-            <NthTitleBox>
-              <IconTitleWithCode icon={icon || '/assets/img/default-icon-cards-budget.svg'} title={title} code={code} />
-            </NthTitleBox>
-          )}
-          <TitleDescription levelNumber={levelNumber}>
-            {levelNumber === 1
-              ? 'Learn more about MakerDAO expense metrics by looking at the data below. The data includes information about both immutable and scope frameworks budgets as defined in the MakerDAO Atlas. Additionally, the data from the period MakerDAO period 2021-2022 can be found in the MakerDAO Legacy budget section. Available metrics are the budgets, forecasts, protocol outflow, net expenses on-chain and the actuals.'
-              : description}
-          </TitleDescription>
-        </TitleContainer>
+      <BudgetMetricsModalProvider>
+        <Container>
+          <TitleContainer>
+            {/* Page title */}
+            {levelNumber === 1 ? (
+              <FirstLevelTitle>MakerDAO Finances</FirstLevelTitle>
+            ) : (
+              <NthTitleBox>
+                <IconTitleWithCode
+                  icon={icon || '/assets/img/default-icon-cards-budget.svg'}
+                  title={title}
+                  code={code}
+                />
+              </NthTitleBox>
+            )}
+            <TitleDescription levelNumber={levelNumber}>
+              {levelNumber === 1
+                ? 'Learn more about MakerDAO expense metrics by looking at the data below. The data includes information about both immutable and scope frameworks budgets as defined in the MakerDAO Atlas. Additionally, the data from the period MakerDAO period 2021-2022 can be found in the MakerDAO Legacy budget section. Available metrics are the budgets, forecasts, protocol outflow, net expenses on-chain and the actuals.'
+                : description}
+            </TitleDescription>
+          </TitleContainer>
 
-        <ContainerSections>
-          <WrapperDesk>
-            <CardChartOverview
-              selectedMetric={cardOverViewSectionData.selectedMetric}
-              handleSelectedMetric={cardOverViewSectionData.handleSelectedMetric}
-              paymentsOnChain={cardOverViewSectionData.paymentsOnChain}
+          {(levelNumber === 1 || isMobile) && <BudgetMetricButtonModalTrigger />}
+
+          <ContainerSections>
+            <WrapperDesk>
+              <CardChartOverview
+                selectedMetric={cardOverViewSectionData.selectedMetric}
+                handleSelectedMetric={cardOverViewSectionData.handleSelectedMetric}
+                paymentsOnChain={cardOverViewSectionData.paymentsOnChain}
+                budgetCap={cardOverViewSectionData.budgetCap}
+                doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
+                isCoreThirdLevel={levelNumber >= 3}
+                changeAlignment={cardOverViewSectionData.changeAlignment}
+                showSwiper={cardOverViewSectionData.showSwiper}
+                numberSliderPerLevel={cardOverViewSectionData.numberSliderPerLevel}
+              />
+            </WrapperDesk>
+            <WrapperMobile>
+              <OverviewCardMobile
+                paymentsOnChain={cardOverViewSectionData.paymentsOnChain}
+                budgetCap={cardOverViewSectionData.budgetCap}
+              />
+            </WrapperMobile>
+            <CardsNavigation
               budgetCap={cardOverViewSectionData.budgetCap}
-              doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
-              isCoreThirdLevel={levelNumber >= 3}
-              changeAlignment={cardOverViewSectionData.changeAlignment}
-              showSwiper={cardOverViewSectionData.showSwiper}
-              numberSliderPerLevel={cardOverViewSectionData.numberSliderPerLevel}
+              cardsNavigationInformation={cardsToShow}
+              canLoadMoreCards={canLoadMoreCards}
+              showMoreCards={showMoreCards}
+              toggleShowMoreCards={toggleShowMoreCards}
             />
-          </WrapperDesk>
-          <WrapperMobile>
-            <OverviewCardMobile
-              paymentsOnChain={cardOverViewSectionData.paymentsOnChain}
-              budgetCap={cardOverViewSectionData.budgetCap}
-            />
-          </WrapperMobile>
-          <CardsNavigation
-            budgetCap={cardOverViewSectionData.budgetCap}
-            cardsNavigationInformation={cardsToShow}
-            canLoadMoreCards={canLoadMoreCards}
-            showMoreCards={showMoreCards}
-            toggleShowMoreCards={toggleShowMoreCards}
+          </ContainerSections>
+
+          <BreakdownChartSection
+            isLoading={breakdownChartSectionData.isLoading}
+            year={year}
+            selectedMetric={breakdownChartSectionData.selectedMetric}
+            selectedGranularity={breakdownChartSectionData.selectedGranularity}
+            onMetricChange={breakdownChartSectionData.handleMetricChange}
+            onGranularityChange={breakdownChartSectionData.handleGranularityChange}
+            isDisabled={breakdownChartSectionData.isDisabled}
+            handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
+            series={breakdownChartSectionData.series}
+            handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
+            refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
           />
-        </ContainerSections>
-
-        <BreakdownChartSection
-          isLoading={breakdownChartSectionData.isLoading}
-          year={year}
-          selectedMetric={breakdownChartSectionData.selectedMetric}
-          selectedGranularity={breakdownChartSectionData.selectedGranularity}
-          onMetricChange={breakdownChartSectionData.handleMetricChange}
-          onGranularityChange={breakdownChartSectionData.handleGranularityChange}
-          isDisabled={breakdownChartSectionData.isDisabled}
-          handleResetFilter={breakdownChartSectionData.handleResetFilterBreakDownChart}
-          series={breakdownChartSectionData.series}
-          handleToggleSeries={breakdownChartSectionData.handleToggleSeries}
-          refBreakDownChart={breakdownChartSectionData.refBreakDownChart}
-        />
-      </Container>
+        </Container>
+      </BudgetMetricsModalProvider>
 
       <ConditionalWrapper period={breakdownTable.periodFilter}>
         <BreakdownTable

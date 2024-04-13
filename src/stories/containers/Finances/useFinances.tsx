@@ -167,6 +167,7 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
   const expenseTrendFinances = useExpenseReports(codePath);
 
   return {
+    isMobile,
     year,
     levelNumber,
     icon,
