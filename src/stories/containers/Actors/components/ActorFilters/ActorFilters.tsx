@@ -3,6 +3,7 @@ import { CategoryChip } from '@ses/components/CategoryChip/CategoryChip';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { Close } from '@ses/components/svg/close';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ActorCategory } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
@@ -38,6 +39,7 @@ const ActorFilters: React.FC<Props> = ({
   const isLight = theme.palette.mode === 'light';
   const colorButton = isLight ? (isDisabled ? '#ECEFF9' : '#231536') : isDisabled ? '#48495F' : '#D4D9E1';
   const result = FILTER_SCOPE_ACTOR.filter((item) => filteredScopes.includes(item.name.replace(/\s+/g, '')));
+  const [isEnabled] = useFlagsActive();
 
   const label =
     filteredScopes.length === 1 ? (isMobile ? result[0].code : `${result[0].code} ${result[0].name}`) : 'Scopes';
@@ -47,27 +49,29 @@ const ActorFilters: React.FC<Props> = ({
         <ResetButton onClick={handleResetFilter} disabled={isDisabled} hasIcon={false} label="Reset filters" />
       </Reset>
       <FilterActorsContainer readMore={readMore}>
-        <ScopeFilter>
-          <CustomMultiSelectStyled
-            label={label}
-            popupContainerHeight={260}
-            showMetricOneItemSelect
-            activeItems={filteredScopes}
-            items={FILTER_SCOPE_ACTOR.map((scope) => ({
-              id: scope.id,
-              content: <ScopeChip code={scope.code} status={scope.name as ActorScopeEnum} />,
-              count: scopeCount[scope.name],
-            }))}
-            onChange={onChangeScope}
-            popupContainerWidth={260}
-            listItemWidth={240}
-            customAll={{
-              id: 'All',
-              content: <ScopeChip code="All" status="All" codeOnly isUppercase={false} />,
-              count: scopeCount.All,
-            }}
-          />
-        </ScopeFilter>
+        {isEnabled('FEATURE_ECOSYSTEM_ACTORS_SCOPES_FILTER') && (
+          <ScopeFilter>
+            <CustomMultiSelectStyled
+              label={label}
+              popupContainerHeight={260}
+              showMetricOneItemSelect
+              activeItems={filteredScopes}
+              items={FILTER_SCOPE_ACTOR.map((scope) => ({
+                id: scope.id,
+                content: <ScopeChip code={scope.code} status={scope.name as ActorScopeEnum} />,
+                count: scopeCount[scope.name],
+              }))}
+              onChange={onChangeScope}
+              popupContainerWidth={260}
+              listItemWidth={240}
+              customAll={{
+                id: 'All',
+                content: <ScopeChip code="All" status="All" codeOnly isUppercase={false} />,
+                count: scopeCount.All,
+              }}
+            />
+          </ScopeFilter>
+        )}
         <RoleFilter>
           <CustomMultiSelectStyled
             popupContainerHeight={180}

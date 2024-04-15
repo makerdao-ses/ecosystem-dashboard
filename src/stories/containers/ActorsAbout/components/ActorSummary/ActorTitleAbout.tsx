@@ -6,6 +6,7 @@ import { StatusChip } from '@ses/components/StatusChip/StatusChip';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -20,6 +21,7 @@ interface Props {
 
 export const ActorTitleAbout = ({ actorAbout }: Props) => {
   const { isLight } = useThemeContext();
+  const [isEnabled] = useFlagsActive();
   const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const phoneDimensions = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
 
@@ -45,9 +47,11 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                   <ShortCodeTitle>
                     <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
-                    <Status>
-                      <StatusChip status={CuMipStatus.Accepted} />
-                    </Status>
+                    {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS') && (
+                      <Status>
+                        <StatusChip status={CuMipStatus.Accepted} />
+                      </Status>
+                    )}
                   </ShortCodeTitle>
 
                   <TypographyCategory isLight={isLight}>
@@ -67,9 +71,11 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
-                  <Status>
-                    <StatusChip status={CuMipStatus.Accepted} />
-                  </Status>
+                  {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS') && (
+                    <Status>
+                      <StatusChip status={CuMipStatus.Accepted} />
+                    </Status>
+                  )}
                   <TypographyCategory isLight={isLight}>
                     {pascalCaseToNormalString(actorAbout.category?.[0] ?? '')}
                   </TypographyCategory>
