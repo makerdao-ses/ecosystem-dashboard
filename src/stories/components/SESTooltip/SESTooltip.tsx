@@ -16,6 +16,7 @@ export interface SESTooltipProps extends Omit<TooltipProps, 'title' | 'content'>
   borderColor?: React.CSSProperties['color'];
   fallbackPlacements?: TooltipProps['placement'][];
   showAsModalBottomSheet?: boolean;
+  showAsModal?: boolean;
 }
 
 const SESTooltip: React.FC<SESTooltipProps> = ({
@@ -26,6 +27,7 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
   className,
   fallbackPlacements,
   showAsModalBottomSheet = false,
+  showAsModal = false,
   ...props
 }) => {
   const { isLight } = useThemeContext();
@@ -91,7 +93,7 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
     );
   }
 
-  if (!showAsModalBottomSheet && isMobileResolution) {
+  if (!showAsModalBottomSheet && isMobileResolution && (showAsModal || typeof content === 'string')) {
     return (
       <>
         {React.cloneElement(children as React.ReactElement, {
