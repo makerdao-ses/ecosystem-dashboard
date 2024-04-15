@@ -5,6 +5,7 @@ import { StatusChip } from '@ses/components/StatusChip/StatusChip';
 import { siteRoutes } from '@ses/config/routes';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
@@ -27,6 +28,7 @@ interface Props {
 
 const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   const { isLight } = useThemeContext();
+  const [isEnabled] = useFlagsActive();
   const ActorSpaceLink: React.FC<PropsWithChildren> = ({ children }) => (
     <ContainerLinkColum>
       <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
@@ -68,10 +70,12 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                   <Name isLight={isLight}>{actor.name}</Name>
                 </ContainerShortCodeName>
 
-                <StatusMobile>
-                  {' '}
-                  <StatusChip status={CuMipStatus.Accepted} />
-                </StatusMobile>
+                {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS') && (
+                  <StatusMobile>
+                    {' '}
+                    <StatusChip status={CuMipStatus.Accepted} />
+                  </StatusMobile>
+                )}
               </ContainerDescription>
             </ActorAvatar>
           </WrapperEcosystemActor>
