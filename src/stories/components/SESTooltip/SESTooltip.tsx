@@ -5,8 +5,9 @@ import useMobileDetector from '@ses/core/hooks/useMobileDetector';
 import lightTheme from '@ses/styles/theme/light';
 import classNames from 'classnames';
 import merge from 'deepmerge';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import ModalBottomSheet from './ModalBottomSheet';
+import TooltipModalVariant from './TooltipModalVariant';
 import type { TooltipProps } from '@mui/material';
 
 export interface SESTooltipProps extends Omit<TooltipProps, 'title' | 'content'> {
@@ -28,11 +29,17 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
   ...props
 }) => {
   const { isLight } = useThemeContext();
-  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isMobileDevice = !!useMobileDetector()?.mobile();
   const borderColor = borderColorProp || (isLight === false ? '#231536' : '#D4D9E1');
 
   const [controlledOpen, setControlledOpen] = React.useState(props.open ?? enableClickListener ? false : undefined);
+
+  useEffect(() => {
+    if (props.open !== undefined) {
+      setControlledOpen(props.open);
+    }
+  }, [props.open]);
 
   const defaultProps = useMemo<Partial<SESTooltipProps>>(
     () => ({
@@ -81,12 +88,25 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
         content={content}
         open={!!controlledOpen}
         handleOpen={() => setControlledOpen(true)}
-        handleClose={() => setControlledOpen(false)}
+        handleClose={() => setControlledOpen(undefined)}
       >
         {React.cloneElement(children as React.ReactElement, {
           onClick: () => setControlledOpen((prev) => !prev),
         })}
       </ModalBottomSheet>
+    );
+  }
+
+  if (!showAsModalBottomSheet && isMobileResolution) {
+    return (
+      <>
+        {React.cloneElement(children as React.ReactElement, {
+          onClick: () => setControlledOpen((prev) => !prev),
+        })}
+        <TooltipModalVariant openModal={!!controlledOpen} handleCloseModal={() => setControlledOpen(undefined)}>
+          {content}
+        </TooltipModalVariant>
+      </>
     );
   }
 
