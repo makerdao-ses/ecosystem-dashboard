@@ -65,13 +65,25 @@ const useBreakdownChart = (budgets: Budget[], year: string, codePath: string, al
       ) as Promise<BreakdownBudgetAnalytic>
   );
 
-  const seriesWithoutBorder = useMemo(
-    () =>
-      parseAnalyticsToSeriesBreakDownChart(budgetsAnalytics, budgets, isLight, barWidth, selectedMetric, allBudgets),
-    [allBudgets, barWidth, budgets, budgetsAnalytics, isLight, selectedMetric]
-  );
+  const allSeries = useMemo(() => {
+    const seriesWithoutBorder = parseAnalyticsToSeriesBreakDownChart(
+      budgetsAnalytics,
+      budgets,
+      isLight,
+      barWidth,
+      selectedMetric,
+      allBudgets
+    );
 
-  const allSeries = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);
+    const series = setBorderRadiusForSeries(seriesWithoutBorder, barBorderRadius);
+    // sort the series by the sum of the values in descending order
+    return series.sort((a, b) => {
+      const sumA = a.data.reduce((acc, cur) => acc + (cur.value ?? 0), 0);
+      const sumB = b.data.reduce((acc, cur) => acc + (cur.value ?? 0), 0);
+      return sumB - sumA;
+    });
+  }, [allBudgets, barBorderRadius, barWidth, budgets, budgetsAnalytics, isLight, selectedMetric]);
+
   // series to be "hidden" in the chart
   const [inactiveSeries, setInactiveSeries] = useState<string[]>([]);
   const handleToggleSeries = (toggleSeries: string) => {
