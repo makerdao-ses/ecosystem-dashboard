@@ -65,10 +65,7 @@ const BudgetMetricsModal: React.FC = () => {
 
               <MetricItem>
                 <MetricTitle>Payments Off-Chain Incl</MetricTitle>
-                <MetricDescription>
-                  Transactions (expenses) processed outside the blockchain network. similar to the way we do the expense
-                  categories on the home page.
-                </MetricDescription>
+                <MetricDescription>Transactions (expenses) processed outside the blockchain network.</MetricDescription>
               </MetricItem>
             </InsideModal>
           </SimpleBarStyled>
