@@ -5,7 +5,7 @@ import useMobileDetector from '@ses/core/hooks/useMobileDetector';
 import lightTheme from '@ses/styles/theme/light';
 import classNames from 'classnames';
 import merge from 'deepmerge';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import ModalBottomSheet from './ModalBottomSheet';
 import TooltipModalVariant from './TooltipModalVariant';
 import type { TooltipProps } from '@mui/material';
@@ -34,12 +34,6 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
   const borderColor = borderColorProp || (isLight === false ? '#231536' : '#D4D9E1');
 
   const [controlledOpen, setControlledOpen] = React.useState(props.open ?? enableClickListener ? false : undefined);
-
-  useEffect(() => {
-    if (props.open !== undefined) {
-      setControlledOpen(props.open);
-    }
-  }, [props.open]);
 
   const defaultProps = useMemo<Partial<SESTooltipProps>>(
     () => ({
