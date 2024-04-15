@@ -20,7 +20,6 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
   const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
   const percent = threeDigitsPrecisionHumanization(percentageRespectTo(paymentsOnChain, budgetCap)).value;
-  const isPercentZero = percent === '0.00';
 
   return (
     <CardContainer className={className}>
@@ -43,8 +42,8 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
         </TotalBudgeCap>
       </PredictionWrapper>
       <DividerCardChart isLight={isLight} />
-      <Percent isLight={isLight} isPercentZero={isPercentZero}>
-        {isPercentZero ? '-- ' : percent}%
+      <Percent isLight={isLight} isRightPartZero={budgetCap === 0}>
+        {budgetCap === 0 ? '-- ' : percent}%
       </Percent>
       <BarWrapper>
         <HorizontalBudgetBarStyled actuals={paymentsOnChain} prediction={0} budgetCap={budgetCap} />
@@ -278,7 +277,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Percent = styled.div<WithIsLight & { isPercentZero: boolean }>(({ isLight, isPercentZero }) => ({
+const Percent = styled.div<WithIsLight & { isRightPartZero: boolean }>(({ isLight, isRightPartZero }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 20,
   fontStyle: 'normal',
@@ -286,7 +285,7 @@ const Percent = styled.div<WithIsLight & { isPercentZero: boolean }>(({ isLight,
   lineHeight: 'normal',
   textAlign: 'center',
   letterSpacing: '0.4px',
-  color: isPercentZero ? (isLight ? '#9FAFB9' : '#708390') : isLight ? '#405361' : '#9FAFB9',
+  color: isRightPartZero ? (isLight ? '#9FAFB9' : '#708390') : isLight ? '#405361' : '#9FAFB9',
 }));
 
 const DividerActualsBudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
