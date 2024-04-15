@@ -1,11 +1,8 @@
-import styled from '@emotion/styled';
-import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { IconButton, Menu, MenuItem, styled, Typography } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
-import ThereDots from '../svg/there-dots';
-import ThreeDotsWithCircleGreen from '../svg/three-dots-circle-green';
 
 interface Props {
   title: string;
@@ -35,26 +32,18 @@ const BreadCrumbWithIcons = ({ title, items = [], className, marginRightSeparato
   return (
     <Container className={className}>
       {hasIcon && (
-        <IconButton
-          sx={{
-            marginRight: '8px',
-            padding: '0px',
-          }}
-          id="fade-button"
+        <ArrowBackIconButton
           aria-controls={open ? 'fade-menu' : undefined}
-          aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >
-          {open ? (
-            <ThreeDotsWithCircleGreen
-              fill={isLight ? '#B6EDE7' : '#1E2C37'}
-              fillThereDots={isLight ? '#1AAB9B' : '#02CB9B'}
+          <svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0.109783 7.10624L0 6.99996L0.109783 6.89377L0.788671 6.23644L0.789602 6.23554L6.90382 0.316445C7.33965 -0.105481 8.04627 -0.105481 8.4821 0.316445C8.91792 0.738372 8.91792 1.42245 8.4821 1.84438L4.27261 5.9196L17.884 5.9196C18.5003 5.9196 19 6.40323 19 6.99996C19 7.59668 18.5003 8.08041 17.884 8.08041L4.27261 8.08041L8.4821 12.1556C8.91792 12.5775 8.91792 13.2616 8.4821 13.6835C8.04627 14.1055 7.33965 14.1055 6.90382 13.6835L0.789602 7.76441L0.788671 7.7635L0.109783 7.10624Z"
+              fill={isLight ? '#231536' : '#E2D8EE'}
             />
-          ) : (
-            <ThereDots width={12} fill={isLight ? '#231536' : '#D2D4EF'} height={3} />
-          )}
-        </IconButton>
+          </svg>
+        </ArrowBackIconButton>
       )}
       <Menu
         disableScrollLock={true}
@@ -139,34 +128,45 @@ const BreadCrumbWithIcons = ({ title, items = [], className, marginRightSeparato
           fillDark="#9FAFB9"
         />
       )}
-      <StyleTitle isLight={isLight}>{title}</StyleTitle>
+      <StyleTitle>{title}</StyleTitle>
     </Container>
   );
 };
 
-const StyleTitle = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 600,
-    fontSize: '11px',
-    lineHeight: '13px',
-    textAlign: 'center',
-    color: isLight ? '#231536' : '#E2D8EE',
-  })
-);
+const StyleTitle = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '11px',
+  lineHeight: '13px',
+  textAlign: 'center',
+  color: theme.palette.mode === 'light' ? '#231536' : '#E2D8EE',
+}));
 
-const ItemMenu = styled.a({
+const ItemMenu = styled('a')({
   textDecoration: 'none',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
 });
 
-const Container = styled.div({
+const Container = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
 });
+
+const ArrowBackIconButton = styled(IconButton)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 32,
+  height: 32,
+  borderRadius: '50%',
+  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : '#343442'}`,
+  background: theme.palette.mode === 'light' ? '#FFFFFF' : '#10191F',
+  marginRight: 8,
+  padding: 0,
+}));
 
 export default BreadCrumbWithIcons;
