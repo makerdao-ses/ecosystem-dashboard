@@ -66,11 +66,13 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
               />
               <ContainerDescription>
                 <ContainerShortCodeName>
-                  <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
+                  {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
+                    <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
+                  )}
                   <Name isLight={isLight}>{actor.name}</Name>
                 </ContainerShortCodeName>
 
-                {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS') && (
+                {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                   <StatusMobile>
                     {' '}
                     <StatusChip status={CuMipStatus.Accepted} />
