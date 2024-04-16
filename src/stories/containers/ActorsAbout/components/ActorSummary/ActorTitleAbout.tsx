@@ -45,9 +45,11 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
               <ContainerSeparateData>
                 <ResponsiveTitle>
                   <ShortCodeTitle>
-                    <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
+                    {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
+                      <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
+                    )}
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
-                    {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS') && (
+                    {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                       <Status>
                         <StatusChip status={CuMipStatus.Accepted} />
                       </Status>
@@ -68,10 +70,12 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
               <ContainerSeparateData>
                 <ResponsiveTitle>
                   <ShortCodeTitle>
-                    <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
+                    {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
+                      <ShortCode isLight={isLight}>{actorAbout.shortCode}</ShortCode>
+                    )}
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                   </ShortCodeTitle>
-                  {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS') && (
+                  {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                     <Status>
                       <StatusChip status={CuMipStatus.Accepted} />
                     </Status>
