@@ -58,7 +58,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
         <SimpleStatCard
           date={startDate}
           value={balance?.initialBalance}
-          caption={`Initial ${isCoreUnit ? 'Core Unit' : ''}Reserves`}
+          caption={`Initial ${isCoreUnit ? 'Core Unit' : ''} Reserves`}
           dynamicChanges
         />
         <FundChangeCard
