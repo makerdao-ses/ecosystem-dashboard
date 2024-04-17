@@ -283,7 +283,7 @@ export const useCardChartOverview = (
     : 5;
 
   return {
-    paymentsOnChain: isHasSubLevels ? metric.paymentsOnChain : budgetWithNotChildren.actuals,
+    paymentsOnChain: isHasSubLevels ? metric.paymentsOnChain : budgetWithNotChildren.paymentsOnChain,
     budgetCap: isHasSubLevels ? metric.budget : budgetWithNotChildren.budget,
     selectedMetric,
     handleSelectedMetric,
