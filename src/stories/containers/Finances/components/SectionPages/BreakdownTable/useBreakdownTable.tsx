@@ -294,13 +294,11 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
       subBudgets.forEach((subBudget) => {
         if (!rows.some((row) => row.name === subBudget.codePath)) {
-          if (subBudget.code !== 'other') {
-            rows.push({
-              name: subBudget.code === 'other' ? 'Uncategorized' : isMobile ? subBudget.code : subBudget.codePath,
-              codePath: subBudget.codePath,
-              columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
-            });
-          }
+          rows.push({
+            name: isMobile ? subBudget.code : subBudget.codePath,
+            codePath: subBudget.codePath,
+            columns: Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })),
+          });
         }
       });
       // add correct rows name
@@ -309,20 +307,13 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         if (!nameOrCode) {
           row.name = `${removePatternAfterSlash(row.name)}`;
         } else {
-          row.name = nameOrCode.name === 'other' ? 'Uncategorized' : isMobile ? nameOrCode.code : nameOrCode.name;
+          row.name = isMobile ? nameOrCode.code : nameOrCode.name;
         }
       });
-      const formatBudget = formatBudgetName(budget.name);
+
       // sub-table header
       const header: ItemRow = {
-        name:
-          formatBudget === 'Other'
-            ? 'Uncategorized'
-            : isMobile
-            ? lod === 3
-              ? formatBudget
-              : budget.code
-            : formatBudget,
+        name: isMobile ? (lod === 3 ? formatBudgetName(budget.name) : budget.code) : formatBudgetName(budget.name),
 
         isMain: true,
         codePath: budget.codePath,
