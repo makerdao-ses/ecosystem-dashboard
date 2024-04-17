@@ -27,19 +27,37 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
   const [activeElements, setActiveElements] = useState<string[]>([]);
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
   const [resetActiveElements, setResetActiveElements] = useState(true);
-
   const levelOfDetail = codePath.split('/').length + 1;
+
+  // title of the waterfall chart section
+  const titleChart = useMemo(() => {
+    const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
+    const titleLevelBudget = formatBudgetName(levelBudget?.name || '');
+    return titleLevelBudget === '' ? 'MakerDAO Finances' : titleLevelBudget;
+  }, [allBudgets, codePath]);
+
+  // Reset all default value when codePath Change
+  // we are in a different level and the chart should be reset
+  useEffect(() => {
+    setResetActiveElements(true);
+    setSelectedGranularity('monthly');
+  }, [codePath]);
+
   // fetch actual data from the API
   const { data: analytics, isLoading } = useSWRImmutable(
     [selectedGranularity, year, codePath, levelOfDetail],
     async () => fetchAnalytics(selectedGranularity, year, codePath, levelOfDetail)
   );
 
-  const { summaryValues, totalToStartEachBudget } = useMemo(
+  const {
+    summaryValues, // actual values for each budget
+    totalToStartEachBudget, // start value for each budget
+  } = useMemo(
     () => getAnalyticForWaterfall(budgets, selectedGranularity, analytics, allBudgets),
     [budgets, selectedGranularity, analytics, allBudgets]
   );
 
+  // all items available to select
   const selectAll = useMemo(() => Array.from(summaryValues.keys()), [summaryValues]);
 
   useEffect(() => {
@@ -49,26 +67,34 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
     }
   }, [isLoading, resetActiveElements, selectAll]);
 
-  // Reset all default value when codePath Change
-  useEffect(() => {
-    setResetActiveElements(true);
-    setSelectedGranularity('monthly');
-  }, [codePath]);
-
-  const handleSelectChange = (value: string[]) => {
-    setActiveElements(value);
+  const handleSelectChange = (activeBudgets: string[]) => {
+    setActiveElements(activeBudgets);
   };
+
+  // reset the filters to the default values
   const handleResetFilter = () => {
     setActiveElements(selectAll);
     setSelectedGranularity('monthly');
   };
 
-  const handleGranularityChange = (value: AnalyticGranularity) => {
-    setSelectedGranularity(value);
+  const handleGranularityChange = (selectedGranularity: AnalyticGranularity) => {
+    setSelectedGranularity(selectedGranularity);
   };
 
-  // This to catch some analytics that don't have budgets
-  const combinedElementsFromAnalytics = useMemo(() => {
+  // series of the chart (waterfall and lines)
+  const series = useMemo(() => {
+    const valuesToShow = sumValuesFromMapKeys(summaryValues, activeElements, selectedGranularity);
+    const dataReady = processDataForWaterfall(valuesToShow, activeElements, totalToStartEachBudget);
+    const series = builderWaterfallSeries(dataReady, isMobile, isTable, isLight);
+    const valuesLine = calculateAccumulatedArray(dataReady);
+    const linesChart = generateLineSeries(valuesLine, isLight, isMobile);
+
+    series.push(...linesChart);
+    return series;
+  }, [activeElements, isLight, isMobile, isTable, selectedGranularity, summaryValues, totalToStartEachBudget]);
+
+  const items = useMemo(() => {
+    // This to catch some analytics that don't have budgets
     const newElements = selectAll
       .filter((selectAllPath) => !allBudgets.some((budget) => budget.codePath === selectAllPath))
       .map((element) => ({
@@ -76,29 +102,22 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
         codePath: element,
         image: '',
       }));
+    const combinedElementsFromAnalytics = [...budgets, ...newElements];
 
-    const combinedArray = [...budgets, ...newElements];
-    return combinedArray;
+    return sortBy(combinedElementsFromAnalytics, (subBudget) => subBudget.name).map((budget) => ({
+      id: budget.codePath,
+      content: formatBudgetName(budget.name),
+      count: 0,
+      params: {
+        url: budget.image,
+      },
+    })) as MultiSelectItem[];
   }, [allBudgets, budgets, selectAll]);
+  // by default 8 items are visible and the others need to be scrolled (7 + 1 for the "Select all" item)
+  const itemsCount = Math.min(8, items.length + 1);
+  const popupContainerHeight = itemsCount * 40 + (itemsCount - 1) * 4;
 
-  const defaultTitle = 'MakerDAO Finances';
-
-  const levelBudget = allBudgets?.find((budget) => budget.codePath === codePath);
-  const getTitleLevelBudget = formatBudgetName(levelBudget?.name || '');
-
-  const valuesToShow = sumValuesFromMapKeys(summaryValues, activeElements, selectedGranularity);
-
-  const dataReady = processDataForWaterfall(valuesToShow, activeElements, totalToStartEachBudget);
-
-  const series = builderWaterfallSeries(dataReady, isMobile, isTable, isLight);
-
-  const valuesLine = useMemo(() => calculateAccumulatedArray(dataReady), [dataReady]);
-  const linesChart = useMemo(() => generateLineSeries(valuesLine, isLight, isMobile), [isLight, isMobile, valuesLine]);
-
-  series.push(...linesChart);
-
-  const titleChart = getTitleLevelBudget === '' ? defaultTitle : getTitleLevelBudget;
-
+  // we always show the same legends for this chart
   const legendItems: LegendItemsWaterfall[] = [
     {
       title: 'Reserves Balance',
@@ -113,23 +132,8 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
       color: isLight ? '#2DC1B1' : '#1AAB9B',
     },
   ];
-
-  const items = useMemo(
-    () =>
-      sortBy(combinedElementsFromAnalytics, (subBudget) => subBudget.name).map((budget) => ({
-        id: budget.codePath,
-        content: formatBudgetName(budget.name),
-        count: 0,
-        params: {
-          url: budget.image,
-        },
-      })) as MultiSelectItem[],
-    [combinedElementsFromAnalytics]
-  );
-  const itemsCount = Math.min(8, items.length + 1);
-  const popupContainerHeight = itemsCount * 40 + (itemsCount - 1) * 4;
-
-  const isDisabled = activeElements.length === selectAll.length && selectedGranularity === 'monthly';
+  // if the default filters are selected then the "Reset filters" button should be disabled
+  const areDefaultFiltersSelected = activeElements.length === selectAll.length && selectedGranularity === 'monthly';
   return {
     titleChart,
     legendItems,
@@ -142,6 +146,6 @@ export const useReservesWaterfallChart = (codePath: string, budgets: Budget[], a
     activeElements,
     handleSelectChange,
     isLoading,
-    isDisabled,
+    areDefaultFiltersSelected,
   };
 };

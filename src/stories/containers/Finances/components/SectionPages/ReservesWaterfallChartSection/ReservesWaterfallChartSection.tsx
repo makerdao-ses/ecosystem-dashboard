@@ -25,7 +25,7 @@ interface Props {
   handleGranularityChange: (value: AnalyticGranularity) => void;
   handleResetFilter: () => void;
   isLoading: boolean;
-  isDisabled: boolean;
+  areDefaultFiltersSelected: boolean;
 }
 
 const ReservesWaterfallChartSection: React.FC<Props> = ({
@@ -41,7 +41,7 @@ const ReservesWaterfallChartSection: React.FC<Props> = ({
   handleGranularityChange,
   handleResetFilter,
   isLoading,
-  isDisabled,
+  areDefaultFiltersSelected,
 }) => (
   <Container>
     <ContainerTitleFilter>
@@ -54,7 +54,7 @@ const ReservesWaterfallChartSection: React.FC<Props> = ({
         selectedGranularity={selectedGranularity}
         items={items}
         popupContainerHeight={popupContainerHeight}
-        isDisabled={isDisabled}
+        areDefaultFiltersSelected={areDefaultFiltersSelected}
       />
     </ContainerTitleFilter>
     <ContainerChart>
