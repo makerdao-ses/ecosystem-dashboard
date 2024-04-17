@@ -109,7 +109,15 @@ const DoughnutChartFinances: React.FC<Props> = ({
         <div style="background-color:${
           isLight ? '#fff' : '#000A13'
         };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
-          <div style="margin-bottom:4px;color:${isLight ? '#000' : '#EDEFFF'};">${itemRender.percent} %</div>
+          <div style="margin-bottom:4px;color:${isLight ? '#000' : '#EDEFFF'};">${
+            itemRender.percent === 0
+              ? 0
+              : itemRender.percent < 0.1
+              ? '<0.1'
+              : itemRender.percent < 1
+              ? usLocalizedNumber(itemRender.percent, 2)
+              : Math.round(itemRender.percent)
+          }%</div>
           <div style="margin-bottom:16px;color:${
             isLight ? '#000' : '#EDEFFF'
           };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">${itemRender.name}</div>
