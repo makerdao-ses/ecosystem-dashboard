@@ -114,7 +114,7 @@ const BreadCrumbWithIcons = ({ title, items = [], className, marginRightSeparato
               }}
               legacyBehavior
             >
-              <ItemMenu onClick={handleClose}>{item.label === 'Other' ? 'Uncategorized' : item.label}</ItemMenu>
+              <ItemMenu onClick={handleClose}>{item.label}</ItemMenu>
             </Link>
           </MenuItem>
         ))}

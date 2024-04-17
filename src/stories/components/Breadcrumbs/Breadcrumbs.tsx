@@ -50,7 +50,7 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
               marginLeft={props.marginLeft}
               marginRight={props.marginRight}
             >
-              {item.label === 'Other' ? 'Uncategorized' : item.label}
+              {item.label}
             </Crumb>
           </Link>
           {i !== props.items.length - 1 && (
