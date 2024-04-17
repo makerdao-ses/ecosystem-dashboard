@@ -188,7 +188,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             handleGranularityChange={reserveChart.handleGranularityChange}
             handleResetFilter={reserveChart.handleResetFilter}
             isLoading={reserveChart.isLoading}
-            isDisabled={reserveChart.isDisabled}
+            areDefaultFiltersSelected={reserveChart.areDefaultFiltersSelected}
           />
         </ContainerReservesWaterfallChart>
         <ContainerLastReport>

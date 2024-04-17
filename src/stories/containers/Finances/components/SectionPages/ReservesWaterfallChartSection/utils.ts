@@ -301,9 +301,8 @@ export const getAnalyticForWaterfall = (
   const arrayLength = getArrayLengthByGranularity(granularity);
   const summaryValues = new Map<string, number[]>();
   const totalToStartEachBudget = new Map<string, number>();
-
-  let netProtocolOutflow = 0;
-  let paymentsOnChain = 0;
+  // this accumulator is used to calculate the difference between the two metrics by budget
+  const accumulator = new Map<string, WaterfallReserves>();
 
   budgets.forEach((budget) => {
     budgetAnalyticMap.set(
@@ -336,17 +335,22 @@ export const getAnalyticForWaterfall = (
     analytics.series.forEach((periods, index) => {
       periods.rows.forEach((row) => {
         const analyticPath = row.dimensions[0].path;
+        if (!accumulator.has(analyticPath)) {
+          // initialize the accumulator
+          accumulator.set(analyticPath, { ...EMPTY_METRIC_VALUE });
+        }
 
+        const accumulatorForCurrentPath = accumulator.get(analyticPath) as WaterfallReserves;
         if (index === 0) {
           if (row.metric === 'ProtocolNetOutflow') {
-            netProtocolOutflow = row.sum - row.value;
+            accumulatorForCurrentPath.ProtocolNetOutflow += row.sum - row.value;
           }
           if (row.metric === 'PaymentsOnChain') {
-            paymentsOnChain = row.sum - row.value;
+            accumulatorForCurrentPath.PaymentsOnChain += row.sum - row.value;
           }
 
-          const getStartDifference = netProtocolOutflow - paymentsOnChain;
-          const checkValueLessZero = Math.abs(getStartDifference) < UMBRAL_CHART_WATERFALL ? 0 : getStartDifference;
+          const difference = accumulatorForCurrentPath.ProtocolNetOutflow - accumulatorForCurrentPath.PaymentsOnChain;
+          const checkValueLessZero = Math.abs(difference) < UMBRAL_CHART_WATERFALL ? 0 : difference;
           totalToStartEachBudget.set(removePatternAfterSlash(analyticPath), checkValueLessZero);
         }
         if (values[index]) {
@@ -365,6 +369,10 @@ export const getAnalyticForWaterfall = (
     analytics.series.forEach((periods, index) => {
       periods.rows.forEach((row) => {
         const analyticPath = row.dimensions[0].path;
+        if (!accumulator.has(analyticPath)) {
+          // initialize the accumulator
+          accumulator.set(analyticPath, { ...EMPTY_METRIC_VALUE });
+        }
         let values = budgetAnalyticMap.get(analyticPath);
         if (!values) {
           values = Array.from({ length: arrayLength }, () => ({
@@ -372,15 +380,16 @@ export const getAnalyticForWaterfall = (
           }));
         }
 
+        const accumulatorForCurrentPath = accumulator.get(analyticPath) as WaterfallReserves;
         if (index === 0) {
           if (row.metric === 'ProtocolNetOutflow') {
-            netProtocolOutflow += row.sum - row.value;
+            accumulatorForCurrentPath.ProtocolNetOutflow += row.sum - row.value;
           }
           if (row.metric === 'PaymentsOnChain') {
-            paymentsOnChain += row.sum - row.value;
+            accumulatorForCurrentPath.PaymentsOnChain += row.sum - row.value;
           }
 
-          const difference = netProtocolOutflow - paymentsOnChain;
+          const difference = accumulatorForCurrentPath.ProtocolNetOutflow - accumulatorForCurrentPath.PaymentsOnChain;
           const checkValueLessZero = Math.abs(difference) < UMBRAL_CHART_WATERFALL ? 0 : difference;
           totalToStartEachBudget.set(analyticPath, checkValueLessZero);
         }

@@ -15,7 +15,7 @@ import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 interface FiltersProps {
   selectedGranularity: AnalyticGranularity;
   handleGranularityChange: (value: AnalyticGranularity) => void;
-  isDisabled?: boolean;
+  areDefaultFiltersSelected?: boolean;
   handleResetFilter: () => void;
   handleSelectChangeItem: (value: string[]) => void;
   popupContainerHeight: number;
@@ -29,7 +29,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
   selectedGranularity,
   popupContainerHeight,
   handleGranularityChange,
-  isDisabled = true,
+  areDefaultFiltersSelected = true,
   handleResetFilter,
   handleSelectChangeItem,
   items,
@@ -52,7 +52,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
         <Reset>
           <ResetButton
             onClick={handleResetFilter}
-            disabled={isDisabled}
+            disabled={areDefaultFiltersSelected}
             hasIcon={false}
             label="Reset filters"
             legacyBreakpoints={false}
@@ -106,7 +106,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
             }}
           />
         </SelectContainer>
-        <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={isDisabled} />
+        <ResponsiveButtonClearFilter handleResetFilter={handleResetFilter} isDisabled={areDefaultFiltersSelected} />
       </FilterContainer>
     </ContainerFilterTitle>
   );
