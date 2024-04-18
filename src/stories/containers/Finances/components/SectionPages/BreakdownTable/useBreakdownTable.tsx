@@ -294,6 +294,9 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
       subBudgets.forEach((subBudget) => {
         if (!rows.some((row) => row.name === subBudget.codePath)) {
+          if (subBudget.code === 'uncategorized' || subBudget.code === 'other') {
+            return; // all the values are 0 so we don't need to add it
+          }
           rows.push({
             name: isMobile ? subBudget.code : subBudget.codePath,
             codePath: subBudget.codePath,
@@ -336,7 +339,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           .filter((item) => item !== null),
       };
       // Check if only one element is only the header so don't need rows
-      if (!(header.name === 'Uncategorized' && isHeaderValuesZero(header))) {
+      if (!((header.name === 'Uncategorized' || header.name === 'Other') && isHeaderValuesZero(header))) {
         if (rows.length === 1) {
           table.rows = [header];
         } else {
