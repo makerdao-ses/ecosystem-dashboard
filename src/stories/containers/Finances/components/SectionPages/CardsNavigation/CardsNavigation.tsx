@@ -111,6 +111,7 @@ const CardsNavigation: React.FC<Props> = ({
         )}
       </WrapperDesk>
       <WrapperMobile>
+        <Subtitle isLight={isLight}>Subcategories</Subtitle>
         {cardsNavigationInformation.map((card: NavigationCard, index) => (
           <CardNavigationMobile
             budgetCap={budgetCap}
@@ -236,6 +237,18 @@ const WrapperMobile = styled.div({
     display: 'none',
   },
 });
+
+const Subtitle = styled.div<WithIsLight>(({ isLight }) => ({
+  fontSize: 14,
+  lineHeight: '22px',
+  fontWeight: 500,
+  color: isLight ? '#B6BCC2' : '#708390',
+  margin: '8px 0',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+}));
 
 const ContainerButton = styled.div({
   width: '100%',
