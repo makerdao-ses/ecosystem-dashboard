@@ -1,6 +1,7 @@
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { buildExpenseMetricsLineChartSeries } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
@@ -48,16 +49,31 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
     const reduceMetric = (rows: AnalyticSeriesRow[], metric: AnalyticMetric) =>
       rows.filter((element) => element.metric === metric).reduce((acc, current) => acc + current.value, 0);
 
-    analytics.series.forEach((item) => {
+    // some metrics can be added if they're from future dates
+    const currentDate = DateTime.utc();
+    const isCurrentYear = currentDate.year === parseInt(year, 10);
+    const canAddItem = (index: number) => {
+      if (!isCurrentYear) return true;
+
+      if (selectedGranularity === 'monthly') return index < currentDate.month;
+      if (selectedGranularity === 'quarterly') return index < currentDate.quarter;
+
+      return true;
+    };
+
+    analytics.series.forEach((item, index) => {
       data.budget.push(reduceMetric(item.rows, 'Budget'));
       data.forecast.push(reduceMetric(item.rows, 'Forecast'));
-      data.actuals.push(reduceMetric(item.rows, 'Actuals'));
-      data.onChain.push(reduceMetric(item.rows, 'PaymentsOnChain'));
-      data.protocolNetOutflow.push(reduceMetric(item.rows, 'ProtocolNetOutflow'));
+
+      if (canAddItem(index)) {
+        data.actuals.push(reduceMetric(item.rows, 'Actuals'));
+        data.onChain.push(reduceMetric(item.rows, 'PaymentsOnChain'));
+        data.protocolNetOutflow.push(reduceMetric(item.rows, 'ProtocolNetOutflow'));
+      }
     });
 
     return data;
-  }, [analytics, selectedGranularity]);
+  }, [analytics, selectedGranularity, year]);
 
   // series to be "hidden" in the line chart
   const [inactiveSeries, setInactiveSeries] = useState<string[]>([]);
