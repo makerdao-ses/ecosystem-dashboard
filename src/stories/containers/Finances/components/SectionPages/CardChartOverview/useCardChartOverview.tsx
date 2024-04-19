@@ -241,28 +241,6 @@ export const useCardChartOverview = (
     });
   }, [budgetMetrics, isLight, metric, selectedMetric]);
 
-  // Check some value affect the total 100%
-  const totalPercent = doughnutSeriesData.reduce((acc, curr) => acc + Math.round(curr.percent), 0);
-  // Verify that sum of percent its 100% and there its not a 0%
-  if (totalPercent !== 100 && totalPercent !== 0) {
-    const difference = 100 - totalPercent;
-    doughnutSeriesData.forEach((item) => {
-      if (item.percent < 1) return;
-      const adjustment = (item.percent / totalPercent) * difference;
-      item.percent = Math.round(item.percent + adjustment);
-    });
-
-    const checkForPercent = doughnutSeriesData.reduce((acc, curr) => acc + Math.round(curr.percent), 0);
-    const roundingError = 100 - checkForPercent;
-    if (roundingError !== 0) {
-      const indexToAdjust = doughnutSeriesData.findIndex((item) => Math.round(item.percent) >= 1);
-      // Fix the percent with some index in array of values
-      if (indexToAdjust !== -1) {
-        doughnutSeriesData[indexToAdjust].percent += roundingError;
-      }
-    }
-  }
-
   const numberItems = doughnutSeriesData.length;
   const changeAlignment = numberItems > 4;
 

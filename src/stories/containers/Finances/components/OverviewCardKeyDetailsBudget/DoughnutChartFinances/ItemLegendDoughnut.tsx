@@ -50,7 +50,7 @@ const ItemLegendDoughnut: React.FC<Props> = ({
             ? '<0.1'
             : doughnutData.percent < 1
             ? usLocalizedNumber(doughnutData.percent, 2)
-            : Math.round(doughnutData.percent)
+            : usLocalizedNumber(doughnutData.percent, 1)
         }%)`}</Percent>
         <ContainerValue>
           <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
