@@ -41,11 +41,18 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
   const isCoreUnitElement = budget.ownerType === 'CoreUnit';
 
   const link = useMemo(() => {
-    if (budget.ownerType === 'CoreUnit') {
-      return `${siteRoutes.coreUnitReports(budget.owner.shortCode)}?viewMonth=${DateTime.fromFormat(
-        budget.month,
-        'yyyy-LL-dd'
-      ).toFormat('LLLyyyy')}`;
+    switch (budget.ownerType) {
+      case 'CoreUnit':
+        return `${siteRoutes.coreUnitReports(budget.owner.shortCode)}?viewMonth=${DateTime.fromFormat(
+          budget.month,
+          'yyyy-LL-dd'
+        ).toFormat('LLLyyyy')}`;
+
+      case 'Delegates':
+        return `${siteRoutes.recognizedDelegateReport}?viewMonth=${DateTime.fromFormat(
+          budget.month,
+          'yyyy-LL-dd'
+        ).toFormat('LLLyyyy')}`;
     }
 
     // ecosystem actor by default
