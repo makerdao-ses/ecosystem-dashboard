@@ -20,7 +20,7 @@ export const ItemCoreUnit = ({ queryStrings, isLoading, columns, cu }: Props) =>
   return (
     <>
       <TableWrapper>
-        <Link href={`${siteRoutes.coreUnitReports(cu?.shortCode)}/${queryStrings}`} passHref legacyBehavior>
+        <Link href={`${siteRoutes.coreUnitAbout(cu?.shortCode)}/${queryStrings}`} passHref legacyBehavior>
           <TableRow isLight={isLight} isLoading={isLoading} columns={columns}>
             {columns?.map((column) => (
               <TableCell key={column?.header}>{column.cellRender?.(cu)}</TableCell>
