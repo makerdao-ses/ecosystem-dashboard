@@ -443,7 +443,7 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLev
       position: 'relative',
       height: 'calc(100% - 8px)',
       ...(numberSliderPerLevel === 10 && {
-        minWidth: 340,
+        minWidth: 365,
         height: 'calc(100% - 10px)',
       }),
     },
