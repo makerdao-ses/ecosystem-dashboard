@@ -89,7 +89,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   }
 
   return (
-    <Link href={`${siteRoutes.coreUnitReports(coreUnit.shortCode)}/${queryStrings}`} passHref legacyBehavior>
+    <Link href={`${siteRoutes.coreUnitAbout(coreUnit.shortCode)}/${queryStrings}`} passHref legacyBehavior>
       <CuCard>
         <Container isLight={isLight}>
           <Summary>
