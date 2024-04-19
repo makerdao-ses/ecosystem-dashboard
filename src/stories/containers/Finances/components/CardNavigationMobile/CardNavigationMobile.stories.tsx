@@ -24,6 +24,8 @@ const args = [
     totalDai: 8950775,
     valueDai: 1790155,
     barColor: '#F99374',
+    percent: 23.0,
+    budgetCap: 10000000,
   },
 ];
 const [[LightMode, DarkMode]] = createThemeModeVariants(CardNavigationMobile, args);
