@@ -20,9 +20,7 @@ const CumulativeFilter: React.FC = () => {
   };
 
   const handleCheck = () => {
-    if (isActive) {
-      setCumulativeType(undefined);
-    }
+    setCumulativeType(isActive ? undefined : 'relative');
     setIsActive((prev) => !prev);
   };
 
