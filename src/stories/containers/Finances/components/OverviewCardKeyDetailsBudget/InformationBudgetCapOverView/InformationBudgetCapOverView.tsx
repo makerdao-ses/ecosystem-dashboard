@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mui/material';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -6,6 +7,7 @@ import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import lightTheme from 'styles/theme/light';
+import type { Theme } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
@@ -16,6 +18,7 @@ export type QuarterCardProps = {
 
 const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnChain, budgetCap, className }) => {
   const { isLight } = useThemeContext();
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const humanizedActuals = threeDigitsPrecisionHumanization(paymentsOnChain);
   const humanizedBudgetCap = threeDigitsPrecisionHumanization(budgetCap);
@@ -47,10 +50,13 @@ const InformationBudgetCapOverview: React.FC<QuarterCardProps> = ({ paymentsOnCh
       </Percent>
       <BarWrapper>
         <HorizontalBudgetBarStyled actuals={paymentsOnChain} prediction={0} budgetCap={budgetCap} />
+        <MobilePercent isLight={isLight} isRightPartZero={budgetCap === 0}>
+          {budgetCap === 0 ? '-- ' : percent}%
+        </MobilePercent>
       </BarWrapper>
       <Legend>
         <LegendItem isLight={isLight} dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-          <LegendLabelMobileTable>Net Exp On-Chain</LegendLabelMobileTable>
+          <LegendLabelMobileTable>Net {isMobile ? 'Expenses' : 'Exp'} On-Chain</LegendLabelMobileTable>
           <LegendLabel>Net Expenses On-Chain</LegendLabel>
         </LegendItem>
         <LegendItem isLight={isLight} dotColor={'#F75524'}>
@@ -134,6 +140,9 @@ const PredictionSymbol = styled.div<WithIsLight>(({ isLight }) => ({
 const NumberSuffix = styled.div({});
 
 const BarWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
   marginTop: 8,
   marginBottom: 8,
 
@@ -213,6 +222,7 @@ const LegendLabelMobileTable = styled.div({
   marginLeft: 4,
   fontSize: 14,
   lineHeight: 'normal',
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
     lineHeight: 'normal',
@@ -278,6 +288,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const Percent = styled.div<WithIsLight & { isRightPartZero: boolean }>(({ isLight, isRightPartZero }) => ({
+  display: 'none',
   fontFamily: 'Inter, sans-serif',
   fontSize: 20,
   fontStyle: 'normal',
@@ -286,6 +297,25 @@ const Percent = styled.div<WithIsLight & { isRightPartZero: boolean }>(({ isLigh
   textAlign: 'center',
   letterSpacing: '0.4px',
   color: isRightPartZero ? (isLight ? '#9FAFB9' : '#708390') : isLight ? '#405361' : '#9FAFB9',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'block',
+  },
+}));
+
+const MobilePercent = styled.div<WithIsLight & { isRightPartZero: boolean }>(({ isLight, isRightPartZero }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 20,
+  fontStyle: 'normal',
+  fontWeight: 600,
+  lineHeight: 'normal',
+  textAlign: 'center',
+  letterSpacing: '0.4px',
+  color: isRightPartZero ? (isLight ? '#9FAFB9' : '#708390') : isLight ? '#405361' : '#9FAFB9',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
 }));
 
 const DividerActualsBudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
@@ -298,13 +328,20 @@ const DividerActualsBudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
 }));
 
 const DividerCardChart = styled.div<WithIsLight>(({ isLight }) => ({
+  display: 'none',
   marginTop: 16,
   marginBottom: 16,
   borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'block',
+  },
+
   [lightTheme.breakpoints.up('desktop_1024')]: {
     marginTop: 16,
     marginBottom: 16,
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     marginTop: 24,
     marginBottom: 24,

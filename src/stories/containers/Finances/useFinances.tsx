@@ -123,13 +123,14 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
             href: `${siteRoutes.finances(item.codePath.replace('atlas/', ''))}?year=${year}`,
             valueDai: budgetMetric[0].paymentsOnChain.value,
             totalDai: allMetrics.paymentsOnChain,
+            budgetCapValue: budgetMetric[0].budget.value,
             code: item.code,
             color: isLight ? colorsLight[index] : colorsDark[index],
-            percent: percentageRespectTo(budgetMetric[0].paymentsOnChain.value, allMetrics.budget),
+            percent: percentageRespectTo(budgetMetric[0].paymentsOnChain.value, budgetMetric[0].budget.value),
           };
         })
         .sort((a, b) => b.percent - a.percent),
-    [allMetrics.budget, allMetrics.paymentsOnChain, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
+    [allMetrics.paymentsOnChain, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
   );
 
   // if there too many cards we need to use a swiper on desktop but paginated on mobile

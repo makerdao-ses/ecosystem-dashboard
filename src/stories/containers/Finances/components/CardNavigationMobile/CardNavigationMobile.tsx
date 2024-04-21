@@ -89,8 +89,11 @@ const CardNavigationMobile: React.FC<Props> = ({
                         isLight={isLight}
                       />
                     </ContainerBar>
-                    <Percent isLight={isLight}>
-                      {percent === 0
+                    <Percent isLight={isLight} isRightPartZero={budgetCap === 0}>
+                      {/* TODO: if the budget cap is 0 then show -- % */}
+                      {budgetCap === 0
+                        ? '-- '
+                        : percent === 0
                         ? 0
                         : percent < 0.1
                         ? '<0.1'
@@ -204,7 +207,7 @@ const ContainerBar = styled.div({
   borderRadius: 4,
 });
 
-const Percent = styled.div<WithIsLight>(({ isLight }) => ({
+const Percent = styled.div<WithIsLight & { isRightPartZero: boolean }>(({ isLight, isRightPartZero }) => ({
   textAlign: 'right',
   fontVariantNumeric: 'lin',
   fontFamily: 'Inter, sans-serif',
@@ -214,13 +217,15 @@ const Percent = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: 'normal',
   textTransform: 'uppercase',
   width: 34,
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: isRightPartZero ? (isLight ? '#9FAFB9' : '#708390') : isLight ? '#231536' : '#D2D4EF',
 }));
 
 const BarPercentRelativeToTotalStyled = styled(BarPercentRelativeToTotal)<WithIsLight & { barColor: string }>(
   ({ barColor, isLight }) => ({
     borderRadius: 4,
     backgroundColor: isLight ? '#ECF1F3' : '#10191F',
+    height: 16,
+
     '& > div': {
       background: barColor,
     },

@@ -15,7 +15,6 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
 
 interface Props {
-  budgetCap: number;
   cardsNavigationInformation: NavigationCard[];
   canLoadMoreCards: boolean;
   showMoreCards: boolean;
@@ -23,7 +22,6 @@ interface Props {
 }
 
 const CardsNavigation: React.FC<Props> = ({
-  budgetCap,
   cardsNavigationInformation,
   canLoadMoreCards,
   showMoreCards,
@@ -111,9 +109,10 @@ const CardsNavigation: React.FC<Props> = ({
         )}
       </WrapperDesk>
       <WrapperMobile>
+        <Subtitle isLight={isLight}>Subcategories</Subtitle>
         {cardsNavigationInformation.map((card: NavigationCard, index) => (
           <CardNavigationMobile
-            budgetCap={budgetCap}
+            budgetCap={card.budgetCapValue || 0}
             valueDai={card?.valueDai || 0}
             totalDai={card?.totalDai || 0}
             href={card.href}
@@ -236,6 +235,18 @@ const WrapperMobile = styled.div({
     display: 'none',
   },
 });
+
+const Subtitle = styled.div<WithIsLight>(({ isLight }) => ({
+  fontSize: 14,
+  lineHeight: '22px',
+  fontWeight: 500,
+  color: isLight ? '#B6BCC2' : '#708390',
+  margin: '8px 0',
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+}));
 
 const ContainerButton = styled.div({
   width: '100%',

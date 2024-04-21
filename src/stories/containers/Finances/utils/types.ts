@@ -17,6 +17,7 @@ export interface NavigationCard {
   href: string;
   totalDai?: number;
   valueDai?: number;
+  budgetCapValue?: number;
   color: string;
   code?: string;
   codePath?: string;
