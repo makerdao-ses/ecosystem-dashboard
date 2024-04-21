@@ -161,6 +161,7 @@ const dictionary = [
   'keyframes',
   'Uncategorized',
   'coord',
+  'dataset',
 ];
 
 module.exports = dictionary;

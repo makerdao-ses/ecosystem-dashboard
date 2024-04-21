@@ -3,6 +3,7 @@ import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect'
 import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SectionTitle from '../../SectionTitle/SectionTitle';
+import CumulativeFilter from './CumulativeFilter/CumulativeFilter';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 interface Props {
@@ -19,6 +20,7 @@ const TitleFilterComponent: React.FC<Props> = ({ title, handleChange, selectedVa
     />
 
     <FilterContainer>
+      <CumulativeFilter />
       <PeriodicSelectionFilter>
         <PeriodSelect
           items={[
@@ -64,7 +66,10 @@ const Container = styled.div({
 });
 
 const FilterContainer = styled.div({
+  display: 'flex',
   alignSelf: 'flex-end',
+  gap: 16,
+
   [lightTheme.breakpoints.up('tablet_768')]: {},
 });
 
