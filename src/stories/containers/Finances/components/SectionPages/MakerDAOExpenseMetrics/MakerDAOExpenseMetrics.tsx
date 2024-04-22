@@ -4,6 +4,7 @@ import React from 'react';
 import MakerDAOChartMetrics from './MakerDAOChartMetrics/MakerDAOChartMetrics';
 import MakerDAOExpenseMetricsSkeleton from './MakerDAOExpenseMetricsSkeleton';
 import TitleFilterComponent from './TitleFilterComponent';
+import type { CumulativeType } from './useMakerDAOExpenseMetrics';
 import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
@@ -11,6 +12,10 @@ interface Props {
   title: string;
   handleGranularityChange: (value: AnalyticGranularity) => void;
   selectedGranularity: AnalyticGranularity;
+  isCumulative: boolean;
+  handleToggleCumulative: () => void;
+  cumulativeType: CumulativeType;
+  handleChangeCumulativeType: (value: CumulativeType) => void;
   series: LineChartSeriesData[];
   handleToggleSeries: (series: string) => void;
   year: string;
@@ -21,13 +26,25 @@ const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
   title,
   handleGranularityChange,
   selectedGranularity,
+  isCumulative,
+  handleToggleCumulative,
+  cumulativeType,
+  handleChangeCumulativeType,
   series,
   handleToggleSeries,
   year,
   isLoading,
 }) => (
   <Container>
-    <TitleFilterComponent title={title} handleChange={handleGranularityChange} selectedValue={selectedGranularity} />
+    <TitleFilterComponent
+      title={title}
+      handleChange={handleGranularityChange}
+      selectedValue={selectedGranularity}
+      isCumulative={isCumulative}
+      handleToggleCumulative={handleToggleCumulative}
+      cumulativeType={cumulativeType}
+      handleChangeCumulativeType={handleChangeCumulativeType}
+    />
     <ContainerChart>
       {isLoading ? (
         <MakerDAOExpenseMetricsSkeleton />

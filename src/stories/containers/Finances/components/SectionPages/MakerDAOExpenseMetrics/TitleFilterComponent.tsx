@@ -4,15 +4,28 @@ import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 import CumulativeFilter from './CumulativeFilter/CumulativeFilter';
+import type { CumulativeType } from './useMakerDAOExpenseMetrics';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 
 interface Props {
   title: string;
   handleChange: (value: AnalyticGranularity) => void;
   selectedValue: AnalyticGranularity;
+  isCumulative: boolean;
+  handleToggleCumulative: () => void;
+  cumulativeType: CumulativeType;
+  handleChangeCumulativeType: (value: CumulativeType) => void;
 }
 
-const TitleFilterComponent: React.FC<Props> = ({ title, handleChange, selectedValue }) => (
+const TitleFilterComponent: React.FC<Props> = ({
+  title,
+  handleChange,
+  selectedValue,
+  isCumulative,
+  handleToggleCumulative,
+  cumulativeType,
+  handleChangeCumulativeType,
+}) => (
   <Container>
     <SectionTitle
       title={title}
@@ -20,7 +33,12 @@ const TitleFilterComponent: React.FC<Props> = ({ title, handleChange, selectedVa
     />
 
     <FilterContainer>
-      <CumulativeFilter />
+      <CumulativeFilter
+        isCumulative={isCumulative}
+        handleToggleCumulative={handleToggleCumulative}
+        cumulativeType={cumulativeType}
+        handleChangeCumulativeType={handleChangeCumulativeType}
+      />
       <PeriodicSelectionFilter>
         <PeriodSelect
           items={[
