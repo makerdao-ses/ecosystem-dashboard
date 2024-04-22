@@ -100,11 +100,6 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
         if (params.every((item) => item.value === 0)) {
           return '';
         }
-        const filteredParams =
-          // !isShowZeroValues
-          //   ?
-          params;
-        // : params.filter((item) => item.value !== 0 && Math.abs(item.value) > 0.004);
 
         const shortAmount = params.length > 10;
         const flexDirection = shortAmount ? 'row' : 'column';
@@ -132,7 +127,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
               }
             </div>
             <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${wrap}${minMax}">
-              ${filteredParams
+              ${params
                 .reverse()
                 .map(
                   (item) =>
