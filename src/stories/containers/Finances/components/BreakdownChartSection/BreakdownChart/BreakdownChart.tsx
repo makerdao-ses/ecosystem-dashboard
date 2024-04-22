@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import { createChartTooltip } from '@ses/containers/Finances/utils/chartTooltip';
 import {
   formatterBreakdownChart,
   getChartAxisLabelByGranularity,
@@ -8,11 +7,13 @@ import {
   removeBudgetWord,
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
+import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
+import { formatNumber, replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo } from 'react';
-import type { BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
+import { getSelectMetricText } from '../utils';
+import type { BarChartSeries, BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, AnalyticMetric } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
@@ -60,18 +61,97 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
 
   const options: EChartsOption = useMemo(
     () => ({
-      tooltip: createChartTooltip(
-        selectedGranularity,
-        year,
-        isLight,
-        isMobile,
-        isTablet,
-        isDesktop1024,
-        true,
-        selectedMetric,
-        true,
-        true
-      ),
+      tooltip: {
+        show: !isMobile,
+        trigger: 'axis',
+        extraCssText: `z-index:${zIndexEnum.ECHART_TOOL_TIP}`,
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: isLight ? '#D4D9E1' : '#231536',
+            opacity: 0.15,
+          },
+        },
+        padding: 0,
+        borderWidth: 1,
+        position: function (
+          point: [number, number],
+          params: EChartsOption,
+          dom: EChartsOption,
+          rect: EChartsOption,
+          size: EChartsOption
+        ) {
+          const MORE_WITH = 10;
+          const withTooltip = size.contentSize[0];
+          const heightTooltip = size.contentSize[0];
+
+          let xPos = point[0];
+          let yPos = point[1];
+
+          const tooltipWidth = withTooltip;
+          const tooltipHeight = heightTooltip;
+
+          if (xPos + tooltipWidth + MORE_WITH > window.innerWidth) {
+            xPos -= tooltipWidth;
+          }
+
+          if (yPos + tooltipHeight + MORE_WITH > window.innerHeight) {
+            yPos -= tooltipHeight;
+          }
+        },
+        borderColor: isLight ? '#D4D9E1' : '#231536',
+        formatter: function (params: BarChartSeries[]) {
+          // If all values are cero, don't show tooltip
+          if (params.every((item) => item.value === 0)) {
+            return '';
+          }
+          const filteredParams = params.filter((item) => item.value !== 0 && Math.abs(item.value) > 0.004);
+          const shortAmount = params.length > 10;
+          const flexDirection = shortAmount ? 'row' : 'column';
+          const wrap = shortAmount ? 'flex-wrap:wrap;' : '';
+          const gap = shortAmount ? '16px' : '12px';
+          const minMax = isTablet
+            ? 'max-width:300px'
+            : isDesktop1024
+            ? 'max-width:400px'
+            : 'min-width:190px;max-width:450px';
+          const maxWithTable = isTablet ? 'max-width:190px' : isDesktop1024 ? 'max-width:450px' : '';
+
+          return `
+            <div style="background-color:${isLight ? '#fff' : '#000A13'};padding:16px;overflow:auto;border-radius:3px;">
+              <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${
+                (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name
+              }<span style="display:inline-block;margin-left:10px">${getSelectMetricText(selectedMetric)}</span></div>
+              <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${wrap}${minMax}">
+                ${filteredParams
+                  .reverse()
+                  .map(
+                    (item) =>
+                      `<div style="display: flex;align-items:center;gap: 6px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="${isMobile ? 13 : 16}" height="${
+                        isMobile ? 13 : 16
+                      }" viewBox="0 0 13 13" fill="none" style="min-width:${isMobile ? 13 : 16};min-height:${
+                        isMobile ? 13 : 16
+                      }">
+                      <circle cx="6.5" cy="6.5" r="5.5" stroke="${item.color}" />
+                      <circle cx="6.5" cy="6.5" r="4" fill="${item.color}" />
+                    </svg>
+                    <span style="display: inline-block;font-size:14px;color:${
+                      isLight ? '#231536' : '#B6BCC2'
+                    };white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${maxWithTable}"> ${removeBudgetWord(
+                        formatBudgetName(item.seriesName)
+                      )}:</span>
+                    <span style="font-size:16px;font-weight:700;color:${
+                      isLight ? '#231536' : '#EDEFFF'
+                    };display: inline-block;">${formatNumber(item.value)}</span>
+                  </div>`
+                  )
+                  .join('')}
+              </div>
+            </div>
+            `;
+        },
+      },
       grid: {
         height: isLessMobile ? 198 : isMobile ? 192 : isTablet ? 390 : isDesktop1024 ? 392 : isDesktop1280 ? 392 : 392,
         width: isLessMobile ? 300 : isMobile ? 304 : isTablet ? 630 : isDesktop1024 ? 678 : isDesktop1280 ? 955 : 955,

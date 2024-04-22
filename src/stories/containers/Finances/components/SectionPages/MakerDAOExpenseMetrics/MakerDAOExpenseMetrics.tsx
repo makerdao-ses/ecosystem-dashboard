@@ -54,6 +54,8 @@ const MakerDAOExpenseMetricsFinances: React.FC<Props> = ({
           selectedGranularity={selectedGranularity}
           series={series}
           handleToggleSeries={handleToggleSeries}
+          isCumulative={isCumulative}
+          cumulativeType={cumulativeType}
         />
       )}
     </ContainerChart>
