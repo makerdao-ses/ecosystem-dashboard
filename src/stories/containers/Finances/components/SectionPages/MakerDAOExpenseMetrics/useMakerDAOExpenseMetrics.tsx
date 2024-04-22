@@ -8,6 +8,8 @@ import useSWRImmutable from 'swr/immutable';
 import type { LineChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, AnalyticMetric, AnalyticSeriesRow } from '@ses/core/models/interfaces/analytic';
 
+export type CumulativeType = 'relative' | 'absolute';
+
 export const useMakerDAOExpenseMetrics = (year: string) => {
   const { isLight } = useThemeContext();
   const [selectedGranularity, setSelectedGranularity] = useState<AnalyticGranularity>('monthly');
@@ -15,10 +17,19 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
     setSelectedGranularity(value);
   };
 
+  const [cumulativeType, setCumulativeType] = useState<CumulativeType>('relative');
+  const handleChangeCumulativeType = (value: CumulativeType) => {
+    setCumulativeType(value);
+  };
+  const [isCumulative, setIsCumulative] = useState<boolean>(false);
+  const handleToggleCumulative = () => {
+    setIsCumulative((prev) => !prev);
+  };
+
   const router = useRouter();
   const urlPath = Array.isArray(router.query.path) ? router.query.path.join('/') : router.query.path;
   const codePath = urlPath ? `atlas/${urlPath}` : 'atlas';
-  const levelOfDetail = codePath.split('/').length + 1;
+  const levelOfDetail = codePath === 'atlas' ? 1 : codePath.split('/').length;
 
   // fetch actual data from the API
   const { data: analytics, error } = useSWRImmutable([selectedGranularity, year, codePath, levelOfDetail], async () =>
@@ -45,10 +56,6 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
       return data;
     }
 
-    // calculate the sum of all the rows for a metric
-    const reduceMetric = (rows: AnalyticSeriesRow[], metric: AnalyticMetric) =>
-      rows.filter((element) => element.metric === metric).reduce((acc, current) => acc + current.value, 0);
-
     // some metrics can be added if they're from future dates
     const currentDate = DateTime.utc();
     const isCurrentYear = currentDate.year === parseInt(year, 10);
@@ -61,19 +68,60 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
       return true;
     };
 
+    const runningTotal = {
+      budget: 0,
+      forecast: 0,
+      actuals: 0,
+      onChain: 0,
+      protocolNetOutflow: 0,
+    };
+
+    const getMetricItem = (rows: AnalyticSeriesRow[], metric: AnalyticMetric) => {
+      const item = rows.find((row) => row.metric === metric) ?? {
+        value: 0,
+        sum: 0,
+      };
+
+      return item;
+    };
+
     analytics.series.forEach((item, index) => {
-      data.budget.push(reduceMetric(item.rows, 'Budget'));
-      data.forecast.push(reduceMetric(item.rows, 'Forecast'));
+      const budgetItem = getMetricItem(item.rows, 'Budget');
+      const forecastItem = getMetricItem(item.rows, 'Forecast');
+      const actualsItem = getMetricItem(item.rows, 'Actuals');
+      const onChainItem = getMetricItem(item.rows, 'PaymentsOnChain');
+      const protocolNetOutflowItem = getMetricItem(item.rows, 'ProtocolNetOutflow');
+      // absolute starts from the cumulative sum from the very start (2021) till the end of the previous period (year)
+      // while relative starts form 0
+      if (isCumulative && cumulativeType === 'absolute' && index === 0) {
+        runningTotal.budget = budgetItem.sum - budgetItem.value;
+        runningTotal.forecast = forecastItem.sum - forecastItem.value;
+        runningTotal.actuals = actualsItem.sum - actualsItem.value;
+        runningTotal.onChain = onChainItem.sum - onChainItem.value;
+        runningTotal.protocolNetOutflow = protocolNetOutflowItem.sum - protocolNetOutflowItem.value;
+      }
+
+      if (isCumulative) {
+        // add the current value to the running total to get the cumulative sum
+        runningTotal.budget += budgetItem.value;
+        runningTotal.forecast += forecastItem.value;
+        runningTotal.actuals += actualsItem.value;
+        runningTotal.onChain += onChainItem.value;
+        runningTotal.protocolNetOutflow += protocolNetOutflowItem.value;
+      }
+
+      data.budget.push(isCumulative ? runningTotal.budget : budgetItem.value);
+      data.forecast.push(isCumulative ? runningTotal.forecast : forecastItem.value);
 
       if (canAddItem(index)) {
-        data.actuals.push(reduceMetric(item.rows, 'Actuals'));
-        data.onChain.push(reduceMetric(item.rows, 'PaymentsOnChain'));
-        data.protocolNetOutflow.push(reduceMetric(item.rows, 'ProtocolNetOutflow'));
+        data.actuals.push(isCumulative ? runningTotal.actuals : actualsItem.value);
+        data.onChain.push(isCumulative ? runningTotal.onChain : onChainItem.value);
+        data.protocolNetOutflow.push(isCumulative ? runningTotal.protocolNetOutflow : protocolNetOutflowItem.value);
       }
     });
 
     return data;
-  }, [analytics, selectedGranularity, year]);
+  }, [analytics, cumulativeType, isCumulative, selectedGranularity, year]);
 
   // series to be "hidden" in the line chart
   const [inactiveSeries, setInactiveSeries] = useState<string[]>([]);
@@ -93,6 +141,10 @@ export const useMakerDAOExpenseMetrics = (year: string) => {
   return {
     selectedGranularity,
     handleGranularityChange,
+    isCumulative,
+    handleToggleCumulative,
+    cumulativeType,
+    handleChangeCumulativeType,
     isLoading,
     series,
     handleToggleSeries,

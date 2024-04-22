@@ -168,6 +168,10 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           title={`${levelNumber === 1 ? 'MakerDAO' : title} Expense Metrics`}
           handleGranularityChange={makerDAOExpensesMetrics.handleGranularityChange}
           selectedGranularity={makerDAOExpensesMetrics.selectedGranularity}
+          isCumulative={makerDAOExpensesMetrics.isCumulative}
+          handleToggleCumulative={makerDAOExpensesMetrics.handleToggleCumulative}
+          cumulativeType={makerDAOExpensesMetrics.cumulativeType}
+          handleChangeCumulativeType={makerDAOExpensesMetrics.handleChangeCumulativeType}
           series={makerDAOExpensesMetrics.series}
           handleToggleSeries={makerDAOExpensesMetrics.handleToggleSeries}
           isLoading={makerDAOExpensesMetrics.isLoading}

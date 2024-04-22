@@ -4,39 +4,43 @@ import CheckboxOff from '@ses/components/svg/checkbox-off';
 import { ThreeDots } from '@ses/components/svg/three-dots';
 import { useState, useRef } from 'react';
 import CumulativeSelectItem from './CumulativeSelectItem';
+import type { CumulativeType } from '../useMakerDAOExpenseMetrics';
 
-export type CumulativeType = 'relative' | 'absolute';
+interface CumulativeFilterProps {
+  isCumulative: boolean;
+  handleToggleCumulative: () => void;
+  cumulativeType: CumulativeType;
+  handleChangeCumulativeType: (value: CumulativeType) => void;
+}
 
-const CumulativeFilter: React.FC = () => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+const CumulativeFilter: React.FC<CumulativeFilterProps> = ({
+  isCumulative,
+  handleToggleCumulative,
+  cumulativeType,
+  handleChangeCumulativeType,
+}) => {
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef(null);
-  const [cumulativeType, setCumulativeType] = useState<CumulativeType | undefined>();
 
   const handleOpenMenu = () => {
-    if (isActive) {
+    if (isCumulative) {
       setOpen((prev) => !prev);
     }
-  };
-
-  const handleCheck = () => {
-    setCumulativeType(isActive ? undefined : 'relative');
-    setIsActive((prev) => !prev);
   };
 
   return (
     <>
       <SelectBtn>
-        <CheckBtn onClick={handleCheck}>
-          {isActive ? (
+        <CheckBtn onClick={handleToggleCumulative}>
+          {isCumulative ? (
             <CheckOnComponent fill="#25273D" fillDark="#1AAB9B" width={12} height={12} />
           ) : (
             <CheckboxOff fill="#25273D" fillDark="#1AAB9B" width={12} height={12} />
           )}
         </CheckBtn>
         Cumulative{' '}
-        <MenuBtn isActive={isActive} onClick={handleOpenMenu} ref={anchorRef}>
-          <ThreeDots fill={isActive ? '#231536' : '#91929D'} height={12} width={3} />
+        <MenuBtn isActive={isCumulative} onClick={handleOpenMenu} ref={anchorRef}>
+          <ThreeDots fill={isCumulative ? '#231536' : '#91929D'} height={12} width={3} />
         </MenuBtn>
       </SelectBtn>
 
@@ -60,13 +64,13 @@ const CumulativeFilter: React.FC = () => {
               <ClickAwayListener onClickAway={() => setOpen(false)}>
                 <div>
                   <CumulativeSelectItem
-                    onClick={() => setCumulativeType('relative')}
+                    onClick={() => handleChangeCumulativeType('relative')}
                     type="relative"
                     selected={cumulativeType === 'relative'}
                   />
                   <Divider />
                   <CumulativeSelectItem
-                    onClick={() => setCumulativeType('absolute')}
+                    onClick={() => handleChangeCumulativeType('absolute')}
                     type="absolute"
                     selected={cumulativeType === 'absolute'}
                   />
