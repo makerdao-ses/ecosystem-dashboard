@@ -116,7 +116,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
               ? '<0.1'
               : itemRender.percent < 1
               ? usLocalizedNumber(itemRender.percent, 2)
-              : Math.round(itemRender.percent)
+              : usLocalizedNumber(itemRender.percent, 1)
           }%</div>
           <div style="margin-bottom:16px;color:${
             isLight ? '#000' : '#EDEFFF'
