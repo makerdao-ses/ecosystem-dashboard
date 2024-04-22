@@ -26,7 +26,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const desk1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
   const showSemiAnnual = isMobile && period === 'Semi-annual';
-  const showAnnual = period === 'Annually';
+  const isAnnual = period === 'Annually';
   const showQuarterly = !isMobile && period === 'Quarterly';
   const showMonthly = desk1440 && period === 'Monthly';
   const arrayMetrics = new Array<number>(iteration).fill(0);
@@ -43,14 +43,14 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
     <>
       {breakdownTable.map((table: TableFinances, index) => (
         <TableContainer isLight={isLight} className={className} key={index}>
-          <TableBody isLight={isLight}>
+          <TableBody isLight={isLight} isAnnual={isAnnual}>
             {table.rows.map((row: ItemRow, index) => {
               const href = `${siteRoutes.finances(
                 (row.codePath ?? '').replace('atlas/', '')
               )}?year=${year}&period=${period}${metrics.map((metric) => `&metric=${metric}`).join('')}#breakdown-table`;
 
               return (
-                <TableRow key={index} isLight={isLight} isMain={row.isMain} isAnnual={showAnnual}>
+                <TableRow key={index} isLight={isLight} isMain={row.isMain} isAnnual={isAnnual}>
                   <Headed isLight={isLight} period={period} isHeader={!!row.isMain}>
                     {row.isSummaryRow ? (
                       row.name
@@ -61,7 +61,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                     )}
                   </Headed>
 
-                  {showAnnual &&
+                  {isAnnual &&
                     newMetrics.map((metric, index) => {
                       // Check if don't have columns to show add cero
                       const value = row.columns.length !== 0;
@@ -202,8 +202,8 @@ const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter; isHea
   })
 );
 
-const TableRow = styled.tr<WithIsLight & { isMain?: boolean; isAnnual?: boolean }>(
-  ({ isMain = false, isLight, isAnnual = false }) => ({
+const TableRow = styled.tr<WithIsLight & { isMain?: boolean; isAnnual: boolean }>(
+  ({ isMain = false, isLight, isAnnual }) => ({
     '& th': {
       borderTopLeftRadius: isMain ? 6 : 0,
       borderBottomLeftRadius: isMain ? 6 : 0,
@@ -229,7 +229,7 @@ const TableRow = styled.tr<WithIsLight & { isMain?: boolean; isAnnual?: boolean 
   })
 );
 
-const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
+const TableBody = styled.tbody<WithIsLight & { isAnnual: boolean }>(({ isLight, isAnnual }) => ({
   '& tr:nth-of-type(odd):not(:first-child)': {
     backgroundColor: isLight ? '#F5F5F5' : '#18252E',
     borderRadius: 40,
@@ -240,12 +240,15 @@ const TableBody = styled.tbody<WithIsLight>(({ isLight }) => ({
   '& tr:first-of-type': {
     backgroundColor: isLight ? '#ECF1F3' : '#30434e',
   },
-  '& tr:nth-of-type(odd):not(:first-child) td:last-of-type': {
-    backgroundColor: isLight ? 'rgba(159, 175, 185, 0.10)' : '#111C23',
-  },
-  '& tr:nth-of-type(even):not(:first-child) td:last-of-type': {
-    backgroundColor: isLight ? 'rgba(209, 222, 230, 0.20)' : '#17232C',
-  },
+
+  ...(!isAnnual && {
+    '& tr:nth-of-type(odd):not(:first-child) td:last-of-type': {
+      backgroundColor: isLight ? 'rgba(159, 175, 185, 0.10)' : '#111C23',
+    },
+    '& tr:nth-of-type(even):not(:first-child) td:last-of-type': {
+      backgroundColor: isLight ? 'rgba(209, 222, 230, 0.20)' : '#17232C',
+    },
+  }),
 }));
 const Cell = styled.td<WithIsLight>(({ isLight }) => ({
   padding: '16px 8px',
