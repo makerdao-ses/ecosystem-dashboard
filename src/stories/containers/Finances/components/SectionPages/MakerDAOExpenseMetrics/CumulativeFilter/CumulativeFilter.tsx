@@ -33,14 +33,19 @@ const CumulativeFilter: React.FC<CumulativeFilterProps> = ({
       <SelectBtn>
         <CheckBtn onClick={handleToggleCumulative}>
           {isCumulative ? (
-            <CheckOnComponent fill="#25273D" fillDark="#1AAB9B" width={12} height={12} />
+            <CheckOnComponent fill="#25273D" fillDark="#D2D4EF" width={12} height={12} />
           ) : (
-            <CheckboxOff fill="#25273D" fillDark="#1AAB9B" width={12} height={12} />
+            <CheckboxOff fill="#25273D" fillDark="#D2D4EF" width={12} height={12} />
           )}
         </CheckBtn>
         Cumulative{' '}
         <MenuBtn isActive={isCumulative} onClick={handleOpenMenu} ref={anchorRef}>
-          <ThreeDots fill={isCumulative ? '#231536' : '#91929D'} height={12} width={3} />
+          <ThreeDots
+            fill={isCumulative ? '#231536' : '#91929D'}
+            fillDark={isCumulative ? '#B7A6CD' : '#48495F'}
+            height={12}
+            width={3}
+          />
         </MenuBtn>
       </SelectBtn>
 
@@ -134,8 +139,8 @@ const CustomPaper = styled(Paper)(({ theme }) => ({
   marginRight: -18,
 }));
 
-const Divider = styled('div')(({ theme }) => ({
+const Divider = styled('div')(() => ({
   height: 1,
   width: '100%',
-  background: theme.palette.mode === 'light' ? '#D4D9E1' : 'red',
+  background: '#D4D9E1',
 }));
