@@ -270,7 +270,7 @@ const CustomMenuItem = styled(MenuItem)<WithIsLight>(({ isLight }) => ({
     backgroundColor: isLight ? '#EDEFFF' : '#231536',
 
     '&.Mui-focusVisible': {
-      backgroundColor: isLight ? '#EDEFFF' : 'red',
+      backgroundColor: isLight ? '#EDEFFF' : '#231536',
     },
     '&:hover': {
       backgroundColor: isLight ? '#F6F8F9' : '#25273D',
