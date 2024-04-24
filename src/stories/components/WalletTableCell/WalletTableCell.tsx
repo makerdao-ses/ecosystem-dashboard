@@ -39,7 +39,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => {
           <IconsContainer>
             <CopyIcon text={props.address ?? ''} defaultTooltip="Copy Address" />
 
-            <a href={`https://gnosis-safe.io/app/eth:${props.address}`} target="_blank">
+            <a href={`https://app.safe.global/home?safe=eth:${props.address}`} target="_blank">
               <Gnosis />
             </a>
           </IconsContainer>

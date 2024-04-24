@@ -43,7 +43,7 @@ export const renderLinks = (address: string) => (
     </CustomLink>
     <CustomLink
       fontFamily={'Inter, sans-serif'}
-      href={`https://gnosis-safe.io/app/eth:${address}`}
+      href={`https://app.safe.global/home?safe=eth:${address}`}
       fontSize={16}
       fontSizeMobile={14}
       fontWeight={500}
