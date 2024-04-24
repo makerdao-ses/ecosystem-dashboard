@@ -30,9 +30,9 @@ const RelativeIcon: React.FC<WithIsLight> = ({ isLight }) => (
 );
 
 const AbsoluteIcon: React.FC<WithIsLight> = ({ isLight }) => (
-  <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
-      d="M1.11719 11.9424L15.2593 4.20025"
+      d="M1.11719 8.62109L15.2593 4.29165"
       stroke={isLight ? '#546978' : '#405361'}
       strokeWidth="2"
       strokeLinecap="round"
@@ -40,12 +40,12 @@ const AbsoluteIcon: React.FC<WithIsLight> = ({ isLight }) => (
       strokeDasharray="4 4"
     />
     <path
-      d="M1 1.02539L0.999999 17.0254"
+      d="M1 1.39258L0.999999 16.0002"
       stroke={isLight ? '#231536' : '#D2D4EF'}
       strokeWidth="2"
       strokeLinecap="round"
     />
-    <path d="M1 17.0254L17 17.0254" stroke={isLight ? '#231536' : '#D2D4EF'} strokeWidth="2" strokeLinecap="round" />
+    <path d="M1 16L17 16" stroke={isLight ? '#231536' : '#D2D4EF'} strokeWidth="2" strokeLinecap="round" />
   </svg>
 );
 
