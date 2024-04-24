@@ -116,12 +116,12 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
           <div style="background-color:${isLight ? '#fff' : '#000A13'};padding:16px;overflow:auto;border-radius:3px;">
             <div style="display: flex;justify-content: space-between;gap:24px;text-align:center;">
               <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${
-                (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name
+                (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name?.replace('’', "'")
               }</div>
               ${
                 isCumulative
                   ? `<div style="text-transform:uppercase;font-weight:300;font-size:11px;color:${
-                      isLight ? '#434358' : '#546978'
+                      isLight ? '#434358' : '#B6BCC2'
                     }">${cumulativeType} cumulative</div>`
                   : ''
               }
