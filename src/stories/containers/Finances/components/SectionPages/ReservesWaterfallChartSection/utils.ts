@@ -94,7 +94,7 @@ export const builderWaterfallSeries = (
           if (formatted.value === '0.0') return '';
           if (isMobile) {
             if (params.dataIndex === 0 || params.dataIndex === help.length - 1) {
-              return `{colorful|${formatted.value}}`;
+              return `{colorful|${formatted.value}\n${formatted.suffix}}`;
             }
             return `{hidden|${formatted.value}}`;
           } else {
@@ -110,6 +110,7 @@ export const builderWaterfallSeries = (
             color: isLight ? '#83A7FF' : '#447AFB',
             fontSize: isMobile ? 8 : 12,
             fontFamily: 'Inter, sans-serif',
+            align: 'center',
           },
           hidden: {
             color: 'rgba(0,0,0,0)',
@@ -147,7 +148,7 @@ export const builderWaterfallSeries = (
 
           if (formatted.value === '0.0') return '';
           if (isMobile) {
-            return `-${formatted.value}`;
+            return `-${formatted.value}\n${formatted.suffix}`;
           }
           return `-${formatted.value}${formatted.suffix}`;
         },
@@ -180,7 +181,7 @@ export const builderWaterfallSeries = (
 
           if (formatted.value === '0.0') return '';
           if (isMobile) {
-            return `+${formatted.value}`;
+            return `+${formatted.value}\n${formatted.suffix}`;
           }
 
           return `+${formatted.value}${formatted.suffix}`;
