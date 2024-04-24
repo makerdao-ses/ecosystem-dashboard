@@ -171,8 +171,8 @@ const ContainerTitle = styled('div')(({ theme }) => ({
 }));
 
 const Title = styled('div')(({ theme }) => ({
-  fontSize: 16,
-  lineHeight: '19px',
+  fontSize: 14,
+  lineHeight: '17px',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -180,8 +180,8 @@ const Title = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     fontWeight: 600,
-    fontSize: 24,
-    lineHeight: '29px',
+    fontSize: 16,
+    lineHeight: '19px',
     letterSpacing: '0.4px',
   },
 }));
