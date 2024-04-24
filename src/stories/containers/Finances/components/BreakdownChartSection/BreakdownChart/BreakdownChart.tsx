@@ -120,8 +120,8 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
           return `
             <div style="background-color:${isLight ? '#fff' : '#000A13'};padding:16px;overflow:auto;border-radius:3px;">
               <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${
-                (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name
-              }<span style="display:inline-block;margin-left:10px">${getSelectMetricText(selectedMetric)}</span></div>
+                (selectedGranularity as string) === 'Annually' ? year : params?.[0]?.name?.replace('’', "'")
+              }<span style="display:inline-block;margin-left:4px">${getSelectMetricText(selectedMetric)}</span></div>
               <div style="display:flex;flex-direction:${flexDirection};gap:${gap};${wrap}${minMax}">
                 ${filteredParams
                   .reverse()
