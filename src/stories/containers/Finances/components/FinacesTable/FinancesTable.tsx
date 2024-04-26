@@ -51,8 +51,13 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
 
               return (
                 <TableRow key={index} isLight={isLight} isMain={row.isMain} isAnnual={isAnnual}>
-                  <Headed isLight={isLight} period={period} isHeader={!!row.isMain}>
-                    {row.isSummaryRow ? (
+                  <Headed
+                    isLight={isLight}
+                    period={period}
+                    isHeader={!!row.isMain}
+                    isUncategorized={!!row.isUncategorized}
+                  >
+                    {row.isSummaryRow || row.isUncategorized ? (
                       row.name
                     ) : (
                       <Link href={href} scroll={false}>
@@ -68,7 +73,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                       if (!value) {
                         return (
                           <Cell key={index} isLight={isLight}>
-                            <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow}>
+                            <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow || row.isUncategorized}>
                               0
                             </LinkCellComponent>
                           </Cell>
@@ -76,7 +81,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                       }
                       return (
                         <Cell key={index} isLight={isLight}>
-                          <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow}>
+                          <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow || row.isUncategorized}>
                             {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
                           </LinkCellComponent>
                         </Cell>
@@ -90,7 +95,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                         metrics={newMetrics}
                         value={row.columns[index]}
                         href={href}
-                        isSummaryRow={row.isSummaryRow}
+                        isSummaryRow={row.isSummaryRow || row.isUncategorized}
                       />
                     ))}
                   {showSemiAnnual &&
@@ -100,7 +105,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                         metrics={newMetrics}
                         value={row.columns[index]}
                         href={href}
-                        isSummaryRow={row.isSummaryRow}
+                        isSummaryRow={row.isSummaryRow || row.isUncategorized}
                       />
                     ))}
                   {showMonthly &&
@@ -110,7 +115,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                         metrics={newMetrics}
                         value={row.columns[index]}
                         href={href}
-                        isSummaryRow={row.isSummaryRow}
+                        isSummaryRow={row.isSummaryRow || row.isUncategorized}
                       />
                     ))}
                 </TableRow>
@@ -137,70 +142,73 @@ const TableContainer = styled.table<WithIsLight>(({ isLight }) => ({
   overflow: 'hidden',
 }));
 
-const Headed = styled.th<WithIsLight & { period?: PeriodicSelectionFilter; isHeader: boolean }>(
-  ({ isLight, period, isHeader }) => ({
-    borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
-    fontSize: 10,
-    color: isLight ? '#231536' : '#D2D4EF',
-    width: 87,
-    textAlign: 'center',
-    verticalAlign: 'center',
-    padding: '16px 4px 16px 8px',
-    whiteSpace: 'normal',
-    overflowWrap: 'break-word',
-    wordBreak: 'break-word',
-    position: 'relative',
+const Headed = styled.th<
+  WithIsLight & { period?: PeriodicSelectionFilter; isHeader: boolean; isUncategorized: boolean }
+>(({ isLight, period, isHeader, isUncategorized }) => ({
+  borderRight: `1px solid ${isLight ? '#D8E0E3' : '#405361'}`,
+  fontSize: 10,
+  color: isLight ? '#231536' : '#D2D4EF',
+  width: 87,
+  textAlign: 'center',
+  verticalAlign: 'center',
+  padding: '16px 4px 16px 8px',
+  whiteSpace: 'normal',
+  overflowWrap: 'break-word',
+  wordBreak: 'break-word',
+  position: 'relative',
+  ...(isUncategorized && {
+    fontStyle: 'italic',
+  }),
 
-    '& .link': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textDecoration: 'none',
-      color: 'inherit',
-      zIndex: 1,
-    },
+  '& .link': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    color: 'inherit',
+    zIndex: 1,
+  },
 
-    [lightTheme.breakpoints.up('tablet_768')]: {
-      fontSize: isHeader ? 14 : 12,
-      width: 150,
-    },
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: isHeader || isUncategorized ? 14 : 12,
+    width: 150,
+  },
 
-    [lightTheme.breakpoints.up('desktop_1024')]: {
-      width: 150,
-    },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    width: 150,
+  },
 
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      width: 220,
-      padding: '16px 0px 16px 32px',
-    },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    width: 220,
+    padding: '16px 0px 16px 32px',
+  },
 
-    [lightTheme.breakpoints.up('desktop_1440')]: {
-      width: period === 'Quarterly' ? 261 : period === 'Annually' ? 200 : 188,
-      padding: '16px 0px 16px 32px',
-      textOverflow: period === 'Monthly' ? 'ellipsis' : 'revert',
-      ...(period === 'Monthly' && {
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-      }),
-      ...(period === 'Annually' && {
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-      }),
-    },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    width: period === 'Quarterly' ? 261 : period === 'Annually' ? 200 : 188,
+    padding: '16px 0px 16px 32px',
+    textOverflow: period === 'Monthly' ? 'ellipsis' : 'revert',
+    ...(period === 'Monthly' && {
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+    }),
+    ...(period === 'Annually' && {
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+    }),
+  },
 
-    [lightTheme.breakpoints.up('desktop_1920')]: {
-      width: period === 'Annually' ? 212 : 230,
-      padding: period === 'Quarterly' ? '16px 0px 16px 16px' : '16px 0px 16px 32px',
-    },
-  })
-);
+  [lightTheme.breakpoints.up('desktop_1920')]: {
+    width: period === 'Annually' ? 212 : 230,
+    padding: period === 'Quarterly' ? '16px 0px 16px 16px' : '16px 0px 16px 32px',
+  },
+}));
 
 const TableRow = styled.tr<WithIsLight & { isMain?: boolean; isAnnual: boolean }>(
   ({ isMain = false, isLight, isAnnual }) => ({
