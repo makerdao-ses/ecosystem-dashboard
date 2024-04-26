@@ -113,6 +113,7 @@ export interface LineChartSeriesData {
 export interface ItemRow {
   name: string;
   isMain?: boolean;
+  isUncategorized?: boolean;
   isSummaryRow?: boolean;
   codePath?: string;
   columns: MetricValues[];

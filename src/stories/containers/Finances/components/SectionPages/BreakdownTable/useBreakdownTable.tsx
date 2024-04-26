@@ -193,7 +193,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     // group data in an easier structure to manage
     analytics.series.forEach((series) => {
       series.rows.forEach((row) => {
-        const path = removePatternAfterSlash(row.dimensions[0].path);
+        const path = row.dimensions[0].path;
 
         if (!data[path]) {
           // create the path as it does not exist
@@ -209,8 +209,67 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       });
     });
 
+    // create a sub-table for each budget that has * in the path
+    // this sub-table will be used as the uncategorized table
+    let uncategorizedSubTable: TableFinances | null = null;
+    Object.keys(data)
+      .filter((path) => path.includes('*'))
+      .forEach((path) => {
+        const columns = Object.values(data[path]);
+
+        if (selectedGranularity !== 'annual') {
+          // annual does not have totals
+          const total = columns.reduce(
+            (acc, current) => {
+              acc.Actuals += current.Actuals;
+              acc.Budget += current.Budget;
+              acc.PaymentsOnChain += current.PaymentsOnChain;
+              acc.Forecast += current.Forecast;
+              acc.ProtocolNetOutflow += current.ProtocolNetOutflow;
+              return acc;
+            },
+            { ...EMPTY_METRIC_VALUE }
+          );
+
+          columns.push(total);
+        }
+
+        // this path can not be used for other sub tables
+        delete data[path];
+
+        if (uncategorizedSubTable === null) {
+          // it is empty so we create it
+          uncategorizedSubTable = {
+            tableName: 'Uncategorized',
+            rows: [
+              {
+                name: 'Uncategorized',
+                codePath: path,
+                isUncategorized: true,
+                columns,
+              },
+            ],
+          } as TableFinances;
+        } else {
+          // it is not empty so we add it
+          const previousRow = uncategorizedSubTable.rows[0];
+          uncategorizedSubTable.rows = [
+            {
+              ...previousRow,
+              columns: previousRow.columns.map((column, index) => ({
+                Actuals: column.Actuals + columns[index].Actuals,
+                Budget: column.Budget + columns[index].Budget,
+                PaymentsOnChain: column.PaymentsOnChain + columns[index].PaymentsOnChain,
+                Forecast: column.Forecast + columns[index].Forecast,
+                ProtocolNetOutflow: column.ProtocolNetOutflow + columns[index].ProtocolNetOutflow,
+              })),
+            },
+          ];
+        }
+      });
+
     // create a table for each budget for the current level
-    const tables = [] as TableFinances[];
+    const tables = uncategorizedSubTable === null ? ([] as TableFinances[]) : [uncategorizedSubTable];
     if (budgets.length === 0) {
       const rows = Object.keys(data).map((path) => {
         const columns = Object.values(data[path]);
@@ -469,7 +528,12 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     });
 
     // sort final tables by the amount of rows
-    const sortedTables = tables.sort((a, b) => b.rows.length - a.rows.length);
+    const sortedTables = tables.sort((a, b) => {
+      // uncategorized should be the first
+      if (b.rows[0].isUncategorized) return 1;
+
+      return b.rows.length - a.rows.length;
+    });
     return [tableHeader, sortedTables];
   }, [allBudgets, analytics, budgets, codePath, error, isMobile, lod, selectedGranularity]);
 
