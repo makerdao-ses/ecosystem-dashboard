@@ -94,7 +94,7 @@ export const builderWaterfallSeries = (
           if (formatted.value === '0.0') return '';
           if (isMobile) {
             if (params.dataIndex === 0 || params.dataIndex === help.length - 1) {
-              return `{colorful|${formatted.value}\n${formatted.suffix}}`;
+              return `{colorful|${formatted.value}${formatted.suffix}}`;
             }
             return `{hidden|${formatted.value}}`;
           } else {
@@ -148,7 +148,8 @@ export const builderWaterfallSeries = (
 
           if (formatted.value === '0.0') return '';
           if (isMobile) {
-            return `-${formatted.value}\n${formatted.suffix}`;
+            const numberWithoutZero = formatted.value.replace('0.', '.');
+            return `${numberWithoutZero}${formatted.suffix}`;
           }
           return `-${formatted.value}${formatted.suffix}`;
         },
@@ -181,7 +182,8 @@ export const builderWaterfallSeries = (
 
           if (formatted.value === '0.0') return '';
           if (isMobile) {
-            return `+${formatted.value}\n${formatted.suffix}`;
+            const numberWithoutZero = formatted.value.replace('0.', '.');
+            return `${numberWithoutZero}${formatted.suffix}`;
           }
 
           return `+${formatted.value}${formatted.suffix}`;
