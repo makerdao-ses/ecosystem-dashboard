@@ -8,13 +8,13 @@ import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 
 export type ExpenseReportStatusIndicatorProps = {
-  budgetStatus: BudgetStatus;
+  budgetStatus?: BudgetStatus;
   showCTA: boolean;
   className?: string;
 };
 
 const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> = ({
-  budgetStatus = BudgetStatus.Draft,
+  budgetStatus,
   showCTA,
   className,
 }) => {
@@ -29,7 +29,7 @@ const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> 
 
   return (
     <IndicatorContainer className={className}>
-      <ExpenseReportStatus status={budgetStatus} />
+      {budgetStatus && <ExpenseReportStatus status={budgetStatus} />}
       {showCTA && budgetStatus !== BudgetStatus.Final && (
         <Link href={url} shallow={true} legacyBehavior>
           <StyledLink>Go to {budgetStatus}</StyledLink>
