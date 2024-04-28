@@ -14,7 +14,7 @@ interface BudgetStatementPagerProps {
   handleNext: () => void;
   hasNext: boolean;
   hasPrevious: boolean;
-  budgetStatus: BudgetStatus;
+  budgetStatus?: BudgetStatus;
   showExpenseReportStatusCTA: boolean;
   lastUpdate?: DateTime;
 }

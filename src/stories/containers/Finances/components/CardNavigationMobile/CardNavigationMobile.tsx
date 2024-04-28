@@ -90,7 +90,6 @@ const CardNavigationMobile: React.FC<Props> = ({
                       />
                     </ContainerBar>
                     <Percent isLight={isLight} isRightPartZero={budgetCap === 0}>
-                      {/* TODO: if the budget cap is 0 then show -- % */}
                       {budgetCap === 0
                         ? '-- '
                         : percent === 0

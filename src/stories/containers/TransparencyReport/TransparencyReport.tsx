@@ -12,7 +12,6 @@ import lightTheme from '../../../../styles/theme/light';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { BudgetStatus } from '../../../core/models/dto/coreUnitDTO';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
@@ -101,7 +100,7 @@ export const TransparencyReport = ({
               handlePrevious={handlePreviousMonth}
               hasNext={hasNextMonth()}
               hasPrevious={hasPreviousMonth()}
-              budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
+              budgetStatus={currentBudgetStatement?.status}
               showExpenseReportStatusCTA={showExpenseReportStatusCTA}
               lastUpdate={lastUpdate}
               ref={pagerRef}
