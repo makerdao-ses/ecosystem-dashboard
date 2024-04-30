@@ -132,10 +132,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
         .sort((a, b) => b.percent - a.percent),
     [allMetrics.paymentsOnChain, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
   );
-  const maxValue = useMemo(
-    () => Math.max(...cardsNavigationInformation.map((element) => [element.valueDai, element.budgetCapValue]).flat()),
-    [cardsNavigationInformation]
-  );
 
   // if there too many cards we need to use a swiper on desktop but paginated on mobile
   const [canLoadMoreCards, setCanLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
@@ -183,7 +179,6 @@ export const useFinances = (budgets: Budget[], allBudgets: Budget[], initialYear
     cardOverViewSectionData,
     router,
     cardsToShow,
-    maxValue,
     breakdownChartSectionData,
     breakdownTable,
     canLoadMoreCards,

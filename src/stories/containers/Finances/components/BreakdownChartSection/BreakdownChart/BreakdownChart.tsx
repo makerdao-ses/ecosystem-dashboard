@@ -225,6 +225,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
         height: upTable ? 15 : 12,
         type: 'value',
         zlevel: 1,
+        splitNumber: 12,
         axisLine: {
           show: false,
         },

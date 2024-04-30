@@ -3,7 +3,6 @@ import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
-import { percentageRespectTo } from '@ses/core/utils/math';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -22,7 +21,6 @@ interface Props {
   height?: number;
   code: string;
   percent: number;
-  maxValue: number;
 }
 
 const CardNavigationMobile: React.FC<Props> = ({
@@ -34,7 +32,6 @@ const CardNavigationMobile: React.FC<Props> = ({
   barColor,
   code,
   percent,
-  maxValue,
 }) => {
   const { isLight } = useThemeContext();
   const budgetCapFormatted = threeDigitsPrecisionHumanization(budgetCap);
@@ -46,11 +43,6 @@ const CardNavigationMobile: React.FC<Props> = ({
     (code.toLocaleLowerCase() === code ||
       (code.includes('-') && code.toUpperCase() !== code) ||
       /[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/.test(code));
-
-  const maxPercentage =
-    percentageRespectTo(Math.max(budgetCap, valueDai), maxValue) > 97
-      ? 97
-      : percentageRespectTo(Math.max(budgetCap, valueDai), maxValue);
 
   return (
     <StyleCardNavigationGeneric>
@@ -94,7 +86,6 @@ const CardNavigationMobile: React.FC<Props> = ({
                         budgetCap={budgetCap}
                         actuals={valueDai}
                         prediction={0}
-                        maxPercentage={maxPercentage}
                       />
                     </ContainerBar>
                     <Percent isLight={isLight} isRightPartZero={budgetCap === 0}>
