@@ -27,7 +27,11 @@ export class LimitedColorAssigner {
     const colors = [];
 
     for (let i = 0; i < numColors; i++) {
-      const hue = (baseHue + i * (360 / numColors)) % 360;
+      let hue = (baseHue + i * (360 / numColors)) % 360;
+      if (hue < 10 || hue > 350) {
+        // skip red hues, make them more orange
+        hue = (hue + 30) % 360;
+      }
       const color = `hsl(${hue}, 70%, 50%)`;
       colors.push(color);
     }
