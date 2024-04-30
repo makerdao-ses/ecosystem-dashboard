@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import BarPercentRelativeToTotal from '@ses/components/BarPercentRelativeToTotal/BarPercentRelativeToTotal';
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
+import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
+import { percentageRespectTo } from '@ses/core/utils/math';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -22,18 +22,19 @@ interface Props {
   height?: number;
   code: string;
   percent: number;
+  maxValue: number;
 }
 
 const CardNavigationMobile: React.FC<Props> = ({
   budgetCap,
   image,
   title,
-  totalDai,
   valueDai,
   href,
   barColor,
   code,
   percent,
+  maxValue,
 }) => {
   const { isLight } = useThemeContext();
   const budgetCapFormatted = threeDigitsPrecisionHumanization(budgetCap);
@@ -45,6 +46,11 @@ const CardNavigationMobile: React.FC<Props> = ({
     (code.toLocaleLowerCase() === code ||
       (code.includes('-') && code.toUpperCase() !== code) ||
       /[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/.test(code));
+
+  const maxPercentage =
+    percentageRespectTo(Math.max(budgetCap, valueDai), maxValue) > 97
+      ? 97
+      : percentageRespectTo(Math.max(budgetCap, valueDai), maxValue);
 
   return (
     <StyleCardNavigationGeneric>
@@ -83,10 +89,12 @@ const CardNavigationMobile: React.FC<Props> = ({
                   <ContainerBarPercent>
                     <ContainerBar>
                       <BarPercentRelativeToTotalStyled
-                        value={valueDai}
-                        total={totalDai}
                         barColor={barColor}
                         isLight={isLight}
+                        budgetCap={budgetCap}
+                        actuals={valueDai}
+                        prediction={0}
+                        maxPercentage={maxPercentage}
                       />
                     </ContainerBar>
                     <Percent isLight={isLight} isRightPartZero={budgetCap === 0}>
@@ -149,6 +157,7 @@ const Title = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 400,
   lineHeight: 'normal',
   color: isLight ? '#231536' : '#D2D4EF',
+
   '& span': {
     color: isLight ? '#B6BCC2' : '#546978',
     fontWeight: 600,
@@ -219,15 +228,21 @@ const Percent = styled.div<WithIsLight & { isRightPartZero: boolean }>(({ isLigh
   color: isRightPartZero ? (isLight ? '#9FAFB9' : '#708390') : isLight ? '#231536' : '#D2D4EF',
 }));
 
-const BarPercentRelativeToTotalStyled = styled(BarPercentRelativeToTotal)<WithIsLight & { barColor: string }>(
+const BarPercentRelativeToTotalStyled = styled(HorizontalBudgetBar)<WithIsLight & { barColor: string }>(
   ({ barColor, isLight }) => ({
     borderRadius: 4,
     backgroundColor: isLight ? '#ECF1F3' : '#10191F',
     height: 16,
 
-    '& > div': {
+    '& > div[data-type="actuals"]': {
       background: barColor,
     },
+
+    ...((barColor === '#F99374' || barColor === '#F77249') && {
+      '& > div[data-type="budget"]': {
+        background: isLight ? '#2DC1B1' : '#098C7D',
+      },
+    }),
   })
 );
 
