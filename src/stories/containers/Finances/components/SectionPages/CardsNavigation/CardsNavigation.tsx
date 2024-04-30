@@ -19,7 +19,6 @@ interface Props {
   canLoadMoreCards: boolean;
   showMoreCards: boolean;
   toggleShowMoreCards: () => void;
-  maxValue: number;
 }
 
 const CardsNavigation: React.FC<Props> = ({
@@ -27,7 +26,6 @@ const CardsNavigation: React.FC<Props> = ({
   canLoadMoreCards,
   showMoreCards,
   toggleShowMoreCards,
-  maxValue,
 }) => {
   const { isLight } = useThemeContext();
   const ref = useRef<SwiperRef>(null);
@@ -124,7 +122,6 @@ const CardsNavigation: React.FC<Props> = ({
             key={index}
             percent={card.percent}
             code={card.code ?? ''}
-            maxValue={maxValue}
           />
         ))}
         {canLoadMoreCards && (
