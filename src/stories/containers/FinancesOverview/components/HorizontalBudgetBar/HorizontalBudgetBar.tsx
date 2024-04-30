@@ -9,9 +9,16 @@ export type HorizontalBudgetBarProps = {
   prediction: number;
   budgetCap: number;
   className?: string;
+  maxPercentage?: number;
 };
 
-const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, prediction, budgetCap, className }) => {
+const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({
+  actuals,
+  prediction,
+  budgetCap,
+  className,
+  maxPercentage = 87,
+}) => {
   const { isLight } = useThemeContext();
   const barRef = useRef<HTMLDivElement>(null);
   const [actualsWidth, setActualsWidth] = useState<number>(0);
@@ -21,14 +28,13 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, pred
   const updateBars = useCallback(() => {
     if (!barRef) return;
     const barWidth = barRef.current?.offsetWidth || 1;
-    const maxPercentage = 87;
     const max = (barWidth * maxPercentage) / 100;
     const maxValue = Math.max(actuals, prediction, budgetCap) || 1;
 
     setActualsWidth(((actuals / maxValue) * max * maxPercentage) / max);
     setPredictionWidth(((prediction / maxValue) * max * maxPercentage) / max);
     setBudgetCapPosition(((budgetCap / maxValue) * max * maxPercentage) / max);
-  }, [actuals, budgetCap, prediction]);
+  }, [actuals, budgetCap, maxPercentage, prediction]);
 
   useEffect(() => {
     updateBars();
@@ -36,9 +42,9 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({ actuals, pred
 
   return (
     <BarContainer isLight={isLight} ref={barRef} className={className}>
-      {prediction > 0 && <Prediction isLight={isLight} width={predictionWidth} />}
-      {actuals > 0 && <Actuals isLight={isLight} width={actualsWidth} />}
-      {budgetCap > 0 && <BudgetCapLine position={budgetCapPosition} />}
+      {prediction > 0 && <Prediction data-type="prediction" isLight={isLight} width={predictionWidth} />}
+      {actuals > 0 && <Actuals data-type="actuals" isLight={isLight} width={actualsWidth} />}
+      {budgetCap > 0 && <BudgetCapLine data-type="budget" position={budgetCapPosition} />}
     </BarContainer>
   );
 };

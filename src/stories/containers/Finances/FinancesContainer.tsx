@@ -40,6 +40,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
     cardOverViewSectionData,
     handleChangeYears,
     cardsToShow,
+    maxValue,
     breakdownTable,
     canLoadMoreCards,
     showMoreCards,
@@ -119,6 +120,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             </WrapperMobile>
             <CardsNavigation
               cardsNavigationInformation={cardsToShow}
+              maxValue={maxValue}
               canLoadMoreCards={canLoadMoreCards}
               showMoreCards={showMoreCards}
               toggleShowMoreCards={toggleShowMoreCards}
