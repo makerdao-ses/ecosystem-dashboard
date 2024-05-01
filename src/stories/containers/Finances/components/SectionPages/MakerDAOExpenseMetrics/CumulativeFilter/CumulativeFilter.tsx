@@ -138,7 +138,6 @@ const CustomPaper = styled(Paper)(({ theme }) => ({
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
       : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
   marginTop: 9,
-  // marginRight: -18,
 }));
 
 const Divider = styled('div')(() => ({
