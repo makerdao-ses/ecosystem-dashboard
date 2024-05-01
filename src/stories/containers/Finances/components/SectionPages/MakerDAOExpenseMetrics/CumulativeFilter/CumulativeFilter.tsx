@@ -1,7 +1,8 @@
 import { ClickAwayListener, Grow, Paper, Popper, styled } from '@mui/material';
 import CheckOnComponent from '@ses/components/svg/check-on-new';
 import CheckboxOff from '@ses/components/svg/checkbox-off';
-import { ThreeDots } from '@ses/components/svg/three-dots';
+import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
+import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useState, useRef } from 'react';
 import CumulativeSelectItem from './CumulativeSelectItem';
 import type { CumulativeType } from '../useMakerDAOExpenseMetrics';
@@ -19,6 +20,7 @@ const CumulativeFilter: React.FC<CumulativeFilterProps> = ({
   cumulativeType,
   handleChangeCumulativeType,
 }) => {
+  const { isLight } = useThemeContext();
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef(null);
 
@@ -40,11 +42,9 @@ const CumulativeFilter: React.FC<CumulativeFilterProps> = ({
         </CheckBtn>
         Cumulative{' '}
         <MenuBtn isActive={isCumulative} onClick={handleOpenMenu} ref={anchorRef}>
-          <ThreeDots
-            fill={isCumulative ? '#231536' : '#91929D'}
-            fillDark={isCumulative ? '#B7A6CD' : '#48495F'}
-            height={12}
-            width={3}
+          <StyledSelectChevronDown
+            isOpen={open}
+            fill={isLight ? (isCumulative ? '#25273D' : '#BEBFC5') : isCumulative ? '#B7A6CD' : '#48495F'}
           />
         </MenuBtn>
       </SelectBtn>
@@ -104,7 +104,7 @@ const SelectBtn = styled('button')(({ theme }) => ({
   background: theme.palette.mode === 'light' ? '#ffffff' : '#10191F',
   borderRadius: 24,
   border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : '#343442'}`,
-  padding: '7px 16px',
+  padding: '7px 0 7px 16px',
   outline: 'none',
 }));
 
@@ -117,13 +117,15 @@ const CheckBtn = styled('div')(() => ({
   cursor: 'pointer',
 }));
 
-const MenuBtn = styled('div')<{ isActive: boolean }>(({ isActive }) => ({
+const MenuBtn = styled('div')<{ isActive: boolean }>(({ isActive, theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 16,
-  height: 16,
+  height: 18,
+  paddingLeft: 11,
+  paddingRight: 16,
   cursor: isActive ? 'pointer' : 'auto',
+  borderLeft: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : '#787A9B'}`,
 }));
 
 const CustomPaper = styled(Paper)(({ theme }) => ({
@@ -136,11 +138,15 @@ const CustomPaper = styled(Paper)(({ theme }) => ({
       ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
       : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
   marginTop: 9,
-  marginRight: -18,
+  // marginRight: -18,
 }));
 
 const Divider = styled('div')(() => ({
   height: 1,
   width: '100%',
   background: '#D4D9E1',
+}));
+
+const StyledSelectChevronDown = styled(SelectChevronDown)<{ isOpen: boolean }>(({ isOpen }) => ({
+  transform: isOpen ? 'scaleY(-1)' : 'scaleY(1)',
 }));
