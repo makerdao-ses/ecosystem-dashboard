@@ -24,7 +24,6 @@ export const SelectChevronDown: React.FC<SelectChevronDownProps> = ({
     height={`${height}px`}
     viewBox="0 0 10 6"
     fill={fill}
-    cursor={onClick ? 'pointer' : 'default'}
     style={props.style}
     xmlns="http://www.w3.org/2000/svg"
   >
