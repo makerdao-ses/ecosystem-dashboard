@@ -162,6 +162,7 @@ const dictionary = [
   'Uncategorized',
   'coord',
   'dataset',
+  'Lockstake',
 ];
 
 module.exports = dictionary;
