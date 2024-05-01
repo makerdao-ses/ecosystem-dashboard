@@ -60,8 +60,8 @@ const CumulativeSelectItem: React.FC<CumulativeSelectItemProps> = ({ type, selec
           <Title>{type === 'relative' ? 'Relative' : 'Absolute'} Cumulative</Title>
           <Description>
             {type === 'relative'
-              ? 'Aggregated expense metrics relative to the start of the year'
-              : 'A continuous aggregation of expenses over the entire dataset'}
+              ? 'Aggregated expense metrics relative to the start of the year.'
+              : 'A continuous aggregation of expenses over the entire dataset.'}
           </Description>
         </TextContainer>
       </Content>

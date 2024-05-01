@@ -41,9 +41,7 @@ const ExpenseReports: React.FC<Props> = ({
       <HeaderContainer>
         <SectionTitle
           title="Budget Statements"
-          tooltip={
-            'Get insights into budget reporting activity: from contributors, reporting month, actuals, status,  to last modifications. Data includes specific financial details by department with a simple click on "View".'
-          }
+          tooltip='Access detailed insights into budget reporting activities, including contributors, reporting month, actual expenditures, status, and recent modifications. Click "View" to dive into specific financial data by department, enabling effective monitoring and management of fiscal operations.'
         />
         <ExpenseReportsFilters {...filterProps} />
       </HeaderContainer>

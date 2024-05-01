@@ -90,7 +90,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             )}
             <TitleDescription levelNumber={levelNumber}>
               {levelNumber === 1
-                ? 'Learn more about MakerDAO expense metrics by looking at the data below. The data includes information about both immutable and scope frameworks budgets as defined in the MakerDAO Atlas. Additionally, the data from the period MakerDAO period 2021-2022 can be found in the MakerDAO Legacy budget section. Available metrics are the budgets, forecasts, protocol outflow, net expenses on-chain and the actuals.'
+                ? "The MakerDAO finances section offers a complete breakdown of budget and expenditure data for contributor teams since the DAO's launch in 2021. The available metrics are  budgets, net protocol outflow, net expenses on-chain, reported actuals, and expense forecasts."
                 : description}
             </TitleDescription>
           </TitleContainer>

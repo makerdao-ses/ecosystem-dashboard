@@ -43,9 +43,7 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
     <ContainerFilterTitle>
       <SectionTitle
         title={title}
-        tooltip={
-          'Customize this chart to display MakerDAO financial data by selecting one or more components from the dropdown and choose your preferred granularity (Quarterly, Monthly, Yearly) with a monthly default.'
-        }
+        tooltip="Monitor the dynamics of MakerDAO's reserves with precision using this interactive financial chart. It displays detailed inflows, outflows, and net balances, providing a clear picture of fiscal health. Customize the analysis by filtering specific data points and adjusting the timeline to suit your needs. Utilize this tool to identify trends in reserve movements, evaluate the sustainability of reserves, and guide strategic financial planning."
       />
 
       <FilterContainer>

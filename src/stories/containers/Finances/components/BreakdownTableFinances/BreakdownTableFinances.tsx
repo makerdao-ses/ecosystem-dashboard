@@ -39,7 +39,7 @@ const BreakdownTableFinances = ({
   <Container>
     <SectionTitle
       title={'Breakdown Table'}
-      tooltip="Adjust the table to display financial data by selecting the time period and types, with a variable column limit based on screen size, all neatly organized by budget/scope with corresponding subtotals."
+      tooltip="The breakdown table enhances the functionality of the breakdown chart by providing a side-by-side multi-metric comparison. It delivers a detailed view with subtotals for each budget category and their subdivisions, along with a cumulative total for selected metrics."
       hash="breakdown-table"
     />
 
