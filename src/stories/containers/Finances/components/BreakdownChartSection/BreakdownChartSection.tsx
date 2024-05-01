@@ -40,7 +40,7 @@ const BreakdownChartSection: React.FC<BreakdownChartSectionProps> = ({
     <HeaderContainer>
       <SectionTitle
         title="Breakdown Chart"
-        tooltip="Explore comprehensive financial data by adjusting the chart's time granularity and selecting specific metrics for tailored insights."
+        tooltip="Explore MakerDAO's financial distribution across the 'MakerDAO Legacy', 'Atlas Immutable', and 'Scope Framework' budgets from 2021-2024. This tool helps track allocation efficiency, identify funding fluctuations, and pinpoint transitions between legacy and endgame budgets."
       />
       <BreakdownChartFilter
         selectedMetric={selectedMetric}
