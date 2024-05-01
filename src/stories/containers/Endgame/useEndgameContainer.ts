@@ -32,12 +32,15 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
     // scroll into a section on page load
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.replace('#', '');
-      if (hash === NavigationTabEnum.BUDGET_STRUCTURE) {
-        document.getElementById(`section-${NavigationTabEnum.BUDGET_STRUCTURE}`)?.scrollIntoView({
-          behavior: 'smooth',
-        });
-      } else if (hash === NavigationTabEnum.BUDGET_TRANSITION_STATUS) {
-        document.getElementById(`section-${NavigationTabEnum.BUDGET_TRANSITION_STATUS}`)?.scrollIntoView({
+      if (
+        [
+          NavigationTabEnum.KEY_CHANGES,
+          NavigationTabEnum.BUDGET_STRUCTURE,
+          NavigationTabEnum.BUDGET_TRANSITION_STATUS,
+        ].includes(hash as NavigationTabEnum)
+      ) {
+        // scroll to the section
+        document.getElementById(`section-${hash}`)?.scrollIntoView({
           behavior: 'smooth',
         });
       }
@@ -82,10 +85,9 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
         // it's scrolling, don't update the url yet
         return;
       }
-      updateUrl(tab === NavigationTabEnum.KEY_CHANGES ? undefined : tab);
+      updateUrl(tab === NavigationTabEnum.LATESTS_UPDATES ? undefined : tab);
     };
 
-    console.log(updatesInView, keyInView, structureInView, transitionInView);
     if (keyInView) {
       activate(NavigationTabEnum.KEY_CHANGES);
     } else if (transitionInView) {
