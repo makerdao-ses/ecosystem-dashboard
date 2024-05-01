@@ -2,7 +2,6 @@ import { IconButton, Menu, MenuItem, styled, Typography } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { BreadcrumbSeparator } from '../svg/breadcrumb-separator';
 
 interface Props {
   title: string;
@@ -12,11 +11,10 @@ interface Props {
     style?: React.CSSProperties;
   }[];
   className?: string;
-  marginRightSeparator?: string;
   hasIcon?: boolean;
 }
 
-const BreadCrumbWithIcons = ({ title, items = [], className, marginRightSeparator = '4px', hasIcon = true }: Props) => {
+const BreadCrumbWithIcons = ({ title, items = [], className, hasIcon = true }: Props) => {
   const { isLight } = useThemeContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -119,15 +117,7 @@ const BreadCrumbWithIcons = ({ title, items = [], className, marginRightSeparato
           </MenuItem>
         ))}
       </Menu>
-      {items.length >= 1 && hasIcon && (
-        <BreadcrumbSeparator
-          style={{ marginRight: marginRightSeparator }}
-          width={5}
-          height={10}
-          fill="#D1DEE6"
-          fillDark="#9FAFB9"
-        />
-      )}
+
       <StyleTitle>{title}</StyleTitle>
     </Container>
   );
@@ -141,6 +131,7 @@ const StyleTitle = styled(Typography)(({ theme }) => ({
   lineHeight: '13px',
   textAlign: 'center',
   color: theme.palette.mode === 'light' ? '#231536' : '#E2D8EE',
+  marginLeft: 8,
 }));
 
 const ItemMenu = styled('a')({
