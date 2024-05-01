@@ -10,6 +10,7 @@ import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { IntersectionOptions } from 'react-intersection-observer';
 
 export enum NavigationTabEnum {
+  LATESTS_UPDATES = 'latest-updates',
   KEY_CHANGES = 'key-changes',
   BUDGET_STRUCTURE = 'endgame-budget-structure',
   BUDGET_TRANSITION_STATUS = 'budget-transition-status',
@@ -49,10 +50,15 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
     setTimeout(() => setPauseUrlUpdate(false), 700);
   }, []);
 
-  const [keyChangesRef, keyInView, keyEntry] = useInView(INTERSECTION_OPTIONS);
+  const [updatesChangesRef, updatesInView, updatesEntry] = useInView(INTERSECTION_OPTIONS);
+  const [keyChangesRef, keyInView, keyEntry] = useInView({
+    ...INTERSECTION_OPTIONS,
+    threshold: isMobile ? 0.15 : isUpDesktop1440 ? 0.15 : 0.25,
+  });
   const [structureRef, structureInView, structureEntry] = useInView(INTERSECTION_OPTIONS);
   const [transitionStatusRef, transitionInView, transitionEntry] = useInView(INTERSECTION_OPTIONS);
 
+  const updatesEntryTopY = updatesEntry?.boundingClientRect?.y ?? 0;
   const keyEntryTopY = keyEntry?.boundingClientRect?.y ?? 0;
   const structureEntryTopY = structureEntry?.boundingClientRect?.y ?? 0;
   const transitionEntryTopY = transitionEntry?.boundingClientRect?.y ?? 0;
@@ -79,17 +85,23 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
       updateUrl(tab === NavigationTabEnum.KEY_CHANGES ? undefined : tab);
     };
 
-    if (transitionInView) {
+    console.log(updatesInView, keyInView, structureInView, transitionInView);
+    if (keyInView) {
+      activate(NavigationTabEnum.KEY_CHANGES);
+    } else if (transitionInView) {
       activate(NavigationTabEnum.BUDGET_TRANSITION_STATUS);
     } else if (structureInView) {
       activate(NavigationTabEnum.BUDGET_STRUCTURE);
     } else {
-      const hasBoundingData = keyEntryTopY !== 0 && structureEntryTopY !== 0 && transitionEntryTopY !== 0;
+      const hasBoundingData =
+        updatesEntryTopY !== 0 && keyEntryTopY !== 0 && structureEntryTopY !== 0 && transitionEntryTopY !== 0;
       if (
+        !updatesInView &&
         !keyInView &&
         !transitionInView &&
         !structureInView &&
         hasBoundingData &&
+        updatesEntryTopY < 0 &&
         keyEntryTopY < 0 &&
         structureEntryTopY < 0
       ) {
@@ -97,7 +109,7 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
         // activate this as is the last one
         activate(NavigationTabEnum.BUDGET_TRANSITION_STATUS);
       } else {
-        activate(NavigationTabEnum.KEY_CHANGES);
+        activate(NavigationTabEnum.LATESTS_UPDATES);
       }
     }
   }, [
@@ -110,6 +122,8 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
     transitionEntry,
     structureEntry,
     structureEntryTopY,
+    updatesInView,
+    updatesEntryTopY,
   ]);
 
   // budget structure section
@@ -187,6 +201,7 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
   return {
     isLight,
     handlePauseUrlUpdate,
+    updatesChangesRef,
     keyChangesRef,
     structureRef,
     transitionStatusRef,

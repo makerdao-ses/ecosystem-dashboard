@@ -30,6 +30,13 @@ const NavigationTabs: React.FC<NavigationTabsProps> = ({ activeTab, handlePauseU
           <Navigation isLight={isLight}>
             <Tab
               isLight={isLight}
+              active={activeTab === NavigationTabEnum.LATESTS_UPDATES}
+              onClick={handleOnClick(NavigationTabEnum.LATESTS_UPDATES)}
+            >
+              Latest Updates
+            </Tab>
+            <Tab
+              isLight={isLight}
               active={activeTab === NavigationTabEnum.KEY_CHANGES}
               onClick={handleOnClick(NavigationTabEnum.KEY_CHANGES)}
             >
