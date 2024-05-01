@@ -193,7 +193,15 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     // group data in an easier structure to manage
     analytics.series.forEach((series) => {
       series.rows.forEach((row) => {
-        const path = row.dimensions[0].path;
+        let path = row.dimensions[0].path;
+
+        if (path.includes('*')) {
+          // it can be an uncategorized budget
+          const reducedPath = removePatternAfterSlash(path);
+          if (budgets.some((budget) => budget.codePath === reducedPath)) {
+            path = reducedPath; // it is not uncategorized
+          }
+        }
 
         if (!data[path]) {
           // create the path as it does not exist
@@ -481,7 +489,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     // now we create the main table header
     // it is guaranteed below that all the sub-tables have a header
     const subTableHeaders = tables.map((table) => {
-      const mainRow = table.rows.find((column) => column.isMain);
+      const mainRow = table.rows.find((column) => column.isMain || column.isUncategorized);
       return mainRow ? mainRow.columns : [];
     });
 
