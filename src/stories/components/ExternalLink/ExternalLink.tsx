@@ -7,6 +7,7 @@ interface ExternalLinkProps extends React.PropsWithChildren {
   target?: string;
   className?: string;
   showArrow?: boolean;
+  wrapText?: boolean;
 }
 
 const ExternalLink: React.FC<ExternalLinkProps> = ({
@@ -15,9 +16,10 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
   target = '_blank',
   className,
   showArrow = true,
+  wrapText = false,
 }) => (
   <Link href={href} target={target} className={className}>
-    {children}
+    {wrapText ? <span>{children}</span> : children}
     {showArrow && <ExternalLinkArrow renderLinkTag={false} />}
   </Link>
 );

@@ -162,6 +162,10 @@ const dictionary = [
   'Uncategorized',
   'coord',
   'dataset',
+  'Lockstake',
+  'Ethereum',
+  'scalability',
+  'foundational',
 ];
 
 module.exports = dictionary;

@@ -12,6 +12,7 @@ import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/En
 import IntroductoryHeadline from './components/IntroductoryHeadline/IntroductoryHeadline';
 import KeyChangesBudgetTransitionStatusSection from './components/KeyChangesBudgetTransitionStatusSection/KeyChangesBudgetTransitionStatusSection';
 import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
+import LatestUpdatesSection from './components/LatestUpdatesSection/LatestUpdatesSection';
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
 import useEndgameContainer from './useEndgameContainer';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
@@ -26,6 +27,7 @@ interface EndgameContainerProps {
 const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
   const {
     isLight,
+    updatesChangesRef,
     keyChangesRef,
     structureRef,
     transitionStatusRef,
@@ -57,16 +59,23 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
       </Container>
       <NavigationTabs activeTab={activeTab} handlePauseUrlUpdate={handlePauseUrlUpdate} />
 
-      <BannerContainer id="section-key-changes">
-        <EndgameIntroductionBanner isKeyChanges />
-      </BannerContainer>
+      <Container>
+        <div ref={updatesChangesRef}>
+          <LatestUpdatesSection />
+        </div>
+      </Container>
+
+      <div ref={keyChangesRef}>
+        <BannerContainer id="section-key-changes">
+          <EndgameIntroductionBanner isKeyChanges />
+        </BannerContainer>
+        <Container>
+          <KeyChangesSections />
+        </Container>
+      </div>
 
       <Container>
         <SectionSpacing>
-          <div ref={keyChangesRef}>
-            <KeyChangesSections />
-          </div>
-
           <div ref={structureRef}>
             <BudgetStructureSection
               totalBudgetCap={budgetStructureData.totalBudgetCap}
