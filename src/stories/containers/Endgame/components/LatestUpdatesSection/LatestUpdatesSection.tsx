@@ -35,15 +35,15 @@ const LatestUpdatesSection: React.FC = () => (
         }}
         importantLinks={[
           {
-            href: 'https://www.google.com',
+            href: 'https://forum.makerdao.com/t/makerdao-endgame-launch-season/23857',
             label: 'MakerDAO Endgame: Launch Season',
           },
           {
-            href: 'https://www.google.com',
+            href: 'https://forum.makerdao.com/t/governance-changes-to-prepare-for-launch-season/23878',
             label: 'Governance changes to prepare for Launch Season',
           },
           {
-            href: 'https://www.google.com',
+            href: 'https://powerhouse.gitbook.io/maker-alignment-artifacts',
             label: 'Maker Alignment Artifacts',
           },
         ]}
