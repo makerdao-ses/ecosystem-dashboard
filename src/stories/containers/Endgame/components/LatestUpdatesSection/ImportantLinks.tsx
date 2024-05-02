@@ -1,6 +1,5 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled } from '@mui/material';
 import ExternalLink from '@ses/components/ExternalLink/ExternalLink';
-import type { Theme } from '@mui/material';
 
 export interface ImportantLink {
   href: string;
@@ -12,9 +11,7 @@ export interface ImportantLinksProps {
 }
 
 const ImportantLinks: React.FC<ImportantLinksProps> = ({ links }) => {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-
-  if (isMobile && links.length === 0) return null;
+  if (links.length === 0) return null;
 
   return (
     <Content>
