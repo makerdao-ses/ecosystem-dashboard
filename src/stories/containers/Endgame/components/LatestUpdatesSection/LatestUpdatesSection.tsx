@@ -1,4 +1,5 @@
 import { styled } from '@mui/material';
+import { ProjectStatus } from '@ses/core/models/interfaces/projects';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import PhaseCard from './PhaseCard';
 
@@ -10,10 +11,112 @@ const LatestUpdatesSection: React.FC = () => (
     />
 
     <Timeline>
-      <PhaseCard />
-      <PhaseCard />
-      <PhaseCard />
-      <PhaseCard />
+      <PhaseCard
+        phase="Phase 1"
+        title="Launch Season"
+        status={ProjectStatus.INPROGRESS}
+        description={{
+          paragraph:
+            'Introduction of new tokens (NewStable and NewGovToken) and a new brand focusing on user-friendly access and sustainable yield farming through the SubDAO ecosystem. This phase aims for rapid deployment of core features to drive Dai usage growth.',
+          list: [
+            {
+              bold: 'New Beginnings',
+              text: 'Unveiling a vibrant new brand and the revolutionary NewStable and NewFovToken.',
+            },
+            {
+              bold: 'Access Simplified',
+              text: 'Launch of a user-centric website and app, making navigation through our ecosystem seamless.',
+            },
+            {
+              bold: 'Lock in Value',
+              text: 'Introduction of the Lockstake Engine, fostering long-term participation and governance.',
+            },
+          ],
+        }}
+        importantLinks={[
+          {
+            href: 'https://www.google.com',
+            label: 'MakerDAO Endgame: Launch Season',
+          },
+          {
+            href: 'https://www.google.com',
+            label: 'Governance changes to prepare for Launch Season',
+          },
+          {
+            href: 'https://www.google.com',
+            label: 'Maker Alignment Artifacts',
+          },
+        ]}
+      />
+      <PhaseCard
+        phase="Phase 2"
+        title="Scaling Up"
+        status={ProjectStatus.TODO}
+        description={{
+          paragraph:
+            'After the successful launch of key components, this phase focuses on vertical and horizontal expansion, including more SubDAOs catering to diverse interests and bridging to major L2s and L1s enhancing the ecosystem’s reach and capabilities.',
+          list: [
+            {
+              bold: 'Diverse Ecosystem',
+              text: 'Expansion with more SubDAOs, each addressing unique market need and interests.',
+            },
+            {
+              bold: 'Enhance Connectivity',
+              text: 'Implementation of bridges to popular L2s and L1s, widening our reach.',
+            },
+            {
+              bold: 'Governance Evolution',
+              text: 'SubDAOs gain autonomy, supported by innovative UI adn AI tools.',
+            },
+          ],
+        }}
+      />
+      <PhaseCard
+        phase="Phase 3"
+        title="NewChain"
+        status={ProjectStatus.TODO}
+        description={{
+          paragraph:
+            'The transition to a standalone L1 blockchain, hosting core tokenomics and govenance, marks a pivotal point for scalability and integration of real-world assets, DeFi, and corss-blockchain operations.',
+          list: [
+            {
+              bold: 'Introducing NewChain',
+              text: 'Laung of a dedicated L1 blockchain to inhance the Maker ecosystem.',
+            },
+            {
+              bold: 'Ethereum and Beyond',
+              text: "NewChain's coexistence with Ethereum, supporting continuity and expansion.",
+            },
+            {
+              bold: 'Foundation for the Future',
+              text: 'Strategic development of New Chain to ensure scalability and innovation.',
+            },
+          ],
+        }}
+      />
+      <PhaseCard
+        phase="Phase 4"
+        title="Final Endgame"
+        status={ProjectStatus.TODO}
+        description={{
+          paragraph:
+            'This phase signifies the completion of foundational governance mechanisms, leading to an immutable, dynamic, and ever-growing ecosystem, embodying the ultimate vision of MakerDAO’s Endgame.',
+          list: [
+            {
+              bold: 'Completion of Governance Mechanisms',
+              text: 'Finalization and immutability of foundational governance structures.',
+            },
+            {
+              bold: 'Achievement of Ultimate Vision',
+              text: 'Realization of dynamic, ever-expanding ecosystem with a stable financial foundation.',
+            },
+            {
+              bold: 'Permanent Infrastructure',
+              text: 'Establishment of a reliable, unchangeable infrastructure for future growth.',
+            },
+          ],
+        }}
+      />
     </Timeline>
   </Content>
 );

@@ -163,6 +163,9 @@ const dictionary = [
   'coord',
   'dataset',
   'Lockstake',
+  'Ethereum',
+  'scalability',
+  'foundational',
 ];
 
 module.exports = dictionary;
