@@ -89,9 +89,20 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
               </NthTitleBox>
             )}
             <TitleDescription levelNumber={levelNumber}>
-              {levelNumber === 1
-                ? "The MakerDAO finances section offers a complete breakdown of budget and expenditure data for contributor teams since the DAO's launch in 2021. The available metrics are  budgets, net protocol outflow, net expenses on-chain, reported actuals, and expense forecasts."
-                : description}
+              {levelNumber === 1 ? (
+                <>
+                  <p>
+                    The MakerDAO finances section offers a complete breakdown of budget and expenditure data for
+                    contributor teams since the DAO's launch in 2021.
+                  </p>
+                  <p>
+                    The available metrics are Budget, Budget Cap, Forecast, Actuals, Net Expenses On-Chain and Net
+                    Protocol Outflow.
+                  </p>
+                </>
+              ) : (
+                description
+              )}
             </TitleDescription>
           </TitleContainer>
 
@@ -228,7 +239,10 @@ const TitleContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const TitleDescription = styled('p')<{ levelNumber: number }>(({ theme, levelNumber }) => ({
+const TitleDescription = styled('div')<{ levelNumber: number }>(({ theme, levelNumber }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontStyle: 'normal',
@@ -238,9 +252,14 @@ const TitleDescription = styled('p')<{ levelNumber: number }>(({ theme, levelNum
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   margin: 0,
   marginLeft: levelNumber === 1 ? 0 : 40,
+
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     marginLeft: levelNumber === 1 ? 0 : 56,
+  },
+
+  p: {
+    margin: 0,
   },
 }));
 

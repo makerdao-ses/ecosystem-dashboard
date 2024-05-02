@@ -29,7 +29,26 @@ const TitleFilterComponent: React.FC<Props> = ({
   <Container>
     <SectionTitle
       title={title}
-      tooltip="Explore MakerDAO's financial evolution in detail with this advanced line chart, which offers both cumulative and flat perspectives on expenses. Select the 'Absolute Cumulative' mode for a continuous tally from inception, providing a comprehensive overview of long-term financial movements. Use the 'Relative Cumulative' mode, which resets at the start of each chosen period, to analyze expenses within specific intervals. Effortlessly switch between these views to discern overarching fiscal trends or to pinpoint financial developments specific to a quarter or year, aiding in strategic decision-making and performance assessment."
+      tooltip={
+        <TooltipContent>
+          <p>
+            Explore MakerDAO's financial evolution in detail with this advanced line chart, which offers both cumulative
+            and flat perspectives on expenses.
+          </p>
+          <p>
+            Select the 'Absolute Cumulative' mode for a continuous tally from inception, providing a comprehensive
+            overview of long-term financial movements.
+          </p>
+          <p>
+            Use the 'Relative Cumulative' mode, which resets at the start of each chosen period, to analyze expenses
+            within specific intervals.
+          </p>
+          <p>
+            Effortlessly switch between these views to discern overarching fiscal trends or to pinpoint financial
+            developments specific to a quarter or year, aiding in strategic decision-making and performance assessment.
+          </p>
+        </TooltipContent>
+      }
     />
 
     <FilterContainer>
@@ -101,4 +120,14 @@ const PeriodicSelectionFilter = styled.div({
 
 const PeriodSelect = styled(SingleItemSelect)({
   padding: '7px 15px 7px 16px',
+});
+
+const TooltipContent = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+
+  p: {
+    margin: 0,
+  },
 });

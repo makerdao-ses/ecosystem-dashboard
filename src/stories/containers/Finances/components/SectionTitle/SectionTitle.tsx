@@ -10,7 +10,7 @@ import React, { useMemo } from 'react';
 
 interface SectionTitleProps {
   title: string;
-  tooltip: string;
+  tooltip: string | React.ReactElement;
   hash?: string;
 }
 
@@ -42,7 +42,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, tooltip, hash }) => 
     <Container id={hash ?? slugTitle}>
       <Title>{title}</Title>
       <Tooltip>
-        <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
+        <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000} showAsModal>
           <IconWrapper>
             <Information height={18} width={18} />
           </IconWrapper>

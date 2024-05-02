@@ -41,7 +41,18 @@ const ExpenseReports: React.FC<Props> = ({
       <HeaderContainer>
         <SectionTitle
           title="Budget Statements"
-          tooltip='Access detailed insights into budget reporting activities, including contributors, reporting month, actual expenditures, status, and recent modifications. Click "View" to dive into specific financial data by department, enabling effective monitoring and management of fiscal operations.'
+          tooltip={
+            <TooltipContent>
+              <p>
+                Access detailed insights into budget reporting activities, including contributors, reporting month,
+                actual expenditures, status, and recent modifications.{' '}
+              </p>
+              <p>
+                Click "View" to dive into specific financial data by department, enabling effective monitoring and
+                management of fiscal operations.
+              </p>
+            </TooltipContent>
+          }
         />
         <ExpenseReportsFilters {...filterProps} />
       </HeaderContainer>
@@ -147,5 +158,15 @@ const BigButtonStyled = styled(BigButton)({
   letterSpacing: 1,
   [lightTheme.breakpoints.up('tablet_768')]: {
     minWidth: 207,
+  },
+});
+
+const TooltipContent = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+
+  p: {
+    margin: 0,
   },
 });

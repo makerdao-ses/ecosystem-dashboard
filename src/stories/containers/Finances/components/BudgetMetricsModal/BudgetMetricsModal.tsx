@@ -25,7 +25,7 @@ const BudgetMetricsModal: React.FC = () => {
       <Container>
         <Header>
           <ContainerTitle>
-            <Title>Budget</Title>
+            <MetricTitle>About budget metrics</MetricTitle>
             <ContainerClose>
               <StyledClose onClick={handleOpenModal} />
             </ContainerClose>
@@ -38,6 +38,11 @@ const BudgetMetricsModal: React.FC = () => {
           <SimpleBarStyled scrollbarMaxSize={64}>
             <InsideModal>
               <MetricItem>
+                <MetricTitle>Budget</MetricTitle>
+                <MetricDescription>An estimate of income and expenditure for a set period.</MetricDescription>
+              </MetricItem>
+
+              <MetricItem>
                 <MetricTitle>Budget Cap</MetricTitle>
                 <MetricDescription>
                   The maximum amount allocated for a specific budget category or project.
@@ -47,14 +52,14 @@ const BudgetMetricsModal: React.FC = () => {
               <MetricItem>
                 <MetricTitle>Forecast</MetricTitle>
                 <MetricDescription>
-                  Predicted financial outcomes based on current data and trends for a future period.
+                  The amount forecasted to be spent in a period, as self reported by the corresponding team.
                 </MetricDescription>
               </MetricItem>
 
               <MetricItem>
                 <MetricTitle>Actuals</MetricTitle>
                 <MetricDescription>
-                  The actual amount spent or received, compared against budgeted figures.
+                  The actual amount spent or received in a period, as self reported by the corresponding team.
                 </MetricDescription>
               </MetricItem>
 
@@ -65,7 +70,9 @@ const BudgetMetricsModal: React.FC = () => {
 
               <MetricItem>
                 <MetricTitle>Payments Off-Chain Incl</MetricTitle>
-                <MetricDescription>Transactions (expenses) processed outside the blockchain network.</MetricDescription>
+                <MetricDescription>
+                  The net flow of funds originating from the Maker Protocol, as tracked on-chain.
+                </MetricDescription>
               </MetricItem>
             </InsideModal>
           </SimpleBarStyled>
@@ -167,22 +174,6 @@ const ContainerTitle = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     height: 29,
-  },
-}));
-
-const Title = styled('div')(({ theme }) => ({
-  fontSize: 14,
-  lineHeight: '17px',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 700,
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    fontWeight: 600,
-    fontSize: 16,
-    lineHeight: '19px',
-    letterSpacing: '0.4px',
   },
 }));
 
