@@ -43,12 +43,8 @@ const LatestUpdatesSection: React.FC = () => (
             label: 'Governance changes to prepare for Launch Season',
           },
           {
-            href: 'https://powerhouse.gitbook.io/maker-alignment-artifacts',
-            label: 'Maker Alignment Artifacts',
-          },
-          {
             href: 'https://forum.makerdao.com/t/preparing-to-decentralize-the-launch-project-after-launch-season/24193',
-            label: 'Decentralization of Launch Projects',
+            label: 'Decentralization of Launch Project',
           },
         ]}
       />
