@@ -73,7 +73,6 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
           <KeyChangesSections />
         </Container>
       </div>
-      {/* TODO: fix spacing between sections */}
 
       <Container>
         <SectionSpacing>

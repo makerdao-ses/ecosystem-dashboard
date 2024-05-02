@@ -70,6 +70,11 @@ const KeyChangesSectionsContainer = styled.section({
   display: 'flex',
   flexDirection: 'column',
   gap: 32,
+  marginBottom: 48,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginBottom: 80,
+  },
 });
 
 export const SectionContainer = styled.div({
