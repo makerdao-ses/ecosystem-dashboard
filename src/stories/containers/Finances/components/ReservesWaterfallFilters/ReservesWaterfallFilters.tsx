@@ -43,7 +43,19 @@ const ReservesWaterfallFilters: React.FC<FiltersProps> = ({
     <ContainerFilterTitle>
       <SectionTitle
         title={title}
-        tooltip="Monitor the dynamics of MakerDAO's reserves with precision using this interactive financial chart. It displays detailed inflows, outflows, and net balances, providing a clear picture of fiscal health. Customize the analysis by filtering specific data points and adjusting the timeline to suit your needs. Utilize this tool to identify trends in reserve movements, evaluate the sustainability of reserves, and guide strategic financial planning."
+        tooltip={
+          <TooltipContent>
+            <p>Monitor the dynamics of MakerDAO's reserves with precision using this interactive financial chart.</p>
+            <p>
+              It displays detailed inflows, outflows, and net balances, providing a clear picture of fiscal health.
+              Customize the analysis by filtering specific data points and adjusting the timeline to suit your needs.{' '}
+            </p>
+            <p>
+              Utilize this tool to identify trends in reserve movements, evaluate the sustainability of reserves, and
+              guide strategic financial planning.
+            </p>
+          </TooltipContent>
+        }
       />
 
       <FilterContainer>
@@ -172,5 +184,15 @@ const ContainerFilterTitle = styled.div({
     height: 48,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+  },
+});
+
+const TooltipContent = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+
+  p: {
+    margin: 0,
   },
 });
