@@ -48,7 +48,7 @@ const Content = styled('div')(({ theme }) => ({
   borderRadius: 6,
   padding: '0 8px 8px',
   overflow: 'hidden',
-  background: theme.palette.mode === 'light' ? 'rgba(246, 248, 249, 0.5)' : 'red',
+  background: theme.palette.mode === 'light' ? 'rgba(246, 248, 249, 0.5)' : 'rgba(16, 25, 31, 0.2)',
 
   [theme.breakpoints.up('desktop_1024')]: {
     minWidth: 344,
@@ -57,8 +57,8 @@ const Content = styled('div')(({ theme }) => ({
 }));
 
 const Header = styled('div')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
-  background: theme.palette.mode === 'light' ? 'rgba(236, 239, 249, 0.5)' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  background: theme.palette.mode === 'light' ? 'rgba(236, 239, 249, 0.5)' : 'rgba(49, 66, 78, 0.8)',
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',

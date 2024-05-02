@@ -55,13 +55,13 @@ const Card = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  background: theme.palette.mode === 'light' ? 'white' : 'red',
+  background: theme.palette.mode === 'light' ? 'white' : '#1E2C37',
   padding: 8,
   borderRadius: 6,
   boxShadow:
     theme.palette.mode === 'light'
       ? '20px 20px 20px rgba(219, 227, 237, 0.4), 1px 1px 5px rgba(190, 190, 190, 0.25)'
-      : '20px 20px 20px red',
+      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 16,
@@ -86,14 +86,14 @@ const TitleContainer = styled('div')(() => ({
 }));
 
 const Phase = styled('span')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#708390' : 'red',
+  color: theme.palette.mode === 'light' ? '#708390' : '#546978',
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
 }));
 
 const Title = styled('h3')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
@@ -119,11 +119,12 @@ const DescriptionContainer = styled('div')(({ theme }) => ({
   gap: 8,
   padding: 8,
   borderRadius: 6,
-  background: theme.palette.mode === 'light' ? 'rgba(246, 248, 249, 0.5)' : 'red',
-  boxShadow: '1px 3px 7px rgba(0, 0, 0, 0.05) inset',
+  background: theme.palette.mode === 'light' ? 'rgba(246, 248, 249, 0.5)' : 'rgba(16, 25, 31, 0.3)',
+  boxShadow:
+    theme.palette.mode === 'light' ? '1px 3px 7px rgba(0, 0, 0, 0.05) inset' : '1px 3px 7px rgba(0, 0, 0, 0.15) inset',
   fontSize: 14,
   lineHeight: '17px',
-  color: theme.palette.mode === 'light' ? '#231536' : 'red',
+  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: 16,
