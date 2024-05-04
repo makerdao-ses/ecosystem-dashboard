@@ -222,7 +222,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     let uncategorizedSubTable: TableFinances | null = null;
     Object.keys(data)
       .filter((path) => path.includes('*'))
-      .forEach((path) => {
+      .forEach((path, _, array) => {
         const columns = Object.values(data[path]);
 
         if (selectedGranularity !== 'annual') {
@@ -245,34 +245,48 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         // this path can not be used for other sub tables
         delete data[path];
 
+        const name = removePatternAfterSlash(path).substring(removePatternAfterSlash(path).lastIndexOf('/') + 1);
+
         if (uncategorizedSubTable === null) {
           // it is empty so we create it
+          const row = {
+            name: array.length === 1 ? 'Uncategorized' : name,
+            codePath: path,
+            isUncategorized: true,
+            columns,
+          } as ItemRow;
           uncategorizedSubTable = {
             tableName: 'Uncategorized',
-            rows: [
-              {
-                name: 'Uncategorized',
-                codePath: path,
-                isUncategorized: true,
-                columns,
-              },
-            ],
+            rows:
+              array.length === 1
+                ? [row]
+                : [
+                    // the first row is the is the header of the sub-table
+                    {
+                      ...row,
+                      name: 'Uncategorized',
+                      isMain: true,
+                    },
+                    row,
+                  ],
           } as TableFinances;
         } else {
-          // it is not empty so we add it
-          const previousRow = uncategorizedSubTable.rows[0];
-          uncategorizedSubTable.rows = [
-            {
-              ...previousRow,
-              columns: previousRow.columns.map((column, index) => ({
-                Actuals: column.Actuals + columns[index].Actuals,
-                Budget: column.Budget + columns[index].Budget,
-                PaymentsOnChain: column.PaymentsOnChain + columns[index].PaymentsOnChain,
-                Forecast: column.Forecast + columns[index].Forecast,
-                ProtocolNetOutflow: column.ProtocolNetOutflow + columns[index].ProtocolNetOutflow,
-              })),
-            },
-          ];
+          // there's more than one uncategorized budget so we add it to the existing table as a new row
+          uncategorizedSubTable.rows.push({
+            name,
+            codePath: path,
+            isUncategorized: true,
+            columns,
+          } as ItemRow);
+
+          // update the header of the sub-table
+          uncategorizedSubTable.rows[0].columns = uncategorizedSubTable.rows[0].columns.map((headerColumn, index) => ({
+            Actuals: headerColumn.Actuals + columns[index].Actuals,
+            Budget: headerColumn.Budget + columns[index].Budget,
+            PaymentsOnChain: headerColumn.PaymentsOnChain + columns[index].PaymentsOnChain,
+            Forecast: headerColumn.Forecast + columns[index].Forecast,
+            ProtocolNetOutflow: headerColumn.ProtocolNetOutflow + columns[index].ProtocolNetOutflow,
+          }));
         }
       });
 
