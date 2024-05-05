@@ -27,6 +27,7 @@ interface Props {
   titleCard?: string;
   auditorMessage?: string;
   makerburnCustomMessage?: string;
+  showMakerburnLink?: boolean;
 }
 
 const CardExpenses = ({
@@ -42,18 +43,19 @@ const CardExpenses = ({
   titleCard,
   auditorMessage,
   makerburnCustomMessage,
+  showMakerburnLink = true,
 }: Props) => {
   const { isLight } = useThemeContext();
   const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit`;
   const textLink = resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor';
-  const auditorTitle = auditorMessage ?? `The ${shortCode} Core Unit is currently working without auditor`;
+  const auditorTitle = auditorMessage ?? `${shortCode} Core Unit is currently working without auditor`;
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   return (
     <InformationCard
       fontWeight={600}
-      title="Expenses"
+      title="Finances"
       fontSize="24px"
       lineHeight="29px"
       style={style}
@@ -82,7 +84,7 @@ const CardExpenses = ({
               style={{
                 textAlign: 'center',
                 borderRadius: '22px',
-                height: ' 34px',
+                height: '34px',
                 fontFamily: 'Inter, sans serif',
                 fontStyle: 'normal',
                 fontWeight: 500,
@@ -91,14 +93,14 @@ const CardExpenses = ({
                 width: buttonWidth,
                 marginRight: '12px',
                 flexGrow: 1,
-                padding: isPhone || isTable ? '8px 25.75px' : '8px 43.25px',
+                padding: isPhone || isTable ? '8px 12.75px' : '8px 43.25px',
               }}
             />
           )}
           <LinkButton
             buttonType={ButtonType.Primary}
             widthText="100%"
-            label="Expense Reports"
+            label="Budget Statements"
             style={{
               textAlign: 'center',
               borderRadius: '22px',
@@ -110,7 +112,6 @@ const CardExpenses = ({
               lineHeight: '18px',
               letterSpacing: '0px',
               width: buttonWidth,
-              // TODO: let this as `marginLeft: 12` when the Activity feed for ecosystem actor is implemented
               marginLeft: resource === ResourceType.CoreUnit ? 12 : 0,
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
@@ -130,24 +131,28 @@ const CardExpenses = ({
           marginBottom: '16px',
         }}
       />
-      <ContainerLinks>
-        <CustomLink
-          href={`${MAKER_BURN_LINK}/${code}`}
-          style={{
-            marginLeft: '0px',
-            paddingRight: '0px',
-            fontFamily: 'Inter, sans-serif',
-            fontStyle: 'normal',
-            fontWeight: 500,
-            fontSize: '16px',
-            lineHeight: '18px',
-            whiteSpace: 'normal',
-            display: 'inline-block',
-          }}
-          target="_blank"
-          children={makerburnCustomMessage ?? `View On-Chain transfers to ${shortCode} ${textLink} on makerburn.com`}
-        />
-      </ContainerLinks>
+      {showMakerburnLink ? (
+        <ContainerLinks>
+          <CustomLink
+            href={`${MAKER_BURN_LINK}/${code}`}
+            style={{
+              marginLeft: '0px',
+              paddingRight: '0px',
+              fontFamily: 'Inter, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: 500,
+              fontSize: '16px',
+              lineHeight: '18px',
+              whiteSpace: 'normal',
+              display: 'inline-block',
+            }}
+            target="_blank"
+            children={makerburnCustomMessage ?? `View On-Chain transfers to ${shortCode} ${textLink} on makerburn.com`}
+          />
+        </ContainerLinks>
+      ) : (
+        ''
+      )}
 
       {(auditors || []).length > 0 ? (
         <AuditorsContainer>

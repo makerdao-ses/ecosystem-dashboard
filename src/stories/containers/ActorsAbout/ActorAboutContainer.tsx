@@ -79,13 +79,14 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                   <CardProjects actorName={actor.name} shortCode={actor.shortCode} />
                 )}
                 <CardExpenses
+                  showMakerburnLink={false}
                   resource={ResourceType.EcosystemActor}
                   queryStrings={queryStrings}
                   code={actor.code}
                   shortCode={actor.shortCode}
                   auditors={actor.auditors}
                   titleCard={`View all expenses of the ${actor.name} Ecosystem Actor`}
-                  auditorMessage={`The ${actor.name} is working without auditor`}
+                  auditorMessage={`${actor.name} is working without auditor`}
                   makerburnCustomMessage={`View On-Chain transfers to ${actor.name} on makerburn.com`}
                 />
               </ContainerCard>

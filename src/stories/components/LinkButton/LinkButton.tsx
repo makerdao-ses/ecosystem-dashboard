@@ -147,8 +147,10 @@ const Text = styled.div<{
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
-  whiteSpace: 'nowrap',
   width,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
   color: isLight
     ? disabled
       ? ' #9FAFB9'
