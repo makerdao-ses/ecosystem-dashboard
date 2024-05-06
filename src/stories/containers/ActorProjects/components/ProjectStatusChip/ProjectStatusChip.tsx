@@ -42,10 +42,10 @@ const StatusChip = styled(Chip)<{ textColor: string; background: string; isSmall
     background,
     height: 'auto',
     fontWeight: 500,
+    lineHeight: '18px',
 
     '.MuiChip-label': {
       fontSize: isSmall ? 11 : 14,
-      lineHeight: 'normal',
       color: textColor,
       padding: 0,
     },
