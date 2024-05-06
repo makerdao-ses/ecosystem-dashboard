@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import lightTheme from '@ses/styles/theme/light';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -18,6 +19,7 @@ interface BreadcrumbsProps {
   marginLeft?: string;
   marginRight?: string;
   className?: string;
+  hasItemsToCount?: boolean;
 }
 
 const Breadcrumbs = (props: BreadcrumbsProps) => {
@@ -31,7 +33,7 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
       borderRadius={props.borderRadius}
     >
       {props.items.map((item, i) => (
-        <LinkWrapper key={item.label.toString()}>
+        <LinkWrapper key={item.label.toString()} hasItemsToCount={props.hasItemsToCount}>
           <Link
             key={item.label.toString() + i}
             href={item.url}
@@ -77,20 +79,25 @@ const Container = styled.div<{
   borderRadius,
 }));
 
-const LinkWrapper = styled.div({
+const LinkWrapper = styled.div<{ hasItemsToCount?: boolean }>(({ hasItemsToCount = true }) => ({
   display: 'flex',
   alignItems: 'center',
-  '@media (max-width: 1000px)': {
-    '&:nth-of-type(n + 3)': {
-      display: 'none',
-    },
-    '&:nth-of-type(n + 2)': {
-      svg: {
-        visibility: 'hidden',
-      },
+  '&:first-child .crumb': {
+    maxWidth: hasItemsToCount ? 180 : 120,
+  },
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    '& .crumb': {
+      textAlign: 'revert',
+      width: 'fit-content',
+      maxWidth: 120,
+      marginRight: 8,
+      marginLeft: 8,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
   },
-});
+}));
 
 const Crumb = styled.a<{
   first: boolean;
