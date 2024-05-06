@@ -38,6 +38,7 @@ const StatusChip = styled(Chip)<{ textColor: string; background: string; isSmall
   ({ textColor, background, isSmall }) => ({
     padding: '4px 16px',
     borderRadius: 24,
+    fontFamily: 'Inter, sans-serif',
     border: `1px solid ${textColor}`,
     background,
     height: 'auto',
