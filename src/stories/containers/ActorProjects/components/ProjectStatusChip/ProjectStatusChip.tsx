@@ -23,7 +23,7 @@ const ProjectStatusChip: React.FC<ProjectStatusChipProps> = ({ status, customLab
       case ProjectStatus.FINISHED:
         return 'Finished';
       default:
-        return 'To do';
+        return 'To Do';
     }
   }, [customLabel, status]);
 
@@ -36,18 +36,18 @@ export default ProjectStatusChip;
 
 const StatusChip = styled(Chip)<{ textColor: string; background: string; isSmall: boolean }>(
   ({ textColor, background, isSmall }) => ({
-    padding: '4px 16px',
+    padding: isSmall ? '4px 8px' : '6.5px 15px',
     borderRadius: 24,
     fontFamily: 'Inter, sans-serif',
     border: `1px solid ${textColor}`,
     background,
     height: 'auto',
     fontWeight: 500,
-    lineHeight: '18px',
 
     '.MuiChip-label': {
       fontSize: isSmall ? 11 : 14,
       color: textColor,
+      lineHeight: 'normal',
       padding: 0,
     },
   })
