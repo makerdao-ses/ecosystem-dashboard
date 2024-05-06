@@ -37,7 +37,7 @@ export default ProjectStatusChip;
 const StatusChip = styled(Chip)<{ textColor: string; background: string; isSmall: boolean }>(
   ({ textColor, background, isSmall }) => ({
     padding: '4px 16px',
-    borderRadius: 24,
+    borderRadius: 12,
     fontFamily: 'Inter, sans-serif',
     border: `1px solid ${textColor}`,
     background,
