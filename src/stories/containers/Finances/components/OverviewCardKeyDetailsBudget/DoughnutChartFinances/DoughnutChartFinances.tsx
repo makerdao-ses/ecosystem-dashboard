@@ -4,6 +4,7 @@ import { calculateValuesByBreakpoint } from '@ses/containers/Finances/utils/util
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
 import lightTheme from '@ses/styles/theme/light';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -83,7 +84,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
     }
   }, [selectedMetric]);
 
-  const doughnutSeriesChunks = chunkArray(doughnutSeriesData, numberSliderPerLevel);
+  const doughnutSeriesChunks = chunkArray(sortDoughnutSeriesByValue(doughnutSeriesData), numberSliderPerLevel);
   const numberSlider = doughnutSeriesChunks.size;
   const options = useMemo(
     () => ({
