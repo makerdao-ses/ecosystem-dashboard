@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import ProjectStatusChip from '@ses/containers/ActorProjects/components/ProjectStatusChip/ProjectStatusChip';
+import EndgameStatusChip from '../EndgameStatusChip/EndgameStatusChip';
 import ImportantLinks from './ImportantLinks';
 import type { ImportantLink } from './ImportantLinks';
 import type { ProjectStatus } from '@ses/core/models/interfaces/projects';
@@ -28,7 +28,7 @@ const PhaseCard: React.FC<PhaseCardProps> = ({ phase, title, status, description
         <Title>{title}</Title>
       </TitleContainer>
 
-      <ProjectStatusChip status={status} />
+      <EndgameStatusChip status={status} />
     </Header>
 
     <Body>
