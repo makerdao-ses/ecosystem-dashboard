@@ -89,6 +89,7 @@ const LinkWrapper = styled.div<{ hasItemsToCount?: boolean; hasManyItems?: boole
     alignItems: 'center',
     '&:first-child .crumb': {
       maxWidth: hasItemsToCount ? 180 : 120,
+      marginLeft: 0,
     },
     [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
       '& .crumb': {
