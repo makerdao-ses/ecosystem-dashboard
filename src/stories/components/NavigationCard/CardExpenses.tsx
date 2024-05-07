@@ -46,9 +46,9 @@ const CardExpenses = ({
   showMakerburnLink = true,
 }: Props) => {
   const { isLight } = useThemeContext();
-  const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit`;
+  const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit.`;
   const textLink = resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor';
-  const auditorTitle = auditorMessage ?? `${shortCode} Core Unit is currently working without auditor`;
+  const auditorTitle = auditorMessage ?? `${shortCode} Core Unit is currently working without auditor.`;
   const isPhone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
   const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
