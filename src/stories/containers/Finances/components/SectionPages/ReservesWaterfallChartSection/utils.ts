@@ -480,7 +480,7 @@ export const processDataForWaterfall = (
   });
 
   const result: number[] = [...data];
-  if (data.reduce((acc, actual) => acc + actual) === 0) return data;
+  if (data.reduce((acc, actual) => acc + actual, 0) === 0 && total === 0) return data;
   for (let i = 0; i < result.length; i++) {
     if (Math.abs(result[i]) < UMBRAL_CHART_WATERFALL) {
       result[i] = 0;
