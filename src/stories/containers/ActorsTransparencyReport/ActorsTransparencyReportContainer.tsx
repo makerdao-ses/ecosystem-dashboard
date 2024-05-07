@@ -80,8 +80,8 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
       />
       <ActorSummary
         actors={actors}
-        trailingAddress={['Expense Reports']}
-        breadcrumbTitle="Expense Reports"
+        trailingAddress={['Budget Statements']}
+        breadcrumbTitle="Budget Statements"
         ref={ref}
         showHeader={showHeader}
       />
