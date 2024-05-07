@@ -166,6 +166,7 @@ const dictionary = [
   'Ethereum',
   'scalability',
   'foundational',
+  'spfs',
 ];
 
 module.exports = dictionary;
