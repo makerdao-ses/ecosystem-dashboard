@@ -92,11 +92,11 @@ const LinkWrapper = styled.div<{ hasItemsToCount?: boolean; hasManyItems?: boole
     },
     [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
       '& .crumb': {
-        textAlign: 'revert',
+        textAlign: hasManyItems ? 'revert' : 'center',
         width: 'fit-content',
         maxWidth: hasManyItems ? 120 : '100%',
-        marginRight: 8,
-        marginLeft: 8,
+        marginRight: hasManyItems ? 8 : 15,
+        marginLeft: hasManyItems ? 8 : 15,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
