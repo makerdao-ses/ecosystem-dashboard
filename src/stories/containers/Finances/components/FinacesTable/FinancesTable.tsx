@@ -8,6 +8,7 @@ import Link from 'next/link';
 import React from 'react';
 import { defaultOrder, orderMetrics } from '../HeaderTable/utils';
 import LinkCellComponent from '../LinkCellComponent/LinkCellComponent';
+import { removePatternAfterSlash } from '../SectionPages/BreakdownTable/utils';
 import CellTable from './CellTable';
 import type { TableFinances, MetricValues, PeriodicSelectionFilter, ItemRow } from '../../utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -46,7 +47,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
           <TableBody isLight={isLight} isAnnual={isAnnual}>
             {table.rows.map((row: ItemRow, index) => {
               const href = `${siteRoutes.finances(
-                (row.codePath ?? '').replace('atlas/', '')
+                removePatternAfterSlash(row.codePath ?? '').replace('atlas/', '')
               )}?year=${year}&period=${period}${metrics.map((metric) => `&metric=${metric}`).join('')}#breakdown-table`;
 
               return (
@@ -57,7 +58,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                     isHeader={!!row.isMain}
                     isUncategorized={!!row.isUncategorized}
                   >
-                    {row.isSummaryRow || row.isUncategorized ? (
+                    {row.isSummaryRow || (row.isUncategorized && !row.isMain) ? (
                       row.name
                     ) : (
                       <Link href={href} scroll={false}>
@@ -73,7 +74,10 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                       if (!value) {
                         return (
                           <Cell key={index} isLight={isLight}>
-                            <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow || row.isUncategorized}>
+                            <LinkCellComponent
+                              href={href}
+                              isSummaryRow={row.isSummaryRow || (row.isUncategorized && !row.isMain)}
+                            >
                               0
                             </LinkCellComponent>
                           </Cell>
@@ -81,7 +85,10 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                       }
                       return (
                         <Cell key={index} isLight={isLight}>
-                          <LinkCellComponent href={href} isSummaryRow={row.isSummaryRow || row.isUncategorized}>
+                          <LinkCellComponent
+                            href={href}
+                            isSummaryRow={row.isSummaryRow || (row.isUncategorized && !row.isMain)}
+                          >
                             {usLocalizedNumber(row.columns[0][metric as keyof MetricValues], 0)}
                           </LinkCellComponent>
                         </Cell>
@@ -95,7 +102,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                         metrics={newMetrics}
                         value={row.columns[index]}
                         href={href}
-                        isSummaryRow={row.isSummaryRow || row.isUncategorized}
+                        isSummaryRow={row.isSummaryRow || (row.isUncategorized && !row.isMain)}
                       />
                     ))}
                   {showSemiAnnual &&
@@ -105,7 +112,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                         metrics={newMetrics}
                         value={row.columns[index]}
                         href={href}
-                        isSummaryRow={row.isSummaryRow || row.isUncategorized}
+                        isSummaryRow={row.isSummaryRow || (row.isUncategorized && !row.isMain)}
                       />
                     ))}
                   {showMonthly &&
@@ -115,7 +122,7 @@ const FinancesTable: React.FC<Props> = ({ className, breakdownTable, metrics, pe
                         metrics={newMetrics}
                         value={row.columns[index]}
                         href={href}
-                        isSummaryRow={row.isSummaryRow || row.isUncategorized}
+                        isSummaryRow={row.isSummaryRow || (row.isUncategorized && !row.isMain)}
                       />
                     ))}
                 </TableRow>
