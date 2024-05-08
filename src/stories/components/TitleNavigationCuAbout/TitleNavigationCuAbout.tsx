@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 
 import {
   getLatestMip39FromCoreUnit,

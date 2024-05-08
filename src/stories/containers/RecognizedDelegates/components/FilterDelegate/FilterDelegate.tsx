@@ -8,7 +8,7 @@ import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
 import { getLabelMultiselectFilters } from '@ses/core/utils/filters';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import DelegateSelectItem from './DelegateSelectItem';
 import type { SelectItemProps, MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Close } from '../svg/close';
 import type { IconProps } from '@mui/material';

@@ -7,8 +7,8 @@ import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
-import lightTheme from 'styles/theme/light';
 
 import { Filters } from './cuTableFilters';
 import { useCoreUnitsTable } from './useCoreUnitsTable';

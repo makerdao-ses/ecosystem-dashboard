@@ -10,7 +10,7 @@ import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useRef } from 'react';
 import ExpenseReportStatusIndicator from '../TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import AuditorCommentsContainer from '../TransparencyReport/components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { getContributorCommitment, getLinksFromContributor } from '../../../core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getColorJobPosition } from '../../../core/utils/colors';

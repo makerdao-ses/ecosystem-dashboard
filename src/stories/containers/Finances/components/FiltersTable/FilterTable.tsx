@@ -4,7 +4,7 @@ import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMulti
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFilter/ResponsiveButtonClearFilter';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import MetricItem from './MetricItem';
 import type { SelectItemProps, MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';

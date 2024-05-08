@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import React, { useEffect, useMemo, useState } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';

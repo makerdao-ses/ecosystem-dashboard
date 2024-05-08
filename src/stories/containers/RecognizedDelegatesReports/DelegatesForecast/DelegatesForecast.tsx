@@ -3,7 +3,7 @@ import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedI
 import { TransparencyEmptyTable } from '@ses/containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { useDelegatesForecast } from './useDelegatesForecast';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';

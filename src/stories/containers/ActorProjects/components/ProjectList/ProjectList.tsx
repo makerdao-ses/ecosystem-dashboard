@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ProjectCard from '../ProjectCard/ProjectCard';
 import type { Project } from '@ses/core/models/interfaces/projects';

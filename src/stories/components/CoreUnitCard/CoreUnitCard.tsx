@@ -4,7 +4,7 @@ import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,

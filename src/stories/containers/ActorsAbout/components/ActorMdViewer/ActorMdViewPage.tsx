@@ -8,7 +8,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Markdown from 'marked-react';
 import React from 'react';
 import ActorNavigationOptions from '../ActorNavigationOptions/ActorNavigationOptions';

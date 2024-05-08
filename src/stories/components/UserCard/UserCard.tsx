@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
 import request, { ClientError } from 'graphql-request';
 import React, { useCallback, useState } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';

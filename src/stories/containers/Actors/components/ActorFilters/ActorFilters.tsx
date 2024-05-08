@@ -5,7 +5,7 @@ import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { Close } from '@ses/components/svg/close';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ActorCategory } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import { FILTER_SCOPE_ACTOR } from './utils';

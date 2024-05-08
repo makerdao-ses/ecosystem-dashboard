@@ -10,7 +10,7 @@ import {
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { LimitedColorAssigner } from '@ses/core/utils/colors';
 import { percentageRespectTo } from '@ses/core/utils/math';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useMemo, useState } from 'react';
 import { removePatternAfterSlash } from '../BreakdownTable/utils';
 import { getCorrectMetricValuesOverViewChart } from './utils';

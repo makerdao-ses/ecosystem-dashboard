@@ -3,7 +3,7 @@ import { Collapse } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { forwardRef } from 'react';
 import CustomBreadcrumbs from '../Breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';

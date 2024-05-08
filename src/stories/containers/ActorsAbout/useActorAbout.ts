@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useMemo } from 'react';
 import type { ParsedUrlQuery } from 'querystring';
 

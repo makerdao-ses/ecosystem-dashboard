@@ -4,7 +4,7 @@ import { customRenderer, customRendererDark } from '@ses/components/Markdown/ren
 import { useTeamContext } from '@ses/core/context/TeamContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
 import React, { useMemo } from 'react';

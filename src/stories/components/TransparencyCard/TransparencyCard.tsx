@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import type { CardSpacingSize } from '../AdvancedInnerTable/AdvancedInnerTable';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

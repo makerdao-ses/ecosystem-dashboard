@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Image from 'next/image';
 import React from 'react';
 

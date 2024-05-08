@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import PageSubheader from './PageSubheader';
 import type { Meta } from '@storybook/react';
 

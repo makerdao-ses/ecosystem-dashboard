@@ -2,7 +2,7 @@ import { useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { enablePageOverflow } from '@ses/core/utils/dom';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import request from 'graphql-request';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';

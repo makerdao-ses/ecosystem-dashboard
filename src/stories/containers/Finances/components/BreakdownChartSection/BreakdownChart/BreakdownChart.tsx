@@ -9,7 +9,7 @@ import {
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { formatNumber, replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo } from 'react';
 import { getSelectMetricText } from '../utils';

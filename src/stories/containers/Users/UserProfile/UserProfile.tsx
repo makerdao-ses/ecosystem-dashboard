@@ -3,7 +3,7 @@ import fill from 'lodash/fill';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
-import lightTheme from '../../../../../styles/theme/light';
+import lightTheme from '../../../../../styles/theme/themes';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/buttonTypeEnum';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { getShortCode } from '../../SectionPages/CardChartOverview/utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';

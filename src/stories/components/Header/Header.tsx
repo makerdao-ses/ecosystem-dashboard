@@ -5,7 +5,7 @@ import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import GlobalActivityFeedBtn from '../MenuNavigation/ActivityFeed/GlobalActivityFeedBtn';

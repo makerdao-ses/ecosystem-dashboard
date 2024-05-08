@@ -4,7 +4,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { getMarkdownInformation } from '../../../core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';

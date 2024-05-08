@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 

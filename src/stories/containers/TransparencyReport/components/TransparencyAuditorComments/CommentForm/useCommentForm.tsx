@@ -6,7 +6,7 @@ import { useTeamContext } from '@ses/core/context/TeamContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { triggerToast } from '@ses/core/utils/notifications';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import request from 'graphql-request';
 import { useEffect, useMemo, useState } from 'react';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditorComentingAPI';

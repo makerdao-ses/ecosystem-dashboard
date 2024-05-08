@@ -8,7 +8,7 @@ import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext'
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React, { useRef } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import lightTheme from 'styles/theme/light';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type HorizontalBudgetBarProps = {

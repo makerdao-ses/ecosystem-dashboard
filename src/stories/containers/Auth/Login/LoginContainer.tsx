@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import LoginForm from './LoginForm/LoginForm';

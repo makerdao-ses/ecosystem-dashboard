@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mui/material';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import HeaderAnnually from './HeaderAnnually/HeaderAnnually';
 import HeaderMonthly from './HeaderMonthly/HeaderMonthly';

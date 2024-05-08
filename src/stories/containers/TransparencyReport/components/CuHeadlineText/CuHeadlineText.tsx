@@ -4,7 +4,7 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import { getShortCode } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 

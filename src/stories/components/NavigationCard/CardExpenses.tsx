@@ -3,7 +3,7 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { PeriodicSelectionFilter } from '../../utils/types';
 

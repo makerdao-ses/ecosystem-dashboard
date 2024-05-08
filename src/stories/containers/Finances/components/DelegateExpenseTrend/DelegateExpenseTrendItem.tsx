@@ -11,7 +11,7 @@ import ExpenseReportStatusIndicator from '@ses/containers/TransparencyReport/com
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { capitalizeSentence } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';

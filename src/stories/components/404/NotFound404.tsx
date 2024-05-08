@@ -9,7 +9,7 @@ import BackgroundMobile404 from '../../../../public/assets/img/background-mobile
 import BackgroundMobile404Dark from '../../../../public/assets/img/background-mobile-dark-404.png';
 import Logo404 from '../../../../public/assets/img/logo-404.png';
 import Logo404Dark from '../../../../public/assets/img/logo-dark-404.png';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CustomButton } from '../CustomButton/CustomButton';
 

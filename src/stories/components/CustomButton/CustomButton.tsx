@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { allowsHoverStyleButton, allowsHoverText, customStyles } from '../../../core/utils/sharedStyle';
 import AddIcon from '../svg/add';

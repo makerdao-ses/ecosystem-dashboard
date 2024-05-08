@@ -1,6 +1,6 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useMemo, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { getBudgetsAnalytics } from '../../utils/utils';

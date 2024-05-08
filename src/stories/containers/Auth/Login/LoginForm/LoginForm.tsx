@@ -4,7 +4,7 @@ import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import TextInput from '@ses/components/TextInput/TextInput';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Image from 'next/image';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

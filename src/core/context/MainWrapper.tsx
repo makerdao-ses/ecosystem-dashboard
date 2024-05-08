@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import CookiesPolicyBanner from '@ses/components/CookiesPolicyBanner/CookiesPolicyBanner';
 import { useLayoutEffect } from 'react';
-import lightTheme from '../../../styles/theme/light';
+import lightTheme from '../../../styles/theme/themes';
 import { zIndexEnum } from '../enums/zIndexEnum';
 import { useScrollLock } from '../hooks/useScrollLock';
 import { getPageWrapper } from '../utils/dom';

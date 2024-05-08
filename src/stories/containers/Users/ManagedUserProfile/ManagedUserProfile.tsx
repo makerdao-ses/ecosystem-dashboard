@@ -3,7 +3,7 @@ import { Divider, Skeleton } from '@mui/material';
 import fill from 'lodash/fill';
 import Link from 'next/link';
 import React from 'react';
-import lightTheme from '../../../../../styles/theme/light';
+import lightTheme from '../../../../../styles/theme/themes';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { ButtonType } from '../../../../core/enums/buttonTypeEnum';
 import { capitalizeWordWithoutConvertLowerCase } from '../../../../core/utils/string';

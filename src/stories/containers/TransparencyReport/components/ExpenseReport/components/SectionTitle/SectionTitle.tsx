@@ -3,7 +3,7 @@ import ArrowLink from '@ses/components/svg/ArrowLink';
 import Wallet from '@ses/components/svg/wallet';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toKebabCase } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 

@@ -3,7 +3,7 @@ import ArrowDown from '@ses/components/svg/arrow-down';
 import ArrowUp from '@ses/components/svg/arrow-up';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 export interface ActorTableHeader {
   header: string;

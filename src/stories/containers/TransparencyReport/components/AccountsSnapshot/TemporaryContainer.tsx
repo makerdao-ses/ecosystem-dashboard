@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import AccountsSnapshot from './AccountsSnapshot';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';

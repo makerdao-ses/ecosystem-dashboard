@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { filterActiveMetrics } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { orderMetrics } from '../utils';
 import CellSemiAnnual from './CellSemiAnnual';

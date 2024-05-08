@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 
 import {
   getBudgetCapsFromCoreUnit,

@@ -3,7 +3,7 @@ import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedI
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';

@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { buildQueryString } from '../../../core/utils/urls';
 import { CategoryChip } from '../CategoryChip/CategoryChip';

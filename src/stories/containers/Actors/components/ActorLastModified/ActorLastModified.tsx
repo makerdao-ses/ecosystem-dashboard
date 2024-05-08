@@ -4,7 +4,7 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { SUBMIT_EXPENSES_URL } from '@ses/config/externalUrls';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { capitalizeSentence } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

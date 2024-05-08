@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React, { useMemo } from 'react';
 import type { BudgetTransitionPlainData, SeriesData, TransitionStatusDataShown } from '../../types';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

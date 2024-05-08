@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import ArrowSwiperNext from '@ses/components/svg/ArrowSwiperNext';
 import ArrowSwiperPrevious from '@ses/components/svg/ArrowSwiperPrevious';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useRef, useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';

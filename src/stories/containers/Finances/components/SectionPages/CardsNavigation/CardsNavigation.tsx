@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import BigButton from '@ses/components/Button/BigButton/BigButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
