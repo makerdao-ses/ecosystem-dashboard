@@ -46,8 +46,9 @@ export const LinkButton = ({
   ...props
 }: CustomButtonProps) => {
   const { isLight } = useThemeContext();
+
   return (
-    <Link href={href || ''} passHref legacyBehavior>
+    <Link href={href ?? ''} passHref legacyBehavior>
       <Container
         target={target}
         padding={padding}

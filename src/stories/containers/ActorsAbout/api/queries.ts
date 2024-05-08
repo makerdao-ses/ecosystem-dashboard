@@ -13,6 +13,7 @@ export const getActorAbout = (teamType: ResourceType, code: string) => ({
         shortCode
         name
         type
+        budgetPath
         paragraphDescription
         sentenceDescription
         category

@@ -197,3 +197,5 @@ export const getResourceLabel = (resourceType?: ResourceType): string => {
       return 'Ecosystem Actor';
   }
 };
+
+export const removeAtlasFromPath = (path: string): string => path.replace(/\/?atlas\/?/g, '/').replace(/^\/|\/$/g, '');

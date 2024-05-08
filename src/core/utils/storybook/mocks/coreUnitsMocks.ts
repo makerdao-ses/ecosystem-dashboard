@@ -14,6 +14,7 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .withId('1')
   .withCode('SES-001')
   .withShortCode('SES')
+  .addBudgetPath('atlas/legacy/core-units/SES-001/')
   .withName('Sustainable Ecosystem Scaling')
   .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png')
   .withDescription(

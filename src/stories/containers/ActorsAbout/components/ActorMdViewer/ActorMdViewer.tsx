@@ -14,6 +14,7 @@ interface Props {
   actorName: string;
   auditors: AuditorDto[];
   subTitle?: string;
+  budgetPath: string;
 }
 
 const ActorMdViewer = ({
@@ -27,6 +28,7 @@ const ActorMdViewer = ({
   actorName,
   auditors,
   subTitle,
+  budgetPath,
 }: Props) => (
   <ActorMdViewPage
     sentenceDescription={sentenceDescription}
@@ -38,6 +40,7 @@ const ActorMdViewer = ({
     actorName={actorName}
     auditors={auditors}
     subTitle={subTitle}
+    budgetPath={budgetPath}
   />
 );
 export default ActorMdViewer;

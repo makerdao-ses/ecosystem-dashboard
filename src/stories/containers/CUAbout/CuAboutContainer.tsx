@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Divider, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
+import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import lightTheme from '../../../../styles/theme/light';
@@ -48,6 +49,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
     setShowThreeMIPs,
   });
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
+  const routeToFinances = removeAtlasFromPath(cuAbout.budgetPath);
 
   return (
     <ContainerAbout isLight={isLight}>
@@ -73,6 +75,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
                 paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
                 queryStrings={queryStrings}
+                budgetPath={routeToFinances}
               />
             </MarkdownContainer>
             <TeamMemberContainer>
@@ -155,6 +158,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                     code={cuAbout.code}
                     shortCode={cuAbout.shortCode}
                     auditors={cuAbout.auditors}
+                    budgetPath={routeToFinances}
                   />
                 </ContainerCard>
                 {!(table834 || phone || LessPhone) && (
