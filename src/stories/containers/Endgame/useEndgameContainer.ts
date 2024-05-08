@@ -1,5 +1,4 @@
 import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -17,7 +16,6 @@ export enum NavigationTabEnum {
 }
 
 const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: string[], initialYear: string) => {
-  const { isLight } = useThemeContext();
   const [pauseUrlUpdate, setPauseUrlUpdate] = useState<boolean>(false);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const isUpDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
@@ -201,7 +199,6 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
   }, [budgetTransitionAnalytics.series, transitionDataSelected]);
 
   return {
-    isLight,
     handlePauseUrlUpdate,
     updatesChangesRef,
     keyChangesRef,

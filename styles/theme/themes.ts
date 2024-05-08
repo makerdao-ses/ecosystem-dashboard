@@ -21,7 +21,7 @@ declare module '@mui/material/styles' {
 
   type ColorPalette = {
     isLight: boolean;
-    colorPalette: typeof colorPalette;
+    colors: typeof colorPalette;
   };
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Palette extends ColorPalette {}
@@ -46,7 +46,7 @@ export const lightTheme = responsiveFontSizes(
   createTheme({
     palette: {
       isLight: true,
-      colorPalette,
+      colors: colorPalette,
       primary: {
         main: '#1AAB9B',
       },
@@ -80,7 +80,7 @@ export const darkTheme = responsiveFontSizes(
   createTheme({
     palette: {
       isLight: false,
-      colorPalette,
+      colors: colorPalette,
       mode: 'dark',
       primary: {
         main: '#211634',
