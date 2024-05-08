@@ -10,7 +10,7 @@ interface Props {
   code: string;
   shortCode: string;
   auditors: AuditorDto[];
-  calculatedBudgetPath: string;
+  budgetPath: string;
 }
 
 const MdViewerContainer = ({
@@ -22,7 +22,7 @@ const MdViewerContainer = ({
   code,
   shortCode,
   auditors,
-  calculatedBudgetPath,
+  budgetPath,
 }: Props) => {
   const convertImg = paragraphImage ? `![Image](${paragraphImage})` : null;
   return (
@@ -35,7 +35,7 @@ const MdViewerContainer = ({
       code={code}
       shortCode={shortCode}
       auditors={auditors}
-      calculatedBudgetPath={calculatedBudgetPath}
+      budgetPath={budgetPath}
     />
   );
 };

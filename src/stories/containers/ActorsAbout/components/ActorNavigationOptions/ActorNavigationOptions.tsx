@@ -10,9 +10,10 @@ import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ActorNavigationOptionsProps {
   shortCode: string;
+  budgetPath: string;
 }
 
-const ActorNavigationOptions: React.FC<ActorNavigationOptionsProps> = ({ shortCode }) => {
+const ActorNavigationOptions: React.FC<ActorNavigationOptionsProps> = ({ shortCode, budgetPath }) => {
   const { isLight } = useThemeContext();
   const id = useId();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -69,7 +70,14 @@ const ActorNavigationOptions: React.FC<ActorNavigationOptionsProps> = ({ shortCo
             isLight={isLight}
             buttonType={ButtonType.Default}
             widthText="100%"
-            label="Expenses"
+            label="Budget Statements"
+          />
+          <OptionLink
+            href={`/finances/${budgetPath}`}
+            isLight={isLight}
+            buttonType={ButtonType.Default}
+            widthText="100%"
+            label="Finances"
           />
         </BtnContainer>
       </OptionsPopover>
@@ -115,6 +123,9 @@ const BtnContainer = styled.div({
 
 const OptionLink = styled(LinkButton)<WithIsLight>(({ isLight }) => ({
   padding: '7px 23px',
+  display: 'flex',
+  width: '100%',
+  textAlign: 'center',
   border: `1px solid ${isLight ? '#25273D' : '#00585E'}`,
 
   '& > div': {

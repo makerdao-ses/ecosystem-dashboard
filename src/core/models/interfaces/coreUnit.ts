@@ -12,7 +12,7 @@ export interface CoreUnit {
   shortCode: string;
   name: string;
   image: string;
-  calculatedBudgetPath: string;
+  budgetPath: string;
   sentenceDescription: string;
   paragraphDescription: string;
   paragraphImage: string;

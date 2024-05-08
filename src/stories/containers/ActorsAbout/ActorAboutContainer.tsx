@@ -10,6 +10,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
+import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/light';
 import { useRouter } from 'next/router';
@@ -34,6 +35,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
   const { queryStrings, phone, LessPhone, table834 } = useActorAbout(router.query);
 
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
+  const routeToFinances = removeAtlasFromPath(actor.budgetPath);
 
   return (
     <PageWrapper isLight={isLight}>
@@ -62,8 +64,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                 sentenceDescription={getMarkdownInformation(actor.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(actor.paragraphDescription)}
                 queryStrings={queryStrings}
-                // TODO: Add correct path when the api its ready
-                calculatedBudgetPath=""
+                budgetPath={routeToFinances}
               />
             </MarkdownContainer>
             <WrapperCardSomethingWrongMobile>
@@ -90,8 +91,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                   titleCard={`View all expenses of the ${actor.name} Ecosystem Actor.`}
                   auditorMessage={`${actor.name} is working without auditor.`}
                   makerburnCustomMessage={`View On-Chain transfers to ${actor.name} on makerburn.com`}
-                  // TODO: Add correct path when the api its ready
-                  calculatedBudgetPath=""
+                  budgetPath={routeToFinances}
                 />
               </ContainerCard>
 

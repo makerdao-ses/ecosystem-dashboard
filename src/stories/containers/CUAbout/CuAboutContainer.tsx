@@ -49,7 +49,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
     setShowThreeMIPs,
   });
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
-  const routeToFinances = removeAtlasFromPath(cuAbout.calculatedBudgetPath);
+  const routeToFinances = removeAtlasFromPath(cuAbout.budgetPath);
 
   return (
     <ContainerAbout isLight={isLight}>
@@ -75,7 +75,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
                 paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
                 queryStrings={queryStrings}
-                calculatedBudgetPath={routeToFinances}
+                budgetPath={routeToFinances}
               />
             </MarkdownContainer>
             <TeamMemberContainer>
@@ -158,7 +158,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                     code={cuAbout.code}
                     shortCode={cuAbout.shortCode}
                     auditors={cuAbout.auditors}
-                    calculatedBudgetPath={routeToFinances}
+                    budgetPath={routeToFinances}
                   />
                 </ContainerCard>
                 {!(table834 || phone || LessPhone) && (

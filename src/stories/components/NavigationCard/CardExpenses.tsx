@@ -28,7 +28,7 @@ interface Props {
   auditorMessage?: string;
   makerburnCustomMessage?: string;
   showMakerburnLink?: boolean;
-  calculatedBudgetPath: string;
+  budgetPath: string;
 }
 
 const CardExpenses = ({
@@ -45,7 +45,7 @@ const CardExpenses = ({
   auditorMessage,
   makerburnCustomMessage,
   showMakerburnLink = true,
-  calculatedBudgetPath,
+  budgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
   const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit.`;
@@ -141,7 +141,7 @@ const CardExpenses = ({
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
-            href={`/finances/${calculatedBudgetPath}/${queryStrings}`}
+            href={`/finances/${budgetPath}/${queryStrings}`}
           />
         </ContainerButton>
       </div>

@@ -33,7 +33,7 @@ interface Props {
   actorName: string;
   auditors: AuditorDto[];
   queryStrings: string;
-  calculatedBudgetPath: string;
+  budgetPath: string;
 }
 
 const ActorMdViewPage = ({
@@ -46,7 +46,7 @@ const ActorMdViewPage = ({
   actorName,
   shortCode,
   auditors,
-  calculatedBudgetPath,
+  budgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
   const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
@@ -71,7 +71,7 @@ const ActorMdViewPage = ({
         <ContainerResponsive>
           <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
           {isEnabled('FEATURE_TEAM_PROJECTS') ? (
-            <ActorNavigationOptions shortCode={shortCode} />
+            <ActorNavigationOptions shortCode={shortCode} budgetPath={budgetPath} />
           ) : (
             <>
               <CustomButton
@@ -115,7 +115,7 @@ const ActorMdViewPage = ({
                 }}
               >
                 <CardExpenses
-                  calculatedBudgetPath={calculatedBudgetPath}
+                  budgetPath={budgetPath}
                   resource={ResourceType.EcosystemActor}
                   queryStrings={queryStrings}
                   code={code}
@@ -164,7 +164,7 @@ const ActorMdViewPage = ({
                 titleCard={`View all expenses of the ${actorName} Ecosystem Actor.`}
                 auditorMessage={`The ${actorName} is working without auditor.`}
                 makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
-                calculatedBudgetPath={calculatedBudgetPath}
+                budgetPath={budgetPath}
               />
             </div>
             {!isTable834 && (

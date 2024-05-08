@@ -28,7 +28,7 @@ interface Props {
   shortCode: string;
   auditors: AuditorDto[];
   queryStrings: string;
-  calculatedBudgetPath: string;
+  budgetPath: string;
 }
 
 const MdViewerPage = ({
@@ -40,7 +40,7 @@ const MdViewerPage = ({
   code,
   shortCode,
   auditors,
-  calculatedBudgetPath,
+  budgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
   const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
@@ -103,7 +103,7 @@ const MdViewerPage = ({
             }}
           >
             <CardExpenses
-              calculatedBudgetPath={calculatedBudgetPath}
+              budgetPath={budgetPath}
               queryStrings={queryStrings}
               code={code}
               shortCode={shortCode}
@@ -122,7 +122,7 @@ const MdViewerPage = ({
       ) : showButton && isTable834 ? (
         <div>
           <CardExpenses
-            calculatedBudgetPath={calculatedBudgetPath}
+            budgetPath={budgetPath}
             styleContainer={{
               minHeight: '190px',
             }}
