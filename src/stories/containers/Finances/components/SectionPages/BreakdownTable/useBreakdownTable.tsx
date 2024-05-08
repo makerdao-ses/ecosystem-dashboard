@@ -256,52 +256,10 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           ],
         } as TableFinances;
         uncategorizedSubTables.push(subTable);
-
-        // if (uncategorizedSubTable === null) {
-        //   // it is empty so we create it
-        //   const row = {
-        //     name: array.length === 1 ? 'Uncategorized' : name,
-        //     codePath: path,
-        //     isUncategorized: true,
-        //     columns,
-        //   } as ItemRow;
-        //   uncategorizedSubTable = {
-        //     tableName: 'Uncategorized',
-        //     rows:
-        //       array.length === 1
-        //         ? [row]
-        //         : [
-        //             // the first row is the is the header of the sub-table
-        //             {
-        //               ...row,
-        //               name: 'Uncategorized',
-        //               isMain: true,
-        //             },
-        //             row,
-        //           ],
-        //   } as TableFinances;
-        // } else {
-        //   // there's more than one uncategorized budget so we add it to the existing table as a new row
-        //   uncategorizedSubTable.rows.push({
-        //     name,
-        //     codePath: path,
-        //     isUncategorized: true,
-        //     columns,
-        //   } as ItemRow);
-
-        //   // update the header of the sub-table
-        //   uncategorizedSubTable.rows[0].columns = uncategorizedSubTable.rows[0].columns.map((headerColumn, index) => ({
-        //     Actuals: headerColumn.Actuals + columns[index].Actuals,
-        //     Budget: headerColumn.Budget + columns[index].Budget,
-        //     PaymentsOnChain: headerColumn.PaymentsOnChain + columns[index].PaymentsOnChain,
-        //     Forecast: headerColumn.Forecast + columns[index].Forecast,
-        //     ProtocolNetOutflow: headerColumn.ProtocolNetOutflow + columns[index].ProtocolNetOutflow,
-        //   }));
-        // }
       });
 
     // create a table for each budget for the current level
-    const tables = [...uncategorizedSubTables];
+    let tables = [...uncategorizedSubTables];
     if (budgets.length === 0) {
       const rows = Object.keys(data).map((path) => {
         const columns = Object.values(data[path]);
@@ -481,7 +439,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         }
 
         table.rows.push({
-          name: path, // TODO: maybe we can get the name from the budget list
+          name: path,
           codePath: path,
           columns,
         } as ItemRow);
@@ -562,6 +520,11 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         table.rows = [...rows, othersTotal];
       }
     });
+
+    // "hide"/remove the uncategorized table if it is the only one (it will be included just in the header)
+    if (tables.length === 1 && tables[0].rows[0].isUncategorized) {
+      tables = [];
+    }
 
     // sort final tables by the amount of rows
     const sortedTables = tables.sort((a, b) => {
