@@ -14,6 +14,7 @@ const actorsItems = [
   new EcosystemActorBuilder()
     .withId('43')
     .withCode('DEWIZ-001')
+    .withBudgetPath('atlas/legacy/core-units/SES-001')
     .withShortCode('DEWIZ')
     .withName('Powerhouse Inc.')
     .withType(ResourceType.EcosystemActor)

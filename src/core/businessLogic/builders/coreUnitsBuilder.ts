@@ -17,6 +17,7 @@ export class CoreUnitsBuilder {
       shortCode: '',
       image: '',
       id: '',
+      budgetPath: '',
       legacyBudgetStatementUrl: '',
       sentenceDescription: '',
       paragraphDescription: '',
@@ -112,6 +113,11 @@ export class CoreUnitsBuilder {
 
   addActivity(activity: ChangeTrackingEvent): CoreUnitsBuilder {
     this._coreUnit.activityFeed.push(activity);
+    return this;
+  }
+
+  addBudgetPath(budgetPath: string): CoreUnitsBuilder {
+    this._coreUnit.budgetPath = budgetPath;
     return this;
   }
 

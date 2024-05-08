@@ -13,6 +13,7 @@ export class EcosystemActorBuilder {
       id: '',
       code: '',
       shortCode: '',
+      budgetPath: '',
       paragraphDescription: '',
       sentenceDescription: '',
       lastActivity: {} as ChangeTrackingEvent,
@@ -88,6 +89,11 @@ export class EcosystemActorBuilder {
 
   withSocials(socialMediaChannels: SocialMediaChannels): EcosystemActorBuilder {
     this._ecosystemActor.socialMediaChannels.push(socialMediaChannels);
+    return this;
+  }
+
+  withBudgetPath(budgetPath: string): EcosystemActorBuilder {
+    this._ecosystemActor.budgetPath = budgetPath;
     return this;
   }
 
