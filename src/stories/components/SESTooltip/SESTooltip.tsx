@@ -2,7 +2,7 @@ import { useMediaQuery } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import useMobileDetector from '@ses/core/hooks/useMobileDetector';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import classNames from 'classnames';
 import merge from 'deepmerge';
 import React, { useMemo } from 'react';

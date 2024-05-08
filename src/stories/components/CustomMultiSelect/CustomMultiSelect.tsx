@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useCallback, useRef, useState } from 'react';
 import SimpleBar from 'simplebar-react';
 import { useThemeContext } from '../../../core/context/ThemeContext';

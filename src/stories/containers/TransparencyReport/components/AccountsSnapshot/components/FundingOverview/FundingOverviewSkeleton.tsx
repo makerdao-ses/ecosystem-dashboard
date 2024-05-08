@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
 import FundChangeCardSkeleton from '../Cards/FundChangeCardSkeleton';

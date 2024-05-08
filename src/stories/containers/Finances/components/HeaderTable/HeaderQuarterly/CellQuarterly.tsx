@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { getKeyMetric, getShortNameForMetric } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { MetricValues } from '@ses/containers/Finances/utils/types';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

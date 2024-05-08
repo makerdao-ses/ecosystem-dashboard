@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import lightTheme from 'styles/theme/light';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {

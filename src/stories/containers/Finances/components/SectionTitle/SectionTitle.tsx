@@ -4,7 +4,7 @@ import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { ChainLinkIcon } from '@ses/components/svg/Link';
 import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import CardInfoMember from '../CardInfoMember/CardInfoMember';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';

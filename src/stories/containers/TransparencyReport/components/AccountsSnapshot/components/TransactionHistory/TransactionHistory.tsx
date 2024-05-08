@@ -3,7 +3,7 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useState } from 'react';
 import AccordionArrow from '../AccordionArrow/AccordionArrow';
 import TransactionList from '../TransactionList/TransactionList';

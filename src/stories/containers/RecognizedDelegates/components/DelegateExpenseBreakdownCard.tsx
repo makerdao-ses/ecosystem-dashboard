@@ -8,7 +8,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import GenericDelegateCard from './GenericDelegateCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';

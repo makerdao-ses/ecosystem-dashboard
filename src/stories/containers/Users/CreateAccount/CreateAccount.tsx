@@ -3,7 +3,7 @@ import { ButtonWrapper, Form } from '@ses/containers/Auth/Login/LoginForm/LoginF
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
-import lightTheme from '../../../../../styles/theme/light';
+import lightTheme from '../../../../../styles/theme/themes';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { useThemeContext } from '../../../../core/context/ThemeContext';
 import { useIsAdmin } from '../../../../core/hooks/useIsAdmin';

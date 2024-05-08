@@ -5,7 +5,7 @@ import { SearchInput } from '@ses/components/SearchInput/SearchInput';
 import Filter from '@ses/components/svg/filter';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ProjectStatus } from '@ses/core/models/interfaces/projects';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 import ProjectStatusChip from '../ProjectStatusChip/ProjectStatusChip';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';

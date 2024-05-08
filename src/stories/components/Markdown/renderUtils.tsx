@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import './Markdown.module.scss';
 
 export const customRenderer = {

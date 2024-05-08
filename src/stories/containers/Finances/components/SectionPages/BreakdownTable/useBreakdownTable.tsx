@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { formatBudgetName } from '@ses/containers/Finances/utils/utils';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import groupBy from 'lodash/groupBy';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';

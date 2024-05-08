@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import BudgetStatusSelect from '../BudgetStatusSelect';
 import GenericCommentCard from '../GenericCommentCard';

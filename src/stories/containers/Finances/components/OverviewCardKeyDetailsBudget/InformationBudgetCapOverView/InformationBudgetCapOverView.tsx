@@ -5,8 +5,8 @@ import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/Hor
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import lightTheme from 'styles/theme/light';
 import type { Theme } from '@mui/material';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 

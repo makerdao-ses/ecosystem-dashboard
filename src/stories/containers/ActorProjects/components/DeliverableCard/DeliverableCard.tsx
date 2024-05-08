@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useState } from 'react';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';

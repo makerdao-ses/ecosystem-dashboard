@@ -8,7 +8,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import React from 'react';
 import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';

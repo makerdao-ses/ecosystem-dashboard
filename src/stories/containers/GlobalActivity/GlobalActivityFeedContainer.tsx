@@ -3,7 +3,7 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import ActivityTable from '../../components/CUActivityTable/ActivityTable';

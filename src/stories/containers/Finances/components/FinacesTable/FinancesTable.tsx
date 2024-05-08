@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import React from 'react';
 import { defaultOrder, orderMetrics } from '../HeaderTable/utils';

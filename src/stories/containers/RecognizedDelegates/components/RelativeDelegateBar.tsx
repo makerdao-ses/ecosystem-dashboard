@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { percentageRespectTo } from '@ses/core/utils/math';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 
 interface RelativeBarProps {

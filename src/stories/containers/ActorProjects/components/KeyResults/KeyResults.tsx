@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import ExternalLink from '@ses/components/ExternalLink/ExternalLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 import ExpandableButtonItem from './ExpandableButtonItem';
 import MaybeScrollableList from './MaybeScrollableList';

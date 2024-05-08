@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import ArrowOutline from '@ses/components/svg/ArrowOutline';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ReadMore from '../ReadMore';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

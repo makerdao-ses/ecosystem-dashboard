@@ -7,7 +7,7 @@ import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Image from 'next/image';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

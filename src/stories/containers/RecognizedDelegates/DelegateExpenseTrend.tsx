@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import DelegateChart from './components/DelegateChart';
 import FilterDelegate from './components/FilterDelegate/FilterDelegate';

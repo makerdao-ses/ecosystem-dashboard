@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
-import lightTheme from 'styles/theme/light';
 import { formatQuarter } from '../../utils/quarters';
 import HorizontalBudgetBar from '../HorizontalBudgetBar/HorizontalBudgetBar';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

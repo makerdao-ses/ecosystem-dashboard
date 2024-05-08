@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import KeyChangeSection from '../KeyChangeSection/KeyChangeSection';
 import GovernanceSection from './Sections/GovernanceSection';

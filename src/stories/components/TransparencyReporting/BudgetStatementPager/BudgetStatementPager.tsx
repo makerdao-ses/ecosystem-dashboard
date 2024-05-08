@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import ExpenseReportStatusIndicator from '@ses/containers/TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { forwardRef } from 'react';
 import type { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

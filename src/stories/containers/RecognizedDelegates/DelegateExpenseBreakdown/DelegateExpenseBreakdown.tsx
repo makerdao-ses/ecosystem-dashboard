@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import DelegateExpenseBreakdownCard from '../components/DelegateExpenseBreakdownCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';

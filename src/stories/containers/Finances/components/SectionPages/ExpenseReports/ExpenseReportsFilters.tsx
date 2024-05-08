@@ -7,7 +7,7 @@ import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect'
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import { getExpenseReportStatusColor } from '@ses/core/utils/colors';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';

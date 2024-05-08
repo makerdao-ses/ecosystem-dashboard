@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import BreakdownChart from './BreakdownChart/BreakdownChart';

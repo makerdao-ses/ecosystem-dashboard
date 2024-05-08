@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useState } from 'react';
 import MilestoneCard from '../MilestoneCard/MilestoneCard';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

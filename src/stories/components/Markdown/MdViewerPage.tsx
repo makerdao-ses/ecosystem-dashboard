@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Popover, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CustomButton } from '../CustomButton/CustomButton';

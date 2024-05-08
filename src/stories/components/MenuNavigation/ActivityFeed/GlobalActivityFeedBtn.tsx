@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import React from 'react';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

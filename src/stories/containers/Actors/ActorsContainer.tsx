@@ -5,7 +5,7 @@ import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ActorFilters from './components/ActorFilters/ActorFilters';
 import ActorTable from './components/ActorTable/ActorTable';

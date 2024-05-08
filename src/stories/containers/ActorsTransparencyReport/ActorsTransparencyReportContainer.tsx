@@ -11,7 +11,7 @@ import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';

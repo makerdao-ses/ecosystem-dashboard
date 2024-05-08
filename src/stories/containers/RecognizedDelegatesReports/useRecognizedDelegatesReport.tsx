@@ -10,7 +10,7 @@ import useBudgetStatementPager from '@ses/core/hooks/useBudgetStatementPager';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { budgetStatementCommentsCollectionId } from '@ses/core/utils/collectionsIds';
 import { LastVisitHandler } from '@ses/core/utils/lastVisitHandler';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';

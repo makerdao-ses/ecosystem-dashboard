@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 import CumulativeFilter from './CumulativeFilter/CumulativeFilter';

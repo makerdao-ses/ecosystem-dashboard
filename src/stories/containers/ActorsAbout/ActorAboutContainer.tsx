@@ -12,7 +12,7 @@ import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';

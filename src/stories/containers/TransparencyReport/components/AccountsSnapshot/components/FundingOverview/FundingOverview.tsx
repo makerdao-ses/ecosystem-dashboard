@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { getResourceLabel } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';

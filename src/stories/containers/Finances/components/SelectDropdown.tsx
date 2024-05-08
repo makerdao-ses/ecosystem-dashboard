@@ -3,7 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useEffect } from 'react';
 import type { MenuProps } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material/Select';

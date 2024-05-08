@@ -5,7 +5,7 @@ import { filterDataActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { forwardRef, useCallback, useMemo } from 'react';

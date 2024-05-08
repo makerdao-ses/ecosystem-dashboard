@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { OpenModalTransparency } from '@ses/containers/TransparencyReport/transparencyReportUtils';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useId } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Title } from '../../containers/TransparencyReport/TransparencyReport';

@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import IconOpenModal from '@ses/components/svg/IconOpenModal';
 import { useBudgetMetricsModalContext } from '@ses/core/context/BudgetMetricsModalContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import DoughnutChartFinances from '../../OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import InformationBudgetCapOverview from '../../OverviewCardKeyDetailsBudget/InformationBudgetCapOverView/InformationBudgetCapOverView';

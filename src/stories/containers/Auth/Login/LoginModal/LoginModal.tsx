@@ -3,7 +3,7 @@ import { Modal, useMediaQuery } from '@mui/material';
 import { Close } from '@ses/components/svg/close';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import LoginForm from '../LoginForm/LoginForm';

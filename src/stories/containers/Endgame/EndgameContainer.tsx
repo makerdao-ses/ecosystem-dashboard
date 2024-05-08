@@ -1,10 +1,9 @@
 import 'intersection-observer'; // polyfill
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
 import React from 'react';
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
@@ -16,7 +15,6 @@ import LatestUpdatesSection from './components/LatestUpdatesSection/LatestUpdate
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
 import useEndgameContainer from './useEndgameContainer';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface EndgameContainerProps {
   budgetTransitionAnalytics: Analytic;
@@ -26,7 +24,6 @@ interface EndgameContainerProps {
 
 const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
   const {
-    isLight,
     updatesChangesRef,
     keyChangesRef,
     structureRef,
@@ -43,7 +40,7 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
   } = useEndgameContainer(budgetTransitionAnalytics, yearsRange, initialYear);
 
   return (
-    <EndgamePageContainer isLight={isLight}>
+    <EndgamePageContainer>
       <SEOHead
         title="MakerDAO Endgame | Endgame Overview"
         description="MakerDAO Endgame provides a comprehensive overview of Endgame governance, operations, token upgrades and budget structure."
@@ -109,36 +106,35 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
 
 export default EndgameContainer;
 
-const EndgamePageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
+const EndgamePageContainer = styled(PageContainer)(({ theme }) => ({
   marginTop: 32,
-  background: isLight ? 'white' : 'linear-gradient(180deg, #001020 0%, #000 100%)',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 40,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     marginTop: 64,
   },
 }));
 
-const BannerContainer = styled.div({
+const BannerContainer = styled('div')(({ theme }) => ({
   marginTop: 48,
   marginBottom: 48,
   scrollMarginTop: 110,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 64,
     marginBottom: 64,
   },
-});
+}));
 
-const SectionSpacing = styled.div({
+const SectionSpacing = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 48,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     gap: 80,
   },
-});
+}));

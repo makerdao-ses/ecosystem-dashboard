@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import CheckboxMui from '@mui/material/Checkbox';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import ReserveCard from '../Cards/ReserveCard';

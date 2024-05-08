@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { siteRoutes } from '@ses/config/routes';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import ActivityTable from '../../components/CUActivityTable/ActivityTable';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';

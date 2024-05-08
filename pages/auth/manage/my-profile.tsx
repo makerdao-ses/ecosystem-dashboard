@@ -3,7 +3,7 @@ import React from 'react';
 import UserProfile from '../../../src/stories/containers/Users/UserProfile/UserProfile';
 import UserManagerLayout from '../../../src/stories/containers/Users/UsersManager/UserManagerLayout';
 import { ManagerTabs } from '../../../src/stories/containers/Users/UsersManager/managerTabsEnum';
-import lightTheme from '../../../styles/theme/light';
+import lightTheme from '../../../styles/theme/themes';
 import type { NextPage } from 'next';
 
 const MyProfilePage: NextPage = () => (

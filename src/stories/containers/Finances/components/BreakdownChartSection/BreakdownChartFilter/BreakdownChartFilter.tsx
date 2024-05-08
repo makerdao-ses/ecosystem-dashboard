@@ -4,7 +4,7 @@ import ResetButton from '@ses/components/ResetButton/ResetButton';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { Close } from '@ses/components/svg/close';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';
 import type { AnalyticGranularity, AnalyticMetric } from '@ses/core/models/interfaces/analytic';

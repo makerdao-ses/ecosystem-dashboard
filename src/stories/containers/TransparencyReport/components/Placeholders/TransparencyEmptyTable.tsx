@@ -5,7 +5,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 
 interface TransparencyEmptyTableProps {

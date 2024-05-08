@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useCallback } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import {

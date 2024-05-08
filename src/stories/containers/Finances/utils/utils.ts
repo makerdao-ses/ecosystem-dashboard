@@ -1,7 +1,7 @@
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import type { DelegateExpenseTableHeader, LineChartSeriesData, MetricValues, MomentDataItem } from './types';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';

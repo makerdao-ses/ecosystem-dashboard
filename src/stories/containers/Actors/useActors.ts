@@ -6,7 +6,7 @@ import { SortEnum } from '@ses/core/enums/sortEnum';
 import { TeamCategory } from '@ses/core/models/interfaces/types';
 import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';

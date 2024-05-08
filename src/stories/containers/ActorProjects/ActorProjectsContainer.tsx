@@ -6,7 +6,7 @@ import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import Information from '@ses/components/svg/information';
 import { siteRoutes } from '@ses/config/routes';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
 import PageSubheader from './components/PageSubheader/PageSubheader';

@@ -3,7 +3,7 @@ import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
 import BreadcrumbMobile from '@ses/components/Pagination/BreadcrumbMobile';
 import InsidePagination from '@ses/components/Pagination/InsidePagination';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { NextRouter } from 'next/router';

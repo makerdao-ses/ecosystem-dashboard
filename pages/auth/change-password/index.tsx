@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import ChangePassword from '@ses/containers/Auth/ChangePassword/ChangePassword';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { NextPage } from 'next';
 

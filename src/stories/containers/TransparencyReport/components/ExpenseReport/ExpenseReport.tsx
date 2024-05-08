@@ -6,7 +6,7 @@ import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import Tabs from '@ses/components/Tabs/Tabs';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import {
   ACTUALS_BREAKDOWN_QUERY_PARAM,

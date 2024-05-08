@@ -2,7 +2,7 @@ import { getCorrectCodeFromActivity } from '@ses/components/CUActivityTable/util
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import { useMemo, useRef, useState } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { SortEnum } from '../../../core/enums/sortEnum';
 import type { Activity, ActivityTableHeader } from '../../components/CUActivityTable/ActivityTable';
 import type { MultiSelectItem } from '../../components/CustomMultiSelect/CustomMultiSelect';

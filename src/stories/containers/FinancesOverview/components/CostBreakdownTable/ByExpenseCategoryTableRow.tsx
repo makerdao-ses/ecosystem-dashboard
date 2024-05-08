@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import RelativeBudgetBar from '../RelativeBudgetBar/RelativeBudgetBar';
 import type { ExpenseDto } from '@ses/core/models/dto/expensesDTO';

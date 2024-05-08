@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

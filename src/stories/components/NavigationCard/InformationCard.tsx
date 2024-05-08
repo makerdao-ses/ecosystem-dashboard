@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface Props {

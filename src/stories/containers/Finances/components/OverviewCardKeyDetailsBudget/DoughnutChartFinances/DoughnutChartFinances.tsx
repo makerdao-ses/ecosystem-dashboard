@@ -5,7 +5,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';

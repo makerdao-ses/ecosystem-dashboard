@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Divider } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 
 const UserCardSkeleton: React.FC = () => {

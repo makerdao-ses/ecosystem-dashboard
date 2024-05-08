@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
 import BreadCrumbWithIcons from '@ses/components/Pagination/BreadCrumbWithIcons';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

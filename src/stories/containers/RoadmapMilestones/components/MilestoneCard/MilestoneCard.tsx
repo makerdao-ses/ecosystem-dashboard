@@ -1,7 +1,7 @@
 import { styled } from '@mui/system';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import MobileProgressBar from './MobileProgressBar';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
