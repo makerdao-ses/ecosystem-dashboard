@@ -62,6 +62,8 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                 sentenceDescription={getMarkdownInformation(actor.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(actor.paragraphDescription)}
                 queryStrings={queryStrings}
+                // TODO: Add correct path when the api its ready
+                calculatedBudgetPath=""
               />
             </MarkdownContainer>
             <WrapperCardSomethingWrongMobile>
@@ -88,6 +90,8 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                   titleCard={`View all expenses of the ${actor.name} Ecosystem Actor.`}
                   auditorMessage={`${actor.name} is working without auditor.`}
                   makerburnCustomMessage={`View On-Chain transfers to ${actor.name} on makerburn.com`}
+                  // TODO: Add correct path when the api its ready
+                  calculatedBudgetPath=""
                 />
               </ContainerCard>
 

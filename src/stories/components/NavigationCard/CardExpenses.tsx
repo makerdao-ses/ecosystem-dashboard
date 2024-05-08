@@ -28,6 +28,7 @@ interface Props {
   auditorMessage?: string;
   makerburnCustomMessage?: string;
   showMakerburnLink?: boolean;
+  calculatedBudgetPath: string;
 }
 
 const CardExpenses = ({
@@ -44,6 +45,7 @@ const CardExpenses = ({
   auditorMessage,
   makerburnCustomMessage,
   showMakerburnLink = true,
+  calculatedBudgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
   const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit.`;
@@ -91,12 +93,12 @@ const CardExpenses = ({
                 fontSize: '14px',
                 lineHeight: '18px',
                 width: buttonWidth,
-                marginRight: '12px',
                 flexGrow: 1,
                 padding: isPhone || isTable ? '8px 12.75px' : '8px 43.25px',
               }}
             />
           )}
+
           <LinkButton
             buttonType={ButtonType.Primary}
             widthText="100%"
@@ -112,7 +114,6 @@ const CardExpenses = ({
               lineHeight: '18px',
               letterSpacing: '0px',
               width: buttonWidth,
-              marginLeft: resource === ResourceType.CoreUnit ? 12 : 0,
               flexGrow: 1,
               padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
             }}
@@ -121,6 +122,26 @@ const CardExpenses = ({
                 ? siteRoutes.coreUnitReports(shortCode)
                 : siteRoutes.ecosystemActorReports(shortCode)
             }${queryStrings}`}
+          />
+          <LinkButton
+            buttonType={ButtonType.Primary}
+            widthText="100%"
+            label="Finances"
+            style={{
+              textAlign: 'center',
+              borderRadius: '22px',
+              height: ' 34px',
+              fontFamily: 'Inter, sans serif',
+              fontStyle: 'normal',
+              fontWeight: 500,
+              fontSize: '14px',
+              lineHeight: '18px',
+              letterSpacing: '0px',
+              width: buttonWidth,
+              flexGrow: 1,
+              padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
+            }}
+            href={`/finances/${calculatedBudgetPath}/${queryStrings}`}
           />
         </ContainerButton>
       </div>
@@ -190,8 +211,9 @@ const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => 
 
 const ContainerButton = styled.div({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
+  flexDirection: 'column',
+  gap: 8,
+  // justifyContent: 'space-between',
 });
 
 const ContainerLinks = styled.div({
