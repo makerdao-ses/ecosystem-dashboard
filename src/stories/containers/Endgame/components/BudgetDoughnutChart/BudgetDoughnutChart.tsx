@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { calculateValuesByBreakpoint } from '@ses/containers/Endgame/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
 import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React from 'react';
@@ -15,6 +15,7 @@ interface Props {
 
 const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
   const { isLight } = useThemeContext();
+  const sortedDoughnutSeries = sortDoughnutSeriesByValue(doughnutSeriesData);
   const isTablet768 = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
@@ -39,7 +40,7 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
   } = calculateValuesByBreakpoint(isTablet768, isDesktop1024, isDesktop1280, isDesktop1440);
 
   const options = {
-    color: doughnutSeriesData.map((data) => data.color),
+    color: sortedDoughnutSeries.map((data) => data.color),
 
     tooltip: {
       show: false,
@@ -64,12 +65,12 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
         textStyle: {
           color: 'red',
         },
-        data: doughnutSeriesData,
+        data: sortedDoughnutSeries,
       },
     ],
 
     legend: {
-      data: doughnutSeriesData.map((data) => data.name),
+      data: sortedDoughnutSeries.map((data) => data.name),
       orient: 'vertical',
       padding: legendPadding,
       left: legendLeft,
@@ -81,9 +82,9 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
       itemGap: 19,
 
       formatter: function (value: string) {
-        const index = doughnutSeriesData.findIndex((data) => data.name === value);
+        const index = sortedDoughnutSeries.findIndex((data) => data.name === value);
         if (index !== -1) {
-          const data = doughnutSeriesData[index];
+          const data = sortedDoughnutSeries[index];
           return `{name|${data.name}}\n{value|${usLocalizedNumber(data.value)}}{dai|DAI}{percent|(${usLocalizedNumber(
             data.percent,
             1

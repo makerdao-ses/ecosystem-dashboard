@@ -85,8 +85,8 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                   code={actor.code}
                   shortCode={actor.shortCode}
                   auditors={actor.auditors}
-                  titleCard={`View all expenses of the ${actor.name} Ecosystem Actor`}
-                  auditorMessage={`${actor.name} is working without auditor`}
+                  titleCard={`View all expenses of the ${actor.name} Ecosystem Actor.`}
+                  auditorMessage={`${actor.name} is working without auditor.`}
                   makerburnCustomMessage={`View On-Chain transfers to ${actor.name} on makerburn.com`}
                 />
               </ContainerCard>

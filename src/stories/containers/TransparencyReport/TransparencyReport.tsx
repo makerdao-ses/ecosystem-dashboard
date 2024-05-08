@@ -86,8 +86,8 @@ export const TransparencyReport = ({
       />
       <CoreUnitSummary
         coreUnits={coreUnits}
-        trailingAddress={['Expense Reports']}
-        breadcrumbTitle="Expense Reports"
+        trailingAddress={['Budget Statements']}
+        breadcrumbTitle="Budget Statements"
         showHeader={showHeader}
         ref={ref}
       />

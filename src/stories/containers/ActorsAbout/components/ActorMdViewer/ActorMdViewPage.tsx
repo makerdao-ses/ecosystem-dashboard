@@ -127,8 +127,8 @@ const ActorMdViewPage = ({
                     minHeight: '190px',
                     overflowY: 'hidden',
                   }}
-                  titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
-                  auditorMessage={`The ${actorName} is working without auditor`}
+                  titleCard={`View all expenses of the ${actorName} Ecosystem Actor.`}
+                  auditorMessage={`The ${actorName} is working without auditor.`}
                   makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
                 />
               </Popover>
@@ -160,8 +160,8 @@ const ActorMdViewPage = ({
                 auditors={auditors}
                 isTitlePresent={isEnabled('FEATURE_TEAM_PROJECTS')}
                 buttonWidth="139.5px"
-                titleCard={`View all expenses of the ${actorName} Ecosystem Actor`}
-                auditorMessage={`The ${actorName} is working without auditor`}
+                titleCard={`View all expenses of the ${actorName} Ecosystem Actor.`}
+                auditorMessage={`The ${actorName} is working without auditor.`}
                 makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
               />
             </div>

@@ -36,7 +36,7 @@ const BreadcrumbWithYear: React.FC<Props> = ({
         </BreadcrumbMobile>
       )}
       <BreadcrumbDesk>
-        <StyledBreadcrumbs items={trailingAddressDesk} isLight={isLight} />
+        <StyledBreadcrumbs items={trailingAddressDesk} isLight={isLight} hasItemsToCount={false} />
       </BreadcrumbDesk>
 
       <YearSelect

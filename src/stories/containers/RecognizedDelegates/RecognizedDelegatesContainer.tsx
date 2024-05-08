@@ -96,7 +96,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
         <ContainerButton>
           <Button
             href={siteRoutes.recognizedDelegateReport}
-            label="View Expense Reports"
+            label="View Budget Statements"
             buttonType={ButtonType.Primary}
           />
         </ContainerButton>
@@ -160,7 +160,6 @@ const ContainerButton = styled.div({
 });
 
 const Button = styled(LinkButton)({
-  padding: '14.5px 64px',
   width: '100%',
 
   '& > div': {

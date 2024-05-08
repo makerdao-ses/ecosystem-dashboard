@@ -66,7 +66,7 @@ const MdViewerPage = ({
             active={open}
             widthText="100%"
             allowsHover={!isPhoneAndTable}
-            label="Expenses"
+            label="Budget Statements"
             style={{
               textAlign: 'center',
               borderRadius: '22px',
