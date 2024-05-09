@@ -1,5 +1,7 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { colorPalette } from './colorPalette';
+import shadows from './shadows';
+
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xs: false;
@@ -27,6 +29,13 @@ declare module '@mui/material/styles' {
   interface Palette extends ColorPalette {}
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface PaletteOptions extends ColorPalette {}
+
+  interface Theme {
+    fusionShadows: typeof shadows;
+  }
+  interface ThemeOptions {
+    fusionShadows: typeof shadows;
+  }
 }
 
 export const breakpoints = {
@@ -44,6 +53,7 @@ export const breakpoints = {
 
 export const lightTheme = responsiveFontSizes(
   createTheme({
+    fusionShadows: shadows,
     palette: {
       isLight: true,
       colors: colorPalette,
@@ -78,6 +88,7 @@ export const lightTheme = responsiveFontSizes(
 
 export const darkTheme = responsiveFontSizes(
   createTheme({
+    fusionShadows: shadows,
     palette: {
       isLight: false,
       colors: colorPalette,

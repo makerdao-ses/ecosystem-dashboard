@@ -1,8 +1,7 @@
 import { styled } from '@mui/material';
-import EndgameStatusChip from '../EndgameStatusChip/EndgameStatusChip';
+import Card from '@/components/Card/Card';
 import ImportantLinks from './ImportantLinks';
 import type { ImportantLink } from './ImportantLinks';
-import type { ProjectStatus } from '@ses/core/models/interfaces/projects';
 
 export interface Description {
   paragraph: string;
@@ -12,23 +11,26 @@ export interface Description {
   }[];
 }
 
+export enum EndgameUpdateStatus {
+  TODO = 'TODO',
+  INPROGRESS = 'IN_PROGRESS',
+}
+
 interface PhaseCardProps {
   phase: string;
   title: string;
-  status: ProjectStatus;
+  status: EndgameUpdateStatus;
   description: Description;
   importantLinks?: ImportantLink[];
 }
 
 const PhaseCard: React.FC<PhaseCardProps> = ({ phase, title, status, description, importantLinks = [] }) => (
-  <Card>
-    <Header>
+  <CustomCard>
+    <Header status={status}>
       <TitleContainer>
         <Phase>{phase}</Phase>
         <Title>{title}</Title>
       </TitleContainer>
-
-      <EndgameStatusChip status={status} />
     </Header>
 
     <Body>
@@ -46,29 +48,25 @@ const PhaseCard: React.FC<PhaseCardProps> = ({ phase, title, status, description
       </DescriptionContainer>
       <ImportantLinks links={importantLinks} />
     </Body>
-  </Card>
+  </CustomCard>
 );
 
 export default PhaseCard;
 
-const Card = styled('div')(({ theme }) => ({
+const CustomCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  background: theme.palette.mode === 'light' ? 'white' : '#1E2C37',
   padding: 8,
-  borderRadius: 6,
-  boxShadow:
-    theme.palette.mode === 'light'
-      ? '20px 20px 20px rgba(219, 227, 237, 0.4), 1px 1px 5px rgba(190, 190, 190, 0.25)'
-      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
 
-  [theme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     gap: 16,
   },
 }));
 
-const Header = styled('header')(({ theme }) => ({
+// TODO: implement the header color based on the status
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Header = styled('header')<{ status: EndgameUpdateStatus }>(({ theme, status }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',

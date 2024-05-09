@@ -1,7 +1,6 @@
 import { styled } from '@mui/material';
-import { ProjectStatus } from '@ses/core/models/interfaces/projects';
 import SectionHeader from '../SectionHeader/SectionHeader';
-import PhaseCard from './PhaseCard';
+import PhaseCard, { EndgameUpdateStatus } from './PhaseCard';
 
 const LatestUpdatesSection: React.FC = () => (
   <Content id="section-latest-updates">
@@ -14,7 +13,7 @@ const LatestUpdatesSection: React.FC = () => (
       <PhaseCard
         phase="Phase 1"
         title="Launch Season"
-        status={ProjectStatus.INPROGRESS}
+        status={EndgameUpdateStatus.INPROGRESS}
         description={{
           paragraph:
             'Introduction of new tokens (NewStable and NewGovToken) and a new brand focusing on user-friendly access and sustainable yield farming through the SubDAO ecosystem. This phase aims for rapid deployment of core features to drive Dai usage growth.',
@@ -51,7 +50,7 @@ const LatestUpdatesSection: React.FC = () => (
       <PhaseCard
         phase="Phase 2"
         title="Scaling Up"
-        status={ProjectStatus.TODO}
+        status={EndgameUpdateStatus.TODO}
         description={{
           paragraph:
             'After the successful launch of key components, this phase focuses on vertical and horizontal expansion, including more SubDAOs catering to diverse interests and bridging to major L2s and L1s enhancing the ecosystem’s reach and capabilities.',
@@ -74,7 +73,7 @@ const LatestUpdatesSection: React.FC = () => (
       <PhaseCard
         phase="Phase 3"
         title="NewChain"
-        status={ProjectStatus.TODO}
+        status={EndgameUpdateStatus.TODO}
         description={{
           paragraph:
             'The transition to a standalone L1 blockchain, hosting core tokenomics and govenance, marks a pivotal point for scalability and integration of real-world assets, DeFi, and corss-blockchain operations.',
@@ -97,7 +96,7 @@ const LatestUpdatesSection: React.FC = () => (
       <PhaseCard
         phase="Phase 4"
         title="Final Endgame"
-        status={ProjectStatus.TODO}
+        status={EndgameUpdateStatus.TODO}
         description={{
           paragraph:
             'This phase signifies the completion of foundational governance mechanisms, leading to an immutable, dynamic, and ever-growing ecosystem, embodying the ultimate vision of MakerDAO’s Endgame.',
@@ -126,25 +125,21 @@ export default LatestUpdatesSection;
 const Content = styled('section')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: 32,
+  marginTop: 24,
   gap: 24,
   scrollMarginTop: 130,
 
-  [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 40,
-  },
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    marginTop: 64,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 32,
   },
 }));
 
-const Timeline = styled('div')(() => ({
+const Timeline = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
+  gap: 16,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 24,
+  },
 }));
