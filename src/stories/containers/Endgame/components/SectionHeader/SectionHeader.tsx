@@ -1,10 +1,7 @@
 import { styled } from '@mui/material';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SectionHeaderProps {
   title: string;
@@ -22,7 +19,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   selectedYear,
   handleYearChange,
 }) => {
-  const { isLight } = useThemeContext();
   const years: SelectItem<string>[] = useMemo(
     () =>
       (yearsRange ?? [])?.map((year) => ({
@@ -35,8 +31,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <Header>
       <TextContainer>
-        <Title isLight={isLight}>{title}</Title>
-        <Subtitle isLight={isLight}>{subtitle}</Subtitle>
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
       </TextContainer>
       {yearsRange && (
         <YearSelect
@@ -68,33 +64,44 @@ const Header = styled('header')(({ theme }) => ({
   },
 }));
 
-const TextContainer = styled('div')({
+const TextContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 16,
+  gap: 8,
   marginRight: 'auto',
-});
 
-const Title = styled('h2')<WithIsLight>(({ isLight }) => ({
-  margin: 0,
-  fontSize: 24,
-  fontWeight: 600,
-  lineHeight: 'normal',
-  letterSpacing: 0.4,
-  color: isLight ? '#231536' : '#D2D4EF',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 32,
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 16,
   },
 }));
 
-const Subtitle = styled('p')<WithIsLight>(({ isLight }) => ({
+const Title = styled('h2')(({ theme }) => ({
   margin: 0,
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: 14,
-  lineHeight: 'normal',
+  fontSize: 18,
+  fontWeight: 700,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 20,
+    fontWeight: 600,
+    lineHeight: '24px',
+    letterSpacing: 0.4,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 24,
+    lineHeight: '29px',
+  },
+}));
+
+const Subtitle = styled('p')(({ theme }) => ({
+  margin: 0,
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : '#D2D4EF',
+  fontSize: 14,
+  lineHeight: '22px',
+
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '22px',
   },
