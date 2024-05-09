@@ -522,14 +522,14 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     });
 
     // "hide"/remove the uncategorized table if it is the only one (it will be included just in the header)
-    if (tables.length === 1 && tables[0].rows[0].isUncategorized) {
+    if (tables.length === 1 && tables[0].rows[0]?.isUncategorized) {
       tables = [];
     }
 
     // sort final tables by the amount of rows
     const sortedTables = tables.sort((a, b) => {
       // uncategorized should be the first
-      if (b.rows[0].isUncategorized) return 1;
+      if (b.rows[0]?.isUncategorized) return 1;
 
       return b.rows.length - a.rows.length;
     });
