@@ -50,7 +50,7 @@ DefaultMode.parameters = {
 };
 DefaultDarkMode.parameters = {};
 
-// Hover state
+// Hover state light
 export const HoverStateLight = () => (
   <ThemeProvider theme={lightTheme}>
     <InternalLinkButton label="Hover Light" showIcon href="#" />
@@ -61,7 +61,7 @@ HoverStateLight.parameters = {
     hover: true,
   },
 };
-
+// Active state light
 export const ActiveStateLight = () => (
   <ThemeProvider theme={lightTheme}>
     <InternalLinkButton label="Active Light" showIcon href="#" />
@@ -74,7 +74,7 @@ ActiveStateLight.parameters = {
   },
 };
 
-// Active state
+// Hover state dark
 export const HoverStateDark = () => (
   <ThemeProvider theme={darkTheme}>
     <InternalLinkButton label="Hover Dark" showIcon href="#" />
@@ -85,6 +85,7 @@ HoverStateDark.parameters = {
     hover: true,
   },
 };
+// Active state dark
 export const ActiveStateDark = () => (
   <ThemeProvider theme={darkTheme}>
     <InternalLinkButton label="Active Dark" showIcon href="#" />
