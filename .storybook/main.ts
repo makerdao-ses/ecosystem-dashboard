@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     'sb-figma-comparator',
+    'storybook-addon-pseudo-states',
   ],
   framework: {
     name: '@storybook/nextjs',

@@ -10,7 +10,7 @@ interface Props {
   className?: string;
 }
 
-const InternalLinkButton: React.FunctionComponent<Props> = ({ label, showIcon, href, className }) => (
+const InternalLinkButton: React.FunctionComponent<Props> = ({ label, showIcon = true, href, className }) => (
   <ContainerLink href={href ?? ''} className={className}>
     <Text>{label}</Text>
     {showIcon && (

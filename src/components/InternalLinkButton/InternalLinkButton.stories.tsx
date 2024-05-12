@@ -1,10 +1,13 @@
+import { ThemeProvider } from '@emotion/react';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import lightTheme, { darkTheme } from '@ses/styles/theme/themes';
 import InternalLinkButton from './InternalLinkButton';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof InternalLinkButton> = {
   title: 'fusion/components/InternalLinkButton/InternalLinkButton',
+  tags: ['autodocs'],
   parameters: {
     chromatic: {
       viewports: [375],
@@ -17,15 +20,16 @@ export default meta;
 const variantsArgs = [
   {
     label: 'Phase 1  Progress',
-    icon: true,
+    showIcon: true,
     href: '/roadmaps/endgame-phase-1',
   },
 ];
 
-const [[LightMode, DeskDarkMode]] = createThemeModeVariants(InternalLinkButton, variantsArgs);
-export { LightMode, DeskDarkMode };
+const [[DefaultMode, DefaultDarkMode]] = createThemeModeVariants(InternalLinkButton, variantsArgs);
 
-LightMode.parameters = {
+export { DefaultMode, DefaultDarkMode };
+
+DefaultMode.parameters = {
   figma: {
     component: {
       375: {
@@ -44,4 +48,50 @@ LightMode.parameters = {
     },
   } as FigmaParams,
 };
-DeskDarkMode.parameters = {};
+DefaultDarkMode.parameters = {};
+
+// Hover state
+export const HoverStateLight = () => (
+  <ThemeProvider theme={lightTheme}>
+    <InternalLinkButton label="Hover Light" showIcon href="#" />
+  </ThemeProvider>
+);
+HoverStateLight.parameters = {
+  pseudo: {
+    hover: true,
+  },
+};
+
+export const ActiveStateLight = () => (
+  <ThemeProvider theme={lightTheme}>
+    <InternalLinkButton label="Active Light" showIcon href="#" />
+  </ThemeProvider>
+);
+
+ActiveStateLight.parameters = {
+  pseudo: {
+    active: true,
+  },
+};
+
+// Active state
+export const HoverStateDark = () => (
+  <ThemeProvider theme={darkTheme}>
+    <InternalLinkButton label="Hover Dark" showIcon href="#" />
+  </ThemeProvider>
+);
+HoverStateDark.parameters = {
+  pseudo: {
+    hover: true,
+  },
+};
+export const ActiveStateDark = () => (
+  <ThemeProvider theme={darkTheme}>
+    <InternalLinkButton label="Active Dark" showIcon href="#" />
+  </ThemeProvider>
+);
+ActiveStateDark.parameters = {
+  pseudo: {
+    active: true,
+  },
+};

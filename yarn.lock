@@ -10852,6 +10852,11 @@ store2@^2.12.0, store2@^2.14.2:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.14.2.tgz#56138d200f9fe5f582ad63bc2704dbc0e4a45068"
   integrity sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==
 
+storybook-addon-pseudo-states@^2.1.2:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/storybook-addon-pseudo-states/-/storybook-addon-pseudo-states-2.2.1.tgz#f04c24de54581e04f778674c9d37d63839684e32"
+  integrity sha512-4LoaiML0BM9sZcQbXjDhRh9jUUKIRTWEQMl91ihP2wIE10n+rL/5c8IBpNiMZLV1rnm24degEncSMY9ck+bpgg==
+
 storybook-mock-date-decorator@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/storybook-mock-date-decorator/-/storybook-mock-date-decorator-1.0.1.tgz#e3ee68f73fbd84a7512ed8e30b539b9d7eb4a5a2"
