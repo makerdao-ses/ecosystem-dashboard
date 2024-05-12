@@ -1,5 +1,6 @@
-import { styled } from '@mui/material';
-import ExternalLink from '@ses/components/ExternalLink/ExternalLink';
+import { styled, useMediaQuery } from '@mui/material';
+import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import type { Theme } from '@mui/material';
 
 export interface ImportantLink {
   href: string;
@@ -11,23 +12,25 @@ export interface ImportantLinksProps {
 }
 
 const ImportantLinks: React.FC<ImportantLinksProps> = ({ links }) => {
-  if (links.length === 0) return null;
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+
+  if (isMobile && links.length === 0) return null;
 
   return (
     <Content>
       <Header>Important Links</Header>
 
       {links.length === 0 ? (
-        <NoKeyContainer>
-          <NoKeyResults>No Key Results</NoKeyResults>
-        </NoKeyContainer>
+        <NoResultsContainer>
+          <NoResults>No Important Links</NoResults>
+        </NoResultsContainer>
       ) : (
         <LinksList>
           {links.map((link, index) => (
             <LinkItem key={index}>
-              <ImportantLink href={link.href} target="_blank" wrapText>
+              <ExternalLinkButton href={link.href} wrapText={false}>
                 {link.label}
-              </ImportantLink>
+              </ExternalLinkButton>
             </LinkItem>
           ))}
         </LinksList>
@@ -42,34 +45,46 @@ const Content = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  borderRadius: 6,
+  borderRadius: 12,
   padding: '0 8px 8px',
   overflow: 'hidden',
-  background: theme.palette.mode === 'light' ? 'rgba(246, 248, 249, 0.5)' : 'rgba(16, 25, 31, 0.2)',
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    minWidth: 271,
+  },
 
   [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 374,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 344,
-    padding: '0 16px 16px',
   },
 }));
 
 const Header = styled('div')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
-  background: theme.palette.mode === 'light' ? 'rgba(236, 239, 249, 0.5)' : 'rgba(49, 66, 78, 0.8)',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[400],
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   fontSize: 14,
-  fontWeight: 500,
-  lineHeight: '18px',
-  padding: '2px 16px',
+  fontWeight: 600,
+  lineHeight: '22px',
+  padding: '0px 8px 2px',
   margin: '0 -8px',
 
   [theme.breakpoints.up('tablet_768')]: {
+    padding: '2px 8px',
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    padding: '2px 24px',
-    margin: '0 -16px',
+    fontWeight: 600,
+    lineHeight: '24px',
   },
 }));
 
-const NoKeyContainer = styled('div')(({ theme }) => ({
+const NoResultsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -81,13 +96,13 @@ const NoKeyContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const NoKeyResults = styled('span')({
-  color: '#546978',
-  fontSize: 16,
-  fontStyle: 'italic',
-  lineHeight: '18px',
-  padding: '16px 0',
-});
+const NoResults = styled('span')(({ theme }) => ({
+  color: theme.palette.colors.slate[100],
+  fontSize: 14,
+  lineHeight: '22px',
+  paddingTop: 8,
+  paddingLeft: 8,
+}));
 
 const LinksList = styled('ul')({
   display: 'flex',
@@ -103,40 +118,4 @@ const LinkItem = styled('li')(() => ({
   alignItems: 'center',
   listStyle: 'none',
   position: 'relative',
-}));
-
-const ImportantLink = styled(ExternalLink)(({ theme }) => ({
-  fontSize: 14,
-  fontWeight: 500,
-  lineHeight: '18px',
-  paddingLeft: 22,
-  position: 'relative',
-  gap: 6,
-  display: 'flex',
-  width: '100%',
-  whiteSpace: 'nowrap',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 16,
-    lineHeight: '18px',
-  },
-
-  '& > span': {
-    flex: 1,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    maxWidth: 'fit-content',
-  },
-
-  '&:before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    left: 8,
-    top: 6,
-    width: 6,
-    height: 6,
-    borderRadius: '50%',
-    background: '#447AFB',
-  },
 }));
