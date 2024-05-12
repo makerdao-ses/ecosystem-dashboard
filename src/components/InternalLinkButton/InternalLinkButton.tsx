@@ -1,56 +1,38 @@
 import { styled } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
-import ArrowInternalLink from '../../stories/components/svg/ArrowInternalLink';
+import ArrowInternalLink from './ArrowInternalLink/ArrowInternalLink';
 
 interface Props {
   label?: string;
-  icon?: boolean;
+  showIcon?: boolean;
   href: string;
   className?: string;
-  iconFill?: string;
-  iconWith?: number;
-  iconHeight?: number;
-  iconClassName?: string;
-  background?: string;
 }
 
-const InternalLinkButton: React.FunctionComponent<Props> = ({
-  label,
-  icon,
-  href,
-  className,
-  iconFill = '#5B667E',
-  iconWith = 24,
-  iconHeight = 23,
-  background,
-  iconClassName,
-}) => (
-  <Link href={href ?? ''} passHref legacyBehavior>
-    <Container className={className} background={background}>
-      <Text>{label}</Text>
-      {icon && (
-        <IconContainer>
-          <ArrowInternalLink fill={iconFill} height={iconHeight} width={iconWith} className={iconClassName} />
-        </IconContainer>
-      )}
-    </Container>
-  </Link>
+const InternalLinkButton: React.FunctionComponent<Props> = ({ label, showIcon, href, className }) => (
+  <ContainerLink href={href ?? ''} className={className}>
+    <Text>{label}</Text>
+    {showIcon && (
+      <IconContainer>
+        <ArrowInternalLink />
+      </IconContainer>
+    )}
+  </ContainerLink>
 );
 
 export default InternalLinkButton;
 
-const Container = styled('a')<{ background?: string }>(({ theme, background }) => ({
+const ContainerLink = styled(Link)<{ background?: string }>(({ theme }) => ({
   height: 32,
   display: 'flex',
   borderRadius: 8,
   padding: '4px 16px 4px 24px',
   width: 'fit-content',
   alignItems: 'center',
-  background:
-    background || (theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[800]),
+  background: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[800],
   gap: 8,
-
+  border: '1px solid transparent',
   ':hover': {
     gap: 16,
     padding: '4px 8px 4px 24px',

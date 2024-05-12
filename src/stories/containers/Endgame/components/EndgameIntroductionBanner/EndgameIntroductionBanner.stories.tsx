@@ -1,11 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import EndgameIntroductionBannerReskin from './EndgameIntroductionBannerReskin';
+import EndgameIntroductionBanner from './EndgameIntroductionBanner';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
-const meta: Meta<typeof EndgameIntroductionBannerReskin> = {
+const meta: Meta<typeof EndgameIntroductionBanner> = {
   title: 'Components/Endgame/Endgame Introduction Banner Reskin',
-  component: EndgameIntroductionBannerReskin,
+  component: EndgameIntroductionBanner,
 
   parameters: {
     chromatic: {
@@ -18,10 +18,7 @@ export default meta;
 
 const variantsArgs = [{ isKeyChanges: true }];
 
-const [[KeyChangesLightMode, KeyChangesDarkMode]] = createThemeModeVariants(
-  EndgameIntroductionBannerReskin,
-  variantsArgs
-);
+const [[KeyChangesLightMode, KeyChangesDarkMode]] = createThemeModeVariants(EndgameIntroductionBanner, variantsArgs);
 export { KeyChangesLightMode, KeyChangesDarkMode };
 
 KeyChangesLightMode.parameters = {

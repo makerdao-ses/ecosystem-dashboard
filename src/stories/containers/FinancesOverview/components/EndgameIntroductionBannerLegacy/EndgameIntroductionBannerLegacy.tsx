@@ -16,7 +16,7 @@ interface EndgameIntroductionBannerProps {
   isKeyChanges?: boolean;
 }
 
-const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
+const EndgameIntroductionBannerLegacy: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
   const { isLight } = useThemeContext();
   const isUpDesktop1280 = useMediaQuery(lightTheme.breakpoints.up('desktop_1280'));
   const [isEnabled] = useFlagsActive();
@@ -81,7 +81,7 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
   );
 };
 
-export default EndgameIntroductionBanner;
+export default EndgameIntroductionBannerLegacy;
 
 const EndgameContainer = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'relative',

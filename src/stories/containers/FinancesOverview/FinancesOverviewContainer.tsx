@@ -10,7 +10,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
-import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
+import EndgameIntroductionBannerLegacy from './components/EndgameIntroductionBannerLegacy/EndgameIntroductionBannerLegacy';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import NavigationButtons from './components/NavigationButtons/NavigationButtons';
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
@@ -70,7 +70,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
       <EndgameIntroContainer>
-        <EndgameIntroductionBanner />
+        <EndgameIntroductionBannerLegacy />
       </EndgameIntroContainer>
 
       <Container>

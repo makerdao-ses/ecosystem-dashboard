@@ -14,7 +14,7 @@ interface EndgameIntroductionBannerProps {
   isKeyChanges?: boolean;
 }
 
-const EndgameIntroductionBannerReskin: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
+const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
   const isUpDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
   const [isEnabled] = useFlagsActive();
 
@@ -66,7 +66,7 @@ const EndgameIntroductionBannerReskin: React.FC<EndgameIntroductionBannerProps> 
               <InternalLinkContainer isKeyChanges={isKeyChanges}>
                 <InternalLinkButtonStyled
                   href={siteRoutes.roadmapMilestones('endgame-phase-1')}
-                  icon
+                  showIcon
                   label="Phase 1  Progress"
                 />
               </InternalLinkContainer>
@@ -79,7 +79,7 @@ const EndgameIntroductionBannerReskin: React.FC<EndgameIntroductionBannerProps> 
   );
 };
 
-export default EndgameIntroductionBannerReskin;
+export default EndgameIntroductionBanner;
 
 const EndgameContainer = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -337,6 +337,7 @@ const InternalLinkButtonStyled = styled(InternalLinkButton)(({ theme }) => ({
       fill: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
     },
     ':hover': {
+      padding: '4px 12px 4px 12px',
       background: theme.palette.colors.gray[700],
       border: `1px solid ${theme.palette.colors.charcoal[500]}`,
       '& div': {

@@ -7,7 +7,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
-import EndgameIntroductionBannerReskin from './components/EndgameIntroductionBannerReskin/EndgameIntroductionBannerReskin';
+import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
 import IntroductoryHeadline from './components/IntroductoryHeadline/IntroductoryHeadline';
 import KeyChangesBudgetTransitionStatusSection from './components/KeyChangesBudgetTransitionStatusSection/KeyChangesBudgetTransitionStatusSection';
 import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
@@ -63,8 +63,8 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
       </Container>
 
       <div ref={keyChangesRef}>
-        <BannerContainer>
-          <EndgameIntroductionBannerReskin isKeyChanges />
+        <BannerContainer id="section-key-changes">
+          <EndgameIntroductionBanner isKeyChanges />
         </BannerContainer>
         <Container>
           <KeyChangesSections />

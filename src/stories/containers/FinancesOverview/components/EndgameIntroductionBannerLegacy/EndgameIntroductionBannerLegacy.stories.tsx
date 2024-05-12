@@ -1,6 +1,6 @@
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import EndgameIntroductionBanner from './EndgameIntroductionBanner';
+import EndgameIntroductionBanner from './EndgameIntroductionBannerLegacy';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
