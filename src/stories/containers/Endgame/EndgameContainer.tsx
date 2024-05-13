@@ -119,13 +119,28 @@ const EndgamePageContainer = styled(PageContainer)(({ theme }) => ({
 }));
 
 const BannerContainer = styled('div')(({ theme }) => ({
-  marginTop: 48,
-  marginBottom: 48,
+  marginTop: 32,
+  marginBottom: 32,
   scrollMarginTop: 110,
-
+  paddingLeft: 16,
+  paddingRight: 16,
+  width: '100%',
+  maxWidth: '100%',
   [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 64,
-    marginBottom: 64,
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+
+  [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingLeft: 0,
+    paddingRight: 0,
+    maxWidth: 12000,
   },
 }));
 

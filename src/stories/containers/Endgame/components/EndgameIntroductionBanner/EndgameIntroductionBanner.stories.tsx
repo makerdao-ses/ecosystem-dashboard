@@ -1,13 +1,12 @@
-import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import EndgameIntroductionBanner from './EndgameIntroductionBanner';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof EndgameIntroductionBanner> = {
-  title: 'Components/Endgame/Endgame Introduction Banner',
+  title: 'fusion/Components/Endgame/Endgame Introduction Banner',
   component: EndgameIntroductionBanner,
-  decorators: [withoutSBPadding],
+
   parameters: {
     chromatic: {
       viewports: [375, 768, 1024, 1280, 1440, 1920],
@@ -17,135 +16,79 @@ const meta: Meta<typeof EndgameIntroductionBanner> = {
 };
 export default meta;
 
-const variantsArgs = [{}, { isKeyChanges: true }];
+const variantsArgs = [{ isKeyChanges: true }];
 
-const [[IntroductionLightMode, IntroductionDarkMode], [KeyChangesLightMode, KeyChangesDarkMode]] =
-  createThemeModeVariants(EndgameIntroductionBanner, variantsArgs);
-export { IntroductionLightMode, IntroductionDarkMode, KeyChangesLightMode, KeyChangesDarkMode };
-
-IntroductionLightMode.parameters = {
-  figma: {
-    component: {
-      0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20682:254222',
-        options: {
-          componentStyle: {
-            width: 343,
-          },
-          style: {
-            top: -50,
-            left: -66,
-          },
-        },
-      },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:267336',
-        options: {
-          componentStyle: {
-            width: 834,
-          },
-          style: {
-            top: -61,
-            left: -84,
-          },
-        },
-      },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20677:245729',
-        options: {
-          style: {
-            margin: 0,
-          },
-        },
-      },
-      1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20677:243932',
-        options: {
-          style: {
-            margin: 0,
-          },
-        },
-      },
-      1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20677:238297',
-        options: {
-          style: {
-            margin: 0,
-          },
-        },
-      },
-      1920: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20677:241116',
-        options: {
-          style: {
-            margin: 0,
-          },
-        },
-      },
-    },
-  } as FigmaParams,
-};
+const [[KeyChangesLightMode, KeyChangesDarkMode]] = createThemeModeVariants(EndgameIntroductionBanner, variantsArgs);
+export { KeyChangesLightMode, KeyChangesDarkMode };
 
 KeyChangesLightMode.parameters = {
   figma: {
     component: {
-      0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21089:238100',
+      375: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=219:46186&t=IuRS7Hl36vgB46Gj-4',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: -50,
-            left: -66,
+            top: 0,
+            left: 0,
           },
         },
       },
       768: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:204940',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=208:28370&t=J1bUVKWZZViMDwMc-4',
         options: {
           componentStyle: {
-            width: 768,
+            width: 704,
           },
           style: {
-            top: -61,
-            left: -100,
+            top: 0,
+            left: 0,
           },
         },
       },
       1024: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:210984',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=160:2893&t=J1bUVKWZZViMDwMc-4',
         options: {
           componentStyle: {
             width: 1024,
+            paddingLeft: 32,
+            paddingRight: 32,
           },
           style: {
-            top: -60,
-            left: -84,
+            top: 0,
+            left: 0,
           },
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=23817:107416',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=61:21882&t=J1bUVKWZZViMDwMc-4',
         options: {
+          componentStyle: {
+            width: 1280,
+          },
           style: {
-            margin: 0,
+            top: 0,
+            left: 0,
           },
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=23817:105537',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=61:17625&t=J1bUVKWZZViMDwMc-4',
         options: {
-          style: {
-            margin: 0,
+          componentStyle: {
+            width: 1440,
           },
-        },
-      },
-      1920: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=23817:103657',
-        options: {
           style: {
             margin: 0,
+            top: 16,
+            left: 16,
           },
         },
       },

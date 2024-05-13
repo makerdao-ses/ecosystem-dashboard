@@ -97,6 +97,7 @@
     "sass-loader": "^13.0.0",
     "sb-figma-comparator": "^0.1.7",
     "storybook": "7.5.3",
+    "storybook-addon-pseudo-states": "^2.1.2",
     "storybook-mock-date-decorator": "^1.0.1",
     "style-loader": "^3.3.1",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
