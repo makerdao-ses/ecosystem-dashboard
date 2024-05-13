@@ -6,7 +6,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof InternalLinkButton> = {
-  title: 'fusion/components/InternalLinkButton/InternalLinkButton',
+  title: 'fusion/components/General/InternalLinkButton/InternalLinkButton',
   tags: ['autodocs'],
   parameters: {
     chromatic: {
