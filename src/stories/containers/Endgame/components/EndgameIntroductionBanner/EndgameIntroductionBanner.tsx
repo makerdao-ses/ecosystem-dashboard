@@ -326,10 +326,10 @@ const InternalLinkButtonStyled = styled(InternalLinkButton)(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '4px 12px 4px 12px',
     gap: 12,
-    background: theme.palette.colors.gray[900],
+    background: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[800],
 
     '& div': {
-      color: theme.palette.colors.slate[50],
+      color: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
       fontWeight: 600,
     },
 
