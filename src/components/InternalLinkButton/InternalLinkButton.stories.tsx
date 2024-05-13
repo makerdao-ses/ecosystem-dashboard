@@ -6,7 +6,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof InternalLinkButton> = {
-  title: 'fusion/components/General/InternalLinkButton/InternalLinkButton',
+  title: 'fusion/components/InternalLinkButton/InternalLinkButton',
   tags: ['autodocs'],
   parameters: {
     chromatic: {
@@ -23,11 +23,20 @@ const variantsArgs = [
     showIcon: true,
     href: '/roadmaps/endgame-phase-1',
   },
+  {
+    label: 'Phase 1  Progress',
+    showIcon: true,
+    href: '/roadmaps/endgame-phase-1',
+    buttonType: 'secondary',
+  },
 ];
 
-const [[DefaultMode, DefaultDarkMode]] = createThemeModeVariants(InternalLinkButton, variantsArgs);
+const [[DefaultMode, DefaultDarkMode], [Secondary, SecondaryDark]] = createThemeModeVariants(
+  InternalLinkButton,
+  variantsArgs
+);
 
-export { DefaultMode, DefaultDarkMode };
+export { DefaultMode, DefaultDarkMode, Secondary, SecondaryDark };
 
 DefaultMode.parameters = {
   figma: {
@@ -92,6 +101,35 @@ export const ActiveStateDark = () => (
   </ThemeProvider>
 );
 ActiveStateDark.parameters = {
+  pseudo: {
+    active: true,
+  },
+};
+
+Secondary.parameters = {};
+SecondaryDark.parameters = {};
+
+// Hover state dark
+export const SecondaryHover = () => (
+  <ThemeProvider theme={lightTheme}>
+    <InternalLinkButton label="Hover Secondary" showIcon href="#" />
+  </ThemeProvider>
+);
+
+SecondaryHover.parameters = {
+  pseudo: {
+    hover: true,
+  },
+};
+
+// Active state dark
+export const SecondaryActive = () => (
+  <ThemeProvider theme={lightTheme}>
+    <InternalLinkButton label="Active Secondary" showIcon href="#" />
+  </ThemeProvider>
+);
+
+SecondaryHover.parameters = {
   pseudo: {
     active: true,
   },

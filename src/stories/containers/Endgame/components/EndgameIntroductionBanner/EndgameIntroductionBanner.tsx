@@ -338,14 +338,28 @@ const InternalLinkButtonStyled = styled(InternalLinkButton)(({ theme }) => ({
     },
     ':hover': {
       padding: '4px 12px 4px 12px',
-      background: theme.palette.colors.gray[700],
-      border: `1px solid ${theme.palette.colors.charcoal[500]}`,
+      background: theme.palette.isLight ? theme.palette.colors.gray[800] : theme.palette.colors.gray[800],
+      border: theme.palette.isLight
+        ? `1px solid ${theme.palette.colors.charcoal[500]}`
+        : `1px solid ${theme.palette.colors.charcoal[600]}`,
       '& div': {
-        color: theme.palette.colors.slate[50],
+        color: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[200],
         fontWeight: 600,
       },
       '& path': {
-        fill: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[100],
+        fill: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[200],
+      },
+    },
+    ':active': {
+      background: theme.palette.isLight ? theme.palette.colors.gray[700] : theme.palette.colors.charcoal[700],
+      border: theme.palette.isLight
+        ? `1px solid ${theme.palette.colors.charcoal[600]}`
+        : `1px solid ${theme.palette.colors.charcoal[500]}`,
+      '& div': {
+        color: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
+      },
+      '& path': {
+        fill: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
       },
     },
   },
