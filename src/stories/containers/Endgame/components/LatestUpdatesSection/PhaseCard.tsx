@@ -58,22 +58,35 @@ const CustomCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   gap: 8,
   padding: 8,
+  overflow: 'hidden',
 
   [theme.breakpoints.up('desktop_1024')]: {
     gap: 16,
   },
 }));
 
-// TODO: implement the header color based on the status
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Header = styled('header')<{ status: EndgameUpdateStatus }>(({ theme, status }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  background:
+    status === EndgameUpdateStatus.INPROGRESS
+      ? theme.palette.isLight
+        ? theme.palette.colors.blue[50]
+        : theme.palette.colors.blue[300]
+      : theme.palette.isLight
+      ? theme.palette.colors.orange[100]
+      : theme.palette.colors.orange[400],
+  margin: '-8px -8px 0',
+  padding: '5px 8px',
 
   [theme.breakpoints.up('tablet_768')]: {
     justifyContent: 'flex-start',
     gap: 24,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '8px 23px 8px',
   },
 }));
 
@@ -84,17 +97,28 @@ const TitleContainer = styled('div')(() => ({
 }));
 
 const Phase = styled('span')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#708390' : '#546978',
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: '19px',
+  color: theme.palette.colors.slate[200],
+  fontSize: 14,
+  fontWeight: 600,
+  lineHeight: '22px',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    lineHeight: '24px',
+  },
 }));
 
 const Title = styled('h3')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: '19px',
+  color: theme.palette.colors.slate[950],
+  fontSize: 14,
+  fontWeight: 600,
+  lineHeight: '22px',
+  margin: 0,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    lineHeight: '24px',
+  },
 }));
 
 const Body = styled('div')(({ theme }) => ({
@@ -104,9 +128,6 @@ const Body = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 16,
-  },
-
-  [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
   },
 }));
@@ -115,19 +136,20 @@ const DescriptionContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  padding: 8,
-  borderRadius: 6,
-  background: theme.palette.mode === 'light' ? 'rgba(246, 248, 249, 0.5)' : 'rgba(16, 25, 31, 0.3)',
-  boxShadow:
-    theme.palette.mode === 'light' ? '1px 3px 7px rgba(0, 0, 0, 0.05) inset' : '1px 3px 7px rgba(0, 0, 0, 0.15) inset',
+  padding: 7,
+  borderRadius: 12,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   fontSize: 14,
-  lineHeight: '17px',
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
-  [theme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: 16,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
     fontSize: 16,
-    lineHeight: '22px',
   },
 }));
 
@@ -135,9 +157,14 @@ const Paragraph = styled('p')(() => ({
   margin: 0,
 }));
 
-const List = styled('ul')(() => ({
-  paddingLeft: 22,
+const List = styled('ul')(({ theme }) => ({
+  paddingLeft: 20,
+  marginTop: 16,
   marginBottom: 0,
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    paddingLeft: 24,
+  },
 }));
 
 const ListItem = styled('li')(() => ({}));

@@ -75,6 +75,7 @@ export const colorPalette = {
   },
 
   blue: {
+    50: '#E5F3FF',
     100: '#CCE6FF',
     200: '#B3DAFE',
     300: '#99CEFF',
