@@ -38,19 +38,19 @@ const ContainerLink = styled(Link)<{ background?: string }>(({ theme }) => ({
     padding: '4px 8px 4px 24px',
     border: theme.palette.isLight
       ? `1px solid ${theme.palette.colors.gray[300]}`
-      : `1px solid ${theme.palette.colors.charcoal[100]}`,
+      : `1px solid ${theme.palette.colors.charcoal[600]}`,
     '& div': {
       color: theme.palette.isLight ? theme.palette.colors.charcoal[700] : theme.palette.colors.charcoal[200],
     },
     '& path': {
-      fill: theme.palette.colors.charcoal[700],
+      fill: theme.palette.isLight ? theme.palette.colors.charcoal[700] : theme.palette.colors.charcoal[200],
     },
   },
   ':active': {
-    background: theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[900],
+    background: theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[700],
     border: theme.palette.isLight
       ? `1px solid ${theme.palette.colors.charcoal[400]}`
-      : `1px solid ${theme.palette.colors.charcoal[200]}`,
+      : `1px solid ${theme.palette.colors.charcoal[500]}`,
     '& div': {
       color: theme.palette.isLight ? theme.palette.colors.charcoal[600] : theme.palette.colors.charcoal[300],
     },
