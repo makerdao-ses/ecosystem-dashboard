@@ -28,7 +28,7 @@ const ExternalButton = styled(Link)<{ wrapText: boolean }>(({ theme, wrapText })
   display: 'flex',
   gap: 8,
   borderRadius: 6,
-  padding: '2px 2px 2px 6px',
+  padding: `2px ${wrapText ? 6 : 2}px 2px 6px`,
   color: theme.palette.colors.charcoal[400],
   border: `2px solid ${
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
@@ -38,17 +38,21 @@ const ExternalButton = styled(Link)<{ wrapText: boolean }>(({ theme, wrapText })
   lineHeight: '24px',
   letterSpacing: -0.3,
 
-  ...(!wrapText && {
-    maxWidth: '100%',
-    whiteSpace: 'nowrap',
+  ...(wrapText
+    ? {
+        width: 'fit-content',
+      }
+    : {
+        maxWidth: '100%',
+        whiteSpace: 'nowrap',
 
-    '& > span': {
-      flex: 1,
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      maxWidth: 'fit-content',
-    },
-  }),
+        '& > span': {
+          flex: 1,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          maxWidth: 'fit-content',
+        },
+      }),
 
   [theme.breakpoints.up('desktop_1280')]: {
     fontSize: 16,
