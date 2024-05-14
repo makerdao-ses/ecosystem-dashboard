@@ -128,6 +128,27 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'OpenSansCondensed';
+  src: url('../assets/fonts/OpenSansCondensed/OpenSansCondensed-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OpenSansCondensed';
+  src: url('../assets/fonts/OpenSansCondensed/OpenSansCondensed-Light.ttf');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OpenSansCondensed';
+  src: url('../assets/fonts/OpenSansCondensed/OpenSansCondensed-LightItalic.ttf');
+  font-weight: 300;
+  font-style: 'italic';
+  font-display: swap;
+}
 
 * {
   box-sizing: border-box;
