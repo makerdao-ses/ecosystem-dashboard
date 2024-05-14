@@ -1,78 +1,77 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TransitionHeaderProps {
   from: string | string[];
   to: string | string[];
 }
 
-const TransitionHeader: React.FC<TransitionHeaderProps> = ({ from, to }) => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <HeaderContainer isLight={isLight}>
-      <From isLight={isLight}>{renderItems(from, isLight)}</From>
-      <To isLight={isLight}>{renderItems(to, isLight)}</To>
-    </HeaderContainer>
-  );
-};
+const TransitionHeader: React.FC<TransitionHeaderProps> = ({ from, to }) => (
+  <HeaderContainer>
+    <From>{renderItems(from)}</From>
+    <To>{renderItems(to)}</To>
+  </HeaderContainer>
+);
 
 export default TransitionHeader;
 
-const renderItems = (from: string | string[], isLight: boolean) => {
+const renderItems = (from: string | string[]) => {
   if (Array.isArray(from)) {
     return (
-      <List isLight={isLight}>
+      <List>
         {from.map((item, index) => (
-          <Item as={'li'} key={index} isLight={isLight}>
+          <Item as={'li'} key={index}>
             {item}
           </Item>
         ))}
       </List>
     );
   } else {
-    return <Item isLight={isLight}>{from}</Item>;
+    return <Item>{from}</Item>;
   }
 };
 
-const HeaderContainer = styled.div<WithIsLight>(({ isLight }) => ({
+const HeaderContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  boxShadow: isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 5px 10px 0px rgba(7, 22, 40, 0.40)',
-  borderRadius: 6,
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
+  borderRadius: 12,
   overflow: 'hidden',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
-    background: isLight ? 'rgba(236, 239, 249, 0.30)' : '#343442',
-    boxShadow: 'none',
+    background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
   },
 }));
 
-const From = styled.div<WithIsLight>(({ isLight }) => ({
+const From = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundImage: `url("/assets/img/endgame/arrow_mobile_${isLight ? 'light' : 'dark'}.png")`,
+  backgroundImage: `url("/assets/img/endgame/arrow_mobile_${theme.palette.mode}.png")`,
   backgroundSize: '100% 100%',
   backgroundRepeat: 'no-repeat',
-  filter: isLight
-    ? 'drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.40))'
+  filter: theme.palette.isLight
+    ? 'drop-shadow(0px 1px 5px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 20px rgba(219, 227, 237, 0.4))'
     : 'drop-shadow(0px 1px 3px rgba(30, 23, 23, 0.25)) drop-shadow(0px 20px 40px rgba(7, 22, 40, 0.40))',
   minHeight: 82,
   paddingBottom: 18,
+
+  '& li:before': {
+    background: theme.palette.colors.slate[100],
+  },
+
+  '& li, & div': {
+    color: theme.palette.colors.slate[100],
+  },
 
   '& > ul': {
     marginBottom: 23,
   },
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    backgroundImage: `url("/assets/img/endgame/arrow_desktop_${isLight ? 'light' : 'dark'}.png")`,
+    backgroundImage: `url("/assets/img/endgame/arrow_desktop_${theme.palette.mode}.png")`,
     backgroundSize: 'calc(100% + 22px) 100%',
     backgroundRepeat: 'no-repeat',
     minHeight: 87,
@@ -100,13 +99,21 @@ const From = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const To = styled.div<WithIsLight>(({ isLight }) => ({
+const To = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   marginTop: -42,
   paddingTop: 41,
-  background: isLight ? '#F5F6FC' : '#343442',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
+
+  '& li:before': {
+    background: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[100],
+  },
+
+  '& li, & div': {
+    color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[100],
+  },
 
   '& > div': {
     padding: '16px 0',
@@ -139,7 +146,7 @@ const To = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const List = styled.ul<WithIsLight>(({ isLight }) => ({
+const List = styled('ul')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
@@ -156,35 +163,32 @@ const List = styled.ul<WithIsLight>(({ isLight }) => ({
       width: 4,
       height: 4,
       borderRadius: 8,
-      background: isLight ? '#708390' : '#E2D8EE',
       position: 'absolute',
       left: 8,
       marginTop: 8,
 
-      [lightTheme.breakpoints.up('tablet_768')]: {
+      [theme.breakpoints.up('tablet_768')]: {
         width: 5,
         height: 5,
         left: 5,
       },
     },
 
-    [lightTheme.breakpoints.up('desktop_1280')]: {
+    [theme.breakpoints.up('desktop_1280')]: {
       whiteSpace: 'nowrap',
     },
   },
 }));
 
-const Item = styled.div<WithIsLight>(({ isLight }) => ({
+const Item = styled('div')(({ theme }) => ({
   fontSize: 14,
   lineHeight: '18px',
-  fontWeight: 500,
-  color: isLight ? '#708390' : '#E2D8EE',
+  fontWeight: 700,
   width: '100%',
   textAlign: 'center',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
-    fontWeight: 700,
     lineHeight: '19px',
   },
 }));
