@@ -219,17 +219,15 @@ const Title = styled('h2')(({ theme }) => ({
   fontWeight: 700,
   letterSpacing: 0.4,
   lineHeight: '21.6px',
-  color: theme.palette.colors.gray[50],
   marginTop: 0,
   marginBottom: 0,
-
+  color: theme.palette.colors.gray[50],
   [theme.breakpoints.up('desktop_1024')]: {
-    color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#D2D4EF',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
     fontSize: 20,
     lineHeight: '24px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    color: theme.palette.isLight ? '#25273D' : '#D2D4EF',
     fontSize: 24,
     lineHeight: '28.8px',
   },
@@ -240,7 +238,7 @@ const Paragraph = styled('p')<{ noMargin?: boolean }>(({ theme, noMargin = false
   width: '100%',
   fontWeight: 400,
   lineHeight: '23.8px',
-  color: theme.palette.colors.gray[50],
+  color: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.gray[500],
   marginBottom: 0,
   marginTop: noMargin ? 0 : 10,
 
@@ -249,13 +247,12 @@ const Paragraph = styled('p')<{ noMargin?: boolean }>(({ theme, noMargin = false
   },
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#D2D4EF',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[500],
     lineHeight: '27.2px',
     marginTop: noMargin ? 0 : 12,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    color: theme.palette.isLight ? '#25273D' : '#D2D4EF',
     marginTop: noMargin ? 0 : 15,
     fontSize: 20,
     lineHeight: '34px',

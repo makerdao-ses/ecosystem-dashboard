@@ -22,7 +22,7 @@ export default meta;
 
 const variantsArgs = [
   {
-    budgetStructureAnalytics: {
+    budgetTransitionAnalytics: {
       series: [
         {
           period: 'total',
@@ -73,9 +73,8 @@ const variantsArgs = [
         },
       ],
     },
-    budgetTransitionAnalytics: {
-      series: [],
-    },
+    yearsRange: [2020, 2021],
+    initialYear: 2022,
   },
 ];
 
