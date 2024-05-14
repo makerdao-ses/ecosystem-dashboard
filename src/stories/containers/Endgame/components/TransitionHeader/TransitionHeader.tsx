@@ -135,11 +135,11 @@ const To = styled('div')(({ theme }) => ({
     },
 
     '& li:before': {
-      background: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[100],
+      background: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[100],
     },
 
     '& li, & div': {
-      color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[100],
+      color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[100],
     },
   },
 
