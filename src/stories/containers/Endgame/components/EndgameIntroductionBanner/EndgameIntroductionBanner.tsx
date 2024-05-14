@@ -240,7 +240,7 @@ const Paragraph = styled('p')<{ noMargin?: boolean }>(({ theme, noMargin = false
   width: '100%',
   fontWeight: 400,
   lineHeight: '23.8px',
-  color: theme.palette.colors.gray[50],
+  color: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.gray[500],
   marginBottom: 0,
   marginTop: noMargin ? 0 : 10,
 
@@ -249,13 +249,12 @@ const Paragraph = styled('p')<{ noMargin?: boolean }>(({ theme, noMargin = false
   },
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#D2D4EF',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[500],
     lineHeight: '27.2px',
     marginTop: noMargin ? 0 : 12,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    color: theme.palette.isLight ? '#25273D' : '#D2D4EF',
     marginTop: noMargin ? 0 : 15,
     fontSize: 20,
     lineHeight: '34px',
