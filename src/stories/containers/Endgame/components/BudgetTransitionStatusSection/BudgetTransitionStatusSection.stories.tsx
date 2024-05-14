@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof BudgetTransitionStatusSection> = {
-  title: 'Components/Endgame/Budget Transition Status Section',
+  title: 'fusion/Endgame/Budget Transition Status Section',
   component: BudgetTransitionStatusSection,
   parameters: {
     chromatic: {
@@ -52,6 +52,22 @@ const variantsArgs = [
         legacy: 103289909.62499996,
         endgame: 36306730.765775874,
       },
+      '2023/Q1': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2023/Q2': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2023/Q3': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
+      '2023/Q4': {
+        legacy: 103289909.62499996,
+        endgame: 36306730.765775874,
+      },
     },
   },
 ];
@@ -62,63 +78,68 @@ export { LightMode, DarkMode };
 LightMode.parameters = {
   figma: {
     component: {
-      0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21089:238342',
+      375: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=219:51528&t=CMVqLVlvnrm0JRjr-4',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -12,
+            left: -14,
           },
         },
       },
       768: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:205084',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=208:27252&t=CMVqLVlvnrm0JRjr-4',
         options: {
           componentStyle: {
             width: 704,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -12,
+            left: -14,
           },
         },
       },
       1024: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24542:212333',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=208:25001&t=CMVqLVlvnrm0JRjr-4',
         options: {
           componentStyle: {
             width: 960,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -10,
+            left: -14,
           },
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20872:236972',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=159:9078&t=CMVqLVlvnrm0JRjr-4',
         options: {
           componentStyle: {
-            width: 1184,
+            width: 1200,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -10,
+            left: -14,
           },
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20804:270349',
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=61:17767&t=CcFaruzGPjTWsERD-4',
         options: {
           componentStyle: {
             width: 1312,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -10,
+            left: -14,
           },
         },
       },

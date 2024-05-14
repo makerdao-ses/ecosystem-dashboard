@@ -1,77 +1,68 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { CustomButton } from '@ses/components/CustomButton/CustomButton';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import React from 'react';
+import FilterButtonTab from '@/components/FilterButtonTab/FilterButtonTab';
+import TitleWithIconInformation from '../../../../../components/TitleWithIconInformation/TitleWithIconInformation';
 import type { TransitionStatusDataShown } from '../../types';
-import type { Theme } from '@mui/material';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface TransitionDataPickerProps {
   selected: TransitionStatusDataShown;
   handleChange: (selected: TransitionStatusDataShown) => void;
 }
 
-const TransitionDataPicker: React.FC<TransitionDataPickerProps> = ({ selected, handleChange }) => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-
-  return (
-    <Content>
-      <DataButton
-        allowsHover={false}
-        isLight={isLight}
-        onClick={() => handleChange('PaymentsOnChain')}
-        selected={selected === 'PaymentsOnChain'}
-        label={isMobile ? 'Net On-Chain' : 'Net Expenses On-Chain'}
+const TransitionDataPicker: React.FC<TransitionDataPickerProps> = ({ selected, handleChange }) => (
+  <Content>
+    <TitleWithIconInformationStyled
+      title="Budget Transition Status"
+      tooltip={"Visualizing key shifts in resource allocation and expense trends in MakerDAO's Endgame transition."}
+    />
+    <ContainerButtons>
+      <FilterButtonTabStyled
+        label={'Net Expenses On-Chain'}
+        handleChange={() => handleChange('PaymentsOnChain')}
+        isSelect={selected === 'PaymentsOnChain'}
       />
-      <DataButton
-        allowsHover={false}
-        isLight={isLight}
-        onClick={() => handleChange('Budget')}
-        selected={selected === 'Budget'}
-        label={'Budget Cap'}
+      <FilterButtonTabStyled
+        label="Budget Cap"
+        handleChange={() => handleChange('Budget')}
+        isSelect={selected === 'Budget'}
       />
-    </Content>
-  );
-};
+    </ContainerButtons>
+  </Content>
+);
 
 export default TransitionDataPicker;
 
-const Content = styled.div({
+const Content = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+}));
+
+const ContainerButtons = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
-  gap: 16,
-});
-
-const DataButton = styled(CustomButton)<WithIsLight & { selected?: boolean }>(({ isLight, selected }) => ({
-  background: isLight ? (selected ? '#1AAB9B' : 'transparent') : selected ? '#098C7D' : 'transparent',
-  borderColor: isLight ? (selected ? '#1AAB9B' : '#D4D9E1') : selected ? '#098C7D' : '#708390',
-  borderRadius: '22px',
-  fontFamily: 'Inter, sans serif',
-  fontStyle: 'normal',
-  padding: '7px 23px',
-
-  '& > div': {
-    color: isLight ? (selected ? '#FFFFFF' : '#9FAFB9') : selected ? '#FFFFFF' : '#ADAFD4',
-    fontWeight: 500,
-    fontSize: 14,
-    lineHeight: '18px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  gap: 6,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: -4,
   },
-
-  ...(!selected
-    ? {
-        '&:hover': {
-          background: isLight ? '#F6F8F9' : '#10191F',
-          border: `1px solid ${isLight ? '#ECF1F3' : '#1E2C37'}}`,
-
-          '&:hover > div': {
-            color: `${isLight ? '#787A9B' : '#D2D4EF'}!important`,
-          },
-        },
-      }
-    : {}),
 }));
+
+const FilterButtonTabStyled = styled(FilterButtonTab)(({ theme }) => ({
+  padding: '4px 16px 4px 16px',
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    padding: '4px 24px  4px  24px',
+  },
+}));
+
+const TitleWithIconInformationStyled = styled(TitleWithIconInformation)({
+  marginTop: -4,
+  '& svg': {
+    marginTop: -4,
+    marginLeft: 2,
+  },
+});
