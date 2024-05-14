@@ -133,6 +133,14 @@ const To = styled('div')(({ theme }) => ({
       gap: 16,
       marginLeft: -50,
     },
+
+    '& li:before': {
+      background: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[100],
+    },
+
+    '& li, & div': {
+      color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[100],
+    },
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
