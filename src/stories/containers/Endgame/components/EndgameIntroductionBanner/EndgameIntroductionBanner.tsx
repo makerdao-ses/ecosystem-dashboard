@@ -219,17 +219,15 @@ const Title = styled('h2')(({ theme }) => ({
   fontWeight: 700,
   letterSpacing: 0.4,
   lineHeight: '21.6px',
-  color: theme.palette.colors.gray[50],
   marginTop: 0,
   marginBottom: 0,
-
+  color: theme.palette.colors.gray[50],
   [theme.breakpoints.up('desktop_1024')]: {
-    color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#D2D4EF',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
     fontSize: 20,
     lineHeight: '24px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    color: theme.palette.isLight ? '#25273D' : '#D2D4EF',
     fontSize: 24,
     lineHeight: '28.8px',
   },
