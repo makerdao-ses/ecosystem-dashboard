@@ -77,10 +77,14 @@ const AccordionSummary = styled(MuiAccordionSummary)<{ expanded: boolean }>(({ t
   },
 }));
 
-const AccordionDetails = styled(MuiAccordionDetails)({
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 0,
-  marginTop: 24,
-});
+  marginTop: 16,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 24,
+  },
+}));
 
 const SVG = styled('svg')(({ theme }) => ({
   '& > path': {

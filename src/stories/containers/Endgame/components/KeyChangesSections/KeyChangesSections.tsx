@@ -70,24 +70,23 @@ const KeyChangesSectionsContainer = styled.section({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
-  marginBottom: 48,
+  marginBottom: 32,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
     gap: 32,
-    marginBottom: 80,
   },
 });
 
 export const SectionContainer = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 32,
+  gap: 24,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    flexDirection: 'row',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 32,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    gap: 128,
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    flexDirection: 'row',
   },
 });
