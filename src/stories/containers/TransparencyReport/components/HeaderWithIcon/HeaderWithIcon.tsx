@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
-import Information from '@ses/components/svg/information';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { useScrollLock } from '@ses/core/hooks/useScrollLock';
@@ -9,6 +8,7 @@ import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/themes';
 import MobileDetect from 'mobile-detect';
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import Information from '@/components/icons/information';
 import ModalSheetValueContent from '../TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import HeaderToolTip from './TooltipHeader';
 import type { WithIsLightAndClick } from '../../transparencyReportUtils';

@@ -69,10 +69,11 @@ export default KeyChangesSections;
 const KeyChangesSectionsContainer = styled.section({
   display: 'flex',
   flexDirection: 'column',
-  gap: 32,
+  gap: 24,
   marginBottom: 48,
 
   [lightTheme.breakpoints.up('tablet_768')]: {
+    gap: 32,
     marginBottom: 80,
   },
 });

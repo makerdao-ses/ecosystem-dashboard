@@ -1,17 +1,20 @@
 import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+
 import * as React from 'react';
 
 interface Props {
   width?: number;
   height?: number;
   style?: React.CSSProperties;
+  className?: string;
 }
 
-const Information: React.FC<Props> = ({ height = 15, width = 15, style, ...props }) => {
+const Information: React.FC<Props> = ({ height = 15, width = 15, style, className, ...props }) => {
   const { isLight } = useThemeContext();
   return (
     <ContainerSVG
+      className={className}
       style={style}
       isLight={isLight}
       width={height}

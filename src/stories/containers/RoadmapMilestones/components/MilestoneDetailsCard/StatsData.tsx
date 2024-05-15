@@ -1,9 +1,9 @@
 import { styled, useMediaQuery } from '@mui/material';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
-import Information from '@ses/components/svg/information';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
+import Information from '@/components/icons/information';
 import type { Theme } from '@mui/material';
 
 const StatsData: React.FC = () => {

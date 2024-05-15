@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
-import Information from '@ses/components/svg/information';
 import lightTheme from '@ses/styles/theme/themes';
+import Information from '@/components/icons/information';
 import type { RowProps } from '@ses/components/AdvanceTable/types';
 
 const HeaderWithIcon = styled.div({
