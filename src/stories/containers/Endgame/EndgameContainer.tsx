@@ -5,7 +5,7 @@ import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
-import KeyChangesBudgetTransitionStatusSection from '../../../components/KeyChangesBudgetTransitionStatusSection/KeyChangesBudgetTransitionStatusSection';
+import KeyChangesBudgetTransitionStatusImportantLink from '@/components/KeyChangesBudgetTransitionStatusImportantLink/KeyChangesBudgetTransitionStatusImportantLink';
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
 import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';
@@ -97,7 +97,7 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
             />
           </div>
 
-          <KeyChangesBudgetTransitionStatusSection />
+          <KeyChangesBudgetTransitionStatusImportantLink />
         </SectionSpacing>
       </Container>
     </EndgamePageContainer>

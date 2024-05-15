@@ -1,12 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
-import KeyChangesBudgetTransitionStatusSection from './KeyChangesBudgetTransitionStatusSection';
+import KeyChangesBudgetTransitionStatusImportantLink from './KeyChangesBudgetTransitionStatusImportantLink';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
-const meta: Meta<typeof KeyChangesBudgetTransitionStatusSection> = {
-  title: 'fusion/Endgame/Budget Transition Status Section',
-  component: KeyChangesBudgetTransitionStatusSection,
+const meta: Meta<typeof KeyChangesBudgetTransitionStatusImportantLink> = {
+  title: 'Fusion/Endgame/KeyChangesBudgetTransitionStatusImportantLink',
+  component: KeyChangesBudgetTransitionStatusImportantLink,
   parameters: {
     chromatic: {
       viewports: [375, 768, 1024, 1280, 1440],
@@ -18,7 +17,7 @@ export default meta;
 
 const variantsArgs = [{}];
 
-const [[LightMode, DarkMode]] = createThemeModeVariants(KeyChangesBudgetTransitionStatusSection, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(KeyChangesBudgetTransitionStatusImportantLink, variantsArgs);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {

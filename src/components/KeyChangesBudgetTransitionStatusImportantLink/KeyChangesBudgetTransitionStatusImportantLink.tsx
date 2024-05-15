@@ -5,7 +5,7 @@ import React from 'react';
 import Card from '@/components/Card/Card';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 
-const KeyChangesBudgetTransitionStatusSection: React.FC = () => (
+const KeyChangesBudgetTransitionStatusImportantLink: React.FC = () => (
   <CardContainer>
     <Title> Important Links</Title>
 
@@ -16,7 +16,7 @@ const KeyChangesBudgetTransitionStatusSection: React.FC = () => (
   </CardContainer>
 );
 
-export default KeyChangesBudgetTransitionStatusSection;
+export default KeyChangesBudgetTransitionStatusImportantLink;
 
 const CardContainer = styled(Card)({
   display: 'flex',
