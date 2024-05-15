@@ -6,6 +6,9 @@ export type WithDate = {
   date: DateTime;
 };
 
+/**
+ * @deprecated now should be used `theme.palette.mode` or `theme.palette.isLight`
+ */
 export type WithIsLight = {
   isLight: boolean;
 };

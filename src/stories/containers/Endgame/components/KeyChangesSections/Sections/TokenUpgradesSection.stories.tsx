@@ -5,11 +5,11 @@ import TokenUpgradesSection from './TokenUpgradesSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof TokenUpgradesSection> = {
-  title: 'Components/Endgame/Token Upgrades Section',
+  title: 'Fusion/Endgame/Token Upgrades Section',
   component: TokenUpgradesSection,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },

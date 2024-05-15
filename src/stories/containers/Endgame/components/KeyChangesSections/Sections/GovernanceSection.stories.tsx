@@ -5,11 +5,11 @@ import GovernanceSection from './GovernanceSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof GovernanceSection> = {
-  title: 'Components/Endgame/Governance Section',
+  title: 'Fusion/Endgame/Governance Section',
   component: GovernanceSection,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },

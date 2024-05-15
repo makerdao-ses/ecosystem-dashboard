@@ -5,11 +5,11 @@ import OperationsSection from './OperationsSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof OperationsSection> = {
-  title: 'Components/Endgame/Operations Section',
+  title: 'Fusion/Endgame/Operations Section',
   component: OperationsSection,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
