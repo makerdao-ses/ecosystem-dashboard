@@ -36,7 +36,26 @@ const variantsArgs = [
     href: 'https://google.com',
     children: 'External link',
   },
+  {
+    href: 'https://google.com',
+    children: 'External link',
+  },
 ];
 
-const [[LightMode, DarkMode]] = createThemeModeVariants(ExternalLinkButton, variantsArgs);
-export { LightMode, DarkMode };
+const [[LightMode, DarkMode], [HoverStateLight, HoverStateDark]] = createThemeModeVariants(
+  ExternalLinkButton,
+  variantsArgs
+);
+export { LightMode, DarkMode, HoverStateLight, HoverStateDark };
+
+HoverStateLight.parameters = {
+  pseudo: {
+    hover: true,
+  },
+};
+
+HoverStateDark.parameters = {
+  pseudo: {
+    hover: true,
+  },
+};
