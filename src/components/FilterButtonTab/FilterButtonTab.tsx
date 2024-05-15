@@ -16,7 +16,7 @@ const FilterButtonTab: React.FC<Props> = ({ label, className, handleChange, isSe
 export default FilterButtonTab;
 
 const Container = styled('button')<{ isSelect: boolean }>(({ theme, isSelect }) => ({
-  height: 32,
+  minHeight: 32,
   display: 'flex',
   borderRadius: 8,
   border: '0px solid transparent',
