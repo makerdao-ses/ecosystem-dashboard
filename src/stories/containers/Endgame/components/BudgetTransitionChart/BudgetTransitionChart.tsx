@@ -41,7 +41,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
     ? 40
     : isDesktop1440
     ? 48
-    : 56;
+    : 48;
 
   const { series, legendsLabels } = useMemo(() => {
     const legacySeries = {
@@ -145,10 +145,10 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
       },
     },
     grid: {
-      height: isMobile ? 200 : isTablet ? 262 : isDesktop1024 ? 240 : isDesktop1280 ? 325 : isDesktop1440 ? 325 : 344,
-      width: isMobile ? 280 : isTablet ? 345 : isDesktop1024 ? 486 : isDesktop1280 ? 667 : isDesktop1440 ? 752 : 752,
-      top: isMobile ? 15 : isTablet ? 6 : isDesktop1024 ? 6 : 11,
-      right: isMobile ? 6 : isTablet ? 4 : isDesktop1024 ? 6 : 14,
+      height: isMobile ? 216 : isTablet ? 242 : isDesktop1024 ? 240 : isDesktop1280 ? 325 : isDesktop1440 ? 325 : 344,
+      width: isMobile ? 280 : isTablet ? 345 : isDesktop1024 ? 486 : isDesktop1280 ? 685 : isDesktop1440 ? 762 : 762,
+      top: isMobile ? 10 : isTablet ? 6 : isDesktop1024 ? 6 : 11,
+      right: isMobile ? 6 : isTablet ? 4 : isDesktop1024 ? 6 : isDesktop1280 ? 6 : 6,
     },
     xAxis: {
       type: 'category',
@@ -168,7 +168,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         show: false,
       },
       axisLabel: {
-        margin: isMobile || isTablet ? 16 : 8,
+        margin: isMobile ? 4 : isTablet ? 8 : isDesktop1024 ? 10 : isDesktop1280 ? 14 : 16,
         color: isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400],
         align: 'center',
         fontFamily: 'OpenSansCondensed,san-serif',
@@ -177,17 +177,28 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         height: upTable ? 15 : 11,
         baseline: 'top',
         interval: 0,
+        offset: 10,
         formatter: function (value: string) {
           if (isMobile && value.startsWith('Q1')) {
-            return value;
+            return `{bgImg|${value}}`;
           }
           return value;
+        },
+        rich: {
+          bgImg: {
+            verticalAlign: 'top',
+            color: isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400],
+            fontFamily: 'OpenSansCondensed,san-serif',
+            fontWeight: 700,
+            fontSize: isMobile ? 12 : upTable ? (hasMoreThanTwelveItems ? 12 : 14) : 9,
+            interval: 0,
+          },
         },
       },
     },
     yAxis: {
       axisLabel: {
-        margin: isMobile ? 10 : isTablet ? 8 : isDesktop1024 ? 10 : isDesktop1280 ? 10 : isDesktop1440 ? 32 : 32,
+        margin: isMobile ? 10 : isTablet ? 8 : isDesktop1024 ? 10 : isDesktop1280 ? 24 : isDesktop1440 ? 24 : 32,
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
             return value.toString();
@@ -196,7 +207,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
           return replaceAllNumberLetOneBeforeDot(value);
         },
         color: isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[500],
-        fontSize: isMobile ? 10 : isTablet ? 14 : 14,
+        fontSize: isMobile ? 12 : isTablet ? 14 : 14,
         height: upTable ? 15 : 12,
         fontFamily: 'OpenSansCondensed, sans-serif',
         fontWeight: 700,
@@ -207,6 +218,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
 
       type: 'value',
       zlevel: 1,
+      splitNumber: 10,
       axisLine: {
         show: false,
       },
@@ -285,10 +297,11 @@ const Wrapper = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 }));
 
-const ChartContainer = styled('div')<{ hasMoreThanTwelveItems: boolean }>(({ theme, hasMoreThanTwelveItems }) => ({
+const ChartContainer = styled('div')<{ hasMoreThanTwelveItems: boolean }>(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -296,21 +309,23 @@ const ChartContainer = styled('div')<{ hasMoreThanTwelveItems: boolean }>(({ the
   width: '100%',
   maxWidth: 327,
   height: 271,
-  margin: '0px auto 0',
+  margin: '-12px auto 0',
   [theme.breakpoints.up('tablet_768')]: {
-    margin: '16px auto 0',
+    margin: '12px 0 0',
     maxWidth: 390,
     height: 306,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    maxWidth: hasMoreThanTwelveItems ? 590 : 532,
+    maxWidth: 532,
     height: 280,
+    margin: '12px 0 0',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
     maxWidth: 764,
     height: 367,
+    margin: '8px 0 0',
   },
   [theme.breakpoints.up('desktop_1440')]: {
     maxWidth: 832,
@@ -322,11 +337,15 @@ const YearsContainer = styled('div')<{ barsAmount: number }>(({ barsAmount }) =>
   position: 'absolute',
   display: 'flex',
   flexDirection: 'row',
-  gap: (281 / barsAmount) * 4 - 30,
-  bottom: 4,
+  gap: (314 / barsAmount) * 4 - 30,
+  bottom: 0,
   left: 45,
-
   [theme.breakpoints.up('tablet_768')]: {
+    bottom: 6,
+    left: 50,
+    gap: (358 / barsAmount) * 4 - 30,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));
@@ -337,32 +356,42 @@ const Year = styled('div')(({ theme }) => ({
   fontFamily: 'OpenSansCondensed, sans-serif',
   lineHeight: '22px',
   fontWeight: 700,
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+  },
 }));
 
 const LegendContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
-  gap: 7,
-  margin: '16px auto 0',
+  gap: 10,
+  margin: '0px auto 0',
   borderRadius: 12,
-
   [theme.breakpoints.up('tablet_768')]: {
-    backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+    margin: '6px 0 0',
+    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
     gap: 24,
     minWidth: 263,
-    padding: '0px 16px',
+    height: 306,
+    flex: 0.9,
   },
   [theme.breakpoints.up('desktop_1024')]: {
-    margin: '10px 0 0',
+    margin: '6px 0 0',
     minWidth: 362,
     marginRight: -4,
     height: 280,
+    flex: 'revert',
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    minWidth: 384,
+    minWidth: 356,
+    margin: '8px 0 0',
+    marginRight: 0,
     height: 367,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    minWidth: 385,
   },
 }));
 
@@ -371,12 +400,13 @@ const LegendItem = styled('div')<{ variant: 'blue' | 'gray' }>(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  fontSize: 11,
+  fontSize: 12,
   gap: 8,
   lineHeight: 'normal',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[50],
 
   fontWeight: 600,
+  marginLeft: -4,
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 14,
@@ -389,7 +419,7 @@ const LegendItem = styled('div')<{ variant: 'blue' | 'gray' }>(({ theme }) => ({
 }));
 
 const LegendItemStyled = styled(LegendItem)({
-  [theme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginLeft: -16,
   },
 });
@@ -399,6 +429,7 @@ const Circle = styled('div')<{ variant: 'blue' | 'gray' }>(({ variant }) => ({
   height: 8,
   borderRadius: 12,
   top: 3,
+  display: 'flex',
   backgroundColor: theme.palette.isLight
     ? variant === 'blue'
       ? theme.palette.colors.blue[700]
@@ -407,10 +438,12 @@ const Circle = styled('div')<{ variant: 'blue' | 'gray' }>(({ variant }) => ({
     ? theme.palette.colors.charcoal[600]
     : theme.palette.colors.blue[900],
 
+  [theme.breakpoints.up('tablet_768')]: {
+    width: 12,
+    height: 12,
+  },
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '24px',
-    width: 12,
-    height: 12,
   },
 }));

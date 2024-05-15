@@ -26,7 +26,7 @@ const Container = styled('button')<{ isSelect: boolean }>(({ theme, isSelect }) 
   alignItems: 'center',
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   borderBottom: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[800] : theme.palette.colors.gray[600]}`,
-  ':hover': {
+  ':hover': !isSelect && {
     background: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[700],
     borderBottom: theme.palette.isLight
       ? `1px solid ${theme.palette.colors.gray[700]}`

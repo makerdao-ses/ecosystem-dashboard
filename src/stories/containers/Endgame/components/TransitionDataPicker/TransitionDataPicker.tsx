@@ -35,7 +35,7 @@ export default TransitionDataPicker;
 const Content = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
+  gap: 6,
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -48,6 +48,10 @@ const ContainerButtons = styled('div')(({ theme }) => ({
   gap: 6,
   [theme.breakpoints.up('tablet_768')]: {
     marginLeft: -4,
+    marginTop: -2,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: 'revert',
   },
 }));
 
@@ -59,10 +63,26 @@ const FilterButtonTabStyled = styled(FilterButtonTab)(({ theme }) => ({
   },
 }));
 
-const TitleWithIconInformationStyled = styled(TitleWithIconInformation)({
-  marginTop: -4,
+const TitleWithIconInformationStyled = styled(TitleWithIconInformation)(({ theme }) => ({
+  marginTop: 0,
   '& svg': {
     marginTop: -4,
-    marginLeft: 2,
+    marginLeft: 4,
   },
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    '& svg': {
+      marginTop: -1,
+      marginLeft: 7,
+    },
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: -8,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginTop: 0,
+    '& svg': {
+      marginTop: 0,
+      marginLeft: 5,
+    },
+  },
+}));

@@ -81,8 +81,10 @@ const IconWrapper = styled('div')(({ theme }) => ({
   [lightTheme.breakpoints.up('tablet_768')]: {
     alignItems: 'center',
   },
-
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    paddingLeft: 4,
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    '& svg': {
+      width: 16,
+      height: 16,
+    },
   },
 }));

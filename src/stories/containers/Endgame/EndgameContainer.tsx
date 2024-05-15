@@ -72,33 +72,33 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
       </div>
 
       <Container>
-        <SectionSpacing>
-          <div ref={structureRef}>
-            <BudgetStructureSection
-              totalBudgetCap={budgetStructureData.totalBudgetCap}
-              averageCapUtilization={budgetStructureData.averageCapUtilization}
-              endgameBudgets={budgetStructureData.endgameBudgets}
-              legacyBudgets={budgetStructureData.legacyBudgets}
-              scopes={budgetStructureData.scopes.budget}
-              immutable={budgetStructureData.immutable.budget}
-              legacy={budgetStructureData.legacy.budget}
-              isLoading={isLoadingBudgetStructure}
-              yearsRange={yearsRange}
-              selectedYear={selectedYear}
-              handleYearChange={handleYearChange}
-            />
-          </div>
-
-          <div ref={transitionStatusRef}>
-            <BudgetTransitionStatusSection
-              selected={transitionDataSelected}
-              handleChange={handleTransitionDateSelectedChange}
-              data={transitionStatusData}
-            />
-          </div>
-
+        <LastSectionSpace>
+          <SectionSpacing>
+            <div ref={structureRef}>
+              <BudgetStructureSection
+                totalBudgetCap={budgetStructureData.totalBudgetCap}
+                averageCapUtilization={budgetStructureData.averageCapUtilization}
+                endgameBudgets={budgetStructureData.endgameBudgets}
+                legacyBudgets={budgetStructureData.legacyBudgets}
+                scopes={budgetStructureData.scopes.budget}
+                immutable={budgetStructureData.immutable.budget}
+                legacy={budgetStructureData.legacy.budget}
+                isLoading={isLoadingBudgetStructure}
+                yearsRange={yearsRange}
+                selectedYear={selectedYear}
+                handleYearChange={handleYearChange}
+              />
+            </div>
+            <div ref={transitionStatusRef}>
+              <BudgetTransitionStatusSection
+                selected={transitionDataSelected}
+                handleChange={handleTransitionDateSelectedChange}
+                data={transitionStatusData}
+              />
+            </div>
+          </SectionSpacing>
           <KeyChangesBudgetTransitionStatusImportantLink />
-        </SectionSpacing>
+        </LastSectionSpace>
       </Container>
     </EndgamePageContainer>
   );
@@ -147,9 +147,15 @@ const BannerContainer = styled('div')(({ theme }) => ({
 const SectionSpacing = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 48,
+  gap: 24,
 
   [theme.breakpoints.up('tablet_768')]: {
-    gap: 80,
+    gap: 40,
   },
+}));
+
+const LastSectionSpace = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 32,
 }));
