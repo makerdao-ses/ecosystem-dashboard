@@ -112,7 +112,7 @@ SecondaryDark.parameters = {};
 // Hover state dark
 export const SecondaryHover = () => (
   <ThemeProvider theme={lightTheme}>
-    <InternalLinkButton label="Hover Secondary" showIcon href="#" />
+    <InternalLinkButton label="Hover Secondary" showIcon href="#" buttonType="secondary" />
   </ThemeProvider>
 );
 
@@ -125,7 +125,7 @@ SecondaryHover.parameters = {
 // Active state dark
 export const SecondaryActive = () => (
   <ThemeProvider theme={lightTheme}>
-    <InternalLinkButton label="Active Secondary" showIcon href="#" />
+    <InternalLinkButton label="Active Secondary" showIcon href="#" buttonType="secondary" />
   </ThemeProvider>
 );
 
