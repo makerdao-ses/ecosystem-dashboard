@@ -29,7 +29,7 @@ const ExternalButton = styled(Link)<{ wrapText: boolean }>(({ theme, wrapText })
   gap: 8,
   borderRadius: 6,
   padding: `2px ${wrapText ? 6 : 2}px 2px 6px`,
-  color: theme.palette.colors.charcoal[400],
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[400] : theme.palette.colors.charcoal[400],
   border: `2px solid ${
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
   }`,
@@ -53,7 +53,15 @@ const ExternalButton = styled(Link)<{ wrapText: boolean }>(({ theme, wrapText })
           maxWidth: 'fit-content',
         },
       }),
-
+  ':hover': {
+    border: `2px solid ${
+      theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[700]
+    }`,
+    color: theme.palette.isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[300],
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[300],
+    },
+  },
   [theme.breakpoints.up('desktop_1280')]: {
     fontSize: 16,
   },
