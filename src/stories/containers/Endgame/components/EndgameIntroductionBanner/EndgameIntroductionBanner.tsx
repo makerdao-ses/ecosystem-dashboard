@@ -178,7 +178,7 @@ const InfoContainer = styled('div')<{ isKeyChanges: boolean }>(({ isKeyChanges, 
   marginRight: -16,
   textAlign: 'left',
   '&  > p:nth-of-type(2)': {
-    marginTop: 0,
+    marginTop: 3,
   },
 
   [theme.breakpoints.up('tablet_768')]: {
@@ -189,6 +189,9 @@ const InfoContainer = styled('div')<{ isKeyChanges: boolean }>(({ isKeyChanges, 
     maxWidth: 424,
     textAlign: 'left',
     background: isKeyChanges ? 'none' : 'transparent',
+    '&  > p:nth-of-type(2)': {
+      marginTop: 2,
+    },
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -310,9 +313,10 @@ const LinkContainer = styled('div')(({ theme }) => ({
 }));
 
 const InternalLinkContainer = styled('div')<{ isKeyChanges: boolean }>(({ isKeyChanges, theme }) => ({
-  marginTop: isKeyChanges ? 24 : 0,
+  marginTop: isKeyChanges ? 28 : 0,
   [theme.breakpoints.up('tablet_768')]: {
     gap: 26,
+    marginTop: 28,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     marginTop: isKeyChanges ? 32 : 0,
@@ -320,6 +324,11 @@ const InternalLinkContainer = styled('div')<{ isKeyChanges: boolean }>(({ isKeyC
 }));
 
 const InternalLinkButtonStyled = styled(InternalLinkButton)(({ theme }) => ({
+  padding: '4px 14px 4px 12px',
+
+  ':hover': {
+    padding: '4px 12px 4px 12px',
+  },
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '4px 12px 4px 12px',
     gap: 12,
