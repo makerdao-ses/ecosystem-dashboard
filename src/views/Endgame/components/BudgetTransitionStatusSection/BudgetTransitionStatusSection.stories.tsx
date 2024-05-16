@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof BudgetTransitionStatusSection> = {
-  title: 'fusion/Endgame/Budget Transition Status Section',
+  title: 'Fusion/Endgame/Budget Transition Status Section',
   component: BudgetTransitionStatusSection,
   parameters: {
     chromatic: {

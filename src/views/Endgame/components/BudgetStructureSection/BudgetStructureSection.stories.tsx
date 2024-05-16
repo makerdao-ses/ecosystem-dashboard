@@ -4,11 +4,11 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof BudgetStructureSection> = {
-  title: 'Components/Endgame/Budget Structure Section',
+  title: 'Fusion/Endgame/Budget Structure Section',
   component: BudgetStructureSection,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },

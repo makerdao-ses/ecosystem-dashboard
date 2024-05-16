@@ -3,7 +3,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import useSWRImmutable from 'swr/immutable';
-import { fetchAnalytics } from '../Finances/api/queries';
+import { fetchAnalytics } from '../../stories/containers/Finances/api/queries';
 import type { BudgetTransitionPlainData, TransitionStatusDataShown } from './types';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { IntersectionOptions } from 'react-intersection-observer';
@@ -15,7 +15,7 @@ export enum NavigationTabEnum {
   BUDGET_TRANSITION_STATUS = 'budget-transition-status',
 }
 
-const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: string[], initialYear: string) => {
+const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[], initialYear: string) => {
   const [pauseUrlUpdate, setPauseUrlUpdate] = useState<boolean>(false);
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
   const isUpDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
@@ -215,4 +215,4 @@ const useEndgameContainer = (budgetTransitionAnalytics: Analytic, yearsRange: st
   };
 };
 
-export default useEndgameContainer;
+export default useEndgameView;

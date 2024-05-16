@@ -1,14 +1,14 @@
 import Container from '@ses/components/Container/Container';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { NavigationTabEnum } from '../../useEndgameContainer';
+import { NavigationTabEnum } from '../../useEndgameView';
 import NavigationTabs from '../NavigationTabs/NavigationTabs';
 import IntroductoryHeadline from './IntroductoryHeadline';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta = {
-  title: 'Components/Endgame/Introduction Endgame',
+  title: 'Fusion/Endgame/Introduction Endgame',
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
