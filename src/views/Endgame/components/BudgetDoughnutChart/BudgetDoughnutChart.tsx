@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import { calculateValuesByBreakpoint } from '@ses/containers/Endgame/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
 import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React from 'react';
+import { calculateValuesByBreakpoint } from '@/views/Endgame/utils';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 
 interface Props {

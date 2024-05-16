@@ -13,16 +13,16 @@ import IntroductoryHeadline from './components/IntroductoryHeadline/Introductory
 import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
 import LatestUpdatesSection from './components/LatestUpdatesSection/LatestUpdatesSection';
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
-import useEndgameContainer from './useEndgameContainer';
+import useEndgameView from './useEndgameView';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
 
-interface EndgameContainerProps {
+interface EndgameViewProps {
   budgetTransitionAnalytics: Analytic;
   yearsRange: string[];
   initialYear: string;
 }
 
-const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
+const EndgameView: React.FC<EndgameViewProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
   const {
     updatesChangesRef,
     keyChangesRef,
@@ -37,7 +37,7 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
     selectedYear,
     handleYearChange,
     transitionStatusData,
-  } = useEndgameContainer(budgetTransitionAnalytics, yearsRange, initialYear);
+  } = useEndgameView(budgetTransitionAnalytics, yearsRange, initialYear);
 
   return (
     <EndgamePageContainer>
@@ -104,7 +104,7 @@ const EndgameContainer: React.FC<EndgameContainerProps> = ({ budgetTransitionAna
   );
 };
 
-export default EndgameContainer;
+export default EndgameView;
 
 const EndgamePageContainer = styled(PageContainer)(({ theme }) => ({
   marginTop: 32,

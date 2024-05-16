@@ -3,17 +3,17 @@ import { FeatureFlagsProvider } from '@ses/core/context/FeatureFlagsProvider';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
-import AppLayout from '../AppLayout/AppLayout';
-import EndgameContainer from './EndgameContainer';
+import AppLayout from '../../stories/containers/AppLayout/AppLayout';
+import EndgameView from './EndgameView';
 import type { Meta } from '@storybook/react';
 
-const meta: Meta<typeof EndgameContainer> = {
-  title: 'Pages/Endgame',
-  component: EndgameContainer,
+const meta: Meta<typeof EndgameView> = {
+  title: 'Fusion/Pages/Endgame',
+  component: EndgameView,
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440, 1920],
+      viewports: [375, 768, 1024, 1280, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
   },
@@ -82,7 +82,7 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
-        <EndgameContainer {...props} />
+        <EndgameView {...props} />
       </AppLayout>
     </FeatureFlagsProvider>
   ),

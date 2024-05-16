@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import React from 'react';
 import FilterButtonTab from '@/components/FilterButtonTab/FilterButtonTab';
-import TitleWithIconInformation from '../../../../../components/TitleWithIconInformation/TitleWithIconInformation';
+import TitleWithIconInformation from '../../../../components/TitleWithIconInformation/TitleWithIconInformation';
 import type { TransitionStatusDataShown } from '../../types';
 
 export interface TransitionDataPickerProps {

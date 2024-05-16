@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import React from 'react';
-import { NavigationTabEnum } from '../../useEndgameContainer';
+import { NavigationTabEnum } from '../../useEndgameView';
 
 interface NavigationTabsProps {
   activeTab: NavigationTabEnum;
