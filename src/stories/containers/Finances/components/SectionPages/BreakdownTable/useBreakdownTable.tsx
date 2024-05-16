@@ -523,7 +523,12 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           } as ItemRow
         );
 
-        table.rows = [...rows, othersTotal];
+        // check if the others total has any non-zero value to hide it if it is all zeros
+        const isOthersNonZero = othersTotal.columns.some((column) =>
+          activeMetrics.some((metric) => column[metric as keyof MetricValues] !== 0)
+        );
+
+        table.rows = [...rows, ...(isOthersNonZero ? [othersTotal] : [])];
       }
     });
 
@@ -532,15 +537,42 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       tables = [];
     }
 
+    // hide/remove uncategorized sub-tables that where all the values for the selected metrics are zero
+    const activeMetricsKeys = activeMetrics.map(
+      (metric) =>
+        // translate the selected metrics to columns keys
+        (metric === 'Net Expenses On-Chain'
+          ? 'PaymentsOnChain'
+          : metric === 'Net Protocol Outflow'
+          ? 'ProtocolNetOutflow'
+          : metric) as keyof MetricValues
+    );
+    tables = tables.filter((table) => {
+      if (table.rows[0].isUncategorized) {
+        return table.rows[0].columns.some((column) => activeMetricsKeys.some((metric) => column[metric] !== 0));
+      } else {
+        // it's not uncategorized but may have uncategorized rows
+        table.rows = table.rows.filter((row) => {
+          if (row.isUncategorized) {
+            // uncategorized only
+            return row.columns.some((column) => activeMetricsKeys.some((metric) => column[metric] !== 0));
+          }
+          return true;
+        });
+      }
+
+      return true; // it's not uncategorized so should be included
+    });
+
     // sort final tables by the amount of rows
     const sortedTables = tables.sort((a, b) => {
       // uncategorized should be the first
-      if (b.rows[0]?.isUncategorized) return 1;
+      if (b.rows[0]?.isUncategorized || a.rows[0]?.isUncategorized) return 1;
 
       return b.rows.length - a.rows.length;
     });
     return [tableHeader, sortedTables];
-  }, [allBudgets, analytics, budgets, codePath, error, isMobile, lod, selectedGranularity]);
+  }, [activeMetrics, allBudgets, analytics, budgets, codePath, error, isMobile, lod, selectedGranularity]);
 
   const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
 
