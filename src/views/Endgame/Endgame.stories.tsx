@@ -25,14 +25,14 @@ const variantsArgs = [
     budgetTransitionAnalytics: {
       series: [
         {
-          period: 'total',
+          end: '2021-04-01T00:00:00.000Z',
           start: '2021-01-01T00:00:00.000Z',
-          end: '2024-04-01T00:00:00.000Z',
+          period: '2021/Q1',
           rows: [
             {
               dimensions: [
                 {
-                  name: 'budget',
+                  name: 'Budget',
                   path: 'atlas/legacy',
                 },
               ],
@@ -43,11 +43,28 @@ const variantsArgs = [
               dimensions: [
                 {
                   name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2021-07-01T00:00:00.000Z',
+          start: '2021-04-01T00:00:00.001Z',
+          period: '2021/Q2',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
                   path: 'atlas/legacy',
                 },
               ],
-              metric: 'Actuals',
-              value: 45807453.31000002,
+              metric: 'Budget',
+              value: 103289909.62499996,
             },
             {
               dimensions: [
@@ -57,7 +74,24 @@ const variantsArgs = [
                 },
               ],
               metric: 'Budget',
-              value: 36306730.765775874,
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2021-10-01T00:00:00.000Z',
+          start: '2021-07-01T00:00:00.001Z',
+          period: '2021/Q3',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
             },
             {
               dimensions: [
@@ -66,18 +100,317 @@ const variantsArgs = [
                   path: 'atlas/scopes',
                 },
               ],
-              metric: 'Actuals',
-              value: 2426116.26,
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2022-01-01T00:00:00.000Z',
+          start: '2021-10-01T00:00:00.001Z',
+          period: '2021/Q4',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2022-04-01T00:00:00.000Z',
+          start: '2022-01-01T00:00:00.000Z',
+          period: '2022/Q1',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2022-07-01T00:00:00.000Z',
+          start: '2022-04-01T00:00:00.001Z',
+          period: '2022/Q2',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2022-10-01T00:00:00.000Z',
+          start: '2022-07-01T00:00:00.001Z',
+          period: '2022/Q3',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2023-01-01T00:00:00.000Z',
+          start: '2022-10-01T00:00:00.001Z',
+          period: '2022/Q4',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2023-04-01T00:00:00.000Z',
+          start: '2023-01-01T00:00:00.000Z',
+          period: '2023/Q1',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2023-07-01T00:00:00.000Z',
+          start: '2023-04-01T00:00:00.001Z',
+          period: '2023/Q2',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2023-10-01T00:00:00.000Z',
+          start: '2023-07-01T00:00:00.001Z',
+          period: '2023/Q3',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2024-01-01T00:00:00.000Z',
+          start: '2023-10-01T00:00:00.001Z',
+          period: '2023/Q4',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2024-04-01T00:00:00.000Z',
+          start: '2024-01-01T00:00:00.000Z',
+          period: '2024/Q1',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
+            },
+          ],
+        },
+        {
+          end: '2024-07-01T00:00:00.000Z',
+          start: '2024-04-01T00:00:00.001Z',
+          period: '2024/Q2',
+          rows: [
+            {
+              dimensions: [
+                {
+                  name: 'Budget',
+                  path: 'atlas/legacy',
+                },
+              ],
+              metric: 'Budget',
+              value: 103289909.62499996,
+            },
+            {
+              dimensions: [
+                {
+                  name: 'budget',
+                  path: 'atlas/scopes',
+                },
+              ],
+              metric: 'Budget',
+              value: 45807453.31000002,
             },
           ],
         },
       ],
+      yearsRange: [2021, 2024],
+      initialYear: 2021,
     },
-    yearsRange: [2020, 2021],
-    initialYear: 2022,
+    yearsRange: [2021, 2024],
+    initialYear: 2021,
   },
 ];
-
+//
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
