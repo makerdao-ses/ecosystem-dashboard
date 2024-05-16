@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
-import { StatusChip } from '@ses/components/StatusChip/StatusChip';
 import { siteRoutes } from '@ses/config/routes';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import React from 'react';
+import { StatusChip } from '@/components/StatusChip/StatusChip';
+import { Status } from '@/core/models/interfaces/types';
 import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import ScopeChip from '../ScopeChip/ScopeChip';
@@ -75,7 +75,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                   <StatusMobile>
                     {' '}
-                    <StatusChip status={CuMipStatus.Accepted} />
+                    <StatusChip status={Status.Final} />
                   </StatusMobile>
                 )}
               </ContainerDescription>

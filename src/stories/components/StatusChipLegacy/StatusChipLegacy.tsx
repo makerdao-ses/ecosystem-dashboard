@@ -54,14 +54,16 @@ const colors: { [id: string]: any } = {
     backgroundDark: '#FF8E3633',
   },
 };
-
-export const StatusChip = (props: StatusChipProps) => {
+/**
+ * @deprecated use StatusChip  instead
+ */
+export const StatusChipLegacy = (props: StatusChipProps) => {
   const { isLight } = useThemeContext();
   return (
     <Chip
       style={{
-        color: isLight ? colors[props.status].color : colors[props.status].colorDark,
-        background: isLight ? colors[props.status].background : colors[props.status].backgroundDark,
+        color: isLight ? colors[props.status]?.color : colors[props.status]?.colorDark,
+        background: isLight ? colors[props.status]?.background : colors[props.status]?.backgroundDark,
         ...props.style,
       }}
     >
