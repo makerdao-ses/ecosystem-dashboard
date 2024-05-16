@@ -364,7 +364,7 @@ const YearsContainer = styled('div')<{ barsAmount: number }>(({ barsAmount }) =>
 }));
 
 const Year = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[400],
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[500],
   fontSize: 12,
   fontFamily: 'OpenSansCondensed, sans-serif',
   lineHeight: '22px',
