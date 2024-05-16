@@ -96,6 +96,8 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
     tooltip: {
       show: !isMobile,
       trigger: 'axis',
+      borderRadius: 12,
+      backgroundColor: isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
 
       axisPointer: {
         type: 'shadow',
@@ -105,8 +107,8 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         },
       },
       padding: 0,
-      borderWidth: 1,
-      borderColor: isLight ? '#D4D9E1' : '#231536',
+      // borderWidth: 1,
+      borderColor: isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
       formatter: function (params: BarChartSeries[]) {
         const shortAmount = params.length > 10;
         const flexDirection = shortAmount ? 'row' : 'column';
@@ -114,8 +116,8 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
 
         return `
           <div style="background-color:${
-            isLight ? '#fff' : '#000A13'
-          };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
+            isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800]
+          };padding:8px 16px 8px 16px;min-width:194px;overflow:auto;border-radius:12px;">
             <div style="margin-bottom:16px;font-size:12px;font-weight:600;color:#B6BCC2;">${params?.[0]?.name}</div>
             <div style="display:flex;flex-direction:${flexDirection};gap:${gap};min-width:194px;max-width:450px;flex-wrap:wrap;">
               ${params

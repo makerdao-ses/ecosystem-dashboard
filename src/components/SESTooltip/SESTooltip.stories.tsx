@@ -22,7 +22,7 @@ const ALIGNMENTS = [
 ];
 
 const meta: Meta<typeof SESTooltip> = {
-  title: 'Components/General/SESTooltip',
+  title: 'Fusion/Components/SESTooltip',
   component: SESTooltip,
   decorators: [withThemeContext(true, false)],
   parameters: {

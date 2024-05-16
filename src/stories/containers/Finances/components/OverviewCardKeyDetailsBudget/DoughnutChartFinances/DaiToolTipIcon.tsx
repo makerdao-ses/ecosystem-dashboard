@@ -1,8 +1,8 @@
 import { styled } from '@mui/material';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import DAIIcon from '@ses/components/svg/DAIIcon';
 import React from 'react';
 import Information from '@/components/icons/information';
+import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 
 const DaiToolTipIcon = () => (
   <Tooltip>

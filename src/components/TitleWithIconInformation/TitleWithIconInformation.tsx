@@ -1,8 +1,8 @@
 import { styled } from '@mui/material';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import Information from '@/components/icons/information';
+import SESTooltip from '../SESTooltip/SESTooltip';
 
 interface SectionTitleProps {
   title: string;

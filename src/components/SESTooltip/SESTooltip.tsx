@@ -1,6 +1,5 @@
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import useMobileDetector from '@ses/core/hooks/useMobileDetector';
 import lightTheme from '@ses/styles/theme/themes';
 import classNames from 'classnames';
@@ -8,7 +7,7 @@ import merge from 'deepmerge';
 import React, { useMemo } from 'react';
 import ModalBottomSheet from './ModalBottomSheet';
 import TooltipModalVariant from './TooltipModalVariant';
-import type { TooltipProps } from '@mui/material';
+import type { Theme, TooltipProps } from '@mui/material';
 
 export interface SESTooltipProps extends Omit<TooltipProps, 'title' | 'content'> {
   content: TooltipProps['title'];
@@ -30,7 +29,8 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
   showAsModal = false,
   ...props
 }) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isMobileDevice = !!useMobileDetector()?.mobile();
   const borderColor = borderColorProp || (isLight === false ? '#231536' : '#D4D9E1');
@@ -60,7 +60,7 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
         ],
       },
       componentsProps: {
-        tooltip: tooltipProps(borderColor, isLight),
+        tooltip: tooltipProps(borderColor, theme),
         arrow: arrowProps(borderColor, isLight),
       },
       onClose: controlledOpen ? () => setControlledOpen(false) : undefined,
@@ -68,12 +68,13 @@ const SESTooltip: React.FC<SESTooltipProps> = ({
     [
       controlledOpen,
       enableClickListener,
-      borderColor,
-      props.arrow,
-      isLight,
       className,
       props.classes?.tooltip,
+      props.arrow,
       fallbackPlacements,
+      borderColor,
+      theme,
+      isLight,
     ]
   );
 
@@ -133,27 +134,24 @@ const arrowProps = (borderColor: React.CSSProperties['color'], isLight = true) =
   },
 });
 
-const tooltipProps = (borderColor: React.CSSProperties['color'], isLight = true) => ({
+const tooltipProps = (borderColor: React.CSSProperties['color'], theme: Theme) => ({
   sx: {
     display: 'flex',
     padding: '16px',
     alignItems: 'center',
     gap: 8,
 
-    maxWidth: 330,
-    color: isLight ? '#231536' : '#D2D4EF',
-    borderRadius: '6px',
-    border: `1px solid ${borderColor}`,
+    maxWidth: 362,
+    color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
+    borderRadius: '12px',
 
-    fontSize: 14,
+    fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: 400,
-    lineHeight: 'normal',
+    fontWeight: 500,
+    lineHeight: '24px',
 
-    background: isLight ? 'white' : '#000A13',
-    boxShadow: isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+    background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+    boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
 
     '&.MuiTooltip-tooltipPlacementRight .MuiTooltip-arrow': {
       margin: '0 -0.95em',

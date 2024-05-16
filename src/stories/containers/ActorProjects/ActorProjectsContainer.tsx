@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { siteRoutes } from '@ses/config/routes';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import Information from '@/components/icons/information';
+import SESTooltipLegacy from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
 import PageSubheader from './components/PageSubheader/PageSubheader';
 import ProjectList from './components/ProjectList/ProjectList';
@@ -79,7 +79,7 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
               <>
                 <SupportedProjects isLight={isLight}>
                   <span>Projects supported by {actor.name}</span>
-                  <SESTooltip
+                  <SESTooltipLegacy
                     content="Contributory Projects: This highlights the ecosystem actor's role as a contributor rather than the primary owner."
                     enterTouchDelay={0}
                     leaveTouchDelay={15000}
@@ -89,7 +89,7 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
                     <IconContainer>
                       <Information />
                     </IconContainer>
-                  </SESTooltip>
+                  </SESTooltipLegacy>
                 </SupportedProjects>
 
                 <ProjectList projects={filteredSupporterProjects} isSupportedProjects />

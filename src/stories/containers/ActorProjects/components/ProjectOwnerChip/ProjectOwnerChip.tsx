@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import type { Owner } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
