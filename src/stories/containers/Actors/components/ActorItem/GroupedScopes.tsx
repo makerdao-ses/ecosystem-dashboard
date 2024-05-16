@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import lightTheme from '@ses/styles/theme/themes';
+import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { Scope } from '@ses/core/models/interfaces/scopes';

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import Information from '@/components/icons/information';
+import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SectionHeaderProps {

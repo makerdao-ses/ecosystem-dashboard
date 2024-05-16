@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import SESTooltip from '@ses/components/SESTooltip/SESTooltip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import lightTheme from '@ses/styles/theme/themes';
 import React, { useState } from 'react';
+import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
