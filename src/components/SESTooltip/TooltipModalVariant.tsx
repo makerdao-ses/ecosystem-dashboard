@@ -1,5 +1,4 @@
-import { styled } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled, useTheme } from '@mui/material';
 import BasicModal from '@/stories/components/BasicModal/BasicModal';
 import { Close } from '@/stories/components/svg/close';
 
@@ -9,7 +8,8 @@ interface TooltipModalVariantProps extends React.PropsWithChildren {
 }
 
 const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, openModal, handleCloseModal }) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
 
   return (
     <BasicModalExtended
@@ -18,7 +18,7 @@ const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, ope
       slotProps={{
         backdrop: {
           sx: {
-            background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
+            background: isLight ? 'rgba(37, 42, 52, 0.1)' : 'rgba(37, 42, 52, 0.1)',
             backdropFilter: isLight ? 'blur(4px);' : 'blur(4px)',
           },
         },
@@ -51,8 +51,9 @@ const Container = styled('div')(({ theme }) => ({
   position: 'relative',
   height: 'auto',
   maxWidth: 'calc(100% - 32px)',
-  background: theme.palette.mode === 'light' ? '#FFFFFF' : '#10191F',
+  background: theme.palette.mode === 'light' ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   borderRadius: 6,
+  color: theme.palette.mode === 'light' ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
   margin: '0 auto',
   padding: '16px 24px 16px 16px',
 
