@@ -198,6 +198,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         },
       },
     },
+
     yAxis: {
       axisLabel: {
         margin: isMobile ? 10 : isTablet ? 8 : isDesktop1024 ? 10 : isDesktop1280 ? 24 : isDesktop1440 ? 24 : 32,
@@ -242,6 +243,11 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         itemStyle: {
           color: isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[600],
         },
+        emphasis: {
+          itemStyle: {
+            color: isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[500],
+          },
+        },
       },
       {
         ...series[1],
@@ -252,6 +258,11 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         barWidth,
         itemStyle: {
           color: isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900],
+        },
+        emphasis: {
+          itemStyle: {
+            color: isLight ? theme.palette.colors.blue[800] : theme.palette.colors.blue[800],
+          },
         },
       },
     ],
