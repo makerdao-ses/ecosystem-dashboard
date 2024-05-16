@@ -86,12 +86,14 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
       updateUrl(tab === NavigationTabEnum.LATESTS_UPDATES ? undefined : tab);
     };
 
-    if (keyInView) {
+    if (updatesInView) {
+      activate(NavigationTabEnum.LATESTS_UPDATES);
+    } else if (structureInView) {
+      activate(NavigationTabEnum.BUDGET_STRUCTURE);
+    } else if (keyInView) {
       activate(NavigationTabEnum.KEY_CHANGES);
     } else if (transitionInView) {
       activate(NavigationTabEnum.BUDGET_TRANSITION_STATUS);
-    } else if (structureInView) {
-      activate(NavigationTabEnum.BUDGET_STRUCTURE);
     } else {
       const hasBoundingData =
         updatesEntryTopY !== 0 && keyEntryTopY !== 0 && structureEntryTopY !== 0 && transitionEntryTopY !== 0;
@@ -101,9 +103,7 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
         !transitionInView &&
         !structureInView &&
         hasBoundingData &&
-        updatesEntryTopY < 0 &&
-        keyEntryTopY < 0 &&
-        structureEntryTopY < 0
+        keyEntryTopY < 0
       ) {
         // it is close to the footer and any section is in the view
         // activate this as is the last one
