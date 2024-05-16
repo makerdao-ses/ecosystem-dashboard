@@ -259,48 +259,6 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
     // create a table for each budget for the current level
     let tables = [...uncategorizedSubTables];
-    if (budgets.length === 0) {
-      const rows = Object.keys(data).map((path) => {
-        const columns = Object.values(data[path]);
-        delete data[path]; // remove the path from the data as it was added
-
-        if (selectedGranularity !== 'annual') {
-          // annual does not have totals
-          const total = columns.reduce(
-            (acc, current) => {
-              acc.Actuals += current.Actuals;
-              acc.Budget += current.Budget;
-              acc.PaymentsOnChain += current.PaymentsOnChain;
-              acc.Forecast += current.Forecast;
-              acc.ProtocolNetOutflow += current.ProtocolNetOutflow;
-              return acc;
-            },
-            { ...EMPTY_METRIC_VALUE }
-          );
-
-          columns.push(total);
-        }
-
-        return {
-          name: path,
-          codePath: path,
-          columns,
-        } as ItemRow;
-      });
-      const subTableHeaders = rows.map((item) => item.columns);
-      const tableHeader = subTableHeaders.reduce((acc, current) => {
-        for (let i = 0; i < acc.length; i++) {
-          acc[i].Actuals += current[i]?.Actuals ?? 0;
-          acc[i].Budget += current[i]?.Budget ?? 0;
-          acc[i].PaymentsOnChain += current[i]?.PaymentsOnChain ?? 0;
-          acc[i].Forecast += current[i]?.Forecast ?? 0;
-          acc[i].ProtocolNetOutflow += current[i]?.ProtocolNetOutflow ?? 0;
-        }
-        return acc;
-      }, Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
-
-      return [tableHeader, []];
-    }
 
     // a sub-table should be created for each budget available in the current level
     budgets.forEach((budget) => {
@@ -549,7 +507,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           : metric) as keyof MetricValues
     );
     tables = tables.filter((table) => {
-      if (table.rows[0].isUncategorized) {
+      if (table.rows[0]?.isUncategorized) {
         return table.rows[0].columns.some((column) => activeMetricsKeys.some((metric) => column[metric] !== 0));
       } else {
         // it's not uncategorized but may have uncategorized rows
