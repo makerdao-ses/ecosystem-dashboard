@@ -6,8 +6,8 @@ import lightTheme from '@ses/styles/theme/themes';
 import classNames from 'classnames';
 import merge from 'deepmerge';
 import React, { useMemo } from 'react';
-import ModalBottomSheet from './ModalBottomSheet';
-import TooltipModalVariant from './TooltipModalVariant';
+import ModalBottomSheetLegacy from './ModalBottomSheetLegacy';
+import TooltipModalVariantLegacy from './TooltipModalVariantLegacy';
 import type { TooltipProps } from '@mui/material';
 
 export interface SESTooltipProps extends Omit<TooltipProps, 'title' | 'content'> {
@@ -18,7 +18,9 @@ export interface SESTooltipProps extends Omit<TooltipProps, 'title' | 'content'>
   showAsModalBottomSheet?: boolean;
   showAsModal?: boolean;
 }
-
+/**
+ * @deprecated since reskin. Use SESTooltip instead.
+ */
 const SESTooltipLegacy: React.FC<SESTooltipProps> = ({
   content,
   children,
@@ -80,7 +82,7 @@ const SESTooltipLegacy: React.FC<SESTooltipProps> = ({
   if (showAsModalBottomSheet && isMobileResolution && isMobileDevice) {
     // show modal bottom sheet instead of tooltip
     return (
-      <ModalBottomSheet
+      <ModalBottomSheetLegacy
         content={content}
         open={!!controlledOpen}
         handleOpen={() => setControlledOpen(true)}
@@ -89,7 +91,7 @@ const SESTooltipLegacy: React.FC<SESTooltipProps> = ({
         {React.cloneElement(children as React.ReactElement, {
           onClick: () => setControlledOpen((prev) => !prev),
         })}
-      </ModalBottomSheet>
+      </ModalBottomSheetLegacy>
     );
   }
 
@@ -99,9 +101,9 @@ const SESTooltipLegacy: React.FC<SESTooltipProps> = ({
         {React.cloneElement(children as React.ReactElement, {
           onClick: () => setControlledOpen((prev) => !prev),
         })}
-        <TooltipModalVariant openModal={!!controlledOpen} handleCloseModal={() => setControlledOpen(undefined)}>
+        <TooltipModalVariantLegacy openModal={!!controlledOpen} handleCloseModal={() => setControlledOpen(undefined)}>
           {content}
-        </TooltipModalVariant>
+        </TooltipModalVariantLegacy>
       </>
     );
   }

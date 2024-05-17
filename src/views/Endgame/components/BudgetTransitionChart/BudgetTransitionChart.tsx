@@ -147,7 +147,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
       },
     },
     grid: {
-      height: isMobile ? 216 : isTablet ? 242 : isDesktop1024 ? 240 : isDesktop1280 ? 325 : isDesktop1440 ? 325 : 344,
+      height: isMobile ? 210 : isTablet ? 242 : isDesktop1024 ? 240 : isDesktop1280 ? 325 : isDesktop1440 ? 325 : 344,
       width: isMobile ? 280 : isTablet ? 345 : isDesktop1024 ? 486 : isDesktop1280 ? 685 : isDesktop1440 ? 762 : 762,
       top: isMobile ? 10 : isTablet ? 6 : isDesktop1024 ? 6 : 11,
       right: isMobile ? 6 : isTablet ? 4 : isDesktop1024 ? 6 : isDesktop1280 ? 6 : 6,
@@ -170,7 +170,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         show: false,
       },
       axisLabel: {
-        margin: isMobile ? 4 : isTablet ? 8 : isDesktop1024 ? 10 : isDesktop1280 ? 14 : 16,
+        margin: isMobile ? 6 : isTablet ? 8 : isDesktop1024 ? 10 : isDesktop1280 ? 14 : 16,
         color: isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400],
         align: 'center',
         fontFamily: 'OpenSansCondensed,san-serif',
@@ -198,6 +198,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         },
       },
     },
+
     yAxis: {
       axisLabel: {
         margin: isMobile ? 10 : isTablet ? 8 : isDesktop1024 ? 10 : isDesktop1280 ? 24 : isDesktop1440 ? 24 : 32,
@@ -242,6 +243,11 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         itemStyle: {
           color: isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[600],
         },
+        emphasis: {
+          itemStyle: {
+            color: isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[500],
+          },
+        },
       },
       {
         ...series[1],
@@ -252,6 +258,11 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         barWidth,
         itemStyle: {
           color: isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900],
+        },
+        emphasis: {
+          itemStyle: {
+            color: isLight ? theme.palette.colors.blue[800] : theme.palette.colors.blue[800],
+          },
         },
       },
     ],
@@ -340,7 +351,7 @@ const YearsContainer = styled('div')<{ barsAmount: number }>(({ barsAmount }) =>
   display: 'flex',
   flexDirection: 'row',
   gap: (314 / barsAmount) * 4 - 30,
-  bottom: 0,
+  bottom: 6,
   left: 45,
   [theme.breakpoints.up('tablet_768')]: {
     bottom: 6,
@@ -353,7 +364,7 @@ const YearsContainer = styled('div')<{ barsAmount: number }>(({ barsAmount }) =>
 }));
 
 const Year = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : '#2DC1B1',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[500],
   fontSize: 12,
   fontFamily: 'OpenSansCondensed, sans-serif',
   lineHeight: '22px',
@@ -367,7 +378,7 @@ const LegendContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 10,
-  margin: '0px auto 0',
+  margin: '-1px auto 0',
   borderRadius: 12,
   [theme.breakpoints.up('tablet_768')]: {
     margin: '6px 0 0',

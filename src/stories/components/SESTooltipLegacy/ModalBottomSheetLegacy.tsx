@@ -11,7 +11,13 @@ interface ModalBottomSheetProps extends React.PropsWithChildren {
   handleClose: () => void;
 }
 
-const ModalBottomSheet: React.FC<ModalBottomSheetProps> = ({ children, content, open, handleOpen, handleClose }) => {
+const ModalBottomSheetLegacy: React.FC<ModalBottomSheetProps> = ({
+  children,
+  content,
+  open,
+  handleOpen,
+  handleClose,
+}) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -32,7 +38,7 @@ const ModalBottomSheet: React.FC<ModalBottomSheetProps> = ({ children, content, 
   );
 };
 
-export default ModalBottomSheet;
+export default ModalBottomSheetLegacy;
 
 const Overlay = styled.div<WithIsLight>(({ isLight }) => ({
   position: 'fixed',

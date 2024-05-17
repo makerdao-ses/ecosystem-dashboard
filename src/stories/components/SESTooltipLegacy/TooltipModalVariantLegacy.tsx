@@ -8,7 +8,7 @@ interface TooltipModalVariantProps extends React.PropsWithChildren {
   handleCloseModal: () => void;
 }
 
-const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, openModal, handleCloseModal }) => {
+const TooltipModalVariantLegacy: React.FC<TooltipModalVariantProps> = ({ children, openModal, handleCloseModal }) => {
   const { isLight } = useThemeContext();
 
   return (
@@ -34,7 +34,7 @@ const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, ope
   );
 };
 
-export default TooltipModalVariant;
+export default TooltipModalVariantLegacy;
 
 export const BasicModalExtended = styled(BasicModal)({
   position: 'absolute',
