@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import BasicModal from '@/stories/components/BasicModal/BasicModal';
 import { Close } from '@/stories/components/svg/close';
 
@@ -8,31 +7,29 @@ interface TooltipModalVariantProps extends React.PropsWithChildren {
   handleCloseModal: () => void;
 }
 
-const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, openModal, handleCloseModal }) => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <BasicModalExtended
-      open={openModal}
-      handleClose={handleCloseModal}
-      slotProps={{
-        backdrop: {
-          sx: {
-            background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
-            backdropFilter: isLight ? 'blur(4px);' : 'blur(4px)',
-          },
-        },
-      }}
-    >
-      <Container>
-        <ContainerClose>
-          <StyledClose onClick={handleCloseModal} />
-        </ContainerClose>
-        {children}
-      </Container>
-    </BasicModalExtended>
-  );
-};
+const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, openModal, handleCloseModal }) => (
+  <BasicModalExtended
+    open={openModal}
+    handleClose={handleCloseModal}
+    slotProps={{
+      backdrop: {
+        sx: [
+          (theme) => ({
+            background: theme.palette.isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
+            backdropFilter: theme.palette.isLight ? 'blur(4px);' : 'blur(4px)',
+          }),
+        ],
+      },
+    }}
+  >
+    <Container>
+      <ContainerClose>
+        <StyledClose onClick={handleCloseModal} />
+      </ContainerClose>
+      {children}
+    </Container>
+  </BasicModalExtended>
+);
 
 export default TooltipModalVariant;
 
@@ -51,8 +48,9 @@ const Container = styled('div')(({ theme }) => ({
   position: 'relative',
   height: 'auto',
   maxWidth: 'calc(100% - 32px)',
-  background: theme.palette.mode === 'light' ? '#FFFFFF' : '#10191F',
+  background: theme.palette.mode === 'light' ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   borderRadius: 6,
+  color: theme.palette.mode === 'light' ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
   margin: '0 auto',
   padding: '16px 24px 16px 16px',
 

@@ -35,13 +35,14 @@ const Content = styled('section')({
 const CardContainer = styled(Card)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 16,
+  gap: 21,
   borderRadius: 6,
   padding: '8px 8px 16px 8px',
   margin: '0 auto',
   width: '100%',
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '16px',
+    gap: 16,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
     padding: '16px 24px  16px 24px',
