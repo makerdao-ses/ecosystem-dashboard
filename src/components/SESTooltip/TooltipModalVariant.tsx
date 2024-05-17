@@ -1,4 +1,4 @@
-import { styled, useTheme } from '@mui/material';
+import { styled } from '@mui/material';
 import BasicModal from '@/stories/components/BasicModal/BasicModal';
 import { Close } from '@/stories/components/svg/close';
 
@@ -7,32 +7,29 @@ interface TooltipModalVariantProps extends React.PropsWithChildren {
   handleCloseModal: () => void;
 }
 
-const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, openModal, handleCloseModal }) => {
-  const theme = useTheme();
-  const isLight = theme.palette.isLight;
-
-  return (
-    <BasicModalExtended
-      open={openModal}
-      handleClose={handleCloseModal}
-      slotProps={{
-        backdrop: {
-          sx: {
-            background: isLight ? 'rgba(37, 42, 52, 0.1)' : 'rgba(37, 42, 52, 0.1)',
-            backdropFilter: isLight ? 'blur(4px);' : 'blur(4px)',
-          },
-        },
-      }}
-    >
-      <Container>
-        <ContainerClose>
-          <StyledClose onClick={handleCloseModal} />
-        </ContainerClose>
-        {children}
-      </Container>
-    </BasicModalExtended>
-  );
-};
+const TooltipModalVariant: React.FC<TooltipModalVariantProps> = ({ children, openModal, handleCloseModal }) => (
+  <BasicModalExtended
+    open={openModal}
+    handleClose={handleCloseModal}
+    slotProps={{
+      backdrop: {
+        sx: [
+          (theme) => ({
+            background: theme.palette.isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1)',
+            backdropFilter: theme.palette.isLight ? 'blur(4px);' : 'blur(4px)',
+          }),
+        ],
+      },
+    }}
+  >
+    <Container>
+      <ContainerClose>
+        <StyledClose onClick={handleCloseModal} />
+      </ContainerClose>
+      {children}
+    </Container>
+  </BasicModalExtended>
+);
 
 export default TooltipModalVariant;
 
