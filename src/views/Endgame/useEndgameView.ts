@@ -1,12 +1,9 @@
-import { useMediaQuery } from '@mui/material';
-import lightTheme from '@ses/styles/theme/themes';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { createRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { fetchAnalytics } from '../../stories/containers/Finances/api/queries';
 import type { BudgetTransitionPlainData, TransitionStatusDataShown } from './types';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
-import type { IntersectionOptions } from 'react-intersection-observer';
+import type { RefObject } from 'react';
 
 export enum NavigationTabEnum {
   LATESTS_UPDATES = 'latest-updates',
@@ -15,116 +12,42 @@ export enum NavigationTabEnum {
   BUDGET_TRANSITION_STATUS = 'budget-transition-status',
 }
 
+const sections: NavigationTabEnum[] = [
+  NavigationTabEnum.LATESTS_UPDATES,
+  NavigationTabEnum.KEY_CHANGES,
+  NavigationTabEnum.BUDGET_STRUCTURE,
+  NavigationTabEnum.BUDGET_TRANSITION_STATUS,
+];
+
 const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[], initialYear: string) => {
-  const [pauseUrlUpdate, setPauseUrlUpdate] = useState<boolean>(false);
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const isUpDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
+  const [activeTab, setActiveTab] = useState(NavigationTabEnum.LATESTS_UPDATES);
 
-  const INTERSECTION_OPTIONS: IntersectionOptions = {
-    threshold: isMobile ? 0.5 : isUpDesktop1440 ? 0.9 : 0.65,
-    fallbackInView: false,
-    rootMargin: '130px 0px 0px 0px',
-  };
+  const sectionRefs = useRef<{ [key in NavigationTabEnum]: RefObject<HTMLDivElement> }>(
+    sections.reduce((acc, section) => {
+      acc[section] = createRef<HTMLDivElement>();
+      return acc;
+    }, {} as { [key in NavigationTabEnum]: RefObject<HTMLDivElement> })
+  );
 
-  useEffect(() => {
-    // scroll into a section on page load
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash.replace('#', '');
-      if (
-        [
-          NavigationTabEnum.KEY_CHANGES,
-          NavigationTabEnum.BUDGET_STRUCTURE,
-          NavigationTabEnum.BUDGET_TRANSITION_STATUS,
-        ].includes(hash as NavigationTabEnum)
-      ) {
-        // scroll to the section
-        document.getElementById(`section-${hash}`)?.scrollIntoView({
-          behavior: 'smooth',
-        });
-      }
-    }
-  }, []);
-
-  const handlePauseUrlUpdate = useCallback(() => {
-    setPauseUrlUpdate(true);
-    // un pause the updating after the scroll has ended
-    setTimeout(() => setPauseUrlUpdate(false), 700);
-  }, []);
-
-  const [updatesChangesRef, updatesInView, updatesEntry] = useInView(INTERSECTION_OPTIONS);
-  const [keyChangesRef, keyInView, keyEntry] = useInView({
-    ...INTERSECTION_OPTIONS,
-    threshold: isMobile ? 0.15 : isUpDesktop1440 ? 0.15 : 0.25,
-  });
-  const [structureRef, structureInView, structureEntry] = useInView(INTERSECTION_OPTIONS);
-  const [transitionStatusRef, transitionInView, transitionEntry] = useInView(INTERSECTION_OPTIONS);
-
-  const updatesEntryTopY = updatesEntry?.boundingClientRect?.y ?? 0;
-  const keyEntryTopY = keyEntry?.boundingClientRect?.y ?? 0;
-  const structureEntryTopY = structureEntry?.boundingClientRect?.y ?? 0;
-  const transitionEntryTopY = transitionEntry?.boundingClientRect?.y ?? 0;
-
-  const [activeTab, setActiveTab] = useState<NavigationTabEnum>(NavigationTabEnum.KEY_CHANGES);
-  useEffect(() => {
-    const updateUrl = (hash?: string) => {
-      if (typeof window !== 'undefined') {
-        if (hash) {
-          window.location.hash = hash;
-        } else {
-          history.replaceState(null, '', window.location.pathname);
+  const handleScroll = useCallback(() => {
+    const scrollPosition = window.scrollY + 125;
+    sections.forEach((section) => {
+      const element = sectionRefs.current[section].current;
+      if (element) {
+        const { offsetTop, offsetHeight } = element;
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          setActiveTab(section);
         }
       }
+    });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
     };
-
-    const activate = (tab: NavigationTabEnum) => {
-      setActiveTab(tab);
-
-      if (pauseUrlUpdate) {
-        // it's scrolling, don't update the url yet
-        return;
-      }
-      updateUrl(tab === NavigationTabEnum.LATESTS_UPDATES ? undefined : tab);
-    };
-
-    if (updatesInView) {
-      activate(NavigationTabEnum.LATESTS_UPDATES);
-    } else if (structureInView) {
-      activate(NavigationTabEnum.BUDGET_STRUCTURE);
-    } else if (keyInView) {
-      activate(NavigationTabEnum.KEY_CHANGES);
-    } else if (transitionInView) {
-      activate(NavigationTabEnum.BUDGET_TRANSITION_STATUS);
-    } else {
-      const hasBoundingData =
-        updatesEntryTopY !== 0 && keyEntryTopY !== 0 && structureEntryTopY !== 0 && transitionEntryTopY !== 0;
-      if (
-        !updatesInView &&
-        !keyInView &&
-        !transitionInView &&
-        !structureInView &&
-        hasBoundingData &&
-        keyEntryTopY < 0
-      ) {
-        // it is close to the footer and any section is in the view
-        // activate this as is the last one
-        activate(NavigationTabEnum.BUDGET_TRANSITION_STATUS);
-      } else {
-        activate(NavigationTabEnum.LATESTS_UPDATES);
-      }
-    }
-  }, [
-    structureInView,
-    transitionInView,
-    keyInView,
-    pauseUrlUpdate,
-    keyEntryTopY,
-    transitionEntryTopY,
-    transitionEntry,
-    structureEntry,
-    structureEntryTopY,
-    updatesInView,
-    updatesEntryTopY,
-  ]);
+  }, [handleScroll]);
 
   // budget structure section
   const [selectedYear, setSelectedYear] = useState<string>(initialYear);
@@ -199,11 +122,7 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
   }, [budgetTransitionAnalytics.series, transitionDataSelected]);
 
   return {
-    handlePauseUrlUpdate,
-    updatesChangesRef,
-    keyChangesRef,
-    structureRef,
-    transitionStatusRef,
+    sectionRefs,
     activeTab,
     transitionDataSelected,
     handleTransitionDateSelectedChange,
