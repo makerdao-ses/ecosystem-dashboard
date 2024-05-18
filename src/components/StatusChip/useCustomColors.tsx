@@ -1,8 +1,24 @@
 import { useTheme } from '@mui/material';
 
+interface ColorScheme {
+  color: string;
+  background: string;
+  colorDark: string;
+  backgroundDark: string;
+}
+
+export interface CustomColors {
+  All: ColorScheme;
+  Draft: ColorScheme;
+  Review: ColorScheme;
+  Escalated: ColorScheme;
+  Final: ColorScheme;
+  Obsolete: ColorScheme;
+}
+
 export const useCustomColors = () => {
   const theme = useTheme();
-  const colors = {
+  const colors: CustomColors = {
     All: {
       color: '#5D48FF',
       background: '#F7F5FF',

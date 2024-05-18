@@ -1,21 +1,38 @@
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
-import React from 'react';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { StatusChip } from './StatusChip';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
-  title: 'Components/General/StatusChip',
-  components: StatusChip,
-} as ComponentMeta<typeof StatusChip>;
+const meta: Meta<typeof StatusChip> = {
+  title: 'Fusion/Components/StatusChip',
+  component: StatusChip,
 
-const Template: ComponentStory<typeof StatusChip> = (args) => <StatusChip {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  status: CuMipStatus.Accepted,
+  parameters: {
+    chromatic: {
+      viewports: [375, 768, 1024, 1280, 1440, 1920],
+      pauseAnimationAtEnd: true,
+    },
+  },
 };
+export default meta;
 
-export const FormalSubmission = Template.bind({});
-FormalSubmission.args = {
-  status: CuMipStatus.FormalSubmission,
-};
+const variantsArgs = [
+  {
+    status: 'Final',
+  },
+  {
+    status: 'Draft',
+  },
+  {
+    status: 'Review',
+  },
+  {
+    status: 'Escalated',
+  },
+
+  {
+    status: 'Obsolete',
+  },
+];
+
+const [[LightMode, DarkMode]] = createThemeModeVariants(StatusChip, variantsArgs);
+export { LightMode, DarkMode };

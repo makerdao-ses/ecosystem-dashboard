@@ -1,34 +1,24 @@
-import { styled, useTheme } from '@mui/material';
+import { styled } from '@mui/material';
 import React from 'react';
 import { useCustomColors } from './useCustomColors';
+import type { CustomColors } from './useCustomColors';
 import type { Status } from '@ses/core/models/interfaces/types';
-import type { CSSProperties } from 'react';
 
 interface StatusChipProps {
-  status: Status | 'All';
-  style?: CSSProperties;
+  status: Status;
   className?: string;
 }
 
-export const StatusChip: React.FC<StatusChipProps> = ({ status, className, style }) => {
-  const theme = useTheme();
-  const isLight = theme.palette.isLight;
+export const StatusChip: React.FC<StatusChipProps> = ({ status, className }) => {
   const colors = useCustomColors();
   return (
-    <Chip
-      className={className}
-      style={{
-        color: isLight ? colors[status].color : colors[status].colorDark,
-        background: isLight ? colors[status].background : colors[status].backgroundDark,
-        ...style,
-      }}
-    >
+    <Chip colors={colors} status={status} className={className}>
       {status}
     </Chip>
   );
 };
 
-const Chip = styled('div')({
+const Chip = styled('div')<{ colors: CustomColors; status: Status }>(({ theme, colors, status }) => ({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
   alignItems: 'center',
@@ -38,4 +28,6 @@ const Chip = styled('div')({
   lineHeight: '22px',
   borderRadius: 6,
   padding: '1px 16px 1px 16px',
-});
+  color: theme.palette.isLight ? colors[status].color : colors[status].colorDark,
+  background: theme.palette.isLight ? colors[status].background : colors[status].backgroundDark,
+}));
