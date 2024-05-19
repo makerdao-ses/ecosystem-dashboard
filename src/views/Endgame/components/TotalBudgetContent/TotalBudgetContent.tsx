@@ -42,7 +42,7 @@ const TotalBudgetContent: React.FC<TotalBudgetContentProps> = ({
         <LegendItem variant="blue">Endgame Budget</LegendItem>
       </Legend>
       <Bar defaultVariant="blue">
-        <BarContent variant="gray" width={`${(endgameBudgets * 100) / totalBudgetCap}%`} />
+        <BarContent variant="gray" width={`${(legacyBudgets * 100) / totalBudgetCap}%`} />
       </Bar>
       <Values>
         <Value>
