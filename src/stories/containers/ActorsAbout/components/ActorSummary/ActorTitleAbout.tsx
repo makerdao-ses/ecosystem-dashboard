@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
-// import { StatusChip } from '@ses/components/StatusChip/StatusChip';
 import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';

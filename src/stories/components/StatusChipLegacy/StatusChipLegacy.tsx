@@ -54,9 +54,7 @@ const colors: { [id: string]: any } = {
     backgroundDark: '#FF8E3633',
   },
 };
-/**
- * @deprecated use StatusChip  instead
- */
+
 export const StatusChipLegacy = (props: StatusChipProps) => {
   const { isLight } = useThemeContext();
   return (

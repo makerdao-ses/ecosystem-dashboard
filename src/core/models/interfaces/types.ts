@@ -43,7 +43,7 @@ export enum ActorCategory {
   ScopeFacilitator = 'ScopeFacilitator',
 }
 
-export enum Status {
+export enum CommonStatusCUEA {
   Draft = 'Draft',
   Review = 'Review',
   Escalated = 'Escalated',

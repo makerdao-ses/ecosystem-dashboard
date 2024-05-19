@@ -2,10 +2,10 @@ import { styled } from '@mui/material';
 import React from 'react';
 import { useCustomColors } from './useCustomColors';
 import type { CustomColors } from './useCustomColors';
-import type { Status } from '@ses/core/models/interfaces/types';
+import type { CommonStatusCUEA } from '@ses/core/models/interfaces/types';
 
 interface StatusChipProps {
-  status: Status;
+  status: CommonStatusCUEA;
   className?: string;
 }
 
@@ -18,7 +18,7 @@ export const StatusChip: React.FC<StatusChipProps> = ({ status, className }) => 
   );
 };
 
-const Chip = styled('div')<{ colors: CustomColors; status: Status }>(({ theme, colors, status }) => ({
+const Chip = styled('div')<{ colors: CustomColors; status: CommonStatusCUEA }>(({ theme, colors, status }) => ({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
   alignItems: 'center',

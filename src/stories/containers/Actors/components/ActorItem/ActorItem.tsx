@@ -10,7 +10,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import React from 'react';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
-import { Status } from '@/core/models/interfaces/types';
+import { CommonStatusCUEA } from '@/core/models/interfaces/types';
 import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import ScopeChip from '../ScopeChip/ScopeChip';
@@ -75,7 +75,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                   <StatusMobile>
                     {' '}
-                    <StatusChip status={Status.Final} />
+                    <StatusChip status={CommonStatusCUEA.Final} />
                   </StatusMobile>
                 )}
               </ContainerDescription>
