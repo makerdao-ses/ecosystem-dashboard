@@ -1,14 +1,17 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled, useMediaQuery } from '@mui/material';
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import React, { useEffect, useState } from 'react';
+import Card from '@/components/Card/Card';
+import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
+import TitleWithIconInformation from '@/components/TitleWithIconInformation/TitleWithIconInformation';
+import BarsFilter from '@/components/icons/BarsFilter';
+import { siteRoutes } from '@/config/routes';
 import BudgetDoughnutChart from '../BudgetDoughnutChart/BudgetDoughnutChart';
-import SectionHeader from '../SectionHeader/SectionHeader';
 import TotalBudgetContent from '../TotalBudgetContent/TotalBudgetContent';
 import BudgetStructureSectionSkeleton from './BudgetStructureSectionSkeleton';
 import type { TotalBudgetContentProps } from '../TotalBudgetContent/TotalBudgetContent';
+import type { Theme } from '@mui/material';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface BudgetCompositionProps extends TotalBudgetContentProps {
   scopes: number;
@@ -26,13 +29,15 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
   legacy,
   totalBudgetCap,
   isLoading,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   yearsRange,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   selectedYear,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   handleYearChange,
   ...totalBudgetProps
 }) => {
-  const { isLight } = useThemeContext();
-
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   // avoid chart mounting flicker
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => {
@@ -46,7 +51,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (scopes * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: '#D2D4EF',
+      color: colorPalette.blue[500],
     },
     {
       name: 'Atlas Immutable Budget',
@@ -54,7 +59,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (immutable * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: '#1AAB9B',
+      color: colorPalette.blue[300],
     },
     {
       name: 'MakerDAO Legacy Budget',
@@ -62,122 +67,132 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (legacy * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: '#447AFB',
+      color: colorPalette.charcoal[200],
     },
   ] as unknown as DoughnutSeries[];
 
   return (
     <Content id="section-endgame-budget-structure">
-      <SectionHeader
-        title="Endgame Budget Structure"
-        subtitle="Optimizing MakerDAO's financial strategy through structured budgets, to ensure efficiency and effectiveness in achieving Endgame objectives."
-        yearsRange={yearsRange}
-        selectedYear={selectedYear}
-        handleYearChange={handleYearChange}
-      />
+      <SectionCard>
+        <Header>
+          <TitleWithIconInformation
+            title="Endgame Budget Structure"
+            tooltip={
+              "Optimizing MakerDAO's financial strategy through structured budgets, to ensure efficiency and effectiveness in achieving Endgame objectives."
+            }
+          />
 
-      {isLoading ? (
-        <BudgetStructureSectionSkeleton />
-      ) : (
-        <Card isLight={isLight}>
-          <TotalBudgetContent totalBudgetCap={totalBudgetCap} {...totalBudgetProps} />
-          <BudgetComposition isLight={isLight}>
-            <BudgetCompositionTitle isLight={isLight}>Composition of Budget</BudgetCompositionTitle>
-            {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
-          </BudgetComposition>
-        </Card>
-      )}
+          <BarsFilter />
+        </Header>
+
+        {isLoading ? (
+          <BudgetStructureSectionSkeleton />
+        ) : (
+          <ChartsContainer>
+            <TotalBudgetContent totalBudgetCap={totalBudgetCap} {...totalBudgetProps} />
+            <BudgetComposition>
+              <BudgetCompositionTitle>Composition of Budget</BudgetCompositionTitle>
+              {mounted && <BudgetDoughnutChart doughnutSeriesData={doughnutSeriesData} />}
+            </BudgetComposition>
+            {isMobile && (
+              <ButtonContainer>
+                <InternalLinkButton href={siteRoutes.home} buttonType="primary" label="Legacy Expenses" />
+              </ButtonContainer>
+            )}
+          </ChartsContainer>
+        )}
+      </SectionCard>
     </Content>
   );
 };
 
 export default BudgetStructureSection;
 
-const Content = styled.section({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 40,
-  scrollMarginTop: 130, // here
+const Content = styled('section')({
+  scrollMarginTop: 130,
 });
 
-const Card = styled.div<WithIsLight>(({ isLight }) => ({
-  padding: '31px 0px 0px',
+const SectionCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  overflow: 'hidden',
-  gap: 32,
-  borderRadius: 6,
-  border: `1px solid ${isLight ? 'rgba(212, 217, 225, 0.25)' : '#31424E'}`,
-  background: isLight ? '#FFF' : '#1E2C37',
-  boxShadow: isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px 0px rgba(7, 22, 40, 0.40)',
+  gap: 16,
+  padding: 8,
+  border: `1px solid ${theme.palette.isLight ? 'rgba(212, 217, 225, 0.25)' : 'red'}`,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    flexDirection: 'row',
-    padding: '23px 15px',
-    gap: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '8px 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    padding: 31,
-    gap: 32,
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '16px 24px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    padding: '31px 0 31px 63px',
-    gap: 64,
+  [theme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 32px',
   },
 }));
 
-const BudgetComposition = styled.div<WithIsLight>(({ isLight }) => ({
+const Header = styled('div')(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+}));
+
+const ChartsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
+  gap: 16,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    gap: 24,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 32,
+  },
+
+  [theme.breakpoints.up('desktop_1440')]: {
+    gap: 16,
+  },
+}));
+
+const BudgetComposition = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   position: 'relative',
   width: '100%',
-  height: 353,
-  padding: '24px 16px 0px',
-  backgroundColor: isLight ? 'rgba(236, 239, 249, 0.25)' : '#1E2C37',
+  padding: 8,
+  borderRadius: 12,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    alignSelf: 'center',
-    height: 189,
-    padding: 0,
-    backgroundColor: isLight ? '#fff' : '#1E2C37',
-    borderLeft: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
+  [theme.breakpoints.up('tablet_768')]: {
+    minWidth: 353,
+    padding: '14px 16px 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    height: 241,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: '100%',
+    padding: '18px 19px 8px',
   },
 }));
 
-const BudgetCompositionTitle = styled.h3<WithIsLight>(({ isLight }) => ({
+const BudgetCompositionTitle = styled('h3')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
-  fontStyle: 'normal',
-  lineHeight: '19.36px',
+  lineHeight: '24px',
   margin: 0,
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 20,
-    fontWeight: 600,
-    letterSpacing: '0.4px',
-    marginTop: 2,
-    marginLeft: '4.2%',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginLeft: '3%',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: '-4.8%',
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: '-8%',
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 18,
+    lineHeight: '22px',
   },
 }));
+
+const ButtonContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+});
