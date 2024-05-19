@@ -67,17 +67,17 @@ export default TotalBudgetContent;
 
 const getColor = (variant: BarVariant, isLight: boolean): string => {
   if (variant === 'gray') {
-    return isLight ? colorPalette.charcoal[200] : 'red';
+    return isLight ? colorPalette.charcoal[200] : colorPalette.charcoal[600];
   } else {
-    return isLight ? colorPalette.blue[700] : 'red';
+    return isLight ? colorPalette.blue[700] : colorPalette.blue[900];
   }
 };
 
 const Content = styled('div')(({ theme }) => ({
   padding: 8,
   borderRadius: 12,
-  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
-  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
 
   [theme.breakpoints.up('tablet_768')]: {
     width: '100%',
@@ -96,7 +96,7 @@ const BudgetCapNumber = styled('div')(({ theme }) => ({
   fontSize: 20,
   fontWeight: 700,
   lineHeight: '24px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 24,
@@ -113,7 +113,7 @@ const Currency = styled('span')(({ theme }) => ({
   fontSize: 20,
   fontWeight: 700,
   lineHeight: '24px',
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
   marginLeft: 6,
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -126,7 +126,7 @@ const AvgBudgetCapUtilization = styled('div')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '18px',
   fontWeight: 500,
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
   textAlign: 'center',
   marginTop: 4,
 
@@ -142,7 +142,7 @@ const AvgPercentage = styled('span')({
 const Divider = styled('div')(({ theme }) => ({
   height: 1,
   width: 'calc(100% - 17px)',
-  background: theme.palette.isLight ? '#D4D9E1' : 'red',
+  background: theme.palette.isLight ? '#D4D9E1' : theme.palette.colors.slate[400],
   margin: '18px 8.5px',
 
   [theme.breakpoints.up('tablet_768')]: {
@@ -164,7 +164,7 @@ const Legend = styled('div')({
 const LegendItem = styled('div')<{ variant: BarVariant }>(({ theme, variant }) => ({
   fontSize: 12,
   lineHeight: '18px',
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
   position: 'relative',
   paddingLeft: 12,
 
@@ -212,7 +212,7 @@ const Values = styled('div')({
 const Value = styled('div')(({ theme }) => ({
   fontSize: 14,
   lineHeight: '17px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
 }));
 
 const ButtonContainer = styled('div')(({ theme }) => ({

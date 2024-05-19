@@ -1,4 +1,4 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { colorPalette } from '@ses/styles/theme/colorPalette';
 import React, { useEffect, useState } from 'react';
 import Card from '@/components/Card/Card';
@@ -37,6 +37,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
   handleYearChange,
   ...totalBudgetProps
 }) => {
+  const isLight = useTheme().palette.isLight;
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   // avoid chart mounting flicker
   const [mounted, setMounted] = useState<boolean>(false);
@@ -51,7 +52,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (scopes * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: colorPalette.blue[500],
+      color: isLight ? colorPalette.blue[500] : colorPalette.blue[700],
     },
     {
       name: 'Atlas Immutable Budget',
@@ -59,7 +60,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (immutable * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: colorPalette.blue[300],
+      color: isLight ? colorPalette.blue[300] : colorPalette.blue[500],
     },
     {
       name: 'MakerDAO Legacy Budget',
@@ -67,7 +68,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
       percent: (legacy * 100) / totalBudgetCap,
       actuals: 0,
       budgetCap: 0,
-      color: colorPalette.charcoal[200],
+      color: isLight ? colorPalette.charcoal[200] : colorPalette.charcoal[600],
     },
   ] as unknown as DoughnutSeries[];
 
@@ -117,7 +118,7 @@ const SectionCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   gap: 16,
   padding: 8,
-  border: `1px solid ${theme.palette.isLight ? 'rgba(212, 217, 225, 0.25)' : 'red'}`,
+  border: `1px solid ${theme.palette.isLight ? 'rgba(212, 217, 225, 0.25)' : 'rgba(55, 62, 77, 0.5)'}`,
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: '8px 16px',
@@ -165,8 +166,8 @@ const BudgetComposition = styled('div')(({ theme }) => ({
   width: '100%',
   padding: 8,
   borderRadius: 12,
-  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
-  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
 
   [theme.breakpoints.up('tablet_768')]: {
     minWidth: 353,
@@ -184,7 +185,7 @@ const BudgetCompositionTitle = styled('h3')(({ theme }) => ({
   fontWeight: 700,
   lineHeight: '24px',
   margin: 0,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 18,

@@ -43,9 +43,6 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
               show: false,
             },
           },
-          textStyle: {
-            color: 'red',
-          },
           data: sortedDoughnutSeries,
         },
       ],
@@ -176,14 +173,14 @@ const LegendName = styled('div')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '18px',
   fontWeight: 500,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[50],
 }));
 
 const LegendValues = styled('div')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '18px',
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600],
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
