@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 
 import React from 'react';
-import type { TeamRole } from '@/core/enums/TeamRole';
+import type { TeamRole } from '@/core/enums/teamRole';
 import { pascalCaseToNormalString } from '@/core/utils/string';
 import useRoleColors from './useRoleColors';
 import type { RoleColors } from './useRoleColors';
