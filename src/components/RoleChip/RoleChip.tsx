@@ -1,13 +1,13 @@
 import { styled } from '@mui/material';
 
 import React from 'react';
-import type { RoleUserEnum } from '@/core/enums/roleUserEnum';
+import type { EcosystemAndCoreRoleEnum } from '@/core/enums/EcosystemAndCoreRoleEnum';
 import { pascalCaseToNormalString } from '@/core/utils/string';
 import useRoleColors from './useRoleColors';
 import type { RoleColors } from './useRoleColors';
 
 interface ScopeChipProps {
-  status: RoleUserEnum;
+  status: EcosystemAndCoreRoleEnum;
   className?: string;
 }
 
@@ -24,7 +24,7 @@ const RoleChip: React.FC<ScopeChipProps> = ({ status, className }) => {
 export default RoleChip;
 const Chip = styled('div')<{
   colors: RoleColors;
-  status: RoleUserEnum;
+  status: EcosystemAndCoreRoleEnum;
 }>(({ theme, colors, status }) => ({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
