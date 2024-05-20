@@ -16,7 +16,7 @@ import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
-import { StatusChip } from '../StatusChip/StatusChip';
+import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface Props {
@@ -59,7 +59,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
                 flexDirection: 'row',
               }}
             >
-              {mipStatus && <StatusChip status={mipStatus} />}
+              {mipStatus && <StatusChipLegacy status={mipStatus} />}
               <Row>
                 {newDate && (
                   <CustomLink

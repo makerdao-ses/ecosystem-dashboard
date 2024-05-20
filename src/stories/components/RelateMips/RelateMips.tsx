@@ -7,7 +7,7 @@ import { getMipsStatus } from '../../../core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getMipTitle } from '../../../core/utils/string';
 import { CustomLink } from '../CustomLink/CustomLink';
-import { StatusChip } from '../StatusChip/StatusChip';
+import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';
 import ExternalLinkArrow from '../svg/external-link-arrow';
 import type { CuMip } from '@ses/core/models/interfaces/cuMip';
 import type { CuMipStatus } from '@ses/core/models/interfaces/types';
@@ -33,7 +33,7 @@ const RelateMips = ({ relateMips }: Props) => {
   return (
     <Content isLight={isLight}>
       <Row>
-        {mipStatus && <StatusChip status={mipStatus as CuMipStatus} />}
+        {mipStatus && <StatusChipLegacy status={mipStatus as CuMipStatus} />}
         {newDate && (
           <SinceDate isLight={isLight}>Since {DateTime.fromJSDate(newDate).toFormat('dd-MM-yyyy')}</SinceDate>
         )}

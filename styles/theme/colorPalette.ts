@@ -63,6 +63,7 @@ export const colorPalette = {
   },
 
   green: {
+    50: '#E9F7ED',
     100: '#D4F1DB',
     200: '#BDEAC8',
     300: '#A6E3B6',

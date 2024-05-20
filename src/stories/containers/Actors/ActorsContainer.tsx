@@ -1,9 +1,8 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
@@ -11,7 +10,6 @@ import ActorFilters from './components/ActorFilters/ActorFilters';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActors } from './useActors';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   actors: Team[];
@@ -36,10 +34,8 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     scopeCount,
   } = useActors(actors, stories);
 
-  const { isLight } = useThemeContext();
-
   return (
-    <ExtendedPageContainer isLight={isLight}>
+    <ExtendedPageContainer>
       <SEOHead
         title={'MakerDAO Ecosystem Actors | Endgame Overview'}
         description={
@@ -54,9 +50,9 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
       />
       <Container>
         <ContainerText>
-          <Title isLight={isLight}>Ecosystem Actors</Title>
-          <SubTitle isLight={isLight}>What are Ecosystem Actors? </SubTitle>
-          <Description isLight={isLight}>
+          <Title>Ecosystem Actors</Title>
+          <SubTitle>What are Ecosystem Actors? </SubTitle>
+          <Description>
             <StyledParagraphOne readMore={readMore}>
               Ecosystem Actors serve as external entities offering valuable services to both Maker Core and SubDAOs.
               {!showTextDesk && isLessPhone && <br />}
@@ -81,9 +77,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           </Description>
         </ContainerText>
         <ContainerReadMore>
-          <ReadMore onClick={handleRead} isLight={isLight}>
-            {!readMore ? 'Read more' : 'Read less'}
-          </ReadMore>
+          <ReadMore onClick={handleRead}>{!readMore ? 'Read more' : 'Read less'}</ReadMore>
         </ContainerReadMore>
 
         <FilterContainer>
@@ -117,47 +111,46 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
 
 export default ActorsContainer;
 
-const ExtendedPageContainer = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+const ExtendedPageContainer = styled(PageContainer)(({ theme }) => ({
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
 }));
 
-const Title = styled.h1<WithIsLight>(({ isLight }) => ({
+const Title = styled('h1')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontStyle: ' normal',
-  fontWeight: 600,
-  fontSize: 20,
-  lineHeight: '24px',
+  fontWeight: 700,
+  fontSize: 18,
+  lineHeight: '21.6px',
   letterSpacing: '0.4px',
   marginTop: 0,
   marginBottom: 0,
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 24,
-    lineHeight: '29px',
+    lineHeight: '28.8px',
   },
 }));
 
-const SubTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const SubTitle = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: ' normal',
-  fontWeight: 700,
-  fontSize: 14,
-  lineHeight: '17px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 16,
-    lineHeight: '19px',
-  },
-}));
-
-const Description = styled.div<WithIsLight>(({ isLight }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: ' normal',
-  fontWeight: 400,
+  fontWeight: 600,
   fontSize: 14,
   lineHeight: '22px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+    lineHeight: '24px',
+  },
+}));
+
+const Description = styled('div')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: ' normal',
+  fontSize: 14,
+  lineHeight: '22px',
+  fontWeight: 400,
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
@@ -165,7 +158,7 @@ const Description = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ContainerText = styled.div({
+const ContainerText = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -176,7 +169,7 @@ const ContainerText = styled.div({
   },
 });
 
-const ContainerList = styled.div({
+const ContainerList = styled('div')({
   marginBottom: 64,
   marginTop: -2,
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -187,7 +180,7 @@ const ContainerList = styled.div({
   },
 });
 
-const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
+const StyledParagraphOne = styled('p')<{ readMore: boolean }>(({ readMore }) => ({
   width: 343,
   marginTop: -8,
   marginBottom: 8,
@@ -195,6 +188,7 @@ const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
   overflow: 'hidden',
   WebkitLineClamp: !readMore ? 3 : 'unset',
   WebkitBoxOrient: !readMore ? 'vertical' : 'unset',
+
   '> span': {
     marginLeft: 4,
   },
@@ -207,8 +201,11 @@ const StyledParagraphOne = styled.p<{ readMore: boolean }>(({ readMore }) => ({
   },
 }));
 
-const StyledParagraph = styled.p({
+const StyledParagraph = styled('p')({
   marginTop: 22,
+  fontSize: 14,
+  lineHeight: '22px',
+  fontWeight: 400,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 18,
   },
@@ -221,13 +218,13 @@ const StyledParagraphThere = styled(StyledParagraph)({
   },
 });
 
-const ReadMore = styled.div<WithIsLight>(({ isLight }) => ({
+const ReadMore = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontWeight: 600,
 
   cursor: 'pointer',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   marginBottom: 32,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 6,
@@ -242,18 +239,18 @@ const ReadMore = styled.div<WithIsLight>(({ isLight }) => ({
     marginBottom: 30,
   },
   ':hover': {
-    color: isLight ? 'rgba(35, 21, 54, 0.8)' : 'rgba(210, 212, 239, 0.8)',
+    color: theme.palette.isLight ? 'rgba(35, 21, 54, 0.8)' : 'rgba(210, 212, 239, 0.8)',
   },
 }));
 
-const ContainerReadMore = styled.div({
+const ContainerReadMore = styled('div')({
   width: '100%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'flex-end',
 });
 
-const FilterContainer = styled.div({
+const FilterContainer = styled('div')({
   height: 34,
   marginBottom: 27,
   marginTop: -4,
