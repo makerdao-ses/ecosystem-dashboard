@@ -11,7 +11,7 @@ import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
-import { StatusChip } from '../StatusChip/StatusChip';
+import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
 import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
@@ -124,7 +124,7 @@ export const CuTableColumnSummary = ({
             <Title isLight={isLight}>{props.title}</Title>
           </TitleWrapper>
           <Row>
-            {props.status && <StatusChip status={props.status} style={{ marginLeft: '-2px' }} />}
+            {props.status && <StatusChipLegacy status={props.status} style={{ marginLeft: '-2px' }} />}
             {props.statusModified && (
               <CustomPopover
                 id={'mouse-over-popover-goto'}
