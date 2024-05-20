@@ -1,13 +1,13 @@
 import { styled } from '@mui/material';
 
 import React from 'react';
-import type { EcosystemAndCoreRoleEnum } from '@/core/enums/ecosystemAndCoreRoleEnum';
+import type { TeamRole } from '@/core/enums/TeamRole';
 import { pascalCaseToNormalString } from '@/core/utils/string';
 import useRoleColors from './useRoleColors';
 import type { RoleColors } from './useRoleColors';
 
 interface ScopeChipProps {
-  status: EcosystemAndCoreRoleEnum;
+  status: TeamRole;
   className?: string;
 }
 
@@ -24,7 +24,7 @@ const RoleChip: React.FC<ScopeChipProps> = ({ status, className }) => {
 export default RoleChip;
 const Chip = styled('div')<{
   colors: RoleColors;
-  status: EcosystemAndCoreRoleEnum;
+  status: TeamRole;
 }>(({ theme, colors, status }) => ({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
@@ -33,8 +33,8 @@ const Chip = styled('div')<{
   borderRadius: 6,
   padding: '1px 4px 1px 4px',
   width: 'fit-content',
-  background: theme.palette.isLight ? colors[status].background : colors[status].backgroundDark,
-  borderBottom: `1.5px solid ${theme.palette.isLight ? colors[status].borderColor : colors[status].borderColorDark}`,
+  background: theme.palette.isLight ? colors[status]?.background : colors[status]?.backgroundDark,
+  borderBottom: `1.5px solid ${theme.palette.isLight ? colors[status]?.borderColor : colors[status]?.borderColorDark}`,
 }));
 
 const Status = styled('div')(({ theme }) => ({

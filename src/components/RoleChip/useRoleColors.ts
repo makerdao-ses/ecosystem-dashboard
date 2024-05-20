@@ -1,7 +1,6 @@
 interface ColorScheme {
   borderColor: string;
   background: string;
-
   borderColorDark: string;
   backgroundDark: string;
 }

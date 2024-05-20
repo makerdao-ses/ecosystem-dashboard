@@ -1,4 +1,4 @@
-export enum EcosystemAndCoreRoleEnum {
+export enum TeamRole {
   ActiveEcosystemActor = 'ActiveEcosystemActor',
   ScopeFacilitator = 'ScopeFacilitator',
   AdvisoryCouncilMember = 'AdvisoryCouncilMember',
