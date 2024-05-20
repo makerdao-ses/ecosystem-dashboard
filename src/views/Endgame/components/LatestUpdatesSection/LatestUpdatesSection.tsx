@@ -69,6 +69,12 @@ const LatestUpdatesSection: React.FC = () => (
             },
           ],
         }}
+        importantLinks={[
+          {
+            href: 'https://forum.makerdao.com/t/makerdao-endgame-launch-season/23857',
+            label: 'MakerDAO Endgame: Launch Season',
+          },
+        ]}
       />
       <PhaseCard
         phase="Phase 3"
@@ -92,6 +98,12 @@ const LatestUpdatesSection: React.FC = () => (
             },
           ],
         }}
+        importantLinks={[
+          {
+            href: 'https://forum.makerdao.com/t/makerdao-endgame-launch-season/23857',
+            label: 'MakerDAO Endgame: Launch Season',
+          },
+        ]}
       />
       <PhaseCard
         phase="Phase 4"
@@ -115,6 +127,12 @@ const LatestUpdatesSection: React.FC = () => (
             },
           ],
         }}
+        importantLinks={[
+          {
+            href: 'https://forum.makerdao.com/t/makerdao-endgame-launch-season/23857',
+            label: 'MakerDAO Endgame: Launch Season',
+          },
+        ]}
       />
     </Timeline>
   </Content>
