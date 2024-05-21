@@ -1,6 +1,6 @@
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import sortBy from 'lodash/sortBy';
 import { useMemo, useCallback, useRef } from 'react';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { getRelateMipObjectFromCoreUnit } from '../../../core/businessLogic/coreUnitAbout';
 import { getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/urls';
@@ -29,7 +29,7 @@ export const useCuAbout = ({ cuAbout, code, router, setShowThreeMIPs, showThreeM
     const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     const order = sortBy(buildNewArray, ['orderBy', 'dateMip']).reverse();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const countNumberAccepted = order.filter((mip: any) => mip.mipStatus === CuMipStatus.Accepted);
+    const countNumberAccepted = order.filter((mip: any) => mip.mipStatus === TeamStatus.Accepted);
     const resultArrayThreeElements = showThreeMIPs ? order.slice(0, countNumberAccepted.length) : order;
     return resultArrayThreeElements;
   }, [cuAbout.cuMip, showThreeMIPs]);
@@ -37,7 +37,7 @@ export const useCuAbout = ({ cuAbout, code, router, setShowThreeMIPs, showThreeM
   const hasMipsNotAccepted = useMemo(() => {
     const buildNewArray = cuAbout.cuMip.map((mip: CuMip) => getRelateMipObjectFromCoreUnit(mip));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return buildNewArray.some((mip: any) => mip.mipStatus !== CuMipStatus.Accepted);
+    return buildNewArray.some((mip: any) => mip.mipStatus !== TeamStatus.Accepted);
   }, [cuAbout.cuMip]);
 
   const queryStrings = useMemo(

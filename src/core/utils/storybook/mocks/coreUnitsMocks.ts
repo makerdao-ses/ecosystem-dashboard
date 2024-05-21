@@ -7,7 +7,7 @@ import { CoreUnitsBuilder } from '@ses/core/businessLogic/builders/coreUnitsBuil
 import { CuMipBuilder } from '@ses/core/businessLogic/builders/cuMIPBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
 import { CuCategoryEnum } from '@ses/core/enums/cuCategoryEnum';
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 
 export const SESCoreUnitMocked = new CoreUnitsBuilder()
@@ -28,7 +28,7 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .addCuMip(
     new CuMipBuilder()
       .withMipTitle('MIP39c2-SP10: Core Unit Budget for Sustainable Ecosystem Scaling (SES-001)')
-      .withStatus(CuMipStatus.Accepted, '2021-05-25')
+      .withStatus(TeamStatus.Accepted, '2021-05-25')
       .withMipCode('MIP39')
       .withFormalSubmission('2021-05-25')
       .build()
@@ -36,7 +36,7 @@ export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .addCuMip(
     new CuMipBuilder()
       .withMipTitle('MIP40c3-SP10: Core Unit Facilitator Onboarding (SES-001)')
-      .withStatus(CuMipStatus.Accepted, '2021-05-25')
+      .withStatus(TeamStatus.Accepted, '2021-05-25')
       .withMipCode('MIP40')
       .withFormalSubmission('2021-05-25')
       .build()

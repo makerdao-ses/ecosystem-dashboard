@@ -1,16 +1,15 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
-import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import React from 'react';
+import Card from '@/components/Card/Card';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
-import { CommonStatusCUEA } from '@/core/models/interfaces/types';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import ScopeChip from '../ScopeChip/ScopeChip';
@@ -18,7 +17,6 @@ import GroupedScopes from './GroupedScopes';
 import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { PropsWithChildren } from 'react';
 
 interface Props {
@@ -27,7 +25,6 @@ interface Props {
 }
 
 const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
-  const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const ActorSpaceLink: React.FC<PropsWithChildren> = ({ children }) => (
     <ContainerLinkColum>
@@ -51,31 +48,23 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   );
 
   return (
-    <ExtendedGenericDelegate isLight={isLight} socialLength={keysWithNonNullValues.length}>
+    <CardContainer socialLength={keysWithNonNullValues.length}>
       <ActorSpaceLink>
         <ContainerActorType>
           <WrapperEcosystemActor>
-            <EcosystemActorText isLight={isLight}>Ecosystem Actor</EcosystemActorText>
+            <EcosystemActorText>Ecosystem Actor</EcosystemActorText>
             <ActorAvatar>
-              <CircleAvatarExtended
-                isLight={isLight}
-                width="32px"
-                height="32px"
-                name={actor.name || 'Wallet'}
-                image={actor.image}
-              />
+              <CircleAvatarExtended width="32px" height="32px" name={actor.name || 'Wallet'} image={actor.image} />
               <ContainerDescription>
                 <ContainerShortCodeName>
-                  {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
-                    <ShortCode isLight={isLight}>{actor.shortCode}</ShortCode>
-                  )}
-                  <Name isLight={isLight}>{actor.name}</Name>
+                  {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && <ShortCode>{actor.shortCode}</ShortCode>}
+                  <Name>{actor.name}</Name>
                 </ContainerShortCodeName>
 
                 {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                   <StatusMobile>
                     {' '}
-                    <StatusChip status={CommonStatusCUEA.Final} />
+                    <StatusChip status={TeamStatus.Accepted} />
                   </StatusMobile>
                 )}
               </ContainerDescription>
@@ -83,14 +72,14 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
           </WrapperEcosystemActor>
 
           <TypeSection>
-            <WrapperType isLight={isLight}>Role</WrapperType>
+            <WrapperType>Role</WrapperType>
             <WrapperHiddenOnlyMobileCategory>
-              <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
+              <ActorTitle>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
             </WrapperHiddenOnlyMobileCategory>
           </TypeSection>
           <WrapperCategoryScopeMobile>
             <WrapperCategoryScopeMobileInside>
-              <ActorTitle isLight={isLight}>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
+              <ActorTitle>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
             </WrapperCategoryScopeMobileInside>
             {actor.scopes?.length > 0 &&
               (actor.scopes?.length > 2 ? (
@@ -109,7 +98,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
       </ActorSpaceLink>
       <Link href={siteRoutes.ecosystemActorAbout(actor.shortCode)} legacyBehavior passHref>
         <LineLink>
-          <Line isLight={isLight} />
+          <Line />
         </LineLink>
       </Link>
       <WrapperScopeLinks alignEnd={actor?.scopes?.length === 0}>
@@ -142,7 +131,6 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
           {actor?.socialMediaChannels && (
             <LinkContainer>
               <SocialMediaComponentStyled
-                isLight={isLight}
                 links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
                 fillDark="#ADAFD4"
                 hasTooltip
@@ -157,53 +145,46 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
           href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
         />
       </ContainerLastModifiedMobileTable>
-    </ExtendedGenericDelegate>
+    </CardContainer>
   );
 };
 
 export default ActorItem;
 
-const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight & { socialLength: number }>(
-  ({ isLight, socialLength }) => ({
-    background: isLight ? '#FFFFFF' : '#10191F',
-    boxShadow: isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+const CardContainer = styled(Card)<{ socialLength: number }>(({ theme, socialLength }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
 
-    display: 'flex',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: 0,
     flexDirection: 'column',
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
+    maxHeight: 'revert',
+    minHeight: 'revert',
+    height: 161,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    height: socialLength >= 4 ? 104 : 82,
+    flexDirection: 'row',
+    padding: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    ':hover': {
+      background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#212630',
+    },
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    height: 82,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    flexDirection: 'row',
+    maxWidth: 1312,
+    alignItems: 'center',
+  },
+}));
 
-    [lightTheme.breakpoints.up('tablet_768')]: {
-      padding: 0,
-      flexDirection: 'column',
-      maxHeight: 'revert',
-      minHeight: 'revert',
-      height: 161,
-    },
-    [lightTheme.breakpoints.up('desktop_1024')]: {
-      height: socialLength >= 4 ? 104 : 82,
-      flexDirection: 'row',
-      padding: 0,
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      ':hover': {
-        background: isLight ? '#ECF1F3' : '#1E2C37',
-      },
-    },
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      height: 82,
-    },
-    [lightTheme.breakpoints.up('desktop_1440')]: {
-      flexDirection: 'row',
-      maxWidth: 1312,
-      alignItems: 'center',
-    },
-  })
-);
-
-const ContainerActorType = styled.div({
+const ContainerActorType = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -219,7 +200,7 @@ const ContainerActorType = styled.div({
     justifyContent: 'revert',
   },
 });
-const EcosystemActorText = styled.div<WithIsLight>(({ isLight }) => ({
+const EcosystemActorText = styled('div')(({ theme }) => ({
   display: 'none',
   [lightTheme.breakpoints.down('tablet_768')]: {
     display: 'none',
@@ -232,16 +213,16 @@ const EcosystemActorText = styled.div<WithIsLight>(({ isLight }) => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '17px',
-    color: isLight ? '#9FAFB9' : '#D2D4EF',
+    color: theme.palette.isLight ? '#9FAFB9' : '#D2D4EF',
   },
 }));
 
-const WrapperEcosystemActor = styled.div({
+const WrapperEcosystemActor = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
 
-const ActorAvatar = styled.div({
+const ActorAvatar = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -277,11 +258,11 @@ const ActorAvatar = styled.div({
   },
 });
 
-const Name = styled.div<WithIsLight>(({ isLight }) => ({
-  fontWeight: 400,
+const Name = styled('div')(({ theme }) => ({
+  fontWeight: 600,
   fontSize: 14,
-  lineHeight: '16.94px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#D2D4EF',
   width: 160,
   overflow: 'hidden',
   whiteSpace: 'nowrap',
@@ -302,7 +283,7 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const TypeSection = styled.div({
+const TypeSection = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -324,7 +305,7 @@ const TypeSection = styled.div({
   },
 });
 
-const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
+const WrapperType = styled('div')(({ theme }) => ({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
@@ -332,7 +313,7 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 14,
-    color: isLight ? '#9FAFB9' : '#9FAFB9',
+    color: theme.palette.isLight ? '#9FAFB9' : '#9FAFB9',
 
     lineHeight: '17px',
     alignItems: 'end',
@@ -341,8 +322,8 @@ const WrapperType = styled.div<WithIsLight>(({ isLight }) => ({
     display: 'none',
   },
 }));
-const Line = styled.div<WithIsLight>(({ isLight }) => ({
-  borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+const Line = styled('div')(({ theme }) => ({
+  borderBottom: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
   marginBottom: 16,
   marginRight: 16,
   marginLeft: 16,
@@ -355,7 +336,7 @@ const Line = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const ActorTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const ActorTitle = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -367,7 +348,7 @@ const ActorTitle = styled.div<WithIsLight>(({ isLight }) => ({
   paddingTop: 4,
   marginLeft: 16,
   height: 23,
-  borderBottom: `2px solid ${isLight ? '#708390' : '#787A9B'}`,
+  borderBottom: `2px solid ${theme.palette.isLight ? '#708390' : '#787A9B'}`,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 16,
   },
@@ -386,13 +367,13 @@ const ActorTitle = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
-  boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.shortShadow,
   minWidth: 32,
   minHeight: 32,
 }));
 
-const WrapperScopeLinks = styled.div<{ alignEnd: boolean }>(({ alignEnd }) => ({
+const WrapperScopeLinks = styled('div')<{ alignEnd: boolean }>(({ alignEnd }) => ({
   display: 'flex',
   flexDirection: 'column',
 
@@ -417,7 +398,7 @@ const WrapperScopeLinks = styled.div<{ alignEnd: boolean }>(({ alignEnd }) => ({
   },
 }));
 
-const ScopeSection = styled.div({
+const ScopeSection = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   gap: 8,
@@ -451,7 +432,7 @@ const ScopeSection = styled.div({
   },
 });
 
-const SocialIconsSection = styled.div({
+const SocialIconsSection = styled('div')({
   display: 'flex',
   position: 'relative',
   flexDirection: 'row',
@@ -476,11 +457,11 @@ const SocialIconsSection = styled.div({
   },
 });
 
-const LinkContainer = styled.div({});
-export const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLight>(({ isLight }) => ({
+const LinkContainer = styled('div')({});
+export const SocialMediaComponentStyled = styled(SocialMediaComponent)(({ theme }) => ({
   '& a': {
     '&:hover svg path': {
-      fill: isLight ? '#231536' : '#48495F',
+      fill: theme.palette.isLight ? '#231536' : '#48495F',
       stroke: 'none',
     },
   },
@@ -504,7 +485,7 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)<WithIsLig
   },
 }));
 
-const ContainerLinkColum = styled.div({
+const ContainerLinkColum = styled('div')({
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
@@ -517,7 +498,7 @@ const ContainerLinkColum = styled.div({
   },
 });
 
-const LinkColum = styled.a({
+const LinkColum = styled('a')({
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     paddingLeft: 16,
@@ -530,7 +511,7 @@ const LinkColum = styled.a({
     flex: 1,
   },
 });
-const LinkColumSpace = styled.a({
+const LinkColumSpace = styled('a')({
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     paddingLeft: 16,
@@ -544,9 +525,9 @@ const LinkColumSpace = styled.a({
   },
 });
 
-const LineLink = styled.a({});
+const LineLink = styled('a')({});
 
-const ContainerLastModifiedDesk = styled.div({
+const ContainerLastModifiedDesk = styled('div')({
   display: 'none',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
@@ -562,7 +543,7 @@ const ContainerLastModifiedDesk = styled.div({
   },
 });
 
-const ContainerScopeLastModified = styled.div({
+const ContainerScopeLastModified = styled('div')({
   marginTop: 0,
   [lightTheme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
@@ -583,7 +564,7 @@ const ContainerScopeLastModified = styled.div({
   },
 });
 
-const ContainerLastModifiedMobileTable = styled.div({
+const ContainerLastModifiedMobileTable = styled('div')({
   width: '100%',
   marginTop: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -594,7 +575,7 @@ const ContainerLastModifiedMobileTable = styled.div({
   },
 });
 
-const WrapperCategoryScopeMobile = styled.div({
+const WrapperCategoryScopeMobile = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -605,14 +586,14 @@ const WrapperCategoryScopeMobile = styled.div({
   },
 });
 
-const WrapperCategoryScopeMobileInside = styled.div({
+const WrapperCategoryScopeMobileInside = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
 });
 
-const ContainerScopeMobile = styled.div({
+const ContainerScopeMobile = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 4,
@@ -620,7 +601,7 @@ const ContainerScopeMobile = styled.div({
   alignItems: 'end',
   paddingRight: 16,
 });
-const WrapperHiddenOnlyMobileCategory = styled.div({
+const WrapperHiddenOnlyMobileCategory = styled('div')({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
@@ -634,7 +615,7 @@ const WrapperHiddenOnlyMobileCategory = styled.div({
   },
 });
 
-const WrapperHiddenOnlyMobileScope = styled.div({
+const WrapperHiddenOnlyMobileScope = styled('div')({
   display: 'none',
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'flex',
@@ -650,7 +631,7 @@ const WrapperHiddenOnlyMobileScope = styled.div({
   },
 });
 
-const LinkSpace = styled.div({
+const LinkSpace = styled('div')({
   display: 'flex',
   flex: 1,
   [lightTheme.breakpoints.up('desktop_1024')]: {
@@ -658,20 +639,19 @@ const LinkSpace = styled.div({
   },
 });
 
-const MobileGroupedScopesBox = styled.div({
+const MobileGroupedScopesBox = styled('div')({
   paddingRight: 16,
 });
 
-const ShortCode = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const ShortCode = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontWeight: 800,
+  fontWeight: 600,
   fontSize: 14,
-  lineHeight: '16.94px',
-  letterSpacing: '0.3px',
-  color: isLight ? '#B6BCC2' : '#546978',
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600],
 }));
 
-const ContainerDescription = styled.div({
+const ContainerDescription = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',

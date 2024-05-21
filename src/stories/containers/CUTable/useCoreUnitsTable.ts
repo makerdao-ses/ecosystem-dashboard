@@ -1,6 +1,5 @@
 import { useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { enablePageOverflow } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/themes';
 import request from 'graphql-request';
@@ -10,6 +9,7 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
 import {
   getExpenditureValueFromCoreUnit,
@@ -85,7 +85,7 @@ export const useCoreUnitsTable = () => {
 
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
-    Object.values(CuMipStatus).forEach((cat) => {
+    Object.values(TeamStatus).forEach((cat) => {
       result[cat] = statusesFiltered?.filter((cu) => getStatusMip39AcceptedOrObsolete(cu) === cat).length;
     });
     result.All = statusesFiltered.length;
@@ -224,16 +224,16 @@ export const useCoreUnitsTable = () => {
     return sortDataFunction;
   }, [headersSort, sortColumn]);
 
-  const giveWeightByStatus = (status: CuMipStatus) =>
-    status === CuMipStatus.Accepted
+  const giveWeightByStatus = (status: TeamStatus) =>
+    status === TeamStatus.Accepted
       ? 5
-      : status === CuMipStatus.FormalSubmission
+      : status === TeamStatus.FormalSubmission
       ? 4
-      : status === CuMipStatus.RFC
+      : status === TeamStatus.RFC
       ? 3
-      : status === CuMipStatus.Obsolete
+      : status === TeamStatus.Obsolete
       ? 2
-      : status === CuMipStatus.Rejected
+      : status === TeamStatus.Rejected
       ? 1
       : 0;
 

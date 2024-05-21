@@ -14,7 +14,7 @@ export enum BudgetStatus {
   Final = 'Final',
 }
 
-export enum CuMipStatus {
+export enum TeamStatus {
   RFC = 'RFC',
   FormalSubmission = 'Formal Submission',
   Accepted = 'Accepted',
@@ -41,12 +41,4 @@ export enum ActorCategory {
   AdvisoryCouncilMember = 'AdvisoryCouncilMember',
   ActiveEcosystemActor = 'ActiveEcosystemActor',
   ScopeFacilitator = 'ScopeFacilitator',
-}
-
-export enum CommonStatusCUEA {
-  Draft = 'Draft',
-  Review = 'Review',
-  Escalated = 'Escalated',
-  Final = 'Final',
-  Obsolete = 'Obsolete',
 }

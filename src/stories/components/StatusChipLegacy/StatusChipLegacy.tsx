@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 import type { CSSProperties } from 'react';
 
 interface StatusChipProps {
-  status: CuMipStatus | 'All';
+  status: TeamStatus | 'All';
   style?: CSSProperties;
 }
 

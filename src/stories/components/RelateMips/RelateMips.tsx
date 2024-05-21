@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import lightTheme from '../../../../styles/theme/themes';
 import { getMipsStatus } from '../../../core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -10,10 +11,9 @@ import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';
 import ExternalLinkArrow from '../svg/external-link-arrow';
 import type { CuMip } from '@ses/core/models/interfaces/cuMip';
-import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 export type RelateMipType = {
-  status: CuMipStatus;
+  status: TeamStatus;
   statusModified: Date;
   mipTitle?: string;
   href: string;
@@ -33,7 +33,7 @@ const RelateMips = ({ relateMips }: Props) => {
   return (
     <Content isLight={isLight}>
       <Row>
-        {mipStatus && <StatusChipLegacy status={mipStatus as CuMipStatus} />}
+        {mipStatus && <StatusChipLegacy status={mipStatus as TeamStatus} />}
         {newDate && (
           <SinceDate isLight={isLight}>Since {DateTime.fromJSDate(newDate).toFormat('dd-MM-yyyy')}</SinceDate>
         )}
