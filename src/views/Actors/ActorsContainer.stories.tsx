@@ -1,6 +1,7 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import AppLayout from '@/stories/containers/AppLayout/AppLayout';
 import ActorsContainer from './ActorsContainer';
 import { defaultSocials } from './utils/utils';
@@ -52,7 +53,7 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'SUP',
-          name: 'Support Scope',
+          name: TeamScopeEnum.SupportScope,
         })
         .withLastActivity({
           created_at: '2023-07-12T09:08:34.123',
@@ -75,12 +76,12 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'GOV',
-          name: 'Governance Scope',
+          name: TeamScopeEnum.GovernanceScope,
         })
         .addScope({
           id: '3',
           code: 'ACC',
-          name: 'Accessibility Scope',
+          name: TeamScopeEnum.AccessibilityScope,
         })
         .withLastActivity({
           created_at: '2023-07-12T09:08:34.123',
@@ -102,12 +103,12 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'SUP',
-          name: 'Support Scope',
+          name: TeamScopeEnum.SupportScope,
         })
         .addScope({
           id: '3',
           code: 'STA',
-          name: 'Stability Scope',
+          name: TeamScopeEnum.AccessibilityScope,
         })
         .withLastActivity({
           created_at: '2023-07-12T09:08:34.123',
@@ -129,12 +130,12 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'SUP',
-          name: 'Support Scope',
+          name: TeamScopeEnum.SupportScope,
         })
         .addScope({
           id: '3',
           code: 'PRO',
-          name: 'Protocol Scope',
+          name: TeamScopeEnum.SupportScope,
         })
         .withLastActivity({
           created_at: '2023-07-12T09:08:34.123',
@@ -157,7 +158,7 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'GOV',
-          name: 'Governance Scope',
+          name: TeamScopeEnum.GovernanceScope,
         })
         .withLastActivity({
           created_at: '2023-07-12T09:08:34.123',
@@ -179,12 +180,12 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'SUP',
-          name: 'Support Scope',
+          name: TeamScopeEnum.SupportScope,
         })
         .addScope({
           id: '3',
           code: 'STA',
-          name: 'Stability Scope',
+          name: TeamScopeEnum.StabilityScope,
         })
         .withLastActivity({
           created_at: '2023-07-12T09:08:34.123',
@@ -206,7 +207,7 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'SUP',
-          name: 'Support Scope',
+          name: TeamScopeEnum.SupportScope,
         })
 
         .withSocials(defaultSocials)
@@ -229,12 +230,12 @@ const variantsArgs = [
         .addScope({
           id: '1',
           code: 'SUP',
-          name: 'Support Scope',
+          name: TeamScopeEnum.SupportScope,
         })
         .addScope({
           id: '3',
           code: 'STA',
-          name: 'Accessibility Scope',
+          name: TeamScopeEnum.AccessibilityScope,
         })
         .withSocials(defaultSocials)
         .build(),

@@ -1,7 +1,6 @@
 import { stringify } from 'querystring';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
-import { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { TeamCategory } from '@ses/core/models/interfaces/types';
 import { getArrayParam } from '@ses/core/utils/filters';
@@ -11,6 +10,7 @@ import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
+import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { filterDataActors, filterDataScopeActors, getActorLastMonthWithData } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -148,7 +148,7 @@ export const useActors = (actors: Team[], stories = false) => {
 
   const scopeCount = useMemo(() => {
     const result: { [id: string]: number } = {};
-    Object.values(ActorScopeEnum).forEach((cat) => {
+    Object.values(TeamScopeEnum).forEach((cat) => {
       const getActorsNumbers = actors
         .map((actor) => actor.scopes?.map((scope) => scope.name))
         .filter((item) => item?.indexOf(cat) > -1).length;

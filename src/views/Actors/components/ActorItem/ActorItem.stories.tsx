@@ -1,6 +1,7 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import ActorItem from './ActorItem';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Meta } from '@storybook/react';
@@ -37,12 +38,12 @@ const variantsArgs = [
       .addScope({
         id: '1',
         code: 'SUP',
-        name: 'Support Scope',
+        name: TeamScopeEnum.SupportScope,
       })
       .addScope({
         id: '3',
         code: 'STA',
-        name: 'Stability Scope',
+        name: TeamScopeEnum.StabilityScope,
       })
       .withSocials({
         twitter: '#',
@@ -70,12 +71,12 @@ const variantsArgs = [
       .addScope({
         id: '1',
         code: 'SUP',
-        name: 'Support Scope',
+        name: TeamScopeEnum.SupportScope,
       })
       .addScope({
         id: '3',
         code: 'ACC',
-        name: 'Accessibility Scope',
+        name: TeamScopeEnum.AccessibilityScope,
       })
       .withSocials({
         twitter: '#',

@@ -11,7 +11,7 @@ import React from 'react';
 import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
 import ScopeChip from '@/views/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@/views/Actors/utils/utils';
-import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
+import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -86,7 +86,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                 </ResponsiveTitle>
                 <CategoryContainer>
                   {actorAbout?.scopes?.map((item, index) => (
-                    <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                    <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
                   ))}
                 </CategoryContainer>
               </ContainerSeparateData>
@@ -108,7 +108,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
             {phoneDimensions && (
               <CategoryContainer>
                 {actorAbout?.scopes?.map((item, index) => (
-                  <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                  <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
                 ))}
               </CategoryContainer>
             )}
