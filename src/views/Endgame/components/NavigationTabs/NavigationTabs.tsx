@@ -17,6 +17,9 @@ const NavigationTabs: FC<NavigationTabsProps> = ({ activeTab }) => {
           top: offsetTop,
           behavior: 'smooth',
         });
+        setTimeout(() => {
+          window.history.replaceState(null, '', `#${tab}`);
+        }, 300);
       }
     }
   };

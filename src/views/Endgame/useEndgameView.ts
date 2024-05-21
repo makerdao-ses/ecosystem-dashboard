@@ -1,4 +1,4 @@
-import { createRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createRef, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import { fetchAnalytics } from '../../stories/containers/Finances/api/queries';
 import type { BudgetTransitionPlainData, TransitionStatusDataShown } from './types';
@@ -29,18 +29,41 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
     }, {} as { [key in NavigationTabEnum]: RefObject<HTMLDivElement> })
   );
 
+  useLayoutEffect(() => {
+    const hash = window.location.hash.substring(1) as NavigationTabEnum;
+    if (sections.includes(hash)) {
+      setTimeout(() => {
+        const element = sectionRefs.current[hash].current;
+        if (element) {
+          const offsetTop = element.offsetTop - 125;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth',
+          });
+        }
+      }, 300);
+    }
+  }, [sectionRefs]);
+
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY + 125;
+    let newActiveTab: NavigationTabEnum | null = null;
+
     sections.forEach((section) => {
       const element = sectionRefs.current[section].current;
       if (element) {
         const { offsetTop, offsetHeight } = element;
         if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-          setActiveTab(section);
+          newActiveTab = section;
         }
       }
     });
-  }, []);
+
+    if (newActiveTab && newActiveTab !== activeTab) {
+      setActiveTab(newActiveTab);
+      window.history.replaceState(null, '', `#${newActiveTab}`);
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
