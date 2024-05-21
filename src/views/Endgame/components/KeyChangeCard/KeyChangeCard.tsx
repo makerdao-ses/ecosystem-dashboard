@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
-import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import React from 'react';
+import ExternalLinkText from '@/components/ExternalLinkText/ExternalLinkText';
 import TransitionHeader from '../TransitionHeader/TransitionHeader';
 
 export interface ReadMoreItem {
@@ -25,9 +25,9 @@ const KeyChangeCard: React.FC<KeyChangeCardProps> = ({ from, to, title, children
         <Label>Read More</Label>
         <List>
           {readMore.map((item, index) => (
-            <ListItem key={index}>
-              <ExternalLink href={item.href}>{item.title}</ExternalLink>
-            </ListItem>
+            <ExternalLinkText href={item.href} asLi key={index}>
+              {item.title}
+            </ExternalLinkText>
           ))}
         </List>
       </ReadMoreSection>
@@ -115,45 +115,3 @@ const List = styled('ul')({
   listStyle: 'none',
   position: 'relative',
 });
-
-const ListItem = styled('li')({
-  color: '#447AFB',
-  lineHeight: '18px',
-
-  '&:not(:last-of-type)': {
-    marginBottom: 8,
-  },
-
-  '&::before': {
-    content: '""',
-    display: 'block',
-    width: 6,
-    height: 6,
-    borderRadius: 6,
-    background: '#447AFB',
-    position: 'absolute',
-    left: 0,
-    marginTop: 6,
-  },
-});
-
-const ExternalLink = styled(CustomLink)(({ theme }) => ({
-  fontSize: 14,
-  fontWeight: 500,
-  lineHeight: '17px',
-  letterSpacing: 'normal',
-  whiteSpace: 'normal',
-  paddingRight: 0,
-  marginLeft: 0,
-
-  '& svg': {
-    width: 10,
-    height: 10,
-    // override inline style
-    marginLeft: '7px!important',
-  },
-
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 16,
-  },
-}));
