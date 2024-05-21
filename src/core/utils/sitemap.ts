@@ -1,4 +1,4 @@
-import { fetchActors } from '@ses/containers/Actors/api/queries';
+import { fetchActors } from '@/views/Actors/api/queries';
 import { BASE_URL, siteRoutes } from '../../config/routes';
 import { fetchCoreUnits } from '../../stories/containers/CUTable/cuTableAPI';
 import { ResourceType } from '../models/interfaces/types';

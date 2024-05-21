@@ -6,7 +6,7 @@ import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
-import { defaultSocials } from '../Actors/utils/utils';
+import { defaultSocials } from '@/views/Actors/utils/utils';
 import AppLayout from '../AppLayout/AppLayout';
 import ActorAboutContainer from './ActorAboutContainer';
 import type { Meta } from '@storybook/react';

@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Collapse } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { filterDataActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
@@ -9,6 +8,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { forwardRef, useCallback, useMemo } from 'react';
+import { filterDataActors } from '@/views/Actors/utils/utils';
 import BreadcrumbNavigation from '../BreadcrumbNavigation/BreadcrumbNavigation';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
 import type { Team } from '@ses/core/models/interfaces/team';
