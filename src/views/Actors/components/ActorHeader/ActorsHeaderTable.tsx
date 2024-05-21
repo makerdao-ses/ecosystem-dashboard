@@ -43,10 +43,10 @@ const ActorsHeaderTable: React.FC<Props> = ({ columns, sortClick }) => {
                     fill={
                       isLight
                         ? column.sort === SortEnum.Asc
-                          ? '#231536'
+                          ? theme.palette.colors.slate[200]
                           : theme.palette.colors.slate[100]
                         : column.sort === SortEnum.Asc
-                        ? '#434358'
+                        ? theme.palette.colors.slate[600]
                         : theme.palette.colors.slate[500]
                     }
                     style={{ margin: '4px 0' }}
@@ -55,10 +55,10 @@ const ActorsHeaderTable: React.FC<Props> = ({ columns, sortClick }) => {
                     fill={
                       isLight
                         ? column.sort === SortEnum.Desc
-                          ? '#231536'
+                          ? theme.palette.colors.slate[200]
                           : theme.palette.colors.slate[100]
                         : column.sort === SortEnum.Desc
-                        ? '#434358'
+                        ? theme.palette.colors.slate[600]
                         : theme.palette.colors.slate[500]
                     }
                   />
