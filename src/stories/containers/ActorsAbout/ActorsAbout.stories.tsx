@@ -5,6 +5,7 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
+import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { defaultSocials } from '../Actors/utils/utils';
 import AppLayout from '../AppLayout/AppLayout';
 import ActorAboutContainer from './ActorAboutContainer';
@@ -29,12 +30,12 @@ const actorsItems = [
     .addScope({
       id: '1',
       code: 'SUP',
-      name: 'Support Scope',
+      name: TeamScopeEnum.SupportScope,
     })
     .addScope({
       id: '3',
       code: 'STA',
-      name: 'Stability Scope',
+      name: TeamScopeEnum.StabilityScope,
     })
     .withSocials(defaultSocials)
     .build(),
@@ -48,12 +49,12 @@ const actorsItems = [
     .addScope({
       id: '1',
       code: 'SUP',
-      name: 'Support Scope',
+      name: TeamScopeEnum.SupportScope,
     })
     .addScope({
       id: '3',
       code: 'STA',
-      name: 'Stability Scope',
+      name: TeamScopeEnum.StabilityScope,
     })
     .withSocials(defaultSocials)
     .build(),
