@@ -1,7 +1,7 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import AppLayout from '../AppLayout/AppLayout';
+import AppLayout from '@/stories/containers/AppLayout/AppLayout';
 import ActorsContainer from './ActorsContainer';
 import { defaultSocials } from './utils/utils';
 import type { Team } from '@ses/core/models/interfaces/team';

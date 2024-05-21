@@ -5,7 +5,6 @@ import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards
 import MultiUsers from '@ses/components/svg/MultiUsers';
 import MultiUsersMobile from '@ses/components/svg/MultiUsersMobile';
 import { siteRoutes } from '@ses/config/routes';
-import ActorLastModified from '@ses/containers/Actors/components/ActorLastModified/ActorLastModified';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import ExpenseReportStatusIndicator from '@ses/containers/TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
@@ -15,6 +14,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
+import ActorLastModified from '@/views/Actors/components/ActorLastModified/ActorLastModified';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
 import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';

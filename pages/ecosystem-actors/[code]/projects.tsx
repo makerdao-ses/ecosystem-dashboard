@@ -1,11 +1,11 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import ActorProjectsContainer from '@ses/containers/ActorProjects/ActorProjectsContainer';
 import { fetchProjects } from '@ses/containers/ActorProjects/api/query';
-import { fetchActors } from '@ses/containers/Actors/api/queries';
 import { fetchActorAbout } from '@ses/containers/ActorsAbout/api/queries';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
+import { fetchActors } from '@/views/Actors/api/queries';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
 const ProjectsPage: NextPage = ({

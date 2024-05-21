@@ -1,9 +1,9 @@
-import { fetchActors } from '@ses/containers/Actors/api/queries';
 import ActorAboutContainer from '@ses/containers/ActorsAbout/ActorAboutContainer';
 import { fetchActorAbout } from '@ses/containers/ActorsAbout/api/queries';
 import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React, { useEffect, useState } from 'react';
+import { fetchActors } from '@/views/Actors/api/queries';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
