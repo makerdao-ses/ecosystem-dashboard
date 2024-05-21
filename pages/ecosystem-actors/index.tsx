@@ -1,7 +1,7 @@
-import ActorsContainer from '@ses/containers/Actors/ActorsContainer';
-import { fetchActors } from '@ses/containers/Actors/api/queries';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
+import ActorsContainer from '@/views/Actors/ActorsContainer';
+import { fetchActors } from '@/views/Actors/api/queries';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSideProps, NextPage } from 'next';
 
