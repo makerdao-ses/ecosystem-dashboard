@@ -181,8 +181,12 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         interval: 0,
         offset: 10,
         formatter: function (value: string) {
-          if (isMobile && value.startsWith('Q1')) {
-            return `{bgImg|${value}}`;
+          if (isMobile) {
+            if (value.startsWith('Q1')) {
+              return `{bgImg|${value}}`;
+            } else {
+              return `${value.charAt(1)}`;
+            }
           }
           return value;
         },
@@ -378,7 +382,7 @@ const LegendContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 10,
-  margin: '-1px auto 0',
+  margin: '-6px auto 0',
   borderRadius: 12,
   [theme.breakpoints.up('tablet_768')]: {
     margin: '6px 0 0',
