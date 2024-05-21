@@ -9,7 +9,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import { FILTER_SCOPE_ACTOR } from './utils';
-import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
+import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { TeamCategory } from '@ses/core/models/interfaces/types';
 interface Props {
   handleResetFilter: () => void;
@@ -58,7 +58,7 @@ const ActorFilters: React.FC<Props> = ({
               activeItems={filteredScopes}
               items={FILTER_SCOPE_ACTOR.map((scope) => ({
                 id: scope.id,
-                content: <ScopeChip code={scope.code} status={scope.name as ActorScopeEnum} />,
+                content: <ScopeChip code={scope.code} status={scope.name as TeamScopeEnum} />,
                 count: scopeCount[scope.name],
               }))}
               onChange={onChangeScope}
