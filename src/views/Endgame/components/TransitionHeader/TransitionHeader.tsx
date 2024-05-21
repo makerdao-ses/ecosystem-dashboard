@@ -55,8 +55,8 @@ const From = styled('div')(({ theme }) => ({
   filter: theme.palette.isLight
     ? 'drop-shadow(0px 1px 5px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 20px rgba(219, 227, 237, 0.4))'
     : 'drop-shadow(0px 1px 3px rgba(30, 23, 23, 0.25)) drop-shadow(0px 20px 40px rgba(7, 22, 40, 0.40))',
-  minHeight: 82,
-  paddingBottom: 18,
+  minHeight: 122,
+  paddingBottom: 58,
 
   '& li:before': {
     background: theme.palette.colors.slate[100],
@@ -103,8 +103,8 @@ const To = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginTop: -42,
-  paddingTop: 41,
+  marginTop: -89,
+  paddingTop: 50,
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
 
   '& li:before': {
