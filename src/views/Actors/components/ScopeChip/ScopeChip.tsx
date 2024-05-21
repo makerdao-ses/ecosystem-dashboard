@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { getScopeColor } from '@ses/core/utils/colors';
 import React from 'react';
-import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
+import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { CSSProperties } from 'react';
 
 interface ScopeChipProps {
-  status: ActorScopeEnum | 'All';
+  status: TeamScopeEnum | 'All';
   style?: CSSProperties;
   code: string;
   codeOnly?: boolean;

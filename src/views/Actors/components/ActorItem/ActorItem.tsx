@@ -15,7 +15,7 @@ import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import GroupedScopes from './GroupedScopes';
-import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
+import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -100,7 +100,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
               ) : (
                 <ContainerScopeMobile>
                   {actor.scopes?.map((item, index) => (
-                    <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                    <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
                   ))}
                 </ContainerScopeMobile>
               ))}
@@ -121,7 +121,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                   <GroupedScopes scopes={actor.scopes} />
                 ) : (
                   actor?.scopes?.map((item, index) => (
-                    <ScopeChip status={item.name as ActorScopeEnum} code={item.code} key={index} />
+                    <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
                   ))
                 )}
               </ScopeSection>

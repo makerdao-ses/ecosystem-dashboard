@@ -1,29 +1,30 @@
+import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import type { Scope } from '@ses/core/models/interfaces/scopes';
 
 export const FILTER_SCOPE_ACTOR: Scope[] = [
   {
     id: 'SupportScope',
     code: 'SUP',
-    name: 'Support Scope',
+    name: TeamScopeEnum.SupportScope,
   },
   {
     id: 'StabilityScope',
     code: 'STA',
-    name: 'Stability Scope',
+    name: TeamScopeEnum.StabilityScope,
   },
   {
     id: 'AccessibilityScope',
     code: 'ACC',
-    name: 'Accessibility Scope',
+    name: TeamScopeEnum.AccessibilityScope,
   },
   {
     id: 'ProtocolScope',
     code: 'PRO',
-    name: 'Protocol Scope',
+    name: TeamScopeEnum.ProtocolScope,
   },
   {
     id: 'GovernanceScope',
     code: 'GOV',
-    name: 'Governance Scope',
+    name: TeamScopeEnum.GovernanceScope,
   },
 ];
