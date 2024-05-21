@@ -24,14 +24,15 @@ const ExternalLinkText: React.FC<ExternalLinkTextProps> = ({ href, asLi, childre
 export default ExternalLinkText;
 
 const StyledLink = styled(Link)(({ theme }) => ({
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: 4,
   fontSize: 14,
   lineHeight: '18px',
   fontWeight: 500,
   color: theme.palette.colors.blue[700],
   textDecoration: 'none',
+
+  '& svg': {
+    verticalAlign: 'middle',
+  },
 
   [theme.breakpoints.up('desktop_1280')]: {
     fontSize: 16,
