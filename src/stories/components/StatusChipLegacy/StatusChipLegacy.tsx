@@ -55,13 +55,13 @@ const colors: { [id: string]: any } = {
   },
 };
 
-export const StatusChip = (props: StatusChipProps) => {
+export const StatusChipLegacy = (props: StatusChipProps) => {
   const { isLight } = useThemeContext();
   return (
     <Chip
       style={{
-        color: isLight ? colors[props.status].color : colors[props.status].colorDark,
-        background: isLight ? colors[props.status].background : colors[props.status].backgroundDark,
+        color: isLight ? colors[props.status]?.color : colors[props.status]?.colorDark,
+        background: isLight ? colors[props.status]?.background : colors[props.status]?.backgroundDark,
         ...props.style,
       }}
     >

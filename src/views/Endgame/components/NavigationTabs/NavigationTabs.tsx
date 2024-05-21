@@ -101,8 +101,8 @@ const Navigation = styled('nav')(({ theme }) => ({
 }));
 
 const Tab = styled('div')<{ active?: boolean }>(({ theme, active = false }) => {
-  const activeColor = theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[50];
-  const defaultColor = theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400];
+  const activeColor = theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50];
+  const defaultColor = theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600];
 
   return {
     fontSize: 14,
@@ -114,6 +114,10 @@ const Tab = styled('div')<{ active?: boolean }>(({ theme, active = false }) => {
     borderBottom: `2px solid ${active ? activeColor : 'transparent'}`,
     whiteSpace: 'nowrap',
     cursor: 'pointer',
+
+    '&:hover': {
+      color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
 
     [theme.breakpoints.up('tablet_768')]: {
       fontSize: 14,

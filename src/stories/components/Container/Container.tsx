@@ -28,7 +28,7 @@ const ContainerStyled = styled.div({
     marginRight: 'auto',
     paddingLeft: 0,
     paddingRight: 0,
-    maxWidth: 1184,
+    maxWidth: 1200,
   },
 
   [lightTheme.breakpoints.up('desktop_1440')]: {

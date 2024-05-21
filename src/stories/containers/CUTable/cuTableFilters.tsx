@@ -14,7 +14,7 @@ import { CustomMultiSelect } from '../../components/CustomMultiSelect/CustomMult
 import { CustomSortSelect } from '../../components/CustomSortSelect/CustomSortSelect';
 import ResetButton from '../../components/ResetButton/ResetButton';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
-import { StatusChip } from '../../components/StatusChip/StatusChip';
+import { StatusChipLegacy } from '../../components/StatusChipLegacy/StatusChipLegacy';
 import Filter from '../../components/svg/filter';
 import type { SortSelectItem } from '../../components/CustomSortSelect/CustomSortSelect';
 import type { CustomTableColumn } from '../../components/CustomTable/CustomTable2';
@@ -106,12 +106,12 @@ export const Filters = (props: FilterProps) => {
             activeItems={props.filteredStatuses}
             customAll={{
               id: 'All',
-              content: <StatusChip status={'All'} />,
+              content: <StatusChipLegacy status={'All'} />,
               count: props.statusCount.All,
             }}
             items={statuses.map((stat) => ({
               id: stat,
-              content: <StatusChip status={stat as CuMipStatus} />,
+              content: <StatusChipLegacy status={stat as CuMipStatus} />,
               count: props.statusCount[stat],
             }))}
             width={118}

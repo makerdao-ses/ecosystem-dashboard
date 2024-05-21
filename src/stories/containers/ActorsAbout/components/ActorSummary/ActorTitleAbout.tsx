@@ -2,15 +2,15 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
-import { StatusChip } from '@ses/components/StatusChip/StatusChip';
-import ScopeChip from '@ses/containers/Actors/components/ScopeChip/ScopeChip';
-import { ActorsLinkType, getLinksFromRecognizedActors } from '@ses/containers/Actors/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
+import ScopeChip from '@/views/Actors/components/ScopeChip/ScopeChip';
+import { ActorsLinkType, getLinksFromRecognizedActors } from '@/views/Actors/utils/utils';
 import type { ActorScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -51,7 +51,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                     {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                       <Status>
-                        <StatusChip status={CuMipStatus.Accepted} />
+                        <StatusChipLegacy status={CuMipStatus.Accepted} />
                       </Status>
                     )}
                   </ShortCodeTitle>
@@ -77,7 +77,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                   </ShortCodeTitle>
                   {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                     <Status>
-                      <StatusChip status={CuMipStatus.Accepted} />
+                      <StatusChipLegacy status={CuMipStatus.Accepted} />
                     </Status>
                   )}
                   <TypographyCategory isLight={isLight}>

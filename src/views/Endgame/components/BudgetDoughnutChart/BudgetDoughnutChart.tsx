@@ -1,177 +1,189 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled, useMediaQuery } from '@mui/material';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
-import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
-import React from 'react';
-import { calculateValuesByBreakpoint } from '@/views/Endgame/utils';
+import React, { useEffect, useMemo, useRef } from 'react';
+import type { Theme } from '@mui/material';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
+import type { EChartsOption } from 'echarts-for-react';
 
 interface Props {
   doughnutSeriesData: DoughnutSeries[];
 }
 
 const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
-  const { isLight } = useThemeContext();
   const sortedDoughnutSeries = sortDoughnutSeriesByValue(doughnutSeriesData);
-  const isTablet768 = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
-  const {
-    radius,
-    center,
+  const isTablet768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesktop1280 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isUpDesktop1440 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1440'));
+  const refChart = useRef<EChartsOption | null>(null);
 
-    legendPadding,
-    legendLeft,
-    legendTop,
+  const radius = useMemo(
+    () => (isTablet768 ? [32, 64] : isDesktop1024 || isDesktop1280 || isUpDesktop1440 ? [48, 96] : [25, 52]),
+    [isDesktop1024, isDesktop1280, isTablet768, isUpDesktop1440]
+  );
 
-    richNameFontSize,
-    richValueFontSize,
-    richDaiFontSize,
-    richPercentFontSize,
+  const options = useMemo(
+    () => ({
+      color: sortedDoughnutSeries.map((data) => data.color),
 
-    richNamePadding,
-    richValuePadding,
-    richDaiPadding,
-    richPercentPadding,
-  } = calculateValuesByBreakpoint(isTablet768, isDesktop1024, isDesktop1280, isDesktop1440);
-
-  const options = {
-    color: sortedDoughnutSeries.map((data) => data.color),
-
-    tooltip: {
-      show: false,
-    },
-
-    series: [
-      {
-        name: 'Budget Doughnut Chart',
-        type: 'pie',
-        radius,
-        center,
-        label: {
-          normal: {
-            show: false,
+      series: [
+        {
+          name: 'Budget Doughnut Chart',
+          type: 'pie',
+          radius,
+          label: {
+            normal: {
+              show: false,
+            },
           },
+          labelLine: {
+            normal: {
+              show: false,
+            },
+          },
+          data: sortedDoughnutSeries,
         },
-        labelLine: {
-          normal: {
-            show: false,
-          },
-        },
-        textStyle: {
-          color: 'red',
-        },
-        data: sortedDoughnutSeries,
-      },
-    ],
+      ],
+    }),
+    [radius, sortedDoughnutSeries]
+  );
 
-    legend: {
-      data: sortedDoughnutSeries.map((data) => data.name),
-      orient: 'vertical',
-      padding: legendPadding,
-      left: legendLeft,
-      top: legendTop,
-      icon: 'circle',
-      itemWidth: 8,
-      itemHeight: 8,
-      align: 'left',
-      itemGap: 19,
+  useEffect(() => {
+    const chartInstance = refChart.current.getEchartsInstance();
+    chartInstance.setOption(options, { notMerge: true });
+  }, [options, refChart]);
 
-      formatter: function (value: string) {
-        const index = sortedDoughnutSeries.findIndex((data) => data.name === value);
-        if (index !== -1) {
-          const data = sortedDoughnutSeries[index];
-          return `{name|${data.name}}\n{value|${usLocalizedNumber(data.value)}}{dai|DAI}{percent|(${usLocalizedNumber(
-            data.percent,
-            1
-          )}%)}`;
-        }
-        return '';
-      },
+  const onLegendItemHover = (legendName: string) => {
+    const chartInstance = refChart.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'highlight',
+      name: legendName,
+    });
+  };
 
-      textStyle: {
-        fontWeight: 400,
-        fontStyle: 'normal',
-        rich: {
-          name: {
-            fontFamily: 'Inter, sans-serif',
-            fontSize: richNameFontSize,
-            padding: richNamePadding,
-            color: isLight ? '#434358' : '#708390',
-          },
-          value: {
-            fontFamily: 'Inter, sans-serif',
-            fontSize: richValueFontSize,
-            width: 'fit-content',
-            padding: richValuePadding,
-            color: isLight ? '#9FAFB9' : '#D1DEE6',
-          },
-          dai: {
-            fontFamily: 'Inter, sans-serif',
-            fontSize: richDaiFontSize,
-            width: 'fit-content',
-            padding: richDaiPadding,
-            color: isLight ? '#9FAFB9' : '#D1DEE6',
-          },
-          percent: {
-            fontFamily: 'Inter, sans-serif',
-            fontSize: richPercentFontSize,
-            width: 'fit-content',
-            padding: richPercentPadding,
-            color: isLight ? '#9FAFB9' : '#D1DEE6',
-          },
-        },
-      },
-
-      label: {
-        show: false,
-        position: 'top',
-      },
-    },
+  const onLegendItemLeave = (legendName: string) => {
+    const chartInstance = refChart.current.getEchartsInstance();
+    chartInstance.dispatchAction({
+      type: 'downplay',
+      name: legendName,
+    });
   };
 
   return (
     <Container>
-      <ReactECharts
-        className="budget-chart-container"
-        option={options}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        opts={{ renderer: 'svg' }}
-      />
+      <ECharts ref={refChart} option={options} opts={{ renderer: 'svg' }} />
+      <LegendsContainer>
+        {sortedDoughnutSeries.map((data) => (
+          <LegendItem
+            key={data.name}
+            color={data.color}
+            onMouseEnter={() => onLegendItemHover(data.name)}
+            onMouseLeave={() => onLegendItemLeave(data.name)}
+          >
+            <LegendName>{data.name}</LegendName>
+            <LegendValues>
+              {usLocalizedNumber(data.value)} DAI ({usLocalizedNumber(data.percent, 1)}%)
+            </LegendValues>
+          </LegendItem>
+        ))}
+      </LegendsContainer>
     </Container>
   );
 };
 
 export default BudgetDoughnutChart;
 
-const Container = styled.div({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
   position: 'relative',
   width: '100%',
-  height: '100%',
+  gap: 16,
+  marginTop: 18,
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    maxWidth: 513, // 493 + 5px left + 15px paddingLeft
-    paddingLeft: 15,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: -5, // prevent hover to be cut by the overflow
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 32,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginLeft: '7.5%',
+  [theme.breakpoints.up('desktop_1280')]: {
+    justifyContent: 'center',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginLeft: '12.5%',
+  [theme.breakpoints.up('desktop_1440')]: {
+    marginTop: 25,
   },
-});
+}));
+
+const ECharts = styled(ReactECharts)(({ theme }) => ({
+  width: 113,
+  height: '120px!important',
+  margin: '2px -5px 0 5px',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    width: 138,
+    height: '138px!important',
+    margin: '-6px 0 0 -6px',
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 205,
+    height: '205px!important',
+  },
+}));
+
+const LegendsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    paddingTop: 12,
+    marginRight: -12,
+    gap: 16,
+  },
+}));
+
+const LegendItem = styled('div')<{ color: string }>(({ theme, color }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  paddingLeft: 14,
+  position: 'relative',
+  cursor: 'pointer',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 4,
+  },
+
+  '&:before': {
+    content: '""',
+    display: 'block',
+    position: 'absolute',
+    left: 0,
+    top: 4,
+    width: 8,
+    height: 8,
+    borderRadius: '50%',
+    background: color,
+  },
+}));
+
+const LegendName = styled('div')(({ theme }) => ({
+  fontSize: 12,
+  lineHeight: '18px',
+  fontWeight: 500,
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[50],
+}));
+
+const LegendValues = styled('div')(({ theme }) => ({
+  fontSize: 12,
+  lineHeight: '18px',
+  fontWeight: 600,
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600],
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 14,
+    lineHeight: '22px',
+  },
+}));

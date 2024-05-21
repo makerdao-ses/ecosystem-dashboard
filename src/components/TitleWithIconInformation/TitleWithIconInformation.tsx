@@ -44,12 +44,10 @@ const Title = styled('div')(({ theme }) => ({
   lineHeight: '24px',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    lineHeight: '19.2px',
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 18,
-    lineHeight: '21.6px',
+    lineHeight: '22px',
   },
+
   [lightTheme.breakpoints.up('desktop_1280')]: {
     fontSize: 20,
     lineHeight: '24px',

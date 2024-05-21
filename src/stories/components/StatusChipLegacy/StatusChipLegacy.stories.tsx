@@ -1,14 +1,14 @@
 import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import { StatusChip } from './StatusChip';
+import { StatusChipLegacy } from './StatusChipLegacy';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'Components/General/StatusChip',
-  components: StatusChip,
-} as ComponentMeta<typeof StatusChip>;
+  title: 'Components/General/StatusChipLegacy',
+  components: StatusChipLegacy,
+} as ComponentMeta<typeof StatusChipLegacy>;
 
-const Template: ComponentStory<typeof StatusChip> = (args) => <StatusChip {...args} />;
+const Template: ComponentStory<typeof StatusChipLegacy> = (args) => <StatusChipLegacy {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

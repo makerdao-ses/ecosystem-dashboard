@@ -42,3 +42,11 @@ export enum ActorCategory {
   ActiveEcosystemActor = 'ActiveEcosystemActor',
   ScopeFacilitator = 'ScopeFacilitator',
 }
+
+export enum CommonStatusCUEA {
+  Draft = 'Draft',
+  Review = 'Review',
+  Escalated = 'Escalated',
+  Final = 'Final',
+  Obsolete = 'Obsolete',
+}
