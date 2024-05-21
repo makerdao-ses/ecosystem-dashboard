@@ -44,7 +44,7 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 
 const AccordionSummary = styled(MuiAccordionSummary)<{ expanded: boolean }>(({ theme, expanded }) => ({
   minHeight: 'auto',
-  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
   padding: 16,
   borderRadius: expanded ? '12px 12px 0 0' : 12,
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
@@ -52,7 +52,7 @@ const AccordionSummary = styled(MuiAccordionSummary)<{ expanded: boolean }>(({ t
   outline: 'none',
 
   '&:hover': {
-    background: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[700],
+    background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800],
   },
 
   '& .MuiAccordionSummary-content': {
