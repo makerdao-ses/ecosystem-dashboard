@@ -35,6 +35,7 @@ const EndgameView: React.FC<EndgameViewProps> = ({ budgetTransitionAnalytics, ye
     budgetStructureData,
     isLoadingBudgetStructure,
     selectedYear,
+    selectYearsRange,
     handleYearChange,
     transitionStatusData,
   } = useEndgameView(budgetTransitionAnalytics, yearsRange, initialYear);
@@ -84,7 +85,7 @@ const EndgameView: React.FC<EndgameViewProps> = ({ budgetTransitionAnalytics, ye
                 immutable={budgetStructureData.immutable.budget}
                 legacy={budgetStructureData.legacy.budget}
                 isLoading={isLoadingBudgetStructure}
-                yearsRange={yearsRange}
+                yearsRange={selectYearsRange}
                 selectedYear={selectedYear}
                 handleYearChange={handleYearChange}
               />

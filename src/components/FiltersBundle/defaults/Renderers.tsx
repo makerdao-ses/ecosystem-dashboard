@@ -1,5 +1,9 @@
+import { Box } from '@mui/material';
+import BarsFilter from '@/components/icons/BarsFilter';
 import type { RenderTriggerFn } from '../types';
 
 export const defaultTriggerRenderer: RenderTriggerFn = (onClick) => (
-  <button onClick={onClick}>Filters (mobile trigger)</button>
+  <Box onClick={onClick}>
+    <BarsFilter />
+  </Box>
 );

@@ -4,13 +4,20 @@ import type { SelectFilter } from '../types';
 
 interface SelectAsListProps {
   filter: SelectFilter;
+  onClose: () => void;
 }
 
-const SelectAsList: React.FC<SelectAsListProps> = ({ filter }) => (
+const SelectAsList: React.FC<SelectAsListProps> = ({ filter, onClose }) => (
   <FilterAsListBase label={filter.label}>
-    <Select size={filter.options.length}>
+    <Select
+      size={filter.options.length}
+      onChange={(e) => {
+        filter.onChange(e.target.value);
+        onClose();
+      }}
+    >
       {filter.options.map((option) => (
-        <Option key={option.value} value={option.value} selected={option.selected}>
+        <Option key={option.value} value={option.value} selected={filter.selected === option.value}>
           {option.label}
         </Option>
       ))}
@@ -35,9 +42,10 @@ const Option = styled('option')(({ theme }) => ({
   padding: '12px 8px',
   fontSize: 14,
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
-  '&[selected]': {
-    fontWeight: 700,
+  '&:checked': {
+    fontWeight: 600,
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)',
   },
 }));

@@ -198,6 +198,11 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
     return data;
   }, [budgetTransitionAnalytics.series, transitionDataSelected]);
 
+  const selectYearsRange = yearsRange.map((e) => ({
+    value: e,
+    label: e,
+  }));
+
   return {
     handlePauseUrlUpdate,
     updatesChangesRef,
@@ -210,6 +215,7 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
     budgetStructureData,
     isLoadingBudgetStructure,
     selectedYear,
+    selectYearsRange,
     handleYearChange,
     transitionStatusData,
   };
