@@ -171,7 +171,7 @@ const CardContainer = styled(Card)<{ socialLength: number }>(({ theme, socialLen
     justifyContent: 'space-between',
     alignItems: 'center',
     ':hover': {
-      background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#212630',
+      background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(41, 46, 56, 1)',
     },
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
