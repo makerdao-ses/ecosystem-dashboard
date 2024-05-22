@@ -16,20 +16,20 @@ export default meta;
 
 const variantsArgs = [
   {
-    status: 'Final',
+    status: 'RFC',
   },
   {
-    status: 'Draft',
+    status: 'Formal Submission',
   },
   {
-    status: 'Review',
+    status: 'Accepted',
   },
   {
-    status: 'Escalated',
+    status: 'Obsolete',
   },
 
   {
-    status: 'Obsolete',
+    status: 'Withdrawn',
   },
 ];
 
