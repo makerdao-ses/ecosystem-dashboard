@@ -3,18 +3,19 @@ import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import React from 'react';
 import Card from '@/components/Card/Card';
+import RoleChip from '@/components/RoleChip/RoleChip';
+import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
+import type { TeamRole } from '@/core/enums/teamRole';
 import { TeamStatus } from '@/core/models/interfaces/types';
 import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
-import ScopeChip from '../ScopeChip/ScopeChip';
+
 import GroupedScopes from './GroupedScopes';
-import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { PropsWithChildren } from 'react';
@@ -74,12 +75,12 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
           <TypeSection>
             <WrapperType>Role</WrapperType>
             <WrapperHiddenOnlyMobileCategory>
-              <ActorTitle>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
+              <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
             </WrapperHiddenOnlyMobileCategory>
           </TypeSection>
           <WrapperCategoryScopeMobile>
             <WrapperCategoryScopeMobileInside>
-              <ActorTitle>{pascalCaseToNormalString(actor.category?.[0] ?? '')}</ActorTitle>
+              <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
             </WrapperCategoryScopeMobileInside>
             {actor.scopes?.length > 0 &&
               (actor.scopes?.length > 2 ? (
@@ -89,7 +90,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
               ) : (
                 <ContainerScopeMobile>
                   {actor.scopes?.map((item, index) => (
-                    <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
+                    <ScopeChip scope={item} key={index} />
                   ))}
                 </ContainerScopeMobile>
               ))}
@@ -109,9 +110,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 {actor?.scopes?.length > 2 ? (
                   <GroupedScopes scopes={actor.scopes} />
                 ) : (
-                  actor?.scopes?.map((item, index) => (
-                    <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
-                  ))
+                  actor?.scopes?.map((item, index) => <ScopeChip scope={item} key={index} />)
                 )}
               </ScopeSection>
             </ActorAboutLink>
@@ -336,37 +335,6 @@ const Line = styled('div')(({ theme }) => ({
   },
 }));
 
-const ActorTitle = styled('div')(({ theme }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: 12,
-  lineHeight: '14px',
-  color: '#708390',
-  borderRadius: 3,
-  width: 'fit-content',
-  paddingTop: 4,
-  marginLeft: 16,
-  height: 23,
-  borderBottom: `2px solid ${theme.palette.isLight ? '#708390' : '#787A9B'}`,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 16,
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: 6,
-    marginLeft: 12,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 6,
-    marginLeft: 6,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 6,
-    marginLeft: 6,
-  },
-}));
-
 const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.shortShadow,
   minWidth: 32,
@@ -523,6 +491,9 @@ const LinkColumSpace = styled('a')({
     flex: 'revert',
     minWidth: 430,
   },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    paddingRight: 0,
+  },
 });
 
 const LineLink = styled('a')({});
@@ -580,7 +551,7 @@ const WrapperCategoryScopeMobile = styled('div')({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: 15,
-
+  paddingLeft: 16,
   [lightTheme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },

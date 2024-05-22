@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import lightTheme from '@ses/styles/theme/themes';
-import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
-import ScopeChip from '../ScopeChip/ScopeChip';
-import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
-import type { Scope } from '@ses/core/models/interfaces/scopes';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
+import ScopeChip from '@/components/ScopeChip/ScopeChip';
+import type { Scope } from '@/core/models/interfaces/scopes';
 
 interface GroupedScopesProps {
   scopes: Scope[];
@@ -13,15 +12,15 @@ const GroupedScopes: React.FC<GroupedScopesProps> = ({ scopes }) => (
     placement="bottom-start"
     content={
       <TooltipContent>
-        {scopes?.map((item, index) => (
-          <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
+        {scopes?.map((scope, index) => (
+          <ScopeChip scope={scope} key={index} />
         ))}
       </TooltipContent>
     }
   >
     <Group columns={Math.ceil(scopes.length / 2)}>
-      {scopes?.map((item, index) => (
-        <ScopeChip status={item.name as TeamScopeEnum} code={item.code} codeOnly key={index} />
+      {scopes?.map((scope, index) => (
+        <ScopeChip scope={scope} codeOnly key={index} />
       ))}
     </Group>
   </SESTooltip>
