@@ -1,12 +1,12 @@
 import { styled, useMediaQuery } from '@mui/material';
 import Container from '@ses/components/Container/Container';
-import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import Image from 'next/image';
 import React from 'react';
+import ExternalLinkText from '@/components/ExternalLinkText/ExternalLinkText';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import type { Theme } from '@mui/material';
 
@@ -269,7 +269,7 @@ const Date = styled('span')(({ theme }) => ({
   },
 }));
 
-const ExternalLink = styled(CustomLink)(({ theme }) => ({
+const ExternalLink = styled(ExternalLinkText)(({ theme }) => ({
   fontSize: 14,
   lineHeight: '22px',
   fontWeight: 400,
@@ -277,25 +277,14 @@ const ExternalLink = styled(CustomLink)(({ theme }) => ({
   marginLeft: 0,
   textWrap: 'initial',
 
-  '& svg': {
-    width: 10,
-    height: 10,
-    // override default component inline style
-    marginLeft: '4px!important',
-    marginRight: 4,
-  },
-
   [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 16,
-
-    '& svg': {
-      // override default component inline style
-      marginLeft: '4px!important',
-      marginRight: 3,
-    },
+    fontSize: 14,
+    lineHeight: '23.8px',
   },
   [theme.breakpoints.up('desktop_1024')]: {
     paddingRight: 0,
+    fontSize: 16,
+    LineWeight: '27.2px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
     fontSize: 20,

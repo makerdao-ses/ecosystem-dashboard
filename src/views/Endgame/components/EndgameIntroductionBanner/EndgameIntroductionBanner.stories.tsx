@@ -39,7 +39,7 @@ KeyChangesLightMode.parameters = {
       },
       768: {
         component:
-          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=208:28370&t=J1bUVKWZZViMDwMc-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=208:28370&t=DW3S1eo43OYEXx3u-4',
         options: {
           componentStyle: {
             width: 704,
