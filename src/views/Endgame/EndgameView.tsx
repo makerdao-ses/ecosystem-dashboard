@@ -1,10 +1,8 @@
-import 'intersection-observer'; // polyfill
-import { styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import React from 'react';
 import KeyChangesBudgetTransitionStatusImportantLink from '@/components/KeyChangesBudgetTransitionStatusImportantLink/KeyChangesBudgetTransitionStatusImportantLink';
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
@@ -13,8 +11,9 @@ import IntroductoryHeadline from './components/IntroductoryHeadline/Introductory
 import KeyChangesSections from './components/KeyChangesSections/KeyChangesSections';
 import LatestUpdatesSection from './components/LatestUpdatesSection/LatestUpdatesSection';
 import NavigationTabs from './components/NavigationTabs/NavigationTabs';
-import useEndgameView from './useEndgameView';
+import useEndgameView, { NavigationTabEnum } from './useEndgameView';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
+import type { FC } from 'react';
 
 interface EndgameViewProps {
   budgetTransitionAnalytics: Analytic;
@@ -22,14 +21,10 @@ interface EndgameViewProps {
   initialYear: string;
 }
 
-const EndgameView: React.FC<EndgameViewProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
+const EndgameView: FC<EndgameViewProps> = ({ budgetTransitionAnalytics, yearsRange, initialYear }) => {
   const {
-    updatesChangesRef,
-    keyChangesRef,
-    structureRef,
-    transitionStatusRef,
+    sectionRefs,
     activeTab,
-    handlePauseUrlUpdate,
     transitionDataSelected,
     handleTransitionDateSelectedChange,
     budgetStructureData,
@@ -55,27 +50,28 @@ const EndgameView: React.FC<EndgameViewProps> = ({ budgetTransitionAnalytics, ye
       <Container>
         <IntroductoryHeadline />
       </Container>
-      <NavigationTabs activeTab={activeTab} handlePauseUrlUpdate={handlePauseUrlUpdate} />
 
-      <Container>
-        <div ref={updatesChangesRef}>
+      <NavigationTabs activeTab={activeTab} />
+
+      <Box ref={sectionRefs.current[NavigationTabEnum.LATESTS_UPDATES]} id={NavigationTabEnum.LATESTS_UPDATES}>
+        <Container>
           <LatestUpdatesSection />
-        </div>
-      </Container>
+        </Container>
+      </Box>
 
-      <div ref={keyChangesRef}>
+      <Box ref={sectionRefs.current[NavigationTabEnum.KEY_CHANGES]} id={NavigationTabEnum.KEY_CHANGES}>
         <BannerContainer id="section-key-changes">
           <EndgameIntroductionBanner isKeyChanges />
         </BannerContainer>
         <Container>
           <KeyChangesSections />
         </Container>
-      </div>
+      </Box>
 
       <Container>
         <LastSectionSpace>
           <SectionSpacing>
-            <div ref={structureRef}>
+            <Box ref={sectionRefs.current[NavigationTabEnum.BUDGET_STRUCTURE]} id={NavigationTabEnum.BUDGET_STRUCTURE}>
               <BudgetStructureSection
                 totalBudgetCap={budgetStructureData.totalBudgetCap}
                 averageCapUtilization={budgetStructureData.averageCapUtilization}
@@ -89,14 +85,17 @@ const EndgameView: React.FC<EndgameViewProps> = ({ budgetTransitionAnalytics, ye
                 selectedYear={selectedYear}
                 handleYearChange={handleYearChange}
               />
-            </div>
-            <div ref={transitionStatusRef}>
+            </Box>
+            <Box
+              ref={sectionRefs.current[NavigationTabEnum.BUDGET_TRANSITION_STATUS]}
+              id={NavigationTabEnum.BUDGET_TRANSITION_STATUS}
+            >
               <BudgetTransitionStatusSection
                 selected={transitionDataSelected}
                 handleChange={handleTransitionDateSelectedChange}
                 data={transitionStatusData}
               />
-            </div>
+            </Box>
           </SectionSpacing>
           <KeyChangesBudgetTransitionStatusImportantLink />
         </LastSectionSpace>

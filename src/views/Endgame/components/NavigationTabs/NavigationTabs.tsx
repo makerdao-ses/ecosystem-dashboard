@@ -1,20 +1,26 @@
 import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
-import React from 'react';
 import { NavigationTabEnum } from '../../useEndgameView';
+import type { FC } from 'react';
 
 interface NavigationTabsProps {
   activeTab: NavigationTabEnum;
-  handlePauseUrlUpdate: () => void;
 }
 
-const NavigationTabs: React.FC<NavigationTabsProps> = ({ activeTab, handlePauseUrlUpdate }) => {
+const NavigationTabs: FC<NavigationTabsProps> = ({ activeTab }) => {
   const handleOnClick = (tab: NavigationTabEnum) => () => {
     if (typeof document !== 'undefined') {
-      handlePauseUrlUpdate();
-      document?.getElementById(`section-${tab}`)?.scrollIntoView({
-        behavior: 'smooth',
-      });
+      const element = document.getElementById(tab);
+      if (element) {
+        const offsetTop = element.offsetTop - 125;
+        window?.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          window.history.replaceState(null, '', `#${tab}`);
+        }, 300);
+      }
     }
   };
 

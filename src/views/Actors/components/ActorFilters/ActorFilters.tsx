@@ -1,16 +1,16 @@
 import { styled, useMediaQuery, useTheme } from '@mui/material';
-import { CategoryChip } from '@ses/components/CategoryChip/CategoryChip';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import ResetButton from '@ses/components/ResetButton/ResetButton';
 import { Close } from '@ses/components/svg/close';
+import { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ActorCategory } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import ScopeChip from '../ScopeChip/ScopeChip';
+import RoleChip from '@/components/RoleChip/RoleChip';
+import ScopeChip from '@/components/ScopeChip/ScopeChip';
+import { TeamRole } from '@/core/enums/teamRole';
 import { FILTER_SCOPE_ACTOR } from './utils';
-import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
-import type { TeamCategory } from '@ses/core/models/interfaces/types';
 interface Props {
   handleResetFilter: () => void;
   readMore: boolean;
@@ -58,15 +58,23 @@ const ActorFilters: React.FC<Props> = ({
               activeItems={filteredScopes}
               items={FILTER_SCOPE_ACTOR.map((scope) => ({
                 id: scope.id,
-                content: <ScopeChip code={scope.code} status={scope.name as TeamScopeEnum} />,
+                content: <ScopeChip scope={scope} />,
                 count: scopeCount[scope.name],
               }))}
               onChange={onChangeScope}
-              popupContainerWidth={260}
-              listItemWidth={240}
+              popupContainerWidth={270}
+              listItemWidth={250}
               customAll={{
                 id: 'All',
-                content: <ScopeChip code="All" status="All" codeOnly isUppercase={false} />,
+                content: (
+                  <ScopeChip
+                    scope={{
+                      code: 'All',
+                      name: TeamScopeEnum.All,
+                      id: 'All',
+                    }}
+                  />
+                ),
                 count: scopeCount.All,
               }}
             />
@@ -80,15 +88,15 @@ const ActorFilters: React.FC<Props> = ({
             activeItems={filteredCategories}
             customAll={{
               id: 'All',
-              content: <CategoryChip category={'All'} />,
+              content: <RoleChip status={TeamRole.All} />,
               count: categoriesCount.All,
             }}
             width={144}
-            popupContainerWidth={250}
-            listItemWidth={218}
+            popupContainerWidth={270}
+            listItemWidth={240}
             items={categories.map((cat) => ({
               id: cat,
-              content: <CategoryChip category={cat as TeamCategory} />,
+              content: <RoleChip status={cat as TeamRole} />,
               count: categoriesCount[cat],
             }))}
             onChange={onChange}

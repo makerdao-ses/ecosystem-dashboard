@@ -27,7 +27,7 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
       <Container>
         <IntroductoryHeadline />
       </Container>
-      <NavigationTabs activeTab={NavigationTabEnum.KEY_CHANGES} handlePauseUrlUpdate={() => null} />
+      <NavigationTabs activeTab={NavigationTabEnum.KEY_CHANGES} />
     </>
   ),
   variantsArgs,

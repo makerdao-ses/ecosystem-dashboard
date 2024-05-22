@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { DateTime, Interval } from 'luxon';
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
 import { BudgetStatus } from '../models/dto/coreUnitDTO';
-import { CuMipStatus } from '../models/interfaces/types';
+import { TeamStatus } from '../models/interfaces/types';
 import { API_MONTH_FROM_FORMAT, API_MONTH_TO_FORMAT } from '../utils/date';
 import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
 import type { CustomChartItemModel } from '../models/customChartItemModel';
@@ -12,19 +12,19 @@ import type { CoreUnit } from '../models/interfaces/coreUnit';
 import type { CuMip, Mip40, Mip40BudgetPeriod, Mip40Wallet } from '../models/interfaces/cuMip';
 import type { WithActivityFeed } from '../models/interfaces/generics';
 
-export const setCuMipStatusModifiedDate = (mip: CuMip, status: CuMipStatus, date: string) => {
+export const setCuMipStatusModifiedDate = (mip: CuMip, status: TeamStatus, date: string) => {
   let index = status.toLowerCase();
 
-  if (status === CuMipStatus.FormalSubmission) index = 'formalSubmission';
+  if (status === TeamStatus.FormalSubmission) index = 'formalSubmission';
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   mip[index] = date;
 };
 
-export const getCuMipStatusModifiedDate = (mip: CuMip, status: CuMipStatus) => {
+export const getCuMipStatusModifiedDate = (mip: CuMip, status: TeamStatus) => {
   if (!mip) return '';
   let index = status.toLowerCase();
-  if (status === CuMipStatus.FormalSubmission) index = 'formalSubmission';
+  if (status === TeamStatus.FormalSubmission) index = 'formalSubmission';
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return mip[index];
@@ -38,11 +38,11 @@ export const getLatestMip39FromCoreUnit = (cu?: CoreUnit | null) => {
   return mip39s[mip39s.length - 1];
 };
 
-export const getStatusMip39AcceptedOrObsolete = (cu?: CoreUnit | null): CuMipStatus => {
+export const getStatusMip39AcceptedOrObsolete = (cu?: CoreUnit | null): TeamStatus => {
   const lastMip39 = getLatestMip39FromCoreUnit(cu);
   const mipCode = lastMip39?.mipCode;
-  const mipStatus = lastMip39?.mipStatus || CuMipStatus.Accepted;
-  return mipCode?.includes('MIP39c3') && mipStatus === 'Accepted' ? CuMipStatus.Obsolete : mipStatus;
+  const mipStatus = lastMip39?.mipStatus || TeamStatus.Accepted;
+  return mipCode?.includes('MIP39c3') && mipStatus === 'Accepted' ? TeamStatus.Obsolete : mipStatus;
 };
 export const getSubmissionDateFromCuMip = (mip: CuMip | null) => {
   if (!mip) return null;
@@ -149,7 +149,7 @@ const checkDateOnPeriod = (period: Mip40BudgetPeriod, date: DateTime) => {
 };
 
 const findMip40 = (cu: CoreUnit, date: DateTime): Mip40 | null => {
-  const cuMips = cu.cuMip?.filter((mip) => mip.mipStatus === CuMipStatus.Accepted || CuMipStatus.Obsolete) ?? [];
+  const cuMips = cu.cuMip?.filter((mip) => mip.mipStatus === TeamStatus.Accepted || TeamStatus.Obsolete) ?? [];
 
   for (const mip of cuMips) {
     for (const mip40 of mip.mip40.filter((mip) => !mip.mkrOnly)) {
@@ -342,7 +342,7 @@ export const getLast3MonthsWithDataFormatted = (cu: CoreUnit) => {
 export const getMipUrlFromCoreUnit = (cu: CoreUnit) => {
   const mipStatus = getStatusMip39AcceptedOrObsolete(cu);
   if (cu?.cuMip.length === 0) return '';
-  return mipStatus === CuMipStatus.Obsolete ? cu.cuMip[cu.cuMip.length - 1].mipUrl : cu.cuMip[0].mipUrl;
+  return mipStatus === TeamStatus.Obsolete ? cu.cuMip[cu.cuMip.length - 1].mipUrl : cu.cuMip[0].mipUrl;
 };
 
 export const getAllCommentsBudgetStatementLine = (budgetStatement?: BudgetStatement) => {

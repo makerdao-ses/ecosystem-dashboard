@@ -1,5 +1,5 @@
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import React from 'react';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { StatusChipLegacy } from './StatusChipLegacy';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
@@ -12,10 +12,10 @@ const Template: ComponentStory<typeof StatusChipLegacy> = (args) => <StatusChipL
 
 export const Default = Template.bind({});
 Default.args = {
-  status: CuMipStatus.Accepted,
+  status: TeamStatus.Accepted,
 };
 
 export const FormalSubmission = Template.bind({});
 FormalSubmission.args = {
-  status: CuMipStatus.FormalSubmission,
+  status: TeamStatus.FormalSubmission,
 };

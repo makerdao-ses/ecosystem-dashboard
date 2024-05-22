@@ -1,5 +1,5 @@
 import type { Contributor } from './contributor';
-import type { CuMipStatus } from './types';
+import type { TeamStatus } from './types';
 
 export interface Mip39 {
   id: string;
@@ -73,7 +73,7 @@ export interface CuMip {
   accepted: string;
   rejected: string;
   obsolete: string;
-  mipStatus: CuMipStatus;
+  mipStatus: TeamStatus;
   mipUrl: string;
   mipTitle: string;
   forumUrl?: string;

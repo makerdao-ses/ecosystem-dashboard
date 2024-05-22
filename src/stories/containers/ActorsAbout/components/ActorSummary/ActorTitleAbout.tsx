@@ -4,14 +4,13 @@ import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import ScopeChip from '@/components/ScopeChip/ScopeChip';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
-import ScopeChip from '@/views/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@/views/Actors/utils/utils';
-import type { TeamScopeEnum } from '@ses/core/enums/actorScopeEnum';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -51,7 +50,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                     {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                       <Status>
-                        <StatusChipLegacy status={CuMipStatus.Accepted} />
+                        <StatusChipLegacy status={TeamStatus.Accepted} />
                       </Status>
                     )}
                   </ShortCodeTitle>
@@ -77,7 +76,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                   </ShortCodeTitle>
                   {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                     <Status>
-                      <StatusChipLegacy status={CuMipStatus.Accepted} />
+                      <StatusChipLegacy status={TeamStatus.Accepted} />
                     </Status>
                   )}
                   <TypographyCategory isLight={isLight}>
@@ -86,7 +85,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                 </ResponsiveTitle>
                 <CategoryContainer>
                   {actorAbout?.scopes?.map((item, index) => (
-                    <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
+                    <ScopeChip scope={item} key={index} />
                   ))}
                 </CategoryContainer>
               </ContainerSeparateData>
@@ -108,7 +107,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
             {phoneDimensions && (
               <CategoryContainer>
                 {actorAbout?.scopes?.map((item, index) => (
-                  <ScopeChip status={item.name as TeamScopeEnum} code={item.code} key={index} />
+                  <ScopeChip scope={item} key={index} />
                 ))}
               </CategoryContainer>
             )}
