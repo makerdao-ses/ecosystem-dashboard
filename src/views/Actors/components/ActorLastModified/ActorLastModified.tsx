@@ -1,13 +1,11 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { SUBMIT_EXPENSES_URL } from '@ses/config/externalUrls';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { capitalizeSentence } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import ExternalLink from '@/stories/components/ExternalLink/ExternalLink';
 
 interface Props {
   date?: DateTime;
@@ -19,8 +17,6 @@ interface Props {
 }
 
 export const ActorLastModified = ({ date, now = DateTime.now(), href, className }: Props) => {
-  const { isLight } = useThemeContext();
-
   const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
   const textDescription = !date
     ? !isDesk
@@ -35,11 +31,9 @@ export const ActorLastModified = ({ date, now = DateTime.now(), href, className 
       {date ? (
         <Link href={href} passHref legacyBehavior>
           <a>
-            <ContainerNoData isLight={isLight} className={className}>
-              <LastModifiedText isLight={isLight} hasUppercase={!isDesk}>
-                {textDescription}
-              </LastModifiedText>
-              <DifferenceLabel isLight={isLight}>
+            <ContainerNoData className={className}>
+              <LastModifiedText>{textDescription}</LastModifiedText>
+              <DifferenceLabel>
                 {capitalizeSentence(
                   date?.toRelative({
                     base: now,
@@ -51,26 +45,10 @@ export const ActorLastModified = ({ date, now = DateTime.now(), href, className 
           </a>
         </Link>
       ) : (
-        <ContainerNoData isLight={isLight} className={className}>
-          <LastModifiedTextNoData isLight={isLight} hasUppercase={!isDesk}>
-            {textDescription}
-          </LastModifiedTextNoData>
+        <ContainerNoData className={className}>
+          <LastModifiedTextNoData>{textDescription}</LastModifiedTextNoData>
           <ContainerLink>
-            <CustomLink
-              style={{
-                fontWeight: 500,
-                marginLeft: 0,
-                lineHeight: '18px',
-                padding: 0,
-                letterSpacing: '0px',
-              }}
-              iconHeight={10}
-              iconWidth={10}
-              fontSize={16}
-              href={SUBMIT_EXPENSES_URL}
-            >
-              Submit Now
-            </CustomLink>
+            <ExternalLinkStyled href={SUBMIT_EXPENSES_URL}>Submit Now</ExternalLinkStyled>
           </ContainerLink>
         </ContainerNoData>
       )}
@@ -80,21 +58,29 @@ export const ActorLastModified = ({ date, now = DateTime.now(), href, className 
 
 export default ActorLastModified;
 
-const DifferenceLabel = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const DifferenceLabel = styled('div')(({ theme }) => ({
   fontWeight: 600,
-  fontSize: '14px',
-  lineHeight: 'normal',
-  color: isLight ? '#231536' : '#D2D4EF',
+  fontSize: 12,
+  lineHeight: '14.52px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[300],
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+    lineHeight: '22px',
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  },
 }));
 
-const ContainerNoData = styled.div<WithIsLight>(({ isLight }) => ({
+const ContainerNoData = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '7px 16px 8px 16px',
-  borderRadius: 6,
-  backgroundColor: isLight ? '#F5F6FB' : '#25273D',
+  padding: '4px 8px 4px 8px',
+  borderRadius: '0px 0px 12px 12px',
+  borderTop: `1px solid ${theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.slate[500]}`,
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(55, 62, 77, 0.2)',
   [lightTheme.breakpoints.up('tablet_768')]: {
     padding: '4px 16px',
   },
@@ -104,25 +90,29 @@ const ContainerNoData = styled.div<WithIsLight>(({ isLight }) => ({
     alignItems: 'flex-start',
     gap: 8,
     backgroundColor: 'revert',
+    borderTop: 'revert',
   },
 }));
 
-const LastModifiedText = styled.div<WithIsLight & { hasUppercase?: boolean }>(({ isLight, hasUppercase }) => ({
+const LastModifiedText = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 12,
   fontStyle: 'normal',
-  fontWeight: 600,
-  lineHeight: '14.52px',
-  letterSpacing: '1px',
-  textTransform: hasUppercase ? 'uppercase' : 'none',
-  color: isLight ? '#434358' : '#708390',
+  fontWeight: 500,
+  lineHeight: '18px',
+
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
   alignItems: 'center',
   marginTop: 2,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 12,
+    lineHeight: '22px',
+    color: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.slate[300],
+  },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    fontWeight: 'normal',
-    fontSize: 11,
-    letterSpacing: 'revert',
-    marginTop: 0,
+    fontSize: 12,
+    lineHeight: '18px',
+    color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[300],
   },
 }));
 
@@ -130,9 +120,22 @@ const LastModifiedTextNoData = styled(LastModifiedText)({
   marginTop: 3,
 });
 
-const ContainerLink = styled.div({
+const ContainerLink = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   marginRight: 4,
 });
+
+const ExternalLinkStyled = styled(ExternalLink)(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: 12,
+  color: theme.palette.isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900],
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900],
+  },
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+    lineHeight: '22px',
+  },
+}));
