@@ -2,9 +2,9 @@ import { stringify } from 'querystring';
 import styled from '@emotion/styled';
 import { Divider } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useRef } from 'react';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
 import { SortEnum } from '../../../core/enums/sortEnum';
@@ -35,7 +35,7 @@ interface FilterProps {
   onSortReset?: () => void;
 }
 
-const statuses = Object.values(CuMipStatus) as string[];
+const statuses = Object.values(TeamStatus) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 
 export const Filters = (props: FilterProps) => {
@@ -111,7 +111,7 @@ export const Filters = (props: FilterProps) => {
             }}
             items={statuses.map((stat) => ({
               id: stat,
-              content: <StatusChipLegacy status={stat as CuMipStatus} />,
+              content: <StatusChipLegacy status={stat as TeamStatus} />,
               count: props.statusCount[stat],
             }))}
             width={118}

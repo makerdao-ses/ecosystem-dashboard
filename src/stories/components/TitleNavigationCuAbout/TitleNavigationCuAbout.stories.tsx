@@ -1,5 +1,5 @@
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import React from 'react';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import TitleNavigationCuAbout from './TitleNavigationCuAbout';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { CuMip } from '@ses/core/models/interfaces/cuMip';
@@ -43,7 +43,7 @@ Default.args = {
         rfc: '2019-06-11',
         obsolete: '2019-06-11',
         mipUrl: 'https://makerdao.com/',
-        mipStatus: CuMipStatus.Accepted,
+        mipStatus: TeamStatus.Accepted,
       },
     ] as CuMip[],
   } as CoreUnit,
@@ -78,7 +78,7 @@ DataWith.args = {
         rfc: '2021-06-11',
         obsolete: '2022-06-11',
         mipUrl: 'https://makerdao.com/',
-        mipStatus: CuMipStatus.Obsolete,
+        mipStatus: TeamStatus.Obsolete,
       },
     ] as CuMip[],
   } as CoreUnit,

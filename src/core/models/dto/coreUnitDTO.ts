@@ -1,6 +1,7 @@
 import type { UserDTO } from './authDTO';
 import type { CuJobEnum } from '../../enums/cuJobEnum';
 import type { CuStatusEnum } from '../../enums/cuStatusEnum';
+import type { Mip40BudgetPeriod, Mip40Wallet } from '../interfaces/cuMip';
 
 export interface Mip40BudgetPeriodDto {
   budgetPeriodStart: string;
@@ -17,8 +18,12 @@ export interface Mip40WalletDto {
 
 export interface Mip40Dto {
   mkrOnly: boolean;
-  mip40BudgetPeriod: Mip40BudgetPeriodDto[];
-  mip40Wallet: Mip40WalletDto[];
+  mip40BudgetPeriod: Mip40BudgetPeriod[];
+  mip40Wallet: Mip40Wallet[];
+  id: string;
+  cuMipId: string;
+  mip40Spn: number;
+  mkrProgramLength: string;
 }
 
 export interface ContributorDto {

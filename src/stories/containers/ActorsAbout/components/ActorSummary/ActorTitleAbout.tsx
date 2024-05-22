@@ -4,10 +4,10 @@ import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { CuMipStatus } from '@ses/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
 import ScopeChip from '@/views/Actors/components/ScopeChip/ScopeChip';
 import { ActorsLinkType, getLinksFromRecognizedActors } from '@/views/Actors/utils/utils';
@@ -51,7 +51,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                     {actorAbout?.name && <TypographyTitle isLight={isLight}>{actorAbout?.name}</TypographyTitle>}
                     {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                       <Status>
-                        <StatusChipLegacy status={CuMipStatus.Accepted} />
+                        <StatusChipLegacy status={TeamStatus.Accepted} />
                       </Status>
                     )}
                   </ShortCodeTitle>
@@ -77,7 +77,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
                   </ShortCodeTitle>
                   {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                     <Status>
-                      <StatusChipLegacy status={CuMipStatus.Accepted} />
+                      <StatusChipLegacy status={TeamStatus.Accepted} />
                     </Status>
                   )}
                   <TypographyCategory isLight={isLight}>

@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { buildQueryString } from '../../../core/utils/urls';
@@ -13,12 +14,11 @@ import { CustomLink } from '../CustomLink/CustomLink';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
-import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 interface CuTableColumnSummaryProps {
   title?: string;
   imageUrl?: string;
-  status?: CuMipStatus;
+  status?: TeamStatus;
   statusModified?: Date | null;
   onClick?: () => void;
   mipUrl?: string;

@@ -1,9 +1,5 @@
-import type {
-  Mip40BudgetLineItemDto,
-  Mip40BudgetPeriodDto,
-  Mip40Dto,
-  Mip40WalletDto,
-} from '../../models/dto/coreUnitDTO';
+import type { Mip40BudgetLineItem, Mip40BudgetPeriod, Mip40Wallet } from '@/core/models/interfaces/cuMip';
+import type { Mip40Dto } from '../../models/dto/coreUnitDTO';
 
 export class Mip40Builder {
   private readonly _mip40: Mip40Dto;
@@ -11,8 +7,8 @@ export class Mip40Builder {
   constructor() {
     this._mip40 = {
       mkrOnly: false,
-      mip40BudgetPeriod: [] as Mip40BudgetPeriodDto[],
-      mip40Wallet: [] as Mip40WalletDto[],
+      mip40BudgetPeriod: [] as Mip40BudgetPeriod[],
+      mip40Wallet: [] as Mip40Wallet[],
     } as Mip40Dto;
   }
 
@@ -20,19 +16,19 @@ export class Mip40Builder {
     this._mip40.mip40BudgetPeriod.push({
       budgetPeriodStart,
       budgetPeriodEnd,
-    } as Mip40BudgetPeriodDto);
+    } as Mip40BudgetPeriod);
     this._mip40.mip40Wallet.push({
       mip40BudgetLineItem: budgetCaps.map(
         (x) =>
           ({
             budgetCap: x,
-          } as Mip40BudgetLineItemDto)
+          } as Mip40BudgetLineItem)
       ),
-    } as Mip40WalletDto);
+    } as Mip40Wallet);
     return this;
   }
 
-  addBudgetPeriod(budgetPeriod: Mip40BudgetPeriodDto) {
+  addBudgetPeriod(budgetPeriod: Mip40BudgetPeriod) {
     this._mip40.mip40BudgetPeriod.push(budgetPeriod);
     return this;
   }
