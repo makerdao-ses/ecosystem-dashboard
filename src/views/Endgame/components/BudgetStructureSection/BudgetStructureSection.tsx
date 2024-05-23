@@ -2,9 +2,10 @@ import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { colorPalette } from '@ses/styles/theme/colorPalette';
 import React, { useEffect, useState } from 'react';
 import Card from '@/components/Card/Card';
+import FiltersBundle from '@/components/FiltersBundle/FiltersBundle';
+import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import TitleWithIconInformation from '@/components/TitleWithIconInformation/TitleWithIconInformation';
-import BarsFilter from '@/components/icons/BarsFilter';
 import { siteRoutes } from '@/config/routes';
 import BudgetDoughnutChart from '../BudgetDoughnutChart/BudgetDoughnutChart';
 import TotalBudgetContent from '../TotalBudgetContent/TotalBudgetContent';
@@ -18,7 +19,7 @@ interface BudgetCompositionProps extends TotalBudgetContentProps {
   immutable: number;
   legacy: number;
   isLoading: boolean;
-  yearsRange: string[];
+  yearsRange: SelectOption[];
   selectedYear: string;
   handleYearChange: (year: string) => void;
 }
@@ -72,6 +73,18 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
     },
   ] as unknown as DoughnutSeries[];
 
+  const filter: Filter[] = [
+    {
+      type: 'select',
+      id: 'year',
+      label: 'Year',
+      multiple: false,
+      options: yearsRange,
+      selected: selectedYear,
+      onChange: (value) => handleYearChange(value as string),
+    },
+  ];
+
   return (
     <Content id="section-endgame-budget-structure">
       <SectionCard>
@@ -83,7 +96,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
             }
           />
 
-          <BarsFilter />
+          <FiltersBundle filters={filter} />
         </Header>
 
         {isLoading ? (
