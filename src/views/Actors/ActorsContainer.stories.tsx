@@ -10,7 +10,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof ActorsContainer> = {
-  title: 'Pages/Actors',
+  title: 'Fusion/Pages/Actors',
   component: ActorsContainer,
   parameters: {
     layout: 'fullscreen',
