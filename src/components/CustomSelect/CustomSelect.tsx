@@ -1,7 +1,7 @@
 import { ExpandMore, Check } from '@mui/icons-material';
 import { Select, MenuItem, FormControl, styled, Box, Typography, useTheme } from '@mui/material';
 import React from 'react';
-import type { CustomSelectProps } from './type';
+import type { CustomSelectProps, OptionItem } from './type';
 import type { SelectChangeEvent, Theme } from '@mui/material';
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -36,6 +36,12 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
   const isAllSelected = withAll && Array.isArray(selected) && selected.length === options.length;
 
+  const isActive = (option: OptionItem) => {
+    if (multiple) {
+      return (selected as (string | number)[]).includes(option.value);
+    }
+    return selected === option.value;
+  };
   const menuProps = StyledMenuProps(theme, style?.menuWidth || 200);
 
   return (
@@ -77,12 +83,12 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
               {customOptionsRender ? (
                 customOptionsRender(option)
               ) : (
-                <MenuItemTypography theme={theme} active={(selected as (string | number)[]).indexOf(option.value) > -1}>
+                <MenuItemTypography theme={theme} active={isActive(option)}>
                   {option.label}
                 </MenuItemTypography>
               )}
             </Box>
-            {!multiple || ((selected as (string | number)[]).indexOf(option.value) > -1 && <CheckIcon />)}
+            {multiple && isActive(option) && <CheckIcon />}
           </MenuItemDefault>
         ))}
       </StyledSelect>
