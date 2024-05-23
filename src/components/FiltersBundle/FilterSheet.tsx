@@ -43,9 +43,7 @@ const SheetWrapper = styled(Sheet)(({ theme, isOpen }) => ({
 const SheetContainer = styled(Sheet.Container)(({ theme }) => ({
   borderTopRightRadius: '12px !important',
   borderTopLeftRadius: '12px !important',
-  backgroundColor: `${
-    theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900]
-  } !important`,
+  backgroundColor: `${theme.palette.isLight ? '#ffffff' : theme.palette.colors.charcoal[900]} !important`,
   boxShadow: theme.palette.isLight
     ? '0px -4px 15px 0px rgba(74, 88, 115, 0.25)  !important'
     : '0px -4px 15px 0px rgba(10, 12, 15, 0.25) !important',
