@@ -1,5 +1,5 @@
+import { useTheme } from '@mui/material';
 import * as React from 'react';
-import { useThemeContext } from '../../core/context/ThemeContext';
 interface Props {
   width?: number;
   height?: number;
@@ -8,7 +8,8 @@ interface Props {
 }
 
 const Forum = ({ width = 20, height = 20, fill = '#C4C4C4', fillDark = '#D1DEE6' }: Props) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   return (
     <svg width={width} height={height} viewBox={'0 0 20 21'} fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
