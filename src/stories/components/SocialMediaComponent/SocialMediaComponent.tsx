@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
-import Discord from '@ses/components/svg/discord';
-import Forum from '@ses/components/svg/forum';
-import Github from '@ses/components/svg/github';
 import Gmail from '@ses/components/svg/gmail';
 import LinkedIn from '@ses/components/svg/linkedin';
 import ProfileForum from '@ses/components/svg/profileForum';
-import Twitter from '@ses/components/svg/twitter';
 import TwitterFooter from '@ses/components/svg/twitter-footer';
 import VotingSocialPortal from '@ses/components/svg/votingSocialPortal';
 import WWW from '@ses/components/svg/www';
-import Youtube from '@ses/components/svg/youtube';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { LinkTypeEnum } from '@ses/core/enums/linkTypeEnum';
 import Link from 'next/link';
 import React from 'react';
+import Discord from '@/components/icons/Discord';
+import Forum from '@/components/icons/Forum';
+import Github from '@/components/icons/Github';
+import Youtube from '@/components/icons/Youtube';
+import Twitter from '../svg/twitter';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface LinkModel {

@@ -167,6 +167,7 @@ const dictionary = [
   'scalability',
   'foundational',
   'reskin',
+  'Linkedin',
 ];
 
 module.exports = dictionary;
