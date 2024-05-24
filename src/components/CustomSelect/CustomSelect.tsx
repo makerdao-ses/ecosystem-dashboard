@@ -1,8 +1,9 @@
 import { ExpandMore, Check } from '@mui/icons-material';
-import { Select, MenuItem, FormControl, styled, Box, Typography, useTheme } from '@mui/material';
+import { Select, MenuItem, FormControl, styled, Box, Typography } from '@mui/material';
 import React from 'react';
-import type { CustomSelectProps, OptionItem } from './type';
-import type { SelectChangeEvent, Theme } from '@mui/material';
+import useCustomSelect from './useCustomSelect';
+import type { CustomSelectProps } from './type';
+import type { Theme } from '@mui/material';
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
   label,
@@ -15,44 +16,24 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   multiple = false,
   style,
 }) => {
-  const theme = useTheme();
-
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
-    onChange(event.target.value as CustomSelectProps['selected']);
-  };
-
-  const renderValue = (selected: unknown) => {
-    if (multiple) {
-      const selectedOptions = (selected as (string | number)[]).map((value) =>
-        options.find((option) => option.value === value)
-      );
-      if (selectedOptions.length > 1) {
-        return `${label} (${selectedOptions.length})`;
-      }
-      return selectedOptions[0]?.label;
-    }
-    return options.find((option) => option.value === selected)?.label;
-  };
-
-  const isAllSelected = withAll && Array.isArray(selected) && selected.length === options.length;
-
-  const isActive = (option: OptionItem) => {
-    if (multiple) {
-      return (selected as (string | number)[]).includes(option.value);
-    }
-    return selected === option.value;
-  };
-  const menuProps = StyledMenuProps(theme, style?.menuWidth || 200);
+  const { theme, handleChange, renderValue, isAllSelected, isActive } = useCustomSelect({
+    label,
+    options,
+    multiple,
+    selected,
+    withAll,
+    onChange,
+  });
 
   return (
-    <StyledFormControl variant="outlined" fullWidth={style?.fullWidth || false} width={style?.width || 100}>
+    <StyledFormControl variant="outlined" fullWidth={style?.fullWidth || false} width={style?.width || 97}>
       <StyledSelect
         multiple={multiple}
         value={selected}
         onChange={handleChange}
         renderValue={renderValue}
         IconComponent={ExpandMore}
-        MenuProps={menuProps as object}
+        MenuProps={StyledMenuProps(theme, style?.menuWidth || 200) as object}
       >
         <MenuItemLabel disabled>
           <MenuItemLabelTypography>{typeof label === 'string' ? label : label()}</MenuItemLabelTypography>
@@ -81,7 +62,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           >
             <Box display="flex" alignItems="center">
               {customOptionsRender ? (
-                customOptionsRender(option)
+                customOptionsRender(option, isActive(option), theme)
               ) : (
                 <MenuItemTypography theme={theme} active={isActive(option)}>
                   {option.label}
@@ -108,16 +89,24 @@ const StyledSelect = styled(Select)(({ theme }) => ({
   borderRadius: 8,
   color: theme.palette.isLight ? theme.palette.colors.gray[700] : theme.palette.colors.gray[300],
   height: '32px',
+  fontWeight: 600,
+  padding: '0 2px',
   '& .MuiOutlinedInput-notchedOutline': {
     borderColor: 'transparent',
   },
   '&:hover .MuiOutlinedInput-notchedOutline': {
     borderColor: 'transparent',
   },
+  '&:hover': {
+    color: theme.palette.isLight ? theme.palette.colors.gray[800] : theme.palette.colors.gray[100],
+    border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[400] : theme.palette.colors.charcoal[600]}`,
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700],
+  },
   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
     borderColor: 'transparent',
   },
   '& .MuiSelect-icon': {
+    marginRight: 4,
     color: theme.palette.isLight ? '#404446' : '#EFEFEF',
   },
 }));
@@ -188,11 +177,11 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
         '&.Mui-selected': {
           bgcolor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)',
           '&:hover': {
-            bgcolor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)',
+            bgcolor: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700],
           },
         },
         '&:hover': {
-          bgcolor: 'transparent',
+          bgcolor: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700],
         },
       },
     },

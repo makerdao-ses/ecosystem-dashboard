@@ -1,8 +1,13 @@
+import type { Theme } from '@mui/material';
+
 type Data = string | number;
 
 export interface OptionItem {
   label: Data;
   value: Data;
+  extra?: {
+    [key: string]: string;
+  };
 }
 
 export interface CustomSelectProps {
@@ -10,7 +15,7 @@ export interface CustomSelectProps {
   options: OptionItem[];
   onChange: (selected: Data | Data[]) => void;
   selected: Data | Data[];
-  customOptionsRender?: (option: OptionItem) => React.ReactNode;
+  customOptionsRender?: (option: OptionItem, isActive: boolean, theme?: Theme) => React.ReactNode;
   withAll?: boolean;
   customOptionsRenderAll?: React.ReactNode;
   multiple?: boolean;
