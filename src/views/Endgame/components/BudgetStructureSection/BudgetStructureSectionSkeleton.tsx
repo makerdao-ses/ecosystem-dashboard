@@ -228,11 +228,10 @@ const BudgetCompositionContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   position: 'relative',
   width: '100%',
-  // height: 353,
+
   padding: '24px 16px 16px',
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
-  // backgroundColor: theme.palette.mode === 'light' ? 'rgba(236, 239, 249, 0.25)' : '#1E2C37',
 
   [theme.breakpoints.up('tablet_768')]: {
     alignSelf: 'center',
@@ -242,7 +241,6 @@ const BudgetCompositionContainer = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    // height: 241,
     paddingRight: 45,
   },
 
