@@ -175,7 +175,6 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
       },
       '& .MuiMenuItem-root': {
         '&.Mui-selected': {
-          // bgcolor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)',
           bgcolor: `${theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)'} !important`,
           '&:hover': {
             bgcolor: `${
