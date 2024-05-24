@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useThemeContext } from '../../core/context/ThemeContext';
 interface Props {
   width?: number;
   height?: number;
