@@ -1,11 +1,11 @@
 import { TextField, useMediaQuery } from '@mui/material';
-import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { useState } from 'react';
+import CustomSelect from '../CustomSelect/CustomSelect';
 import FilterSheet from './FilterSheet';
 import { defaultTriggerRenderer } from './defaults/Renderers';
 import type { FiltersBundleOptions } from './types';
+import type { CustomSelectProps } from '../CustomSelect/type';
 import type { Theme } from '@mui/material';
-import type { SelectItem } from '@ses/components/SingleItemSelect/SingleItemSelect';
 import type { FC } from 'react';
 
 const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, filters }) => {
@@ -64,14 +64,11 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, 
           }
           case 'select': {
             return (
-              <SingleItemSelect
-                items={filter.options as SelectItem[]}
-                useSelectedAsLabel
-                onChange={filter.onChange}
-                selected={filter.selected as string}
-                PopperProps={{
-                  placement: 'bottom-end',
-                }}
+              <CustomSelect
+                label="Year"
+                options={filter.options as CustomSelectProps['options']}
+                onChange={filter.onChange as CustomSelectProps['onChange']}
+                selected={filter.selected}
               />
             );
           }
