@@ -1,42 +1,24 @@
 import styled from '@emotion/styled';
+import Image from 'next/image';
+import type { FooterProps } from './type';
 
-export interface LinkInterface {
-  title: string;
-  url: string;
-  target?: React.HTMLAttributeAnchorTarget;
-  isNotLink?: boolean;
-}
-
-const Footer = () => (
+const Footer = ({ linkCategory }: FooterProps) => (
   <FooterWrapper>
     <FooterContainer>
       <FooterColumnLink>
-        <FooterColumn>
-          <FooterColumnTitle>Governance</FooterColumnTitle>
-          <FooterLinkWrapper>
-            <FooterLink href="#">Maker forum</FooterLink>
-            <FooterLink href="#">Voting portal</FooterLink>
-            <FooterLink href="#">MIPs portal</FooterLink>
-            <FooterLink href="#">Makerburn vnext</FooterLink>
-          </FooterLinkWrapper>
-        </FooterColumn>
-        <FooterColumn>
-          <FooterColumnTitle>Documentation</FooterColumnTitle>
-          <FooterLinkWrapper>
-            <FooterLink href="#">Organization</FooterLink>
-            <FooterLink href="#">Technical Docs</FooterLink>
-            <FooterLink href="#">Brand Assets</FooterLink>
-            <FooterLink href="#">Github Repos</FooterLink>
-          </FooterLinkWrapper>
-        </FooterColumn>
-        <FooterColumn>
-          <FooterColumnTitle>MakerDAO Tools</FooterColumnTitle>
-          <FooterLinkWrapper>
-            <FooterLink href="#">Connect</FooterLink>
-            <FooterLink href="#">Switchboard</FooterLink>
-            <FooterLink href="#">Fusion</FooterLink>
-          </FooterLinkWrapper>
-        </FooterColumn>
+        {linkCategory.map(({ name, links }) => (
+          <FooterColumn>
+            <FooterColumnTitle>{name}</FooterColumnTitle>
+            <FooterLinkWrapper>
+              {links.map(({ label, link, icon }) => (
+                <FooterLink key={label} href={link}>
+                  {icon && <Image src={icon} alt={`${label.toLowerCase()} icon`} width={16} height={16} />}
+                  {label}
+                </FooterLink>
+              ))}
+            </FooterLinkWrapper>
+          </FooterColumn>
+        ))}
       </FooterColumnLink>
     </FooterContainer>
   </FooterWrapper>
@@ -81,6 +63,10 @@ const FooterLink = styled.a({
   lineHeight: '22px',
   marginTop: 4,
   textDecoration: 'none',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: '8px',
 });
 
 const FooterColumnTitle = styled.p({
