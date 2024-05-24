@@ -17,6 +17,7 @@ export default meta;
 
 const variantsArgs = [
   {
+    selectedYear: '2023',
     yearsRange: [
       {
         label: '2023',
