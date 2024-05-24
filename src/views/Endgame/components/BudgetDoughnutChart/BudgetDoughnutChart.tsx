@@ -47,31 +47,31 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
           const index = sortedDoughnutSeries.findIndex((data) => data.name === params.name);
           const itemRender = sortedDoughnutSeries[index];
           const customTooltip = `
-        <div style="background-color:${
+        <div style="  fontFamily:Inter, sans-serif;background-color:${
           isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800]
         };padding:8px 16px;min-width:194px;overflow:auto;border-radius:12px;">
-          <div style="margin-bottom:0px;font-size:18px;font-weight: 700;color:${
+          <div style="margin-bottom:0px;font-size:18px;font-weight: 700;line-height:21.6px;color:${
             isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100]
           };">${usLocalizedNumber(itemRender.percent, 1)}%</div>
-          <div style="margin-bottom:4px;font-weight: 600;font-size:14px;color:${
+          <div style="margin-bottom:4px;line-height:22px;font-weight: 600;font-size:14px;color:${
             isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[300]
           };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;margin-bottom:12px;">${
             itemRender.name
           }</div>
           <div style="display:flex;flex-direction:row;justify-content:space-between;">
               <div style="display:flex;flex-direction:column">
-                <div style="font-weight:600;font-size:16px;color:${
+                <div style="line-height:18px;font-weight:600;font-size:16px;color:${
                   isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100]
                 };">${usLocalizedNumber(itemRender.actuals ?? 0)}</div>
-                <div style="font-size:12px;font-weight:500;color:${
+                <div style="font-size:12px;line-height:18px;font-weight:500;color:${
                   isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[500]
                 };">Actuals</div>
              </div>
               <div style="display:flex;flex-direction:column">
-                <div style="font-weight:600;color:${
+                <div style="line-height:18px;font-weight:600;color:${
                   isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100]
                 };justify-self:flex-end;align-self:flex-end">${usLocalizedNumber(itemRender.budgetCap ?? 0)}</div>
-                <div style="font-weight:500;color:${
+                <div style="font-weight:500;line-height:18px;color:${
                   isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[500]
                 };font-size:12px">Budget Cap</div>
              </div>
