@@ -1,4 +1,4 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
 import ReactECharts from 'echarts-for-react';
@@ -12,6 +12,8 @@ interface Props {
 }
 
 const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   const sortedDoughnutSeries = sortDoughnutSeriesByValue(doughnutSeriesData);
   const isTablet768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
@@ -27,7 +29,59 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
   const options = useMemo(
     () => ({
       color: sortedDoughnutSeries.map((data) => data.color),
+      tooltip: {
+        show: true,
+        trigger: 'item',
+        borderRadius: 12,
+        backgroundColor: isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: isLight ? '#D4D9E1' : '#231536',
+            opacity: 0.15,
+          },
+        },
+        padding: 0,
+        borderColor: isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+        formatter: function (params: DoughnutSeries) {
+          const index = sortedDoughnutSeries.findIndex((data) => data.name === params.name);
+          const itemRender = sortedDoughnutSeries[index];
+          const customTooltip = `
+        <div style="background-color:${
+          isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800]
+        };padding:8px 16px;min-width:194px;overflow:auto;border-radius:12px;">
+          <div style="margin-bottom:0px;font-size:18px;font-weight: 700;color:${
+            isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100]
+          };">${usLocalizedNumber(itemRender.percent, 1)}%</div>
+          <div style="margin-bottom:4px;font-weight: 600;font-size:14px;color:${
+            isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[300]
+          };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;margin-bottom:12px;">${
+            itemRender.name
+          }</div>
+          <div style="display:flex;flex-direction:row;justify-content:space-between;">
+              <div style="display:flex;flex-direction:column">
+                <div style="font-weight:600;font-size:16px;color:${
+                  isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100]
+                };">${usLocalizedNumber(itemRender.actuals ?? 0)}</div>
+                <div style="font-size:12px;font-weight:500;color:${
+                  isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[500]
+                };">Actuals</div>
+             </div>
+              <div style="display:flex;flex-direction:column">
+                <div style="font-weight:600;color:${
+                  isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100]
+                };justify-self:flex-end;align-self:flex-end">${usLocalizedNumber(itemRender.budgetCap ?? 0)}</div>
+                <div style="font-weight:500;color:${
+                  isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[500]
+                };font-size:12px">Budget Cap</div>
+             </div>
+          </div>
+        </div>
+        `;
 
+          return customTooltip;
+        },
+      },
       series: [
         {
           name: 'Budget Doughnut Chart',
@@ -47,7 +101,7 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
         },
       ],
     }),
-    [radius, sortedDoughnutSeries]
+    [isLight, radius, sortedDoughnutSeries, theme.palette.colors.charcoal, theme.palette.colors.slate]
   );
 
   useEffect(() => {
@@ -55,19 +109,19 @@ const BudgetDoughnutChart: React.FC<Props> = ({ doughnutSeriesData }) => {
     chartInstance.setOption(options, { notMerge: true });
   }, [options, refChart]);
 
-  const onLegendItemHover = (legendName: string) => {
+  const onLegendItemHover = (name: string) => {
     const chartInstance = refChart.current.getEchartsInstance();
     chartInstance.dispatchAction({
       type: 'highlight',
-      name: legendName,
+      name,
     });
   };
 
-  const onLegendItemLeave = (legendName: string) => {
+  const onLegendItemLeave = (name: string) => {
     const chartInstance = refChart.current.getEchartsInstance();
     chartInstance.dispatchAction({
       type: 'downplay',
-      name: legendName,
+      name,
     });
   };
 
