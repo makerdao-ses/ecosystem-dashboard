@@ -175,13 +175,17 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
       },
       '& .MuiMenuItem-root': {
         '&.Mui-selected': {
-          bgcolor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)',
+          bgcolor: `${theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)'} !important`,
           '&:hover': {
-            bgcolor: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700],
+            bgcolor: `${
+              theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700]
+            } !important`,
           },
         },
         '&:hover': {
-          bgcolor: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700],
+          bgcolor: `${
+            theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700]
+          } !important`,
         },
       },
     },
