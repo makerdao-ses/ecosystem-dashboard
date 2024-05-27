@@ -86,5 +86,10 @@ const args = [
   },
 ];
 
+const [[LightMode]] = createThemeModeVariants(Footer, args, false);
+export { LightMode };
+
+/* when the dark mode is done
 const [[LightMode, DarkMode]] = createThemeModeVariants(Footer, args, false);
 export { LightMode, DarkMode };
+*/
