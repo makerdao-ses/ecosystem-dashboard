@@ -26,10 +26,13 @@ const Chip = styled('div')<{ colors: CustomColors; status: TeamStatus }>(({ them
   alignItems: 'center',
   width: 'fit-content',
   fontWeight: 600,
-  fontSize: '14px',
+  fontSize: 12,
   lineHeight: '22px',
   borderRadius: 6,
   padding: '1px 16px 1px 16px',
   color: theme.palette.isLight ? colors[status].color : colors[status].colorDark,
   background: theme.palette.isLight ? colors[status].background : colors[status].backgroundDark,
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+  },
 }));

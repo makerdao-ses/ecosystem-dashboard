@@ -15,7 +15,7 @@ export const useLinks = () => {
     {
       icon: <Website fill={isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[100]} />,
       title: 'Website',
-      href: '/link1',
+      href: 'https://ses.makerdao.network',
     },
     {
       icon: (
@@ -26,7 +26,7 @@ export const useLinks = () => {
         />
       ),
       title: ' Forum',
-      href: '/link1',
+      href: 'https://forum.makerdao.com/c/legacy/sustainable-ecosystem-scaling/42',
     },
     {
       icon: (
@@ -37,12 +37,12 @@ export const useLinks = () => {
         />
       ),
       title: 'Discord',
-      href: '/link1',
+      href: 'https://discord.com/invite/RBRumCpEDH',
     },
     {
       icon: <XSocialNetwork fill={isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[100]} />,
       title: 'Twitter X',
-      href: '/link1',
+      href: 'https://x.com/MakerDAO',
     },
     {
       icon: (
@@ -53,12 +53,12 @@ export const useLinks = () => {
         />
       ),
       title: 'Github',
-      href: '/link1',
+      href: 'https://github.com/makerdao',
     },
     {
       icon: <LinkedIn fill={isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[100]} />,
       title: 'Linkedin',
-      href: '/link1',
+      href: 'https://www.linkedin.com/company/makerdao-ses/',
     },
     {
       icon: (
@@ -69,7 +69,7 @@ export const useLinks = () => {
         />
       ),
       title: 'Youtube',
-      href: '/link1',
+      href: 'https://www.youtube.com/MakerDAO',
     },
   ];
   return links;

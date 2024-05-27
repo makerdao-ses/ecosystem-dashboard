@@ -1,12 +1,12 @@
 import { styled } from '@mui/material';
 import React from 'react';
 import LinkSvg from '../icons/LinkSvg';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 interface Props {
   className?: string;
   label?: string;
-  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ButtonLinkOptions: FC<Props> = ({ label, onClick, className }) => (
@@ -18,7 +18,7 @@ const ButtonLinkOptions: FC<Props> = ({ label, onClick, className }) => (
 
 export default ButtonLinkOptions;
 
-const Container = styled('div')<{ label?: boolean }>(({ theme, label }) => ({
+const Container = styled('button')<{ label?: boolean }>(({ theme, label = false }) => ({
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   borderRadius: 8,
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[300],
@@ -28,6 +28,7 @@ const Container = styled('div')<{ label?: boolean }>(({ theme, label }) => ({
   alignItems: 'center',
   cursor: 'pointer',
   width: 'fit-content',
+  border: 'none',
 
   '& path': {
     fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[300],
@@ -42,6 +43,9 @@ const Container = styled('div')<{ label?: boolean }>(({ theme, label }) => ({
   ...(label && {
     padding: '5.5px 8px 5.5px 4px',
   }),
+  '&:focus': {
+    outline: 'none',
+  },
 }));
 
 const Label = styled('div')({

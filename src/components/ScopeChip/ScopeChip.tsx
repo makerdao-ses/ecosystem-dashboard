@@ -10,7 +10,6 @@ interface Props {
   scope: Scope;
   className?: string;
   codeOnly?: boolean;
-
   isUppercase?: boolean;
 }
 
@@ -42,12 +41,12 @@ const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; codeOnly
     alignItems: 'center',
     borderRadius: 6,
     gap: 4,
-    zIndex: 2,
     border: `1.5px solid ${theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark}`,
     padding: '0px 8px 0px 0px',
     width: 'fit-content',
     ...(codeOnly && {
       border: 'revert',
+      padding: '0px',
     }),
     ...(scope === TeamScopeEnum.All && {
       padding: '1px 16px 1px 16px',
@@ -59,10 +58,12 @@ const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; codeOnly
 const Code = styled('div')<{ isUppercase?: boolean; colors: ScopeColors; scope: TeamScopeEnum; codeOnly?: boolean }>(
   ({ scope, theme, isUppercase = true, colors, codeOnly = false }) => ({
     fontWeight: 800,
-    fontSize: 14,
+    fontSize: 12,
+    textAlign: 'center',
     lineHeight: theme.palette.isLight ? '22px' : '21px',
     borderRadius: '4px 0px 0px 4px',
     padding: '1px 4px 1px 8px',
+
     textTransform: isUppercase ? 'uppercase' : 'none',
     color: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(243, 245, 247, 0.6)',
     background: theme.palette.isLight ? colors[scope]?.color : colors[scope]?.color,
@@ -74,6 +75,10 @@ const Code = styled('div')<{ isUppercase?: boolean; colors: ScopeColors; scope: 
       padding: '1px 16px 1px 16px',
       background: 'revert',
     }),
+
+    [theme.breakpoints.up('tablet_768')]: {
+      fontSize: 14,
+    },
   })
 );
 const ScopeContainer = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum }>(({ theme, colors, scope }) => ({

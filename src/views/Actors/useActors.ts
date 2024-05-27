@@ -43,11 +43,12 @@ export const useActors = (actors: Team[], stories = false) => {
       styles: {
         boxSizing: 'border-box',
         [lightTheme.breakpoints.up('desktop_1024')]: {
-          width: 210,
+          width: 250,
+          minWidth: 250,
           paddingLeft: 16,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          minWidth: 228,
+          width: 304,
           paddingLeft: 16,
         },
       },
@@ -57,17 +58,19 @@ export const useActors = (actors: Team[], stories = false) => {
     {
       header: 'Role',
       styles: {
-        width: 182,
+        width: 200,
         paddingLeft: 4,
         [lightTheme.breakpoints.up('desktop_1024')]: {
-          width: 210,
+          width: 230,
+          minWidth: 200,
+          paddingLeft: 25,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 18,
-          width: 182,
+          paddingLeft: 55,
+          width: 200,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 122,
+          paddingLeft: 90,
         },
       },
       sortReverse: true,
@@ -78,14 +81,13 @@ export const useActors = (actors: Team[], stories = false) => {
       sort: headersSort[2],
       styles: {
         width: 232,
-        paddingLeft: 28,
         [lightTheme.breakpoints.up('desktop_1024')]: {
-          paddingLeft: 0,
           width: 200,
+          minWidth: 200,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 56,
-          width: 230,
+          paddingLeft: 86,
+          width: 204,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
           paddingLeft: 190,
@@ -98,15 +100,18 @@ export const useActors = (actors: Team[], stories = false) => {
       header: 'Last Modified',
       sort: headersSort[3],
       styles: {
-        width: 173,
+        width: 200,
         [lightTheme.breakpoints.up('desktop_1024')]: {
-          marginLeft: -32,
+          width: 200,
+          minWidth: 250,
+          marginLeft: 10,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: 12,
+          marginLeft: 140,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 108,
+          marginLeft: 185,
+
           justifyContent: 'center',
         },
       },
