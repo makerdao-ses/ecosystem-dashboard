@@ -28,7 +28,7 @@ const variantsArgs = [
       .withId('23')
       .withCode('PWR-001')
       .withShortCode('PH')
-      .withName('Powerhouse')
+      .withName('Powerhouse Inc')
       .withType(ResourceType.EcosystemActor)
       .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png')
       .withLastActivity({
@@ -54,11 +54,11 @@ const variantsArgs = [
         code: 'GOV',
         name: TeamScopeEnum.GovernanceScope,
       })
-      // .addScope({
-      //   id: '3',
-      //   code: 'SUP',
-      //   name: TeamScopeEnum.SupportScope,
-      // })
+      .addScope({
+        id: '3',
+        code: 'SUP',
+        name: TeamScopeEnum.SupportScope,
+      })
       .withSocials({
         twitter: '#',
         forumProfile: '#',
