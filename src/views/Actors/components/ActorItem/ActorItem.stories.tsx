@@ -1,19 +1,23 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { featureFlags } from 'feature-flags/feature-flags';
+import { CURRENT_ENVIRONMENT } from '@/config/endpoints';
+import { FeatureFlagsProvider } from '@/core/context/FeatureFlagsProvider';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
+import { TeamRole } from '@/core/enums/teamRole';
 import ActorItem from './ActorItem';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ActorItem> = {
-  title: 'Components/Actor/ActorItem',
+  title: 'Fusion/Components/Actor/ActorItem',
   component: ActorItem,
   parameters: {
     chromatic: {
       viewports: [375, 768, 1024, 1440],
     },
-    date: new Date('2023-07-12T09:08:34.123'),
+    date: new Date('2023-07-14T09:08:34.123'),
   },
 };
 export default meta;
@@ -23,28 +27,38 @@ const variantsArgs = [
     actor: new EcosystemActorBuilder()
       .withId('23')
       .withCode('PWR-001')
-      .withShortCode('PWR')
+      .withShortCode('PH')
       .withName('Powerhouse')
       .withType(ResourceType.EcosystemActor)
-      .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
+      .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png')
       .withLastActivity({
-        created_at: '2023-07-12T09:08:34.123',
+        created_at: '2023-07-01T09:08:34.123',
         description: '',
         event: '',
         params: {},
         id: '45',
       })
-      .addCategory('Active Ecosystem Actor')
+      .addCategory(TeamRole.ScopeFacilitator)
       .addScope({
         id: '1',
-        code: 'SUP',
-        name: TeamScopeEnum.SupportScope,
+        code: 'PRO',
+        name: TeamScopeEnum.ProtocolScope,
       })
       .addScope({
         id: '3',
-        code: 'STA',
-        name: TeamScopeEnum.StabilityScope,
+        code: 'ACC',
+        name: TeamScopeEnum.AccessibilityScope,
       })
+      .addScope({
+        id: '3',
+        code: 'GOV',
+        name: TeamScopeEnum.GovernanceScope,
+      })
+      // .addScope({
+      //   id: '3',
+      //   code: 'SUP',
+      //   name: TeamScopeEnum.SupportScope,
+      // })
       .withSocials({
         twitter: '#',
         forumProfile: '#',
@@ -87,7 +101,14 @@ const variantsArgs = [
   },
 ];
 
-const [[Actors, ActorsDark], [ActorsNoData, ActorsNoDataDark]] = createThemeModeVariants(ActorItem, variantsArgs);
+const [[Actors, ActorsDark], [ActorsNoData, ActorsNoDataDark]] = createThemeModeVariants(
+  (props) => (
+    <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+      <ActorItem {...props} />
+    </FeatureFlagsProvider>
+  ),
+  variantsArgs
+);
 export { Actors, ActorsDark, ActorsNoData, ActorsNoDataDark };
 
 Actors.parameters = {
@@ -95,11 +116,11 @@ Actors.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-347899&mode=design&t=ci6ePFFDVYjoFah1-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=163:12057&t=YRa4hiLSgr73SbTk-4',
         options: {
           style: {
-            left: -40,
-            top: -20,
+            left: -13,
+            top: -12,
           },
           componentStyle: {
             width: 343,
@@ -108,11 +129,11 @@ Actors.parameters = {
       },
       768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-342218&mode=design&t=ci6ePFFDVYjoFah1-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=22:6980&t=UQ3jGpNzbeDwWy0W-4',
         options: {
           style: {
-            left: -12,
-            top: -8,
+            left: -14,
+            top: -12,
           },
           componentStyle: {
             width: 704,
@@ -121,11 +142,11 @@ Actors.parameters = {
       },
       1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-337490&mode=design&t=ci6ePFFDVYjoFah1-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=20-19119&t=U9h9Tqp3m5KaLp0I-4',
         options: {
           style: {
-            left: -3,
-            top: 0,
+            left: -14,
+            top: -12,
           },
           componentStyle: {
             width: 960,
@@ -134,24 +155,25 @@ Actors.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-333770&mode=design&t=ci6ePFFDVYjoFah1-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=20-18431&t=PNU8u1CNJ4r0dK5K-4',
         options: {
           style: {
-            left: -3,
-            top: 0,
+            left: -14,
+            top: -12,
           },
           componentStyle: {
-            width: 1184,
+            width: 1200,
           },
         },
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=29850-329888&mode=design&t=ci6ePFFDVYjoFah1-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=20:15990&t=PNU8u1CNJ4r0dK5K-4',
         options: {
           style: {
-            left: -3,
-            top: 0,
+            left: -14,
+            top: -12,
+            // top: 90,
           },
           componentStyle: {
             width: 1312,

@@ -9,10 +9,11 @@ interface Props {
   title: string;
   href: string;
   className?: string;
+  onClick: () => void;
 }
 
-const ItemLinkList: FC<Props> = ({ icon, title, href, className }) => (
-  <Container href={href} className={className}>
+const ItemLinkList: FC<Props> = ({ icon, title, href, className, onClick }) => (
+  <Container href={href} className={className} onClick={onClick}>
     <IconContainer>{icon}</IconContainer>
     <Title>{title}</Title>
     <Arrow>
@@ -23,13 +24,13 @@ const ItemLinkList: FC<Props> = ({ icon, title, href, className }) => (
 
 export default ItemLinkList;
 
-const Container = styled(Link)({
+const Container = styled(Link)(() => ({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
   minHeight: 32,
   padding: '5px 6px 5px 4px',
-});
+}));
 
 const IconContainer = styled('div')({
   display: 'flex',

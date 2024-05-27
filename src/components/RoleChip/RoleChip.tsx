@@ -38,8 +38,11 @@ const Chip = styled('div')<{
 }));
 
 const Status = styled('div')(({ theme }) => ({
-  fontSize: 14,
+  fontSize: 12,
   fontWeight: 600,
   lineHeight: '22px',
   color: theme.palette.isLight ? theme.palette.colors.charcoal[400] : theme.palette.colors.charcoal[200],
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+  },
 }));

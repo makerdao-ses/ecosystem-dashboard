@@ -1,7 +1,11 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { featureFlags } from 'feature-flags/feature-flags';
+import { CURRENT_ENVIRONMENT } from '@/config/endpoints';
+import { FeatureFlagsProvider } from '@/core/context/FeatureFlagsProvider';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
+import { TeamRole } from '@/core/enums/teamRole';
 import AppLayout from '@/stories/containers/AppLayout/AppLayout';
 import ActorsContainer from './ActorsContainer';
 import { defaultSocials } from './utils/utils';
@@ -35,8 +39,9 @@ const variantsArgs = [
         .withId('23')
         .withCode('PH-001')
         .withShortCode('PH')
-        .withName('Powerhouse Inc. ')
+        .withName('Powerhouse Inc.')
         .withType(ResourceType.EcosystemActor)
+        .addCategory(TeamRole.ScopeFacilitator)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Scope Facilitator')
 
@@ -47,6 +52,7 @@ const variantsArgs = [
         .withCode('PHX-001')
         .withShortCode('PHX')
         .withName('Phoenix Labs')
+        .addCategory(TeamRole.ScopeFacilitator)
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Active Ecosystem Actor')
@@ -65,7 +71,9 @@ const variantsArgs = [
 
         .withSocials(defaultSocials)
         .build(),
+
       new EcosystemActorBuilder()
+        .addCategory(TeamRole.ScopeFacilitator)
         .withId('23')
         .withCode('VPAC-001')
         .withShortCode('VPAC')
@@ -93,6 +101,7 @@ const variantsArgs = [
         .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
+        .addCategory(TeamRole.ScopeFacilitator)
         .withId('23')
         .withCode('DWZ-001')
         .withShortCode('DWZ')
@@ -120,6 +129,7 @@ const variantsArgs = [
         .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
+        .addCategory(TeamRole.ScopeFacilitator)
         .withId('23')
         .withCode('SSA-001')
         .withName('Sidestream')
@@ -147,6 +157,7 @@ const variantsArgs = [
         .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
+        .addCategory(TeamRole.ScopeFacilitator)
         .withId('23')
         .withCode('PUL-001')
         .withShortCode('PUL')
@@ -170,6 +181,7 @@ const variantsArgs = [
 
         .build(),
       new EcosystemActorBuilder()
+        .addCategory(TeamRole.ScopeFacilitator)
         .withId('23')
         .withCode('BAL-001')
         .withName('BALabs')
@@ -197,6 +209,7 @@ const variantsArgs = [
         .withSocials(defaultSocials)
         .build(),
       new EcosystemActorBuilder()
+        .addCategory(TeamRole.ScopeFacilitator)
         .withId('23')
         .withCode('VWZ-001')
         .withName('VoteWizard')
@@ -220,6 +233,7 @@ const variantsArgs = [
         })
         .build(),
       new EcosystemActorBuilder()
+        .addCategory(TeamRole.ScopeFacilitator)
         .withId('23')
         .withCode('STH-001')
         .withName('Steakhouse')
@@ -250,9 +264,11 @@ const variantsArgs = [
 
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
-    <AppLayout>
-      <ActorsContainer {...props} />
-    </AppLayout>
+    <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
+      <AppLayout>
+        <ActorsContainer {...props} />
+      </AppLayout>
+    </FeatureFlagsProvider>
   ),
   variantsArgs
 );

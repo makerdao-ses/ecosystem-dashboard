@@ -4,12 +4,16 @@ import Card from '@/components/Card/Card';
 import ItemLinkList from './ItemLinkList';
 import { useLinks } from './useLinks';
 
-const LinkList = () => {
+interface Props {
+  onClick: () => void;
+}
+
+const LinkList: React.FC<Props> = ({ onClick }) => {
   const links = useLinks();
   return (
     <Container>
       {links.map((link) => (
-        <ItemLinkList icon={link.icon} title={link.title} href={link.href} />
+        <ItemLinkList icon={link.icon} title={link.title} href={link.href} onClick={onClick} />
       ))}
     </Container>
   );
