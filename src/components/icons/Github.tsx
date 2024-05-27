@@ -1,5 +1,5 @@
+import { useTheme } from '@mui/material';
 import * as React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 
 interface Props {
   width?: number;
@@ -9,7 +9,8 @@ interface Props {
 }
 
 const Github = ({ fill = '#231536', height = 19.66, width = 20.15, fillDark = '#D1DEE6', ...props }: Props) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   return (
     <svg width={width} height={height} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
