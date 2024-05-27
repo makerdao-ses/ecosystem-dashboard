@@ -67,18 +67,18 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                       </StatusMobile>
                     )}
                   </TitleLinks>
-                  <RoleScopeOnlyTable>
+                  <ScopeOnlyTable>
                     <LabelMobile>Scope</LabelMobile>
                     <ContainerScopeMobile>
                       {actor.scopes?.map((item, index) => (
                         <ScopeChip scope={item} key={index} codeOnly />
                       ))}
                     </ContainerScopeMobile>
-                  </RoleScopeOnlyTable>
-                  <RoleScopeOnlyTable>
+                  </ScopeOnlyTable>
+                  <RoleOnlyTable>
                     <LabelMobile>Role</LabelMobile>
                     <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
-                  </RoleScopeOnlyTable>
+                  </RoleOnlyTable>
                 </ContainerTitleStatus>
                 <ContainerLinksArrowsMobile>
                   <ButtonLinkOptions onClick={() => null} />
@@ -176,11 +176,16 @@ const ContainerTitleStatus = styled('div')(({ theme }) => ({
 const TitleLinks = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  gap: 2,
   [theme.breakpoints.up('tablet_768')]: {
     width: 154,
+    gap: 'revert',
   },
   [theme.breakpoints.up('desktop_1024')]: {
     marginTop: -4,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 202,
   },
 }));
 
@@ -195,7 +200,6 @@ const CardContainer = styled(Card)<{ socialLength: number }>(({ theme }) => ({
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  minWidth: 375,
   [theme.breakpoints.up('tablet_768')]: {
     padding: 0,
     flexDirection: 'column',
@@ -212,11 +216,12 @@ const CardContainer = styled(Card)<{ socialLength: number }>(({ theme }) => ({
     },
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '16px 16px 8px 16px',
+    padding: '16px 16px 16px 16px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
     flexDirection: 'row',
     maxWidth: 1312,
+    minHeight: 82,
     alignItems: 'center',
     padding: '16px 24px 16px 8px',
   },
@@ -225,7 +230,7 @@ const CardContainer = styled(Card)<{ socialLength: number }>(({ theme }) => ({
 const ContainerActorType = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 3,
+  gap: 4,
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     flex: 1,
@@ -295,11 +300,11 @@ const Name = styled('div')(({ theme }) => ({
   },
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: '14px',
-    width: 90,
+    width: 202,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    fontSize: '14px',
-    width: 110,
+    fontSize: 14,
+    width: 159,
   },
   [theme.breakpoints.up('desktop_1440')]: {
     width: 211,
@@ -316,16 +321,16 @@ const TypeSection = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: -5,
+    marginTop: -3,
   },
   [theme.breakpoints.up('desktop_1280')]: {
     paddingLeft: 0,
-    marginTop: -10,
+    marginTop: -4,
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
     paddingLeft: 0,
-
+    marginTop: -10,
     flexDirection: 'row',
   },
 }));
@@ -412,7 +417,7 @@ const ScopeSection = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1440')]: {
     minWidth: 150,
     marginLeft: 20,
-    paddingTop: 6,
+    paddingTop: 0,
     flexDirection: 'column',
     gap: 4,
   },
@@ -446,7 +451,6 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)(({ theme 
 }));
 
 const ContainerLinkColum = styled('div')(({ theme }) => ({
-  // border: '2px solid red',
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
@@ -540,10 +544,10 @@ const ContainerScopeLastModified = styled('div')(({ theme }) => ({
 
 const ContainerLastModifiedMobileTable = styled('div')(({ theme }) => ({
   width: '100%',
-  marginTop: 4,
+  marginTop: 6,
   marginLeft: 2,
   [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 5,
+    marginTop: 4,
     marginLeft: 0,
   },
 
@@ -570,11 +574,21 @@ const WrapperCategoryScopeMobileInside = styled('div')({
   alignItems: 'center',
 });
 
-const ContainerScopeMobile = styled('div')({
+const ContainerScopeMobile = styled('div')(({ theme }) => ({
   display: 'flex',
+
   flexDirection: 'row',
   gap: 4,
-});
+  '& div': {
+    width: 34,
+    padding: '0px',
+  },
+  [theme.breakpoints.up('tablet_768')]: {
+    '& div': {
+      width: 40,
+    },
+  },
+}));
 const WrapperHiddenOnlyMobileCategory = styled('div')(({ theme }) => ({
   display: 'none',
   [theme.breakpoints.up('tablet_768')]: {
@@ -591,7 +605,7 @@ const WrapperHiddenOnlyMobileCategory = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1440')]: {
     marginRight: 0,
     marginLeft: 84,
-    paddingTop: 2,
+    paddingTop: 4,
   },
 }));
 
@@ -701,17 +715,30 @@ const TableHiddenScope = styled('div')(({ theme }) => ({
   },
 }));
 
-const RoleScopeOnlyTable = styled('div')(({ theme }) => ({
+const ScopeOnlyTable = styled('div')(({ theme }) => ({
   display: 'none',
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     minWidth: 195,
+    marginLeft: 8,
+    gap: 2,
+  },
+}));
+
+const RoleOnlyTable = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: 195,
+    marginLeft: 6,
+    gap: 1,
   },
 }));
 const ActorLastModifiedStyled = styled(ActorLastModified)(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
-    padding: '4px 8px 4px 8px',
+    padding: '3px 8px 4px 8px',
     fontSize: 14,
   },
 }));
