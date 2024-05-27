@@ -1,38 +1,10 @@
-import { Box, styled } from '@mui/material';
-import Image from 'next/image';
+import { styled } from '@mui/material';
+import FooterIcon from 'public/assets/svg/fusion.svg';
+import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import FooterContact from './FooterContact';
-import type { TypeIconFooter } from './FooterLinks';
-import type { FooterProps } from './type';
+import { linkCategory, contactMakerDAO, contactPowerhouse } from './data';
 
-const iconsMakerDAO: TypeIconFooter[] = [
-  {
-    icon: '/assets/img/footer/discord.svg',
-    href: '#',
-    title: 'discord',
-  },
-  {
-    icon: '/assets/img/footer/twitter.svg',
-    href: '#',
-    title: 'twitter',
-  },
-  {
-    icon: '/assets/img/footer/reddit.svg',
-    href: '#',
-    title: 'reddit',
-  },
-  {
-    icon: '/assets/img/footer/youtube.svg',
-    href: '#',
-    title: 'youtube',
-  },
-  {
-    icon: '/assets/img/footer/github.svg',
-    href: '#',
-    title: 'github',
-  },
-];
-
-const Footer = ({ linkCategory }: FooterProps) => (
+const Footer = () => (
   <FooterWrapper>
     <FooterContainer>
       <FooterColumnLink>
@@ -40,9 +12,9 @@ const Footer = ({ linkCategory }: FooterProps) => (
           <FooterColumn>
             <FooterColumnTitle>{name}</FooterColumnTitle>
             <FooterLinkWrapper>
-              {links.map(({ label, link, icon }) => (
+              {links.map(({ label, link, Icon }) => (
                 <FooterLink key={label} href={link}>
-                  {icon && <Image src={icon} alt={`${label.toLowerCase()} icon`} width={16} height={16} />}
+                  {Icon && <Icon width="16" height="16" />}
                   {label}
                 </FooterLink>
               ))}
@@ -51,39 +23,17 @@ const Footer = ({ linkCategory }: FooterProps) => (
         ))}
       </FooterColumnLink>
       <ContactSection>
-        <FooterContact
-          title="Contact MakerDAO"
-          subtitle="Official Community Channels"
-          logo={{
-            src: '/assets/img/footer/makerdao_icon.svg',
-            alt: 'Contact MakerDAO',
-            width: 48,
-            height: 25,
-          }}
-          links={iconsMakerDAO}
-        />
-        <FooterContact
-          title="Contact Powerhouse"
-          subtitle="Official Community Channels"
-          logo={{
-            src: '/assets/img/footer/powerhouse_icon.svg',
-            alt: 'Contact Powerhouse',
-            width: 45,
-            height: 45,
-          }}
-          links={iconsMakerDAO}
-        />
+        <FooterContact {...contactMakerDAO} />
+        <FooterContact {...contactPowerhouse} />
       </ContactSection>
     </FooterContainer>
     <FooterBottom>
-      <Box>
-        <Image src="/assets/img/footer/fusion_icon.svg" alt="" width={104} height={36} />
-      </Box>
+      <FooterIcon width="104" height="36" />
       <FooterBottomRight>
         <FooterButtonLink>2024 Powerhouse</FooterButtonLink>
         <FooterButtonLink>Privacy Notice</FooterButtonLink>
         <FooterButtonLink>Cookie Policy</FooterButtonLink>
-        <Image src="/assets/img/footer/powerhouse_icon.svg" alt="" width={16} height={16} />
+        <PowerhouseIcon width={16} height={16} />
       </FooterBottomRight>
     </FooterBottom>
   </FooterWrapper>
@@ -93,8 +43,7 @@ const FooterWrapper = styled('footer')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: 32,
-  backgroundColor: theme.palette.isLight ? '#f8f9fa' : 'red',
-  color: theme.palette.isLight ? '#6c757d' : 'red',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
 }));
 
 const FooterContainer = styled('div')({
@@ -122,7 +71,7 @@ const FooterColumn = styled('div')({
 
 const FooterLink = styled('a')(({ theme }) => ({
   margin: '5px 0',
-  color: theme.palette.isLight ? '#5B667E' : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[600] : theme.palette.colors.charcoal[300],
   fontSize: '14px',
   fontWeight: 500,
   lineHeight: '22px',
@@ -132,10 +81,13 @@ const FooterLink = styled('a')(({ theme }) => ({
   flexDirection: 'row',
   alignItems: 'center',
   gap: '8px',
+  '&:hover': {
+    color: theme.palette.colors.charcoal[400],
+  },
 }));
 
 const FooterColumnTitle = styled('p')(({ theme }) => ({
-  color: theme.palette.isLight ? '#252A34' : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '24px',
@@ -150,13 +102,14 @@ const ContactSection = styled('div')({
   gap: 16,
 });
 
-const FooterBottom = styled('div')({
+const FooterBottom = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[300],
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
   marginTop: '32px',
-});
+}));
 
 const FooterBottomRight = styled('div')({
   display: 'flex',
@@ -167,7 +120,7 @@ const FooterBottomRight = styled('div')({
 });
 
 const FooterButtonLink = styled('p')(({ theme }) => ({
-  color: theme.palette.isLight ? '#9DA6B9' : 'red',
+  color: theme.palette.colors.charcoal[300],
   fontSize: '12px',
   fontWeight: 500,
   lineHeight: '22px',

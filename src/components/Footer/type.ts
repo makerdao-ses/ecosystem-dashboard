@@ -1,7 +1,9 @@
+import type { FC, SVGProps } from 'react';
+
 interface Link {
   label: string;
   link: string;
-  icon?: string;
+  Icon?: FC<SVGProps<SVGElement>>;
 }
 
 export interface LinkCategory {
@@ -9,6 +11,15 @@ export interface LinkCategory {
   links: Link[];
 }
 
-export interface FooterProps {
-  linkCategory: LinkCategory[];
+export interface TypeIconFooter {
+  Icon: FC<SVGProps<SVGElement>>;
+  href: string;
+  title: string;
+}
+
+export interface FooterContact {
+  title: string;
+  subtitle: string;
+  Icon: FC<SVGProps<SVGElement>>;
+  links: TypeIconFooter[];
 }

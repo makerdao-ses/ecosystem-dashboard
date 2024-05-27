@@ -1,11 +1,5 @@
-import styled from '@emotion/styled';
-import Image from 'next/image';
-
-export type TypeIconFooter = {
-  icon: string;
-  href: string;
-  title: string;
-};
+import { styled } from '@mui/material';
+import type { TypeIconFooter } from './type';
 
 interface Props {
   links: TypeIconFooter[];
@@ -14,9 +8,9 @@ interface Props {
 export const FooterLinks = ({ links }: Props) => (
   <Container>
     <Wrapper>
-      {links.map((link) => (
-        <LinkImage key={link.title} href={link.href} target="_blank">
-          <Image src={link.icon} alt={link.title} width={32} height={32} />
+      {links.map(({ title, href, Icon }) => (
+        <LinkImage key={title} href={href} target="_blank">
+          <Icon width={32} height={32} />
         </LinkImage>
       ))}
     </Wrapper>
@@ -36,9 +30,13 @@ const Wrapper = styled('div')({
   gap: '16px',
 });
 
-const LinkImage = styled('a')({
+const LinkImage = styled('a')(({ theme }) => ({
+  color: theme.palette.colors.charcoal[300],
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-});
+  '&:hover': {
+    color: theme.palette.colors.charcoal[400],
+  },
+}));
