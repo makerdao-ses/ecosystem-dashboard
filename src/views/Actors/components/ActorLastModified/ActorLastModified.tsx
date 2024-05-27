@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const ActorLastModified = ({ date, now = DateTime.now(), href, className }: Props) => {
-  const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1194'));
+  const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
   const textDescription = !date
     ? !isDesk
       ? 'Last Modified'
@@ -105,7 +105,7 @@ const LastModifiedText = styled('div')(({ theme }) => ({
   alignItems: 'center',
   marginTop: 2,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: '22px',
     color: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.slate[300],
   },

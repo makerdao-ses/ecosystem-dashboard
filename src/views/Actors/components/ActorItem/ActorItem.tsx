@@ -3,18 +3,18 @@ import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import lightTheme from '@ses/styles/theme/themes';
-import Link from 'next/link';
 import React from 'react';
+import ButtonLinkOptions from '@/components/ButtonLink/ButtonLinkOptions';
 import Card from '@/components/Card/Card';
+import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamRole } from '@/core/enums/teamRole';
 import { TeamStatus } from '@/core/models/interfaces/types';
-import { ActorsLinkType, getActorLastMonthWithData, getLinksFromRecognizedActors } from '../../utils/utils';
+import { getActorLastMonthWithData } from '../../utils/utils';
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
-
+import PopoverListLinks from '../PopoverListLinks/PopoverListLinks';
 import GroupedScopes from './GroupedScopes';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -29,16 +29,13 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
   const [isEnabled] = useFlagsActive();
   const ActorSpaceLink: React.FC<PropsWithChildren> = ({ children }) => (
     <ContainerLinkColum>
-      <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
-        <LinkColumSpace>{children}</LinkColumSpace>
-      </Link>
+      <LinkColumSpace>{children}</LinkColumSpace>
     </ContainerLinkColum>
   );
+
   const ActorAboutLink: React.FC<PropsWithChildren> = ({ children }) => (
     <ContainerLinkColum>
-      <Link href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} legacyBehavior passHref>
-        <LinkColum>{children}</LinkColum>
-      </Link>
+      <LinkColum>{children}</LinkColum>
     </ContainerLinkColum>
   );
   const socialIcons: SocialMediaChannels = actor.socialMediaChannels[0] ?? {};
@@ -53,21 +50,43 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
       <ActorSpaceLink>
         <ContainerActorType>
           <WrapperEcosystemActor>
-            <EcosystemActorText>Ecosystem Actor</EcosystemActorText>
             <ActorAvatar>
               <CircleAvatarExtended width="32px" height="32px" name={actor.name || 'Wallet'} image={actor.image} />
               <ContainerDescription>
-                <ContainerShortCodeName>
-                  {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && <ShortCode>{actor.shortCode}</ShortCode>}
-                  <Name>{actor.name}</Name>
-                </ContainerShortCodeName>
-
-                {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
-                  <StatusMobile>
-                    {' '}
-                    <StatusChip status={TeamStatus.Accepted} />
-                  </StatusMobile>
-                )}
+                <ContainerTitleStatus>
+                  <TitleLinks>
+                    <ContainerShortCodeName>
+                      {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
+                        <ShortCode>{actor.shortCode}</ShortCode>
+                      )}
+                      <Name>{actor.name}</Name>
+                    </ContainerShortCodeName>
+                    {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
+                      <StatusMobile>
+                        <StatusChip status={TeamStatus.Rejected} />
+                      </StatusMobile>
+                    )}
+                  </TitleLinks>
+                  <RoleScopeOnlyTable>
+                    <LabelMobile>Scope</LabelMobile>
+                    <ContainerScopeMobile>
+                      {actor.scopes?.map((item, index) => (
+                        <ScopeChip scope={item} key={index} codeOnly />
+                      ))}
+                    </ContainerScopeMobile>
+                  </RoleScopeOnlyTable>
+                  <RoleScopeOnlyTable>
+                    <LabelMobile>Role</LabelMobile>
+                    <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
+                  </RoleScopeOnlyTable>
+                </ContainerTitleStatus>
+                <ContainerLinksArrowsMobile>
+                  <ButtonLinkOptions onClick={() => null} />
+                  <InternalLinkButtonStyled
+                    href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
+                    showIcon
+                  />
+                </ContainerLinksArrowsMobile>
               </ContainerDescription>
             </ActorAvatar>
           </WrapperEcosystemActor>
@@ -79,29 +98,24 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
             </WrapperHiddenOnlyMobileCategory>
           </TypeSection>
           <WrapperCategoryScopeMobile>
-            <WrapperCategoryScopeMobileInside>
-              <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
-            </WrapperCategoryScopeMobileInside>
-            {actor.scopes?.length > 0 &&
-              (actor.scopes?.length > 2 ? (
-                <MobileGroupedScopesBox>
-                  <GroupedScopes scopes={actor.scopes} />
-                </MobileGroupedScopesBox>
-              ) : (
-                <ContainerScopeMobile>
-                  {actor.scopes?.map((item, index) => (
-                    <ScopeChip scope={item} key={index} />
-                  ))}
-                </ContainerScopeMobile>
-              ))}
+            <TableHiddenScope>
+              <LabelMobile>Role</LabelMobile>
+              <WrapperCategoryScopeMobileInside>
+                <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
+              </WrapperCategoryScopeMobileInside>
+            </TableHiddenScope>
+
+            <ContainerScopeMobileOnly>
+              <LabelMobile>Scope</LabelMobile>
+              <ContainerScopeMobile>
+                {actor.scopes?.map((item, index) => (
+                  <ScopeChip scope={item} key={index} codeOnly />
+                ))}
+              </ContainerScopeMobile>
+            </ContainerScopeMobileOnly>
           </WrapperCategoryScopeMobile>
         </ContainerActorType>
       </ActorSpaceLink>
-      <Link href={siteRoutes.ecosystemActorAbout(actor.shortCode)} legacyBehavior passHref>
-        <LineLink>
-          <Line />
-        </LineLink>
-      </Link>
       <WrapperScopeLinks alignEnd={actor?.scopes?.length === 0}>
         <WrapperHiddenOnlyMobileScope>
           <ContainerScopeLastModified>
@@ -126,136 +140,146 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
             <LinkSpace />
           </ActorAboutLink>
         </WrapperHiddenOnlyMobileScope>
-        <SocialIconsSection>
-          {actor?.socialMediaChannels && (
-            <LinkContainer>
-              <SocialMediaComponentStyled
-                links={getLinksFromRecognizedActors(actor, ActorsLinkType)}
-                fillDark="#ADAFD4"
-                hasTooltip
-              />
-            </LinkContainer>
-          )}
-        </SocialIconsSection>
       </WrapperScopeLinks>
       <ContainerLastModifiedMobileTable>
-        <ActorLastModified
+        <ActorLastModifiedStyled
           date={getActorLastMonthWithData(actor)}
           href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
         />
       </ContainerLastModifiedMobileTable>
+      <ContainerLinksArrowsDesk>
+        <PopoverListLinks />
+        <VerticalLine />
+        <InternalLinkButtonStyled
+          href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
+          showIcon
+        />
+      </ContainerLinksArrowsDesk>
     </CardContainer>
   );
 };
 
 export default ActorItem;
 
-const CardContainer = styled(Card)<{ socialLength: number }>(({ theme, socialLength }) => ({
+const ContainerTitleStatus = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 202,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 256,
+  },
+}));
+
+const TitleLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.up('tablet_768')]: {
+    width: 154,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: -4,
+  },
+}));
+
+const ContainerScopeMobileOnly = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  gap: 6,
+});
+const CardContainer = styled(Card)<{ socialLength: number }>(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  minWidth: 375,
+  [theme.breakpoints.up('tablet_768')]: {
     padding: 0,
     flexDirection: 'column',
     maxHeight: 'revert',
     minHeight: 'revert',
-    height: 161,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    height: socialLength >= 4 ? 104 : 82,
+  [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
-    padding: 0,
+    padding: 16,
     justifyContent: 'space-between',
     alignItems: 'center',
     ':hover': {
       background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(41, 46, 56, 1)',
     },
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    height: 82,
+  [theme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 16px 8px 16px',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     flexDirection: 'row',
     maxWidth: 1312,
     alignItems: 'center',
+    padding: '16px 24px 16px 8px',
   },
 }));
 
-const ContainerActorType = styled('div')({
+const ContainerActorType = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  gap: 3,
+  [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
     paddingTop: 8,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
-    maxWidth: 'fit-content',
+    flex: 1,
     paddingTop: 'revert',
-    justifyContent: 'revert',
-  },
-});
-const EcosystemActorText = styled('div')(({ theme }) => ({
-  display: 'none',
-  [lightTheme.breakpoints.down('tablet_768')]: {
-    display: 'none',
-  },
-  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    marginBottom: 0,
-    display: 'flex',
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '17px',
-    color: theme.palette.isLight ? '#9FAFB9' : '#D2D4EF',
   },
 }));
 
 const WrapperEcosystemActor = styled('div')({
   display: 'flex',
   flexDirection: 'column',
+  width: '100%',
 });
 
-const ActorAvatar = styled('div')({
+const ActorAvatar = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  gap: 8,
-  paddingLeft: 16,
-  paddingTop: 16,
-  paddingBottom: 16,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  gap: 10,
+  paddingLeft: 8,
+  paddingTop: 8,
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
-    paddingTop: 8,
+    paddingTop: 'revert',
     paddingLeft: 0,
     marginBottom: 0,
     paddingBottom: 0,
-    width: 343,
+    width: '100%',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 16,
-    marginBottom: 0,
-    width: 190,
-    paddingTop: 0,
+    alignItems: 'flex-start',
+    gap: 14,
+    paddingTop: -4,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    width: 210,
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 304,
+    paddingLeft: 2,
+    gap: 20,
+    paddingTop: -6,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 292,
   },
-});
+}));
 
 const Name = styled('div')(({ theme }) => ({
   fontWeight: 600,
@@ -266,47 +290,49 @@ const Name = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     width: 'revert',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: '14px',
     width: 90,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     fontSize: '14px',
     width: 110,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 211,
   },
 }));
 
-const TypeSection = styled('div')({
+const TypeSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    alignItems: 'flex-end',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'none',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: -5,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingLeft: 16,
+  [theme.breakpoints.up('desktop_1280')]: {
+    paddingLeft: 0,
+    marginTop: -10,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     paddingLeft: 0,
 
     flexDirection: 'row',
   },
-});
+}));
 
 const WrapperType = styled('div')(({ theme }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
@@ -317,48 +343,40 @@ const WrapperType = styled('div')(({ theme }) => ({
     lineHeight: '17px',
     alignItems: 'end',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));
-const Line = styled('div')(({ theme }) => ({
-  borderBottom: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
-  marginBottom: 16,
-  marginRight: 16,
-  marginLeft: 16,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 14,
-    marginBottom: 4,
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    display: 'none',
-  },
-}));
-
 const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.shortShadow,
   minWidth: 32,
   minHeight: 32,
+  [theme.breakpoints.up('desktop_1024')]: {
+    '& img': {
+      minWidth: 36,
+      minHeight: 36,
+      width: '54px',
+      height: '54px',
+    },
+  },
 }));
 
-const WrapperScopeLinks = styled('div')<{ alignEnd: boolean }>(({ alignEnd }) => ({
+const WrapperScopeLinks = styled('div')<{ alignEnd: boolean }>(({ alignEnd, theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-
   justifyContent: alignEnd ? 'flex-end' : 'space-between',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
     alignItems: 'center',
-    minHeight: 82,
     paddingBottom: 'revert',
-    flex: 1.29,
+    flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 'revert',
@@ -366,66 +384,40 @@ const WrapperScopeLinks = styled('div')<{ alignEnd: boolean }>(({ alignEnd }) =>
   },
 }));
 
-const ScopeSection = styled('div')({
+const ScopeSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   gap: 8,
+
   justifyContent: 'center',
   marginBottom: 8,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    alignItems: 'flex-start',
-    marginBottom: 0,
-    gap: 10,
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'none',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'column',
     alignItems: 'flex-start',
     minWidth: 150,
-    height: 82,
+    marginLeft: 11,
+    marginTop: -4,
     gap: 4,
-    marginLeft: -8,
+    width: 202,
     marginBottom: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: 6,
     paddingTop: 6,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     minWidth: 150,
-    marginLeft: 0,
+    marginLeft: 20,
     paddingTop: 6,
     flexDirection: 'column',
     gap: 4,
   },
-});
+}));
 
-const SocialIconsSection = styled('div')({
-  display: 'flex',
-  position: 'relative',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: -2,
-    paddingRight: 16,
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    flexDirection: 'row',
-
-    width: 'fit-content',
-    marginTop: -1,
-
-    justifyContent: 'flex-end',
-    paddingRight: 16,
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    flexDirection: 'row',
-  },
-});
-
-const LinkContainer = styled('div')({});
 export const SocialMediaComponentStyled = styled(SocialMediaComponent)(({ theme }) => ({
   '& a': {
     '&:hover svg path': {
@@ -433,7 +425,7 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)(({ theme 
       stroke: 'none',
     },
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 4,
     justifyContent: 'flex-end',
     flexWrap: 'wrap',
@@ -443,7 +435,7 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)(({ theme 
     paddingTop: 16,
     paddingBottom: 16,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     marginTop: 'revert',
     justifyContent: 'revert',
     flexWrap: 'revert',
@@ -453,109 +445,123 @@ export const SocialMediaComponentStyled = styled(SocialMediaComponent)(({ theme 
   },
 }));
 
-const ContainerLinkColum = styled('div')({
-  [lightTheme.breakpoints.up('tablet_768')]: {
+const ContainerLinkColum = styled('div')(({ theme }) => ({
+  // border: '2px solid red',
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
-
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flex: 1,
   },
-});
+}));
 
-const LinkColum = styled('a')({
-  [lightTheme.breakpoints.up('tablet_768')]: {
+const LinkColum = styled('a')(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     paddingLeft: 16,
+
     paddingRight: 16,
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    padding: 16,
+    padding: 0,
     flex: 1,
   },
-});
-const LinkColumSpace = styled('a')({
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
-    paddingLeft: 16,
-    paddingRight: 16,
+    padding: 0,
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+}));
+const LinkColumSpace = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    paddingLeft: 8,
+    paddingRight: 8,
+    flex: 1,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flex: 'revert',
-    minWidth: 430,
+    paddingLeft: 'revert',
+    paddingRight: 'revert',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     paddingRight: 0,
+    minWidth: 430,
+    paddingLeft: 8,
   },
-});
+}));
 
-const LineLink = styled('a')({});
-
-const ContainerLastModifiedDesk = styled('div')({
+const ContainerLastModifiedDesk = styled('div')(({ theme }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     marginTop: -1,
-    marginLeft: -22,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
-    marginLeft: -14,
-    marginTop: 6,
+    marginLeft: 'revert',
+    marginTop: 0,
   },
-});
+  [theme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
 
-const ContainerScopeLastModified = styled('div')({
+    marginTop: -4,
+  },
+}));
+
+const ContainerScopeLastModified = styled('div')(({ theme }) => ({
   marginTop: 0,
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
 
     flexDirection: 'row',
-    gap: 32,
-    marginLeft: -30,
-    marginTop: 6,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    gap: 38,
+    gap: 8,
     marginTop: -1,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    gap: 40,
-    marginLeft: 42,
+  [theme.breakpoints.up('desktop_1280')]: {
+    gap: 54,
+    marginLeft: 18,
+    marginTop: -4,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    gap: 88,
+    marginLeft: 50,
     paddingTop: 2,
   },
-});
+}));
 
-const ContainerLastModifiedMobileTable = styled('div')({
+const ContainerLastModifiedMobileTable = styled('div')(({ theme }) => ({
   width: '100%',
-  marginTop: 16,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 10,
+  marginTop: 4,
+  marginLeft: 2,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 5,
+    marginLeft: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
-});
+}));
 
-const WrapperCategoryScopeMobile = styled('div')({
+const WrapperCategoryScopeMobile = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  marginBottom: 15,
-  paddingLeft: 16,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  paddingLeft: 8,
+  paddingRight: 8,
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
-});
+}));
 
 const WrapperCategoryScopeMobileInside = styled('div')({
   display: 'flex',
@@ -566,53 +572,50 @@ const WrapperCategoryScopeMobileInside = styled('div')({
 
 const ContainerScopeMobile = styled('div')({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   gap: 4,
-  justifyContent: 'flex-end',
-  alignItems: 'end',
-  paddingRight: 16,
 });
-const WrapperHiddenOnlyMobileCategory = styled('div')({
+const WrapperHiddenOnlyMobileCategory = styled('div')(({ theme }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginLeft: 10,
+    minWidth: 200,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
     marginRight: 12,
+    marginLeft: 40,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginRight: 0,
-    marginLeft: 36,
+    marginLeft: 84,
+    paddingTop: 2,
   },
-});
+}));
 
-const WrapperHiddenOnlyMobileScope = styled('div')({
+const WrapperHiddenOnlyMobileScope = styled('div')(({ theme }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
 
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flex: 1,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     paddingLeft: 0,
   },
-});
+}));
 
-const LinkSpace = styled('div')({
+const LinkSpace = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: 1,
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    height: 104,
-  },
-});
-
-const MobileGroupedScopesBox = styled('div')({
-  paddingRight: 16,
-});
+  [theme.breakpoints.up('desktop_1024')]: {},
+}));
 
 const ShortCode = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -622,33 +625,114 @@ const ShortCode = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600],
 }));
 
-const ContainerDescription = styled('div')({
+const ContainerDescription = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  paddingRight: 16,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    paddingRight: 'revert',
-    justifyContent: 'revert',
-    gap: 16,
+
+  flex: 1,
+  paddingRight: 8,
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingRight: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     gap: 8,
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
-});
+}));
 
-const StatusMobile = styled('div')({
+const StatusMobile = styled('div')(({ theme }) => ({
   display: 'flex',
-});
+  marginTop: -4,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 1,
+  },
+}));
 const ContainerShortCodeName = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   gap: 4,
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    paddingTop: 4,
+});
+const ContainerLinksArrowsMobile = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 16,
+  height: 32,
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 8,
+    paddingTop: 16,
+    height: 'revert',
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'none',
+  },
+}));
+const ContainerLinksArrowsDesk = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    minWidth: 140,
+    justifyContent: 'flex-end',
+  },
+}));
+
+const LabelMobile = styled('div')(({ theme }) => ({
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[700],
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '22px',
+  },
+}));
+
+const TableHiddenScope = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 3,
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'none',
+  },
+}));
+
+const RoleScopeOnlyTable = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: 195,
+  },
+}));
+const ActorLastModifiedStyled = styled(ActorLastModified)(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '4px 8px 4px 8px',
+    fontSize: 14,
+  },
+}));
+
+const InternalLinkButtonStyled = styled(InternalLinkButton)({
+  borderRadius: 8,
+  padding: '4px 8px 4px 8px',
+  ':hover': {
+    padding: '4px 8px 4px 8px',
   },
 });
+
+const VerticalLine = styled('div')(({ theme }) => ({
+  marginLeft: 8,
+  marginRight: 8,
+  height: 16,
+  display: 'flex',
+  alignItems: 'center',
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[800]}`,
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginLeft: 16,
+    marginRight: 16,
+  },
+}));
