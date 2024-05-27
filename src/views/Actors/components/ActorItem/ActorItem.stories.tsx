@@ -104,9 +104,7 @@ const variantsArgs = [
 const [[Actors, ActorsDark], [ActorsNoData, ActorsNoDataDark]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
-      {/* <AppLayout> */}
       <ActorItem {...props} />
-      {/* </AppLayout> */}
     </FeatureFlagsProvider>
   ),
   variantsArgs
