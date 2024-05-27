@@ -168,6 +168,8 @@ const dictionary = [
   'foundational',
   'reskin',
   'Linkedin',
+  'mouseover',
+  'mouseout',
 ];
 
 module.exports = dictionary;
