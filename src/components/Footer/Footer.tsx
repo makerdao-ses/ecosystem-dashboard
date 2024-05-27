@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import Image from 'next/image';
 import FooterContact from './FooterContact';
 import type { TypeIconFooter } from './FooterLinks';
@@ -75,6 +75,17 @@ const Footer = ({ linkCategory }: FooterProps) => (
         />
       </ContactSection>
     </FooterContainer>
+    <FooterBottom>
+      <Box>
+        <Image src="/assets/img/footer/fusion_icon.svg" alt="" width={104} height={36} />
+      </Box>
+      <FooterBottomRight>
+        <FooterButtonLink>2024 Powerhouse</FooterButtonLink>
+        <FooterButtonLink>Privacy Notice</FooterButtonLink>
+        <FooterButtonLink>Cookie Policy</FooterButtonLink>
+        <Image src="/assets/img/footer/powerhouse_icon.svg" alt="" width={16} height={16} />
+      </FooterBottomRight>
+    </FooterBottom>
   </FooterWrapper>
 );
 
@@ -138,5 +149,29 @@ const ContactSection = styled('div')({
   alignItems: 'flex-end',
   gap: 16,
 });
+
+const FooterBottom = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginTop: '32px',
+});
+
+const FooterBottomRight = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-around',
+  gap: 24,
+});
+
+const FooterButtonLink = styled('p')(({ theme }) => ({
+  color: theme.palette.isLight ? '#9DA6B9' : 'red',
+  fontSize: '12px',
+  fontWeight: 500,
+  lineHeight: '22px',
+  textDecoration: 'none',
+}));
 
 export default Footer;
