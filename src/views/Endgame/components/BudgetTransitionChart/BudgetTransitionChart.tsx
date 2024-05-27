@@ -183,7 +183,7 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         formatter: function (value: string) {
           if (isMobile) {
             if (value.startsWith('Q1')) {
-              return `{bgImg|${value}}`;
+              return `{bgImg|${value}}      `;
             } else {
               return `${value.charAt(1)}`;
             }
@@ -193,11 +193,18 @@ const BudgetTransitionChart: React.FC<BudgetTransitionChartProps> = ({ data, sel
         rich: {
           bgImg: {
             verticalAlign: 'top',
+
+            align: 'left',
             color: isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400],
             fontFamily: 'OpenSansCondensed,san-serif',
             fontWeight: 700,
             fontSize: isMobile ? 12 : upTable ? (hasMoreThanTwelveItems ? 12 : 14) : 9,
             interval: 0,
+            margin: 150,
+            padding: [0, 0, 20, 16],
+            backgroundColor: {
+              image: isLight ? '/assets/img/line.png' : '/assets/img/line_dark.png',
+            },
           },
         },
       },
@@ -357,10 +364,22 @@ const YearsContainer = styled('div')<{ barsAmount: number }>(({ barsAmount }) =>
   gap: (314 / barsAmount) * 4 - 30,
   bottom: 6,
   left: 45,
+  'div:nth-of-type(n+2)': {
+    marginLeft: -3,
+  },
+  'div:nth-of-type(n+3)': {
+    marginLeft: -2,
+  },
   [theme.breakpoints.up('tablet_768')]: {
     bottom: 6,
     left: 50,
     gap: (358 / barsAmount) * 4 - 30,
+    'div:nth-of-type(n+2)': {
+      marginLeft: 'revert',
+    },
+    'div:nth-of-type(n+3)': {
+      marginLeft: 'revert',
+    },
   },
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
