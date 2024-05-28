@@ -46,4 +46,8 @@ const Title = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[100],
 }));
 
-const Arrow = styled('div')({});
+const Arrow = styled('div')(({ theme }) => ({
+  '& path': {
+    fill: theme.palette.colors.blue[700],
+  },
+}));
