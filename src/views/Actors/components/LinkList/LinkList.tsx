@@ -6,12 +6,13 @@ import { useLinks } from './useLinks';
 
 interface Props {
   onClick: () => void;
+  className?: string;
 }
 
-const LinkList: React.FC<Props> = ({ onClick }) => {
+const LinkList: React.FC<Props> = ({ onClick, className }) => {
   const links = useLinks();
   return (
-    <Container>
+    <Container className={className}>
       {links.map((link) => (
         <ItemLinkList icon={link.icon} title={link.title} href={link.href} onClick={onClick} />
       ))}

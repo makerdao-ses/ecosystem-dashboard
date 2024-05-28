@@ -8,6 +8,7 @@ interface CustomSheetProps {
   handleClose: () => void;
   initialSnap?: number;
   snapPoints?: number[];
+  className?: string;
 }
 
 const CustomSheet: React.FC<CustomSheetProps> = ({
@@ -16,8 +17,15 @@ const CustomSheet: React.FC<CustomSheetProps> = ({
   handleClose,
   initialSnap = 1,
   snapPoints = [600, 400, 200, 0],
+  className,
 }) => (
-  <SheetWrapper isOpen={isOpen} onClose={handleClose} snapPoints={snapPoints} initialSnap={initialSnap}>
+  <SheetWrapper
+    className={className}
+    isOpen={isOpen}
+    onClose={handleClose}
+    snapPoints={snapPoints}
+    initialSnap={initialSnap}
+  >
     <SheetContainer>
       <Sheet.Header />
       <Sheet.Content>{children}</Sheet.Content>
@@ -31,6 +39,7 @@ export default CustomSheet;
 const SheetWrapper = styled(Sheet)(({ theme, isOpen }) => ({
   backgroundColor: isOpen ? 'rgba(37, 42, 52, 0.10)' : 'none',
   backdropFilter: isOpen ? 'blur(2.5px)' : 'none',
+
   '& .react-modal-sheet-header': {
     alignItems: 'flex-start !important',
     marginTop: 6,

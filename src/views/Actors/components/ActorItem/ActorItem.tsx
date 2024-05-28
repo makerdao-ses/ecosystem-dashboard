@@ -4,7 +4,7 @@ import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMed
 import { siteRoutes } from '@ses/config/routes';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import React from 'react';
-import ButtonLinkOptions from '@/components/ButtonLink/ButtonLinkOptions';
+import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
 import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import RoleChip from '@/components/RoleChip/RoleChip';
@@ -80,13 +80,23 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                     <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
                   </RoleOnlyTable>
                 </ContainerTitleStatus>
+
                 <ContainerLinksArrowsMobile>
-                  <ButtonLinkOptions onClick={() => null} />
+                  <ButtonLinksSheet />
+
                   <InternalLinkButtonStyled
                     href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
                     showIcon
                   />
                 </ContainerLinksArrowsMobile>
+                <ContainerLinksArrowsTable>
+                  <PopoverListLinks />
+                  <VerticalLine />
+                  <InternalLinkButtonStyled
+                    href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
+                    showIcon
+                  />
+                </ContainerLinksArrowsTable>
               </ContainerDescription>
             </ActorAvatar>
           </WrapperEcosystemActor>
@@ -674,11 +684,17 @@ const ContainerLinksArrowsMobile = styled('div')(({ theme }) => ({
   gap: 16,
   height: 32,
   [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+}));
+const ContainerLinksArrowsTable = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
     gap: 8,
     paddingTop: 16,
     height: 'revert',
   },
-
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
