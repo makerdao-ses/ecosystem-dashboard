@@ -9,6 +9,7 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       shortCode
       code
       name
+      status
       image
       category
       sentenceDescription

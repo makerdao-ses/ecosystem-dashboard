@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import lightTheme from '../../../../styles/theme/themes';
 
 import {
@@ -14,7 +15,6 @@ import {
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
-  getStatusMip39AcceptedOrObsolete,
 } from '../../../core/businessLogic/coreUnits';
 import { getShortCode } from '../../../core/utils/string';
 import CoreUnitCard from '../../components/CoreUnitCard/CoreUnitCard';
@@ -27,12 +27,11 @@ import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const renderSummary = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnSummary isLoading />;
-
   return (
     <CuTableColumnSummary
       key={`summary-${coreUnit.code}`}
       title={coreUnit.name}
-      status={getStatusMip39AcceptedOrObsolete(coreUnit)}
+      status={coreUnit.status as TeamStatus}
       statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
       imageUrl={coreUnit.image}
       mipUrl={getMipUrlFromCoreUnit(coreUnit)}

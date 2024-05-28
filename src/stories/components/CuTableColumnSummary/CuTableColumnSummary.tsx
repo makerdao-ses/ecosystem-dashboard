@@ -124,7 +124,7 @@ export const CuTableColumnSummary = ({
             <Title isLight={isLight}>{props.title}</Title>
           </TitleWrapper>
           <Row>
-            {props.status && <StatusChipLegacy status={props.status} style={{ marginLeft: '-2px' }} />}
+            <StatusChipLegacy status={props.status as TeamStatus} style={{ marginLeft: '-2px' }} />
             {props.statusModified && (
               <CustomPopover
                 id={'mouse-over-popover-goto'}
