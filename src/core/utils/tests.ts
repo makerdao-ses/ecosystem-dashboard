@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 import { CommitmentJob } from '../enums/commitmentJobEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 import { SortEnum } from '../enums/sortEnum';
-import { BudgetStatus } from '../models/interfaces/types';
+import { BudgetStatus, TeamStatus } from '../models/interfaces/types';
 import type { CuCommentDto } from '../models/dto/commentsDTO';
 import type { ChangeTrackingEvent } from '../models/interfaces/activity';
 import type { AuditReport } from '../models/interfaces/auditReport';
@@ -141,6 +141,7 @@ export const CoreUnit = {
   shortCode: 'SES',
   code: 'SES-001',
   name: 'Sustainable Ecosystem Scaling',
+  status: TeamStatus.Accepted,
   image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
   sentenceDescription:
     'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.',
