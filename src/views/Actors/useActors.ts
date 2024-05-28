@@ -3,7 +3,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { TeamCategory } from '@ses/core/models/interfaces/types';
-import { getArrayParam } from '@ses/core/utils/filters';
+import { getArrayParam, getStringParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import orderBy from 'lodash/orderBy';
@@ -11,20 +11,34 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
-import { filterDataActors, filterDataScopeActors, getActorLastMonthWithData } from './utils/utils';
+import { useDebounce } from '@/core/hooks/useDebounce';
+import { filterActorsText, filterDataActors, filterDataScopeActors, getActorLastMonthWithData } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
 import type { Team } from '@ses/core/models/interfaces/team';
 
 export const useActors = (actors: Team[], stories = false) => {
   const router = useRouter();
+  const debounce = useDebounce();
   const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
+  const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const [readMore, setReadMore] = useState<boolean>(stories);
   const showTextDesk = readMore;
   const handleRead = () => {
     setReadMore(!readMore);
   };
+  const handleChangeUrl = useCallback(
+    (key: string) => (value: string[] | string) => {
+      const search = router.query;
+      search[key] = Array.isArray(value) ? value.join(',') : value || '';
+      router.push({
+        pathname: siteRoutes.ecosystemActors,
+        search: stringify(search),
+      });
+    },
+    [router]
+  );
 
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
@@ -136,11 +150,22 @@ export const useActors = (actors: Team[], stories = false) => {
     [filteredCategoryData, filteredScopes]
   );
 
+  const filteredTexData = useMemo(
+    () =>
+      filterActorsText({
+        data: filteredScopeData,
+        text: searchText,
+      }),
+    [filteredScopeData, searchText]
+  );
+
+  console.log('>>>>', filteredTexData, searchText);
+
   const groupByStatusDefaultSorting: Team[] = useMemo(() => {
-    const resultMoment = orderBy(filteredScopeData, 'name');
+    const resultMoment = orderBy(filteredTexData, 'name');
 
     return resultMoment;
-  }, [filteredScopeData]);
+  }, [filteredTexData]);
 
   const categoriesCount = useMemo(() => {
     const result: { [id: string]: number } = {};
@@ -230,18 +255,6 @@ export const useActors = (actors: Team[], stories = false) => {
     });
   };
 
-  const handleChangeUrlFilterArrays = useCallback(
-    (key: string) => (value: string[] | string) => {
-      const search = router.query;
-      search[key] = Array.isArray(value) ? value.join(',') : value || '';
-      router.push({
-        pathname: '',
-        search: stringify(search),
-      });
-    },
-    [router]
-  );
-
   return {
     handleRead,
     readMore,
@@ -252,10 +265,12 @@ export const useActors = (actors: Team[], stories = false) => {
     onSortClick,
     clearFilters,
     categoriesCount,
-    handleChangeUrlFilterArrays,
+    handleChangeUrl,
     filteredCategories,
     queryStrings,
     filteredScopes,
     scopeCount,
+    searchText,
+    debounce,
   };
 };

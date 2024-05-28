@@ -74,6 +74,10 @@ const filtersScopes = (lowerCaseScopes: string[], data: Team) =>
 const filterCategories = (lowerCaseCategories: string[], data: Team) =>
   lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
 
+const filterText = (text: string, data: Team) =>
+  text.trim().length === 0 ||
+  data.name.toLowerCase().indexOf(text.toLowerCase()) > -1 ||
+  data.code.toLowerCase().indexOf(text.toLowerCase()) > -1;
 export const filterDataActors = ({
   filteredCategories = [],
   data = [],
@@ -108,6 +112,12 @@ export const filterDataScopeActors = ({
         return filterResult;
       }) ?? [],
   };
+};
+
+export const filterActorsText = ({ text = '', data = [] }: { text?: string; data: Team[] }) => {
+  const lowerCase = text.toLowerCase();
+  console.log(lowerCase);
+  return data?.filter((data) => filterText(lowerCase, data)) ?? [];
 };
 export const defaultSocials = {
   twitter: '#',
