@@ -13,7 +13,7 @@ const Footer = () => (
             <FooterColumnTitle>{name}</FooterColumnTitle>
             <FooterLinkWrapper>
               {links.map(({ label, link, Icon }) => (
-                <FooterLink key={label} href={link}>
+                <FooterLink key={label} href={link} target="_blank">
                   {Icon && <Icon width="16" height="16" />}
                   {label}
                 </FooterLink>
