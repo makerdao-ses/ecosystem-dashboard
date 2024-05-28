@@ -42,10 +42,11 @@ const Footer = () => (
 const FooterWrapper = styled('footer')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '24px 16px',
+  padding: '24px 16px 10px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
+  borderTop: `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.gray[900]}`,
   [theme.breakpoints.up('tablet_768')]: {
-    padding: 32,
+    padding: '32px 32px 10px',
   },
 }));
 
