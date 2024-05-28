@@ -26,12 +26,13 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     columns,
     categoriesCount,
     clearFilters,
-    handleChangeUrlFilterArrays,
+    handleChangeUrl,
     filteredCategories,
     onSortClick,
     queryStrings,
     filteredScopes,
     scopeCount,
+    debounce,
   } = useActors(actors, stories);
 
   return (
@@ -89,10 +90,15 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
             filteredCategories={filteredCategories}
             scopeCount={scopeCount}
             onChange={(value: string[]) => {
-              handleChangeUrlFilterArrays('filteredCategories')(value);
+              handleChangeUrl('filteredCategories')(value);
             }}
             onChangeScope={(value: string[]) => {
-              handleChangeUrlFilterArrays('filteredScopes')(value);
+              handleChangeUrl('filteredScopes')(value);
+            }}
+            handleSearch={(value: string) => {
+              debounce(() => {
+                handleChangeUrl('searchText')(value);
+              }, 300);
             }}
           />
         </FilterContainer>
