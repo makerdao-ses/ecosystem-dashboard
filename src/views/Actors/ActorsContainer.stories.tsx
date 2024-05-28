@@ -1,5 +1,5 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
-import { ResourceType } from '@ses/core/models/interfaces/types';
+import { ResourceType, TeamStatus } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '@/config/endpoints';
@@ -40,6 +40,7 @@ const variantsArgs = [
         .withCode('PH-001')
         .withShortCode('PH')
         .withName('Powerhouse Inc.')
+        .withStatus(TeamStatus.Accepted)
         .withType(ResourceType.EcosystemActor)
         .addCategory(TeamRole.ScopeFacilitator)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
@@ -78,6 +79,7 @@ const variantsArgs = [
         .withCode('VPAC-001')
         .withShortCode('VPAC')
         .withName('Viridian Protector Advisory Company')
+        .withStatus(TeamStatus.Accepted)
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Scope Facilitator')
@@ -106,6 +108,7 @@ const variantsArgs = [
         .withCode('DWZ-001')
         .withShortCode('DWZ')
         .withName('Dewiz')
+        .withStatus(TeamStatus.Accepted)
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Advisory Council Member')
@@ -133,6 +136,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('SSA-001')
         .withName('Sidestream')
+        .withStatus(TeamStatus.Accepted)
         .withShortCode('SSA')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
@@ -162,6 +166,7 @@ const variantsArgs = [
         .withCode('PUL-001')
         .withShortCode('PUL')
         .withName('Pull Up')
+        .withStatus(TeamStatus.Accepted)
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
         .addCategory('Scope Facilitators')
@@ -185,6 +190,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('BAL-001')
         .withName('BALabs')
+        .withStatus(TeamStatus.Accepted)
         .withShortCode('BAL')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
@@ -213,6 +219,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('VWZ-001')
         .withName('VoteWizard')
+        .withStatus(TeamStatus.Accepted)
         .withShortCode('VWZ')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
@@ -237,6 +244,7 @@ const variantsArgs = [
         .withId('23')
         .withCode('STH-001')
         .withName('Steakhouse')
+        .withStatus(TeamStatus.Accepted)
         .withShortCode('STH')
         .withType(ResourceType.EcosystemActor)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
