@@ -59,7 +59,7 @@ const linkCategory: LinkCategory[] = [
     links: [
       {
         label: 'Connect',
-        link: '#',
+        link: 'https://powerhouse-connect.vercel.app/d/My Local Device',
         Icon: ConnectIcon,
       },
       {
