@@ -35,7 +35,7 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
       setTimeout(() => {
         const element = sectionRefs.current[hash].current;
         if (element) {
-          const offsetTop = element.offsetTop - 125;
+          const offsetTop = element.offsetTop - 300;
           window.scrollTo({
             top: offsetTop,
             behavior: 'smooth',
@@ -46,7 +46,7 @@ const useEndgameView = (budgetTransitionAnalytics: Analytic, yearsRange: string[
   }, [sectionRefs]);
 
   const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY + 125;
+    const scrollPosition = window.scrollY + 300;
     let newActiveTab: NavigationTabEnum | null = null;
 
     sections.forEach((section) => {
