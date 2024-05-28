@@ -25,11 +25,16 @@ const ContactCard = styled('div')(({ theme }) => ({
   }`,
   gap: 16,
   color: theme.palette.colors.charcoal[300],
-  minWidth: 336,
+  maxWidth: '100%',
+  [theme.breakpoints.up('mobile_375')]: {
+    width: '100%',
+    minWidth: 336,
+  },
 }));
 
 const ContactCardBody = styled('div')({
-  width: 224,
+  width: '100%',
+  minWidth: 224,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',

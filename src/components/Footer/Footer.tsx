@@ -42,14 +42,28 @@ const Footer = () => (
 const FooterWrapper = styled('footer')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: 32,
+  padding: '24px 16px 10px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
+  borderTop: `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.gray[900]}`,
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '32px 32px 10px',
+  },
 }));
 
-const FooterContainer = styled('div')({
+const FooterContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-});
+  flexDirection: 'column',
+  gap: 40,
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 40,
+    flexDirection: 'column',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 0,
+    flexDirection: 'row',
+  },
+}));
 
 const FooterLinkWrapper = styled('div')({
   display: 'flex',
@@ -57,12 +71,17 @@ const FooterLinkWrapper = styled('div')({
   gap: 8,
 });
 
-const FooterColumnLink = styled('div')({
+const FooterColumnLink = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  alignItems: 'start',
-  gap: 64,
-});
+  justifyContent: 'space-between',
+  gap: 'auto',
+  rowGap: 32,
+  flexWrap: 'wrap',
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 64,
+  },
+}));
 
 const FooterColumn = styled('div')({
   display: 'flex',
@@ -95,29 +114,44 @@ const FooterColumnTitle = styled('p')(({ theme }) => ({
   marginBottom: 12,
 }));
 
-const ContactSection = styled('div')({
+const ContactSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
   gap: 16,
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 32,
+    flexDirection: 'row',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 16,
+    flexDirection: 'column',
+  },
+}));
 
 const FooterBottom = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[300],
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'start',
   marginTop: '32px',
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 }));
 
-const FooterBottomRight = styled('div')({
+const FooterBottomRight = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-around',
-  gap: 24,
-});
+  gap: 20,
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 24,
+  },
+}));
 
 const FooterButtonLink = styled('p')(({ theme }) => ({
   color: theme.palette.colors.charcoal[300],
