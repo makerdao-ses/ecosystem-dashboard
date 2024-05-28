@@ -177,15 +177,21 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
         '&.Mui-selected': {
           bgcolor: `${theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)'} !important`,
           '&:hover': {
-            bgcolor: `${
-              theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700]
-            } !important`,
+            '.MuiTypography-root': {
+              fontWeight: 600,
+              color: `${
+                theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50]
+              } !important`,
+            },
+            bgcolor: `${theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)'} !important`,
           },
         },
         '&:hover': {
-          bgcolor: `${
-            theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700]
-          } !important`,
+          '.MuiTypography-root': {
+            fontWeight: 600,
+            color: theme.palette.colors.gray[500],
+          },
+          bgcolor: `${theme.palette.isLight ? 'rgba(243, 245, 247, 0.50)' : 'rgba(37, 42, 52, 0.20)'} !important`,
         },
       },
     },
