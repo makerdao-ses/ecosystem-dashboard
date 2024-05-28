@@ -12,6 +12,7 @@ export class EcosystemActorBuilder {
     this._ecosystemActor = {
       id: '',
       code: '',
+      status: '',
       shortCode: '',
       budgetPath: '',
       paragraphDescription: '',
@@ -54,6 +55,11 @@ export class EcosystemActorBuilder {
 
   withLastActivity(lastActivity: ChangeTrackingEvent): EcosystemActorBuilder {
     this._ecosystemActor.lastActivity = lastActivity;
+    return this;
+  }
+
+  withStatus(status: string): EcosystemActorBuilder {
+    this._ecosystemActor.status = status;
     return this;
   }
 

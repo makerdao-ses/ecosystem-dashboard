@@ -1,5 +1,5 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
-import { ResourceType } from '@ses/core/models/interfaces/types';
+import { ResourceType, TeamStatus } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { CURRENT_ENVIRONMENT } from '@/config/endpoints';
@@ -29,6 +29,7 @@ const variantsArgs = [
       .withCode('PWR-001')
       .withShortCode('PH')
       .withName('Powerhouse Inc')
+      .withStatus(TeamStatus.Accepted)
       .withType(ResourceType.EcosystemActor)
       .withImage('https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png')
       .withLastActivity({
@@ -79,6 +80,7 @@ const variantsArgs = [
       .withCode('PH-001')
       .withShortCode('PH')
       .withName('Phoenix Labs')
+      .withStatus(TeamStatus.Accepted)
       .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
       .addCategory('Scope Facilitator')
