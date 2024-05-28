@@ -16,7 +16,7 @@ const ButtonLinksSheet = () => {
 
   return (
     <Container>
-      <ButtonLinkOptions onClick={handleOpenSheet} />
+      <ButtonLinkOptionsStyled onClick={handleOpenSheet} />
       <CustomSheetStyled
         children={
           <ContainerButtonSheet>
@@ -66,3 +66,10 @@ const Title = styled('h2')(({ theme }) => ({
 }));
 
 const ContainerButtonSheet = styled('div')({});
+
+const ButtonLinkOptionsStyled = styled(ButtonLinkOptions)({
+  '& div:first-of-type': {
+    width: 24,
+    height: 24,
+  },
+});

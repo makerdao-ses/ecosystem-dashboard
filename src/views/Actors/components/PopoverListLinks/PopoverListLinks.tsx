@@ -3,8 +3,13 @@ import Popover from '@mui/material/Popover';
 import React, { useCallback, useEffect, useRef } from 'react';
 import ButtonLinkOptions from '@/components/ButtonLink/ButtonLinkOptions';
 import LinkList from '../LinkList/LinkList';
+import type { FC } from 'react';
+interface Props {
+  label?: string;
+  className?: string;
+}
 
-const PopoverListLinks = () => {
+const PopoverListLinks: FC<Props> = ({ label, className }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const popoverRef = useRef<HTMLDivElement | null>(null);
 
@@ -52,8 +57,8 @@ const PopoverListLinks = () => {
   }, [handleClickOutside, handleScroll, open]);
 
   return (
-    <div>
-      <ButtonLinkOptions label="Links" onClick={handleClick} />
+    <div className={className}>
+      <ButtonLinkOptions label={label} onClick={handleClick} />
 
       <ContainerPopover
         disableScrollLock

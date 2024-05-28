@@ -91,7 +91,6 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 </ContainerLinksArrowsMobile>
                 <ContainerLinksArrowsTable>
                   <PopoverListLinks />
-                  <VerticalLine />
                   <InternalLinkButtonStyled
                     href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
                     showIcon
@@ -158,7 +157,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
         />
       </ContainerLastModifiedMobileTable>
       <ContainerLinksArrowsDesk>
-        <PopoverListLinks />
+        <PopoverListLinks label="Links" />
         <VerticalLine />
         <InternalLinkButtonStyled
           href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
@@ -555,7 +554,7 @@ const ContainerScopeLastModified = styled('div')(({ theme }) => ({
 const ContainerLastModifiedMobileTable = styled('div')(({ theme }) => ({
   width: '100%',
   marginTop: 6,
-  marginLeft: 2,
+  marginLeft: 0,
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 4,
     marginLeft: 0,

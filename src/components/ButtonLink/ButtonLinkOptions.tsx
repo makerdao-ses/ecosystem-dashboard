@@ -1,8 +1,8 @@
 import { styled } from '@mui/material';
+import Link from 'public/assets/svg/link.svg';
 import React from 'react';
-import LinkSvg from '../icons/LinkSvg';
-import type { FC, MouseEvent } from 'react';
 
+import type { FC, MouseEvent } from 'react';
 interface Props {
   className?: string;
   label?: string;
@@ -11,7 +11,9 @@ interface Props {
 
 const ButtonLinkOptions: FC<Props> = ({ label, onClick, className }) => (
   <Container className={className} label={!!label} onClick={onClick}>
-    <LinkSvg />
+    <ContainerLink>
+      <Link />
+    </ContainerLink>
     {label && <Label>{label}</Label>}
   </Container>
 );
@@ -54,4 +56,12 @@ const Label = styled('div')({
   fontSize: 12,
   lineHeight: '18px',
   letterSpacing: '1.5%',
+});
+
+const ContainerLink = styled('div')({
+  width: 24,
+  height: 24,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
