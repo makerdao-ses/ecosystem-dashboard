@@ -11,6 +11,7 @@ export interface CoreUnit {
   code: string;
   shortCode: string;
   name: string;
+  status: string;
   image: string;
   budgetPath: string;
   sentenceDescription: string;

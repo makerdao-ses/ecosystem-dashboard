@@ -13,6 +13,7 @@ export class CoreUnitsBuilder {
   constructor() {
     this._coreUnit = {
       name: '',
+      status: '',
       code: '',
       shortCode: '',
       image: '',
@@ -74,6 +75,11 @@ export class CoreUnitsBuilder {
 
   withParagraphImage(image: string): CoreUnitsBuilder {
     this._coreUnit.paragraphImage = image;
+    return this;
+  }
+
+  withStatus(status: string): CoreUnitsBuilder {
+    this._coreUnit.status = status;
     return this;
   }
 
