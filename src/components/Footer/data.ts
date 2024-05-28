@@ -60,7 +60,7 @@ const linkCategory: LinkCategory[] = [
       {
         label: 'Connect',
         link: '#',
-        Icon: FusionIcon,
+        Icon: ConnectIcon,
       },
       {
         label: 'Switchboard',
@@ -70,7 +70,7 @@ const linkCategory: LinkCategory[] = [
       {
         label: 'Fusion',
         link: '#',
-        Icon: ConnectIcon,
+        Icon: FusionIcon,
       },
     ],
   },
@@ -79,27 +79,27 @@ const linkCategory: LinkCategory[] = [
 const iconsMakerDAO: TypeIconFooter[] = [
   {
     Icon: DiscordIcon,
-    href: '#',
+    href: 'https://discord.com/invite/RBRumCpEDH',
     title: 'discord',
   },
   {
     Icon: TwitterIcon,
-    href: '#',
+    href: 'https://x.com/MakerDAO',
     title: 'twitter',
   },
   {
     Icon: RedditIcon,
-    href: '#',
+    href: 'https://www.reddit.com/r/MakerDAO/',
     title: 'reddit',
   },
   {
     Icon: YoutubeIcon,
-    href: '#',
+    href: 'https://www.youtube.com/MakerDAO',
     title: 'youtube',
   },
   {
     Icon: GithubIcon,
-    href: '#',
+    href: 'https://github.com/makerdao',
     title: 'github',
   },
 ];
@@ -107,12 +107,12 @@ const iconsMakerDAO: TypeIconFooter[] = [
 const iconsPowerhouse: TypeIconFooter[] = [
   {
     Icon: DiscordIcon,
-    href: '#',
+    href: 'https://discord.com/invite/h7GKvqDyDP',
     title: 'discord',
   },
   {
     Icon: TwitterIcon,
-    href: '#',
+    href: 'https://x.com/MakerDAO_SES',
     title: 'twitter',
   },
   {
@@ -122,7 +122,7 @@ const iconsPowerhouse: TypeIconFooter[] = [
   },
   {
     Icon: YoutubeIcon,
-    href: '#',
+    href: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
     title: 'youtube',
   },
   {

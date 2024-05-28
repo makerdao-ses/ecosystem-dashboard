@@ -9,6 +9,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
+import Search from '@/components/Search/Search';
 import { TeamRole } from '@/core/enums/teamRole';
 import { FILTER_SCOPE_ACTOR } from './utils';
 interface Props {
@@ -21,6 +22,7 @@ interface Props {
   onChange?: (items: string[]) => void;
   isDisabled?: boolean;
   onChangeScope?: (items: string[]) => void;
+  handleSearch: (key: string) => void;
 }
 const categories = Object.values(ActorCategory) as string[];
 const ActorFilters: React.FC<Props> = ({
@@ -32,8 +34,10 @@ const ActorFilters: React.FC<Props> = ({
   filteredScopes,
   onChangeScope,
   scopeCount,
+  handleSearch,
 }) => {
   const theme = useTheme();
+
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const isDisabled = filteredCategories.length <= 0 && filteredScopes.length <= 0;
   const isLight = theme.palette.mode === 'light';
@@ -102,6 +106,9 @@ const ActorFilters: React.FC<Props> = ({
             onChange={onChange}
           />
         </RoleFilter>
+        <SearchFilter>
+          <Search placeholder="Search" onChange={handleSearch} />
+        </SearchFilter>
       </FilterActorsContainer>
       <ResponsiveButton onClick={!isDisabled ? handleResetFilter : undefined} isDisabled={isDisabled}>
         <Close width={10} height={10} fill={colorButton} fillDark={colorButton} />
@@ -115,7 +122,7 @@ export default ActorFilters;
 const FiltersContainer = styled('div')(({ theme }) => ({
   display: 'grid',
   gap: 8,
-  gridTemplateColumns: 'auto auto auto',
+  gridTemplateColumns: 'auto auto auto auto',
   gridTemplateRows: 'auto',
   placeItems: 'space-between',
   justifyContent: 'end',
@@ -129,7 +136,7 @@ const FiltersContainer = styled('div')(({ theme }) => ({
     gridTemplateRows: 'auto',
     margin: '0px',
     justifyContent: 'flex-end',
-    gridTemplateAreas: '"reset filterScope filterRole"',
+    gridTemplateAreas: '"reset filterScope filterRole searchFilter"',
   },
 }));
 
@@ -181,6 +188,13 @@ const ResponsiveButton = styled('div')<{ isDisabled: boolean }>(({ isDisabled, t
     display: 'none',
   },
 }));
+// const
 
 const RoleFilter = styled('div')({});
 const ScopeFilter = styled('div')({});
+const SearchFilter = styled('div')({
+  display: 'none',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+  },
+});

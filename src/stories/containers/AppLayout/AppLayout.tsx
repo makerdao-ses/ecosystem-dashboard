@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import Footer from '@/components/Footer/Footer';
 import MainWrapper from '../../../core/context/MainWrapper';
-import Footer from '../../components/Footer/Footer';
-import { developer, governesses, products } from '../../components/Footer/iconsData';
 import Header from '../../components/Header/Header';
 
 export type AppLayoutProps = {
@@ -15,7 +14,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => (
     <Container>
       <MainWrapper>{children}</MainWrapper>
     </Container>
-    <Footer developer={developer} governesses={governesses} products={products} />
+    <Footer />
   </>
 );
 
