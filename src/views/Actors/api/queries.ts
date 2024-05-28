@@ -12,6 +12,7 @@ export const getAllActors = (teamType: ResourceType) => ({
         code
         shortCode
         name
+        status
         type
         lastActivity {
           created_at

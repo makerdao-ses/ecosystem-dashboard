@@ -86,7 +86,7 @@ export const useCoreUnitsTable = () => {
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
     Object.values(TeamStatus).forEach((cat) => {
-      result[cat] = statusesFiltered?.filter((cu) => getStatusMip39AcceptedOrObsolete(cu) === cat).length;
+      result[cat] = statusesFiltered?.filter((cu) => cu.status === cat).length;
     });
     result.All = statusesFiltered.length;
     return result;
@@ -237,23 +237,30 @@ export const useCoreUnitsTable = () => {
       ? 1
       : 0;
 
+  // Add a new property 'weight' to each item in the filtered data
   const dataWithStatus = useMemo(
     () =>
       filteredData?.map((item) => ({
         ...item,
-        status: giveWeightByStatus(getStatusMip39AcceptedOrObsolete(item)),
+        weight: item.status,
       })),
     [filteredData]
   );
 
+  // Group by weight and sort within each group alphabetically by name, then sort the groups by weight in descending order
   const groupByStatusDefaultSorting: CoreUnit[] = useMemo(() => {
     let resultArray: CoreUnit[] = [];
-    const groupCoreUnitByStatus = groupBy(dataWithStatus, 'status');
-    Object.values(groupCoreUnitByStatus).map((arrayValues) => {
+    const groupCoreUnitByWeight = groupBy(dataWithStatus, 'weight');
+
+    const sortedGroups = Object.entries(groupCoreUnitByWeight).sort(
+      ([weightA], [weightB]) => Number(weightB) - Number(weightA)
+    );
+
+    sortedGroups.forEach(([, arrayValues]) => {
       const alphabeticallyOrder = orderBy(arrayValues, 'name');
-      resultArray = [...alphabeticallyOrder, ...resultArray];
-      return resultArray;
+      resultArray = [...resultArray, ...alphabeticallyOrder];
     });
+
     return resultArray;
   }, [dataWithStatus]);
 

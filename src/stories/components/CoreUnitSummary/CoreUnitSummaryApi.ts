@@ -10,6 +10,7 @@ const CORE_UNITS_REQUEST = {
         code
         shortCode
         name
+        status
         image
         category
         sentenceDescription

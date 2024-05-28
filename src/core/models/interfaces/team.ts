@@ -19,6 +19,7 @@ export interface Team {
   code: string;
   shortCode: string;
   name: string;
+  status: string;
   image: string;
   budgetPath: string;
   category: string[];

@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import lightTheme from '../../../../styles/theme/themes';
 
 import {
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
-  getStatusMip39AcceptedOrObsolete,
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -29,7 +29,6 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   const tableDimensions = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const lessPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
-  const mipStatus = getStatusMip39AcceptedOrObsolete(coreUnitAbout as CoreUnit);
   const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnit));
 
   return (
@@ -59,7 +58,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
                 flexDirection: 'row',
               }}
             >
-              {mipStatus && <StatusChipLegacy status={mipStatus} />}
+              <StatusChipLegacy status={coreUnitAbout.status as TeamStatus} />
               <Row>
                 {newDate && (
                   <CustomLink

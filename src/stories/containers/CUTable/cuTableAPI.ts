@@ -9,6 +9,7 @@ export const GETCoreUnits = gql`
       shortCode
       code
       name
+      status
       image
       category
       cuMip {

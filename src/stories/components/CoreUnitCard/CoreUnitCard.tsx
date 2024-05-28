@@ -4,6 +4,7 @@ import { siteRoutes } from '@ses/config/routes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import lightTheme from '../../../../styles/theme/themes';
 import {
   getBudgetCapsFromCoreUnit,
@@ -18,7 +19,6 @@ import {
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
-  getStatusMip39AcceptedOrObsolete,
 } from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getShortCode } from '../../../core/utils/string';
@@ -98,7 +98,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             </Title>
             <CuTableColumnSummary
               title={coreUnit?.name}
-              status={getStatusMip39AcceptedOrObsolete(coreUnit)}
+              status={coreUnit.status as TeamStatus}
               statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
               imageUrl={coreUnit?.image}
               mipUrl={getMipUrlFromCoreUnit(coreUnit)}

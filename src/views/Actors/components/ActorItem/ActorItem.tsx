@@ -11,7 +11,7 @@ import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamRole } from '@/core/enums/teamRole';
-import { TeamStatus } from '@/core/models/interfaces/types';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import { getActorLastMonthWithData } from '../../utils/utils';
 import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import PopoverListLinks from '../PopoverListLinks/PopoverListLinks';
@@ -63,7 +63,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                     </ContainerShortCodeName>
                     {isEnabled('FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE') && (
                       <StatusMobile>
-                        <StatusChip status={TeamStatus.Rejected} />
+                        <StatusChip status={actor.status as TeamStatus} />
                       </StatusMobile>
                     )}
                   </TitleLinks>

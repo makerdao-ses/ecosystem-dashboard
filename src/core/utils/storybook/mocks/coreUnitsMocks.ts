@@ -13,6 +13,7 @@ import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedi
 export const SESCoreUnitMocked = new CoreUnitsBuilder()
   .withId('1')
   .withCode('SES-001')
+  .withStatus(TeamStatus.Accepted)
   .withShortCode('SES')
   .addBudgetPath('atlas/legacy/core-units/SES-001/')
   .withName('Sustainable Ecosystem Scaling')
