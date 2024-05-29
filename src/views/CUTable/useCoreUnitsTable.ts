@@ -9,22 +9,22 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { TeamStatus } from '@/core/models/interfaces/types';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import { GRAPHQL_ENDPOINT } from '@/config/endpoints';
 import {
+  getStatusMip39AcceptedOrObsolete,
   getExpenditureValueFromCoreUnit,
   getFTEsFromCoreUnit,
   getLastMonthWithData,
-  getStatusMip39AcceptedOrObsolete,
-} from '../../../core/businessLogic/coreUnits';
-import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
-import { SortEnum } from '../../../core/enums/sortEnum';
-import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
-import { sortAlphaNum } from '../../../core/utils/sort';
-import { buildQueryString } from '../../../core/utils/urls';
+} from '@/core/businessLogic/coreUnits';
+import { CuCategoryEnum } from '@/core/enums/cuCategoryEnum';
+import { SortEnum } from '@/core/enums/sortEnum';
+import { TeamStatus } from '@/core/models/interfaces/types';
+import { filterData, getArrayParam, getStringParam } from '@/core/utils/filters';
+import { sortAlphaNum } from '@/core/utils/sort';
+import { buildQueryString } from '@/core/utils/urls';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
 import { GETCoreUnits } from './cuTableAPI';
-import type { CustomTableColumn, CustomTableRow } from '../../components/CustomTable/CustomTable2';
+import type { CustomTableColumn, CustomTableRow } from './components/CustomTable/CustomTable2';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const useCoreUnitsTable = () => {
@@ -242,7 +242,7 @@ export const useCoreUnitsTable = () => {
     () =>
       filteredData?.map((item) => ({
         ...item,
-        weight: item.status,
+        weight: giveWeightByStatus(item.status as TeamStatus),
       })),
     [filteredData]
   );
@@ -257,7 +257,8 @@ export const useCoreUnitsTable = () => {
     );
 
     sortedGroups.forEach(([, arrayValues]) => {
-      const alphabeticallyOrder = orderBy(arrayValues, 'name');
+      const alphabeticallyOrder = orderBy(arrayValues, (item) => item.name.toLowerCase(), ['asc']);
+
       resultArray = [...resultArray, ...alphabeticallyOrder];
     });
 

@@ -1,23 +1,22 @@
 import { stringify } from 'querystring';
-import styled from '@emotion/styled';
-import { Divider } from '@mui/material';
+import { Divider, styled, useTheme } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useRef } from 'react';
+import { CuCategoryEnum } from '@/core/enums/cuCategoryEnum';
+import { SortEnum } from '@/core/enums/sortEnum';
+import { useDebounce } from '@/core/hooks/useDebounce';
 import { TeamStatus } from '@/core/models/interfaces/types';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
-import { SortEnum } from '../../../core/enums/sortEnum';
-import { useDebounce } from '../../../core/hooks/useDebounce';
-import { CategoryChip } from '../../components/CategoryChip/CategoryChip';
-import { CustomMultiSelect } from '../../components/CustomMultiSelect/CustomMultiSelect';
-import { CustomSortSelect } from '../../components/CustomSortSelect/CustomSortSelect';
-import ResetButton from '../../components/ResetButton/ResetButton';
-import { SearchInput } from '../../components/SearchInput/SearchInput';
-import { StatusChipLegacy } from '../../components/StatusChipLegacy/StatusChipLegacy';
-import Filter from '../../components/svg/filter';
-import type { SortSelectItem } from '../../components/CustomSortSelect/CustomSortSelect';
-import type { CustomTableColumn } from '../../components/CustomTable/CustomTable2';
+import { CategoryChip } from '@/stories/components/CategoryChip/CategoryChip';
+import { CustomMultiSelect } from '@/stories/components/CustomMultiSelect/CustomMultiSelect';
+import type { SortSelectItem } from '@/stories/components/CustomSortSelect/CustomSortSelect';
+import { CustomSortSelect } from '@/stories/components/CustomSortSelect/CustomSortSelect';
+
+import ResetButton from '@/stories/components/ResetButton/ResetButton';
+import { SearchInput } from '@/stories/components/SearchInput/SearchInput';
+import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
+import Filter from '@/stories/components/svg/filter';
+import type { CustomTableColumn } from './components/CustomTable/CustomTable2';
 
 interface FilterProps {
   filtersPopup: boolean;
@@ -41,7 +40,8 @@ const categories = Object.values(CuCategoryEnum) as string[];
 export const Filters = (props: FilterProps) => {
   const router = useRouter();
   const debounce = useDebounce();
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [filtersVisible, setFiltersVisible] = React.useState(false);
@@ -91,11 +91,8 @@ export const Filters = (props: FilterProps) => {
 
   return (
     <Wrapper>
-      <Title filtersVisible={filtersVisible} isLight={isLight}>
-        {' '}
-        Core Units
-      </Title>
-      <Container isLight={isLight} filtersVisible={filtersVisible}>
+      <Title filtersVisible={filtersVisible}>Core Units</Title>
+      <Container filtersVisible={filtersVisible}>
         <ResetFilter filtersVisible={filtersVisible}>
           <ResetButton onClick={props.clearFilters} disabled={!filtersActive} />
         </ResetFilter>
@@ -153,7 +150,7 @@ export const Filters = (props: FilterProps) => {
             }}
           />
         </Search>
-        <ButtonFilter isLight={isLight} isOpen={filtersVisible} isActive={filtersActive} onClick={toggleFiltersVisible}>
+        <ButtonFilter isOpen={filtersVisible} isActive={filtersActive} onClick={toggleFiltersVisible}>
           <Filter
             fill={filtersActive || filtersVisible ? (isLight ? '#1AAB9B' : '#098C7D') : isLight ? '#231536' : 'white'}
           />
@@ -180,16 +177,16 @@ export const Filters = (props: FilterProps) => {
   );
 };
 
-const Wrapper = styled.div({
+const Wrapper = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
   alignItems: 'center',
 });
 
-const Container = styled.div<{ isLight: boolean; filtersVisible: boolean }>(({ isLight, filtersVisible }) => ({
+const Container = styled('div')<{ filtersVisible: boolean }>(({ theme, filtersVisible }) => ({
   display: 'grid',
-  backgroundColor: isLight ? 'white' : 'none',
+  backgroundColor: theme.palette.isLight ? 'white' : 'none',
   gridTemplateColumns: filtersVisible ? '118px calc(100% - 230px) 34px 34px' : 'auto auto 34px 34px',
   gridTemplateRows: 'auto',
   gap: '16px',
@@ -228,14 +225,14 @@ export const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => pro
   },
 }));
 
-const Sort = styled.div({
+const Sort = styled('div')({
   gridArea: 'sort',
   '@media (min-width: 1194px)': {
     display: 'none',
   },
 });
 
-const Search = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+const Search = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'search',
   justifySelf: 'stretch',
@@ -245,7 +242,7 @@ const Search = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => (
   },
 }));
 
-const Status = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+const Status = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'status',
   placeItems: 'flex-start',
@@ -255,7 +252,7 @@ const Status = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => (
   },
 }));
 
-const Category = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+const Category = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'category',
   placeItems: 'flex-start',
@@ -266,7 +263,7 @@ const Category = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) =>
   },
 }));
 
-const ResetFilter = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+const ResetFilter = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'resetFilter',
   '@media (min-width: 834px)': {
@@ -274,44 +271,46 @@ const ResetFilter = styled.div<{ filtersVisible: boolean }>(({ filtersVisible })
   },
 }));
 
-export const ButtonFilter = styled.div<{ isActive: boolean; isLight: boolean; isOpen: boolean }>(
-  ({ isActive, isLight, isOpen }) => ({
-    display: 'flex',
-    gridArea: 'buttonFilter',
-    justifySelf: 'flex-end',
-    width: '34px',
-    height: '34px',
-    border: isLight
-      ? isOpen || isActive
-        ? '1px solid #6EDBD0'
-        : '1px solid #D4D9E1'
-      : isOpen || isActive
-      ? '1px solid #098C7D'
-      : '1px solid #343442',
-    borderRadius: '50%',
-    alignItems: 'center',
-    background: isOpen ? (isLight ? '#B6EDE7' : '#003C40') : isLight ? 'white' : 'transparent',
-    justifyContent: 'center',
-    boxSizing: 'border-box',
-    '@media (min-width: 834px)': {
-      display: 'none',
-    },
-  })
-);
+export const ButtonFilter = styled('div')<{ isActive: boolean; isOpen: boolean }>(({ isActive, isOpen, theme }) => ({
+  display: 'flex',
+  gridArea: 'buttonFilter',
+  justifySelf: 'flex-end',
+  width: '34px',
+  height: '34px',
+  border: theme.palette.isLight
+    ? isOpen || isActive
+      ? '1px solid #6EDBD0'
+      : '1px solid #D4D9E1'
+    : isOpen || isActive
+    ? '1px solid #098C7D'
+    : '1px solid #343442',
+  borderRadius: '50%',
+  alignItems: 'center',
+  background: isOpen
+    ? theme.palette.isLight
+      ? '#B6EDE7'
+      : '#003C40'
+    : theme.palette.isLight
+    ? 'white'
+    : 'transparent',
+  justifyContent: 'center',
+  boxSizing: 'border-box',
+  '@media (min-width: 834px)': {
+    display: 'none',
+  },
+}));
 
-const Title = styled.div<{ filtersVisible: boolean; isLight: boolean }>(({ filtersVisible, isLight }) => ({
+const Title = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible, theme }) => ({
   display: filtersVisible ? 'none' : 'block',
   fontFamily: 'Inter, sans-serif',
   fontSize: '20px',
-  fontWeight: 600,
-  lineHeight: isLight ? '29px' : '38px',
+  fontWeight: 700,
+  lineHeight: theme.palette.isLight ? '28.8px' : '38px',
   letterSpacing: '0.4px',
   flex: 1,
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   '@media (min-width: 834px)': {
     display: 'block',
-    fontSize: '24px',
-    lineHeight: '24px',
     alignSelf: 'flex-start',
   },
   '@media (min-width: 1194px)': {

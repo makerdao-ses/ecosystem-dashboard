@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { TablePlaceholder } from '@/views/CUTable/components/CustomTable/TablePlaceholder';
 import ProjectCard from '../ProjectCard/ProjectCard';
 import type { Project } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

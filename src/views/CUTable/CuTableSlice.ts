@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SortEnum } from '../../../core/enums/sortEnum';
+import { SortEnum } from '@/core/enums/sortEnum';
+import type { CoreUnitDto } from '@/core/models/dto/coreUnitDTO';
+import type { RootState } from '@/core/store/store';
 import { fetchCoreUnits } from './cuTableAPI';
-import type { CoreUnitDto } from '../../../core/models/dto/coreUnitDTO';
-import type { RootState } from '../../../core/store/store';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface CuTableState {

@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Collapse, Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { useCoreUnitsTable } from '@ses/containers/CUTable/useCoreUnitsTable';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { forwardRef, useCallback, useMemo } from 'react';
+import { useCoreUnitsTable } from '@/views/CUTable/useCoreUnitsTable';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';

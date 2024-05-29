@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import type { SortEnum } from '@/core/enums/sortEnum';
 import { HeadCustomTable } from './HeadCustomTable/HeadCustomTable';
 import { TablePlaceholder } from './TablePlaceholder';
 import ListCoreUnit from './list-core-unit/list-core-unit';
-import type { SortEnum } from '../../../core/enums/sortEnum';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { CSSProperties } from 'react';
 

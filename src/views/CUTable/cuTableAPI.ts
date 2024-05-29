@@ -1,5 +1,5 @@
 import { gql, request } from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import { GRAPHQL_ENDPOINT } from '@/config/endpoints';
 import type { CoreUnitDto } from '@ses/core/models/dto/coreUnitDTO';
 
 export const GETCoreUnits = gql`

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import React from 'react';
-import { CustomTableHeader } from '../../CustomTableHeader/CustomTableHeader';
+import { CustomTableHeader } from '@/stories/components/CustomTableHeader/CustomTableHeader';
 import { TableCell } from '../CustomTable2';
 import { CustomTableHeaderSkeleton } from '../CustomTableHeaderSkeleton';
 import type { CustomTableColumn } from '../CustomTable2';

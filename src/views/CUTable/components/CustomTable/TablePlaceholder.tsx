@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import PlaceholderImgDark from 'public/assets/img/table-placeholder-dark.png';
+import PlaceholderImg from 'public/assets/img/table-placeholder.png';
 import React from 'react';
-import PlaceholderImgDark from '../../../../public/assets/img/table-placeholder-dark.png';
-import PlaceholderImg from '../../../../public/assets/img/table-placeholder.png';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useThemeContext } from '@/core/context/ThemeContext';
 
 interface Props {
   description?: string;

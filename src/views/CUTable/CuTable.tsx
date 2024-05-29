@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { CuTableHeaderSkeleton } from '@ses/components/CuTableHeaderSkeleton/CuTableHeaderSkeleton';
-import { CustomTable2 } from '@ses/components/CustomTable/CustomTable2';
+// import { CustomTable2 } from '@ses/components/CustomTable/CustomTable2';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
@@ -10,6 +10,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 
+import { CustomTable2 } from './components/CustomTable/CustomTable2';
 import { Filters } from './cuTableFilters';
 import { useCoreUnitsTable } from './useCoreUnitsTable';
 
