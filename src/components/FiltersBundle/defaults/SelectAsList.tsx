@@ -1,29 +1,38 @@
 import { styled } from '@mui/material';
 import FilterAsListBase from './FilterAsListBase';
-import type { SelectFilter } from '../types';
+import type { SelectFilter, SelectOption } from '../types';
 
 interface SelectAsListProps {
   filter: SelectFilter;
   onClose: () => void;
 }
 
-const SelectAsList: React.FC<SelectAsListProps> = ({ filter, onClose }) => (
-  <FilterAsListBase label={filter.label}>
-    <Select
-      size={filter.options.length}
-      onChange={(e) => {
-        filter.onChange(e.target.value);
-        onClose();
-      }}
-    >
-      {filter.options.map((option) => (
-        <Option key={option.value} value={option.value} selected={filter.selected === option.value}>
-          {option.label}
-        </Option>
-      ))}
-    </Select>
-  </FilterAsListBase>
-);
+const SelectAsList: React.FC<SelectAsListProps> = ({ filter, onClose }) => {
+  const isActive = (option: SelectOption) => {
+    if (filter.multiple) {
+      return (filter.selected as (string | number)[]).includes(option.value);
+    }
+    return filter.selected === option.value;
+  };
+
+  return (
+    <FilterAsListBase label={filter.label}>
+      <Select
+        size={filter.options.length}
+        onChange={(e) => {
+          filter.onChange(e.target.value);
+          onClose();
+        }}
+      >
+        {filter.options.map((option) => (
+          <Option key={option.value} value={option.value} selected={isActive(option)}>
+            {option.label}
+          </Option>
+        ))}
+      </Select>
+    </FilterAsListBase>
+  );
+};
 
 export default SelectAsList;
 

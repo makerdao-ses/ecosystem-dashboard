@@ -1,42 +1,20 @@
-import SearchIcon from '@mui/icons-material/Search';
-import { Button, InputAdornment, TextField, styled } from '@mui/material';
+import { styled } from '@mui/material';
+import Search from '../Search/Search';
 import RadioAsList from './defaults/RadioAsList';
 import SelectAsList from './defaults/SelectAsList';
-import type { Filter, ResetFilter } from './types';
+import type { Filter } from './types';
 
 interface FilterListProps {
   filters: Filter[];
-  resetFilters?: ResetFilter;
   handleClose: () => void;
 }
 
-const FilterList: React.FC<FilterListProps> = ({ filters, resetFilters, handleClose }) => (
+const FilterList: React.FC<FilterListProps> = ({ filters, handleClose }) => (
   <Container>
     {filters.map((filter) => {
       switch (filter.type) {
         case 'search': {
-          return (
-            <div>
-              {/* TODO: implement search component */}
-              <TextField
-                fullWidth
-                size="small"
-                key={filter.id}
-                variant="outlined"
-                placeholder="Search"
-                type="text"
-                value={filter.value}
-                onChange={(e) => filter.onChange(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </div>
-          );
+          return <SearchFilter placeholder="Search" onChange={filter.onChange} />;
         }
         case 'select': {
           return <SelectAsList filter={filter} onClose={handleClose} />;
@@ -44,21 +22,14 @@ const FilterList: React.FC<FilterListProps> = ({ filters, resetFilters, handleCl
         case 'radio': {
           return <RadioAsList filter={filter} />;
         }
+        case 'divider': {
+          return null;
+        }
         default: {
           throw new Error('Unknown filter type');
         }
       }
     })}
-
-    <FullWidthButton
-      visible={!!resetFilters}
-      variant="contained"
-      color="primary"
-      disabled={!resetFilters?.canReset}
-      onClick={resetFilters?.onReset}
-    >
-      Reset
-    </FullWidthButton>
   </Container>
 );
 
@@ -71,7 +42,12 @@ const Container = styled('div')(() => ({
   padding: '0 16px',
 }));
 
-const FullWidthButton = styled(Button)<{ visible: boolean }>(({ visible }) => ({
-  display: visible ? 'flex' : 'none',
-  width: '100%',
-}));
+const SearchFilter = styled(Search)({
+  display: 'flex',
+  '& > div': {
+    width: '100%',
+  },
+  '& > input': {
+    backgroundColor: 'red',
+  },
+});

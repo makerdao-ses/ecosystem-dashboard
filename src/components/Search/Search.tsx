@@ -83,13 +83,14 @@ const Input = styled('input')<{ small?: boolean } & WithLegacyBreakpoints>(({ th
   padding: '4px 12px 4px 40px',
   boxSizing: 'border-box',
   transition: 'all .3s ease',
-  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : '#21262F',
   '&::placeholder': {
     color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[300],
   },
 
   [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: !small
     ? {
+        backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
         width: '320px',
         fontSize: '14px',
       }
@@ -100,10 +101,6 @@ const IconWrapper = styled('div')(({ theme }) => ({
   left: 12,
   display: 'flex',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[200],
-  width: 10,
-  height: 10,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    width: 15,
-    height: 15,
-  },
+  width: 15,
+  height: 15,
 }));
