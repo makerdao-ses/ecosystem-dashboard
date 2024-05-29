@@ -4,7 +4,7 @@ import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMed
 import { siteRoutes } from '@ses/config/routes';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import React from 'react';
-import ButtonLinkOptions from '@/components/ButtonLink/ButtonLinkOptions';
+import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
 import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import RoleChip from '@/components/RoleChip/RoleChip';
@@ -80,13 +80,22 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                     <RoleChip status={(actor.category?.[0] ?? '') as TeamRole} />
                   </RoleOnlyTable>
                 </ContainerTitleStatus>
+
                 <ContainerLinksArrowsMobile>
-                  <ButtonLinkOptions onClick={() => null} />
+                  <ButtonLinksSheet />
+
                   <InternalLinkButtonStyled
                     href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
                     showIcon
                   />
                 </ContainerLinksArrowsMobile>
+                <ContainerLinksArrowsTable>
+                  <PopoverListLinks />
+                  <InternalLinkButtonStyled
+                    href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
+                    showIcon
+                  />
+                </ContainerLinksArrowsTable>
               </ContainerDescription>
             </ActorAvatar>
           </WrapperEcosystemActor>
@@ -148,7 +157,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
         />
       </ContainerLastModifiedMobileTable>
       <ContainerLinksArrowsDesk>
-        <PopoverListLinks />
+        <PopoverListLinksStyled label="Links" />
         <VerticalLine />
         <InternalLinkButtonStyled
           href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
@@ -545,7 +554,7 @@ const ContainerScopeLastModified = styled('div')(({ theme }) => ({
 const ContainerLastModifiedMobileTable = styled('div')(({ theme }) => ({
   width: '100%',
   marginTop: 6,
-  marginLeft: 2,
+  marginLeft: 0,
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 4,
     marginLeft: 0,
@@ -674,11 +683,17 @@ const ContainerLinksArrowsMobile = styled('div')(({ theme }) => ({
   gap: 16,
   height: 32,
   [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+}));
+const ContainerLinksArrowsTable = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
     gap: 8,
     paddingTop: 16,
     height: 'revert',
   },
-
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
@@ -745,9 +760,9 @@ const ActorLastModifiedStyled = styled(ActorLastModified)(({ theme }) => ({
 
 const InternalLinkButtonStyled = styled(InternalLinkButton)({
   borderRadius: 8,
-  padding: '4px 8px 4px 8px',
+  padding: '2px 8px 2px 8px',
   ':hover': {
-    padding: '4px 8px 4px 8px',
+    padding: '2px 8px 2px 8px',
   },
 });
 
@@ -761,5 +776,19 @@ const VerticalLine = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: 16,
     marginRight: 16,
+  },
+}));
+const PopoverListLinksStyled = styled(PopoverListLinks)(({ theme }) => ({
+  'div:first-of-type': {
+    width: 21,
+    height: 21,
+    justifyContent: 'flex',
+    alignItem: 'center',
+  },
+  '& button': {
+    gap: 4,
+    [theme.breakpoints.up('desktop_1280')]: {
+      padding: '5px 7px 5px 4px',
+    },
   },
 }));
