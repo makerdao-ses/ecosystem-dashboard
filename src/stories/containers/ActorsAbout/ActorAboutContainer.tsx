@@ -19,6 +19,7 @@ import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
 import ActorSummary from './components/ActorSummary/ActorSummary';
 import CardProjects from './components/CardProjects/CardProjects';
 import useActorAbout from './useActorAbout';
+import { removeDuplicateNames } from './utils';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
@@ -36,7 +37,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
 
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const routeToFinances = removeAtlasFromPath(actor.budgetPath);
-
+  const removeDuplicateNamesBudgetPath = removeDuplicateNames(routeToFinances);
   return (
     <PageWrapper isLight={isLight}>
       <SEOHead
@@ -91,7 +92,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
                   titleCard={`View all expenses of the ${actor.name} Ecosystem Actor.`}
                   auditorMessage={`${actor.name} is working without auditor.`}
                   makerburnCustomMessage={`View On-Chain transfers to ${actor.name} on makerburn.com`}
-                  budgetPath={routeToFinances}
+                  budgetPath={removeDuplicateNamesBudgetPath}
                 />
               </ContainerCard>
 
