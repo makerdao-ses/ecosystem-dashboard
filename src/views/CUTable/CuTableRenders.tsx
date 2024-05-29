@@ -1,28 +1,27 @@
 import styled from '@emotion/styled';
-import type { TeamStatus } from '@/core/models/interfaces/types';
-import lightTheme from '../../../../styles/theme/themes';
-
+import lightTheme from '@ses/styles/theme/themes';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
-  getFacilitatorsFromCoreUnit,
   getFTEsFromCoreUnit,
-  getLastMonthWithData,
+  getFacilitatorsFromCoreUnit,
   getLast3ExpenditureValuesFromCoreUnit,
   getLast3MonthsWithDataFormatted,
+  getLastMonthWithData,
   getLatestMip39FromCoreUnit,
   getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
-} from '../../../core/businessLogic/coreUnits';
-import { getShortCode } from '../../../core/utils/string';
-import CoreUnitCard from '../../components/CoreUnitCard/CoreUnitCard';
-import { CuTableColumnExpenditures } from '../../components/CuTableColumnExpenditures/CuTableColumnExpenditures';
-import { CuTableColumnLastModified } from '../../components/CuTableColumnLastModified/CuTableColumnLastModified';
-import { CuTableColumnLinks } from '../../components/CuTableColumnLinks/CuTableColumnLinks';
-import { CuTableColumnSummary } from '../../components/CuTableColumnSummary/CuTableColumnSummary';
-import { CuTableColumnTeamMember } from '../../components/CuTableColumnTeamMember/CuTableColumnTeamMember';
+} from '@/core/businessLogic/coreUnits';
+import type { TeamStatus } from '@/core/models/interfaces/types';
+import { getShortCode } from '@/core/utils/string';
+import CoreUnitCard from '@/stories/components/CoreUnitCard/CoreUnitCard';
+import { CuTableColumnExpenditures } from '@/stories/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
+import { CuTableColumnLastModified } from '@/stories/components/CuTableColumnLastModified/CuTableColumnLastModified';
+import { CuTableColumnLinks } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
+import { CuTableColumnSummary } from '@/stories/components/CuTableColumnSummary/CuTableColumnSummary';
+import { CuTableColumnTeamMember } from '@/stories/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const renderSummary = (coreUnit: CoreUnit) => {

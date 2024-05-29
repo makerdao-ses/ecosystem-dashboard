@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import BigButton from '@ses/components/Button/BigButton/BigButton';
-import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { TablePlaceholder } from '@/views/CUTable/components/CustomTable/TablePlaceholder';
 import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpenseTrendItem';
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
 import SectionTitle from '../../SectionTitle/SectionTitle';

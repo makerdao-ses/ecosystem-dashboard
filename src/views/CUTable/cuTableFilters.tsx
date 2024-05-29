@@ -3,19 +3,20 @@ import { Divider, styled, useTheme } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useRef } from 'react';
+import { CuCategoryEnum } from '@/core/enums/cuCategoryEnum';
+import { SortEnum } from '@/core/enums/sortEnum';
+import { useDebounce } from '@/core/hooks/useDebounce';
 import { TeamStatus } from '@/core/models/interfaces/types';
-import { CuCategoryEnum } from '../../../core/enums/cuCategoryEnum';
-import { SortEnum } from '../../../core/enums/sortEnum';
-import { useDebounce } from '../../../core/hooks/useDebounce';
-import { CategoryChip } from '../../components/CategoryChip/CategoryChip';
-import { CustomMultiSelect } from '../../components/CustomMultiSelect/CustomMultiSelect';
-import { CustomSortSelect } from '../../components/CustomSortSelect/CustomSortSelect';
-import ResetButton from '../../components/ResetButton/ResetButton';
-import { SearchInput } from '../../components/SearchInput/SearchInput';
-import { StatusChipLegacy } from '../../components/StatusChipLegacy/StatusChipLegacy';
-import Filter from '../../components/svg/filter';
-import type { SortSelectItem } from '../../components/CustomSortSelect/CustomSortSelect';
-import type { CustomTableColumn } from '../../components/CustomTable/CustomTable2';
+import { CategoryChip } from '@/stories/components/CategoryChip/CategoryChip';
+import { CustomMultiSelect } from '@/stories/components/CustomMultiSelect/CustomMultiSelect';
+import type { SortSelectItem } from '@/stories/components/CustomSortSelect/CustomSortSelect';
+import { CustomSortSelect } from '@/stories/components/CustomSortSelect/CustomSortSelect';
+
+import ResetButton from '@/stories/components/ResetButton/ResetButton';
+import { SearchInput } from '@/stories/components/SearchInput/SearchInput';
+import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
+import Filter from '@/stories/components/svg/filter';
+import type { CustomTableColumn } from './components/CustomTable/CustomTable2';
 
 interface FilterProps {
   filtersPopup: boolean;
