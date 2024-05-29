@@ -1,11 +1,11 @@
 import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
-import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { TablePlaceholder } from '../CUTable/components/CustomTable/TablePlaceholder';
 import ActorFilters from './components/ActorFilters/ActorFilters';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActors } from './useActors';

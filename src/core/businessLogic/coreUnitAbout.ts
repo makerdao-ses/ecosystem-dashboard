@@ -3,7 +3,7 @@ import { LinkTypeEnum } from '../enums/linkTypeEnum';
 import { TeamStatus } from '../models/interfaces/types';
 import { getCuMipStatusModifiedDate } from './coreUnits';
 import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
-import type { ContributorCommitment } from '../models/interfaces/contributor';
+import type { ContributorCommitmentDto } from '../models/dto/coreUnitDTO';
 import type { CuMip } from '../models/interfaces/cuMip';
 
 export const getMipsStatus = (mip: CuMip) => {
@@ -26,7 +26,7 @@ export const getMipsStatus = (mip: CuMip) => {
 
 export const getMarkdownInformation = (text: string | undefined) => text || '';
 
-export const getLinksFromContributor = (contributor: ContributorCommitment) => {
+export const getLinksFromContributor = (contributor: ContributorCommitmentDto) => {
   const links: LinkModel[] = [];
   if (!contributor) return links;
   if (contributor && contributor.contributor.length === 0) return links;

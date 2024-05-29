@@ -1,4 +1,4 @@
-import { CuStatusEnum } from '../../enums/cuStatusEnum';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { LinkTypeEnum } from '../../enums/linkTypeEnum';
 import {
   CONTRIBUTOR_COMMITMENT_ONE,
@@ -14,7 +14,7 @@ import { getLinksFromContributor, getMarkdownInformation, getMipsStatus } from '
 
 describe('first', () => {
   test('Get date for status on CuMip', () => {
-    const result = new CuMipAboutBuilder().withStatus(CuStatusEnum.Accepted, CURRENT_MONTH).build();
+    const result = new CuMipAboutBuilder().withStatus(TeamStatus.Accepted, CURRENT_MONTH).build();
     expect(getMipsStatus(result)).toBe(result.accepted);
   });
   test('Verify that markdown show', () => {
