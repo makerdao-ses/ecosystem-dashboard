@@ -3,6 +3,7 @@ import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
+import { ButtonFilter, SmallSeparator } from '@/views/CUTable/cuTableFilters';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { toAbsoluteURL } from '../../../core/utils/urls';
@@ -14,7 +15,6 @@ import { SEOHead } from '../../components/SEOHead/SEOHead';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
 import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../CUActivity/CUActivityFeedContainer';
-import { ButtonFilter, SmallSeparator } from '../CUTable/cuTableFilters';
 import { useGlobalActivity } from './useGlobalActivity';
 import type { SelectItemProps } from '../../components/CustomMultiSelect/CustomMultiSelect';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
@@ -95,12 +95,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
                 }}
               />
             </Search>
-            <ButtonFilter
-              isLight={isLight}
-              isOpen={filtersVisible}
-              isActive={filtersActive}
-              onClick={toggleFiltersVisible}
-            >
+            <ButtonFilter isOpen={filtersVisible} isActive={filtersActive} onClick={toggleFiltersVisible}>
               <Filter
                 fill={
                   filtersActive || filtersVisible ? (isLight ? '#1AAB9B' : '#098C7D') : isLight ? '#231536' : 'white'
