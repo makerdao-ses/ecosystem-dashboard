@@ -59,7 +59,7 @@ const linkCategory: LinkCategory[] = [
     links: [
       {
         label: 'Connect',
-        link: 'https://powerhouse-connect.vercel.app/d/My Local Device',
+        link: 'https://connect-test-env.vercel.app/',
         Icon: ConnectIcon,
       },
       {
@@ -112,22 +112,22 @@ const iconsPowerhouse: TypeIconFooter[] = [
   },
   {
     Icon: TwitterIcon,
-    href: 'https://x.com/MakerDAO_SES',
+    href: 'https://x.com/PowerhouseDAO',
     title: 'twitter',
   },
-  {
+  /* {
     Icon: RedditIcon,
     href: '#',
     title: 'reddit',
-  },
-  {
+  }, */
+  /* {
     Icon: YoutubeIcon,
     href: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
     title: 'youtube',
-  },
+  }, */
   {
     Icon: GithubIcon,
-    href: '#',
+    href: 'https://github.com/powerhouse-inc',
     title: 'github',
   },
 ];

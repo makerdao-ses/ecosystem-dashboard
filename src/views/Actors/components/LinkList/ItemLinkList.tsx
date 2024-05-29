@@ -24,12 +24,15 @@ const ItemLinkList: FC<Props> = ({ icon, title, href, className, onClick }) => (
 
 export default ItemLinkList;
 
-const Container = styled(Link)(() => ({
+const Container = styled(Link)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
   minHeight: 32,
   padding: '5px 6px 5px 4px',
+  ':hover': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.4)',
+  },
 }));
 
 const IconContainer = styled('div')({
@@ -44,6 +47,9 @@ const Title = styled('div')(({ theme }) => ({
   fontSize: 14,
   lineHeight: '22px',
   color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[100],
+  ':hover': {
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  },
 }));
 
 const Arrow = styled('div')(({ theme }) => ({
