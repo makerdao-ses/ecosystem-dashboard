@@ -242,7 +242,7 @@ export const useCoreUnitsTable = () => {
     () =>
       filteredData?.map((item) => ({
         ...item,
-        weight: item.status,
+        weight: giveWeightByStatus(item.status as TeamStatus),
       })),
     [filteredData]
   );
@@ -257,7 +257,8 @@ export const useCoreUnitsTable = () => {
     );
 
     sortedGroups.forEach(([, arrayValues]) => {
-      const alphabeticallyOrder = orderBy(arrayValues, 'name');
+      const alphabeticallyOrder = orderBy(arrayValues, (item) => item.name.toLowerCase(), ['asc']);
+
       resultArray = [...resultArray, ...alphabeticallyOrder];
     });
 
