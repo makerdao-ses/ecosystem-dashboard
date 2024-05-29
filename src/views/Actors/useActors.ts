@@ -159,8 +159,6 @@ export const useActors = (actors: Team[], stories = false) => {
     [filteredScopeData, searchText]
   );
 
-  console.log('>>>>', filteredTexData, searchText);
-
   const groupByStatusDefaultSorting: Team[] = useMemo(() => {
     const resultMoment = orderBy(filteredTexData, 'name');
 
