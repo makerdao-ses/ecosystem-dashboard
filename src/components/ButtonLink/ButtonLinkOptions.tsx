@@ -58,10 +58,10 @@ const Label = styled('div')({
   letterSpacing: '1.5%',
 });
 
-const ContainerLink = styled('div')({
+const ContainerLink = styled('div')(() => ({
   width: 24,
   height: 24,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-});
+}));
