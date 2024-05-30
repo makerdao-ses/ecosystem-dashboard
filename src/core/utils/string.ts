@@ -198,5 +198,5 @@ export const getResourceLabel = (resourceType?: ResourceType): string => {
   }
 };
 
-export const removeAtlasFromPath = (path: string): string => path.replace(/\/?atlas\/?/g, '/').replace(/^\/|\/$/g, '');
+export const removeAtlasFromPath = (path: string): string => path?.replace(/\/?atlas\/?/g, '/').replace(/^\/|\/$/g, '');
 export const removeSpaces = (str: string): string => str?.replace(/\s+/g, '');

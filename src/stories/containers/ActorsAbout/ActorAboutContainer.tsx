@@ -37,7 +37,7 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
 
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const routeToFinances = removeAtlasFromPath(actor.budgetPath);
-  const removeDuplicateNamesBudgetPath = removeDuplicateNames(routeToFinances);
+  const removeDuplicateNamesBudgetPath = removeDuplicateNames(routeToFinances) ?? ' ';
   return (
     <PageWrapper isLight={isLight}>
       <SEOHead
