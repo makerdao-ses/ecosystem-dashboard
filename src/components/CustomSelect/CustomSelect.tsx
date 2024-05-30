@@ -1,6 +1,5 @@
 import { ExpandMore, Check } from '@mui/icons-material';
 import { Select, MenuItem, FormControl, styled, Box, Typography } from '@mui/material';
-import React from 'react';
 import useCustomSelect from './useCustomSelect';
 import type { CustomSelectProps } from './type';
 import type { Theme } from '@mui/material';
@@ -16,7 +15,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   multiple = false,
   style,
 }) => {
-  const { theme, handleChange, renderValue, isAllSelected, isActive } = useCustomSelect({
+  const { theme, isAllSelected, handleChange, handleChangeAll, renderValue, isActive } = useCustomSelect({
     label,
     options,
     multiple,
@@ -28,6 +27,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   return (
     <StyledFormControl variant="outlined" fullWidth={style?.fullWidth || false} width={style?.width || 97}>
       <StyledSelect
+        displayEmpty
         multiple={multiple}
         value={selected}
         onChange={handleChange}
@@ -40,13 +40,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         </MenuItemLabel>
 
         {withAll && (
-          <MenuItemDefault
-            borderTop={true}
-            borderBottom={false}
-            value="all"
-            onClick={() => onChange(isAllSelected ? [] : options.map((option) => option.value))}
-          >
-            {customOptionsRenderAll || 'Select All'}
+          <MenuItemDefault borderTop={true} borderBottom={false} value="all" onClick={handleChangeAll}>
+            {(customOptionsRenderAll && customOptionsRenderAll(isAllSelected || false, theme)) || 'Select All'}
           </MenuItemDefault>
         )}
         {options.map((option, index) => (

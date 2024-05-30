@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import type { TeamRole } from '@/core/enums/teamRole';
+import { TeamRole } from '@/core/enums/teamRole';
 import { withThemeContext } from '@/core/utils/storybook/decorators';
 import RoleChip from '../RoleChip/RoleChip';
 import CustomSelect from './CustomSelect';
@@ -76,13 +76,6 @@ const variantsArgs = [
     onChange: () => null,
     options: [
       {
-        label: 'All',
-        value: 'All',
-        extra: {
-          count: 17,
-        },
-      },
-      {
         label: 'Active Ecosystem Actor',
         value: 'ActiveEcosystemActor',
         extra: {
@@ -145,13 +138,6 @@ const variantsArgs = [
     onChange: () => null,
     options: [
       {
-        label: 'All',
-        value: 'All',
-        extra: {
-          count: 17,
-        },
-      },
-      {
         label: 'Active Ecosystem Actor',
         value: 'ActiveEcosystemActor',
         extra: {
@@ -203,8 +189,32 @@ const variantsArgs = [
         </Box>
       );
     },
+    customOptionsRenderAll: (isActive: boolean, theme: Theme) => {
+      const getColor = () => {
+        if (theme.palette.isLight) {
+          return isActive ? '#343839' : '#D7D8D9 ';
+        } else {
+          return isActive ? '#FCFCFC' : '#373E4D';
+        }
+      };
+      return (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '16px',
+          }}
+        >
+          <Typography sx={{ width: '24px' }} color={getColor()}>
+            17
+          </Typography>
+          <RoleChip status={TeamRole.All} />
+        </Box>
+      );
+    },
     selected: ['ActiveEcosystemActor', 'AdvisoryCouncilMember'],
     multiple: true,
+    withAll: true,
     style: {
       width: 350,
       menuWidth: 350,

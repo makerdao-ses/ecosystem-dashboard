@@ -1,74 +1,104 @@
-import { TextField, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
+import { Button, Divider, styled, useMediaQuery } from '@mui/material';
+import { useRef, useState } from 'react';
 import CustomSelect from '../CustomSelect/CustomSelect';
-import FilterSheet from './FilterSheet';
+import Search from '../Search/Search';
+import FilterMobile from './FilterMobile';
+import FilterTablet from './FilterTablet';
 import { defaultTriggerRenderer } from './defaults/Renderers';
-import type { FiltersBundleOptions } from './types';
+import type { Breakpoint, FiltersBundleOptions } from './types';
 import type { CustomSelectProps } from '../CustomSelect/type';
 import type { Theme } from '@mui/material';
 import type { FC } from 'react';
 
-const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, filters }) => {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-  // const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
+export const breakpointsOrder: Breakpoint[] = ['mobile', 'tablet', 'desktop'];
 
+const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, filters, order = {}, snap = 2 }) => {
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
+  // const isDesktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
+
+  const triggerRef = useRef<HTMLDivElement | null>(null);
   const [areFiltersOpen, setAreFiltersOpen] = useState(false);
   const handleToggleOpenFilters = () => setAreFiltersOpen((prev) => !prev);
 
-  if (isMobile) {
+  if (isMobile || isTablet) {
     // in mobile and tablet view, we have a trigger button only
     // in mobile the trigger opens a modal sheet, in tablet it opens a drawer
     return (
       <>
-        {(renderTrigger ?? defaultTriggerRenderer)(handleToggleOpenFilters)}{' '}
+        {(renderTrigger ?? defaultTriggerRenderer)(handleToggleOpenFilters, triggerRef)}{' '}
         {/* TODO: move the sheet to a separate component */}
         {isMobile && (
-          <FilterSheet
+          <FilterMobile
             isOpen={areFiltersOpen}
             handleClose={handleToggleOpenFilters}
             filters={filters}
             resetFilters={resetFilters}
+            initialSnap={snap}
           />
         )}
-        {/* {isTablet && !isMobile && (
-          // TODO: implement drawer
-          <div>...</div>
-        )} */}
+        {isTablet && !isMobile && (
+          <FilterTablet
+            isOpen={areFiltersOpen}
+            handleClose={handleToggleOpenFilters}
+            filters={filters}
+            resetFilters={resetFilters}
+            anchorEl={triggerRef}
+          />
+        )}
       </>
     );
   }
 
+  const getCurrentBreakpoint = (): Breakpoint => {
+    if (isMobile) return 'mobile';
+    else if (isTablet) return 'tablet';
+    else return 'desktop';
+  };
+
+  const getOrderedFilters = () => {
+    const currentBreakpoint = getCurrentBreakpoint();
+    if (order && currentBreakpoint) {
+      for (const bp of breakpointsOrder) {
+        if (order[bp] && breakpointsOrder.indexOf(bp) <= breakpointsOrder.indexOf(currentBreakpoint)) {
+          return filters.slice().sort((a, b) => (order[bp]?.indexOf(a.id) ?? 0) - (order[bp]?.indexOf(b.id) ?? 0));
+        }
+      }
+    }
+    return filters;
+  };
+
+  getOrderedFilters().map((m) => console.log({ type: m.type }));
+
   return (
-    <div>
+    <FilterElement>
       {/* render reset if available */}
       {!!resetFilters && (
-        <button onClick={resetFilters.onReset} disabled={!resetFilters.canReset}>
-          Reset
-        </button>
+        <ResetButton variant="text" onClick={resetFilters.onReset} disabled={!resetFilters.canReset}>
+          Reset Filter
+        </ResetButton>
       )}
 
       {/* render all filters */}
-      {filters.map((filter) => {
+      {getOrderedFilters().map((filter) => {
         switch (filter.type) {
           case 'search': {
             return (
-              <TextField
-                key={filter.id}
-                variant="outlined"
-                placeholder="search"
-                type="text"
-                value={filter.value}
-                onChange={(e) => filter.onChange(e.target.value)}
-              />
+              <SearchFilter>
+                <Search placeholder="Search" /* value={filter.value} */ onChange={filter.onChange} />
+              </SearchFilter>
             );
           }
           case 'select': {
             return (
               <CustomSelect
-                label="Year"
+                label={filter.label}
+                multiple={filter.multiple}
+                selected={filter.selected as string | string[]}
                 options={filter.options as CustomSelectProps['options']}
                 onChange={filter.onChange as CustomSelectProps['onChange']}
-                selected={filter.selected}
+                customOptionsRender={filter.customOptionsRender as CustomSelectProps['customOptionsRender']}
+                style={filter.style}
               />
             );
           }
@@ -89,13 +119,47 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, 
               </div>
             );
           }
+          case 'divider': {
+            return <CustomDivider orientation="vertical" flexItem />;
+          }
           default: {
             throw new Error('Unknown filter type');
           }
         }
       })}
-    </div>
+    </FilterElement>
   );
 };
 
 export default FiltersBundle;
+
+const ResetButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[800],
+  fontSize: 16,
+  fontWeight: 600,
+  lineHeight: '24px',
+  borderRadius: 6,
+  background: 'transparent',
+  padding: '4px 16px',
+  textTransform: 'none',
+  '&:hover': {
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.slate[900],
+  },
+}));
+
+const SearchFilter = styled('div')({
+  display: 'block',
+  width: '280px',
+});
+
+const FilterElement = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 16,
+});
+
+const CustomDivider = styled(Divider)(({ theme }) => ({
+  marginTop: 4,
+  height: 24,
+  background: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300],
+}));
