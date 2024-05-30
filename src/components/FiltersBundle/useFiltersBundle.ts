@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import type { Breakpoint, FiltersBundleOptions } from './types';
 import type { Theme } from '@mui/material';
@@ -14,41 +14,42 @@ export const breakpointsOrder: Breakpoint[] = ['mobile', 'tablet', 'desktop'];
 export default function useFiltersBundle({ filters, order }: Props) {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isDesktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const [areFiltersOpen, setAreFiltersOpen] = useState(false);
   const handleToggleOpenFilters = () => setAreFiltersOpen((prev) => !prev);
 
-  const getCurrentBreakpoint = (): Breakpoint => {
+  const currentBreakpoint = useMemo(() => {
     if (isMobile) return 'mobile';
-    else if (isTablet) return 'tablet';
-    else return 'desktop';
-  };
+    if (isTablet) return 'tablet';
+    return 'desktop';
+  }, [isMobile, isTablet]);
 
-  const getOrderedFilters = () => {
-    const currentBreakpoint = getCurrentBreakpoint();
+  const orderedFilters = useMemo(() => {
     if (order && currentBreakpoint) {
-      for (const bp of breakpointsOrder) {
-        if (order[bp] && breakpointsOrder.indexOf(bp) <= breakpointsOrder.indexOf(currentBreakpoint)) {
-          return filters.slice().sort((a, b) => (order[bp]?.indexOf(a.id) ?? 0) - (order[bp]?.indexOf(b.id) ?? 0));
+      const bpIndex = breakpointsOrder.indexOf(currentBreakpoint);
+      for (let i = bpIndex; i >= 0; i--) {
+        const bp = breakpointsOrder[i];
+        if (order[bp]) {
+          return filters.slice().sort((a, b) => {
+            const orderA = order[bp]?.indexOf(a.id) ?? filters.length;
+            const orderB = order[bp]?.indexOf(b.id) ?? filters.length;
+            return orderA - orderB;
+          });
         }
       }
     }
     return filters;
-  };
-
-  getOrderedFilters().map((m) => console.log({ type: m.type }));
+  }, [filters, order, currentBreakpoint]);
 
   return {
     resolution: {
       isMobile,
       isTablet,
-      isDesktop,
     },
     triggerRef,
     areFiltersOpen,
     handleToggleOpenFilters,
-    orderedFilters: getOrderedFilters(),
+    orderedFilters,
   };
 }

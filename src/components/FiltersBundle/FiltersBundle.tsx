@@ -21,7 +21,7 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, 
         <FilterMobile
           isOpen={areFiltersOpen}
           handleClose={handleToggleOpenFilters}
-          filters={filters}
+          filters={orderedFilters}
           resetFilters={resetFilters}
           initialSnap={snap}
         />
@@ -36,13 +36,14 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, 
         <FilterTablet
           isOpen={areFiltersOpen}
           handleClose={handleToggleOpenFilters}
-          filters={filters}
+          filters={orderedFilters}
           resetFilters={resetFilters}
           anchorEl={triggerRef}
         />
       </>
     );
   }
+
   return <FilterDesktop filters={orderedFilters} resetFilters={resetFilters} />;
 };
 

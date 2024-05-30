@@ -1,6 +1,10 @@
+import { Box, Typography, type Theme } from '@mui/material';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import type { TeamRole } from '@/core/enums/teamRole';
 import { withThemeContext } from '@/core/utils/storybook/decorators';
+import RoleChip from '../RoleChip/RoleChip';
 import FiltersBundle from './FiltersBundle';
+import type { SelectOption } from './types';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof FiltersBundle> = {
@@ -61,13 +65,6 @@ const variantsArgs = [
         onChange: () => null,
         options: [
           {
-            label: 'All',
-            value: 'All',
-            extra: {
-              count: '17',
-            },
-          },
-          {
             label: 'Active Ecosystem Actor',
             value: 'ActiveEcosystemActor',
             extra: {
@@ -96,9 +93,56 @@ const variantsArgs = [
             },
           },
         ],
+        customOptionsRender: (option: SelectOption, isActive: boolean, theme: Theme) => {
+          const getColor = () => {
+            if (theme.palette.isLight) {
+              return isActive ? '#343839' : '#D7D8D9 ';
+            } else {
+              return isActive ? '#FCFCFC' : '#373E4D';
+            }
+          };
+          return (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: '16px',
+              }}
+            >
+              <Typography sx={{ width: '24px' }} color={getColor()}>
+                {option.extra?.count || '0'}
+              </Typography>
+              <RoleChip status={option.value as TeamRole} />
+            </Box>
+          );
+        },
+        withAll: true,
+        customOptionsRenderAll: (isActive: boolean, theme: Theme) => {
+          const getColor = () => {
+            if (theme.palette.isLight) {
+              return isActive ? '#343839' : '#D7D8D9 ';
+            } else {
+              return isActive ? '#FCFCFC' : '#373E4D';
+            }
+          };
+          return (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: '16px',
+              }}
+            >
+              <Typography sx={{ width: '24px' }} color={getColor()}>
+                17
+              </Typography>
+              <RoleChip status={'All' as TeamRole} />
+            </Box>
+          );
+        },
         style: {
           width: 165,
-          menuWidth: 250,
+          menuWidth: 300,
         },
       },
       {
@@ -109,13 +153,6 @@ const variantsArgs = [
         multiple: true,
         onChange: () => null,
         options: [
-          {
-            label: 'All',
-            value: 'All',
-            extra: {
-              count: '17',
-            },
-          },
           {
             label: 'Support Scope',
             value: 'SupportScope',
@@ -156,8 +193,9 @@ const variantsArgs = [
       onReset: () => null,
     },
     order: {
-      tablet: ['actor_role', 'scopes', 'divider', 'search'],
-      desktop: ['search', 'scopes', 'actor_role', 'divider'],
+      mobile: ['search', 'divider', 'actor_role', 'scopes'],
+      tablet: ['search', 'divider', 'scopes', 'actor_role'],
+      desktop: ['actor_role', 'scopes', 'divider', 'search'],
     },
     snap: 0,
   },

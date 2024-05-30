@@ -37,6 +37,8 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, resetFilters }) 
               options={filter.options as CustomSelectProps['options']}
               onChange={filter.onChange as CustomSelectProps['onChange']}
               customOptionsRender={filter.customOptionsRender as CustomSelectProps['customOptionsRender']}
+              withAll={filter.withAll}
+              customOptionsRenderAll={filter.customOptionsRenderAll as CustomSelectProps['customOptionsRenderAll']}
               style={filter.style}
             />
           );
