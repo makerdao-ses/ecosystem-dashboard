@@ -44,6 +44,7 @@ const variantsArgs = [
         ],
       },
     ],
+    snap: 2,
   },
   {
     filters: [
@@ -60,6 +61,27 @@ const variantsArgs = [
             value: 'ActiveEcosystemActor',
             extra: {
               count: '10',
+            },
+          },
+          {
+            label: 'Scope Facilitator',
+            value: 'ScopeFacilitator',
+            extra: {
+              count: '2',
+            },
+          },
+          {
+            label: 'Advisory Council Member',
+            value: 'AdvisoryCouncilMember',
+            extra: {
+              count: '5',
+            },
+          },
+          {
+            label: 'DataExpert',
+            value: 'DataExpert',
+            extra: {
+              count: '0',
             },
           },
           {
@@ -188,8 +210,8 @@ const variantsArgs = [
     },
     order: {
       mobile: ['actor_role', 'scopes'],
-      tablet: ['scopes', 'actor_role'],
-      desktop: ['actor_role', 'scopes'],
+      tablet: ['actor_role', 'scopes'],
+      desktop: ['scopes', 'actor_role'],
     },
     snap: 0,
   },

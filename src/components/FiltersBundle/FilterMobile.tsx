@@ -12,7 +12,6 @@ interface FilterMobileProps {
   searchFilter?: SearchFilter;
   resetFilters?: ResetFilter;
   initialSnap?: number;
-  snapPoints?: number[];
 }
 
 const FilterMobile: React.FC<FilterMobileProps> = ({
@@ -21,9 +20,9 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
   filters,
   searchFilter,
   resetFilters,
-  initialSnap = 2,
+  initialSnap,
 }) => (
-  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[650, 450, 250, 0]}>
+  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[600, 400, 250, 0]}>
     {!!searchFilter && (
       <FullWidthSearch>
         <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
@@ -31,7 +30,7 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
     )}
     <FilterList filters={filters} handleClose={handleClose} />
     {!!resetFilters && (
-      <FullWidthButton
+      <FullWidthReset
         variant="contained"
         color="primary"
         disabled={!resetFilters?.canReset}
@@ -39,7 +38,7 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
       >
         <CleanIcon width="21" height="22" />
         Reset
-      </FullWidthButton>
+      </FullWidthReset>
     )}
   </CustomSheet>
 );
@@ -50,7 +49,7 @@ const FullWidthSearch = styled('div')({
   margin: '16px',
 });
 
-const FullWidthButton = styled(Button)(({ theme }) => ({
+const FullWidthReset = styled(Button)(({ theme }) => ({
   padding: '6px 8px 6px 4px',
   margin: '16px',
   borderRadius: 8,

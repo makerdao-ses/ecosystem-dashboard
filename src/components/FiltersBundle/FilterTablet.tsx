@@ -29,7 +29,7 @@ const FilterTablet: React.FC<FilterTabletProps> = ({
         {!!resetFilters && (
           <FilterHeader>
             <FilterTitle>Filters</FilterTitle>
-            <ResetButton variant="text" onClick={resetFilters?.onReset} disabled={resetFilters?.canReset}>
+            <ResetButton variant="text" onClick={resetFilters?.onReset} disabled={!resetFilters.canReset}>
               Reset Filter
             </ResetButton>
           </FilterHeader>
@@ -40,9 +40,7 @@ const FilterTablet: React.FC<FilterTabletProps> = ({
           <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
         </FullWidthSearch>
       )}
-      <ContentScroll>
-        <FilterList filters={filters} handleClose={handleClose} />
-      </ContentScroll>
+      <FilterList filters={filters} handleClose={handleClose} />
     </Popover>
   );
 };
@@ -115,11 +113,6 @@ const StyledMenuProps = (theme: Theme) => ({
 
 const FullWidthSearch = styled('div')({
   margin: '16px',
-});
-
-const ContentScroll = styled('div')({
-  maxHeight: '400px',
-  overflowY: 'auto',
 });
 
 const CustomSearch = styled(Search)({
