@@ -55,7 +55,7 @@ const linkCategory: LinkCategory[] = [
     ],
   },
   {
-    name: 'MakerDao Tools',
+    name: 'MakerDAO Tools',
     links: [
       {
         label: 'Connect',
@@ -115,16 +115,6 @@ const iconsPowerhouse: TypeIconFooter[] = [
     href: 'https://x.com/PowerhouseDAO',
     title: 'twitter',
   },
-  /* {
-    Icon: RedditIcon,
-    href: '#',
-    title: 'reddit',
-  }, */
-  /* {
-    Icon: YoutubeIcon,
-    href: 'https://www.youtube.com/channel/UC9c35O2H6fq8fB2CGzzP1bw/about',
-    title: 'youtube',
-  }, */
   {
     Icon: GithubIcon,
     href: 'https://github.com/powerhouse-inc',
