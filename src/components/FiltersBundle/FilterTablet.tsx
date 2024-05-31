@@ -29,7 +29,7 @@ const FilterTablet: React.FC<FilterTabletProps> = ({
         {!!resetFilters && (
           <FilterHeader>
             <FilterTitle>Filters</FilterTitle>
-            <ResetButton variant="text" onClick={resetFilters?.onReset} disabled={resetFilters?.canReset}>
+            <ResetButton variant="text" onClick={resetFilters?.onReset} disabled={!resetFilters.canReset}>
               Reset Filter
             </ResetButton>
           </FilterHeader>

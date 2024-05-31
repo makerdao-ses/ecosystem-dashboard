@@ -44,6 +44,7 @@ const variantsArgs = [
         ],
       },
     ],
+    snap: 2,
   },
   {
     filters: [

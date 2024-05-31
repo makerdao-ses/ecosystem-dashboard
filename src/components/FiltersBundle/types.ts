@@ -69,5 +69,4 @@ export interface FiltersBundleOptions {
   filters: Filter[];
   order?: Partial<Record<Breakpoint, string[]>>;
   snap?: number;
-  snapPoints?: number[];
 }

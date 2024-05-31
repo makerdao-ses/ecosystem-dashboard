@@ -12,7 +12,6 @@ interface FilterMobileProps {
   searchFilter?: SearchFilter;
   resetFilters?: ResetFilter;
   initialSnap?: number;
-  snapPoints?: number[];
 }
 
 const FilterMobile: React.FC<FilterMobileProps> = ({
@@ -21,9 +20,9 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
   filters,
   searchFilter,
   resetFilters,
-  initialSnap = 2,
+  initialSnap,
 }) => (
-  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[650, 450, 250, 0]}>
+  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[600, 400, 250, 0]}>
     {!!searchFilter && (
       <FullWidthSearch>
         <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />

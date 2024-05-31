@@ -80,7 +80,6 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
 
         <FilterContainer>
           <FiltersBundle
-            snapPoints={[620]}
             filters={filter}
             searchFilters={{
               onChange: searchFilters,
