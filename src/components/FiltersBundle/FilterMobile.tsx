@@ -10,10 +10,18 @@ interface FilterMobileProps {
   filters: Filter[];
   resetFilters?: ResetFilter;
   initialSnap?: number;
+  snapPoints?: number[];
 }
 
-const FilterMobile: React.FC<FilterMobileProps> = ({ isOpen, handleClose, filters, resetFilters, initialSnap = 2 }) => (
-  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[650, 450, 250, 0]}>
+const FilterMobile: React.FC<FilterMobileProps> = ({
+  isOpen,
+  handleClose,
+  filters,
+  resetFilters,
+  initialSnap = 2,
+  snapPoints = [650, 450, 250, 0],
+}) => (
+  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={snapPoints}>
     <FilterList filters={filters} handleClose={handleClose} />
     {!!resetFilters && (
       <FullWidthButton

@@ -6,7 +6,14 @@ import useFiltersBundle from './useFiltersBundle';
 import type { FiltersBundleOptions } from './types';
 import type { FC } from 'react';
 
-const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, filters, order = {}, snap = 2 }) => {
+const FiltersBundle: FC<FiltersBundleOptions> = ({
+  renderTrigger,
+  resetFilters,
+  filters,
+  order = {},
+  snap = 2,
+  snapPoints,
+}) => {
   const { orderedFilters, resolution, triggerRef, areFiltersOpen, handleToggleOpenFilters } = useFiltersBundle({
     filters,
     order,
@@ -24,6 +31,7 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({ renderTrigger, resetFilters, 
           filters={orderedFilters}
           resetFilters={resetFilters}
           initialSnap={snap}
+          snapPoints={snapPoints}
         />
       </>
     );

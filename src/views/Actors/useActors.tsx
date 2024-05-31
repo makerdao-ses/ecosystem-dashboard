@@ -2,7 +2,7 @@ import { stringify } from 'querystring';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
-import { TeamCategory } from '@ses/core/models/interfaces/types';
+import { ActorCategory, TeamCategory } from '@ses/core/models/interfaces/types';
 import { getArrayParam, getStringParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
@@ -10,11 +10,48 @@ import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
+import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
+import RoleChip from '@/components/RoleChip/RoleChip';
+import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
+import { TeamRole } from '@/core/enums/teamRole';
 import { useDebounce } from '@/core/hooks/useDebounce';
+import type { Scope } from '@/core/models/interfaces/scopes';
+import { pascalCaseToNormalString } from '@/core/utils/string';
+import CustomItemAll from './components/ActorCustomItem/CustomItemAll';
+import { CustomItemRole } from './components/ActorCustomItem/CustomItemRole';
+import CustomItemScope from './components/ActorCustomItem/CustomItemScope';
 import { filterActorsText, filterDataActors, filterDataScopeActors, getActorLastMonthWithData } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
 import type { Team } from '@ses/core/models/interfaces/team';
+
+const scopesDefinitions: Scope[] = [
+  {
+    id: '1',
+    code: 'PRO',
+    name: TeamScopeEnum.ProtocolScope,
+  },
+  {
+    id: '2',
+    code: 'ACC',
+    name: TeamScopeEnum.AccessibilityScope,
+  },
+  {
+    id: '3',
+    code: 'GOV',
+    name: TeamScopeEnum.GovernanceScope,
+  },
+  {
+    id: '3',
+    code: 'SUP',
+    name: TeamScopeEnum.SupportScope,
+  },
+  {
+    id: '3',
+    code: 'STA',
+    name: TeamScopeEnum.StabilityScope,
+  },
+];
 
 export const useActors = (actors: Team[], stories = false) => {
   const router = useRouter();
@@ -25,13 +62,16 @@ export const useActors = (actors: Team[], stories = false) => {
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const [readMore, setReadMore] = useState<boolean>(stories);
   const showTextDesk = readMore;
+
   const handleRead = () => {
     setReadMore(!readMore);
   };
+
   const handleChangeUrl = useCallback(
     (key: string) => (value: string[] | string) => {
       const search = router.query;
-      search[key] = Array.isArray(value) ? value.join(',') : value || '';
+      const formattedValue = Array.isArray(value) ? value.map((val) => val.replace(/\s+/g, '')).join(',') : value || '';
+      search[key] = formattedValue;
       router.push({
         pathname: siteRoutes.ecosystemActors,
         search: stringify(search),
@@ -39,7 +79,6 @@ export const useActors = (actors: Team[], stories = false) => {
     },
     [router]
   );
-
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   const [sortColumn, setSortColumn] = useState<number>(-1);
@@ -186,7 +225,6 @@ export const useActors = (actors: Team[], stories = false) => {
     result.All = actors.length;
     return result;
   }, [actors]);
-
   const sortData = useMemo(() => {
     const sortDataFunction = (items: Team[]) => {
       if (headersSort[sortColumn] === SortEnum.Disabled) return items;
@@ -244,13 +282,134 @@ export const useActors = (actors: Team[], stories = false) => {
     setSortColumn(index);
   };
 
-  // TODO: Remove this add new search when filter is add
   const filtersActive = tableItems;
   const clearFilters = () => {
     router.push({
       pathname: siteRoutes.ecosystemActors,
       search: '',
     });
+  };
+
+  const categories = Object.values(ActorCategory) as string[];
+  const categoryOptions: SelectOption[] = categories.map((category) => ({
+    label: category,
+    value: category,
+    extra: {
+      count: `${categoriesCount[`${category}`]}`,
+    },
+  }));
+
+  const scopeOptions = scopesDefinitions.map((scope) => ({
+    label: scope.name,
+    value: scope.name,
+    extra: {
+      count: `${scopeCount[`${scope.name}`]}`,
+    },
+  }));
+  console.log('filteredScopes', scopeOptions, filteredScopes);
+  const filter: Filter[] = [
+    {
+      type: 'search',
+      id: 'search',
+      onChange: (value: string) => {
+        debounce(() => {
+          handleChangeUrl('searchText')(value);
+        }, 300);
+      },
+    },
+    {
+      id: 'divider',
+      type: 'divider',
+    },
+    {
+      type: 'select',
+      id: 'actor_role',
+      label: 'Actor Role',
+      selected: filteredCategories,
+      multiple: true,
+
+      options: categoryOptions,
+      onChange: (value: string | number | (string | number)[]) => {
+        if (typeof value === 'string' || (Array.isArray(value) && value.every((item) => typeof item === 'string'))) {
+          handleChangeUrl('filteredCategories')(value as string | string[]);
+        } else {
+          console.error('Invalid value type: must be string or string array');
+        }
+      },
+      customOptionsRender: (option: SelectOption, isActive: boolean) => (
+        <CustomItemRole isActive={isActive} role={option.value as TeamRole} count={option?.extra?.count} />
+      ),
+      style: {
+        width: 180,
+        menuWidth: 350,
+      },
+      withAll: true,
+      customOptionsRenderAll: (isActive: boolean) => (
+        <CustomItemAll isActive={isActive} total={actors.length}>
+          <RoleChip status={TeamRole.All} />
+        </CustomItemAll>
+      ),
+    },
+    {
+      type: 'select',
+      id: 'scopes',
+
+      label: 'Scopes',
+      selected: filteredScopes.map((item) => pascalCaseToNormalString(item)),
+      multiple: true,
+      onChange: (value: string | number | (string | number)[]) => {
+        if (typeof value === 'string' || Array.isArray(value)) {
+          const formattedValue = typeof value === 'string' ? value.replace(/\s+/g, '') : value;
+          handleChangeUrl('filteredScopes')(formattedValue as string | string[]);
+        } else {
+          console.error(`Invalid value type: ${typeof value}`);
+        }
+      },
+      options: scopeOptions,
+      customOptionsRender: (option: SelectOption, isActive: boolean) => (
+        <CustomItemScope
+          count={option?.extra?.count}
+          isActive={isActive}
+          scopes={scopesDefinitions}
+          scope={option.label as TeamScopeEnum}
+        />
+      ),
+      withAll: true,
+      customOptionsRenderAll: (isActive: boolean) => (
+        <CustomItemAll isActive={isActive} total={actors.length}>
+          <ScopeChip
+            scope={{
+              id: 'All',
+              code: 'All',
+              name: TeamScopeEnum.All,
+            }}
+          />
+        </CustomItemAll>
+      ),
+
+      style: {
+        width: 165,
+        menuWidth: 350,
+      },
+    },
+  ];
+
+  const canReset = searchText !== '' || filteredCategories.length > 0;
+  const onReset = () => {
+    const newQuery = { ...router.query };
+    delete newQuery.searchText;
+    delete newQuery.filteredCategories;
+    delete newQuery.filteredScopes;
+
+    router.push({
+      pathname: siteRoutes.ecosystemActors,
+      search: stringify(newQuery),
+    });
+    // TODO: Do this by reference
+    const input = document.querySelector('#search-input');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    input.value = '';
   };
 
   return {
@@ -270,5 +429,8 @@ export const useActors = (actors: Team[], stories = false) => {
     scopeCount,
     searchText,
     debounce,
+    filter,
+    canReset,
+    onReset,
   };
 };

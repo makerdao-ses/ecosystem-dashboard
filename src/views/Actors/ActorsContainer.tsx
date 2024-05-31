@@ -5,8 +5,8 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import FiltersBundle from '@/components/FiltersBundle/FiltersBundle';
 import { TablePlaceholder } from '../CUTable/components/CustomTable/TablePlaceholder';
-import ActorFilters from './components/ActorFilters/ActorFilters';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActors } from './useActors';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -24,15 +24,11 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     isLessPhone,
     filtersActive,
     columns,
-    categoriesCount,
-    clearFilters,
-    handleChangeUrl,
-    filteredCategories,
     onSortClick,
     queryStrings,
-    filteredScopes,
-    scopeCount,
-    debounce,
+    filter,
+    canReset,
+    onReset,
   } = useActors(actors, stories);
 
   return (
@@ -82,23 +78,12 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
         </ContainerReadMore>
 
         <FilterContainer>
-          <ActorFilters
-            filteredScopes={filteredScopes}
-            readMore={readMore}
-            handleResetFilter={clearFilters}
-            categoriesCount={categoriesCount}
-            filteredCategories={filteredCategories}
-            scopeCount={scopeCount}
-            onChange={(value: string[]) => {
-              handleChangeUrl('filteredCategories')(value);
-            }}
-            onChangeScope={(value: string[]) => {
-              handleChangeUrl('filteredScopes')(value);
-            }}
-            handleSearch={(value: string) => {
-              debounce(() => {
-                handleChangeUrl('searchText')(value);
-              }, 300);
+          <FiltersBundle
+            snapPoints={[620]}
+            filters={filter}
+            resetFilters={{
+              canReset,
+              onReset,
             }}
           />
         </FilterContainer>
@@ -257,15 +242,8 @@ const ContainerReadMore = styled('div')({
 });
 
 const FilterContainer = styled('div')({
-  height: 34,
-  marginBottom: 27,
-  marginTop: -4,
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    height: 48,
-    marginBottom: 34,
-    marginTop: -1,
-  },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginBottom: 26,
-  },
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  marginBottom: 16,
 });
