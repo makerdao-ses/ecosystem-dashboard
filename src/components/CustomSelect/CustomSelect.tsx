@@ -40,8 +40,17 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         </MenuItemLabel>
 
         {withAll && (
-          <MenuItemDefault borderTop={true} borderBottom={false} value="all" onClick={handleChangeAll}>
+          <MenuItemDefault
+            borderTop={true}
+            borderBottom={false}
+            onClick={handleChangeAll}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
             {(customOptionsRenderAll && customOptionsRenderAll(isAllSelected || false, theme)) || 'Select All'}
+            {multiple && isAllSelected && <CheckIcon />}
           </MenuItemDefault>
         )}
         {options.map((option, index) => (

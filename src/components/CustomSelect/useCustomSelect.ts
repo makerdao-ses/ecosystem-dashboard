@@ -13,14 +13,19 @@ export interface Props {
 }
 
 export default function useCustomSelect({ label, options, multiple, selected, withAll, onChange }: Props) {
+  let isHandlingAll = false;
   const theme = useTheme();
   const isAllSelected = multiple && withAll && Array.isArray(selected) && selected.length === options.length;
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
-    onChange(event.target.value as string | string[]);
+    if (!isHandlingAll) {
+      onChange(event.target.value as string | string[]);
+    }
+    isHandlingAll = false;
   };
 
   const handleChangeAll = () => {
+    isHandlingAll = true;
     onChange(isAllSelected ? [] : options.map((option) => option.value));
   };
 
@@ -36,12 +41,8 @@ export default function useCustomSelect({ label, options, multiple, selected, wi
     return `${options.find((option: OptionItem) => option.value === value)?.label}`;
   };
 
-  const isActive = (option: OptionItem) => {
-    if (multiple) {
-      return (selected as (string | number)[]).includes(option.value);
-    }
-    return selected === option.value;
-  };
+  const isActive = (option: OptionItem) =>
+    multiple ? (selected as (string | number)[]).includes(option.value) : selected === option.value;
 
   return {
     theme,

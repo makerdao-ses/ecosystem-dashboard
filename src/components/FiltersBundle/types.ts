@@ -34,8 +34,10 @@ export interface SelectFilter extends GenericFilter {
   selected: SelectOption['value'] | SelectOption['value'][];
   multiple?: boolean; // default is false
   options: SelectOption[];
-  onChange: (value: SelectOption['value']) => void;
-  customOptionsRender?: (option: SelectOption[], isActive: boolean, theme?: Theme) => React.ReactNode;
+  onChange: (value: SelectOption['value'] | SelectOption['value'][]) => void;
+  customOptionsRender?: (option: SelectOption, isActive: boolean, theme?: Theme) => React.ReactNode;
+  withAll?: boolean;
+  customOptionsRenderAll?: (isActive: boolean, theme?: Theme) => React.ReactNode;
   style?: {
     fullWidth?: boolean;
     width?: number; // value in px
