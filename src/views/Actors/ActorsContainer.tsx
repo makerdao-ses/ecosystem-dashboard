@@ -29,6 +29,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     filter,
     canReset,
     onReset,
+    searchFilters,
   } = useActors(actors, stories);
 
   return (
@@ -81,6 +82,9 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           <FiltersBundle
             snapPoints={[620]}
             filters={filter}
+            searchFilters={{
+              onChange: searchFilters,
+            }}
             resetFilters={{
               canReset,
               onReset,

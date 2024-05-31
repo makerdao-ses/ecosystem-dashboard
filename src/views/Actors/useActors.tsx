@@ -79,6 +79,11 @@ export const useActors = (actors: Team[], stories = false) => {
     },
     [router]
   );
+  const searchFilters = (value: string) => {
+    debounce(() => {
+      handleChangeUrl('searchText')(value);
+    }, 300);
+  };
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   const [sortColumn, setSortColumn] = useState<number>(-1);
@@ -309,19 +314,6 @@ export const useActors = (actors: Team[], stories = false) => {
   console.log('filteredScopes', scopeOptions, filteredScopes);
   const filter: Filter[] = [
     {
-      type: 'search',
-      id: 'search',
-      onChange: (value: string) => {
-        debounce(() => {
-          handleChangeUrl('searchText')(value);
-        }, 300);
-      },
-    },
-    {
-      id: 'divider',
-      type: 'divider',
-    },
-    {
       type: 'select',
       id: 'actor_role',
       label: 'Actor Role',
@@ -432,5 +424,6 @@ export const useActors = (actors: Team[], stories = false) => {
     filter,
     canReset,
     onReset,
+    searchFilters,
   };
 };
