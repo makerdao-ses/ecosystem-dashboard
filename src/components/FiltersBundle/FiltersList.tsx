@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import Search from '../Search/Search';
 import RadioAsList from './defaults/RadioAsList';
 import SelectAsList from './defaults/SelectAsList';
 import type { Filter } from './types';
@@ -13,17 +12,11 @@ const FilterList: React.FC<FilterListProps> = ({ filters, handleClose }) => (
   <Container>
     {filters.map((filter) => {
       switch (filter.type) {
-        case 'search': {
-          return <SearchFilter placeholder="Search" onChange={filter.onChange} />;
-        }
         case 'select': {
           return <SelectAsList filter={filter} onClose={handleClose} />;
         }
         case 'radio': {
           return <RadioAsList filter={filter} />;
-        }
-        case 'divider': {
-          return null;
         }
         default: {
           throw new Error('Unknown filter type');
@@ -40,14 +33,6 @@ const Container = styled('div')(() => ({
   flexDirection: 'column',
   gap: 16,
   padding: '0 16px',
+  maxHeight: '100%',
+  overflowY: 'auto',
 }));
-
-const SearchFilter = styled(Search)({
-  display: 'flex',
-  '& > div': {
-    width: '100%',
-  },
-  '& > input': {
-    backgroundColor: 'red',
-  },
-});

@@ -1,6 +1,7 @@
 import { Button, Popover, styled, useTheme } from '@mui/material';
+import Search from '@/components/Search/Search';
 import FilterList from './FiltersList';
-import type { Filter, ResetFilter } from './types';
+import type { Filter, ResetFilter, SearchFilter } from './types';
 import type { Theme } from '@mui/material';
 import type { MutableRefObject } from 'react';
 
@@ -8,11 +9,19 @@ interface FilterTabletProps {
   isOpen: boolean;
   handleClose: () => void;
   filters: Filter[];
+  searchFilter?: SearchFilter;
   resetFilters?: ResetFilter;
   anchorEl: MutableRefObject<HTMLDivElement | null>;
 }
 
-const FilterTablet: React.FC<FilterTabletProps> = ({ isOpen, handleClose, filters, anchorEl, resetFilters }) => {
+const FilterTablet: React.FC<FilterTabletProps> = ({
+  isOpen,
+  handleClose,
+  filters,
+  searchFilter,
+  anchorEl,
+  resetFilters,
+}) => {
   const theme = useTheme();
   return (
     <Popover open={isOpen} anchorEl={anchorEl.current} onClose={handleClose} {...(StyledMenuProps(theme) as object)}>
@@ -26,7 +35,14 @@ const FilterTablet: React.FC<FilterTabletProps> = ({ isOpen, handleClose, filter
           </FilterHeader>
         )}
       </Container>
-      <FilterList filters={filters} handleClose={handleClose} />
+      {!!searchFilter && (
+        <FullWidthSearch>
+          <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
+        </FullWidthSearch>
+      )}
+      <ContentScroll>
+        <FilterList filters={filters} handleClose={handleClose} />
+      </ContentScroll>
     </Popover>
   );
 };
@@ -94,5 +110,24 @@ const StyledMenuProps = (theme: Theme) => ({
   },
   sx: {
     mt: 0.5,
+  },
+});
+
+const FullWidthSearch = styled('div')({
+  margin: '16px',
+});
+
+const ContentScroll = styled('div')({
+  maxHeight: '400px',
+  overflowY: 'auto',
+});
+
+const CustomSearch = styled(Search)({
+  display: 'flex',
+  '& > div': {
+    width: '100%',
+  },
+  '& > input': {
+    backgroundColor: 'red',
   },
 });

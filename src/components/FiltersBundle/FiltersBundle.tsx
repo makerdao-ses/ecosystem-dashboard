@@ -8,6 +8,7 @@ import type { FC } from 'react';
 
 const FiltersBundle: FC<FiltersBundleOptions> = ({
   renderTrigger,
+  searchFilters,
   resetFilters,
   filters,
   order = {},
@@ -29,6 +30,7 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({
           isOpen={areFiltersOpen}
           handleClose={handleToggleOpenFilters}
           filters={orderedFilters}
+          searchFilter={searchFilters}
           resetFilters={resetFilters}
           initialSnap={snap}
           snapPoints={snapPoints}
@@ -45,6 +47,7 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({
           isOpen={areFiltersOpen}
           handleClose={handleToggleOpenFilters}
           filters={orderedFilters}
+          searchFilter={searchFilters}
           resetFilters={resetFilters}
           anchorEl={triggerRef}
         />
@@ -52,7 +55,7 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({
     );
   }
 
-  return <FilterDesktop filters={orderedFilters} resetFilters={resetFilters} />;
+  return <FilterDesktop filters={orderedFilters} searchFilter={searchFilters} resetFilters={resetFilters} />;
 };
 
 export default FiltersBundle;

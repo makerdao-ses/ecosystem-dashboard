@@ -17,24 +17,25 @@ const ContactCard = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  justifyContent: 'space-between',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
   borderRadius: 12,
-  padding: '12px 24px',
+  padding: '11px 18px',
   border: `1px solid ${
     theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800]
   }`,
   gap: 16,
   color: theme.palette.colors.charcoal[300],
-  maxWidth: '100%',
-  [theme.breakpoints.up('mobile_375')]: {
-    width: '100%',
-    minWidth: 336,
+  width: '100%',
+  minWidth: 336,
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '11px 23px',
   },
 }));
 
 const ContactCardBody = styled('div')({
   width: '100%',
-  minWidth: 224,
+  maxWidth: 224,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
@@ -43,6 +44,7 @@ const ContactCardBody = styled('div')({
 
 const Title = styled('h4')(({ theme }) => ({
   margin: 0,
+  marginTop: -1,
   color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
   fontSize: '16px',
   fontWeight: 600,
