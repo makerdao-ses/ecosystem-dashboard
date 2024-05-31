@@ -2,14 +2,15 @@ import { Button, Divider, styled } from '@mui/material';
 import CustomSelect from '@/components/CustomSelect/CustomSelect';
 import type { CustomSelectProps } from '@/components/CustomSelect/type';
 import Search from '@/components/Search/Search';
-import type { Filter, ResetFilter } from './types';
+import type { SearchFilter, Filter, ResetFilter } from './types';
 
 interface FilterDesktopProps {
   filters: Filter[];
+  searchFilter?: SearchFilter;
   resetFilters?: ResetFilter;
 }
 
-const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, resetFilters }) => (
+const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, resetFilters }) => (
   <FilterElement>
     {/* render reset if available */}
     {!!resetFilters && (
@@ -17,17 +18,9 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, resetFilters }) 
         Reset Filter
       </ResetButton>
     )}
-
     {/* render all filters */}
     {filters.map((filter) => {
       switch (filter.type) {
-        case 'search': {
-          return (
-            <SearchFilter>
-              <Search placeholder="Search" /* value={filter.value} */ onChange={filter.onChange} />
-            </SearchFilter>
-          );
-        }
         case 'select': {
           return (
             <CustomSelect
@@ -60,14 +53,17 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, resetFilters }) 
             </div>
           );
         }
-        case 'divider': {
-          return <CustomDivider orientation="vertical" flexItem />;
-        }
         default: {
           throw new Error('Unknown filter type');
         }
       }
     })}
+    {!!searchFilter && (
+      <SearchWrapper>
+        <CustomDivider orientation="vertical" flexItem />
+        <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
+      </SearchWrapper>
+    )}
   </FilterElement>
 );
 
@@ -87,11 +83,6 @@ const ResetButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const SearchFilter = styled('div')({
-  display: 'block',
-  width: '280px',
-});
-
 const FilterElement = styled('div')({
   display: 'flex',
   flexDirection: 'row',
@@ -103,3 +94,19 @@ const CustomDivider = styled(Divider)(({ theme }) => ({
   height: 24,
   background: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300],
 }));
+
+const SearchWrapper = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 16,
+});
+
+const CustomSearch = styled(Search)({
+  display: 'flex',
+  '& > div': {
+    width: '100%',
+  },
+  '& > input': {
+    backgroundColor: 'red',
+  },
+});
