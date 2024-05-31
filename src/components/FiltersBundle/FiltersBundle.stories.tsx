@@ -48,15 +48,6 @@ const variantsArgs = [
   {
     filters: [
       {
-        type: 'search',
-        id: 'search',
-        onChange: () => null,
-      },
-      {
-        id: 'divider',
-        type: 'divider',
-      },
-      {
         type: 'select',
         id: 'actor_role',
         label: 'Actor Role',
@@ -188,14 +179,17 @@ const variantsArgs = [
         },
       },
     ],
+    searchFilters: {
+      onChange: () => null,
+    },
     resetFilters: {
       canReset: true,
       onReset: () => null,
     },
     order: {
-      mobile: ['search', 'divider', 'actor_role', 'scopes'],
-      tablet: ['search', 'divider', 'scopes', 'actor_role'],
-      desktop: ['actor_role', 'scopes', 'divider', 'search'],
+      mobile: ['actor_role', 'scopes'],
+      tablet: ['scopes', 'actor_role'],
+      desktop: ['actor_role', 'scopes'],
     },
     snap: 0,
   },

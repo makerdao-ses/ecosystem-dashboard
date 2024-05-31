@@ -2,7 +2,7 @@ import type { Theme } from '@mui/material';
 import type { MutableRefObject } from 'react';
 
 export type Breakpoint = 'mobile' | 'tablet' | 'desktop';
-export type FilterType = 'select' | 'search' | 'radio'; // filter type identifier
+export type FilterType = 'select' | 'radio'; // filter type identifier
 
 export interface GenericFilter {
   id: string;
@@ -16,8 +16,7 @@ export interface ResetFilter {
   onReset: () => void;
 }
 
-export interface SearchFilter extends Omit<GenericFilter, 'label' | 'collapsible'> {
-  type: 'search';
+export interface SearchFilter {
   onChange: (value: string) => void;
 }
 
@@ -58,18 +57,14 @@ export interface RadioFilter extends GenericFilter {
   onChange: (value: RadioOption['value']) => void;
 }
 
-export interface DividerFilter {
-  id: string;
-  type: 'divider';
-}
-
 // all available filters
-export type Filter = SelectFilter | SearchFilter | RadioFilter | DividerFilter; // add possible filter types here
+export type Filter = SelectFilter | RadioFilter; // add possible filter types here
 
 export type RenderTriggerFn = (onClick: () => void, ref: MutableRefObject<HTMLDivElement | null>) => React.ReactElement;
 
 export interface FiltersBundleOptions {
   renderTrigger?: RenderTriggerFn; // default undefined (default trigger button is rendered)
+  searchFilters?: SearchFilter | undefined; // default undefined (no search)
   resetFilters?: ResetFilter | undefined; // default undefined (no reset button)
   filters: Filter[];
   order?: Partial<Record<Breakpoint, string[]>>;

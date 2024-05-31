@@ -1,19 +1,33 @@
 import { Button, styled } from '@mui/material';
 import CleanIcon from 'public/assets/svg/clean.svg';
+import Search from '@/components/Search/Search';
 import CustomSheet from '../CustomSheet/CustomSheet';
 import FilterList from './FiltersList';
-import type { Filter, ResetFilter } from './types';
+import type { SearchFilter, Filter, ResetFilter } from './types';
 
 interface FilterMobileProps {
   isOpen: boolean;
   handleClose: () => void;
   filters: Filter[];
+  searchFilter?: SearchFilter;
   resetFilters?: ResetFilter;
   initialSnap?: number;
 }
 
-const FilterMobile: React.FC<FilterMobileProps> = ({ isOpen, handleClose, filters, resetFilters, initialSnap = 2 }) => (
+const FilterMobile: React.FC<FilterMobileProps> = ({
+  isOpen,
+  handleClose,
+  filters,
+  searchFilter,
+  resetFilters,
+  initialSnap = 2,
+}) => (
   <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[650, 450, 250, 0]}>
+    {!!searchFilter && (
+      <FullWidthSearch>
+        <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
+      </FullWidthSearch>
+    )}
     <FilterList filters={filters} handleClose={handleClose} />
     {!!resetFilters && (
       <FullWidthButton
@@ -30,6 +44,10 @@ const FilterMobile: React.FC<FilterMobileProps> = ({ isOpen, handleClose, filter
 );
 
 export default FilterMobile;
+
+const FullWidthSearch = styled('div')({
+  margin: '16px',
+});
 
 const FullWidthButton = styled(Button)(({ theme }) => ({
   padding: '6px 8px 6px 4px',
@@ -51,3 +69,13 @@ const FullWidthButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   },
 }));
+
+const CustomSearch = styled(Search)({
+  display: 'flex',
+  '& > div': {
+    width: '100%',
+  },
+  '& > input': {
+    backgroundColor: 'red',
+  },
+});
