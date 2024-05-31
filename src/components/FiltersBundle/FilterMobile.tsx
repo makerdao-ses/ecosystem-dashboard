@@ -12,6 +12,7 @@ interface FilterMobileProps {
   searchFilter?: SearchFilter;
   resetFilters?: ResetFilter;
   initialSnap?: number;
+  snapPoints?: number[];
 }
 
 const FilterMobile: React.FC<FilterMobileProps> = ({
