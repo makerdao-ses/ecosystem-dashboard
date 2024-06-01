@@ -18,6 +18,11 @@ export interface ResetFilter {
 
 export interface SearchFilter {
   onChange: (value: string) => void;
+  style?: {
+    fullWidth?: boolean;
+    width?: number; // value in px
+    menuWidth?: number; // value in px
+  };
 }
 
 export interface SelectOption {

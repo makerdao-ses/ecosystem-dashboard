@@ -36,9 +36,9 @@ const TableWrapper = styled.div({
 const ContainerList = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
+  gap: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 16,
+    gap: 8,
   },
 });
 

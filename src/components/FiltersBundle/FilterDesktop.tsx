@@ -61,7 +61,7 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
     {!!searchFilter && (
       <SearchWrapper>
         <CustomDivider orientation="vertical" flexItem />
-        <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
+        <CustomSearch placeholder="Search" onChange={searchFilter.onChange} style={searchFilter.style} />
       </SearchWrapper>
     )}
   </FilterElement>
@@ -76,6 +76,7 @@ const ResetButton = styled(Button)(({ theme }) => ({
   lineHeight: '24px',
   borderRadius: 6,
   background: 'transparent',
+  // padding: '4px 14px',
   padding: '4px 16px',
   textTransform: 'none',
   '&:hover': {
@@ -101,12 +102,9 @@ const SearchWrapper = styled('div')({
   gap: 16,
 });
 
-const CustomSearch = styled(Search)({
+const CustomSearch = styled(Search)(() => ({
   display: 'flex',
   '& > div': {
     width: '100%',
   },
-  '& > input': {
-    backgroundColor: 'red',
-  },
-});
+}));

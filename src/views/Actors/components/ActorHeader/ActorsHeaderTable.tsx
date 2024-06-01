@@ -79,12 +79,20 @@ const TableHeader = styled(Card)<{ isLight: boolean; isGlobal?: boolean }>(({ th
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(33, 38, 48, 1)',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'none'}`,
-  padding: '16px 0 14px',
+
+  padding: 15,
+
   borderRadius: '6px',
-  lineHeight: '22px',
+  lineHeight: '24px',
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    display: 'block',
+    display: 'flex',
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 24px 16px 24px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: 15,
   },
 }));
 
@@ -103,7 +111,6 @@ const TableHeaderTitle = styled('div')<{
   fontSize: '16px',
   fontWeight: theme.palette.isLight ? 600 : 500,
   lineHeight: '24px',
-
   textAlign: align,
   ...(width && { width }),
 

@@ -83,6 +83,9 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
             filters={filter}
             searchFilters={{
               onChange: searchFilters,
+              style: {
+                width: 290,
+              },
             }}
             resetFilters={{
               canReset,
@@ -144,6 +147,7 @@ const Description = styled('div')(({ theme }) => ({
   fontSize: 14,
   lineHeight: '22px',
   fontWeight: 400,
+  marginTop: -6,
   color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
@@ -155,29 +159,28 @@ const Description = styled('div')(({ theme }) => ({
 const ContainerText = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  gap: 16,
+  gap: 6,
   marginTop: 24,
   marginBottom: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 0,
+    gap: 8,
   },
 });
 
 const ContainerList = styled('div')({
-  marginBottom: 64,
-  marginTop: -2,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 1,
+    marginBottom: 4,
   },
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: 1,
+    marginBottom: 0,
   },
 });
 
 const StyledParagraphOne = styled('p')<{ readMore: boolean }>(({ readMore }) => ({
   width: 343,
-  marginTop: -8,
-  marginBottom: 8,
+  marginTop: 4,
+  marginBottom: 36,
   display: !readMore ? '-webkit-box' : 'unset',
   overflow: 'hidden',
   WebkitLineClamp: !readMore ? 3 : 'unset',
@@ -219,18 +222,22 @@ const ReadMore = styled('div')(({ theme }) => ({
 
   cursor: 'pointer',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-  marginBottom: 32,
+  marginBottom: 20,
   [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 6,
+    marginTop: 5,
     marginBottom: 30,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginTop: 4,
+    marginBottom: 22,
   },
   [lightTheme.breakpoints.up('desktop_1280')]: {
-    marginTop: 16,
-    marginBottom: 28,
+    marginTop: 2,
+    marginBottom: 26,
   },
   [lightTheme.breakpoints.up('desktop_1440')]: {
-    marginTop: 6,
-    marginBottom: 30,
+    marginTop: 4,
+    marginBottom: 24,
   },
   ':hover': {
     color: theme.palette.isLight ? 'rgba(35, 21, 54, 0.8)' : 'rgba(210, 212, 239, 0.8)',
@@ -248,5 +255,17 @@ const FilterContainer = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'flex-end',
-  marginBottom: 16,
+  marginBottom: 22,
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    marginBottom: 20,
+  },
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    marginBottom: 26,
+  },
+  [lightTheme.breakpoints.up('desktop_1280')]: {
+    marginBottom: 22,
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    marginBottom: 22,
+  },
 });
