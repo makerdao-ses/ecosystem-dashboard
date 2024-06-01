@@ -12,7 +12,7 @@ interface SearchInputProps {
   inputRef?: React.RefObject<HTMLInputElement>;
 
   className?: string;
-  style: SearchFilter['style'];
+  style?: SearchFilter['style'];
 }
 
 const Search: React.FC<SearchInputProps> = ({
