@@ -19,7 +19,7 @@ export interface ResetFilter {
 export interface SearchFilter {
   onChange: (value: string) => void;
   value?: string;
-  style?: {
+  widthStyles?: {
     fullWidth?: boolean;
     width?: number; // value in px
     menuWidth?: number; // value in px

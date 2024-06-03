@@ -195,7 +195,7 @@ const variantsArgs = [
             },
           },
         ],
-        style: {
+        widthStyles: {
           width: 165,
           menuWidth: 250,
         },

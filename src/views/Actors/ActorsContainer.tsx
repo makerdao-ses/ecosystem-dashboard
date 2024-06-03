@@ -83,7 +83,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
             searchFilters={{
               value: searchText,
               onChange: searchFilters,
-              style: {
+              widthStyles: {
                 width: 290,
               },
             }}
