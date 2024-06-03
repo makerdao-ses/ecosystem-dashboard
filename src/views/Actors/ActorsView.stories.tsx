@@ -7,15 +7,15 @@ import { FeatureFlagsProvider } from '@/core/context/FeatureFlagsProvider';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { TeamRole } from '@/core/enums/teamRole';
 import AppLayout from '@/stories/containers/AppLayout/AppLayout';
-import ActorsContainer from './ActorsContainer';
+import ActorsView from './ActorsView';
 import { defaultSocials } from './utils/utils';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
-const meta: Meta<typeof ActorsContainer> = {
+const meta: Meta<typeof ActorsView> = {
   title: 'Fusion/Pages/Actors',
-  component: ActorsContainer,
+  component: ActorsView,
   parameters: {
     layout: 'fullscreen',
     nextjs: {
@@ -275,7 +275,7 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
-        <ActorsContainer {...props} />
+        <ActorsView {...props} />
       </AppLayout>
     </FeatureFlagsProvider>
   ),

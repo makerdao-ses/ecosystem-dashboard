@@ -8,7 +8,7 @@ import React from 'react';
 import FiltersBundle from '@/components/FiltersBundle/FiltersBundle';
 import { TablePlaceholder } from '../CUTable/components/CustomTable/TablePlaceholder';
 import ActorTable from './components/ActorTable/ActorTable';
-import { useActors } from './useActors';
+import { useActorsView } from './useActorsView';
 import type { Team } from '@ses/core/models/interfaces/team';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
   stories?: boolean;
 }
 
-const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
+const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
   const {
     readMore,
     handleRead,
@@ -30,7 +30,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     onReset,
     searchFilters,
     searchText,
-  } = useActors(actors, stories);
+  } = useActorsView(actors, stories);
 
   return (
     <ExtendedPageContainer>
@@ -106,7 +106,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
   );
 };
 
-export default ActorsContainer;
+export default ActorsView;
 
 const ExtendedPageContainer = styled(PageContainer)(({ theme }) => ({
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
