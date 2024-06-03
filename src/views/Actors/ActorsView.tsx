@@ -91,6 +91,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
               canReset,
               onReset,
             }}
+            snapPoints={[604, 400, 250, 0]}
           />
         </FilterContainer>
 

@@ -74,5 +74,6 @@ export interface FiltersBundleOptions {
   resetFilters?: ResetFilter | undefined; // default undefined (no reset button)
   filters: Filter[];
   order?: Partial<Record<Breakpoint, string[]>>;
-  snap?: number;
+  snapPoints?: number[];
+  initialSnap?: number; // this is the index of the previous array
 }
