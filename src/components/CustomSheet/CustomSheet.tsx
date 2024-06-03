@@ -42,9 +42,10 @@ const SheetWrapper = styled(Sheet)(({ theme, isOpen }) => ({
 
   '& .react-modal-sheet-header': {
     alignItems: 'flex-start !important',
-    marginTop: 6,
-    height: '32px !important',
+    marginTop: 4,
+    height: '10px !important',
   },
+
   '& .react-modal-sheet-drag-indicator': {
     backgroundColor: `${
       theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800]
