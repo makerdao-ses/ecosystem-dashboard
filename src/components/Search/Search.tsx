@@ -8,9 +8,8 @@ interface SearchInputProps {
   defaultValue?: string;
   placeholder: string;
   onChange?: (text: string) => void;
-
   className?: string;
-  style?: SearchFilter['style'];
+  widthStyles?: SearchFilter['widthStyles'];
 }
 
 const Search: React.FC<SearchInputProps> = ({
@@ -20,14 +19,14 @@ const Search: React.FC<SearchInputProps> = ({
   onChange,
 
   className,
-  style,
+  widthStyles,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(event.target.value);
   };
 
   return (
-    <Container className={className} fullWidth={style?.fullWidth || false} width={style?.width || 97}>
+    <Container className={className} fullWidth={widthStyles?.fullWidth || false} width={widthStyles?.width || 97}>
       <InputWrapper>
         <IconWrapper>
           <Magnifier />

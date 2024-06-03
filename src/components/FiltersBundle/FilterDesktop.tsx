@@ -64,7 +64,7 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
         <CustomSearch
           placeholder="Search"
           onChange={searchFilter.onChange}
-          style={searchFilter.widthStyles}
+          widthStyles={searchFilter.widthStyles}
           value={searchFilter.value}
         />
       </SearchWrapper>
