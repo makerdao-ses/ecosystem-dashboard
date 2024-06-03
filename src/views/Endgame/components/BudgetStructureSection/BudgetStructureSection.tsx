@@ -30,11 +30,8 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
   legacy,
   totalBudgetCap,
   isLoading,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   yearsRange,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   selectedYear,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   handleYearChange,
   ...totalBudgetProps
 }) => {
@@ -96,7 +93,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
             }
           />
 
-          <FiltersBundle filters={filter} snap={2} />
+          <FiltersBundle filters={filter} snapPoints={[246, 0]} />
         </Header>
 
         {isLoading ? (

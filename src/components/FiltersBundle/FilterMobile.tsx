@@ -53,7 +53,7 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
 export default FilterMobile;
 
 const FullWidthSearch = styled('div')({
-  margin: '16px',
+  margin: '0 16px 16px',
 });
 
 const FullWidthReset = styled(Button)(({ theme }) => ({
