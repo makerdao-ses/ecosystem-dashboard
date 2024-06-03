@@ -12,7 +12,8 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({
   resetFilters,
   filters,
   order = {},
-  snap = 0,
+  snapPoints,
+  initialSnap = 0,
 }) => {
   const { orderedFilters, resolution, triggerRef, areFiltersOpen, handleToggleOpenFilters } = useFiltersBundle({
     filters,
@@ -31,7 +32,8 @@ const FiltersBundle: FC<FiltersBundleOptions> = ({
           filters={orderedFilters}
           searchFilter={searchFilters}
           resetFilters={resetFilters}
-          initialSnap={snap}
+          snapPoints={snapPoints}
+          initialSnap={initialSnap}
         />
       </>
     );

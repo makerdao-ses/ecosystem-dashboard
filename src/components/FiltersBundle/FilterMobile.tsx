@@ -11,6 +11,7 @@ interface FilterMobileProps {
   filters: Filter[];
   searchFilter?: SearchFilter;
   resetFilters?: ResetFilter;
+  snapPoints?: number[];
   initialSnap?: number;
 }
 
@@ -20,9 +21,10 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
   filters,
   searchFilter,
   resetFilters,
+  snapPoints = [600, 400, 250, 0],
   initialSnap,
 }) => (
-  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[600, 400, 250, 0]}>
+  <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={snapPoints}>
     {!!searchFilter && (
       <FullWidthSearch>
         <CustomSearch
@@ -51,7 +53,7 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
 export default FilterMobile;
 
 const FullWidthSearch = styled('div')({
-  margin: '16px',
+  margin: '0 16px 16px',
 });
 
 const FullWidthReset = styled(Button)(({ theme }) => ({

@@ -44,6 +44,7 @@ const SheetWrapper = styled(Sheet)(({ theme, isOpen }) => ({
     alignItems: 'flex-start !important',
     marginTop: 4,
     height: '10px !important',
+    marginBottom: 18,
   },
 
   '& .react-modal-sheet-drag-indicator': {
