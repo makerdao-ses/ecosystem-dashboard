@@ -8,7 +8,6 @@ interface SearchInputProps {
   defaultValue?: string;
   placeholder: string;
   onChange?: (text: string) => void;
-  inputRef?: React.RefObject<HTMLInputElement>;
 
   className?: string;
   style?: SearchFilter['style'];
@@ -19,7 +18,7 @@ const Search: React.FC<SearchInputProps> = ({
   defaultValue,
   placeholder,
   onChange,
-  inputRef,
+
   className,
   style,
 }) => {
@@ -35,7 +34,6 @@ const Search: React.FC<SearchInputProps> = ({
         </IconWrapper>
 
         <Input
-          ref={inputRef}
           id="search-input"
           onChange={handleChange}
           placeholder={placeholder}

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ActorsHeaderTable from '../ActorHeader/ActorsHeaderTable';
@@ -24,7 +24,7 @@ const ActorTable: React.FC<Props> = ({ actors, columns, sortClick, queryStrings 
   </TableWrapper>
 );
 
-const TableWrapper = styled.div({
+const TableWrapper = styled('div')({
   width: '100%',
   margin: '0 auto',
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -33,13 +33,13 @@ const TableWrapper = styled.div({
   },
 });
 
-const ContainerList = styled.div({
+const ContainerList = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     gap: 8,
   },
-});
+}));
 
 export default ActorTable;

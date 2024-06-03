@@ -32,7 +32,7 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
               customOptionsRender={filter.customOptionsRender as CustomSelectProps['customOptionsRender']}
               withAll={filter.withAll}
               customOptionsRenderAll={filter.customOptionsRenderAll as CustomSelectProps['customOptionsRenderAll']}
-              style={filter.style}
+              style={filter.widthStyles}
             />
           );
         }
@@ -66,7 +66,6 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
           onChange={searchFilter.onChange}
           style={searchFilter.style}
           value={searchFilter.value}
-          inputRef={searchFilter.inputRef}
         />
       </SearchWrapper>
     )}
@@ -82,7 +81,6 @@ const ResetButton = styled(Button)(({ theme }) => ({
   lineHeight: '24px',
   borderRadius: 6,
   background: 'transparent',
-  // padding: '4px 14px',
   padding: '4px 16px',
   textTransform: 'none',
   '&:hover': {

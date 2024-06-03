@@ -8,7 +8,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
@@ -59,7 +59,6 @@ export const useActors = (actors: Team[], stories = false) => {
   const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const [readMore, setReadMore] = useState<boolean>(stories);
-  const inputRef = useRef('');
   const showTextDesk = readMore;
 
   const handleRead = () => {
@@ -321,12 +320,8 @@ export const useActors = (actors: Team[], stories = false) => {
       selected: filteredScopes.map((item) => pascalCaseToNormalString(item)),
       multiple: true,
       onChange: (value: string | number | (string | number)[]) => {
-        if (typeof value === 'string' || Array.isArray(value)) {
-          const formattedValue = typeof value === 'string' ? value.replace(/\s+/g, '') : value;
-          handleChangeUrl('filteredScopes')(formattedValue as string | string[]);
-        } else {
-          console.error(`Invalid value type: ${typeof value}`);
-        }
+        const formattedValue = typeof value === 'string' ? value.replace(/\s+/g, '') : value;
+        handleChangeUrl('filteredScopes')(formattedValue as string | string[]);
       },
       options: scopeOptions,
       customOptionsRender: (option: SelectOption, isActive: boolean) => (
@@ -350,7 +345,7 @@ export const useActors = (actors: Team[], stories = false) => {
         </CustomItemAll>
       ),
 
-      style: {
+      widthStyles: {
         width: 133,
         menuWidth: 350,
       },
@@ -364,16 +359,12 @@ export const useActors = (actors: Team[], stories = false) => {
 
       options: categoryOptions,
       onChange: (value: string | number | (string | number)[]) => {
-        if (typeof value === 'string' || (Array.isArray(value) && value.every((item) => typeof item === 'string'))) {
-          handleChangeUrl('filteredCategories')(value as string | string[]);
-        } else {
-          console.error('Invalid value type: must be string or string array');
-        }
+        handleChangeUrl('filteredCategories')(value as string | string[]);
       },
       customOptionsRender: (option: SelectOption, isActive: boolean) => (
         <CustomItemRole isActive={isActive} role={option.value as TeamRole} count={option?.extra?.count} />
       ),
-      style: {
+      widthStyles: {
         width: 154,
         menuWidth: 350,
       },
@@ -397,8 +388,6 @@ export const useActors = (actors: Team[], stories = false) => {
       pathname: siteRoutes.ecosystemActors,
       search: stringify(newQuery),
     });
-
-    inputRef.current = '';
   };
 
   return {
