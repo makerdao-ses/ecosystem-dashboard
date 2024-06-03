@@ -63,8 +63,6 @@ export const CuTableColumnSummary = ({
   ...props
 }: CuTableColumnSummaryProps) => {
   const { isLight } = useThemeContext();
-  // const router = useRouter();
-  // const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1194'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
@@ -73,7 +71,6 @@ export const CuTableColumnSummary = ({
   }
 
   return (
-    // <Link href={`core-unit/${props.code}/${queryStrings}`} passHref legacyBehavior>
     <Container onClick={props.onClick} style={props.style}>
       <div
         style={{
@@ -152,26 +149,16 @@ export const CuTableColumnSummary = ({
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
-  // width: 'fit-content',
-
+  minWidth: 300,
   alignItems: 'stretch',
   boxSizing: 'border-box',
-  // cursor: 'pointer',
-  // border: '2px solid pink',
   textDecoration: 'none',
-  // '@media (min-width: 834px)': {
-  //   padding: '8px 0 16px',
-  // },
-  // '@media (min-width: 1194px)': {
-  //   padding: '24px 16px',
-  // },
 });
 
 const CircleContainer = styled('div')(({ theme }) => ({
   marginRight: '8px',
-  // border: '2px solid red',
-  [theme.breakpoints.up('table_834')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     marginRight: '16px',
   },
 }));

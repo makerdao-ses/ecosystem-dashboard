@@ -3,16 +3,12 @@ import React from 'react';
 import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 
-const ListMobileSheetIconArrow = () => {
-  console.log('hello');
-  return (
-    <ContainerLinksArrowsMobile>
-      <ButtonLinksSheet />
-
-      <InternalLinkButtonStyled href="" showIcon />
-    </ContainerLinksArrowsMobile>
-  );
-};
+const ListMobileSheetIconArrow = () => (
+  <ContainerLinksArrowsMobile>
+    <ButtonLinksSheet />
+    <InternalLinkButtonStyled href="" showIcon />
+  </ContainerLinksArrowsMobile>
+);
 
 export default ListMobileSheetIconArrow;
 const ContainerLinksArrowsMobile = styled('div')(({ theme }) => ({
@@ -21,7 +17,7 @@ const ContainerLinksArrowsMobile = styled('div')(({ theme }) => ({
   gap: 16,
   height: 32,
   [theme.breakpoints.up('tablet_768')]: {
-    display: 'none',
+    justifyContent: 'flex-end',
   },
 }));
 

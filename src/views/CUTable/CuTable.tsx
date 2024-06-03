@@ -1,13 +1,11 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { CuTableHeaderSkeleton } from '@ses/components/CuTableHeaderSkeleton/CuTableHeaderSkeleton';
-// import { CustomTable2 } from '@ses/components/CustomTable/CustomTable2';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/themes';
+import theme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 
 import { CustomTable2 } from './components/CustomTable/CustomTable2';
@@ -15,8 +13,6 @@ import { Filters } from './cuTableFilters';
 import { useCoreUnitsTable } from './useCoreUnitsTable';
 
 export const CuTable = () => {
-  const { themeMode } = useThemeContext();
-  const isLight = themeMode === 'light';
   const { isShowBanner } = useCookiesContextTracking();
   const {
     clearFilters,
@@ -72,7 +68,7 @@ export const CuTable = () => {
     toggleFiltersPopup,
   ]);
   return (
-    <ContainerHome isLight={isLight} allowPadding={isShowBanner}>
+    <ContainerHome allowPadding={isShowBanner}>
       <SEOHead
         title="MakerDAO Ecosystem Performance Dashboard | Maker Expenses"
         description="MakerDAO Ecosystem Performance Dashboard provides a transparent analysis of Core Unit teams' finances, projects, and their position in the DAO."
@@ -99,51 +95,52 @@ export const CuTable = () => {
   );
 };
 
-const ContainerHome = styled.div<{ isLight: boolean; allowPadding?: boolean }>(({ isLight, allowPadding = false }) => ({
+const ContainerHome = styled('div')<{ allowPadding?: boolean }>(({ theme, allowPadding = false }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: !allowPadding ? '96px 16px 128px' : 'none',
   margin: '0 auto',
   width: '100%',
-  background: isLight ? '#FFFFFF' : '#000000',
-  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
-  '@media (min-width: 834px)': {
+  background: theme.palette.isLight ? '#FFFFFF' : '#000000',
+  backgroundImage: theme.palette.isLight ? '#FFFFFF' : 'linear-gradient(180deg, #001020 0%, #000000 63.95%)',
+  [theme.breakpoints.up('tablet_768')]: {
     padding: !allowPadding ? '88px 32px 128px' : 'none',
   },
-  '@media (min-width: 1280px)': {
+  [theme.breakpoints.up('desktop_1280')]: {
     padding: !allowPadding ? '88px 48px 128px' : 'none',
   },
-  '@media (min-width: 1440px)': {
+
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: !allowPadding ? '88px 0 128px' : 'none',
   },
 }));
 
-const Wrapper = styled.div({
+const Wrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   maxWidth: '1312px',
   margin: '0 auto',
   paddingBottom: '8px',
-  '@media (min-width: 1194px) and (max-width: 1410px)': {
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     maxWidth: '1130px',
   },
 });
 
-export const ContainerOverlay = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+export const ContainerOverlay = styled('div')<{ isLight: boolean }>(({ theme }) => ({
   position: 'absolute',
   top: 0,
   width: '100%',
   zIndex: 4,
   height: 'calc(100vh - 282px)',
   background: 'rgba(52, 52, 66, 0.1)',
-  backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
+  backdropFilter: theme.palette.isLight ? 'blur(2px)' : 'blur(4px)',
+  [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
     height: 'calc(100vh - 458px)',
   },
 }));
 
-export const PolicyBannerPosition = styled.div({
+export const PolicyBannerPosition = styled('div')({
   bottom: 0,
   zIndex: 4,
   width: '100%',
@@ -152,7 +149,7 @@ export const PolicyBannerPosition = styled.div({
   transition: 'all 0.5s ease-in',
 });
 
-const Header = styled.div({
+const Header = styled('div')({
   display: 'flex',
   marginBottom: '32px',
   minWidth: '330px',

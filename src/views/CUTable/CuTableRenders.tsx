@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
+import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -89,25 +90,18 @@ export const renderCard = (coreUnit: CoreUnit, key?: number) => {
 
 export const renderLastModified = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
-  return <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.shortCode)} />;
+  return <LastModifiedActorCoreUnit href={coreUnit.shortCode} date={getLastMonthWithData(coreUnit)} />;
 };
 
 const LinksContainer = styled('div')({
   display: 'flex',
+  width: 150,
   justifyContent: 'flex-end',
-  alignItems: 'flex-end',
+
   paddingRight: '16px',
-  // width: '100%',
+
   height: '50px',
-  // margin: 'auto 0',
   cursor: 'pointer',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    paddingRight: '0px',
-    height: 'fit-content',
-  },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    paddingRight: '0px',
-  },
 });
 
 const ExpendituresContainer = styled('div')({
@@ -137,7 +131,6 @@ const TeamMemberContainer = styled('div')({
 });
 
 const ContainerLinksArrowsDesk = styled('div')(({ theme }) => ({
-  // display: 'none',
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     flexDirection: 'row',

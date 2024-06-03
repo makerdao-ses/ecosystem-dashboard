@@ -201,7 +201,6 @@ const Categories = styled('div')({
 
 const Links = styled('div')({
   display: 'flex',
-  border: '2px solid red',
 });
 
 const ContainerRow = styled('div')({
@@ -212,4 +211,7 @@ const ContainerRow = styled('div')({
 
 const ContainerLinks = styled('div')({
   display: 'flex',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    display: 'none',
+  },
 });
