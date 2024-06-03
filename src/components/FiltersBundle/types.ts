@@ -18,6 +18,8 @@ export interface ResetFilter {
 
 export interface SearchFilter {
   onChange: (value: string) => void;
+  value?: string;
+  inputRef?: React.RefObject<HTMLInputElement>;
   style?: {
     fullWidth?: boolean;
     width?: number; // value in px

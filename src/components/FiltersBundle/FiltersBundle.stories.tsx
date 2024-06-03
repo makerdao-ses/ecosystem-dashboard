@@ -203,6 +203,9 @@ const variantsArgs = [
     ],
     searchFilters: {
       onChange: () => null,
+      style: {
+        width: 290,
+      },
     },
     resetFilters: {
       canReset: true,

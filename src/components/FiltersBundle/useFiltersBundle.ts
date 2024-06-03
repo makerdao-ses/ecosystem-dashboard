@@ -17,7 +17,9 @@ export default function useFiltersBundle({ filters, order }: Props) {
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const [areFiltersOpen, setAreFiltersOpen] = useState(false);
-  const handleToggleOpenFilters = () => setAreFiltersOpen((prev) => !prev);
+  const handleToggleOpenFilters = () => {
+    setAreFiltersOpen((prev) => !prev);
+  };
 
   const currentBreakpoint = useMemo(() => {
     if (isMobile) return 'mobile';

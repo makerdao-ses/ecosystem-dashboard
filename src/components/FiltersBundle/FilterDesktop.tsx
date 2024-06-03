@@ -61,7 +61,13 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
     {!!searchFilter && (
       <SearchWrapper>
         <CustomDivider orientation="vertical" flexItem />
-        <CustomSearch placeholder="Search" onChange={searchFilter.onChange} style={searchFilter.style} />
+        <CustomSearch
+          placeholder="Search"
+          onChange={searchFilter.onChange}
+          style={searchFilter.style}
+          value={searchFilter.value}
+          inputRef={searchFilter.inputRef}
+        />
       </SearchWrapper>
     )}
   </FilterElement>

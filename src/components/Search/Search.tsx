@@ -8,7 +8,6 @@ interface SearchInputProps {
   defaultValue?: string;
   placeholder: string;
   onChange?: (text: string) => void;
-
   inputRef?: React.RefObject<HTMLInputElement>;
 
   className?: string;

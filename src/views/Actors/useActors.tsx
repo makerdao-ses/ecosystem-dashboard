@@ -8,7 +8,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
@@ -59,6 +59,7 @@ export const useActors = (actors: Team[], stories = false) => {
   const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const [readMore, setReadMore] = useState<boolean>(stories);
+  const inputRef = useRef('');
   const showTextDesk = readMore;
 
   const handleRead = () => {
@@ -396,11 +397,8 @@ export const useActors = (actors: Team[], stories = false) => {
       pathname: siteRoutes.ecosystemActors,
       search: stringify(newQuery),
     });
-    // TODO: Do this by reference
-    const input = document.querySelector('#search-input');
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    input.value = '';
+
+    inputRef.current = '';
   };
 
   return {

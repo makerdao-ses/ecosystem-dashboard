@@ -29,6 +29,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     canReset,
     onReset,
     searchFilters,
+    searchText,
   } = useActors(actors, stories);
 
   return (
@@ -80,6 +81,7 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           <FiltersBundle
             filters={filter}
             searchFilters={{
+              value: searchText,
               onChange: searchFilters,
               style: {
                 width: 290,
