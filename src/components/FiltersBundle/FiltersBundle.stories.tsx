@@ -153,7 +153,7 @@ const variantsArgs = [
             </Box>
           );
         },
-        style: {
+        widthStyles: {
           width: 165,
           menuWidth: 300,
         },
@@ -195,7 +195,7 @@ const variantsArgs = [
             },
           },
         ],
-        style: {
+        widthStyles: {
           width: 165,
           menuWidth: 250,
         },
@@ -203,6 +203,9 @@ const variantsArgs = [
     ],
     searchFilters: {
       onChange: () => null,
+      widthStyles: {
+        width: 290,
+      },
     },
     resetFilters: {
       canReset: true,

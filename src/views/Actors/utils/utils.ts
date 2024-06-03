@@ -116,7 +116,7 @@ export const filterDataScopeActors = ({
 
 export const filterActorsText = ({ text = '', data = [] }: { text?: string; data: Team[] }) => {
   const lowerCase = text.toLowerCase();
-  console.log(lowerCase);
+
   return data?.filter((data) => filterText(lowerCase, data)) ?? [];
 };
 export const defaultSocials = {

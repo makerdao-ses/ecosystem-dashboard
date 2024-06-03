@@ -18,6 +18,12 @@ export interface ResetFilter {
 
 export interface SearchFilter {
   onChange: (value: string) => void;
+  value?: string;
+  widthStyles?: {
+    fullWidth?: boolean;
+    width?: number; // value in px
+    menuWidth?: number; // value in px
+  };
 }
 
 export interface SelectOption {
@@ -37,7 +43,7 @@ export interface SelectFilter extends GenericFilter {
   customOptionsRender?: (option: SelectOption, isActive: boolean, theme?: Theme) => React.ReactNode;
   withAll?: boolean;
   customOptionsRenderAll?: (isActive: boolean, theme?: Theme) => React.ReactNode;
-  style?: {
+  widthStyles?: {
     fullWidth?: boolean;
     width?: number; // value in px
     menuWidth?: number; // value in px

@@ -1,5 +1,4 @@
 import { stringify } from 'querystring';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { ActorCategory, TeamCategory } from '@ses/core/models/interfaces/types';
@@ -56,7 +55,6 @@ const scopesDefinitions: Scope[] = [
 export const useActors = (actors: Team[], stories = false) => {
   const router = useRouter();
   const debounce = useDebounce();
-  const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
@@ -102,12 +100,14 @@ export const useActors = (actors: Team[], stories = false) => {
         boxSizing: 'border-box',
         [lightTheme.breakpoints.up('desktop_1024')]: {
           width: 250,
-          minWidth: 250,
-          paddingLeft: 16,
+          paddingLeft: 0,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
           width: 304,
-          paddingLeft: 16,
+        },
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          marginTop: 1,
+          paddingLeft: 8,
         },
       },
       sortReverse: true,
@@ -119,16 +119,17 @@ export const useActors = (actors: Team[], stories = false) => {
         width: 200,
         paddingLeft: 4,
         [lightTheme.breakpoints.up('desktop_1024')]: {
-          width: 230,
+          width: 220,
           minWidth: 200,
-          paddingLeft: 25,
+          paddingLeft: 10,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 55,
+          paddingLeft: 36,
           width: 200,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 90,
+          paddingLeft: 78,
+          marginTop: 1,
         },
       },
       sortReverse: true,
@@ -141,14 +142,14 @@ export const useActors = (actors: Team[], stories = false) => {
         width: 232,
         [lightTheme.breakpoints.up('desktop_1024')]: {
           width: 200,
-          minWidth: 200,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 86,
+          paddingLeft: 72,
           width: 204,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 190,
+          paddingLeft: 165,
+          marginTop: 1,
           justifyContent: 'center',
         },
       },
@@ -161,14 +162,13 @@ export const useActors = (actors: Team[], stories = false) => {
         width: 200,
         [lightTheme.breakpoints.up('desktop_1024')]: {
           width: 200,
-          minWidth: 250,
-          marginLeft: 10,
+          marginLeft: 12,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: 140,
+          marginLeft: 124,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 185,
+          marginLeft: 198,
 
           justifyContent: 'center',
         },
@@ -311,51 +311,17 @@ export const useActors = (actors: Team[], stories = false) => {
       count: `${scopeCount[`${scope.name}`]}`,
     },
   }));
-  console.log('filteredScopes', scopeOptions, filteredScopes);
+
   const filter: Filter[] = [
     {
       type: 'select',
-      id: 'actor_role',
-      label: 'Actor Role',
-      selected: filteredCategories,
-      multiple: true,
-
-      options: categoryOptions,
-      onChange: (value: string | number | (string | number)[]) => {
-        if (typeof value === 'string' || (Array.isArray(value) && value.every((item) => typeof item === 'string'))) {
-          handleChangeUrl('filteredCategories')(value as string | string[]);
-        } else {
-          console.error('Invalid value type: must be string or string array');
-        }
-      },
-      customOptionsRender: (option: SelectOption, isActive: boolean) => (
-        <CustomItemRole isActive={isActive} role={option.value as TeamRole} count={option?.extra?.count} />
-      ),
-      style: {
-        width: 180,
-        menuWidth: 350,
-      },
-      withAll: true,
-      customOptionsRenderAll: (isActive: boolean) => (
-        <CustomItemAll isActive={isActive} total={actors.length}>
-          <RoleChip status={TeamRole.All} />
-        </CustomItemAll>
-      ),
-    },
-    {
-      type: 'select',
       id: 'scopes',
-
       label: 'Scopes',
       selected: filteredScopes.map((item) => pascalCaseToNormalString(item)),
       multiple: true,
       onChange: (value: string | number | (string | number)[]) => {
-        if (typeof value === 'string' || Array.isArray(value)) {
-          const formattedValue = typeof value === 'string' ? value.replace(/\s+/g, '') : value;
-          handleChangeUrl('filteredScopes')(formattedValue as string | string[]);
-        } else {
-          console.error(`Invalid value type: ${typeof value}`);
-        }
+        const formattedValue = typeof value === 'string' ? value.replace(/\s+/g, '') : value;
+        handleChangeUrl('filteredScopes')(formattedValue as string | string[]);
       },
       options: scopeOptions,
       customOptionsRender: (option: SelectOption, isActive: boolean) => (
@@ -379,10 +345,35 @@ export const useActors = (actors: Team[], stories = false) => {
         </CustomItemAll>
       ),
 
-      style: {
-        width: 165,
+      widthStyles: {
+        width: 133,
         menuWidth: 350,
       },
+    },
+    {
+      type: 'select',
+      id: 'actor_role',
+      label: 'Actor Role',
+      selected: filteredCategories,
+      multiple: true,
+
+      options: categoryOptions,
+      onChange: (value: string | number | (string | number)[]) => {
+        handleChangeUrl('filteredCategories')(value as string | string[]);
+      },
+      customOptionsRender: (option: SelectOption, isActive: boolean) => (
+        <CustomItemRole isActive={isActive} role={option.value as TeamRole} count={option?.extra?.count} />
+      ),
+      widthStyles: {
+        width: 154,
+        menuWidth: 350,
+      },
+      withAll: true,
+      customOptionsRenderAll: (isActive: boolean) => (
+        <CustomItemAll isActive={isActive} total={actors.length}>
+          <RoleChip status={TeamRole.All} />
+        </CustomItemAll>
+      ),
     },
   ];
 
@@ -397,18 +388,12 @@ export const useActors = (actors: Team[], stories = false) => {
       pathname: siteRoutes.ecosystemActors,
       search: stringify(newQuery),
     });
-    // TODO: Do this by reference
-    const input = document.querySelector('#search-input');
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    input.value = '';
   };
 
   return {
     handleRead,
     readMore,
     showTextDesk,
-    isLessPhone,
     filtersActive,
     columns,
     onSortClick,

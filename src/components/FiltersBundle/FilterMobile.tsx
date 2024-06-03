@@ -25,7 +25,12 @@ const FilterMobile: React.FC<FilterMobileProps> = ({
   <CustomSheet isOpen={isOpen} handleClose={handleClose} initialSnap={initialSnap} snapPoints={[600, 400, 250, 0]}>
     {!!searchFilter && (
       <FullWidthSearch>
-        <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
+        <CustomSearch
+          placeholder="Search"
+          onChange={searchFilter.onChange}
+          widthStyles={{ fullWidth: true }}
+          value={searchFilter.value}
+        />
       </FullWidthSearch>
     )}
     <FilterList filters={filters} handleClose={handleClose} />
