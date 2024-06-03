@@ -311,7 +311,7 @@ export const useActorsView = (actors: Team[], stories = false) => {
       count: `${scopeCount[`${scope.name}`]}`,
     },
   }));
-  console.log('filteredScopes', scopeOptions, filteredScopes);
+
   const filter: Filter[] = [
     {
       type: 'select',
