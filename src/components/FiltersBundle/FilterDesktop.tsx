@@ -70,7 +70,7 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
 export default FilterDesktop;
 
 const ResetButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[800],
+  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[500],
   fontSize: 16,
   fontWeight: 600,
   lineHeight: '24px',
@@ -78,6 +78,11 @@ const ResetButton = styled(Button)(({ theme }) => ({
   background: 'transparent',
   padding: '4px 16px',
   textTransform: 'none',
+
+  '&:disabled': {
+    color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[800],
+  },
+
   '&:hover': {
     background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.slate[900],
   },

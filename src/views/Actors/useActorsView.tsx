@@ -53,7 +53,7 @@ const scopesDefinitions: Scope[] = [
   },
 ];
 
-export const useActors = (actors: Team[], stories = false) => {
+export const useActorsView = (actors: Team[], stories = false) => {
   const router = useRouter();
   const debounce = useDebounce();
   const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
@@ -386,7 +386,7 @@ export const useActors = (actors: Team[], stories = false) => {
     },
   ];
 
-  const canReset = searchText !== '' || filteredCategories.length > 0;
+  const canReset = searchText !== '' || filteredCategories.length > 0 || filteredScopes.length > 0;
   const onReset = () => {
     const newQuery = { ...router.query };
     delete newQuery.searchText;
