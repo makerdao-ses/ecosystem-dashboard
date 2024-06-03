@@ -23,7 +23,7 @@ const useScopeColors = (): ScopeColors => {
       color: theme.palette.colors.slate[200],
       borderColor: 'rgba(179, 179, 211, 1)',
       colorDark: 'rgba(111, 122, 133, 0.6)',
-      borderColorDark: 'rgba(50, 55, 59, 0.4)',
+      borderColorDark: 'rgba(179, 179, 211, 0.4)',
     },
     'Support Scope': {
       color: theme.palette.colors.blue[800],
