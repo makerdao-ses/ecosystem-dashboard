@@ -16,7 +16,7 @@ interface Props {
   className?: string;
 }
 
-export const ActorLastModified = ({ date, now = DateTime.now(), href, className }: Props) => {
+export const LastModifiedActorCoreUnit = ({ date, now = DateTime.now(), href, className }: Props) => {
   const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
   const textDescription = !date
     ? !isDesk
@@ -56,7 +56,7 @@ export const ActorLastModified = ({ date, now = DateTime.now(), href, className 
   );
 };
 
-export default ActorLastModified;
+export default LastModifiedActorCoreUnit;
 
 const DifferenceLabel = styled('div')(({ theme }) => ({
   fontWeight: 600,

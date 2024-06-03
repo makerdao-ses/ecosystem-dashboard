@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Skeleton } from '@mui/material';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import { useThemeContext } from '@/core/context/ThemeContext';
 
 export const ColumnSummarySkeleton = () => {
   const { isLight } = useThemeContext();

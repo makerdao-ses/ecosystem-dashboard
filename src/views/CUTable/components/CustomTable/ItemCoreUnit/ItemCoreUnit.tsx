@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import Link from 'next/link';
@@ -35,14 +35,14 @@ export const ItemCoreUnit = ({ queryStrings, isLoading, columns, cu }: Props) =>
   );
 };
 
-const TableWrapper = styled.div({
+const TableWrapper = styled('div')({
   display: 'none',
   '@media (min-width: 1194px)': {
     display: 'flex',
   },
 });
 
-const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
+const TableRow = styled('a')<{ isLight: boolean; isLoading?: boolean; columns: CustomTableColumn[] }>(
   ({ isLight, isLoading, columns }) => ({
     background: isLight ? 'white' : '#10191F',
     display: 'grid',
@@ -65,19 +65,23 @@ const TableRow = styled.a<{ isLight: boolean; isLoading?: boolean; columns: Cust
   })
 );
 
-export const TableCell = styled.div({
+export const TableCell = styled('div')({
   color: '#231536',
   display: 'flex',
   alignItems: 'center',
 });
 
-const ListWrapper = styled.div({
+const ListWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginTop: '16px',
   gap: 32,
-  '@media (min-width: 1194px)': {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
-});
+
+  // '@media (min-width: 10px)': {
+  //   display: 'none',
+  // },
+}));
 export default ItemCoreUnit;

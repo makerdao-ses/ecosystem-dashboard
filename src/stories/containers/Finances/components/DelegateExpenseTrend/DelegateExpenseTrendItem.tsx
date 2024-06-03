@@ -14,7 +14,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
-import ActorLastModified from '@/views/Actors/components/ActorLastModified/ActorLastModified';
+import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
 import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
@@ -164,7 +164,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
       </Link>
 
       <FooterMobile isLight={isLight}>
-        <ActorLastModifiedStyled href={link || '#'} date={lastModified} />
+        <LastModifiedStyled href={link || '#'} date={lastModified} />
       </FooterMobile>
     </ExtendedGenericDelegate>
   );
@@ -652,7 +652,7 @@ const ReportingMobile = styled.div({
   gap: 8,
 });
 
-const ActorLastModifiedStyled = styled(ActorLastModified)({
+const LastModifiedStyled = styled(LastModifiedActorCoreUnit)({
   '& > div:first-of-type': {
     color: '#9FAFB9',
     marginTop: 0,

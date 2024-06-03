@@ -7,13 +7,15 @@ import React from 'react';
 import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
 import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
+// import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamRole } from '@/core/enums/teamRole';
 import type { TeamStatus } from '@/core/models/interfaces/types';
+// import LastModifiedActorCoreUnit from '../../../../components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getActorLastMonthWithData } from '../../utils/utils';
-import ActorLastModified from '../ActorLastModified/ActorLastModified';
 import PopoverListLinks from '../PopoverListLinks/PopoverListLinks';
 import GroupedScopes from './GroupedScopes';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
@@ -139,7 +141,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
             </ActorAboutLink>
 
             <ContainerLastModifiedDesk>
-              <ActorLastModified
+              <LastModifiedActorCoreUnit
                 date={getActorLastMonthWithData(actor)}
                 href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
               />
@@ -751,7 +753,7 @@ const RoleOnlyTable = styled('div')(({ theme }) => ({
     gap: 1,
   },
 }));
-const ActorLastModifiedStyled = styled(ActorLastModified)(({ theme }) => ({
+const ActorLastModifiedStyled = styled(LastModifiedActorCoreUnit)(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     padding: '3px 8px 4px 8px',
     fontSize: 14,
