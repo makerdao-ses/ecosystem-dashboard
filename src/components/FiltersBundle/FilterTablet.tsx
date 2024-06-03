@@ -40,7 +40,9 @@ const FilterTablet: React.FC<FilterTabletProps> = ({
           <CustomSearch
             placeholder="Search"
             onChange={searchFilter.onChange}
-            style={{ fullWidth: true }}
+            widthStyles={{
+              fullWidth: true,
+            }}
             value={searchFilter.value}
           />
         </FullWidthSearch>
