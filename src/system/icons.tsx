@@ -9,7 +9,7 @@ import RedditIcon from 'public/assets/svg/reddit.svg';
 import TwitterIcon from 'public/assets/svg/twitter.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
 
-export const iconsMakerDAO = [
+export const iconsPowerHose = [
   {
     Icon: DiscordIcon,
     title: 'discord',

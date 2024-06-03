@@ -45,13 +45,17 @@ const SelectAsList: React.FC<SelectAsListProps> = ({ filter, onClose }) => {
           <CustomOption onClick={handleChangeAll} isSelected={isAllSelected}>
             {(filter.customOptionsRenderAll && filter.customOptionsRenderAll(isAllSelected || false, theme)) ||
               'Select All'}
-            {filter.multiple && isAllSelected && <CheckIcon width={16} height={16} />}
+            {filter.multiple && (
+              <CheckIcon className={`check ${isAllSelected ? 'active' : ''}`} width={16} height={16} />
+            )}
           </CustomOption>
         )}
         {filter.options.map((option) => (
           <CustomOption key={option.value} onClick={() => handleChange(option.value)} isSelected={isActive(option)}>
             {filter.customOptionsRender ? filter.customOptionsRender(option, isActive(option), theme) : option.label}
-            {filter.multiple && isActive(option) && <CheckIcon width={16} height={16} />}
+            {filter.multiple && (
+              <CheckIcon className={`check ${isActive(option) ? 'active' : ''}`} width={16} height={16} />
+            )}
           </CustomOption>
         ))}
       </SelectContainer>
@@ -94,11 +98,20 @@ const CustomOption = styled('div')<{ isSelected: boolean }>(({ theme, isSelected
       ? `${theme.palette.isLight ? 'rgba(243, 245, 247, 0.50)' : 'rgba(37, 42, 52, 0.20)'} !important`
       : `${theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)'} !important`,
   },
+
+  '& .check path': {
+    fill: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.charcoal[800],
+  },
+  '&:hover .check path': {
+    fill: theme.palette.colors.gray[500],
+  },
+  '& .check.active path': {
+    fill: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  },
 }));
 
-const CheckIcon = styled(Check)(({ theme }) => ({
+const CheckIcon = styled(Check)(() => ({
   marginTop: 2,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   width: 16,
   height: 16,
 }));

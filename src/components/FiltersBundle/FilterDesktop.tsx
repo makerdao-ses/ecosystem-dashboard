@@ -32,7 +32,7 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
               customOptionsRender={filter.customOptionsRender as CustomSelectProps['customOptionsRender']}
               withAll={filter.withAll}
               customOptionsRenderAll={filter.customOptionsRenderAll as CustomSelectProps['customOptionsRenderAll']}
-              style={filter.style}
+              style={filter.widthStyles}
             />
           );
         }
@@ -61,7 +61,12 @@ const FilterDesktop: React.FC<FilterDesktopProps> = ({ filters, searchFilter, re
     {!!searchFilter && (
       <SearchWrapper>
         <CustomDivider orientation="vertical" flexItem />
-        <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
+        <CustomSearch
+          placeholder="Search"
+          onChange={searchFilter.onChange}
+          widthStyles={searchFilter.widthStyles}
+          value={searchFilter.value}
+        />
       </SearchWrapper>
     )}
   </FilterElement>
@@ -106,12 +111,9 @@ const SearchWrapper = styled('div')({
   gap: 16,
 });
 
-const CustomSearch = styled(Search)({
+const CustomSearch = styled(Search)(() => ({
   display: 'flex',
   '& > div': {
     width: '100%',
   },
-  '& > input': {
-    backgroundColor: 'red',
-  },
-});
+}));

@@ -37,7 +37,14 @@ const FilterTablet: React.FC<FilterTabletProps> = ({
       </Container>
       {!!searchFilter && (
         <FullWidthSearch>
-          <CustomSearch placeholder="Search" onChange={searchFilter.onChange} />
+          <CustomSearch
+            placeholder="Search"
+            onChange={searchFilter.onChange}
+            widthStyles={{
+              fullWidth: true,
+            }}
+            value={searchFilter.value}
+          />
         </FullWidthSearch>
       )}
       <FilterList filters={filters} handleClose={handleClose} />

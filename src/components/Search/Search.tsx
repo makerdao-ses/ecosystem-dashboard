@@ -1,18 +1,15 @@
 import { styled } from '@mui/material';
-import lightTheme from '@ses/styles/theme/themes';
 import Magnifier from 'public/assets/svg/magnifying.svg';
 import React from 'react';
-import type { WithLegacyBreakpoints } from '@ses/core/utils/typesHelpers';
+import type { SearchFilter } from '../FiltersBundle/types';
 
-interface SearchInputProps extends Partial<WithLegacyBreakpoints> {
+interface SearchInputProps {
   value?: string;
   defaultValue?: string;
   placeholder: string;
   onChange?: (text: string) => void;
-
-  inputRef?: React.RefObject<HTMLInputElement>;
-  small?: boolean;
   className?: string;
+  widthStyles?: SearchFilter['widthStyles'];
 }
 
 const Search: React.FC<SearchInputProps> = ({
@@ -21,31 +18,26 @@ const Search: React.FC<SearchInputProps> = ({
   placeholder,
   onChange,
 
-  inputRef,
-  small,
-  legacyBreakpoints = true,
   className,
+  widthStyles,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(event.target.value);
   };
 
   return (
-    <Container className={className}>
+    <Container className={className} fullWidth={widthStyles?.fullWidth || false} width={widthStyles?.width || 97}>
       <InputWrapper>
         <IconWrapper>
           <Magnifier />
         </IconWrapper>
 
         <Input
-          legacyBreakpoints={legacyBreakpoints}
-          ref={inputRef}
           id="search-input"
           onChange={handleChange}
           placeholder={placeholder}
           value={value}
           defaultValue={defaultValue}
-          small={small}
           autoComplete="off"
         />
       </InputWrapper>
@@ -55,11 +47,12 @@ const Search: React.FC<SearchInputProps> = ({
 
 export default Search;
 
-const Container = styled('div')({
+const Container = styled('div')<{ fullWidth: boolean; width: number }>(({ fullWidth, width }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
   gap: 10,
-});
+  width: fullWidth ? '100%' : `${width}px`,
+}));
 
 const InputWrapper = styled('div')({
   position: 'relative',
@@ -68,7 +61,7 @@ const InputWrapper = styled('div')({
   width: 'min(100%, 290px)',
 });
 
-const Input = styled('input')<{ small?: boolean } & WithLegacyBreakpoints>(({ theme, small, legacyBreakpoints }) => ({
+const Input = styled('input')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -80,25 +73,17 @@ const Input = styled('input')<{ small?: boolean } & WithLegacyBreakpoints>(({ th
   lineHeight: '24px',
   border: 'none',
   borderRadius: 8,
-  padding: '4px 12px 4px 40px',
+  padding: '4px 12px 4px 46px',
   boxSizing: 'border-box',
   transition: 'all .3s ease',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : '#21262F',
   '&::placeholder': {
     color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[300],
   },
-
-  [lightTheme.breakpoints.up(legacyBreakpoints ? 'table_834' : 'tablet_768')]: !small
-    ? {
-        backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
-        width: '320px',
-        fontSize: '14px',
-      }
-    : undefined,
 }));
 const IconWrapper = styled('div')(({ theme }) => ({
   position: 'absolute',
-  left: 12,
+  left: 14,
   display: 'flex',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[200],
   width: 15,

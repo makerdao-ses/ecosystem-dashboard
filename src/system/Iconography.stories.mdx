@@ -1,5 +1,5 @@
-import { Meta, IconGallery, IconItem, Icon } from '@storybook/blocks';
-
+import { Meta, IconGallery, IconItem } from '@storybook/blocks';
+import { styled } from '@mui/material/styles';
 import GithubIcon from 'public/assets/svg/github.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
@@ -10,13 +10,16 @@ import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
 import TwitterIcon from 'public/assets/svg/twitter.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
-import { iconsMakerDAO } from './icons';
+import { iconsPowerHose } from './icons';
 
-<Meta title="Fusion/Iconography" />
+<Meta title="System Design/Iconography" />
+
 <IconGallery>
-  {iconsMakerDAO.map(({ Icon, title }) => (
+  {iconsPowerHose.map(({ Icon, title }) => (
     <IconItem name={title} key={title}>
-      <Icon />
+      <IconContainer>
+        <Icon />
+      </IconContainer>
     </IconItem>
   ))}
 </IconGallery>
