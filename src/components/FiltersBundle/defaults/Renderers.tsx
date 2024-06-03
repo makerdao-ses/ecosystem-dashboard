@@ -9,8 +9,8 @@ export const defaultTriggerRenderer: RenderTriggerFn = (onClick, ref) => (
 );
 
 const FilterContainer = styled('div')(({ theme }) => ({
-  width: '24px',
-  height: '24px',
+  width: 24,
+  height: 24,
   color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[300],
   '&:hover': {
     color: theme.palette.isLight ? theme.palette.colors.slate[400] : theme.palette.colors.slate[200],
