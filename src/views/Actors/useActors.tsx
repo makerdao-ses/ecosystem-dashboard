@@ -1,5 +1,4 @@
 import { stringify } from 'querystring';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { ActorCategory, TeamCategory } from '@ses/core/models/interfaces/types';
@@ -56,7 +55,6 @@ const scopesDefinitions: Scope[] = [
 export const useActors = (actors: Team[], stories = false) => {
   const router = useRouter();
   const debounce = useDebounce();
-  const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
@@ -409,7 +407,6 @@ export const useActors = (actors: Team[], stories = false) => {
     handleRead,
     readMore,
     showTextDesk,
-    isLessPhone,
     filtersActive,
     columns,
     onSortClick,

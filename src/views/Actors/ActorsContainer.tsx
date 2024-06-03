@@ -21,7 +21,6 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
     readMore,
     handleRead,
     showTextDesk,
-    isLessPhone,
     filtersActive,
     columns,
     onSortClick,
@@ -51,9 +50,8 @@ const ActorsContainer: React.FC<Props> = ({ actors, stories = false }) => {
           <Title>Ecosystem Actors</Title>
           <SubTitle>What are Ecosystem Actors? </SubTitle>
           <Description>
-            <StyledParagraphOne readMore={readMore}>
+            <StyledParagraphOne>
               Ecosystem Actors serve as external entities offering valuable services to both Maker Core and SubDAOs.
-              {!showTextDesk && isLessPhone && <br />}
               <span>
                 These actors are further classified into two categories: Advisory Ecosystem Actors and Active Ecosystem
                 Actors.
@@ -161,7 +159,6 @@ const ContainerText = styled('div')({
   flexDirection: 'column',
   gap: 6,
   marginTop: 24,
-  marginBottom: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 0,
     gap: 8,
@@ -177,14 +174,12 @@ const ContainerList = styled('div')({
   },
 });
 
-const StyledParagraphOne = styled('p')<{ readMore: boolean }>(({ readMore }) => ({
+const StyledParagraphOne = styled('p')<{ readMore?: boolean }>(() => ({
   width: 343,
   marginTop: 4,
-  marginBottom: 36,
-  display: !readMore ? '-webkit-box' : 'unset',
+
+  marginBottom: 0,
   overflow: 'hidden',
-  WebkitLineClamp: !readMore ? 3 : 'unset',
-  WebkitBoxOrient: !readMore ? 'vertical' : 'unset',
 
   '> span': {
     marginLeft: 4,
