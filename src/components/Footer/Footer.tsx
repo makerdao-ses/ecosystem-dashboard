@@ -42,10 +42,13 @@ const Footer = () => (
 const FooterWrapper = styled('footer')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '24px 16px 10px',
+  padding: '18px 16px 10px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
   borderTop: `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.gray[900]}`,
   [theme.breakpoints.up('tablet_768')]: {
+    padding: '26px 32px 10px',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: '32px 32px 10px',
   },
 }));
@@ -54,9 +57,9 @@ const FooterContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   flexDirection: 'column',
-  gap: 40,
+  gap: 34,
   [theme.breakpoints.up('tablet_768')]: {
-    gap: 40,
+    gap: 34,
     flexDirection: 'column',
   },
   [theme.breakpoints.up('desktop_1024')]: {
@@ -76,7 +79,7 @@ const FooterColumnLink = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   justifyContent: 'space-between',
   gap: 'auto',
-  rowGap: 32,
+  rowGap: 28,
   flexWrap: 'wrap',
   [theme.breakpoints.up('tablet_768')]: {
     gap: 64,
@@ -139,6 +142,7 @@ const FooterBottom = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: '28px',
   },
 }));
 
@@ -148,8 +152,10 @@ const FooterBottomRight = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-around',
   gap: 20,
+  marginTop: 13,
   [theme.breakpoints.up('tablet_768')]: {
     gap: 24,
+    marginTop: 0,
   },
 }));
 

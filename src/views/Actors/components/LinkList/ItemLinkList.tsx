@@ -13,7 +13,7 @@ interface Props {
 }
 
 const ItemLinkList: FC<Props> = ({ icon, title, href, className, onClick }) => (
-  <Container href={href} className={className} onClick={onClick}>
+  <Container href={href} className={className} onClick={onClick} target="_blank">
     <IconContainer>{icon}</IconContainer>
     <Title>{title}</Title>
     <Arrow>

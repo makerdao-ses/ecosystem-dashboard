@@ -1,8 +1,7 @@
 import { stringify } from 'querystring';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
-import { TeamCategory } from '@ses/core/models/interfaces/types';
+import { ActorCategory, TeamCategory } from '@ses/core/models/interfaces/types';
 import { getArrayParam, getStringParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
@@ -10,28 +9,67 @@ import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
+import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
+import RoleChip from '@/components/RoleChip/RoleChip';
+import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
+import { TeamRole } from '@/core/enums/teamRole';
 import { useDebounce } from '@/core/hooks/useDebounce';
+import type { Scope } from '@/core/models/interfaces/scopes';
+import { pascalCaseToNormalString } from '@/core/utils/string';
+import CustomItemAll from './components/ActorCustomItem/CustomItemAll';
+import { CustomItemRole } from './components/ActorCustomItem/CustomItemRole';
+import CustomItemScope from './components/ActorCustomItem/CustomItemScope';
 import { filterActorsText, filterDataActors, filterDataScopeActors, getActorLastMonthWithData } from './utils/utils';
 import type { ActorTableHeader } from './components/ActorHeader/ActorsHeaderTable';
 import type { Team } from '@ses/core/models/interfaces/team';
 
+const scopesDefinitions: Scope[] = [
+  {
+    id: '1',
+    code: 'PRO',
+    name: TeamScopeEnum.ProtocolScope,
+  },
+  {
+    id: '2',
+    code: 'ACC',
+    name: TeamScopeEnum.AccessibilityScope,
+  },
+  {
+    id: '3',
+    code: 'GOV',
+    name: TeamScopeEnum.GovernanceScope,
+  },
+  {
+    id: '3',
+    code: 'SUP',
+    name: TeamScopeEnum.SupportScope,
+  },
+  {
+    id: '3',
+    code: 'STA',
+    name: TeamScopeEnum.StabilityScope,
+  },
+];
+
 export const useActors = (actors: Team[], stories = false) => {
   const router = useRouter();
   const debounce = useDebounce();
-  const isLessPhone = useMediaQuery(lightTheme.breakpoints.down(376));
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const [readMore, setReadMore] = useState<boolean>(stories);
   const showTextDesk = readMore;
+
   const handleRead = () => {
     setReadMore(!readMore);
   };
+
   const handleChangeUrl = useCallback(
     (key: string) => (value: string[] | string) => {
       const search = router.query;
-      search[key] = Array.isArray(value) ? value.join(',') : value || '';
+      const formattedValue = Array.isArray(value) ? value.map((val) => val.replace(/\s+/g, '')).join(',') : value || '';
+      search[key] = formattedValue;
       router.push({
         pathname: siteRoutes.ecosystemActors,
         search: stringify(search),
@@ -39,7 +77,11 @@ export const useActors = (actors: Team[], stories = false) => {
     },
     [router]
   );
-
+  const searchFilters = (value: string) => {
+    debounce(() => {
+      handleChangeUrl('searchText')(value);
+    }, 300);
+  };
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
   const [sortColumn, setSortColumn] = useState<number>(-1);
@@ -58,12 +100,14 @@ export const useActors = (actors: Team[], stories = false) => {
         boxSizing: 'border-box',
         [lightTheme.breakpoints.up('desktop_1024')]: {
           width: 250,
-          minWidth: 250,
-          paddingLeft: 16,
+          paddingLeft: 0,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
           width: 304,
-          paddingLeft: 16,
+        },
+        [lightTheme.breakpoints.up('desktop_1440')]: {
+          marginTop: 1,
+          paddingLeft: 8,
         },
       },
       sortReverse: true,
@@ -75,16 +119,17 @@ export const useActors = (actors: Team[], stories = false) => {
         width: 200,
         paddingLeft: 4,
         [lightTheme.breakpoints.up('desktop_1024')]: {
-          width: 230,
+          width: 220,
           minWidth: 200,
-          paddingLeft: 25,
+          paddingLeft: 10,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 55,
+          paddingLeft: 36,
           width: 200,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 90,
+          paddingLeft: 78,
+          marginTop: 1,
         },
       },
       sortReverse: true,
@@ -97,14 +142,14 @@ export const useActors = (actors: Team[], stories = false) => {
         width: 232,
         [lightTheme.breakpoints.up('desktop_1024')]: {
           width: 200,
-          minWidth: 200,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          paddingLeft: 86,
+          paddingLeft: 72,
           width: 204,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          paddingLeft: 190,
+          paddingLeft: 165,
+          marginTop: 1,
           justifyContent: 'center',
         },
       },
@@ -117,14 +162,13 @@ export const useActors = (actors: Team[], stories = false) => {
         width: 200,
         [lightTheme.breakpoints.up('desktop_1024')]: {
           width: 200,
-          minWidth: 250,
-          marginLeft: 10,
+          marginLeft: 12,
         },
         [lightTheme.breakpoints.up('desktop_1280')]: {
-          marginLeft: 140,
+          marginLeft: 124,
         },
         [lightTheme.breakpoints.up('desktop_1440')]: {
-          marginLeft: 185,
+          marginLeft: 198,
 
           justifyContent: 'center',
         },
@@ -186,7 +230,6 @@ export const useActors = (actors: Team[], stories = false) => {
     result.All = actors.length;
     return result;
   }, [actors]);
-
   const sortData = useMemo(() => {
     const sortDataFunction = (items: Team[]) => {
       if (headersSort[sortColumn] === SortEnum.Disabled) return items;
@@ -244,7 +287,6 @@ export const useActors = (actors: Team[], stories = false) => {
     setSortColumn(index);
   };
 
-  // TODO: Remove this add new search when filter is add
   const filtersActive = tableItems;
   const clearFilters = () => {
     router.push({
@@ -253,11 +295,105 @@ export const useActors = (actors: Team[], stories = false) => {
     });
   };
 
+  const categories = Object.values(ActorCategory) as string[];
+  const categoryOptions: SelectOption[] = categories.map((category) => ({
+    label: category,
+    value: category,
+    extra: {
+      count: `${categoriesCount[`${category}`]}`,
+    },
+  }));
+
+  const scopeOptions = scopesDefinitions.map((scope) => ({
+    label: scope.name,
+    value: scope.name,
+    extra: {
+      count: `${scopeCount[`${scope.name}`]}`,
+    },
+  }));
+
+  const filter: Filter[] = [
+    {
+      type: 'select',
+      id: 'scopes',
+      label: 'Scopes',
+      selected: filteredScopes.map((item) => pascalCaseToNormalString(item)),
+      multiple: true,
+      onChange: (value: string | number | (string | number)[]) => {
+        const formattedValue = typeof value === 'string' ? value.replace(/\s+/g, '') : value;
+        handleChangeUrl('filteredScopes')(formattedValue as string | string[]);
+      },
+      options: scopeOptions,
+      customOptionsRender: (option: SelectOption, isActive: boolean) => (
+        <CustomItemScope
+          count={option?.extra?.count}
+          isActive={isActive}
+          scopes={scopesDefinitions}
+          scope={option.label as TeamScopeEnum}
+        />
+      ),
+      withAll: true,
+      customOptionsRenderAll: (isActive: boolean) => (
+        <CustomItemAll isActive={isActive} total={actors.length}>
+          <ScopeChip
+            scope={{
+              id: 'All',
+              code: 'All',
+              name: TeamScopeEnum.All,
+            }}
+          />
+        </CustomItemAll>
+      ),
+
+      widthStyles: {
+        width: 133,
+        menuWidth: 350,
+      },
+    },
+    {
+      type: 'select',
+      id: 'actor_role',
+      label: 'Actor Role',
+      selected: filteredCategories,
+      multiple: true,
+
+      options: categoryOptions,
+      onChange: (value: string | number | (string | number)[]) => {
+        handleChangeUrl('filteredCategories')(value as string | string[]);
+      },
+      customOptionsRender: (option: SelectOption, isActive: boolean) => (
+        <CustomItemRole isActive={isActive} role={option.value as TeamRole} count={option?.extra?.count} />
+      ),
+      widthStyles: {
+        width: 154,
+        menuWidth: 350,
+      },
+      withAll: true,
+      customOptionsRenderAll: (isActive: boolean) => (
+        <CustomItemAll isActive={isActive} total={actors.length}>
+          <RoleChip status={TeamRole.All} />
+        </CustomItemAll>
+      ),
+    },
+  ];
+
+  const canReset = searchText !== '' || filteredCategories.length > 0;
+  const onReset = () => {
+    const newQuery = { ...router.query };
+    delete newQuery.searchText;
+    delete newQuery.filteredCategories;
+    delete newQuery.filteredScopes;
+
+    router.push({
+      pathname: siteRoutes.ecosystemActors,
+      search: stringify(newQuery),
+    });
+  };
+
   return {
     handleRead,
     readMore,
     showTextDesk,
-    isLessPhone,
     filtersActive,
     columns,
     onSortClick,
@@ -270,5 +406,9 @@ export const useActors = (actors: Team[], stories = false) => {
     scopeCount,
     searchText,
     debounce,
+    filter,
+    canReset,
+    onReset,
+    searchFilters,
   };
 };

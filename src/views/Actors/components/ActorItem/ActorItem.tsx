@@ -135,7 +135,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 {actor?.scopes?.length > 2 ? (
                   <GroupedScopes scopes={actor.scopes} />
                 ) : (
-                  actor?.scopes?.map((item, index) => <ScopeChip scope={item} key={index} />)
+                  actor?.scopes?.map((item, index) => <ScopeChipStyled scope={item} key={index} />)
                 )}
               </ScopeSection>
             </ActorAboutLink>
@@ -213,12 +213,13 @@ const CardContainer = styled(Card)<{ socialLength: number }>(({ theme }) => ({
   fontStyle: 'normal',
   [theme.breakpoints.up('tablet_768')]: {
     padding: 0,
+    minHeight: 94,
     flexDirection: 'column',
     maxHeight: 'revert',
-    minHeight: 'revert',
   },
   [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
+    minHeight: 82,
     padding: 16,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -792,5 +793,11 @@ const PopoverListLinksStyled = styled(PopoverListLinks)(({ theme }) => ({
     [theme.breakpoints.up('desktop_1280')]: {
       padding: '5px 7px 5px 4px',
     },
+  },
+}));
+
+const ScopeChipStyled = styled(ScopeChip)(({ theme }) => ({
+  [theme.breakpoints.up('desktop_1024')]: {
+    height: 24,
   },
 }));

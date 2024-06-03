@@ -24,7 +24,7 @@ const meta: Meta<typeof ActorsContainer> = {
       },
     },
     chromatic: {
-      viewports: [375, 768, 1024, 1280, 1440, 1920],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
     date: new Date('2023-08-02T09:56:16Z'),
@@ -40,7 +40,7 @@ const variantsArgs = [
         .withCode('PH-001')
         .withShortCode('PH')
         .withName('Powerhouse Inc.')
-        .withStatus(TeamStatus.Accepted)
+        .withStatus(TeamStatus.Rejected)
         .withType(ResourceType.EcosystemActor)
         .addCategory(TeamRole.ScopeFacilitator)
         .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
@@ -75,7 +75,7 @@ const variantsArgs = [
         .build(),
 
       new EcosystemActorBuilder()
-        .addCategory(TeamRole.ScopeFacilitator)
+        .addCategory(TeamRole.ActiveEcosystemActor)
         .withId('23')
         .withCode('VPAC-001')
         .withShortCode('VPAC')
@@ -263,11 +263,11 @@ const variantsArgs = [
         .withSocials(defaultSocials)
         .build(),
     ] as Team[],
-    stories: true,
+    stories: false,
   },
   {
     actors: [] as Team[],
-    stories: false,
+    stories: true,
   },
 ];
 
@@ -295,7 +295,7 @@ LightMode.parameters = {
     component: {
       0: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20207:261115&mode=design&t=wRmSRg2ehkFZ7VM6-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=163:9205&t=ljb07LClCkteoCr1-4',
         options: {
           ...optionStyles,
           componentStyle: {
@@ -305,10 +305,10 @@ LightMode.parameters = {
       },
       768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20191:258133&mode=design&t=wRmSRg2ehkFZ7VM6-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=22:6925&t=ljb07LClCkteoCr1-4',
         options: {
           style: {
-            top: -16,
+            top: -50,
             left: -16,
           },
           componentStyle: {
@@ -318,10 +318,10 @@ LightMode.parameters = {
       },
       1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:239563&mode=design&t=QsP3Vsvwutj2T5IZ-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=20:19052&t=ljb07LClCkteoCr1-4',
         options: {
           style: {
-            top: -16,
+            top: -50,
             left: -16,
           },
           componentStyle: {
@@ -331,10 +331,10 @@ LightMode.parameters = {
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:240416&mode=design&t=QsP3Vsvwutj2T5IZ-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=20:18363&t=ljb07LClCkteoCr1-4',
         options: {
           style: {
-            top: -16,
+            top: -50,
             left: -16,
           },
           componentStyle: {
@@ -344,27 +344,14 @@ LightMode.parameters = {
       },
       1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:242292&mode=design&t=QsP3Vsvwutj2T5IZ-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=20:15879&t=ljb07LClCkteoCr1-4',
         options: {
           style: {
-            top: -16,
+            top: -50,
             left: -16,
           },
           componentStyle: {
             width: 1440,
-          },
-        },
-      },
-      1920: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21280:243304&mode=design&t=QsP3Vsvwutj2T5IZ-4',
-        options: {
-          style: {
-            top: -16,
-            left: -16,
-          },
-          componentStyle: {
-            width: 1920,
           },
         },
       },

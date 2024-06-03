@@ -1,6 +1,5 @@
 import { ExpandMore, Check } from '@mui/icons-material';
 import { Select, MenuItem, FormControl, styled, Box, Typography } from '@mui/material';
-import React from 'react';
 import useCustomSelect from './useCustomSelect';
 import type { CustomSelectProps } from './type';
 import type { Theme } from '@mui/material';
@@ -16,7 +15,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   multiple = false,
   style,
 }) => {
-  const { theme, handleChange, renderValue, isAllSelected, isActive } = useCustomSelect({
+  const { theme, isAllSelected, handleChange, handleChangeAll, renderValue, isActive } = useCustomSelect({
     label,
     options,
     multiple,
@@ -28,6 +27,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   return (
     <StyledFormControl variant="outlined" fullWidth={style?.fullWidth || false} width={style?.width || 97}>
       <StyledSelect
+        displayEmpty
         multiple={multiple}
         value={selected}
         onChange={handleChange}
@@ -43,10 +43,14 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           <MenuItemDefault
             borderTop={true}
             borderBottom={false}
-            value="all"
-            onClick={() => onChange(isAllSelected ? [] : options.map((option) => option.value))}
+            onClick={handleChangeAll}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
           >
-            {customOptionsRenderAll || 'Select All'}
+            {(customOptionsRenderAll && customOptionsRenderAll(isAllSelected || false, theme)) || 'Select All'}
+            {multiple && <CheckIcon className={`check ${isAllSelected ? 'active' : ''}`} />}
           </MenuItemDefault>
         )}
         {options.map((option, index) => (
@@ -69,7 +73,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                 </MenuItemTypography>
               )}
             </Box>
-            {multiple && isActive(option) && <CheckIcon />}
+            {multiple && <CheckIcon className={`check ${isActive(option) ? 'active' : ''}`} />}
           </MenuItemDefault>
         ))}
       </StyledSelect>
@@ -112,24 +116,35 @@ const StyledSelect = styled(Select)(({ theme }) => ({
 }));
 
 const MenuItemLabel = styled(MenuItem)({
-  minHeight: '12px',
-  marginTop: '-40px',
+  minHeight: 12,
+  marginTop: -40,
   position: 'absolute',
   top: 0,
   left: 0,
+
   '&.Mui-disabled': {
     opacity: 1,
   },
 });
 
-const MenuItemDefault = styled(MenuItem)(
-  ({ borderTop, borderBottom }: { borderTop: boolean; borderBottom: boolean }) => ({
-    borderTopLeftRadius: borderTop ? '12px' : 0,
-    borderTopRightRadius: borderTop ? '12px' : 0,
-    borderBottomLeftRadius: borderBottom ? '12px' : 0,
-    borderBottomRightRadius: borderBottom ? '12px' : 0,
-    minHeight: '32px',
+const MenuItemDefault = styled(MenuItem)<{ borderTop: boolean; borderBottom: boolean }>(
+  ({ theme, borderTop, borderBottom }) => ({
+    borderTopLeftRadius: borderTop ? 12 : 0,
+    borderTopRightRadius: borderTop ? 12 : 0,
+    borderBottomLeftRadius: borderBottom ? 12 : 0,
+    borderBottomRightRadius: borderBottom ? 12 : 0,
+    minHeight: 32,
     margin: '4px 0',
+
+    '& .check path': {
+      fill: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.charcoal[800],
+    },
+    '&:hover .check path': {
+      fill: theme.palette.colors.gray[500],
+    },
+    '& .check.active path': {
+      fill: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+    },
   })
 );
 
@@ -149,8 +164,7 @@ const MenuItemLabelTypography = styled(Typography)(({ theme }) => ({
   marginLeft: '-8px',
 }));
 
-const CheckIcon = styled(Check)(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+const CheckIcon = styled(Check)(() => ({
   width: 16,
   height: 16,
 }));
@@ -163,9 +177,11 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
       backgroundImage: 'none',
       bgcolor: theme.palette.isLight ? '#ffffff' : theme.palette.colors.charcoal[900],
       boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+
       '&.MuiPaper-elevation.MuiPaper-rounded': {
         borderRadius: '12px',
       },
+
       '& .MuiMenu-list': {
         position: 'relative',
         borderRadius: '12px',
@@ -173,6 +189,7 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
         margin: '50px 8px 8px',
         padding: 0,
       },
+
       '& .MuiMenuItem-root': {
         '&.Mui-selected': {
           bgcolor: `${theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)'} !important`,
@@ -186,6 +203,7 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
             bgcolor: `${theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.40)'} !important`,
           },
         },
+
         '&:hover': {
           '.MuiTypography-root': {
             fontWeight: 600,
@@ -196,14 +214,17 @@ const StyledMenuProps = (theme: Theme, width: number) => ({
       },
     },
   },
+
   anchorOrigin: {
     vertical: 'bottom',
     horizontal: 'right',
   },
+
   transformOrigin: {
     vertical: 'top',
     horizontal: 'right',
   },
+
   sx: {
     mt: 0.5,
   },

@@ -96,7 +96,7 @@ const BudgetStructureSection: React.FC<BudgetCompositionProps> = ({
             }
           />
 
-          <FiltersBundle filters={filter} />
+          <FiltersBundle filters={filter} snap={2} />
         </Header>
 
         {isLoading ? (
