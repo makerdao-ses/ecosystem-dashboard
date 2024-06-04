@@ -17,11 +17,11 @@ import {
 import type { TeamStatus } from '@/core/models/interfaces/types';
 import { getShortCode } from '@/core/utils/string';
 import CoreUnitCard from '@/stories/components/CoreUnitCard/CoreUnitCard';
-import { CuTableColumnExpenditures } from '@/stories/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnLastModified } from '@/stories/components/CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
 import { CuTableColumnTeamMember } from '@/stories/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
 import PopoverListLinks from '../Actors/components/PopoverListLinks/PopoverListLinks';
+import { CuTableColumnExpenditures } from './components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from './components/CuTableColumnSummary/CuTableColumnSummary';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
@@ -107,7 +107,6 @@ const ExpendituresContainer = styled('div')({
   display: 'flex',
   alignItems: 'flex-end',
   margin: 'auto 0',
-  height: '50px',
 });
 
 const InsideExpenditureContainer = styled('div')(({ theme }) => ({

@@ -5,8 +5,10 @@ import React from 'react';
 import Card from '@/components/Card/Card';
 import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import type { TeamStatus } from '@/core/models/interfaces/types';
+import { CuTableColumnExpenditures } from '@/views/CUTable/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from '@/views/CUTable/components/CuTableColumnSummary/CuTableColumnSummary';
 import ListMobileSheetIconArrow from '@/views/CUTable/components/ListMobileSheetIconArrow';
+
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -22,7 +24,6 @@ import {
 } from '../../../core/businessLogic/coreUnits';
 import { getShortCode } from '../../../core/utils/string';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
-import { CuTableColumnExpenditures } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnLastModified } from '../CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CuTableColumnTeamMember } from '../CuTableColumnTeamMember/CuTableColumnTeamMember';

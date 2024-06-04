@@ -27,7 +27,7 @@ import type { CustomTableColumn, CustomTableRow } from './components/CustomTable
 import type { Theme } from '@mui/material';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
-export const useCoreUnitsTable = () => {
+export const useCoreUnitsTableView = () => {
   const router = useRouter();
   const theme = useTheme();
 

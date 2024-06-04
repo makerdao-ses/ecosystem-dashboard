@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { useTheme } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 
 export const ColumnExpendituresSkeleton = () => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   return (
     <Container>
       <div>

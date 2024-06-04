@@ -7,12 +7,11 @@ import { SortEnum } from '@ses/core/enums/sortEnum';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import theme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
-
 import { CustomTable2 } from './components/CustomTable/CustomTable2';
 import { Filters } from './cuTableFilters';
-import { useCoreUnitsTable } from './useCoreUnitsTable';
+import { useCoreUnitsTableView } from './useCoreUnitsTableView';
 
-export const CuTable = () => {
+const CuTableView = () => {
   const { isShowBanner } = useCookiesContextTracking();
   const {
     clearFilters,
@@ -30,7 +29,7 @@ export const CuTable = () => {
     headersSort,
     applySort,
     queryStrings,
-  } = useCoreUnitsTable();
+  } = useCoreUnitsTableView();
 
   const siteHeader = useMemo(() => {
     if (status === 'loading') {
@@ -94,6 +93,8 @@ export const CuTable = () => {
     </ContainerHome>
   );
 };
+
+export default CuTableView;
 
 const ContainerHome = styled('div')<{ allowPadding?: boolean }>(({ theme, allowPadding = false }) => ({
   display: 'flex',
