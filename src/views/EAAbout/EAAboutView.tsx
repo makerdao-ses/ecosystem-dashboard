@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Container from '@ses/components/Container/Container';
 import PageContainer from '@ses/components/Container/PageContainer';
 import CardExpenses from '@ses/components/NavigationCard/CardExpenses';
@@ -6,40 +6,37 @@ import CardSomethingWrong from '@ses/components/NavigationCard/CardSomethingWron
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { getMarkdownInformation } from '@ses/core/businessLogic/coreUnitAbout';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
 import ActorSummary from './components/ActorSummary/ActorSummary';
 import CardProjects from './components/CardProjects/CardProjects';
-import useActorAbout from './useActorAbout';
+import useEAAboutView from './useEAAboutView';
 import { removeDuplicateNames } from './utils';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   actors: Team[];
   actor: Team;
 }
 
-export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
+export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
+  // TODO: move all the logic to the hook
   const router = useRouter();
-  const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const ref = useRef<HTMLDivElement>(null);
-  const { queryStrings, phone, LessPhone, table834 } = useActorAbout(router.query);
-
+  const { queryStrings, phone, LessPhone, table834 } = useEAAboutView(router.query);
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const routeToFinances = removeAtlasFromPath(actor.budgetPath);
   const removeDuplicateNamesBudgetPath = removeDuplicateNames(routeToFinances) ?? ' ';
+
   return (
-    <PageWrapper isLight={isLight}>
+    <PageContainer>
       <SEOHead
         title={`About ${actor.name} Ecosystem Actor at MakerDAO`}
         description={`Learn about the ${actor.name} Ecosystem Actor at MakerDAO: their mandate, scope, vision, strategy, and more.`}
@@ -106,52 +103,57 @@ export const ActorAboutContainer: React.FC<Props> = ({ actors, actor }) => {
           </ContainerCardSomethingWrongDesk>
         </ContainerAllData>
       </Container>
-    </PageWrapper>
+    </PageContainer>
   );
 };
 
-export default ActorAboutContainer;
+export default EAAboutView;
 
-const PageWrapper = styled(PageContainer)<WithIsLight>(({ isLight }) => ({
-  backgroundImage: isLight ? '#FFFFFF' : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
-  paddingTop: 0,
-}));
+// const PageWrapper = styled(PageContainer)(({ theme }) => ({
+//   backgroundImage: theme.palette.isLight
+//     ? '#FFFFFF'
+//     : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
+//   paddingTop: 0,
+// }));
 
-const MarkdownContainer = styled.div();
+const MarkdownContainer = styled('div')();
 
-const ContainerResponsive = styled.div({
+const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '60.39%',
   display: 'flex',
   flexDirection: 'column',
   marginTop: 96,
-  [lightTheme.breakpoints.down('desktop_1194')]: {
+
+  [theme.breakpoints.down('desktop_1194')]: {
     width: '100%',
     marginTop: 100,
   },
-});
+}));
 
-const ContainerScroll = styled.div({
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+const ContainerScroll = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('desktop_1194')]: {
     position: 'sticky',
     height: 'fit-content',
     top: 322,
   },
-});
+}));
 
-const ContainerCard = styled.div({
-  marginBottom: '32px',
+const ContainerCard = styled('div')(({ theme }) => ({
+  marginBottom: 32,
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: '68px',
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: '16px',
-  },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginLeft: '64px',
-  },
-});
+  marginLeft: 68,
 
-const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
+  [theme.breakpoints.up('table_834')]: {
+    marginLeft: 16,
+  },
+
+  [theme.breakpoints.up('desktop_1194')]: {
+    marginLeft: 64,
+  },
+}));
+
+const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -159,20 +161,22 @@ const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   marginTop,
 }));
 
-const WrapperCardSomethingWrongMobile = styled.div({
+const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
   display: 'flex',
   marginTop: 48,
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [theme.breakpoints.up('desktop_1194')]: {
     display: 'none',
   },
-});
+}));
 
-const ContainerCardSomethingWrongDesk = styled.div({
+const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
   display: 'none',
   marginTop: 90,
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+
+  [theme.breakpoints.up('desktop_1194')]: {
     display: 'flex',
     marginTop: 96,
     width: '39.61%',
   },
-});
+}));

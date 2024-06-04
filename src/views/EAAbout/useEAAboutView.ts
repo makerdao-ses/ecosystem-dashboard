@@ -5,7 +5,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { useMemo } from 'react';
 import type { ParsedUrlQuery } from 'querystring';
 
-const useActorAboutAbout = (query: ParsedUrlQuery) => {
+const useEAAboutView = (query: ParsedUrlQuery) => {
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
   const LessPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
@@ -27,4 +27,4 @@ const useActorAboutAbout = (query: ParsedUrlQuery) => {
   };
 };
 
-export default useActorAboutAbout;
+export default useEAAboutView;
