@@ -69,7 +69,7 @@ const linkCategory: LinkCategory[] = [
       },
       {
         label: 'Fusion',
-        link: '#',
+        link: 'https://fusion.fog.money',
         Icon: FusionIcon,
       },
     ],
