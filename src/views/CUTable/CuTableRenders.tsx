@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import lightTheme from '@ses/styles/theme/themes';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import {
@@ -111,24 +110,24 @@ const ExpendituresContainer = styled('div')({
   height: '50px',
 });
 
-const InsideExpenditureContainer = styled('div')({
+const InsideExpenditureContainer = styled('div')(({ theme }) => ({
   display: 'block',
   paddingLeft: '8px',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginLeft: '-4px',
     paddingLeft: 0,
   },
-});
+}));
 
-const TeamMemberContainer = styled('div')({
+const TeamMemberContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: 1,
   alignItems: 'flex-end',
   height: '50px',
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     justifyContent: 'flex-start',
   },
-});
+}));
 
 const ContainerLinksArrowsDesk = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {

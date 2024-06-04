@@ -142,7 +142,6 @@ export const CuTableColumnSummary = ({
         </Content>
       </div>
     </Container>
-    // </Link>
   );
 };
 

@@ -7,7 +7,6 @@ import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/La
 import type { TeamStatus } from '@/core/models/interfaces/types';
 import { CuTableColumnSummary } from '@/views/CUTable/components/CuTableColumnSummary/CuTableColumnSummary';
 import ListMobileSheetIconArrow from '@/views/CUTable/components/ListMobileSheetIconArrow';
-import lightTheme from '../../../../styles/theme/themes';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -176,12 +175,12 @@ const Line = styled('div')(({ theme }) => ({
   borderRadius: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[50] : 'red'}`,
   margin: '4px 0 0px',
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));
 
-const Categories = styled('div')({
+const Categories = styled('div')(({ theme }) => ({
   gridArea: 'categories',
   display: 'none',
   alignItems: 'center',
@@ -190,14 +189,14 @@ const Categories = styled('div')({
 
   '& > div': {
     marginRight: '8px',
-    [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
       marginRight: '16px',
     },
   },
   '& div:last-child': {
     marginRight: '0px',
   },
-});
+}));
 
 const Links = styled('div')({
   display: 'flex',
@@ -209,9 +208,9 @@ const ContainerRow = styled('div')({
   justifyContent: 'space-between',
 });
 
-const ContainerLinks = styled('div')({
+const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
-});
+}));

@@ -6,6 +6,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import ExternalLink from '@/stories/components/ExternalLink/ExternalLink';
+import type { Theme } from '@mui/material';
 
 interface Props {
   date?: DateTime;
@@ -17,7 +18,7 @@ interface Props {
 }
 
 export const LastModifiedActorCoreUnit = ({ date, now = DateTime.now(), href, className }: Props) => {
-  const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
+  const isDesk = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
   const textDescription = !date
     ? !isDesk
       ? 'Last Modified'
