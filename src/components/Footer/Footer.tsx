@@ -1,6 +1,8 @@
 import { styled } from '@mui/material';
+import Link from 'next/link';
 import FooterIcon from 'public/assets/svg/fusion.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
+import { siteRoutes } from '@/config/routes';
 import FooterContact from './FooterContact';
 import { linkCategory, contactMakerDAO, contactPowerhouse } from './data';
 
@@ -31,8 +33,7 @@ const Footer = () => (
       <FooterIcon width="104" height="36" />
       <FooterBottomRight>
         <FooterButtonLink>2024 Powerhouse</FooterButtonLink>
-        <FooterButtonLink>Privacy Notice</FooterButtonLink>
-        <FooterButtonLink>Cookie Policy</FooterButtonLink>
+        <CookiePolicy href={siteRoutes.cookiesPolicy}>Cookie Policy</CookiePolicy>
         <PowerhouseIcon width={16} height={16} />
       </FooterBottomRight>
     </FooterBottom>
@@ -50,6 +51,12 @@ const FooterWrapper = styled('footer')(({ theme }) => ({
   },
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '32px 32px 10px',
+  },
+  [theme.breakpoints.up('desktop_1920')]: {
+    maxWidth: 1900,
+    backgroundColor: 'revert',
+    margin: '0 auto',
+    borderTop: 'none',
   },
 }));
 
@@ -167,4 +174,11 @@ const FooterButtonLink = styled('p')(({ theme }) => ({
   textDecoration: 'none',
 }));
 
+const CookiePolicy = styled(Link)(({ theme }) => ({
+  color: theme.palette.colors.charcoal[300],
+  fontSize: '12px',
+  fontWeight: 500,
+  lineHeight: '22px',
+  textDecoration: 'none',
+}));
 export default Footer;
