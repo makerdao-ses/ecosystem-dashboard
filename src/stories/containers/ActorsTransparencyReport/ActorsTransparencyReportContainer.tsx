@@ -14,7 +14,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
-import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
+import ActorSummary from '../../../views/EAAbout/components/ActorSummary/ActorSummary';
 import AccountsSnapshotTabContainer from '../TransparencyReport/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import ExpenseReport from '../TransparencyReport/components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from '../TransparencyReport/components/TransparencyActuals/TransparencyActuals';

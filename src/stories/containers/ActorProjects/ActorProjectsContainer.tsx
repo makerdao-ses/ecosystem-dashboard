@@ -8,7 +8,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import Information from '@/components/icons/information';
 import SESTooltipLegacy from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
-import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
+import ActorSummary from '../../../views/EAAbout/components/ActorSummary/ActorSummary';
 import PageSubheader from './components/PageSubheader/PageSubheader';
 import ProjectList from './components/ProjectList/ProjectList';
 import useActorProjectsContainer from './useActorProjectsContainer';

@@ -7,8 +7,8 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { defaultSocials } from '@/views/Actors/utils/utils';
-import AppLayout from '../AppLayout/AppLayout';
-import ActorAboutContainer from './ActorAboutContainer';
+import AppLayout from '../../stories/containers/AppLayout/AppLayout';
+import EAAboutView from './EAAboutView';
 import type { Meta } from '@storybook/react';
 
 const actorsItems = [
@@ -60,9 +60,9 @@ const actorsItems = [
     .build(),
 ];
 
-const meta: Meta<typeof ActorAboutContainer> = {
-  title: 'Pages/Actor About',
-  component: ActorAboutContainer,
+const meta: Meta<typeof EAAboutView> = {
+  title: 'Fusion/Pages/Actor About',
+  component: EAAboutView,
   decorators: [withoutSBPadding],
   parameters: {
     nextjs: {
@@ -95,7 +95,7 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
-        <ActorAboutContainer {...props} />
+        <EAAboutView {...props} />
       </AppLayout>
     </FeatureFlagsProvider>
   ),
