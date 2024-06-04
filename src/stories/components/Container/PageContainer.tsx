@@ -25,4 +25,9 @@ const PageBackground = styled('div')<{ hasImageBackground: boolean }>(({ theme, 
     backgroundAttachment: 'fixed',
     backgroundSize: 'cover',
   }),
+  [theme.breakpoints.up('desktop_1920')]: {
+    borderBottom: `1px solid ${
+      theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.gray[900]
+    }`,
+  },
 }));

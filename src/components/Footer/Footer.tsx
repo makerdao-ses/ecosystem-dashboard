@@ -52,6 +52,12 @@ const FooterWrapper = styled('footer')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '32px 32px 10px',
   },
+  [theme.breakpoints.up('desktop_1920')]: {
+    maxWidth: 1900,
+    backgroundColor: 'revert',
+    margin: '0 auto',
+    borderTop: 'none',
+  },
 }));
 
 const FooterContainer = styled('div')(({ theme }) => ({
