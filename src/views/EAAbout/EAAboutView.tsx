@@ -109,13 +109,6 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
 
 export default EAAboutView;
 
-// const PageWrapper = styled(PageContainer)(({ theme }) => ({
-//   backgroundImage: theme.palette.isLight
-//     ? '#FFFFFF'
-//     : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 16, 32, 0.4) 100%)',
-//   paddingTop: 0,
-// }));
-
 const MarkdownContainer = styled('div')();
 
 const ContainerResponsive = styled('div')(({ theme }) => ({
