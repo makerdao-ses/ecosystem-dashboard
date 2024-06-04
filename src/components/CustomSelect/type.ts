@@ -1,4 +1,5 @@
 import type { Theme } from '@mui/material';
+import type { CSSProperties } from 'react';
 
 export interface OptionItem {
   label: string;
@@ -17,9 +18,10 @@ export interface CustomSelectProps {
   withAll?: boolean;
   customOptionsRenderAll?: (isActive: boolean, theme?: Theme) => React.ReactNode;
   multiple?: boolean;
+  alwaysNumberedLabel?: boolean;
   style?: {
     fullWidth?: boolean;
-    width?: number; // value in px
+    width?: CSSProperties['width']; // value in px
     menuWidth?: number; // value in px
   };
 }

@@ -346,7 +346,7 @@ export const useActorsView = (actors: Team[], stories = false) => {
       ),
 
       widthStyles: {
-        width: 133,
+        width: 'fit-content',
         menuWidth: 350,
       },
     },
@@ -356,7 +356,7 @@ export const useActorsView = (actors: Team[], stories = false) => {
       label: 'Actor Role',
       selected: filteredCategories,
       multiple: true,
-
+      alwaysNumberedLabel: true,
       options: categoryOptions,
       onChange: (value: string | number | (string | number)[]) => {
         handleChangeUrl('filteredCategories')(value as string | string[]);
@@ -365,7 +365,7 @@ export const useActorsView = (actors: Team[], stories = false) => {
         <CustomItemRole isActive={isActive} role={option.value as TeamRole} count={option?.extra?.count} />
       ),
       widthStyles: {
-        width: 154,
+        width: 160,
         menuWidth: 350,
       },
       withAll: true,
