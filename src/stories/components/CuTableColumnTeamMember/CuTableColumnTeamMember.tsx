@@ -1,10 +1,8 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import CardInfoMember from '../CardInfoMember/CardInfoMember';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
-import { Title } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
@@ -29,10 +27,8 @@ export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTable
         }}
       >
         <Data>
-          <Title isLight={isLight}>FTEs</Title>
-          <Value isLight={isLight} style={{ justifyContent: 'center' }}>
-            {props.fte}
-          </Value>
+          <Title>FTEs</Title>
+          <Value style={{ justifyContent: 'center' }}>{props.fte}</Value>
         </Data>
       </CustomPopover>
       <CirclesWrapper>
@@ -67,7 +63,7 @@ export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTable
   );
 };
 
-const Container = styled.div({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-end',
   fontWeight: 400,
@@ -77,44 +73,59 @@ const Container = styled.div({
   '@media (min-width: 834px) and (max-width: 1194px)': {
     marginLeft: '0px',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginRight: 36,
 
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '100%',
     flex: 1,
     justifyContent: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1920')]: {
+  [theme.breakpoints.up('desktop_1920')]: {
     paddingLeft: 6,
     marginLeft: 0,
   },
-});
+}));
 
-const Data = styled.div({
+const Data = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   marginRight: '10px',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginRight: '10px',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginRight: '10px',
     marginLeft: '4px',
   },
-});
+}));
 
-const CirclesWrapper = styled.div({
+const CirclesWrapper = styled('div')({
   display: 'flex',
 });
 
-const Value = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Value = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#EDEFFF',
+  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
+}));
+
+const Title = styled('span')(({ theme }) => ({
+  fontSize: '11px',
+
+  color: theme.palette.isLight ? '#434358' : '#9FAFB9',
+  fontWeight: 400,
+  fontStyle: 'normal',
+  marginBottom: '8px',
+  lineHeight: '13px',
+  fontFamily: 'Inter, sans-serif',
+  whiteSpace: 'nowrap',
+  [theme.breakpoints.up('desktop_1194')]: {
+    marginTop: '6px',
+  },
 }));

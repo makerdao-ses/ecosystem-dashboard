@@ -4,7 +4,7 @@ import { siteRoutes } from '@ses/config/routes';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { forwardRef, useCallback, useMemo } from 'react';
-import { useCoreUnitsTable } from '@/views/CUTable/useCoreUnitsTable';
+import { useCoreUnitsTableView } from '@/views/CUTable/useCoreUnitsTableView';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
@@ -29,7 +29,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
     ref
   ) => {
     const { isLight } = useThemeContext();
-    const { sortData } = useCoreUnitsTable();
+    const { sortData } = useCoreUnitsTableView();
     const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
     const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
 

@@ -3,11 +3,11 @@ import { CuTableColumnExpenditures } from './CuTableColumnExpenditures';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CuTableColumnExpenditures> = {
-  title: 'Components/CUTable/ColumnExpenditures',
+  title: 'Fusion/Components/CoreUnits/ColumnExpenditures',
   component: CuTableColumnExpenditures,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194],
+      viewports: [375, 834, 1280],
       pauseAnimationAtEnd: true,
     },
   },
@@ -18,9 +18,9 @@ const args = [
   {
     value: 16705,
     percent: 96,
-    items: [{ value: 70 }, { value: 85 }, { value: 120 }],
+    items: [{ value: 70 }, { value: 50 }, { value: 60 }],
     budgetCaps: [90, 80, 100],
-    months: ['2022-12-26T09:08:34.123', '2022-12-26T09:08:34.123', '2022-12-26T09:08:34.123'],
+    months: ['2022-09-26T09:08:34.123', '2022-11-26T09:08:34.123', '2022-12-26T09:08:34.123'],
   },
 ];
 
@@ -30,31 +30,37 @@ export { LightMode, DarkMode };
 LightMode.parameters = {
   figma: {
     component: {
-      375: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+      768: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=342:66212&t=sZngu2bqQnaT6GMP-4',
         options: {
           style: {
-            top: -6,
-            left: -27,
+            top: -8,
+
+            left: 0,
           },
         },
       },
 
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+      1024: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=331-45331&t=sZngu2bqQnaT6GMP-4',
         options: {
           style: {
-            top: -6,
-            left: -27,
+            top: -8,
+
+            left: 0,
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=2108%3A9986',
+      1280: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=331-43684&t=sZngu2bqQnaT6GMP-4',
         options: {
           style: {
-            top: -1,
-            left: -22,
+            top: -8,
+
+            left: 0,
           },
         },
       },

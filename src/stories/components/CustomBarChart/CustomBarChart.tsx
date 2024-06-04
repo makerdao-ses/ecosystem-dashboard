@@ -1,10 +1,8 @@
-import styled from '@emotion/styled';
-import { Popover, Typography, useMediaQuery } from '@mui/material';
+import { Popover, Typography, styled, useMediaQuery, useTheme } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ExpenditureLevel } from '../../../core/enums/expenditureLevelEnum';
 import type { CustomChartItemModel } from '../../../core/models/customChartItemModel';
 
@@ -15,10 +13,10 @@ interface CustomBarChartProps {
   code?: string;
 }
 
-const COLOR_GREEN = '#02CB9B';
-const COLOR_RED = '#CB3A0D';
-const COLOR_YELLOW = '#F08B04';
-const COLOR_GRAY = '#D8E0E3';
+const COLOR_GREEN = '#4FC86F';
+const COLOR_RED = '#EC5649';
+const COLOR_YELLOW = '#FFA132';
+const COLOR_GRAY = '#D7D8D9';
 
 export const PopoverPaperBar = (isLight: boolean) => ({
   background: isLight ? 'white' : '#000A13',
@@ -29,7 +27,8 @@ export const PopoverPaperBar = (isLight: boolean) => ({
 });
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string; budgetCap: string; actual: string } | null>(
@@ -167,18 +166,16 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               </StyleLevelExpenditure>
             </Row>
             <Row style={{ marginBottom: '4px' }}>
-              <TypographyValue isLight={isLight}>{description?.budgetCap}</TypographyValue>
-              <TypographyValue isLight={isLight} style={{ textAlign: 'right' }}>
-                {description?.actual}
-              </TypographyValue>
+              <TypographyValue>{description?.budgetCap}</TypographyValue>
+              <TypographyValue style={{ textAlign: 'right' }}>{description?.actual}</TypographyValue>
             </Row>
             <Row>
-              <TypographyDescription isLight={isLight}>Budget Cap</TypographyDescription>
-              <TypographyDescription isLight={isLight}>Actuals</TypographyDescription>
+              <TypographyDescription>Budget Cap</TypographyDescription>
+              <TypographyDescription>Actuals</TypographyDescription>
             </Row>
           </Container>
         ) : (
-          <NoDataProvided isLight={isLight}>No Data Provided</NoDataProvided>
+          <NoDataProvided>No Data Provided</NoDataProvided>
         )}
       </Popover>
       <SVGStyle>
@@ -268,7 +265,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   );
 };
 
-const Container = styled.div<{ levelExpenditure?: ExpenditureLevel; isLight?: boolean }>(
+const Container = styled('div')<{ levelExpenditure?: ExpenditureLevel; isLight?: boolean }>(
   ({ levelExpenditure, isLight }) => ({
     padding: '16px',
     borderRadius: '6px',
@@ -292,7 +289,7 @@ const Container = styled.div<{ levelExpenditure?: ExpenditureLevel; isLight?: bo
   })
 );
 
-const Row = styled.div({
+const Row = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -331,36 +328,32 @@ const StyleLevelExpenditure = styled(Typography, {
     : '#FF4085',
 }));
 
-const TypographyValue = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight?: boolean }>(
-  ({ isLight }) => ({
-    fontFamily: 'Inter,sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19px',
-    letterSpacing: '0.3px',
-    color: isLight ? '#000000' : '#EDEFFF',
-  })
-);
+const TypographyValue = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Inter,sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19px',
+  letterSpacing: '0.3px',
+  color: theme.palette.isLight ? '#000000' : '#EDEFFF',
+}));
 
-const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
-  isLight?: boolean;
-}>(({ isLight }) => ({
+const TypographyDescription = styled(Typography)(({ theme }) => ({
   fontFamily: 'Inter ,sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#9FAFB9',
+  color: theme.palette.isLight ? '#231536' : '#9FAFB9',
 }));
 
-const NoDataProvided = styled.div<{ isLight?: boolean }>(({ isLight }) => ({
+const NoDataProvided = styled('div')(({ theme }) => ({
   padding: '16px',
   borderRadius: '6px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
-const MonthTextGroup = styled.g({
+const MonthTextGroup = styled('g')({
   fontFamily: 'Inter',
   fontStyle: 'normal',
   fontWeight: 600,
@@ -370,10 +363,18 @@ const MonthTextGroup = styled.g({
   textTransform: 'uppercase',
 });
 
-const SVGStyle = styled.svg({
+const SVGStyle = styled('svg')(({ theme }) => ({
   width: 60,
   height: 57,
   viewBox: '0 0 60 57',
-  marginRight: '8px',
+  marginRight: '4px',
   marginLeft: '8px',
-});
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginRight: '2px',
+    marginLeft: '12px',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginRight: '2px',
+    marginLeft: '20px',
+  },
+}));
