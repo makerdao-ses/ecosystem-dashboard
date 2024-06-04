@@ -60,8 +60,8 @@ const FullWidthReset = styled(Button)(({ theme }) => ({
   padding: '6px 8px 6px 4px',
   margin: '16px',
   borderRadius: 8,
+  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.charcoal[100],
   backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[300],
   fontSize: 12,
   fontWeight: 500,
   lineHeight: '150%',
@@ -70,6 +70,11 @@ const FullWidthReset = styled(Button)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   gap: 4,
+
+  '&:disabled': {
+    color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[300],
+  },
+
   '&:hover': {
     boxShadow: 'none',
     color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.charcoal[100],
