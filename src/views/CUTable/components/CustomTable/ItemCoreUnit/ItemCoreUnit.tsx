@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 import React from 'react';
+import Card from '@/components/Card/Card';
 import CardItemCoreUnitMobile from '../CardItemCoreUnitMobile/CardItemCoreUnitMobile';
 import type { CustomTableColumn } from '../CustomTable2';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
@@ -34,9 +35,9 @@ const TableWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-const TableRow = styled('div')<{ isLoading?: boolean; columns: CustomTableColumn[] }>(
+const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[] }>(
   ({ theme, isLoading, columns }) => ({
-    background: theme.palette.isLight ? 'white' : '#10191F',
+    background: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
     display: 'grid',
 
     width: '100%',
@@ -45,15 +46,12 @@ const TableRow = styled('div')<{ isLoading?: boolean; columns: CustomTableColumn
     gridTemplateRows: '120px',
     marginTop: '16px',
     cursor: 'pointer',
-    borderColor: 'red',
-    boxShadow: theme.palette.isLight
-      ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+    boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
     ':hover': {
       background: !isLoading
         ? theme.palette.isLight
-          ? '#ECF1F3'
-          : '#1E2C37'
+          ? theme.palette.colors.gray[50]
+          : '#292E38'
         : theme.palette.isLight
         ? 'white'
         : '#10191F',

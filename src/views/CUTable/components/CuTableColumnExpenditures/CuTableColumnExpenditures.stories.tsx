@@ -7,7 +7,7 @@ const meta: Meta<typeof CuTableColumnExpenditures> = {
   component: CuTableColumnExpenditures,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1280],
+      viewports: [375, 768, 1280],
       pauseAnimationAtEnd: true,
     },
   },

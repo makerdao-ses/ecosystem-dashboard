@@ -174,6 +174,9 @@ const Value = styled('div')(({ theme }) => ({
   fontSize: '14px',
   lineHeight: '22px',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  ':hover': {
+    color: theme.palette.isLight ? theme.palette.colors.gray[600] : 'red',
+  },
 }));
 
 const Percent = styled('div')(({ theme }) => ({

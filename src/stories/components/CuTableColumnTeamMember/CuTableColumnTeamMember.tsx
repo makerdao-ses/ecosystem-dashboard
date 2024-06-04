@@ -70,10 +70,11 @@ const Container = styled('div')(({ theme }) => ({
   cursor: 'pointer',
   marginLeft: '7px',
   width: 'fit-content',
-  '@media (min-width: 834px) and (max-width: 1194px)': {
-    marginLeft: '0px',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    marginRight: 36,
+    alignItems: 'center',
   },
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginRight: 36,
 
     alignItems: 'center',
@@ -125,7 +126,7 @@ const Title = styled('span')(({ theme }) => ({
   lineHeight: '13px',
   fontFamily: 'Inter, sans-serif',
   whiteSpace: 'nowrap',
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: '6px',
   },
 }));
