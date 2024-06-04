@@ -1,11 +1,12 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import { siteRoutes } from '@ses/config/routes';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React from 'react';
+import Card from '@/components/Card/Card';
+import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import type { TeamStatus } from '@/core/models/interfaces/types';
-import lightTheme from '../../../../styles/theme/themes';
+import { CuTableColumnSummary } from '@/views/CUTable/components/CuTableColumnSummary/CuTableColumnSummary';
+import ListMobileSheetIconArrow from '@/views/CUTable/components/ListMobileSheetIconArrow';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -15,23 +16,18 @@ import {
   getLast3ExpenditureValuesFromCoreUnit,
   getLast3MonthsWithDataFormatted,
   getLatestMip39FromCoreUnit,
-  getLinksFromCoreUnit,
   getMipUrlFromCoreUnit,
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getShortCode } from '../../../core/utils/string';
-import { buildQueryString } from '../../../core/utils/urls';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CuTableColumnExpenditures } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnLastModified } from '../CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
-import { CuTableColumnSummary } from '../CuTableColumnSummary/CuTableColumnSummary';
 import { CuTableColumnTeamMember } from '../CuTableColumnTeamMember/CuTableColumnTeamMember';
 import { CategoriesSkeleton } from './CategoriesSkeleton';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnit;
@@ -39,12 +35,9 @@ interface CoreUnitCardProps {
 }
 
 const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
-  const router = useRouter();
-  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
-  const { isLight } = useThemeContext();
   if (isLoading) {
     return (
-      <Container isLight={isLight} style={{ marginBottom: '32px' }}>
+      <Container>
         <Summary>
           <Skeleton variant="rectangular" width={100} height={20} style={{ borderRadius: '4px' }} />
           <CuTableColumnSummary isLoading />
@@ -65,7 +58,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
           />
           <CuTableColumnTeamMember isLoading />
         </Team>
-        <Line isLight={isLight} />
+        <Line />
         <Categories>
           <CategoriesSkeleton />
         </Categories>
@@ -89,254 +82,135 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
   }
 
   return (
-    <Link href={`${siteRoutes.coreUnitAbout(coreUnit.shortCode)}/${queryStrings}`} passHref legacyBehavior>
-      <CuCard>
-        <Container isLight={isLight}>
-          <Summary>
-            <Title hideSmall isCoreUnitTitle isLight={isLight}>
-              Core Unit
-            </Title>
-            <CuTableColumnSummary
-              title={coreUnit?.name}
-              status={coreUnit.status as TeamStatus}
-              statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
-              imageUrl={coreUnit?.image}
-              mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-              code={getShortCode(coreUnit.code)}
-              categories={coreUnit.category}
-              isCard={true}
-            />
-          </Summary>
-          <Link href={`/core-unit/${coreUnit.shortCode}/finances/reports${queryStrings}`} passHref legacyBehavior>
-            <Expenditure>
-              <Title isExpenditure isLight={isLight}>
-                Expenditure
-              </Title>
-              <CuTableColumnExpenditures
-                value={getExpenditureValueFromCoreUnit(coreUnit)}
-                percent={getPercentFromCoreUnit(coreUnit)}
-                items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-                budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-                months={getLast3MonthsWithDataFormatted(coreUnit)}
-                code={getShortCode(coreUnit.code)}
-              />
-            </Expenditure>
-          </Link>
-          <Team>
-            <Title isLight={isLight}>Team</Title>
-            <CuTableColumnTeamMember
-              members={getFacilitatorsFromCoreUnit(coreUnit)}
-              fte={getFTEsFromCoreUnit(coreUnit)}
-            />
-          </Team>
-          <Link href={`/core-unit/${coreUnit.shortCode}/activity-feed${queryStrings}`} passHref legacyBehavior>
-            <LastModified>
-              <Title isLight={isLight}>Last Modified</Title>
-              <CuTableColumnLastModified date={getLastMonthWithData(coreUnit)} code={getShortCode(coreUnit.code)} />
-            </LastModified>
-          </Link>
-          <Line isLight={isLight} />
-          <Categories>
-            {coreUnit.category?.map((category) => (
-              <CategoryChip key={category} category={category} />
-            ))}
-          </Categories>
-          <Links>
-            <CuTableColumnLinks
-              links={getLinksFromCoreUnit(coreUnit)}
-              spacings={16}
-              fill="#708390"
-              fillDark="#D2D4EF"
-            />
-          </Links>
-        </Container>
-      </CuCard>
-    </Link>
+    <Container>
+      <ContainerRow>
+        <Summary>
+          <CuTableColumnSummary
+            title={coreUnit?.name}
+            status={coreUnit.status as TeamStatus}
+            statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
+            imageUrl={coreUnit?.image}
+            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+            code={getShortCode(coreUnit.code)}
+            categories={coreUnit.category}
+            isCard={true}
+          />
+        </Summary>
+
+        <Expenditure>
+          <CuTableColumnExpenditures
+            value={getExpenditureValueFromCoreUnit(coreUnit)}
+            percent={getPercentFromCoreUnit(coreUnit)}
+            items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+            budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+            months={getLast3MonthsWithDataFormatted(coreUnit)}
+            code={getShortCode(coreUnit.code)}
+          />
+        </Expenditure>
+        <Team>
+          <CuTableColumnTeamMember
+            members={getFacilitatorsFromCoreUnit(coreUnit)}
+            fte={getFTEsFromCoreUnit(coreUnit)}
+          />
+        </Team>
+        <Line />
+        <ContainerLinks>
+          <ListMobileSheetIconArrow />
+        </ContainerLinks>
+      </ContainerRow>
+
+      <Categories>
+        {coreUnit.category?.map((category) => (
+          <CategoryChip key={category} category={category} />
+        ))}
+      </Categories>
+
+      <LastModifiedActorCoreUnit
+        date={getLastMonthWithData(coreUnit)}
+        href={`${siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}`}
+      />
+    </Container>
   );
 };
 
 export default CoreUnitCard;
-const CuCard = styled.a({
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    ':last-child': {
-      marginBottom: '0px',
-    },
-  },
-});
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  display: 'grid',
-  gridTemplateRows: 'auto',
-  boxShadow: isLight
-    ? '0px 0px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  background: isLight ? '#FFFFFF' : '#10191F',
-  padding: '16px',
-  gridTemplateColumns: 'auto',
-  minWidth: '340px',
-  gridTemplateAreas: `"summary"
-     "expenditure"
-     "team"
-     "lastModified"
-     "line"
-     "categories"
-     "links"
-     `,
-  '@media (min-width: 375px)': {
-    gridTemplateColumns: '2fr 2fr',
-    gridTemplateAreas: `"summary summary"
-       "expenditure expenditure"
-       "team lastModified"
-       "line line"
-       "categories categories" 
-       "links links"`,
-  },
-  '@media (min-width: 685px)': {
-    gridTemplateColumns: '2.5fr 1fr 2fr',
-    gridTemplateAreas: `"summary summary expenditure"
-       "team team lastModified"
-       "line line line"
-       "categories links links"
-       `,
-  },
-  '@media (min-width: 834px)': {
-    gridTemplateColumns: '2fr 195px 1fr 1fr',
-    paddingBottom: '8px',
-    gridTemplateAreas: `"summary expenditure team lastModified"
-       "line line line line"
-       "categories categories links links"`,
-    padding: '24px 16px 8px',
-  },
+const Container = styled(Card)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '8px 8px 0px 8px',
 }));
 
-const Summary = styled.div({
-  gridArea: 'summary',
-  display: 'block',
-  paddingRight: '8px',
-  minWidth: '300px',
-  [lightTheme.breakpoints.up('table_834')]: {
-    minWidth: 295,
-  },
-});
+const Summary = styled('div')(() => ({
+  display: 'flex',
+}));
 
-const Expenditure = styled.a({
+const Expenditure = styled('div')(({ theme }) => ({
   gridArea: 'expenditure',
   paddingTop: '32px',
   marginBottom: '29px',
-  '@media (min-width: 685px)': {
-    paddingTop: '0',
-  },
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginBottom: '14px',
-  },
-  '@media (min-width: 685px) and (max-width: 834px)': {
-    marginBottom: '16px',
-  },
-});
-
-const Team = styled.div({
-  gridArea: 'team',
-  marginTop: '0px',
-  width: 'fit-content',
-  '@media (min-width: 375px)': {
-    marginLeft: '0 auto',
-  },
-  '@media (min-width: 685px) and (max-width: 834px)': {
-    paddingTop: 0,
-  },
-  '@media (min-width: 834px)': {
-    paddingTop: '0',
-    margin: '0 auto',
-  },
-});
-
-const LastModified = styled.a({
-  gridArea: 'lastModified',
-  marginTop: '0px',
-  width: 'fit-content',
-  '@media (min-width: 375px)': {
-    marginLeft: 0,
+  display: 'none',
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    flex: 1,
-    width: '100%',
-  },
-  '@media (min-width: 685px) and (max-width: 833px)': {
-    marginTop: '0',
-    marginLeft: '0',
-    alignItems: 'flex-start',
-  },
-  '@media (min-width: 834px)': {
-    marginTop: '0',
-    width: '100%',
-  },
-});
-
-const Line = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  gridArea: 'line',
-  height: 1,
-  background: isLight ? '#D4D9E1' : '#405361',
-  margin: '30px 0 16px',
-  '@media (min-width: 834px)': {
-    margin: '10px 0 8px',
-  },
-  '@media (min-width: 1194px)': {
-    margin: '16px 0 8px',
+    paddingTop: '0',
+    marginBottom: '14px',
   },
 }));
 
-const Categories = styled.div({
+const Team = styled('div')(({ theme }) => ({
+  gridArea: 'team',
+  marginTop: '0px',
+  display: 'none',
+  width: 'fit-content',
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+  },
+}));
+
+const LastModified = styled('div')({});
+
+const Line = styled('div')(({ theme }) => ({
+  gridArea: 'line',
+  height: 1,
+  borderRadius: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[50] : 'red'}`,
+  margin: '4px 0 0px',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'none',
+  },
+}));
+
+const Categories = styled('div')(({ theme }) => ({
   gridArea: 'categories',
-  display: 'flex',
+  display: 'none',
   alignItems: 'center',
   marginBottom: '16px',
   justifyContent: 'center',
+
   '& > div': {
     marginRight: '8px',
-    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+    [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
       marginRight: '16px',
     },
   },
   '& div:last-child': {
     marginRight: '0px',
   },
-  '@media (min-width: 685px)': {
-    margin: '0',
-    justifyContent: 'left',
-  },
-  '@media (min-width: 834px)': {
-    margin: '0',
-  },
-});
+}));
 
-const Links = styled.div({
-  gridArea: 'links',
+const Links = styled('div')({
   display: 'flex',
-  justifyContent: 'center',
-  '@media (min-width: 685px)': {
-    margin: '0',
-    justifyContent: 'flex-end',
-  },
 });
 
-const Title = styled.div<WithIsLight & { hideSmall?: boolean; isCoreUnitTitle?: boolean; isExpenditure?: boolean }>(
-  ({ hideSmall = false, isCoreUnitTitle = false, isExpenditure = false, isLight }) => ({
-    display: hideSmall ? 'none' : 'block',
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: '14px',
-    lineHeight: '22px',
-    color: isLight ? '#9FAFB9' : '#405361',
-    marginLeft: '0px',
-    marginBottom: isExpenditure ? '14px' : '8px',
-    '@media (min-width: 834px)': {
-      display: 'block',
-      fontSize: '14px',
-    },
-    [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-      marginBottom: isCoreUnitTitle ? '0px' : '16px',
-    },
-  })
-);
+const ContainerRow = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+});
+
+const ContainerLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'none',
+  },
+}));

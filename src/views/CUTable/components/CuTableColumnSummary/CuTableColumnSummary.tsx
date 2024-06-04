@@ -1,19 +1,15 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React from 'react';
+import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import { StatusChip } from '@/components/StatusChip/StatusChip';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import type { TeamStatus } from '@/core/models/interfaces/types';
-import lightTheme from '../../../../styles/theme/themes';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { buildQueryString } from '../../../core/utils/urls';
-import { CategoryChip } from '../CategoryChip/CategoryChip';
-import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
-import { CustomLink } from '../CustomLink/CustomLink';
-import { CustomPopover } from '../CustomPopover/CustomPopover';
-import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';
+import { CategoryChip } from '@/stories/components/CategoryChip/CategoryChip';
+import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
+import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
+import type { Theme } from '@mui/material';
 
 interface CuTableColumnSummaryProps {
   title?: string;
@@ -67,19 +63,20 @@ export const CuTableColumnSummary = ({
   ...props
 }: CuTableColumnSummaryProps) => {
   const { isLight } = useThemeContext();
-  const router = useRouter();
-  const upPhone = useMediaQuery(lightTheme.breakpoints.up('table_834'));
-  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
 
-  const phoneAndTableDevices = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
+  const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1194'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
   if (isLoading) {
     return <ColumnSummarySkeleton />;
   }
 
   return (
-    <Link href={`core-unit/${props.code}/${queryStrings}`} passHref legacyBehavior>
-      <Container onClick={props.onClick} style={props.style}>
+    <Container onClick={props.onClick} style={props.style}>
+      <div
+        style={{
+          display: 'flex',
+        }}
+      >
         <CircleContainer>
           <PopupWrapper
             hasPopup={hiddenPopOverSmallDevices}
@@ -120,11 +117,12 @@ export const CuTableColumnSummary = ({
         </CircleContainer>
         <Content>
           <TitleWrapper>
-            <Code isLight={isLight}>{props.code}</Code>
-            <Title isLight={isLight}>{props.title}</Title>
+            <Code>{props.code}</Code>
+            <Title longCode={(props.code?.length ?? 0) > 3}>{props.title}</Title>
           </TitleWrapper>
+
           <Row>
-            <StatusChipLegacy status={props.status as TeamStatus} style={{ marginLeft: '-2px' }} />
+            <StatusChipStyled status={props.status as TeamStatus} />
             {props.statusModified && (
               <CustomPopover
                 id={'mouse-over-popover-goto'}
@@ -133,120 +131,95 @@ export const CuTableColumnSummary = ({
                   color: isLight ? '#231536' : '#D2D4EF',
                 }}
               >
-                {props.statusModified && (
-                  <CustomLink
-                    href={props.mipUrl}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      margin: '0 0 2px 4px',
-                    }}
-                    fontWeight={600}
-                    styleIcon={{
-                      marginBottom: upPhone ? '5.1px' : '4.5px',
-                    }}
-                    target="_blank"
-                  >
-                    {`SINCE ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
-                  </CustomLink>
+                {props.mipUrl && (
+                  <ExternalLinkButtonStyled href={props.mipUrl ?? ''} showArrow>
+                    {`${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+                  </ExternalLinkButtonStyled>
                 )}
               </CustomPopover>
             )}
           </Row>
         </Content>
-      </Container>
-    </Link>
+      </div>
+    </Container>
   );
 };
 
-const Container = styled.a({
+const Container = styled('div')({
   display: 'flex',
-  width: 'fit-content',
+  flexDirection: 'row',
+  minWidth: 300,
   alignItems: 'stretch',
   boxSizing: 'border-box',
-  cursor: 'pointer',
   textDecoration: 'none',
-  '@media (min-width: 834px)': {
-    padding: '8px 0 16px',
-  },
-  '@media (min-width: 1194px)': {
-    padding: '24px 16px',
-  },
 });
 
-const CircleContainer = styled.div({
+const CircleContainer = styled('div')(({ theme }) => ({
   marginRight: '8px',
-  [lightTheme.breakpoints.up('table_834')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     marginRight: '16px',
   },
-});
+}));
 
-const Content = styled.section({
+const Content = styled('section')({
   display: 'flex',
   flexDirection: 'column',
 });
 
-const Code = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const Code = styled('span')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontWeight: 800,
-  fontSize: '14px',
-  letterSpacing: '0.3px',
-  lineHeight: '17px',
+  fontWeight: 600,
+  fontSize: 14,
+  lineHeight: '22px',
   textTransform: 'uppercase',
-  color: isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : '#546978',
   marginRight: '5px',
   whiteSpace: 'nowrap',
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontWeight: 700,
-  },
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: '12px',
-    lineHeight: '15px',
-  },
 }));
 
-const TitleWrapper = styled.div({
+const TitleWrapper = styled('div')({
   display: 'flex',
   alignItems: 'center',
 });
 
-const Title = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Title = styled('div')<{ longCode: boolean }>(({ theme, longCode = false }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontSize: '14px',
+  fontSize: 14,
   fontStyle: 'normal',
   alignItems: 'center',
-  fontWeight: 400,
-  color: isLight ? '#231536' : '#FFFFFF',
-  lineHeight: '17px',
+  fontWeight: 600,
+  width: 'fit-content',
+  maxWidth: longCode ? 140 : 150,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#FFFFFF',
   whiteSpace: 'nowrap',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: '12px;',
-    lineHeight: '15px',
-  },
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 }));
 
-const Row = styled.section({
+const Row = styled('section')({
   display: 'flex',
   alignItems: 'center',
   flex: 1,
-  marginTop: '7px',
+  marginTop: '4px',
 });
 
-const PopupSummaryWrapper = styled.div({
-  [lightTheme.breakpoints.down('table_834')]: {
+const PopupSummaryWrapper = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('table_834')]: {
     padding: '24px 16px',
   },
 
-  [lightTheme.breakpoints.between('table_834', 1180)]: {
+  [theme.breakpoints.between('table_834', 1180)]: {
     padding: '0 16px',
   },
-});
+}));
 
-const Padded = styled.div({
+const Padded = styled('div')({
   padding: '0 16px 16px',
 });
 
-const CategoriesTitle = styled.div({
+const CategoriesTitle = styled('div')({
   fontFamily: 'Inter, sans-serif',
   fontWeight: 400,
   fontSize: '14px',
@@ -255,7 +228,33 @@ const CategoriesTitle = styled.div({
   lineHeight: '22px',
 });
 
-const CategoriesRow = styled.div({
+const CategoriesRow = styled('div')({
   display: 'flex',
   gap: '16px',
 });
+
+const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
+  padding: '0px 2px 0px 4px',
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '24px',
+  border: `1.5px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+
+  ':hover': {
+    border: `1.5px solid ${
+      theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[700]
+    }`,
+  },
+
+  '& svg': {
+    width: 16,
+    height: 16,
+    alignItems: 'center',
+  },
+}));
+
+const StatusChipStyled = styled(StatusChip)(() => ({
+  padding: '3px 4px 3px 4px',
+}));

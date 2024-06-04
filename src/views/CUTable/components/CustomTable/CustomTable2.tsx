@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import React from 'react';
 import type { SortEnum } from '@/core/enums/sortEnum';
 import { HeadCustomTable } from './HeadCustomTable/HeadCustomTable';
@@ -55,7 +55,7 @@ export const CustomTable2 = (props: Props) => {
   );
 };
 
-const TableContainer = styled.div({
+const TableContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
@@ -65,21 +65,21 @@ const TableContainer = styled.div({
   },
 });
 
-const Table = styled.div({
+const Table = styled('div')({
   borderCollapse: 'separate',
   tableLayout: 'fixed',
-  flex: '1',
+  flex: 1,
 });
 
-export const TableCell = styled.div({
+export const TableCell = styled('div')({
   color: '#231536',
   display: 'flex',
   alignItems: 'center',
 });
 
-const TableWrapper = styled.div({
+const TableWrapper = styled('div')(({ theme }) => ({
   display: 'none',
-  '@media (min-width: 1194px)': {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
   },
-});
+}));

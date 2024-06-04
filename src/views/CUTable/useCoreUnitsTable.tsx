@@ -1,7 +1,6 @@
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { enablePageOverflow } from '@ses/core/utils/dom';
-import lightTheme from '@ses/styles/theme/themes';
 import request from 'graphql-request';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -25,17 +24,20 @@ import { buildQueryString } from '@/core/utils/urls';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
 import { GETCoreUnits } from './cuTableAPI';
 import type { CustomTableColumn, CustomTableRow } from './components/CustomTable/CustomTable2';
+import type { Theme } from '@mui/material';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const useCoreUnitsTable = () => {
   const router = useRouter();
+  const theme = useTheme();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
 
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
-  const desktop = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
+  const desktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1440'));
+  const isDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
 
   const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query);
   const { data: res, error } = useSWR(GETCoreUnits, fetcher);
@@ -139,47 +141,75 @@ export const useCoreUnitsTable = () => {
     {
       header: 'Core Unit',
       justifyContent: 'flex-start',
-      style: { paddingLeft: '16px' },
+
       cellRender: renderSummary,
       onClick: onClickRow,
-      width: '400px',
+      width: '300px',
       hasSort: true,
+      style: {
+        [theme.breakpoints.up('desktop_1280')]: {
+          width: 290,
+        },
+      },
+    },
+    {
+      header: isDesktop1024 ? 'L.M' : 'Last Modified',
+      justifyContent: 'flex-start',
+      cellRender: renderLastModified,
+      onClick: onClickLastModified,
+      width: '180px',
+      sortReverse: true,
+      hasSort: true,
+      style: {
+        [theme.breakpoints.up('desktop_1280')]: {
+          width: 180,
+        },
+      },
     },
     {
       header: 'Expenditure',
       justifyContent: 'flex-start',
       cellRender: renderExpenditures,
       onClick: onClickFinances,
-      width: '215px',
+
+      width: '180px',
       sortReverse: true,
       hasSort: true,
+      style: {
+        [theme.breakpoints.up('desktop_1280')]: {
+          width: 165,
+        },
+      },
     },
     {
       header: 'Team',
       justifyContent: desktop ? 'center' : 'flex-start',
       cellRender: renderTeamMember,
       onClick: onClickRow,
-      width: '200px',
+      width: '140px',
       sortReverse: true,
       hasSort: true,
+      style: {
+        [theme.breakpoints.up('desktop_1280')]: {
+          width: 165,
+          minWidth: 165,
+        },
+      },
     },
-    {
-      header: 'Last Modified',
-      justifyContent: 'flex-start',
-      cellRender: renderLastModified,
-      onClick: onClickLastModified,
-      width: '130px',
-      sortReverse: true,
-      hasSort: true,
-    },
+
     {
       header: '',
       justifyContent: 'center',
       cellRender: renderLinks,
       onClick: onClickRow,
-      width: '358px',
-      responsiveWidth: '185px',
+      width: '170px',
       hasSort: false,
+      style: {
+        [theme.breakpoints.up('desktop_1280')]: {
+          width: 140,
+          minWidth: 140,
+        },
+      },
     },
   ];
 

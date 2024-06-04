@@ -6,6 +6,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import ExternalLink from '@/stories/components/ExternalLink/ExternalLink';
+import type { Theme } from '@mui/material';
 
 interface Props {
   date?: DateTime;
@@ -16,8 +17,8 @@ interface Props {
   className?: string;
 }
 
-export const ActorLastModified = ({ date, now = DateTime.now(), href, className }: Props) => {
-  const isDesk = useMediaQuery(lightTheme.breakpoints.up('desktop_1024'));
+export const LastModifiedActorCoreUnit = ({ date, now = DateTime.now(), href, className }: Props) => {
+  const isDesk = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
   const textDescription = !date
     ? !isDesk
       ? 'Last Modified'
@@ -56,7 +57,7 @@ export const ActorLastModified = ({ date, now = DateTime.now(), href, className 
   );
 };
 
-export default ActorLastModified;
+export default LastModifiedActorCoreUnit;
 
 const DifferenceLabel = styled('div')(({ theme }) => ({
   fontWeight: 600,

@@ -3,7 +3,6 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import React from 'react';
 import { CustomTableHeader } from '@/stories/components/CustomTableHeader/CustomTableHeader';
-import { TableCell } from '../CustomTable2';
 import { CustomTableHeaderSkeleton } from '../CustomTableHeaderSkeleton';
 import type { CustomTableColumn } from '../CustomTable2';
 
@@ -25,8 +24,10 @@ export const HeadCustomTable = (props: Props) => {
         {props.columns?.map((column, i) => (
           <TableCell
             key={`header-${i}`}
-            style={{
+            width={column.width}
+            styles={{
               justifyContent: column.justifyContent,
+              ...column.style,
             }}
           >
             <CustomTableHeader
@@ -57,9 +58,17 @@ const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 }));
 
 const TableHeadRow = styled.div<{ columns: CustomTableColumn[] }>(({ columns }) => ({
-  display: 'inline-grid',
-  gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.responsiveWidth ?? curr.width}`, ''),
-  '@media (min-width: 1410px)': {
-    gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
-  },
+  display: 'flex',
+  justifyContent: 'space-between',
+
+  width: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
+}));
+
+const TableCell = styled('div')<{ width?: string; styles?: React.CSSProperties }>(({ width, styles }) => ({
+  color: '#231536',
+  display: 'flex',
+  alignItems: 'center',
+  ...(width && { width }),
+
+  ...(styles || {}),
 }));
