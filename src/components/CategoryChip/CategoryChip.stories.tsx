@@ -9,7 +9,6 @@ const meta: Meta<typeof CategoryChip> = {
 
   parameters: {
     chromatic: {
-      viewports: [375],
       pauseAnimationAtEnd: true,
     },
   },
