@@ -3,8 +3,9 @@ import Skeleton from '@mui/material/Skeleton';
 import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import Card from '@/components/Card/Card';
+import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
-import type { TeamStatus } from '@/core/models/interfaces/types';
+import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CuTableColumnExpenditures } from '@/views/CUTable/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from '@/views/CUTable/components/CuTableColumnSummary/CuTableColumnSummary';
 import CuTableColumnTeamMember from '@/views/CUTable/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
@@ -24,7 +25,6 @@ import {
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
 import { getShortCode } from '../../../core/utils/string';
-import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CuTableColumnLastModified } from '../CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CategoriesSkeleton } from './CategoriesSkeleton';
@@ -122,7 +122,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
 
       <Categories>
         {coreUnit.category?.map((category) => (
-          <CategoryChip key={category} category={category} />
+          <CategoryChip key={category} category={category as TeamCategory} />
         ))}
       </Categories>
 

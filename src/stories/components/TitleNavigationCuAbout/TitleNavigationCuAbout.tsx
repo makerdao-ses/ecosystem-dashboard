@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
-import type { TeamStatus } from '@/core/models/interfaces/types';
+import CategoryChip from '@/components/CategoryChip/CategoryChip';
+import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import lightTheme from '../../../../styles/theme/themes';
 
 import {
@@ -12,7 +13,6 @@ import {
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
@@ -98,7 +98,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
         <ContainerCategoryConditional>
           <CategoryContainer>
             {coreUnitAbout.category &&
-              coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item} />)}
+              coreUnitAbout.category.map((item) => <CategoryChip key={item} category={item as TeamCategory} />)}
           </CategoryContainer>
 
           {(phoneDimensions || lessPhone || tableDimensions) && (

@@ -3,11 +3,13 @@ import { Divider, styled, useTheme } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useRef } from 'react';
+// import { CategoryChip } from '@/components/CategoryChip/CategoryChip';
+import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import { CuCategoryEnum } from '@/core/enums/cuCategoryEnum';
 import { SortEnum } from '@/core/enums/sortEnum';
 import { useDebounce } from '@/core/hooks/useDebounce';
+import type { TeamCategory } from '@/core/models/interfaces/types';
 import { TeamStatus } from '@/core/models/interfaces/types';
-import { CategoryChip } from '@/stories/components/CategoryChip/CategoryChip';
 import { CustomMultiSelect } from '@/stories/components/CustomMultiSelect/CustomMultiSelect';
 import type { SortSelectItem } from '@/stories/components/CustomSortSelect/CustomSortSelect';
 import { CustomSortSelect } from '@/stories/components/CustomSortSelect/CustomSortSelect';
@@ -123,13 +125,13 @@ export const Filters = (props: FilterProps) => {
             activeItems={props.filteredCategories}
             customAll={{
               id: 'All',
-              content: <CategoryChip category={'All'} />,
+              content: <CategoryChip category={'All' as TeamCategory} />,
               count: props.categoriesCount.All,
             }}
             width={161}
             items={categories.map((cat) => ({
               id: cat,
-              content: <CategoryChip category={cat as CuCategoryEnum} />,
+              content: <CategoryChip category={cat as TeamCategory} />,
               count: props.categoriesCount[cat],
             }))}
             onChange={(value: string[]) => {
