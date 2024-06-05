@@ -1,11 +1,11 @@
 import { styled, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
+import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import { useThemeContext } from '@/core/context/ThemeContext';
-import type { TeamStatus } from '@/core/models/interfaces/types';
-import { CategoryChip } from '@/stories/components/CategoryChip/CategoryChip';
+import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
@@ -97,7 +97,7 @@ export const CuTableColumnSummary = ({
                   <CategoriesTitle>Categories</CategoriesTitle>
                   <CategoriesRow>
                     {props.categories?.map((cat) => (
-                      <CategoryChip category={cat} key={cat} />
+                      <CategoryChip category={cat as TeamCategory} key={cat} />
                     ))}
                   </CategoriesRow>
                 </Padded>
