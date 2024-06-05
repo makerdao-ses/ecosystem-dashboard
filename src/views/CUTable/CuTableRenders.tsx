@@ -19,10 +19,10 @@ import { getShortCode } from '@/core/utils/string';
 import CoreUnitCard from '@/stories/components/CoreUnitCard/CoreUnitCard';
 import { CuTableColumnLastModified } from '@/stories/components/CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
-import { CuTableColumnTeamMember } from '@/stories/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
 import PopoverListLinks from '../Actors/components/PopoverListLinks/PopoverListLinks';
 import { CuTableColumnExpenditures } from './components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from './components/CuTableColumnSummary/CuTableColumnSummary';
+import CuTableColumnTeamMember from './components/CuTableColumnTeamMember/CuTableColumnTeamMember';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const renderSummary = (coreUnit: CoreUnit) => {

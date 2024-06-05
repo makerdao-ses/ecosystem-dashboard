@@ -44,7 +44,7 @@ export const iconsPowerHose = [
   },
   {
     Icon: SwitchboardIcon,
-    title: 'makerdao_switchboard',
+    title: 'switchboard',
   },
   {
     Icon: PowerhouseIcon,

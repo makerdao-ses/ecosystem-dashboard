@@ -7,6 +7,7 @@ import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/La
 import type { TeamStatus } from '@/core/models/interfaces/types';
 import { CuTableColumnExpenditures } from '@/views/CUTable/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from '@/views/CUTable/components/CuTableColumnSummary/CuTableColumnSummary';
+import CuTableColumnTeamMember from '@/views/CUTable/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
 import ListMobileSheetIconArrow from '@/views/CUTable/components/ListMobileSheetIconArrow';
 
 import {
@@ -26,7 +27,6 @@ import { getShortCode } from '../../../core/utils/string';
 import { CategoryChip } from '../CategoryChip/CategoryChip';
 import { CuTableColumnLastModified } from '../CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
-import { CuTableColumnTeamMember } from '../CuTableColumnTeamMember/CuTableColumnTeamMember';
 import { CategoriesSkeleton } from './CategoriesSkeleton';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 

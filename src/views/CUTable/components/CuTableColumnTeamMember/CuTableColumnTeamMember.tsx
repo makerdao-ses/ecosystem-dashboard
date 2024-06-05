@@ -1,9 +1,8 @@
-import { styled } from '@mui/material';
+import { styled, useTheme } from '@mui/material';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import CardInfoMember from '../CardInfoMember/CardInfoMember';
-import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
-import { CustomPopover } from '../CustomPopover/CustomPopover';
+import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
+import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
+import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 
@@ -13,9 +12,13 @@ interface CuTableColumnTeamMemberProps {
   isLoading?: boolean;
 }
 
-export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTableColumnTeamMemberProps) => {
-  const { isLight } = useThemeContext();
-
+const CuTableColumnTeamMember: React.FC<CuTableColumnTeamMemberProps> = ({
+  isLoading = false,
+  fte,
+  members,
+}: CuTableColumnTeamMemberProps) => {
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   return !isLoading ? (
     <Container className="TeamMembers">
       <CustomPopover
@@ -28,11 +31,12 @@ export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTable
       >
         <Data>
           <Title>FTEs</Title>
-          <Value style={{ justifyContent: 'center' }}>{props.fte}</Value>
+          <Value className="TeamMembers_Value">{fte}</Value>
         </Data>
       </CustomPopover>
+
       <CirclesWrapper>
-        {props.members?.map((member, i) => (
+        {members?.map((member, i) => (
           <CustomPopover
             key={member.contributor[0].name + i}
             popupStyle={{
@@ -63,70 +67,84 @@ export const CuTableColumnTeamMember = ({ isLoading = false, ...props }: CuTable
   );
 };
 
+export default CuTableColumnTeamMember;
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
-  alignItems: 'flex-end',
+  position: 'relative',
+  alignItems: 'center',
+  borderRadius: 8,
+  gap: 4,
   fontWeight: 400,
   cursor: 'pointer',
-  marginLeft: '7px',
-  width: 'fit-content',
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    marginRight: 36,
-    alignItems: 'center',
-  },
+  width: 128,
+  padding: '17px 4px 14px 4px',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
   [theme.breakpoints.up('desktop_1024')]: {
-    marginRight: 36,
+    width: 140,
+    padding: '17px 8px 12px 8px',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 164,
+    gap: 16,
+    padding: '17px 16px 12px 16px',
+  },
 
-    alignItems: 'center',
-  },
-  [theme.breakpoints.up('desktop_1440')]: {
-    width: '100%',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  [theme.breakpoints.up('desktop_1920')]: {
-    paddingLeft: 6,
-    marginLeft: 0,
+  ':hover': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[100] : 'red',
+    '& > div:nth-of-type(1) .TeamMembers_Value': {
+      color: theme.palette.isLight ? theme.palette.colors.gray[600] : 'red',
+    },
   },
 }));
 
 const Data = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'center',
   alignItems: 'center',
-  marginRight: '10px',
-  [theme.breakpoints.up('desktop_1194')]: {
-    marginRight: '10px',
-  },
+
+  [theme.breakpoints.up('desktop_1194')]: {},
   [theme.breakpoints.up('desktop_1440')]: {
-    marginRight: '10px',
     marginLeft: '4px',
   },
 }));
 
-const CirclesWrapper = styled('div')({
+const CirclesWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
-});
+  marginTop: 4,
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: 10,
+  },
+}));
 
 const Value = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: 600,
-  fontSize: '14px',
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
+  fontSize: 14,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  width: 32,
+  textAlign: 'center',
+  marginTop: 4,
 }));
 
 const Title = styled('span')(({ theme }) => ({
-  fontSize: '11px',
-
-  color: theme.palette.isLight ? '#434358' : '#9FAFB9',
-  fontWeight: 400,
+  fontSize: 12,
+  top: -8,
+  left: 4,
+  borderRadius: 4,
+  fontWeight: 500,
+  position: 'absolute',
+  background: '#FFFFFF',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  padding: '0px 4px',
   fontStyle: 'normal',
-  marginBottom: '8px',
-  lineHeight: '13px',
+
+  lineHeight: '18px',
   fontFamily: 'Inter, sans-serif',
   whiteSpace: 'nowrap',
-  [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: '6px',
+  [theme.breakpoints.up('desktop_1280')]: {
+    left: 16,
   },
 }));
