@@ -116,7 +116,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
         </Team>
         <Line />
         <ContainerLinks>
-          <ListMobileSheetIconArrow />
+          <ListMobileSheetIconArrow coreUnit={coreUnit} />
         </ContainerLinks>
       </ContainerRow>
 
