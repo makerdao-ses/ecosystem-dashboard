@@ -62,4 +62,9 @@ In order to build/run the project using Docker, you should:
 2. Build the images: `docker compose build`
 3. Run the image: `docker compose up` or `docker compose up -d` to run the images in detached mode
 
+If you don't want to use `docker compose` you can:
+
+1. Build the image: `docker build -t fusion .`
+2. Run the image: `docker run -p 3000:3000 fusion`
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
