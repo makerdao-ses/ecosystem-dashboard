@@ -11,9 +11,9 @@ interface StatusChipProps {
 
 const CategoryChip: React.FC<StatusChipProps> = ({ category, className }) => {
   const colors = useCategoryColors();
-  console.log('colors', colors);
+
   return (
-    <Chip category={category} colors={colors} className={className}>
+    <Chip colors={colors} className={className} category={category}>
       {category}
     </Chip>
   );

@@ -1,5 +1,5 @@
 import { EcosystemActorBuilder } from '@ses/core/businessLogic/builders/actors/actorsBuilder';
-import { ResourceType } from '@ses/core/models/interfaces/types';
+import { ResourceType, TeamCategory } from '@ses/core/models/interfaces/types';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
@@ -35,7 +35,7 @@ const variantsArgs = [
       .withName('Phoenix Labs')
       .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-      .addCategory('Active Ecosystem Actor')
+      .addCategory(TeamCategory.Business)
       .withSentenceDescription(
         'Phoenix Labs is focused on vertically integrating existing products into Maker and sharing the value creation with developers.'
       )
@@ -68,7 +68,7 @@ const variantsArgs = [
       .withName('Phoenix Labs lo...')
       .withType(ResourceType.EcosystemActor)
       .withImage('https://live.staticflickr.com/65535/52808669587_127cc79684_m.jpg')
-      .addCategory('Active Ecosystem Actor')
+      .addCategory(TeamCategory.Business)
       .withSentenceDescription(
         'Phoenix Labs is focused on vertically integrating existing products into Maker and sharing the value creation with developers.'
       )

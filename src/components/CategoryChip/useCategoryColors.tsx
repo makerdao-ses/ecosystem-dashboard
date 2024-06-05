@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material';
 
-interface ColorScheme {
+export interface ColorScheme {
   border: string;
   borderDark: string;
 }
@@ -16,22 +16,22 @@ export interface CustomColors {
   All: ColorScheme;
   Finance: ColorScheme;
   ScopeFacilitator: ColorScheme;
+
   // TODO: This need new colors
   AdvisoryCouncilMember: ColorScheme;
   ActiveEcosystemActor: ColorScheme;
+  [key: string]: ColorScheme;
 }
 
 export const useCategoryColors = () => {
   const theme = useTheme();
+
   const colors: CustomColors = {
     All: {
       border: '#CED3DC',
       borderDark: '#373E4DB2',
     },
-    ScopeFacilitator: {
-      border: theme.palette.colors.orange[100],
-      borderDark: '#FFA1324D',
-    },
+
     Legal: {
       border: theme.palette.colors.green[100],
       borderDark: '#4FC86F4D',
@@ -69,6 +69,10 @@ export const useCategoryColors = () => {
       borderDark: '#FFA1324D',
     },
     AdvisoryCouncilMember: {
+      border: theme.palette.colors.orange[100],
+      borderDark: '#FFA1324D',
+    },
+    ScopeFacilitator: {
       border: theme.palette.colors.orange[100],
       borderDark: '#FFA1324D',
     },
