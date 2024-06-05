@@ -90,7 +90,6 @@ const Container = styled('div')(({ theme }) => ({
   borderRadius: 8,
   flexDirection: 'column',
   justifyContent: 'flex-start',
-
   padding: '12px 4px 0px 4px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
@@ -120,8 +119,9 @@ const Data = styled('div')({
   gap: 4,
   justifyContent: 'center',
   height: 52,
+  width: 56,
   alignItems: 'center',
-  paddingLeft: 4,
+
   paddingTop: 8,
 });
 

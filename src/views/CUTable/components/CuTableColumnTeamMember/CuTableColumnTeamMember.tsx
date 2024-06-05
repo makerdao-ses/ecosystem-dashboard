@@ -20,7 +20,7 @@ const CuTableColumnTeamMember: React.FC<CuTableColumnTeamMemberProps> = ({
   const theme = useTheme();
   const isLight = theme.palette.isLight;
   return !isLoading ? (
-    <Container className="TeamMembers">
+    <Container className="TeamMembers" hasMember={(members?.length || 0) >= 1}>
       <CustomPopover
         title={'Full-Time Equivalents'}
         id={'popover-fulltime-equivalents'}
@@ -68,12 +68,13 @@ const CuTableColumnTeamMember: React.FC<CuTableColumnTeamMemberProps> = ({
 };
 
 export default CuTableColumnTeamMember;
-const Container = styled('div')(({ theme }) => ({
+const Container = styled('div')<{ hasMember: boolean }>(({ theme, hasMember }) => ({
   display: 'flex',
   position: 'relative',
+  justifyContent: hasMember ? 'start' : 'center',
   alignItems: 'center',
   borderRadius: 8,
-  gap: 4,
+  gap: hasMember ? 4 : 0,
   fontWeight: 400,
   cursor: 'pointer',
   width: 128,
@@ -86,7 +87,7 @@ const Container = styled('div')(({ theme }) => ({
   },
   [theme.breakpoints.up('desktop_1280')]: {
     width: 164,
-    gap: 16,
+    gap: hasMember ? 16 : 0,
     padding: '17px 16px 12px 16px',
   },
 
@@ -100,11 +101,10 @@ const Container = styled('div')(({ theme }) => ({
 
 const Data = styled('div')(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   justifyContent: 'center',
-  alignItems: 'center',
+  width: '100%',
 
-  [theme.breakpoints.up('desktop_1194')]: {},
   [theme.breakpoints.up('desktop_1440')]: {
     marginLeft: '4px',
   },
@@ -125,8 +125,10 @@ const Value = styled('div')(({ theme }) => ({
   lineHeight: '22px',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
   width: 32,
+
   textAlign: 'center',
   marginTop: 4,
+  alignSelf: 'center',
 }));
 
 const Title = styled('span')(({ theme }) => ({
