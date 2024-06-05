@@ -1,11 +1,11 @@
 import { styled } from '@mui/material';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import IconTitleWithCode from '@ses/components/IconTitleWithCode/IconTitleWithCode';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { BudgetMetricsModalProvider } from '@ses/core/context/BudgetMetricsModalContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
 import BudgetMetricButtonModalTrigger from './components/BudgetMetricButtonModalTrigger/BudgetMetricButtonModalTrigger';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';

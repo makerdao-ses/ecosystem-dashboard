@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import { ButtonFilter, SmallSeparator } from '@/views/CUTable/cuTableFilters';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';

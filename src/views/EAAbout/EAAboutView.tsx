@@ -1,6 +1,4 @@
 import { styled } from '@mui/material';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import CardExpenses from '@ses/components/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@ses/components/NavigationCard/CardSomethingWrong';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
@@ -13,6 +11,8 @@ import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
 import ActorSummary from './components/ActorSummary/ActorSummary';
 import CardProjects from './components/CardProjects/CardProjects';

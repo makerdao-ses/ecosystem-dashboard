@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
@@ -9,6 +7,8 @@ import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown/DelegateExpenseBreakdown';
 import DelegateExpenseTrend from './DelegateExpenseTrend';

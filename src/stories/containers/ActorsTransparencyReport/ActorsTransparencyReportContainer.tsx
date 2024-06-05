@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import Tabs from '@ses/components/Tabs/Tabs';
 import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
@@ -14,6 +12,8 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import ActorSummary from '../../../views/EAAbout/components/ActorSummary/ActorSummary';
 import AccountsSnapshotTabContainer from '../TransparencyReport/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import ExpenseReport from '../TransparencyReport/components/ExpenseReport/ExpenseReport';
