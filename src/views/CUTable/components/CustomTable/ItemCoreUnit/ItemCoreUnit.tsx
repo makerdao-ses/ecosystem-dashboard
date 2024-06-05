@@ -32,6 +32,7 @@ const TableWrapper = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     minWidth: '100%',
+    gap: 8,
   },
 }));
 
@@ -39,7 +40,7 @@ const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[
   ({ theme, isLoading, columns }) => ({
     background: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
     display: 'grid',
-
+    padding: '16px 16px 8px 8px',
     width: '100%',
     justifyContent: 'space-between',
     gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),

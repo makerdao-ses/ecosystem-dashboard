@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import React from 'react';
@@ -19,7 +19,7 @@ export const HeadCustomTable = (props: Props) => {
     return <CustomTableHeaderSkeleton isLight={isLight} />;
   }
   return (
-    <TableHead isLight={isLight}>
+    <TableHead>
       <TableHeadRow columns={props.columns}>
         {props.columns?.map((column, i) => (
           <TableCell
@@ -44,20 +44,18 @@ export const HeadCustomTable = (props: Props) => {
   );
 };
 
-const TableHead = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const TableHead = styled('div')(({ theme }) => ({
   position: 'relative',
   zIndex: 1,
   width: '100%',
-  background: isLight ? '#F7F8F9' : '#25273D',
-  padding: '14px 0',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#212630',
+  padding: '14px 8px',
   borderTopLeftRadius: '5px',
   borderTopRightRadius: '5px',
-  boxShadow: isLight
-    ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px rgba(7, 22, 40, 0.4)',
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
 }));
 
-const TableHeadRow = styled.div<{ columns: CustomTableColumn[] }>(({ columns }) => ({
+const TableHeadRow = styled('div')<{ columns: CustomTableColumn[] }>(({ columns }) => ({
   display: 'flex',
   justifyContent: 'space-between',
 
