@@ -49,7 +49,7 @@ const TableHead = styled('div')(({ theme }) => ({
   zIndex: 1,
   width: '100%',
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#212630',
-  padding: '14px 8px',
+  padding: '14px 16px',
   borderRadius: 16,
 
   boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
