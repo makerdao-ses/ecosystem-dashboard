@@ -1,14 +1,26 @@
 import { styled } from '@mui/material';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
 import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
+import { siteRoutes } from '@/config/routes';
+import type { CoreUnit } from '@/core/models/interfaces/coreUnit';
+import { buildQueryString } from '@/core/utils/urls';
 
-const ListMobileSheetIconArrow = () => (
-  <ContainerLinksArrowsMobile>
-    <ButtonLinksSheet />
-    <InternalLinkButtonStyled href="" showIcon />
-  </ContainerLinksArrowsMobile>
-);
+interface Props {
+  coreUnit: CoreUnit;
+}
+
+const ListMobileSheetIconArrow: React.FC<Props> = ({ coreUnit }) => {
+  const router = useRouter();
+  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
+  return (
+    <ContainerLinksArrowsMobile>
+      <ButtonLinksSheet />
+      <InternalLinkButtonStyled href={`${siteRoutes.coreUnitAbout(coreUnit.shortCode)}/${queryStrings}`} showIcon />
+    </ContainerLinksArrowsMobile>
+  );
+};
 
 export default ListMobileSheetIconArrow;
 const ContainerLinksArrowsMobile = styled('div')(({ theme }) => ({

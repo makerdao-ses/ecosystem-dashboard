@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
-import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -19,10 +19,10 @@ import { getShortCode } from '@/core/utils/string';
 import CoreUnitCard from '@/stories/components/CoreUnitCard/CoreUnitCard';
 import { CuTableColumnLastModified } from '@/stories/components/CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
-import { CuTableColumnTeamMember } from '@/stories/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
-import PopoverListLinks from '../Actors/components/PopoverListLinks/PopoverListLinks';
+import { CuRenderLinks } from './components/CuRenderLinks/CuRenderLinks';
 import { CuTableColumnExpenditures } from './components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from './components/CuTableColumnSummary/CuTableColumnSummary';
+import CuTableColumnTeamMember from './components/CuTableColumnTeamMember/CuTableColumnTeamMember';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const renderSummary = (coreUnit: CoreUnit) => {
@@ -71,15 +71,7 @@ export const renderTeamMember = (coreUnit: CoreUnit) => {
 
 export const renderLinks = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnLinks isLoading />;
-  return (
-    <LinksContainer>
-      <ContainerLinksArrowsDesk>
-        <PopoverListLinksStyled label="Links" />
-        <VerticalLine />
-        <InternalLinkButtonStyled href={''} showIcon />
-      </ContainerLinksArrowsDesk>
-    </LinksContainer>
-  );
+  return <CuRenderLinks coreUnit={coreUnit} />;
 };
 
 export const renderCard = (coreUnit: CoreUnit, key?: number) => {
@@ -91,17 +83,6 @@ export const renderLastModified = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
   return <LastModifiedActorCoreUnit href={coreUnit.shortCode} date={getLastMonthWithData(coreUnit)} />;
 };
-
-const LinksContainer = styled('div')({
-  display: 'flex',
-  width: 150,
-  justifyContent: 'flex-end',
-
-  paddingRight: '16px',
-
-  height: '50px',
-  cursor: 'pointer',
-});
 
 const ExpendituresContainer = styled('div')({
   display: 'flex',
@@ -127,49 +108,3 @@ const TeamMemberContainer = styled('div')(({ theme }) => ({
     justifyContent: 'flex-start',
   },
 }));
-
-const ContainerLinksArrowsDesk = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('desktop_1024')]: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    minWidth: 140,
-    justifyContent: 'flex-end',
-  },
-}));
-
-const PopoverListLinksStyled = styled(PopoverListLinks)(({ theme }) => ({
-  'div:first-of-type': {
-    width: 21,
-    height: 21,
-    justifyContent: 'flex',
-    alignItem: 'center',
-  },
-  '& button': {
-    gap: 4,
-    [theme.breakpoints.up('desktop_1280')]: {
-      padding: '5px 7px 5px 4px',
-    },
-  },
-}));
-
-const VerticalLine = styled('div')(({ theme }) => ({
-  marginLeft: 8,
-  marginRight: 8,
-  height: 16,
-  display: 'flex',
-  alignItems: 'center',
-  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[800]}`,
-  [theme.breakpoints.up('desktop_1280')]: {
-    marginLeft: 16,
-    marginRight: 16,
-  },
-}));
-
-const InternalLinkButtonStyled = styled(InternalLinkButton)({
-  borderRadius: 8,
-  padding: '2px 8px 2px 8px',
-  ':hover': {
-    padding: '2px 8px 2px 8px',
-  },
-});
