@@ -50,8 +50,8 @@ const TableHead = styled('div')(({ theme }) => ({
   width: '100%',
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#212630',
   padding: '14px 8px',
-  borderTopLeftRadius: '5px',
-  borderTopRightRadius: '5px',
+  borderRadius: 16,
+
   boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
 }));
 
