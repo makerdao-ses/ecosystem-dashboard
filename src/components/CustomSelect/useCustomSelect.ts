@@ -7,12 +7,21 @@ export interface Props {
   label: CustomSelectProps['label'];
   options: CustomSelectProps['options'];
   multiple?: CustomSelectProps['multiple'];
+  alwaysNumberedLabel?: CustomSelectProps['alwaysNumberedLabel'];
   selected: CustomSelectProps['selected'];
   withAll?: CustomSelectProps['withAll'];
   onChange: CustomSelectProps['onChange'];
 }
 
-export default function useCustomSelect({ label, options, multiple, selected, withAll, onChange }: Props) {
+export default function useCustomSelect({
+  label,
+  options,
+  multiple,
+  alwaysNumberedLabel,
+  selected,
+  withAll,
+  onChange,
+}: Props) {
   let isHandlingAll = false;
   const theme = useTheme();
   const isAllSelected = multiple && withAll && Array.isArray(selected) && selected.length === options.length;
@@ -33,7 +42,7 @@ export default function useCustomSelect({ label, options, multiple, selected, wi
     if ((value as string | string[]).length === 0) return `${label}`;
     if (multiple) {
       const selectedOptions = (value as string[]).map((v) => options.find((option) => option.value === v));
-      if (selectedOptions.length > 1) {
+      if (selectedOptions.length > 1 || (selectedOptions.length === 1 && alwaysNumberedLabel)) {
         return `${label} (${selectedOptions.length})`;
       }
       return selectedOptions[0]?.label;

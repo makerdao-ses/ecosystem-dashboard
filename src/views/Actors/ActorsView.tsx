@@ -80,7 +80,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
         <FilterContainer>
           <FiltersBundle
             filters={filter}
-            searchFilters={{
+            searchFilter={{
               value: searchText,
               onChange: searchFilters,
               widthStyles: {

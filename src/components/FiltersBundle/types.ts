@@ -1,5 +1,5 @@
 import type { Theme } from '@mui/material';
-import type { MutableRefObject } from 'react';
+import type { CSSProperties, MutableRefObject } from 'react';
 
 export type Breakpoint = 'mobile' | 'tablet' | 'desktop';
 export type FilterType = 'select' | 'radio'; // filter type identifier
@@ -38,6 +38,7 @@ export interface SelectFilter extends GenericFilter {
   type: 'select';
   selected: SelectOption['value'] | SelectOption['value'][];
   multiple?: boolean; // default is false
+  alwaysNumberedLabel?: boolean; // default is false
   options: SelectOption[];
   onChange: (value: SelectOption['value'] | SelectOption['value'][]) => void;
   customOptionsRender?: (option: SelectOption, isActive: boolean, theme?: Theme) => React.ReactNode;
@@ -45,7 +46,7 @@ export interface SelectFilter extends GenericFilter {
   customOptionsRenderAll?: (isActive: boolean, theme?: Theme) => React.ReactNode;
   widthStyles?: {
     fullWidth?: boolean;
-    width?: number; // value in px
+    width?: CSSProperties['width'];
     menuWidth?: number; // value in px
   };
 }
@@ -70,8 +71,8 @@ export type RenderTriggerFn = (onClick: () => void, ref: MutableRefObject<HTMLDi
 
 export interface FiltersBundleOptions {
   renderTrigger?: RenderTriggerFn; // default undefined (default trigger button is rendered)
-  searchFilters?: SearchFilter | undefined; // default undefined (no search)
-  resetFilters?: ResetFilter | undefined; // default undefined (no reset button)
+  searchFilter?: SearchFilter; // default undefined (no search)
+  resetFilters?: ResetFilter; // default undefined (no reset button)
   filters: Filter[];
   order?: Partial<Record<Breakpoint, string[]>>;
   snapPoints?: number[];
