@@ -2,7 +2,6 @@ import { styled } from '@mui/material';
 import React from 'react';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import type { Scope } from '@/core/models/interfaces/scopes';
-// import { removeSpaces } from '@/core/utils/string';
 import useScopeColors from './useScopeColors';
 import type { ScopeColors } from './useScopeColors';
 

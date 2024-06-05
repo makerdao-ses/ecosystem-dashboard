@@ -1,6 +1,6 @@
+import { stringify } from 'querystring';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { enablePageOverflow } from '@ses/core/utils/dom';
 import request from 'graphql-request';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -8,6 +8,9 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
+import CategoryChip from '@/components/CategoryChip/CategoryChip';
+import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
+import { StatusChip } from '@/components/StatusChip/StatusChip';
 import { GRAPHQL_ENDPOINT } from '@/config/endpoints';
 import {
   getStatusMip39AcceptedOrObsolete,
@@ -17,19 +20,29 @@ import {
 } from '@/core/businessLogic/coreUnits';
 import { CuCategoryEnum } from '@/core/enums/cuCategoryEnum';
 import { SortEnum } from '@/core/enums/sortEnum';
+import { useDebounce } from '@/core/hooks/useDebounce';
 import { TeamStatus } from '@/core/models/interfaces/types';
+import type { TeamCategory } from '@/core/models/interfaces/types';
 import { filterData, getArrayParam, getStringParam } from '@/core/utils/filters';
 import { sortAlphaNum } from '@/core/utils/sort';
+import { pascalCaseToNormalString } from '@/core/utils/string';
 import { buildQueryString } from '@/core/utils/urls';
+import CustomItemAll from '../Actors/components/ActorCustomItem/CustomItemAll';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
+import CustomCategoryFilter from './components/FilterItems/CustomCategoryFilter';
+import CustomStatusItemFilter from './components/FilterItems/CustomStatusItemFilter';
 import { GETCoreUnits } from './cuTableAPI';
 import type { CustomTableColumn, CustomTableRow } from './components/CustomTable/CustomTable2';
 import type { Theme } from '@mui/material';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
+const statuses = Object.keys(TeamStatus) as string[];
+const categories = Object.values(CuCategoryEnum) as string[];
+
 export const useCoreUnitsTableView = () => {
   const router = useRouter();
   const theme = useTheme();
+  const debounce = useDebounce();
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
 
@@ -58,13 +71,6 @@ export const useCoreUnitsTableView = () => {
     SortEnum.Disabled,
   ]);
 
-  const [filtersPopup, setFiltersPopup] = useState(false);
-
-  const toggleFiltersPopup = () => {
-    enablePageOverflow(filtersPopup);
-    setFiltersPopup(!filtersPopup);
-  };
-
   const { filteredData, statusesFiltered, categoriesFiltered } = useMemo(
     () =>
       filterData({
@@ -87,24 +93,27 @@ export const useCoreUnitsTableView = () => {
 
   const statusCount = useMemo(() => {
     const result: { [id: string]: number } = {};
-    Object.values(TeamStatus).forEach((cat) => {
+    Object.keys(TeamStatus).forEach((cat) => {
       result[cat] = statusesFiltered?.filter((cu) => cu.status === cat).length;
     });
     result.All = statusesFiltered.length;
     return result;
   }, [statusesFiltered]);
 
-  const clearFilters = () => {
-    router.push({
-      pathname: siteRoutes.coreUnitsOverview,
-      search: '',
-    });
-
-    const input = document.querySelector('#search-input');
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    input.value = '';
-  };
+  const statusOptions = statuses.map((status) => ({
+    label: pascalCaseToNormalString(status),
+    value: status,
+    extra: {
+      count: `${statusCount[`${status}`]}`,
+    },
+  }));
+  const categoriesOptions = categories.map((category) => ({
+    label: category,
+    value: category,
+    extra: {
+      count: `${categoriesCount[`${category}`]}`,
+    },
+  }));
 
   const queryStrings = useMemo(
     () =>
@@ -145,7 +154,9 @@ export const useCoreUnitsTableView = () => {
       cellRender: renderSummary,
       onClick: onClickRow,
       width: '300px',
+      sortReverse: true,
       hasSort: true,
+
       style: {
         [theme.breakpoints.up('desktop_1280')]: {
           width: 290,
@@ -234,10 +245,6 @@ export const useCoreUnitsTableView = () => {
           (aCoreUnit.status - bCoreUnit.status) * multiplierStatus
         );
       };
-      const expendituresSort = (a: CoreUnit, b: CoreUnit) =>
-        (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
-      const teamMembersSort = (a: CoreUnit, b: CoreUnit) =>
-        (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
       const lastModifiedSort = (a: CoreUnit, b: CoreUnit) => {
         if (multiplier === 1) {
           return (
@@ -248,7 +255,12 @@ export const useCoreUnitsTableView = () => {
         }
         return ((getLastMonthWithData(a)?.toMillis() ?? 0) - (getLastMonthWithData(b)?.toMillis() ?? 0)) * multiplier;
       };
-      const sortAlg = [statusSort, expendituresSort, teamMembersSort, lastModifiedSort, () => 0];
+      const expendituresSort = (a: CoreUnit, b: CoreUnit) =>
+        (getExpenditureValueFromCoreUnit(a) - getExpenditureValueFromCoreUnit(b)) * multiplier;
+      const teamMembersSort = (a: CoreUnit, b: CoreUnit) =>
+        (getFTEsFromCoreUnit(a) - getFTEsFromCoreUnit(b)) * multiplier;
+
+      const sortAlg = [statusSort, lastModifiedSort, expendituresSort, teamMembersSort, () => 0];
       return [...items].sort(sortAlg[sortColumn]);
     };
     return sortDataFunction;
@@ -322,35 +334,123 @@ export const useCoreUnitsTableView = () => {
     setSortColumn(index);
   };
 
-  const applySort = (index: number, sort: SortEnum) => {
-    const sortNeutralState = columns.map((column) =>
-      column.hasSort ? SortEnum.Neutral : SortEnum.Disabled
-    ) as SortEnum[];
-    sortNeutralState[index] = sort;
-    setHeadersSort(sortNeutralState);
-    setSortColumn(index);
+  const handleChangeUrl = useCallback(
+    (key: string) => (value: string[] | string) => {
+      const search = router.query;
+      const formattedValue = Array.isArray(value) ? value.map((val) => val.replace(/\s+/g, '')).join(',') : value || '';
+      search[key] = formattedValue;
+      router.push({
+        pathname: siteRoutes.coreUnitsOverview,
+        search: stringify(search),
+      });
+    },
+    [router]
+  );
+  const searchFilters = (value: string) => {
+    debounce(() => {
+      handleChangeUrl('searchText')(value);
+    }, 300);
+  };
+
+  // Filters Options
+  const filters: Filter[] = [
+    {
+      type: 'select',
+      id: 'status',
+      label: 'Status',
+      selected: filteredStatuses,
+      multiple: true,
+      onChange: (value: string | number | (string | number)[]) => {
+        const formatValue = (val: string | number) => {
+          if (typeof val === 'string') {
+            return val.replace(/\s+/g, '');
+          }
+          return val;
+        };
+
+        const formattedValue = Array.isArray(value) ? value.map(formatValue) : formatValue(value);
+        handleChangeUrl('filteredStatuses')(formattedValue as string | string[]);
+      },
+
+      options: statusOptions,
+      customOptionsRender: (option: SelectOption, isActive: boolean) => (
+        <CustomStatusItemFilter count={option?.extra?.count} isActive={isActive} status={option.label as TeamStatus} />
+      ),
+      withAll: true,
+      customOptionsRenderAll: (isActive: boolean) => (
+        <CustomItemAll isActive={isActive} total={data.length}>
+          <StatusChip status={'All' as TeamStatus} />
+        </CustomItemAll>
+      ),
+
+      widthStyles: {
+        width: 200,
+
+        menuWidth: 290,
+      },
+    },
+    {
+      type: 'select',
+      id: 'categories',
+      label: 'Categories',
+      selected: filteredCategories,
+      multiple: true,
+      options: categoriesOptions,
+      onChange: (value: string | number | (string | number)[]) => {
+        const formattedValue = typeof value === 'string' ? value.replace(/\s+/g, '') : value;
+        handleChangeUrl('filteredCategories')(formattedValue as string | string[]);
+      },
+
+      customOptionsRender: (option: SelectOption, isActive: boolean) => (
+        <CustomCategoryFilter isActive={isActive} category={option.label as TeamCategory} count={option.extra?.count} />
+      ),
+      widthStyles: {
+        width: 165,
+        menuWidth: 290,
+      },
+      withAll: true,
+      customOptionsRenderAll: (isActive: boolean) => (
+        <CustomItemAll isActive={isActive} total={data.length}>
+          <CategoryChip category={'All' as TeamCategory} />
+        </CustomItemAll>
+      ),
+    },
+  ];
+  const canReset = searchText !== '' || filteredCategories.length > 0 || filteredStatuses.length > 0;
+  const onReset = () => {
+    const newQuery = { ...router.query };
+    delete newQuery.searchText;
+    delete newQuery.filteredStatuses;
+    delete newQuery.filteredCategories;
+
+    router.push({
+      pathname: siteRoutes.coreUnitsOverview,
+      search: stringify(newQuery),
+    });
   };
 
   return {
     onClickFinances,
     onClickRow,
-    clearFilters,
+
     statusCount,
     categoriesCount,
     filteredData,
     status,
     sortColumn,
     headersSort,
-    filtersPopup,
-    toggleFiltersPopup,
     filteredStatuses,
     filteredCategories,
     searchText,
     columns,
     tableItems,
     onSortClick,
-    applySort,
+
     queryStrings,
     sortData,
+    filters,
+    canReset,
+    onReset,
+    searchFilters,
   };
 };

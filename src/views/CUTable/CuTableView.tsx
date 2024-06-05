@@ -3,32 +3,30 @@ import { CuTableHeaderSkeleton } from '@ses/components/CuTableHeaderSkeleton/CuT
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
-import { SortEnum } from '@ses/core/enums/sortEnum';
+
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import theme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
+import CuFilters from './CuFilters';
 import { CustomTable2 } from './components/CustomTable/CustomTable2';
-import { Filters } from './cuTableFilters';
+
 import { useCoreUnitsTableView } from './useCoreUnitsTableView';
 
 const CuTableView = () => {
   const { isShowBanner } = useCookiesContextTracking();
   const {
-    clearFilters,
-    statusCount,
-    categoriesCount,
     status,
-    filtersPopup,
-    toggleFiltersPopup,
-    filteredStatuses,
-    filteredCategories,
     searchText,
     columns,
     tableItems,
     onSortClick,
     headersSort,
-    applySort,
+
     queryStrings,
+    filters,
+    canReset,
+    onReset,
+    searchFilters,
   } = useCoreUnitsTableView();
 
   const siteHeader = useMemo(() => {
@@ -37,35 +35,25 @@ const CuTableView = () => {
     }
     return (
       <Header>
-        <Filters
-          filtersPopup={filtersPopup}
-          filteredStatuses={filteredStatuses}
-          filteredCategories={filteredCategories}
-          categoriesCount={categoriesCount}
-          statusCount={statusCount}
-          searchText={searchText}
-          setFiltersPopup={toggleFiltersPopup}
-          clearFilters={clearFilters}
-          columns={columns.filter((_, i) => headersSort[i] !== SortEnum.Disabled)}
-          onSortApply={applySort}
-          headersSort={headersSort}
+        <CuFilters
+          filters={filters}
+          searchFilter={{
+            value: searchText,
+
+            onChange: searchFilters,
+            widthStyles: {
+              width: 290,
+            },
+          }}
+          resetFilters={{
+            canReset,
+            onReset,
+          }}
+          snapPoints={[610, 400, 250, 0]}
         />
       </Header>
     );
-  }, [
-    applySort,
-    categoriesCount,
-    clearFilters,
-    columns,
-    filteredCategories,
-    filteredStatuses,
-    filtersPopup,
-    headersSort,
-    searchText,
-    status,
-    statusCount,
-    toggleFiltersPopup,
-  ]);
+  }, [canReset, filters, onReset, searchFilters, searchText, status]);
   return (
     <ContainerHome allowPadding={isShowBanner}>
       <SEOHead
@@ -153,5 +141,6 @@ export const PolicyBannerPosition = styled('div')({
 const Header = styled('div')({
   display: 'flex',
   marginBottom: '32px',
+  justifyContent: 'flex-end',
   minWidth: '330px',
 });
