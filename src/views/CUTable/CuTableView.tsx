@@ -7,9 +7,9 @@ import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import theme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
+import CuFilters from './CuFilters';
 import { CustomTable2 } from './components/CustomTable/CustomTable2';
 
-import CuFilters from './cuTableFilters';
 import { useCoreUnitsTableView } from './useCoreUnitsTableView';
 
 const CuTableView = () => {
