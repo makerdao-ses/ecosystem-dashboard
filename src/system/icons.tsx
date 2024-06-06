@@ -1,4 +1,6 @@
+import AngleRight from 'public/assets/svg/angle_right.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
+import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
 import ConnectIcon from 'public/assets/svg/makerdao_connect.svg';
@@ -49,5 +51,13 @@ export const iconsPowerHose = [
   {
     Icon: PowerhouseIcon,
     title: 'powerhouse',
+  },
+  {
+    Icon: AngleRight,
+    title: 'angle_right',
+  },
+  {
+    Icon: Ellipsis,
+    title: 'ellipsis',
   },
 ];
