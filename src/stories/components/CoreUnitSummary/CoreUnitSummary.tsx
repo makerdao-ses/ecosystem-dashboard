@@ -4,7 +4,7 @@ import { siteRoutes } from '@ses/config/routes';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { forwardRef, useCallback, useMemo } from 'react';
-import { useCoreUnitsTableView } from '@/views/CUTable/useCoreUnitsTableView';
+import { useCoreUnitsTableView } from '@/views/CoreUnits/useCoreUnitsTableView';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';

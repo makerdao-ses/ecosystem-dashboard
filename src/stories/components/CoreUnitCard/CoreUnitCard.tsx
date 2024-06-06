@@ -4,12 +4,12 @@ import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import Card from '@/components/Card/Card';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
-import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
-import { CuTableColumnExpenditures } from '@/views/CUTable/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
-import { CuTableColumnSummary } from '@/views/CUTable/components/CuTableColumnSummary/CuTableColumnSummary';
-import CuTableColumnTeamMember from '@/views/CUTable/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
-import ListMobileSheetIconArrow from '@/views/CUTable/components/ListMobileSheetIconArrow';
+import { CuTableColumnExpenditures } from '@/views/CoreUnits/CuTableColumnExpenditures/CuTableColumnExpenditures';
+import { CuTableColumnSummary } from '@/views/CoreUnits/CuTableColumnSummary/CuTableColumnSummary';
+import CuTableColumnTeamMember from '@/views/CoreUnits/CuTableColumnTeamMember/CuTableColumnTeamMember';
+import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+import ListMobileSheetIconArrow from '@/views/CoreUnits/ListMobileSheetIconArrow';
 
 import {
   getBudgetCapsFromCoreUnit,

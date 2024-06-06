@@ -13,11 +13,6 @@ interface CustomBarChartProps {
   code?: string;
 }
 
-const COLOR_GREEN = '#4FC86F';
-const COLOR_RED = '#EC5649';
-const COLOR_YELLOW = '#FFA132';
-const COLOR_GRAY = '#D7D8D9';
-
 export const PopoverPaperBar = (isLight: boolean) => ({
   background: isLight ? 'white' : '#000A13',
   boxShadow: isLight
@@ -29,6 +24,10 @@ export const PopoverPaperBar = (isLight: boolean) => ({
 export const CustomBarChart = (props: CustomBarChartProps) => {
   const theme = useTheme();
   const isLight = theme.palette.isLight;
+  const COLOR_GREEN = isLight ? theme.palette.colors.green[700] : theme.palette.colors.green[900];
+  const COLOR_RED = isLight ? theme.palette.colors.red[800] : theme.palette.colors.red[900];
+  const COLOR_YELLOW = isLight ? theme.palette.colors.orange[800] : theme.palette.colors.orange[800];
+  const COLOR_GRAY = '#D7D8D9';
   const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string; budgetCap: string; actual: string } | null>(

@@ -1,10 +1,9 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
-import { useThemeContext } from '@/core/context/ThemeContext';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
@@ -62,7 +61,8 @@ export const CuTableColumnSummary = ({
   hasPopup = true,
   ...props
 }: CuTableColumnSummaryProps) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
 
   const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
