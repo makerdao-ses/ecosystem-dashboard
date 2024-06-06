@@ -3,10 +3,14 @@ import Skeleton from '@mui/material/Skeleton';
 import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import Card from '@/components/Card/Card';
-import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
-import type { TeamStatus } from '@/core/models/interfaces/types';
-import { CuTableColumnSummary } from '@/views/CUTable/components/CuTableColumnSummary/CuTableColumnSummary';
-import ListMobileSheetIconArrow from '@/views/CUTable/components/ListMobileSheetIconArrow';
+import CategoryChip from '@/components/CategoryChip/CategoryChip';
+import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
+import { CuTableColumnExpenditures } from '@/views/CoreUnits/CuTableColumnExpenditures/CuTableColumnExpenditures';
+import { CuTableColumnSummary } from '@/views/CoreUnits/CuTableColumnSummary/CuTableColumnSummary';
+import CuTableColumnTeamMember from '@/views/CoreUnits/CuTableColumnTeamMember/CuTableColumnTeamMember';
+import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+import ListMobileSheetIconArrow from '@/views/CoreUnits/ListMobileSheetIconArrow';
+
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -21,11 +25,8 @@ import {
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
 import { getShortCode } from '../../../core/utils/string';
-import { CategoryChip } from '../CategoryChip/CategoryChip';
-import { CuTableColumnExpenditures } from '../CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnLastModified } from '../CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
-import { CuTableColumnTeamMember } from '../CuTableColumnTeamMember/CuTableColumnTeamMember';
 import { CategoriesSkeleton } from './CategoriesSkeleton';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
@@ -94,6 +95,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             code={getShortCode(coreUnit.code)}
             categories={coreUnit.category}
             isCard={true}
+            logoDimension="32px"
           />
         </Summary>
 
@@ -115,17 +117,17 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
         </Team>
         <Line />
         <ContainerLinks>
-          <ListMobileSheetIconArrow />
+          <ListMobileSheetIconArrow coreUnit={coreUnit} />
         </ContainerLinks>
       </ContainerRow>
 
       <Categories>
         {coreUnit.category?.map((category) => (
-          <CategoryChip key={category} category={category} />
+          <CategoryChip key={category} category={category as TeamCategory} />
         ))}
       </Categories>
 
-      <LastModifiedActorCoreUnit
+      <LastModifiedActorCoreUnitStyled
         date={getLastMonthWithData(coreUnit)}
         href={`${siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}`}
       />
@@ -138,22 +140,22 @@ export default CoreUnitCard;
 const Container = styled(Card)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '8px 8px 0px 8px',
+  padding: '8px 0px 0px 0px',
 }));
 
 const Summary = styled('div')(() => ({
   display: 'flex',
+  alignItems: 'center',
+  marginTop: 4,
 }));
 
 const Expenditure = styled('div')(({ theme }) => ({
   gridArea: 'expenditure',
-  paddingTop: '32px',
-  marginBottom: '29px',
   display: 'none',
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
-    paddingTop: '0',
-    marginBottom: '14px',
+    marginLeft: 24,
+    marginTop: -4,
   },
 }));
 
@@ -164,6 +166,9 @@ const Team = styled('div')(({ theme }) => ({
   width: 'fit-content',
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
+    alignItem: 'center',
+    marginLeft: 10,
+    marginTop: -2,
   },
 }));
 
@@ -202,15 +207,35 @@ const Links = styled('div')({
   display: 'flex',
 });
 
-const ContainerRow = styled('div')({
+const ContainerRow = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-});
+  paddingLeft: 8,
+  paddingRight: 8,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 8,
+    marginBottom: 6,
+  },
+}));
 
 const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    alignItems: 'center',
+    '& div': {
+      gap: 4,
+    },
+  },
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
+  },
+}));
+
+const LastModifiedActorCoreUnitStyled = styled(LastModifiedActorCoreUnit)(({ theme }) => ({
+  padding: '0px 8px 4px 8px',
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '2px 8px 4px 8px',
   },
 }));

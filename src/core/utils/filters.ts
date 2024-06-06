@@ -1,11 +1,9 @@
-import { getStatusMip39AcceptedOrObsolete } from '../businessLogic/coreUnits';
 import type { CoreUnit } from '../models/interfaces/coreUnit';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { ParsedUrlQuery } from 'querystring';
 
 const filterStatus = (lowerCaseStatuses: string[], data: CoreUnit) =>
-  lowerCaseStatuses.length === 0 ||
-  lowerCaseStatuses.indexOf(getStatusMip39AcceptedOrObsolete(data)?.toLowerCase() ?? 'non-present') > -1;
+  lowerCaseStatuses.length === 0 || lowerCaseStatuses.includes(data.status);
 
 const filterCategories = (lowerCaseCategories: string[], data: CoreUnit) =>
   lowerCaseCategories.length === 0 || data.category?.some((x) => lowerCaseCategories.indexOf(x.toLowerCase()) > -1);
@@ -26,7 +24,7 @@ export const filterData = ({
   searchText?: string;
   data: CoreUnit[];
 }) => {
-  const lowerCaseStatuses = filteredStatuses.map((x) => x.toLowerCase());
+  const lowerCaseStatuses = filteredStatuses.map((x) => x);
   const lowerCaseCategories = filteredCategories.map((x) => x.toLowerCase());
   return {
     filteredData:

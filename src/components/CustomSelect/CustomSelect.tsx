@@ -3,6 +3,7 @@ import { Select, MenuItem, FormControl, styled, Box, Typography } from '@mui/mat
 import useCustomSelect from './useCustomSelect';
 import type { CustomSelectProps } from './type';
 import type { Theme } from '@mui/material';
+import type { CSSProperties } from 'react';
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
   label,
@@ -13,12 +14,14 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   withAll = false,
   customOptionsRenderAll,
   multiple = false,
+  alwaysNumberedLabel = false,
   style,
 }) => {
   const { theme, isAllSelected, handleChange, handleChangeAll, renderValue, isActive } = useCustomSelect({
     label,
     options,
     multiple,
+    alwaysNumberedLabel,
     selected,
     withAll,
     onChange,
@@ -83,9 +86,11 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
 export default CustomSelect;
 
-const StyledFormControl = styled(FormControl)(({ fullWidth, width }: { fullWidth: boolean; width: number }) => ({
-  width: fullWidth ? '100%' : `${width}px`,
-}));
+const StyledFormControl = styled(FormControl)<{ fullWidth: boolean; width: CSSProperties['width'] }>(
+  ({ fullWidth, width }) => ({
+    width: fullWidth ? '100%' : `${width}px`,
+  })
+);
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[800],

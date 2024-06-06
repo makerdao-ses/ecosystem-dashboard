@@ -12,7 +12,7 @@ export const CircleAvatar = ({
   height = '32px',
   fontSize = '16px',
   identIcon = false,
-  border = '2px solid #E7FCFA',
+  border = '2px solid #BDEAC8',
   onClick,
   className,
   ...props

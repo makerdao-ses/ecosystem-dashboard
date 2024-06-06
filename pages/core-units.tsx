@@ -1,6 +1,6 @@
-import { CuTable } from '@/views/CUTable/CuTable';
+import CoreUnitsView from '@/views/CoreUnits/CoreUnitsView';
 import type { NextPage } from 'next';
 
-const CuTablePage: NextPage = () => <CuTable />;
+const CuTablePage: NextPage = () => <CoreUnitsView />;
 
 export default CuTablePage;

@@ -201,7 +201,7 @@ const variantsArgs = [
         },
       },
     ],
-    searchFilters: {
+    searchFilter: {
       onChange: () => null,
       widthStyles: {
         width: 290,
@@ -221,5 +221,5 @@ const variantsArgs = [
 ];
 
 const [[FiltersYearsLightMode, FiltersYearsDarkMode], [EcosystemActorLightMode, EcosystemActorDarkMode]] =
-  createThemeModeVariants(FiltersBundle, variantsArgs);
+  createThemeModeVariants(FiltersBundle, variantsArgs, false);
 export { FiltersYearsLightMode, FiltersYearsDarkMode, EcosystemActorLightMode, EcosystemActorDarkMode };

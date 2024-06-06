@@ -6,7 +6,7 @@ import React from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import FiltersBundle from '@/components/FiltersBundle/FiltersBundle';
-import { TablePlaceholder } from '../CUTable/components/CustomTable/TablePlaceholder';
+import { TablePlaceholder } from '../CoreUnits/CustomTable/TablePlaceholder';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActorsView } from './useActorsView';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -80,7 +80,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
         <FilterContainer>
           <FiltersBundle
             filters={filter}
-            searchFilters={{
+            searchFilter={{
               value: searchText,
               onChange: searchFilters,
               widthStyles: {

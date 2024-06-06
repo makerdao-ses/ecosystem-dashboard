@@ -3,7 +3,7 @@ import BigButton from '@ses/components/Button/BigButton/BigButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import { TablePlaceholder } from '@/views/CUTable/components/CustomTable/TablePlaceholder';
+import { TablePlaceholder } from '@/views/CoreUnits/CustomTable/TablePlaceholder';
 import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpenseTrendItem';
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
 import SectionTitle from '../../SectionTitle/SectionTitle';

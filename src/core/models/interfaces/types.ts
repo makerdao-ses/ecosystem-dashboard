@@ -25,8 +25,6 @@ export enum TeamStatus {
 
 export enum TeamCategory {
   Technical = 'Technical',
-  ActiveEcosystemActor = 'ActiveEcosystemActor',
-  ScopeFacilitator = 'ScopeFacilitator',
   Support = 'Support',
   Operational = 'Operational',
   Business = 'Business',
@@ -35,6 +33,8 @@ export enum TeamCategory {
   Finance = 'Finance',
   Legal = 'Legal',
   AdvisoryCouncilMember = 'AdvisoryCouncilMember',
+  ActiveEcosystemActor = 'ActiveEcosystemActor',
+  ScopeFacilitator = 'ScopeFacilitator',
 }
 
 export enum ActorCategory {
