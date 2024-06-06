@@ -64,8 +64,10 @@ export const CuTableColumnSummary = ({
 }: CuTableColumnSummaryProps) => {
   const { isLight } = useThemeContext();
 
-  const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1194'));
+  const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
+
   if (isLoading) {
     return <ColumnSummarySkeleton />;
   }
@@ -102,10 +104,12 @@ export const CuTableColumnSummary = ({
           >
             <CircleAvatar
               width={logoDimension}
+              border="none"
               height={logoDimension}
               name={props.title || 'Core Unit'}
               image={props.imageUrl}
               style={{
+                border: 'none',
                 boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
               }}
             />
@@ -129,7 +133,9 @@ export const CuTableColumnSummary = ({
               >
                 {props.mipUrl && (
                   <ExternalLinkButtonStyled href={props.mipUrl ?? ''} showArrow wrapText>
-                    Since{` ${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+                    {`${isMobile ? '' : 'Since'} ${DateTime.fromJSDate(props.statusModified)
+                      .toFormat('d-MMM-y')
+                      .toUpperCase()}`}
                   </ExternalLinkButtonStyled>
                 )}
               </CustomPopover>

@@ -97,7 +97,7 @@ const Container = styled('div')(({ theme }) => ({
     padding: '17px 8px 4px 8px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '17px 16px 4px 16px',
+    padding: '16px 15px 3px 16px',
   },
 }));
 

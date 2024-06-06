@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { columns, CoreUnit } from '@ses/core/utils/tests';
+import { columns1024, columns1280, CoreUnit } from '@ses/core/utils/tests';
 import ItemCoreUnit from './ItemCoreUnit';
 import type { Meta } from '@storybook/react';
 
@@ -8,7 +8,7 @@ const meta: Meta<typeof ItemCoreUnit> = {
   component: ItemCoreUnit,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1440, 1920],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
     date: new Date('2023-03-02T09:56:16Z'),
@@ -20,7 +20,13 @@ const variantsArgs = [
   {
     queryStrings: '',
     loading: false,
-    columns,
+    columns: columns1024,
+    cu: CoreUnit,
+  },
+  {
+    queryStrings: '',
+    loading: false,
+    columns: columns1280,
     cu: CoreUnit,
   },
 ];
@@ -32,50 +38,50 @@ CoreUnitItem.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A143329&t=dYLq7P56qu0pz8sc-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=331:51949&t=4msz1XMpVAvVukiF-4',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: -4,
-            left: -38,
+            top: 4,
+            left: -14,
           },
         },
       },
-      834: {
+      768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=5232%3A94026&t=pLOkuWP1eCxO98xA-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=342:66196&t=4msz1XMpVAvVukiF-4',
         options: {
           componentStyle: {
-            width: 776,
+            width: 704,
           },
           style: {
-            top: 14,
-            left: 0,
+            top: 4,
+            left: -14,
           },
         },
       },
 
-      1194: {
+      1024: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8868%3A140505&t=pLOkuWP1eCxO98xA-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=331:45299&t=hb8vdSiYDruV77HV-4',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
-            top: 12,
-            left: -2,
+            top: 6,
+            left: -10,
           },
         },
       },
-      1440: {
+      1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8613%3A86751&t=aOydtnf6uboTcy3u-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=331:43652&t=hb8vdSiYDruV77HV-4',
         options: {
           componentStyle: {
-            width: 1312,
+            width: 1200,
           },
           style: {
             top: 13,
@@ -83,9 +89,9 @@ CoreUnitItem.parameters = {
           },
         },
       },
-      1920: {
+      1440: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14171%3A254374&t=qZAPiyjv5nxXIEeC-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=272:40417&t=hb8vdSiYDruV77HV-4',
         options: {
           componentStyle: {
             width: 1312,

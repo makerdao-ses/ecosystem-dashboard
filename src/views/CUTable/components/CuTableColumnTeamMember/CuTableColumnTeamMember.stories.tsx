@@ -104,28 +104,3 @@ LightMode.parameters = {
     },
   },
 };
-TeamMemberEmpty.parameters = {
-  figma: {
-    component:
-      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8853%3A101708&t=Kn4jCXITHbiZO4YA-4',
-    options: {
-      style: {
-        top: 0,
-        left: 9,
-      },
-    },
-  },
-};
-
-TeamMemberDarkEmpty.parameters = {
-  figma: {
-    component:
-      'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=8853%3A101708&t=Kn4jCXITHbiZO4YA-4',
-    options: {
-      style: {
-        top: 0,
-        left: 9,
-      },
-    },
-  },
-};

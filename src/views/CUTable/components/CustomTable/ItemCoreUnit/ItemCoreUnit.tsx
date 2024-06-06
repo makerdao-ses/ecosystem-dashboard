@@ -44,7 +44,6 @@ const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[
     width: '100%',
     justifyContent: 'space-between',
     gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
-    gridTemplateRows: '120px',
     marginTop: '16px',
     cursor: 'pointer',
     boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
