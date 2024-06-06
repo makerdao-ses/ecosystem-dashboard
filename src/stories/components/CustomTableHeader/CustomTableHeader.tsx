@@ -61,7 +61,6 @@ const Label = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
   fontWeight: theme.palette.isLight ? 600 : 500,
   lineHeight: theme.palette.isLight ? '24px' : '22px',
-  letterSpacing: '0.05rem',
 }));
 
 const Container = styled('div')<{ align?: string }>((props) => ({

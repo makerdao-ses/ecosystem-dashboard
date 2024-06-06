@@ -6,6 +6,7 @@ import {
   renderSummary,
   renderTeamMember,
 } from '@/views/CUTable/CuTableRenders';
+import type { CustomTableColumn } from '@/views/CUTable/components/CustomTable/CustomTable2';
 import { CommitmentJob } from '../enums/commitmentJobEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 import { SortEnum } from '../enums/sortEnum';
@@ -22,7 +23,7 @@ import type { BudgetStatementComment } from '../models/interfaces/budgetStatemen
 import type { BudgetStatementLineItem, BudgetStatementWallet } from '../models/interfaces/budgetStatementWallet';
 import type { Contributor, ContributorCommitment } from '../models/interfaces/contributor';
 import type { CoreUnit as CoreUnitInterface } from '../models/interfaces/coreUnit';
-import type { CuMip } from '../models/interfaces/cuMip';
+import type { CuMip, Mip39, Mip40 } from '../models/interfaces/cuMip';
 import type { SocialMediaChannels } from '../models/interfaces/socialMedia';
 import type { Auditor } from '../models/interfaces/users';
 
@@ -151,7 +152,26 @@ export const CoreUnit = {
   category: ['Technical', 'Business', 'Operational', 'Finance'],
   legacyBudgetStatementUrl: '',
   auditors: [] as Auditor[],
-  cuMip: [] as CuMip[],
+  cuMip: [
+    {
+      mip39: [
+        {
+          id: 'MIP39',
+          mipId: 'MIP39',
+          mip39Spn: 40,
+          mipCode: 'MIP39',
+          cuName: 'MIP39',
+          sentenceSummary: 'MIP39',
+          paragraphSummary: 'MIP39',
+        },
+      ] as Mip39[],
+      mipStatus: TeamStatus.Accepted,
+      mipUrl: 'some_url',
+      mipCode: 'MIP39c3',
+      mip40: [] as Mip40[],
+      accepted: '2021-11-25',
+    },
+  ] as CuMip[],
   activityFeed: [] as ChangeTrackingEvent[],
   lastActivity: {
     id: '3',
@@ -277,46 +297,116 @@ export const CoreUnit = {
   ] as ContributorCommitment[],
 } as CoreUnitInterface;
 
-export const columns = [
+export const columns1024: CustomTableColumn[] = [
   {
     header: 'Core Unit',
     justifyContent: 'flex-start',
-    style: { paddingLeft: '16px' },
+
     cellRender: renderSummary,
-    width: '400px',
+
+    width: '325px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: 'L.M',
+    justifyContent: 'flex-start',
+    cellRender: renderLastModified,
+
+    width: '120px',
+    sortReverse: true,
     hasSort: true,
   },
   {
     header: 'Expenditure',
     justifyContent: 'flex-start',
     cellRender: renderExpenditures,
-    width: '215px',
+
+    width: '141px',
     sortReverse: true,
     hasSort: true,
   },
   {
     header: 'Team',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     cellRender: renderTeamMember,
-    width: '205px',
+
+    width: '140px',
     sortReverse: true,
     hasSort: true,
+  },
+
+  {
+    header: '',
+    justifyContent: 'center',
+    cellRender: renderLinks,
+    width: '124px',
+    hasSort: false,
+    style: {
+      width: 140,
+      minWidth: 140,
+    },
+  },
+];
+export const columns1280: CustomTableColumn[] = [
+  {
+    header: 'Core Unit',
+    justifyContent: 'flex-start',
+
+    cellRender: renderSummary,
+
+    sortReverse: true,
+    hasSort: true,
+
+    style: {
+      width: '290px',
+    },
   },
   {
     header: 'Last Modified',
     justifyContent: 'flex-start',
     cellRender: renderLastModified,
-    width: '122px',
+
     sortReverse: true,
     hasSort: true,
+    style: {
+      width: 180,
+    },
   },
+  {
+    header: 'Expenditure',
+    justifyContent: 'flex-start',
+    cellRender: renderExpenditures,
+
+    sortReverse: true,
+    hasSort: true,
+    style: {
+      width: 165,
+    },
+  },
+  {
+    header: 'Team',
+    justifyContent: 'center',
+    cellRender: renderTeamMember,
+
+    sortReverse: true,
+    hasSort: true,
+    style: {
+      width: 165,
+      minWidth: 165,
+    },
+  },
+
   {
     header: '',
     justifyContent: 'center',
     cellRender: renderLinks,
-    width: '358px',
-    responsiveWidth: '186px',
+
     hasSort: false,
+    style: {
+      width: 140,
+      minWidth: 140,
+    },
   },
 ];
 

@@ -9,13 +9,14 @@ import { buildQueryString } from '@/core/utils/urls';
 
 interface Props {
   coreUnit: CoreUnit;
+  className?: string;
 }
 
-const ListMobileSheetIconArrow: React.FC<Props> = ({ coreUnit }) => {
+const ListMobileSheetIconArrow: React.FC<Props> = ({ coreUnit, className }) => {
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return (
-    <ContainerLinksArrowsMobile>
+    <ContainerLinksArrowsMobile className={className}>
       <ButtonLinksSheet />
       <InternalLinkButtonStyled href={`${siteRoutes.coreUnitAbout(coreUnit.shortCode)}/${queryStrings}`} showIcon />
     </ContainerLinksArrowsMobile>
