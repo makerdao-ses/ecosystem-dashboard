@@ -27,7 +27,7 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
-        <CoreUnitsView {...props} />
+        <CoreUnitsView loading={false} {...props} />
       </AppLayout>
     </FeatureFlagsProvider>
   ),
