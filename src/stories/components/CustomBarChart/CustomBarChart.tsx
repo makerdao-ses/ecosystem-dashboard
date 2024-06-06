@@ -366,14 +366,14 @@ const SVGStyle = styled('svg')(({ theme }) => ({
   width: 60,
   height: 57,
   viewBox: '0 0 60 57',
-  marginRight: '4px',
-  marginLeft: '8px',
+  marginRight: '0px',
+  marginLeft: '4px',
   [theme.breakpoints.up('desktop_1024')]: {
     marginRight: '2px',
-    marginLeft: '12px',
+    marginLeft: '6px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    marginRight: '2px',
-    marginLeft: '20px',
+    marginRight: '0px',
+    marginLeft: '16px',
   },
 }));

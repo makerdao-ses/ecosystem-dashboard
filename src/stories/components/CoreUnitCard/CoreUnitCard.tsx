@@ -95,6 +95,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
             code={getShortCode(coreUnit.code)}
             categories={coreUnit.category}
             isCard={true}
+            logoDimension="32px"
           />
         </Summary>
 
@@ -126,7 +127,7 @@ const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
         ))}
       </Categories>
 
-      <LastModifiedActorCoreUnit
+      <LastModifiedActorCoreUnitStyled
         date={getLastMonthWithData(coreUnit)}
         href={`${siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}`}
       />
@@ -139,22 +140,22 @@ export default CoreUnitCard;
 const Container = styled(Card)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '8px 8px 0px 8px',
+  padding: '8px 0px 0px 0px',
 }));
 
 const Summary = styled('div')(() => ({
   display: 'flex',
+  alignItems: 'center',
+  marginTop: 4,
 }));
 
 const Expenditure = styled('div')(({ theme }) => ({
   gridArea: 'expenditure',
-  paddingTop: '32px',
-  marginBottom: '29px',
   display: 'none',
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
-    paddingTop: '0',
-    marginBottom: '14px',
+    marginLeft: 24,
+    marginTop: -4,
   },
 }));
 
@@ -165,6 +166,9 @@ const Team = styled('div')(({ theme }) => ({
   width: 'fit-content',
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
+    alignItem: 'center',
+    marginLeft: 10,
+    marginTop: -2,
   },
 }));
 
@@ -203,15 +207,35 @@ const Links = styled('div')({
   display: 'flex',
 });
 
-const ContainerRow = styled('div')({
+const ContainerRow = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-});
+  paddingLeft: 8,
+  paddingRight: 8,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 8,
+    marginBottom: 6,
+  },
+}));
 
 const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    alignItems: 'center',
+    '& div': {
+      gap: 4,
+    },
+  },
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
+  },
+}));
+
+const LastModifiedActorCoreUnitStyled = styled(LastModifiedActorCoreUnit)(({ theme }) => ({
+  padding: '0px 8px 4px 8px',
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '2px 8px 4px 8px',
   },
 }));

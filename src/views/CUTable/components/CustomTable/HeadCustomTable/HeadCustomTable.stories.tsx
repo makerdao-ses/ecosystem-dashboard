@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { columns, headersSort } from '@ses/core/utils/tests';
+import { columns1024, headersSort } from '@ses/core/utils/tests';
 import { HeadCustomTable } from './HeadCustomTable';
 import type { Meta } from '@storybook/react';
 
@@ -17,7 +17,7 @@ export default meta;
 
 const variantsArgs = [
   {
-    columns,
+    columns: columns1024,
     headersSort,
   },
 ];

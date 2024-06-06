@@ -66,17 +66,15 @@ export const CuTableColumnSummary = ({
 
   const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
+
   if (isLoading) {
     return <ColumnSummarySkeleton />;
   }
 
   return (
     <Container onClick={props.onClick} style={props.style}>
-      <div
-        style={{
-          display: 'flex',
-        }}
-      >
+      <ContainerSummary>
         <CircleContainer>
           <PopupWrapper
             hasPopup={hiddenPopOverSmallDevices}
@@ -111,7 +109,8 @@ export const CuTableColumnSummary = ({
               name={props.title || 'Core Unit'}
               image={props.imageUrl}
               style={{
-                boxShadow: isLight ? theme.fusionShadows.avatars : theme.fusionShadows.reskinShortShadow,
+                border: 'none',
+                boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
               }}
             />
           </PopupWrapper>
@@ -133,15 +132,17 @@ export const CuTableColumnSummary = ({
                 }}
               >
                 {props.mipUrl && (
-                  <ExternalLinkButtonStyled href={props.mipUrl ?? ''} showArrow>
-                    {`${DateTime.fromJSDate(props.statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+                  <ExternalLinkButtonStyled href={props.mipUrl ?? ''} showArrow wrapText>
+                    {`${isMobile ? '' : 'Since'} ${DateTime.fromJSDate(props.statusModified)
+                      .toFormat('d-MMM-y')
+                      .toUpperCase()}`}
                   </ExternalLinkButtonStyled>
                 )}
               </CustomPopover>
             )}
           </Row>
         </Content>
-      </div>
+      </ContainerSummary>
     </Container>
   );
 };
@@ -149,17 +150,21 @@ export const CuTableColumnSummary = ({
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  minWidth: 300,
+
   alignItems: 'stretch',
   boxSizing: 'border-box',
   textDecoration: 'none',
 });
 
 const CircleContainer = styled('div')(({ theme }) => ({
-  marginRight: '8px',
+  marginRight: 8,
+  marginTop: 6,
 
   [theme.breakpoints.up('tablet_768')]: {
-    marginRight: '16px',
+    marginRight: '8px',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: 0,
   },
 }));
 
@@ -197,14 +202,28 @@ const Title = styled('div')<{ longCode: boolean }>(({ theme, longCode = false })
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    maxWidth: 'revert',
+  },
 }));
 
-const Row = styled('section')({
+const Row = styled('section')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  flex: 1,
-  marginTop: '4px',
-});
+  gap: 4,
+  marginBottom: 6,
+  marginTop: -2,
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 6,
+    marginTop: -4,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginBottom: 0,
+    marginTop: 0,
+    gap: 4,
+  },
+}));
 
 const PopupSummaryWrapper = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('tablet_768')]: {
@@ -235,10 +254,11 @@ const CategoriesRow = styled('div')({
 });
 
 const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
-  padding: '0px 2px 0px 4px',
+  padding: '0px 1px 0px 2px',
   fontSize: 12,
   fontWeight: 500,
   lineHeight: '24px',
+  alignItems: 'center',
   border: `1.5px solid ${
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
   }`,
@@ -254,8 +274,26 @@ const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
     height: 16,
     alignItems: 'center',
   },
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 1,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 14,
+    marginTop: 0,
+    padding: '0px 4px 2px 8px',
+  },
 }));
 
-const StatusChipStyled = styled(StatusChip)(() => ({
-  padding: '3px 4px 3px 4px',
+const StatusChipStyled = styled(StatusChip)(({ theme }) => ({
+  padding: '1px 8px 1px 8px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '1px 16px 1px 16px',
+  },
+}));
+
+const ContainerSummary = styled('div')(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginTop: 6,
+  },
 }));

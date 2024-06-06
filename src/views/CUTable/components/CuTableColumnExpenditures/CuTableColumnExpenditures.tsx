@@ -90,7 +90,6 @@ const Container = styled('div')(({ theme }) => ({
   borderRadius: 8,
   flexDirection: 'column',
   justifyContent: 'flex-start',
-
   padding: '12px 4px 0px 4px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
@@ -98,7 +97,7 @@ const Container = styled('div')(({ theme }) => ({
     padding: '17px 8px 4px 8px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '17px 16px 4px 16px',
+    padding: '16px 15px 3px 16px',
   },
 }));
 
@@ -120,8 +119,9 @@ const Data = styled('div')({
   gap: 4,
   justifyContent: 'center',
   height: 52,
+  width: 56,
   alignItems: 'center',
-  paddingLeft: 4,
+
   paddingTop: 8,
 });
 
