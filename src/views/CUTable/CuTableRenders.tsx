@@ -81,7 +81,11 @@ export const renderCard = (coreUnit: CoreUnit, key?: number) => {
 
 export const renderLastModified = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
-  return <LastModifiedActorCoreUnit href={coreUnit.shortCode} date={getLastMonthWithData(coreUnit)} />;
+  return (
+    <LastModifiedActorCoreUnitContainer>
+      <LastModifiedActorCoreUnit href={coreUnit.shortCode} date={getLastMonthWithData(coreUnit)} />
+    </LastModifiedActorCoreUnitContainer>
+  );
 };
 
 const ExpendituresContainer = styled('div')({
@@ -94,7 +98,8 @@ const InsideExpenditureContainer = styled('div')(({ theme }) => ({
   display: 'block',
   paddingLeft: '8px',
   [theme.breakpoints.up('desktop_1024')]: {
-    marginLeft: '-4px',
+    marginLeft: 0,
+    marginTop: 2,
     paddingLeft: 0,
   },
 }));
@@ -104,7 +109,23 @@ const TeamMemberContainer = styled('div')(({ theme }) => ({
   flex: 1,
   alignItems: 'flex-end',
   height: '50px',
+  width: 128,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 140,
+    justifyContent: 'flex-start',
+    marginLeft: 0,
+    height: 'revert',
+    marginTop: -2,
+  },
   [theme.breakpoints.up('desktop_1440')]: {
     justifyContent: 'flex-start',
+    marginLeft: 4,
+    height: 'revert',
+    marginTop: -8,
+    width: 164,
   },
 }));
+
+const LastModifiedActorCoreUnitContainer = styled('div')({
+  marginTop: 8,
+});

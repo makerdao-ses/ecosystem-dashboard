@@ -61,7 +61,6 @@ export const useCoreUnitsTableView = () => {
     [res]
   );
   const status = !data && !error ? 'loading' : data ? 'success' : 'idle';
-
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Asc,
@@ -153,13 +152,13 @@ export const useCoreUnitsTableView = () => {
 
       cellRender: renderSummary,
       onClick: onClickRow,
-      width: '300px',
+      width: '320px',
       sortReverse: true,
       hasSort: true,
 
       style: {
         [theme.breakpoints.up('desktop_1280')]: {
-          width: 290,
+          width: '290px',
         },
       },
     },
@@ -168,7 +167,7 @@ export const useCoreUnitsTableView = () => {
       justifyContent: 'flex-start',
       cellRender: renderLastModified,
       onClick: onClickLastModified,
-      width: '180px',
+      width: '120px',
       sortReverse: true,
       hasSort: true,
       style: {
@@ -183,7 +182,7 @@ export const useCoreUnitsTableView = () => {
       cellRender: renderExpenditures,
       onClick: onClickFinances,
 
-      width: '180px',
+      width: '141px',
       sortReverse: true,
       hasSort: true,
       style: {
@@ -213,7 +212,7 @@ export const useCoreUnitsTableView = () => {
       justifyContent: 'center',
       cellRender: renderLinks,
       onClick: onClickRow,
-      width: '170px',
+      width: '124px',
       hasSort: false,
       style: {
         [theme.breakpoints.up('desktop_1280')]: {
