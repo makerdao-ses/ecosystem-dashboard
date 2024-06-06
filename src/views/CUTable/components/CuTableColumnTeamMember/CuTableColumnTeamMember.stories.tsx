@@ -5,7 +5,7 @@ import CuTableColumnTeamMember from './CuTableColumnTeamMember';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CuTableColumnTeamMember> = {
-  title: 'Components/CUTable/ColumnTeamMember',
+  title: 'Fusion/CoreUnits/ColumnTeamMember',
   component: CuTableColumnTeamMember,
   parameters: {
     chromatic: {

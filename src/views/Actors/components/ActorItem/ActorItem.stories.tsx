@@ -11,7 +11,7 @@ import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedi
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ActorItem> = {
-  title: 'Fusion/Components/Actor/ActorItem',
+  title: 'Fusion/Actor/ActorItem',
   component: ActorItem,
   parameters: {
     chromatic: {

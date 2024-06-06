@@ -3,7 +3,7 @@ import { CuTableColumnExpenditures } from './CuTableColumnExpenditures';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CuTableColumnExpenditures> = {
-  title: 'Fusion/Components/CoreUnits/ColumnExpenditures',
+  title: 'Fusion/CoreUnits/ColumnExpenditures',
   component: CuTableColumnExpenditures,
   parameters: {
     chromatic: {
