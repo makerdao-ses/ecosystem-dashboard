@@ -1,10 +1,9 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
-import { useThemeContext } from '@/core/context/ThemeContext';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
@@ -62,9 +61,10 @@ export const CuTableColumnSummary = ({
   hasPopup = true,
   ...props
 }: CuTableColumnSummaryProps) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
 
-  const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1194'));
+  const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
   if (isLoading) {
     return <ColumnSummarySkeleton />;
@@ -106,11 +106,12 @@ export const CuTableColumnSummary = ({
           >
             <CircleAvatar
               width={logoDimension}
+              border="none"
               height={logoDimension}
               name={props.title || 'Core Unit'}
               image={props.imageUrl}
               style={{
-                boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+                boxShadow: isLight ? theme.fusionShadows.avatars : theme.fusionShadows.reskinShortShadow,
               }}
             />
           </PopupWrapper>
@@ -206,11 +207,11 @@ const Row = styled('section')({
 });
 
 const PopupSummaryWrapper = styled('div')(({ theme }) => ({
-  [theme.breakpoints.down('table_834')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     padding: '24px 16px',
   },
 
-  [theme.breakpoints.between('table_834', 1180)]: {
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     padding: '0 16px',
   },
 }));

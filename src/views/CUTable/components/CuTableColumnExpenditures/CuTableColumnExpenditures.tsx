@@ -92,8 +92,8 @@ const Container = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 
   padding: '12px 4px 0px 4px',
-  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
-  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '17px 8px 4px 8px',
   },
@@ -154,8 +154,8 @@ const Title = styled('span')(({ theme }) => ({
   left: 6,
   borderRadius: 4,
   position: 'absolute',
-  background: '#FFFFFF',
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[500],
   fontWeight: 400,
   fontStyle: 'normal',
 
@@ -173,9 +173,9 @@ const Value = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[50],
   ':hover': {
-    color: theme.palette.isLight ? theme.palette.colors.gray[600] : 'red',
+    color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[100],
   },
 }));
 
@@ -185,7 +185,7 @@ const Percent = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: '14px',
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[300],
   marginLeft: 4,
 }));
 
@@ -198,7 +198,7 @@ const CustomBarCharContainer = styled('div')(() => ({
 }));
 
 const Line = styled('div')(({ theme }) => ({
-  borderTop: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[300] : 'red'}`,
+  borderTop: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300]}`,
   width: 30,
   margin: '0 auto',
 }));

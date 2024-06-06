@@ -78,8 +78,8 @@ const Container = styled('div')(({ theme }) => ({
   cursor: 'pointer',
   width: 128,
   padding: '17px 4px 14px 4px',
-  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
-  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   [theme.breakpoints.up('desktop_1024')]: {
     width: 140,
     padding: '17px 8px 12px 8px',
@@ -91,9 +91,10 @@ const Container = styled('div')(({ theme }) => ({
   },
 
   ':hover': {
-    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[100] : 'red',
+    border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.charcoal[700]}`,
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[800],
     '& > div:nth-of-type(1) .TeamMembers_Value': {
-      color: theme.palette.isLight ? theme.palette.colors.gray[600] : 'red',
+      color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[100],
     },
   },
 }));
@@ -123,7 +124,7 @@ const Value = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 14,
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[50],
   width: 32,
   textAlign: 'center',
   marginTop: 4,
@@ -136,8 +137,8 @@ const Title = styled('span')(({ theme }) => ({
   borderRadius: 4,
   fontWeight: 500,
   position: 'absolute',
-  background: '#FFFFFF',
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[500],
   padding: '0px 4px',
   fontStyle: 'normal',
 
