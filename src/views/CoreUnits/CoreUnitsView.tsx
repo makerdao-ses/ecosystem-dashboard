@@ -12,12 +12,7 @@ import { CustomTable2 } from './CustomTable/CustomTable2';
 
 import { useCoreUnitsTableView } from './useCoreUnitsTableView';
 
-interface Props {
-  // For story remove when move SSR
-  loading?: boolean;
-}
-
-const CoreUnitsView: React.FC<Props> = ({ loading = true }) => {
+const CoreUnitsView: React.FC = () => {
   const { isShowBanner } = useCookiesContextTracking();
   const {
     status,
@@ -35,7 +30,7 @@ const CoreUnitsView: React.FC<Props> = ({ loading = true }) => {
   } = useCoreUnitsTableView();
 
   const siteHeader = useMemo(() => {
-    if (loading && status === 'loading') {
+    if (status === 'loading') {
       return <CuTableHeaderSkeleton />;
     }
     return (
@@ -58,7 +53,7 @@ const CoreUnitsView: React.FC<Props> = ({ loading = true }) => {
         />
       </Header>
     );
-  }, [canReset, filters, loading, onReset, searchFilters, searchText, status]);
+  }, [canReset, filters, onReset, searchFilters, searchText, status]);
   return (
     <ContainerHome allowPadding={isShowBanner}>
       <SEOHead
