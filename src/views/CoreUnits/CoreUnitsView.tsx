@@ -8,11 +8,11 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import theme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 import CuFilters from './CuFilters';
-import { CustomTable2 } from './components/CustomTable/CustomTable2';
+import { CustomTable2 } from './CustomTable/CustomTable2';
 
 import { useCoreUnitsTableView } from './useCoreUnitsTableView';
 
-const CuTableView = () => {
+const CoreUnitsView = () => {
   const { isShowBanner } = useCookiesContextTracking();
   const {
     status,
@@ -82,7 +82,7 @@ const CuTableView = () => {
   );
 };
 
-export default CuTableView;
+export default CoreUnitsView;
 
 const ContainerHome = styled('div')<{ allowPadding?: boolean }>(({ theme, allowPadding = false }) => ({
   display: 'flex',

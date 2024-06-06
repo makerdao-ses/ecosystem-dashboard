@@ -14,7 +14,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
-import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
 import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';

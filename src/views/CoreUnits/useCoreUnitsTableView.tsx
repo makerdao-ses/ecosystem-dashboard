@@ -29,10 +29,10 @@ import { pascalCaseToNormalString } from '@/core/utils/string';
 import { buildQueryString } from '@/core/utils/urls';
 import CustomItemAll from '../Actors/components/ActorCustomItem/CustomItemAll';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
-import CustomCategoryFilter from './components/FilterItems/CustomCategoryFilter';
-import CustomStatusItemFilter from './components/FilterItems/CustomStatusItemFilter';
+import CustomCategoryFilter from './FilterItems/CustomCategoryFilter';
+import CustomStatusItemFilter from './FilterItems/CustomStatusItemFilter';
 import { GETCoreUnits } from './cuTableAPI';
-import type { CustomTableColumn, CustomTableRow } from './components/CustomTable/CustomTable2';
+import type { CustomTableColumn, CustomTableRow } from './CustomTable/CustomTable2';
 import type { Theme } from '@mui/material';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 

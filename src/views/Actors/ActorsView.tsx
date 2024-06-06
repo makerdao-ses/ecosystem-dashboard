@@ -6,7 +6,7 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import FiltersBundle from '@/components/FiltersBundle/FiltersBundle';
-import { TablePlaceholder } from '../CUTable/components/CustomTable/TablePlaceholder';
+import { TablePlaceholder } from '../CoreUnits/CustomTable/TablePlaceholder';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActorsView } from './useActorsView';
 import type { Team } from '@ses/core/models/interfaces/team';

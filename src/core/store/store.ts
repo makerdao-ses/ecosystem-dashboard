@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cuAboutSlice from '@/stories/containers/CUAbout/cuAboutSlice';
-import { cuTableSlice } from '@/views/CUTable/CuTableSlice';
+import { cuTableSlice } from '@/views/CoreUnits/CuTableSlice';
 import type { ThunkAction, Action } from '@reduxjs/toolkit';
 
 export const store = configureStore({

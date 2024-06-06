@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import LastModifiedActorCoreUnit from '@/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 
 import {
   getBudgetCapsFromCoreUnit,
@@ -19,10 +18,11 @@ import { getShortCode } from '@/core/utils/string';
 import CoreUnitCard from '@/stories/components/CoreUnitCard/CoreUnitCard';
 import { CuTableColumnLastModified } from '@/stories/components/CuTableColumnLastModified/CuTableColumnLastModified';
 import { CuTableColumnLinks } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
-import { CuRenderLinks } from './components/CuRenderLinks/CuRenderLinks';
-import { CuTableColumnExpenditures } from './components/CuTableColumnExpenditures/CuTableColumnExpenditures';
-import { CuTableColumnSummary } from './components/CuTableColumnSummary/CuTableColumnSummary';
-import CuTableColumnTeamMember from './components/CuTableColumnTeamMember/CuTableColumnTeamMember';
+import { CuRenderLinks } from './CuRenderLinks/CuRenderLinks';
+import { CuTableColumnExpenditures } from './CuTableColumnExpenditures/CuTableColumnExpenditures';
+import { CuTableColumnSummary } from './CuTableColumnSummary/CuTableColumnSummary';
+import CuTableColumnTeamMember from './CuTableColumnTeamMember/CuTableColumnTeamMember';
+import LastModifiedActorCoreUnit from './LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const renderSummary = (coreUnit: CoreUnit) => {

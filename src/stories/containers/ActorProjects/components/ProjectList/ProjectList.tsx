@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import { TablePlaceholder } from '@/views/CUTable/components/CustomTable/TablePlaceholder';
+import { TablePlaceholder } from '@/views/CoreUnits/CustomTable/TablePlaceholder';
 import ProjectCard from '../ProjectCard/ProjectCard';
 import type { Project } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
