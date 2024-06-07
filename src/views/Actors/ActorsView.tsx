@@ -6,7 +6,8 @@ import React from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import FiltersBundle from '@/components/FiltersBundle/FiltersBundle';
-import { TablePlaceholder } from '../CoreUnits/CustomTable/TablePlaceholder';
+
+import TableEmptyState from '@/components/TableEmptyState/TableEmptyState';
 import ActorTable from './components/ActorTable/ActorTable';
 import { useActorsView } from './useActorsView';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -100,7 +101,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
             <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} queryStrings={queryStrings} />
           </ContainerList>
         ) : (
-          <TablePlaceholder description="There are no ecosystem actors available for this filter." />
+          <TableEmptyState description="There are no ecosystem actors available for this filter." />
         )}
       </Container>
     </ExtendedPageContainer>
