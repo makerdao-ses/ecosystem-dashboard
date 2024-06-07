@@ -73,8 +73,8 @@ const ExternalButton = styled(Link)<{ wrapText: boolean }>(({ theme, wrapText })
 
 const IconWrapper = styled('div')(({ theme }) => ({
   color: theme.palette.colors.charcoal[400],
-  width: 16,
-  height: 16,
+  width: 24,
+  height: 24,
   display: 'flex',
   alignSelf: 'center',
 }));
