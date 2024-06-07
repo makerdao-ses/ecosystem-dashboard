@@ -71,10 +71,6 @@ const ExternalButton = styled(Link)<{ wrapText: boolean }>(({ theme, wrapText })
   },
 }));
 
-// const Icon = styled(ExternalLinkIcon)(({ theme }) => ({
-//   '& > path': 'red', //
-// }));
-
 const IconWrapper = styled('div')(({ theme }) => ({
   color: theme.palette.colors.charcoal[400],
 }));
