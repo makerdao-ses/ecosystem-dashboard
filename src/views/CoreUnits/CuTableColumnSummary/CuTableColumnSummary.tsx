@@ -1,5 +1,6 @@
 import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { DateTime } from 'luxon';
+import Link from 'next/link';
 import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
@@ -9,7 +10,6 @@ import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
 import ToolTipsCU from '../components/ToolTips/ToolTips';
-import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
 import type { Theme } from '@mui/material';
 
 interface CuTableColumnSummaryProps {
@@ -26,6 +26,7 @@ interface CuTableColumnSummaryProps {
   style?: React.CSSProperties;
   categories?: string[];
   isCard?: boolean;
+  href: string;
 }
 
 interface PopupWrapperProps {
@@ -59,7 +60,7 @@ const PopupWrapper = ({ children, title, code, hasPopup = false }: PopupWrapperP
 
 export const CuTableColumnSummary = ({
   logoDimension = '48px',
-  isLoading = false,
+
   hasPopup = true,
   ...props
 }: CuTableColumnSummaryProps) => {
@@ -70,14 +71,10 @@ export const CuTableColumnSummary = ({
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
 
-  if (isLoading) {
-    return <ColumnSummarySkeleton />;
-  }
-
   return (
     <Container onClick={props.onClick} style={props.style}>
       <ContainerSummary>
-        <CircleContainer>
+        <CircleContainer href={props.href} target="_blank">
           <PopupWrapper
             hasPopup={hiddenPopOverSmallDevices}
             code={props.code}
@@ -91,6 +88,7 @@ export const CuTableColumnSummary = ({
                     style={{
                       width: '372px',
                     }}
+                    href={props.href}
                   />
                 </PopupSummaryWrapper>
                 <Padded>
@@ -118,7 +116,7 @@ export const CuTableColumnSummary = ({
           </PopupWrapper>
         </CircleContainer>
         <Content>
-          <TitleWrapper>
+          <TitleWrapper href={props.href} target="_blank">
             <Code>{props.code}</Code>
             <Title longCode={(props.code?.length ?? 0) > 3}>{props.title}</Title>
           </TitleWrapper>
@@ -146,13 +144,12 @@ export const CuTableColumnSummary = ({
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-
   alignItems: 'stretch',
   boxSizing: 'border-box',
   textDecoration: 'none',
 });
 
-const CircleContainer = styled('div')(({ theme }) => ({
+const CircleContainer = styled(Link)(({ theme }) => ({
   marginRight: 8,
   marginTop: 6,
 
@@ -184,7 +181,7 @@ const Code = styled('span')(({ theme }) => ({
   whiteSpace: 'nowrap',
 }));
 
-const TitleWrapper = styled('div')({
+const TitleWrapper = styled(Link)({
   display: 'flex',
   alignItems: 'center',
 });

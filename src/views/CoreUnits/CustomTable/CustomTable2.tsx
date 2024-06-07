@@ -40,16 +40,20 @@ interface Props {
 }
 
 export const CustomTable2 = (props: Props) => {
-  if (!props.loading && props.items?.length === 0) return <TableEmptyState />;
+  if (props.items?.length === 0) return <TableEmptyState />;
 
-  const rows = props.loading ? new Array(10).fill(null) : props.items;
   return (
     <TableContainer>
       <Table>
         <TableWrapper>
           <HeadCustomTable {...props} />
         </TableWrapper>
-        <ListCoreUnit columns={props.columns} isLoading={props.loading} queryStrings={props.queryStrings} rows={rows} />
+        <ListCoreUnit
+          columns={props.columns}
+          isLoading={props.loading}
+          queryStrings={props.queryStrings}
+          rows={props.items}
+        />
       </Table>
     </TableContainer>
   );
