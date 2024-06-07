@@ -1,8 +1,11 @@
-import { styled, useTheme } from '@mui/material';
+import { styled } from '@mui/material';
 import React from 'react';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
 import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
+
+import ToolTipsCU from '../components/ToolTips/ToolTips';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 
@@ -16,24 +19,15 @@ const CuTableColumnTeamMember: React.FC<CuTableColumnTeamMemberProps> = ({
   isLoading = false,
   fte,
   members,
-}: CuTableColumnTeamMemberProps) => {
-  const theme = useTheme();
-  const isLight = theme.palette.isLight;
-  return !isLoading ? (
+}: CuTableColumnTeamMemberProps) =>
+  !isLoading ? (
     <Container className="TeamMembers" hasMember={(members?.length || 0) >= 1}>
-      <CustomPopover
-        title={'Full-Time Equivalents'}
-        id={'popover-fulltime-equivalents'}
-        popupStyle={{
-          padding: '16px',
-          color: isLight ? '#231536' : '#D2D4EF',
-        }}
-      >
+      <SESTooltipStyled content={<ToolTipsCU>Full-Time Equivalents</ToolTipsCU>}>
         <Data>
           <Title>FTEs</Title>
           <Value className="TeamMembers_Value">{fte}</Value>
         </Data>
-      </CustomPopover>
+      </SESTooltipStyled>
 
       <CirclesWrapper>
         {members?.map((member, i) => (
@@ -65,7 +59,6 @@ const CuTableColumnTeamMember: React.FC<CuTableColumnTeamMemberProps> = ({
   ) : (
     <ColumnTeamMemberSkeleton />
   );
-};
 
 export default CuTableColumnTeamMember;
 const Container = styled('div')<{ hasMember: boolean }>(({ theme, hasMember }) => ({
@@ -153,3 +146,19 @@ const Title = styled('span')(({ theme }) => ({
     left: 12,
   },
 }));
+
+const SESTooltipStyled = styled(SESTooltip)({
+  // border: '2px solid red',
+  padding: 0,
+  width: 'fit-content',
+  '&.MuiTooltip-tooltip MuiTooltip-tooltipPlacementBottom': {
+    backgroundColor: 'red',
+  },
+  '& div': {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: 16,
+
+    fontWeight: 500,
+    lineHeight: '24px',
+  },
+});

@@ -3,10 +3,12 @@ import isEmpty from 'lodash/isEmpty';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import type { CustomChartItemModel } from '@/core/models/customChartItemModel';
 import { buildQueryString } from '@/core/utils/urls';
 import { CustomBarChart } from '@/stories/components/CustomBarChart/CustomBarChart';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
+import { ActualsTooltip } from '../components/ToolTips/ActualsTooltip';
 import { ColumnExpendituresSkeleton } from './CuTableColumnExpendituresSkeleton';
 
 interface CuTableColumnExpendituresProps {
@@ -28,19 +30,7 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
         <Title>Latest 3 Months</Title>
         <DataWrapper>
           <Data>
-            <CustomPopover
-              id="mouse-over-popover-total"
-              title={
-                <TotalPopup>
-                  <PopupTitle>
-                    {props.value?.toLocaleString('en-US', {
-                      maximumFractionDigits: 0,
-                    })}
-                  </PopupTitle>
-                  <Label>Actual Expenditure</Label>
-                </TotalPopup>
-              }
-            >
+            <SESTooltipStyled content={<ActualsTooltip value={props.value ?? 0} />}>
               <Value
                 style={{
                   justifyContent: props.value ? 'flex-start' : 'center',
@@ -50,7 +40,7 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
                   maximumFractionDigits: 0,
                 })}
               </Value>
-            </CustomPopover>
+            </SESTooltipStyled>
             <Line />
             <CustomPopover
               css={{ alignSelf: 'center' }}
@@ -202,3 +192,8 @@ const Line = styled('div')(({ theme }) => ({
   width: 30,
   margin: '0 auto',
 }));
+
+const SESTooltipStyled = styled(SESTooltip)({
+  padding: 0,
+  width: 'fit-content',
+});

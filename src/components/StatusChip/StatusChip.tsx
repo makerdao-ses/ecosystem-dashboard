@@ -7,12 +7,13 @@ import type { CustomColors } from './useCustomColors';
 interface StatusChipProps {
   status: TeamStatus;
   className?: string;
+  isFilter?: boolean;
 }
 
-export const StatusChip: React.FC<StatusChipProps> = ({ status, className }) => {
+export const StatusChip: React.FC<StatusChipProps> = ({ status, className, isFilter = false }) => {
   const colors = useCustomColors();
   const removeAdditionalText =
-    status === TeamStatus.FormalSubmission ? TeamStatus.FormalSubmission.split(' ')[1] : status;
+    status === TeamStatus.FormalSubmission && !isFilter ? TeamStatus.FormalSubmission.split(' ')[1] : status;
   return (
     <Chip colors={colors} status={status} className={className}>
       {removeAdditionalText}
