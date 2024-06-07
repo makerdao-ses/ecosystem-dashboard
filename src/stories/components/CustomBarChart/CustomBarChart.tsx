@@ -16,7 +16,7 @@ interface CustomBarChartProps {
 
 const PopoverPaperBar = (theme: Theme) => ({
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
-  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
   borderRadius: 12,
 });
 

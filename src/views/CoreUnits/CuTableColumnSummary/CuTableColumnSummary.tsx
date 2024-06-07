@@ -271,10 +271,9 @@ const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
     }`,
   },
 
-  '& svg': {
+  '& div': {
     width: 16,
     height: 16,
-    alignItems: 'center',
   },
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 1,
