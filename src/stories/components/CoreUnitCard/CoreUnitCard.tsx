@@ -143,10 +143,13 @@ const Container = styled(Card)(() => ({
   padding: '8px 0px 0px 0px',
 }));
 
-const Summary = styled('div')(() => ({
+const Summary = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  marginTop: 4,
+  marginTop: 0,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 4,
+  },
 }));
 
 const Expenditure = styled('div')(({ theme }) => ({
@@ -234,7 +237,7 @@ const ContainerLinks = styled('div')(({ theme }) => ({
 }));
 
 const LastModifiedActorCoreUnitStyled = styled(LastModifiedActorCoreUnit)(({ theme }) => ({
-  padding: '0px 8px 4px 8px',
+  padding: '4px 8px 4px 8px',
   [theme.breakpoints.up('tablet_768')]: {
     padding: '2px 8px 4px 8px',
   },

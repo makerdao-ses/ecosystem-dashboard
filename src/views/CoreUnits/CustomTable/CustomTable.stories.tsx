@@ -14,7 +14,7 @@ const meta: Meta<typeof CustomTable2> = {
       viewports: [375, 768, 1024],
       pauseAnimationAtEnd: true,
     },
-    date: new Date('2022-12-26T09:08:34.123'),
+    date: new Date('2023-03-02T09:08:34.123'),
   },
 };
 export default meta;
