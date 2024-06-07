@@ -4,7 +4,7 @@ import ItemCoreUnit from './ItemCoreUnit';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ItemCoreUnit> = {
-  title: 'Components/CUTable/ItemCoreUnit',
+  title: 'Fusion/CoreUnits/ItemCoreUnit',
   component: ItemCoreUnit,
 };
 export default meta;
