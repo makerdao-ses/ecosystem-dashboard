@@ -3,7 +3,8 @@ import BigButton from '@ses/components/Button/BigButton/BigButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import { TablePlaceholder } from '@/views/CoreUnits/CustomTable/TablePlaceholder';
+
+import TableEmptyState from '@/components/TableEmptyState/TableEmptyState';
 import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpenseTrendItem';
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
 import SectionTitle from '../../SectionTitle/SectionTitle';
@@ -72,7 +73,7 @@ const ExpenseReports: React.FC<Props> = ({
         ))}
         {isLoading && <ExpenseReportsItemsSkeleton />}
         {!hasExpenseReport && (
-          <TablePlaceholder description="There are no contributors available with this combination of filters" />
+          <TableEmptyState description="There are no contributors available with this combination of filters" />
         )}
       </ItemSection>
 
