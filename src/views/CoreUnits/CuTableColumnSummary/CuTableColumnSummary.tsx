@@ -162,9 +162,13 @@ const CircleContainer = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     marginRight: '8px',
+    marginTop: 6,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 0,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginRight: 16,
   },
 }));
 
@@ -212,15 +216,17 @@ const Row = styled('section')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
+  height: 24,
   marginBottom: 6,
   marginTop: -2,
   [theme.breakpoints.up('tablet_768')]: {
     gap: 6,
+    height: 'revert',
     marginTop: -4,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     marginBottom: 0,
-    marginTop: 0,
+    marginTop: 2,
     gap: 4,
   },
 }));
@@ -279,13 +285,18 @@ const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
   },
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
+    height: 24,
     marginTop: 0,
-    padding: '0px 4px 2px 8px',
+    padding: '0px 4px 0px 6px',
   },
 }));
 
 const StatusChipStyled = styled(StatusChip)(({ theme }) => ({
-  padding: '1px 8px 1px 8px',
+  padding: '3px 4px 3px 4px',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '1px 8px 1px 8px',
+  },
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '1px 16px 1px 16px',
   },
@@ -293,7 +304,14 @@ const StatusChipStyled = styled(StatusChip)(({ theme }) => ({
 
 const ContainerSummary = styled('div')(({ theme }) => ({
   display: 'flex',
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    marginTop: 'revert',
+  },
   [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: 6,
+    marginTop: -1,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginTop: 2,
   },
 }));

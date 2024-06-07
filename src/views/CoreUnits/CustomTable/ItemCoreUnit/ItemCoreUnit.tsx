@@ -38,12 +38,14 @@ const TableWrapper = styled('div')(({ theme }) => ({
 
 const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[] }>(
   ({ theme, isLoading, columns }) => ({
+    borderRadius: 16,
     background: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
     display: 'grid',
     padding: '16px 16px 8px 8px',
     width: '100%',
     justifyContent: 'space-between',
     gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
+
     marginTop: '16px',
     cursor: 'pointer',
     boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
@@ -56,9 +58,15 @@ const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[
         ? 'white'
         : '#10191F',
     },
+    [theme.breakpoints.up('desktop_1280')]: {
+      padding: '16px 16px 8px 16px',
+    },
+    [theme.breakpoints.up('desktop_1440')]: {
+      padding: '16px 16px 8px 8px',
+    },
+
     [theme.breakpoints.up('desktop_1440')]: {
       gridTemplateColumns: columns?.reduce((prev, curr) => `${prev} ${curr.width}`, ''),
-      gridTemplateRows: '98px',
       width: '100%',
     },
   })

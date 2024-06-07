@@ -9,13 +9,14 @@ import PopoverListLinks from '@/views/Actors/components/PopoverListLinks/Popover
 
 interface Props {
   coreUnit: CoreUnit;
+  className?: string;
 }
 
-export const CuRenderLinks: React.FC<Props> = ({ coreUnit }) => {
+export const CuRenderLinks: React.FC<Props> = ({ coreUnit, className }) => {
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return (
-    <LinksContainer>
+    <LinksContainer className={className}>
       <ContainerLinksArrowsDesk>
         <PopoverListLinksStyled label="Links" />
         <VerticalLine />

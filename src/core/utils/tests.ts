@@ -355,53 +355,43 @@ export const columns1280: CustomTableColumn[] = [
 
     cellRender: renderSummary,
 
+    width: '352px',
     sortReverse: true,
     hasSort: true,
-
-    style: {
-      width: '290px',
-    },
   },
   {
-    header: 'Last Modified',
+    header: 'L.M',
     justifyContent: 'flex-start',
     cellRender: renderLastModified,
 
+    width: '120px',
     sortReverse: true,
     hasSort: true,
-    style: {
-      width: 180,
-    },
   },
   {
     header: 'Expenditure',
     justifyContent: 'flex-start',
     cellRender: renderExpenditures,
 
+    width: '141px',
     sortReverse: true,
     hasSort: true,
-    style: {
-      width: 165,
-    },
   },
   {
     header: 'Team',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     cellRender: renderTeamMember,
 
+    width: '140px',
     sortReverse: true,
     hasSort: true,
-    style: {
-      width: 165,
-      minWidth: 165,
-    },
   },
 
   {
     header: '',
     justifyContent: 'center',
     cellRender: renderLinks,
-
+    width: '124px',
     hasSort: false,
     style: {
       width: 140,
