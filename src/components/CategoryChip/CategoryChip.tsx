@@ -21,13 +21,18 @@ const CategoryChip: React.FC<StatusChipProps> = ({ category, className }) => {
 export default CategoryChip;
 const Chip = styled('div')<{ colors: CustomColors; category: TeamCategory }>(({ theme, colors, category }) => ({
   display: 'flex',
+  alignItems: 'center',
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   lineHeight: '22px',
   fontWeight: 600,
   width: 'fit-content',
   borderRadius: 6,
-  padding: '1px 16px 1px 16px',
+  padding: '1px 8px 1px 8px',
   color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
   border: `1.5px solid ${theme.palette.isLight ? colors[`${category}`]?.border : colors[`${category}`]?.borderDark}`,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '1px 16px 1px 16px',
+  },
 }));

@@ -7,5 +7,5 @@ export enum CuCategoryEnum {
   Growth = 'Growth',
   Finance = 'Finance',
   Legal = 'Legal',
-  ScopeFacilitator = 'ScopeFacilitator ',
+  ScopeFacilitator = 'ScopeFacilitator',
 }
