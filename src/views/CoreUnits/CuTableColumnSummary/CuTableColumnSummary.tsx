@@ -136,23 +136,6 @@ export const CuTableColumnSummary = ({
                 </div>
               </SESTooltipStyled>
             )}
-            {/* {props.statusModified && (
-              <CustomPopover
-                id={'mouse-over-popover-goto'}
-                title={'Go to MIPs Portal'}
-                popupStyle={{
-                  color: isLight ? '#231536' : '#D2D4EF',
-                }}
-              >
-                {props.mipUrl && (
-                  <ExternalLinkButtonStyled href={props.mipUrl ?? ''} showArrow wrapText>
-                    {`${isMobile ? '' : 'Since'} ${DateTime.fromJSDate(props.statusModified)
-                      .toFormat('d-MMM-y')
-                      .toUpperCase()}`}
-                  </ExternalLinkButtonStyled>
-                )}
-              </CustomPopover>
-            )} */}
           </Row>
         </Content>
       </ContainerSummary>

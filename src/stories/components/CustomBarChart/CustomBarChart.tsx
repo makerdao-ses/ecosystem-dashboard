@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import { ExpenditureLevel } from '../../../core/enums/expenditureLevelEnum';
 import type { CustomChartItemModel } from '../../../core/models/customChartItemModel';
+import type { Theme } from '@mui/material';
 
 interface CustomBarChartProps {
   items?: Array<CustomChartItemModel>;
@@ -13,12 +14,10 @@ interface CustomBarChartProps {
   code?: string;
 }
 
-export const PopoverPaperBar = (isLight: boolean) => ({
-  background: isLight ? 'white' : '#000A13',
-  boxShadow: isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-  borderRadius: '6px',
+const PopoverPaperBar = (theme: Theme) => ({
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+  borderRadius: 12,
 });
 
 export const CustomBarChart = (props: CustomBarChartProps) => {
@@ -27,7 +26,8 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const COLOR_GREEN = isLight ? theme.palette.colors.green[700] : theme.palette.colors.green[900];
   const COLOR_RED = isLight ? theme.palette.colors.red[800] : theme.palette.colors.red[900];
   const COLOR_YELLOW = isLight ? theme.palette.colors.orange[800] : theme.palette.colors.orange[800];
-  const COLOR_GRAY = '#D7D8D9';
+  const COLOR_GRAY = isLight ? theme.palette.colors.gray[300] : theme.palette.colors.gray[700];
+  const LINE = isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900];
   const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
   const [anchorEl, setAnchorEl] = React.useState<SVGRectElement | null>(null);
   const [description, setDescription] = React.useState<{ month: string; budgetCap: string; actual: string } | null>(
@@ -130,7 +130,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
         }}
         disableRestoreFocus
         PaperProps={{
-          style: PopoverPaperBar(isLight),
+          style: PopoverPaperBar(theme),
         }}
         anchorOrigin={{
           vertical: 'bottom',
@@ -145,12 +145,10 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                 Number(description?.budgetCap.split(',').join('') || 0)
               ) as ExpenditureLevel
             }
-            isLight={isLight}
           >
-            <Row style={{ marginBottom: '16px' }}>
-              <StyleTypography>{description?.month}</StyleTypography>
+            <Row>
+              <StyleMonth>{description?.month}</StyleMonth>
               <StyleLevelExpenditure
-                isLight={isLight}
                 levelExpenditure={
                   getExpenditureLevel(
                     Number(description?.actual.split(',').join('') || 0),
@@ -164,13 +162,15 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                 )}
               </StyleLevelExpenditure>
             </Row>
-            <Row style={{ marginBottom: '4px' }}>
-              <TypographyValue>{description?.budgetCap}</TypographyValue>
-              <TypographyValue style={{ textAlign: 'right' }}>{description?.actual}</TypographyValue>
-            </Row>
             <Row>
-              <TypographyDescription>Budget Cap</TypographyDescription>
-              <TypographyDescription>Actuals</TypographyDescription>
+              <ContainerDescription>
+                <TypographyValue>{description?.actual}</TypographyValue>
+                <TypographyDescription>Actuals</TypographyDescription>
+              </ContainerDescription>
+              <ContainerDescription isAlignStart={false}>
+                <TypographyValue>{description?.budgetCap}</TypographyValue>
+                <TypographyDescription>Budget Cap</TypographyDescription>
+              </ContainerDescription>
             </Row>
           </Container>
         ) : (
@@ -192,11 +192,11 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                   fill={
                     isLight
                       ? props.items?.[i]?.value
-                        ? '#434358'
-                        : '#D8E0E3'
+                        ? theme.palette.colors.gray[900]
+                        : theme.palette.colors.gray[300]
                       : props.items?.[i]?.value
-                      ? '#D8E0E3'
-                      : '#434358'
+                      ? theme.palette.colors.slate[50]
+                      : theme.palette.colors.gray[700]
                   }
                 >
                   {month.charAt(0)}
@@ -250,9 +250,9 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                 x2={i * 20 + padding + 17}
                 y1={calculateHeight(cap) + 5 > maxBarHeight ? maxBarHeight : calculateHeight(cap) + 5}
                 y2={calculateHeight(cap) + 5 > maxBarHeight ? maxBarHeight : calculateHeight(cap) + 5}
-                fill="#447AFB"
+                fill={LINE}
                 strokeWidth="1px"
-                stroke="#447AFB"
+                stroke={LINE}
               >
                 <animate attributeName="opacity" from="0" to="1" dur="0.4s" />
               </line>
@@ -264,29 +264,30 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   );
 };
 
-const Container = styled('div')<{ levelExpenditure?: ExpenditureLevel; isLight?: boolean }>(
-  ({ levelExpenditure, isLight }) => ({
-    padding: '16px',
-    borderRadius: '6px',
-    width: '202px',
-    height: '102px',
-    border: isLight
-      ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
-        ? '1px solid #6EDBD0'
-        : levelExpenditure === ExpenditureLevel.STRETCHED
-        ? '1px solid #FEDB88'
-        : levelExpenditure === ExpenditureLevel.OVERBUDGET
-        ? '1px solid #F99374'
-        : 'none'
-      : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
-      ? '1px solid rgba(0, 237, 24, 0.4)'
+const Container = styled('div')<{ levelExpenditure?: ExpenditureLevel }>(({ levelExpenditure, theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '8px 16px 8px 16px',
+  borderRadius: 12,
+  width: 240,
+  height: 94,
+  gap: 8,
+  border: theme.palette.isLight
+    ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+      ? `2px solid ${theme.palette.colors.green[200]}`
       : levelExpenditure === ExpenditureLevel.STRETCHED
-      ? '1px solid rgba(255, 130, 55, 0.4)'
+      ? `2px solid ${theme.palette.colors.orange[200]}`
       : levelExpenditure === ExpenditureLevel.OVERBUDGET
-      ? '1px solid rgba(255, 64, 133, 0.4)'
-      : 'none',
-  })
-);
+      ? `2px solid ${theme.palette.colors.red[200]}`
+      : `2px solid ${theme.palette.colors.charcoal[100]}`
+    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+    ? '2px solid #27633B'
+    : levelExpenditure === ExpenditureLevel.STRETCHED
+    ? '1px solid #8C5412'
+    : levelExpenditure === ExpenditureLevel.OVERBUDGET
+    ? '1px solid #82302C'
+    : `2px solid ${theme.palette.colors.charcoal[700]}`,
+}));
 
 const Row = styled('div')({
   display: 'flex',
@@ -294,62 +295,65 @@ const Row = styled('div')({
   justifyContent: 'space-between',
 });
 
-const StyleTypography = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })({
+const ContainerDescription = styled('div')<{ isAlignStart?: boolean }>(({ isAlignStart = true }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+
+  alignItems: isAlignStart ? 'flex-start' : 'flex-end',
+}));
+const StyleMonth = styled(Typography)(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 600,
-  fontSize: '12px',
-  lineHeight: '14px',
-  textAlign: 'center',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: '#9FAFB9',
-});
-
-const StyleLevelExpenditure = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isLight' && prop !== 'levelExpenditure',
-})<{ levelExpenditure: ExpenditureLevel; isLight?: boolean }>(({ levelExpenditure, isLight }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 300,
-  fontSize: '11px',
-  lineHeight: '13px',
-  color: isLight
-    ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
-      ? '#02CB9B'
-      : levelExpenditure === ExpenditureLevel.STRETCHED
-      ? '#F08B04'
-      : '#CB3A0D'
-    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
-    ? '#00ED18'
-    : levelExpenditure === ExpenditureLevel.STRETCHED
-    ? '#FF8237'
-    : '#FF4085',
+  fontSize: 16,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[400] : theme.palette.colors.charcoal[400],
 }));
+
+const StyleLevelExpenditure = styled(Typography)<{ levelExpenditure: ExpenditureLevel }>(
+  ({ levelExpenditure, theme }) => ({
+    fontFamily: 'Inter, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: 600,
+    fontSize: '14px',
+    lineHeight: '22px',
+    color: theme.palette.isLight
+      ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+        ? theme.palette.colors.green[700]
+        : levelExpenditure === ExpenditureLevel.STRETCHED
+        ? theme.palette.colors.orange[700]
+        : theme.palette.colors.red[700]
+      : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+      ? theme.palette.colors.green[900]
+      : levelExpenditure === ExpenditureLevel.STRETCHED
+      ? theme.palette.colors.orange[900]
+      : theme.palette.colors.red[900],
+  })
+);
 
 const TypographyValue = styled(Typography)(({ theme }) => ({
   fontFamily: 'Inter,sans-serif',
   fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19px',
-  letterSpacing: '0.3px',
-  color: theme.palette.isLight ? '#000000' : '#EDEFFF',
+  fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[800] : theme.palette.colors.charcoal[100],
 }));
 
 const TypographyDescription = styled(Typography)(({ theme }) => ({
   fontFamily: 'Inter ,sans-serif',
   fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#231536' : '#9FAFB9',
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[500],
 }));
 
 const NoDataProvided = styled('div')(({ theme }) => ({
   padding: '16px',
   borderRadius: '6px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
 }));
 
 const MonthTextGroup = styled('g')({
