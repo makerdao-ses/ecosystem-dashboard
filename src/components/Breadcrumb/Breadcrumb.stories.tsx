@@ -36,24 +36,24 @@ const variantsArgs = [
   {
     items: [
       {
-        label: 'Home',
+        label: '1- Home',
         href: '/',
         number: 15,
       },
       {
-        label: 'Lorem ipsum',
+        label: '2- Lorem ipsum',
         href: '/a1',
       },
       {
-        label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        label: '3- Lorem ipsum dolor sit amet, consectetur adipiscing elit',
         href: '/a2',
       },
       {
-        label: 'Lorem ipsum dolor',
+        label: '4- Lorem ipsum dolor',
         href: '/a3',
       },
       {
-        label: 'A very long text that should be truncated',
+        label: '5- A very long text that should be truncated',
         href: '/long',
       },
     ],
