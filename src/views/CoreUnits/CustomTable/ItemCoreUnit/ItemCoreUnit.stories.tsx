@@ -81,9 +81,10 @@ CoreUnitItem.parameters = {
     },
   },
 };
+CoreUnitItemDark.parameters = {};
 CoreUnitItemBigDesk.parameters = {
   chromatic: {
-    viewports: [1280],
+    viewports: [1280, 1440],
   },
   date: new Date('2023-03-02T09:56:16Z'),
   figma: {
@@ -101,8 +102,20 @@ CoreUnitItemBigDesk.parameters = {
           },
         },
       },
+      1440: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=331:43652&t=St2JexmyIMfCV6xZ-4',
+        options: {
+          componentStyle: {
+            width: 1200,
+          },
+          style: {
+            top: 6,
+            left: -12,
+          },
+        },
+      },
     },
   },
 };
 CoreUnitItemDarkBigDesk.parameters = {};
-CoreUnitItemDark.parameters = {};

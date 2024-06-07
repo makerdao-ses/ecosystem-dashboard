@@ -107,7 +107,7 @@ const InsideExpenditureContainer = styled('div')(({ theme }) => ({
     paddingLeft: 0,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    marginLeft: -34,
+    marginLeft: -30,
   },
 }));
 
@@ -143,6 +143,9 @@ const TeamMemberContainer = styled('div')(({ theme }) => ({
 const LastModifiedActorCoreUnitContainer = styled('div')(({ theme }) => ({
   marginTop: -4,
 
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginLeft: 4,
+  },
   [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: -16,
     marginTop: 0,
