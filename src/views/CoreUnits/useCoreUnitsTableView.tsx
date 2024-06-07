@@ -383,7 +383,7 @@ export const useCoreUnitsTableView = () => {
       ),
 
       widthStyles: {
-        width: 200,
+        width: 'fit-content',
 
         menuWidth: 290,
       },

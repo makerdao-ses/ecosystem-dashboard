@@ -14,7 +14,7 @@ interface Props {
 const CustomStatusItemFilter: FC<Props> = ({ status, isActive, count = '0' }) => (
   <BoxStyle>
     <Title isActive={isActive}>{count}</Title>
-    <StatusChip status={status as TeamStatus} />
+    <StatusChip status={status as TeamStatus} isFilter />
   </BoxStyle>
 );
 

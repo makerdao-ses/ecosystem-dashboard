@@ -3,10 +3,12 @@ import { DateTime } from 'luxon';
 import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
+import ToolTipsCU from '../components/ToolTips/ToolTips';
 import { ColumnSummarySkeleton } from './CuTableColumnSummarySkeleton';
 import type { Theme } from '@mui/material';
 
@@ -123,7 +125,18 @@ export const CuTableColumnSummary = ({
 
           <Row>
             <StatusChipStyled status={props.status as TeamStatus} />
-            {props.statusModified && (
+            {props.statusModified && props.mipUrl && (
+              <SESTooltipStyled content={<ToolTipsCU>Go to MIPs Portal</ToolTipsCU>} placement="bottom-end">
+                <div>
+                  <ExternalLinkButtonStyled href={props.mipUrl ?? ''} showArrow wrapText>
+                    {`${isMobile ? '' : 'Since'} ${DateTime.fromJSDate(props.statusModified)
+                      .toFormat('d-MMM-y')
+                      .toUpperCase()}`}
+                  </ExternalLinkButtonStyled>
+                </div>
+              </SESTooltipStyled>
+            )}
+            {/* {props.statusModified && (
               <CustomPopover
                 id={'mouse-over-popover-goto'}
                 title={'Go to MIPs Portal'}
@@ -139,7 +152,7 @@ export const CuTableColumnSummary = ({
                   </ExternalLinkButtonStyled>
                 )}
               </CustomPopover>
-            )}
+            )} */}
           </Row>
         </Content>
       </ContainerSummary>
@@ -297,3 +310,14 @@ const ContainerSummary = styled('div')(({ theme }) => ({
     marginTop: 6,
   },
 }));
+
+const SESTooltipStyled = styled(SESTooltip)({
+  padding: 0,
+  width: 'fit-content',
+  '& div': {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: 16,
+    fontWeight: 500,
+    lineHeight: '24px',
+  },
+});
