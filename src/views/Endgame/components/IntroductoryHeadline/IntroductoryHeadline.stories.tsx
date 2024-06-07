@@ -1,6 +1,6 @@
-import Container from '@ses/components/Container/Container';
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import Container from '@/components/Container/Container';
 import { NavigationTabEnum } from '../../useEndgameView';
 import NavigationTabs from '../NavigationTabs/NavigationTabs';
 import IntroductoryHeadline from './IntroductoryHeadline';

@@ -170,6 +170,7 @@ const dictionary = [
   'Linkedin',
   'mouseover',
   'mouseout',
+  'resized',
 ];
 
 module.exports = dictionary;

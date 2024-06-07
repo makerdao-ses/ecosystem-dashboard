@@ -1,10 +1,10 @@
 import { styled } from '@mui/material';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import Breadcrumb from './components/Breadcrumb/Breadcrumb';
 import PageHeader from './components/PageHeader/PageHeader';
 import DetailsSection from './components/sections/DetailsSection/DetailsSection';

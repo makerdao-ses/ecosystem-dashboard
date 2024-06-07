@@ -1,11 +1,11 @@
 import { styled, useMediaQuery } from '@mui/material';
-import Container from '@ses/components/Container/Container';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import Image from 'next/image';
 import React from 'react';
+import Container from '@/components/Container/Container';
 import ExternalLinkText from '@/components/ExternalLinkText/ExternalLinkText';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import type { Theme } from '@mui/material';
