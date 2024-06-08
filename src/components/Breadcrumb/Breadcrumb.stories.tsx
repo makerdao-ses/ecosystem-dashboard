@@ -41,7 +41,15 @@ const variantsArgs = [
         number: 15,
       },
       {
-        label: '2- Lorem ipsum',
+        label: '2.1- Lorem ipsum',
+        href: '/a1',
+      },
+      {
+        label: '2.2- Lorem ipsum consectetur',
+        href: '/a1',
+      },
+      {
+        label: '2.3- Lorem ipsum lorem ipsum',
         href: '/a1',
       },
       {
