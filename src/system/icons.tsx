@@ -1,6 +1,7 @@
 import AngleRight from 'public/assets/svg/angle_right.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
+import ExternalLink from 'public/assets/svg/external_link.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
 import ConnectIcon from 'public/assets/svg/makerdao_connect.svg';
@@ -38,11 +39,11 @@ export const iconsPowerHose = [
   },
   {
     Icon: ConnectIcon,
-    title: 'makerdao_connect',
+    title: 'connect',
   },
   {
     Icon: FusionIcon,
-    title: 'makerdao_fusion',
+    title: 'fusion',
   },
   {
     Icon: SwitchboardIcon,
@@ -59,5 +60,9 @@ export const iconsPowerHose = [
   {
     Icon: Ellipsis,
     title: 'ellipsis',
+  },
+  {
+    Icon: ExternalLink,
+    title: 'external_link_arrow',
   },
 ];
