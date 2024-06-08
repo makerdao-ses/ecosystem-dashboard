@@ -189,12 +189,14 @@ export default Breadcrumb;
 const BreadcrumbCard = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('tablet_768')]: {
     borderRadius: 12,
-    background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'red',
+    background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
     margin: '0 16px',
   },
 
   [theme.breakpoints.up('tablet_768')]: {
-    borderBottom: `1px solid ${theme.palette.isLight ? theme.palette.colors.slate[50] : 'red'}`,
+    borderBottom: `1px solid ${
+      theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900]
+    }`,
   },
 }));
 
@@ -224,11 +226,11 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
   fontSize: 16,
   lineHeight: '24px',
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[100],
   maxWidth: maxWidth || 'auto',
 
   '& a': {
-    color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+    color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
     textDecoration: 'none',
     fontWeight: 400,
     whiteSpace: 'nowrap',

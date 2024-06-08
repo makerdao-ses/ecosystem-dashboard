@@ -69,14 +69,14 @@ const Icon = styled('div')(({ theme }) => ({
   cursor: 'pointer',
 
   [theme.breakpoints.up('tablet_768')]: {
-    background: theme.palette.isLight ? theme.palette.colors.gray[100] : 'red',
+    background: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[900],
   },
 }));
 
 const StyledMenu = styled(Menu)(({ theme }) => ({
   '& .MuiPaper-root': {
-    background: theme.palette.isLight ? 'white' : 'red',
-    boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : 'red',
+    background: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
+    boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
     padding: 16,
     maxWidth: 273,
 
@@ -91,8 +91,8 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
     gap: 8,
     padding: 0,
     borderRadius: 12,
-    background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
-    boxShadow: theme.palette.isLight ? theme.fusionShadows.innerShadow : 'red',
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#373E4D4D',
+    boxShadow: theme.fusionShadows.innerShadow,
     overflow: 'hidden',
 
     '& span, & a': {
@@ -109,7 +109,7 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
     fontSize: 14,
     fontWeight: 600,
     lineHeight: '17px',
-    color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
     minHeight: 32,
 
     '& a': {
@@ -117,7 +117,7 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
     },
 
     '&:hover': {
-      background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'red',
+      background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.2)',
     },
   },
 }));
