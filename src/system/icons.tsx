@@ -1,3 +1,4 @@
+import AngleLeft from 'public/assets/svg/angle_left.svg';
 import AngleRight from 'public/assets/svg/angle_right.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
@@ -52,6 +53,10 @@ export const iconsPowerHose = [
   {
     Icon: PowerhouseIcon,
     title: 'powerhouse',
+  },
+  {
+    Icon: AngleLeft,
+    title: 'angle_left',
   },
   {
     Icon: AngleRight,

@@ -19,6 +19,7 @@ interface BreadcrumbItemExtended extends BreadcrumbItem {
 
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
+  rightContent: React.ReactElement;
 }
 
 const MAX_ALLOWED_WIDTH = 250;
@@ -39,7 +40,7 @@ const getTextWidth = (text: string, font: string) => {
   return metrics.width;
 };
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
   const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const segmentsRef = useRef<HTMLDivElement>(null);
 
@@ -177,7 +178,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
             )}
           </SegmentsContainer>
 
-          <RightSpotContainer>{'...'}</RightSpotContainer>
+          <RightContentContainer>{rightContent}</RightContentContainer>
         </Content>
       </Container>
     </BreadcrumbCard>
@@ -254,7 +255,7 @@ const EllipseSegment = styled('span')(() => ({
   textOverflow: 'ellipsis',
 }));
 
-const RightSpotContainer = styled('div')(() => ({
+const RightContentContainer = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
 }));

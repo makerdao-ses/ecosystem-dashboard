@@ -79,6 +79,7 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
     boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
     padding: 16,
     maxWidth: 273,
+    minWidth: 200,
 
     '&.MuiPaper-rounded': {
       borderRadius: 12,
