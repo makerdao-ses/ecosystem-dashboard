@@ -44,7 +44,6 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
   const contentId = useId();
   const rightPartId = useId();
   const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
-  // const segmentsRef = useRef<HTMLDivElement>(null);
 
   const [elementWidths, setElementWidths] = useState<[number, number]>([0, 0]);
   useEffect(() => {
