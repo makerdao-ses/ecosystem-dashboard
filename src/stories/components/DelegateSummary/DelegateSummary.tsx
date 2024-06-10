@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { Collapse } from '@mui/material';
+import { Collapse, styled } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
@@ -35,24 +34,18 @@ const DelegateSummary = forwardRef<HTMLDivElement, Props>(({ code = 'del', links
         <Container>
           <ContainerRow>
             <CircleContainer>
-              <CircleAvatar
-                style={{
-                  filter: isLight
-                    ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
-                    : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
-                }}
+              <CircleAvatarStyled
                 width={isUp1280 ? '68px' : '32px'}
                 height={isUp1280 ? '68px' : '32px'}
                 name="mk-logo"
-                border="none"
                 image="/assets/img/mk-logo.png"
               />
             </CircleContainer>
             <ContainerDescription>
               <ContainerColumnMobile>
                 <ContainerText>
-                  <Code isLight={isLight}>{code.toUpperCase()}</Code>
-                  <Text isLight={isLight}>Recognized Delegates</Text>
+                  <Code>{code.toUpperCase()}</Code>
+                  <Text>Recognized Delegates</Text>
                 </ContainerText>
                 <ContainerLink>
                   <CustomLink
@@ -94,29 +87,29 @@ const DelegateSummary = forwardRef<HTMLDivElement, Props>(({ code = 'del', links
 
 export default DelegateSummary;
 
-const ContainerWithBreadcrumb = styled.div<{ isLight: boolean; showIcons?: boolean; showHeader?: boolean }>(
-  ({ isLight, showHeader }) => ({
+const ContainerWithBreadcrumb = styled('div')<{ isLight: boolean; showIcons?: boolean; showHeader?: boolean }>(
+  ({ showHeader, theme }) => ({
     position: 'fixed',
     top: 64,
     flexDirection: 'column',
     width: '100%',
     height: 'fit-content',
-    background: isLight ? '#FFFFFF' : '#25273D',
-    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+    background: theme.palette.isLight ? '#FFFFFF' : '#25273D',
+    backgroundImage: theme.palette.isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
     backgroundSize: 'cover',
     zIndex: zIndexEnum.DELEGATE_SUMMARY,
-    borderBottom: `1px solid ${isLight ? '#B6EDE7' : '#027265'}`,
+    borderBottom: `1px solid ${theme.palette.isLight ? '#B6EDE7' : '#027265'}`,
 
     paddingBottom: showHeader ? 16 : undefined,
 
     [lightTheme.breakpoints.up('table_834')]: {
       paddingBottom: showHeader ? 22 : 0,
-      borderBottom: showHeader ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
+      borderBottom: showHeader ? (theme.palette.isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
     },
   })
 );
 
-const BreadcrumbsContainer = styled.div({
+const BreadcrumbsContainer = styled('div')({
   padding: '16px',
 
   [lightTheme.breakpoints.up('table_834')]: {
@@ -125,7 +118,7 @@ const BreadcrumbsContainer = styled.div({
   },
 });
 
-const Container = styled.div({
+const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -148,13 +141,13 @@ const Container = styled.div({
   },
 });
 
-const ContainerRow = styled.div({
+const ContainerRow = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
 });
 
-const ContainerDescription = styled.div({
+const ContainerDescription = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 
@@ -173,7 +166,7 @@ const ContainerDescription = styled.div({
   },
 });
 
-const CircleContainer = styled.div({
+const CircleContainer = styled('div')({
   marginRight: 8,
   marginTop: 3,
   [lightTheme.breakpoints.up('table_834')]: {
@@ -182,14 +175,14 @@ const CircleContainer = styled.div({
   },
 });
 
-const Code = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Code = styled('div')(({ theme }) => ({
   marginRight: 4,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: ' 16px',
   lineHeight: '19px',
-  color: isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
 
   [lightTheme.breakpoints.up('table_834')]: {
     marginRight: 16,
@@ -200,13 +193,13 @@ const Code = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Text = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
   fontSize: '16px',
   lineHeight: '19px',
-  color: isLight ? '#231536' : '#E2D8EE',
+  color: theme.palette.isLight ? '#231536' : '#E2D8EE',
   [lightTheme.breakpoints.up('table_834')]: {
     marginRight: 16,
     fontWeight: 600,
@@ -219,7 +212,7 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const ContainerLink = styled.div({
+const ContainerLink = styled('div')({
   marginBottom: 16,
   display: 'flex',
   alignItems: 'flex-start',
@@ -245,7 +238,7 @@ const ContainerLink = styled.div({
   },
 });
 
-const ContainerLinks = styled.div({
+const ContainerLinks = styled('div')({
   display: 'flex',
   marginLeft: -6,
   transition: 'all .3s ease',
@@ -271,7 +264,7 @@ const ContainerLinks = styled.div({
   },
 });
 
-const ContainerColumnMobile = styled.div({
+const ContainerColumnMobile = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 
@@ -289,7 +282,14 @@ const ContainerColumnMobile = styled.div({
   },
 });
 
-const ContainerText = styled.div({
+const ContainerText = styled('div')({
   display: 'flex',
   flexDirection: 'row',
 });
+
+const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
+  filter: theme.palette.isLight
+    ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
+    : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
+  border: 'none',
+}));

@@ -40,16 +40,13 @@ const CuTableColumnTeamMember: React.FC<CuTableColumnTeamMemberProps> = ({
             id={member.contributor[0].name + i}
             leaveOnChildrenMouseOut
           >
-            <CircleAvatar
+            <CircleAvatarStyled
               key={member.id}
               name={member.contributor[0].name}
               fontSize={'14px'}
               width={'36px'}
               height={'36px'}
-              style={{
-                boxSizing: 'border-box',
-                marginLeft: i === 0 ? 0 : '-9px',
-              }}
+              index={i}
               image={member.contributor[0].facilitatorImage?.trim()}
             />
           </CustomPopover>
@@ -162,3 +159,8 @@ const SESTooltipStyled = styled(SESTooltip)({
     lineHeight: '24px',
   },
 });
+
+const CircleAvatarStyled = styled(CircleAvatar)<{ index: number }>(({ index }) => ({
+  boxSizing: 'border-box',
+  marginLeft: index === 0 ? 0 : '-9px',
+}));
