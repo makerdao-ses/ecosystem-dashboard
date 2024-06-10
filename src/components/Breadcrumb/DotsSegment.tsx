@@ -70,6 +70,14 @@ const Icon = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     background: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[900],
+
+    '&:hover': {
+      background: theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800],
+
+      '& svg path': {
+        fill: theme.palette.isLight ? theme.palette.colors.charcoal[700] : theme.palette.colors.charcoal[400],
+      },
+    },
   },
 }));
 

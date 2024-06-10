@@ -83,14 +83,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
     return itemsExtended;
   }, [items]);
 
-  const [groupedItems, setGroupedItems] = useState<BreadcrumbItemExtended[]>(itemsExtended);
-
-  // update groupedItems when the window is resized
-  useEffect(() => {
-    const segmentsContainerWidth = elementWidths[0] - elementWidths[1] - 16; // 16 is the padding of the content container
-    const totalWidth = itemsExtended.reduce((acc, item) => acc + Math.min(item.labelWidth, MAX_ALLOWED_WIDTH), 0);
-    const groupItems = () =>
-      setGroupedItems([
+  const [groupedItems, setGroupedItems] = useState<BreadcrumbItemExtended[]>(() => {
+    if (itemsExtended.length > 3) {
+      return [
         itemsExtended[0],
         {
           label: '...',
@@ -101,7 +96,33 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
         },
         // 2 last items
         ...itemsExtended.slice(-2),
-      ]);
+      ];
+    }
+    return itemsExtended;
+  });
+
+  // update groupedItems when the window is resized
+  useEffect(() => {
+    const segmentsContainerWidth = elementWidths[0] - elementWidths[1] - 16; // 16 is the padding of the content container
+    const totalWidth = itemsExtended.reduce((acc, item) => acc + Math.min(item.labelWidth, MAX_ALLOWED_WIDTH), 0);
+    const groupItems = () => {
+      if (itemsExtended.length <= 3) {
+        setGroupedItems(itemsExtended);
+      } else {
+        setGroupedItems([
+          itemsExtended[0],
+          {
+            label: '...',
+            href: '',
+            labelWidth: 0,
+            recommendedWidth: THREE_DOTS_WIDTH,
+            attachedItems: itemsExtended.slice(1, itemsExtended.length - 2),
+          },
+          // 2 last items
+          ...itemsExtended.slice(-2),
+        ]);
+      }
+    };
 
     if (segmentsContainerWidth === 0 || totalWidth <= segmentsContainerWidth) {
       if (segmentsContainerWidth === 0 && itemsExtended.length > 3) {
@@ -117,6 +138,8 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
     groupItems();
   }, [elementWidths, itemsExtended]);
 
+  const separator = <AngleRight width={24} height={24} />;
+
   return (
     <BreadcrumbCard>
       <Container>
@@ -127,7 +150,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
                 {itemsExtended.length > 1 && (
                   <Segment>
                     <DotsSegment items={items} />
-                    <AngleRight />
+                    {separator}
                   </Segment>
                 )}
                 <Segment maxWidth={elementWidths[0] - elementWidths[1] - 64 - 16}>
@@ -141,7 +164,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
                     item.label === '...' ? (
                       <>
                         <DotsSegment items={item.attachedItems ?? []} />
-                        <AngleRight />
+                        {separator}
                       </>
                     ) : (
                       <>
@@ -149,7 +172,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
                           <EllipseSegment>{item.label}</EllipseSegment>
                           {item.number !== undefined && item.number !== null ? <b>({item.number})</b> : null}
                         </Link>{' '}
-                        <AngleRight />
+                        {separator}
                       </>
                     )
                   ) : (
@@ -225,10 +248,25 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
   '& b': {
     fontWeight: 600,
     lineHeight: '21px',
+    marginLeft: 4,
   },
 
   '& svg': {
     minWidth: 24,
+  },
+
+  '&:hover': {
+    a: {
+      color: theme.palette.colors.slate[200],
+    },
+
+    b: {
+      color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
+
+    'svg path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[200],
+    },
   },
 }));
 
