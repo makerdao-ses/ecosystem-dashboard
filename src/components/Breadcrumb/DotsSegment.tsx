@@ -1,8 +1,9 @@
-import { Menu, MenuItem, styled } from '@mui/material';
+import { Menu, MenuItem, styled, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import { useId, useState } from 'react';
 import type { BreadcrumbItem } from './Breadcrumb';
+import type { Theme } from '@mui/material';
 
 interface DotsSegmentProps {
   items: BreadcrumbItem[];
@@ -11,6 +12,7 @@ interface DotsSegmentProps {
 const DotsSegment: React.FC<DotsSegmentProps> = ({ items }) => {
   const iconId = useId();
   const menuId = useId();
+  const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -32,7 +34,7 @@ const DotsSegment: React.FC<DotsSegmentProps> = ({ items }) => {
         <Ellipsis />
       </Icon>
 
-      <Menu
+      <StyledMenu
         id={menuId}
         anchorEl={anchorEl}
         open={open}
@@ -40,13 +42,18 @@ const DotsSegment: React.FC<DotsSegmentProps> = ({ items }) => {
         MenuListProps={{
           'aria-labelledby': iconId,
         }}
+        autoFocus={false}
       >
         {items.map((item, index) => (
-          <MenuItem key={index} onClick={handleClose}>
-            <Link href={item.href}>{item.label}</Link>
+          <MenuItem key={index} onClick={handleClose} autoFocus={false}>
+            {isMobileOrTablet && index === items.length - 1 ? (
+              <span>{item.label}</span>
+            ) : (
+              <Link href={item.href}>{item.label}</Link>
+            )}
           </MenuItem>
         ))}
-      </Menu>
+      </StyledMenu>
     </>
   );
 };
@@ -62,6 +69,56 @@ const Icon = styled('div')(({ theme }) => ({
   cursor: 'pointer',
 
   [theme.breakpoints.up('tablet_768')]: {
-    background: theme.palette.isLight ? theme.palette.colors.gray[100] : 'red',
+    background: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[900],
+  },
+}));
+
+const StyledMenu = styled(Menu)(({ theme }) => ({
+  '& .MuiPaper-root': {
+    background: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
+    boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
+    padding: 16,
+    maxWidth: 273,
+    minWidth: 200,
+
+    '&.MuiPaper-rounded': {
+      borderRadius: 12,
+    },
+  },
+
+  '& .MuiMenu-list': {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+    padding: 0,
+    borderRadius: 12,
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#373E4D4D',
+    boxShadow: theme.fusionShadows.innerShadow,
+    overflow: 'hidden',
+
+    '& span, & a': {
+      width: '100%',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      padding: 8,
+    },
+  },
+
+  '& .MuiMenuItem-root': {
+    padding: 0,
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '17px',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+    minHeight: 32,
+
+    '& a': {
+      fontWeight: 400,
+    },
+
+    '&:hover': {
+      background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.2)',
+    },
   },
 }));

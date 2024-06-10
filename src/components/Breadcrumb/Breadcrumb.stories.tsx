@@ -1,6 +1,8 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { ResourceType } from '@/core/models/interfaces/types';
 import { withoutSBPadding } from '@/core/utils/storybook/decorators';
 import Breadcrumb from './Breadcrumb';
+import TeamBreadcrumbContent from './CustomContents/TeamBreadcrumbContent';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof Breadcrumb> = {
@@ -9,11 +11,26 @@ const meta: Meta<typeof Breadcrumb> = {
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },
 };
 export default meta;
+
+const rightContent = (
+  <TeamBreadcrumbContent
+    team={ResourceType.CoreUnit}
+    currentPage={1}
+    totalPages={15}
+    pagerProps={{
+      hasNext: true,
+      hasPrevious: true,
+      onNext: () => null,
+      onPrevious: () => null,
+    }}
+  />
+);
 
 const variantsArgs = [
   {
@@ -32,6 +49,7 @@ const variantsArgs = [
         href: '/contact',
       },
     ],
+    rightContent,
   },
   {
     items: [
@@ -41,7 +59,15 @@ const variantsArgs = [
         number: 15,
       },
       {
-        label: '2- Lorem ipsum',
+        label: '2.1- Lorem ipsum',
+        href: '/a1',
+      },
+      {
+        label: '2.2- Lorem ipsum consectetur',
+        href: '/a1',
+      },
+      {
+        label: '2.3- Lorem ipsum lorem ipsum',
         href: '/a1',
       },
       {
@@ -57,6 +83,7 @@ const variantsArgs = [
         href: '/long',
       },
     ],
+    rightContent,
   },
 ];
 
