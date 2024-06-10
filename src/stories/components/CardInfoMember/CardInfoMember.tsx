@@ -1,7 +1,6 @@
 import { Box, Card, CardContent, CardHeader, Divider, Typography, styled } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/themes';
 import { getContributorCommitment, getLinksFromContributor } from '../../../core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { getColorJobPosition } from '../../../core/utils/colors';
@@ -130,7 +129,7 @@ const Container = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#10191F',
   borderRadius: '6px',
   width: '335px',
-  [lightTheme.breakpoints.down('mobile_375')]: {
+  [theme.breakpoints.down('mobile_375')]: {
     width: '100%',
   },
 }));
