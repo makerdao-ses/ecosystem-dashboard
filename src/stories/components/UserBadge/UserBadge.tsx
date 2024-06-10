@@ -4,11 +4,11 @@ import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 
 interface Props {
   username?: string;
-
+  style?: React.CSSProperties;
   onClick?: () => void;
 }
 
-const UserBadge: React.FC<Props> = ({ onClick, username }) => {
+const UserBadge: React.FC<Props> = ({ onClick, username, style }) => {
   const isDesktop = useMediaQuery('(min-width: 834px)');
 
   return isDesktop ? (
