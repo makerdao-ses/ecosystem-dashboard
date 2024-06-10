@@ -2,9 +2,9 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography, styled } from 
 import { DateTime } from 'luxon';
 import React from 'react';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
+import { getColorJobPosition } from '@/core/utils/colors';
 import { getContributorCommitment, getLinksFromContributor } from '../../../core/businessLogic/coreUnitAbout';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { getColorJobPosition } from '../../../core/utils/colors';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomPopover } from '../CustomPopover/CustomPopover';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';

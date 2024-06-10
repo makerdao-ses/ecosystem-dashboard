@@ -2,8 +2,8 @@ import { styled } from '@mui/material';
 import Identicon from 'identicon.js';
 import padEnd from 'lodash/padEnd';
 import React from 'react';
-import { getColorForString } from '../../../core/utils/colors';
-import { getTwoInitials } from '../../../core/utils/string';
+import { getColorForString } from '@/core/utils/colors';
+import { getTwoInitials } from '@/core/utils/string';
 import type { CircleAvatarProps } from './type';
 
 export const CircleAvatar: React.FC<CircleAvatarProps> = ({
