@@ -9,11 +9,6 @@ const meta: Meta<typeof CustomTable2> = {
   title: 'Components/CuTable/CustomTable2',
   component: CustomTable2,
   parameters: {
-    layout: 'centered',
-    chromatic: {
-      viewports: [375, 768, 1024],
-      pauseAnimationAtEnd: true,
-    },
     date: new Date('2023-03-02T09:08:34.123'),
   },
 };
@@ -21,7 +16,7 @@ export default meta;
 
 const variantsArgs = [
   {
-    columns: [columns1024] as CustomTableColumn[],
+    columns: columns1024 as CustomTableColumn[],
     items: [
       {
         value: CoreUnit,
@@ -47,7 +42,7 @@ const variantsArgs = [
     queryStrings: '',
   },
   {
-    columns: [columns1280] as CustomTableColumn[],
+    columns: columns1280 as CustomTableColumn[],
     items: [
       {
         value: CoreUnit,
@@ -70,5 +65,30 @@ const variantsArgs = [
   },
 ];
 
-const [[Table1024, TableDark1024], [Table1280, TableDark1280]] = createThemeModeVariants(CustomTable2, variantsArgs);
-export { Table1024, TableDark1024, Table1280, TableDark1280 };
+const [[Table1024, TableDark1024], [Desk1280, Desk1280ark1280]] = createThemeModeVariants(CustomTable2, variantsArgs);
+export { Table1024, TableDark1024, Desk1280, Desk1280ark1280 };
+
+Table1024.parameters = {
+  chromatic: {
+    viewports: [375, 768, 1024],
+    pauseAnimationAtEnd: true,
+  },
+};
+TableDark1024.parameters = {
+  chromatic: {
+    viewports: [375, 768, 1024],
+    pauseAnimationAtEnd: true,
+  },
+};
+Desk1280.parameters = {
+  chromatic: {
+    viewports: [1280, 1440],
+    pauseAnimationAtEnd: true,
+  },
+};
+Desk1280ark1280.parameters = {
+  chromatic: {
+    viewports: [1280, 1440],
+    pauseAnimationAtEnd: true,
+  },
+};
