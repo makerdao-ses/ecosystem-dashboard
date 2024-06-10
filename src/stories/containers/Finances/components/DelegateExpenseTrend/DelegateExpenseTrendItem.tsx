@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import CircleAvatarWithIcon from '@ses/components/CircleAvatar/CircleAvatarWithIcon';
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
 import MultiUsers from '@ses/components/svg/MultiUsers';
 import MultiUsersMobile from '@ses/components/svg/MultiUsersMobile';
@@ -14,6 +13,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
+import CircleAvatarWithIcon from '@/components/CircleAvatar/CircleAvatarWithIcon';
 import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';

@@ -1,6 +1,6 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import MultiUsers from '../svg/MultiUsers';
-import MultiUsersMobile from '../svg/MultiUsersMobile';
+import MultiUsers from '@/stories/components/svg/MultiUsers';
+import MultiUsersMobile from '@/stories/components/svg/MultiUsersMobile';
 import CircleAvatarWithIcon from './CircleAvatarWithIcon';
 import type { Meta } from '@storybook/react';
 
