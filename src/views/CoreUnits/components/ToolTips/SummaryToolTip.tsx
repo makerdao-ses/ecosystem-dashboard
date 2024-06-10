@@ -97,11 +97,9 @@ const CodeAndNameContainer = styled('div')({
 });
 
 const Code = styled('label')(({ theme }) => ({
-  //   display: 'flex',
   fontSize: 14,
   fontWeight: 600,
   lineHeight: '22px',
-  //   alignItems: 'center',
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[500],
 }));
 const Name = styled('label')(({ theme }) => ({
