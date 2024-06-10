@@ -5,7 +5,7 @@ import Container from '@/components/Container/Container';
 import DotsSegment from './DotsSegment';
 import type { Theme } from '@mui/material';
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   label: string;
   href: string;
   number?: number;
@@ -13,11 +13,17 @@ interface BreadcrumbItem {
 
 interface BreadcrumbItemExtended extends BreadcrumbItem {
   labelWidth: number;
+  recommendedWidth: number;
+  attachedItems?: BreadcrumbItem[];
 }
 
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
+  rightContent: React.ReactElement;
 }
+
+const MAX_ALLOWED_WIDTH = 250;
+const THREE_DOTS_WIDTH = 60;
 
 const getTextWidth = (text: string, font: string) => {
   // Create a canvas element (this can be done in memory, it doesn't need to be in the DOM)
@@ -34,19 +40,24 @@ const getTextWidth = (text: string, font: string) => {
   return metrics.width;
 };
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
   const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const segmentsRef = useRef<HTMLDivElement>(null);
 
   const { itemsExtended, totalWidth } = useMemo(() => {
     // add labelWidth to each item to display the items properly
-    const itemsExtended = items.map(
-      (item, index) =>
-        ({
-          ...item,
-          labelWidth: getTextWidth(item.label, `${index === items.length - 1 ? 400 : 600} 16px Inter`),
-        } as BreadcrumbItemExtended)
-    );
+    const itemsExtended = items.map((item, index) => {
+      const labelWidth =
+        getTextWidth(item.label, `${index === items.length - 1 ? 400 : 600} 16px Inter`) +
+        (!Number.isNaN(item.number) ? getTextWidth(`(${item.number})`, '600 16px Inter') + 4 : 0) +
+        28; // 28 is the width of the angle right icon + 4px gap,
+
+      return {
+        ...item,
+        labelWidth,
+        recommendedWidth: 0,
+      } as BreadcrumbItemExtended;
+    });
 
     const totalWidth = itemsExtended.reduce((acc, item) => acc + item.labelWidth, 0);
 
@@ -67,29 +78,60 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
       return;
     }
 
-    let currentWidth = itemsExtended[itemsExtended.length - 1].labelWidth; // first item always visible
-    const finalItems = [];
-    let index = itemsExtended.length;
-    do {
-      index--;
-      finalItems.unshift(itemsExtended[index]);
-      currentWidth += itemsExtended[index].labelWidth;
-    } while (currentWidth < segmentsContainerWidth && index > 0);
+    // probably some items doesn't fit in the container
+    const firstItem = itemsExtended[0]; // first item always visible
+    const segments = [];
+    let currentWidth = firstItem.labelWidth;
 
-    const addDots = index > 0;
+    let i = itemsExtended.length - 1;
+    for (; i > 0; i--) {
+      const item = itemsExtended[i];
+      const itemWidth = item.labelWidth;
+      const itemAdjustedWidth = Math.min(item.labelWidth, MAX_ALLOWED_WIDTH);
+
+      // if the item fits, we just add it to the segments
+      if (currentWidth + itemWidth < segmentsContainerWidth) {
+        segments.unshift(item);
+        currentWidth += itemWidth; // update the current width
+      } else {
+        // the item doesn't fit
+        // we need to check if adjusting the width of the items it fits
+        let adjustedWidthCheck = Math.min(firstItem.labelWidth, MAX_ALLOWED_WIDTH) + THREE_DOTS_WIDTH; // assume it had the three dots
+        for (let j = 0; j < segments.length; j++) {
+          adjustedWidthCheck += Math.min(segments[j].labelWidth, MAX_ALLOWED_WIDTH);
+        }
+        if (adjustedWidthCheck + itemAdjustedWidth < segmentsContainerWidth) {
+          // the item fits if we adjust the width of the items
+          segments.unshift(item);
+          currentWidth += itemAdjustedWidth;
+
+          // adjust the recommended width of all the added items
+          firstItem.recommendedWidth = Math.min(firstItem.labelWidth, MAX_ALLOWED_WIDTH);
+          for (let j = 0; j < segments.length; j++) {
+            segments[j].recommendedWidth = Math.min(segments[j].labelWidth, MAX_ALLOWED_WIDTH);
+          }
+        } else {
+          break; // the item doesn't fit even adjusting the width of the items
+        }
+      }
+    }
+
+    const addDots = i > 0;
 
     setGroupedItems([
-      itemsExtended[itemsExtended.length - 1],
-      ...[
-        addDots
-          ? {
+      firstItem,
+      ...(addDots
+        ? [
+            {
               label: '...',
               href: '',
               labelWidth: 0,
-            }
-          : [],
-        ...finalItems,
-      ],
+              recommendedWidth: THREE_DOTS_WIDTH,
+              attachedItems: itemsExtended.slice(1, i + 1),
+            },
+          ]
+        : []),
+      ...segments,
     ] as BreadcrumbItemExtended[]);
   }, [itemsExtended, totalWidth]);
 
@@ -102,39 +144,41 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
               <>
                 {itemsExtended.length > 1 && (
                   <Segment>
-                    <DotsSegment />
+                    <DotsSegment items={items} />
                     <AngleRight />
                   </Segment>
                 )}
-                <Segment>{itemsExtended?.[itemsExtended.length - 1]?.label}</Segment>
+                <Segment>
+                  <EllipseSegment>{itemsExtended?.[itemsExtended.length - 1]?.label}</EllipseSegment>
+                </Segment>
               </>
             ) : (
               groupedItems.map((item, index) => (
-                <Segment key={item.label}>
-                  {index !== itemsExtended.length - 1 ? (
+                <Segment key={item.label} maxWidth={item.recommendedWidth}>
+                  {index !== groupedItems.length - 1 ? (
                     item.label === '...' ? (
                       <>
-                        <DotsSegment />
+                        <DotsSegment items={item.attachedItems ?? []} />
                         <AngleRight />
                       </>
                     ) : (
                       <>
                         <Link href={item.href}>
-                          {item.label}{' '}
+                          <EllipseSegment>{item.label}</EllipseSegment>
                           {item.number !== undefined && item.number !== null ? <b>({item.number})</b> : null}
                         </Link>{' '}
                         <AngleRight />
                       </>
                     )
                   ) : (
-                    item.label
+                    <EllipseSegment>{item.label}</EllipseSegment>
                   )}
                 </Segment>
               ))
             )}
           </SegmentsContainer>
 
-          <RightSpotContainer>{'...'}</RightSpotContainer>
+          <RightContentContainer>{rightContent}</RightContentContainer>
         </Content>
       </Container>
     </BreadcrumbCard>
@@ -146,12 +190,14 @@ export default Breadcrumb;
 const BreadcrumbCard = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('tablet_768')]: {
     borderRadius: 12,
-    background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'red',
+    background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
     margin: '0 16px',
   },
 
   [theme.breakpoints.up('tablet_768')]: {
-    borderBottom: `1px solid ${theme.palette.isLight ? theme.palette.colors.slate[50] : 'red'}`,
+    borderBottom: `1px solid ${
+      theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900]
+    }`,
   },
 }));
 
@@ -174,20 +220,18 @@ const SegmentsContainer = styled('div')(() => ({
   width: '100%',
 }));
 
-const Segment = styled('div')(({ theme }) => ({
+const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
   fontSize: 16,
   lineHeight: '24px',
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[100],
+  maxWidth: maxWidth || 'auto',
 
   '& a': {
-    color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+    color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
     textDecoration: 'none',
     fontWeight: 400,
     whiteSpace: 'nowrap',
@@ -199,9 +243,19 @@ const Segment = styled('div')(({ theme }) => ({
     fontWeight: 600,
     lineHeight: '21px',
   },
+
+  '& svg': {
+    minWidth: 24,
+  },
 }));
 
-const RightSpotContainer = styled('div')(() => ({
+const EllipseSegment = styled('span')(() => ({
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}));
+
+const RightContentContainer = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
 }));

@@ -30,20 +30,18 @@ export const LastModifiedActorCoreUnit = ({ date, now = DateTime.now(), href, cl
   return (
     <>
       {date ? (
-        <Link href={href} passHref legacyBehavior>
-          <a>
-            <ContainerNoData className={className}>
-              <LastModifiedText>{textDescription}</LastModifiedText>
-              <DifferenceLabel>
-                {capitalizeSentence(
-                  date?.toRelative({
-                    base: now,
-                    unit: 'days',
-                  }) ?? ''
-                )}
-              </DifferenceLabel>
-            </ContainerNoData>
-          </a>
+        <Link href={href}>
+          <ContainerNoData className={className}>
+            <LastModifiedText>{textDescription}</LastModifiedText>
+            <DifferenceLabel>
+              {capitalizeSentence(
+                date?.toRelative({
+                  base: now,
+                  unit: 'days',
+                }) ?? ''
+              )}
+            </DifferenceLabel>
+          </ContainerNoData>
         </Link>
       ) : (
         <ContainerNoData className={className}>

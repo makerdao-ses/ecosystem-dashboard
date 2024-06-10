@@ -360,7 +360,7 @@ export const columns1280: CustomTableColumn[] = [
     hasSort: true,
   },
   {
-    header: 'L.M',
+    header: 'Last Modified',
     justifyContent: 'flex-start',
     cellRender: renderLastModified,
 

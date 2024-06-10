@@ -11,7 +11,7 @@ interface Props {
 }
 
 const TableEmptyState: React.FC<Props> = ({
-  description = 'There are no core units available with this combination of filters.',
+  description = 'There are no Core Units available with this combination of filters.',
 }) => {
   const { isLight } = useThemeContext();
   return (

@@ -16,7 +16,7 @@ interface CustomBarChartProps {
 
 const PopoverPaperBar = (theme: Theme) => ({
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
-  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
   borderRadius: 12,
 });
 
@@ -25,7 +25,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const isLight = theme.palette.isLight;
   const COLOR_GREEN = isLight ? theme.palette.colors.green[700] : theme.palette.colors.green[900];
   const COLOR_RED = isLight ? theme.palette.colors.red[800] : theme.palette.colors.red[900];
-  const COLOR_YELLOW = isLight ? theme.palette.colors.orange[800] : theme.palette.colors.orange[800];
+  const COLOR_ORANGE = isLight ? theme.palette.colors.orange[700] : theme.palette.colors.orange[800];
   const COLOR_GRAY = isLight ? theme.palette.colors.gray[300] : theme.palette.colors.gray[700];
   const LINE = isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900];
   const isOnTouchDevice = useMediaQuery('(pointer: coarse)');
@@ -85,7 +85,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     }
 
     if (percent > 90 && percent <= 100) {
-      color = COLOR_YELLOW;
+      color = COLOR_ORANGE;
     }
 
     if (percent > 100) {
@@ -213,7 +213,14 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
               legacyBehavior
             >
               <a onClick={(event: React.SyntheticEvent) => event.stopPropagation()}>
-                <rect
+                <BarMonth
+                  color={
+                    hasMonthValue(i)
+                      ? getColor(item.value, i)
+                      : isLight
+                      ? theme.palette.colors.gray[400]
+                      : theme.palette.colors.gray[700]
+                  }
                   x={i * 20 + padding + 2.5}
                   y="5"
                   width="12"
@@ -236,7 +243,7 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
                     fill="normal"
                     begin={`${i * 0.02}s`}
                   />
-                </rect>
+                </BarMonth>
               </a>
             </Link>
           ))}
@@ -379,5 +386,26 @@ const SVGStyle = styled('svg')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1280')]: {
     marginRight: '0px',
     marginLeft: '16px',
+  },
+}));
+
+const BarMonth = styled('rect')<{ color: string }>(({ theme, color }) => ({
+  transition: 'fill 0.3s ease',
+  '&:hover': {
+    fill: theme.palette.isLight
+      ? color === theme.palette.colors.red[800]
+        ? theme.palette.colors.red[900]
+        : color === theme.palette.colors.green[700]
+        ? theme.palette.colors.green[800]
+        : color === theme.palette.colors.orange[700]
+        ? color === theme.palette.colors.orange[800]
+        : theme.palette.colors.gray[400]
+      : color === theme.palette.colors.red[900]
+      ? theme.palette.colors.red[800]
+      : color === theme.palette.colors.green[900]
+      ? theme.palette.colors.green[800]
+      : color === theme.palette.colors.orange[800]
+      ? theme.palette.colors.orange[700]
+      : theme.palette.colors.gray[700],
   },
 }));

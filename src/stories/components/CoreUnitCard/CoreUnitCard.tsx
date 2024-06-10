@@ -95,6 +95,7 @@ const Summary = styled('div')(({ theme }) => ({
   marginTop: 0,
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 4,
+    width: 294,
   },
 }));
 

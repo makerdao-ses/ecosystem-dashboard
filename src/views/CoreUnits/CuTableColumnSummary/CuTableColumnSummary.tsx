@@ -2,13 +2,13 @@ import { styled, useMediaQuery, useTheme } from '@mui/material';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React from 'react';
-import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
+import { SummaryToolTip } from '../components/ToolTips/SummaryToolTip';
 import ToolTipsCU from '../components/ToolTips/ToolTips';
 import type { Theme } from '@mui/material';
 
@@ -45,6 +45,16 @@ const PopupWrapper = ({ children, title, code, hasPopup = false }: PopupWrapperP
     <CustomPopover
       popupStyle={{
         padding: 0,
+        border: 'none',
+      }}
+      popoverStyle={{
+        border: 'none',
+        background: 'none',
+        borderRadius: 'none',
+        boxShadow: 'none',
+      }}
+      sxProps={{
+        fontSize: 14,
       }}
       anchorOrigin={{
         vertical: 'bottom',
@@ -79,27 +89,17 @@ export const CuTableColumnSummary = ({
             hasPopup={hiddenPopOverSmallDevices}
             code={props.code}
             title={
-              <>
-                <PopupSummaryWrapper>
-                  <CuTableColumnSummary
-                    {...props}
-                    hasPopup={false}
-                    logoDimension={'68px'}
-                    style={{
-                      width: '372px',
-                    }}
-                    href={props.href}
-                  />
-                </PopupSummaryWrapper>
-                <Padded>
-                  <CategoriesTitle>Categories</CategoriesTitle>
-                  <CategoriesRow>
-                    {props.categories?.map((cat) => (
-                      <CategoryChip category={cat as TeamCategory} key={cat} />
-                    ))}
-                  </CategoriesRow>
-                </Padded>
-              </>
+              <PopupSummaryWrapper>
+                <SummaryToolTip
+                  categories={props.categories as TeamCategory[]}
+                  code={props.code ?? ''}
+                  href={props.mipUrl ?? ''}
+                  imageUrl={props.imageUrl ?? ''}
+                  name={props.title ?? ''}
+                  status={props.status as TeamStatus}
+                  statusModified={props.statusModified ?? null}
+                />
+              </PopupSummaryWrapper>
             }
           >
             <CircleAvatar
@@ -234,24 +234,6 @@ const PopupSummaryWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-const Padded = styled('div')({
-  padding: '0 16px 16px',
-});
-
-const CategoriesTitle = styled('div')({
-  fontFamily: 'Inter, sans-serif',
-  fontWeight: 400,
-  fontSize: '14px',
-  color: '#708390',
-  marginBottom: '8px',
-  lineHeight: '22px',
-});
-
-const CategoriesRow = styled('div')({
-  display: 'flex',
-  gap: '16px',
-});
-
 const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
   padding: '0px 1px 0px 2px',
   fontSize: 12,
@@ -268,10 +250,9 @@ const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
     }`,
   },
 
-  '& svg': {
+  '& div': {
     width: 16,
     height: 16,
-    alignItems: 'center',
   },
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 1,

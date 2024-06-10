@@ -101,7 +101,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
             <ActorTable actors={filtersActive} columns={columns} sortClick={onSortClick} queryStrings={queryStrings} />
           </ContainerList>
         ) : (
-          <TableEmptyState description="There are no ecosystem actors available for this filter." />
+          <TableEmptyState description="There are no Ecosystem Actors available for this filter." />
         )}
       </Container>
     </ExtendedPageContainer>
