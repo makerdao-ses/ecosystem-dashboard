@@ -69,7 +69,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
     const itemsExtended = items.map((item, index) => {
       const labelWidth =
         getTextWidth(item.label, `${index === items.length - 1 ? 400 : 600} 16px Inter`) +
-        (!Number.isNaN(item.number) ? getTextWidth(`(${item.number})`, '600 16px Inter') + 4 : 0) +
+        (!Number.isNaN(item.number) ? getTextWidth(`(${item.number})`, '600 16px Inter') + 12 : 0) +
         28; // 28 is the width of the angle right icon + 4px gap,
 
       return {
