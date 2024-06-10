@@ -12,7 +12,7 @@ interface Props {
 const ButtonLinkOptions: FC<Props> = ({ label, onClick, className }) => (
   <Container className={className} label={!!label} onClick={onClick}>
     <ContainerLink>
-      <Link />
+      <Link width={14} height={14} />
     </ContainerLink>
     {label && <Label>{label}</Label>}
   </Container>

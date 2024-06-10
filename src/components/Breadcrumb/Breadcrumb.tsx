@@ -1,6 +1,6 @@
 import { Link, styled, useMediaQuery } from '@mui/material';
 import AngleRight from 'public/assets/svg/angle_right.svg';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import Container from '@/components/Container/Container';
 import DotsSegment from './DotsSegment';
 import type { Theme } from '@mui/material';
@@ -41,114 +41,118 @@ const getTextWidth = (text: string, font: string) => {
 };
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
+  const contentId = useId();
+  const rightPartId = useId();
   const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
-  const segmentsRef = useRef<HTMLDivElement>(null);
 
-  const { itemsExtended, totalWidth } = useMemo(() => {
+  const [elementWidths, setElementWidths] = useState<[number, number]>([0, 0]);
+  useEffect(() => {
+    // update elementWidths when the window is resized to correctly calculate the segments width
+    const getWidths = () => {
+      const contentElement = document.getElementById(contentId);
+      const rightPartElement = document.getElementById(rightPartId);
+
+      if (contentElement && rightPartElement) {
+        setElementWidths([contentElement.offsetWidth, rightPartElement.offsetWidth]);
+      }
+    };
+
+    getWidths(); // initial call
+    document.addEventListener('resize', getWidths);
+    return () => {
+      document.removeEventListener('resize', getWidths);
+    };
+  }, [contentId, rightPartId]);
+
+  const itemsExtended = useMemo(() => {
     // add labelWidth to each item to display the items properly
     const itemsExtended = items.map((item, index) => {
       const labelWidth =
         getTextWidth(item.label, `${index === items.length - 1 ? 400 : 600} 16px Inter`) +
-        (!Number.isNaN(item.number) ? getTextWidth(`(${item.number})`, '600 16px Inter') + 4 : 0) +
+        (!Number.isNaN(item.number) ? getTextWidth(`(${item.number})`, '600 16px Inter') + 12 : 0) +
         28; // 28 is the width of the angle right icon + 4px gap,
 
       return {
         ...item,
         labelWidth,
-        recommendedWidth: 0,
+        recommendedWidth: Math.min(labelWidth, MAX_ALLOWED_WIDTH),
       } as BreadcrumbItemExtended;
     });
 
-    const totalWidth = itemsExtended.reduce((acc, item) => acc + item.labelWidth, 0);
-
-    return {
-      itemsExtended,
-      totalWidth,
-    };
+    return itemsExtended;
   }, [items]);
 
-  const [groupedItems, setGroupedItems] = useState<BreadcrumbItemExtended[]>(itemsExtended);
+  const [groupedItems, setGroupedItems] = useState<BreadcrumbItemExtended[]>(() => {
+    if (itemsExtended.length > 3) {
+      return [
+        itemsExtended[0],
+        {
+          label: '...',
+          href: '',
+          labelWidth: 0,
+          recommendedWidth: THREE_DOTS_WIDTH,
+          attachedItems: itemsExtended.slice(1, itemsExtended.length - 2),
+        },
+        // 2 last items
+        ...itemsExtended.slice(-2),
+      ];
+    }
+    return itemsExtended;
+  });
 
   // update groupedItems when the window is resized
   useEffect(() => {
-    const segmentsContainerWidth = segmentsRef.current?.offsetWidth || 0;
+    const segmentsContainerWidth = elementWidths[0] - elementWidths[1] - 16; // 16 is the padding of the content container
+    const totalWidth = itemsExtended.reduce((acc, item) => acc + Math.min(item.labelWidth, MAX_ALLOWED_WIDTH), 0);
+    const groupItems = () => {
+      if (itemsExtended.length <= 3) {
+        setGroupedItems(itemsExtended);
+      } else {
+        setGroupedItems([
+          itemsExtended[0],
+          {
+            label: '...',
+            href: '',
+            labelWidth: 0,
+            recommendedWidth: THREE_DOTS_WIDTH,
+            attachedItems: itemsExtended.slice(1, itemsExtended.length - 2),
+          },
+          // 2 last items
+          ...itemsExtended.slice(-2),
+        ]);
+      }
+    };
 
     if (segmentsContainerWidth === 0 || totalWidth <= segmentsContainerWidth) {
+      if (segmentsContainerWidth === 0 && itemsExtended.length > 3) {
+        // it is not initialized yet and there's a lot of items
+        // let's assume that they don't fit
+        groupItems();
+        return;
+      }
       setGroupedItems(itemsExtended);
       return;
     }
 
-    // probably some items doesn't fit in the container
-    const firstItem = itemsExtended[0]; // first item always visible
-    const segments = [];
-    let currentWidth = firstItem.labelWidth;
+    groupItems();
+  }, [elementWidths, itemsExtended]);
 
-    let i = itemsExtended.length - 1;
-    for (; i > 0; i--) {
-      const item = itemsExtended[i];
-      const itemWidth = item.labelWidth;
-      const itemAdjustedWidth = Math.min(item.labelWidth, MAX_ALLOWED_WIDTH);
-
-      // if the item fits, we just add it to the segments
-      if (currentWidth + itemWidth < segmentsContainerWidth) {
-        segments.unshift(item);
-        currentWidth += itemWidth; // update the current width
-      } else {
-        // the item doesn't fit
-        // we need to check if adjusting the width of the items it fits
-        let adjustedWidthCheck = Math.min(firstItem.labelWidth, MAX_ALLOWED_WIDTH) + THREE_DOTS_WIDTH; // assume it had the three dots
-        for (let j = 0; j < segments.length; j++) {
-          adjustedWidthCheck += Math.min(segments[j].labelWidth, MAX_ALLOWED_WIDTH);
-        }
-        if (adjustedWidthCheck + itemAdjustedWidth < segmentsContainerWidth) {
-          // the item fits if we adjust the width of the items
-          segments.unshift(item);
-          currentWidth += itemAdjustedWidth;
-
-          // adjust the recommended width of all the added items
-          firstItem.recommendedWidth = Math.min(firstItem.labelWidth, MAX_ALLOWED_WIDTH);
-          for (let j = 0; j < segments.length; j++) {
-            segments[j].recommendedWidth = Math.min(segments[j].labelWidth, MAX_ALLOWED_WIDTH);
-          }
-        } else {
-          break; // the item doesn't fit even adjusting the width of the items
-        }
-      }
-    }
-
-    const addDots = i > 0;
-
-    setGroupedItems([
-      firstItem,
-      ...(addDots
-        ? [
-            {
-              label: '...',
-              href: '',
-              labelWidth: 0,
-              recommendedWidth: THREE_DOTS_WIDTH,
-              attachedItems: itemsExtended.slice(1, i + 1),
-            },
-          ]
-        : []),
-      ...segments,
-    ] as BreadcrumbItemExtended[]);
-  }, [itemsExtended, totalWidth]);
+  const separator = <AngleRight width={24} height={24} />;
 
   return (
     <BreadcrumbCard>
       <Container>
-        <Content>
-          <SegmentsContainer ref={segmentsRef}>
+        <Content id={contentId}>
+          <SegmentsContainer>
             {isMobileOrTablet ? (
               <>
                 {itemsExtended.length > 1 && (
                   <Segment>
                     <DotsSegment items={items} />
-                    <AngleRight />
+                    {separator}
                   </Segment>
                 )}
-                <Segment>
+                <Segment maxWidth={elementWidths[0] - elementWidths[1] - 64 - 16}>
                   <EllipseSegment>{itemsExtended?.[itemsExtended.length - 1]?.label}</EllipseSegment>
                 </Segment>
               </>
@@ -159,7 +163,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
                     item.label === '...' ? (
                       <>
                         <DotsSegment items={item.attachedItems ?? []} />
-                        <AngleRight />
+                        {separator}
                       </>
                     ) : (
                       <>
@@ -167,7 +171,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
                           <EllipseSegment>{item.label}</EllipseSegment>
                           {item.number !== undefined && item.number !== null ? <b>({item.number})</b> : null}
                         </Link>{' '}
-                        <AngleRight />
+                        {separator}
                       </>
                     )
                   ) : (
@@ -178,7 +182,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
             )}
           </SegmentsContainer>
 
-          <RightContentContainer>{rightContent}</RightContentContainer>
+          <RightContentContainer id={rightPartId}>{rightContent}</RightContentContainer>
         </Content>
       </Container>
     </BreadcrumbCard>
@@ -204,6 +208,7 @@ const BreadcrumbCard = styled('div')(({ theme }) => ({
 const Content = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
+  gap: 16,
   justifyContent: 'space-between',
   padding: '8px 0',
 
@@ -228,7 +233,7 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
   lineHeight: '24px',
   fontWeight: 600,
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[100],
-  maxWidth: maxWidth || 'auto',
+  maxWidth: maxWidth || '100%',
 
   '& a': {
     color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
@@ -242,10 +247,25 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
   '& b': {
     fontWeight: 600,
     lineHeight: '21px',
+    marginLeft: 4,
   },
 
   '& svg': {
     minWidth: 24,
+  },
+
+  '&:hover': {
+    a: {
+      color: theme.palette.colors.slate[200],
+    },
+
+    b: {
+      color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
+
+    'svg path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[200],
+    },
   },
 }));
 
