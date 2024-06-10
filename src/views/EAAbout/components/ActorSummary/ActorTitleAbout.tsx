@@ -33,11 +33,6 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
             height={phoneDimensions ? '32px' : '68px'}
             name={actorAbout?.name || 'Ecosystem Actors'}
             image={actorAbout?.image}
-            style={{
-              minWidth: phoneDimensions ? '32px' : '68px',
-              minHeight: phoneDimensions ? '32px' : '68px',
-              filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
-            }}
           />
           <WrapperShowOnlyMobile>
             <ContainerTitle>

@@ -1,4 +1,4 @@
-import { styled, useMediaQuery, useTheme } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
@@ -73,9 +73,6 @@ export const CuTableColumnSummary = ({
   hasPopup = true,
   ...props
 }: CuTableColumnSummaryProps) => {
-  const theme = useTheme();
-  const isLight = theme.palette.isLight;
-
   const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
@@ -105,16 +102,11 @@ export const CuTableColumnSummary = ({
               </PopupSummaryWrapper>
             }
           >
-            <CircleAvatar
+            <CircleAvatarStyled
               width={logoDimension}
-              border="none"
               height={logoDimension}
               name={props.title || 'Core Unit'}
               image={props.imageUrl}
-              style={{
-                border: 'none',
-                boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
-              }}
             />
           </PopupWrapper>
         </CircleContainer>
@@ -304,3 +296,16 @@ const SESTooltipStyled = styled(SESTooltip)({
     lineHeight: '24px',
   },
 });
+
+const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
+  border: 'none',
+  width: '32px',
+  height: '32px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: '48px',
+    height: '48px',
+    ':hover': {
+      boxShadow: theme.palette.isLight ? theme.fusionShadows.dropShadow : theme.fusionShadows.dropShadowDark,
+    },
+  },
+}));

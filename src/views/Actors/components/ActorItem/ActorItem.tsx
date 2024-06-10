@@ -364,16 +364,9 @@ const WrapperType = styled('div')(({ theme }) => ({
 }));
 const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.shortShadow,
-  minWidth: 32,
-  minHeight: 32,
-  [theme.breakpoints.up('desktop_1024')]: {
-    '& img': {
-      minWidth: 36,
-      minHeight: 36,
-      width: '54px',
-      height: '54px',
-    },
-  },
+  width: '32px',
+  height: '32px',
+  border: 'none',
 }));
 
 const WrapperScopeLinks = styled('div')<{ alignEnd: boolean }>(({ alignEnd, theme }) => ({

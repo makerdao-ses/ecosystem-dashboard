@@ -1,69 +1,70 @@
-import { useTheme } from '@mui/material';
+import { styled } from '@mui/material';
 import Identicon from 'identicon.js';
 import padEnd from 'lodash/padEnd';
 import React from 'react';
 import { getColorForString } from '../../../core/utils/colors';
 import { getTwoInitials } from '../../../core/utils/string';
 import type { CircleAvatarProps } from './type';
-import type { Theme } from '@mui/material';
 
-export const CircleAvatar = ({
+export const CircleAvatar: React.FC<CircleAvatarProps> = ({
   width = '32px',
   height = '32px',
   fontSize = '16px',
   identIcon = false,
-  border = '2px solid #BDEAC8',
   onClick,
+  name,
   className,
-  ...props
-}: CircleAvatarProps) => {
-  const theme = useTheme();
+  image,
+}) => {
   const identIconImage =
     identIcon &&
-    new Identicon(padEnd(props.name, 43, 'a'), {
+    new Identicon(padEnd(name, 43, 'a'), {
       format: 'svg',
-      margin: 0.2,
+      margin: 0,
     }).toString();
 
+  const backgroundImage = identIcon ? `data:image/svg+xml;base64,${identIconImage}` : image;
+
   return (
-    <div
+    <Container
       className={className}
       onClick={onClick}
-      style={{
-        width,
-        height,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize,
-        fontFamily: (theme as Theme).typography.fontFamily,
-        fontWeight: 900,
-        borderRadius: '50%',
-        color: props.image ? 'transparent' : 'white',
-        border: props.image ? 'none' : border,
-        background: props.image || identIcon ? 'white' : `${getColorForString(props.name)} ${height}`,
-        position: 'relative',
-        ...props.style,
-      }}
+      fontSize={fontSize}
+      width={width}
+      height={height}
+      name={name}
+      backgroundImage={backgroundImage}
     >
-      {(props.image || identIcon) && (
-        <img
-          src={identIcon ? `data:image/svg+xml;base64,${identIconImage}` : props.image}
-          alt={getTwoInitials(props.name)}
-          style={{
-            width,
-            height,
-            borderRadius: '50%',
-            border,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: 1,
-            ...props.imageStyle,
-          }}
-        />
-      )}
-      {getTwoInitials(props.name)}
-    </div>
+      {!backgroundImage && getTwoInitials(name)}
+    </Container>
   );
 };
+
+const Container = styled('div')<{
+  width: string;
+  height: string;
+  fontSize: string;
+  name: string;
+  backgroundImage?: string;
+}>(({ height, width, fontSize, backgroundImage, name, theme }) => ({
+  width,
+  height,
+  fontSize,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: 900,
+  borderRadius: '50%',
+  color: backgroundImage ? 'transparent' : 'white',
+  backgroundColor: backgroundImage ? 'white' : getColorForString(name),
+  backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  minWidth: width,
+  minHeight: height,
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.reskinShortShadow,
+}));
+
+export default CircleAvatar;
