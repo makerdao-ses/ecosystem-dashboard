@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { Container } from '../SelectItem/SelectItem';
 import Check from '../svg/check';
 import type { SelectItemProps } from '../CustomMultiSelect/CustomMultiSelect';

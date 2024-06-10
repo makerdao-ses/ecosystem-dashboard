@@ -1,6 +1,6 @@
 import { styled, useMediaQuery } from '@mui/material';
 import React from 'react';
-import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 
 interface Props {
   username?: string;

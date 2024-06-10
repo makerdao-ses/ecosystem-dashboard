@@ -1,12 +1,9 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
+import { styled, useMediaQuery } from '@mui/material';
 import ArrowOutline from '@ses/components/svg/ArrowOutline';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ReadMore from '../ReadMore';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   image: string;
@@ -16,23 +13,15 @@ interface Props {
 }
 
 const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ image, href, code, name }) => {
-  const { isLight } = useThemeContext();
   const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   return (
-    <Container isLight={isLight}>
+    <Container>
       <Avatar>
-        <CircleAvatarStyled
-          isLight={isLight}
-          image={image}
-          width={'32px'}
-          height="32px"
-          name="Core Unit"
-          border="none"
-        />
+        <CircleAvatarStyled image={image} width={'32px'} height="32px" name="Core Unit" />
       </Avatar>
       <Information>
-        <Code isLight={isLight}>{code}</Code>
-        <Name isLight={isLight}>{name}</Name>
+        <Code>{code}</Code>
+        <Name>{name}</Name>
       </Information>
       <Action>{isMobile ? <ArrowOutline href={href} /> : <ReadMore href={href} />}</Action>
     </Container>
@@ -41,7 +30,7 @@ const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ image, href, code, name
 
 export default CardCoreUnitThirdLevelBudget;
 
-const Container = styled.div<WithIsLight>(({ isLight }) => ({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -49,8 +38,8 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
   width: 100,
   flex: 1,
   borderRadius: 6,
-  background: isLight ? '#FFF' : '#1E2C37',
-  boxShadow: isLight
+  background: theme.palette.isLight ? '#FFF' : '#1E2C37',
+  boxShadow: theme.palette.isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
     : ' 0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 
@@ -60,17 +49,18 @@ const Container = styled.div<WithIsLight>(({ isLight }) => ({
     minHeight: 173,
   },
 }));
-const Avatar = styled.div({
+const Avatar = styled('div')({
   marginBottom: 8,
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 16,
   },
 });
-const CircleAvatarStyled = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
-  boxShadow: isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : 'red',
+const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
+  boxShadow: theme.palette.isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : 'none',
+  border: 'none',
 }));
 
-const Information = styled.div({
+const Information = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'wrap',
@@ -85,8 +75,8 @@ const Information = styled.div({
   },
 });
 
-const Code = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
+const Code = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   fontStyle: 'normal',
   fontWeight: 600,
@@ -94,8 +84,8 @@ const Code = styled.div<WithIsLight>(({ isLight }) => ({
   letterSpacing: '1px',
   textTransform: 'uppercase',
 }));
-const Name = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
+const Name = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   fontSize: 12,
   fontStyle: 'normal',
   fontWeight: 400,
@@ -110,4 +100,4 @@ const Name = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const Action = styled.div({});
+const Action = styled('div')({});

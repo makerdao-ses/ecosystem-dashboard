@@ -2,6 +2,7 @@ import { Typography, styled, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import theme from '../../../../styles/theme/themes';
 
@@ -11,7 +12,6 @@ import {
   getMipUrlFromCoreUnit,
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
-import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';

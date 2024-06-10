@@ -1,11 +1,11 @@
 import { styled } from '@mui/material';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import React from 'react';
 import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
 import Card from '@/components/Card/Card';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';

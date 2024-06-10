@@ -1,11 +1,11 @@
 import { styled, useMediaQuery } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
-import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
 import { SummaryToolTip } from '../components/ToolTips/SummaryToolTip';
 import ToolTipsCU from '../components/ToolTips/ToolTips';

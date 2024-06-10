@@ -3,8 +3,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import React, { forwardRef } from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import CustomBreadcrumbs from '../Breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
-import { CircleAvatar } from '../CircleAvatar/CircleAvatar';
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
 import type { LinkModel } from '../CuTableColumnLinks/CuTableColumnLinks';

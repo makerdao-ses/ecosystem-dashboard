@@ -2,10 +2,10 @@ import { styled } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
-import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 
 interface Props {
   code: string;

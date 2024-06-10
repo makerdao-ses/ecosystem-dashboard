@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { TeamStatus } from '@/core/models/interfaces/types';
 import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';

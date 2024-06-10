@@ -1,8 +1,8 @@
 import { styled } from '@mui/material';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
-import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
 
 import ToolTipsCU from '../components/ToolTips/ToolTips';
