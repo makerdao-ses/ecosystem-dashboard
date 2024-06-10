@@ -30,6 +30,8 @@ const Container = styled('div')(({ theme }) => ({
 
 const Angle = styled(AngleLeft)(({ theme }) => ({
   cursor: 'pointer',
+  width: 16,
+  height: 16,
 
   '& path': {
     fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
