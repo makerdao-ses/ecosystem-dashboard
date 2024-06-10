@@ -1,8 +1,8 @@
 import { styled } from '@mui/material';
 import React from 'react';
+import TableEmptyState from '@/components/TableEmptyState/TableEmptyState';
 import type { SortEnum } from '@/core/enums/sortEnum';
 import { HeadCustomTable } from './HeadCustomTable/HeadCustomTable';
-import { TablePlaceholder } from './TablePlaceholder';
 import ListCoreUnit from './list-core-unit/list-core-unit';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { CSSProperties } from 'react';
@@ -40,7 +40,7 @@ interface Props {
 }
 
 export const CustomTable2 = (props: Props) => {
-  if (!props.loading && props.items?.length === 0) return <TablePlaceholder />;
+  if (!props.loading && props.items?.length === 0) return <TableEmptyState />;
 
   const rows = props.loading ? new Array(10).fill(null) : props.items;
   return (

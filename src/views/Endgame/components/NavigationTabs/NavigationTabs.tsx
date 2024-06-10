@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import Container from '@ses/components/Container/Container';
+import Container from '@/components/Container/Container';
 import { NavigationTabEnum } from '../../useEndgameView';
 import type { FC } from 'react';
 

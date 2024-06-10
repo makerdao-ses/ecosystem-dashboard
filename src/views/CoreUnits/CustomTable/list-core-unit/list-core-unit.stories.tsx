@@ -11,7 +11,7 @@ const meta: Meta<typeof ListCoreUnit> = {
       viewports: [1024, 1280, 1440],
       pauseAnimationAtEnd: false,
     },
-    date: new Date('2022-12-26T09:08:34.123'),
+    date: new Date('2023-03-02T09:08:34.123'),
   },
 };
 export default meta;

@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 import Link from 'next/link';
-import ExternalLinkIcon from '../icons/ExternalLinkIcon';
+import ExternalLinkIcon from 'public/assets/svg/external_link.svg';
 
 interface ExternalLinkButtonProps extends React.PropsWithChildren {
   href: string;
@@ -18,7 +18,11 @@ const ExternalLinkButton: React.FC<ExternalLinkButtonProps> = ({
 }) => (
   <ExternalButton href={href} target="_blank" className={className} wrapText={wrapText}>
     {wrapText ? children : <span>{children}</span>}
-    {showArrow && <Icon />}
+    {showArrow && (
+      <IconWrapper>
+        <ExternalLinkIcon />
+      </IconWrapper>
+    )}
   </ExternalButton>
 );
 
@@ -67,6 +71,10 @@ const ExternalButton = styled(Link)<{ wrapText: boolean }>(({ theme, wrapText })
   },
 }));
 
-const Icon = styled(ExternalLinkIcon)(({ theme }) => ({
-  '& > path': theme.palette.colors.charcoal[400],
+const IconWrapper = styled('div')(({ theme }) => ({
+  color: theme.palette.colors.charcoal[400],
+  width: 24,
+  height: 24,
+  display: 'flex',
+  alignSelf: 'center',
 }));

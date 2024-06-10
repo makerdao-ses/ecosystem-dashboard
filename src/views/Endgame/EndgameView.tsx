@@ -1,8 +1,8 @@
 import { Box, styled } from '@mui/material';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import KeyChangesBudgetTransitionStatusImportantLink from '@/components/KeyChangesBudgetTransitionStatusImportantLink/KeyChangesBudgetTransitionStatusImportantLink';
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';

@@ -8,13 +8,6 @@ import type { FigmaParams } from 'sb-figma-comparator';
 const meta: Meta<typeof FilterButtonTab> = {
   title: 'fusion/components/FilterButtonTab/FilterButtonTab',
   tags: ['autodocs'],
-
-  parameters: {
-    chromatic: {
-      viewports: [375],
-      pauseAnimationAtEnd: true,
-    },
-  },
 };
 export default meta;
 

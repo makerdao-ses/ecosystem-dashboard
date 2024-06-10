@@ -4,12 +4,12 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof Footer> = {
-  title: 'Fusion/Footer',
+  title: 'Fusion/Components/Footer',
   component: Footer,
   parameters: {
     layout: 'fullscreen',
     chromatic: {
-      viewports: [1440, 1280, 1024, 768, 375],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },

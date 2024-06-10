@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import { Divider } from '@mui/material';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { siteRoutes } from '@ses/config/routes';
-import React from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { toAbsoluteURL } from '../../../core/utils/urls';

@@ -50,7 +50,8 @@ export const useCoreUnitsTableView = () => {
 
   const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const desktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1440'));
-  const isDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesk1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesk1280 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1280', 'desktop_1440'));
 
   const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query);
   const { data: res, error } = useSWR(GETCoreUnits, fetcher);
@@ -152,7 +153,7 @@ export const useCoreUnitsTableView = () => {
 
       cellRender: renderSummary,
       onClick: onClickRow,
-      width: '320px',
+      width: isDesk1024 ? '325px' : isDesk1280 ? '360px' : '360px',
       sortReverse: true,
       hasSort: true,
 
@@ -163,7 +164,7 @@ export const useCoreUnitsTableView = () => {
       },
     },
     {
-      header: isDesktop1024 ? 'L.M' : 'Last Modified',
+      header: isDesk1024 ? 'L.M' : 'Last Modified',
       justifyContent: 'flex-start',
       cellRender: renderLastModified,
       onClick: onClickLastModified,
@@ -172,7 +173,8 @@ export const useCoreUnitsTableView = () => {
       hasSort: true,
       style: {
         [theme.breakpoints.up('desktop_1280')]: {
-          width: 180,
+          width: 120,
+          marginLeft: 70,
         },
       },
     },
@@ -203,6 +205,11 @@ export const useCoreUnitsTableView = () => {
         [theme.breakpoints.up('desktop_1280')]: {
           width: 165,
           minWidth: 165,
+        },
+        [theme.breakpoints.up('desktop_1440')]: {
+          width: 165,
+          minWidth: 165,
+          justifyContent: 'flex-start',
         },
       },
     },

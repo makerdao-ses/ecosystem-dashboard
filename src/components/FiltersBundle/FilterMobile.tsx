@@ -71,13 +71,9 @@ const FullWidthReset = styled(Button)(({ theme }) => ({
   flexDirection: 'row',
   gap: 4,
 
-  '&:disabled': {
-    color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[300],
-  },
-
-  '&:hover': {
+  '&:disabled, &:hover': {
     boxShadow: 'none',
-    color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.charcoal[100],
+    color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.charcoal[300],
     backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   },
 }));

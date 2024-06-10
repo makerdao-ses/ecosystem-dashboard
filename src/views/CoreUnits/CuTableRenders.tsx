@@ -71,7 +71,11 @@ export const renderTeamMember = (coreUnit: CoreUnit) => {
 
 export const renderLinks = (coreUnit: CoreUnit) => {
   if (!coreUnit) return <CuTableColumnLinks isLoading />;
-  return <CuRenderLinks coreUnit={coreUnit} />;
+  return (
+    <ContainerLinks>
+      <CuRenderLinks coreUnit={coreUnit} />
+    </ContainerLinks>
+  );
 };
 
 export const renderCard = (coreUnit: CoreUnit, key?: number) => {
@@ -98,9 +102,12 @@ const InsideExpenditureContainer = styled('div')(({ theme }) => ({
   display: 'block',
   paddingLeft: '8px',
   [theme.breakpoints.up('desktop_1024')]: {
-    marginLeft: 0,
-    marginTop: 2,
+    marginLeft: -4,
+    marginTop: -2,
     paddingLeft: 0,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginLeft: -30,
   },
 }));
 
@@ -113,19 +120,39 @@ const TeamMemberContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     width: 140,
     justifyContent: 'flex-start',
-    marginLeft: 0,
-    height: 'revert',
+    alignItems: 'center',
+    marginLeft: -2,
     marginTop: -2,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 140,
+
+    justifyContent: 'flex-start',
+    marginLeft: -26,
+
+    marginTop: 2,
   },
   [theme.breakpoints.up('desktop_1440')]: {
     justifyContent: 'flex-start',
-    marginLeft: 4,
     height: 'revert',
-    marginTop: -8,
+    marginTop: -4,
     width: 164,
   },
 }));
 
-const LastModifiedActorCoreUnitContainer = styled('div')({
-  marginTop: 8,
+const LastModifiedActorCoreUnitContainer = styled('div')(({ theme }) => ({
+  marginTop: -4,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginLeft: 4,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginLeft: -16,
+    marginTop: 0,
+  },
+}));
+
+const ContainerLinks = styled('div')({
+  display: 'flex',
+  marginLeft: -8,
 });

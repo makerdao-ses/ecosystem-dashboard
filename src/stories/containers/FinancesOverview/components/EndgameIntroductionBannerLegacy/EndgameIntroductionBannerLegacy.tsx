@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import Container from '@ses/components/Container/Container';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
@@ -10,6 +9,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import lightTheme from '@ses/styles/theme/themes';
 import Image from 'next/image';
 import React from 'react';
+import Container from '@/components/Container/Container';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface EndgameIntroductionBannerProps {

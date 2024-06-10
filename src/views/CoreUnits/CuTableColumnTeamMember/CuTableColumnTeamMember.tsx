@@ -76,12 +76,13 @@ const Container = styled('div')<{ hasMember: boolean }>(({ theme, hasMember }) =
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   [theme.breakpoints.up('desktop_1024')]: {
     width: hasMember ? 140 : 70,
-    padding: '17px 8px 12px 8px',
+    height: 78,
+    padding: '17px 8px 8px 8px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
     width: hasMember ? 164 : 82,
     gap: hasMember ? 16 : 0,
-    padding: '17px 16px 12px 16px',
+    padding: '17px 16px 8px 16px',
   },
 
   ':hover': {
@@ -108,7 +109,8 @@ const CirclesWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   marginTop: 4,
   [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: 10,
+    marginTop: 0,
+    height: 36,
   },
 }));
 
@@ -141,7 +143,7 @@ const Title = styled('span')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   whiteSpace: 'nowrap',
   [theme.breakpoints.up('desktop_1280')]: {
-    left: 16,
+    left: 12,
   },
 }));
 

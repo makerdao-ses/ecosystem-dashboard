@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import AccountsSnapshot from './AccountsSnapshot';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
