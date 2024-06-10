@@ -138,6 +138,7 @@ const MenuItemDefault = styled(MenuItem)<{ borderTop: boolean; borderBottom: boo
     borderTopRightRadius: borderTop ? 12 : 0,
     borderBottomLeftRadius: borderBottom ? 12 : 0,
     borderBottomRightRadius: borderBottom ? 12 : 0,
+    backgroundColor: 'transparent!important',
     minHeight: 32,
     margin: '4px 0',
 
