@@ -142,9 +142,7 @@ const Categories = styled('div')({
   marginTop: -2,
 });
 
-const CircleAvatarStyled = styled(CircleAvatar)({
-  border: '2px solid red',
-});
+const CircleAvatarStyled = styled(CircleAvatar)({});
 
 const StatusStyled = styled(StatusChip)({
   padding: '1px 16px 1px 16px',
@@ -152,11 +150,14 @@ const StatusStyled = styled(StatusChip)({
 
 const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
   padding: '0px 6px 0px 8px',
-  fontSize: 14,
+  borderWidth: 1.5,
+  gap: 8,
   alignItems: 'center',
-  '& svg': {
-    width: 16,
+  letterSpacing: '-2%',
+  fontSize: 14,
+  '& div': {
     height: 16,
+    width: 16,
   },
   [theme.breakpoints.up('desktop_1280')]: {
     fontSize: 14,

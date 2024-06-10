@@ -32,9 +32,9 @@ export { LightMode, DarkMode };
 LightMode.parameters = {
   figma: {
     component: {
-      375: {
+      1024: {
         component:
-          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=2046-28206&t=zTsJwOZWyIxBYwi8-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=2046:28206&t=6hvgM3j6TXxcDGqy-4',
         options: {
           style: {
             left: -4,
