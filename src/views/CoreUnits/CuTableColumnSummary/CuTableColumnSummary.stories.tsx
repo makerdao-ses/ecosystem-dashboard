@@ -17,6 +17,7 @@ const variantsArgs = [
     statusModified: DateTime.fromISO('2021-11-25').toJSDate(),
     imageUrl: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/risk-001/RISK_logo.png',
     code: 'RISK-001',
+    href: '#',
   },
 ];
 

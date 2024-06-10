@@ -6,11 +6,6 @@ interface Props {
   coreUnit: CoreUnit;
 }
 
-const CardItemCoreUnitMobile = ({ coreUnit }: Props) => {
-  if (!coreUnit) {
-    return <CoreUnitCard coreUnit={{} as CoreUnit} isLoading />;
-  }
-  return <CoreUnitCard coreUnit={coreUnit as CoreUnit} />;
-};
+const CardItemCoreUnitMobile = ({ coreUnit }: Props) => <CoreUnitCard coreUnit={coreUnit as CoreUnit} />;
 
 export default CardItemCoreUnitMobile;

@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import { CuTableHeaderSkeleton } from '@ses/components/CuTableHeaderSkeleton/CuTableHeaderSkeleton';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
@@ -7,33 +6,34 @@ import { useCookiesContextTracking } from '@ses/core/context/CookiesContext';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import theme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
+
+import type { CoreUnit } from '@/core/models/interfaces/coreUnit';
 import CuFilters from './CuFilters';
 import { CustomTable2 } from './CustomTable/CustomTable2';
 
 import { useCoreUnitsTableView } from './useCoreUnitsTableView';
 
-const CoreUnitsView: React.FC = () => {
+interface Props {
+  coreUnits: CoreUnit[];
+}
+
+const CoreUnitsView: React.FC<Props> = ({ coreUnits }) => {
   const { isShowBanner } = useCookiesContextTracking();
   const {
-    status,
     searchText,
     columns,
     tableItems,
     onSortClick,
     headersSort,
-
     queryStrings,
     filters,
     canReset,
     onReset,
     searchFilters,
-  } = useCoreUnitsTableView();
+  } = useCoreUnitsTableView(coreUnits);
 
-  const siteHeader = useMemo(() => {
-    if (status === 'loading') {
-      return <CuTableHeaderSkeleton />;
-    }
-    return (
+  const siteHeader = useMemo(
+    () => (
       <Header>
         <CuFilters
           filters={filters}
@@ -52,8 +52,9 @@ const CoreUnitsView: React.FC = () => {
           snapPoints={[610, 400, 250, 0]}
         />
       </Header>
-    );
-  }, [canReset, filters, onReset, searchFilters, searchText, status]);
+    ),
+    [canReset, filters, onReset, searchFilters, searchText]
+  );
   return (
     <ContainerHome allowPadding={isShowBanner}>
       <SEOHead
@@ -72,7 +73,6 @@ const CoreUnitsView: React.FC = () => {
         <CustomTable2
           columns={columns}
           items={tableItems}
-          loading={status === 'loading'}
           handleSort={onSortClick}
           headersSort={headersSort}
           queryStrings={queryStrings}

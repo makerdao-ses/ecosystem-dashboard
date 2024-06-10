@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import Skeleton from '@mui/material/Skeleton';
 import { siteRoutes } from '@ses/config/routes';
 import React from 'react';
 import Card from '@/components/Card/Card';
@@ -25,115 +24,62 @@ import {
   getSubmissionDateFromCuMip,
 } from '../../../core/businessLogic/coreUnits';
 import { getShortCode } from '../../../core/utils/string';
-import { CuTableColumnLastModified } from '../CuTableColumnLastModified/CuTableColumnLastModified';
-import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
-import { CategoriesSkeleton } from './CategoriesSkeleton';
+
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface CoreUnitCardProps {
   coreUnit: CoreUnit;
-  isLoading?: boolean;
 }
 
-const CoreUnitCard = ({ coreUnit, isLoading = false }: CoreUnitCardProps) => {
-  if (isLoading) {
-    return (
-      <Container>
-        <Summary>
-          <Skeleton variant="rectangular" width={100} height={20} style={{ borderRadius: '4px' }} />
-          <CuTableColumnSummary isLoading />
-        </Summary>
-        <Expenditure>
-          <Skeleton variant="rectangular" width={100} height={20} style={{ borderRadius: '4px' }} />
-          <CuTableColumnExpenditures isLoading />
-        </Expenditure>
-        <Team>
-          <Skeleton
-            variant="rectangular"
-            width={100}
-            height={20}
-            style={{
-              borderRadius: '4px',
-              marginBottom: '16px',
-            }}
-          />
-          <CuTableColumnTeamMember isLoading />
-        </Team>
-        <Line />
-        <Categories>
-          <CategoriesSkeleton />
-        </Categories>
-        <Links>
-          <CuTableColumnLinks isLoading />
-        </Links>
-        <LastModified>
-          <Skeleton
-            variant="rectangular"
-            width={100}
-            height={20}
-            style={{
-              borderRadius: '4px',
-              marginBottom: '16px',
-            }}
-          />
-          <CuTableColumnLastModified isLoading />
-        </LastModified>
-      </Container>
-    );
-  }
+const CoreUnitCard = ({ coreUnit }: CoreUnitCardProps) => (
+  <Container>
+    <ContainerRow>
+      <Summary>
+        <CuTableColumnSummary
+          href={siteRoutes.coreUnitAbout(coreUnit.shortCode)}
+          title={coreUnit?.name}
+          status={coreUnit.status as TeamStatus}
+          statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
+          imageUrl={coreUnit?.image}
+          mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+          code={getShortCode(coreUnit.code)}
+          categories={coreUnit.category}
+          isCard={true}
+          logoDimension="32px"
+        />
+      </Summary>
 
-  return (
-    <Container>
-      <ContainerRow>
-        <Summary>
-          <CuTableColumnSummary
-            title={coreUnit?.name}
-            status={coreUnit.status as TeamStatus}
-            statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
-            imageUrl={coreUnit?.image}
-            mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-            code={getShortCode(coreUnit.code)}
-            categories={coreUnit.category}
-            isCard={true}
-            logoDimension="32px"
-          />
-        </Summary>
+      <Expenditure>
+        <CuTableColumnExpenditures
+          value={getExpenditureValueFromCoreUnit(coreUnit)}
+          percent={getPercentFromCoreUnit(coreUnit)}
+          items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+          budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+          months={getLast3MonthsWithDataFormatted(coreUnit)}
+          code={getShortCode(coreUnit.code)}
+        />
+      </Expenditure>
+      <Team>
+        <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
+      </Team>
+      <Line />
+      <ContainerLinks>
+        <ListMobileSheetIconArrow coreUnit={coreUnit} />
+      </ContainerLinks>
+    </ContainerRow>
 
-        <Expenditure>
-          <CuTableColumnExpenditures
-            value={getExpenditureValueFromCoreUnit(coreUnit)}
-            percent={getPercentFromCoreUnit(coreUnit)}
-            items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-            budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-            months={getLast3MonthsWithDataFormatted(coreUnit)}
-            code={getShortCode(coreUnit.code)}
-          />
-        </Expenditure>
-        <Team>
-          <CuTableColumnTeamMember
-            members={getFacilitatorsFromCoreUnit(coreUnit)}
-            fte={getFTEsFromCoreUnit(coreUnit)}
-          />
-        </Team>
-        <Line />
-        <ContainerLinks>
-          <ListMobileSheetIconArrow coreUnit={coreUnit} />
-        </ContainerLinks>
-      </ContainerRow>
+    <Categories>
+      {coreUnit.category?.map((category) => (
+        <CategoryChip key={category} category={category as TeamCategory} />
+      ))}
+    </Categories>
 
-      <Categories>
-        {coreUnit.category?.map((category) => (
-          <CategoryChip key={category} category={category as TeamCategory} />
-        ))}
-      </Categories>
-
-      <LastModifiedActorCoreUnitStyled
-        date={getLastMonthWithData(coreUnit)}
-        href={`${siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}`}
-      />
-    </Container>
-  );
-};
+    <LastModifiedActorCoreUnitStyled
+      date={getLastMonthWithData(coreUnit)}
+      href={`${siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}`}
+    />
+  </Container>
+);
 
 export default CoreUnitCard;
 
@@ -176,8 +122,6 @@ const Team = styled('div')(({ theme }) => ({
   },
 }));
 
-const LastModified = styled('div')({});
-
 const Line = styled('div')(({ theme }) => ({
   gridArea: 'line',
   height: 1,
@@ -206,10 +150,6 @@ const Categories = styled('div')(({ theme }) => ({
     marginRight: '0px',
   },
 }));
-
-const Links = styled('div')({
-  display: 'flex',
-});
 
 const ContainerRow = styled('div')(({ theme }) => ({
   display: 'flex',

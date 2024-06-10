@@ -1,17 +1,14 @@
 import { stringify } from 'querystring';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import request from 'graphql-request';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
-import useSWR from 'swr';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
-import { GRAPHQL_ENDPOINT } from '@/config/endpoints';
 import {
   getStatusMip39AcceptedOrObsolete,
   getExpenditureValueFromCoreUnit,
@@ -31,7 +28,6 @@ import CustomItemAll from '../Actors/components/ActorCustomItem/CustomItemAll';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
 import CustomCategoryFilter from './FilterItems/CustomCategoryFilter';
 import CustomStatusItemFilter from './FilterItems/CustomStatusItemFilter';
-import { GETCoreUnits } from './cuTableAPI';
 import type { CustomTableColumn, CustomTableRow } from './CustomTable/CustomTable2';
 import type { Theme } from '@mui/material';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
@@ -39,7 +35,7 @@ import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 const statuses = Object.keys(TeamStatus) as string[];
 const categories = Object.values(CuCategoryEnum) as string[];
 
-export const useCoreUnitsTableView = () => {
+export const useCoreUnitsTableView = (coreUnits: CoreUnit[]) => {
   const router = useRouter();
   const theme = useTheme();
   const debounce = useDebounce();
@@ -53,15 +49,7 @@ export const useCoreUnitsTableView = () => {
   const isDesk1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesk1280 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1280', 'desktop_1440'));
 
-  const fetcher = (query: string) => request(GRAPHQL_ENDPOINT, query);
-  const { data: res, error } = useSWR(GETCoreUnits, fetcher);
-
-  const data = useMemo(
-    // remove "DEL" Core Unit as it is the Recognized Delegates and it shouldn't be displayed in the CU list
-    () => res?.coreUnits?.filter((coreUnit: CoreUnit) => coreUnit.shortCode.toLocaleLowerCase() !== 'del') ?? null,
-    [res]
-  );
-  const status = !data && !error ? 'loading' : data ? 'success' : 'idle';
+  const data = coreUnits;
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
     SortEnum.Asc,
@@ -442,7 +430,7 @@ export const useCoreUnitsTableView = () => {
     statusCount,
     categoriesCount,
     filteredData,
-    status,
+
     sortColumn,
     headersSort,
     filteredStatuses,

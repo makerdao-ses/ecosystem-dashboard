@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 
+import { siteRoutes } from '@/config/routes';
 import {
   getBudgetCapsFromCoreUnit,
   getExpenditureValueFromCoreUnit,
@@ -16,8 +17,6 @@ import {
 import type { TeamStatus } from '@/core/models/interfaces/types';
 import { getShortCode } from '@/core/utils/string';
 import CoreUnitCard from '@/stories/components/CoreUnitCard/CoreUnitCard';
-import { CuTableColumnLastModified } from '@/stories/components/CuTableColumnLastModified/CuTableColumnLastModified';
-import { CuTableColumnLinks } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
 import { CuRenderLinks } from './CuRenderLinks/CuRenderLinks';
 import { CuTableColumnExpenditures } from './CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from './CuTableColumnSummary/CuTableColumnSummary';
@@ -25,72 +24,57 @@ import CuTableColumnTeamMember from './CuTableColumnTeamMember/CuTableColumnTeam
 import LastModifiedActorCoreUnit from './LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
-export const renderSummary = (coreUnit: CoreUnit) => {
-  if (!coreUnit) return <CuTableColumnSummary isLoading />;
-  return (
-    <CuTableColumnSummary
-      key={`summary-${coreUnit.code}`}
-      title={coreUnit.name}
-      status={coreUnit.status as TeamStatus}
-      statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
-      imageUrl={coreUnit.image}
-      mipUrl={getMipUrlFromCoreUnit(coreUnit)}
-      code={getShortCode(coreUnit.shortCode)}
-      categories={coreUnit?.category}
+export const renderSummary = (coreUnit: CoreUnit) => (
+  <CuTableColumnSummary
+    href={siteRoutes.coreUnitAbout(coreUnit.shortCode)}
+    key={`summary-${coreUnit.code}`}
+    title={coreUnit.name}
+    status={coreUnit.status as TeamStatus}
+    statusModified={getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnit))}
+    imageUrl={coreUnit.image}
+    mipUrl={getMipUrlFromCoreUnit(coreUnit)}
+    code={getShortCode(coreUnit.shortCode)}
+    categories={coreUnit?.category}
+  />
+);
+
+export const renderExpenditures = (coreUnit: CoreUnit) => (
+  <ExpendituresContainer>
+    <InsideExpenditureContainer>
+      <CuTableColumnExpenditures
+        value={getExpenditureValueFromCoreUnit(coreUnit)}
+        percent={getPercentFromCoreUnit(coreUnit)}
+        months={getLast3MonthsWithDataFormatted(coreUnit)}
+        items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
+        budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
+        code={getShortCode(coreUnit.shortCode)}
+      />
+    </InsideExpenditureContainer>
+  </ExpendituresContainer>
+);
+
+export const renderTeamMember = (coreUnit: CoreUnit) => (
+  <TeamMemberContainer>
+    <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
+  </TeamMemberContainer>
+);
+
+export const renderLinks = (coreUnit: CoreUnit) => (
+  <ContainerLinks>
+    <CuRenderLinks coreUnit={coreUnit} />
+  </ContainerLinks>
+);
+
+export const renderCard = (coreUnit: CoreUnit) => <CoreUnitCard key={`card-${coreUnit.code}`} coreUnit={coreUnit} />;
+
+export const renderLastModified = (coreUnit: CoreUnit) => (
+  <LastModifiedActorCoreUnitContainer>
+    <LastModifiedActorCoreUnit
+      href={siteRoutes.coreUnitActivityFeed(coreUnit.shortCode)}
+      date={getLastMonthWithData(coreUnit)}
     />
-  );
-};
-
-export const renderExpenditures = (coreUnit: CoreUnit) => {
-  if (!coreUnit) return <CuTableColumnExpenditures isLoading />;
-
-  return (
-    <ExpendituresContainer>
-      <InsideExpenditureContainer>
-        <CuTableColumnExpenditures
-          value={getExpenditureValueFromCoreUnit(coreUnit)}
-          percent={getPercentFromCoreUnit(coreUnit)}
-          months={getLast3MonthsWithDataFormatted(coreUnit)}
-          items={getLast3ExpenditureValuesFromCoreUnit(coreUnit)}
-          budgetCaps={getBudgetCapsFromCoreUnit(coreUnit)}
-          code={getShortCode(coreUnit.shortCode)}
-        />
-      </InsideExpenditureContainer>
-    </ExpendituresContainer>
-  );
-};
-
-export const renderTeamMember = (coreUnit: CoreUnit) => {
-  if (!coreUnit) return <CuTableColumnTeamMember isLoading />;
-  return (
-    <TeamMemberContainer>
-      <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
-    </TeamMemberContainer>
-  );
-};
-
-export const renderLinks = (coreUnit: CoreUnit) => {
-  if (!coreUnit) return <CuTableColumnLinks isLoading />;
-  return (
-    <ContainerLinks>
-      <CuRenderLinks coreUnit={coreUnit} />
-    </ContainerLinks>
-  );
-};
-
-export const renderCard = (coreUnit: CoreUnit, key?: number) => {
-  if (!coreUnit) return <CoreUnitCard key={`card-placeholder-${key}`} coreUnit={{} as CoreUnit} isLoading />;
-  return <CoreUnitCard key={`card-${coreUnit.code}`} coreUnit={coreUnit} />;
-};
-
-export const renderLastModified = (coreUnit: CoreUnit) => {
-  if (!coreUnit) return <CuTableColumnLastModified date={undefined} isLoading={!coreUnit} />;
-  return (
-    <LastModifiedActorCoreUnitContainer>
-      <LastModifiedActorCoreUnit href={coreUnit.shortCode} date={getLastMonthWithData(coreUnit)} />
-    </LastModifiedActorCoreUnitContainer>
-  );
-};
+  </LastModifiedActorCoreUnitContainer>
+);
 
 const ExpendituresContainer = styled('div')({
   display: 'flex',

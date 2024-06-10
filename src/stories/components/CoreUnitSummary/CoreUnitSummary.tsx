@@ -29,7 +29,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
     ref
   ) => {
     const { isLight } = useThemeContext();
-    const { sortData } = useCoreUnitsTableView();
+    const { sortData } = useCoreUnitsTableView(data);
     const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
     const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
 
