@@ -5,12 +5,13 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import { featureFlags } from 'feature-flags/feature-flags';
 import AppLayout from '@/stories/containers/AppLayout/AppLayout';
-import CuAboutContainer from './CuAboutContainer';
+
+import CuAboutView from './CuAboutView';
 import type { Meta } from '@storybook/react';
 
-const meta: Meta<typeof CuAboutContainer> = {
+const meta: Meta<typeof CuAboutView> = {
   title: 'Fusion/Pages/CU_About',
-  component: CuAboutContainer,
+  component: CuAboutView,
   decorators: [withoutSBPadding],
 
   parameters: {
@@ -43,7 +44,7 @@ const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
-        <CuAboutContainer {...props} />
+        <CuAboutView {...props} />
       </AppLayout>
     </FeatureFlagsProvider>
   ),

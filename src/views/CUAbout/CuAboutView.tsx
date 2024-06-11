@@ -17,7 +17,7 @@ import CardSomethingWrong from '@/stories/components/NavigationCard/CardSomethin
 import RelateMips from '@/stories/components/RelateMips/RelateMips';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/stories/components/TeamMember/TeamMember';
-import { useCuAbout } from './useCuAbout';
+import { useCuAboutView } from './useCuAboutView';
 import type { Theme } from '@mui/material';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
@@ -29,7 +29,7 @@ interface Props {
   code: string;
 }
 
-const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
+const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
   const router = useRouter();
 
   const { isLight } = useThemeContext();
@@ -40,7 +40,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const LessPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('mobile_375'));
   const lessDesktop1194 = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings, ref } = useCuAbout({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings, ref } = useCuAboutView({
     cuAbout,
     code,
     router,
@@ -174,7 +174,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   );
 };
 
-export default CuAboutContainer;
+export default CuAboutView;
 
 const ContainerAbout = styled('div')(({ theme }) => ({
   display: 'flex',
