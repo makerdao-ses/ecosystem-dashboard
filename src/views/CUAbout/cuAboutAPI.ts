@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { GRAPHQL_ENDPOINT } from '../../../config/endpoints';
+import { GRAPHQL_ENDPOINT } from '@/config/endpoints';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 export const GET_CU_ABOUT_BY_CODE = gql`

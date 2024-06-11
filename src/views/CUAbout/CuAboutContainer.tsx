@@ -4,19 +4,19 @@ import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { getMarkdownInformation } from '../../../core/businessLogic/coreUnitAbout';
-import { getFTEsFromCoreUnit } from '../../../core/businessLogic/coreUnits';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { toAbsoluteURL } from '../../../core/utils/urls';
-import BigButton from '../../components/Button/BigButton/BigButton';
-import CardInfoMember from '../../components/CardInfoMember/CardInfoMember';
-import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
-import MdViewerContainer from '../../components/Markdown/MdViewerContainer';
-import CardExpenses from '../../components/NavigationCard/CardExpenses';
-import CardSomethingWrong from '../../components/NavigationCard/CardSomethingWrong';
-import RelateMips from '../../components/RelateMips/RelateMips';
-import { SEOHead } from '../../components/SEOHead/SEOHead';
-import TeamMember from '../../components/TeamMember/TeamMember';
+import { getMarkdownInformation } from '@/core/businessLogic/coreUnitAbout';
+import { getFTEsFromCoreUnit } from '@/core/businessLogic/coreUnits';
+import { useThemeContext } from '@/core/context/ThemeContext';
+import { toAbsoluteURL } from '@/core/utils/urls';
+import BigButton from '@/stories/components/Button/BigButton/BigButton';
+import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
+import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
+import MdViewerContainer from '@/stories/components/Markdown/MdViewerContainer';
+import CardExpenses from '@/stories/components/NavigationCard/CardExpenses';
+import CardSomethingWrong from '@/stories/components/NavigationCard/CardSomethingWrong';
+import RelateMips from '@/stories/components/RelateMips/RelateMips';
+import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
+import TeamMember from '@/stories/components/TeamMember/TeamMember';
 import { useCuAbout } from './useCuAbout';
 import type { Theme } from '@mui/material';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
@@ -35,7 +35,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
   const { isLight } = useThemeContext();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
 
-  const table834 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const table768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
   const phone = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
   const LessPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('mobile_375'));
   const lessDesktop1194 = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
@@ -69,7 +69,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 code={cuAbout.code}
                 shortCode={cuAbout.shortCode}
                 auditors={cuAbout.auditors}
-                showButton={table834 || phone || LessPhone}
+                showButton={table768 || phone || LessPhone}
                 sentenceDescription={getMarkdownInformation(cuAbout.sentenceDescription)}
                 paragraphDescription={getMarkdownInformation(cuAbout.paragraphDescription)}
                 paragraphImage={getMarkdownInformation(cuAbout.paragraphImage)}
@@ -140,11 +140,11 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                 />
               </ButtonContainer>
             )}
-            {(table834 || phone || LessPhone) && (
-              <CardSomethingWrong width={table834 || phone ? '770px' : 'fit-content'} />
+            {(table768 || phone || LessPhone) && (
+              <CardSomethingWrong width={table768 || phone ? '770px' : 'fit-content'} />
             )}
           </ContainerResponsive>
-          {!(table834 || phone || LessPhone) && (
+          {!(table768 || phone || LessPhone) && (
             <div
               style={{
                 width: '39.61%',
@@ -160,7 +160,7 @@ const CuAboutContainer = ({ code, coreUnits, cuAbout }: Props) => {
                     budgetPath={routeToFinances}
                   />
                 </ContainerCard>
-                {!(table834 || phone || LessPhone) && (
+                {!(table768 || phone || LessPhone) && (
                   <ContainerCard>
                     <CardSomethingWrong />
                   </ContainerCard>
