@@ -1,7 +1,7 @@
 import { TeamContext } from '@ses/core/context/TeamContext';
 import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
-import CuAboutContainer from '@/views/CUAbout/CuAboutContainer';
+import CuAboutView from '@/views/CUAbout/CuAboutView';
 import { fetchCoreUnitByCode } from '@/views/CUAbout/cuAboutAPI';
 import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
@@ -26,7 +26,7 @@ const CoreUnitAboutPage: NextPage = ({
         setCurrentTeam: setCurrentCoreUnit as unknown as (cu: Team) => void,
       }}
     >
-      <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnit} />
+      <CuAboutView code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnit} />
     </TeamContext.Provider>
   );
 };
