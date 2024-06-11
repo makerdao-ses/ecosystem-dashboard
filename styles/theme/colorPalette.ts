@@ -111,4 +111,7 @@ export const colorPalette = {
     800: '#373E4D',
     900: '#252A34',
   },
+  background: {
+    dm: '#1B1E24',
+  },
 };

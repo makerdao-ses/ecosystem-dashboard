@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import React from 'react';
 import lightTheme from '../../../../styles/theme/themes';
 import './Markdown.module.scss';
@@ -21,8 +21,7 @@ export const customRenderer = {
         className="paragraph"
         style={{
           backgroundColor: 'transparent',
-          color: '#231536',
-          lineHeight: '22px',
+          color: '#343839',
           fontFamily: 'Inter, sans-serif',
           marginBottom: 0,
           textAlign: 'left',
@@ -39,8 +38,7 @@ export const customRenderer = {
         className="ol_tags"
         style={{
           backgroundColor: 'transparent',
-          color: '#231536',
-          lineHeight: '22px',
+          color: '#343839',
           fontFamily: 'Inter, sans-serif',
           textAlign: 'left',
         }}
@@ -56,7 +54,7 @@ export const customRenderer = {
         className="ol_"
         style={{
           backgroundColor: 'transparent',
-          color: '#231536',
+          color: '#343839',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
           textAlign: 'left',
@@ -74,7 +72,7 @@ export const customRenderer = {
         key={Math.random()}
         style={{
           backgroundColor: 'transparent',
-          color: '#231536',
+          color: '#343839',
           fontFamily: 'Inter, sans-serif',
           fontStyle: 'normal',
           fontWeight: 400,
@@ -93,7 +91,7 @@ export const customRenderer = {
         return (
           <HeadingResponsiveH1
             style={{
-              color: '#231536',
+              color: '#343839',
             }}
           >
             {text}
@@ -103,7 +101,7 @@ export const customRenderer = {
         return (
           <HeadingResponsiveH2
             style={{
-              color: '#231536',
+              color: '#343839',
             }}
           >
             {text}
@@ -113,7 +111,7 @@ export const customRenderer = {
         return (
           <HeadingResponsiveH3
             style={{
-              color: '#231536',
+              color: '#343839',
             }}
           >
             {text}
@@ -123,7 +121,7 @@ export const customRenderer = {
         return (
           <HeadingResponsiveH3
             style={{
-              color: '#231536',
+              color: '#343839',
             }}
           >
             {text}
@@ -151,7 +149,7 @@ export const customRendererDark = {
         className="paragraph"
         style={{
           backgroundColor: 'transparent',
-          color: '#D2D4EF',
+          color: '#FCFCFC',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
           marginBottom: 0,
@@ -169,7 +167,7 @@ export const customRendererDark = {
         className="ol_tags"
         style={{
           backgroundColor: 'transparent',
-          color: '#D2D4EF',
+          color: '#FCFCFC',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
           textAlign: 'left',
@@ -186,7 +184,7 @@ export const customRendererDark = {
         className="ol_"
         style={{
           backgroundColor: 'transparent',
-          color: '#D2D4EF',
+          color: '#FCFCFC',
           lineHeight: '22px',
           fontFamily: 'Inter, sans-serif',
           textAlign: 'left',
@@ -204,7 +202,7 @@ export const customRendererDark = {
         key={Math.random()}
         style={{
           backgroundColor: 'transparent',
-          color: '#D2D4EF',
+          color: '#FCFCFC',
           fontFamily: 'Inter, sans-serif',
           fontStyle: 'normal',
           fontWeight: 400,
@@ -223,7 +221,7 @@ export const customRendererDark = {
         return (
           <HeadingResponsiveH1
             style={{
-              color: '#D2D4EF',
+              color: '#FCFCFC',
             }}
           >
             {text}
@@ -233,7 +231,7 @@ export const customRendererDark = {
         return (
           <HeadingResponsiveH2
             style={{
-              color: '#D2D4EF',
+              color: '#FCFCFC',
             }}
           >
             {text}
@@ -243,7 +241,7 @@ export const customRendererDark = {
         return (
           <HeadingResponsiveH3
             style={{
-              color: '#D2D4EF',
+              color: '#FCFCFC',
             }}
           >
             {text}
@@ -253,7 +251,7 @@ export const customRendererDark = {
         return (
           <HeadingResponsiveH3
             style={{
-              color: '#D2D4EF',
+              color: '#FCFCFC',
             }}
           >
             {text}
@@ -263,27 +261,24 @@ export const customRendererDark = {
   },
 };
 
-const ImageTag = styled.img({
+const ImageTag = styled('img')({
   maxWidth: '100%',
   display: 'block',
   margin: '0 auto',
 });
 
-const ResponsiveParagraph = styled.div({
+const ResponsiveParagraph = styled('div')({
   textAlign: 'left',
   marginTop: '1em',
+  fontSize: 14,
+  lineHeight: '24px',
 
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
-  },
-  [lightTheme.breakpoints.down('mobile_375')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
   },
 });
 
-const ResponsiveList = styled.ul({
+const ResponsiveList = styled('ul')({
   '& li': {
     '& ul': {
       marginTop: '2em',
@@ -295,71 +290,61 @@ const ResponsiveList = styled.ul({
   },
   marginTop: '1em',
   marginBottom: '0px',
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
-  },
-  [lightTheme.breakpoints.down('mobile_375')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
+  [lightTheme.breakpoints.up('mobile_375')]: {
+    fontSize: 16,
+    fontWeight: 400,
+    lineHeight: '24px',
   },
 });
 
-const ResponsiveItem = styled.li({
+const ResponsiveItem = styled('li')({
   textAlign: 'left',
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
+  [lightTheme.breakpoints.up('mobile_375')]: {
+    fontSize: 16,
+    fontWeight: 400,
+    lineHeight: '24px',
   },
-  [lightTheme.breakpoints.down('mobile_375')]: {
+});
+
+const ResponsiveCode = styled('code')({
+  [lightTheme.breakpoints.up('mobile_375')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
 });
 
-const ResponsiveCode = styled.code({
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
-  },
-  [lightTheme.breakpoints.down('mobile_375')]: {
-    fontSize: '14px',
-    lineHeight: '17px',
-  },
-});
-
-const HeadingResponsiveH1 = styled.h1({
+const HeadingResponsiveH1 = styled('h1')({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
   marginTop: 32,
   marginBottom: 0,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 20,
     fontWeight: 600,
     letterSpacing: '0.4px',
   },
 });
 
-const HeadingResponsiveH2 = styled.h2({
+const HeadingResponsiveH2 = styled('h2')({
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
   marginBottom: 0,
   marginTop: 32,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 600,
   },
 });
 
-const HeadingResponsiveH3 = styled.h3({
+const HeadingResponsiveH3 = styled('h3')({
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
   marginBottom: 0,
   marginTop: 32,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 600,
   },

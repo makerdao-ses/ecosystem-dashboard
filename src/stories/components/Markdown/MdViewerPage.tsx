@@ -1,14 +1,14 @@
-import styled from '@emotion/styled';
-import { Popover, useMediaQuery } from '@mui/material';
+import { Popover, styled, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/themes';
+
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CustomButton } from '../CustomButton/CustomButton';
 import CardExpenses from '../NavigationCard/CardExpenses';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
+import type { Theme } from '@mui/material';
 
 export type MarkDownHeaders = {
   level: number;
@@ -43,8 +43,8 @@ const MdViewerPage = ({
   budgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
-  const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'desktop_1194'));
+  const isTable834 = useMediaQuery((theme: Theme) => theme.breakpoints.between('table_834', 'desktop_1194'));
+  const isPhoneAndTable = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'desktop_1194'));
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -61,7 +61,7 @@ const MdViewerPage = ({
     <ViewerContainer>
       {showButton && !isTable834 ? (
         <ContainerResponsive>
-          <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
+          <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
 
           <CustomButton
             buttonType={open ? ButtonType.Default : ButtonType.Primary}
@@ -138,7 +138,7 @@ const MdViewerPage = ({
               marginBottom: '34px',
             }}
           />
-          <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
+          <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
           {paragraphDescription && isLight ? (
             <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
           ) : (
@@ -146,7 +146,7 @@ const MdViewerPage = ({
           )}
         </div>
       ) : (
-        <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
+        <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
       )}
       {paragraphDescription && isLight ? (
         <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
@@ -165,34 +165,31 @@ const MdViewerPage = ({
 
 export default MdViewerPage;
 
-const ViewerContainer = styled.div({
+const ViewerContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   textAlign: 'justify',
   boxSizing: 'border-box',
 });
 
-const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({
+const TypographyStyleDescription = styled('p')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  fontWeight: 600,
-  fontSize: '20px',
-  lineHeight: isLight ? '19px' : '24px',
-  color: isLight ? '#231536' : ' #D2D4EF',
+  fontWeight: 700,
+  fontSize: '18px',
+  lineHeight: theme.palette.isLight ? '21.6px' : '24px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   margin: '0px',
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19px',
+  [theme.breakpoints.up('mobile_375')]: {
+    fontSize: '20px',
+    lineHeight: '24px',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginBottom: '16px',
   },
 }));
 
-const ContainerResponsive = styled.div({
+const ContainerResponsive = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
