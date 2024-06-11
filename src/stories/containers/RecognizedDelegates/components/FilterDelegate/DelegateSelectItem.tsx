@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import { Container } from '@ses/components/SelectItem/SelectItem';
 import Check from '@ses/components/svg/check';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import type { SelectItemProps } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...props }) => {

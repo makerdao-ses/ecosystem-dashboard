@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { Typography, useMediaQuery } from '@mui/material';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { TeamStatus } from '@/core/models/interfaces/types';
 import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
@@ -33,11 +33,6 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
             height={phoneDimensions ? '32px' : '68px'}
             name={actorAbout?.name || 'Ecosystem Actors'}
             image={actorAbout?.image}
-            style={{
-              minWidth: phoneDimensions ? '32px' : '68px',
-              minHeight: phoneDimensions ? '32px' : '68px',
-              filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
-            }}
           />
           <WrapperShowOnlyMobile>
             <ContainerTitle>

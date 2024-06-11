@@ -1,11 +1,11 @@
 import { styled } from '@mui/material';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { siteRoutes } from '@ses/config/routes';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import React from 'react';
 import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
 import Card from '@/components/Card/Card';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
@@ -364,16 +364,9 @@ const WrapperType = styled('div')(({ theme }) => ({
 }));
 const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.shortShadow,
-  minWidth: 32,
-  minHeight: 32,
-  [theme.breakpoints.up('desktop_1024')]: {
-    '& img': {
-      minWidth: 36,
-      minHeight: 36,
-      width: '54px',
-      height: '54px',
-    },
-  },
+  width: '32px',
+  height: '32px',
+  border: 'none',
 }));
 
 const WrapperScopeLinks = styled('div')<{ alignEnd: boolean }>(({ alignEnd, theme }) => ({

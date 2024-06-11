@@ -1,18 +1,15 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import BarPercentRelativeToTotal from '@ses/components/BarPercentRelativeToTotal/BarPercentRelativeToTotal';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/recognizedDelegate';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import GenericDelegateCard from './GenericDelegateCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   delegateCard: RecognizedDelegatesDto;
@@ -21,24 +18,22 @@ interface Props {
 }
 
 const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeValue, totalDai }) => {
-  const { isLight } = useThemeContext();
   const percentBarRelative = percentageRespectTo(delegateCard.actuals, totalDai) || 0;
   const humanizeTotal = usLocalizedNumber(delegateCard.actuals);
 
   return (
-    <ExtendedGenericDelegate isLight={isLight}>
+    <ExtendedGenericDelegate>
       <ContainerAvatarDescription>
         <AvatarSection>
           <WalletAvatar>
             <CircleAvatarExtended
-              isLight={isLight}
               width="48px"
               height="48px"
               name={delegateCard.name || 'Wallet'}
               image={delegateCard.image}
             />
             <NameAddressColumn>
-              <Name isLight={isLight}>{delegateCard.name}</Name>
+              <Name>{delegateCard.name}</Name>
               <ClipBoardRow>
                 <Address href={`https://etherscan.io/address/${delegateCard.latestVotingContract}`} target="_blank">
                   {formatAddressForOutputDelegateWallet(delegateCard.latestVotingContract)}
@@ -53,26 +48,24 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeV
         </AvatarSection>
         <DescriptionSection>
           <ContainerBar>
-            <PercentTitle isLight={isLight}>% of Total</PercentTitle>
+            <PercentTitle>% of Total</PercentTitle>
             <PercentBarContainer>
               <ContainerBarDelegate>
                 <BarPercentRelativeToTotal value={delegateCard.actuals} total={relativeValue} />
               </ContainerBarDelegate>
-              <PercentNumber isLight={isLight}>
-                {deleteTwoDecimalPLace(percentBarRelative.toFixed(2)) || 0}%
-              </PercentNumber>
+              <PercentNumber>{deleteTwoDecimalPLace(percentBarRelative.toFixed(2)) || 0}%</PercentNumber>
             </PercentBarContainer>
           </ContainerBar>
           <ContainerTotal>
-            <TotalTitle isLight={isLight}>Total DAI Comp</TotalTitle>
-            <Total isLight={isLight}>
+            <TotalTitle>Total DAI Comp</TotalTitle>
+            <Total>
               {humanizeTotal ?? 0}
               <span>DAI</span>
             </Total>
           </ContainerTotal>
         </DescriptionSection>
       </ContainerAvatarDescription>
-      <Divider isLight={isLight} />
+      <Divider />
       <SocialIconsSection>
         {delegateCard.socials && (
           <LinkContainer>
@@ -85,9 +78,9 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeV
 };
 
 export default DelegateExpenseBreakdownCard;
-const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight
+const ExtendedGenericDelegate = styled(GenericDelegateCard)(({ theme }) => ({
+  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: theme.palette.isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : 'box-shadow: 0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
@@ -97,17 +90,17 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   height: 182,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     padding: '0px',
     height: 136,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     height: 80,
     flexDirection: 'row',
     padding: '16px',
     justifyContent: 'space-between',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     height: 80,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -115,57 +108,57 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
   },
 }));
 
-const AvatarSection = styled.div({
+const AvatarSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: 24,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flex: 1,
     marginBottom: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     flex: 1,
     marginBottom: 0,
   },
-});
+}));
 
-const WalletAvatar = styled.div({
+const WalletAvatar = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
 });
 
-const NameAddressColumn = styled.div({
+const NameAddressColumn = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: 8,
 });
 
-const Name = styled.div<WithIsLight>(({ isLight }) => ({
+const Name = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#D2D4EF',
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: '16px',
     lineHeight: '22px',
   },
 }));
 
-const Address = styled.a({
+const Address = styled('a')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '12px',
   lineHeight: '15px',
   color: '#447AFB',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
-});
+}));
 
-const DescriptionSection = styled.div({
+const DescriptionSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -173,90 +166,90 @@ const DescriptionSection = styled.div({
   marginLeft: 8,
   marginRight: 8,
   marginTop: 1,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flex: 1,
     marginRight: 0,
     marginBottom: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginLeft: 0,
     marginRight: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginLeft: 30,
   },
-});
-const ContainerBar = styled.div({
+}));
+const ContainerBar = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flex: 1,
     marginLeft: -18,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     flex: 1,
     marginLeft: 6,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginLeft: -12,
   },
-});
+}));
 
-const PercentTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const PercentTitle = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
-  color: isLight ? '#708390' : '#405361',
+  color: theme.palette.isLight ? '#708390' : '#405361',
   marginBottom: 8,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginBottom: 16,
   },
 }));
 
-const ContainerTotal = styled.div({
+const ContainerTotal = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
   paddingLeft: 1,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     textAlign: 'end',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginRight: 8,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     marginRight: 12,
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginRight: 18,
   },
-});
+}));
 
-const TotalTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const TotalTitle = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
-  color: isLight ? '#708390' : '#405361',
+  color: theme.palette.isLight ? '#708390' : '#405361',
   textAlign: 'end',
 }));
-const Total = styled.div<WithIsLight>(({ isLight }) => ({
+const Total = styled('div')(({ theme }) => ({
   display: 'flex',
   fontWeight: 500,
   fontSize: '14px',
   lineHeight: '17px',
   textTransform: 'uppercase',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   marginTop: 8,
   '& > span': {
     fontWeight: 600,
     color: '#9FAFB9',
     marginLeft: 4,
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 14,
     '& > span': {
       fontWeight: 600,
@@ -266,7 +259,7 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
       lineHeight: '19px',
     },
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 16,
     fontSize: '16px',
     lineHeight: '19px',
@@ -280,14 +273,14 @@ const Total = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const PercentBarContainer = styled.div({
+const PercentBarContainer = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   marginTop: -1,
 });
 
-const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
+const PercentNumber = styled('div')(({ theme }) => ({
   width: 44,
   height: 15,
   alignItems: 'center',
@@ -298,68 +291,68 @@ const PercentNumber = styled.div<WithIsLight>(({ isLight }) => ({
   textAlign: 'right',
   textTransform: 'uppercase',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   marginTop: 1,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginLeft: -1,
     fontFeatureSettings: 'normal',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginLeft: 0,
   },
 }));
 
-const SocialIconsSection = styled.div({
+const SocialIconsSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   margin: '0 auto',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     justifyContent: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
     flex: 0.4,
     justifyContent: 'flex-end',
   },
-});
+}));
 
-const ContainerBarDelegate = styled.div({
+const ContainerBarDelegate = styled('div')({
   marginRight: 4,
   width: 130,
 });
 
-const CircleAvatarExtended = styled(CircleAvatar)<WithIsLight>(({ isLight }) => ({
-  boxShadow: isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
+const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
+  boxShadow: theme.palette.isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
 }));
 
-const ClipBoardRow = styled.div({
+const ClipBoardRow = styled('div')({
   display: 'flex',
   marginTop: 4,
   flexDirection: 'row',
   alignItems: 'center',
 });
 
-const ClipBoardContainer = styled.div({
+const ClipBoardContainer = styled('div')(({ theme }) => ({
   marginLeft: 20,
   display: 'flex',
   alignItems: 'center',
   '& div': {
     display: 'flex',
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginLeft: 6,
   },
-});
+}));
 
-const ContainerAvatarDescription = styled.div({
+const ContainerAvatarDescription = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     padding: '16px 16px 0px 16px',
     justifyContent: 'space-between',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
     padding: '0px',
 
@@ -367,23 +360,23 @@ const ContainerAvatarDescription = styled.div({
     flex: 1,
     alignItems: 'center',
   },
-});
+}));
 
-const LinkContainer = styled.div({
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+const LinkContainer = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 8,
   },
-});
+}));
 
-const Divider = styled.div<WithIsLight>(({ isLight }) => ({
+const Divider = styled('div')(({ theme }) => ({
   display: 'none',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
-    borderBottom: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+    borderBottom: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
     marginBottom: 8,
     marginTop: 24,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));

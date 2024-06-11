@@ -1,11 +1,11 @@
-import { styled, useTheme } from '@mui/material';
+import { styled } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
-import { CircleAvatar } from '@/stories/components/CircleAvatar/CircleAvatar';
 
 interface Props {
   code: string;
@@ -17,51 +17,37 @@ interface Props {
   categories: TeamCategory[];
 }
 
-export const SummaryToolTip: React.FC<Props> = ({ imageUrl, code, name, status, href, statusModified, categories }) => {
-  const theme = useTheme();
-  const isLight = theme.palette.isLight;
-  return (
-    <Container>
-      <RowContainer>
-        <Avatar>
-          <CircleAvatarStyled
-            width={'100%'}
-            border="none"
-            height={'100%'}
-            name={name || 'Core Unit'}
-            image={imageUrl}
-            style={{
-              border: 'none',
-              boxShadow: isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
-            }}
-          />
-        </Avatar>
-        <InformationContainer>
-          <CodeAndNameContainer>
-            <Code>{code}</Code>
-            <Name>{name}</Name>
-          </CodeAndNameContainer>
-          <StatusLastModifiedContainer>
-            <StatusStyled status={status} />
-            {statusModified && (
-              <ExternalLinkButtonStyled href={href}>
-                {`Since ${DateTime.fromJSDate(statusModified).toFormat('d-MMM-y').toUpperCase()}`}
-              </ExternalLinkButtonStyled>
-            )}
-          </StatusLastModifiedContainer>
-        </InformationContainer>
-      </RowContainer>
-      <CategoriesContainer>
-        <CategoriesLabel>Categories</CategoriesLabel>
-        <Categories>
-          {categories.map((category) => (
-            <CategoryChip category={category} />
-          ))}
-        </Categories>
-      </CategoriesContainer>
-    </Container>
-  );
-};
+export const SummaryToolTip: React.FC<Props> = ({ imageUrl, code, name, status, href, statusModified, categories }) => (
+  <Container>
+    <RowContainer>
+      <Avatar>
+        <CircleAvatarStyled width={'100%'} height={'100%'} name={name || 'Core Unit'} image={imageUrl} />
+      </Avatar>
+      <InformationContainer>
+        <CodeAndNameContainer>
+          <Code>{code}</Code>
+          <Name>{name}</Name>
+        </CodeAndNameContainer>
+        <StatusLastModifiedContainer>
+          <StatusStyled status={status} />
+          {statusModified && (
+            <ExternalLinkButtonStyled href={href}>
+              {`Since ${DateTime.fromJSDate(statusModified).toFormat('d-MMM-y').toUpperCase()}`}
+            </ExternalLinkButtonStyled>
+          )}
+        </StatusLastModifiedContainer>
+      </InformationContainer>
+    </RowContainer>
+    <CategoriesContainer>
+      <CategoriesLabel>Categories</CategoriesLabel>
+      <Categories>
+        {categories.map((category) => (
+          <CategoryChip category={category} />
+        ))}
+      </Categories>
+    </CategoriesContainer>
+  </Container>
+);
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -140,7 +126,11 @@ const Categories = styled('div')({
   marginTop: -2,
 });
 
-const CircleAvatarStyled = styled(CircleAvatar)({});
+const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
+  border: 'none',
+
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
+}));
 
 const StatusStyled = styled(StatusChip)({
   padding: '1px 16px 1px 16px',
