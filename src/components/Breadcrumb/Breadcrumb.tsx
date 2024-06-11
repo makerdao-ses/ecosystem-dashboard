@@ -20,6 +20,7 @@ interface BreadcrumbItemExtended extends BreadcrumbItem {
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
   rightContent: React.ReactElement;
+  withMenusOpened?: boolean; // to manage the menu in the stories
 }
 
 const MAX_ALLOWED_WIDTH = 250;
@@ -40,7 +41,7 @@ const getTextWidth = (text: string, font: string) => {
   return metrics.width;
 };
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusOpened = false }) => {
   const contentId = useId();
   const rightPartId = useId();
   const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
@@ -148,7 +149,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
               <>
                 {itemsExtended.length > 1 && (
                   <Segment>
-                    <DotsSegment items={items} />
+                    <DotsSegment items={items} defaultOpen={withMenusOpened} />
                     {separator}
                   </Segment>
                 )}
@@ -162,7 +163,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent }) => {
                   {index !== groupedItems.length - 1 ? (
                     item.label === '...' ? (
                       <>
-                        <DotsSegment items={item.attachedItems ?? []} />
+                        <DotsSegment items={item.attachedItems ?? []} defaultOpen={withMenusOpened} />
                         {separator}
                       </>
                     ) : (

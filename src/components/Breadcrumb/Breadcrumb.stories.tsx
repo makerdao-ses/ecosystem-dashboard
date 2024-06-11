@@ -73,14 +73,57 @@ const variantsArgs = [
     ],
     rightContent,
   },
+  {
+    items: [
+      {
+        label: '1- Home',
+        href: '/',
+        number: 15,
+      },
+      {
+        label: '2.1- Lorem ipsum',
+        href: '/a1',
+      },
+      {
+        label: '2.2- Lorem ipsum consectetur',
+        href: '/a1',
+      },
+      {
+        label: '2.3- Lorem ipsum lorem ipsum',
+        href: '/a1',
+      },
+      {
+        label: '3- Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        href: '/a2',
+      },
+      {
+        label: '4- Lorem ipsum dolor',
+        href: '/a3',
+      },
+      {
+        label: '5- A very long text that should be truncated',
+        href: '/long',
+      },
+    ],
+    rightContent,
+    withMenusOpened: true,
+  },
 ];
 
-const [[LightModeDefault, DarkModeDefault], [WithLongLabelsLight, WithLongLabelsDark]] = createThemeModeVariants(
-  Breadcrumb,
-  variantsArgs,
-  false
-);
-export { LightModeDefault, DarkModeDefault, WithLongLabelsLight, WithLongLabelsDark };
+const [
+  [LightModeDefault, DarkModeDefault],
+  [WithLongLabelsLight, WithLongLabelsDark],
+  [WithMenusOpenedLight, WithMenusOpenedDark],
+] = createThemeModeVariants(Breadcrumb, variantsArgs, false);
+
+export {
+  LightModeDefault,
+  DarkModeDefault,
+  WithLongLabelsLight,
+  WithLongLabelsDark,
+  WithMenusOpenedLight,
+  WithMenusOpenedDark,
+};
 
 WithLongLabelsLight.parameters = {
   figma: {
