@@ -1,26 +1,34 @@
 import { Menu, MenuItem, styled, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import type { BreadcrumbItem } from './Breadcrumb';
 import type { Theme } from '@mui/material';
 
 interface DotsSegmentProps {
   items: BreadcrumbItem[];
+  defaultOpen?: boolean; // to manage the menu in the stories
 }
 
-const DotsSegment: React.FC<DotsSegmentProps> = ({ items }) => {
+const DotsSegment: React.FC<DotsSegmentProps> = ({ items, defaultOpen = false }) => {
   const iconId = useId();
   const menuId = useId();
   const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const open = defaultOpen || Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    if (defaultOpen) {
+      // correctly set the menu in the stories
+      setAnchorEl(document.getElementById(iconId));
+    }
+  }, [defaultOpen, iconId]);
 
   return (
     <>
