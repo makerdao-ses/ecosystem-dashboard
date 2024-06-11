@@ -1,13 +1,6 @@
-import React from 'react';
+import { createThemeModeVariants } from '@/core/utils/storybook/factories';
 import MdViewerContainer from './MdViewerContainer';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
-
-export default {
-  title: 'Components/CUAbout/MdViewerContainer',
-  components: MdViewerContainer,
-} as ComponentMeta<typeof MdViewerContainer>;
-
-const Template: ComponentStory<typeof MdViewerContainer> = (args) => <MdViewerContainer {...args} />;
+import type { Meta } from '@storybook/react';
 
 const sentenceDescription =
   'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.';
@@ -16,9 +9,21 @@ const paragraphDescription =
 const paragraphImage =
   'https://gateway-proxy-bee-9-0.gateway.ethswarm.org/bzz/1fe299c01206d1d422cf79a60ea49b8a77b04382f8d25745842eb2a199eb4389';
 
-export const Default = Template.bind({});
-Default.args = {
-  sentenceDescription,
-  paragraphDescription,
-  paragraphImage,
+const meta: Meta<typeof MdViewerContainer> = {
+  title: 'Fusion/CoreUnits/MdViewerContainer',
+  component: MdViewerContainer,
 };
+export default meta;
+
+const variantsArgs = [
+  {
+    sentenceDescription,
+    paragraphDescription,
+    paragraphImage,
+  },
+];
+const [[CoreUnitItem, CoreUnitItemDark], [CoreUnitItemBigDesk, CoreUnitItemDarkBigDesk]] = createThemeModeVariants(
+  MdViewerContainer,
+  variantsArgs
+);
+export { CoreUnitItem, CoreUnitItemDark, CoreUnitItemBigDesk, CoreUnitItemDarkBigDesk };
