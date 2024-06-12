@@ -3,14 +3,14 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
+import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
+import { LinkButton } from '@/stories/components/LinkButton/LinkButton';
+import InlineUser from '@/stories/containers/TransparencyReport/components/InlineUser/InlineUser';
 import { DividerStyle } from '@/views/CUAbout/CuAboutView';
 import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
-import InlineUser from '../../containers/TransparencyReport/components/InlineUser/InlineUser';
-import { CustomLink } from '../CustomLink/CustomLink';
-import { LinkButton } from '../LinkButton/LinkButton';
 import InformationCard from './InformationCard';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 

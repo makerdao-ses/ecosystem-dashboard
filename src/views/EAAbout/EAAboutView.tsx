@@ -1,6 +1,4 @@
 import { styled } from '@mui/material';
-import CardExpenses from '@ses/components/NavigationCard/CardExpenses';
-import CardSomethingWrong from '@ses/components/NavigationCard/CardSomethingWrong';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { getMarkdownInformation } from '@ses/core/businessLogic/coreUnitAbout';
@@ -13,6 +11,8 @@ import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import CardExpenses from '../CUAbout/NavigationCard/CardExpenses';
+import CardSomethingWrong from '../CUAbout/NavigationCard/CardSomethingWrong';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
 import ActorSummary from './components/ActorSummary/ActorSummary';
 import CardProjects from './components/CardProjects/CardProjects';

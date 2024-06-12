@@ -1,8 +1,6 @@
 import { Popover, styled, useMediaQuery } from '@mui/material';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { customRenderer, customRendererDark } from '@ses/components/Markdown/renderUtils';
-import CardExpenses from '@ses/components/NavigationCard/CardExpenses';
-import CardSomethingWrong from '@ses/components/NavigationCard/CardSomethingWrong';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
@@ -10,6 +8,8 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/themes';
 import Markdown from 'marked-react';
 import React from 'react';
+import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
+import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
 import ActorNavigationOptions from '../ActorNavigationOptions/ActorNavigationOptions';
 import CardProjects from '../CardProjects/CardProjects';
 import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';

@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
-import { CustomLink } from '../CustomLink/CustomLink';
 import InformationCard from './InformationCard';
 
 interface Props {

@@ -2,10 +2,10 @@ import { Popover, styled, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import React from 'react';
 
+import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CustomButton } from '../CustomButton/CustomButton';
-import CardExpenses from '../NavigationCard/CardExpenses';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Theme } from '@mui/material';
