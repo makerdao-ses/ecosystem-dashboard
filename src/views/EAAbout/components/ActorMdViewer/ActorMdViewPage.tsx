@@ -140,15 +140,7 @@ const ActorMdViewPage = ({
         showButton &&
         isTable768 && (
           <div>
-            <div
-              style={{
-                width: '335px',
-                float: 'right',
-                marginLeft: 16,
-                marginBottom: 16,
-                marginTop: 32,
-              }}
-            >
+            <CardContainer768>
               {isEnabled('FEATURE_TEAM_PROJECTS') && <CardProjects actorName={actorName} shortCode={shortCode} />}
               <CardExpenses
                 resource={ResourceType.EcosystemActor}
@@ -165,7 +157,7 @@ const ActorMdViewPage = ({
                 makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
                 budgetPath={budgetPath}
               />
-            </div>
+            </CardContainer768>
             {!isTable768 && (
               <ContainerCard>
                 <CardSomethingWrong
@@ -240,3 +232,10 @@ const TypographyStyleDescription = styled('p')(({ theme }) => ({
     marginBottom: '16px',
   },
 }));
+
+const CardContainer768 = styled('div')({
+  width: '335px',
+  float: 'right',
+  marginLeft: 16,
+  marginBottom: 16,
+});

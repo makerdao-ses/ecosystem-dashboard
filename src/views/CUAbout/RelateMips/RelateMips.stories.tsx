@@ -5,7 +5,7 @@ import type { CuMipDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof RelateMips> = {
-  title: 'Components/CUAbout/RelateMips',
+  title: 'Fusion/CUAbout/RelateMips',
   component: RelateMips,
 };
 export default meta;
