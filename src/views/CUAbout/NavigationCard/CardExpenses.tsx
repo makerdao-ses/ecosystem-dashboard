@@ -1,15 +1,11 @@
-import styled from '@emotion/styled';
-import { Typography, useMediaQuery } from '@mui/material';
+import { Typography, styled } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
-import { LinkButton } from '@/stories/components/LinkButton/LinkButton';
+import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import InlineUser from '@/stories/containers/TransparencyReport/components/InlineUser/InlineUser';
-import { DividerStyle } from '@/views/CUAbout/CuAboutView';
-import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import InformationCard from './InformationCard';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
@@ -20,8 +16,6 @@ interface Props {
   resource?: ResourceType;
   auditors?: AuditorDto[];
   isTitlePresent?: boolean;
-  style?: React.CSSProperties;
-  styleContainer?: React.CSSProperties;
   buttonWidth?: string;
   queryStrings: string;
   titleCard?: string;
@@ -29,6 +23,7 @@ interface Props {
   makerburnCustomMessage?: string;
   showMakerburnLink?: boolean;
   budgetPath: string;
+  className?: string;
 }
 
 const CardExpenses = ({
@@ -37,196 +32,132 @@ const CardExpenses = ({
   resource = ResourceType.CoreUnit,
   auditors,
   isTitlePresent = true,
-  style = {},
-  styleContainer = {},
-  buttonWidth,
+
   queryStrings,
   titleCard,
   auditorMessage,
-  makerburnCustomMessage,
   showMakerburnLink = true,
   budgetPath,
+  className,
 }: Props) => {
   const { isLight } = useThemeContext();
   const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit.`;
-  const textLink = resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor';
   const auditorTitle = auditorMessage ?? `${shortCode} Core Unit is currently working without auditor.`;
-  const isPhone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
 
   return (
-    <InformationCard
-      fontWeight={600}
-      title="Finances"
-      fontSize="24px"
-      lineHeight="29px"
-      style={style}
-      isTitlePresent={isTitlePresent}
-      color={isLight ? '#231536' : '#D2D4EF'}
-      styleContainer={styleContainer}
-    >
-      <div
-        style={{
-          paddingTop: '16px',
-          paddingLeft: '16px',
-          paddingRight: '16px',
-        }}
-      >
-        <TypographyDescription marginBottom={'24px'} isLight={isLight} variant="subtitle1">
-          {title}
-        </TypographyDescription>
+    <InformationCardStyled title="Finances" isTitlePresent={isTitlePresent} className={className}>
+      <ContainerData>
+        <TypographyDescription variant="subtitle1">{title}</TypographyDescription>
 
         <ContainerButton>
           {resource === ResourceType.CoreUnit && (
-            <LinkButton
+            <InternalLinkButton
               href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
-              buttonType={ButtonType.Secondary}
-              widthText="100%"
               label="Activity Feed"
-              style={{
-                textAlign: 'center',
-                borderRadius: '22px',
-                height: '34px',
-                fontFamily: 'Inter, sans serif',
-                fontStyle: 'normal',
-                fontWeight: 500,
-                fontSize: '14px',
-                lineHeight: '18px',
-                width: buttonWidth,
-                flexGrow: 1,
-                padding: isPhone || isTable ? '8px 12.75px' : '8px 43.25px',
-              }}
+              showIcon
             />
           )}
-
-          <LinkButton
-            buttonType={ButtonType.Primary}
-            widthText="100%"
-            label="Budget Statements"
-            style={{
-              textAlign: 'center',
-              borderRadius: '22px',
-              height: ' 34px',
-              fontFamily: 'Inter, sans serif',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              fontSize: '14px',
-              lineHeight: '18px',
-              letterSpacing: '0px',
-              width: buttonWidth,
-              flexGrow: 1,
-              padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
-            }}
+          <InternalLinkButton
             href={`${
               resource === ResourceType.CoreUnit
                 ? siteRoutes.coreUnitReports(shortCode)
                 : siteRoutes.ecosystemActorReports(shortCode)
             }${queryStrings}`}
-          />
-          <LinkButton
-            buttonType={ButtonType.Primary}
-            widthText="100%"
             label="Finances"
-            style={{
-              textAlign: 'center',
-              borderRadius: '22px',
-              height: ' 34px',
-              fontFamily: 'Inter, sans serif',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              fontSize: '14px',
-              lineHeight: '18px',
-              letterSpacing: '0px',
-              width: buttonWidth,
-              flexGrow: 1,
-              padding: isPhone || isTable ? '8px 12.75px' : '8px 30.25px',
-            }}
-            href={`/finances/${budgetPath}/${queryStrings}`}
+            showIcon
           />
+          <InternalLinkButton href={`/finances/${budgetPath}/${queryStrings}`} label="Budget Statements" showIcon />
         </ContainerButton>
-      </div>
-      <DividerStyle
-        sx={{
-          bgcolor: isLight ? '#D4D9E1' : '#405361',
-          marginTop: '16px',
-          marginBottom: '16px',
-        }}
-      />
+      </ContainerData>
+      <Line />
+
       {showMakerburnLink ? (
         <ContainerLinks>
-          <CustomLink
-            href={`${MAKER_BURN_LINK}/${code}`}
-            style={{
-              marginLeft: '0px',
-              paddingRight: '0px',
-              fontFamily: 'Inter, sans-serif',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              fontSize: '16px',
-              lineHeight: '18px',
-              whiteSpace: 'normal',
-              display: 'inline-block',
-            }}
-            target="_blank"
-            children={makerburnCustomMessage ?? `View On-Chain transfers to ${shortCode} ${textLink} on makerburn.com`}
-          />
+          <LabelLinks>Important Links</LabelLinks>
+          <ButtonLinkStyled href={`${MAKER_BURN_LINK}/${code}`}>Makerburn</ButtonLinkStyled>
         </ContainerLinks>
       ) : (
-        ''
+        <div />
       )}
 
-      {(auditors || []).length > 0 ? (
-        <AuditorsContainer>
-          <AuditorTitle isLight={isLight}>Auditors</AuditorTitle>
-          <Auditors>
-            {auditors?.map((auditor) => (
-              <Auditor key={auditor.id}>
-                <InlineUser username={auditor.username} />
-              </Auditor>
-            ))}
-          </Auditors>
-        </AuditorsContainer>
+      {resource === ResourceType.EcosystemActor ? (
+        (auditors || []).length > 0 ? (
+          <AuditorsContainer>
+            <AuditorTitle isLight={isLight}>Auditors</AuditorTitle>
+            <Auditors>
+              {auditors?.map((auditor) => (
+                <Auditor key={auditor.id}>
+                  <InlineUser username={auditor.username} />
+                </Auditor>
+              ))}
+            </Auditors>
+          </AuditorsContainer>
+        ) : (
+          <NoAuditorsMessage isLight={isLight}>{auditorTitle}</NoAuditorsMessage>
+        )
       ) : (
-        <NoAuditorsMessage isLight={isLight}>{auditorTitle}</NoAuditorsMessage>
+        <div />
       )}
-    </InformationCard>
+    </InformationCardStyled>
   );
 };
 
 export default CardExpenses;
 
-const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
-  marginBottom?: string;
-  isLight: boolean;
-}>(({ isLight, marginBottom }) => ({
+const InformationCardStyled = styled(InformationCard)(() => ({
+  '& > div': {
+    padding: 0,
+  },
+}));
+
+const ContainerData = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: 8,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    padding: 16,
+  },
+}));
+
+const TypographyDescription = styled(Typography)(({ theme }) => ({
   fontFamily: 'Inter, sans serif',
   fontStyle: 'normal',
   fontWeight: 500,
   fontSize: '15px',
   lineHeight: '24px',
-  color: isLight ? '#546978 ' : '#9FAFB9',
-  letterSpacing: '0px',
-  marginBottom: marginBottom || '0px',
+  letterSpacing: '0.4px',
+  color: theme.palette.isLight ? '#546978' : theme.palette.colors.gray[500],
 }));
 
-const ContainerButton = styled.div({
+const ContainerButton = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  // justifyContent: 'space-between',
 });
 
-const ContainerLinks = styled.div({
+const ContainerLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
   paddingLeft: '16px',
   paddingRight: '16px',
-  paddingBottom: '24px',
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: 8,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    padding: 16,
+  },
+  // paddingBottom: '24px',
+}));
 
-const AuditorsContainer = styled.div({
+const AuditorsContainer = styled('div')({
   padding: '8px 16px 24px',
 });
 
-const NoAuditorsMessage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const NoAuditorsMessage = styled('div')<{ isLight: boolean }>(({ isLight }) => ({
   padding: '8px 16px 24px',
   fontFamily: 'Inter, sans serif',
   fontWeight: 500,
@@ -236,7 +167,7 @@ const NoAuditorsMessage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   letterSpacing: '0px',
 }));
 
-const AuditorTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const AuditorTitle = styled('div')<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 12,
   fontWeight: 600,
   lineHeight: '15px',
@@ -244,15 +175,34 @@ const AuditorTitle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   textTransform: 'uppercase',
 }));
 
-const Auditors = styled.div({
+const Auditors = styled('div')({
   display: 'flex',
   flexWrap: 'wrap',
 });
 
-const Auditor = styled.div({
+const Auditor = styled('div')({
   marginTop: 16,
 
   '&:not(:last-of-type)': {
     marginRight: 40,
   },
 });
+
+const Line = styled('div')(({ theme }) => ({
+  borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : theme.palette.colors.charcoal[800]}`,
+  marginTop: '8px',
+  marginBottom: '16px',
+  width: '100%',
+}));
+
+const LabelLinks = styled('div')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 16,
+  fontWeight: 700,
+  lineHeight: '19.36px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.gray[50],
+}));
+
+const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
+  padding: '4px 16px 4px 24px',
+}));

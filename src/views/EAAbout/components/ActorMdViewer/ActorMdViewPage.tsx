@@ -1,17 +1,15 @@
 import { Popover, styled, useMediaQuery } from '@mui/material';
-import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { customRenderer, customRendererDark } from '@ses/components/Markdown/renderUtils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/themes';
 import Markdown from 'marked-react';
 import React from 'react';
+import ButtonOpenMenu from '@/components/ButtonOpenMenu/ButtonOpenMenu';
 import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
-import ActorNavigationOptions from '../ActorNavigationOptions/ActorNavigationOptions';
 import CardProjects from '../CardProjects/CardProjects';
+import type { Theme } from '@mui/material';
 import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';
 
 export type MarkDownHeaders = {
@@ -48,9 +46,8 @@ const ActorMdViewPage = ({
   budgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
-  const isTable768 = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'desktop_1024'));
-  const isPhone = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTable768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [isEnabled] = useFlagsActive();
 
@@ -68,73 +65,49 @@ const ActorMdViewPage = ({
     <ViewerContainer>
       {showButton && !isTable768 ? (
         <ContainerResponsive>
-          <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-          {isEnabled('FEATURE_TEAM_PROJECTS') ? (
-            <ActorNavigationOptions shortCode={shortCode} budgetPath={budgetPath} />
-          ) : (
-            <>
-              <CustomButton
-                buttonType={open ? ButtonType.Default : ButtonType.Primary}
-                active={open}
-                widthText="100%"
-                allowsHover={!isPhoneAndTable}
-                label="Expenses"
-                style={{
-                  textAlign: 'center',
-                  borderRadius: '22px',
-                  height: '34px',
-                  fontFamily: 'Inter, sans-serif',
-                  fontStyle: 'normal',
-                  fontWeight: 500,
-                  fontSize: '14px',
-                  lineHeight: '18px',
-                  width: 'fit-content',
-                  padding: '8px 24px',
-                }}
-                onClick={handleClick}
-              />
+          <ContainerShowOnlyMobile>
+            <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
+            <ContainerButton>
+              <StyledButtonOpenMenu title="Projects" onClick={handleClick} />
+              <StyledButtonOpenMenu title="Finances" onClick={handleClick} />
+            </ContainerButton>
+          </ContainerShowOnlyMobile>
 
-              <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                sx={{
-                  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-                    borderRadius: '6px',
-                    backgroundColor: isLight ? 'none' : '#10191F',
-                    boxShadow: isLight
-                      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-                      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-                  },
-                }}
-              >
-                <CardExpenses
-                  budgetPath={budgetPath}
-                  resource={ResourceType.EcosystemActor}
-                  queryStrings={queryStrings}
-                  code={code}
-                  shortCode={shortCode}
-                  auditors={auditors}
-                  isTitlePresent={false}
-                  style={{
-                    width: '335px',
-                  }}
-                  styleContainer={{
-                    minHeight: '190px',
-                    overflowY: 'hidden',
-                  }}
-                  titleCard={`View all expenses of the ${actorName} Ecosystem Actor.`}
-                  auditorMessage={`The ${actorName} is working without auditor.`}
-                  makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
-                />
-              </Popover>
-            </>
-          )}
+          <>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              sx={{
+                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+                  borderRadius: '6px',
+                  backgroundColor: isLight ? 'none' : '#10191F',
+                  boxShadow: isLight
+                    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+                    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+                },
+              }}
+            >
+              <CardExpenses
+                budgetPath={budgetPath}
+                resource={ResourceType.EcosystemActor}
+                queryStrings={queryStrings}
+                code={code}
+                shortCode={shortCode}
+                auditors={auditors}
+                isTitlePresent={false}
+                showMakerburnLink={false}
+                titleCard={`View all expenses of the ${actorName} Ecosystem Actor.`}
+                auditorMessage={`The ${actorName} is working without auditor.`}
+                makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
+              />
+            </Popover>
+          </>
         </ContainerResponsive>
       ) : (
         showButton &&
@@ -152,9 +125,6 @@ const ActorMdViewPage = ({
               {isEnabled('FEATURE_TEAM_PROJECTS') && <CardProjects actorName={actorName} shortCode={shortCode} />}
               <CardExpenses
                 resource={ResourceType.EcosystemActor}
-                styleContainer={{
-                  minHeight: '190px',
-                }}
                 queryStrings={queryStrings}
                 code={code}
                 shortCode={shortCode}
@@ -207,23 +177,27 @@ const ViewerContainer = styled('div')({
 
 const ContainerResponsive = styled('div')({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+  flexDirection: 'column',
+  gap: 16,
 });
 
-const ContainerCard = styled('div')({
+const ContainerButton = styled('div')(() => ({
+  display: 'flex',
+  gap: 16,
+}));
+
+const ContainerCard = styled('div')(({ theme }) => ({
   marginBottom: '32px',
   float: 'right',
   width: 383,
   marginLeft: '68px',
-  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginLeft: '16px',
   },
-  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     marginLeft: '32px',
   },
-});
+}));
 const TypographyStyleDescription = styled('p')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
@@ -238,5 +212,18 @@ const TypographyStyleDescription = styled('p')(({ theme }) => ({
   },
   [theme.breakpoints.up('desktop_1024')]: {
     marginBottom: '16px',
+  },
+}));
+
+const StyledButtonOpenMenu = styled(ButtonOpenMenu)({
+  textAlign: 'center',
+  display: 'flex',
+  flex: 1,
+  justifyContent: 'center',
+});
+
+const ContainerShowOnlyMobile = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
   },
 }));

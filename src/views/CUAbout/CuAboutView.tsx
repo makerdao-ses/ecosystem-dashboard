@@ -142,12 +142,8 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
               <CardSomethingWrong width={table768 || phone ? '770px' : 'fit-content'} />
             )}
           </ContainerResponsive>
-          {!(table768 || phone || LessPhone) && (
-            <div
-              style={{
-                width: '39.61%',
-              }}
-            >
+          {!(phone || LessPhone) && (
+            <ContainerCardTableDesk>
               <ContainerScroll>
                 <ContainerCard>
                   <CardExpenses
@@ -158,13 +154,13 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                     budgetPath={routeToFinances}
                   />
                 </ContainerCard>
-                {!(table768 || phone || LessPhone) && (
+                {!(phone || LessPhone) && (
                   <ContainerCard>
                     <CardSomethingWrong />
                   </ContainerCard>
                 )}
               </ContainerScroll>
-            </div>
+            </ContainerCardTableDesk>
           )}
         </ContainerAllData>
       </Wrapper>
@@ -404,7 +400,7 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '60.39%',
   display: 'flex',
   flexDirection: 'column',
-  [theme.breakpoints.down('desktop_1024')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     width: '100%',
   },
 }));
@@ -414,4 +410,8 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('mobile_375')]: {
     width: '100%',
   },
+}));
+
+const ContainerCardTableDesk = styled('div')(() => ({
+  width: '39.61%',
 }));
