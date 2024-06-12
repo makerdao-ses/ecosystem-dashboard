@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import type { RootState } from '@/core/store/store';
 import { fetchCoreUnitByCode } from './cuAboutAPI';
-import type { RootState } from '../../../core/store/store';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';

@@ -145,7 +145,6 @@ const Title = styled('span')(({ theme }) => ({
 }));
 
 const SESTooltipStyled = styled(SESTooltip)({
-  // border: '2px solid red',
   padding: 0,
   width: 'fit-content',
   '&.MuiTooltip-tooltip MuiTooltip-tooltipPlacementBottom': {

@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { Popover, useMediaQuery } from '@mui/material';
+import { Popover, styled, useMediaQuery } from '@mui/material';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { customRenderer, customRendererDark } from '@ses/components/Markdown/renderUtils';
 import CardExpenses from '@ses/components/NavigationCard/CardExpenses';
@@ -49,9 +48,9 @@ const ActorMdViewPage = ({
   budgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
-  const isTable834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
-  const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'desktop_1194'));
-  const isPhone = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isTable768 = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isPhoneAndTable = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'desktop_1024'));
+  const isPhone = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [isEnabled] = useFlagsActive();
 
@@ -67,9 +66,9 @@ const ActorMdViewPage = ({
   const id = open ? 'simple-popover' : undefined;
   return (
     <ViewerContainer>
-      {showButton && !isTable834 ? (
+      {showButton && !isTable768 ? (
         <ContainerResponsive>
-          <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
+          <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
           {isEnabled('FEATURE_TEAM_PROJECTS') ? (
             <ActorNavigationOptions shortCode={shortCode} budgetPath={budgetPath} />
           ) : (
@@ -139,7 +138,7 @@ const ActorMdViewPage = ({
         </ContainerResponsive>
       ) : (
         showButton &&
-        isTable834 && (
+        isTable768 && (
           <div>
             <div
               style={{
@@ -167,7 +166,7 @@ const ActorMdViewPage = ({
                 budgetPath={budgetPath}
               />
             </div>
-            {!isTable834 && (
+            {!isTable768 && (
               <ContainerCard>
                 <CardSomethingWrong
                   title="Are you part of this Ecosystem Actor? "
@@ -175,7 +174,7 @@ const ActorMdViewPage = ({
                 />
               </ContainerCard>
             )}
-            <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>
+            <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
             {paragraphDescription && isLight ? (
               <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
             ) : (
@@ -184,9 +183,9 @@ const ActorMdViewPage = ({
           </div>
         )
       )}
-      {!isTable834 && (
+      {!isTable768 && (
         <>
-          {!isPhone && <TypographyStyleDescription isLight={isLight}>{subTitle}</TypographyStyleDescription>}
+          {!isPhone && <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>}
           {paragraphDescription && isLight ? (
             <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
           ) : (
@@ -200,50 +199,44 @@ const ActorMdViewPage = ({
 
 export default ActorMdViewPage;
 
-const ViewerContainer = styled.div({
+const ViewerContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
 });
 
-const TypographyStyleDescription = styled.p<{ isLight: boolean }>(({ isLight }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 600,
-  fontSize: '20px',
-  lineHeight: isLight ? '19px' : '24px',
-  color: isLight ? '#231536' : ' #D2D4EF',
-  margin: '0px',
-  marginRight: 10,
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19px',
-    minWidth: 213,
-    maxWidth: '100%',
-    marginRight: 10,
-    textAlign: 'start',
-  },
-}));
-
-const ContainerResponsive = styled.div({
+const ContainerResponsive = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
 });
 
-const ContainerCard = styled.div({
+const ContainerCard = styled('div')({
   marginBottom: '32px',
   float: 'right',
   width: 383,
   marginLeft: '68px',
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginLeft: '16px',
   },
-  [lightTheme.breakpoints.between('desktop_1194', 'desktop_1280')]: {
+  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     marginLeft: '32px',
   },
 });
+const TypographyStyleDescription = styled('p')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  fontSize: 18,
+  lineHeight: theme.palette.isLight ? '21.6px' : '24px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  margin: '0px',
+  [theme.breakpoints.up('mobile_375')]: {
+    fontSize: 20,
+    lineHeight: '24px',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginBottom: '16px',
+  },
+}));

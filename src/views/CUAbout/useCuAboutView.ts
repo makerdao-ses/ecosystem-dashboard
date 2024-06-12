@@ -1,9 +1,9 @@
 import sortBy from 'lodash/sortBy';
 import { useMemo, useCallback, useRef } from 'react';
+import { getRelateMipObjectFromCoreUnit } from '@/core/businessLogic/coreUnitAbout';
 import { TeamStatus } from '@/core/models/interfaces/types';
-import { getRelateMipObjectFromCoreUnit } from '../../../core/businessLogic/coreUnitAbout';
-import { getArrayParam, getStringParam } from '../../../core/utils/filters';
-import { buildQueryString } from '../../../core/utils/urls';
+import { getArrayParam, getStringParam } from '@/core/utils/filters';
+import { buildQueryString } from '@/core/utils/urls';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { CuMip } from '@ses/core/models/interfaces/cuMip';
 import type { NextRouter } from 'next/router';
@@ -16,7 +16,7 @@ interface Props {
   showThreeMIPs: boolean;
 }
 
-export const useCuAbout = ({ cuAbout, code, router, setShowThreeMIPs, showThreeMIPs }: Props) => {
+export const useCuAboutView = ({ cuAbout, code, router, setShowThreeMIPs, showThreeMIPs }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);

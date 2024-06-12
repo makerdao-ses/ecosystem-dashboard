@@ -1,20 +1,24 @@
-import React from 'react';
+import { createThemeModeVariants } from '@/core/utils/storybook/factories';
 import TeamMember from './TeamMember';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-export default {
-  title: 'Components/CUAbout/TeamMember',
-  components: TeamMember,
-} as ComponentMeta<typeof TeamMember>;
-
-const Template: ComponentStory<typeof TeamMember> = (args) => <TeamMember {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  ftes: 7.5,
+const meta: Meta<typeof TeamMember> = {
+  title: 'Fusion/CuAbout/TeamMember',
+  component: TeamMember,
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  ftes: 1,
-};
+export default meta;
+
+const variantsArgs = [
+  {
+    ftes: 7.5,
+  },
+  {
+    ftes: 1,
+  },
+];
+const [[ValuesTwoDigit, ValuesTwoDigitDark], [ValuesOneDigitDesk, ValuesOneDigitDarkDesk]] = createThemeModeVariants(
+  TeamMember,
+  variantsArgs
+);
+export { ValuesTwoDigit, ValuesTwoDigitDark, ValuesOneDigitDesk, ValuesOneDigitDarkDesk };
