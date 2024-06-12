@@ -1,14 +1,15 @@
-import { Popover, styled, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import Markdown from 'marked-react';
 import React from 'react';
-import ButtonOpenMenu from '@/components/ButtonOpenMenu/ButtonOpenMenu';
+import CustomSheetFinancesCU from '@/views/CUAbout/CustomSheetFinancesCU';
 import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/renderUtils';
 import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
 import CardProjects from '../CardProjects/CardProjects';
+import CustomSheetProjects from '../CustomSheetProjects';
 import type { Theme } from '@mui/material';
 import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';
 
@@ -31,6 +32,7 @@ interface Props {
   auditors: AuditorDto[];
   queryStrings: string;
   budgetPath: string;
+  auditorTitle: string;
 }
 
 const ActorMdViewPage = ({
@@ -44,23 +46,13 @@ const ActorMdViewPage = ({
   shortCode,
   auditors,
   budgetPath,
+  auditorTitle,
 }: Props) => {
   const { isLight } = useThemeContext();
   const isTable768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [isEnabled] = useFlagsActive();
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
   return (
     <ViewerContainer>
       {showButton && !isTable768 ? (
@@ -68,46 +60,18 @@ const ActorMdViewPage = ({
           <ContainerShowOnlyMobile>
             <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
             <ContainerButton>
-              <StyledButtonOpenMenu title="Projects" onClick={handleClick} />
-              <StyledButtonOpenMenu title="Finances" onClick={handleClick} />
-            </ContainerButton>
-          </ContainerShowOnlyMobile>
-
-          <>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              sx={{
-                '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-                  borderRadius: '6px',
-                  backgroundColor: isLight ? 'none' : '#10191F',
-                  boxShadow: isLight
-                    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-                    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-                },
-              }}
-            >
-              <CardExpenses
+              <CustomSheetProjects queryStrings={queryStrings} shortCode={shortCode} />
+              <CustomSheetFinancesCU
                 budgetPath={budgetPath}
-                resource={ResourceType.EcosystemActor}
-                queryStrings={queryStrings}
                 code={code}
                 shortCode={shortCode}
+                queryStrings={queryStrings}
+                type={ResourceType.EcosystemActor}
+                auditorTitle={auditorTitle}
                 auditors={auditors}
-                isTitlePresent={false}
-                showMakerburnLink={false}
-                titleCard={`View all expenses of the ${actorName} Ecosystem Actor.`}
-                auditorMessage={`The ${actorName} is working without auditor.`}
-                makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
               />
-            </Popover>
-          </>
+            </ContainerButton>
+          </ContainerShowOnlyMobile>
         </ContainerResponsive>
       ) : (
         showButton &&
@@ -206,13 +170,6 @@ const TypographyStyleDescription = styled('p')(({ theme }) => ({
     marginBottom: '16px',
   },
 }));
-
-const StyledButtonOpenMenu = styled(ButtonOpenMenu)({
-  textAlign: 'center',
-  display: 'flex',
-  flex: 1,
-  justifyContent: 'center',
-});
 
 const ContainerShowOnlyMobile = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {

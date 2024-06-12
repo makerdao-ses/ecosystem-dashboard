@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { getMarkdownInformation } from '@/core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '@/core/businessLogic/coreUnits';
 import { useThemeContext } from '@/core/context/ThemeContext';
+import { ResourceType } from '@/core/models/interfaces/types';
 import { toAbsoluteURL } from '@/core/utils/urls';
 import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
 import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
@@ -66,6 +67,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
           <ContainerResponsive>
             <MarkdownContainer>
               <MdViewerContainer
+                type={ResourceType.CoreUnit}
                 code={cuAbout.code}
                 shortCode={cuAbout.shortCode}
                 auditors={cuAbout.auditors}

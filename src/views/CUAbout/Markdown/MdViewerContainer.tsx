@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ResourceType } from '@/core/models/interfaces/types';
 import MdViewerPage from './MdViewerPage';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
   shortCode: string;
   auditors: AuditorDto[];
   budgetPath: string;
+  type: ResourceType;
 }
 
 const MdViewerContainer = ({
@@ -23,6 +25,7 @@ const MdViewerContainer = ({
   shortCode,
   auditors,
   budgetPath,
+  type,
 }: Props) => {
   const convertImg = paragraphImage ? `![Image](${paragraphImage})` : null;
   return (
@@ -36,6 +39,7 @@ const MdViewerContainer = ({
       shortCode={shortCode}
       auditors={auditors}
       budgetPath={budgetPath}
+      type={type}
     />
   );
 };

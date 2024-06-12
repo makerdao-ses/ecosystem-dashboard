@@ -150,7 +150,6 @@ const ContainerLinks = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1440')]: {
     padding: 16,
   },
-  // paddingBottom: '24px',
 }));
 
 const AuditorsContainer = styled('div')({

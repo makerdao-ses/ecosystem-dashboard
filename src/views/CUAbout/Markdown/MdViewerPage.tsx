@@ -2,6 +2,7 @@ import { styled, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import React from 'react';
 
+import type { ResourceType } from '@/core/models/interfaces/types';
 import CustomSheetFinancesCU from '@/views/CUAbout/CustomSheetFinancesCU';
 
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -28,6 +29,7 @@ interface Props {
   auditors: AuditorDto[];
   queryStrings: string;
   budgetPath: string;
+  type: ResourceType;
 }
 
 const MdViewerPage = ({
@@ -38,6 +40,8 @@ const MdViewerPage = ({
   queryStrings,
   shortCode,
   budgetPath,
+  code,
+  type,
 }: Props) => {
   const { isLight } = useThemeContext();
   const isTable768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -47,7 +51,13 @@ const MdViewerPage = ({
       {showButton && !isTable768 ? (
         <ContainerResponsive>
           <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-          <CustomSheetFinancesCU budgetPath={budgetPath} queryStrings={queryStrings} shortCode={shortCode} />
+          <CustomSheetFinancesCU
+            budgetPath={budgetPath}
+            queryStrings={queryStrings}
+            shortCode={shortCode}
+            code={code}
+            type={type}
+          />
         </ContainerResponsive>
       ) : showButton && isTable768 ? (
         <div>
