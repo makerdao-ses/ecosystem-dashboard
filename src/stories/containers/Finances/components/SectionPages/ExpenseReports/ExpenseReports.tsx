@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import BigButton from '@ses/components/Button/BigButton/BigButton';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 
 import TableEmptyState from '@/components/TableEmptyState/TableEmptyState';
+import BigButton from '@/views/CUAbout/Button/BigButton/BigButton';
 import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpenseTrendItem';
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
 import SectionTitle from '../../SectionTitle/SectionTitle';

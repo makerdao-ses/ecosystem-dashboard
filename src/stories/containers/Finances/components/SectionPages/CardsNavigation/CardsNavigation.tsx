@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import BigButton from '@ses/components/Button/BigButton/BigButton';
+
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import BigButton from '@/views/CUAbout/Button/BigButton/BigButton';
 import CardCoreUnitThirdLevelBudget from '../../CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';
 import CardNavigationFinance from '../../CardNavigationFinance/CardNavigationFinance';
 import CardNavigationMobile from '../../CardNavigationMobile/CardNavigationMobile';
