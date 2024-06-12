@@ -1,11 +1,11 @@
 import { Popover, styled, useMediaQuery } from '@mui/material';
-import { customRenderer, customRendererDark } from '@ses/components/Markdown/renderUtils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import Markdown from 'marked-react';
 import React from 'react';
 import ButtonOpenMenu from '@/components/ButtonOpenMenu/ButtonOpenMenu';
+import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/renderUtils';
 import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
 import CardProjects from '../CardProjects/CardProjects';
