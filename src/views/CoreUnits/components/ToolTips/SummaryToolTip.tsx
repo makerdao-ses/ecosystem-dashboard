@@ -5,7 +5,8 @@ import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
-import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
+import type { TeamCategory } from '@/core/models/interfaces/types';
+import { TeamStatus } from '@/core/models/interfaces/types';
 
 interface Props {
   code: string;
@@ -132,14 +133,16 @@ const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
 }));
 
-const StatusStyled = styled(StatusChip)({
+const StatusStyled = styled(StatusChip)<{ status: TeamStatus }>(({ theme, status }) => ({
   padding: '1px 16px 1px 16px',
-});
+  backgroundColor: theme.palette.isLight && status === TeamStatus.Obsolete ? theme.palette.colors.charcoal[100] : '',
+}));
 
 const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
   padding: '0px 6px 0px 8px',
   borderWidth: 1.5,
   gap: 8,
+  borderColor: !theme.palette.isLight ? theme.palette.colors.charcoal[700] : '',
   alignItems: 'center',
   letterSpacing: '-2%',
   fontSize: 14,
