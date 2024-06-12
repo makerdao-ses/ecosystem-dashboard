@@ -1,6 +1,6 @@
 export enum ExpenditureLevel {
-  LOW = 'LOW',
-  OPTIMAL = 'OPTIMAL',
-  STRETCHED = 'STRETCHED',
-  OVERBUDGET = 'OVER BUDGET',
+  low = 'Low',
+  optimal = 'Optimal',
+  stretched = 'Stretched',
+  overBudget = 'Over Budget',
 }
