@@ -112,19 +112,19 @@ export default EAAboutView;
 const MarkdownContainer = styled('div')();
 
 const ContainerResponsive = styled('div')(({ theme }) => ({
-  width: '60.39%',
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: 96,
+  width: '100%',
+  marginTop: 24,
 
-  [theme.breakpoints.down('desktop_1194')]: {
-    width: '100%',
-    marginTop: 100,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: '60.39%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 32,
   },
 }));
 
 const ContainerScroll = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     position: 'sticky',
     height: 'fit-content',
     top: 322,
@@ -137,11 +137,11 @@ const ContainerCard = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   marginLeft: 68,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginLeft: 16,
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginLeft: 64,
   },
 }));
@@ -158,18 +158,17 @@ const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
   display: 'flex',
   marginTop: 48,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));
 
 const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
   display: 'none',
-  marginTop: 90,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    marginTop: 96,
     width: '39.61%',
+    marginTop: 32,
   },
 }));
