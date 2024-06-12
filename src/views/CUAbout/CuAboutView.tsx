@@ -11,11 +11,11 @@ import { toAbsoluteURL } from '@/core/utils/urls';
 import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
 import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
 import MdViewerContainer from '@/stories/components/Markdown/MdViewerContainer';
-import CardExpenses from '@/stories/components/NavigationCard/CardExpenses';
-import CardSomethingWrong from '@/stories/components/NavigationCard/CardSomethingWrong';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/stories/components/TeamMember/TeamMember';
 import BigButton from './Button/BigButton/BigButton';
+import CardExpenses from './NavigationCard/CardExpenses';
+import CardSomethingWrong from './NavigationCard/CardSomethingWrong';
 import RelateMips from './RelateMips/RelateMips';
 import { useCuAboutView } from './useCuAboutView';
 import type { Theme } from '@mui/material';
@@ -134,12 +134,8 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
               <CardSomethingWrong width={table768 || phone ? '770px' : 'fit-content'} />
             )}
           </ContainerResponsive>
-          {!(table768 || phone || LessPhone) && (
-            <div
-              style={{
-                width: '39.61%',
-              }}
-            >
+          {!(phone || LessPhone) && (
+            <ContainerCardTableDesk>
               <ContainerScroll>
                 <ContainerCard>
                   <CardExpenses
@@ -150,13 +146,13 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                     budgetPath={routeToFinances}
                   />
                 </ContainerCard>
-                {!(table768 || phone || LessPhone) && (
+                {!(phone || LessPhone) && (
                   <ContainerCard>
                     <CardSomethingWrong />
                   </ContainerCard>
                 )}
               </ContainerScroll>
-            </div>
+            </ContainerCardTableDesk>
           )}
         </ContainerAllData>
       </Wrapper>
@@ -409,7 +405,7 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '60.39%',
   display: 'flex',
   flexDirection: 'column',
-  [theme.breakpoints.down('desktop_1024')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     width: '100%',
   },
 }));
@@ -421,10 +417,13 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
   },
 }));
 
+const ContainerCardTableDesk = styled('div')(() => ({
+  width: '39.61%',
+}));
+
 const LineStyledBorder = styled('div')(({ theme }) => ({
   display: 'flex',
   borderTop: `1px solid ${
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
   }`,
-  width: '100%',
 }));

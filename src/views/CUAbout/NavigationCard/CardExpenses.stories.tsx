@@ -3,7 +3,7 @@ import CardExpenses from './CardExpenses';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CardExpenses> = {
-  title: 'Components/CUAbout/CardExpenses',
+  title: 'Fusion/CuAbout/CardExpenses',
   component: CardExpenses,
   decorators: [
     (Story) => (

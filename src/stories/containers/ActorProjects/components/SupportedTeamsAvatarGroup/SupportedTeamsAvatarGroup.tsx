@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
-// import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import SESTooltipLegacy from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';

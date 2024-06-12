@@ -2,10 +2,9 @@ import { Popover, styled, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import React from 'react';
 
+import ButtonOpenMenu from '@/components/ButtonOpenMenu/ButtonOpenMenu';
+import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import { ButtonType } from '../../../core/enums/buttonTypeEnum';
-import { CustomButton } from '../CustomButton/CustomButton';
-import CardExpenses from '../NavigationCard/CardExpenses';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Theme } from '@mui/material';
@@ -43,8 +42,8 @@ const MdViewerPage = ({
   budgetPath,
 }: Props) => {
   const { isLight } = useThemeContext();
-  const isTable834 = useMediaQuery((theme: Theme) => theme.breakpoints.between('table_834', 'desktop_1194'));
-  const isPhoneAndTable = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'desktop_1194'));
+  const isTable768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
+
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,30 +58,10 @@ const MdViewerPage = ({
   const id = open ? 'simple-popover' : undefined;
   return (
     <ViewerContainer>
-      {showButton && !isTable834 ? (
+      {showButton && !isTable768 ? (
         <ContainerResponsive>
           <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-
-          <CustomButton
-            buttonType={open ? ButtonType.Default : ButtonType.Primary}
-            active={open}
-            widthText="100%"
-            allowsHover={!isPhoneAndTable}
-            label="Budget Statements"
-            style={{
-              textAlign: 'center',
-              borderRadius: '22px',
-              height: '34px',
-              fontFamily: 'Inter, sans-serif',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              fontSize: '14px',
-              lineHeight: '18px',
-              width: 'fit-content',
-              padding: '8px 24px',
-            }}
-            onClick={handleClick}
-          />
+          <ButtonOpenMenu title="Finances" onClick={handleClick} />
           <Popover
             id={id}
             open={open}
@@ -109,35 +88,11 @@ const MdViewerPage = ({
               shortCode={shortCode}
               auditors={auditors}
               isTitlePresent={false}
-              style={{
-                width: '335px',
-              }}
-              styleContainer={{
-                minHeight: '190px',
-                overflowY: 'hidden',
-              }}
             />
           </Popover>
         </ContainerResponsive>
-      ) : showButton && isTable834 ? (
+      ) : showButton && isTable768 ? (
         <div>
-          <CardExpenses
-            budgetPath={budgetPath}
-            styleContainer={{
-              minHeight: '190px',
-            }}
-            queryStrings={queryStrings}
-            code={code}
-            shortCode={shortCode}
-            auditors={auditors}
-            isTitlePresent={false}
-            style={{
-              width: '335px',
-              float: 'right',
-              marginLeft: '16px',
-              marginBottom: '34px',
-            }}
-          />
           <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
           {paragraphDescription && isLight ? (
             <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />

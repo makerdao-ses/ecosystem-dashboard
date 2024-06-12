@@ -5,7 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import ArrowRight from '../svg/ArrowRight';
+import ArrowRight from '@/stories/components/svg/ArrowRight';
+
 interface Props {
   description: string;
   image?: string;

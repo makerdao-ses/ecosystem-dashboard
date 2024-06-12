@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
-import { CustomLink } from '../CustomLink/CustomLink';
 import InformationCard from './InformationCard';
 
 interface Props {
@@ -22,14 +22,7 @@ const CardSomethingWrong = ({
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <StyledInformationCard
-      title="Something Wrong on this Page?"
-      width={width}
-      fontWeight={600}
-      color={isLight ? '#231536' : '#D2D4EF'}
-      fontSize="20px"
-      padding="16px 16px 24px 16px"
-    >
+    <StyledInformationCard title="Something Wrong on this Page?" width={width} padding="16px 16px 24px 16px">
       <TypographyDescription marginBottom={'16px'} isLight={isLight}>
         {title}
       </TypographyDescription>

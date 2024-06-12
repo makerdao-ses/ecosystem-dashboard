@@ -3,7 +3,7 @@ import NavigationCard from './NavigationCard';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
-  title: 'Components/CuAbout/NavigationCard',
+  title: 'Fusion/CuAbout/NavigationCard',
   components: NavigationCard,
 } as ComponentMeta<typeof NavigationCard>;
 
