@@ -22,14 +22,7 @@ const CardSomethingWrong = ({
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <StyledInformationCard
-      title="Something Wrong on this Page?"
-      width={width}
-      fontWeight={600}
-      color={isLight ? '#231536' : '#D2D4EF'}
-      fontSize="20px"
-      padding="16px 16px 24px 16px"
-    >
+    <StyledInformationCard title="Something Wrong on this Page?" width={width} padding="16px 16px 24px 16px">
       <TypographyDescription marginBottom={'16px'} isLight={isLight}>
         {title}
       </TypographyDescription>
