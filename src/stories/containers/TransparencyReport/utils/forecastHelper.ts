@@ -101,18 +101,18 @@ export const getExpenditureLevelForecast = (valueActual: number, budgetCapActual
   const percent = (valueActual * 100) / budgetCapActual;
   let expenditureLevel = '';
   if (percent > 0 && percent <= 75) {
-    expenditureLevel = ExpenditureLevel.LOW;
+    expenditureLevel = ExpenditureLevel.low;
   }
 
   if (percent > 75 && percent <= 90) {
-    expenditureLevel = ExpenditureLevel.OPTIMAL;
+    expenditureLevel = ExpenditureLevel.optimal;
   }
 
   if (percent > 90 && percent <= 100) {
-    expenditureLevel = ExpenditureLevel.STRETCHED;
+    expenditureLevel = ExpenditureLevel.stretched;
   }
   if (percent > 100) {
-    expenditureLevel = ExpenditureLevel.OVERBUDGET;
+    expenditureLevel = ExpenditureLevel.overBudget;
   }
 
   return expenditureLevel;

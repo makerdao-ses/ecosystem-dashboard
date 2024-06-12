@@ -25,7 +25,7 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
         <Month>{month}</Month>
         <SeverityDistinction
           isLight={isLight}
-          levelExpenditure={expenditureLevel === '0' ? ExpenditureLevel.OVERBUDGET : expenditureLevel}
+          levelExpenditure={expenditureLevel === '0' ? ExpenditureLevel.overBudget : expenditureLevel}
         >
           {expenditureLevel === '0' ? '' : expenditureLevel}
         </SeverityDistinction>
@@ -80,18 +80,18 @@ const SeverityDistinction = styled.div<WithIsLight & { levelExpenditure: string 
   lineHeight: '13px',
   textTransform: 'uppercase',
   color: isLight
-    ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+    ? levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
       ? '#02CB9B'
-      : levelExpenditure === ExpenditureLevel.STRETCHED
+      : levelExpenditure === ExpenditureLevel.stretched
       ? '#F08B04'
-      : levelExpenditure === ExpenditureLevel.OVERBUDGET
+      : levelExpenditure === ExpenditureLevel.overBudget
       ? '#CB3A0D'
       : '#1E2C37'
-    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+    : levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
     ? '#00ED18'
-    : levelExpenditure === ExpenditureLevel.STRETCHED
+    : levelExpenditure === ExpenditureLevel.stretched
     ? '#FF8237'
-    : levelExpenditure === ExpenditureLevel.OVERBUDGET
+    : levelExpenditure === ExpenditureLevel.overBudget
     ? '#FF4085'
     : '#ECF1F3',
 }));

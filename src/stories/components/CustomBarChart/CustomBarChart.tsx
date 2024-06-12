@@ -100,18 +100,18 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
     const percent = (valueActual * 100) / budgetCapActual;
     let expenditureLevel = '';
     if (percent > 0 && percent <= 75) {
-      expenditureLevel = ExpenditureLevel.LOW;
+      expenditureLevel = ExpenditureLevel.low;
     }
 
     if (percent > 75 && percent <= 90) {
-      expenditureLevel = ExpenditureLevel.OPTIMAL;
+      expenditureLevel = ExpenditureLevel.optimal;
     }
 
     if (percent > 90 && percent <= 100) {
-      expenditureLevel = ExpenditureLevel.STRETCHED;
+      expenditureLevel = ExpenditureLevel.stretched;
     }
     if (percent > 100) {
-      expenditureLevel = ExpenditureLevel.OVERBUDGET;
+      expenditureLevel = ExpenditureLevel.overBudget;
     }
 
     return expenditureLevel;
@@ -280,18 +280,18 @@ const Container = styled('div')<{ levelExpenditure?: ExpenditureLevel }>(({ leve
   height: 94,
   gap: 8,
   border: theme.palette.isLight
-    ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+    ? levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
       ? `2px solid ${theme.palette.colors.green[200]}`
-      : levelExpenditure === ExpenditureLevel.STRETCHED
+      : levelExpenditure === ExpenditureLevel.stretched
       ? `2px solid ${theme.palette.colors.orange[200]}`
-      : levelExpenditure === ExpenditureLevel.OVERBUDGET
+      : levelExpenditure === ExpenditureLevel.overBudget
       ? `2px solid ${theme.palette.colors.red[200]}`
       : `2px solid ${theme.palette.colors.charcoal[100]}`
-    : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+    : levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
     ? '2px solid #27633B'
-    : levelExpenditure === ExpenditureLevel.STRETCHED
+    : levelExpenditure === ExpenditureLevel.stretched
     ? '1px solid #8C5412'
-    : levelExpenditure === ExpenditureLevel.OVERBUDGET
+    : levelExpenditure === ExpenditureLevel.overBudget
     ? '1px solid #82302C'
     : `2px solid ${theme.palette.colors.charcoal[700]}`,
 }));
@@ -325,14 +325,14 @@ const StyleLevelExpenditure = styled(Typography)<{ levelExpenditure: Expenditure
     fontSize: '14px',
     lineHeight: '22px',
     color: theme.palette.isLight
-      ? levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+      ? levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
         ? theme.palette.colors.green[700]
-        : levelExpenditure === ExpenditureLevel.STRETCHED
+        : levelExpenditure === ExpenditureLevel.stretched
         ? theme.palette.colors.orange[700]
         : theme.palette.colors.red[700]
-      : levelExpenditure === ExpenditureLevel.LOW || levelExpenditure === ExpenditureLevel.OPTIMAL
+      : levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
       ? theme.palette.colors.green[900]
-      : levelExpenditure === ExpenditureLevel.STRETCHED
+      : levelExpenditure === ExpenditureLevel.stretched
       ? theme.palette.colors.orange[900]
       : theme.palette.colors.red[900],
   })
