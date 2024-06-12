@@ -270,6 +270,7 @@ const BigButtonStyled = styled(BigButton)({
   height: 31,
   padding: '8px 24px',
   letterSpacing: 1,
+  color: '#708390',
   [lightTheme.breakpoints.up('tablet_768')]: {
     minWidth: 207,
   },

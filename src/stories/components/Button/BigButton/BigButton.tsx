@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
-import { Button } from '@mui/material';
+import { Button, styled } from '@mui/material';
 import React from 'react';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 interface Props {
   onClick?: () => void;
@@ -10,32 +8,30 @@ interface Props {
   className?: string;
 }
 
-const BigButton = ({ onClick, title = 'Back', className }: Props) => {
-  const { isLight } = useThemeContext();
-  return (
-    <StyledBigButton isLight={isLight} onClick={onClick} className={className}>
-      {title}
-    </StyledBigButton>
-  );
-};
-
-const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    minWidth: '287px',
-    height: '30px',
-    border: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
-    borderRadius: '6px',
-    fontStyle: 'normal',
-    fontWeight: 600,
-    fontSize: '12px',
-    lineHeight: '15px',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    color: '#708390',
-    padding: '8px 64px',
-    letterSpacing: '0px',
-    fontFamily: 'Inter, sans-serif',
-  })
+const BigButton = ({ onClick, title = 'Back', className }: Props) => (
+  <StyledBigButton onClick={onClick} className={className}>
+    {title}
+  </StyledBigButton>
 );
+
+const StyledBigButton = styled(Button)(({ theme }) => ({
+  border: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+
+  borderRadius: '6px',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.charcoal[700],
+  padding: '8px 64px',
+  letterSpacing: '0px',
+  fontFamily: 'Inter, sans-serif',
+  height: '30px',
+  minWidth: '287px',
+}));
 
 export default BigButton;
