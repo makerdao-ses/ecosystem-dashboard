@@ -3,7 +3,7 @@ import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { CircleAvatar } from './CircleAvatar';
-import type { CircleAvatarProps } from './type';
+import type { CircleAvatarProps } from './CircleAvatar';
 import type { CSSProperties } from 'react';
 
 interface CircleAvatarWithIconProps extends CircleAvatarProps {
@@ -17,12 +17,10 @@ const CircleAvatarWithIcon: React.FC<CircleAvatarWithIconProps> = ({
   image,
   className,
   icon,
-  width = '34px',
-  height = '34px',
   ...circleAvatarProps
 }) => (
   <Container className={className}>
-    <CircleAvatar image={image} {...circleAvatarProps} width={width} height={height} />
+    <Avatar image={image} {...circleAvatarProps} />
 
     {icon && <ContainerIcon>{icon}</ContainerIcon>}
   </Container>
@@ -55,3 +53,10 @@ const ContainerIcon = styled.div({
     left: 14,
   },
 });
+
+const Avatar = styled(CircleAvatar)(() => ({
+  width: 34,
+  height: 34,
+  minWidth: 34,
+  minHeight: 34,
+}));

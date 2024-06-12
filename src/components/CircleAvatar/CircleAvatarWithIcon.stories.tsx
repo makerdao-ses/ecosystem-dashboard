@@ -5,7 +5,7 @@ import CircleAvatarWithIcon from './CircleAvatarWithIcon';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CircleAvatarWithIcon> = {
-  title: 'Components/General/CircleAvatarWithIcon',
+  title: 'Fusion/Components/CircleAvatarWithIcon',
   component: CircleAvatarWithIcon,
   parameters: {
     chromatic: {
