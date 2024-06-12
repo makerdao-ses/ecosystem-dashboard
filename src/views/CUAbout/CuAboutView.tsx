@@ -8,12 +8,12 @@ import { getMarkdownInformation } from '@/core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '@/core/businessLogic/coreUnits';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import { toAbsoluteURL } from '@/core/utils/urls';
-import BigButton from '@/stories/components/Button/BigButton/BigButton';
 import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
 import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
 import MdViewerContainer from '@/stories/components/Markdown/MdViewerContainer';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/stories/components/TeamMember/TeamMember';
+import BigButton from './Button/BigButton/BigButton';
 import CardExpenses from './NavigationCard/CardExpenses';
 import CardSomethingWrong from './NavigationCard/CardSomethingWrong';
 import RelateMips from './RelateMips/RelateMips';
@@ -96,7 +96,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
             )}
             <Divider
               sx={{
-                bgcolor: isLight ? '#D4D9E1' : '#405361',
+                bgcolor: (theme) => (theme.palette.isLight ? '#D8E0E3' : theme.palette.colors.charcoal[800]),
                 marginTop: !(cuAbout.contributorCommitment.length > 0) ? '32px' : '0px',
               }}
             />
@@ -113,20 +113,12 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
             </CardRelateMipsContainer>
             {hasMipsNotAccepted && (
               <ButtonContainer>
-                <DividerStyle
-                  sx={{
-                    bgcolor: isLight ? '#D4D9E1' : '#405361',
-                  }}
-                />{' '}
+                <LineStyledBorder />
                 <BigButton
                   title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'}
                   onClick={onClickLessMips}
                 />
-                <DividerStyle
-                  sx={{
-                    bgcolor: isLight ? '#D4D9E1' : '#405361',
-                  }}
-                />
+                <LineStyledBorder />
               </ButtonContainer>
             )}
             {!hasMipsNotAccepted && lessDesktop1194 && (
@@ -322,9 +314,22 @@ const ButtonContainer = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   overflow: 'hidden',
-
   [theme.breakpoints.down('desktop_1024')]: {
     marginBottom: '32px',
+  },
+  ':hover': {
+    '& > div:nth-of-type(1) , div:nth-of-type(2)': {
+      borderTop: `1px solid ${
+        theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[700]
+      }`,
+    },
+    '& > button': {
+      background: 'none',
+      border: `1px solid ${
+        theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[700]
+      }`,
+      color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.charcoal[600],
+    },
   },
 }));
 
@@ -414,4 +419,11 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
 
 const ContainerCardTableDesk = styled('div')(() => ({
   width: '39.61%',
+}));
+
+const LineStyledBorder = styled('div')(({ theme }) => ({
+  display: 'flex',
+  borderTop: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
 }));

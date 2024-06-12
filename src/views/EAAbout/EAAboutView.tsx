@@ -112,14 +112,13 @@ export default EAAboutView;
 const MarkdownContainer = styled('div')();
 
 const ContainerResponsive = styled('div')(({ theme }) => ({
-  width: '60.39%',
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: 96,
-
-  [theme.breakpoints.down('desktop_1024')]: {
-    width: '100%',
-    marginTop: 100,
+  width: '100%',
+  marginTop: 24,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: '60.39%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 32,
   },
 }));
 
@@ -165,11 +164,10 @@ const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
 
 const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
   display: 'none',
-  marginTop: 90,
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    marginTop: 96,
     width: '39.61%',
+    marginTop: 32,
   },
 }));
