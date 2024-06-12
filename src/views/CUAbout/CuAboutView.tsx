@@ -14,9 +14,9 @@ import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSu
 import MdViewerContainer from '@/stories/components/Markdown/MdViewerContainer';
 import CardExpenses from '@/stories/components/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/stories/components/NavigationCard/CardSomethingWrong';
-import RelateMips from '@/stories/components/RelateMips/RelateMips';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/stories/components/TeamMember/TeamMember';
+import RelateMips from './RelateMips/RelateMips';
 import { useCuAboutView } from './useCuAboutView';
 import type { Theme } from '@mui/material';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
@@ -104,9 +104,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
               <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
               <RelateMipCards>
                 {relateMipsOrder.map((mip: unknown, index: number) => (
-                  <RelateMipCard key={index}>
-                    <RelateMips relateMips={mip as CuMip} />
-                  </RelateMipCard>
+                  <RelateMips relateMips={mip as CuMip} key={index} />
                 ))}
                 {cuAbout?.cuMip?.length === 0 && (
                   <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>
@@ -286,47 +284,41 @@ const ContainerCards = styled('div')(({ theme }) => ({
 const CardRelateMipsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'center',
   alignItems: 'center',
   marginTop: '40px',
   marginBottom: '40px',
-  width: '715px',
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    width: '100%',
-  },
-  [theme.breakpoints.between('mobile_375', 835)]: {
-    width: '100%',
-  },
-  [theme.breakpoints.down('mobile_375')]: {
+  gap: 16,
+  [theme.breakpoints.up('mobile_375')]: {
     width: '100%',
   },
 }));
 
 const TitleRelateMips = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontWeight: 600,
-  fontSize: '14px',
-  lineHeight: '17px',
-  marginBottom: '32px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
+  fontSize: 14,
+  fontWeight: 700,
+  lineHeight: '16.94px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   [theme.breakpoints.up('tablet_768')]: {
-    fontFamily: 'Inter, sans-serif',
-    fontWeight: 700,
-    fontSize: '16px',
-    lineHeight: '19.2px',
+    fontSize: 16,
+    lineHeight: '19.36px',
   },
 }));
 
-const RelateMipCards = styled('div')({
+const RelateMipCards = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-});
+  gap: 8,
+  width: '100%',
 
-const RelateMipCard = styled('div')({
-  marginBottom: '24px',
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    width: 640,
+  },
+}));
 
 const ButtonContainer = styled('div')(({ theme }) => ({
   display: 'flex',

@@ -1,4 +1,4 @@
-import { createThemeModeVariants } from '@/core/utils/storybook/factories';
+import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import MdViewerContainer from './MdViewerContainer';
 import type { Meta } from '@storybook/react';
 
