@@ -774,21 +774,6 @@ const VerticalLine = styled('div')(({ theme }) => ({
   },
 }));
 
-// const PopoverListLinksStyled = styled(PopoverListLinks)(({ theme }) => ({
-//   'div:first-of-type': {
-//     width: 21,
-//     height: 21,
-//     justifyContent: 'flex',
-//     alignItem: 'center',
-//   },
-//   '& button': {
-//     gap: 4,
-//     [theme.breakpoints.up('desktop_1280')]: {
-//       padding: '5px 7px 5px 4px',
-//     },
-//   },
-// }));
-
 const ScopeChipStyled = styled(ScopeChip)(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     height: 24,
