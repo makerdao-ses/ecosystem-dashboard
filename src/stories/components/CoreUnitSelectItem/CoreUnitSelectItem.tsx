@@ -24,7 +24,7 @@ const CoreUnitSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...pro
     >
       {!props.params?.isAll && (
         <>
-          <CircleAvatar name={props.label.toString()} image={props.params?.url} width={'32px'} height={'32px'} />
+          <CircleAvatarStyled name={props.label.toString()} image={props.params?.url} />
           <CoreUnitCode isLight={isLight}>{props.params?.code}</CoreUnitCode>
         </>
       )}
@@ -65,4 +65,11 @@ const CheckWrapper = styled.span({
   position: 'absolute',
   right: 8,
   top: 8,
+});
+
+const CircleAvatarStyled = styled(CircleAvatar)({
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
 });

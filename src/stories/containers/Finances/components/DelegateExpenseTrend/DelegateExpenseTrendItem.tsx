@@ -95,8 +95,6 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
             <CircleAvatarWithIconStyled
               isCoreUnit={isCoreUnitElement}
               name="Image Core Unit or Delegate"
-              width={isMobile ? '42px' : '34px'}
-              height={isMobile ? '42px' : '34px'}
               icon={isMobile ? <MultiUsersMobile /> : <MultiUsers />}
               image={budget.owner.icon}
             />
@@ -196,7 +194,12 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
 }));
 
 const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: boolean }>(({ isCoreUnit }) => ({
+  width: 42,
+  height: 42,
+  minWidth: 42,
+  minHeight: 42,
   marginTop: 4,
+
   '& div svg path': {
     fill: isCoreUnit ? '#1AAB9B' : '#447AFB',
   },
@@ -209,8 +212,13 @@ const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: bo
   '& div svg path:nth-of-type(4)': {
     fill: '#fff',
   },
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
+    width: 34,
+    height: 34,
+    minWidth: 34,
+    minHeight: 34,
   },
 }));
 

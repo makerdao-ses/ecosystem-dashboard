@@ -28,12 +28,7 @@ export const ActorTitleAbout = ({ actorAbout }: Props) => {
     <Container>
       <ContainerForAvatarLinks>
         <CircleContainer>
-          <CircleAvatar
-            width={phoneDimensions ? '32px' : '68px'}
-            height={phoneDimensions ? '32px' : '68px'}
-            name={actorAbout?.name || 'Ecosystem Actors'}
-            image={actorAbout?.image}
-          />
+          <CircleAvatarStyled name={actorAbout?.name || 'Ecosystem Actors'} image={actorAbout?.image} />
           <WrapperShowOnlyMobile>
             <ContainerTitle>
               <ContainerSeparateData>
@@ -269,6 +264,20 @@ const CircleContainer = styled.div({
   display: 'flex',
   flexDirection: 'row',
   gap: 12,
+});
+
+const CircleAvatarStyled = styled(CircleAvatar)({
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    width: 68,
+    height: 68,
+    minWidth: 68,
+    minHeight: 68,
+  },
 });
 
 const ContainerColum = styled.div({

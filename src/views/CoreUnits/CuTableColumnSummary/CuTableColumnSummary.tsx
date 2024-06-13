@@ -20,7 +20,6 @@ interface CuTableColumnSummaryProps {
   onClick?: () => void;
   mipUrl?: string;
   code?: string;
-  logoDimension?: string;
   isLoading?: boolean;
   hasPopup?: boolean;
   style?: React.CSSProperties;
@@ -68,12 +67,7 @@ const PopupWrapper = ({ children, title, code, hasPopup = false }: PopupWrapperP
   );
 };
 
-export const CuTableColumnSummary = ({
-  logoDimension = '48px',
-
-  hasPopup = true,
-  ...props
-}: CuTableColumnSummaryProps) => {
+export const CuTableColumnSummary = ({ hasPopup = true, ...props }: CuTableColumnSummaryProps) => {
   const phoneAndTableDevices = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const hiddenPopOverSmallDevices = hasPopup && !phoneAndTableDevices;
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
@@ -99,12 +93,7 @@ export const CuTableColumnSummary = ({
               </PopupSummaryWrapper>
             }
           >
-            <CircleAvatarStyled
-              width={logoDimension}
-              height={logoDimension}
-              name={props.title || 'Core Unit'}
-              image={props.imageUrl}
-            />
+            <CircleAvatarStyled name={props.title || 'Core Unit'} image={props.imageUrl} />
           </PopupWrapper>
         </CircleContainer>
         <Content>
