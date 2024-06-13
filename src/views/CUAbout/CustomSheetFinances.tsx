@@ -9,7 +9,7 @@ import { siteRoutes } from '@/config/routes';
 import type { AuditorDto } from '@/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@/core/utils/const';
-import InlineUser from '@/stories/containers/TransparencyReport/components/InlineUser/InlineUser';
+import InlineUser from '../EAAbout/components/InlineUser/InlineUser';
 import type { FC } from 'react';
 
 interface Props {

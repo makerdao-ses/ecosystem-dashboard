@@ -27,7 +27,7 @@ const variantsArgs = [
   },
   {
     auditors: [] as Auditor[],
-    auditorTitle: 'The powerHose is working without auditor.',
+    auditorTitle: 'The Powerhouse is working without auditor.',
   },
 ];
 
