@@ -39,14 +39,7 @@ const CardInfoMember = ({ contributorCommitment }: Props) => {
                 marginRight: '0px',
               },
             }}
-            avatar={
-              <CircleAvatarStyled
-                width="54px"
-                height="54px"
-                name={contributor?.name}
-                image={contributor?.facilitatorImage}
-              />
-            }
+            avatar={<CircleAvatarStyled name={contributor?.name} image={contributor?.facilitatorImage} />}
             title={<TypographyName>{contributor.name}</TypographyName>}
             subheader={
               <>
@@ -192,6 +185,10 @@ const TypographyName = styled(Typography)(({ theme }) => ({
 }));
 
 const CircleAvatarStyled = styled(CircleAvatar)({
+  width: 54,
+  height: 54,
+  minWidth: 54,
+  minHeight: 54,
   marginRight: 21,
   border: '3px solid #E7FCFA',
 });

@@ -31,12 +31,7 @@ export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
   return (
     <Container>
       <CircleContainer>
-        <CircleAvatarStyled
-          width={'68px'}
-          height={'68px'}
-          name={coreUnitAbout.name || 'Core Unit'}
-          image={coreUnitAbout.image}
-        />
+        <CircleAvatarStyled name={coreUnitAbout.name || 'Core Unit'} image={coreUnitAbout.image} />
       </CircleContainer>
       <ContainerColum>
         <ContainerTitle>
@@ -329,6 +324,10 @@ const ResponsiveTitle = styled('div')({
 });
 
 const CircleAvatarStyled = styled(CircleAvatar)({
+  width: 68,
+  height: 68,
+  minWidth: 68,
+  minHeight: 68,
   filter: 'drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
 });
 
