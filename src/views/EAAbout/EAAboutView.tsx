@@ -70,7 +70,6 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
             </MarkdownContainer>
             <WrapperCardSomethingWrongMobile>
               <CardSomethingWrong
-                width={table834 || phone ? '770px' : 'fit-content'}
                 title="Are you part of this Ecosystem Actor? "
                 linkText="Join Powerhouse discord #dashboard-reporting channel"
               >
@@ -108,7 +107,15 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                 <CardSomethingWrong
                   title="Are you part of this Ecosystem Actor?"
                   linkText="Join Powerhouse discord #dashboard-reporting channel"
-                />
+                >
+                  <ContainerLinks>
+                    <LabelLinks>Important Links</LabelLinks>
+                    <ContainerLinksButton>
+                      <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
+                      <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
+                    </ContainerLinksButton>
+                  </ContainerLinks>
+                </CardSomethingWrong>
               </ContainerCard>
             </ContainerScroll>
           </ContainerCardSomethingWrongDesk>
@@ -167,6 +174,9 @@ const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop }) =>
 const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
   display: 'flex',
   marginTop: 48,
+  '& > div': {
+    width: '100%',
+  },
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
@@ -180,17 +190,6 @@ const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
     display: 'flex',
     width: '39.61%',
     marginTop: 32,
-  },
-}));
-
-const ContainerLinks = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 16,
-  marginTop: 24,
-  [theme.breakpoints.up('tablet_768')]: {},
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
   },
 }));
 
@@ -209,5 +208,37 @@ const ContainerLinksButton = styled('div')({
 });
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '4px 16px 4px 24px',
+  padding: '4px 15px 4px 23px',
+  height: 32,
+  display: 'flex',
+
+  alignItems: 'center',
+  fontSize: 16,
+
+  letterSpacing: '-0.32px',
+  '& > div': {
+    width: 23,
+    height: 21,
+  },
+}));
+
+const ContainerLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  marginTop: 12,
+  paddingLeft: 16,
+  paddingRight: 16,
+  paddingBottom: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingBottom: 16,
+  },
 }));

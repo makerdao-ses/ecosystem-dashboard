@@ -159,7 +159,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                       <ContainerLinks>
                         <LabelLinks>Important Links</LabelLinks>
                         <ContainerLinksButton>
-                          <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
+                          <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
                           <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
                         </ContainerLinksButton>
                       </ContainerLinks>
