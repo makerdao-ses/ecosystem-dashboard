@@ -4,8 +4,7 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
-import InlineUser from '@/stories/containers/TransparencyReport/components/InlineUser/InlineUser';
-import { useThemeContext } from '../../../core/context/ThemeContext';
+import Auditors from '@/views/EAAbout/components/Auditors/Auditors';
 import { MAKER_BURN_LINK } from '../../../core/utils/const';
 import InformationCard from './InformationCard';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
@@ -40,7 +39,6 @@ const CardExpenses = ({
   budgetPath,
   className,
 }: Props) => {
-  const { isLight } = useThemeContext();
   const title = titleCard ?? `View all expenses of the ${shortCode} Core Unit.`;
   const auditorTitle = auditorMessage ?? `${shortCode} Core Unit is currently working without auditor.`;
 
@@ -81,20 +79,9 @@ const CardExpenses = ({
       )}
 
       {resource === ResourceType.EcosystemActor ? (
-        (auditors || []).length > 0 ? (
-          <AuditorsContainer>
-            <AuditorTitle isLight={isLight}>Auditors</AuditorTitle>
-            <Auditors>
-              {auditors?.map((auditor) => (
-                <Auditor key={auditor.id}>
-                  <InlineUser username={auditor.username} />
-                </Auditor>
-              ))}
-            </Auditors>
-          </AuditorsContainer>
-        ) : (
-          <NoAuditorsMessage isLight={isLight}>{auditorTitle}</NoAuditorsMessage>
-        )
+        <ContainerAuditors>
+          <Auditors auditors={auditors || []} auditorTitle={auditorTitle} />
+        </ContainerAuditors>
       ) : (
         <div />
       )}
@@ -152,41 +139,6 @@ const ContainerLinks = styled('div')(({ theme }) => ({
   },
 }));
 
-const AuditorsContainer = styled('div')({
-  padding: '8px 16px 24px',
-});
-
-const NoAuditorsMessage = styled('div')<{ isLight: boolean }>(({ isLight }) => ({
-  padding: '8px 16px 24px',
-  fontFamily: 'Inter, sans serif',
-  fontWeight: 500,
-  fontSize: '15px',
-  lineHeight: '24px',
-  color: isLight ? '#546978 ' : '#9FAFB9',
-  letterSpacing: '0px',
-}));
-
-const AuditorTitle = styled('div')<{ isLight: boolean }>(({ isLight }) => ({
-  fontSize: 12,
-  fontWeight: 600,
-  lineHeight: '15px',
-  color: isLight ? '#708390' : '#546978',
-  textTransform: 'uppercase',
-}));
-
-const Auditors = styled('div')({
-  display: 'flex',
-  flexWrap: 'wrap',
-});
-
-const Auditor = styled('div')({
-  marginTop: 16,
-
-  '&:not(:last-of-type)': {
-    marginRight: 40,
-  },
-});
-
 const Line = styled('div')(({ theme }) => ({
   borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : theme.palette.colors.charcoal[800]}`,
   marginTop: '8px',
@@ -204,4 +156,13 @@ const LabelLinks = styled('div')(({ theme }) => ({
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   padding: '4px 16px 4px 24px',
+}));
+
+const ContainerAuditors = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: 8,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    padding: 16,
+  },
 }));
