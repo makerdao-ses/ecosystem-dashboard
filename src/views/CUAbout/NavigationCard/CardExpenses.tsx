@@ -165,10 +165,10 @@ const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
 
 const ContainerAuditors = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
-    padding: 8,
+    padding: '0px 8px 8px 8px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
+    padding: '0px 16px 16px 16px',
   },
 }));
 
