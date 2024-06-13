@@ -25,6 +25,7 @@ const Button = styled('button')(({ theme }) => ({
   lineHeight: '24px',
   fontWeight: 600,
   cursor: 'pointer',
+  letterSpacing: '-0.32px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.slate[500],
   color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[100],
   border: '1px solid transparent',
