@@ -3,9 +3,9 @@ import Markdown from 'marked-react';
 import React from 'react';
 
 import type { ResourceType } from '@/core/models/interfaces/types';
-import CustomSheetFinancesCU from '@/views/CUAbout/CustomSheetFinancesCU';
 
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import CustomSheetFinances from '../CustomSheetFinances';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Theme } from '@mui/material';
@@ -51,7 +51,7 @@ const MdViewerPage = ({
       {showButton && !isTable768 ? (
         <ContainerResponsive>
           <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-          <CustomSheetFinancesCU
+          <CustomSheetFinances
             budgetPath={budgetPath}
             queryStrings={queryStrings}
             shortCode={shortCode}

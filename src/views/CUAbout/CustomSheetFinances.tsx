@@ -23,8 +23,7 @@ interface Props {
   auditorTitle?: string;
 }
 
-// Rename to CUEA
-const CustomSheetFinancesCU: FC<Props> = ({
+const CustomSheetFinances: FC<Props> = ({
   className,
   budgetPath,
   queryStrings,
@@ -44,9 +43,10 @@ const CustomSheetFinancesCU: FC<Props> = ({
     setIsOpen(false);
   };
   return (
-    <>
-      <ButtonOpenMenu title="Finances" onClick={handleOpenSheet} />
+    <Container type={type}>
+      <ButtonOpenMenuStyled title="Finances" onClick={handleOpenSheet} />
       <CustomSheetStyled
+        snapPoints={type === ResourceType.CoreUnit ? [600, 350] : [600, 250]}
         className={className}
         children={
           <CardSheetMobile title="Finances" description={`View all expenses of the ${shortCode} ${textDescription}`}>
@@ -95,11 +95,11 @@ const CustomSheetFinancesCU: FC<Props> = ({
         handleClose={handleClose}
         isOpen={isOpen}
       />
-    </>
+    </Container>
   );
 };
 
-export default CustomSheetFinancesCU;
+export default CustomSheetFinances;
 
 const CustomSheetStyled = styled(CustomSheet)({
   '& .react-modal-sheet-container': {
@@ -174,4 +174,15 @@ const NoAuditorsMessage = styled('div')(({ theme }) => ({
   lineHeight: '24px',
   color: theme.palette.isLight ? '#546978 ' : '#9FAFB9',
   letterSpacing: '0px',
+}));
+
+const ButtonOpenMenuStyled = styled(ButtonOpenMenu)({
+  display: 'flex',
+  flex: 1,
+  justifyContent: 'center',
+});
+
+const Container = styled('div')<{ type: ResourceType }>(({ type }) => ({
+  display: 'flex',
+  width: type === ResourceType.CoreUnit ? undefined : '100%',
 }));

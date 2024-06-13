@@ -22,9 +22,11 @@ const CustomSheetProjects: FC<Props> = ({ className, queryStrings, shortCode }) 
     setIsOpen(false);
   };
   return (
-    <>
-      <ButtonOpenMenu title="Projects" onClick={handleOpenSheet} />
+    <Container>
+      <ButtonOpenMenuStyled title="Projects" onClick={handleOpenSheet} className={className} />
+
       <CustomSheetStyled
+        snapPoints={[200, 150]}
         className={className}
         children={
           <CardSheetMobile
@@ -43,7 +45,7 @@ const CustomSheetProjects: FC<Props> = ({ className, queryStrings, shortCode }) 
         handleClose={handleClose}
         isOpen={isOpen}
       />
-    </>
+    </Container>
   );
 };
 
@@ -63,4 +65,15 @@ const ContainerChildren = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
+});
+
+const Container = styled('div')({
+  display: 'flex',
+  width: '100%',
+});
+const ButtonOpenMenuStyled = styled(ButtonOpenMenu)({
+  display: 'flex',
+  flex: 1,
+  justifyContent: 'center',
+  // },
 });

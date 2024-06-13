@@ -4,7 +4,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import Markdown from 'marked-react';
 import React from 'react';
-import CustomSheetFinancesCU from '@/views/CUAbout/CustomSheetFinancesCU';
+import CustomSheetFinances from '@/views/CUAbout/CustomSheetFinances';
 import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/renderUtils';
 import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
@@ -61,7 +61,7 @@ const ActorMdViewPage = ({
             <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
             <ContainerButton>
               <CustomSheetProjects queryStrings={queryStrings} shortCode={shortCode} />
-              <CustomSheetFinancesCU
+              <CustomSheetFinances
                 budgetPath={budgetPath}
                 code={code}
                 shortCode={shortCode}
@@ -172,6 +172,9 @@ const TypographyStyleDescription = styled('p')(({ theme }) => ({
 }));
 
 const ContainerShowOnlyMobile = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
   [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
