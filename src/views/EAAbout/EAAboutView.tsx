@@ -63,6 +63,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                 paragraphDescription={getMarkdownInformation(actor.paragraphDescription)}
                 queryStrings={queryStrings}
                 budgetPath={routeToFinances}
+                auditorTitle={`${actor.name} is working without auditor.`}
               />
             </MarkdownContainer>
             <WrapperCardSomethingWrongMobile>

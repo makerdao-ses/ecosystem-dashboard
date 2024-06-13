@@ -1,10 +1,11 @@
-import { Popover, styled, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import React from 'react';
 
-import ButtonOpenMenu from '@/components/ButtonOpenMenu/ButtonOpenMenu';
-import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
+import type { ResourceType } from '@/core/models/interfaces/types';
+
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import CustomSheetFinances from '../CustomSheetFinances';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Theme } from '@mui/material';
@@ -28,6 +29,7 @@ interface Props {
   auditors: AuditorDto[];
   queryStrings: string;
   budgetPath: string;
+  type: ResourceType;
 }
 
 const MdViewerPage = ({
@@ -36,60 +38,26 @@ const MdViewerPage = ({
   paragraphImage,
   showButton = false,
   queryStrings,
-  code,
   shortCode,
-  auditors,
   budgetPath,
+  code,
+  type,
 }: Props) => {
   const { isLight } = useThemeContext();
   const isTable768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
   return (
     <ViewerContainer>
       {showButton && !isTable768 ? (
         <ContainerResponsive>
           <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
-          <ButtonOpenMenu title="Finances" onClick={handleClick} />
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            sx={{
-              '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-                borderRadius: '6px',
-                backgroundColor: isLight ? 'none' : '#10191F',
-                boxShadow: isLight
-                  ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-                  : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-              },
-            }}
-          >
-            <CardExpenses
-              budgetPath={budgetPath}
-              queryStrings={queryStrings}
-              code={code}
-              shortCode={shortCode}
-              auditors={auditors}
-              isTitlePresent={false}
-            />
-          </Popover>
+          <CustomSheetFinances
+            budgetPath={budgetPath}
+            queryStrings={queryStrings}
+            shortCode={shortCode}
+            code={code}
+            type={type}
+          />
         </ContainerResponsive>
       ) : showButton && isTable768 ? (
         <div>

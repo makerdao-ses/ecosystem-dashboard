@@ -1,6 +1,5 @@
 import { styled } from '@mui/material';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/themes';
 import './Markdown.module.scss';
 
 export const customRenderer = {
@@ -267,18 +266,18 @@ const ImageTag = styled('img')({
   margin: '0 auto',
 });
 
-const ResponsiveParagraph = styled('div')({
+const ResponsiveParagraph = styled('div')(({ theme }) => ({
   textAlign: 'left',
   marginTop: '1em',
   fontSize: 14,
   lineHeight: '24px',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
   },
-});
+}));
 
-const ResponsiveList = styled('ul')({
+const ResponsiveList = styled('ul')(({ theme }) => ({
   '& li': {
     '& ul': {
       marginTop: '2em',
@@ -290,62 +289,62 @@ const ResponsiveList = styled('ul')({
   },
   marginTop: '1em',
   marginBottom: '0px',
-  [lightTheme.breakpoints.up('mobile_375')]: {
+  [theme.breakpoints.up('mobile_375')]: {
     fontSize: 16,
     fontWeight: 400,
     lineHeight: '24px',
   },
-});
+}));
 
-const ResponsiveItem = styled('li')({
+const ResponsiveItem = styled('li')(({ theme }) => ({
   textAlign: 'left',
-  [lightTheme.breakpoints.up('mobile_375')]: {
+  [theme.breakpoints.up('mobile_375')]: {
     fontSize: 16,
     fontWeight: 400,
     lineHeight: '24px',
   },
-});
+}));
 
-const ResponsiveCode = styled('code')({
-  [lightTheme.breakpoints.up('mobile_375')]: {
+const ResponsiveCode = styled('code')(({ theme }) => ({
+  [theme.breakpoints.up('mobile_375')]: {
     fontSize: '14px',
     lineHeight: '17px',
   },
-});
+}));
 
-const HeadingResponsiveH1 = styled('h1')({
+const HeadingResponsiveH1 = styled('h1')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
   marginTop: 32,
   marginBottom: 0,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: 20,
     fontWeight: 600,
     letterSpacing: '0.4px',
   },
-});
+}));
 
-const HeadingResponsiveH2 = styled('h2')({
+const HeadingResponsiveH2 = styled('h2')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
   marginBottom: 0,
   marginTop: 32,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 600,
   },
-});
+}));
 
-const HeadingResponsiveH3 = styled('h3')({
+const HeadingResponsiveH3 = styled('h3')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 700,
   lineHeight: 'normal',
   marginBottom: 0,
   marginTop: 32,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 600,
   },
-});
+}));

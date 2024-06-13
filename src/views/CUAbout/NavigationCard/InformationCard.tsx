@@ -45,10 +45,14 @@ const Container = styled(Card)(({ theme }) => ({
 }));
 
 const Label = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 20,
-  fontWeight: 700,
+  fontSize: 16,
   lineHeight: '24px',
+  fontWeight: 700,
+  [theme.breakpoints.up('tablet_768')]: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: 20,
+    lineHeight: '24px',
+  },
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 }));
 
