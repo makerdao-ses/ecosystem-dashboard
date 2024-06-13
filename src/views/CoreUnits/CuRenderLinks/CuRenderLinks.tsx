@@ -1,11 +1,11 @@
 import { styled } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import SocialMediaLinksButton from '@/components/ButtonLink/SocialMediaLinksButton';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import { siteRoutes } from '@/config/routes';
 import type { CoreUnit } from '@/core/models/interfaces/coreUnit';
 import { buildQueryString } from '@/core/utils/urls';
-import PopoverListLinks from '@/views/Actors/components/PopoverListLinks/PopoverListLinks';
 
 interface Props {
   coreUnit: CoreUnit;
@@ -18,7 +18,7 @@ export const CuRenderLinks: React.FC<Props> = ({ coreUnit, className }) => {
   return (
     <LinksContainer className={className}>
       <ContainerLinksArrowsDesk>
-        <PopoverListLinksStyled label="Links" />
+        <SocialMediaLinksButton socialMedia={coreUnit.socialMediaChannels?.[0]} hideLabelIn={['desktop_1024']} />
         <VerticalLine />
         <InternalLinkButtonStyled href={`${siteRoutes.coreUnitAbout(coreUnit.shortCode)}/${queryStrings}`} showIcon />
       </ContainerLinksArrowsDesk>
@@ -44,21 +44,6 @@ const ContainerLinksArrowsDesk = styled('div')(({ theme }) => ({
     alignItems: 'center',
     minWidth: 140,
     justifyContent: 'flex-end',
-  },
-}));
-
-const PopoverListLinksStyled = styled(PopoverListLinks)(({ theme }) => ({
-  'div:first-of-type': {
-    width: 21,
-    height: 21,
-    justifyContent: 'flex',
-    alignItem: 'center',
-  },
-  '& button': {
-    gap: 4,
-    [theme.breakpoints.up('desktop_1280')]: {
-      padding: '5px 7px 5px 4px',
-    },
   },
 }));
 

@@ -30,6 +30,7 @@ const Container = styled(Link)(({ theme }) => ({
   gap: 8,
   minHeight: 32,
   padding: '5px 6px 5px 4px',
+
   ':hover': {
     backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(37, 42, 52, 0.4)',
   },
@@ -38,6 +39,11 @@ const Container = styled(Link)(({ theme }) => ({
 const IconContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
+
+  '& svg': {
+    width: 16,
+    height: 16,
+  },
 });
 
 const Title = styled('div')(({ theme }) => ({
