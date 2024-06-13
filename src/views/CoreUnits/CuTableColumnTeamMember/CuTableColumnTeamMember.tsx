@@ -2,8 +2,8 @@ import { styled } from '@mui/material';
 import React from 'react';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
-import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
+import CardInfoMember from '@/views/CUAbout/CardInfoMember/CardInfoMember';
 
 import ToolTipsCU from '../components/ToolTips/ToolTips';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
