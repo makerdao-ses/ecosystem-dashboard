@@ -1,10 +1,10 @@
 import { styled } from '@mui/material';
 import React, { useState } from 'react';
-import ButtonOpenMenu from '@/components/ButtonOpenMenu/ButtonOpenMenu';
 import CardSheetMobile from '@/components/CardSheetMobile/CardSheetMobile';
 import CustomSheet from '@/components/CustomSheet/CustomSheet';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
+import SecondaryButton from '@/components/SecondaryButton/SecondaryButton';
 import { siteRoutes } from '@/config/routes';
 import type { AuditorDto } from '@/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@/core/models/interfaces/types';
@@ -176,7 +176,7 @@ const NoAuditorsMessage = styled('div')(({ theme }) => ({
   letterSpacing: '0px',
 }));
 
-const ButtonOpenMenuStyled = styled(ButtonOpenMenu)({
+const ButtonOpenMenuStyled = styled(SecondaryButton)({
   display: 'flex',
   flex: 1,
   justifyContent: 'center',

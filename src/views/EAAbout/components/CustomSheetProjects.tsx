@@ -1,9 +1,9 @@
 import { styled } from '@mui/material';
 import React, { useState } from 'react';
-import ButtonOpenMenu from '@/components/ButtonOpenMenu/ButtonOpenMenu';
 import CardSheetMobile from '@/components/CardSheetMobile/CardSheetMobile';
 import CustomSheet from '@/components/CustomSheet/CustomSheet';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
+import SecondaryButton from '@/components/SecondaryButton/SecondaryButton';
 import type { FC } from 'react';
 
 interface Props {
@@ -71,9 +71,8 @@ const Container = styled('div')({
   display: 'flex',
   width: '100%',
 });
-const ButtonOpenMenuStyled = styled(ButtonOpenMenu)({
+const ButtonOpenMenuStyled = styled(SecondaryButton)({
   display: 'flex',
   flex: 1,
   justifyContent: 'center',
-  // },
 });
