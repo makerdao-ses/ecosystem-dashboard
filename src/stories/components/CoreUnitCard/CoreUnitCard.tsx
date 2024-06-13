@@ -45,7 +45,6 @@ const CoreUnitCard = ({ coreUnit }: CoreUnitCardProps) => (
           code={getShortCode(coreUnit.code)}
           categories={coreUnit.category}
           isCard={true}
-          logoDimension="32px"
         />
       </Summary>
 

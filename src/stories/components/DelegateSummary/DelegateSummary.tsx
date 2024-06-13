@@ -21,7 +21,6 @@ interface Props {
 }
 
 const DelegateSummary = forwardRef<HTMLDivElement, Props>(({ code = 'del', links, items, showHeader }, ref) => {
-  const isUp1280 = useMediaQuery((theme: Theme) => theme.breakpoints.up('tablet_768'));
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
 
   return (
@@ -33,12 +32,7 @@ const DelegateSummary = forwardRef<HTMLDivElement, Props>(({ code = 'del', links
         <Container>
           <ContainerRow>
             <CircleContainer>
-              <CircleAvatarStyled
-                width={isUp1280 ? '68px' : '32px'}
-                height={isUp1280 ? '68px' : '32px'}
-                name="mk-logo"
-                image="/assets/img/mk-logo.png"
-              />
+              <CircleAvatarStyled name="mk-logo" image="/assets/img/mk-logo.png" />
             </CircleContainer>
             <ContainerDescription>
               <ContainerColumnMobile>
@@ -287,8 +281,19 @@ const ContainerText = styled('div')({
 });
 
 const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
   filter: theme.palette.isLight
     ? 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))'
     : 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
   border: 'none',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    width: 68,
+    height: 68,
+    minWidth: 68,
+    minHeight: 68,
+  },
 }));

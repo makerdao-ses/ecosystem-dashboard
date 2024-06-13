@@ -17,7 +17,7 @@ const CardCoreUnitThirdLevelBudget: React.FC<Props> = ({ image, href, code, name
   return (
     <Container>
       <Avatar>
-        <CircleAvatarStyled image={image} width={'32px'} height="32px" name="Core Unit" />
+        <CircleAvatarStyled image={image} name="Core Unit" />
       </Avatar>
       <Information>
         <Code>{code}</Code>
@@ -58,6 +58,10 @@ const Avatar = styled('div')({
 const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? '2px 4px 7px 0px rgba(26, 171, 155, 0.25)' : 'none',
   border: 'none',
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
 }));
 
 const Information = styled('div')({

@@ -4,17 +4,20 @@ import padEnd from 'lodash/padEnd';
 import React from 'react';
 import { getColorForString } from '@/core/utils/colors';
 import { getTwoInitials } from '@/core/utils/string';
-import type { CircleAvatarProps } from './type';
+
+export interface CircleAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
+  name: string;
+  image?: string;
+  identIcon?: boolean;
+  className?: string;
+}
 
 export const CircleAvatar: React.FC<CircleAvatarProps> = ({
-  width = '32px',
-  height = '32px',
-  fontSize = '16px',
   identIcon = false,
-  onClick,
   name,
   className,
   image,
+  ...htmlAttributes
 }) => {
   const identIconImage =
     identIcon &&
@@ -26,30 +29,21 @@ export const CircleAvatar: React.FC<CircleAvatarProps> = ({
   const backgroundImage = identIcon ? `data:image/svg+xml;base64,${identIconImage}` : image;
 
   return (
-    <Container
-      className={className}
-      onClick={onClick}
-      fontSize={fontSize}
-      width={width}
-      height={height}
-      name={name}
-      backgroundImage={backgroundImage}
-    >
+    <Container className={className} name={name} backgroundImage={backgroundImage} {...htmlAttributes}>
       {!backgroundImage && getTwoInitials(name)}
     </Container>
   );
 };
 
 const Container = styled('div')<{
-  width: string;
-  height: string;
-  fontSize: string;
   name: string;
   backgroundImage?: string;
-}>(({ height, width, fontSize, backgroundImage, name, theme }) => ({
-  width,
-  height,
-  fontSize,
+}>(({ theme, backgroundImage, name }) => ({
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
+  fontSize: 16,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -62,8 +56,6 @@ const Container = styled('div')<{
   backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  minWidth: width,
-  minHeight: height,
   boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.reskinShortShadow,
 }));
 

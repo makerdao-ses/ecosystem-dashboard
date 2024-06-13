@@ -43,9 +43,6 @@ const CuTableColumnTeamMember: React.FC<CuTableColumnTeamMemberProps> = ({
             <CircleAvatarStyled
               key={member.id}
               name={member.contributor[0].name}
-              fontSize={'14px'}
-              width={'36px'}
-              height={'36px'}
               index={i}
               image={member.contributor[0].facilitatorImage?.trim()}
             />
@@ -160,6 +157,11 @@ const SESTooltipStyled = styled(SESTooltip)({
 });
 
 const CircleAvatarStyled = styled(CircleAvatar)<{ index: number }>(({ index }) => ({
+  width: 36,
+  height: 36,
+  minWidth: 36,
+  minHeight: 36,
+  fontSize: 14,
   boxSizing: 'border-box',
   marginLeft: index === 0 ? 0 : '-9px',
 }));

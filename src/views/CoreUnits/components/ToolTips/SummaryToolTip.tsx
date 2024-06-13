@@ -22,7 +22,7 @@ export const SummaryToolTip: React.FC<Props> = ({ imageUrl, code, name, status, 
   <Container>
     <RowContainer>
       <Avatar>
-        <CircleAvatarStyled width={'100%'} height={'100%'} name={name || 'Core Unit'} image={imageUrl} />
+        <CircleAvatarStyled name={name || 'Core Unit'} image={imageUrl} />
       </Avatar>
       <InformationContainer>
         <CodeAndNameContainer>
@@ -129,7 +129,8 @@ const Categories = styled('div')({
 
 const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
   border: 'none',
-
+  width: '100%',
+  height: '100%',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
 }));
 

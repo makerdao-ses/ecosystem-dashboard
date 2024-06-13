@@ -13,17 +13,11 @@ const UserBadge: React.FC<Props> = ({ onClick, username, style }) => {
 
   return isDesktop ? (
     <Container className="no-select" style={style} onClick={onClick}>
-      <CircleAvatarStyledWithName width="32px" height="32px" name={username ?? 'Username'} fontSize="14px" />
+      <CircleAvatarStyledWithName name={username ?? 'Username'} />
       <UserName>{username ?? 'Username'}</UserName>
     </Container>
   ) : (
-    <CircleAvatarStyledWithoutName
-      width="35px"
-      height="35px"
-      name={username ?? 'Username'}
-      fontSize="14px"
-      onClick={onClick}
-    />
+    <CircleAvatarStyledWithoutName name={username ?? 'Username'} onClick={onClick} />
   );
 };
 
@@ -48,14 +42,24 @@ const UserName = styled('div')(({ theme }) => ({
 }));
 
 const CircleAvatarStyledWithName = styled(CircleAvatar)({
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
   position: 'absolute',
   left: 0,
   top: 0,
   border: '2px solid #708390',
+  fontSize: 14,
 });
 
 const CircleAvatarStyledWithoutName = styled(CircleAvatar)(({ theme }) => ({
+  width: 35,
+  height: 35,
+  minWidth: 35,
+  minHeight: 35,
   border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#708390'}`,
   cursor: 'pointer',
   marginRight: 16,
+  fontSize: 14,
 }));

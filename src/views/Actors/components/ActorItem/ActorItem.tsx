@@ -51,7 +51,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
         <ContainerActorType>
           <WrapperEcosystemActor>
             <ActorAvatar>
-              <CircleAvatarExtended width="32px" height="32px" name={actor.name || 'Wallet'} image={actor.image} />
+              <CircleAvatarExtended name={actor.name || 'Wallet'} image={actor.image} />
               <ContainerDescription>
                 <ContainerTitleStatus>
                   <TitleLinks>
@@ -364,8 +364,10 @@ const WrapperType = styled('div')(({ theme }) => ({
 }));
 const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.shortShadow,
-  width: '32px',
-  height: '32px',
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
   border: 'none',
 }));
 

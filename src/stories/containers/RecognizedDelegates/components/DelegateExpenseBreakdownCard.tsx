@@ -26,12 +26,7 @@ const DelegateExpenseBreakdownCard: React.FC<Props> = ({ delegateCard, relativeV
       <ContainerAvatarDescription>
         <AvatarSection>
           <WalletAvatar>
-            <CircleAvatarExtended
-              width="48px"
-              height="48px"
-              name={delegateCard.name || 'Wallet'}
-              image={delegateCard.image}
-            />
+            <CircleAvatarExtended name={delegateCard.name || 'Wallet'} image={delegateCard.image} />
             <NameAddressColumn>
               <Name>{delegateCard.name}</Name>
               <ClipBoardRow>
@@ -322,6 +317,10 @@ const ContainerBarDelegate = styled('div')({
 });
 
 const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
+  width: 48,
+  height: 48,
+  minWidth: 48,
+  minHeight: 48,
   boxShadow: theme.palette.isLight ? '2px 4px 7px rgba(26, 171, 155, 0.25)' : '2px 4px 7px rgba(26, 171, 155, 0.25)',
 }));
 
