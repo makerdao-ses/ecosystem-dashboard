@@ -16,7 +16,14 @@ const meta: Meta<typeof TeamHeader> = {
 };
 export default meta;
 
-const variantsArgs = [{}];
+const variantsArgs = [
+  {
+    code: 'PH',
+    name: 'Powerhouse',
+    description:
+      "The aim of SES is to sustainably grow the Maker Protocol's moats by systematically removing barriers between the decentralized workforce, capital, and work.",
+  },
+];
 
 const [[LightModeDefault, DarkModeDefault]] = createThemeModeVariants(TeamHeader, variantsArgs, false);
 

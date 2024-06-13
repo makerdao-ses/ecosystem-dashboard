@@ -3,7 +3,7 @@ import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMed
 import { siteRoutes } from '@ses/config/routes';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import React from 'react';
-import ButtonLinksSheet from '@/components/ButtonLinksSheet/ButtonLinksSheet';
+import SocialMediaLinksButton from '@/components/ButtonLink/SocialMediaLinksButton';
 import Card from '@/components/Card/Card';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
@@ -14,7 +14,6 @@ import type { TeamRole } from '@/core/enums/teamRole';
 import type { TeamStatus } from '@/core/models/interfaces/types';
 import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getActorLastMonthWithData } from '../../utils/utils';
-import PopoverListLinks from '../PopoverListLinks/PopoverListLinks';
 import GroupedScopes from './GroupedScopes';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -82,7 +81,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                 </ContainerTitleStatus>
 
                 <ContainerLinksArrowsMobile>
-                  <ButtonLinksSheet />
+                  <SocialMediaLinksButton socialMedia={actor.socialMediaChannels?.[0]} />
 
                   <InternalLinkButtonStyled
                     href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
@@ -90,7 +89,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
                   />
                 </ContainerLinksArrowsMobile>
                 <ContainerLinksArrowsTable>
-                  <PopoverListLinks />
+                  <SocialMediaLinksButton socialMedia={actor.socialMediaChannels?.[0]} hideLabelIn={['desktop_1024']} />
                   <InternalLinkButtonStyled
                     href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
                     showIcon
@@ -157,7 +156,7 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
         />
       </ContainerLastModifiedMobileTable>
       <ContainerLinksArrowsDesk>
-        <PopoverListLinksStyled label="Links" />
+        <SocialMediaLinksButton socialMedia={actor.socialMediaChannels?.[0]} />
         <VerticalLine />
         <InternalLinkButtonStyled
           href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
@@ -772,20 +771,6 @@ const VerticalLine = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: 16,
     marginRight: 16,
-  },
-}));
-const PopoverListLinksStyled = styled(PopoverListLinks)(({ theme }) => ({
-  'div:first-of-type': {
-    width: 21,
-    height: 21,
-    justifyContent: 'flex',
-    alignItem: 'center',
-  },
-  '& button': {
-    gap: 4,
-    [theme.breakpoints.up('desktop_1280')]: {
-      padding: '5px 7px 5px 4px',
-    },
   },
 }));
 

@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
 import CardExpenses from '../CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '../CUAbout/NavigationCard/CardSomethingWrong';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
@@ -68,10 +70,17 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
             </MarkdownContainer>
             <WrapperCardSomethingWrongMobile>
               <CardSomethingWrong
-                width={table834 || phone ? '770px' : 'fit-content'}
                 title="Are you part of this Ecosystem Actor? "
                 linkText="Join Powerhouse discord #dashboard-reporting channel"
-              />
+              >
+                <ContainerLinks>
+                  <LabelLinks>Important Links</LabelLinks>
+                  <ContainerLinksButton>
+                    <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
+                    <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
+                  </ContainerLinksButton>
+                </ContainerLinks>
+              </CardSomethingWrong>
             </WrapperCardSomethingWrongMobile>
           </ContainerResponsive>
           <ContainerCardSomethingWrongDesk>
@@ -98,7 +107,15 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                 <CardSomethingWrong
                   title="Are you part of this Ecosystem Actor?"
                   linkText="Join Powerhouse discord #dashboard-reporting channel"
-                />
+                >
+                  <ContainerLinks>
+                    <LabelLinks>Important Links</LabelLinks>
+                    <ContainerLinksButton>
+                      <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
+                      <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
+                    </ContainerLinksButton>
+                  </ContainerLinks>
+                </CardSomethingWrong>
               </ContainerCard>
             </ContainerScroll>
           </ContainerCardSomethingWrongDesk>
@@ -157,6 +174,9 @@ const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop }) =>
 const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
   display: 'flex',
   marginTop: 48,
+  '& > div': {
+    width: '100%',
+  },
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
@@ -170,5 +190,55 @@ const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
     display: 'flex',
     width: '39.61%',
     marginTop: 32,
+  },
+}));
+
+const LabelLinks = styled('div')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 16,
+  fontWeight: 700,
+  lineHeight: '19.36px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.gray[50],
+}));
+
+const ContainerLinksButton = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+});
+
+const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
+  padding: '4px 15px 4px 23px',
+  height: 32,
+  display: 'flex',
+
+  alignItems: 'center',
+  fontSize: 16,
+
+  letterSpacing: '-0.32px',
+  '& > div': {
+    width: 23,
+    height: 21,
+  },
+}));
+
+const ContainerLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  marginTop: 12,
+  paddingLeft: 16,
+  paddingRight: 16,
+  paddingBottom: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingBottom: 16,
   },
 }));

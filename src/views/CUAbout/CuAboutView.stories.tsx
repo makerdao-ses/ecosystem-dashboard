@@ -25,7 +25,7 @@ const meta: Meta<typeof CuAboutView> = {
       },
     },
     chromatic: {
-      viewports: [375, 834, 1194],
+      viewports: [375, 768, 1024],
       pauseAnimationAtEnd: true,
     },
   },

@@ -1,82 +1,60 @@
-import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Typography, styled } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { SES_DASHBOARD, TYPE_FORM } from '../../../core/utils/const';
-import InformationCard from './InformationCard';
+import Card from '@/components/Card/Card';
+import type { PropsWithChildren } from 'react';
 
-interface Props {
+interface Props extends PropsWithChildren {
   width?: string;
-
   title?: string;
   linkText?: string;
+  className?: string;
 }
 
-const CardSomethingWrong = ({
-  width,
-
-  title = 'Is this your core unit?',
-  linkText = 'Join SES discord #dashboard-reporting channel',
-}: Props) => {
-  const { isLight } = useThemeContext();
-  return (
-    <StyledInformationCard title="Something Wrong on this Page?" width={width} padding="16px 16px 24px 16px">
-      <TypographyDescription marginBottom={'16px'} isLight={isLight}>
-        {title}
-      </TypographyDescription>
-      <TypographyDescription marginBottom={'16px'} isLight={isLight}>
-        We are still collecting all the relevant information.
-      </TypographyDescription>
-      <StyledTypographyDescription marginBottom={'14px'} isLight={isLight}>
-        If you see something that needs updating, don't hesitate to contact us.
-      </StyledTypographyDescription>
-      <StyledLink
-        href={SES_DASHBOARD}
-        fontSize={16}
-        fontWeight={500}
-        iconWidth={10}
-        iconHeight={10}
-        marginLeft="7px"
-        fontFamily="Inter, sans-serif"
-      >
-        {linkText}
-      </StyledLink>
-      <br />
-      <CustomLinkTypeForm
-        href={TYPE_FORM}
-        iconWidth={10}
-        iconHeight={10}
-        fontSize={16}
-        fontWeight={500}
-        marginLeft="7px"
-        fontFamily="Inter, sans-serif"
-      >
-        Or fill out this Typeform
-      </CustomLinkTypeForm>
+const CardSomethingWrong: React.FC<Props> = ({ title = 'Is this your core unit?', children, className }) => (
+  <Container className={className}>
+    <Label>Something Wrong on this Page</Label>
+    <StyledInformationCard>
+      <ContainerText>
+        <TypographyDescription>{title}</TypographyDescription>
+        <TypographyDescription>We are still collecting all the relevant information.</TypographyDescription>
+        <StyledTypographyDescription>
+          If you see something that needs updating, don't hesitate to contact us.
+        </StyledTypographyDescription>
+      </ContainerText>
+      <LineStyledBorder />
+      <div>{children}</div>
     </StyledInformationCard>
-  );
-};
+  </Container>
+);
 
 export default CardSomethingWrong;
 
-const TypographyDescription = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
-  marginBottom?: string;
-  isLight: boolean;
-}>(({ isLight, marginBottom }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 500,
-  lineHeight: '24px',
-  fontSize: '15px',
-  letterSpacing: ' 0.4px',
-  color: isLight ? '#546978 ' : '#9FAFB9',
-  marginBottom: marginBottom || '0px',
-}));
+const Container = styled('div')({
+  display: 'flex',
 
-const StyledInformationCard = styled(InformationCard)({
+  flexDirection: 'column',
+  gap: 8,
+});
+const ContainerText = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  padding: '16px 16px 0px 16px',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    padding: '8px 8px 0px 8px',
+  },
+  [lightTheme.breakpoints.up('desktop_1440')]: {
+    padding: '16px 16px 0px 16px',
+  },
+});
+const StyledInformationCard = styled(Card)({
   width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: 0,
+  fontSize: 16,
+
   [lightTheme.breakpoints.up('desktop_1194')]: {
     minWidth: 383,
     minHeight: 212,
@@ -86,31 +64,43 @@ const StyledInformationCard = styled(InformationCard)({
   },
 });
 
-const StyledLink = styled(CustomLink)({
-  flexWrap: 'wrap',
-  color: '#447AFB',
-  letterSpacing: 'revert',
-  lineHeight: '18px',
-  marginBottom: '12px',
-  marginLeft: '0px',
-  whiteSpace: 'break-spaces',
-  display: 'inline-block',
+const TypographyDescription = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  lineHeight: '24px',
+  fontSize: '15px',
+  letterSpacing: ' 0.4px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.gray[500],
+}));
+const StyledTypographyDescription = styled(TypographyDescription)({});
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingRight: 0,
+const Label = styled(Typography)(({ theme }) => ({
+  fontSize: 16,
+  lineHeight: '24px',
+  fontWeight: 700,
+  [theme.breakpoints.up('tablet_768')]: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: 20,
+    lineHeight: '24px',
   },
-});
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+}));
 
-const StyledTypographyDescription = styled(TypographyDescription)({
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginBottom: 16,
+const LineStyledBorder = styled('div')(({ theme }) => ({
+  display: 'none',
+  width: '100%',
+  borderTop: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    marginTop: 4,
+    marginBottom: 4,
   },
-});
-
-const CustomLinkTypeForm = styled(CustomLink)({
-  color: '#447AFB',
-  letterSpacing: 'revert',
-  lineHeight: '18px',
-
-  marginLeft: '0px',
-});
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    marginTop: 16,
+    marginBottom: 4,
+  },
+}));

@@ -4,10 +4,12 @@ import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { getMarkdownInformation } from '@/core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '@/core/businessLogic/coreUnits';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import { ResourceType } from '@/core/models/interfaces/types';
+import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
 import { toAbsoluteURL } from '@/core/utils/urls';
 import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
@@ -39,7 +41,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
   const table768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
   const phone = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
   const LessPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('mobile_375'));
-  const lessDesktop1194 = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
+  const lessDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
   const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings, ref } = useCuAboutView({
     cuAbout,
@@ -79,63 +81,66 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                 budgetPath={routeToFinances}
               />
             </MarkdownContainer>
-            <TeamMemberContainer>
-              <TeamMemberTitle>Team Size</TeamMemberTitle>
-              <TeamMember ftes={getFTEsFromCoreUnit(cuAbout)} />
-            </TeamMemberContainer>
-            {cuAbout.contributorCommitment.length > 0 && (
-              <ContactInfoContainer>
-                <ContactInfoTitle>Contact Information</ContactInfoTitle>
-                <ContainerCards>
-                  {cuAbout &&
-                    cuAbout.contributorCommitment?.map((contributor: ContributorCommitment, index: number) => (
-                      <CardInfoContainer key={index}>
-                        <CardInfoMember contributorCommitment={contributor} />
-                      </CardInfoContainer>
-                    ))}
-                </ContainerCards>
-              </ContactInfoContainer>
-            )}
-            <Divider
-              sx={{
-                bgcolor: (theme) => (theme.palette.isLight ? '#D8E0E3' : theme.palette.colors.charcoal[800]),
-                marginTop: !(cuAbout.contributorCommitment.length > 0) ? '32px' : '0px',
-              }}
-            />
-            <CardRelateMipsContainer>
-              <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
-              <RelateMipCards>
-                {relateMipsOrder.map((mip: unknown, index: number) => (
-                  <RelateMips relateMips={mip as CuMip} key={index} />
-                ))}
-                {cuAbout?.cuMip?.length === 0 && (
-                  <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>
-                )}
-              </RelateMipCards>
-            </CardRelateMipsContainer>
-            {hasMipsNotAccepted && (
-              <ButtonContainer>
-                <LineStyledBorder />
-                <BigButton
-                  title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'}
-                  onClick={onClickLessMips}
-                />
-                <LineStyledBorder />
-              </ButtonContainer>
-            )}
-            {!hasMipsNotAccepted && lessDesktop1194 && (
-              <ButtonContainer>
-                <DividerStyle
-                  sx={{
-                    bgcolor: isLight ? '#D4D9E1' : '#405361',
-                  }}
-                />
-              </ButtonContainer>
-            )}
-            {(table768 || phone || LessPhone) && (
-              <CardSomethingWrong width={table768 || phone ? '770px' : 'fit-content'} />
-            )}
+            <ContainerNoShowTable>
+              <TeamMemberContainer>
+                <TeamMemberTitle>Team Size</TeamMemberTitle>
+                <TeamMember ftes={getFTEsFromCoreUnit(cuAbout)} />
+              </TeamMemberContainer>
+            </ContainerNoShowTable>
+            <ContainerNoShowTable>
+              {cuAbout.contributorCommitment.length > 0 && (
+                <ContactInfoContainer>
+                  <ContactInfoTitle>Contact Information</ContactInfoTitle>
+                  <ContainerCards>
+                    {cuAbout &&
+                      cuAbout.contributorCommitment?.map((contributor: ContributorCommitment, index: number) => (
+                        <CardInfoContainer key={index}>
+                          <CardInfoMember contributorCommitment={contributor} />
+                        </CardInfoContainer>
+                      ))}
+                  </ContainerCards>
+                </ContactInfoContainer>
+              )}
+            </ContainerNoShowTable>
+            <ContainerNoShowTable>
+              <DividerSections hasMarginTop={!(cuAbout.contributorCommitment.length > 0)} />
+            </ContainerNoShowTable>
+
+            <ContainerNoShowTable>
+              <CardRelateMipsContainer>
+                <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+                <RelateMipCards>
+                  {relateMipsOrder.map((mip: unknown, index: number) => (
+                    <RelateMips relateMips={mip as CuMip} key={index} />
+                  ))}
+                  {cuAbout?.cuMip?.length === 0 && (
+                    <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>
+                  )}
+                </RelateMipCards>
+              </CardRelateMipsContainer>
+
+              {hasMipsNotAccepted && (
+                <ButtonContainer>
+                  <LineStyledBorder />
+                  <BigButton
+                    title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'}
+                    onClick={onClickLessMips}
+                  />
+                  <LineStyledBorder />
+                </ButtonContainer>
+              )}
+              {!hasMipsNotAccepted && lessDesktop1024 && (
+                <ButtonContainer>
+                  <DividerStyle
+                    sx={{
+                      bgcolor: isLight ? '#D4D9E1' : '#405361',
+                    }}
+                  />
+                </ButtonContainer>
+              )}
+            </ContainerNoShowTable>
           </ContainerResponsive>
+
           {!(phone || LessPhone) && (
             <ContainerCardTableDesk>
               <ContainerScroll>
@@ -149,14 +154,71 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                   />
                 </ContainerCard>
                 {!(phone || LessPhone) && (
-                  <ContainerCard>
-                    <CardSomethingWrong />
-                  </ContainerCard>
+                  <ContainerCardHiddenTable>
+                    <CardSomethingWrong>
+                      <ContainerLinks>
+                        <LabelLinks>Important Links</LabelLinks>
+                        <ContainerLinksButton>
+                          <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
+                          <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
+                        </ContainerLinksButton>
+                      </ContainerLinks>
+                    </CardSomethingWrong>
+                  </ContainerCardHiddenTable>
                 )}
               </ContainerScroll>
             </ContainerCardTableDesk>
           )}
         </ContainerAllData>
+
+        <ContainerShowTable>
+          <TeamMemberContainer>
+            <TeamMemberTitle>Team Size</TeamMemberTitle>
+            <TeamMember ftes={getFTEsFromCoreUnit(cuAbout)} />
+          </TeamMemberContainer>
+          <CardRelateMipsContainer>
+            <DividerSections hasMarginTop={!(cuAbout.contributorCommitment.length > 0)} />
+            <TitleRelateMips>Related MIPs (Maker Improvement Proposals)</TitleRelateMips>
+            <RelateMipCards>
+              {relateMipsOrder.map((mip: unknown, index: number) => (
+                <RelateMips relateMips={mip as CuMip} key={index} />
+              ))}
+              {cuAbout?.cuMip?.length === 0 && (
+                <ContainerNoRelateMIps>There are not related MIPs</ContainerNoRelateMIps>
+              )}
+            </RelateMipCards>
+          </CardRelateMipsContainer>
+
+          {hasMipsNotAccepted && (
+            <ButtonContainer>
+              <LineStyledBorder />
+              <BigButton title={showThreeMIPs ? 'See more related MIPs' : 'See fewer MIPs'} onClick={onClickLessMips} />
+              <LineStyledBorder />
+            </ButtonContainer>
+          )}
+          {!hasMipsNotAccepted && lessDesktop1024 && (
+            <ButtonContainer>
+              <DividerStyle
+                sx={{
+                  bgcolor: isLight ? '#D4D9E1' : '#405361',
+                }}
+              />
+            </ButtonContainer>
+          )}
+        </ContainerShowTable>
+        {(table768 || phone || LessPhone) && (
+          <ContainerCardSomethingWrong>
+            <CardSomethingWrong>
+              <ContainerLinks>
+                <LabelLinks>Important Links</LabelLinks>
+                <ContainerLinksButton>
+                  <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
+                  <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
+                </ContainerLinksButton>
+              </ContainerLinks>
+            </CardSomethingWrong>
+          </ContainerCardSomethingWrong>
+        )}
       </Wrapper>
     </ContainerAbout>
   );
@@ -185,11 +247,22 @@ const ContainerCard = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '68px',
+
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     marginLeft: '16px',
+    width: 340,
   },
   [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    marginLeft: '32px',
+    marginLeft: 0,
+    width: 386,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginLeft: '40px',
+    width: 379,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    marginLeft: '68px',
+    width: 416,
   },
 }));
 
@@ -273,12 +346,14 @@ const ContainerCards = styled('div')(({ theme }) => ({
 
 const CardRelateMipsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
+  width: '100%',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   marginTop: '40px',
   marginBottom: '40px',
   gap: 16,
+
   [theme.breakpoints.up('mobile_375')]: {
     width: '100%',
   },
@@ -410,6 +485,12 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('tablet_768')]: {
     width: '100%',
   },
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    width: '61.7%',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: '70%',
+  },
 }));
 
 const CardInfoContainer = styled('div')(({ theme }) => ({
@@ -419,13 +500,134 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const ContainerCardTableDesk = styled('div')(() => ({
+const ContainerCardTableDesk = styled('div')(({ theme }) => ({
   width: '39.61%',
+  height: 'fit-content',
+  minWidth: 340,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    width: '48.7%',
+    minWidth: 340,
+  },
 }));
 
 const LineStyledBorder = styled('div')(({ theme }) => ({
   display: 'flex',
+  width: '100%',
   borderTop: `1px solid ${
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
   }`,
+}));
+
+const ContainerLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  marginTop: 12,
+  paddingLeft: 16,
+  paddingRight: 16,
+  paddingBottom: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingBottom: 16,
+  },
+}));
+
+const LabelLinks = styled('div')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 16,
+  fontWeight: 700,
+  lineHeight: '19.36px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.gray[50],
+}));
+
+const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
+  padding: '4px 15px 4px 23px',
+
+  height: 32,
+  display: 'flex',
+
+  alignItems: 'center',
+  fontSize: 16,
+
+  letterSpacing: '-0.32px',
+  '& > div': {
+    width: 23,
+    height: 21,
+  },
+}));
+
+const ContainerLinksButton = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    flexDirection: 'row',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    flexDirection: 'column',
+  },
+}));
+
+const ContainerCardHiddenTable = styled('div')(({ theme }) => ({
+  display: 'flex',
+  marginLeft: '68px',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'none',
+  },
+
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    marginLeft: '0px',
+    width: 386,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginLeft: '40px',
+    width: 379,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    marginLeft: '68px',
+    width: 416,
+  },
+}));
+
+const ContainerCardSomethingWrong = styled('div')(({ theme }) => ({
+  paddingLeft: 16,
+  paddingRight: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
+}));
+
+const ContainerNoShowTable = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'none',
+  },
+}));
+
+const ContainerShowTable = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
+}));
+
+const DividerSections = styled('div')<{ hasMarginTop: boolean }>(({ theme, hasMarginTop }) => ({
+  borderTop: `1px solid ${theme.palette.isLight ? '#D8E0E3' : theme.palette.colors.charcoal[800]}`,
+  marginTop: hasMarginTop ? '32px' : '0px',
+  width: '100%',
 }));
