@@ -49,22 +49,22 @@ const CardExpenses = ({
 
         <ContainerButton>
           {resource === ResourceType.CoreUnit && (
-            <InternalLinkButton
+            <ButtonLinkStyledCard
               href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
               label="Activity Feed"
               showIcon
             />
           )}
-          <InternalLinkButton
+          <StyledBudgetButton
             href={`${
               resource === ResourceType.CoreUnit
                 ? siteRoutes.coreUnitReports(shortCode)
                 : siteRoutes.ecosystemActorReports(shortCode)
             }${queryStrings}`}
-            label="Finances"
+            label="Budget Statements"
             showIcon
           />
-          <InternalLinkButton href={`/finances/${budgetPath}/${queryStrings}`} label="Budget Statements" showIcon />
+          <ButtonLinkStyledCard href={`/finances/${budgetPath}/${queryStrings}`} label="Finances" showIcon />
         </ContainerButton>
       </ContainerData>
       <Line />
@@ -100,12 +100,12 @@ const InformationCardStyled = styled(InformationCard)(() => ({
 const ContainerData = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
+  gap: 15,
   [theme.breakpoints.up('tablet_768')]: {
-    padding: 8,
+    padding: '8px 8px 0px 8px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
+    padding: '16px 16px 0px 16px',
   },
 }));
 
@@ -132,17 +132,17 @@ const ContainerLinks = styled('div')(({ theme }) => ({
   paddingLeft: '16px',
   paddingRight: '16px',
   [theme.breakpoints.up('tablet_768')]: {
-    padding: 8,
+    padding: '0px 8px 8px 8px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
+    padding: '0px 16px 16px 16px',
   },
 }));
 
 const Line = styled('div')(({ theme }) => ({
   borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : theme.palette.colors.charcoal[800]}`,
-  marginTop: '8px',
-  marginBottom: '16px',
+  marginTop: '12px',
+  marginBottom: '12px',
   width: '100%',
 }));
 
@@ -156,13 +156,40 @@ const LabelLinks = styled('div')(({ theme }) => ({
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   padding: '4px 16px 4px 24px',
+  height: 32,
+  borderWidth: 2,
+  fontSize: 16,
+  width: 154,
+  alignItems: 'center',
 }));
 
 const ContainerAuditors = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
-    padding: 8,
+    padding: '0px 8px 8px 8px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
+    padding: '0px 16px 16px 16px',
   },
 }));
+
+const ButtonLinkStyledCard = styled(InternalLinkButton)(() => ({
+  padding: '4px  15.5px 4px 15.5px',
+  height: 32,
+  '& > div': {
+    letterSpacing: '-0.32px',
+  },
+  ':hover': {
+    padding: '4px  15.5px 4px 15.5px',
+  },
+}));
+
+const StyledBudgetButton = styled(InternalLinkButton)({
+  padding: '4px  16px 4px 16px',
+  height: 32,
+  '& > div': {
+    letterSpacing: '-0.32px',
+  },
+  ':hover': {
+    padding: '4px  16px 4px 16px',
+  },
+});
