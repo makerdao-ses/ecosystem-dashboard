@@ -2,7 +2,7 @@ import { Container, styled, useMediaQuery } from '@mui/material';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { TeamRole } from '@/core/enums/teamRole';
 import { TeamStatus } from '@/core/models/interfaces/types';
-import ButtonLinkOptions from '../ButtonLink/ButtonLinkOptions';
+import SocialMediaLinksButton from '../ButtonLink/SocialMediaLinksButton';
 import CircleAvatar from '../CircleAvatar/CircleAvatar';
 import RoleChip from '../RoleChip/RoleChip';
 import ScopeChip from '../ScopeChip/ScopeChip';
@@ -12,9 +12,10 @@ import type { Theme } from '@mui/material';
 interface TeamHeaderProps {
   code: string;
   name: string;
+  description: string;
 }
 
-const TeamHeader: React.FC<TeamHeaderProps> = () => {
+const TeamHeader: React.FC<TeamHeaderProps> = ({ code, name, description }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const chips = (
     <ScopeList>
@@ -53,7 +54,7 @@ const TeamHeader: React.FC<TeamHeaderProps> = () => {
             <Avatar name="Team" />
             <InfoContent>
               <TeamName>
-                <Code>PH</Code> Powerhouse
+                <Code>{code}</Code> {name}
               </TeamName>
               <ChipsContainer>
                 <StatusChip status={TeamStatus.Accepted} />
@@ -64,13 +65,18 @@ const TeamHeader: React.FC<TeamHeaderProps> = () => {
           </TeamBasicInfo>
 
           <LinksContainer>
-            <ButtonLinkOptions label={isMobile ? undefined : 'Links'} />
+            <SocialMediaLinksButton
+              socialMedia={{
+                website: 'https://www.google.com',
+                twitter: 'https://twitter.com',
+                github: 'https://github.com',
+                linkedIn: 'https://www.linkedin.com',
+                discord: 'https://discord.com',
+              }}
+            />
           </LinksContainer>
         </Content>
-        <Description>
-          The aim of SES is to sustainably grow the Maker Protocol's moats by systematically removing barriers between
-          the decentralized workforce, capital, and work.
-        </Description>
+        <Description>{description}</Description>
       </Container>
     </MainContainer>
   );
