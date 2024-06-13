@@ -105,7 +105,7 @@ const ContainerData = styled('div')(({ theme }) => ({
     padding: '8px 8px 0px 8px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
+    padding: '16px 16px 0px 16px',
   },
 }));
 
@@ -135,7 +135,7 @@ const ContainerLinks = styled('div')(({ theme }) => ({
     padding: '0px 8px 8px 8px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
+    padding: '0px 16px 16px 16px',
   },
 }));
 

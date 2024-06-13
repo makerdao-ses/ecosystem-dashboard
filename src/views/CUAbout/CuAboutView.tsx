@@ -525,10 +525,20 @@ const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
-  marginTop: 24,
-  [theme.breakpoints.up('tablet_768')]: {},
+  marginTop: 12,
+  paddingLeft: 16,
+  paddingRight: 16,
+  paddingBottom: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
+  },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingBottom: 16,
   },
 }));
 
@@ -541,7 +551,19 @@ const LabelLinks = styled('div')(({ theme }) => ({
 }));
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '4px 16px 4px 24px',
+  padding: '4px 15px 4px 23px',
+
+  height: 32,
+  display: 'flex',
+
+  alignItems: 'center',
+  fontSize: 16,
+
+  letterSpacing: '-0.32px',
+  '& > div': {
+    width: 23,
+    height: 21,
+  },
 }));
 
 const ContainerLinksButton = styled('div')(({ theme }) => ({
@@ -558,17 +580,23 @@ const ContainerLinksButton = styled('div')(({ theme }) => ({
 
 const ContainerCardHiddenTable = styled('div')(({ theme }) => ({
   display: 'flex',
+  marginLeft: '68px',
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'none',
   },
 
   [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     marginLeft: '0px',
+    width: 386,
   },
   [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: '40px',
+    width: 379,
   },
-  marginLeft: '68px',
+  [theme.breakpoints.up('desktop_1440')]: {
+    marginLeft: '68px',
+    width: 416,
+  },
 }));
 
 const ContainerCardSomethingWrong = styled('div')(({ theme }) => ({

@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
 import CardExpenses from '../CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '../CUAbout/NavigationCard/CardSomethingWrong';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
@@ -71,7 +73,15 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                 width={table834 || phone ? '770px' : 'fit-content'}
                 title="Are you part of this Ecosystem Actor? "
                 linkText="Join Powerhouse discord #dashboard-reporting channel"
-              />
+              >
+                <ContainerLinks>
+                  <LabelLinks>Important Links</LabelLinks>
+                  <ContainerLinksButton>
+                    <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
+                    <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
+                  </ContainerLinksButton>
+                </ContainerLinks>
+              </CardSomethingWrong>
             </WrapperCardSomethingWrongMobile>
           </ContainerResponsive>
           <ContainerCardSomethingWrongDesk>
@@ -171,4 +181,33 @@ const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
     width: '39.61%',
     marginTop: 32,
   },
+}));
+
+const ContainerLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  marginTop: 24,
+  [theme.breakpoints.up('tablet_768')]: {},
+  [theme.breakpoints.up('desktop_1440')]: {
+    padding: 16,
+  },
+}));
+
+const LabelLinks = styled('div')(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontSize: 16,
+  fontWeight: 700,
+  lineHeight: '19.36px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.gray[50],
+}));
+
+const ContainerLinksButton = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+});
+
+const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
+  padding: '4px 16px 4px 24px',
 }));
