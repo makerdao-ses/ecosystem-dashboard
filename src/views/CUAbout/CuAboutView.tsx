@@ -523,8 +523,8 @@ const LineStyledBorder = styled('div')(({ theme }) => ({
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
   }`,
 }));
-
-const ContainerLinks = styled('div')(({ theme }) => ({
+// Export for stories
+export const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -545,7 +545,8 @@ const ContainerLinks = styled('div')(({ theme }) => ({
   },
 }));
 
-const LabelLinks = styled('div')(({ theme }) => ({
+// Export for stories
+export const LabelLinks = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 16,
   fontWeight: 700,
@@ -553,7 +554,8 @@ const LabelLinks = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.gray[50],
 }));
 
-const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
+// Export for stories
+export const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   padding: '4px 15px 4px 23px',
 
   height: 32,
@@ -569,7 +571,8 @@ const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   },
 }));
 
-const ContainerLinksButton = styled('div')(({ theme }) => ({
+// Export for stories
+export const ContainerLinksButton = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
