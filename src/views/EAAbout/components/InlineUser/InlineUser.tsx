@@ -4,10 +4,11 @@ import React from 'react';
 
 export type InlineUserProps = {
   username: string;
+  className?: string;
 };
 
-const InlineUser: React.FC<InlineUserProps> = ({ username }) => (
-  <User>
+const InlineUser: React.FC<InlineUserProps> = ({ username, className }) => (
+  <User className={className}>
     <AvatarPlaceholder width={32} height={32} />
 
     <Username>{username}</Username>
@@ -36,6 +37,7 @@ const User = styled('div')(({ theme }) => ({
 const Username = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
+  marginLeft: 8,
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
