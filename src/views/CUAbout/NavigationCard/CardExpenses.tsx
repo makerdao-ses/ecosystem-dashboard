@@ -47,7 +47,7 @@ const CardExpenses = ({
       <ContainerData>
         <TypographyDescription variant="subtitle1">{title}</TypographyDescription>
 
-        <ContainerButton>
+        <ContainerButton resource={resource}>
           {resource === ResourceType.CoreUnit && (
             <ButtonLinkStyledCard
               href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
@@ -119,11 +119,11 @@ const TypographyDescription = styled(Typography)(({ theme }) => ({
   color: theme.palette.isLight ? '#546978' : theme.palette.colors.gray[500],
 }));
 
-const ContainerButton = styled('div')({
+const ContainerButton = styled('div')<{ resource: ResourceType }>(({ resource }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-});
+  flexDirection: resource === ResourceType.CoreUnit ? 'column' : 'row',
+  gap: resource === ResourceType.CoreUnit ? 8 : 16,
+}));
 
 const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
