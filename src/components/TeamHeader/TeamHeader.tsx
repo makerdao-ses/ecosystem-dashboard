@@ -1,48 +1,26 @@
-import { Container, styled, useMediaQuery } from '@mui/material';
-import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
-import { TeamRole } from '@/core/enums/teamRole';
-import { TeamStatus } from '@/core/models/interfaces/types';
+import { styled, useMediaQuery } from '@mui/material';
+import type { TeamRole } from '@/core/enums/teamRole';
+import type { Team } from '@/core/models/interfaces/team';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import SocialMediaLinksButton from '../ButtonLink/SocialMediaLinksButton';
 import CircleAvatar from '../CircleAvatar/CircleAvatar';
+import Container from '../Container/Container';
 import RoleChip from '../RoleChip/RoleChip';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import { StatusChip } from '../StatusChip/StatusChip';
 import type { Theme } from '@mui/material';
 
 interface TeamHeaderProps {
-  code: string;
-  name: string;
-  description: string;
+  team: Team;
 }
 
-const TeamHeader: React.FC<TeamHeaderProps> = ({ code, name, description }) => {
+const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const chips = (
     <ScopeList>
-      <ScopeChip
-        scope={{
-          id: '1',
-          code: 'GOV',
-          name: TeamScopeEnum.GovernanceScope,
-        }}
-        codeOnly={isMobile}
-      />
-      <ScopeChip
-        scope={{
-          id: '2',
-          code: 'ACC',
-          name: TeamScopeEnum.AccessibilityScope,
-        }}
-        codeOnly={isMobile}
-      />
-      <ScopeChip
-        scope={{
-          id: '3',
-          code: 'PRO',
-          name: TeamScopeEnum.ProtocolScope,
-        }}
-        codeOnly={isMobile}
-      />
+      {team.scopes?.map((item, index) => (
+        <ScopeChip scope={item} key={index} codeOnly={isMobile} />
+      ))}
     </ScopeList>
   );
 
@@ -51,32 +29,24 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ code, name, description }) => {
       <Container>
         <Content>
           <TeamBasicInfo>
-            <Avatar name="Team" />
+            <Avatar name={team.name} image={team.image} />
             <InfoContent>
               <TeamName>
-                <Code>{code}</Code> {name}
+                <Code>{team.shortCode}</Code> {team.name}
               </TeamName>
               <ChipsContainer>
-                <StatusChip status={TeamStatus.Accepted} />
-                <RoleChip status={TeamRole.AdvisoryCouncilMember} />
+                <StatusChip status={team.status as TeamStatus} />
+                <RoleChip status={(team.category?.[0] ?? '') as TeamRole} />
               </ChipsContainer>
               {chips}
             </InfoContent>
           </TeamBasicInfo>
 
           <LinksContainer>
-            <SocialMediaLinksButton
-              socialMedia={{
-                website: 'https://www.google.com',
-                twitter: 'https://twitter.com',
-                github: 'https://github.com',
-                linkedIn: 'https://www.linkedin.com',
-                discord: 'https://discord.com',
-              }}
-            />
+            <SocialMediaLinksButton socialMedia={team.socialMediaChannels?.[0]} />
           </LinksContainer>
         </Content>
-        <Description>{description}</Description>
+        <Description>{team.sentenceDescription}</Description>
       </Container>
     </MainContainer>
   );
@@ -85,6 +55,11 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ code, name, description }) => {
 export default TeamHeader;
 
 const MainContainer = styled('div')(({ theme }) => ({
+  position: 'fixed',
+  top: 105,
+  zIndex: 3,
+  width: '100%',
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(25, 29, 36, 1)',
   borderBottom: `1px solid ${
     theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900]
   }`,
@@ -160,6 +135,7 @@ const Code = styled('span')(({ theme }) => ({
 
 const ScopeList = styled('div')(() => ({
   display: 'flex',
+  flexWrap: 'wrap',
   gap: 8,
   marginTop: 8,
   width: '100%',

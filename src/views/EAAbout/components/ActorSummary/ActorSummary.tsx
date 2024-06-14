@@ -20,6 +20,7 @@ interface ActorSummaryProps {
   showHeader?: boolean;
 }
 
+// TODO: delete this component once it is safe to do it
 const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
   ({ actors: data = [], breadcrumbTitle, trailingAddress = [], showHeader = true }, ref) => {
     const { isLight } = useThemeContext();

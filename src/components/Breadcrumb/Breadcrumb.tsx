@@ -28,6 +28,7 @@ const THREE_DOTS_WIDTH = 60;
 
 const getTextWidth = (text: string, font: string) => {
   // Create a canvas element (this can be done in memory, it doesn't need to be in the DOM)
+  if (typeof document === 'undefined') return 0; // it's probably SSR
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
@@ -42,9 +43,15 @@ const getTextWidth = (text: string, font: string) => {
 };
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusOpened = false }) => {
+  const [mounted, setMounted] = useState<boolean>(false);
   const contentId = useId();
   const rightPartId = useId();
   const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
+
+  useEffect(() => {
+    // trigger a re-render to calculate the segments width avoiding undefined document issues
+    setMounted(true);
+  }, []);
 
   const [elementWidths, setElementWidths] = useState<[number, number]>([0, 0]);
   useEffect(() => {
@@ -68,10 +75,11 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
   const itemsExtended = useMemo(() => {
     // add labelWidth to each item to display the items properly
     const itemsExtended = items.map((item, index) => {
-      const labelWidth =
-        getTextWidth(item.label, `${index === items.length - 1 ? 400 : 600} 16px Inter`) +
-        (!Number.isNaN(item.number) ? getTextWidth(`(${item.number})`, '600 16px Inter') + 12 : 0) +
-        28; // 28 is the width of the angle right icon + 4px gap,
+      const labelWidth = !mounted
+        ? MAX_ALLOWED_WIDTH
+        : getTextWidth(item.label, `${index === items.length - 1 ? 400 : 600} 16px Inter`) +
+          (!Number.isNaN(item.number) ? getTextWidth(`(${item.number})`, '600 16px Inter') + 12 : 0) +
+          28; // 28 is the width of the angle right icon + 4px gap,
 
       return {
         ...item,
@@ -81,7 +89,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
     });
 
     return itemsExtended;
-  }, [items]);
+  }, [items, mounted]);
 
   const [groupedItems, setGroupedItems] = useState<BreadcrumbItemExtended[]>(() => {
     if (itemsExtended.length > 3) {
@@ -193,6 +201,11 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
 export default Breadcrumb;
 
 const BreadcrumbCard = styled('div')(({ theme }) => ({
+  position: 'fixed',
+  top: 64,
+  zIndex: 3,
+  width: '100%',
+
   [theme.breakpoints.down('tablet_768')]: {
     borderRadius: 12,
     background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
@@ -200,6 +213,7 @@ const BreadcrumbCard = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('tablet_768')]: {
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(25, 29, 36, 1)',
     borderBottom: `1px solid ${
       theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900]
     }`,
