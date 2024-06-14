@@ -119,10 +119,15 @@ const TypographyDescription = styled(Typography)(({ theme }) => ({
   color: theme.palette.isLight ? '#546978' : theme.palette.colors.gray[500],
 }));
 
-const ContainerButton = styled('div')<{ resource: ResourceType }>(({ resource }) => ({
+const ContainerButton = styled('div')<{ resource: ResourceType }>(({ resource, theme }) => ({
   display: 'flex',
-  flexDirection: resource === ResourceType.CoreUnit ? 'column' : 'row',
-  gap: resource === ResourceType.CoreUnit ? 8 : 16,
+  flexDirection: 'column',
+  gap: 8,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: resource === ResourceType.CoreUnit ? 8 : 16,
+    flexDirection: resource === ResourceType.CoreUnit ? 'column' : 'row',
+  },
 }));
 
 const ContainerLinks = styled('div')(({ theme }) => ({
