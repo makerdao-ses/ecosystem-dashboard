@@ -65,7 +65,7 @@ const useEAAboutView = (actors: Team[], actor: Team) => {
         const queryStrings = buildQueryString({
           ...router.query,
           filteredCategories,
-          code: null, // override the Actors Code code to avoid add it to the query string as Core Unit
+          code: null, // override the Actors code to avoid add it to the query string
         });
 
         router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);

@@ -80,7 +80,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
         }
       />
       <TeamHeader team={actor} />
-      {/* <ActorSummary actors={actors} showHeader={showHeader} ref={ref} /> */}
+
       <Container>
         <ContainerAllData marginTop={height}>
           <ContainerResponsive>
