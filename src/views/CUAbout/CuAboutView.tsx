@@ -617,14 +617,15 @@ const ContainerCardSomethingWrong = styled('div')(({ theme }) => ({
 const ContainerNoShowTable = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+
+  [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     display: 'none',
   },
 }));
 
 const ContainerShowTable = styled('div')(({ theme }) => ({
   display: 'none',
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+  [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     display: 'flex',
     flexDirection: 'column',
     paddingLeft: 32,
