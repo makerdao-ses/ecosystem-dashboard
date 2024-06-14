@@ -75,7 +75,7 @@ const CardInfoMember = ({ contributorCommitment, roles = [] }: Props) => {
       </ContainerData>
       <Divider />
       <CardLinksFooter>
-        <CuTableColumnLinks links={links} width={16} height={16} spacings={12} fillDark="#9FAFB9" fill="#9DA6B9" />
+        <CuTableColumnLinks links={links} width={16} height={16} spacings={24} fillDark="#9FAFB9" fill="#9DA6B9" />
       </CardLinksFooter>
     </Container>
   );
