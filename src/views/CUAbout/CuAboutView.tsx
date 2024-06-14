@@ -141,7 +141,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
             </ContainerNoShowTable>
           </ContainerResponsive>
 
-          {!(phone || LessPhone) && (
+          {!(table768 || phone || LessPhone) && (
             <ContainerCardTableDesk>
               <ContainerScroll>
                 <ContainerCard>
@@ -326,6 +326,7 @@ const ContainerCards = styled('div')(({ theme }) => ({
   flexWrap: 'wrap',
   padding: '0px',
   marginBottom: '32px',
+
   [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
     maxWidth: '100%',
     display: 'flex',
@@ -486,7 +487,10 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
     width: '100%',
   },
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    width: '61.7%',
+    width: '100%',
+  },
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    width: 550,
   },
   [theme.breakpoints.up('desktop_1280')]: {
     width: '70%',
@@ -501,15 +505,14 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
 }));
 
 const ContainerCardTableDesk = styled('div')(({ theme }) => ({
-  width: '39.61%',
   height: 'fit-content',
-  minWidth: 340,
+
+  marginLeft: 32,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    width: '48.7%',
-    minWidth: 340,
+    minWidth: 550,
   },
 }));
 

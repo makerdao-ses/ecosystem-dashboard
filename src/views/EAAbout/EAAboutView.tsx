@@ -103,7 +103,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                 />
               </ContainerCard>
 
-              <ContainerCard>
+              <SomethingWrongContainer>
                 <CardSomethingWrong
                   title="Are you part of this Ecosystem Actor?"
                   linkText="Join Powerhouse discord #dashboard-reporting channel"
@@ -116,7 +116,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                     </ContainerLinksButton>
                   </ContainerLinks>
                 </CardSomethingWrong>
-              </ContainerCard>
+              </SomethingWrongContainer>
             </ContainerScroll>
           </ContainerCardSomethingWrongDesk>
         </ContainerAllData>
@@ -132,11 +132,21 @@ const MarkdownContainer = styled('div')();
 const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '100%',
   marginTop: 24,
+
   [theme.breakpoints.up('desktop_1024')]: {
-    width: '60.39%',
+    width: '57.39%',
     display: 'flex',
     flexDirection: 'column',
     marginTop: 32,
+
+    justifyContent: 'space-between',
+
+    [theme.breakpoints.up('desktop_1280')]: {
+      width: 789,
+    },
+    [theme.breakpoints.up('desktop_1440')]: {
+      width: 864,
+    },
   },
 }));
 
@@ -149,17 +159,22 @@ const ContainerScroll = styled('div')(({ theme }) => ({
 }));
 
 const ContainerCard = styled('div')(({ theme }) => ({
-  marginBottom: 32,
+  gap: 32,
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: 68,
 
   [theme.breakpoints.up('tablet_768')]: {
-    marginLeft: 16,
+    width: 340,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    marginLeft: 64,
+    width: 386,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 379,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    width: 416,
   },
 }));
 
@@ -188,7 +203,6 @@ const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    width: '39.61%',
     marginTop: 32,
   },
 }));
@@ -240,5 +254,26 @@ const ContainerLinks = styled('div')(({ theme }) => ({
     paddingLeft: 16,
     paddingRight: 16,
     paddingBottom: 16,
+  },
+}));
+
+const SomethingWrongContainer = styled('div')(({ theme }) => ({
+  gap: 32,
+  display: 'flex',
+  flexDirection: 'column',
+  marginLeft: 0,
+  marginTop: 32,
+  width: 340,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 386,
+    float: 'left',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 379,
+    minWidth: 379,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    width: 416,
+    minWidth: 416,
   },
 }));

@@ -2,10 +2,11 @@ import { styled, useMediaQuery } from '@mui/material';
 import Markdown from 'marked-react';
 import React from 'react';
 
-import type { ResourceType } from '@/core/models/interfaces/types';
+import { ResourceType } from '@/core/models/interfaces/types';
 
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import CustomSheetFinances from '../CustomSheetFinances';
+import CardExpenses from '../NavigationCard/CardExpenses';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
 import type { Theme } from '@mui/material';
@@ -61,6 +62,17 @@ const MdViewerPage = ({
         </ContainerResponsive>
       ) : showButton && isTable768 ? (
         <div>
+          <CardContainer768>
+            <CardExpenses
+              resource={ResourceType.CoreUnit}
+              queryStrings={queryStrings}
+              code={code}
+              shortCode={shortCode}
+              isTitlePresent
+              budgetPath={budgetPath}
+              showMakerburnLink={true}
+            />
+          </CardContainer768>
           <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
           {paragraphDescription && isLight ? (
             <Markdown value={paragraphDescription} renderer={customRenderer} key={paragraphDescription} />
@@ -118,4 +130,11 @@ const ContainerResponsive = styled('div')({
   justifyContent: 'space-between',
   alignItems: 'center',
   marginBottom: '16px',
+});
+
+const CardContainer768 = styled('div')({
+  width: 340,
+  float: 'right',
+  marginLeft: 16,
+  marginBottom: 16,
 });
