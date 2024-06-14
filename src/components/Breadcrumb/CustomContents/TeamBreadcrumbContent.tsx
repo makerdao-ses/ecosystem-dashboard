@@ -49,12 +49,14 @@ const ContentContainer = styled('div')(() => ({
   fontWeight: 400,
 }));
 
-const Wrapper = styled('div')(() => ({
+const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
+  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[500],
 }));
 
-const CurrentPage = styled('span')(() => ({
+const CurrentPage = styled('span')(({ theme }) => ({
   fontWeight: 700,
   marginRight: 8,
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 }));

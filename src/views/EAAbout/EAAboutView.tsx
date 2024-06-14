@@ -9,14 +9,16 @@ import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
+import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBreadcrumbContent';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import TeamHeader from '@/components/TeamHeader/TeamHeader';
 import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
 import CardExpenses from '../CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '../CUAbout/NavigationCard/CardSomethingWrong';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
-import ActorSummary from './components/ActorSummary/ActorSummary';
 import CardProjects from './components/CardProjects/CardProjects';
 import useEAAboutView from './useEAAboutView';
 import { removeDuplicateNames } from './utils';
@@ -32,7 +34,9 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
   const router = useRouter();
   const [isEnabled] = useFlagsActive();
   const ref = useRef<HTMLDivElement>(null);
-  const { queryStrings, phone, LessPhone, table834 } = useEAAboutView(router.query);
+  const { queryStrings, phone, LessPhone, table834, pager } = useEAAboutView(actors, actor);
+  // the next line is disable due to a work in progress
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const routeToFinances = removeAtlasFromPath(actor.budgetPath);
   const removeDuplicateNamesBudgetPath = removeDuplicateNames(routeToFinances) ?? ' ';
@@ -49,7 +53,34 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
         }}
         canonicalURL={siteRoutes.ecosystemActorAbout(actor.shortCode)}
       />
-      <ActorSummary actors={actors} showHeader={showHeader} ref={ref} />
+      <Breadcrumb
+        items={[
+          {
+            label: 'Ecosystem Actors',
+            href: siteRoutes.ecosystemActors,
+            number: actors.length,
+          },
+          {
+            label: actor.name,
+            href: siteRoutes.ecosystemActorAbout(actor.shortCode),
+          },
+        ]}
+        rightContent={
+          <TeamBreadcrumbContent
+            team={ResourceType.EcosystemActor}
+            currentPage={pager.currentPage}
+            totalPages={pager.totalPages}
+            pagerProps={{
+              hasNext: pager.hasNext,
+              hasPrevious: pager.hasPrevious,
+              onNext: pager.onNext,
+              onPrevious: pager.onPrevious,
+            }}
+          />
+        }
+      />
+      <TeamHeader team={actor} />
+      {/* <ActorSummary actors={actors} showHeader={showHeader} ref={ref} /> */}
       <Container>
         <ContainerAllData marginTop={height}>
           <ContainerResponsive>
