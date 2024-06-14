@@ -30,14 +30,14 @@ const Title = styled('label')(({ theme }) => ({
   fontWeight: 700,
   lineHeight: '22px',
   padding: '0px  8px  8px 8px',
-  color: theme.palette.isLight ? theme.palette.colors.slate[600] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.slate[600] : theme.palette.colors.slate[50],
 }));
 const Description = styled('label')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontWeight: 700,
   lineHeight: '22px',
-  color: theme.palette.isLight ? '#546978' : 'red',
+  color: theme.palette.isLight ? '#546978' : theme.palette.colors.gray[500],
 }));
 
 const ContainerCard = styled('div')(({ theme }) => ({
@@ -46,5 +46,5 @@ const ContainerCard = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: 8,
   padding: 8,
-  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#373E4D4D',
 }));

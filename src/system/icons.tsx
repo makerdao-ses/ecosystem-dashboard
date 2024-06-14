@@ -1,5 +1,6 @@
 import AngleLeft from 'public/assets/svg/angle_left.svg';
 import AngleRight from 'public/assets/svg/angle_right.svg';
+import AvatarPlaceHolder from 'public/assets/svg/avatar_placeholder.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
@@ -94,5 +95,9 @@ export const iconsPowerHose = [
   {
     Icon: CircleInfo,
     title: 'circle_info',
+  },
+  {
+    Icon: AvatarPlaceHolder,
+    title: 'avatar_placeholder',
   },
 ];
