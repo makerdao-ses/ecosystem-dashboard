@@ -11,10 +11,10 @@ import { useThemeContext } from '@/core/context/ThemeContext';
 import { ResourceType } from '@/core/models/interfaces/types';
 import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
 import { toAbsoluteURL } from '@/core/utils/urls';
-import CardInfoMember from '@/stories/components/CardInfoMember/CardInfoMember';
 import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/stories/components/TeamMember/TeamMember';
+import CardInfoMember from '@/views/CUAbout/CardInfoMember/CardInfoMember';
 import MdViewerContainer from '@/views/CUAbout/Markdown/MdViewerContainer';
 import BigButton from './Button/BigButton/BigButton';
 import CardExpenses from './NavigationCard/CardExpenses';
@@ -141,7 +141,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
             </ContainerNoShowTable>
           </ContainerResponsive>
 
-          {!(phone || LessPhone) && (
+          {!(table768 || phone || LessPhone) && (
             <ContainerCardTableDesk>
               <ContainerScroll>
                 <ContainerCard>
@@ -326,6 +326,7 @@ const ContainerCards = styled('div')(({ theme }) => ({
   flexWrap: 'wrap',
   padding: '0px',
   marginBottom: '32px',
+
   [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
     maxWidth: '100%',
     display: 'flex',
@@ -486,7 +487,10 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
     width: '100%',
   },
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    width: '61.7%',
+    width: '100%',
+  },
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    width: 550,
   },
   [theme.breakpoints.up('desktop_1280')]: {
     width: '70%',
@@ -501,15 +505,14 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
 }));
 
 const ContainerCardTableDesk = styled('div')(({ theme }) => ({
-  width: '39.61%',
   height: 'fit-content',
-  minWidth: 340,
+
+  marginLeft: 32,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    width: '48.7%',
-    minWidth: 340,
+    minWidth: 550,
   },
 }));
 
@@ -520,8 +523,8 @@ const LineStyledBorder = styled('div')(({ theme }) => ({
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
   }`,
 }));
-
-const ContainerLinks = styled('div')(({ theme }) => ({
+// Export for stories
+export const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -542,7 +545,8 @@ const ContainerLinks = styled('div')(({ theme }) => ({
   },
 }));
 
-const LabelLinks = styled('div')(({ theme }) => ({
+// Export for stories
+export const LabelLinks = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 16,
   fontWeight: 700,
@@ -550,7 +554,8 @@ const LabelLinks = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.gray[50],
 }));
 
-const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
+// Export for stories
+export const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   padding: '4px 15px 4px 23px',
 
   height: 32,
@@ -566,7 +571,8 @@ const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   },
 }));
 
-const ContainerLinksButton = styled('div')(({ theme }) => ({
+// Export for stories
+export const ContainerLinksButton = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
@@ -611,14 +617,15 @@ const ContainerCardSomethingWrong = styled('div')(({ theme }) => ({
 const ContainerNoShowTable = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+
+  [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     display: 'none',
   },
 }));
 
 const ContainerShowTable = styled('div')(({ theme }) => ({
   display: 'none',
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+  [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     display: 'flex',
     flexDirection: 'column',
     paddingLeft: 32,

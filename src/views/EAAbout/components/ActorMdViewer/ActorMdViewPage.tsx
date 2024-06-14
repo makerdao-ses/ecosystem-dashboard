@@ -90,6 +90,7 @@ const ActorMdViewPage = ({
                 auditorMessage={`The ${actorName} is working without auditor.`}
                 makerburnCustomMessage={`View On-Chain transfers to ${actorName} on makerburn.com`}
                 budgetPath={budgetPath}
+                showMakerburnLink={false}
               />
             </CardContainer768>
             {!isTable768 && (

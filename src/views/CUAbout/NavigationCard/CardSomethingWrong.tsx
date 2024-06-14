@@ -48,21 +48,13 @@ const ContainerText = styled('div')({
     padding: '16px 16px 0px 16px',
   },
 });
-const StyledInformationCard = styled(Card)({
+const StyledInformationCard = styled(Card)(() => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   padding: 0,
   fontSize: 16,
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    minWidth: 383,
-    minHeight: 212,
-  },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    minWidth: 405,
-  },
-});
+}));
 
 const TypographyDescription = styled(Typography)(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',

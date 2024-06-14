@@ -1,4 +1,6 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
+import { ButtonLinkStyled, ContainerLinks, ContainerLinksButton, LabelLinks } from '../CuAboutView';
 import CardSomethingWrong from './CardSomethingWrong';
 import type { Meta } from '@storybook/react';
 
@@ -15,12 +17,26 @@ export default meta;
 
 const variantsArgs = [
   {
-    title: 'Are you part of this Ecosystem Actor? ',
+    title: 'Is this your core unit?',
     linkText: 'Join Powerhouse discord #dashboard-reporting channel',
   },
 ];
 
-const [[Card, CardDark]] = createThemeModeVariants(CardSomethingWrong, variantsArgs);
+const [[Card, CardDark]] = createThemeModeVariants(
+  (props) => (
+    <CardSomethingWrong {...props}>
+      <ContainerLinks>
+        <LabelLinks>Important Links</LabelLinks>
+        <ContainerLinksButton>
+          <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
+          <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
+        </ContainerLinksButton>
+      </ContainerLinks>
+    </CardSomethingWrong>
+  ),
+
+  variantsArgs
+);
 export { Card, CardDark };
 
 Card.parameters = {
