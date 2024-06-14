@@ -232,7 +232,6 @@ const ContainerAbout = styled('div')(({ theme }) => ({
   paddingTop: '64px',
   width: '100%',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.background.dm,
-  backgroundImage: theme.palette.isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
   backgroundAttachment: 'fixed',
   backgroundSize: 'cover',
   paddingBottom: '128px',
