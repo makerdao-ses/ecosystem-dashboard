@@ -17,7 +17,132 @@ const meta: Meta<typeof TeamsView> = {
 };
 export default meta;
 
-const variantsArgs = [{}];
+const variantsArgs = [
+  {
+    teamTypes: [
+      {
+        name: 'Protocol Engineering',
+        type: 'CoreUnit',
+      },
+      {
+        name: 'Sustainable Ecosystem Scaling',
+        type: 'CoreUnit',
+      },
+      {
+        name: 'Collateral Engineering Services',
+        type: 'CoreUnit',
+      },
+      {
+        name: 'Risk',
+        type: 'CoreUnit',
+      },
+      {
+        name: 'Governance Alpha',
+        type: 'CoreUnit',
+      },
+      {
+        name: 'Events',
+        type: 'CoreUnit',
+      },
+      {
+        name: 'L2BEAT',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'BALabs',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Powerhouse',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Chronicle Labs',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'DevPool',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'PullUp Labs',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Phoenix Labs',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Viridian Protector Advisory Company',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Steakhouse',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Aligned Delegates',
+        type: 'AlignedDelegates',
+      },
+      {
+        name: 'Governance Alpha',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Growth',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'TechOps',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'StableLab',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Content Production',
+        type: 'CoreUnit',
+      },
+      {
+        name: 'Support',
+        type: 'Scopes',
+      },
+      {
+        name: 'Stability',
+        type: 'Scopes',
+      },
+      {
+        name: 'Protocol',
+        type: 'Scopes',
+      },
+      {
+        name: 'Accessibility',
+        type: 'Scopes',
+      },
+      {
+        name: 'Governance',
+        type: 'Scopes',
+      },
+      {
+        name: 'Ecosystem',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'Endgame Edge',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'JanSky',
+        type: 'EcosystemActor',
+      },
+      {
+        name: 'AAVE',
+        type: 'EcosystemActor',
+      },
+    ],
+  },
+];
 
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
