@@ -204,7 +204,7 @@ const BreadcrumbCard = styled('div')(({ theme }) => ({
   position: 'fixed',
   top: 64,
   zIndex: 3,
-  width: '100%',
+  width: 'calc(100% - 32px)',
 
   [theme.breakpoints.down('tablet_768')]: {
     borderRadius: 12,
@@ -213,6 +213,7 @@ const BreadcrumbCard = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('tablet_768')]: {
+    width: '100%',
     background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(25, 29, 36, 1)',
     borderBottom: `1px solid ${
       theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900]

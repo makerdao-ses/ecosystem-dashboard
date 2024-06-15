@@ -82,7 +82,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
       <TeamHeader team={actor} />
 
       <Container>
-        <ContainerAllData marginTop={height}>
+        <ContainerAllData marginTop={0}>
           <ContainerResponsive>
             <MarkdownContainer>
               <ActorMdViewer

@@ -1,4 +1,6 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { Collapse, styled, useMediaQuery } from '@mui/material';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { TeamRole } from '@/core/enums/teamRole';
 import type { Team } from '@/core/models/interfaces/team';
 import type { TeamStatus } from '@/core/models/interfaces/types';
@@ -15,7 +17,10 @@ interface TeamHeaderProps {
 }
 
 const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
+  const router = useRouter();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+  const [spacerHeight, setSpacerHeight] = useState<number>(165);
+  const headerRef = useRef<HTMLDivElement>(null);
   const chips = (
     <ScopeList>
       {team.scopes?.map((item, index) => (
@@ -24,35 +29,81 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
     </ScopeList>
   );
 
-  return (
-    <MainContainer>
-      <Container>
-        <Content>
-          <TeamBasicInfo>
-            <Avatar name={team.name} image={team.image} />
-            <InfoContent>
-              <TeamName>
-                <Code>{team.shortCode}</Code> {team.name}
-              </TeamName>
-              <ChipsContainer>
-                <StatusChip status={team.status as TeamStatus} />
-                <RoleChip status={(team.category?.[0] ?? '') as TeamRole} />
-              </ChipsContainer>
-              {chips}
-            </InfoContent>
-          </TeamBasicInfo>
+  // show/hide header on scroll
+  const [showHeader, setShowHeader] = useState<boolean>(true);
+  const handleScroll = useCallback(() => {
+    const scrollPosition = window.scrollY ?? 0;
 
-          <LinksContainer>
-            <SocialMediaLinksButton socialMedia={team.socialMediaChannels?.[0]} />
-          </LinksContainer>
-        </Content>
-        <Description>{team.sentenceDescription}</Description>
-      </Container>
-    </MainContainer>
+    setShowHeader(scrollPosition < 180);
+  }, []);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
+  // set spacer height
+  const updateHeight = useCallback(() => {
+    if (headerRef?.current) {
+      const { bottom, top } = headerRef.current.getBoundingClientRect();
+      const elementHeight = bottom - top;
+      setSpacerHeight((elementHeight || 165) + 40);
+    }
+  }, [headerRef]);
+  useEffect(() => {
+    window.addEventListener('resize', updateHeight);
+    updateHeight();
+
+    return () => {
+      window.addEventListener('resize', updateHeight);
+    };
+    // headerRef?.current is not recommended as a dependency, but this way we ensure
+    // that the height is updated when the ref is properly initialized
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [headerRef?.current, updateHeight, router.query]);
+
+  return (
+    <SpacerAssigner height={spacerHeight}>
+      <MainContainer ref={headerRef}>
+        <Collapse in={showHeader} timeout={300}>
+          <HeaderWrapper>
+            <Container>
+              <Content>
+                <TeamBasicInfo>
+                  <Avatar name={team.name} image={team.image} />
+                  <InfoContent>
+                    <TeamName>
+                      <Code>{team.shortCode}</Code> {team.name}
+                    </TeamName>
+                    <ChipsContainer>
+                      <StatusChip status={team.status as TeamStatus} />
+                      <RoleChip status={(team.category?.[0] ?? '') as TeamRole} />
+                    </ChipsContainer>
+                    {chips}
+                  </InfoContent>
+                </TeamBasicInfo>
+
+                <LinksContainer>
+                  <SocialMediaLinksButton socialMedia={team.socialMediaChannels?.[0]} />
+                </LinksContainer>
+              </Content>
+              <Description>{team.sentenceDescription}</Description>
+            </Container>
+          </HeaderWrapper>
+        </Collapse>
+      </MainContainer>
+    </SpacerAssigner>
   );
 };
 
 export default TeamHeader;
+
+const SpacerAssigner = styled('div')<{ height: number }>(({ height }) => ({
+  position: 'relative',
+  width: '100%',
+  height,
+}));
 
 const MainContainer = styled('div')(({ theme }) => ({
   position: 'fixed',
@@ -60,11 +111,14 @@ const MainContainer = styled('div')(({ theme }) => ({
   zIndex: 3,
   width: '100%',
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(25, 29, 36, 1)',
+}));
+
+const HeaderWrapper = styled('div')(({ theme }) => ({
+  paddingTop: 16,
+  paddingBottom: 8,
   borderBottom: `1px solid ${
     theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900]
   }`,
-  paddingTop: 16,
-  paddingBottom: 8,
 }));
 
 const Content = styled('div')(() => ({
