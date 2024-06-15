@@ -32,6 +32,7 @@ export const GET_CU_ABOUT_BY_CODE = gql`
       cuMip {
         mipTitle
         mipStatus
+        mipCode
         accepted
         obsolete
         rejected

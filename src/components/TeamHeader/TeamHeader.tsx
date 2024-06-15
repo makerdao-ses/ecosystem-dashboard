@@ -3,13 +3,16 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { TeamRole } from '@/core/enums/teamRole';
 import type { Team } from '@/core/models/interfaces/team';
-import type { TeamStatus } from '@/core/models/interfaces/types';
+import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
+import { ResourceType } from '@/core/models/interfaces/types';
 import SocialMediaLinksButton from '../ButtonLink/SocialMediaLinksButton';
+import CategoryChip from '../CategoryChip/CategoryChip';
 import CircleAvatar from '../CircleAvatar/CircleAvatar';
 import Container from '../Container/Container';
 import RoleChip from '../RoleChip/RoleChip';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import { StatusChip } from '../StatusChip/StatusChip';
+import CoreUnitSubmissionLink from './CoreUnitSubmissionLink';
 import type { Theme } from '@mui/material';
 
 interface TeamHeaderProps {
@@ -21,13 +24,20 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const [spacerHeight, setSpacerHeight] = useState<number>(165);
   const headerRef = useRef<HTMLDivElement>(null);
-  const chips = (
-    <ScopeList>
-      {team.scopes?.map((item, index) => (
-        <ScopeChip scope={item} key={index} codeOnly={isMobile} />
-      ))}
-    </ScopeList>
-  );
+  const chips =
+    team.type === ResourceType.EcosystemActor ? (
+      <ScopeList>
+        {team.scopes?.map((item, index) => (
+          <ScopeChip scope={item} key={index} codeOnly={isMobile} />
+        ))}
+      </ScopeList>
+    ) : (
+      <CategoryList>
+        {team.category?.map((category) => (
+          <CategoryChip category={category as TeamCategory} key={category} />
+        ))}
+      </CategoryList>
+    );
 
   // show/hide header on scroll
   const [showHeader, setShowHeader] = useState<boolean>(true);
@@ -77,8 +87,17 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
                       <Code>{team.shortCode}</Code> {team.name}
                     </TeamName>
                     <ChipsContainer>
-                      <StatusChip status={team.status as TeamStatus} />
-                      <RoleChip status={(team.category?.[0] ?? '') as TeamRole} />
+                      {team.type === ResourceType.EcosystemActor ? (
+                        <StatusChip status={team.status as TeamStatus} />
+                      ) : (
+                        <StatusChipForCoreUnit status={team.status as TeamStatus} />
+                      )}
+
+                      {team.type === ResourceType.EcosystemActor ? (
+                        <RoleChip status={(team.category?.[0] ?? '') as TeamRole} />
+                      ) : (
+                        <CoreUnitSubmissionLink team={team} />
+                      )}
                     </ChipsContainer>
                     {chips}
                   </InfoContent>
@@ -131,6 +150,7 @@ const Content = styled('div')(() => ({
 const TeamBasicInfo = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: 8,
+  width: '100%',
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 16,
@@ -154,6 +174,7 @@ const Avatar = styled(CircleAvatar)(({ theme }) => ({
 const InfoContent = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  width: '100%',
 
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
@@ -167,6 +188,18 @@ const ChipsContainer = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 8,
+  },
+}));
+
+const StatusChipForCoreUnit = styled(StatusChip)(({ theme }) => ({
+  alignSelf: 'baseline',
+  padding: '3px 4px 3px 4px',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '1px 8px 1px 8px',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '1px 16px 1px 16px',
   },
 }));
 
@@ -193,6 +226,19 @@ const ScopeList = styled('div')(() => ({
   gap: 8,
   marginTop: 8,
   width: '100%',
+}));
+
+const CategoryList = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: 8,
+  marginTop: 8,
+  marginLeft: -56,
+  width: '100%',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: 0,
+  },
 }));
 
 const LinksContainer = styled('div')(({ theme }) => ({
