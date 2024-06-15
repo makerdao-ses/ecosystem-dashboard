@@ -19,7 +19,7 @@ const CoreUnitSubmissionLink: React.FC<CoreUnitSubmissionLinkProps> = ({ team })
   if (!submissionDate) return null;
 
   return (
-    <SinceDateCoreUnit href={getMipUrlFromCoreUnit(team as unknown as CoreUnit)} showArrow wrapText>
+    <SinceDateCoreUnit href={getMipUrlFromCoreUnit(team as unknown as CoreUnit) ?? ''} showArrow wrapText>
       {`Since ${DateTime.fromJSDate(submissionDate).toFormat('d-MMM-y').toUpperCase()}`}
     </SinceDateCoreUnit>
   );
