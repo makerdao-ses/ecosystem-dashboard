@@ -66,22 +66,19 @@ export const useCuAboutView = ({ cuAbout, coreUnits, code, setShowThreeMIPs, sho
         if (filteredCategories.length > 0 && !cu.category.some((category) => filteredCategories.includes(category))) {
           return false;
         }
-        // if (
-        //   filteredScopes.length > 0 &&
-        //   !actor.scopes?.some((scope) => filteredScopes.includes(scope.name.replace(' ', '')))
-        // ) {
-        //   return false;
-        // }
-        // if (
-        //   !!router.query.searchText &&
-        //   !actor.name.toLowerCase().includes((router.query.searchText as string).toLowerCase())
-        // ) {
-        //   return false;
-        // }
+        if (filteredStatuses.length > 0 && !filteredStatuses.includes(cu.status)) {
+          return false;
+        }
+        if (
+          !!router.query.searchText &&
+          !cu.name.toLowerCase().includes((router.query.searchText as string).toLowerCase())
+        ) {
+          return false;
+        }
 
         return true;
       }),
-    [coreUnits, filteredCategories]
+    [coreUnits, filteredCategories, filteredStatuses, router.query.searchText]
   );
 
   const currentPage = filteredData.findIndex((item) => item.shortCode === cuAbout.shortCode) + 1;
