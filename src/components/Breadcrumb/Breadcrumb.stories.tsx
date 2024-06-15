@@ -1,15 +1,23 @@
+import { styled } from '@mui/material';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { ResourceType } from '@/core/models/interfaces/types';
-import { withFixedPositionRelative, withoutSBPadding } from '@/core/utils/storybook/decorators';
+import { withoutSBPadding } from '@/core/utils/storybook/decorators';
 import Breadcrumb from './Breadcrumb';
 import TeamBreadcrumbContent from './CustomContents/TeamBreadcrumbContent';
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof Breadcrumb> = {
   title: 'Fusion/Components/Breadcrumb',
   component: Breadcrumb,
-  decorators: [withoutSBPadding, withFixedPositionRelative],
+  decorators: [
+    (Story: StoryFn) => (
+      <StoryWrapperPositionRemover>
+        <Story />
+      </StoryWrapperPositionRemover>
+    ),
+    withoutSBPadding,
+  ],
   parameters: {
     chromatic: {
       viewports: [375, 768, 1024, 1280, 1440],
@@ -18,6 +26,13 @@ const meta: Meta<typeof Breadcrumb> = {
   },
 };
 export default meta;
+
+const StoryWrapperPositionRemover = styled('div')({
+  '& > div': {
+    position: 'relative',
+    top: 0,
+  },
+});
 
 const rightContent = (
   <TeamBreadcrumbContent
