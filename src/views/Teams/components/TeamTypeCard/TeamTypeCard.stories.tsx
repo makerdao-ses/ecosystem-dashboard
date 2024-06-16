@@ -22,6 +22,7 @@ const variantsArgs = [
     teams: 21,
     href: '/teams/ecosystem-actors',
     description:
+      // text is as it was provided
       // eslint-disable-next-line spellcheck/spell-checker
       'Ecosystem Actors are contributor teams that perform essential tasks to benefit the MakerDAO ecosystem. They are divided into two categories: Advisory Council Members and Active Ecosystem Actors. Here, we are refering to the Active Ecosystem Actors who carry out specific projects such as feature development, data collection, marketing, legal work, and other operational activities that benefit the Maker Ecosystem, following the specifications of Scope Alignment Artifacts.',
   },
