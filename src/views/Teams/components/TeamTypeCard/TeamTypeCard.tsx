@@ -3,13 +3,14 @@ import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import type { Theme } from '@mui/material';
 
-interface TeamTypeCardProps extends React.PropsWithChildren {
+interface TeamTypeCardProps {
   name: string;
   teams: number;
   href: string;
+  description: string;
 }
 
-const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, children }) => {
+const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, description }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
@@ -24,7 +25,7 @@ const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, children
 
       <MainContentDesktop>
         <Name>{name}</Name>
-        <Description>{children}</Description>
+        <Description>{description}</Description>
       </MainContentDesktop>
 
       <TeamsNumberDesktop>Teams {teams}</TeamsNumberDesktop>
@@ -92,7 +93,7 @@ const TeamsNumber = styled('div')(({ theme }) => ({
 const Description = styled('p')(({ theme }) => ({
   margin: 0,
   borderRadius: 8,
-  padding: 8,
+  padding: 7,
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   fontSize: 14,
   lineHeight: '24px',

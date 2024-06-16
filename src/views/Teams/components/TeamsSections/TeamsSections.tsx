@@ -18,9 +18,13 @@ const TeamsSections: React.FC<TeamsSectionsProps> = ({ sectionName, teams }) => 
     <Title>{sectionName}</Title>
 
     {teams.map((team) => (
-      <TeamTypeCard key={team.name} name={team.name} teams={team.teams} href={team.href}>
-        {team.description}
-      </TeamTypeCard>
+      <TeamTypeCard
+        key={team.name}
+        name={team.name}
+        teams={team.teams}
+        href={team.href}
+        description={team.description}
+      />
     ))}
   </SectionContainer>
 );
