@@ -9,10 +9,10 @@ import Breadcrumb from './components/Breadcrumb/Breadcrumb';
 import PageHeader from './components/PageHeader/PageHeader';
 import DetailsSection from './components/sections/DetailsSection/DetailsSection';
 import OverviewSection from './components/sections/OverviewSection/OverviewSection';
-import useRoadmapMilestonesContainer from './useRoadmapMilestonesContainer';
+import useRoadmapMilestonesView from './useRoadmapMilestonesView';
 
-const RoadmapMilestonesContainer: React.FC = () => {
-  useRoadmapMilestonesContainer();
+const RoadmapMilestonesView: React.FC = () => {
+  useRoadmapMilestonesView();
 
   return (
     <PageContainer hasImageBackground>
@@ -29,11 +29,11 @@ const RoadmapMilestonesContainer: React.FC = () => {
       <Breadcrumb
         items={[
           {
-            label: 'Roadmaps',
+            label: 'Roadmap',
             url: siteRoutes.endgame,
           },
           {
-            label: 'Endgame Phase 1',
+            label: 'Powerhouse Roadmap 2024',
             url: siteRoutes.roadmapMilestones('endgame-phase-1'),
           },
         ]}
@@ -50,7 +50,7 @@ const RoadmapMilestonesContainer: React.FC = () => {
   );
 };
 
-export default RoadmapMilestonesContainer;
+export default RoadmapMilestonesView;
 
 const SectionsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
