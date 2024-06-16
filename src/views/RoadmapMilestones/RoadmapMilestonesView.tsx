@@ -17,8 +17,8 @@ const RoadmapMilestonesView: React.FC = () => {
   return (
     <PageContainer hasImageBackground>
       <SEOHead
-        title="MakerDAO Endgame | Roadmaps and Milestones"
-        description="MakerDAO Roadmaps and Milestones page provides a comprehensive overview of Milestones and Deliverables, their status, and progress."
+        title="Powerhouse Roadmap 2024"
+        description="Powerhouse Ecosystem Actor team roadmap for the year 2024."
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
