@@ -265,7 +265,7 @@ const ContainerAbout = styled('div')(({ theme }) => ({
 }));
 
 const ContainerCard = styled('div')(({ theme }) => ({
-  marginBottom: '32px',
+  marginBottom: 24,
   display: 'flex',
   flexDirection: 'column',
   marginLeft: '68px',
@@ -289,7 +289,7 @@ const ContainerCard = styled('div')(({ theme }) => ({
 }));
 
 const MarkdownContainer = styled('div')({
-  marginTop: '32px',
+  marginTop: 16,
 });
 const TeamMemberContainer = styled('div')({
   display: 'flex',
@@ -475,7 +475,7 @@ export const DividerStyle = styled(Divider)({
 const ContainerScroll = styled('div')(({ theme }) => ({
   position: 'sticky',
   top: 250,
-  paddingTop: '34px',
+  marginTop: 16,
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     position: 'relative',
     top: 0,
@@ -531,7 +531,6 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
 
 const ContainerCardTableDesk = styled('div')(({ theme }) => ({
   height: 'fit-content',
-
   marginLeft: 32,
   display: 'flex',
   flexDirection: 'column',
@@ -581,7 +580,7 @@ export const LabelLinks = styled('div')(({ theme }) => ({
 
 // Export for stories
 export const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '4px 15px 4px 23px',
+  padding: '4px 14.5px 4px 23px',
 
   height: 32,
   display: 'flex',
