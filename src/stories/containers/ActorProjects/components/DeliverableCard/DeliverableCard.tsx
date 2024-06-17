@@ -84,7 +84,7 @@ const Card = styled('div')<{ fitContent: boolean }>(({ theme, fitContent }) => (
   background: theme.palette.isLight ? '#fff' : '#1E2C37',
   border: `1px solid ${theme.palette.isLight ? '#D1DEE6' : '#31424E'}`,
   boxShadow: theme.palette.isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
+    ? '0px 3px 10px 0px rgba(88, 88, 88, 0.2)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
   padding: 15,
   height: fitContent ? 'fit-content' : 'auto',
