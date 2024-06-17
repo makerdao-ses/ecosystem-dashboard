@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import BigButton from '@ses/components/Button/BigButton/BigButton';
-import { TablePlaceholder } from '@ses/components/CustomTable/TablePlaceholder';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+
+import TableEmptyState from '@/components/TableEmptyState/TableEmptyState';
+import BigButton from '@/views/CUAbout/Button/BigButton/BigButton';
 import DelegateExpenseTrendItem from '../../DelegateExpenseTrend/DelegateExpenseTrendItem';
 import HeaderDelegateExpense from '../../DelegateExpenseTrend/HeaderDelegateExpense';
 import SectionTitle from '../../SectionTitle/SectionTitle';
@@ -72,7 +73,7 @@ const ExpenseReports: React.FC<Props> = ({
         ))}
         {isLoading && <ExpenseReportsItemsSkeleton />}
         {!hasExpenseReport && (
-          <TablePlaceholder description="There are no contributors available with this combination of filters" />
+          <TableEmptyState description="There are no contributors available with this combination of filters" />
         )}
       </ItemSection>
 
@@ -156,6 +157,7 @@ const BigButtonStyled = styled(BigButton)({
   height: 31,
   padding: '8px 24px',
   letterSpacing: 1,
+  color: '#708390',
   [lightTheme.breakpoints.up('tablet_768')]: {
     minWidth: 207,
   },

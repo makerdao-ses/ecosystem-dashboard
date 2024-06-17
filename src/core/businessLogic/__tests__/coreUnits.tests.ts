@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
+import { TeamStatus } from '@/core/models/interfaces/types';
 import { CuJobEnum } from '../../enums/cuJobEnum';
-import { CuStatusEnum } from '../../enums/cuStatusEnum';
 import { CURRENT_MONTH, CURRENT_MINUS_1_MONTH, CURRENT_MINUS_2_MONTH, CURRENT_MINUS_3_MONTH } from '../../utils/tests';
 import { BudgetStatementBuilder } from '../builders/budgetStatementBuilder';
 import { BudgetStatementFteBuilder } from '../builders/budgetStatementFTEBuilder';
@@ -20,15 +20,14 @@ import {
   getPercentFromCoreUnit,
   getSubmissionDateFromCuMip,
 } from '../coreUnits';
-import type { ContributorCommitmentDto } from '../../models/dto/coreUnitDTO';
 
 test('Get date for status on CuMip', () => {
-  const mipDao = new CuMipBuilder().withStatus(CuStatusEnum.Withdrawn, CURRENT_MINUS_2_MONTH).build();
-  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(CURRENT_MINUS_2_MONTH);
+  const mipDao = new CuMipBuilder().withStatus(TeamStatus.Withdrawn, CURRENT_MINUS_2_MONTH).build();
+  expect(getCuMipStatusModifiedDate(mipDao, TeamStatus.Withdrawn)).toBe(CURRENT_MINUS_2_MONTH);
 
-  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).not.toEqual(CURRENT_MINUS_1_MONTH);
+  expect(getCuMipStatusModifiedDate(mipDao, TeamStatus.Withdrawn)).not.toEqual(CURRENT_MINUS_1_MONTH);
 
-  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.RFC)).toBe('');
+  expect(getCuMipStatusModifiedDate(mipDao, TeamStatus.RFC)).toBe('');
 });
 
 test('Get latest Mip39 from Core Unit', () => {
@@ -41,8 +40,8 @@ test('Get latest Mip39 from Core Unit', () => {
 
 test('Get Date as Datetime from CuMip', () => {
   const date = CURRENT_MINUS_2_MONTH;
-  const mipDao = new CuMipBuilder().withStatus(CuStatusEnum.Withdrawn, date).build();
-  expect(getCuMipStatusModifiedDate(mipDao, CuStatusEnum.Withdrawn)).toBe(date);
+  const mipDao = new CuMipBuilder().withStatus(TeamStatus.Withdrawn, date).build();
+  expect(getCuMipStatusModifiedDate(mipDao, TeamStatus.Withdrawn)).toBe(date);
 
   const expectedDate = DateTime.fromFormat(date, 'yyyy-MM-dd').toJSDate();
   expect(getSubmissionDateFromCuMip(mipDao)?.toDateString()).toBe(expectedDate.toDateString());
@@ -87,21 +86,26 @@ test('Get FTEs from Core Unit', () => {
 test('Get Facilitator from Core Unit', () => {
   const coreUnit = new CoreUnitsBuilder()
     .addContributorCommitment({
-      commitment: 'commitment',
       id: 'id',
-      jobTitle: CuJobEnum.Facilitator,
+      cuId: 'cuId',
+      contributorId: 'cu',
+      startDate: '2021/03/12',
+      commitment: 'FullTime',
+      cuCode: 'cu',
       contributor: [
         {
+          name: 'Facilitator',
           discordHandle: '',
           email: '',
-          name: 'Facilitator',
           facilitatorImage: '',
           forumHandle: '',
+          githubUrl: '',
+          id: 'id',
           twitterHandle: '',
-          id: '',
         },
       ],
-    } as ContributorCommitmentDto)
+      jobTitle: CuJobEnum.Facilitator,
+    })
     .build();
 
   const result = getFacilitatorsFromCoreUnit(coreUnit);

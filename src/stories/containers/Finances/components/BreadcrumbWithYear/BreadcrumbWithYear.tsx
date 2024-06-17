@@ -3,7 +3,7 @@ import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
 import BreadCrumbWithIcons from '@ses/components/Pagination/BreadCrumbWithIcons';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
@@ -36,7 +36,7 @@ const BreadcrumbWithYear: React.FC<Props> = ({
         </BreadcrumbMobile>
       )}
       <BreadcrumbDesk>
-        <StyledBreadcrumbs items={trailingAddressDesk} isLight={isLight} />
+        <StyledBreadcrumbs items={trailingAddressDesk} isLight={isLight} hasItemsToCount={false} />
       </BreadcrumbDesk>
 
       <YearSelect

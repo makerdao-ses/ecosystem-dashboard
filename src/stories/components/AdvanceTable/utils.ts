@@ -1,4 +1,4 @@
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { isBorder } from './types';
 import type { Border, BorderConfig, GenericCell, CellPadding } from './types';
 

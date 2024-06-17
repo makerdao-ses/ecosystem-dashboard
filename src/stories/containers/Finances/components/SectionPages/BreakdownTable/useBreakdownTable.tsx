@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { formatBudgetName } from '@ses/containers/Finances/utils/utils';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import groupBy from 'lodash/groupBy';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -193,15 +193,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
     // group data in an easier structure to manage
     analytics.series.forEach((series) => {
       series.rows.forEach((row) => {
-        let path = row.dimensions[0].path;
-
-        if (path.includes('*')) {
-          // it can be an uncategorized budget
-          const reducedPath = removePatternAfterSlash(path);
-          if (budgets.some((budget) => budget.codePath === reducedPath)) {
-            path = reducedPath; // it is not uncategorized
-          }
-        }
+        const path = row.dimensions[0].path;
 
         if (!data[path]) {
           // create the path as it does not exist
@@ -219,83 +211,18 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
 
     // create a sub-table for each budget that has * in the path
     // this sub-table will be used as the uncategorized table
-    let uncategorizedSubTable: TableFinances | null = null;
+    const uncategorizedSubTables = [] as TableFinances[];
     Object.keys(data)
-      .filter((path) => path.includes('*'))
-      .forEach((path, _, array) => {
+      .filter(
+        // if the path is uncategorized and it is not in the budgets list
+        // (if it is in the budget list then it should be in the sub-tables as uncategorized)
+        (path) => path.includes('*') && !budgets.some((budget) => budget.codePath === removePatternAfterSlash(path))
+      )
+      .forEach((path) => {
         const columns = Object.values(data[path]);
-
-        if (selectedGranularity !== 'annual') {
-          // annual does not have totals
-          const total = columns.reduce(
-            (acc, current) => {
-              acc.Actuals += current.Actuals;
-              acc.Budget += current.Budget;
-              acc.PaymentsOnChain += current.PaymentsOnChain;
-              acc.Forecast += current.Forecast;
-              acc.ProtocolNetOutflow += current.ProtocolNetOutflow;
-              return acc;
-            },
-            { ...EMPTY_METRIC_VALUE }
-          );
-
-          columns.push(total);
-        }
-
         // this path can not be used for other sub tables
         delete data[path];
 
-        const name = removePatternAfterSlash(path).substring(removePatternAfterSlash(path).lastIndexOf('/') + 1);
-
-        if (uncategorizedSubTable === null) {
-          // it is empty so we create it
-          const row = {
-            name: array.length === 1 ? 'Uncategorized' : name,
-            codePath: path,
-            isUncategorized: true,
-            columns,
-          } as ItemRow;
-          uncategorizedSubTable = {
-            tableName: 'Uncategorized',
-            rows:
-              array.length === 1
-                ? [row]
-                : [
-                    // the first row is the is the header of the sub-table
-                    {
-                      ...row,
-                      name: 'Uncategorized',
-                      isMain: true,
-                    },
-                    row,
-                  ],
-          } as TableFinances;
-        } else {
-          // there's more than one uncategorized budget so we add it to the existing table as a new row
-          uncategorizedSubTable.rows.push({
-            name,
-            codePath: path,
-            isUncategorized: true,
-            columns,
-          } as ItemRow);
-
-          // update the header of the sub-table
-          uncategorizedSubTable.rows[0].columns = uncategorizedSubTable.rows[0].columns.map((headerColumn, index) => ({
-            Actuals: headerColumn.Actuals + columns[index].Actuals,
-            Budget: headerColumn.Budget + columns[index].Budget,
-            PaymentsOnChain: headerColumn.PaymentsOnChain + columns[index].PaymentsOnChain,
-            Forecast: headerColumn.Forecast + columns[index].Forecast,
-            ProtocolNetOutflow: headerColumn.ProtocolNetOutflow + columns[index].ProtocolNetOutflow,
-          }));
-        }
-      });
-
-    // create a table for each budget for the current level
-    const tables = uncategorizedSubTable === null ? ([] as TableFinances[]) : [uncategorizedSubTable];
-    if (budgets.length === 0) {
-      const rows = Object.keys(data).map((path) => {
-        const columns = Object.values(data[path]);
-
         if (selectedGranularity !== 'annual') {
           // annual does not have totals
           const total = columns.reduce(
@@ -313,26 +240,24 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           columns.push(total);
         }
 
-        return {
-          name: path,
-          codePath: path,
-          columns,
-        } as ItemRow;
+        const name = removePatternAfterSlash(path).substring(removePatternAfterSlash(path).lastIndexOf('/') + 1);
+        const subTable = {
+          tableName: name,
+          rows: [
+            {
+              name,
+              codePath: path,
+              isMain: true,
+              isUncategorized: true,
+              columns,
+            },
+          ],
+        } as TableFinances;
+        uncategorizedSubTables.push(subTable);
       });
-      const subTableHeaders = rows.map((item) => item.columns);
-      const tableHeader = subTableHeaders.reduce((acc, current) => {
-        for (let i = 0; i < acc.length; i++) {
-          acc[i].Actuals += current[i]?.Actuals ?? 0;
-          acc[i].Budget += current[i]?.Budget ?? 0;
-          acc[i].PaymentsOnChain += current[i]?.PaymentsOnChain ?? 0;
-          acc[i].Forecast += current[i]?.Forecast ?? 0;
-          acc[i].ProtocolNetOutflow += current[i]?.ProtocolNetOutflow ?? 0;
-        }
-        return acc;
-      }, Array.from({ length: columnsCount }, () => ({ ...EMPTY_METRIC_VALUE })) as MetricValues[]);
 
-      return [tableHeader, []];
-    }
+    // create a table for each budget for the current level
+    let tables = [...uncategorizedSubTables];
 
     // a sub-table should be created for each budget available in the current level
     budgets.forEach((budget) => {
@@ -343,39 +268,45 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       // sub-table rows
       const rows = Object.keys(data)
         .filter((path) => path.startsWith(budget.codePath))
-        .map((path) => {
-          const columns = Object.values(data[path]);
+        .map(
+          (path) => {
+            const columns = Object.values(data[path]);
+            delete data[path]; // remove the path from the data as it was added
 
-          if (selectedGranularity !== 'annual') {
-            // annual does not have totals
-            const total = columns.reduce(
-              (acc, current) => {
-                acc.Actuals += current.Actuals;
-                acc.Budget += current.Budget;
-                acc.PaymentsOnChain += current.PaymentsOnChain;
-                acc.Forecast += current.Forecast;
-                acc.ProtocolNetOutflow += current.ProtocolNetOutflow;
-                return acc;
-              },
-              { ...EMPTY_METRIC_VALUE }
-            );
+            if (selectedGranularity !== 'annual') {
+              // annual does not have totals
+              const total = columns.reduce(
+                (acc, current) => {
+                  acc.Actuals += current.Actuals;
+                  acc.Budget += current.Budget;
+                  acc.PaymentsOnChain += current.PaymentsOnChain;
+                  acc.Forecast += current.Forecast;
+                  acc.ProtocolNetOutflow += current.ProtocolNetOutflow;
+                  return acc;
+                },
+                { ...EMPTY_METRIC_VALUE }
+              );
 
-            columns.push(total);
+              columns.push(total);
+            }
+
+            const isUncategorized = path.includes('*');
+            return {
+              name: isUncategorized ? 'Uncategorized' : path,
+              codePath: path,
+              columns,
+              isUncategorized,
+            } as ItemRow;
           }
-
-          return {
-            name: path,
-            codePath: path,
-            columns,
-          } as ItemRow;
-        });
+          //
+        );
 
       // complete sub-table rows with missing sub-budgets
       // Note that will be some budgets that don't have subBudget
       const subBudgets = allBudgets.filter((item) => item.parentId === budget.id);
       subBudgets.forEach((subBudget) => {
-        if (!rows.some((row) => row.name === subBudget.codePath)) {
-          if (subBudget.code === 'uncategorized' || subBudget.code === 'other') {
+        if (!rows.some((row) => row.codePath === subBudget.codePath)) {
+          if (subBudget.code === 'uncategorized') {
             return; // all the values are 0 so we don't need to add it
           }
           rows.push({
@@ -387,9 +318,13 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
       });
       // add correct rows name
       rows.forEach((row) => {
-        const nameOrCode = subBudgets.filter((item) => item.codePath === row.name)[0];
+        const nameOrCode = subBudgets.filter((item) => item.codePath === row.codePath)[0];
         if (!nameOrCode) {
-          row.name = `${removePatternAfterSlash(row.name)}`;
+          if (row.name.includes('*')) {
+            // it is an uncategorized budget
+            row.name = 'Uncategorized';
+            row.isUncategorized = true;
+          }
         } else {
           row.name = isMobile ? nameOrCode.code : nameOrCode.name;
         }
@@ -400,6 +335,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         name: isMobile ? (lod === 3 ? formatBudgetName(budget.name) : budget.code) : formatBudgetName(budget.name),
 
         isMain: true,
+        isUncategorized: rows.every((row) => row.isUncategorized),
         codePath: budget.codePath,
         columns: rows
           .reduce((acc, current) => {
@@ -420,7 +356,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           .filter((item) => item !== null),
       };
       // Check if only one element is only the header so don't need rows
-      if (!((header.name === 'Uncategorized' || header.name === 'Other') && isHeaderValuesZero(header))) {
+      if (!(header.name === 'Uncategorized' && isHeaderValuesZero(header))) {
         if (rows.length === 1) {
           table.rows = [header];
         } else {
@@ -467,7 +403,7 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
         }
 
         table.rows.push({
-          name: path, // TODO: maybe we can get the name from the budget list
+          name: path,
           codePath: path,
           columns,
         } as ItemRow);
@@ -545,19 +481,56 @@ export const useBreakdownTable = (year: string, budgets: Budget[], allBudgets: B
           } as ItemRow
         );
 
-        table.rows = [...rows, othersTotal];
+        // check if the others total has any non-zero value to hide it if it is all zeros
+        const isOthersNonZero = othersTotal.columns.some((column) =>
+          activeMetrics.some((metric) => column[metric as keyof MetricValues] !== 0)
+        );
+
+        table.rows = [...rows, ...(isOthersNonZero ? [othersTotal] : [])];
       }
+    });
+
+    // "hide"/remove the uncategorized table if it is the only one (it will be included just in the header)
+    if (tables.length === 1 && tables[0].rows[0]?.isUncategorized) {
+      tables = [];
+    }
+
+    // hide/remove uncategorized sub-tables that where all the values for the selected metrics are zero
+    const activeMetricsKeys = activeMetrics.map(
+      (metric) =>
+        // translate the selected metrics to columns keys
+        (metric === 'Net Expenses On-Chain'
+          ? 'PaymentsOnChain'
+          : metric === 'Net Protocol Outflow'
+          ? 'ProtocolNetOutflow'
+          : metric) as keyof MetricValues
+    );
+    tables = tables.filter((table) => {
+      if (table.rows[0]?.isUncategorized) {
+        return table.rows[0].columns.some((column) => activeMetricsKeys.some((metric) => column[metric] !== 0));
+      } else {
+        // it's not uncategorized but may have uncategorized rows
+        table.rows = table.rows.filter((row) => {
+          if (row.isUncategorized) {
+            // uncategorized only
+            return row.columns.some((column) => activeMetricsKeys.some((metric) => column[metric] !== 0));
+          }
+          return true;
+        });
+      }
+
+      return true; // it's not uncategorized so should be included
     });
 
     // sort final tables by the amount of rows
     const sortedTables = tables.sort((a, b) => {
       // uncategorized should be the first
-      if (b.rows[0].isUncategorized) return 1;
+      if (b.rows[0]?.isUncategorized || a.rows[0]?.isUncategorized) return 1;
 
       return b.rows.length - a.rows.length;
     });
     return [tableHeader, sortedTables];
-  }, [allBudgets, analytics, budgets, codePath, error, isMobile, lod, selectedGranularity]);
+  }, [activeMetrics, allBudgets, analytics, budgets, codePath, error, isMobile, lod, selectedGranularity]);
 
   const isLoading = !analytics && !error && (tableHeader === null || tableBody === null);
 

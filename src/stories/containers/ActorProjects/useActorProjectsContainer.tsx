@@ -2,7 +2,7 @@ import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ProjectStatus } from '@ses/core/models/interfaces/projects';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
 import ProjectStatusChip from './components/ProjectStatusChip/ProjectStatusChip';

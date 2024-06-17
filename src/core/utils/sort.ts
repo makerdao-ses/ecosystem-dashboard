@@ -1,3 +1,5 @@
+import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
+
 const reA = /[^a-zA-Z]/g;
 const reN = /[^0-9]/g;
 
@@ -12,3 +14,6 @@ export function sortAlphaNum(a: string, b: string) {
     return aA > bA ? 1 : -1;
   }
 }
+
+export const sortDoughnutSeriesByValue = (series: DoughnutSeries[]): DoughnutSeries[] =>
+  series.sort((a, b) => b.value - a.value);

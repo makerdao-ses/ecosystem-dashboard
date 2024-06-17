@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Modal, useMediaQuery } from '@mui/material';
 import { ThreeDots } from '@ses/components/svg/three-dots';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useCallback, useEffect, useState } from 'react';
 import EssentialWebsites from '../EssentialWebsites/EssentialWebsites';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';

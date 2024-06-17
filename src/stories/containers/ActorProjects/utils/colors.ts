@@ -14,11 +14,17 @@ export const getChipColors = (status: ProjectStatus | DeliverableStatus, isLight
         color: '#1AAB9B',
         background: isLight ? 'rgba(245, 255, 246, 0.50)' : 'rgba(26, 171, 155, 0.15)',
       };
+    case ProjectStatus.TODO:
+    case DeliverableStatus.TODO:
+      return {
+        color: '#F08B04',
+        background: isLight ? 'rgba(255, 249, 237, 1)' : 'rgba(83, 57, 5, 1)',
+      };
     default:
       // to do
       return {
         color: '#F08B04',
-        background: isLight ? 'rgba(255, 251, 245, 0.50)' : 'rgba(240, 139, 4, 0.15)',
+        background: isLight ? 'rgba(255, 251, 245, 0.50)' : 'rgba(83, 57, 5, 1)',
       };
   }
 };

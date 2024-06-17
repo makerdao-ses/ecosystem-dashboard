@@ -2,7 +2,7 @@ import { useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useState, useCallback, useMemo } from 'react';
 import useSWR from 'swr';
-import lightTheme from '../../../../../styles/theme/light';
+import lightTheme from '../../../../../styles/theme/themes';
 import { fetcher } from '../../../../core/utils/fetcher';
 import { QUERY_USERS } from '../UsersManager/userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';

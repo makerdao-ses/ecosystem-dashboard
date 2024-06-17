@@ -1,6 +1,6 @@
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import { setCuMipStatusModifiedDate } from '../../coreUnits';
 import type { CuMip } from '@ses/core/models/interfaces/cuMip';
-import type { CuMipStatus } from '@ses/core/models/interfaces/types';
 
 export class CuMipAboutBuilder {
   private readonly _cuMip: CuMip;
@@ -16,7 +16,7 @@ export class CuMipAboutBuilder {
       accepted: '',
       rejected: '',
       obsolete: '',
-      mipStatus: '' as CuMipStatus,
+      mipStatus: '' as TeamStatus,
       mipUrl: '',
       mip39: [],
       mip40: [],
@@ -25,7 +25,7 @@ export class CuMipAboutBuilder {
     } as CuMip;
   }
 
-  withStatus(status: CuMipStatus, date: string): CuMipAboutBuilder {
+  withStatus(status: TeamStatus, date: string): CuMipAboutBuilder {
     this._cuMip.mipStatus = status;
     setCuMipStatusModifiedDate(this._cuMip, status, date);
     return this;

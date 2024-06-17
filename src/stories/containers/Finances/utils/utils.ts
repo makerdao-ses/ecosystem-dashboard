@@ -1,7 +1,7 @@
 import { fetchAnalytics } from '@ses/containers/Finances/api/queries';
 import { SortEnum } from '@ses/core/enums/sortEnum';
-import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import { BudgetStatus, ResourceType, TeamStatus } from '@ses/core/models/interfaces/types';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import type { DelegateExpenseTableHeader, LineChartSeriesData, MetricValues, MomentDataItem } from './types';
 import type { ValuesDataWithBorder } from '@ses/core/models/dto/chartDTO';
@@ -62,7 +62,9 @@ export const mockDataApiTeam: MomentDataItem[] = [
     id: '34',
     code: 'SES-001',
     shortCode: 'SES',
+    budgetPath: 'atlas/legacy/core-units/SES-001/',
     name: 'Sustainable Ecosystem Scaling',
+    status: TeamStatus.Accepted,
     image: 'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
     category: [],
     sentenceDescription: '',
@@ -120,7 +122,9 @@ export const mockDataApiTeam: MomentDataItem[] = [
     id: '45',
     code: 'RISK-01',
     shortCode: 'RISK',
+    budgetPath: 'atlas/legacy/core-units/RISK-01',
     name: 'RISK-01',
+    status: TeamStatus.Accepted,
     image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/risk-001/RISK_logo.png',
     category: [],
     sentenceDescription: '',
@@ -178,7 +182,9 @@ export const mockDataApiTeam: MomentDataItem[] = [
     id: '34',
     code: 'GOV-001',
     shortCode: 'GV',
+    budgetPath: 'atlas/legacy/core-units/GOV-001/',
     name: 'Governance Alpha',
+    status: TeamStatus.Accepted,
     image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/pe-001/pe_logo.png',
     category: [],
     sentenceDescription: '',
@@ -236,7 +242,9 @@ export const mockDataApiTeam: MomentDataItem[] = [
     id: '34',
     code: 'RWF-001',
     shortCode: 'RWF',
+    budgetPath: 'atlas/legacy/core-units/RWF-001/',
     name: 'Real-World Finance',
+    status: TeamStatus.Accepted,
     image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/rwf-001/RWF_logo.png',
     category: [],
     sentenceDescription: '',
@@ -268,7 +276,9 @@ export const mockDataApiTeam: MomentDataItem[] = [
     id: '34',
     code: 'GRO-001',
     shortCode: 'GRO',
+    budgetPath: 'atlas/legacy/core-units/GRO-001/',
     name: 'Growth',
+    status: TeamStatus.Accepted,
     image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
     category: [],
     sentenceDescription: '',
@@ -300,7 +310,9 @@ export const mockDataApiTeam: MomentDataItem[] = [
     id: '34',
     code: 'GRO-001',
     shortCode: 'GRO',
+    budgetPath: 'atlas/legacy/core-units/GRO-001/',
     name: 'Growth',
+    status: TeamStatus.Accepted,
     image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/gro-001/gro_logo.png',
     category: [],
     sentenceDescription: '',

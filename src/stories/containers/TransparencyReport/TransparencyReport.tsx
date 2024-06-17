@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import Tabs from '@ses/components/Tabs/Tabs';
 import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
@@ -8,7 +6,9 @@ import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext'
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React, { useRef } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
+import lightTheme from '../../../../styles/theme/themes';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
@@ -86,8 +86,8 @@ export const TransparencyReport = ({
       />
       <CoreUnitSummary
         coreUnits={coreUnits}
-        trailingAddress={['Expense Reports']}
-        breadcrumbTitle="Expense Reports"
+        trailingAddress={['Budget Statements']}
+        breadcrumbTitle="Budget Statements"
         showHeader={showHeader}
         ref={ref}
       />

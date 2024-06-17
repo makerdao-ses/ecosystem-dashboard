@@ -34,6 +34,8 @@ export interface DoughnutSeries {
   isVisible?: boolean;
   originalColor?: string;
   originalValue?: number;
+  actuals?: number;
+  budgetCap?: number;
 }
 
 export interface BarChartSeries {

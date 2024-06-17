@@ -1,0 +1,13 @@
+import { Meta, IconGallery, IconItem } from '@storybook/blocks';
+import { styled } from '@mui/material/styles';
+import { iconsPowerHose } from './icons';
+
+<Meta title="System Design/Iconography" />
+
+<IconGallery>
+  {iconsPowerHose.map(({ Icon, title }) => (
+    <IconItem name={title} key={title}>
+      <Icon />
+    </IconItem>
+  ))}
+</IconGallery>

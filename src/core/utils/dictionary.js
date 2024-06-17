@@ -167,6 +167,12 @@ const dictionary = [
   'scalability',
   'foundational',
   'spfs',
+  'reskin',
+  'Linkedin',
+  'mouseover',
+  'mouseout',
+  'resized',
+  'stablecoin',
 ];
 
 module.exports = dictionary;

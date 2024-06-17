@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 
 import DelegateExpenseBreakdown from './DelegateExpenseBreakdown/DelegateExpenseBreakdown';
 import DelegateExpenseTrend from './DelegateExpenseTrend';
@@ -96,7 +96,7 @@ const RecognizedDelegatesContainer: React.FC<Props> = ({
         <ContainerButton>
           <Button
             href={siteRoutes.recognizedDelegateReport}
-            label="View Expense Reports"
+            label="View Budget Statements"
             buttonType={ButtonType.Primary}
           />
         </ContainerButton>
@@ -160,7 +160,6 @@ const ContainerButton = styled.div({
 });
 
 const Button = styled(LinkButton)({
-  padding: '14.5px 64px',
   width: '100%',
 
   '& > div': {

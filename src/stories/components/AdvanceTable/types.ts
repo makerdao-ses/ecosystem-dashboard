@@ -1,4 +1,4 @@
-import type { breakpoints } from '@ses/styles/theme/light';
+import type { breakpoints } from '@ses/styles/theme/themes';
 export type DefaultRenderer = 'basicHeader' | 'boldText' | 'total' | 'text' | 'number' | 'incomeNumber';
 export type Alignment = 'left' | 'center' | 'right';
 

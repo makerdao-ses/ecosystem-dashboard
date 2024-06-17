@@ -1,6 +1,5 @@
-import styled from '@emotion/styled';
+import { styled, useTheme } from '@mui/material';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { SortEnum } from '../../../core/enums/sortEnum';
 import ArrowDown from '../svg/arrow-down';
 import ArrowUp from '../svg/arrow-up';
@@ -15,7 +14,8 @@ export interface CustomTableHeaderProps {
 }
 
 export const CustomTableHeader = (props: CustomTableHeaderProps) => {
-  const { isLight } = useThemeContext();
+  const theme = useTheme();
+  const isLight = theme.palette.isLight;
   return (
     <Container
       className="no-select"
@@ -23,18 +23,18 @@ export const CustomTableHeader = (props: CustomTableHeaderProps) => {
       style={props.style}
       onClick={props.state !== SortEnum.Disabled ? props.onSort : undefined}
     >
-      <Label isLight={isLight}>{props.title}</Label>
+      <Label>{props.title}</Label>
       {props.state !== SortEnum.Disabled && (
         <Arrows>
           <ArrowUp
             fill={
               isLight
                 ? props.state === SortEnum.Asc
-                  ? '#231536'
-                  : '#708390'
+                  ? theme.palette.colors.slate[200]
+                  : theme.palette.colors.slate[100]
                 : props.state === SortEnum.Asc
-                ? '#434358'
-                : '#708390'
+                ? theme.palette.colors.slate[600]
+                : theme.palette.colors.slate[500]
             }
             style={{ margin: '4px 0' }}
           />
@@ -42,11 +42,11 @@ export const CustomTableHeader = (props: CustomTableHeaderProps) => {
             fill={
               isLight
                 ? props.state === SortEnum.Desc
-                  ? '#231536'
-                  : '#708390'
+                  ? theme.palette.colors.slate[200]
+                  : theme.palette.colors.slate[100]
                 : props.state === SortEnum.Desc
-                ? '#434358'
-                : '#708390'
+                ? theme.palette.colors.slate[600]
+                : theme.palette.colors.slate[500]
             }
           />
         </Arrows>
@@ -55,23 +55,22 @@ export const CustomTableHeader = (props: CustomTableHeaderProps) => {
   );
 };
 
-const Label = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Label = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: '16px',
-  color: isLight ? '#231536' : '#FFFFFF',
-  fontWeight: 400,
-  lineHeight: '22px',
-  letterSpacing: '0.05rem',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
+  fontWeight: theme.palette.isLight ? 600 : 500,
+  lineHeight: theme.palette.isLight ? '24px' : '22px',
 }));
 
-const Container = styled.div<{ align?: string }>((props) => ({
+const Container = styled('div')<{ align?: string }>((props) => ({
   display: 'flex',
   cursor: 'pointer',
   justifyContent: props.align ?? 'flex-start',
   whiteSpace: 'nowrap',
 }));
 
-const Arrows = styled.div({
+const Arrows = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   margin: '0 8px',

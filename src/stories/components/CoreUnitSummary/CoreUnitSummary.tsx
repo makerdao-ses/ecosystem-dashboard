@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { Collapse, Typography, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { useCoreUnitsTable } from '@ses/containers/CUTable/useCoreUnitsTable';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { forwardRef, useCallback, useMemo } from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import { useCoreUnitsTableView } from '@/views/CoreUnits/useCoreUnitsTableView';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { filterData, getArrayParam, getStringParam } from '../../../core/utils/filters';
 import { buildQueryString } from '../../../core/utils/urls';
@@ -29,7 +29,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
     ref
   ) => {
     const { isLight } = useThemeContext();
-    const { sortData } = useCoreUnitsTable();
+    const { sortData } = useCoreUnitsTableView(data);
     const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
     const lessThanPhone = useMediaQuery(lightTheme.breakpoints.down('mobile_375'));
 

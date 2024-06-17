@@ -1,4 +1,4 @@
-import { ActorScopeEnum } from '../enums/actorScopeEnum';
+import { TeamScopeEnum } from '../enums/actorScopeEnum';
 import { CuCategoryEnum } from '../enums/cuCategoryEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 
@@ -256,38 +256,38 @@ export const getExpenseReportStatusColor = (
 };
 
 export const getScopeColor = (
-  variant: ActorScopeEnum | 'All'
+  variant: TeamScopeEnum | 'All'
 ): { color: string; background: string; darkColor: string; darkBackground: string } => {
   switch (variant) {
-    case ActorScopeEnum.SupportScope:
+    case TeamScopeEnum.SupportScope:
       return {
         color: '#5D48FF',
         background: '#F7F5FF',
         darkColor: '#6C40AA',
         darkBackground: 'rgba(84, 38, 255, 0.20)',
       };
-    case ActorScopeEnum.ProtocolScope:
+    case TeamScopeEnum.ProtocolScope:
       return {
         color: '#02CB9B',
         background: '#EBFFFA',
         darkColor: '#00ED18',
         darkBackground: '#17FFC833',
       };
-    case ActorScopeEnum.StabilityScope:
+    case TeamScopeEnum.StabilityScope:
       return {
         color: '#8F2EC1',
         background: '#FBF2FF',
         darkColor: '#8F2EC1',
         darkBackground: '#B72EFF33',
       };
-    case ActorScopeEnum.GovernanceScope:
+    case TeamScopeEnum.GovernanceScope:
       return {
         color: '#00B5D3',
         background: '#EEFAFC',
         darkColor: '#00B5D3',
         darkBackground: '#42E8FF33',
       };
-    case ActorScopeEnum.AccessibilityScope:
+    case TeamScopeEnum.AccessibilityScope:
       return {
         color: '#635696',
         background: '#F7F4FF',

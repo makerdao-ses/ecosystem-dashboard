@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import Tabs from '@ses/components/Tabs/Tabs';
 import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
@@ -11,10 +9,12 @@ import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
-import ActorSummary from '../ActorsAbout/components/ActorSummary/ActorSummary';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
+import ActorSummary from '../../../views/EAAbout/components/ActorSummary/ActorSummary';
 import AccountsSnapshotTabContainer from '../TransparencyReport/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import ExpenseReport from '../TransparencyReport/components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from '../TransparencyReport/components/TransparencyActuals/TransparencyActuals';
@@ -80,8 +80,8 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
       />
       <ActorSummary
         actors={actors}
-        trailingAddress={['Expense Reports']}
-        breadcrumbTitle="Expense Reports"
+        trailingAddress={['Budget Statements']}
+        breadcrumbTitle="Budget Statements"
         ref={ref}
         showHeader={showHeader}
       />

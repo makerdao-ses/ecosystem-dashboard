@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/light';
+import { styled } from '@mui/material';
 import Breadcrumbs from '../Breadcrumbs';
 
 interface Props {
@@ -7,16 +6,13 @@ interface Props {
     label: string | JSX.Element;
     url: string;
   }[];
-  isLight: boolean;
 }
 
-const CustomBreadcrumbs = ({ items, isLight }: Props) => (
-  <StyledBreadcrumbs items={items} isLight={isLight} className="crumb-container" />
-);
+const CustomBreadcrumbs = ({ items }: Props) => <StyledBreadcrumbs items={items} className="crumb-container" />;
 
 export default CustomBreadcrumbs;
 
-const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }) => ({
+const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
   alignItems: 'center',
   margin: '0px auto',
   padding: '9px 8px',
@@ -25,12 +21,12 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
   height: 32,
   justifyContent: 'flex-start',
   fontWeight: 400,
-  background: isLight ? '#ECF1F3' : '#000A13',
+  background: theme.palette.isLight ? '#ECF1F3' : '#000A13',
 
   '&.crumb-container': {
     width: '100%',
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('tablet_768')]: {
       background: 'none',
       padding: '0 32px',
       marginTop: 0,
@@ -38,11 +34,11 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
       letterSpacing: '0.4px',
     },
 
-    [lightTheme.breakpoints.up('desktop_1280')]: {
+    [theme.breakpoints.up('desktop_1280')]: {
       padding: '0 48px',
     },
 
-    [lightTheme.breakpoints.up('desktop_1440')]: {
+    [theme.breakpoints.up('desktop_1440')]: {
       padding: '0 32px',
     },
 
@@ -59,12 +55,12 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
         fontWeight: 600,
       },
 
-      [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
+      [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
         lineHeight: '13px',
         letterSpacing: 0,
       },
 
-      [lightTheme.breakpoints.up('table_834')]: {
+      [theme.breakpoints.up('tablet_768')]: {
         fontSize: '16px',
         lineHeight: '22px',
         marginRight: 15,
@@ -78,7 +74,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
         },
       },
 
-      [lightTheme.breakpoints.up('desktop_1194')]: {
+      [theme.breakpoints.up('desktop_1024')]: {
         border: 'none',
 
         ':last-child': {
@@ -92,7 +88,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)<{ isLight: boolean }>(({ isLight }
     '& svg': {
       width: 5,
       height: 10,
-      [lightTheme.breakpoints.up('table_834')]: {
+      [theme.breakpoints.up('tablet_768')]: {
         width: 10,
         height: 20,
       },

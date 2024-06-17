@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
+import { Divider } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import ActivityTable from '../../components/CUActivityTable/ActivityTable';
@@ -14,7 +14,6 @@ import { SEOHead } from '../../components/SEOHead/SEOHead';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
 import Filter from '../../components/svg/filter';
 import { Paragraph, Title } from '../CUActivity/CUActivityFeedContainer';
-import { ButtonFilter, SmallSeparator } from '../CUTable/cuTableFilters';
 import { useGlobalActivity } from './useGlobalActivity';
 import type { SelectItemProps } from '../../components/CustomMultiSelect/CustomMultiSelect';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
@@ -27,6 +26,7 @@ interface Props {
 
 const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) => {
   const { isLight } = useThemeContext();
+
   const {
     columns,
     extendedActivityFeed,
@@ -96,10 +96,10 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
               />
             </Search>
             <ButtonFilter
-              isLight={isLight}
               isOpen={filtersVisible}
               isActive={filtersActive}
               onClick={toggleFiltersVisible}
+              isLight={isLight}
             >
               <Filter
                 fill={
@@ -191,3 +191,41 @@ const CoreUnitsSelect = styled.div<{ filtersVisible: boolean }>(({ filtersVisibl
     display: 'flex',
   },
 }));
+const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
+  isLight: boolean;
+}>(({ isLight }) => ({
+  height: '32px',
+  width: '1px',
+  backgroundColor: isLight ? '#D4D9E1' : '#48495F',
+  alignSelf: 'center',
+  gridArea: 'separator',
+  display: 'none',
+  '@media (min-width: 834px)': {
+    display: 'block',
+  },
+}));
+
+export const ButtonFilter = styled('div')<{ isActive: boolean; isOpen: boolean; isLight: boolean }>(
+  ({ isActive, isOpen, isLight }) => ({
+    display: 'flex',
+    gridArea: 'buttonFilter',
+    justifySelf: 'flex-end',
+    width: '34px',
+    height: '34px',
+    border: isLight
+      ? isOpen || isActive
+        ? '1px solid #6EDBD0'
+        : '1px solid #D4D9E1'
+      : isOpen || isActive
+      ? '1px solid #098C7D'
+      : '1px solid #343442',
+    borderRadius: '50%',
+    alignItems: 'center',
+    background: isOpen ? (isLight ? '#B6EDE7' : '#003C40') : isLight ? 'white' : 'transparent',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    '@media (min-width: 834px)': {
+      display: 'none',
+    },
+  })
+);

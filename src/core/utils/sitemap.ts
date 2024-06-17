@@ -1,6 +1,6 @@
-import { fetchActors } from '@ses/containers/Actors/api/queries';
+import { fetchActors } from '@/views/Actors/api/queries';
+import { fetchCoreUnits } from '@/views/CoreUnits/cuTableAPI';
 import { BASE_URL, siteRoutes } from '../../config/routes';
-import { fetchCoreUnits } from '../../stories/containers/CUTable/cuTableAPI';
 import { ResourceType } from '../models/interfaces/types';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';
 import type { Team } from '../models/interfaces/team';

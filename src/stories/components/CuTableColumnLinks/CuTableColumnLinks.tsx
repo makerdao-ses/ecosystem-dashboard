@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import { Box } from '@mui/material';
 import React from 'react';
-import lightTheme from '../../../../styles/theme/light';
+import Discord from '@/components/icons/Discord';
+import Forum from '@/components/icons/Forum';
+import Github from '@/components/icons/Github';
+import Youtube from '@/components/icons/Youtube';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { LinkTypeEnum } from '../../../core/enums/linkTypeEnum';
-import Discord from '../svg/discord';
-import Forum from '../svg/forum';
-import Github from '../svg/github';
 import Gmail from '../svg/gmail';
 import LinkedIn from '../svg/linkedin';
 import Twitter from '../svg/twitter';
 import WWW from '../svg/www';
-import Youtube from '../svg/youtube';
 import { ColumnLinksSkeleton } from './CuTableColumnLinksSkeleton';
 
 export interface LinkModel {

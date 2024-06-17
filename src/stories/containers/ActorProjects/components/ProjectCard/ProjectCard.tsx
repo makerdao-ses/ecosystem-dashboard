@@ -4,7 +4,7 @@ import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Image from 'next/image';
 import React, { useCallback, useMemo, useState } from 'react';
 import BudgetTypeBadge from '../BudgetTypeBadge/BudgetTypeBadge';

@@ -4,7 +4,7 @@ import { getExpenseReportsQuery, getExpenseReportsStatusesQuery } from '@ses/con
 import { getHeadersExpenseReport } from '@ses/containers/Finances/utils/utils';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import request from 'graphql-request';
 import { useMemo, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';

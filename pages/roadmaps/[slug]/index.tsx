@@ -1,9 +1,9 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import RoadmapMilestonesContainer from '@ses/containers/RoadmapMilestones/RoadmapMilestonesContainer';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
+import RoadmapMilestonesView from '@/views/RoadmapMilestones/RoadmapMilestonesView';
 
-const RoadmapsPage: React.FC = () => <RoadmapMilestonesContainer />;
+const RoadmapsPage: React.FC = () => <RoadmapMilestonesView />;
 
 export default RoadmapsPage;
 

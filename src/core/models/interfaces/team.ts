@@ -3,7 +3,7 @@ import type { BudgetStatement } from './budgetStatement';
 import type { ContributorCommitment, CuGithubContribution } from './contributor';
 import type { Scope } from './scopes';
 import type { SocialMediaChannels } from './socialMedia';
-import type { ResourceType } from './types';
+import type { ResourceType, TeamStatus } from './types';
 import type { Auditor, User } from './users';
 
 export interface TeamUpdate {
@@ -19,7 +19,9 @@ export interface Team {
   code: string;
   shortCode: string;
   name: string;
+  status: TeamStatus;
   image: string;
+  budgetPath: string;
   category: string[];
   sentenceDescription: string;
   paragraphDescription: string;

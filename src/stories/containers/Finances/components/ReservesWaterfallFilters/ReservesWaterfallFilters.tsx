@@ -5,7 +5,7 @@ import ResetButton from '@ses/components/ResetButton/ResetButton';
 import ResponsiveButtonClearFilter from '@ses/components/ResponsiveButtonClearFilter/ResponsiveButtonClearFilter';
 import SingleItemSelect from '@ses/components/SingleItemSelect/SingleItemSelect';
 import { getLabelMultiselectFilters } from '@ses/core/utils/filters';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import BudgetItem from './BudgetItem';

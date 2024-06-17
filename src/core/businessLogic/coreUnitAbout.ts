@@ -1,23 +1,23 @@
 import { CommitmentJob } from '../enums/commitmentJobEnum';
 import { LinkTypeEnum } from '../enums/linkTypeEnum';
-import { CuMipStatus } from '../models/interfaces/types';
+import { TeamStatus } from '../models/interfaces/types';
 import { getCuMipStatusModifiedDate } from './coreUnits';
 import type { LinkModel } from '../../stories/components/CuTableColumnLinks/CuTableColumnLinks';
-import type { ContributorCommitment } from '../models/interfaces/contributor';
+import type { ContributorCommitmentDto } from '../models/dto/coreUnitDTO';
 import type { CuMip } from '../models/interfaces/cuMip';
 
 export const getMipsStatus = (mip: CuMip) => {
   if (!mip) return undefined;
   switch (mip.mipStatus) {
-    case CuMipStatus.Accepted:
+    case TeamStatus.Accepted:
       return mip.accepted;
-    case CuMipStatus.FormalSubmission:
+    case TeamStatus.FormalSubmission:
       return mip.formalSubmission;
-    case CuMipStatus.Rejected:
+    case TeamStatus.Rejected:
       return mip.rejected;
-    case CuMipStatus.RFC:
+    case TeamStatus.RFC:
       return mip.rfc;
-    case CuMipStatus.Obsolete:
+    case TeamStatus.Obsolete:
       return mip.obsolete;
     default:
       return undefined;
@@ -26,7 +26,7 @@ export const getMipsStatus = (mip: CuMip) => {
 
 export const getMarkdownInformation = (text: string | undefined) => text || '';
 
-export const getLinksFromContributor = (contributor: ContributorCommitment) => {
+export const getLinksFromContributor = (contributor: ContributorCommitmentDto) => {
   const links: LinkModel[] = [];
   if (!contributor) return links;
   if (contributor && contributor.contributor.length === 0) return links;
@@ -66,9 +66,9 @@ export const getRelateMipObjectFromCoreUnit = (cu: CuMip) => {
     dateMip,
     mipUrl: cu.mipUrl,
     orderBy:
-      cu.mipStatus === CuMipStatus.Accepted
+      cu.mipStatus === TeamStatus.Accepted
         ? 2
-        : cu.mipStatus === CuMipStatus.FormalSubmission || cu.mipStatus === CuMipStatus.RFC
+        : cu.mipStatus === TeamStatus.FormalSubmission || cu.mipStatus === TeamStatus.RFC
         ? 1
         : 0,
   } as unknown;

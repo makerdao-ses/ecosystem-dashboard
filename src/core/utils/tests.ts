@@ -1,15 +1,16 @@
+import { DateTime } from 'luxon';
 import {
   renderExpenditures,
   renderLastModified,
   renderLinks,
   renderSummary,
   renderTeamMember,
-} from '@ses/containers/CUTable/CuTableRenders';
-import { DateTime } from 'luxon';
+} from '@/views/CoreUnits/CuTableRenders';
+import type { CustomTableColumn } from '@/views/CoreUnits/CustomTable/CustomTable2';
 import { CommitmentJob } from '../enums/commitmentJobEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 import { SortEnum } from '../enums/sortEnum';
-import { BudgetStatus } from '../models/interfaces/types';
+import { BudgetStatus, TeamStatus } from '../models/interfaces/types';
 import type { CuCommentDto } from '../models/dto/commentsDTO';
 import type { ChangeTrackingEvent } from '../models/interfaces/activity';
 import type { AuditReport } from '../models/interfaces/auditReport';
@@ -22,7 +23,7 @@ import type { BudgetStatementComment } from '../models/interfaces/budgetStatemen
 import type { BudgetStatementLineItem, BudgetStatementWallet } from '../models/interfaces/budgetStatementWallet';
 import type { Contributor, ContributorCommitment } from '../models/interfaces/contributor';
 import type { CoreUnit as CoreUnitInterface } from '../models/interfaces/coreUnit';
-import type { CuMip } from '../models/interfaces/cuMip';
+import type { CuMip, Mip39, Mip40 } from '../models/interfaces/cuMip';
 import type { SocialMediaChannels } from '../models/interfaces/socialMedia';
 import type { Auditor } from '../models/interfaces/users';
 
@@ -141,6 +142,7 @@ export const CoreUnit = {
   shortCode: 'SES',
   code: 'SES-001',
   name: 'Sustainable Ecosystem Scaling',
+  status: TeamStatus.Accepted,
   image: 'https://makerdao-ses.github.io/ecosystem-dashboard/core-units/ses-001/logo.png',
   sentenceDescription:
     'SES aims to sustainably grow the Maker Protocol’s moats by removing barriers between decentralized workforce, capital, and work.',
@@ -150,7 +152,26 @@ export const CoreUnit = {
   category: ['Technical', 'Business', 'Operational', 'Finance'],
   legacyBudgetStatementUrl: '',
   auditors: [] as Auditor[],
-  cuMip: [] as CuMip[],
+  cuMip: [
+    {
+      mip39: [
+        {
+          id: 'MIP39',
+          mipId: 'MIP39',
+          mip39Spn: 40,
+          mipCode: 'MIP39',
+          cuName: 'MIP39',
+          sentenceSummary: 'MIP39',
+          paragraphSummary: 'MIP39',
+        },
+      ] as Mip39[],
+      mipStatus: TeamStatus.Accepted,
+      mipUrl: 'some_url',
+      mipCode: 'MIP39c3',
+      mip40: [] as Mip40[],
+      accepted: '2021-11-25',
+    },
+  ] as CuMip[],
   activityFeed: [] as ChangeTrackingEvent[],
   lastActivity: {
     id: '3',
@@ -276,28 +297,65 @@ export const CoreUnit = {
   ] as ContributorCommitment[],
 } as CoreUnitInterface;
 
-export const columns = [
+export const columns1024: CustomTableColumn[] = [
   {
     header: 'Core Unit',
     justifyContent: 'flex-start',
-    style: { paddingLeft: '16px' },
+
     cellRender: renderSummary,
-    width: '400px',
+
+    width: '325px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: 'L.M',
+    justifyContent: 'flex-start',
+    cellRender: renderLastModified,
+
+    width: '120px',
+    sortReverse: true,
     hasSort: true,
   },
   {
     header: 'Expenditure',
     justifyContent: 'flex-start',
     cellRender: renderExpenditures,
-    width: '215px',
+
+    width: '141px',
     sortReverse: true,
     hasSort: true,
   },
   {
     header: 'Team',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     cellRender: renderTeamMember,
-    width: '205px',
+
+    width: '140px',
+    sortReverse: true,
+    hasSort: true,
+  },
+
+  {
+    header: '',
+    justifyContent: 'center',
+    cellRender: renderLinks,
+    width: '124px',
+    hasSort: false,
+    style: {
+      width: 140,
+      minWidth: 140,
+    },
+  },
+];
+export const columns1280: CustomTableColumn[] = [
+  {
+    header: 'Core Unit',
+    justifyContent: 'flex-start',
+
+    cellRender: renderSummary,
+
+    width: '352px',
     sortReverse: true,
     hasSort: true,
   },
@@ -305,17 +363,40 @@ export const columns = [
     header: 'Last Modified',
     justifyContent: 'flex-start',
     cellRender: renderLastModified,
-    width: '122px',
+
+    width: '120px',
     sortReverse: true,
     hasSort: true,
   },
   {
+    header: 'Expenditure',
+    justifyContent: 'flex-start',
+    cellRender: renderExpenditures,
+
+    width: '141px',
+    sortReverse: true,
+    hasSort: true,
+  },
+  {
+    header: 'Team',
+    justifyContent: 'flex-start',
+    cellRender: renderTeamMember,
+
+    width: '140px',
+    sortReverse: true,
+    hasSort: true,
+  },
+
+  {
     header: '',
     justifyContent: 'center',
     cellRender: renderLinks,
-    width: '358px',
-    responsiveWidth: '186px',
+    width: '124px',
     hasSort: false,
+    style: {
+      width: 140,
+      minWidth: 140,
+    },
   },
 ];
 

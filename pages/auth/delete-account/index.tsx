@@ -3,7 +3,7 @@ import React from 'react';
 import { useAuthContext } from '../../../src/core/context/AuthContext';
 import { useThemeContext } from '../../../src/core/context/ThemeContext';
 import DeleteAccount from '../../../src/stories/containers/Users/DeleteAccount/DeleteAccount';
-import lightTheme from '../../../styles/theme/light';
+import lightTheme from '../../../styles/theme/themes';
 import type { NextPage } from 'next';
 
 const CreateAccountPage: NextPage = () => {

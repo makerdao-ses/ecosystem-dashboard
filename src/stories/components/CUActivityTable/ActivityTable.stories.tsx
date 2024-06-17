@@ -1,7 +1,7 @@
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import ActivityTable from './ActivityTable';
 import type { Meta } from '@storybook/react';
 

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { formatNumber, replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 
 import React from 'react';

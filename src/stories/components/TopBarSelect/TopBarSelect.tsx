@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { enablePageOverflow, getPageWrapper } from '@ses/core/utils/dom';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';

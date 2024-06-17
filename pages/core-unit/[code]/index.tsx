@@ -1,9 +1,9 @@
 import { TeamContext } from '@ses/core/context/TeamContext';
 import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
+import CuAboutView from '@/views/CUAbout/CuAboutView';
+import { fetchCoreUnitByCode } from '@/views/CUAbout/cuAboutAPI';
 import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
-import CuAboutContainer from '../../../src/stories/containers/CUAbout/CuAboutContainer';
-import { fetchCoreUnitByCode } from '../../../src/stories/containers/CUAbout/cuAboutAPI';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
@@ -26,7 +26,7 @@ const CoreUnitAboutPage: NextPage = ({
         setCurrentTeam: setCurrentCoreUnit as unknown as (cu: Team) => void,
       }}
     >
-      <CuAboutContainer code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnit} />
+      <CuAboutView code={code} coreUnits={coreUnits} cuAbout={cuAbout as CoreUnit} />
     </TeamContext.Provider>
   );
 };

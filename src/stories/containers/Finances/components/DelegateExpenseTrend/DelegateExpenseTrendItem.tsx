@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import CircleAvatarWithIcon from '@ses/components/CircleAvatar/CircleAvatarWithIcon';
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
 import MultiUsers from '@ses/components/svg/MultiUsers';
 import MultiUsersMobile from '@ses/components/svg/MultiUsersMobile';
 import { siteRoutes } from '@ses/config/routes';
-import ActorLastModified from '@ses/containers/Actors/components/ActorLastModified/ActorLastModified';
 import GenericDelegateCard from '@ses/containers/RecognizedDelegates/components/GenericDelegateCard';
 import ExpenseReportStatusIndicator from '@ses/containers/TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { capitalizeSentence } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
+import CircleAvatarWithIcon from '@/components/CircleAvatar/CircleAvatarWithIcon';
+import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
 import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';
@@ -95,8 +95,6 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
             <CircleAvatarWithIconStyled
               isCoreUnit={isCoreUnitElement}
               name="Image Core Unit or Delegate"
-              width={isMobile ? '42px' : '34px'}
-              height={isMobile ? '42px' : '34px'}
               icon={isMobile ? <MultiUsersMobile /> : <MultiUsers />}
               image={budget.owner.icon}
             />
@@ -164,7 +162,7 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
       </Link>
 
       <FooterMobile isLight={isLight}>
-        <ActorLastModifiedStyled href={link || '#'} date={lastModified} />
+        <LastModifiedStyled href={link || '#'} date={lastModified} />
       </FooterMobile>
     </ExtendedGenericDelegate>
   );
@@ -196,7 +194,12 @@ const ExtendedGenericDelegate = styled(GenericDelegateCard)<WithIsLight>(({ isLi
 }));
 
 const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: boolean }>(({ isCoreUnit }) => ({
+  width: 42,
+  height: 42,
+  minWidth: 42,
+  minHeight: 42,
   marginTop: 4,
+
   '& div svg path': {
     fill: isCoreUnit ? '#1AAB9B' : '#447AFB',
   },
@@ -209,8 +212,13 @@ const CircleAvatarWithIconStyled = styled(CircleAvatarWithIcon)<{ isCoreUnit: bo
   '& div svg path:nth-of-type(4)': {
     fill: '#fff',
   },
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
+    width: 34,
+    height: 34,
+    minWidth: 34,
+    minHeight: 34,
   },
 }));
 
@@ -652,7 +660,7 @@ const ReportingMobile = styled.div({
   gap: 8,
 });
 
-const ActorLastModifiedStyled = styled(ActorLastModified)({
+const LastModifiedStyled = styled(LastModifiedActorCoreUnit)({
   '& > div:first-of-type': {
     color: '#9FAFB9',
     marginTop: 0,

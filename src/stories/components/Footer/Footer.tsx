@@ -8,7 +8,7 @@ import MobileFooterDark from '../../../../public/assets/img/bg-footer-mobile-dar
 import MobileFooterLight from '../../../../public/assets/img/bg-footer-mobile.png';
 import TabletFooterDark from '../../../../public/assets/img/bg-footer-tablet-dark.png';
 import TabletFooterLight from '../../../../public/assets/img/bg-footer-tablet.png';
-import lightTheme from '../../../../styles/theme/light';
+import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import Logo from '../svg/logo';
 import SesLogo from '../svg/ses-logo';

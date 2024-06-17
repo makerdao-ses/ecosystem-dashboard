@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import { customRenderer, customRendererDark } from '@ses/components/Markdown/renderUtils';
 import { useTeamContext } from '@ses/core/context/TeamContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
 import React, { useMemo } from 'react';
+import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/renderUtils';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 import GenericCommentCard from './GenericCommentCard';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';

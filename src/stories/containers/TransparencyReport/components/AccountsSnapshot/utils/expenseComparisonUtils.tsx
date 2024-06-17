@@ -155,10 +155,14 @@ export const getTotals = (values: ActualsComparison[]): ActualsComparison =>
       acc.reportedActuals += curr.reportedActuals;
       acc.netExpenses.onChainOnly.amount += curr.netExpenses.onChainOnly.amount;
       acc.netExpenses.onChainOnly.difference =
-        acc.reportedActuals === 0 ? 0 : (acc.netExpenses.onChainOnly.amount * 100) / acc.reportedActuals - 100;
+        acc.reportedActuals === 0 || acc.netExpenses.onChainOnly.amount === 0
+          ? 0
+          : (Math.abs(acc.netExpenses.onChainOnly.amount) / Math.abs(acc.reportedActuals) - 1) * 100;
       acc.netExpenses.offChainIncluded.amount += curr.netExpenses.offChainIncluded.amount;
       acc.netExpenses.offChainIncluded.difference =
-        acc.reportedActuals === 0 ? 0 : (acc.netExpenses.offChainIncluded.amount * 100) / acc.reportedActuals - 100;
+        acc.reportedActuals === 0 || acc.netExpenses.offChainIncluded.amount === 0
+          ? 0
+          : (Math.abs(acc.netExpenses.offChainIncluded.amount) / Math.abs(acc.reportedActuals) - 1) * 100;
 
       return acc;
     },

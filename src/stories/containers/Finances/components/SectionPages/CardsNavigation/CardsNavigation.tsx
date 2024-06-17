@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import { useMediaQuery } from '@mui/material';
-import BigButton from '@ses/components/Button/BigButton/BigButton';
+
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useRef } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import BigButton from '@/views/CUAbout/Button/BigButton/BigButton';
 import CardCoreUnitThirdLevelBudget from '../../CardCoreUnitThirdLevelBudget/CardCoreUnitThirdLevelBudget';
 import CardNavigationFinance from '../../CardNavigationFinance/CardNavigationFinance';
 import CardNavigationMobile from '../../CardNavigationMobile/CardNavigationMobile';
@@ -270,6 +271,7 @@ const BigButtonStyled = styled(BigButton)({
   height: 31,
   padding: '8px 24px',
   letterSpacing: 1,
+  color: '#708390',
   [lightTheme.breakpoints.up('tablet_768')]: {
     minWidth: 207,
   },

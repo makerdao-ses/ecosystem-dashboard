@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-
-import lightTheme from '@ses/styles/theme/light';
+import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import ItemLegendDoughnut from './ItemLegendDoughnut';
 import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
@@ -21,21 +21,24 @@ const CardLegend: React.FC<Props> = ({
   onLegendItemHover,
   onLegendItemLeave,
   toggleSeriesVisibility,
-}) => (
-  <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
-    {doughnutSeriesData.map((data, index) => (
-      <ItemLegendDoughnut
-        key={index}
-        changeAlignment={changeAlignment}
-        doughnutData={data}
-        onLegendItemHover={onLegendItemHover}
-        onLegendItemLeave={onLegendItemLeave}
-        toggleSeriesVisibility={toggleSeriesVisibility}
-        isCoreThirdLevel={isCoreThirdLevel}
-      />
-    ))}
-  </ContainerLegend>
-);
+}) => {
+  const sortedDoughnutSeries = sortDoughnutSeriesByValue(doughnutSeriesData);
+  return (
+    <ContainerLegend isCoreThirdLevel={isCoreThirdLevel} changeAlignment={changeAlignment}>
+      {sortedDoughnutSeries.map((data, index) => (
+        <ItemLegendDoughnut
+          key={index}
+          changeAlignment={changeAlignment}
+          doughnutData={data}
+          onLegendItemHover={onLegendItemHover}
+          onLegendItemLeave={onLegendItemLeave}
+          toggleSeriesVisibility={toggleSeriesVisibility}
+          isCoreThirdLevel={isCoreThirdLevel}
+        />
+      ))}
+    </ContainerLegend>
+  );
+};
 
 export default CardLegend;
 

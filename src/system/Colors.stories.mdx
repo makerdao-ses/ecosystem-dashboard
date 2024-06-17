@@ -1,0 +1,26 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+import { colorPalette } from '@ses/styles/theme/colorPalette';
+
+<Meta title="System Design/Color Palette" />
+
+<ColorPalette>
+  <div style={{ display:'flex',flexDirection:'column',gap:40}}>
+  {Object.entries(colorPalette).map(([colorName, shades]) => (
+    <div style={{ display:'flex',flexDirection:'column'}}>
+      <h3>{colorName.charAt(0).toUpperCase() + colorName.slice(1)}</h3>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        {Object.entries(shades).map(([shade, colorValue]) => (
+          <div key={`${colorName}-${shade}`} style={{ marginRight: '20px', textAlign: 'center' }}>
+            <ColorItem title="" colors={[colorValue]} />
+
+            <div style={{ fontWeight: 'bold', marginTop:-25 }}>{shade}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+))}
+
+  </div>
+
+</ColorPalette>

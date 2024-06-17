@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 
 const NavigationButtons: React.FC = () => (

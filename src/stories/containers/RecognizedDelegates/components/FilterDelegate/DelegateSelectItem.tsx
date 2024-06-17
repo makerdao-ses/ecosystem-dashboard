@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { CircleAvatar } from '@ses/components/CircleAvatar/CircleAvatar';
 import { Container } from '@ses/components/SelectItem/SelectItem';
 import Check from '@ses/components/svg/check';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import type { SelectItemProps } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 
 const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...props }) => {
@@ -24,7 +24,7 @@ const DelegateSelectItem: React.FC<SelectItemProps> = ({ checked = false, ...pro
     >
       {!props.params?.isAll && (
         <>
-          <StyledCircleAvatar name={props.label.toString()} image={props.params?.url} width={'32px'} height={'32px'} />
+          <StyledCircleAvatar name={props.label.toString()} image={props.params?.url} />
         </>
       )}
       <DelegateName isLight={isLight} checked={checked}>
@@ -63,5 +63,9 @@ const StyledContainer = styled(Container)<{ isLight: boolean; checked: boolean }
 }));
 
 const StyledCircleAvatar = styled(CircleAvatar)({
+  width: 32,
+  height: 32,
+  minWidth: 32,
+  minHeight: 32,
   filter: 'filter: drop-shadow(2px 4px 7px rgba(26, 171, 155, 0.25))',
 });

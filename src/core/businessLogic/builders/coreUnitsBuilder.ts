@@ -13,10 +13,12 @@ export class CoreUnitsBuilder {
   constructor() {
     this._coreUnit = {
       name: '',
+      status: '',
       code: '',
       shortCode: '',
       image: '',
       id: '',
+      budgetPath: '',
       legacyBudgetStatementUrl: '',
       sentenceDescription: '',
       paragraphDescription: '',
@@ -76,6 +78,11 @@ export class CoreUnitsBuilder {
     return this;
   }
 
+  withStatus(status: string): CoreUnitsBuilder {
+    this._coreUnit.status = status;
+    return this;
+  }
+
   addCategory(category: CuCategoryEnum) {
     this._coreUnit.category.push(category);
     return this;
@@ -112,6 +119,11 @@ export class CoreUnitsBuilder {
 
   addActivity(activity: ChangeTrackingEvent): CoreUnitsBuilder {
     this._coreUnit.activityFeed.push(activity);
+    return this;
+  }
+
+  addBudgetPath(budgetPath: string): CoreUnitsBuilder {
+    this._coreUnit.budgetPath = budgetPath;
     return this;
   }
 

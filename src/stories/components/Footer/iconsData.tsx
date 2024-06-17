@@ -1,13 +1,14 @@
+import Forum from '@/components/icons/Forum';
+import Github from '@/components/icons/Github';
+import Youtube from '@/components/icons/Youtube';
 import DiscordFooter from '../svg/discord-footer';
 import DiscordSupport from '../svg/discord-support-footer';
-import Forum from '../svg/forum';
-import Github from '../svg/github';
 import LinkedIn from '../svg/linkedin';
 import Reddit from '../svg/reddit';
+
 import Twitter from '../svg/twitter';
 import TwitterFooter from '../svg/twitter-footer';
 import WWW from '../svg/www';
-import Youtube from '../svg/youtube';
 import type { TypeIconFooter } from './FooterLinks';
 
 export const iconsContact = [

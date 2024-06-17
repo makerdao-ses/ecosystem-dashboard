@@ -38,14 +38,16 @@ const StatusChip = styled(Chip)<{ textColor: string; background: string; isSmall
   ({ textColor, background, isSmall }) => ({
     padding: isSmall ? '4px 8px' : '6.5px 15px',
     borderRadius: 24,
+    fontFamily: 'Inter, sans-serif',
     border: `1px solid ${textColor}`,
     background,
     height: 'auto',
+    fontWeight: 500,
 
     '.MuiChip-label': {
       fontSize: isSmall ? 11 : 14,
-      lineHeight: 'normal',
       color: textColor,
+      lineHeight: 'normal',
       padding: 0,
     },
   })

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { DateTime } from 'luxon';
 

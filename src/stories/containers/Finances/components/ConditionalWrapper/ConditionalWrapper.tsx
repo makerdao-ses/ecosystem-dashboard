@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import Container from '@ses/components/Container/Container';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import Container from '@/components/Container/Container';
 import type { PeriodicSelectionFilter } from '../../utils/types';
 
 interface Props extends React.PropsWithChildren {

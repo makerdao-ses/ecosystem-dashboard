@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import BasicModal from '@ses/components/BasicModal/BasicModal';
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
-import Container from '@ses/components/Container/Container';
-import PageContainer from '@ses/components/Container/PageContainer';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { useCategoriesModalContext } from '@ses/core/context/CategoryModalContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import lightTheme from 'styles/theme/light';
-import EndgameIntroductionBanner from '../Endgame/components/EndgameIntroductionBanner/EndgameIntroductionBanner';
+import Container from '@/components/Container/Container';
+import PageContainer from '@/components/Container/PageContainer';
 import CostBreakdownTable from './components/CostBreakdownTable/CostBreakdownTable';
+import EndgameIntroductionBannerLegacy from './components/EndgameIntroductionBannerLegacy/EndgameIntroductionBannerLegacy';
 import ExpensesChart from './components/ExpensesChart/ExpensesChart';
 import NavigationButtons from './components/NavigationButtons/NavigationButtons';
 import QuarterCarousel from './components/QuarterCarousel/QuarterCarousel';
@@ -70,7 +70,7 @@ const FinancesOverviewContainer: React.FC<FinancesOverviewContainerProps> = ({
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
       <EndgameIntroContainer>
-        <EndgameIntroductionBanner />
+        <EndgameIntroductionBannerLegacy />
       </EndgameIntroContainer>
 
       <Container>

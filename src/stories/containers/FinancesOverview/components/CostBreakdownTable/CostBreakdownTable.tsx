@@ -3,7 +3,7 @@ import ArrowRight from '@ses/components/svg/ArrowRight';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/light';
+import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { isCoreUnitExpense, isEcosystemActorExpense } from '../../utils/costBreakdown';
 import CostBreakdownFilter from '../CostBreakdownFilter/CostBreakdownFilter';

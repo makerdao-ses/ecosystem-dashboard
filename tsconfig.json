@@ -16,6 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@ses/containers/*": ["src/stories/containers/*"],
       "@ses/components/*": ["src/stories/components/*"],
       "@ses/core/*": ["src/core/*"],
@@ -28,6 +29,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "svgr.d.ts"],
   "exclude": ["node_modules"]
 }
