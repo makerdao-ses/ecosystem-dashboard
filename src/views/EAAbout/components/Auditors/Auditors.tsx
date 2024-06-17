@@ -59,11 +59,16 @@ const Label = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
 }));
 
-const AuditorsList = styled('div')({
+const AuditorsList = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: 24,
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 20,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 24,
+  },
+}));
 
 const AuditorItem = styled('div')({});
 

@@ -9,7 +9,7 @@ import { siteRoutes } from '@/config/routes';
 import type { AuditorDto } from '@/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@/core/utils/const';
-import InlineUser from '../EAAbout/components/InlineUser/InlineUser';
+import Auditors from '../EAAbout/components/Auditors/Auditors';
 import type { FC } from 'react';
 
 interface Props {
@@ -46,7 +46,7 @@ const CustomSheetFinances: FC<Props> = ({
     <Container type={type}>
       <ButtonOpenMenuStyled title="Finances" onClick={handleOpenSheet} />
       <CustomSheetStyled
-        snapPoints={type === ResourceType.CoreUnit ? [600, 350] : (auditors?.length || 0) > 0 ? [600, 280] : [600, 250]}
+        snapPoints={type === ResourceType.CoreUnit ? [600, 350] : (auditors?.length || 0) > 0 ? [600, 300] : [600, 250]}
         className={className}
         children={
           <CardSheetMobile title="Finances" description={`View all expenses of the ${shortCode} ${textDescription}`}>
@@ -58,12 +58,12 @@ const CustomSheetFinances: FC<Props> = ({
                   showIcon
                 />
               )}
-              <InternalLinkButton
+              <StyledBudgetButton
                 href={`${siteRoutes.coreUnitReports(shortCode)}${queryStrings}`}
                 label="Budget Statements"
                 showIcon
               />
-              <InternalLinkButton href={`/finances/${budgetPath}/${queryStrings}`} label="Finances" showIcon />
+              <StyledBudgetFinances href={`/finances/${budgetPath}/${queryStrings}`} label="Finances" showIcon />
 
               {type === ResourceType.CoreUnit && <Line />}
               {type === ResourceType.CoreUnit && (
@@ -75,13 +75,7 @@ const CustomSheetFinances: FC<Props> = ({
               {type === ResourceType.EcosystemActor ? (
                 (auditors || []).length > 0 ? (
                   <AuditorsContainer>
-                    <Auditors>
-                      {auditors?.map((auditor) => (
-                        <Auditor key={auditor.id}>
-                          <InlineUser username={auditor.username} />
-                        </Auditor>
-                      ))}
-                    </Auditors>
+                    <Auditors auditors={auditors || []} auditorTitle={auditorTitle ?? ''} />
                   </AuditorsContainer>
                 ) : (
                   <NoAuditorsMessage>{auditorTitle}</NoAuditorsMessage>
@@ -152,20 +146,9 @@ const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
 
 const AuditorsContainer = styled('div')({
   padding: '8px 16px 24px',
-});
-
-const Auditors = styled('div')({
-  display: 'flex',
-  flexWrap: 'wrap',
-});
-
-const Auditor = styled('div')({
   marginTop: 16,
-
-  '&:not(:last-of-type)': {
-    marginRight: 40,
-  },
 });
+
 const NoAuditorsMessage = styled('div')(({ theme }) => ({
   padding: '8px 16px 24px',
   fontFamily: 'Inter, sans serif',
@@ -186,3 +169,11 @@ const Container = styled('div')<{ type: ResourceType }>(({ type }) => ({
   display: 'flex',
   width: type === ResourceType.CoreUnit ? undefined : '100%',
 }));
+
+const StyledBudgetButton = styled(InternalLinkButton)({
+  padding: '4px 13px 4px 13px',
+});
+
+const StyledBudgetFinances = styled(InternalLinkButton)({
+  padding: '4px 14.5px 4px 14.5px',
+});
