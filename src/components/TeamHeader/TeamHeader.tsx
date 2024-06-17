@@ -151,6 +151,7 @@ const TeamBasicInfo = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: 8,
   width: '100%',
+  maxWidth: 'calc(100% - 40px)',
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 16,
@@ -175,6 +176,7 @@ const InfoContent = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+  maxWidth: 'calc(100% - 48px)',
 
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
@@ -208,6 +210,9 @@ const TeamName = styled('div')(({ theme }) => ({
   lineHeight: '24px',
   fontWeight: 600,
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 
   [theme.breakpoints.up('tablet_768')]: {
     marginRight: 16,
