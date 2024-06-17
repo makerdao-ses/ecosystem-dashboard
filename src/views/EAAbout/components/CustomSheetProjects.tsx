@@ -4,6 +4,7 @@ import CardSheetMobile from '@/components/CardSheetMobile/CardSheetMobile';
 import CustomSheet from '@/components/CustomSheet/CustomSheet';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import SecondaryButton from '@/components/SecondaryButton/SecondaryButton';
+import { siteRoutes } from '@/config/routes';
 import type { FC } from 'react';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
   queryStrings: string;
 }
 
-const CustomSheetProjects: FC<Props> = ({ className, queryStrings, shortCode }) => {
+const CustomSheetProjects: FC<Props> = ({ className, shortCode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenSheet = () => {
     setIsOpen(true);
@@ -34,11 +35,7 @@ const CustomSheetProjects: FC<Props> = ({ className, queryStrings, shortCode }) 
             description={`View all the of the projects ${shortCode} is involved in and there status.`}
           >
             <ContainerChildren>
-              <InternalLinkButton
-                href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
-                label="View Projects"
-                showIcon
-              />
+              <InternalLinkButton href={siteRoutes.ecosystemActorProjects(shortCode)} label="View Projects" showIcon />
             </ContainerChildren>
           </CardSheetMobile>
         }
