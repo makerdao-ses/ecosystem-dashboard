@@ -27,7 +27,7 @@ const CustomSheetProjects: FC<Props> = ({ className, shortCode }) => {
       <ButtonOpenMenuStyled title="Projects" onClick={handleOpenSheet} className={className} />
 
       <CustomSheetStyled
-        snapPoints={[200, 150]}
+        snapPoints={[230, 180]}
         className={className}
         children={
           <CardSheetMobile
@@ -35,7 +35,11 @@ const CustomSheetProjects: FC<Props> = ({ className, shortCode }) => {
             description={`View all the of the projects ${shortCode} is involved in and there status.`}
           >
             <ContainerChildren>
-              <InternalLinkButton href={siteRoutes.ecosystemActorProjects(shortCode)} label="View Projects" showIcon />
+              <InternalLinkButtonStyled
+                href={siteRoutes.ecosystemActorProjects(shortCode)}
+                label="View Projects"
+                showIcon
+              />
             </ContainerChildren>
           </CardSheetMobile>
         }
@@ -72,4 +76,9 @@ const ButtonOpenMenuStyled = styled(SecondaryButton)({
   display: 'flex',
   flex: 1,
   justifyContent: 'center',
+  padding: '4px 13.5px 4px 13.5px',
 });
+
+const InternalLinkButtonStyled = styled(InternalLinkButton)(() => ({
+  padding: '4px 13.5px 4px 13.5px',
+}));
