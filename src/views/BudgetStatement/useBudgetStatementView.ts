@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
 import { AllowedOwnerType } from './types';
 
-const useBudgetStatementContainer = () => {
+const useBudgetStatementView = () => {
   const router = useRouter();
   const ownerType = router.query.ownerType as AllowedOwnerType;
 
@@ -40,4 +40,4 @@ const useBudgetStatementContainer = () => {
   };
 };
 
-export default useBudgetStatementContainer;
+export default useBudgetStatementView;

@@ -4,12 +4,11 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import ExpenseReportStatusIndicator from '../TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import BudgetStatementSummary from './components/BudgetStatementSummary/BudgetStatementSummary';
-import useBudgetStatementContainer from './useBudgetStatementContainer';
+import useBudgetStatementView from './useBudgetStatementView';
 
-const BudgetStatementContainer = () => {
-  const { ownerType, height, ref, showHeader, code, name } = useBudgetStatementContainer();
+const BudgetStatementView = () => {
+  const { ownerType, height, ref, showHeader, code, name } = useBudgetStatementView();
 
   return (
     <Container>
@@ -79,7 +78,7 @@ const BudgetStatementContainer = () => {
   );
 };
 
-export default BudgetStatementContainer;
+export default BudgetStatementView;
 
 const Container = styled('div')(({ theme }) => ({
   paddingTop: 64,

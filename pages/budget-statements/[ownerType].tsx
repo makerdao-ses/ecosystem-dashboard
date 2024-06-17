@@ -1,7 +1,7 @@
-import BudgetStatementContainer from '@ses/containers/BudgetStatement/BudgetStatementContainer';
+import BudgetStatementView from '@/views/BudgetStatement/BudgetStatementView';
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
 
-const BudgetStatementPage: NextPage = () => <BudgetStatementContainer />;
+const BudgetStatementPage: NextPage = () => <BudgetStatementView />;
 
 export default BudgetStatementPage;
 
