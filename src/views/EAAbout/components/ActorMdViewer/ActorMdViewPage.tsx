@@ -78,8 +78,8 @@ const ActorMdViewPage = ({
         isTable768 && (
           <div>
             <CardContainer768>
-              {isEnabled('FEATURE_TEAM_PROJECTS') && <CardProjects actorName={actorName} shortCode={shortCode} />}
-              <CardExpenses
+              {isEnabled('FEATURE_TEAM_PROJECTS') && <CardProjectsStyled actorName={actorName} shortCode={shortCode} />}
+              <CardExpensesStyled
                 resource={ResourceType.EcosystemActor}
                 queryStrings={queryStrings}
                 code={code}
@@ -185,4 +185,14 @@ const CardContainer768 = styled('div')({
   float: 'right',
   marginLeft: 16,
   marginBottom: 16,
+});
+
+const CardProjectsStyled = styled(CardProjects)({
+  '& > div': {
+    width: 340,
+  },
+});
+
+const CardExpensesStyled = styled(CardExpenses)({
+  width: 340,
 });
