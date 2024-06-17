@@ -75,6 +75,6 @@ const InternalLinkButtonStyled = styled(InternalLinkButton)(() => ({
     padding: '4px 13.5px 4px 13.5px',
   },
   '& div': {
-    letterSpacing: '-2%',
+    letterSpacing: '-0.32px',
   },
 }));
