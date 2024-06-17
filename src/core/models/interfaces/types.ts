@@ -4,6 +4,7 @@ export enum ResourceType {
   Delegates = 'Delegates',
   Keepers = 'Keepers',
   EcosystemActor = 'EcosystemActor',
+  Scopes = 'Scopes',
   System = 'System',
 }
 
