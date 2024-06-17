@@ -234,9 +234,10 @@ const CategoryList = styled('div')(({ theme }) => ({
   gap: 8,
   marginTop: 8,
   marginLeft: -56,
-  width: '100%',
+  width: 'calc(100% + 96px)',
 
   [theme.breakpoints.up('tablet_768')]: {
+    width: '100%',
     marginLeft: 0,
   },
 }));
