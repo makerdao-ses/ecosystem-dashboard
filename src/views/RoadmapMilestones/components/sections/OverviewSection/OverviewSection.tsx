@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled } from '@mui/material';
 import React from 'react';
 import RoadmapTimeline from '../../RoadmapTimeline/RoadmapTimeline';
 import SectionTitle from '../../SectionTitle/SectionTitle';
@@ -7,7 +6,7 @@ import SectionTitle from '../../SectionTitle/SectionTitle';
 const OverviewSection: React.FC = () => (
   <Section>
     <SectionTitle
-      title="Milestones Roadmap Overview"
+      title="Roadmap Milestones"
       tooltip="Milestones represent checkpoints on the way to full completion of the roadmap,
       where a well-defined subset of the deliverables is deployed as an intermediate, integrated solution."
     />
@@ -19,18 +18,18 @@ const OverviewSection: React.FC = () => (
 
 export default OverviewSection;
 
-const Section = styled.section({
+const Section = styled('section')(({ theme }) => ({
   marginTop: 16,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 32,
   },
-});
+}));
 
-const TimelineContainer = styled.div({
+const TimelineContainer = styled('div')(({ theme }) => ({
   marginTop: 18,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 40,
   },
-});
+}));

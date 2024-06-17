@@ -1,9 +1,9 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 
-const useRoadmapMilestonesContainer = () => {
+const useRoadmapMilestonesView = () => {
   const { isLight } = useThemeContext();
 
   return { isLight };
 };
 
-export default useRoadmapMilestonesContainer;
+export default useRoadmapMilestonesView;

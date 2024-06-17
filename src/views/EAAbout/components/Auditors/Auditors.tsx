@@ -17,7 +17,7 @@ const Auditors: FC<Props> = ({ auditors, auditorTitle }) => (
         <AuditorsList>
           {auditors?.map((auditor) => (
             <AuditorItem key={auditor.id}>
-              <InlineUser username={auditor.username} />
+              <InlineUserStyled username={auditor.username} />
             </AuditorItem>
           ))}
         </AuditorsList>
@@ -75,3 +75,9 @@ const NoAuditorsMessage = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? '#546978 ' : '#9FAFB9',
   letterSpacing: '0px',
 }));
+
+const InlineUserStyled = styled(InlineUser)({
+  '& div:nth-of-type(1)': {
+    marginLeft: 0,
+  },
+});

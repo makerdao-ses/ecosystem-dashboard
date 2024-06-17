@@ -1,13 +1,14 @@
 import { styled } from '@mui/material';
+import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import React from 'react';
-import AvatarPlaceholder from '@/stories/components/svg/avatar-placeholder';
 
 export type InlineUserProps = {
   username: string;
+  className?: string;
 };
 
-const InlineUser: React.FC<InlineUserProps> = ({ username }) => (
-  <User>
+const InlineUser: React.FC<InlineUserProps> = ({ username, className }) => (
+  <User className={className}>
     <AvatarPlaceholder width={32} height={32} />
 
     <Username>{username}</Username>
@@ -16,11 +17,22 @@ const InlineUser: React.FC<InlineUserProps> = ({ username }) => (
 
 export default InlineUser;
 
-const User = styled('div')({
+const User = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
-});
+
+  '& path': {
+    fill: theme.palette.isLight ? '#6C7275' : theme.palette.colors.charcoal[500],
+  },
+  '& rect': {
+    fill: theme.palette.isLight ? '#CED3DC' : theme.palette.colors.charcoal[700],
+  },
+  '& svg': {
+    borderRadius: 20,
+    boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.darkMode,
+  },
+}));
 
 const Username = styled('div')(({ theme }) => ({
   display: 'flex',

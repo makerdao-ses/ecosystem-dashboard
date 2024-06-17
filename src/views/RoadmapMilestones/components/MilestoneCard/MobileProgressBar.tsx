@@ -20,7 +20,7 @@ const BarContainer = styled('div')(() => ({
 }));
 
 const CircularBarBase = styled(CircularProgress)(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#ECF1F3' : '#31424E',
+  color: theme.palette.isLight ? '#ECF1F3' : '#31424E',
 }));
 
 const CircularBarProgress = styled(CircularProgress)(() => ({
@@ -43,7 +43,7 @@ const LabelContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: theme.palette.mode === 'light' ? '#405361' : '#D2D4EF',
+  color: theme.palette.isLight ? '#405361' : '#D2D4EF',
   fontWeight: 700,
   fontSize: 12,
 }));

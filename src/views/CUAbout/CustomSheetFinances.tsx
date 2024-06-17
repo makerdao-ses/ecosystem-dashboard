@@ -46,7 +46,7 @@ const CustomSheetFinances: FC<Props> = ({
     <Container type={type}>
       <ButtonOpenMenuStyled title="Finances" onClick={handleOpenSheet} />
       <CustomSheetStyled
-        snapPoints={type === ResourceType.CoreUnit ? [600, 350] : [600, 250]}
+        snapPoints={type === ResourceType.CoreUnit ? [600, 350] : (auditors?.length || 0) > 0 ? [600, 280] : [600, 250]}
         className={className}
         children={
           <CardSheetMobile title="Finances" description={`View all expenses of the ${shortCode} ${textDescription}`}>
