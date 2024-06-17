@@ -2,12 +2,10 @@ import { styled, useMediaQuery } from '@mui/material';
 import { LinkButton } from '@ses/components/LinkButton/LinkButton';
 import { siteRoutes } from '@ses/config/routes';
 import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
-import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import Image from 'next/image';
 import React from 'react';
 import Container from '@/components/Container/Container';
 import ExternalLinkText from '@/components/ExternalLinkText/ExternalLinkText';
-import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import type { Theme } from '@mui/material';
 
 interface EndgameIntroductionBannerProps {
@@ -16,7 +14,6 @@ interface EndgameIntroductionBannerProps {
 
 const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ isKeyChanges = false }) => {
   const isUpDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
-  const [isEnabled] = useFlagsActive();
 
   const image = (
     <ImageWrapper>
@@ -52,24 +49,6 @@ const EndgameIntroductionBanner: React.FC<EndgameIntroductionBannerProps> = ({ i
           <LinkContainer>
             {!isKeyChanges && (
               <ButtonLink href={siteRoutes.endgame} buttonType={ButtonType.Primary} label="Learn More" />
-            )}
-
-            {isEnabled('FEATURE_ROADMAP_MILESTONES') && !isKeyChanges && (
-              <ButtonLink
-                // TODO: replace with correct link
-                href={siteRoutes.roadmapMilestones('endgame-phase-1')}
-                buttonType={ButtonType.Primary}
-                label="Phase 1 Progress"
-              />
-            )}
-            {isKeyChanges && (
-              <InternalLinkContainer isKeyChanges={isKeyChanges}>
-                <InternalLinkButtonStyled
-                  href={siteRoutes.roadmapMilestones('endgame-phase-1')}
-                  showIcon
-                  label="Phase 1  Progress"
-                />
-              </InternalLinkContainer>
             )}
           </LinkContainer>
         </InfoContainer>
@@ -298,65 +277,6 @@ const LinkContainer = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 26,
-  },
-}));
-
-const InternalLinkContainer = styled('div')<{ isKeyChanges: boolean }>(({ isKeyChanges, theme }) => ({
-  marginTop: isKeyChanges ? 28 : 0,
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 26,
-    marginTop: 28,
-  },
-  [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: isKeyChanges ? 32 : 0,
-  },
-}));
-
-const InternalLinkButtonStyled = styled(InternalLinkButton)(({ theme }) => ({
-  padding: '4px 14px 4px 12px',
-
-  ':hover': {
-    padding: '4px 12px 4px 12px',
-  },
-  [theme.breakpoints.up('desktop_1024')]: {
-    padding: '4px 12px 4px 12px',
-    gap: 12,
-    background: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[800],
-
-    '& div': {
-      color: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
-      fontWeight: 600,
-    },
-
-    '& path': {
-      fill: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
-    },
-    ':hover': {
-      padding: '4px 12px 4px 12px',
-      background: theme.palette.isLight ? theme.palette.colors.gray[800] : theme.palette.colors.gray[800],
-      border: theme.palette.isLight
-        ? `1px solid ${theme.palette.colors.charcoal[500]}`
-        : `1px solid ${theme.palette.colors.charcoal[600]}`,
-      '& div': {
-        color: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[200],
-        fontWeight: 600,
-      },
-      '& path': {
-        fill: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[200],
-      },
-    },
-    ':active': {
-      background: theme.palette.isLight ? theme.palette.colors.gray[700] : theme.palette.colors.charcoal[700],
-      border: theme.palette.isLight
-        ? `1px solid ${theme.palette.colors.charcoal[600]}`
-        : `1px solid ${theme.palette.colors.charcoal[500]}`,
-      '& div': {
-        color: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
-      },
-      '& path': {
-        fill: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[300],
-      },
-    },
   },
 }));
 

@@ -1,14 +1,12 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import MilestoneCard from '../MilestoneCard/MilestoneCard';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { Theme } from '@mui/material';
 
 const RoadmapTimeline = () => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const [viewAll, setViewAll] = useState(false);
   const milestones = Array.from({ length: 8 });
 
@@ -19,7 +17,7 @@ const RoadmapTimeline = () => {
 
   const viewAllButton = (
     <ButtonBox>
-      <Button isLight={isLight} onClick={() => setViewAll((prev) => !prev)}>
+      <Button onClick={() => setViewAll((prev) => !prev)}>
         <span>Expand {viewAll ? 'Less' : 'All'}</span>
         <svg
           style={{ transform: `rotate(${viewAll ? '180' : 0}deg)` }}
@@ -52,17 +50,17 @@ const RoadmapTimeline = () => {
         </MobileTimeline>
       ) : (
         <DesktopTimeline>
-          <Up shouldAddPadding={shouldAddPadding} isLight={isLight}>
+          <Up shouldAddPadding={shouldAddPadding}>
             {up.map((_, i) => (
-              <CardWrapper key={i} isLight={isLight}>
+              <CardWrapper key={i}>
                 <MilestoneCard />
               </CardWrapper>
             ))}
           </Up>
-          <Down shouldAddPadding={shouldAddPadding} isLight={isLight}>
+          <Down shouldAddPadding={shouldAddPadding}>
             {milestones.length > 4 &&
               down.map((_, i) => (
-                <CardWrapper key={i} isLight={isLight}>
+                <CardWrapper key={i}>
                   <MilestoneCard />
                 </CardWrapper>
               ))}
@@ -75,7 +73,7 @@ const RoadmapTimeline = () => {
 
 export default RoadmapTimeline;
 
-const MobileTimeline = styled.div(() => ({
+const MobileTimeline = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
@@ -94,12 +92,12 @@ const MobileTimeline = styled.div(() => ({
   },
 }));
 
-const ButtonBox = styled.div({
+const ButtonBox = styled('div')({
   display: 'flex',
   justifyContent: 'center',
 });
 
-const Button = styled.button<WithIsLight>(({ isLight }) => ({
+const Button = styled('button')(({ theme }) => ({
   marginTop: 'auto',
   padding: '10px 15px 10px 24px',
   display: 'flex',
@@ -108,8 +106,8 @@ const Button = styled.button<WithIsLight>(({ isLight }) => ({
   gap: 10,
   alignSelf: 'stretch',
   borderRadius: 22,
-  border: `1px solid ${isLight ? '#D4D9E1' : '#31424E'}`,
-  background: isLight ? '#fff' : '#1E2C37',
+  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#31424E'}`,
+  background: theme.palette.isLight ? '#fff' : '#1E2C37',
   cursor: 'pointer',
 
   '& > span': {
@@ -117,31 +115,31 @@ const Button = styled.button<WithIsLight>(({ isLight }) => ({
     fontWeight: 500,
     lineHeight: '18px',
     letterSpacing: 0.4,
-    color: isLight ? '#31424E' : '#9FAFB9',
+    color: theme.palette.isLight ? '#31424E' : '#9FAFB9',
   },
 
   '&:hover': {
-    border: `1px solid ${isLight ? '#25273D' : '#D2D4EF'}`,
+    border: `1px solid ${theme.palette.isLight ? '#25273D' : '#D2D4EF'}`,
 
     '& > span': {
-      color: isLight ? '#231536' : '#D2D4EF',
+      color: theme.palette.isLight ? '#231536' : '#D2D4EF',
     },
   },
 }));
 
-const DesktopTimeline = styled.div({
+const DesktopTimeline = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
 
-const Up = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight, shouldAddPadding }) => ({
+const Up = styled('div')<{ shouldAddPadding: boolean }>(({ theme, shouldAddPadding }) => ({
   display: 'flex',
   justifyContent: 'center',
   gap: 24,
-  borderBottom: `2.5px solid ${isLight ? '#B6EDE7' : '#06554C'}`,
+  borderBottom: `2.5px solid ${theme.palette.isLight ? '#B6EDE7' : '#06554C'}`,
   ...(shouldAddPadding && { paddingRight: 'calc(12.5% - 12px)' }),
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     gap: 56,
   },
 
@@ -158,14 +156,14 @@ const Up = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight, s
   },
 }));
 
-const Down = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight, shouldAddPadding }) => ({
+const Down = styled('div')<{ shouldAddPadding: boolean }>(({ theme, shouldAddPadding }) => ({
   display: 'flex',
   justifyContent: 'center',
   gap: 24,
-  borderTop: `2.5px solid ${isLight ? '#B6EDE7' : '#06554C'}`,
+  borderTop: `2.5px solid ${theme.palette.isLight ? '#B6EDE7' : '#06554C'}`,
   ...(shouldAddPadding && { paddingLeft: 'calc(12.5% - 12px)' }),
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     gap: 56,
   },
 
@@ -184,11 +182,11 @@ const Down = styled.div<WithIsLight & { shouldAddPadding: boolean }>(({ isLight,
   },
 }));
 
-const CardWrapper = styled.div<WithIsLight>(({ isLight }) => ({
+const CardWrapper = styled('div')(({ theme }) => ({
   position: 'relative',
   width: 'calc(25% - 12px)',
 
-  [lightTheme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     width: 'calc(24.35% - 12px)',
   },
 
@@ -200,7 +198,7 @@ const CardWrapper = styled.div<WithIsLight>(({ isLight }) => ({
     left: 'calc(50% - 1px)',
     width: 2,
     height: 32,
-    background: isLight ? '#1AAB9B' : '#06554C',
+    background: theme.palette.isLight ? '#1AAB9B' : '#06554C',
   },
 
   '&:after': {
@@ -211,7 +209,7 @@ const CardWrapper = styled.div<WithIsLight>(({ isLight }) => ({
     width: 12,
     height: 12,
     borderRadius: '50%',
-    border: `2px solid ${isLight ? '#1AAB9B' : '#06554C'}`,
-    background: isLight ? '#fff' : '#10191F',
+    border: `2px solid ${theme.palette.isLight ? '#1AAB9B' : '#06554C'}`,
+    background: theme.palette.isLight ? '#fff' : '#10191F',
   },
 }));

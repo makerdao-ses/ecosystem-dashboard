@@ -19,7 +19,7 @@ interface BreadcrumbItemExtended extends BreadcrumbItem {
 
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
-  rightContent: React.ReactElement;
+  rightContent?: React.ReactElement;
   withMenusOpened?: boolean; // to manage the menu in the stories
 }
 

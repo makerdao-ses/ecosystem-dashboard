@@ -5,7 +5,7 @@ import SectionTitle from '../../SectionTitle/SectionTitle';
 
 const DetailsSection: React.FC = () => (
   <Section>
-    <SectionTitle title="Milestones Roadmap Details" />
+    <SectionTitle title="Milestones Details" />
 
     <MilestonesDetails>
       <MilestoneDetailsCard />
