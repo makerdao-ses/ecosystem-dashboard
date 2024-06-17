@@ -1,17 +1,17 @@
 import { Divider, styled, useMediaQuery } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { removeAtlasFromPath } from '@ses/core/utils/string';
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
+import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBreadcrumbContent';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import TeamHeader from '@/components/TeamHeader/TeamHeader';
 import { getMarkdownInformation } from '@/core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '@/core/businessLogic/coreUnits';
-import { useThemeContext } from '@/core/context/ThemeContext';
+import type { Team } from '@/core/models/interfaces/team';
 import { ResourceType } from '@/core/models/interfaces/types';
 import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
 import { toAbsoluteURL } from '@/core/utils/urls';
-import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/stories/components/TeamMember/TeamMember';
 import CardInfoMember from '@/views/CUAbout/CardInfoMember/CardInfoMember';
@@ -33,9 +33,6 @@ interface Props {
 }
 
 const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
-  const router = useRouter();
-
-  const { isLight } = useThemeContext();
   const [showThreeMIPs, setShowThreeMIPs] = useState<boolean>(true);
 
   const table768 = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
@@ -43,14 +40,13 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
   const LessPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('mobile_375'));
   const lessDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
-  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings, ref } = useCuAboutView({
+  const { onClickLessMips, relateMipsOrder, hasMipsNotAccepted, queryStrings, pager } = useCuAboutView({
     cuAbout,
+    coreUnits,
     code,
-    router,
     showThreeMIPs,
     setShowThreeMIPs,
   });
-  const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const routeToFinances = removeAtlasFromPath(cuAbout.budgetPath);
 
   return (
@@ -63,9 +59,36 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
         canonicalURL={siteRoutes.coreUnitAbout(code)}
       />
 
-      <CoreUnitSummary coreUnits={coreUnits} showDescription={true} ref={ref} showHeader={showHeader} />
+      <Breadcrumb
+        items={[
+          {
+            label: 'Core Units',
+            href: siteRoutes.coreUnitsOverview,
+            number: coreUnits.length,
+          },
+          {
+            label: cuAbout.name,
+            href: siteRoutes.ecosystemActorAbout(cuAbout.shortCode),
+          },
+        ]}
+        rightContent={
+          <TeamBreadcrumbContent
+            team={ResourceType.CoreUnit}
+            currentPage={pager.currentPage}
+            totalPages={pager.totalPages}
+            pagerProps={{
+              hasNext: pager.hasNext,
+              hasPrevious: pager.hasPrevious,
+              onNext: pager.onNext,
+              onPrevious: pager.onPrevious,
+            }}
+          />
+        }
+      />
+      <TeamHeader team={cuAbout as unknown as Team} />
+
       <Wrapper>
-        <ContainerAllData marginTop={height}>
+        <ContainerAllData>
           <ContainerResponsive>
             <MarkdownContainer>
               <MdViewerContainer
@@ -133,7 +156,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                 <ButtonContainer>
                   <DividerStyle
                     sx={{
-                      bgcolor: isLight ? '#D4D9E1' : '#405361',
+                      bgcolor: (theme: Theme) => (theme.palette.isLight ? '#D4D9E1' : '#405361'),
                     }}
                   />
                 </ButtonContainer>
@@ -200,7 +223,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
             <ButtonContainer>
               <DividerStyle
                 sx={{
-                  bgcolor: isLight ? '#D4D9E1' : '#405361',
+                  bgcolor: (theme: Theme) => (theme.palette.isLight ? '#D4D9E1' : '#405361'),
                 }}
               />
             </ButtonContainer>
@@ -416,26 +439,29 @@ const ContainerNoRelateMIps = styled('div')({
   justifyContent: 'center',
 });
 
-const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop, theme }) => ({
+const ContainerAllData = styled('div')(({ theme }) => ({
   maxWidth: '100%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginRight: '64px',
   marginLeft: '64px',
-  marginTop,
+
   [theme.breakpoints.up('desktop_1920')]: {
     marginRight: '0px',
     marginLeft: '0px',
   },
+
   [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     marginRight: '48px',
     marginLeft: '48px',
   },
+
   [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     marginRight: '32px',
     marginLeft: '32px',
   },
+
   [theme.breakpoints.down('tablet_768')]: {
     marginRight: '16px',
     marginLeft: '16px',

@@ -36,15 +36,19 @@ const Container = styled(Link)(({ theme }) => ({
   },
 }));
 
-const IconContainer = styled('div')({
+const IconContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
 
   '& svg': {
     width: 16,
     height: 16,
+
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[50],
+    },
   },
-});
+}));
 
 const Title = styled('div')(({ theme }) => ({
   flexGrow: 1,
@@ -52,8 +56,9 @@ const Title = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 14,
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[100],
-  ':hover': {
+  color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[50],
+
+  '&:hover': {
     color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   },
 }));
