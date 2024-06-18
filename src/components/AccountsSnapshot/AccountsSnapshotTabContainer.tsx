@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
+import { TransparencyEmptyTable } from '../../stories/containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
 import AccountsSnapshot from './AccountsSnapshot';
 import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './useAccountsSnapshotTab';
@@ -10,7 +10,7 @@ import type { DateTime } from 'luxon';
 interface AccountsSnapshotTabContainerProps {
   snapshotOwner: string;
   currentMonth: DateTime;
-  ownerId: string;
+  ownerId: string | null;
   longCode: string;
   shortCode: string;
   resource: ResourceType;
