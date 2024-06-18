@@ -185,7 +185,7 @@ const ContainerScroll = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     position: 'sticky',
     height: 'fit-content',
-    top: 322,
+    top: 16,
   },
 }));
 

@@ -54,11 +54,15 @@ const Content = styled(Card)(({ theme }) => ({
   minWidth: 343,
   width: '100%',
   gap: 16,
+  cursor: 'pointer',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
   [theme.breakpoints.up('tablet_768')]: {
     width: 640,
     padding: '8px 16px',
     gap: 8,
+  },
+  ':hover': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
   },
 }));
 
