@@ -18,7 +18,7 @@ const TeamBreadcrumbContent: React.FC<TeamBreadcrumbContentProps> = ({ team, cur
   const teamLabel = useMemo(() => {
     switch (team) {
       case ResourceType.CoreUnit:
-        return isMobile ? 'CU' : 'Core Unit';
+        return isMobile ? 'CU' : 'Core Units';
       case ResourceType.EcosystemActor:
         return isMobile ? 'EA' : 'Ecosystem Actor';
       default:

@@ -1,4 +1,4 @@
-import { ResourceType } from '@ses/core/models/interfaces/types';
+import { ResourceType, TeamStatus } from '@ses/core/models/interfaces/types';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type { Scope } from '@ses/core/models/interfaces/scopes';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
@@ -12,7 +12,7 @@ export class EcosystemActorBuilder {
     this._ecosystemActor = {
       id: '',
       code: '',
-      status: '',
+      status: TeamStatus.Accepted,
       shortCode: '',
       budgetPath: '',
       paragraphDescription: '',
@@ -58,7 +58,7 @@ export class EcosystemActorBuilder {
     return this;
   }
 
-  withStatus(status: string): EcosystemActorBuilder {
+  withStatus(status: TeamStatus): EcosystemActorBuilder {
     this._ecosystemActor.status = status;
     return this;
   }

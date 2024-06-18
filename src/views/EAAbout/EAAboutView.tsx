@@ -3,12 +3,9 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { getMarkdownInformation } from '@ses/core/businessLogic/coreUnitAbout';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { removeAtlasFromPath } from '@ses/core/utils/string';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import { useRouter } from 'next/router';
-import React, { useRef } from 'react';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBreadcrumbContent';
 import Container from '@/components/Container/Container';
@@ -31,13 +28,8 @@ interface Props {
 
 export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
   // TODO: move all the logic to the hook
-  const router = useRouter();
   const [isEnabled] = useFlagsActive();
-  const ref = useRef<HTMLDivElement>(null);
   const { queryStrings, phone, LessPhone, table834, pager } = useEAAboutView(actors, actor);
-  // the next line is disable due to a work in progress
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
   const routeToFinances = removeAtlasFromPath(actor.budgetPath);
   const removeDuplicateNamesBudgetPath = removeDuplicateNames(routeToFinances) ?? ' ';
 
@@ -82,7 +74,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
       <TeamHeader team={actor} />
 
       <Container>
-        <ContainerAllData marginTop={height}>
+        <ContainerAllData>
           <ContainerResponsive>
             <MarkdownContainer>
               <ActorMdViewer
@@ -162,13 +154,11 @@ const MarkdownContainer = styled('div')();
 
 const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '100%',
-  marginTop: 24,
-
+  marginTop: 16,
   [theme.breakpoints.up('desktop_1024')]: {
     width: '57.39%',
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 32,
 
     justifyContent: 'space-between',
 
@@ -190,7 +180,7 @@ const ContainerScroll = styled('div')(({ theme }) => ({
 }));
 
 const ContainerCard = styled('div')(({ theme }) => ({
-  gap: 32,
+  gap: 24,
   display: 'flex',
   flexDirection: 'column',
 
@@ -209,12 +199,11 @@ const ContainerCard = styled('div')(({ theme }) => ({
   },
 }));
 
-const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop }) => ({
+const ContainerAllData = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   zIndex: -1,
-  marginTop,
 }));
 
 const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
@@ -234,7 +223,7 @@ const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    marginTop: 32,
+    marginTop: 16,
   },
 }));
 
@@ -253,7 +242,7 @@ const ContainerLinksButton = styled('div')({
 });
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '4px 15px 4px 23px',
+  padding: '4px 14.5px 4px 23px',
   height: 32,
   display: 'flex',
 
@@ -293,7 +282,7 @@ const SomethingWrongContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: 0,
-  marginTop: 32,
+  marginTop: 24,
   width: 340,
   [theme.breakpoints.up('desktop_1024')]: {
     width: 386,

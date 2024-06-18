@@ -6,9 +6,18 @@ export type WindowSize = {
 };
 
 export const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: window.innerWidth,
-    height: window.innerHeight,
+  const [windowSize, setWindowSize] = useState<WindowSize>(() => {
+    if (typeof window === 'undefined') {
+      return {
+        width: 0,
+        height: 0,
+      };
+    }
+
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
   });
 
   useEffect(() => {

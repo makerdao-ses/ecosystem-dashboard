@@ -6,6 +6,8 @@ import Information from '@/components/icons/information';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import type { Theme } from '@mui/material';
 
+const FEATURE_ENABLED = false;
+
 const StatsData: React.FC = () => {
   const { isLight } = useThemeContext();
   const is1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
@@ -25,33 +27,37 @@ const StatsData: React.FC = () => {
         </Label>
         <Value>Q4 2023</Value>
       </Row>
-      <Row>
-        <Label>{is1024 ? 'Est.' : 'Estimated'} Budget Cap</Label>
-        <Value>
-          {usLocalizedNumber(12927312, 0)} <span>DAI</span>
-        </Value>
-      </Row>
+      {FEATURE_ENABLED && (
+        <Row>
+          <Label>{is1024 ? 'Est.' : 'Estimated'} Budget Cap</Label>
+          <Value>
+            {usLocalizedNumber(12927312, 0)} <span>DAI</span>
+          </Value>
+        </Row>
+      )}
 
-      <BudgetBox>
-        <Percentage>58%</Percentage>
-        <ExtendedHorizontalBudgetBar actuals={200} prediction={250} budgetCap={300} />
-        <Legend>
-          <LegendItem dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
-            <LegendNumberWrapper>
-              <LegendNumber>{humanizedActuals.value}</LegendNumber>
-              <LegendNumberSuffix>{humanizedActuals.suffix}</LegendNumberSuffix>
-            </LegendNumberWrapper>
-            <LegendLabel>Actuals</LegendLabel>
-          </LegendItem>
-          <LegendItem dotColor={'#F75524'}>
-            <LegendNumberWrapper>
-              <LegendNumber>{humanizedBudgetCap.value}</LegendNumber>
-              <LegendNumberSuffix>{humanizedBudgetCap.suffix}</LegendNumberSuffix>
-            </LegendNumberWrapper>
-            <LegendLabel>Cap</LegendLabel>
-          </LegendItem>
-        </Legend>
-      </BudgetBox>
+      {FEATURE_ENABLED && (
+        <BudgetBox>
+          <Percentage>58%</Percentage>
+          <ExtendedHorizontalBudgetBar actuals={200} prediction={250} budgetCap={300} />
+          <Legend>
+            <LegendItem dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
+              <LegendNumberWrapper>
+                <LegendNumber>{humanizedActuals.value}</LegendNumber>
+                <LegendNumberSuffix>{humanizedActuals.suffix}</LegendNumberSuffix>
+              </LegendNumberWrapper>
+              <LegendLabel>Actuals</LegendLabel>
+            </LegendItem>
+            <LegendItem dotColor={'#F75524'}>
+              <LegendNumberWrapper>
+                <LegendNumber>{humanizedBudgetCap.value}</LegendNumber>
+                <LegendNumberSuffix>{humanizedBudgetCap.suffix}</LegendNumberSuffix>
+              </LegendNumberWrapper>
+              <LegendLabel>Cap</LegendLabel>
+            </LegendItem>
+          </Legend>
+        </BudgetBox>
+      )}
     </OutlinedCard>
   );
 };
@@ -66,7 +72,7 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   alignSelf: 'stretch',
   padding: 15,
   borderRadius: 6,
-  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : '#31424E'}`,
+  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#31424E'}`,
 
   [theme.breakpoints.up('tablet_768')]: {
     borderRadius: 16,
@@ -96,7 +102,7 @@ const Label = styled('div')(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: theme.palette.mode === 'light' ? '#434358' : '#B6BCC2',
+  color: theme.palette.isLight ? '#434358' : '#B6BCC2',
   alignSelf: 'normal',
 }));
 
@@ -122,7 +128,7 @@ const Value = styled('div')(({ theme }) => ({
   gap: 4,
   fontSize: 14,
   fontWeight: 700,
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
@@ -131,7 +137,7 @@ const Value = styled('div')(({ theme }) => ({
   '& span': {
     fontSize: 16,
     fontWeight: 700,
-    color: theme.palette.mode === 'light' ? '#9FAFB9' : '#B6BCC2',
+    color: theme.palette.isLight ? '#9FAFB9' : '#B6BCC2',
   },
 }));
 
@@ -148,7 +154,7 @@ const Percentage = styled('div')(({ theme }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: 0.4,
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   fontVariantNumeric: 'lining-nums tabular-nums',
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -176,7 +182,7 @@ const LegendItem = styled('div')<{ dotColor: string }>(({ theme, dotColor }) => 
   position: 'relative',
   fontSize: 14,
   lineHeight: 'normal',
-  color: theme.palette.mode === 'light' ? '#231536' : '#EDEFFF',
+  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
   paddingRight: 10,
   display: 'flex',
   alignItems: 'baseline',

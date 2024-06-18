@@ -87,8 +87,14 @@ const LinkList: React.FC<Props> = ({ className, socialMedia }) => {
 
 export default LinkList;
 
-const Container = styled(Card)({
+const Container = styled(Card)(({ theme }) => ({
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(55, 62, 77, 0.3)',
+  boxShadow: `${theme.fusionShadows.innerShadow}!important`,
   padding: 16,
   gap: 8,
   width: 200,
-});
+
+  [theme.breakpoints.up('tablet_768')]: {
+    background: theme.palette.isLight ? '#ffffff' : theme.palette.colors.charcoal[800],
+  },
+}));

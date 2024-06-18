@@ -28,9 +28,9 @@ const Chip = styled('div')<{ colors: CustomColors; category: TeamCategory }>(({ 
   fontWeight: 600,
   width: 'fit-content',
   borderRadius: 6,
-  padding: '1px 8px 1px 8px',
+  padding: '0px 7px',
   color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
-  border: `1.5px solid ${theme.palette.isLight ? colors[`${category}`]?.border : colors[`${category}`]?.borderDark}`,
+  border: `1px solid ${theme.palette.isLight ? colors[`${category}`]?.border : colors[`${category}`]?.borderDark}`,
 
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '1px 16px 1px 16px',

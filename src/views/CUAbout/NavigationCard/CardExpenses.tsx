@@ -31,7 +31,6 @@ const CardExpenses = ({
   resource = ResourceType.CoreUnit,
   auditors,
   isTitlePresent = true,
-
   queryStrings,
   titleCard,
   auditorMessage,
@@ -177,24 +176,31 @@ const ContainerAuditors = styled('div')(({ theme }) => ({
   },
 }));
 
-const ButtonLinkStyledCard = styled(InternalLinkButton)(() => ({
-  padding: '4px  15.5px 4px 15.5px',
+const ButtonLinkStyledCard = styled(InternalLinkButton)(({ theme }) => ({
+  padding: '4px 15.5px 4px 15.5px',
   height: 32,
   '& > div': {
     letterSpacing: '-0.32px',
   },
   ':hover': {
-    padding: '4px  15.5px 4px 15.5px',
+    padding: '4px 15.5px 4px 15.5px',
+    [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+      padding: '4px 14px 4px 14px',
+    },
   },
 }));
 
-const StyledBudgetButton = styled(InternalLinkButton)({
-  padding: '4px  16px 4px 16px',
+const StyledBudgetButton = styled(InternalLinkButton)(({ theme }) => ({
+  padding: '4px 15.7px 4px 15.7px',
+
   height: 32,
   '& > div': {
     letterSpacing: '-0.32px',
   },
   ':hover': {
-    padding: '4px  16px 4px 16px',
+    padding: '4px 16px 4px 16px',
+    [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+      padding: '4px 14px 4px 14px',
+    },
   },
-});
+}));
