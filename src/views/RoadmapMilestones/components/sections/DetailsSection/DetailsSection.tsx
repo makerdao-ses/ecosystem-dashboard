@@ -3,15 +3,20 @@ import React from 'react';
 import MilestoneDetailsCard from '../../MilestoneDetailsCard/MilestoneDetailsCard';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 
-const DetailsSection: React.FC = () => (
+interface DetailsSectionProps {
+  title: string;
+  minimal?: boolean;
+}
+
+const DetailsSection: React.FC<DetailsSectionProps> = ({ title, minimal }) => (
   <Section>
-    <SectionTitle title="Milestones Details" />
+    <SectionTitle title={title} />
 
     <MilestonesDetails>
-      <MilestoneDetailsCard />
-      <MilestoneDetailsCard />
-      <MilestoneDetailsCard />
-      <MilestoneDetailsCard />
+      <MilestoneDetailsCard minimal={minimal} />
+      <MilestoneDetailsCard minimal={minimal} />
+      <MilestoneDetailsCard minimal={minimal} />
+      <MilestoneDetailsCard minimal={minimal} />
     </MilestonesDetails>
   </Section>
 );

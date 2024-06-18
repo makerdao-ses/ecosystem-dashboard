@@ -29,21 +29,24 @@ const RoadmapMilestonesView: React.FC = () => {
       <Breadcrumb
         items={[
           {
-            label: 'Roadmap',
+            label: 'Roadmaps',
             url: siteRoutes.endgame,
           },
           {
-            label: 'Powerhouse Roadmap 2024',
+            label: 'Endgame Phase 1',
             url: siteRoutes.roadmapMilestones('endgame-phase-1'),
           },
         ]}
       />
       <ContainerWithMargin>
-        <PageHeader />
+        <PageHeader
+          title="Phase 1 Progress"
+          subtitle="Unleashing Potential: MakerDAO’s result-driven road map for unlocking tangible results."
+        />
 
         <SectionsContainer>
-          <OverviewSection />
-          <DetailsSection />
+          <OverviewSection title="Milestones Roadmap Overview" />
+          <DetailsSection title="Milestones Roadmap Details" />
         </SectionsContainer>
       </ContainerWithMargin>
     </PageContainer>
@@ -63,5 +66,5 @@ const SectionsContainer = styled('div')(({ theme }) => ({
 }));
 
 const ContainerWithMargin = styled(Container)({
-  marginTop: 100,
+  marginTop: 64,
 });
