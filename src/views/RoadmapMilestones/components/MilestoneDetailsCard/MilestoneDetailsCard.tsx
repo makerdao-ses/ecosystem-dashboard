@@ -8,7 +8,11 @@ import EcosystemActors from './EcosystemActors';
 import MilestoneProgress from './MilestoneProgress';
 import StatsData from './StatsData';
 
-const MilestoneDetailsCard: React.FC = () => (
+interface MilestoneDetailsCardProps {
+  minimal?: boolean;
+}
+
+const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal }) => (
   <Card>
     <MobileHeader>
       <HeaderGroupBox>
@@ -49,9 +53,9 @@ const MilestoneDetailsCard: React.FC = () => (
         <CodeBox>
           <Code>BASE</Code>
         </CodeBox>
-        <MilestoneProgress />
+        <MilestoneProgress minimal={minimal} />
         <Divider />
-        <StatsData />
+        <StatsData minimal={minimal} />
         <Divider />
         <Coordinators />
         <Divider />
@@ -94,7 +98,7 @@ const MilestoneDetailsCard: React.FC = () => (
       </ShowOn1024Up>
 
       <DeliverablesContainer>
-        <DeliverablesSection />
+        <DeliverablesSection minimal={minimal} />
       </DeliverablesContainer>
     </MilestoneContent>
   </Card>

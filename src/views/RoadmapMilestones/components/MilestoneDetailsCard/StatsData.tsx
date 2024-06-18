@@ -6,9 +6,11 @@ import Information from '@/components/icons/information';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import type { Theme } from '@mui/material';
 
-const FEATURE_ENABLED = false;
+interface StatsDataProps {
+  minimal?: boolean;
+}
 
-const StatsData: React.FC = () => {
+const StatsData: React.FC<StatsDataProps> = ({ minimal }) => {
   const { isLight } = useThemeContext();
   const is1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const humanizedActuals = threeDigitsPrecisionHumanization(20252244);
@@ -27,7 +29,7 @@ const StatsData: React.FC = () => {
         </Label>
         <Value>Q4 2023</Value>
       </Row>
-      {FEATURE_ENABLED && (
+      {!minimal && (
         <Row>
           <Label>{is1024 ? 'Est.' : 'Estimated'} Budget Cap</Label>
           <Value>
@@ -36,7 +38,7 @@ const StatsData: React.FC = () => {
         </Row>
       )}
 
-      {FEATURE_ENABLED && (
+      {!minimal && (
         <BudgetBox>
           <Percentage>58%</Percentage>
           <ExtendedHorizontalBudgetBar actuals={200} prediction={250} budgetCap={300} />

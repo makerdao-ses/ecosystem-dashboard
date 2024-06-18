@@ -3,10 +3,14 @@ import React from 'react';
 import RoadmapTimeline from '../../RoadmapTimeline/RoadmapTimeline';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 
-const OverviewSection: React.FC = () => (
+interface OverviewSectionProps {
+  title: string;
+}
+
+const OverviewSection: React.FC<OverviewSectionProps> = ({ title }) => (
   <Section>
     <SectionTitle
-      title="Roadmap Milestones"
+      title={title}
       tooltip="Milestones represent checkpoints on the way to full completion of the roadmap,
       where a well-defined subset of the deliverables is deployed as an intermediate, integrated solution."
     />

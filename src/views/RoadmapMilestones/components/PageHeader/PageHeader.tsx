@@ -1,10 +1,15 @@
 import { styled } from '@mui/material';
 import React from 'react';
 
-const PageHeader: React.FC = () => (
+interface PageHeaderProps {
+  title: string;
+  subtitle: string;
+}
+
+const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => (
   <Header>
-    <Title>Powerhouse Roadmap 2024</Title>
-    <Subtitle>Powerhouse Ecosystem Actor team roadmap for the year 2024.</Subtitle>
+    <Title>{title}</Title>
+    <Subtitle>{subtitle}</Subtitle>
   </Header>
 );
 
