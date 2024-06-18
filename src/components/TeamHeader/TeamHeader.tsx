@@ -25,19 +25,21 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
   const [spacerHeight, setSpacerHeight] = useState<number>(165);
   const headerRef = useRef<HTMLDivElement>(null);
   const chips =
-    team.type === ResourceType.EcosystemActor ? (
-      <ScopeList>
-        {team.scopes?.map((item, index) => (
-          <ScopeChip scope={item} key={index} codeOnly={isMobile} />
-        ))}
-      </ScopeList>
-    ) : (
-      <CategoryList>
-        {team.category?.map((category) => (
-          <CategoryChip category={category as TeamCategory} key={category} />
-        ))}
-      </CategoryList>
-    );
+    team.type === ResourceType.EcosystemActor
+      ? team.scopes?.length > 0 && (
+          <ScopeList>
+            {team.scopes?.map((item, index) => (
+              <ScopeChip scope={item} key={index} codeOnly={isMobile} />
+            ))}
+          </ScopeList>
+        )
+      : team.category?.length > 0 && (
+          <CategoryList>
+            {team.category?.map((category) => (
+              <CategoryChip category={category as TeamCategory} key={category} />
+            ))}
+          </CategoryList>
+        );
 
   // show/hide header on scroll
   const [showHeader, setShowHeader] = useState<boolean>(true);
@@ -88,7 +90,7 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
                     </TeamName>
                     <ChipsContainer>
                       {team.type === ResourceType.EcosystemActor ? (
-                        <StatusChip status={team.status as TeamStatus} />
+                        <StatusChipStyled status={team.status as TeamStatus} />
                       ) : (
                         <StatusChipForCoreUnit status={team.status as TeamStatus} />
                       )}
@@ -175,6 +177,7 @@ const Avatar = styled(CircleAvatar)(({ theme }) => ({
 const InfoContent = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  alignContent: 'center',
   width: '100%',
   maxWidth: 'calc(100% - 48px)',
 
@@ -191,6 +194,10 @@ const ChipsContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     gap: 8,
   },
+}));
+
+const StatusChipStyled = styled(StatusChip)(() => ({
+  height: 24,
 }));
 
 const StatusChipForCoreUnit = styled(StatusChip)(({ theme }) => ({

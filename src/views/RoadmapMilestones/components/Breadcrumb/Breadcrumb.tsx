@@ -1,39 +1,32 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Breadcrumbs from '@ses/components/Breadcrumbs/Breadcrumbs';
 import BreadCrumbWithIcons from '@ses/components/Pagination/BreadCrumbWithIcons';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface BreadcrumbProps {
   items: NavigationBreadcrumb[];
 }
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
-  const { isLight } = useThemeContext();
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => (
+  <BreadcrumbNavigationStyled>
+    <WrapperContainerDesk>
+      <StyledBreadcrumbs items={items} />
+    </WrapperContainerDesk>
 
-  return (
-    <BreadcrumbNavigationStyled isLight={isLight}>
-      <WrapperContainerDesk>
-        <StyledBreadcrumbs items={items} />
-      </WrapperContainerDesk>
-
-      <WrapperContainerMobile>
-        <Container isLight={isLight}>
-          <BreadCrumbWithIcons items={items} title={items[items.length - 1].label as string} />
-        </Container>
-      </WrapperContainerMobile>
-    </BreadcrumbNavigationStyled>
-  );
-};
+    <WrapperContainerMobile>
+      <Container>
+        <BreadCrumbWithIcons items={items} title={items[items.length - 1].label as string} />
+      </Container>
+    </WrapperContainerMobile>
+  </BreadcrumbNavigationStyled>
+);
 
 export default Breadcrumb;
 
-const BreadcrumbNavigationStyled = styled.div<WithIsLight>(({ isLight }) => ({
+const BreadcrumbNavigationStyled = styled('div')(({ theme }) => ({
   marginBottom: 0,
-  background: isLight
+  background: theme.palette.isLight
     ? 'url(/assets/img/Subheader.png)'
     : 'url(/assets/img/Subheader-dark.png) 0% 0% / cover rgb(37, 39, 61)',
   backgroundSize: 'cover',
@@ -52,10 +45,10 @@ const StyledBreadcrumbs = styled(Breadcrumbs)({
   },
 });
 
-const WrapperContainerDesk = styled.div({
+const WrapperContainerDesk = styled('div')(({ theme }) => ({
   display: 'none',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
@@ -65,36 +58,26 @@ const WrapperContainerDesk = styled.div({
     marginBottom: 16,
     borderBottom: '2px solid rgba(95, 196, 185, 0.1)',
   },
+}));
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
-    paddingLeft: 48,
-    paddingRight: 48,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1440')]: {
-    paddingLeft: 32,
-    paddingRight: 32,
-  },
-});
-
-const WrapperContainerMobile = styled.div({
+const WrapperContainerMobile = styled('div')(({ theme }) => ({
   display: 'none',
 
-  [lightTheme.breakpoints.down('table_834')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     display: 'flex',
     width: '100%',
     padding: 16,
   },
-});
+}));
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
   height: '32px',
   padding: '8px',
-  background: isLight ? '#ECF1F3' : '#000A13',
+  background: theme.palette.isLight ? '#ECF1F3' : '#000A13',
   borderRadius: '6px',
   width: '100%',
 }));
