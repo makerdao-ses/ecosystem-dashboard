@@ -23,7 +23,11 @@ const SocialMediaLinksButton: React.FC<Props> = ({ socialMedia, className, hideL
   const isEmpty = useMemo(() => {
     if (!socialMedia) return true;
 
-    return false;
+    const { forumTag, twitter, youtube, discord, linkedIn, website, github } = socialMedia;
+
+    return [forumTag, twitter, youtube, discord, linkedIn, website, github].every(
+      (channel) => channel === undefined || channel === null || channel === ''
+    );
   }, [socialMedia]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
