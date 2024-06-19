@@ -5,6 +5,11 @@ import type { Meta } from '@storybook/react';
 const meta: Meta<typeof InlineUser> = {
   title: 'Fusion/Actor About/InlineUser',
   component: InlineUser,
+  parameters: {
+    chromatic: {
+      pauseAnimationAtEnd: true,
+    },
+  },
   argTypes: {
     username: {
       defaultValue: 'Username',
