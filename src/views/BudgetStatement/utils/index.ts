@@ -7,7 +7,7 @@ export const allowedOwnerTypeToResourceType = (ownerTypeQuery: AllowedOwnerType)
       return ResourceType.Keepers;
     case AllowedOwnerType.SPFS:
       return ResourceType.SpecialPurposeFund;
-    case AllowedOwnerType.RECOGNIZED_DELEGATES:
-      return ResourceType.Delegates;
+    case AllowedOwnerType.ALIGNED_DELEGATES:
+      return ResourceType.AlignedDelegates;
   }
 };
