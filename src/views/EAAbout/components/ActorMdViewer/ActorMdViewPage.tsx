@@ -4,7 +4,7 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import Markdown from 'marked-react';
 import React from 'react';
-import CustomSheetFinances from '@/views/CUAbout/CustomSheetFinances';
+import CustomSheetFinances from '@/views/CUAbout/CustomSheetFinances/CustomSheetFinances';
 import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/renderUtils';
 import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
