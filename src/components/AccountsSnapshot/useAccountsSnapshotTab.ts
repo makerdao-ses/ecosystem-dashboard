@@ -8,7 +8,7 @@ import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { Fetcher } from 'swr';
 
 const useAccountsSnapshotTab = (
-  ownerId: string,
+  ownerId: string | null,
   currentMonth: DateTime,
   resource: ResourceType,
   setSnapshotCreated: (value: DateTime | undefined) => void

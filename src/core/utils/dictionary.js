@@ -166,6 +166,7 @@ const dictionary = [
   'Ethereum',
   'scalability',
   'foundational',
+  'spfs',
   'reskin',
   'Linkedin',
   'mouseover',

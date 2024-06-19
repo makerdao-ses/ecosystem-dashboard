@@ -94,6 +94,7 @@ const Description = styled('p')(({ theme }) => ({
   margin: 0,
   borderRadius: 8,
   padding: 7,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   fontSize: 14,
   lineHeight: '24px',

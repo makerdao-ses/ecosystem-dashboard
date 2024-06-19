@@ -5,7 +5,7 @@ export type AccountType = 'singular' | 'group';
 export interface SnapshotFilter {
   id?: string;
   ownerType?: string;
-  ownerId?: string;
+  ownerId?: string | null;
   period?: string;
 }
 

@@ -9,9 +9,15 @@ import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import { useState } from 'react';
 import type { DeliverableViewMode } from '@ses/containers/ActorProjects/components/ProjectCard/ProjectCard';
 
-const DeliverablesSection: React.FC = () => {
+interface DeliverablesSectionProps {
+  minimal?: boolean;
+}
+
+const SEARCH_FEATURE_ENABLED = false;
+
+const DeliverablesSection: React.FC<DeliverablesSectionProps> = ({ minimal }) => {
   const [deliverableViewMode, setDeliverableViewMode] = useState<DeliverableViewMode>('compacted');
-  const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(false);
+  const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(true);
 
   // mocked deliverables
   const deliverables = [
@@ -129,20 +135,23 @@ const DeliverablesSection: React.FC = () => {
     <DeliverablesContainer>
       <Header>
         <TitleBox>
-          <Title>{showAllDeliverables ? 'All' : 'Highlighted'} Deliverables</Title>
+          <Title>Deliverables</Title>
           <Count>{deliverables.length}</Count>
         </TitleBox>
 
-        <DeliverableViewModeToggle
-          deliverableViewMode={deliverableViewMode}
-          onChangeDeliverableViewMode={(mode: DeliverableViewMode) => setDeliverableViewMode(mode)}
-        />
+        {!minimal && (
+          <DeliverableViewModeToggle
+            deliverableViewMode={deliverableViewMode}
+            onChangeDeliverableViewMode={(mode: DeliverableViewMode) => setDeliverableViewMode(mode)}
+          />
+        )}
       </Header>
 
-      {/* Disable temporary the search */}
-      {/* <SearchContainer>
-        <CustomSearchInput placeholder="Search" legacyBreakpoints={false} />
-      </SearchContainer> */}
+      {!minimal && SEARCH_FEATURE_ENABLED && (
+        <SearchContainer>
+          <CustomSearchInput placeholder="Search" legacyBreakpoints={false} />
+        </SearchContainer>
+      )}
 
       <BackgroundContainer>
         <DeliverablesGrid showDeliverablesBelow={false}>
@@ -152,13 +161,13 @@ const DeliverablesSection: React.FC = () => {
                 key={deliverable.id}
                 isProjectCard={false}
                 deliverable={deliverable}
-                viewMode={deliverableViewMode}
+                viewMode={minimal ? 'detailed' : deliverableViewMode}
                 maxKeyResultsOnRow={row.map((d) => d.keyResults.length).reduce((a, b) => Math.max(a, b), 0)}
               />
             ))
           )}
         </DeliverablesGrid>
-        {deliverables.length > 6 && (
+        {!minimal && deliverables.length > 6 && (
           <ViewAllButton viewAll={showAllDeliverables} onClick={() => setShowAllDeliverables((prev) => !prev)}>
             View {showAllDeliverables ? 'less' : 'all'} Deliverables
           </ViewAllButton>

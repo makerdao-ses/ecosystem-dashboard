@@ -1,9 +1,6 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
-import lightTheme from '@ses/styles/theme/themes';
 import React, { useState } from 'react';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
@@ -14,8 +11,8 @@ import MilestoneLink from '../MilestoneLink/MilestoneLink';
 import OwnerTooltipContent from '../OwnerTooltipContent/OwnerTooltipContent';
 import ProjectLink from '../ProjectLink/ProjectLink';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
+import type { Theme } from '@mui/material';
 import type { Deliverable } from '@ses/core/models/interfaces/projects';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface DeliverableCardProps {
   deliverable: Deliverable;
@@ -30,18 +27,15 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
   maxKeyResultsOnRow,
   isProjectCard = true,
 }) => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const [expanded, setExpanded] = useState<boolean>(false);
   const handleToggleExpand = () => setExpanded((prev) => !prev);
 
   return (
-    <Card isLight={isLight} fitContent={!isMobile && viewMode === 'compacted' && !expanded}>
+    <Card fitContent={!isMobile && viewMode === 'compacted' && !expanded}>
       <HeaderContainer>
         <TitleContainer>
-          <Title isLight={isLight} viewMode={viewMode}>
-            {deliverable.title}
-          </Title>
+          <Title viewMode={viewMode}>{deliverable.title}</Title>
         </TitleContainer>
         <DeliverableOwnerContainer>
           <SESTooltip content={<OwnerTooltipContent title="Deliverable Owner" items={[deliverable.owner]} />}>
@@ -61,7 +55,7 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
       </ProgressContainer>
 
       {(viewMode === 'detailed' || expanded) && (
-        <Description isLight={isLight}>
+        <Description>
           Purely financial view of SPFs with generalized financial categories applicable across all budget categories.
         </Description>
       )}
@@ -81,28 +75,29 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
 
 export default DeliverableCard;
 
-const Card = styled.div<WithIsLight & { fitContent: boolean }>(({ isLight, fitContent }) => ({
+const Card = styled('div')<{ fitContent: boolean }>(({ theme, fitContent }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: 7,
   borderRadius: 6,
-  background: isLight ? '#fff' : '#1E2C37',
-  boxShadow: isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 5px 10px 0px rgba(219, 227, 237, 0.40)'
+  background: theme.palette.isLight ? '#fff' : '#1E2C37',
+  border: `1px solid ${theme.palette.isLight ? '#D1DEE6' : '#31424E'}`,
+  boxShadow: theme.palette.isLight
+    ? '0px 3px 10px 0px rgba(88, 88, 88, 0.2)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.10)',
-  padding: 16,
+  padding: 15,
   height: fitContent ? 'fit-content' : 'auto',
 }));
 
-const HeaderContainer = styled.div({
+const HeaderContainer = styled('div')({
   display: 'flex',
   alignItems: 'flex-start',
   gap: 24,
   alignSelf: 'stretch',
 });
 
-const TitleContainer = styled.div({
+const TitleContainer = styled('div')({
   maxWidth: 'calc(100% - 51px)',
   display: 'flex',
   flexDirection: 'column',
@@ -111,20 +106,20 @@ const TitleContainer = styled.div({
   marginBottom: 8,
 });
 
-const Title = styled.div<WithIsLight & { viewMode: DeliverableViewMode }>(({ isLight, viewMode }) => ({
+const Title = styled('div')<{ viewMode: DeliverableViewMode }>(({ theme, viewMode }) => ({
   ...(viewMode !== 'detailed' && {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   }),
   alignSelf: 'stretch',
-  color: isLight ? '#25273D' : '#D2D4EF',
+  color: theme.palette.isLight ? '#25273D' : '#D2D4EF',
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
 }));
 
-const DeliverableOwnerContainer = styled.div({
+const DeliverableOwnerContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
 });
@@ -139,26 +134,26 @@ const OwnerImage = styled(Avatar)({
   fontFamily: 'Inter, sans-serif',
 });
 
-const ProgressContainer = styled.div({
+const ProgressContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
   gap: 16,
 });
 
-const Description = styled.p<WithIsLight>(({ isLight }) => ({
+const Description = styled('p')(({ theme }) => ({
   margin: 0,
   fontSize: 14,
   lineHeight: 'normal',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     lineHeight: '22px',
   },
 }));
 
-const KeyBox = styled.div({
+const KeyBox = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',

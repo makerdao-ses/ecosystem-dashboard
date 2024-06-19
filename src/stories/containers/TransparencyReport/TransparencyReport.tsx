@@ -6,6 +6,7 @@ import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext'
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React, { useRef } from 'react';
+import AccountsSnapshotTabContainer from '@/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import lightTheme from '../../../../styles/theme/themes';
@@ -16,7 +17,6 @@ import { toAbsoluteURL } from '../../../core/utils/urls';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { SEOHead } from '../../components/SEOHead/SEOHead';
-import AccountsSnapshotTabContainer from './components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import CuHeadlineText from './components/CuHeadlineText/CuHeadlineText';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';

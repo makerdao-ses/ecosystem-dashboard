@@ -185,6 +185,9 @@ const CardContainer768 = styled('div')({
   float: 'right',
   marginLeft: 16,
   marginBottom: 16,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
 });
 
 const CardProjectsStyled = styled(CardProjects)({

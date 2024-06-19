@@ -154,15 +154,11 @@ const MarkdownContainer = styled('div')();
 
 const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '100%',
-  marginTop: 24,
-
+  marginTop: 16,
   [theme.breakpoints.up('desktop_1024')]: {
-    width: '57.39%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 32,
-
-    justifyContent: 'space-between',
 
     [theme.breakpoints.up('desktop_1280')]: {
       width: 789,
@@ -177,12 +173,12 @@ const ContainerScroll = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     position: 'sticky',
     height: 'fit-content',
-    top: 322,
+    top: 16,
   },
 }));
 
 const ContainerCard = styled('div')(({ theme }) => ({
-  gap: 32,
+  gap: 24,
   display: 'flex',
   flexDirection: 'column',
 
@@ -222,10 +218,14 @@ const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
 
 const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
   display: 'none',
-
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    marginTop: 32,
+    marginTop: 16,
+    marginLeft: 24,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+    marginLeft: 32,
   },
 }));
 
@@ -244,7 +244,7 @@ const ContainerLinksButton = styled('div')({
 });
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '4px 15px 4px 23px',
+  padding: '4px 14.5px 4px 23px',
   height: 32,
   display: 'flex',
 
@@ -284,7 +284,7 @@ const SomethingWrongContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginLeft: 0,
-  marginTop: 32,
+  marginTop: 24,
   width: 340,
   [theme.breakpoints.up('desktop_1024')]: {
     width: 386,

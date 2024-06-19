@@ -53,17 +53,22 @@ const Label = styled('div')(({ theme }) => ({
   padding: '0px 8px 0px 8px',
   top: -8,
   left: 12,
-
+  borderRadius: 4,
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[500],
 
   backgroundColor: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
 }));
 
-const AuditorsList = styled('div')({
+const AuditorsList = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: 24,
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 20,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 24,
+  },
+}));
 
 const AuditorItem = styled('div')({});
 
