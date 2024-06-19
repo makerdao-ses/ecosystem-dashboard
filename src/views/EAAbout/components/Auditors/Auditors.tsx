@@ -53,6 +53,7 @@ const Label = styled('div')(({ theme }) => ({
   padding: '0px 8px 0px 8px',
   top: -8,
   left: 12,
+  borderRadius: 4,
 
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[500],
 

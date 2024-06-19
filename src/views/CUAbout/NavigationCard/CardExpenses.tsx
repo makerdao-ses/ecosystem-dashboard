@@ -66,7 +66,7 @@ const CardExpenses = ({
           <ButtonLinkStyledCard href={`/finances/${budgetPath}/${queryStrings}`} label="Finances" showIcon />
         </ContainerButton>
       </ContainerData>
-      <Line />
+      {resource === ResourceType.CoreUnit ? <Line /> : <DivSpacer />}
 
       {showMakerburnLink ? (
         <ContainerLinks>
@@ -148,6 +148,10 @@ const Line = styled('div')(({ theme }) => ({
   marginTop: '12px',
   marginBottom: '12px',
   width: '100%',
+}));
+const DivSpacer = styled('div')(() => ({
+  marginTop: '12px',
+  marginBottom: '12px',
 }));
 
 const LabelLinks = styled('div')(({ theme }) => ({

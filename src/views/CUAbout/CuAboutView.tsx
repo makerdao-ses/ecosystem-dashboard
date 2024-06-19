@@ -552,15 +552,21 @@ export const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
-  marginTop: 12,
+  marginTop: 24,
   paddingLeft: 16,
   paddingRight: 16,
   paddingBottom: 16,
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 4,
+    gap: 10,
+    paddingBottom: 14,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
     paddingLeft: 8,
     paddingRight: 8,
-    paddingBottom: 8,
+    marginTop: 0,
+    gap: 16,
+    paddingBottom: 10,
   },
   [theme.breakpoints.up('desktop_1440')]: {
     paddingLeft: 16,
