@@ -1,5 +1,5 @@
 import { Typography, styled } from '@mui/material';
-import lightTheme from '@ses/styles/theme/themes';
+import theme from '@ses/styles/theme/themes';
 import React from 'react';
 import Card from '@/components/Card/Card';
 import type { PropsWithChildren } from 'react';
@@ -13,7 +13,7 @@ interface Props extends PropsWithChildren {
 
 const CardSomethingWrong: React.FC<Props> = ({ title = 'Is this your core unit?', children, className }) => (
   <Container className={className}>
-    <Label>Something Wrong on this Page</Label>
+    <Label>Something Wrong on this Page?</Label>
     <StyledInformationCard>
       <ContainerText>
         <TypographyDescription>{title}</TypographyDescription>
@@ -30,21 +30,24 @@ const CardSomethingWrong: React.FC<Props> = ({ title = 'Is this your core unit?'
 
 export default CardSomethingWrong;
 
-const Container = styled('div')({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
 
   flexDirection: 'column',
-  gap: 8,
-});
+  gap: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 8,
+  },
+}));
 const ContainerText = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
   padding: '16px 16px 0px 16px',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: '8px 8px 0px 8px',
   },
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '16px 16px 0px 16px',
   },
 });
@@ -87,12 +90,21 @@ const LineStyledBorder = styled('div')(({ theme }) => ({
   }`,
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
-    marginTop: 4,
+    marginTop: 6,
     marginBottom: 4,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    marginTop: 16,
+    marginTop: 18,
+    marginBottom: 6,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginTop: 18,
     marginBottom: 4,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
+    marginTop: 12,
+    marginBottom: 10,
   },
 }));
