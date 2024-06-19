@@ -6,6 +6,11 @@ import type { Meta } from '@storybook/react';
 const meta: Meta<typeof CardExpenses> = {
   title: 'Fusion/CUAbout/CardExpense',
   component: CardExpenses,
+  parameters: {
+    chromatic: {
+      viewports: [768, 1024, 1280, 1440],
+    },
+  },
 };
 export default meta;
 
