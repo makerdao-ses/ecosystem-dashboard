@@ -5,11 +5,11 @@ import CardSomethingWrong from './CardSomethingWrong';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CardSomethingWrong> = {
-  title: 'Fusion/CuAbout/CardSomethingWrong',
+  title: 'Fusion/CUAbout/CardSomethingWrong',
   component: CardSomethingWrong,
   parameters: {
     chromatic: {
-      viewports: [834, 1194, 1280],
+      viewports: [375, 768, 1024, 1280, 1440],
     },
   },
 };
@@ -42,40 +42,67 @@ export { Card, CardDark };
 Card.parameters = {
   figma: {
     component: {
-      834: {
+      375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21839:251251&mode=design&t=ZoBUW5FV1PY2s2bI-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1244:31477&t=dnHpLLwDPTMlUhGb-4',
 
         options: {
           style: {
-            left: -40,
+            left: -12,
             top: 0,
           },
         },
       },
-      1194: {
+      768: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20298:288915&mode=design&t=ZoBUW5FV1PY2s2bI-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1267:41992&t=dnHpLLwDPTMlUhGb-4',
+
         options: {
           style: {
-            left: -40,
+            left: -12,
             top: 0,
           },
           componentStyle: {
-            width: 383,
+            width: 704,
+          },
+        },
+      },
+      1024: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1237:20955&t=dnHpLLwDPTMlUhGb-4',
+        options: {
+          style: {
+            left: -12,
+            top: 0,
+          },
+          componentStyle: {
+            width: 386,
           },
         },
       },
       1280: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20296:284071&mode=design&t=ZoBUW5FV1PY2s2bI-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1237:19722&t=dnHpLLwDPTMlUhGb-4',
         options: {
           style: {
-            left: -40,
+            left: -12,
             top: 0,
           },
           componentStyle: {
-            width: 405,
+            width: 379,
+          },
+        },
+      },
+      1440: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1020:18954&t=dnHpLLwDPTMlUhGb-4',
+        options: {
+          style: {
+            left: -12,
+            top: 0,
+          },
+          componentStyle: {
+            width: 416,
           },
         },
       },

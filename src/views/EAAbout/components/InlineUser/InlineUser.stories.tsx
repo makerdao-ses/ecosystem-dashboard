@@ -3,7 +3,7 @@ import InlineUser from './InlineUser';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof InlineUser> = {
-  title: 'Fusion/Actor About/InlineUser',
+  title: 'Fusion/ActorAbout/InlineUser',
   component: InlineUser,
   argTypes: {
     username: {
