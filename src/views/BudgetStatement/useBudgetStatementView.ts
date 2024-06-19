@@ -52,10 +52,10 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
           code: 'SFPs',
           name: 'Special Purpose Funds',
         };
-      case AllowedOwnerType.RECOGNIZED_DELEGATES:
+      case AllowedOwnerType.ALIGNED_DELEGATES:
         return {
           code: 'DEL',
-          name: 'Recognized Delegates',
+          name: 'Aligned Delegates',
         };
     }
   }, [ownerTypeQuery]);
