@@ -35,8 +35,9 @@ const Title = styled('label')(({ theme }) => ({
 const Description = styled('label')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
-  fontWeight: 700,
+  fontWeight: 500,
   lineHeight: '22px',
+  letterSpacing: '0.4px',
   color: theme.palette.isLight ? '#546978' : theme.palette.colors.gray[500],
 }));
 
