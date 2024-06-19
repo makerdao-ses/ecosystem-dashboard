@@ -191,6 +191,12 @@ const ChipsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: 4,
 
+  '& > *': {
+    alignSelf: 'center',
+    textWrap: 'nowrap',
+    height: 24,
+  },
+
   [theme.breakpoints.up('tablet_768')]: {
     gap: 8,
   },
