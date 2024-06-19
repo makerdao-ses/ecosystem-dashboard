@@ -10,7 +10,7 @@ const TeamsView: React.FC = () => (
       <SectionsContainer>
         <TeamsSections sectionName="Current teams" teams={currentTeams} />
 
-        <TeamsSections sectionName="Legacy" teams={legacyTeams} />
+        <TeamsSections sectionName="Legacy teams" teams={legacyTeams} />
       </SectionsContainer>
     </Container>
   </TeamsPageContainer>
