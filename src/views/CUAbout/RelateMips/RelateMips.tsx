@@ -25,11 +25,12 @@ const RelateMips = ({ relateMips }: Props) => {
   const mipStatus = relateMips.mipStatus;
   const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
   const pieces = getMipTitle(relateMips.mipTitle);
+
   return (
     <Content>
       <Row>
         {mipStatus && <StatusStyled status={mipStatus as TeamStatus} />}
-        {newDate && <SinceDate>Since {DateTime.fromJSDate(newDate).toFormat('dd-MM-yyyy')}</SinceDate>}
+        {newDate && <SinceDate>Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y').toUpperCase()}</SinceDate>}
       </Row>
       {pieces.length === 2 && (
         <RowUnderLine>
@@ -138,4 +139,5 @@ const ExternalLinkStyled = styled(ExternalLink)(({ theme }) => ({
 const StatusStyled = styled(StatusChip)(() => ({
   padding: '1px 16px 1px 16px',
   height: 24,
+  fontSize: 14,
 }));
