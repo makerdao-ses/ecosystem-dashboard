@@ -9,7 +9,7 @@ import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/ren
 import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
 import CardProjects from '../CardProjects/CardProjects';
-import CustomSheetProjects from '../CustomSheetProjects';
+import CustomSheetProjects from '../CardProjects/CustomSheetProjects';
 import type { Theme } from '@mui/material';
 import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';
 
@@ -60,7 +60,7 @@ const ActorMdViewPage = ({
           <ContainerShowOnlyMobile>
             <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
             <ContainerButton>
-              <CustomSheetProjects queryStrings={queryStrings} shortCode={shortCode} />
+              <CustomSheetProjects shortCode={shortCode} />
               <CustomSheetFinances
                 budgetPath={budgetPath}
                 code={code}
