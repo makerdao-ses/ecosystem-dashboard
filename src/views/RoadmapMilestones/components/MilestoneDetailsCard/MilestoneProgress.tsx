@@ -1,14 +1,16 @@
 import { styled } from '@mui/material';
 import PercentageProgressBar from './PercentageProgressBar';
 
-const FEATURE_ENABLED = false;
+interface MilestoneProgressProps {
+  minimal?: boolean;
+}
 
-const MilestoneProgress: React.FC = () => (
+const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ minimal }) => (
   <OutlinedCard>
     <PercentageProgressBar value={75.0} />
 
     <TextProgressBox>
-      {FEATURE_ENABLED && (
+      {!minimal && (
         <TextProgress>
           <span>55</span>/<span>74</span> Story Points Completed
         </TextProgress>

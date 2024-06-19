@@ -6,6 +6,7 @@ export interface FeatureFlagsInterface {
   FEATURE_TEAM_PROJECTS: boolean; // disable Team Projects page and related features
   FEATURE_ECOSYSTEM_FINANCES_DASHBOARD_PAGE: boolean; // disable Accounts Finances Page
   FEATURE_ROADMAP_MILESTONES: boolean; // disable roadmap milestones page
+  FEATURE_POWERHOUSE_ROADMAP: boolean; // powerhouse roadmap page
   FEATURE_ECOSYSTEM_ACTORS_SCOPES_FILTER: boolean; // disable scopes filter in ecosystem actors page
   FEATURE_ECOSYSTEM_ACTORS_STATUS_AND_CODE: boolean; // disable status filter in ecosystem actors page
 }

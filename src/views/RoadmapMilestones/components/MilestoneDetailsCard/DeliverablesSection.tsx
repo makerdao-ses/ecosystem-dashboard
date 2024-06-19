@@ -9,9 +9,13 @@ import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import { useState } from 'react';
 import type { DeliverableViewMode } from '@ses/containers/ActorProjects/components/ProjectCard/ProjectCard';
 
-const FEATURE_ENABLED = false;
+interface DeliverablesSectionProps {
+  minimal?: boolean;
+}
 
-const DeliverablesSection: React.FC = () => {
+const SEARCH_FEATURE_ENABLED = false;
+
+const DeliverablesSection: React.FC<DeliverablesSectionProps> = ({ minimal }) => {
   const [deliverableViewMode, setDeliverableViewMode] = useState<DeliverableViewMode>('compacted');
   const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(true);
 
@@ -135,7 +139,7 @@ const DeliverablesSection: React.FC = () => {
           <Count>{deliverables.length}</Count>
         </TitleBox>
 
-        {FEATURE_ENABLED && (
+        {!minimal && (
           <DeliverableViewModeToggle
             deliverableViewMode={deliverableViewMode}
             onChangeDeliverableViewMode={(mode: DeliverableViewMode) => setDeliverableViewMode(mode)}
@@ -143,7 +147,7 @@ const DeliverablesSection: React.FC = () => {
         )}
       </Header>
 
-      {FEATURE_ENABLED && (
+      {!minimal && SEARCH_FEATURE_ENABLED && (
         <SearchContainer>
           <CustomSearchInput placeholder="Search" legacyBreakpoints={false} />
         </SearchContainer>
@@ -157,13 +161,13 @@ const DeliverablesSection: React.FC = () => {
                 key={deliverable.id}
                 isProjectCard={false}
                 deliverable={deliverable}
-                viewMode={'detailed'}
+                viewMode={minimal ? 'detailed' : deliverableViewMode}
                 maxKeyResultsOnRow={row.map((d) => d.keyResults.length).reduce((a, b) => Math.max(a, b), 0)}
               />
             ))
           )}
         </DeliverablesGrid>
-        {FEATURE_ENABLED && deliverables.length > 6 && (
+        {!minimal && deliverables.length > 6 && (
           <ViewAllButton viewAll={showAllDeliverables} onClick={() => setShowAllDeliverables((prev) => !prev)}>
             View {showAllDeliverables ? 'less' : 'all'} Deliverables
           </ViewAllButton>

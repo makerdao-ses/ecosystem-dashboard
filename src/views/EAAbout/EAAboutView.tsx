@@ -156,11 +156,9 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '100%',
   marginTop: 16,
   [theme.breakpoints.up('desktop_1024')]: {
-    width: '57.39%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-
-    justifyContent: 'space-between',
 
     [theme.breakpoints.up('desktop_1280')]: {
       width: 789,
@@ -175,7 +173,7 @@ const ContainerScroll = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     position: 'sticky',
     height: 'fit-content',
-    top: 322,
+    top: 16,
   },
 }));
 
@@ -220,10 +218,14 @@ const WrapperCardSomethingWrongMobile = styled('div')(({ theme }) => ({
 
 const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
   display: 'none',
-
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     marginTop: 16,
+    marginLeft: 24,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+    marginLeft: 32,
   },
 }));
 

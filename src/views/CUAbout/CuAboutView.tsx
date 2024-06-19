@@ -177,7 +177,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                   />
                 </ContainerCard>
                 {!(phone || LessPhone) && (
-                  <ContainerCardHiddenTable>
+                  <ContainerCardHiddenTableSomeWrong>
                     <CardSomethingWrong>
                       <ContainerLinks>
                         <LabelLinks>Important Links</LabelLinks>
@@ -187,7 +187,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                         </ContainerLinksButton>
                       </ContainerLinks>
                     </CardSomethingWrong>
-                  </ContainerCardHiddenTable>
+                  </ContainerCardHiddenTableSomeWrong>
                 )}
               </ContainerScroll>
             </ContainerCardTableDesk>
@@ -268,22 +268,17 @@ const ContainerCard = styled('div')(({ theme }) => ({
   marginBottom: 24,
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: '68px',
 
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    marginLeft: '16px',
     width: 340,
   },
   [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    marginLeft: 0,
     width: 386,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    marginLeft: '40px',
     width: 379,
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    marginLeft: '68px',
     width: 416,
   },
 }));
@@ -446,25 +441,25 @@ const ContainerAllData = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
   marginRight: '64px',
   marginLeft: '64px',
-
-  [theme.breakpoints.up('desktop_1920')]: {
-    marginRight: '0px',
-    marginLeft: '0px',
+  [theme.breakpoints.up('mobile_375')]: {
+    marginRight: '16px',
+    marginLeft: '16px',
   },
-
-  [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    marginRight: '48px',
-    marginLeft: '48px',
-  },
-
-  [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginRight: '32px',
     marginLeft: '32px',
   },
-
-  [theme.breakpoints.down('tablet_768')]: {
-    marginRight: '16px',
-    marginLeft: '16px',
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginRight: '40px',
+    marginLeft: '40px',
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    marginRight: '64px',
+    marginLeft: '64px',
+  },
+  [theme.breakpoints.up('desktop_1920')]: {
+    marginRight: '0px',
+    marginLeft: '0px',
   },
 }));
 
@@ -514,11 +509,8 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     width: '100%',
   },
-  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    width: 550,
-  },
   [theme.breakpoints.up('desktop_1280')]: {
-    width: '70%',
+    width: '80%',
   },
 }));
 
@@ -531,12 +523,12 @@ const CardInfoContainer = styled('div')(({ theme }) => ({
 
 const ContainerCardTableDesk = styled('div')(({ theme }) => ({
   height: 'fit-content',
-  marginLeft: 32,
+  marginLeft: 24,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    minWidth: 550,
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginLeft: 32,
   },
 }));
 
@@ -614,9 +606,8 @@ export const ContainerLinksButton = styled('div')(({ theme }) => ({
   },
 }));
 
-const ContainerCardHiddenTable = styled('div')(({ theme }) => ({
+const ContainerCardHiddenTableSomeWrong = styled('div')(({ theme }) => ({
   display: 'flex',
-  marginLeft: '68px',
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     display: 'none',
   },
@@ -626,11 +617,9 @@ const ContainerCardHiddenTable = styled('div')(({ theme }) => ({
     width: 386,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    marginLeft: '40px',
     width: 379,
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    marginLeft: '68px',
     width: 416,
   },
 }));
