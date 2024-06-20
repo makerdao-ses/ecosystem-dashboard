@@ -142,10 +142,7 @@ const HeaderGroupBox = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 16,
-  },
+  gap: 16,
 
   [theme.breakpoints.up('desktop_1024')]: {
     marginBottom: 24,
@@ -197,10 +194,12 @@ const MilestoneNumber = styled('div')(({ theme }) => ({
   padding: '3px 7px',
   borderRadius: 3,
   border: '1px solid #D4D9E1',
+  alignSelf: 'baseline',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 700,
+    alignSelf: 'center',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
