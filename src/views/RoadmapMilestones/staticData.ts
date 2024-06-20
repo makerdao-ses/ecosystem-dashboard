@@ -2,6 +2,7 @@
 // disabled spell-checker because of the use of abbreviations, technical terms and names
 
 import type { Roadmap } from '@/core/models/interfaces/roadmaps';
+import { DeliverableStatus, DeliverableSetStatus } from '@/core/models/interfaces/roadmaps';
 
 const coordinators = [
   {
@@ -31,7 +32,7 @@ const contributors = [
     ref: 'team',
     id: 'powerhouse',
     imageUrl: 'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
-    name: 'Powerhouse',
+    name: 'Powerhouse Inc.',
     code: 'PH',
   },
 ];
@@ -53,7 +54,38 @@ export const PowerhouseRoadmap2024: Roadmap = {
       targetDate: '2024-Q1',
       coordinators,
       contributors,
-      scope: [],
+      scope: [
+        {
+          deliverables: [
+            {
+              id: '1',
+              code: '1',
+              title: 'First technical integration of RWA Portfolio (Connect & Switchboard)',
+              description:
+                'Technical integration demo showcasing for the first time the RWA Portfolio Editor in Connect and the data synchronization with Switchboard.',
+              owner: contributors[0],
+              status: DeliverableStatus.DELIVERED,
+              workProgress: {
+                value: 100,
+              },
+              budgetAnchor: {
+                project: 'RWA Portfolio',
+                workUnitBudget: 1000,
+                deliverableBudget: 1000,
+              },
+              keyResults: [],
+            },
+          ],
+          status: DeliverableSetStatus.FINISHED,
+          progress: {
+            value: 100,
+          },
+          deliverablesCompleted: {
+            total: 3,
+            completed: 3,
+          },
+        },
+      ],
     },
     {
       id: 'PH02',
@@ -66,7 +98,19 @@ export const PowerhouseRoadmap2024: Roadmap = {
       targetDate: '2024-Q2',
       coordinators,
       contributors,
-      scope: [],
+      scope: [
+        {
+          deliverables: [],
+          status: DeliverableSetStatus.IN_PROGRESS,
+          progress: {
+            value: 60,
+          },
+          deliverablesCompleted: {
+            total: 62,
+            completed: 0,
+          },
+        },
+      ],
     },
     {
       id: 'PH03',
@@ -79,7 +123,19 @@ export const PowerhouseRoadmap2024: Roadmap = {
       targetDate: '2024-Q3',
       coordinators,
       contributors,
-      scope: [],
+      scope: [
+        {
+          deliverables: [],
+          status: DeliverableSetStatus.TODO,
+          progress: {
+            value: 0,
+          },
+          deliverablesCompleted: {
+            total: 2,
+            completed: 0,
+          },
+        },
+      ],
     },
     {
       id: 'PH04',
@@ -92,7 +148,19 @@ export const PowerhouseRoadmap2024: Roadmap = {
       targetDate: '2024-Q4',
       coordinators,
       contributors,
-      scope: [],
+      scope: [
+        {
+          deliverables: [],
+          status: DeliverableSetStatus.TODO,
+          progress: {
+            value: 0,
+          },
+          deliverablesCompleted: {
+            total: 2,
+            completed: 0,
+          },
+        },
+      ],
     },
     {
       id: 'PH05',
@@ -105,7 +173,19 @@ export const PowerhouseRoadmap2024: Roadmap = {
       targetDate: '2024-Q4',
       coordinators,
       contributors,
-      scope: [],
+      scope: [
+        {
+          deliverables: [],
+          status: DeliverableSetStatus.TODO,
+          progress: {
+            value: 0,
+          },
+          deliverablesCompleted: {
+            total: 2,
+            completed: 0,
+          },
+        },
+      ],
     },
     {
       id: 'PH06',
@@ -118,7 +198,19 @@ export const PowerhouseRoadmap2024: Roadmap = {
       targetDate: '2024-Q4',
       coordinators,
       contributors,
-      scope: [],
+      scope: [
+        {
+          deliverables: [],
+          status: DeliverableSetStatus.TODO,
+          progress: {
+            value: 0,
+          },
+          deliverablesCompleted: {
+            total: 2,
+            completed: 0,
+          },
+        },
+      ],
     },
   ],
 };

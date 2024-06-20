@@ -1,27 +1,38 @@
 import { styled } from '@mui/material';
+import type { DeliverableSet } from '@/core/models/interfaces/roadmaps';
+import { isPercentage } from '@/core/models/interfaces/roadmaps';
+import { percentageRespectTo } from '@/core/utils/math';
 import PercentageProgressBar from './PercentageProgressBar';
 
 interface MilestoneProgressProps {
   minimal?: boolean;
+  data: Omit<DeliverableSet, 'deliverables'>;
 }
 
-const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ minimal }) => (
-  <OutlinedCard>
-    <PercentageProgressBar value={75.0} />
+const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ minimal, data }) => {
+  const progress = isPercentage(data.progress)
+    ? data.progress.value
+    : percentageRespectTo(data.progress.completed, data.progress.total);
 
-    <TextProgressBox>
-      {!minimal && (
+  return (
+    <OutlinedCard>
+      <PercentageProgressBar value={progress} />
+
+      <TextProgressBox>
+        {!minimal && (
+          <TextProgress>
+            <span>55</span>/<span>74</span> Story Points Completed
+          </TextProgress>
+        )}
+
         <TextProgress>
-          <span>55</span>/<span>74</span> Story Points Completed
+          <span>{data.deliverablesCompleted.completed}</span>/<span>{data.deliverablesCompleted.total}</span>{' '}
+          Deliverables Completed
         </TextProgress>
-      )}
-
-      <TextProgress>
-        <span>1</span>/<span>6</span> Deliverables Completed
-      </TextProgress>
-    </TextProgressBox>
-  </OutlinedCard>
-);
+      </TextProgressBox>
+    </OutlinedCard>
+  );
+};
 
 export default MilestoneProgress;
 

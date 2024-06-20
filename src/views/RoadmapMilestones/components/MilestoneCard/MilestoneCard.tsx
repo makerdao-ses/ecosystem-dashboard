@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
+import { useRouter } from 'next/router';
 import React from 'react';
 import type { Milestone } from '@/core/models/interfaces/roadmaps';
 import MobileProgressBar from './MobileProgressBar';
@@ -8,58 +9,62 @@ interface MilestoneCardProps {
   milestone: Milestone;
 }
 
-const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => (
-  <Card>
-    <TitleBox>
-      <TitleContainer>
-        <CodeBox>
-          <MilestoneNumber>{milestone.id}</MilestoneNumber>
-          <Code>{milestone.code}</Code>
-        </CodeBox>
-        <NameBox>
-          <Name>{milestone.title}</Name>
-          <Quarter>
-            {/* target date should be printed out with the format: Q4’23 */}
-            {`${milestone.targetDate.split('-')[1]}'${milestone.targetDate.split('-')[0].slice(-2)}`}
-          </Quarter>
-        </NameBox>
-      </TitleContainer>
-    </TitleBox>
-    <MobileOnlyBox>
-      <DescriptionBox>
-        <Description>{milestone.abstract}</Description>
-      </DescriptionBox>
+const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
+  const router = useRouter();
 
-      <MobileProgressBox>
-        <ProgressContainer>
-          <MobileProgressBar value={55} />
-        </ProgressContainer>
-        <ViewButton label="View" />
-      </MobileProgressBox>
-    </MobileOnlyBox>
+  return (
+    <Card>
+      <TitleBox>
+        <TitleContainer>
+          <CodeBox>
+            <MilestoneNumber>{milestone.id}</MilestoneNumber>
+            <Code>{milestone.code}</Code>
+          </CodeBox>
+          <NameBox>
+            <Name>{milestone.title}</Name>
+            <Quarter>
+              {/* target date should be printed out with the format: Q4’23 */}
+              {`${milestone.targetDate.split('-')[1]}'${milestone.targetDate.split('-')[0].slice(-2)}`}
+            </Quarter>
+          </NameBox>
+        </TitleContainer>
+      </TitleBox>
+      <MobileOnlyBox>
+        <DescriptionBox>
+          <Description>{milestone.abstract}</Description>
+        </DescriptionBox>
 
-    <TabletAndDesktopOnlyBox>
-      <DescriptionBox>
-        <DescriptionTitle>{milestone.title}</DescriptionTitle>
-        <Description>{milestone.abstract}</Description>
-      </DescriptionBox>
-      <BottomBox>
-        <XBox>
-          <ProgressBox>
-            <Label>Progress</Label>
+        <MobileProgressBox>
+          <ProgressContainer>
+            <MobileProgressBar value={55} />
+          </ProgressContainer>
+          <ViewButton label="View" />
+        </MobileProgressBox>
+      </MobileOnlyBox>
 
-            <ProgressBarBox>
-              <ProgressBar progress={0.75} />
-              <ProgressLabel>75%</ProgressLabel>
-            </ProgressBarBox>
-          </ProgressBox>
-        </XBox>
+      <TabletAndDesktopOnlyBox>
+        <DescriptionBox>
+          <DescriptionTitle>{milestone.title}</DescriptionTitle>
+          <Description>{milestone.abstract}</Description>
+        </DescriptionBox>
+        <BottomBox>
+          <XBox>
+            <ProgressBox>
+              <Label>Progress</Label>
 
-        <ViewButton label="View" />
-      </BottomBox>
-    </TabletAndDesktopOnlyBox>
-  </Card>
-);
+              <ProgressBarBox>
+                <ProgressBar progress={0.75} />
+                <ProgressLabel>75%</ProgressLabel>
+              </ProgressBarBox>
+            </ProgressBox>
+          </XBox>
+
+          <ViewButton label="View" onClick={() => router.replace(`#${milestone.code}`)} />
+        </BottomBox>
+      </TabletAndDesktopOnlyBox>
+    </Card>
+  );
+};
 
 export default MilestoneCard;
 

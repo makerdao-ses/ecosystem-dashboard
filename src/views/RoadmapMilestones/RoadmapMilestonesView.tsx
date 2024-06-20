@@ -43,7 +43,7 @@ const RoadmapMilestonesView: React.FC = () => {
 
         <SectionsContainer>
           <OverviewSection title={titles.overview} milestones={roadmap.milestones} />
-          <DetailsSection title={titles.details} minimal={isMinimalist} />
+          <DetailsSection title={titles.details} minimal={isMinimalist} milestones={roadmap.milestones} />
         </SectionsContainer>
       </ContainerWithMargin>
     </PageContainer>

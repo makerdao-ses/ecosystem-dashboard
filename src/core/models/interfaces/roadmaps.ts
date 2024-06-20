@@ -65,7 +65,7 @@ export interface Deliverable {
   budgetAnchor: BudgetAnchorProject;
 }
 
-interface DeliverableSet {
+export interface DeliverableSet {
   deliverables: Deliverable[];
   status: DeliverableSetStatus;
   progress: Progress;
@@ -94,3 +94,9 @@ export interface Roadmap {
 
   milestones: Milestone[];
 }
+
+export const isPercentage = (progress: Progress): progress is Percentage =>
+  (progress as Percentage).value !== undefined;
+
+export const isStoryPoints = (progress: Progress): progress is StoryPoints =>
+  (progress as StoryPoints).total !== undefined;
