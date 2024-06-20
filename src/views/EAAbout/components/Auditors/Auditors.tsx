@@ -63,6 +63,7 @@ const Label = styled('div')(({ theme }) => ({
 const AuditorsList = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
+  gap: 24,
   [theme.breakpoints.up('tablet_768')]: {
     gap: 20,
   },
