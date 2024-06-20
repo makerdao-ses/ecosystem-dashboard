@@ -227,7 +227,6 @@ const RoleChipStyled = styled(RoleChip)({
 
 const CuTableColumnLinksStyled = styled(CuTableColumnLinks)(({ theme }) => ({
   paddingLeft: 24,
-  paddingRight: 24,
   '& div': {
     width: 24,
     display: 'flex',
