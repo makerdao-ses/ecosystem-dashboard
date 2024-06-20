@@ -2,15 +2,16 @@ import { styled, useMediaQuery } from '@mui/material';
 import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import Information from '@/components/icons/information';
-import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import type { Theme } from '@mui/material';
 
 interface StatsDataProps {
   minimal?: boolean;
+  targetDate: string;
 }
 
-const StatsData: React.FC<StatsDataProps> = ({ minimal }) => {
+const StatsData: React.FC<StatsDataProps> = ({ minimal, targetDate }) => {
   const { isLight } = useThemeContext();
   const is1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const humanizedActuals = threeDigitsPrecisionHumanization(20252244);
@@ -27,7 +28,10 @@ const StatsData: React.FC<StatsDataProps> = ({ minimal }) => {
             </IconWrapper>
           </SESTooltip>
         </Label>
-        <Value>Q4 2023</Value>
+        <Value>
+          {/* target date with the format: Q4 2023 */}
+          {targetDate.split('-')[1]} {targetDate.split('-')[0]}
+        </Value>
       </Row>
       {!minimal && (
         <Row>

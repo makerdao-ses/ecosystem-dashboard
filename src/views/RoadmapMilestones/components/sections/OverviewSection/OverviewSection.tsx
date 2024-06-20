@@ -1,13 +1,15 @@
 import { styled } from '@mui/material';
 import React from 'react';
+import type { Milestone } from '@/core/models/interfaces/roadmaps';
 import RoadmapTimeline from '../../RoadmapTimeline/RoadmapTimeline';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 
 interface OverviewSectionProps {
   title: string;
+  milestones: Milestone[];
 }
 
-const OverviewSection: React.FC<OverviewSectionProps> = ({ title }) => (
+const OverviewSection: React.FC<OverviewSectionProps> = ({ title, milestones }) => (
   <Section>
     <SectionTitle
       title={title}
@@ -15,7 +17,7 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({ title }) => (
       where a well-defined subset of the deliverables is deployed as an intermediate, integrated solution."
     />
     <TimelineContainer>
-      <RoadmapTimeline />
+      <RoadmapTimeline milestones={milestones} />
     </TimelineContainer>
   </Section>
 );

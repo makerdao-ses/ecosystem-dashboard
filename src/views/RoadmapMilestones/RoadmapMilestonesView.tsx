@@ -12,7 +12,7 @@ import OverviewSection from './components/sections/OverviewSection/OverviewSecti
 import useRoadmapMilestonesView from './useRoadmapMilestonesView';
 
 const RoadmapMilestonesView: React.FC = () => {
-  useRoadmapMilestonesView();
+  const { roadmap, isMinimalist, titles } = useRoadmapMilestonesView();
 
   return (
     <PageContainer hasImageBackground>
@@ -30,23 +30,20 @@ const RoadmapMilestonesView: React.FC = () => {
         items={[
           {
             label: 'Roadmaps',
-            url: siteRoutes.endgame,
+            url: '',
           },
           {
-            label: 'Endgame Phase 1',
-            url: siteRoutes.roadmapMilestones('endgame-phase-1'),
+            label: roadmap.title,
+            url: siteRoutes.roadmapMilestones(roadmap.slug),
           },
         ]}
       />
       <ContainerWithMargin>
-        <PageHeader
-          title="Phase 1 Progress"
-          subtitle="Unleashing Potential: MakerDAO’s result-driven road map for unlocking tangible results."
-        />
+        <PageHeader title={roadmap.title} subtitle={roadmap.description} />
 
         <SectionsContainer>
-          <OverviewSection title="Milestones Roadmap Overview" />
-          <DetailsSection title="Milestones Roadmap Details" />
+          <OverviewSection title={titles.overview} milestones={roadmap.milestones} />
+          <DetailsSection title={titles.details} minimal={isMinimalist} milestones={roadmap.milestones} />
         </SectionsContainer>
       </ContainerWithMargin>
     </PageContainer>
