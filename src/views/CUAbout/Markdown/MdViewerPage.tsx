@@ -119,9 +119,6 @@ const TypographyStyleDescription = styled('p')(({ theme }) => ({
     fontSize: '20px',
     lineHeight: '24px',
   },
-  [theme.breakpoints.up('desktop_1024')]: {
-    marginBottom: '16px',
-  },
 }));
 
 const ContainerResponsive = styled('div')({
