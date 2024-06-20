@@ -1,6 +1,5 @@
 import { Collapse, styled, useMediaQuery } from '@mui/material';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import type { TeamRole } from '@/core/enums/teamRole';
 import type { Team } from '@/core/models/interfaces/team';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
@@ -20,7 +19,7 @@ interface TeamHeaderProps {
 }
 
 const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
-  const router = useRouter();
+  const id = useId();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const [spacerHeight, setSpacerHeight] = useState<number>(165);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -45,8 +44,7 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
   const [showHeader, setShowHeader] = useState<boolean>(true);
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY ?? 0;
-
-    setShowHeader(scrollPosition < 180);
+    setShowHeader(scrollPosition < 100);
   }, []);
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -55,29 +53,28 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
     };
   }, [handleScroll]);
 
-  // set spacer height
-  const updateHeight = useCallback(() => {
-    if (headerRef?.current) {
-      const { bottom, top } = headerRef.current.getBoundingClientRect();
-      const elementHeight = bottom - top;
-      setSpacerHeight((elementHeight || 165) + 40);
-    }
-  }, [headerRef]);
+  // adjust spacer height based on header height to avoid content being hidden behind the header
   useEffect(() => {
-    window.addEventListener('resize', updateHeight);
-    updateHeight();
+    const header = document.getElementById(id);
+    if (!header) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      const height = entries?.[0]?.contentRect?.height || 0;
+      // Math.max to prevent content jumping when header is resized
+      setSpacerHeight(showHeader ? Math.max(height + 40, 150) : Math.max(height + 40, spacerHeight, 150));
+    });
+
+    resizeObserver.observe(header);
 
     return () => {
-      window.addEventListener('resize', updateHeight);
+      resizeObserver.unobserve(header);
+      resizeObserver.disconnect();
     };
-    // headerRef?.current is not recommended as a dependency, but this way we ensure
-    // that the height is updated when the ref is properly initialized
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerRef?.current, updateHeight, router.query]);
+  }, [id, showHeader, spacerHeight]);
 
   return (
     <SpacerAssigner height={spacerHeight}>
-      <MainContainer ref={headerRef}>
+      <MainContainer ref={headerRef} id={id}>
         <Collapse in={showHeader} timeout={300}>
           <HeaderWrapper>
             <Container>
