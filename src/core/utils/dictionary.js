@@ -173,6 +173,7 @@ const dictionary = [
   'mouseout',
   'resized',
   'stablecoin',
+  'unobserve',
 ];
 
 module.exports = dictionary;
