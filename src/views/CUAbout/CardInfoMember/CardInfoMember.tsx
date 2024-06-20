@@ -75,7 +75,14 @@ const CardInfoMember = ({ contributorCommitment, roles = [] }: Props) => {
       </ContainerData>
       <Divider />
       <CardLinksFooter>
-        <CuTableColumnLinks links={links} width={16} height={16} spacings={24} fillDark="#9FAFB9" fill="#9DA6B9" />
+        <CuTableColumnLinksStyled
+          links={links}
+          width={16}
+          height={16}
+          spacings={32}
+          fillDark="#9FAFB9"
+          fill="#9DA6B9"
+        />
       </CardLinksFooter>
     </Container>
   );
@@ -119,6 +126,8 @@ const CardLinksFooter = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   marginBottom: 12,
   paddingTop: 12,
+  paddingLe: 24,
+  paddingRight: 24,
   '& svg': {
     width: 16,
     height: 16,
@@ -177,13 +186,16 @@ const CircleAvatarStyled = styled(CircleAvatar)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.avatars : theme.fusionShadows.darkMode,
 }));
 
-const ContainerData = styled('div')({
+const ContainerData = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '16px 16px 0px 16px',
   gap: 16,
   marginBottom: 10,
-});
+  [theme.breakpoints.up('desktop_1440')]: {
+    padding: '16px 32px 0px 16px',
+  },
+}));
 
 const CardHeader = styled('div')({
   display: 'flex',
@@ -212,3 +224,17 @@ const RoleChipStyled = styled(RoleChip)({
     fontSize: 14,
   },
 });
+
+const CuTableColumnLinksStyled = styled(CuTableColumnLinks)(({ theme }) => ({
+  paddingLeft: 24,
+  paddingRight: 24,
+  '& div': {
+    width: 24,
+    display: 'flex',
+    justifyContent: 'center',
+    marginRight: 20,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    paddingLeft: 32,
+  },
+}));
