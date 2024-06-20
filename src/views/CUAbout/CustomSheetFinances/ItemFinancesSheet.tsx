@@ -32,6 +32,10 @@ const ItemFinancesSheet: FC<Props> = ({
   auditors,
 }) => {
   const textDescription = type === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor.';
+  const route =
+    type === ResourceType.CoreUnit
+      ? `${siteRoutes.coreUnitReports(shortCode)}/${queryStrings}`
+      : `${siteRoutes.ecosystemActorReports(shortCode)}/${queryStrings}`;
   return (
     <CardSheetMobile
       title="Finances"
@@ -46,11 +50,7 @@ const ItemFinancesSheet: FC<Props> = ({
             showIcon
           />
         )}
-        <StyledBudgetButton
-          href={`${siteRoutes.coreUnitReports(shortCode)}${queryStrings}`}
-          label="Budget Statements"
-          showIcon
-        />
+        <StyledBudgetButton href={route} label="Budget Statements" showIcon />
         <StyledBudgetFinances href={`/finances/${budgetPath}/${queryStrings}`} label="Finances" showIcon />
 
         {type === ResourceType.CoreUnit && <Line />}
@@ -112,8 +112,8 @@ const LabelLinks = styled('div')(({ theme }) => ({
 }));
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '4px 16px 4px 24px',
-  height: 32,
+  padding: '2px 16px 2px 22px',
+
   fontSize: 16,
   lineHeight: '24px',
   '& div': {
@@ -123,10 +123,13 @@ const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   },
 }));
 
-const AuditorsContainer = styled('div')({
-  padding: '8px 16px 24px',
+const AuditorsContainer = styled('div')(({ theme }) => ({
+  padding: '8px 0px 24px',
   marginTop: 16,
-});
+  '& div': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'transparent',
+  },
+}));
 
 const NoAuditorsMessage = styled('div')(({ theme }) => ({
   padding: '8px 16px 24px',

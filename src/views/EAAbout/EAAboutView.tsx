@@ -244,10 +244,8 @@ const ContainerLinksButton = styled('div')({
 });
 
 const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '4px 14.5px 4px 23px',
-  height: 32,
+  padding: '2px 14.5px 2px 23px',
   display: 'flex',
-
   alignItems: 'center',
   fontSize: 16,
 

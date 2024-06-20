@@ -27,7 +27,7 @@ const variantsArgs = [
       commitment: CommitmentJob.Fulltime,
       contributor: [
         {
-          id: '1',
+          id: '12',
           name: 'Juan Julien',
 
           twitterHandle: 'https://twitter.com/MakerDAO_SES',
