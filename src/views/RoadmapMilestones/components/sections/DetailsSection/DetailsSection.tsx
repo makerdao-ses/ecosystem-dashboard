@@ -1,22 +1,23 @@
 import { styled } from '@mui/system';
 import React from 'react';
+import type { Milestone } from '@/core/models/interfaces/roadmaps';
 import MilestoneDetailsCard from '../../MilestoneDetailsCard/MilestoneDetailsCard';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 
 interface DetailsSectionProps {
   title: string;
   minimal?: boolean;
+  milestones: Milestone[];
 }
 
-const DetailsSection: React.FC<DetailsSectionProps> = ({ title, minimal }) => (
+const DetailsSection: React.FC<DetailsSectionProps> = ({ title, minimal, milestones }) => (
   <Section>
     <SectionTitle title={title} />
 
     <MilestonesDetails>
-      <MilestoneDetailsCard minimal={minimal} />
-      <MilestoneDetailsCard minimal={minimal} />
-      <MilestoneDetailsCard minimal={minimal} />
-      <MilestoneDetailsCard minimal={minimal} />
+      {milestones.map((milestone) => (
+        <MilestoneDetailsCard key={milestone.id} minimal={minimal} milestone={milestone} />
+      ))}
     </MilestonesDetails>
   </Section>
 );

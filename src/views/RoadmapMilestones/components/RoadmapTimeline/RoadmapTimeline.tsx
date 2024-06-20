@@ -1,14 +1,18 @@
 import { styled, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import { useThemeContext } from '@/core/context/ThemeContext';
+import type { Milestone } from '@/core/models/interfaces/roadmaps';
 import MilestoneCard from '../MilestoneCard/MilestoneCard';
 import type { Theme } from '@mui/material';
 
-const RoadmapTimeline = () => {
+interface RoadmapTimelineProps {
+  milestones: Milestone[];
+}
+
+const RoadmapTimeline: React.FC<RoadmapTimelineProps> = ({ milestones }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const [viewAll, setViewAll] = useState(false);
-  const milestones = Array.from({ length: 8 });
 
   const up = milestones.length <= 4 ? milestones : milestones.filter((_, i) => i % 2 === 0);
   const down = milestones.filter((_, i) => i % 2 !== 0);
@@ -40,28 +44,26 @@ const RoadmapTimeline = () => {
     <div>
       {isMobile ? (
         <MobileTimeline>
-          <MilestoneCard />
-          <MilestoneCard />
-          <MilestoneCard />
-          <MilestoneCard />
-          <MilestoneCard />
+          {milestones.map((milestone) => (
+            <MilestoneCard key={milestone.id} milestone={milestone} />
+          ))}
 
           {viewAllButton}
         </MobileTimeline>
       ) : (
         <DesktopTimeline>
           <Up shouldAddPadding={shouldAddPadding}>
-            {up.map((_, i) => (
-              <CardWrapper key={i}>
-                <MilestoneCard />
+            {up.map((milestone) => (
+              <CardWrapper key={milestone.id}>
+                <MilestoneCard milestone={milestone} />
               </CardWrapper>
             ))}
           </Up>
           <Down shouldAddPadding={shouldAddPadding}>
             {milestones.length > 4 &&
-              down.map((_, i) => (
-                <CardWrapper key={i}>
-                  <MilestoneCard />
+              down.map((milestone) => (
+                <CardWrapper key={milestone.id}>
+                  <MilestoneCard milestone={milestone} />
                 </CardWrapper>
               ))}
           </Down>
