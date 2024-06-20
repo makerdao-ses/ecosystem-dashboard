@@ -123,10 +123,13 @@ const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
   },
 }));
 
-const AuditorsContainer = styled('div')({
-  padding: '8px 16px 24px',
+const AuditorsContainer = styled('div')(({ theme }) => ({
+  padding: '8px 0px 24px',
   marginTop: 16,
-});
+  '& div': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : 'transparent',
+  },
+}));
 
 const NoAuditorsMessage = styled('div')(({ theme }) => ({
   padding: '8px 16px 24px',
