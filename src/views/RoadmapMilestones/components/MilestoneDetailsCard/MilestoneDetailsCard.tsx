@@ -99,6 +99,7 @@ const Card = styled('article')(({ theme }) => ({
   border: `1px solid ${theme.palette.mode === 'light' ? '#D1DEE6' : '#31424E'}`,
   borderRadius: 6,
   padding: '16px 16px 24px 16px',
+  scrollMarginTop: 140,
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: 24,
