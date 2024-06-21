@@ -14,7 +14,7 @@ interface Props {
 const CustomStatusItemFilter: FC<Props> = ({ status, isActive, count = '0' }) => (
   <BoxStyle>
     <Title isActive={isActive}>{count}</Title>
-    <StatusChip status={status as TeamStatus} isFilter />
+    <StatusChipStyled status={status as TeamStatus} isFilter />
   </BoxStyle>
 );
 
@@ -35,4 +35,8 @@ const BoxStyle = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
   gap: '16px',
+});
+
+const StatusChipStyled = styled(StatusChip)({
+  fontSize: 14,
 });
