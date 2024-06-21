@@ -2,7 +2,7 @@ import { styled, useMediaQuery } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import React, { useState } from 'react';
-import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
@@ -60,7 +60,7 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
         </Description>
       )}
       <KeyBox>
-        {isProjectCard ? <MilestoneLink /> : <ProjectLink />}
+        {isProjectCard ? <MilestoneLink /> : <ProjectLink code="PEA" name="Protocol Expense Accounting" />}
         <KeyResults
           keyResults={deliverable.keyResults}
           viewMode={viewMode}
