@@ -132,7 +132,7 @@ const AuditorsContainer = styled('div')(({ theme }) => ({
 }));
 
 const NoAuditorsMessage = styled('div')(({ theme }) => ({
-  padding: '8px 16px 24px',
+  padding: '8px 16px 24px 0px',
   fontFamily: 'Inter, sans serif',
   fontWeight: 500,
   fontSize: '15px',

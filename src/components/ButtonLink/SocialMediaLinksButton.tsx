@@ -82,9 +82,9 @@ const SocialMediaLinksButton: React.FC<Props> = ({ socialMedia, className, hideL
       </ContainerPopover>
 
       {/* modal sheet for mobile resolutions */}
-      <CustomSheetStyled handleClose={handleClose} isOpen={isMobile && open}>
+      <CustomSheetStyled handleClose={handleClose} isOpen={isMobile && open} snapPoints={[]}>
         <Title>Media Links </Title>
-        <LinkListStyled socialMedia={socialMedia} />
+        <LinkListStyled socialMedia={socialMedia} sx={{ marginBottom: 2 }} />
       </CustomSheetStyled>
     </div>
   );
