@@ -7,7 +7,6 @@ import Makerdao from 'public/assets/svg/makerdao.svg';
 import LogoText from 'public/assets/svg/makerdao_text.svg';
 import ThemeDark from 'public/assets/svg/theme.svg';
 import React from 'react';
-import CustomSelect from '@/components/CustomSelect/CustomSelect';
 import PrimaryButton from '@/components/PrimaryButton/PrimaryButton';
 import { siteRoutes } from '@/config/routes';
 
@@ -20,7 +19,7 @@ interface Props {
 }
 
 const TopBarNavigation: FC<Props> = ({ className }) => {
-  const { filter, isLight, toggleTheme, activeItem, menuItems } = useTopBarNavigation();
+  const { isLight, toggleTheme, activeItem, menuItems } = useTopBarNavigation();
 
   return (
     <Container>
@@ -33,7 +32,8 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
             <LogoText />
           </LogoContainerDesk>
           <SelectContainer>
-            <CustomSelectStyled
+            {/* TODO: Working in this component add jus for next pr */}
+            {/* <CustomSelectStyled
               multiple={false}
               notShowDescription={false}
               label={'Teams'}
@@ -44,7 +44,7 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
                 fullWidth: true,
                 width: 'fit-content',
               }}
-            />
+            /> */}
           </SelectContainer>
         </LeftSection>
         <CenterLinks>
@@ -272,5 +272,3 @@ const ContainerActivity = styled(IconContainer)(({ theme }) => ({
     background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.slate[300],
   },
 }));
-
-const CustomSelectStyled = styled(CustomSelect)({});
