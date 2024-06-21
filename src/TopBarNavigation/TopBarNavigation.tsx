@@ -20,7 +20,7 @@ interface Props {
 }
 
 const TopBarNavigation: FC<Props> = ({ className }) => {
-  const { filter, onChange, isLight, toggleTheme, activeItem, menuItems } = useTopBarNavigation();
+  const { filter, isLight, toggleTheme, activeItem, menuItems } = useTopBarNavigation();
 
   return (
     <Container>
@@ -37,7 +37,7 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
               multiple={false}
               notShowDescription={false}
               label={'Teams'}
-              onChange={onChange}
+              onChange={() => null}
               options={filter}
               selected={'Teams'}
               style={{
@@ -85,14 +85,13 @@ const Container = styled('nav')(({ theme }) => ({
   backgroundColor: theme.palette.isLight ? 'rgba(243, 245, 247, 0.5)' : 'rgba(32, 39, 47, 0.5)',
   borderRadius: 24,
   width: '100%',
-  // minWidth: 375,
+
   [theme.breakpoints.up('tablet_768')]: {
     padding: 10,
     marginLeft: 22,
     marginRight: 22,
     width: 724,
     flex: 1,
-    // minWidth: 704,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     minWidth: 980,
