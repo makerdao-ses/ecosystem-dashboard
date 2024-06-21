@@ -4,12 +4,12 @@ import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import Markdown from 'marked-react';
 import React from 'react';
-import CustomSheetFinances from '@/views/CUAbout/CustomSheetFinances';
+import CustomSheetFinances from '@/views/CUAbout/CustomSheetFinances/CustomSheetFinances';
 import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/renderUtils';
 import CardExpenses from '@/views/CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '@/views/CUAbout/NavigationCard/CardSomethingWrong';
 import CardProjects from '../CardProjects/CardProjects';
-import CustomSheetProjects from '../CustomSheetProjects';
+import CustomSheetProjects from '../CardProjects/CustomSheetProjects';
 import type { Theme } from '@mui/material';
 import type { AuditorDto } from '@ses/core/models/dto/coreUnitDTO';
 
@@ -60,7 +60,7 @@ const ActorMdViewPage = ({
           <ContainerShowOnlyMobile>
             <TypographyStyleDescription>{subTitle}</TypographyStyleDescription>
             <ContainerButton>
-              <CustomSheetProjects queryStrings={queryStrings} shortCode={shortCode} />
+              <CustomSheetProjects shortCode={shortCode} />
               <CustomSheetFinances
                 budgetPath={budgetPath}
                 code={code}
@@ -185,6 +185,9 @@ const CardContainer768 = styled('div')({
   float: 'right',
   marginLeft: 16,
   marginBottom: 16,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
 });
 
 const CardProjectsStyled = styled(CardProjects)({

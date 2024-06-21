@@ -1,21 +1,38 @@
 import { styled } from '@mui/material';
+import type { DeliverableSet } from '@/core/models/interfaces/roadmaps';
+import { isPercentage } from '@/core/models/interfaces/roadmaps';
+import { percentageRespectTo } from '@/core/utils/math';
 import PercentageProgressBar from './PercentageProgressBar';
 
-const MilestoneProgress: React.FC = () => (
-  <OutlinedCard>
-    <PercentageProgressBar value={75.0} />
+interface MilestoneProgressProps {
+  minimal?: boolean;
+  data: Omit<DeliverableSet, 'deliverables'>;
+}
 
-    <TextProgressBox>
-      <TextProgress>
-        <span>55</span>/<span>74</span> Story Points Completed
-      </TextProgress>
+const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ minimal, data }) => {
+  const progress = isPercentage(data.progress)
+    ? data.progress.value
+    : percentageRespectTo(data.progress.completed, data.progress.total);
 
-      <TextProgress>
-        <span>1</span>/<span>6</span> Deliverables Completed
-      </TextProgress>
-    </TextProgressBox>
-  </OutlinedCard>
-);
+  return (
+    <OutlinedCard>
+      <PercentageProgressBar value={progress} />
+
+      <TextProgressBox>
+        {!minimal && (
+          <TextProgress>
+            <span>55</span>/<span>74</span> Story Points Completed
+          </TextProgress>
+        )}
+
+        <TextProgress>
+          <span>{data.deliverablesCompleted.completed}</span>/<span>{data.deliverablesCompleted.total}</span>{' '}
+          Deliverables Completed
+        </TextProgress>
+      </TextProgressBox>
+    </OutlinedCard>
+  );
+};
 
 export default MilestoneProgress;
 
@@ -28,7 +45,7 @@ const OutlinedCard = styled('div')(({ theme }) => ({
   alignSelf: 'stretch',
   padding: '16px 0',
   borderRadius: 6,
-  border: `1px solid ${theme.palette.mode === 'light' ? '#D4D9E1' : '#31424E'}`,
+  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#31424E'}`,
 
   [theme.breakpoints.up('tablet_768')]: {
     borderRadius: 16,
@@ -55,14 +72,14 @@ const TextProgress = styled('span')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 500,
   lineHeight: '18px',
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
   '& span:nth-child(1)': {
     color: '#1AAB9B',
   },
 
   '& span:nth-child(2)': {
-    color: theme.palette.mode === 'light' ? '#708390' : '#B6BCC2',
+    color: theme.palette.isLight ? '#708390' : '#B6BCC2',
     fontWeight: 700,
   },
 }));

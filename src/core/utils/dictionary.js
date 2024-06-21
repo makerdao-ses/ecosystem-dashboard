@@ -166,12 +166,14 @@ const dictionary = [
   'Ethereum',
   'scalability',
   'foundational',
+  'spfs',
   'reskin',
   'Linkedin',
   'mouseover',
   'mouseout',
   'resized',
   'stablecoin',
+  'unobserve',
 ];
 
 module.exports = dictionary;

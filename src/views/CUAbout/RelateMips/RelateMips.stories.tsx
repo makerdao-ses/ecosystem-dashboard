@@ -7,40 +7,27 @@ import type { Meta } from '@storybook/react';
 const meta: Meta<typeof RelateMips> = {
   title: 'Fusion/CUAbout/RelateMips',
   component: RelateMips,
+  parameters: {
+    chromatic: {
+      viewports: [375, 768],
+    },
+  },
 };
 export default meta;
 
 const variantsArgs = [
   {
     relateMips: {
-      mipTitle: 'MIP40c3-SP1:Modify Core Unit Budget - Real-World Finance (RWF-001)',
+      mipTitle: 'MIP41c4-SP29:Facilitator Onboarding for Maker Talent Core Unit (MT-001)',
       mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP10',
       mipStatus: CuStatusEnum.Accepted,
-      accepted: '2019-06-11',
-      obsolete: '2019-06-11',
-      rfc: '2019-06-11',
+      accepted: '2021-11-25',
+      obsolete: '2021-11-25',
+      rfc: '2021-11-11',
       cuId: '1',
       mipCode: 'MIP39c2-SP10',
-      formalSubmission: '2019-06-11',
-      rejected: '2019-06-11',
-      dateMip: new Date(),
-      mip40: [],
-      mip41: [],
-    } as CuMipDto,
-  },
-  {
-    relateMips: {
-      mipTitle:
-        'MIP40c3-SP1:Modify Core Unit Budget - Real-World Finance (RWF-001) Other Data Here Real-World Finance (RWF-001) Other Data HereReal-World Finance (RWF-001) Other Data HereReal-World Finance (RWF-001) Other Data HereReal-World Finance (RWF-001) Other Data Here',
-      mipUrl: 'https://mips.makerdao.com/mips/details/MIP39c2SP10 ',
-      mipStatus: CuStatusEnum.Accepted,
-      accepted: '2019-06-11',
-      obsolete: '2019-06-11',
-      rfc: '2019-06-11',
-      cuId: '1',
-      mipCode: 'MIP39c2-SP10',
-      formalSubmission: '2019-06-11',
-      rejected: '2019-06-11',
+      formalSubmission: '2021-11-11',
+      rejected: '2021-11-11',
       dateMip: new Date(),
       mip40: [],
       mip41: [],
@@ -48,6 +35,34 @@ const variantsArgs = [
   },
 ];
 
-const [[WithDataLightMode, WithDataDarkMode], [WithLargeTextLightMode, WithLargeTextDarkMode]] =
-  createThemeModeVariants(RelateMips, variantsArgs, false);
-export { WithDataLightMode, WithDataDarkMode, WithLargeTextLightMode, WithLargeTextDarkMode };
+const [[WithDataLightMode, WithDataDarkMode]] = createThemeModeVariants(RelateMips, variantsArgs);
+export { WithDataLightMode, WithDataDarkMode };
+
+WithDataLightMode.parameters = {
+  figma: {
+    component: {
+      375: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1237:23692&t=pe1fVI3DderPnVw1-4',
+
+        options: {
+          style: {
+            left: -12,
+            top: -10,
+          },
+        },
+      },
+      768: {
+        component:
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1020:18791&t=pe1fVI3DderPnVw1-4',
+
+        options: {
+          style: {
+            left: -12,
+            top: -10,
+          },
+        },
+      },
+    },
+  },
+};

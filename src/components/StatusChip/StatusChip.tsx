@@ -25,6 +25,7 @@ const Chip = styled('div')<{ colors: CustomColors; status: TeamStatus }>(({ them
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
   alignItems: 'center',
+  alignSelf: 'baseline',
   width: 'fit-content',
   fontWeight: 600,
   fontSize: 12,

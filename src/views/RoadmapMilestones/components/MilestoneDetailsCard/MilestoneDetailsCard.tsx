@@ -2,22 +2,28 @@ import { styled } from '@mui/system';
 import ProjectOwnerChip from '@ses/containers/ActorProjects/components/ProjectOwnerChip/ProjectOwnerChip';
 import SupportedTeamsAvatarGroup from '@ses/containers/ActorProjects/components/SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import { OwnerType } from '@ses/core/models/interfaces/projects';
+import type { Milestone } from '@/core/models/interfaces/roadmaps';
+import Contributors from './Contributors';
 import Coordinators from './Coordinators';
 import DeliverablesSection from './DeliverablesSection';
-import EcosystemActors from './EcosystemActors';
 import MilestoneProgress from './MilestoneProgress';
 import StatsData from './StatsData';
 
-const MilestoneDetailsCard: React.FC = () => (
-  <Card>
+interface MilestoneDetailsCardProps {
+  minimal?: boolean;
+  milestone: Milestone;
+}
+
+const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, milestone }) => (
+  <Card id={milestone.code}>
     <MobileHeader>
       <HeaderGroupBox>
         <NameBox>
-          <Code>BASE</Code>
-          <Name>Exploration Base</Name>
+          <Code>{milestone.code}</Code>
+          <Name>{milestone.title}</Name>
         </NameBox>
 
-        <MilestoneNumber>Milestone 1</MilestoneNumber>
+        <MilestoneNumber>{milestone.id}</MilestoneNumber>
       </HeaderGroupBox>
 
       <HeaderGroupBox>
@@ -47,54 +53,38 @@ const MilestoneDetailsCard: React.FC = () => (
     <Aside>
       <AsideContent>
         <CodeBox>
-          <Code>BASE</Code>
+          <Code>{milestone.code}</Code>
         </CodeBox>
-        <MilestoneProgress />
+        <MilestoneProgress minimal={minimal} data={milestone.scope?.[0]} />
         <Divider />
-        <StatsData />
+        <StatsData minimal={minimal} targetDate={milestone.targetDate} />
         <Divider />
-        <Coordinators />
+        <Coordinators coordinators={milestone.coordinators} />
         <Divider />
-        <EcosystemActors />
+        <Contributors contributors={milestone.contributors} />
       </AsideContent>
       <DescriptionContent>
-        <Paragraph>
-          Feature exploration and open design questions, smart contracts project, chatbot, UI intergration, marcomms
-          project.
-        </Paragraph>
-        <Paragraph>
-          Milestone 1, set for August 1, marks the initial phase of Exploration Base. Projects include Smart Contracts,
-          focused on establishing foundations and addressing design questions. The Chatbot Project aims to enhance the
-          conversational UX with low hanging fruit execution, prioritizing clarity and correctness. Overall, this
-          milestone lays the groundwork, explores design possibilities, and strives to improve the user experience in
-          the MakerDAO ecosystem.
-        </Paragraph>
+        {milestone.description.split('\n').map((paragraph, index) => (
+          <Paragraph key={index}>{paragraph}</Paragraph>
+        ))}
       </DescriptionContent>
     </Aside>
     <MilestoneContent>
       <ShowOn1024Up>
         <HeaderGroupBox>
-          <Name>Exploration Base</Name>
-          <MilestoneNumber>Milestone 1</MilestoneNumber>
+          <Name>{milestone.title}</Name>
+          <MilestoneNumber>{milestone.id}</MilestoneNumber>
         </HeaderGroupBox>
 
         <DescriptionContentForDesktop>
-          <Paragraph>
-            Feature exploration and open design questions, smart contracts project, chatbot, UI intergration, marcomms
-            project.
-          </Paragraph>
-          <Paragraph>
-            Milestone 1, set for August 1, marks the initial phase of Exploration Base. Projects include Smart
-            Contracts, focused on establishing foundations and addressing design questions. The Chatbot Project aims to
-            enhance the conversational UX with low hanging fruit execution, prioritizing clarity and correctness.
-            Overall, this milestone lays the groundwork, explores design possibilities, and strives to improve the user
-            experience in the MakerDAO ecosystem.
-          </Paragraph>
+          {milestone.description.split('\n').map((paragraph, index) => (
+            <Paragraph key={index}>{paragraph}</Paragraph>
+          ))}
         </DescriptionContentForDesktop>
       </ShowOn1024Up>
 
       <DeliverablesContainer>
-        <DeliverablesSection />
+        <DeliverablesSection minimal={minimal} />
       </DeliverablesContainer>
     </MilestoneContent>
   </Card>
@@ -109,6 +99,7 @@ const Card = styled('article')(({ theme }) => ({
   border: `1px solid ${theme.palette.mode === 'light' ? '#D1DEE6' : '#31424E'}`,
   borderRadius: 6,
   padding: '16px 16px 24px 16px',
+  scrollMarginTop: 140,
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: 24,
@@ -152,10 +143,7 @@ const HeaderGroupBox = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 16,
-  },
+  gap: 16,
 
   [theme.breakpoints.up('desktop_1024')]: {
     marginBottom: 24,
@@ -207,10 +195,12 @@ const MilestoneNumber = styled('div')(({ theme }) => ({
   padding: '3px 7px',
   borderRadius: 3,
   border: '1px solid #D4D9E1',
+  alignSelf: 'baseline',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 700,
+    alignSelf: 'center',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {

@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import React from 'react';
 import Discord from '@/components/icons/Discord';
 import Forum from '@/components/icons/Forum';
@@ -31,6 +30,7 @@ interface CuTableColumnLinksProps {
   align?: 'flex-start' | 'center' | 'flex-end';
   isLoading?: boolean;
   isIndex?: boolean;
+  className?: string;
 }
 
 const getImageForLink = (link: LinkModel, fill: string, width?: number, height?: number, fillDark?: string) => {
@@ -67,10 +67,11 @@ export const CuTableColumnLinks = ({
   fillDark,
   isLoading = false,
   isIndex,
+  className,
 }: CuTableColumnLinksProps) => {
   const { isLight } = useThemeContext();
   return !isLoading ? (
-    <Container isIndex={isIndex} spacings={spacings} align={align}>
+    <Container isIndex={isIndex} spacings={spacings} align={align} className={className}>
       {links?.map((link, i) => (
         <StyleBox lastChild={lastChild} key={`link-${i}`}>
           <LinkImage
@@ -91,7 +92,7 @@ export const CuTableColumnLinks = ({
   );
 };
 
-const Container = styled.div<{ spacings?: number; align: string; isIndex?: boolean }>((props) => ({
+const Container = styled('div')<{ spacings?: number; align: string; isIndex?: boolean }>((props) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: props.align,
@@ -145,7 +146,7 @@ type StickyLinkProps = {
   isLight?: boolean;
 };
 
-const LinkImage = styled.a(
+const LinkImage = styled('a')(
   {
     display: 'flex',
     alignItems: 'center',

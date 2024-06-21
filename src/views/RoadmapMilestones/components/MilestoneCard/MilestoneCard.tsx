@@ -1,63 +1,71 @@
 import { styled } from '@mui/material';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
+import { useRouter } from 'next/router';
 import React from 'react';
+import type { Milestone } from '@/core/models/interfaces/roadmaps';
 import MobileProgressBar from './MobileProgressBar';
 
-const MilestoneCard: React.FC = () => (
-  <Card>
-    <TitleBox>
-      <TitleContainer>
-        <CodeBox>
-          <MilestoneNumber>M1</MilestoneNumber>
-          <Code>BASE</Code>
-        </CodeBox>
-        <NameBox>
-          <Name>Exploration base</Name>
-          <Quarter>Q4’23</Quarter>
-        </NameBox>
-      </TitleContainer>
-    </TitleBox>
-    <MobileOnlyBox>
-      <DescriptionBox>
-        <Description>
-          A first deployment that integrates the different deliverables. Focus is on exploration of open design
-          questions (removing uncertainty).
-        </Description>
-      </DescriptionBox>
+interface MilestoneCardProps {
+  milestone: Milestone;
+}
 
-      <MobileProgressBox>
-        <ProgressContainer>
-          <MobileProgressBar value={55} />
-        </ProgressContainer>
-        <ViewButton label="View" />
-      </MobileProgressBox>
-    </MobileOnlyBox>
+const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
+  const router = useRouter();
+  const handleView = () => router.replace(`#${milestone.code}`);
 
-    <TabletAndDesktopOnlyBox>
-      <DescriptionBox>
-        <DescriptionTitle>Exploration Base</DescriptionTitle>
-        <Description>
-          A first deployment that integrates the different deliverables. Focus is on exploration of open design
-          questions (removing uncertainty).
-        </Description>
-      </DescriptionBox>
-      <BottomBox>
-        <XBox>
-          <ProgressBox>
-            <Label>Progress</Label>
+  return (
+    <Card>
+      <TitleBox>
+        <TitleContainer>
+          <NameBox>
+            <MilestoneNumber>{milestone.id}</MilestoneNumber>
+            <Code>{milestone.code}</Code>
+            <Name>{milestone.title}</Name>
+          </NameBox>
+          <QuarterBox>
+            <Quarter>
+              {/* target date should be printed out with the format: Q4’23 */}
+              {`${milestone.targetDate.split('-')[1]}'${milestone.targetDate.split('-')[0].slice(-2)}`}
+            </Quarter>
+          </QuarterBox>
+        </TitleContainer>
+      </TitleBox>
+      <MobileOnlyBox>
+        <DescriptionBox>
+          <Description>{milestone.abstract}</Description>
+        </DescriptionBox>
 
-            <ProgressBarBox>
-              <ProgressBar progress={0.75} />
-              <ProgressLabel>75%</ProgressLabel>
-            </ProgressBarBox>
-          </ProgressBox>
-        </XBox>
+        <MobileProgressBox>
+          <ProgressContainer>
+            <MobileProgressBar value={55} />
+          </ProgressContainer>
+          <ViewButton label="View" onClick={handleView} />
+        </MobileProgressBox>
+      </MobileOnlyBox>
 
-        <ViewButton label="View" />
-      </BottomBox>
-    </TabletAndDesktopOnlyBox>
-  </Card>
-);
+      <TabletAndDesktopOnlyBox>
+        <DescriptionBox>
+          <DescriptionTitle>{milestone.title}</DescriptionTitle>
+          <Description>{milestone.abstract}</Description>
+        </DescriptionBox>
+        <BottomBox>
+          <XBox>
+            <ProgressBox>
+              <Label>Progress</Label>
+
+              <ProgressBarBox>
+                <ProgressBar progress={0.75} />
+                <ProgressLabel>75%</ProgressLabel>
+              </ProgressBarBox>
+            </ProgressBox>
+          </XBox>
+
+          <ViewButton label="View" onClick={handleView} />
+        </BottomBox>
+      </TabletAndDesktopOnlyBox>
+    </Card>
+  );
+};
 
 export default MilestoneCard;
 
@@ -75,6 +83,7 @@ const Card = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 8,
+    height: '100%',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -106,14 +115,8 @@ const TitleContainer = styled('div')({
   width: '100%',
 });
 
-const CodeBox = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 4,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 8,
-  },
+const NameBox = styled('div')(() => ({
+  display: 'block',
 }));
 
 const MilestoneNumber = styled('span')(({ theme }) => ({
@@ -136,6 +139,7 @@ const Code = styled('span')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 600,
   lineHeight: 'normal',
+  marginLeft: 4,
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
@@ -143,12 +147,9 @@ const Code = styled('span')(({ theme }) => ({
   },
 }));
 
-const NameBox = styled('div')(({ theme }) => ({
-  display: 'flex',
+const QuarterBox = styled('div')(({ theme }) => ({
   padding: '0 4px',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
+  alignSelf: 'baseline',
   borderRadius: 4,
   background: theme.palette.isLight ? 'rgba(236, 239, 249, 0.50)' : '#1F2537',
 
@@ -164,6 +165,7 @@ const Name = styled('span')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 600,
   lineHeight: 'normal',
+  marginLeft: 8,
 
   [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
@@ -205,6 +207,7 @@ const TabletAndDesktopOnlyBox = styled('div')(({ theme }) => ({
     flexDirection: 'column',
     alignSelf: 'stretch',
     gap: 10,
+    height: '100%',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -234,6 +237,7 @@ const BottomBox = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     gap: 12,
+    marginTop: 'auto',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -363,6 +367,7 @@ const DescriptionBox = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     padding: 16,
+    height: '100%',
   },
 }));
 

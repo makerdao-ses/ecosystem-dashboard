@@ -115,7 +115,7 @@ export const CORE_UNIT_REQUEST = (shortCode: string) => ({
   },
 });
 
-export const snapshotPeriodQuery = (ownerId: string, resourceType: ResourceType) => ({
+export const snapshotPeriodQuery = (ownerId: string | null, resourceType: ResourceType) => ({
   query: gql`
     query Snapshots($filter: SnapshotFilter) {
       snapshots(filter: $filter) {
@@ -132,7 +132,7 @@ export const snapshotPeriodQuery = (ownerId: string, resourceType: ResourceType)
 });
 
 export const getLastSnapshotPeriod = async (
-  ownerId: string,
+  ownerId: string | null,
   resourceType: ResourceType
 ): Promise<SnapshotLimitPeriods | undefined> => {
   const { query, filter } = snapshotPeriodQuery(ownerId, resourceType);

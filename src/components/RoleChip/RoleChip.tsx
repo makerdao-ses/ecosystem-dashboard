@@ -30,6 +30,7 @@ const Chip = styled('div')<{
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  alignSelf: 'baseline',
   borderRadius: 6,
   padding: '1px 4px 1px 4px',
   width: 'fit-content',

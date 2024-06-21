@@ -1,17 +1,23 @@
 import { styled } from '@mui/material';
 import React from 'react';
+import type { Milestone } from '@/core/models/interfaces/roadmaps';
 import RoadmapTimeline from '../../RoadmapTimeline/RoadmapTimeline';
 import SectionTitle from '../../SectionTitle/SectionTitle';
 
-const OverviewSection: React.FC = () => (
+interface OverviewSectionProps {
+  title: string;
+  milestones: Milestone[];
+}
+
+const OverviewSection: React.FC<OverviewSectionProps> = ({ title, milestones }) => (
   <Section>
     <SectionTitle
-      title="Roadmap Milestones"
+      title={title}
       tooltip="Milestones represent checkpoints on the way to full completion of the roadmap,
       where a well-defined subset of the deliverables is deployed as an intermediate, integrated solution."
     />
     <TimelineContainer>
-      <RoadmapTimeline />
+      <RoadmapTimeline milestones={milestones} />
     </TimelineContainer>
   </Section>
 );

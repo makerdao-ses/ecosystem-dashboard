@@ -12,7 +12,7 @@ import OverviewSection from './components/sections/OverviewSection/OverviewSecti
 import useRoadmapMilestonesView from './useRoadmapMilestonesView';
 
 const RoadmapMilestonesView: React.FC = () => {
-  useRoadmapMilestonesView();
+  const { roadmap, isMinimalist, titles } = useRoadmapMilestonesView();
 
   return (
     <PageContainer hasImageBackground>
@@ -29,21 +29,21 @@ const RoadmapMilestonesView: React.FC = () => {
       <Breadcrumb
         items={[
           {
-            label: 'Roadmap',
-            url: siteRoutes.endgame,
+            label: 'Roadmaps',
+            url: '',
           },
           {
-            label: 'Powerhouse Roadmap 2024',
-            url: siteRoutes.roadmapMilestones('endgame-phase-1'),
+            label: roadmap.title,
+            url: siteRoutes.roadmapMilestones(roadmap.slug),
           },
         ]}
       />
       <ContainerWithMargin>
-        <PageHeader />
+        <PageHeader title={roadmap.title} subtitle={roadmap.description} />
 
         <SectionsContainer>
-          <OverviewSection />
-          <DetailsSection />
+          <OverviewSection title={titles.overview} milestones={roadmap.milestones} />
+          <DetailsSection title={titles.details} minimal={isMinimalist} milestones={roadmap.milestones} />
         </SectionsContainer>
       </ContainerWithMargin>
     </PageContainer>
@@ -63,5 +63,5 @@ const SectionsContainer = styled('div')(({ theme }) => ({
 }));
 
 const ContainerWithMargin = styled(Container)({
-  marginTop: 100,
+  marginTop: 64,
 });

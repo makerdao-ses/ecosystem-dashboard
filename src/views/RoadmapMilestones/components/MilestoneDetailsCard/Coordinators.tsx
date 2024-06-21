@@ -1,19 +1,22 @@
 import { styled } from '@mui/material';
 import AvatarPlaceholder from '@ses/components/svg/avatar-placeholder';
+import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
 
-const Coordinators: React.FC = () => (
+interface CoordinatorsProps {
+  coordinators: OwnerRef[];
+}
+
+const Coordinators: React.FC<CoordinatorsProps> = ({ coordinators }) => (
   <CoordinatorsBox>
     <Title>Coordinator(s)</Title>
 
     <CoordinatorsList>
-      <Coordinator>
-        <AvatarPlaceholder width={24} height={24} />
-        <CoordinatorName>P_Rose</CoordinatorName>
-      </Coordinator>
-      <Coordinator>
-        <AvatarPlaceholder width={24} height={24} />
-        <CoordinatorName>C_27</CoordinatorName>
-      </Coordinator>
+      {coordinators.map((coordinator) => (
+        <Coordinator key={coordinator.id}>
+          <AvatarPlaceholder width={24} height={24} />
+          <CoordinatorName>{coordinator.name}</CoordinatorName>
+        </Coordinator>
+      ))}
     </CoordinatorsList>
   </CoordinatorsBox>
 );

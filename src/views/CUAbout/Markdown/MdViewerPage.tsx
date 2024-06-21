@@ -5,7 +5,7 @@ import React from 'react';
 import { ResourceType } from '@/core/models/interfaces/types';
 
 import { useThemeContext } from '../../../core/context/ThemeContext';
-import CustomSheetFinances from '../CustomSheetFinances';
+import CustomSheetFinances from '../CustomSheetFinances/CustomSheetFinances';
 import CardExpenses from '../NavigationCard/CardExpenses';
 import { customRenderer, customRendererDark } from './renderUtils';
 import type { AuditorDto } from '../../../core/models/dto/coreUnitDTO';
@@ -118,9 +118,6 @@ const TypographyStyleDescription = styled('p')(({ theme }) => ({
   [theme.breakpoints.up('mobile_375')]: {
     fontSize: '20px',
     lineHeight: '24px',
-  },
-  [theme.breakpoints.up('desktop_1024')]: {
-    marginBottom: '16px',
   },
 }));
 

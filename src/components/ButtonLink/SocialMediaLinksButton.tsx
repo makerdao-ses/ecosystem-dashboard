@@ -1,6 +1,6 @@
 import { Popover, styled, useMediaQuery } from '@mui/material';
 import Link from 'public/assets/svg/link.svg';
-import React, { useCallback, useEffect, useId } from 'react';
+import React, { useCallback, useEffect, useId, useMemo } from 'react';
 import type { SocialMediaChannels } from '@/core/models/interfaces/socialMedia';
 import CustomSheet from '../CustomSheet/CustomSheet';
 import LinkList from './LinkList';
@@ -19,6 +19,16 @@ const SocialMediaLinksButton: React.FC<Props> = ({ socialMedia, className, hideL
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const popoverId = useId();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+  const isEmpty = useMemo(() => {
+    if (!socialMedia) return true;
+
+    const { forumTag, twitter, youtube, discord, linkedIn, website, github } = socialMedia;
+
+    return [forumTag, twitter, youtube, discord, linkedIn, website, github].every(
+      (channel) => channel === undefined || channel === null || channel === ''
+    );
+  }, [socialMedia]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,7 +55,7 @@ const SocialMediaLinksButton: React.FC<Props> = ({ socialMedia, className, hideL
 
   return (
     <div>
-      <TriggerButton className={className} hideLabelIn={hideLabelIn} onClick={handleClick}>
+      <TriggerButton className={className} hideLabelIn={hideLabelIn} onClick={handleClick} disabled={isEmpty}>
         <ContainerLink>
           <Link width={14} height={14} />
         </ContainerLink>
@@ -107,6 +117,16 @@ const TriggerButton = styled('button')<{ hideLabelIn: Array<BreakpointKeys | [Br
 
     '&:focus': {
       outline: 'none',
+    },
+
+    '&:disabled': {
+      cursor: 'auto',
+      background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+      color: theme.palette.isLight ? 'rgba(182, 188, 194, 0.3)' : theme.palette.colors.charcoal[700],
+
+      '& path': {
+        fill: theme.palette.isLight ? 'rgba(182, 188, 194, 0.3)' : theme.palette.colors.charcoal[700],
+      },
     },
 
     ...Object.assign(

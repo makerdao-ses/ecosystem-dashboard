@@ -52,6 +52,9 @@ const CardProject = styled(Card)(({ theme }) => ({
 
   backgroundColor: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
   boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 16,
+  },
   [theme.breakpoints.up('desktop_1440')]: {
     padding: 16,
     gap: 16,

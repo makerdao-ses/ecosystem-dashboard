@@ -1,3 +1,5 @@
+import type { AllowedOwnerType } from '@/views/BudgetStatement/types';
+
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://expenses.makerdao.network';
 
 export const siteRoutes = {
@@ -19,6 +21,7 @@ export const siteRoutes = {
   endgame: '/endgame',
   roadmapMilestones: (slug: string) => `/roadmaps/${slug}`,
   teams: '/teams',
+  budgetStatements: (ownerType: AllowedOwnerType) => `/budget-statements/${ownerType}`,
   // auth
   login: '/login',
   manageAccounts: '/auth/manage/accounts',

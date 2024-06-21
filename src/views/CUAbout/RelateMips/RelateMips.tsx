@@ -25,11 +25,12 @@ const RelateMips = ({ relateMips }: Props) => {
   const mipStatus = relateMips.mipStatus;
   const newDate = mips ? DateTime.fromFormat(mips || '', 'yyyy-MM-dd').toJSDate() : null;
   const pieces = getMipTitle(relateMips.mipTitle);
+
   return (
     <Content>
       <Row>
         {mipStatus && <StatusStyled status={mipStatus as TeamStatus} />}
-        {newDate && <SinceDate>Since {DateTime.fromJSDate(newDate).toFormat('dd-MM-yyyy')}</SinceDate>}
+        {newDate && <SinceDate>Since {DateTime.fromJSDate(newDate).toFormat('d-MMM-y').toUpperCase()}</SinceDate>}
       </Row>
       {pieces.length === 2 && (
         <RowUnderLine>
@@ -54,11 +55,15 @@ const Content = styled(Card)(({ theme }) => ({
   minWidth: 343,
   width: '100%',
   gap: 16,
+  cursor: 'pointer',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
   [theme.breakpoints.up('tablet_768')]: {
     width: 640,
     padding: '8px 16px',
     gap: 8,
+  },
+  ':hover': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
   },
 }));
 
@@ -134,4 +139,5 @@ const ExternalLinkStyled = styled(ExternalLink)(({ theme }) => ({
 const StatusStyled = styled(StatusChip)(() => ({
   padding: '1px 16px 1px 16px',
   height: 24,
+  fontSize: 14,
 }));

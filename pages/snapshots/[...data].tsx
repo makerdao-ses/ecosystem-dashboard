@@ -1,13 +1,13 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import TemporaryContainer from '@ses/containers/TransparencyReport/components/AccountsSnapshot/TemporaryContainer';
+import { featureFlags } from 'feature-flags/feature-flags';
+import { DateTime } from 'luxon';
+import React from 'react';
+import TemporaryContainer from '@/components/AccountsSnapshot/TemporaryContainer';
 import {
   fetchAccountsSnapshot,
   generateSnapshotOwnerString,
   getResourceType,
-} from '@ses/containers/TransparencyReport/components/AccountsSnapshot/api/queries';
-import { featureFlags } from 'feature-flags/feature-flags';
-import { DateTime } from 'luxon';
-import React from 'react';
+} from '@/components/AccountsSnapshot/api/queries';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { GetServerSidePropsContext } from 'next';
