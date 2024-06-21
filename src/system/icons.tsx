@@ -1,5 +1,6 @@
 import AngleLeft from 'public/assets/svg/angle_left.svg';
 import AngleRight from 'public/assets/svg/angle_right.svg';
+import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import AvatarPlaceHolder from 'public/assets/svg/avatar_placeholder.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
@@ -9,12 +10,14 @@ import Forum from 'public/assets/svg/forum.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import GlobeWWW from 'public/assets/svg/globe_www.svg';
 import Linkedin from 'public/assets/svg/linkedin.svg';
+import Login from 'public/assets/svg/login.svg';
 import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
 import ConnectIcon from 'public/assets/svg/makerdao_connect.svg';
 import FusionIcon from 'public/assets/svg/makerdao_fusion.svg';
 import SwitchboardIcon from 'public/assets/svg/makerdao_switchboard.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
+import ThemeIcon from 'public/assets/svg/theme.svg';
 import TwitterIcon from 'public/assets/svg/twitter.svg';
 import X from 'public/assets/svg/x.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
@@ -99,5 +102,17 @@ export const iconsPowerHose = [
   {
     Icon: AvatarPlaceHolder,
     title: 'avatar_placeholder',
+  },
+  {
+    Icon: Login,
+    title: 'login',
+  },
+  {
+    Icon: ThemeIcon,
+    title: 'theme',
+  },
+  {
+    Icon: ArrowSelect,
+    title: 'arrow_select',
   },
 ];

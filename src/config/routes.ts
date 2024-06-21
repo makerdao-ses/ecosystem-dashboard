@@ -18,6 +18,7 @@ export const siteRoutes = {
   recognizedDelegate: '/recognized-delegates',
   endgame: '/endgame',
   roadmapMilestones: (slug: string) => `/roadmaps/${slug}`,
+  teams: '/teams',
   // auth
   login: '/login',
   manageAccounts: '/auth/manage/accounts',
