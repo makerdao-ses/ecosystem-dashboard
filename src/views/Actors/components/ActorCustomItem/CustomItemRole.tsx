@@ -21,7 +21,7 @@ export const CustomItemRole: FC<Props> = ({ count = '0', role, isActive }) => (
     <Title sx={{ width: '24px' }} isActive={isActive}>
       {count}
     </Title>
-    <RoleChip status={role} />
+    <RoleChipStyled status={role} />
   </Box>
 );
 
@@ -34,3 +34,9 @@ const Title = styled(Typography)<{ isActive: boolean }>(({ theme, isActive }) =>
     ? theme.palette.colors.gray[50]
     : theme.palette.colors.charcoal[800],
 }));
+
+const RoleChipStyled = styled(RoleChip)({
+  '& div': {
+    fontSize: 14,
+  },
+});
