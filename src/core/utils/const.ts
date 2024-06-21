@@ -16,3 +16,4 @@ export const COOKIES_POLICY_PARAGRAPH_FOUR =
 export const LOCAL_STORAGE_AUTH_KEY = 'auth';
 export const DELEGATE_PAGE = 'https://vote.makerdao.com/delegates';
 export const UMBRAL_CHART_WATERFALL = 1;
+export const CONNECT = 'https://apps.powerhouse.io/alpha/makerdao/connect/d/MyLocalDrive';
