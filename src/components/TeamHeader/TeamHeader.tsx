@@ -1,5 +1,4 @@
-import { Collapse, styled, useMediaQuery } from '@mui/material';
-import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { styled, useMediaQuery } from '@mui/material';
 import type { TeamRole } from '@/core/enums/teamRole';
 import type { Team } from '@/core/models/interfaces/team';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
@@ -19,10 +18,7 @@ interface TeamHeaderProps {
 }
 
 const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
-  const id = useId();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-  const [spacerHeight, setSpacerHeight] = useState<number>(165);
-  const headerRef = useRef<HTMLDivElement>(null);
   const chips =
     team.type === ResourceType.EcosystemActor
       ? team.scopes?.length > 0 && (
@@ -40,92 +36,49 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
           </CategoryList>
         );
 
-  // show/hide header on scroll
-  const [showHeader, setShowHeader] = useState<boolean>(true);
-  const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY ?? 0;
-    setShowHeader(scrollPosition < 100);
-  }, []);
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [handleScroll]);
-
-  // adjust spacer height based on header height to avoid content being hidden behind the header
-  useEffect(() => {
-    const header = document.getElementById(id);
-    if (!header) return;
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      const height = entries?.[0]?.contentRect?.height || 0;
-      // Math.max to prevent content jumping when header is resized
-      setSpacerHeight(showHeader ? Math.max(height + 40, 150) : Math.max(height + 40, spacerHeight, 150));
-    });
-
-    resizeObserver.observe(header);
-
-    return () => {
-      resizeObserver.unobserve(header);
-      resizeObserver.disconnect();
-    };
-  }, [id, showHeader, spacerHeight]);
-
   return (
-    <SpacerAssigner height={spacerHeight}>
-      <MainContainer ref={headerRef} id={id}>
-        <Collapse in={showHeader} timeout={300}>
-          <HeaderWrapper>
-            <Container>
-              <Content>
-                <TeamBasicInfo>
-                  <Avatar name={team.name} image={team.image} />
-                  <InfoContent>
-                    <TeamName>
-                      <Code>{team.shortCode}</Code> {team.name}
-                    </TeamName>
-                    <ChipsContainer>
-                      {team.type === ResourceType.EcosystemActor ? (
-                        <StatusChipStyled status={team.status as TeamStatus} />
-                      ) : (
-                        <StatusChipForCoreUnit status={team.status as TeamStatus} />
-                      )}
+    <MainContainer>
+      <HeaderWrapper>
+        <Container>
+          <Content>
+            <TeamBasicInfo>
+              <Avatar name={team.name} image={team.image} />
+              <InfoContent>
+                <TeamName>
+                  <Code>{team.shortCode}</Code> {team.name}
+                </TeamName>
+                <ChipsContainer>
+                  {team.type === ResourceType.EcosystemActor ? (
+                    <StatusChipStyled status={team.status as TeamStatus} />
+                  ) : (
+                    <StatusChipForCoreUnit status={team.status as TeamStatus} />
+                  )}
 
-                      {team.type === ResourceType.EcosystemActor ? (
-                        <RoleChip status={(team.category?.[0] ?? '') as TeamRole} />
-                      ) : (
-                        <CoreUnitSubmissionLink team={team} />
-                      )}
-                    </ChipsContainer>
-                    {chips}
-                  </InfoContent>
-                </TeamBasicInfo>
+                  {team.type === ResourceType.EcosystemActor ? (
+                    <RoleChip status={(team.category?.[0] ?? '') as TeamRole} />
+                  ) : (
+                    <CoreUnitSubmissionLink team={team} />
+                  )}
+                </ChipsContainer>
+                {chips}
+              </InfoContent>
+            </TeamBasicInfo>
 
-                <LinksContainer>
-                  <SocialMediaLinksButton socialMedia={team.socialMediaChannels?.[0]} />
-                </LinksContainer>
-              </Content>
-              <Description>{team.sentenceDescription}</Description>
-            </Container>
-          </HeaderWrapper>
-        </Collapse>
-      </MainContainer>
-    </SpacerAssigner>
+            <LinksContainer>
+              <SocialMediaLinksButton socialMedia={team.socialMediaChannels?.[0]} />
+            </LinksContainer>
+          </Content>
+          <Description>{team.sentenceDescription}</Description>
+        </Container>
+      </HeaderWrapper>
+    </MainContainer>
   );
 };
 
 export default TeamHeader;
 
-const SpacerAssigner = styled('div')<{ height: number }>(({ height }) => ({
-  position: 'relative',
-  width: '100%',
-  height,
-}));
-
 const MainContainer = styled('div')(({ theme }) => ({
-  position: 'fixed',
-  top: 105,
+  marginTop: 40,
   zIndex: 3,
   width: '100%',
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'rgba(25, 29, 36, 1)',

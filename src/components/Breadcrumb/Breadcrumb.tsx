@@ -206,7 +206,7 @@ const Wrapper = styled('div')(({ theme }) => ({
   width: '100%',
   position: 'fixed',
   top: 64,
-  zIndex: 3,
+  zIndex: 1000,
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
 }));
 
