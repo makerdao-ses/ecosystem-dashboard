@@ -1,15 +1,15 @@
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { SnapshotLimitPeriods } from '@/core/hooks/useBudgetStatementPager';
 import { useUrlAnchor } from '@/core/hooks/useUrlAnchor';
 import { AllowedOwnerType } from './types';
 import { allowedOwnerTypeToResourceType } from './utils';
 
-// TODO: initialize the currentMonth from the url if it is present due a refresh or direct access
 const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | undefined) => {
   const router = useRouter();
+  const viewMonthStr = router.query.viewMonth;
   const ownerTypeQuery = router.query.ownerType as AllowedOwnerType;
   const [snapshotCreated, setSnapshotCreated] = useState<DateTime | undefined>();
   const [currentMonth, setCurrentMonth] = useState(DateTime.utc());
@@ -19,6 +19,26 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
 
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, 'code');
+
+  useEffect(() => {
+    // initialize the currentMonth from the url if it is present due a refresh or direct access
+    const snapshotLimit = snapshotLimitPeriods?.latest?.startOf('month');
+    const actualMonth = DateTime.utc().startOf('month');
+
+    const mostRecentMonth = snapshotLimit ?? actualMonth;
+
+    if (viewMonthStr) {
+      const month = DateTime.fromFormat(viewMonthStr as string, 'LLLyyyy', { zone: 'utc' });
+
+      if (month && month.isValid && month <= mostRecentMonth) {
+        setCurrentMonth(month);
+      } else {
+        setCurrentMonth(mostRecentMonth);
+      }
+    } else {
+      setCurrentMonth(snapshotLimit ?? actualMonth);
+    }
+  }, [router.route, router.query, viewMonthStr, snapshotLimitPeriods]);
 
   const replaceViewMonthRoute = useCallback(
     (viewMonth: string) => {
