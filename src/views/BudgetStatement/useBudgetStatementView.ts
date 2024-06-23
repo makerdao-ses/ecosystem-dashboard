@@ -2,6 +2,7 @@ import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { siteRoutes } from '@/config/routes';
 import type { SnapshotLimitPeriods } from '@/core/hooks/useBudgetStatementPager';
 import { useUrlAnchor } from '@/core/hooks/useUrlAnchor';
 import { AllowedOwnerType } from './types';
@@ -59,23 +60,69 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
     [anchor, router]
   );
 
-  const { code, name } = useMemo(() => {
+  const { code, name, breadcrumbItems } = useMemo(() => {
     // map the AllowedOwnerType to required data to show in the UI
     switch (ownerTypeQuery) {
       case AllowedOwnerType.KEEPERS:
         return {
           code: 'KEEPERS',
           name: 'Keepers',
+          breadcrumbItems: [
+            {
+              label: 'Finances',
+              url: siteRoutes.finances(),
+            },
+            {
+              label: 'Scope Framework Budget',
+              url: siteRoutes.finances('scopes'),
+            },
+            {
+              label: 'Protocol Scope',
+              url: siteRoutes.finances('scopes/PRO'),
+            },
+            {
+              label: 'Keepers',
+              url: siteRoutes.budgetStatements(ownerTypeQuery),
+            },
+          ],
         };
       case AllowedOwnerType.SPFS:
         return {
           code: 'SFPs',
           name: 'Special Purpose Funds',
+          breadcrumbItems: [
+            {
+              label: 'Finances',
+              url: siteRoutes.finances(),
+            },
+            {
+              label: 'MakerDAO Legacy Budget',
+              url: siteRoutes.finances('legacy'),
+            },
+            {
+              label: 'Special Purpose Funds',
+              url: siteRoutes.budgetStatements(ownerTypeQuery),
+            },
+          ],
         };
       case AllowedOwnerType.ALIGNED_DELEGATES:
         return {
           code: 'DEL',
           name: 'Aligned Delegates',
+          breadcrumbItems: [
+            {
+              label: 'Finances',
+              url: siteRoutes.finances(),
+            },
+            {
+              label: 'Atlas Immutable Budget',
+              url: siteRoutes.finances('immutable'),
+            },
+            {
+              label: 'Aligned Delegates',
+              url: siteRoutes.budgetStatements(ownerTypeQuery),
+            },
+          ],
         };
     }
   }, [ownerTypeQuery]);
@@ -121,6 +168,7 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
     showHeader,
     code,
     name,
+    breadcrumbItems,
     snapshotCreated,
     setSnapshotCreated,
     currentMonth,
