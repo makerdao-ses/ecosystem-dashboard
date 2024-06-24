@@ -1,37 +1,24 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { siteRoutes } from '@/config/routes';
+import { useAuthContext } from '@/core/context/AuthContext';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import { CONNECT } from '@/core/utils/const';
 import type { SelectItem } from '@/stories/components/SingleItemSelect/SingleItemSelect';
 import type { MenuType, RouteOnHeader } from './types';
 const menuItems = {} as Record<RouteOnHeader, MenuType>;
 export const useTopBarNavigation = () => {
+  const { clearCredentials, permissionManager } = useAuthContext();
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const router = useRouter();
+  const handleGoLogin = () => {
+    router.push('/login');
+  };
 
-  const filter: SelectItem[] = [
-    {
-      label: 'Teams',
-      value: 'teams',
-    },
-    {
-      label: 'Finances',
-      value: 'finances',
-    },
-    {
-      label: 'Roadmap',
-      value: 'roadmap',
-    },
-    {
-      label: 'Endgame',
-      value: 'endgame',
-    },
-    {
-      label: 'Connect',
-      value: 'connect',
-    },
-  ];
+  const handleOnClickLogOut = () => {
+    clearCredentials?.();
+    router.push(siteRoutes.login);
+  };
 
   menuItems.teams = {
     title: 'Teams',
@@ -57,6 +44,15 @@ export const useTopBarNavigation = () => {
     title: 'Connect',
     link: CONNECT,
   };
+  const filter: SelectItem[] = useMemo(
+    () =>
+      Object.values(menuItems).map((value) => ({
+        label: value.title,
+        value: value.title,
+      })),
+    []
+  );
+
   const activeMenuItem: MenuType = useMemo(() => {
     if (router.pathname.startsWith('/teams')) {
       return menuItems.teams;
@@ -66,10 +62,16 @@ export const useTopBarNavigation = () => {
       return menuItems.roadmap;
     } else if (router.pathname.startsWith(siteRoutes.endgame)) {
       return menuItems.endgame;
-    } else return menuItems.connect;
+    } else return menuItems.teams;
   }, [router.pathname]);
 
   const activeItem = activeMenuItem?.title;
+  const handleChangeRoute = (value: string | string[]) => {
+    if (typeof value === 'string') {
+      const find = Object.values(menuItems).find((menu) => menu.title === value);
+      router.push(find?.link || '/teams');
+    }
+  };
 
   return {
     filter,
@@ -78,5 +80,9 @@ export const useTopBarNavigation = () => {
     isLight,
     menuItems,
     activeItem,
+    handleGoLogin,
+    handleChangeRoute,
+    handleOnClickLogOut,
+    permissionManager,
   };
 };

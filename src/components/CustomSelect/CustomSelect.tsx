@@ -1,8 +1,10 @@
 import { ExpandMore, Check } from '@mui/icons-material';
 import { Select, MenuItem, FormControl, styled, Box, Typography } from '@mui/material';
+
+import deepmerge from '@mui/utils/deepmerge';
 import useCustomSelect from './useCustomSelect';
 import type { CustomSelectProps } from './type';
-import type { Theme } from '@mui/material';
+import type { MenuProps, Theme } from '@mui/material';
 import type { CSSProperties } from 'react';
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -16,6 +18,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   multiple = false,
   alwaysNumberedLabel = false,
   style,
+  notShowDescription = true,
+  menuProps,
+  className,
 }) => {
   const { theme, isAllSelected, handleChange, handleChangeAll, renderValue, isActive } = useCustomSelect({
     label,
@@ -26,9 +31,15 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     withAll,
     onChange,
   });
+  const combinedMenuProps = deepmerge(StyledMenuProps(theme, style?.menuWidth || 200), menuProps);
 
   return (
-    <StyledFormControl variant="outlined" fullWidth={style?.fullWidth || false} width={style?.width || 97}>
+    <StyledFormControl
+      variant="outlined"
+      fullWidth={style?.fullWidth || false}
+      width={style?.width || 97}
+      className={className}
+    >
       <StyledSelect
         displayEmpty
         multiple={multiple}
@@ -36,11 +47,14 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         onChange={handleChange}
         renderValue={renderValue}
         IconComponent={ExpandMore}
-        MenuProps={StyledMenuProps(theme, style?.menuWidth || 200) as object}
+        className={className}
+        MenuProps={combinedMenuProps as unknown as Partial<MenuProps>}
       >
-        <MenuItemLabel disabled>
-          <MenuItemLabelTypography>{typeof label === 'string' ? label : label()}</MenuItemLabelTypography>
-        </MenuItemLabel>
+        {notShowDescription && (
+          <MenuItemLabel disabled>
+            <MenuItemLabelTypography>{typeof label === 'string' ? label : label()}</MenuItemLabelTypography>
+          </MenuItemLabel>
+        )}
 
         {withAll && (
           <MenuItemDefault

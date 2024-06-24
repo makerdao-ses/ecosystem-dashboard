@@ -1,8 +1,8 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import React from 'react';
 import Footer from '@/components/Footer/Footer';
+import TopBarNavigation from '@/components/TopBarNavigation/TopBarNavigation';
 import MainWrapper from '../../../core/context/MainWrapper';
-import Header from '../../components/Header/Header';
 
 export type AppLayoutProps = {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ export type AppLayoutProps = {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => (
   <>
-    <Header />
+    <TopBarNavigation />
     <Container>
       <MainWrapper>{children}</MainWrapper>
     </Container>
@@ -20,7 +20,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => (
 
 export default AppLayout;
 
-const Container = styled.div({
+const Container = styled('div')(() => ({
   display: 'flex',
   minHeight: 'calc(100vh - 320px)',
-});
+}));

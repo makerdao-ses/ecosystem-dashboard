@@ -25,6 +25,9 @@ const PageBackground = styled('div')<{ hasImageBackground: boolean }>(({ theme, 
     backgroundAttachment: 'fixed',
     backgroundSize: 'cover',
   }),
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingTop: 98, // set below the header height
+  },
   [theme.breakpoints.up('desktop_1920')]: {
     borderBottom: `1px solid ${
       theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.gray[900]

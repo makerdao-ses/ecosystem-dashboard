@@ -1,8 +1,8 @@
+import { useTheme } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import * as React from 'react';
-import UserBadge from '../../UserBadge/UserBadge';
-import { MenuPaperStyle } from '../MenuTheme/MenuTheme';
+import UserBadge from '@/stories/components/UserBadge/UserBadge';
 import MenuItemUser from './MenuItemUser';
 import useMenuUser from './useMenuUser';
 
@@ -15,12 +15,14 @@ interface Props {
 }
 
 const MenuUserOptions = ({ username, isAdmin, onClickLogOut, hrefAccountManager, hrefProfile }: Props) => {
-  const { handleClick, handleClose, isLight, open, anchorEl } = useMenuUser();
+  const { handleClick, handleClose, open, anchorEl } = useMenuUser();
+  const theme = useTheme();
 
   return (
     <>
       <div onClick={handleClick}>
         <UserBadge
+          isOpen={open}
           username={username}
           aria-controls={open ? 'demo-positioned-menu' : undefined}
           aria-haspopup="true"
@@ -28,10 +30,10 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, hrefAccountManager,
         />
       </div>
       <Menu
-        PaperProps={{
-          style: MenuPaperStyle(isLight),
-        }}
         sx={{
+          '& .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
+            borderRadius: '12px',
+          },
           '& .MuiMenu-list': {
             paddingTop: '0px',
             paddingBottom: '0px',
@@ -69,7 +71,8 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, hrefAccountManager,
             },
           }}
           style={{
-            background: isLight ? '#FFFFFF' : ' #000A13',
+            backgroundColor: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
+            boxShadow: theme.palette.isLight ? theme.fusionShadows.chartsShadows : theme.fusionShadows.darkMode,
           }}
         >
           <MenuItemUser
