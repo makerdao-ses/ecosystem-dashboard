@@ -332,7 +332,7 @@ const StyledMenuProps = (theme: Theme) => ({
       backgroundImage: 'none',
       bgcolor: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
 
-      boxShadow: '2px 4px 7px 0px rgba(107, 122, 150, 0.25)',
+      boxShadow: theme.palette.isLight ? '2px 4px 7px 0px rgba(107, 122, 150, 0.25)' : theme.fusionShadows.darkMode,
       '&.MuiPaper-elevation.MuiPaper-rounded': {
         borderRadius: '12px',
       },
@@ -352,7 +352,7 @@ const StyledMenuProps = (theme: Theme) => ({
           fontStyle: 'normal',
           fontWeight: 700,
           lineHeight: '120%',
-          color: theme.palette.colors.slate[100],
+          color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600],
         },
       },
 
@@ -370,7 +370,9 @@ const StyledMenuProps = (theme: Theme) => ({
           '.MuiTypography-root': {
             fontWeight: '700 !important',
             fontSize: '18px !important',
-            color: `${theme.palette.colors.slate[100]} !important`,
+            color: `${
+              theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600]
+            } !important`,
           },
         },
 
@@ -380,13 +382,17 @@ const StyledMenuProps = (theme: Theme) => ({
           '&:hover': {
             bgcolor: 'none!important',
             '.MuiTypography-root': {
-              color: `${theme.palette.isLight ? theme.palette.colors.slate[100] : 'red'} !important`,
+              color: `${
+                theme.palette.isLight ? theme.palette.colors.slate[900] : theme.palette.colors.gray[50]
+              } !important`,
               fontSize: '18px!important',
               fontWeight: '700 !important',
             },
           },
           '.MuiTypography-root': {
-            color: `${theme.palette.isLight ? theme.palette.colors.slate[900] : 'red'} !important`,
+            color: `${
+              theme.palette.isLight ? theme.palette.colors.slate[900] : theme.palette.colors.gray[50]
+            } !important`,
             fontSize: '18px!important',
             fontWeight: '700 !important',
           },

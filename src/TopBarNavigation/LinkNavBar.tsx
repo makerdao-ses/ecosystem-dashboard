@@ -37,7 +37,13 @@ const LinkStyle = styled(Link)<{ active: boolean }>(({ theme, active }) => ({
     ? theme.palette.colors.gray[50]
     : theme.palette.colors.gray[600],
   ':hover': {
-    color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    color: theme.palette.isLight
+      ? active
+        ? theme.palette.colors.charcoal[900]
+        : theme.palette.colors.slate[200]
+      : active
+      ? theme.palette.colors.gray[50]
+      : theme.palette.colors.slate[100],
   },
   ':active': {
     color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[500],
