@@ -14,6 +14,7 @@ import { DateTime } from 'luxon';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 import CircleAvatarWithIcon from '@/components/CircleAvatar/CircleAvatarWithIcon';
+import { AllowedOwnerType } from '@/views/BudgetStatement/types';
 import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
@@ -50,6 +51,21 @@ const DelegateExpenseTrendItem: React.FC<Props> = ({ budget, selectedMetric, now
 
       case 'Delegates':
         return `${siteRoutes.recognizedDelegateReport}?viewMonth=${DateTime.fromFormat(
+          budget.month,
+          'yyyy-LL-dd'
+        ).toFormat('LLLyyyy')}`;
+      case 'SpecialPurposeFund':
+        return `${siteRoutes.budgetStatements(AllowedOwnerType.SPFS)}?viewMonth=${DateTime.fromFormat(
+          budget.month,
+          'yyyy-LL-dd'
+        ).toFormat('LLLyyyy')}`;
+      case 'AlignedDelegates':
+        return `${siteRoutes.budgetStatements(AllowedOwnerType.ALIGNED_DELEGATES)}?viewMonth=${DateTime.fromFormat(
+          budget.month,
+          'yyyy-LL-dd'
+        ).toFormat('LLLyyyy')}`;
+      case 'Keepers':
+        return `${siteRoutes.budgetStatements(AllowedOwnerType.KEEPERS)}?viewMonth=${DateTime.fromFormat(
           budget.month,
           'yyyy-LL-dd'
         ).toFormat('LLLyyyy')}`;

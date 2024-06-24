@@ -168,7 +168,7 @@ const TypographyStyleDescription = styled('p')(({ theme }) => ({
     lineHeight: '24px',
   },
   [theme.breakpoints.up('desktop_1024')]: {
-    marginBottom: '16px',
+    marginBottom: '0px',
   },
 }));
 

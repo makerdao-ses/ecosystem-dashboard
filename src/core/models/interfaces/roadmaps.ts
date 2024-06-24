@@ -1,8 +1,8 @@
 export enum DeliverableStatus {
   WONT_DO = 'WONT_DO',
   DRAFT = 'DRAFT',
-  TODO = 'TODO',
   BLOCKED = 'BLOCKED',
+  TODO = 'TODO',
   IN_PROGRESS = 'IN_PROGRESS',
   DELIVERED = 'DELIVERED',
 }
