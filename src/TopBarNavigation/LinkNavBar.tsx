@@ -7,11 +7,10 @@ interface Props {
   label: string;
   href: string;
   selected: string;
-  handleClick: (value: string) => void;
 }
 
-const LinkNavBar: FC<Props> = ({ href, label, selected, handleClick }) => (
-  <NavItem onClick={() => handleClick(label)}>
+const LinkNavBar: FC<Props> = ({ href, label, selected }) => (
+  <NavItem>
     <LinkStyle href={href} active={label.toLocaleLowerCase() === selected.toLocaleLowerCase()}>
       {label}
     </LinkStyle>

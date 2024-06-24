@@ -10,7 +10,6 @@ import React from 'react';
 import CustomSelect from '@/components/CustomSelect/CustomSelect';
 import PrimaryButton from '@/components/PrimaryButton/PrimaryButton';
 import { siteRoutes } from '@/config/routes';
-
 import { zIndexEnum } from '@/core/enums/zIndexEnum';
 import MenuUserOptions from '@/stories/components/MenuNavigation/MenuUser/MenuUserOptions';
 import LinkNavBar from './LinkNavBar';
@@ -67,12 +66,7 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
           </LeftSection>
           <CenterLinks>
             {Object.values(menuItems).map((link) => (
-              <LinkNavBar
-                href={link.link}
-                label={link.title}
-                selected={activeItem}
-                handleClick={() => console.log('none')}
-              />
+              <LinkNavBar href={link.link} label={link.title} selected={activeItem} />
             ))}
           </CenterLinks>
           <RightSection>

@@ -17,7 +17,6 @@ const ContainerStyled = styled.div({
   paddingRight: 16,
   width: '100%',
   maxWidth: '100%',
-  paddingTop: 24,
   [lightTheme.breakpoints.up('tablet_768')]: {
     paddingLeft: 32,
     paddingRight: 32,
