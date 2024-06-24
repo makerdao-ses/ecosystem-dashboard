@@ -368,6 +368,8 @@ const CardRelateMipsContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  marginTop: '40px',
+  marginBottom: '40px',
   gap: 16,
   [theme.breakpoints.up('mobile_375')]: {
     width: '100%',
