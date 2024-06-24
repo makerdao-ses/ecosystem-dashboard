@@ -106,6 +106,7 @@ const ContainerRow = styled('div')({
 const ContainerDescription = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  alignSelf: 'center',
 
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
@@ -124,7 +125,6 @@ const ContainerDescription = styled('div')(({ theme }) => ({
 
 const CircleContainer = styled('div')(({ theme }) => ({
   marginRight: 8,
-  marginTop: 3,
 
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: -1,

@@ -6,7 +6,6 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import AccountsSnapshotTabContainer from '@/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import type { SnapshotLimitPeriods } from '@/core/hooks/useBudgetStatementPager';
 import type { ResourceType } from '@/core/models/interfaces/types';
-import Tabs from '@/stories/components/Tabs/Tabs';
 import BudgetStatementSummary from './components/BudgetStatementSummary/BudgetStatementSummary';
 import useBudgetStatementView from './useBudgetStatementView';
 
@@ -23,6 +22,7 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
     showHeader,
     code,
     name,
+    breadcrumbItems,
     snapshotCreated,
     setSnapshotCreated,
     currentMonth,
@@ -54,16 +54,7 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
         showHeader={showHeader}
         code={code}
         name={name}
-        breadcrumbItems={[
-          {
-            label: 'Finances',
-            url: siteRoutes.financesOverview,
-          },
-          {
-            label: name,
-            url: siteRoutes.budgetStatements(ownerTypeQuery),
-          },
-        ]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <ContainerInside marginTop={height}>
@@ -97,28 +88,17 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
           </PagerBar>
         </ContainerPagerBar>
 
-        <TabsContainer>
-          <Tabs
-            tabs={[
-              {
-                item: 'Accounts Snapshot',
-                id: 'accounts-snapshots',
-              },
-            ]}
-            expandable={false}
-            tabQuery={'section'}
+        <Wrapper>
+          <AccountsSnapshotTabContainer
+            snapshotOwner={name}
+            currentMonth={currentMonth}
+            ownerId={null}
+            longCode={code}
+            shortCode={code}
+            resource={ownerType as unknown as ResourceType}
+            setSnapshotCreated={setSnapshotCreated}
           />
-        </TabsContainer>
-
-        <AccountsSnapshotTabContainer
-          snapshotOwner={name}
-          currentMonth={currentMonth}
-          ownerId={null}
-          longCode={code}
-          shortCode={code}
-          resource={ownerType as unknown as ResourceType}
-          setSnapshotCreated={setSnapshotCreated}
-        />
+        </Wrapper>
       </ContainerInside>
     </Container>
   );
@@ -181,14 +161,6 @@ const ContainerInside = styled('div')<{ marginTop: number }>(({ theme, marginTop
 const ContainerPagerBar = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: -3,
-  },
-}));
-
-const TabsContainer = styled('div')(({ theme }) => ({
-  margin: '32px 0 16px',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    margin: '32px 0',
   },
 }));
 
@@ -302,5 +274,13 @@ const SinceDate = styled('div')(({ theme }) => ({
     fontSize: '12px',
     marginTop: '4px',
     letterSpacing: '1px',
+  },
+}));
+
+const Wrapper = styled('div')(({ theme }) => ({
+  marginTop: 24,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 32,
   },
 }));
