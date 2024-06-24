@@ -316,7 +316,7 @@ const HeadingResponsiveH1 = styled('h1')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
-  marginTop: 32,
+  marginTop: 16,
   marginBottom: 0,
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 20,
