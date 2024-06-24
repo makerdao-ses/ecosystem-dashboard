@@ -174,6 +174,7 @@ const dictionary = [
   'resized',
   'stablecoin',
   'unobserve',
+  'deepmerge',
 ];
 
 module.exports = dictionary;

@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { styled, useTheme } from '@mui/material';
 import Link from 'next/link';
 import Activity from 'public/assets/svg/activity.svg';
 import ThemeLight from 'public/assets/svg/light_mode.svg';
@@ -7,11 +7,15 @@ import Makerdao from 'public/assets/svg/makerdao.svg';
 import LogoText from 'public/assets/svg/makerdao_text.svg';
 import ThemeDark from 'public/assets/svg/theme.svg';
 import React from 'react';
+import CustomSelect from '@/components/CustomSelect/CustomSelect';
 import PrimaryButton from '@/components/PrimaryButton/PrimaryButton';
 import { siteRoutes } from '@/config/routes';
 
+import { zIndexEnum } from '@/core/enums/zIndexEnum';
+import MenuUserOptions from '@/stories/components/MenuNavigation/MenuUser/MenuUserOptions';
 import LinkNavBar from './LinkNavBar';
 import { useTopBarNavigation } from './useTopBarNavigation';
+import type { Theme } from '@mui/material';
 import type { FC } from 'react';
 
 interface Props {
@@ -19,73 +23,114 @@ interface Props {
 }
 
 const TopBarNavigation: FC<Props> = ({ className }) => {
-  const { isLight, toggleTheme, activeItem, menuItems } = useTopBarNavigation();
+  const {
+    filter,
+    isLight,
+    toggleTheme,
+    activeItem,
+    menuItems,
+    handleGoLogin,
+    handleChangeRoute,
+    handleOnClickLogOut,
+    permissionManager,
+  } = useTopBarNavigation();
+  const theme = useTheme();
 
   return (
-    <Container>
-      <NavContainer aria-label="Primary Navigation" className={className}>
-        <LeftSection>
-          <LogoContainerMobile>
-            <Makerdao />
-          </LogoContainerMobile>
-          <LogoContainerDesk>
-            <LogoText />
-          </LogoContainerDesk>
-          <SelectContainer>
-            {/* TODO: Working in this component add jus for next pr */}
-            {/* <CustomSelectStyled
-              multiple={false}
-              notShowDescription={false}
-              label={'Teams'}
-              onChange={() => null}
-              options={filter}
-              selected={'Teams'}
-              style={{
-                fullWidth: true,
-                width: 'fit-content',
-              }}
-            /> */}
-          </SelectContainer>
-        </LeftSection>
-        <CenterLinks>
-          {Object.values(menuItems).map((link) => (
-            <LinkNavBar
-              href={link.link}
-              label={link.title}
-              selected={activeItem}
-              handleClick={() => console.log('none')}
-            />
-          ))}
-        </CenterLinks>
-        <RightSection>
-          <LoginContainer>
-            <StyledButton title="Log in" />
-          </LoginContainer>
-          <ContainerLogin width={16} height={20}>
-            <Login />
-          </ContainerLogin>
-          <ContainerActivity width={20} height={20}>
-            <Link href={siteRoutes.globalActivityFeed}>
-              <Activity />
-            </Link>
-          </ContainerActivity>
-          <IconContainer width={20} height={20} onClick={toggleTheme}>
-            {isLight ? <ThemeDark /> : <ThemeLight />}
-          </IconContainer>
-        </RightSection>
-      </NavContainer>
-    </Container>
+    <ContainerWrapper>
+      <Container>
+        <NavContainer aria-label="Primary Navigation" className={className}>
+          <LeftSection>
+            <LogoContainerMobile>
+              <Makerdao />
+            </LogoContainerMobile>
+            <LogoContainerDesk>
+              <LogoText />
+            </LogoContainerDesk>
+            <SelectContainer>
+              {/* TODO: Working in this component add jus for next pr */}
+              <StyledCustomSelect
+                multiple={false}
+                notShowDescription={false}
+                label={activeItem}
+                onChange={(value: string | string[]) => handleChangeRoute(value)}
+                options={filter}
+                selected={activeItem}
+                className="custom-select"
+                style={{
+                  menuWidth: 263,
+                  width: 'fit-content',
+                }}
+                menuProps={{ ...StyledMenuProps(theme) }}
+              />
+            </SelectContainer>
+          </LeftSection>
+          <CenterLinks>
+            {Object.values(menuItems).map((link) => (
+              <LinkNavBar
+                href={link.link}
+                label={link.title}
+                selected={activeItem}
+                handleClick={() => console.log('none')}
+              />
+            ))}
+          </CenterLinks>
+          <RightSection>
+            {permissionManager.isAuthenticated() ? (
+              <MenuUserOptions
+                isAdmin={permissionManager.isAdmin()}
+                onClickLogOut={handleOnClickLogOut}
+                username={permissionManager.loggedUser?.username ?? ''}
+                hrefAccountManager={siteRoutes.manageAccounts}
+                hrefProfile={permissionManager.isAdmin() ? siteRoutes.adminProfile : siteRoutes.userProfile}
+              />
+            ) : (
+              <>
+                <LoginContainer>
+                  <StyledButton title="Log in" onClick={handleGoLogin} />
+                </LoginContainer>
+                <ContainerLogin width={16} height={20}>
+                  <Link href={siteRoutes.login}>
+                    <Login />
+                  </Link>
+                </ContainerLogin>
+              </>
+            )}
+
+            <ContainerActivity width={20} height={20}>
+              <Link href={siteRoutes.globalActivityFeed}>
+                <Activity />
+              </Link>
+            </ContainerActivity>
+            <IconContainer width={20} height={20} onClick={toggleTheme}>
+              {isLight ? <ThemeDark /> : <ThemeLight />}
+            </IconContainer>
+          </RightSection>
+        </NavContainer>
+      </Container>
+    </ContainerWrapper>
   );
 };
 
 export default TopBarNavigation;
 
+const ContainerWrapper = styled('div')(({ theme }) => ({
+  position: 'fixed',
+  display: 'flex',
+  flex: 1,
+  top: 0,
+  width: '100%',
+  [theme.breakpoints.up('tablet_768')]: {
+    top: 6,
+  },
+
+  zIndex: zIndexEnum.HEADER_PAGE,
+}));
 const Container = styled('nav')(({ theme }) => ({
   display: 'flex',
   backgroundColor: theme.palette.isLight ? 'rgba(243, 245, 247, 0.5)' : 'rgba(32, 39, 47, 0.5)',
   borderRadius: 24,
   width: '100%',
-
   [theme.breakpoints.up('tablet_768')]: {
     padding: 10,
     marginLeft: 22,
@@ -124,6 +169,7 @@ const NavContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   [theme.breakpoints.up('tablet_768')]: {
     borderRadius: 16,
+    minHeight: 72,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '24px 32px',
@@ -138,6 +184,7 @@ const LogoContainerMobile = styled('div')(({ theme }) => ({
   display: 'flex',
   width: 56,
   height: 29,
+
   '& path': {
     fill: theme.palette.isLight ? theme.palette.colors.slate[700] : theme.palette.colors.charcoal[100],
   },
@@ -159,8 +206,6 @@ const LogoContainerDesk = styled('div')(({ theme }) => ({
 
 const SelectContainer = styled('div')(({ theme }) => ({
   display: 'flex',
-  // TODO:Remove this when add select
-  width: 106,
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
@@ -272,3 +317,87 @@ const ContainerActivity = styled(IconContainer)(({ theme }) => ({
     background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.slate[300],
   },
 }));
+
+const StyledCustomSelect = styled(CustomSelect)(() => ({
+  '& .MuiPaper-root': {
+    backgroundColor: 'red !important',
+    padding: '16px !important',
+  },
+  '& .MuiMenuItem-root': {
+    backgroundColor: 'yellow !important',
+    color: 'blue !important',
+  },
+  '& .MuiMenuItem-root:hover': {
+    backgroundColor: 'green !important',
+  },
+}));
+
+const StyledMenuProps = (theme: Theme) => ({
+  PaperProps: {
+    sx: {
+      backgroundImage: 'none',
+      bgcolor: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
+
+      boxShadow: '2px 4px 7px 0px rgba(107, 122, 150, 0.25)',
+      '&.MuiPaper-elevation.MuiPaper-rounded': {
+        borderRadius: '12px',
+      },
+
+      '& .MuiMenu-list': {
+        position: 'relative',
+        borderRadius: '12px',
+        bgcolor: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '24px 0px 32px 32px',
+        margin: 0,
+        gap: '24px',
+        '.MuiTypography-root': {
+          fontSize: 18,
+          fontFamily: 'Inter, sans-serif',
+          fontStyle: 'normal',
+          fontWeight: 700,
+          lineHeight: '120%',
+          color: theme.palette.colors.slate[100],
+        },
+      },
+
+      '& .MuiMenuItem-root': {
+        minHeight: 22,
+        display: 'flex',
+        margin: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        height: '22px!important',
+
+        marginLeft: '-6px!important',
+        '&:hover': {
+          bgcolor: 'none !important',
+          '.MuiTypography-root': {
+            fontWeight: '700 !important',
+            fontSize: '18px !important',
+            color: `${theme.palette.colors.slate[100]} !important`,
+          },
+        },
+
+        '&.Mui-selected': {
+          bgcolor: 'none!important',
+
+          '&:hover': {
+            bgcolor: 'none!important',
+            '.MuiTypography-root': {
+              color: `${theme.palette.isLight ? theme.palette.colors.slate[100] : 'red'} !important`,
+              fontSize: '18px!important',
+              fontWeight: '700 !important',
+            },
+          },
+          '.MuiTypography-root': {
+            color: `${theme.palette.isLight ? theme.palette.colors.slate[900] : 'red'} !important`,
+            fontSize: '18px!important',
+            fontWeight: '700 !important',
+          },
+        },
+      },
+    },
+  },
+});

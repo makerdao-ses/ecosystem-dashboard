@@ -1,4 +1,4 @@
-import type { Theme } from '@mui/material';
+import type { MenuProps, Theme } from '@mui/material';
 import type { CSSProperties } from 'react';
 
 export interface OptionItem {
@@ -24,4 +24,7 @@ export interface CustomSelectProps {
     width?: CSSProperties['width']; // value in px
     menuWidth?: number; // value in px
   };
+  notShowDescription?: boolean;
+  className?: string;
+  menuProps?: Partial<MenuProps>;
 }
