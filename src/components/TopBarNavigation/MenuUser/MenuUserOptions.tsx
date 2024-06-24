@@ -21,6 +21,7 @@ const MenuUserOptions = ({ username, isAdmin, onClickLogOut, hrefAccountManager,
     <>
       <div onClick={handleClick}>
         <UserBadge
+          isOpen={open}
           username={username}
           aria-controls={open ? 'demo-positioned-menu' : undefined}
           aria-haspopup="true"

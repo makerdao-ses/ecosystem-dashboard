@@ -133,7 +133,7 @@ const EndgameIntroContainer = styled.div({
   },
 
   [lightTheme.breakpoints.up('desktop_1024')]: {
-    marginTop: 32,
+    marginTop: 24,
   },
 });
 
