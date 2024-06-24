@@ -332,7 +332,7 @@ const StyledMenuProps = (theme: Theme) => ({
       backgroundImage: 'none',
       bgcolor: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
 
-      boxShadow: theme.palette.isLight ? '2px 4px 7px 0px rgba(107, 122, 150, 0.25)' : theme.fusionShadows.darkMode,
+      boxShadow: theme.palette.isLight ? theme.fusionShadows.chartsShadows : theme.fusionShadows.darkMode,
       '&.MuiPaper-elevation.MuiPaper-rounded': {
         borderRadius: '12px',
       },

@@ -1,4 +1,4 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { styled } from '@mui/material';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import Login from 'public/assets/svg/login.svg';
 import React from 'react';
@@ -11,10 +11,8 @@ interface Props {
   isOpen: boolean;
 }
 
-const UserBadge: React.FC<Props> = ({ onClick, username, style, isOpen }) => {
-  const isDesktop = useMediaQuery('(min-width: 834px)');
-
-  return isDesktop ? (
+const UserBadge: React.FC<Props> = ({ onClick, username, style, isOpen }) => (
+  <>
     <Container className="no-select" style={style} onClick={onClick}>
       <ContainerArrow>
         <ContainerIconLogin>
@@ -29,10 +27,10 @@ const UserBadge: React.FC<Props> = ({ onClick, username, style, isOpen }) => {
         </IconContainer>
       </ContainerArrow>
     </Container>
-  ) : (
+
     <CircleAvatarStyledWithoutName name={username ?? 'Username'} onClick={onClick} />
-  );
-};
+  </>
+);
 
 export default UserBadge;
 
@@ -42,11 +40,11 @@ const Container = styled('div')(({ theme }) => ({
   borderRadius: 8,
   padding: '5px 8px 5px 8px',
   position: 'relative',
-  display: 'flex',
+  display: 'none',
 
   alignItems: 'center',
   width: 'fit-content',
-  height: 34,
+  height: 32,
   cursor: 'pointer',
   ':hover': {
     backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[700] : theme.palette.colors.charcoal[100],
@@ -60,6 +58,10 @@ const Container = styled('div')(({ theme }) => ({
       backgroundColor: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[900],
       color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[400],
     },
+  },
+
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
   },
 }));
 
@@ -79,6 +81,10 @@ const CircleAvatarStyledWithoutName = styled(CircleAvatar)(({ theme }) => ({
   border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#708390'}`,
   cursor: 'pointer',
   fontSize: 14,
+  display: 'flex',
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
 }));
 
 const ContainerIconLogin = styled('div')({

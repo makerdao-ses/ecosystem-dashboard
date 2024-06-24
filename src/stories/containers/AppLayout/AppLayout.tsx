@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import React from 'react';
-import TopBarNavigation from '@/TopBarNavigation/TopBarNavigation';
 import Footer from '@/components/Footer/Footer';
+import TopBarNavigation from '@/components/TopBarNavigation/TopBarNavigation';
 import MainWrapper from '../../../core/context/MainWrapper';
 
 export type AppLayoutProps = {

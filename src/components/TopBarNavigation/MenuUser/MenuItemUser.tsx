@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import React from 'react';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import AccountMangerSetting from '../../svg/account-manager-settings';
-import LogOut from '../../svg/log-out';
-import Profile from '../../svg/profile';
+import { useThemeContext } from '@/core/context/ThemeContext';
+import AccountMangerSetting from '@/stories/components/svg/account-manager-settings';
+import LogOut from '@/stories/components/svg/log-out';
+import Profile from '@/stories/components/svg/profile';
 
 interface Props {
   onClickLogOut?: () => void;
