@@ -80,6 +80,7 @@ const CircleAvatarStyledWithoutName = styled(CircleAvatar)(({ theme }) => ({
   backgroundColor: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
   border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#708390'}`,
   cursor: 'pointer',
+  color: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.slate[400],
   fontSize: 14,
   display: 'flex',
   [theme.breakpoints.up('tablet_768')]: {

@@ -47,7 +47,6 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
               <LogoText />
             </LogoContainerDesk>
             <SelectContainer>
-              {/* TODO: Working in this component add jus for next pr */}
               <StyledCustomSelect
                 multiple={false}
                 notShowDescription={false}
