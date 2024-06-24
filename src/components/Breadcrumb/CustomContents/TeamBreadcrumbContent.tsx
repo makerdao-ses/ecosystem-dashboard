@@ -43,6 +43,7 @@ const ContentContainer = styled('div')(() => ({
   alignItems: 'stretch',
   flexWrap: 'nowrap',
   textWrap: 'nowrap',
+  whiteSpace: 'nowrap',
   gap: 16,
   fontSize: 16,
   lineHeight: '18px',
