@@ -316,7 +316,7 @@ const HeadingResponsiveH1 = styled('h1')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: 'normal',
-  marginTop: 32,
+  marginTop: 16,
   marginBottom: 0,
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 20,
@@ -330,7 +330,7 @@ const HeadingResponsiveH2 = styled('h2')(({ theme }) => ({
   fontWeight: 700,
   lineHeight: 'normal',
   marginBottom: 0,
-  marginTop: 32,
+  marginTop: 16,
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 600,
@@ -342,7 +342,7 @@ const HeadingResponsiveH3 = styled('h3')(({ theme }) => ({
   fontWeight: 700,
   lineHeight: 'normal',
   marginBottom: 0,
-  marginTop: 32,
+  marginTop: 16,
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 600,
