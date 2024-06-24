@@ -149,61 +149,68 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
   const separator = <AngleRight width={24} height={24} />;
 
   return (
-    <BreadcrumbCard>
-      <Container>
-        <Content id={contentId}>
-          <SegmentsContainer>
-            {isMobileOrTablet ? (
-              <>
-                {itemsExtended.length > 1 && (
-                  <Segment>
-                    <DotsSegment items={items} defaultOpen={withMenusOpened} />
-                    {separator}
-                  </Segment>
-                )}
-                <Segment maxWidth={elementWidths[0] - elementWidths[1] - 64 - 16}>
-                  <EllipseSegment>{itemsExtended?.[itemsExtended.length - 1]?.label}</EllipseSegment>
-                </Segment>
-              </>
-            ) : (
-              groupedItems.map((item, index) => (
-                <Segment key={item.label} maxWidth={item.recommendedWidth}>
-                  {index !== groupedItems.length - 1 ? (
-                    item.label === '...' ? (
-                      <>
-                        <DotsSegment items={item.attachedItems ?? []} defaultOpen={withMenusOpened} />
-                        {separator}
-                      </>
-                    ) : (
-                      <>
-                        <Link href={item.href}>
-                          <EllipseSegment>{item.label}</EllipseSegment>
-                          {item.number !== undefined && item.number !== null ? <b>({item.number})</b> : null}
-                        </Link>{' '}
-                        {separator}
-                      </>
-                    )
-                  ) : (
-                    <EllipseSegment>{item.label}</EllipseSegment>
+    <Wrapper>
+      <BreadcrumbCard>
+        <Container>
+          <Content id={contentId}>
+            <SegmentsContainer>
+              {isMobileOrTablet ? (
+                <>
+                  {itemsExtended.length > 1 && (
+                    <Segment>
+                      <DotsSegment items={items} defaultOpen={withMenusOpened} />
+                      {separator}
+                    </Segment>
                   )}
-                </Segment>
-              ))
-            )}
-          </SegmentsContainer>
+                  <Segment maxWidth={elementWidths[0] - elementWidths[1] - 64 - 16}>
+                    <EllipseSegment>{itemsExtended?.[itemsExtended.length - 1]?.label}</EllipseSegment>
+                  </Segment>
+                </>
+              ) : (
+                groupedItems.map((item, index) => (
+                  <Segment key={item.label} maxWidth={item.recommendedWidth}>
+                    {index !== groupedItems.length - 1 ? (
+                      item.label === '...' ? (
+                        <>
+                          <DotsSegment items={item.attachedItems ?? []} defaultOpen={withMenusOpened} />
+                          {separator}
+                        </>
+                      ) : (
+                        <>
+                          <Link href={item.href}>
+                            <EllipseSegment>{item.label}</EllipseSegment>
+                            {item.number !== undefined && item.number !== null ? <b>({item.number})</b> : null}
+                          </Link>{' '}
+                          {separator}
+                        </>
+                      )
+                    ) : (
+                      <EllipseSegment>{item.label}</EllipseSegment>
+                    )}
+                  </Segment>
+                ))
+              )}
+            </SegmentsContainer>
 
-          <RightContentContainer id={rightPartId}>{rightContent}</RightContentContainer>
-        </Content>
-      </Container>
-    </BreadcrumbCard>
+            <RightContentContainer id={rightPartId}>{rightContent}</RightContentContainer>
+          </Content>
+        </Container>
+      </BreadcrumbCard>
+    </Wrapper>
   );
 };
 
 export default Breadcrumb;
 
-const BreadcrumbCard = styled('div')(({ theme }) => ({
+const Wrapper = styled('div')(({ theme }) => ({
+  width: '100%',
   position: 'fixed',
   top: 64,
-  zIndex: 3,
+  zIndex: 1000,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
+}));
+
+const BreadcrumbCard = styled('div')(({ theme }) => ({
   width: 'calc(100% - 32px)',
 
   [theme.breakpoints.down('tablet_768')]: {
