@@ -368,10 +368,7 @@ const CardRelateMipsContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '40px',
-  marginBottom: '40px',
   gap: 16,
-
   [theme.breakpoints.up('mobile_375')]: {
     width: '100%',
   },
@@ -450,13 +447,10 @@ const ContainerAllData = styled('div')(({ theme }) => ({
     marginLeft: '32px',
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    marginRight: '40px',
-    marginLeft: '40px',
+    marginRight: '0px',
+    marginLeft: '0px',
   },
-  [theme.breakpoints.up('desktop_1440')]: {
-    marginRight: '64px',
-    marginLeft: '64px',
-  },
+
   [theme.breakpoints.up('desktop_1920')]: {
     marginRight: '0px',
     marginLeft: '0px',
@@ -481,18 +475,18 @@ const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '1440px',
-  margin: '0 auto',
 
-  [theme.breakpoints.up('desktop_1920')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     maxWidth: '1312px',
     marginLeft: '0px',
     marginRight: '0px',
     margin: '0 auto',
   },
   [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    marginRight: '0px',
-    marginLeft: '0px',
+    marginRight: 'revert',
+    marginLeft: 'revert',
+    maxWidth: 1200,
+    margin: '0 auto',
   },
   [theme.breakpoints.down('mobile_375')]: {
     width: '100%',
