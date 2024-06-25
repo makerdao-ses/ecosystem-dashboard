@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { siteRoutes } from '@/config/routes';
+import { LinkTypeEnum } from '@/core/enums/linkTypeEnum';
 import type { SnapshotLimitPeriods } from '@/core/hooks/useBudgetStatementPager';
 import { useUrlAnchor } from '@/core/hooks/useUrlAnchor';
 import { AllowedOwnerType } from './types';
@@ -60,13 +61,18 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
     [anchor, router]
   );
 
-  const { code, name, breadcrumbItems } = useMemo(() => {
+  const { code, name, seo, breadcrumbItems, links } = useMemo(() => {
     // map the AllowedOwnerType to required data to show in the UI
     switch (ownerTypeQuery) {
       case AllowedOwnerType.KEEPERS:
         return {
           code: 'KEEPERS',
           name: 'Keepers',
+          seo: {
+            title: 'MakerDAO Teams | Keepers',
+            description:
+              'MakerDAO Ecosystem Actors Keepers page provides a comprehensive overview of Keepers on-chain activity with monthly account snapshot.',
+          },
           breadcrumbItems: [
             {
               label: 'Finances',
@@ -85,11 +91,22 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
               url: siteRoutes.budgetStatements(ownerTypeQuery),
             },
           ],
+          links: [
+            {
+              href: 'https://forum.makerdao.com/t/poll-notice-amend-keeper-networks/20757',
+              linkType: LinkTypeEnum.Forum,
+            },
+          ],
         };
       case AllowedOwnerType.SPFS:
         return {
           code: 'SFPs',
           name: 'Special Purpose Funds',
+          seo: {
+            title: 'MakerDAO Teams | Special Purpose Funds',
+            description:
+              'MakerDAO Ecosystem Actors Special Purpose Funds page provides a comprehensive overview of Special Purpose Funds on-chain activity with monthly account snapshot.',
+          },
           breadcrumbItems: [
             {
               label: 'Finances',
@@ -104,11 +121,17 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
               url: siteRoutes.budgetStatements(ownerTypeQuery),
             },
           ],
+          links: [],
         };
       case AllowedOwnerType.ALIGNED_DELEGATES:
         return {
           code: 'DEL',
           name: 'Aligned Delegates',
+          seo: {
+            title: 'MakerDAO Teams | Aligned Delegates',
+            description:
+              'MakerDAO Ecosystem Actors Aligned Delegates page provides a comprehensive overview of Aligned Delegates financial activity through monthly budget statements.',
+          },
           breadcrumbItems: [
             {
               label: 'Finances',
@@ -121,6 +144,12 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
             {
               label: 'Aligned Delegates',
               url: siteRoutes.budgetStatements(ownerTypeQuery),
+            },
+          ],
+          links: [
+            {
+              href: 'https://forum.makerdao.com/t/april-2024-aligned-delegate-compensation/24272',
+              linkType: LinkTypeEnum.Forum,
             },
           ],
         };
@@ -168,7 +197,9 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
     showHeader,
     code,
     name,
+    seo,
     breadcrumbItems,
+    links,
     snapshotCreated,
     setSnapshotCreated,
     currentMonth,

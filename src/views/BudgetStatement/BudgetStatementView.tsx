@@ -22,7 +22,9 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
     showHeader,
     code,
     name,
+    seo,
     breadcrumbItems,
+    links,
     snapshotCreated,
     setSnapshotCreated,
     currentMonth,
@@ -35,11 +37,8 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
   return (
     <Container>
       <SEOHead
-        // TODO: change the title and description according to the ownerType
-        title={'MakerDAO Recognized Delegates Expense Reports | Finances'}
-        description={
-          'MakerDAO Recognized Delegates Expenses Reports provides a transparent overview of recognized delegates expenses, compensations, and benefits'
-        }
+        title={seo.title}
+        description={seo.description}
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
           width: 385,
@@ -54,6 +53,7 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
         showHeader={showHeader}
         code={code}
         name={name}
+        links={links}
         breadcrumbItems={breadcrumbItems}
       />
 
