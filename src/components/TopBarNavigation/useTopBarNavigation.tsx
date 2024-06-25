@@ -10,7 +10,7 @@ import type { MenuType, RouteOnHeader } from './types';
 import type { Theme } from '@mui/material';
 const menuItems = {} as Record<RouteOnHeader, MenuType>;
 export const useTopBarNavigation = () => {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+  const isSelectShow = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const { clearCredentials, permissionManager } = useAuthContext();
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const router = useRouter();
@@ -76,11 +76,11 @@ export const useTopBarNavigation = () => {
   }, [router.pathname]);
 
   const activeItem = useMemo(() => {
-    if (isMobile) {
+    if (isSelectShow) {
       return activeMenuItem?.title === '' ? 'Teams' : activeMenuItem.title;
     }
     return activeMenuItem.title;
-  }, [isMobile, activeMenuItem]);
+  }, [isSelectShow, activeMenuItem]);
   const handleChangeRoute = (value: string | string[]) => {
     if (typeof value === 'string') {
       const find = Object.values(menuItems).find((menu) => menu.title === value);

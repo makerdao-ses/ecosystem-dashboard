@@ -20,8 +20,8 @@ export type LoginFormProps = {
 
 const LoginForm: React.FC<LoginFormProps> = ({ form, clearErrors, hasUserInactive, loading, error }) => {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
 
   return (
     <Container>
@@ -123,7 +123,7 @@ const Title = styled.h1<WithIsLight>(({ isLight }) => ({
   marginTop: 24,
   marginBottom: 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 40,
     fontSize: 32,
     lineHeight: '39px',
@@ -139,12 +139,12 @@ const Description = styled.h3<WithIsLight>(({ isLight }) => ({
   marginBottom: 42,
   maxWidth: 294,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     maxWidth: '100%',
     marginBottom: 64,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [lightTheme.breakpoints.up('desktop_1024')]: {
     marginBottom: 42,
   },
 }));
@@ -157,7 +157,7 @@ export const InputsWrapper = styled.div({
   width: '100%',
   marginBottom: 40,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 64,
   },
 });
@@ -174,7 +174,7 @@ const RequestContainer = styled.div({
   textAlign: 'center',
   marginTop: 48,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: 40,
   },
 });
