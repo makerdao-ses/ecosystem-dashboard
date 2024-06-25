@@ -52,7 +52,7 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
   } = useFinances(budgets, allBudgets, initialYear);
 
   return (
-    <PageContainer>
+    <PageContainerLegacy>
       <SEOHead
         title="MakerDAO | Finances"
         description="MakerDAO Finances page provides a structured overview of MakerDAO's budgets, from high-level finances to detailed legacy and endgame allocations "
@@ -221,11 +221,15 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
           />
         </ContainerLastReport>
       </Container>
-    </PageContainer>
+    </PageContainerLegacy>
   );
 };
 
 export default FinancesContainer;
+
+const PageContainerLegacy = styled(PageContainer)(({ theme }) => ({
+  background: theme.palette.mode === 'light' ? '#fff' : '#000',
+}));
 
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',

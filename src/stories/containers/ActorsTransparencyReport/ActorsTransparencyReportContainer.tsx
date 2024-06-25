@@ -70,7 +70,7 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
   const headline = <TeamHeadLine teamLongCode={actor.code} teamShortCode={actor.shortCode} />;
 
   return (
-    <Wrapper>
+    <>
       <SEOHead
         title={`${actor.name} Ecosystem Actor | Finances`}
         description={`Learn about the ${actor.name} Ecosystem Actor at MakerDAO: their mandate, scope, vision, strategy, and more.`}
@@ -199,17 +199,11 @@ const ActorsTransparencyReportContainer: React.FC<ActorsTransparencyReportContai
           </ModalCategoriesProvider>
         </PageSeparator>
       </PageContainer>
-    </Wrapper>
+    </>
   );
 };
 
 export default ActorsTransparencyReportContainer;
-
-const Wrapper = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-});
 
 const PageSeparator = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   marginTop: `${32 + marginTop}px`,
