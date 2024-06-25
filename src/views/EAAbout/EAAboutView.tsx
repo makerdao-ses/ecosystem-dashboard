@@ -12,7 +12,7 @@ import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import TeamHeader from '@/components/TeamHeader/TeamHeader';
-import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
+import { SES_DASHBOARD } from '@/core/utils/const';
 import CardExpenses from '../CUAbout/NavigationCard/CardExpenses';
 import CardSomethingWrong from '../CUAbout/NavigationCard/CardSomethingWrong';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
@@ -100,7 +100,6 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                   <LabelLinks>Important Links</LabelLinks>
                   <ContainerLinksButton>
                     <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
-                    <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
                   </ContainerLinksButton>
                 </ContainerLinks>
               </CardSomethingWrong>
@@ -135,7 +134,6 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
                     <LabelLinks>Important Links</LabelLinks>
                     <ContainerLinksButton>
                       <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
-                      <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
                     </ContainerLinksButton>
                   </ContainerLinks>
                 </CardSomethingWrong>
