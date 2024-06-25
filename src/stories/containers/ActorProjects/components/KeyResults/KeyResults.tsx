@@ -4,10 +4,10 @@ import ExternalLink from '@ses/components/ExternalLink/ExternalLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
+import type { KeyResult } from '@/core/models/interfaces/deliverables';
 import ExpandableButtonItem from './ExpandableButtonItem';
 import MaybeScrollableList from './MaybeScrollableList';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
-import type { KeyResult } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface KeyResultsProps {

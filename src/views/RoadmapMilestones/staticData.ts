@@ -1,8 +1,9 @@
 /* eslint-disable spellcheck/spell-checker */
 // disabled spell-checker because of the use of abbreviations, technical terms and names
 
-import type { Roadmap } from '@/core/models/interfaces/roadmaps';
-import { DeliverableStatus, DeliverableSetStatus } from '@/core/models/interfaces/roadmaps';
+import { DeliverableStatus } from '@/core/models/interfaces/deliverables';
+import type { Milestone, Roadmap } from '@/core/models/interfaces/roadmaps';
+import { DeliverableSetStatus } from '@/core/models/interfaces/roadmaps';
 
 const coordinators = [
   {
@@ -66,18 +67,106 @@ export const PowerhouseRoadmap2024: Roadmap = {
               owner: contributors[0],
               status: DeliverableStatus.DELIVERED,
               workProgress: {
+                __typename: 'Percentage',
                 value: 100,
               },
               budgetAnchor: {
-                project: 'RWA Portfolio',
+                project: 'Real World Asset Reporting',
                 workUnitBudget: 1000,
                 deliverableBudget: 1000,
               },
-              keyResults: [],
+              keyResults: [
+                {
+                  id: '1',
+                  title: 'RWA Portfolio conceptuual wireframes',
+                  link: '#',
+                },
+                {
+                  id: '1',
+                  title: 'Technical demo of RWA Portfolio - Feb 21',
+                  link: '#',
+                },
+                {
+                  id: '1',
+                  title: 'Technical demo of RWA Portfolio - Feb 21',
+                  link: '#',
+                },
+              ],
+            },
+            {
+              id: '1',
+              code: '1',
+              title: 'Integration (API endpoints and Queries)',
+              description:
+                'Switchboard API endpoints for integration partners with document model update events and document state queries.',
+              owner: contributors[0],
+              status: DeliverableStatus.DELIVERED,
+              workProgress: {
+                __typename: 'Percentage',
+                value: 100,
+              },
+              budgetAnchor: {
+                project: 'Powerhouse Product PoC',
+                workUnitBudget: 1000,
+                deliverableBudget: 1000,
+              },
+              keyResults: [
+                {
+                  id: '1',
+                  title: 'Source code on Powerhouse Github repo',
+                  link: '#',
+                },
+                {
+                  id: '1',
+                  title: 'Source code on SES Github repo',
+                  link: '#',
+                },
+                {
+                  id: '1',
+                  title: 'TBD',
+                  link: '#',
+                },
+              ],
+            },
+            {
+              id: '1',
+              code: '1',
+              title: 'Expense dashboard increments (on-chain data, budget breakdowns)',
+              description:
+                'Separate incremental release of the MakerDAO expenses platform with on-chain transactional data and budget breakdown views.',
+              owner: contributors[0],
+              status: DeliverableStatus.DELIVERED,
+              workProgress: {
+                __typename: 'Percentage',
+                value: 100,
+              },
+              budgetAnchor: {
+                project: 'Protocol Expense Accounting',
+                workUnitBudget: 1000,
+                deliverableBudget: 1000,
+              },
+              keyResults: [
+                {
+                  id: '1',
+                  title: 'Expense dashboard on-going work',
+                  link: '#',
+                },
+                {
+                  id: '1',
+                  title: 'Expense Dashboard deployment v0.33.0',
+                  link: '#',
+                },
+                {
+                  id: '1',
+                  title: 'TBD',
+                  link: '#',
+                },
+              ],
             },
           ],
           status: DeliverableSetStatus.FINISHED,
           progress: {
+            __typename: 'Percentage',
             value: 100,
           },
           deliverablesCompleted: {
@@ -103,6 +192,7 @@ export const PowerhouseRoadmap2024: Roadmap = {
           deliverables: [],
           status: DeliverableSetStatus.IN_PROGRESS,
           progress: {
+            __typename: 'Percentage',
             value: 60,
           },
           deliverablesCompleted: {
@@ -128,6 +218,7 @@ export const PowerhouseRoadmap2024: Roadmap = {
           deliverables: [],
           status: DeliverableSetStatus.TODO,
           progress: {
+            __typename: 'Percentage',
             value: 0,
           },
           deliverablesCompleted: {
@@ -153,6 +244,7 @@ export const PowerhouseRoadmap2024: Roadmap = {
           deliverables: [],
           status: DeliverableSetStatus.TODO,
           progress: {
+            __typename: 'Percentage',
             value: 0,
           },
           deliverablesCompleted: {
@@ -178,6 +270,7 @@ export const PowerhouseRoadmap2024: Roadmap = {
           deliverables: [],
           status: DeliverableSetStatus.TODO,
           progress: {
+            __typename: 'Percentage',
             value: 0,
           },
           deliverablesCompleted: {
@@ -203,6 +296,7 @@ export const PowerhouseRoadmap2024: Roadmap = {
           deliverables: [],
           status: DeliverableSetStatus.TODO,
           progress: {
+            __typename: 'Percentage',
             value: 0,
           },
           deliverablesCompleted: {
@@ -238,6 +332,7 @@ const CommonDefaultMilestone = {
           owner: contributors[0],
           status: DeliverableStatus.DELIVERED,
           workProgress: {
+            __typename: 'Percentage',
             value: 100,
           },
           budgetAnchor: {
@@ -250,6 +345,7 @@ const CommonDefaultMilestone = {
       ],
       status: DeliverableSetStatus.FINISHED,
       progress: {
+        __typename: 'Percentage',
         value: 100,
       },
       deliverablesCompleted: {
@@ -258,7 +354,7 @@ const CommonDefaultMilestone = {
       },
     },
   ],
-};
+} as Milestone;
 
 export const DefaultRoadmap: Roadmap = {
   id: 'default',

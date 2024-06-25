@@ -1,8 +1,9 @@
 import { styled, useMediaQuery } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import React, { useState } from 'react';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
+import type { Deliverable } from '@/core/models/interfaces/deliverables';
+import { DeliverableStatus } from '@/core/models/interfaces/deliverables';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
 import DeliverableStatusChip from '../DeliverableStatusChip/DeliverableStatusChip';
 import DeliverableStoryPointsBar from '../DeliverableStoryPointsBar/DeliverableStoryPointsBar';
@@ -12,7 +13,6 @@ import OwnerTooltipContent from '../OwnerTooltipContent/OwnerTooltipContent';
 import ProjectLink from '../ProjectLink/ProjectLink';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
 import type { Theme } from '@mui/material';
-import type { Deliverable } from '@ses/core/models/interfaces/projects';
 
 interface DeliverableCardProps {
   deliverable: Deliverable;
@@ -39,18 +39,21 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
         </TitleContainer>
         <DeliverableOwnerContainer>
           <SESTooltip content={<OwnerTooltipContent title="Deliverable Owner" items={[deliverable.owner]} />}>
-            <OwnerImage src={deliverable.owner.imgUrl} alt={deliverable.owner.name} />
+            <OwnerImage src={deliverable.owner.imageUrl} alt={deliverable.owner.name} />
           </SESTooltip>
         </DeliverableOwnerContainer>
       </HeaderContainer>
       <ProgressContainer>
         <DeliverableStatusChip status={deliverable.status} />
-        {deliverable.status === DeliverableStatus.INPROGRESS &&
-          deliverable.progress &&
-          (deliverable.progress.__typename === 'Percentage' ? (
-            <DeliverablePercentageBar percentage={deliverable.progress.value} />
+        {deliverable.status === DeliverableStatus.IN_PROGRESS &&
+          deliverable.workProgress &&
+          (deliverable.workProgress.__typename === 'Percentage' ? (
+            <DeliverablePercentageBar percentage={deliverable.workProgress.value} />
           ) : (
-            <DeliverableStoryPointsBar total={deliverable.progress.total} completed={deliverable.progress.completed} />
+            <DeliverableStoryPointsBar
+              total={deliverable.workProgress.total}
+              completed={deliverable.workProgress.completed}
+            />
           ))}
       </ProgressContainer>
 

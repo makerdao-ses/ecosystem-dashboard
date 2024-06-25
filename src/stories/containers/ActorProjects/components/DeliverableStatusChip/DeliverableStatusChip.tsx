@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import Chip from '@mui/material/Chip';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import React, { useMemo } from 'react';
+import { DeliverableStatus } from '@/core/models/interfaces/deliverables';
 import { getChipColors } from '../../utils/colors';
 
 interface DeliverableStatusChipProps {
@@ -13,7 +13,7 @@ const DeliverableStatusChip: React.FC<DeliverableStatusChipProps> = ({ status })
   const { isLight } = useThemeContext();
   const label = useMemo(() => {
     switch (status) {
-      case DeliverableStatus.INPROGRESS:
+      case DeliverableStatus.IN_PROGRESS:
         return 'In Progress';
       case DeliverableStatus.DELIVERED:
         return 'Delivered';

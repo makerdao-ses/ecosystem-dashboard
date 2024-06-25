@@ -7,6 +7,7 @@ import { ButtonType } from '@ses/core/enums/buttonTypeEnum';
 import lightTheme from '@ses/styles/theme/themes';
 import Image from 'next/image';
 import React, { useCallback, useMemo, useState } from 'react';
+import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
 import BudgetTypeBadge from '../BudgetTypeBadge/BudgetTypeBadge';
 import DeliverableCard from '../DeliverableCard/DeliverableCard';
 import DeliverableViewModeToggle from '../DeliverableViewModeToggle/DeliverableViewModeToggle';
@@ -15,7 +16,7 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 import ProjectStatusChip from '../ProjectStatusChip/ProjectStatusChip';
 import SupportedTeamsAvatarGroup from '../SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
 import ViewAllButton from '../ViewAllButton/ViewAllButton';
-import type { Owner, Project } from '@ses/core/models/interfaces/projects';
+import type { Project } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ProjectCardProps {
@@ -28,7 +29,7 @@ export type DeliverableViewMode = 'compacted' | 'detailed';
 export function splitInRows<T = unknown>(arr: T[], rowLength: number): T[][] {
   const result: T[][] = [];
 
-  for (let i = 0; i < arr.length; i += rowLength) {
+  for (let i = 0; i < arr?.length; i += rowLength) {
     const row = arr.slice(i, i + rowLength);
     result.push(row);
   }
@@ -56,7 +57,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSupportedProject =
       Array.from(
         project.deliverables
           .filter((deliverable) => deliverable.owner.id !== project.owner.id)
-          .reduce((prev, current) => prev.set(current.owner.id, current.owner), new Map<string, Owner>())
+          .reduce((prev, current) => prev.set(current.owner.id, current.owner), new Map<string, OwnerRef>())
           .values()
       ),
     [project.deliverables, project.owner.id]

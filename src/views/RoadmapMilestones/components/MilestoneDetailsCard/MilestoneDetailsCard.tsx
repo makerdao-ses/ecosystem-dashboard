@@ -39,11 +39,15 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
             {
               id: '1',
               name: 'Team 1',
+              code: '',
+              imageUrl: '',
               ref: OwnerType.EcosystemActor,
             },
             {
               id: '2',
               name: 'Team 2',
+              code: '',
+              imageUrl: '',
               ref: OwnerType.EcosystemActor,
             },
           ]}
@@ -84,7 +88,7 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
       </ShowOn1024Up>
 
       <DeliverablesContainer>
-        <DeliverablesSection minimal={minimal} />
+        <DeliverablesSection minimal={minimal} deliverables={milestone.scope?.[0].deliverables} />
       </DeliverablesContainer>
     </MilestoneContent>
   </Card>

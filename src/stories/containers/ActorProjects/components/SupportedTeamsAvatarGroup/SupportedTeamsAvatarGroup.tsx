@@ -3,13 +3,13 @@ import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
 import SESTooltipLegacy from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import OwnerTooltipContent from '../OwnerTooltipContent/OwnerTooltipContent';
-import type { Owner } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SupportedTeamsAvatarGroupProps {
-  supporters: Owner[];
+  supporters: OwnerRef[];
 }
 
 const SupportedTeamsAvatarGroup: React.FC<SupportedTeamsAvatarGroupProps> = ({ supporters }) => {
@@ -19,7 +19,7 @@ const SupportedTeamsAvatarGroup: React.FC<SupportedTeamsAvatarGroupProps> = ({ s
     <SESTooltipLegacy content={<OwnerTooltipContent title="Supporters" items={supporters} />}>
       <StyledAvatarGroup total={supporters.length} isLight={isLight}>
         {supporters.map((supporter) => (
-          <StyledAvatar key={supporter.id} alt={supporter.name} src={supporter.imgUrl} />
+          <StyledAvatar key={supporter.id} alt={supporter.name} src={supporter.imageUrl} />
         ))}
       </StyledAvatarGroup>
     </SESTooltipLegacy>
