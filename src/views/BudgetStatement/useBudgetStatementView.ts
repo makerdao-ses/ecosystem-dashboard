@@ -60,13 +60,18 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
     [anchor, router]
   );
 
-  const { code, name, breadcrumbItems } = useMemo(() => {
+  const { code, name, seo, breadcrumbItems } = useMemo(() => {
     // map the AllowedOwnerType to required data to show in the UI
     switch (ownerTypeQuery) {
       case AllowedOwnerType.KEEPERS:
         return {
           code: 'KEEPERS',
           name: 'Keepers',
+          seo: {
+            title: 'MakerDAO Teams | Keepers',
+            description:
+              'MakerDAO Ecosystem Actors Keepers page provides a comprehensive overview of Keepers on-chain activity with monthly account snapshot.',
+          },
           breadcrumbItems: [
             {
               label: 'Finances',
@@ -90,6 +95,11 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
         return {
           code: 'SFPs',
           name: 'Special Purpose Funds',
+          seo: {
+            title: 'MakerDAO Teams | Special Purpose Funds',
+            description:
+              'MakerDAO Ecosystem Actors Special Purpose Funds page provides a comprehensive overview of Special Purpose Funds on-chain activity with monthly account snapshot.',
+          },
           breadcrumbItems: [
             {
               label: 'Finances',
@@ -109,6 +119,11 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
         return {
           code: 'DEL',
           name: 'Aligned Delegates',
+          seo: {
+            title: 'MakerDAO Teams | Aligned Delegates',
+            description:
+              'MakerDAO Ecosystem Actors Aligned Delegates page provides a comprehensive overview of Aligned Delegates financial activity through monthly budget statements.',
+          },
           breadcrumbItems: [
             {
               label: 'Finances',
@@ -168,6 +183,7 @@ const useBudgetStatementView = (snapshotLimitPeriods: SnapshotLimitPeriods | und
     showHeader,
     code,
     name,
+    seo,
     breadcrumbItems,
     snapshotCreated,
     setSnapshotCreated,
