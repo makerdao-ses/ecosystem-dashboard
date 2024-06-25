@@ -71,6 +71,7 @@ const Container = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   paddingTop: '64px',
+
   flex: 1,
   backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#000000',
   backgroundImage: theme.palette.isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',

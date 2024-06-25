@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Tabs from '@ses/components/Tabs/Tabs';
 import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
@@ -9,9 +9,7 @@ import React, { useRef } from 'react';
 import AccountsSnapshotTabContainer from '@/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
-import lightTheme from '../../../../styles/theme/themes';
 import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
@@ -47,7 +45,6 @@ export const TransparencyReport = ({
   expenseCategories,
   snapshotLimitPeriods,
 }: TransparencyReportProps) => {
-  const { isLight } = useThemeContext();
   const {
     tabItems,
     code,
@@ -206,11 +203,9 @@ export const TransparencyReport = ({
 
             <Container>
               <AdditionalNotesSection>
-                <Title isLight={isLight} isTitleOfPage={false}>
-                  Additional Notes
-                </Title>
+                <Title isTitleOfPage={false}>Additional Notes</Title>
 
-                <Paragraph isLight={isLight}>
+                <Paragraph>
                   {coreUnit.auditors.length === 0 ? (
                     <div>
                       Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
@@ -264,76 +259,76 @@ export const TransparencyReport = ({
   );
 };
 
-const PageSeparator = styled.div<{ marginTop: number }>(({ marginTop }) => ({
+const PageSeparator = styled('div')<{ marginTop: number }>(({ marginTop, theme }) => ({
   marginTop: `${32 + marginTop}px`,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     paddingTop: 32,
     marginTop,
   },
 }));
 
-export const Title = styled.div<{
+export const Title = styled('div')<{
   marginBottom?: number;
-  isLight: boolean;
+
   fontSize?: string;
   responsiveMarginBottom?: number;
   isTitleOfPage?: boolean;
-}>(({ marginBottom = 16, fontSize = '16px', isLight, responsiveMarginBottom, isTitleOfPage = false }) => ({
+}>(({ marginBottom = 16, fontSize = '16px', theme, responsiveMarginBottom, isTitleOfPage = false }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: isTitleOfPage ? 500 : 600,
   fontStyle: 'normal',
   fontSize,
   lineHeight: '19px',
   letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   marginBottom: `${marginBottom}px`,
-  '@media (min-width: 834px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: '20px',
     lineHeight: '24px',
     marginBottom: `${responsiveMarginBottom || marginBottom}px`,
   },
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
+
+  [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
     marginTop: '32px',
     fontWeight: 700,
   },
 }));
 
-const Paragraph = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Paragraph = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '22px',
-  color: isLight ? '#231536' : '#D2D4EF',
-
-  '@media (min-width: 834px)': {
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: '16px',
   },
 }));
 
-const TabsContainer = styled.div({
+const TabsContainer = styled('div')(({ theme }) => ({
   margin: '32px 0 16px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     margin: '32px 0',
   },
-});
+}));
 
-export const TableWrapper = styled.div({
+export const TableWrapper = styled('div')(({ theme }) => ({
   display: 'none',
-  '@media (min-width: 834px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'block',
   },
-});
+}));
 
-export const CardsWrapper = styled.div({
+export const CardsWrapper = styled('div')(({ theme }) => ({
   display: 'block',
-  '@media (min-width: 834px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
-});
+}));
 
-export const ParenthesisNumber = styled.label({
+export const ParenthesisNumber = styled('label')({
   cursor: 'pointer',
   '> span': {
     fontWeight: 'bold',
@@ -341,15 +336,15 @@ export const ParenthesisNumber = styled.label({
   },
 });
 
-const AdditionalNotesSection = styled.div({
+const AdditionalNotesSection = styled('div')(({ theme }) => ({
   paddingBottom: 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     paddingBottom: 0,
   },
-});
+}));
 
-const LegacyReportParagraph = styled.div({
+const LegacyReportParagraph = styled('div')({
   marginTop: 16,
   marginBottom: 0,
 });

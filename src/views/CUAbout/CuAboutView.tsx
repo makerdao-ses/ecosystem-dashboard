@@ -651,10 +651,14 @@ const DividerSections = styled('div')<{ hasMarginTop: boolean }>(({ theme, hasMa
   marginTop: hasMarginTop ? '32px' : '0px',
   width: '100%',
 }));
-const BreadcrumbStyled = styled(Breadcrumb)({
-  top: 98,
-});
+const BreadcrumbStyled = styled(Breadcrumb)(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    top: 98,
+  },
+}));
 
-const TeamHeaderStyled = styled(TeamHeader)({
-  marginTop: 78,
-});
+const TeamHeaderStyled = styled(TeamHeader)(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 78,
+  },
+}));
