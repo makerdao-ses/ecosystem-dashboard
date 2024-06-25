@@ -23,9 +23,7 @@ const TeamsView: React.FC = () => (
 
 export default TeamsView;
 
-const TeamsPageContainer = styled(PageContainer)(() => ({
-  marginTop: 24,
-}));
+const TeamsPageContainer = styled(PageContainer)(() => ({}));
 
 const SectionsContainer = styled('div')(() => ({
   display: 'flex',
