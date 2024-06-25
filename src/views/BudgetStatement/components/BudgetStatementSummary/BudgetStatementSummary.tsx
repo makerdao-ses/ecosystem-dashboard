@@ -1,13 +1,17 @@
-import { Collapse, styled } from '@mui/material';
+import { Collapse, styled, useMediaQuery } from '@mui/material';
 import CustomBreadcrumbs from '@ses/components/Breadcrumbs/CustomBreadcrumbs/CustomBreadcrumbs';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { forwardRef } from 'react';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
+import type { LinkModel } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
+import { CuTableColumnLinks } from '@/stories/components/CuTableColumnLinks/CuTableColumnLinks';
+import type { Theme } from '@mui/material';
 
 interface BudgetStatementSummaryProps {
   code: string;
   name: string;
   showHeader: boolean;
+  links: LinkModel[];
   breadcrumbItems: {
     label: string | JSX.Element;
     url: string;
@@ -15,30 +19,44 @@ interface BudgetStatementSummaryProps {
 }
 
 const BudgetStatementSummary = forwardRef<HTMLDivElement, BudgetStatementSummaryProps>(
-  ({ code, name, showHeader, breadcrumbItems }, ref) => (
-    <ContainerWithBreadcrumb ref={ref} showHeader={showHeader}>
-      <BreadcrumbsContainer>
-        <CustomBreadcrumbs items={breadcrumbItems} />
-      </BreadcrumbsContainer>
-      <Collapse in={showHeader} timeout={300} unmountOnExit>
-        <Container>
-          <ContainerRow>
-            <CircleContainer>
-              <Avatar name="mk-logo" image="/assets/img/mk-logo.png" />
-            </CircleContainer>
-            <ContainerDescription>
-              <ContainerColumnMobile>
-                <ContainerText>
-                  <Code>{code.toUpperCase()}</Code>
-                  <Text>{name}</Text>
-                </ContainerText>
-              </ContainerColumnMobile>
-            </ContainerDescription>
-          </ContainerRow>
-        </Container>
-      </Collapse>
-    </ContainerWithBreadcrumb>
-  )
+  ({ code, name, showHeader, breadcrumbItems, links }, ref) => {
+    const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+
+    return (
+      <ContainerWithBreadcrumb ref={ref} showHeader={showHeader}>
+        <BreadcrumbsContainer>
+          <CustomBreadcrumbs items={breadcrumbItems} />
+        </BreadcrumbsContainer>
+        <Collapse in={showHeader} timeout={300} unmountOnExit>
+          <Container>
+            <ContainerRow>
+              <CircleContainer>
+                <Avatar name="mk-logo" image="/assets/img/mk-logo.png" />
+              </CircleContainer>
+              <ContainerDescription>
+                <ContainerColumnMobile>
+                  <ContainerText>
+                    <Code>{code.toUpperCase()}</Code>
+                    <Text>{name}</Text>
+                  </ContainerText>
+                </ContainerColumnMobile>
+                {isMobile && (
+                  <ContainerLinks>
+                    <CuTableColumnLinks links={links} align="flex-start" />
+                  </ContainerLinks>
+                )}
+                {!isMobile && (
+                  <ContainerLinks>
+                    <CuTableColumnLinks links={links} align="flex-start" />
+                  </ContainerLinks>
+                )}
+              </ContainerDescription>
+            </ContainerRow>
+          </Container>
+        </Collapse>
+      </ContainerWithBreadcrumb>
+    );
+  }
 );
 
 export default BudgetStatementSummary;
@@ -208,3 +226,29 @@ const ContainerText = styled('div')({
   display: 'flex',
   flexDirection: 'row',
 });
+
+const ContainerLinks = styled('div')(({ theme }) => ({
+  display: 'flex',
+  marginLeft: -6,
+  transition: 'all .3s ease',
+  [theme.breakpoints.up('tablet_768')]: {
+    ' & > div> div:last-child': {
+      marginTop: -4,
+    },
+  },
+
+  [theme.breakpoints.up('desktop_1440')]: {
+    '& > div > div:first-of-type': {
+      marginRight: '16px',
+      marginTop: '0px',
+      marginLeft: 0,
+    },
+    '* + *': {
+      marginRight: '14px',
+      marginTop: '0px!important',
+    },
+    ' & > div> div:last-child': {
+      marginRight: '0px',
+    },
+  },
+}));

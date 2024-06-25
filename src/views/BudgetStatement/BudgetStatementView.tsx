@@ -24,6 +24,7 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
     name,
     seo,
     breadcrumbItems,
+    links,
     snapshotCreated,
     setSnapshotCreated,
     currentMonth,
@@ -52,6 +53,7 @@ const BudgetStatementView: React.FC<BudgetStatementViewProps> = ({ snapshotLimit
         showHeader={showHeader}
         code={code}
         name={name}
+        links={links}
         breadcrumbItems={breadcrumbItems}
       />
 
