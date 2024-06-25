@@ -1,7 +1,9 @@
 import { styled } from '@mui/material';
 import TeamTypeCard from '../TeamTypeCard/TeamTypeCard';
+import type { CardType } from '../TeamTypeCard/TeamTypeCard';
 
 export interface TeamType {
+  type: CardType;
   name: string;
   teams: number;
   href: string;
@@ -24,6 +26,7 @@ const TeamsSections: React.FC<TeamsSectionsProps> = ({ sectionName, teams }) => 
         teams={team.teams}
         href={team.href}
         description={team.description}
+        cardType={team.type}
       />
     ))}
   </SectionContainer>

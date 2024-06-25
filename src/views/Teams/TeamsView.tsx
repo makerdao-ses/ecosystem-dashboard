@@ -13,9 +13,9 @@ const TeamsView: React.FC = () => (
     />
     <Container>
       <SectionsContainer>
-        <TeamsSections sectionName="Current teams" teams={currentTeams} />
+        <TeamsSections sectionName="Current Contributors" teams={currentTeams} />
 
-        <TeamsSections sectionName="Legacy teams" teams={legacyTeams} />
+        <TeamsSections sectionName="Legacy Contributors" teams={legacyTeams} />
       </SectionsContainer>
     </Container>
   </TeamsPageContainer>

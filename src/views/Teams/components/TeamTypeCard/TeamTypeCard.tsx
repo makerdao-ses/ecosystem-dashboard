@@ -3,14 +3,17 @@ import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import type { Theme } from '@mui/material';
 
+export type CardType = 'contributor' | 'team';
+
 interface TeamTypeCardProps {
   name: string;
   teams: number;
   href: string;
   description: string;
+  cardType: CardType;
 }
 
-const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, description }) => {
+const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, description, cardType }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
@@ -28,7 +31,9 @@ const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, descript
         <Description>{description}</Description>
       </MainContentDesktop>
 
-      <TeamsNumberDesktop>Teams {teams}</TeamsNumberDesktop>
+      <TeamsNumberDesktop>
+        <span>{teams}</span> <span>{cardType === 'team' ? 'Teams' : 'Contributors'}</span>
+      </TeamsNumberDesktop>
       <DesktopLinkContainer>
         <InternalLinkButtonStyled href={href} showIcon label="View" />
       </DesktopLinkContainer>
@@ -140,6 +145,7 @@ const TeamsNumberDesktop = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
@@ -148,6 +154,13 @@ const TeamsNumberDesktop = styled('div')(({ theme }) => ({
     fontWeight: 700,
     color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
     textWrap: 'nowrap',
+    width: 146,
+    minWidth: 146,
+  },
+
+  [theme.breakpoints.up('desktop_1440')]: {
+    width: 186,
+    minWidth: 186,
   },
 }));
 
