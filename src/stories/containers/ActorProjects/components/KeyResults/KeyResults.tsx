@@ -4,10 +4,10 @@ import ExternalLink from '@ses/components/ExternalLink/ExternalLink';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
+import type { KeyResult } from '@/core/models/interfaces/deliverables';
 import ExpandableButtonItem from './ExpandableButtonItem';
 import MaybeScrollableList from './MaybeScrollableList';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
-import type { KeyResult } from '@ses/core/models/interfaces/projects';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface KeyResultsProps {
@@ -82,7 +82,7 @@ const KeyResults: React.FC<KeyResultsProps> = ({
             <>
               {results.map((keyResult) => (
                 <ResultItem key={keyResult.id}>
-                  <KeyLink href={keyResult.link} target="_blank">
+                  <KeyLink href={keyResult.link} wrapText target="_blank">
                     {keyResult.title}
                   </KeyLink>
                 </ResultItem>
@@ -162,6 +162,13 @@ const KeyLink = styled(ExternalLink)(() => ({
   paddingLeft: 22,
   position: 'relative',
   gap: 6,
+  maxWidth: '100%',
+
+  '& span': {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 
   '&:before': {
     content: '""',

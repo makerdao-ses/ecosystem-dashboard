@@ -4,131 +4,21 @@ import DeliverableCard from '@ses/containers/ActorProjects/components/Deliverabl
 import DeliverableViewModeToggle from '@ses/containers/ActorProjects/components/DeliverableViewModeToggle/DeliverableViewModeToggle';
 import { splitInRows } from '@ses/containers/ActorProjects/components/ProjectCard/ProjectCard';
 import ViewAllButton from '@ses/containers/ActorProjects/components/ViewAllButton/ViewAllButton';
-import { DeliverableBuilder } from '@ses/core/businessLogic/builders/actors/deliverableBuilder';
-import { DeliverableStatus } from '@ses/core/models/interfaces/projects';
 import { useState } from 'react';
+import type { Deliverable } from '@/core/models/interfaces/deliverables';
 import type { DeliverableViewMode } from '@ses/containers/ActorProjects/components/ProjectCard/ProjectCard';
 
 interface DeliverablesSectionProps {
   minimal?: boolean;
+  deliverables: Deliverable[];
 }
 
 const SEARCH_FEATURE_ENABLED = false;
 
-const DeliverablesSection: React.FC<DeliverablesSectionProps> = ({ minimal }) => {
+const DeliverablesSection: React.FC<DeliverablesSectionProps> = ({ minimal, deliverables }) => {
   const [deliverableViewMode, setDeliverableViewMode] = useState<DeliverableViewMode>('compacted');
   const [showAllDeliverables, setShowAllDeliverables] = useState<boolean>(true);
 
-  // mocked deliverables
-  const deliverables = [
-    new DeliverableBuilder()
-      .withId('6')
-      .withTitle('PEA-01 On-Chain Data Reconciliation')
-      .withDescription(
-        "On-Chain Data Reconciliation will help ensure that all data related to Maker Protocol's expenses are accurate and up-to-date. This component will include a thorough analysis of all On-Chain data related to expenses, which will help to identify any discrepancies."
-      )
-      .withOwnerData(
-        '1',
-        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
-        'Powerhouse',
-        'POWERHOUSE'
-      )
-      .withStatus(DeliverableStatus.DELIVERED)
-      .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
-      .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
-      .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
-      .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
-      .addKeyResult('5', 'API Playground - Production', 'https://makerdao.com')
-      .addKeyResult('6', 'API Playground - Staging', 'https://makerdao.com')
-      .addKeyResult('7', 'Extra 1', 'https://makerdao.com')
-      .addKeyResult('8', 'Extra 2', 'https://makerdao.com')
-      .build(),
-    new DeliverableBuilder()
-      .withId('5')
-      .withTitle('PEA-02 Delegates Transparency')
-      .withDescription('Comprehensive overview of Delegates costs and changes over time.')
-      .withOwnerData(
-        '2',
-        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
-        'Phoenix Lab',
-        'PHOENIX'
-      )
-      .withStatus(DeliverableStatus.INPROGRESS)
-      .withProgress({
-        __typename: 'Percentage',
-        value: 0.73,
-      })
-      .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
-      .addKeyResult('2', 'Wireframes', 'https://makerdao.com')
-      .addKeyResult('3', 'Dashboard - Staging ', 'https://makerdao.com')
-      .addKeyResult('4', 'Dashboard - Production ', 'https://makerdao.com')
-      .build(),
-    new DeliverableBuilder()
-      .withId('1')
-      .withTitle('PEA-02 Delegates Transparency')
-      .withOwnerData(
-        '3',
-        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/DEWIZ/DEWIZ_logo.png',
-        'Dewiz',
-        'DEWIZ'
-      )
-      .withStatus(DeliverableStatus.TODO)
-      .build(),
-    new DeliverableBuilder()
-      .withId('2')
-      .withTitle('PEA-02 Delegates Transparency')
-      .withOwnerData(
-        '2',
-        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png',
-        'Phoenix Lab',
-        'PHOENIX'
-      )
-      .withStatus(DeliverableStatus.INPROGRESS)
-      .withProgress({
-        __typename: 'StoryPoints',
-        total: 5,
-        completed: 3,
-      })
-      .addKeyResult('1', 'Business Analysis', 'https://makerdao.com')
-      .addKeyResult('2', 'API Playground - Production', 'https://makerdao.com')
-      .addKeyResult('3', 'Dashboard - Production', 'https://makerdao.com')
-      .addKeyResult('4', 'Dashboard - Staging ', 'https://makerdao.com')
-      .addKeyResult('5', 'Dashboard - Staging ', 'https://makerdao.com')
-      .build(),
-    new DeliverableBuilder()
-      .withId('3')
-      .withTitle('PEA-03 SPF Finances')
-      .withOwnerData(
-        '4',
-        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
-        'BA Labs',
-        'BA-LABS'
-      )
-      .withStatus(DeliverableStatus.DELIVERED)
-      .build(),
-    new DeliverableBuilder()
-      .withId('4')
-      .withTitle('PEA-03 SPF Finances')
-      .withOwnerData(
-        '4',
-        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
-        'BA Labs',
-        'BA-LABS'
-      )
-      .withStatus(DeliverableStatus.DELIVERED)
-      .build(),
-    new DeliverableBuilder()
-      .withId('1')
-      .withTitle('PEA-03 SPF Finances')
-      .withOwnerData(
-        '4',
-        'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/BA-LABS/BA_LABS_logo.png',
-        'BA Labs',
-        'BA-LABS'
-      )
-      .withStatus(DeliverableStatus.DELIVERED)
-      .build(),
-  ];
   const deliverablesRows = splitInRows(showAllDeliverables ? deliverables : deliverables.slice(0, 6), 2);
 
   return (

@@ -1,9 +1,10 @@
-import { DeliverableStatus, ProjectStatus } from '@ses/core/models/interfaces/projects';
+import { ProjectStatus } from '@ses/core/models/interfaces/projects';
+import { DeliverableStatus } from '@/core/models/interfaces/deliverables';
 
 export const getChipColors = (status: ProjectStatus | DeliverableStatus, isLight: boolean) => {
   switch (status) {
     case ProjectStatus.INPROGRESS:
-    case DeliverableStatus.INPROGRESS:
+    case DeliverableStatus.IN_PROGRESS:
       return {
         color: '#575CFE',
         background: isLight ? '#EEF2FC' : 'rgba(87, 92, 254, 0.15)',

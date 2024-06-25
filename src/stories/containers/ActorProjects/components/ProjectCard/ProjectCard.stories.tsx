@@ -1,7 +1,8 @@
 import { DeliverableBuilder } from '@ses/core/businessLogic/builders/actors/deliverableBuilder';
 import { ProjectBuilder } from '@ses/core/businessLogic/builders/actors/projectBuilder';
-import { DeliverableStatus, OwnerType, ProjectStatus } from '@ses/core/models/interfaces/projects';
+import { OwnerType, ProjectStatus } from '@ses/core/models/interfaces/projects';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { DeliverableStatus } from '@/core/models/interfaces/deliverables';
 import ProjectCard from './ProjectCard';
 import type { Meta } from '@storybook/react';
 
@@ -70,7 +71,7 @@ const variantsArgs = [
             'Phoenix Lab',
             'PHOENIX'
           )
-          .withStatus(DeliverableStatus.INPROGRESS)
+          .withStatus(DeliverableStatus.IN_PROGRESS)
           .withProgress({
             __typename: 'Percentage',
             value: 0.73,
@@ -104,7 +105,7 @@ const variantsArgs = [
             'Phoenix Lab',
             'PHOENIX'
           )
-          .withStatus(DeliverableStatus.INPROGRESS)
+          .withStatus(DeliverableStatus.IN_PROGRESS)
           .withProgress({
             __typename: 'StoryPoints',
             total: 5,

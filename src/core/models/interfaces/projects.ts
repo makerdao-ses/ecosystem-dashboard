@@ -1,3 +1,5 @@
+import type { Deliverable } from './deliverables';
+
 export enum BudgetType {
   CONTINGENCY = 'CONTINGENCY',
   OPEX = 'OPEX',
@@ -9,12 +11,6 @@ export enum ProjectStatus {
   TODO = 'TODO',
   INPROGRESS = 'IN_PROGRESS',
   FINISHED = 'FINISHED',
-}
-
-export enum DeliverableStatus {
-  TODO = 'TODO',
-  INPROGRESS = 'IN_PROGRESS',
-  DELIVERED = 'DELIVERED',
 }
 
 export enum OwnerType {
@@ -35,12 +31,6 @@ export interface Owner {
   code?: string;
 }
 
-export interface KeyResult {
-  id: string;
-  title: string;
-  link: string;
-}
-
 export interface StoryPoints {
   __typename: 'StoryPoints';
   total: number;
@@ -53,16 +43,6 @@ export interface Percentage {
 }
 
 export type Progress = StoryPoints | Percentage;
-
-export interface Deliverable {
-  id: string;
-  title: string;
-  status: DeliverableStatus;
-  progress: Progress;
-  owner: Owner;
-  description?: string;
-  keyResults: KeyResult[];
-}
 
 export interface Project {
   id: string;

@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
 import { Avatar } from '@mui/material';
 import React from 'react';
-import type { Owner } from '@ses/core/models/interfaces/projects';
+import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
 
 interface OwnerTooltipContentProps {
   title: string;
-  items: Owner[];
+  items: OwnerRef[];
 }
 const OwnerTooltipContent: React.FC<OwnerTooltipContentProps> = ({ title, items }) => (
   <TooltipContainer>
     <TooltipTitle>{title}</TooltipTitle>
     {items.map((item) => (
       <Item key={item.id}>
-        <ItemAvatar src={item.imgUrl} />
+        <ItemAvatar src={item.imageUrl} />
         <ItemName>{item.name}</ItemName>
       </Item>
     ))}

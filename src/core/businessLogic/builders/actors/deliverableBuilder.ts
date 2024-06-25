@@ -1,5 +1,7 @@
-import { DeliverableStatus, OwnerType } from '@ses/core/models/interfaces/projects';
-import type { Owner, Deliverable, KeyResult, Progress } from '@ses/core/models/interfaces/projects';
+import { OwnerType } from '@ses/core/models/interfaces/projects';
+import type { Deliverable, KeyResult } from '@/core/models/interfaces/deliverables';
+import { DeliverableStatus } from '@/core/models/interfaces/deliverables';
+import type { OwnerRef, Progress } from '@/core/models/interfaces/roadmaps';
 
 export class DeliverableBuilder {
   private readonly _deliverable: Deliverable;
@@ -10,8 +12,8 @@ export class DeliverableBuilder {
       title: '',
       description: '',
       status: DeliverableStatus.TODO,
-      progress: {},
-      owner: {} as Owner,
+      workProgress: {},
+      owner: {},
       keyResults: [] as KeyResult[],
     } as Deliverable;
   }
@@ -37,23 +39,23 @@ export class DeliverableBuilder {
   }
 
   withProgress(progress: Progress): DeliverableBuilder {
-    this._deliverable.progress = progress;
+    this._deliverable.workProgress = progress;
     return this;
   }
 
-  withOwner(owner: Owner): DeliverableBuilder {
+  withOwner(owner: OwnerRef): DeliverableBuilder {
     this._deliverable.owner = owner;
     return this;
   }
 
-  withOwnerData(id: string, imgUrl: string, name: string, code?: string): DeliverableBuilder {
+  withOwnerData(id: string, imageUrl: string, name: string, code?: string): DeliverableBuilder {
     this._deliverable.owner = {
       ref: OwnerType.EcosystemActor,
       id,
-      imgUrl,
+      imageUrl,
       name,
       code,
-    } as Owner;
+    } as OwnerRef;
     return this;
   }
 

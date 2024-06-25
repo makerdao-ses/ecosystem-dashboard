@@ -42,6 +42,7 @@ const BreadcrumbNavigationStyled = styled('div')(({ theme }) => ({
 const StyledBreadcrumbs = styled(Breadcrumbs)({
   '& .crumb': {
     letterSpacing: 0,
+    maxWidth: '230px!important', // override the default width
   },
 });
 

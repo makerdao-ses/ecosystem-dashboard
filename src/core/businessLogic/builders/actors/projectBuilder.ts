@@ -1,5 +1,6 @@
 import { BudgetType, ProjectStatus } from '@ses/core/models/interfaces/projects';
-import type { Owner, Project, Deliverable } from '@ses/core/models/interfaces/projects';
+import type { Deliverable } from '@/core/models/interfaces/deliverables';
+import type { Owner, Project } from '@ses/core/models/interfaces/projects';
 
 export class ProjectBuilder {
   private readonly _project: Project;
