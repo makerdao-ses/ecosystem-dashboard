@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
@@ -29,15 +28,12 @@ export const TransparencyMkrVesting: React.FC<TransparencyMkrVestingProps> = ({
   resource,
 }) => {
   const { mainTableItems, mainTableColumns, FTEs } = useTransparencyMkrVesting(currentMonth, budgetStatements);
-  const { isLight } = useThemeContext();
 
   return (
     <Container>
       {headline}
 
-      <Title isLight={isLight} marginBottom={24}>
-        MKR Vesting Overview
-      </Title>
+      <Title marginBottom={24}>MKR Vesting Overview</Title>
       <MkrVestingTotalFTE totalFTE={FTEs} />
 
       <AdvancedInnerTable
