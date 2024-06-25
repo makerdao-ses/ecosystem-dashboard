@@ -166,7 +166,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
-  top: 64,
+  top: 98,
   width: '100%',
   background: isLight ? '#FFFFFF' : '#25273D',
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',

@@ -64,7 +64,7 @@ export default NavigationTabs;
 
 const Sticky = styled('div')({
   position: 'sticky',
-  top: 63,
+  top: 98,
   zIndex: 2,
 });
 

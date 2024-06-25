@@ -116,16 +116,15 @@ const Title = styled.h1<WithIsLight>(({ isLight }) => ({
   letterSpacing: '0.4px',
   color: isLight ? '#231536' : '#D2D4EF',
   marginTop: 32,
-  marginBottom: 32,
+  marginBottom: 16,
   [lightTheme.breakpoints.up('table_834')]: {
     fontSize: 24,
     lineHeight: '29px',
     letterSpacing: '0.4px',
-    marginTop: 34,
-    marginBottom: 32,
+    marginTop: 24,
   },
   [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 32,
+    marginTop: 24,
   },
 }));
 

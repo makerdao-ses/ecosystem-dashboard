@@ -93,7 +93,7 @@ const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
 export default ActorSummary;
 const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
-  top: 64,
+  top: 98,
   width: '100%',
   background: isLight ? '#FFFFFF' : '#25273D',
 

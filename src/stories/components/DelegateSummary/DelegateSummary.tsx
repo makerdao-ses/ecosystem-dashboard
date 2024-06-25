@@ -83,7 +83,7 @@ export default DelegateSummary;
 const ContainerWithBreadcrumb = styled('div')<{ showIcons?: boolean; showHeader?: boolean }>(
   ({ showHeader, theme }) => ({
     position: 'fixed',
-    top: 64,
+    top: 98,
     flexDirection: 'column',
     width: '100%',
     height: 'fit-content',
