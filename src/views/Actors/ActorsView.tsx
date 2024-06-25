@@ -112,6 +112,7 @@ export default ActorsView;
 
 const ExtendedPageContainer = styled(PageContainer)(({ theme }) => ({
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
+  marginTop: 24,
 }));
 
 const Title = styled('h1')(({ theme }) => ({

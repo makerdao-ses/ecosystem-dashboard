@@ -59,7 +59,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
         canonicalURL={siteRoutes.coreUnitAbout(code)}
       />
 
-      <Breadcrumb
+      <BreadcrumbStyled
         items={[
           {
             label: 'Core Units',
@@ -85,7 +85,7 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
           />
         }
       />
-      <TeamHeader team={cuAbout as unknown as Team} />
+      <TeamHeaderStyled team={cuAbout as unknown as Team} />
 
       <Wrapper>
         <ContainerAllData>
@@ -653,3 +653,10 @@ const DividerSections = styled('div')<{ hasMarginTop: boolean }>(({ theme, hasMa
   marginTop: hasMarginTop ? '32px' : '0px',
   width: '100%',
 }));
+const BreadcrumbStyled = styled(Breadcrumb)({
+  top: 100,
+});
+
+const TeamHeaderStyled = styled(TeamHeader)({
+  marginTop: 78,
+});

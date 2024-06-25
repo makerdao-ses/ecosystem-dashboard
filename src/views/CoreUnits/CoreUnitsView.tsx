@@ -87,7 +87,8 @@ export default CoreUnitsView;
 const ContainerHome = styled('div')<{ allowPadding?: boolean }>(({ theme, allowPadding = false }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: !allowPadding ? '96px 16px 128px' : 'none',
+  padding: !allowPadding ? '88px 16px 128px' : 'none',
+
   margin: '0 auto',
   width: '100%',
   background: theme.palette.isLight ? '#FFFFFF' : '#000000',
@@ -111,6 +112,7 @@ const Wrapper = styled('div')({
   maxWidth: '1312px',
   margin: '0 auto',
   paddingBottom: '8px',
+
   [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
     maxWidth: '1130px',
   },
@@ -138,9 +140,15 @@ export const PolicyBannerPosition = styled('div')({
   transition: 'all 0.5s ease-in',
 });
 
-const Header = styled('div')({
+const Header = styled('div')(({ theme }) => ({
   display: 'flex',
-  marginBottom: '32px',
+  marginBottom: '8px',
   justifyContent: 'flex-end',
   minWidth: '330px',
-});
+  [theme.breakpoints.up('mobile_375')]: {
+    marginTop: 24,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginBottom: 24,
+  },
+}));

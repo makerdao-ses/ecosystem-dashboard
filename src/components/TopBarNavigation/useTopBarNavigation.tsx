@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { siteRoutes } from '@/config/routes';
@@ -6,8 +7,10 @@ import { useThemeContext } from '@/core/context/ThemeContext';
 import { CONNECT } from '@/core/utils/const';
 import type { SelectItem } from '@/stories/components/SingleItemSelect/SingleItemSelect';
 import type { MenuType, RouteOnHeader } from './types';
+import type { Theme } from '@mui/material';
 const menuItems = {} as Record<RouteOnHeader, MenuType>;
 export const useTopBarNavigation = () => {
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const { clearCredentials, permissionManager } = useAuthContext();
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const router = useRouter();
@@ -44,6 +47,11 @@ export const useTopBarNavigation = () => {
     title: 'Connect',
     link: CONNECT,
   };
+
+  menuItems[''] = {
+    title: '',
+    link: '',
+  };
   const filter: SelectItem[] = useMemo(
     () =>
       Object.values(menuItems).map((value) => ({
@@ -62,10 +70,17 @@ export const useTopBarNavigation = () => {
       return menuItems.roadmap;
     } else if (router.pathname.startsWith(siteRoutes.endgame)) {
       return menuItems.endgame;
-    } else return menuItems.teams;
+    } else {
+      return menuItems[''];
+    }
   }, [router.pathname]);
 
-  const activeItem = activeMenuItem?.title;
+  const activeItem = useMemo(() => {
+    if (isMobile) {
+      return activeMenuItem?.title === '' ? 'Teams' : activeMenuItem.title;
+    }
+    return activeMenuItem.title;
+  }, [isMobile, activeMenuItem]);
   const handleChangeRoute = (value: string | string[]) => {
     if (typeof value === 'string') {
       const find = Object.values(menuItems).find((menu) => menu.title === value);

@@ -83,9 +83,9 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
                   <StyledButton title="Log in" onClick={handleGoLogin} />
                 </LoginContainer>
                 <ContainerLogin width={16} height={20}>
-                  <Link href={siteRoutes.login}>
+                  <ContainerIconLogin href={siteRoutes.login}>
                     <Login />
-                  </Link>
+                  </ContainerIconLogin>
                 </ContainerLogin>
               </>
             )}
@@ -262,6 +262,7 @@ const LoginContainer = styled('div')(({ theme }) => ({
 
 const StyledButton = styled(PrimaryButton)({
   padding: '4px 24px',
+  lineHeight: '0px',
 });
 
 const CenterLinks = styled('ul')(({ theme }) => ({
@@ -324,6 +325,10 @@ const StyledCustomSelect = styled(CustomSelect)(() => ({
     backgroundColor: 'green !important',
   },
 }));
+
+const ContainerIconLogin = styled(Link)({
+  display: 'flex',
+});
 
 const StyledMenuProps = (theme: Theme) => ({
   PaperProps: {

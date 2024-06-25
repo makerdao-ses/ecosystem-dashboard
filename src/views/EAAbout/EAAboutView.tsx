@@ -45,7 +45,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
         }}
         canonicalURL={siteRoutes.ecosystemActorAbout(actor.shortCode)}
       />
-      <Breadcrumb
+      <BreadcrumbStyled
         items={[
           {
             label: 'Ecosystem Actors',
@@ -71,7 +71,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
           />
         }
       />
-      <TeamHeader team={actor} />
+      <TeamHeaderStyled team={actor} />
 
       <Container>
         <ContainerAllData>
@@ -297,3 +297,11 @@ const SomethingWrongContainer = styled('div')(({ theme }) => ({
     minWidth: 416,
   },
 }));
+const BreadcrumbStyled = styled(Breadcrumb)({
+  top: 92,
+  marginTop: 8,
+});
+
+const TeamHeaderStyled = styled(TeamHeader)({
+  marginTop: 40,
+});
