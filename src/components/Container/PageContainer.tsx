@@ -3,7 +3,7 @@ import React from 'react';
 
 interface PageBackgroundProps extends React.PropsWithChildren {
   className?: string;
-  hasImageBackground?: boolean;
+  hasImageBackground?: boolean; // for legacy compatibility
 }
 
 const PageContainer: React.FC<PageBackgroundProps> = ({ children, className, hasImageBackground = false }) => (
@@ -21,6 +21,7 @@ const PageBackground = styled('div')<{ hasImageBackground: boolean }>(({ theme, 
   width: '100%',
 
   ...(hasImageBackground && {
+    backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#000000',
     backgroundImage: theme.palette.isLight ? 'url(/assets/img/bg-page.png)' : 'url(/assets/img/bg-page-dark.png)',
     backgroundAttachment: 'fixed',
     backgroundSize: 'cover',

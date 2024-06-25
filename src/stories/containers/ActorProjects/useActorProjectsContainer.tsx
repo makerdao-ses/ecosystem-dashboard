@@ -1,20 +1,18 @@
 import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ProjectStatus } from '@ses/core/models/interfaces/projects';
-import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
 import ProjectStatusChip from './components/ProjectStatusChip/ProjectStatusChip';
+import type { Theme } from '@mui/material';
 import type { MultiSelectItem } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { Project } from '@ses/core/models/interfaces/projects';
 
 const useActorProjectsContainer = (projects: Project[]) => {
-  const { isLight } = useThemeContext();
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, router.query.code as string);
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const [isFilterCollapsedOnMobile, setIsFilterCollapsedOnMobile] = useState<boolean>(true);
   const handleToggleFilterOnMobile = () => setIsFilterCollapsedOnMobile((prev) => !prev);
@@ -76,7 +74,6 @@ const useActorProjectsContainer = (projects: Project[]) => {
     ref,
     height,
     showHeader,
-    isLight,
     isMobile,
     isFilterCollapsedOnMobile,
     handleToggleFilterOnMobile,

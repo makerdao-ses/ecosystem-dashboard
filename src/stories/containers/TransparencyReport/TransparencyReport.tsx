@@ -76,7 +76,7 @@ export const TransparencyReport = ({
   const headline = <CuHeadlineText cuLongCode={longCode} />;
 
   return (
-    <Wrapper>
+    <>
       <SEOHead
         title={`${coreUnit.name} Core Unit | Finances`}
         description={`Learn about the ${coreUnit.name} Core Unit at MakerDAO: their finances, expense reports, and more.`}
@@ -260,15 +260,9 @@ export const TransparencyReport = ({
           </ModalCategoriesProvider>
         </PageSeparator>
       </PageContainer>
-    </Wrapper>
+    </>
   );
 };
-
-const Wrapper = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-});
 
 const PageSeparator = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   marginTop: `${32 + marginTop}px`,

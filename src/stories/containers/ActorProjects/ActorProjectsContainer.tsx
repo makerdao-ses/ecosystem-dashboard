@@ -1,8 +1,7 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
-import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
@@ -14,7 +13,6 @@ import ProjectList from './components/ProjectList/ProjectList';
 import useActorProjectsContainer from './useActorProjectsContainer';
 import type { Project } from '@ses/core/models/interfaces/projects';
 import type { Team } from '@ses/core/models/interfaces/team';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ActorProjectsContainerProps {
   actors: Team[];
@@ -24,7 +22,6 @@ interface ActorProjectsContainerProps {
 
 const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, actors, projects }) => {
   const {
-    isLight,
     height,
     ref,
     showHeader,
@@ -77,7 +74,7 @@ const ActorProjectsContainer: React.FC<ActorProjectsContainerProps> = ({ actor, 
             {/* TODO: instead of `projects.length` it should be `supportedProjects.length` once it is integrated with the API */}
             {(filteredProjects.length > 0 || filteredSupporterProjects.length > 0) && projects.length > 0 && (
               <>
-                <SupportedProjects isLight={isLight}>
+                <SupportedProjects>
                   <span>Projects supported by {actor.name}</span>
                   <SESTooltipLegacy
                     content="Contributory Projects: This highlights the ecosystem actor's role as a contributor rather than the primary owner."
@@ -108,7 +105,7 @@ const PageWrapper = styled(PageContainer)({
   paddingTop: 0,
 });
 
-const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
+const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -116,25 +113,28 @@ const ContainerAllData = styled.div<{ marginTop: number }>(({ marginTop }) => ({
   marginTop,
 }));
 
-const ContainerResponsive = styled.div({
+const ContainerResponsive = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   marginTop: 96,
 
-  [lightTheme.breakpoints.down('desktop_1194')]: {
+  [theme.breakpoints.down('desktop_1194')]: {
     width: '100%',
-    marginTop: 100,
   },
-});
 
-const SupportedProjects = styled.h2<WithIsLight>(({ isLight }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 0,
+  },
+}));
+
+const SupportedProjects = styled('h2')(({ theme }) => ({
   margin: '32px 0 16px',
   fontSize: 20,
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: 0.4,
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   display: 'flex',
   justifyContent: 'space-between',
 
@@ -143,7 +143,7 @@ const SupportedProjects = styled.h2<WithIsLight>(({ isLight }) => ({
     marginRight: 0,
   },
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     justifyContent: 'normal',
     alignItems: 'flex-end',
     gap: 8,
@@ -152,7 +152,7 @@ const SupportedProjects = styled.h2<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const IconContainer = styled.span({
+const IconContainer = styled('span')({
   cursor: 'pointer',
   padding: 4.5,
   width: 24,
