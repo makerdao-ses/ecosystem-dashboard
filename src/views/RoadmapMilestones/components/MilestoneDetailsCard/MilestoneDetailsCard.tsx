@@ -57,6 +57,7 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
     <Aside>
       <AsideContent>
         <CodeBox>
+          <Id>{milestone.id}</Id>
           <Code>{milestone.code}</Code>
         </CodeBox>
         <MilestoneProgress minimal={minimal} data={milestone.scope?.[0]} />
@@ -77,7 +78,9 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
       <ShowOn1024Up>
         <HeaderGroupBox>
           <Name>{milestone.title}</Name>
-          <MilestoneNumber>{milestone.id}</MilestoneNumber>
+          <MilestoneNumber>
+            {milestone.id} {milestone.code}
+          </MilestoneNumber>
         </HeaderGroupBox>
 
         <DescriptionContentForDesktop>
@@ -271,6 +274,20 @@ const CodeBox = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
+    gap: 8,
+  },
+}));
+
+const Id = styled('div')(({ theme }) => ({
+  color: theme.palette.mode === 'light' ? '#708390' : '#B6BCC2',
+  fontSize: 14,
+  fontWeight: 700,
+  lineHeight: 'normal',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 20,
+    fontWeight: 600,
+    letterSpacing: 0.4,
   },
 }));
 
