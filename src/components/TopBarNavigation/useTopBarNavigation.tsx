@@ -23,9 +23,9 @@ export const useTopBarNavigation = () => {
     router.push(siteRoutes.login);
   };
 
-  menuItems.teams = {
-    title: 'Teams',
-    link: '/teams',
+  menuItems.contributors = {
+    title: 'Contributors',
+    link: '/contributors',
   };
 
   menuItems.finances = {
@@ -62,8 +62,8 @@ export const useTopBarNavigation = () => {
   );
 
   const activeMenuItem: MenuType = useMemo(() => {
-    if (router.pathname.startsWith('/teams')) {
-      return menuItems.teams;
+    if (router.pathname.startsWith('/contributors')) {
+      return menuItems.contributors;
     } else if (router.pathname.startsWith(siteRoutes.finances())) {
       return menuItems.finances;
     } else if (router.pathname.startsWith('/roadmaps')) {
@@ -77,14 +77,14 @@ export const useTopBarNavigation = () => {
 
   const activeItem = useMemo(() => {
     if (isSelectShow) {
-      return activeMenuItem?.title === '' ? 'Teams' : activeMenuItem.title;
+      return activeMenuItem?.title === '' ? 'Contributors' : activeMenuItem.title;
     }
     return activeMenuItem.title;
   }, [isSelectShow, activeMenuItem]);
   const handleChangeRoute = (value: string | string[]) => {
     if (typeof value === 'string') {
       const find = Object.values(menuItems).find((menu) => menu.title === value);
-      router.push(find?.link || '/teams');
+      router.push(find?.link || '/contributors');
     }
   };
 

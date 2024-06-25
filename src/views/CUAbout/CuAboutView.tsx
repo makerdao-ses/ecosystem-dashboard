@@ -654,7 +654,7 @@ const DividerSections = styled('div')<{ hasMarginTop: boolean }>(({ theme, hasMa
   width: '100%',
 }));
 const BreadcrumbStyled = styled(Breadcrumb)({
-  top: 100,
+  top: 98,
 });
 
 const TeamHeaderStyled = styled(TeamHeader)({

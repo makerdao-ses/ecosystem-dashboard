@@ -113,8 +113,9 @@ const ContainerWrapper = styled('div')(({ theme }) => ({
   flex: 1,
   top: 0,
   width: '100%',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
   [theme.breakpoints.up('tablet_768')]: {
-    top: 6,
+    paddingTop: 6,
   },
 
   zIndex: zIndexEnum.HEADER_PAGE,

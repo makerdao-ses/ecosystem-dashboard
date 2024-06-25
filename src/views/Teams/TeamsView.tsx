@@ -29,4 +29,5 @@ const SectionsContainer = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 32,
+  marginTop: 24,
 }));
