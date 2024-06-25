@@ -141,7 +141,7 @@ const PageWrapper = styled(PageContainer)({
   paddingTop: 88,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    paddingTop: 96,
+    paddingTop: 124,
   },
 });
 
