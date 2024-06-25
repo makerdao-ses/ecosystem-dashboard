@@ -82,7 +82,7 @@ const KeyResults: React.FC<KeyResultsProps> = ({
             <>
               {results.map((keyResult) => (
                 <ResultItem key={keyResult.id}>
-                  <KeyLink href={keyResult.link} target="_blank">
+                  <KeyLink href={keyResult.link} wrapText target="_blank">
                     {keyResult.title}
                   </KeyLink>
                 </ResultItem>
@@ -162,6 +162,13 @@ const KeyLink = styled(ExternalLink)(() => ({
   paddingLeft: 22,
   position: 'relative',
   gap: 6,
+  maxWidth: '100%',
+
+  '& span': {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 
   '&:before': {
     content: '""',
