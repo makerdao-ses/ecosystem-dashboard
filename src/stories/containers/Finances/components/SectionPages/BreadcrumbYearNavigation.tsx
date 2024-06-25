@@ -16,6 +16,7 @@ interface Props {
   trailingAddressDesk: NavigationBreadcrumb[];
   title: string;
   hasIcon?: boolean;
+  className?: string;
 }
 const BreadcrumbYearNavigation: React.FC<Props> = ({
   years,
@@ -25,10 +26,11 @@ const BreadcrumbYearNavigation: React.FC<Props> = ({
   trailingAddressDesk,
   hasIcon,
   title,
+  className,
 }: Props) => {
   const { isLight } = useThemeContext();
   return (
-    <ContainerNavigation isLight={isLight}>
+    <ContainerNavigation isLight={isLight} className={className}>
       <BreadcrumbWithYear
         handleChange={handleChange}
         selectedValue={selectedValue}
@@ -48,7 +50,7 @@ const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
   marginRight: 16,
   marginLeft: 16,
   position: 'sticky',
-  top: 64,
+  top: 98,
   marginTop: 16,
   paddingLeft: 8,
   paddingRight: 8,

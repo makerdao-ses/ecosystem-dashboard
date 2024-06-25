@@ -1,11 +1,10 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 import React, { useEffect, useMemo, useState } from 'react';
-import lightTheme from '../../../../styles/theme/themes';
+import theme from '../../../../styles/theme/themes';
 import { useAuthContext } from '../../../core/context/AuthContext';
 import { useCookiesContextTracking } from '../../../core/context/CookiesContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -48,20 +47,18 @@ const NewChangesDivider = ({ isLight, count, isGlobal }: { isLight: boolean; cou
       sx={{
         bgcolor: 'transparent',
         borderColor: 'transparent',
-        [lightTheme.breakpoints.up('table_834')]: {
+        [theme.breakpoints.up('tablet_768')]: {
           bgcolor: isLight ? '#F75524' : '#FF8237',
           borderColor: isLight ? '#F75524' : '#FF8237',
         },
       }}
     />
-    <DividerText isLight={isLight} isGlobal={isGlobal}>
-      {count} New Changes since your last visit
-    </DividerText>
+    <DividerText isGlobal={isGlobal}>{count} New Changes since your last visit</DividerText>
     <DividerStyle
       sx={{
         bgcolor: 'transparent',
         borderColor: 'transparent',
-        [lightTheme.breakpoints.up('table_834')]: {
+        [theme.breakpoints.up('tablet_768')]: {
           bgcolor: isLight ? '#F75524' : '#FF8237',
           borderColor: isLight ? '#F75524' : '#FF8237',
         },
@@ -80,7 +77,7 @@ export default function ActivityTable({
   clearAction,
 }: Props) {
   const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('tablet_768'));
   const initialElements = useMemo(() => (isMobile ? 5 : 10), [isMobile]);
   const [showAllElements, setShowElements] = useState(false);
   const [noVisitedCount, setNoVisitedCount] = useState(0);
@@ -207,29 +204,29 @@ export default function ActivityTable({
   );
 }
 
-const TableHeader = styled.div<{ isLight: boolean; isGlobal?: boolean }>(({ isLight, isGlobal }) => ({
+const TableHeader = styled('div')<{ isLight: boolean; isGlobal?: boolean }>(({ isGlobal, theme }) => ({
   display: 'none',
   position: 'relative',
   zIndex: 1,
-  background: isLight ? '#F7F8F9' : '#25273D',
-  color: isLight ? '#231536' : '#FFFFFF',
+  background: theme.palette.isLight ? '#F7F8F9' : '#25273D',
+  color: theme.palette.isLight ? '#231536' : '#FFFFFF',
   padding: '16px 0 14px',
   borderRadius: '6px',
   lineHeight: '22px',
-  boxShadow: isLight
+  boxShadow: theme.palette.isLight
     ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4)',
 
-  [lightTheme.breakpoints.up(isGlobal ? 'desktop_1194' : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     display: 'block',
   },
 }));
 
-const TableHeaderRow = styled.div({
+const TableHeaderRow = styled('div')({
   display: 'flex',
 });
 
-const TableHeaderTitle = styled.div<{
+const TableHeaderTitle = styled('div')<{
   width?: string;
   styles?: React.CSSProperties;
   align: 'left' | 'center' | 'right';
@@ -248,7 +245,7 @@ const TableHeaderTitle = styled.div<{
   ...styles,
 }));
 
-const ChangesButtonContainer = styled.div({
+const ChangesButtonContainer = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
@@ -257,23 +254,23 @@ const ChangesButtonContainer = styled.div({
   margin: '32px 0',
 });
 
-const DisplayOnTabletUp = styled.div({
+const DisplayOnTabletUp = styled('div')({
   display: 'none',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'block',
   },
 });
 
-const DisplayOnMobileOnly = styled.div({
+const DisplayOnMobileOnly = styled('div')({
   display: 'block',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 });
 
-const DividerText = styled.div<{ isLight: boolean; isGlobal?: boolean }>(({ isLight = true, isGlobal }) => ({
+const DividerText = styled('div')<{ isGlobal?: boolean }>(({ theme, isGlobal }) => ({
   fontFamily: 'FT Base, sans-serif',
   flex: '0 0 auto',
   fontWeight: 600,
@@ -281,25 +278,25 @@ const DividerText = styled.div<{ isLight: boolean; isGlobal?: boolean }>(({ isLi
   lineHeight: '15px',
   textAlign: 'center',
   textTransform: 'uppercase',
-  color: isLight ? '#F75524' : '#FF8237',
+  color: theme.palette.isLight ? '#F75524' : '#FF8237',
   margin: '0 8px',
 
-  [lightTheme.breakpoints.up(isGlobal ? 'desktop_1194' : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     margin: '0 16px',
     fontWeight: 500,
     lineHeight: '14px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     margin: '0 32px',
   },
 }));
 
-const DividerStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
+const DividerStyle = styled(Divider)({
   width: '100%',
 });
 
-const ButtonContainer = styled.div({
+const ButtonContainer = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
@@ -308,7 +305,7 @@ const ButtonContainer = styled.div({
   marginTop: '64px',
 });
 
-const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'isLight' && prop !== 'isGlobal' })<{
+const StyledBigButton = styled(Button)<{
   isLight: boolean;
   isGlobal?: boolean;
 }>(({ isLight, isGlobal }) => ({
@@ -327,18 +324,18 @@ const StyledBigButton = styled(Button, { shouldForwardProp: (prop) => prop !== '
   letterSpacing: '1px',
   fontFamily: 'Inter, sans-serif',
 
-  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 1000 : 'tablet_768')]: {
     minWidth: '297px',
     padding: '8px 64px',
   },
 }));
 
-const DividerPreviousStyle = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })({
+const DividerPreviousStyle = styled(Divider)({
   width: '100%',
   borderColor: '#D4D9E1',
 });
 
-const Arrows = styled.div({
+const Arrows = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   margin: '0 8px',

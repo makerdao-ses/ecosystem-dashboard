@@ -21,6 +21,7 @@ interface BreadcrumbProps {
   items: BreadcrumbItem[];
   rightContent?: React.ReactElement;
   withMenusOpened?: boolean; // to manage the menu in the stories
+  className?: string;
 }
 
 const MAX_ALLOWED_WIDTH = 250;
@@ -42,7 +43,7 @@ const getTextWidth = (text: string, font: string) => {
   return metrics.width;
 };
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusOpened = false }) => {
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusOpened = false, className }) => {
   const [mounted, setMounted] = useState<boolean>(false);
   const contentId = useId();
   const rightPartId = useId();
@@ -149,7 +150,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
   const separator = <AngleRight width={24} height={24} />;
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <BreadcrumbCard>
         <Container>
           <Content id={contentId}>

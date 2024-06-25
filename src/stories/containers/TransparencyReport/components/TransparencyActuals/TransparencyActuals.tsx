@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import Tabs from '@ses/components/Tabs/Tabs';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
@@ -30,7 +29,6 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
   headline,
   resource,
 }) => {
-  const { isLight } = useThemeContext();
   const {
     headerIds,
     breakdownTitleRef,
@@ -45,7 +43,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
     <Container>
       {headline}
 
-      <Title isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
+      <Title>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
       <AdvancedInnerTable
         columns={mainTableColumns}
         items={mainTableItems}
@@ -59,9 +57,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
         }
       />
       {mainTableItems.length > 0 && (
-        <Title isLight={isLight} ref={breakdownTitleRef}>
-          {currentMonth.toFormat('MMM yyyy')} Breakdown
-        </Title>
+        <Title ref={breakdownTitleRef}>{currentMonth.toFormat('MMM yyyy')} Breakdown</Title>
       )}
 
       {mainTableItems.length > 0 && (

@@ -106,16 +106,8 @@ const EndgameView: FC<EndgameViewProps> = ({ budgetTransitionAnalytics, yearsRan
 
 export default EndgameView;
 
-const EndgamePageContainer = styled(PageContainer)(({ theme }) => ({
-  marginTop: 32,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 40,
-  },
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    marginTop: 64,
-  },
+const EndgamePageContainer = styled(PageContainer)(() => ({
+  marginTop: 24,
 }));
 
 const BannerContainer = styled('div')(({ theme }) => ({

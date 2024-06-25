@@ -34,7 +34,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
   } = useActorsView(actors, stories);
 
   return (
-    <PageContainer>
+    <ExtendedPageContainer>
       <SEOHead
         title={'MakerDAO Ecosystem Actors | Endgame Overview'}
         description={
@@ -104,11 +104,15 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
           <TableEmptyState description="There are no Ecosystem Actors available for this filter." />
         )}
       </Container>
-    </PageContainer>
+    </ExtendedPageContainer>
   );
 };
 
 export default ActorsView;
+
+const ExtendedPageContainer = styled(PageContainer)(() => ({
+  marginTop: 24,
+}));
 
 const Title = styled('h1')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',

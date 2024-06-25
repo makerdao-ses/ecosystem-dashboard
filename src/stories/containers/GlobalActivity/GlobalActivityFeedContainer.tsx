@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { Divider } from '@mui/material';
+import { Divider, styled } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
@@ -83,7 +82,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
                 customItemRender={(props: SelectItemProps) => <CoreUnitSelectItem {...props} />}
               />
             </CoreUnitsSelect>
-            <SmallSeparator isLight={isLight} />
+            <SmallSeparator />
             <Search>
               <SearchInput
                 inputRef={inputRef}
@@ -95,12 +94,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
                 }}
               />
             </Search>
-            <ButtonFilter
-              isOpen={filtersVisible}
-              isActive={filtersActive}
-              onClick={toggleFiltersVisible}
-              isLight={isLight}
-            >
+            <ButtonFilter isOpen={filtersVisible} isActive={filtersActive} onClick={toggleFiltersVisible}>
               <Filter
                 fill={
                   filtersActive || filtersVisible ? (isLight ? '#1AAB9B' : '#098C7D') : isLight ? '#231536' : 'white'
@@ -118,8 +112,8 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
               isGlobal
             />
           </TableWrapper>
-          <Title isLight={isLight}>Additional Notes</Title>
-          <Paragraph isLight={isLight}>
+          <Title>Additional Notes</Title>
+          <Paragraph>
             Change tracking displays all changes that have occurred regarding all Team activity. Here you will be able
             to see all previous modifications the Team made to its Expense Reports, FTEs, and more
           </Paragraph>
@@ -131,7 +125,7 @@ const GlobalActivityFeedContainer: React.FC<Props> = ({ teams, activityFeed }) =
 
 export default GlobalActivityFeedContainer;
 
-const Wrapper = styled.div({
+const Wrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -141,17 +135,17 @@ const PageWrapper = styled(PageContainer)({
   paddingTop: 88,
 
   [lightTheme.breakpoints.up('table_834')]: {
-    paddingTop: 96,
+    paddingTop: 124,
   },
 });
 
-const TableWrapper = styled.div({
+const TableWrapper = styled('div')({
   maxWidth: '1312px',
   width: '100%',
   margin: '0 auto',
 });
 
-const FiltersContainer = styled.div({
+const FiltersContainer = styled('div')({
   display: 'grid',
   gap: '16px',
   marginBottom: '32px',
@@ -171,61 +165,64 @@ const FiltersContainer = styled.div({
   },
 });
 
-const Reset = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+const Reset = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible, theme }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'reset',
   justifyContent: 'flex-end',
-  '@media (min-width: 834px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
 }));
 
-const Search = styled.div({
+const Search = styled('div')({
   gridArea: 'search',
 });
 
-const CoreUnitsSelect = styled.div<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+const CoreUnitsSelect = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'coreUnits',
   '@media (min-width: 834px)': {
     display: 'flex',
   },
 }));
-const SmallSeparator = styled(Divider, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
-  isLight: boolean;
-}>(({ isLight }) => ({
+const SmallSeparator = styled(Divider)(({ theme }) => ({
   height: '32px',
   width: '1px',
-  backgroundColor: isLight ? '#D4D9E1' : '#48495F',
+  backgroundColor: theme.palette.isLight ? '#D4D9E1' : '#48495F',
   alignSelf: 'center',
   gridArea: 'separator',
   display: 'none',
-  '@media (min-width: 834px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'block',
   },
 }));
 
-export const ButtonFilter = styled('div')<{ isActive: boolean; isOpen: boolean; isLight: boolean }>(
-  ({ isActive, isOpen, isLight }) => ({
-    display: 'flex',
-    gridArea: 'buttonFilter',
-    justifySelf: 'flex-end',
-    width: '34px',
-    height: '34px',
-    border: isLight
-      ? isOpen || isActive
-        ? '1px solid #6EDBD0'
-        : '1px solid #D4D9E1'
-      : isOpen || isActive
-      ? '1px solid #098C7D'
-      : '1px solid #343442',
-    borderRadius: '50%',
-    alignItems: 'center',
-    background: isOpen ? (isLight ? '#B6EDE7' : '#003C40') : isLight ? 'white' : 'transparent',
-    justifyContent: 'center',
-    boxSizing: 'border-box',
-    '@media (min-width: 834px)': {
-      display: 'none',
-    },
-  })
-);
+export const ButtonFilter = styled('div')<{ isActive: boolean; isOpen: boolean }>(({ isActive, isOpen, theme }) => ({
+  display: 'flex',
+  gridArea: 'buttonFilter',
+  justifySelf: 'flex-end',
+  width: '34px',
+  height: '34px',
+  border: theme.palette.isLight
+    ? isOpen || isActive
+      ? '1px solid #6EDBD0'
+      : '1px solid #D4D9E1'
+    : isOpen || isActive
+    ? '1px solid #098C7D'
+    : '1px solid #343442',
+  borderRadius: '50%',
+  alignItems: 'center',
+  background: isOpen
+    ? theme.palette.isLight
+      ? '#B6EDE7'
+      : '#003C40'
+    : theme.palette.isLight
+    ? 'white'
+    : 'transparent',
+  justifyContent: 'center',
+  boxSizing: 'border-box',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+}));

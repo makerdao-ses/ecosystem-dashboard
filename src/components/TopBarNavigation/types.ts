@@ -9,4 +9,4 @@ export interface MenuType {
   titleMobile?: string;
   mobileOnly?: boolean;
 }
-export type RouteOnHeader = 'teams' | 'finances' | 'roadmap' | 'endgame' | 'connect';
+export type RouteOnHeader = 'contributors' | 'finances' | 'roadmap' | 'endgame' | 'connect' | '';

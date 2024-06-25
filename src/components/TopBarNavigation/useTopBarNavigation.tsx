@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { siteRoutes } from '@/config/routes';
@@ -6,8 +7,10 @@ import { useThemeContext } from '@/core/context/ThemeContext';
 import { CONNECT } from '@/core/utils/const';
 import type { SelectItem } from '@/stories/components/SingleItemSelect/SingleItemSelect';
 import type { MenuType, RouteOnHeader } from './types';
+import type { Theme } from '@mui/material';
 const menuItems = {} as Record<RouteOnHeader, MenuType>;
 export const useTopBarNavigation = () => {
+  const isSelectShow = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
   const { clearCredentials, permissionManager } = useAuthContext();
   const { themeMode, toggleTheme, isLight } = useThemeContext();
   const router = useRouter();
@@ -20,9 +23,9 @@ export const useTopBarNavigation = () => {
     router.push(siteRoutes.login);
   };
 
-  menuItems.teams = {
-    title: 'Teams',
-    link: '/teams',
+  menuItems.contributors = {
+    title: 'Contributors',
+    link: '/contributors',
   };
 
   menuItems.finances = {
@@ -44,6 +47,11 @@ export const useTopBarNavigation = () => {
     title: 'Connect',
     link: CONNECT,
   };
+
+  menuItems[''] = {
+    title: '',
+    link: '',
+  };
   const filter: SelectItem[] = useMemo(
     () =>
       Object.values(menuItems).map((value) => ({
@@ -54,22 +62,29 @@ export const useTopBarNavigation = () => {
   );
 
   const activeMenuItem: MenuType = useMemo(() => {
-    if (router.pathname.startsWith('/teams')) {
-      return menuItems.teams;
+    if (router.pathname.startsWith('/contributors')) {
+      return menuItems.contributors;
     } else if (router.pathname.startsWith(siteRoutes.finances())) {
       return menuItems.finances;
     } else if (router.pathname.startsWith('/roadmaps')) {
       return menuItems.roadmap;
     } else if (router.pathname.startsWith(siteRoutes.endgame)) {
       return menuItems.endgame;
-    } else return menuItems.teams;
+    } else {
+      return menuItems[''];
+    }
   }, [router.pathname]);
 
-  const activeItem = activeMenuItem?.title;
+  const activeItem = useMemo(() => {
+    if (isSelectShow) {
+      return activeMenuItem?.title === '' ? 'Contributors' : activeMenuItem.title;
+    }
+    return activeMenuItem.title;
+  }, [isSelectShow, activeMenuItem]);
   const handleChangeRoute = (value: string | string[]) => {
     if (typeof value === 'string') {
       const find = Object.values(menuItems).find((menu) => menu.title === value);
-      router.push(find?.link || '/teams');
+      router.push(find?.link || '/contributors');
     }
   };
 

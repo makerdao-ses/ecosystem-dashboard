@@ -15,9 +15,10 @@ import type { Theme } from '@mui/material';
 
 interface TeamHeaderProps {
   team: Team;
+  className?: string;
 }
 
-const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
+const TeamHeader: React.FC<TeamHeaderProps> = ({ team, className }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const chips =
     team.type === ResourceType.EcosystemActor
@@ -37,7 +38,7 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team }) => {
         );
 
   return (
-    <MainContainer>
+    <MainContainer className={className}>
       <HeaderWrapper>
         <Container>
           <Content>

@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
 import { Title } from '../../TransparencyReport';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
@@ -26,14 +25,13 @@ export const TransparencyTransferRequest: React.FC<TransparencyTransferRequestPr
   headline,
   resource,
 }) => {
-  const { isLight } = useThemeContext();
   const { mainTableColumns, mainTableItems } = useTransparencyTransferRequest(currentMonth, budgetStatements);
 
   return (
     <Container>
       {headline}
 
-      <Title isLight={isLight}>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
+      <Title>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
       <div style={{ marginTop: 32 }}>
         <AdvancedInnerTable
           columns={mainTableColumns}

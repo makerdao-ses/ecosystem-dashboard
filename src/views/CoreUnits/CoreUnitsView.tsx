@@ -96,9 +96,15 @@ export const PolicyBannerPosition = styled('div')({
   transition: 'all 0.5s ease-in',
 });
 
-const Header = styled('div')({
+const Header = styled('div')(({ theme }) => ({
   display: 'flex',
-  marginBottom: '32px',
+  marginBottom: '8px',
   justifyContent: 'flex-end',
   minWidth: '330px',
-});
+  [theme.breakpoints.up('mobile_375')]: {
+    marginTop: 24,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginBottom: 24,
+  },
+}));

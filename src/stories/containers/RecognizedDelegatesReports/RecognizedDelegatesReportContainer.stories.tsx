@@ -13,7 +13,7 @@ const meta: Meta<typeof RecognizedDelegatesReportContainer> = {
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1440, 1920],
+      viewports: [375, 768, 1024, 1440, 1920],
       pauseAnimationAtEnd: true,
     },
     date: '2023-02-23T04:02:02Z',
@@ -59,7 +59,7 @@ LightMode.parameters = {
           ...optionStyles,
         },
       },
-      834: {
+      768: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14539%3A156480&t=nnlMhBVyl5KbS8g1-4',
         options: {
@@ -69,7 +69,7 @@ LightMode.parameters = {
           ...optionStyles,
         },
       },
-      1194: {
+      1024: {
         component:
           'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=14373%3A164183&t=nnlMhBVyl5KbS8g1-4',
         options: {

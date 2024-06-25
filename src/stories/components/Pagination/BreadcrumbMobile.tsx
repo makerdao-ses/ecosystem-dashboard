@@ -1,8 +1,5 @@
-import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
-
+import { Typography, styled } from '@mui/material';
 import React from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import ArrowMobileLeft from '../svg/ArrowMobileLeft';
 import ArrowMobileRight from '../svg/ArrowMobileRight';
 import BreadCrumbWithIcons from './BreadCrumbWithIcons';
@@ -34,54 +31,50 @@ const BreadcrumbMobile = ({
   className,
   arrowHeight,
   arrowWidth,
-}: Props) => {
-  const { isLight } = useThemeContext();
+}: Props) => (
+  <Container className={className}>
+    <BreadCrumbWithIcons items={items} title={title} />
 
-  return (
-    <Container isLight={isLight} className={className}>
-      <BreadCrumbWithIcons items={items} title={title} />
+    <RightPart>
+      <PaginationLabel>
+        <StyleActualCoreUnit>{`${page}`}</StyleActualCoreUnit>
+        <StyleTextCoreUnit>{`of ${count}`} </StyleTextCoreUnit>
+      </PaginationLabel>
+      <Arrows>
+        <ContainerArrowClick onClick={onClickLeft} width={arrowWidth} height={arrowHeight}>
+          <ArrowMobileLeft width={6} height={10} fill={page !== 1 ? undefined : '#d1dee6'} disabled={page === 1} />
+        </ContainerArrowClick>
+        <ContainerArrowClick onClick={onClickRight} width={arrowWidth} height={arrowHeight}>
+          <ArrowMobileRight
+            width={5}
+            height={10}
+            fill={page !== count ? undefined : '#d1dee6'}
+            disabled={page === count}
+          />
+        </ContainerArrowClick>
+      </Arrows>
+    </RightPart>
+  </Container>
+);
 
-      <RightPart>
-        <PaginationLabel>
-          <StyleActualCoreUnit isLight={isLight}>{`${page}`}</StyleActualCoreUnit>
-          <StyleTextCoreUnit isLight={isLight}>{`of ${count}`} </StyleTextCoreUnit>
-        </PaginationLabel>
-        <Arrows>
-          <ContainerArrowClick onClick={onClickLeft} width={arrowWidth} height={arrowHeight}>
-            <ArrowMobileLeft width={6} height={10} fill={page !== 1 ? undefined : '#d1dee6'} disabled={page === 1} />
-          </ContainerArrowClick>
-          <ContainerArrowClick onClick={onClickRight} width={arrowWidth} height={arrowHeight}>
-            <ArrowMobileRight
-              width={5}
-              height={10}
-              fill={page !== count ? undefined : '#d1dee6'}
-              disabled={page === count}
-            />
-          </ContainerArrowClick>
-        </Arrows>
-      </RightPart>
-    </Container>
-  );
-};
-
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
   height: '32px',
   padding: '8px',
-  background: isLight ? '#ECF1F3' : '#000A13',
+  background: theme.palette.isLight ? '#ECF1F3' : '#000A13',
   borderRadius: '6px',
 }));
-const RightPart = styled.div({
+const RightPart = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'start',
   alignItems: 'center',
 });
 
-const PaginationLabel = styled.div({
+const PaginationLabel = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
@@ -91,16 +84,14 @@ const PaginationLabel = styled.div({
   width: 40,
 });
 
-const Arrows = styled.div({
+const Arrows = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   gap: '11px',
   alignItems: 'center',
 });
 
-const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{
-  isLight: boolean;
-}>(({ isLight }) => ({
+const StyleActualCoreUnit = styled(Typography)(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -108,21 +99,19 @@ const StyleActualCoreUnit = styled(Typography, { shouldForwardProp: (prop) => pr
   lineHeight: '20px',
   letterSpacing: 'none',
   marginRight: 2,
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
-const StyleTextCoreUnit = styled(Typography, { shouldForwardProp: (prop) => prop !== 'isLight' })<{ isLight: boolean }>(
-  ({ isLight }) => ({
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: '10px',
-    lineHeight: '20px',
-    color: isLight ? '#626472' : '#546978',
-  })
-);
+const StyleTextCoreUnit = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: '10px',
+  lineHeight: '20px',
+  color: theme.palette.isLight ? '#626472' : '#546978',
+}));
 
-const ContainerArrowClick = styled.div<{ width?: number; height?: number }>(({ height = 20, width = 20 }) => ({
+const ContainerArrowClick = styled('div')<{ width?: number; height?: number }>(({ height = 20, width = 20 }) => ({
   width,
   height,
   display: 'flex',
