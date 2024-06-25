@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
+import { SES_DASHBOARD } from '@/core/utils/const';
 import { ButtonLinkStyled, ContainerLinks, ContainerLinksButton, LabelLinks } from '../CuAboutView';
 import CardSomethingWrong from './CardSomethingWrong';
 import type { Meta } from '@storybook/react';
@@ -29,7 +29,6 @@ const [[Card, CardDark]] = createThemeModeVariants(
         <LabelLinks>Important Links</LabelLinks>
         <ContainerLinksButton>
           <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
-          <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
         </ContainerLinksButton>
       </ContainerLinks>
     </CardSomethingWrong>

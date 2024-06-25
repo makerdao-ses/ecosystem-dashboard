@@ -10,7 +10,7 @@ import { getMarkdownInformation } from '@/core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '@/core/businessLogic/coreUnits';
 import type { Team } from '@/core/models/interfaces/team';
 import { ResourceType } from '@/core/models/interfaces/types';
-import { SES_DASHBOARD, TYPE_FORM } from '@/core/utils/const';
+import { SES_DASHBOARD } from '@/core/utils/const';
 import { toAbsoluteURL } from '@/core/utils/urls';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/stories/components/TeamMember/TeamMember';
@@ -183,7 +183,6 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                         <LabelLinks>Important Links</LabelLinks>
                         <ContainerLinksButton>
                           <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
-                          <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
                         </ContainerLinksButton>
                       </ContainerLinks>
                     </CardSomethingWrong>
@@ -236,7 +235,6 @@ const CuAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                 <LabelLinks>Important Links</LabelLinks>
                 <ContainerLinksButton>
                   <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
-                  <ButtonLinkStyled href={`${TYPE_FORM}`}>Fill Typeform</ButtonLinkStyled>
                 </ContainerLinksButton>
               </ContainerLinks>
             </CardSomethingWrong>

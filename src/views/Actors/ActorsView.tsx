@@ -110,8 +110,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
 
 export default ActorsView;
 
-const ExtendedPageContainer = styled(PageContainer)(({ theme }) => ({
-  background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
+const ExtendedPageContainer = styled(PageContainer)(() => ({
   marginTop: 24,
 }));
 

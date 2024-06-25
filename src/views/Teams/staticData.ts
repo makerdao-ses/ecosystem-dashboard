@@ -3,6 +3,7 @@ import type { TeamType } from './components/TeamsSections/TeamsSections';
 
 export const currentTeams = [
   {
+    type: 'team',
     name: 'Ecosystem Actors',
     description:
       // keeping the text as it was provided
@@ -12,6 +13,7 @@ export const currentTeams = [
     href: siteRoutes.ecosystemActors,
   },
   {
+    type: 'contributor',
     name: 'Aligned Delegates',
     description:
       // keeping the text as it was provided
@@ -21,6 +23,7 @@ export const currentTeams = [
     href: siteRoutes.finances('immutable/aligned-delegates?year=2023'),
   },
   {
+    type: 'contributor',
     name: 'Keepers',
     description:
       "Keepers are a specialized type of contributor entity that manage and operate certain decentralized financial operations within the Maker Ecosystem. They are responsible for performing functions such as maintaining the stability of the Dai stablecoin by participating in liquidation auctions and other mechanisms that ensure the system's resilience and efficiency. Keepers play a vital role in the decentralized operations of MakerDAO, helping to maintain the economic health and stability of the ecosystem.",
@@ -31,6 +34,7 @@ export const currentTeams = [
 
 export const legacyTeams = [
   {
+    type: 'team',
     name: 'Core Units',
     description:
       "Core Units were specialized teams within MakerDAO that handled specific operational, strategic, or technical functions necessary for the protocol's maintenance and growth. Each Core Unit had a defined mandate and budget, approved by Maker Governance, and was responsible for tasks such as engineering, risk management, growth, and more. For example, the Protocol Engineering Core Unit focused on developing and maintaining smart contracts, ensuring the security and correctness of the protocol, while the Growth Core Unit aimed to expand the distribution channels for DAI, increasing its adoption and usage globally.",
@@ -38,6 +42,7 @@ export const legacyTeams = [
     href: siteRoutes.coreUnitsOverview,
   },
   {
+    type: 'contributor',
     name: 'Recognized Delegates',
     description:
       "Recognized Delegates were individuals or entities that have been formally acknowledged by Maker Governance for their commitment to representing the interests of MKR holders. They participated actively in governance by voting on proposals and providing informed opinions. Recognized Delegates received compensation for their contributions and played a crucial role in ensuring that governance decisions aligned with the community's long-term goals. Their activities were transparent and subject to community oversight to maintain trust and accountability.",
@@ -45,6 +50,7 @@ export const legacyTeams = [
     href: siteRoutes.recognizedDelegate,
   },
   {
+    type: 'contributor',
     name: 'SPFs',
     description:
       "Special Purpose Funds were designated pools of capital allocated by Maker Governance for specific initiatives that supported the protocol's strategic objectives. These funds were used to finance projects that ranged from ecosystem development and marketing efforts to security audits and community grants. SPFs provided MakerDAO with the flexibility to invest in opportunities that enhanced the protocol's robustness, growth, and adoption, ensuring that it remained competitive and innovative within the DeFi space.",
