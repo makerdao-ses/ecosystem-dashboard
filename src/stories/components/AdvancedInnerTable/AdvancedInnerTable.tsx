@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { OpenModalTransparency } from '@ses/containers/TransparencyReport/transparencyReportUtils';
-import lightTheme from '@ses/styles/theme/themes';
+
 import React, { useId } from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { Title } from '../../containers/TransparencyReport/TransparencyReport';
@@ -8,7 +8,6 @@ import { TransparencyEmptyTable } from '../../containers/TransparencyReport/comp
 import { NumberCell } from '../NumberCell/NumberCell';
 import { TextCell } from '../TextCell/TextCell';
 import { TransparencyCard } from '../TransparencyCard/TransparencyCard';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export interface InnerTableColumn {
   align?: string;
@@ -83,13 +82,10 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       case 'text':
         return rowType === 'groupTitle' ? (
           <TextCell key={id} isHeader={true}>
-            <GroupTitle isLight={isLight} className="table-groupTitle">
-              {value as string}
-            </GroupTitle>
+            <GroupTitle className="table-groupTitle">{value as string}</GroupTitle>
           </TextCell>
         ) : rowType === 'category' ? (
           <StyledOpenModalTransparency
-            isLight={isLight}
             handleOpenModal={column.handleOpenModal}
             name={value as string}
             className={
@@ -129,15 +125,14 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   return items?.length > 0 ? (
     <>
       <TableWrapper>
-        <Container isLight={isLight} style={style} className={className}>
+        <Container style={style} className={className}>
           <Table>
-            <TableHead isLight={isLight}>
+            <TableHead>
               <tr>
                 {columns
                   ?.filter((x) => !x.hidden)
                   .map((column, i) => (
                     <HeadCell
-                      isLight={isLight}
                       hasBorderRight={column.hasBorderRight}
                       key={`header-${i}`}
                       style={{
@@ -154,12 +149,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             </TableHead>
             <tbody>
               {items?.map((row, i) => (
-                <TableRow
-                  key={i}
-                  isLight={isLight}
-                  borderTop={row.borderTop || row.type === 'total'}
-                  borderBottom={row.borderBottom}
-                >
+                <TableRow key={i} borderTop={row.borderTop || row.type === 'total'} borderBottom={row.borderBottom}>
                   {row.items
                     ?.filter((x) => !x.column.hidden)
                     .map((item, j) => (
@@ -183,17 +173,12 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
         {cardItems.map((item, i) => {
           if (item.type === 'groupTitle') {
             return (
-              <TitleCard
-                isLight={isLight}
-                isGroupCard={true}
-                cardSpacingSize={cardSpacingSize}
-                className="advanced-table--group-section"
-              >
-                <GroupTitle isLight={isLight} key={`groupTitle-${i}`} className="advanced-table--table-groupTitle">
+              <TitleCard isGroupCard={true} cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">
+                <GroupTitle key={`groupTitle-${i}`} className="advanced-table--table-groupTitle">
                   {item.items[0].value as string}
                 </GroupTitle>
                 {i + 1 < cardItems.length && cardItems[i + 1].type === 'section' && (
-                  <Title isLight={isLight} fontSize="14px" className="advanced-table--table-section">
+                  <Title fontSize="14px" className="advanced-table--table-section">
                     {cardItems[i + 1].items[0].value as string}
                   </Title>
                 )}
@@ -203,8 +188,8 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
 
           if (item.type === 'section') {
             return i === 0 || (i > 0 && cardItems[i - 1].type !== 'groupTitle') ? (
-              <TitleCard isLight={isLight} cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">
-                <Title isLight={isLight} fontSize="14px" key={`section-${i}`} className="advanced-table--table-section">
+              <TitleCard cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">
+                <Title fontSize="14px" key={`section-${i}`} className="advanced-table--table-section">
                   {item.items[0].value as string}
                 </Title>
               </TitleCard>
@@ -251,9 +236,9 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   );
 };
 
-const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight
+const Container = styled('div')(({ theme }) => ({
+  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: theme.palette.isLight
     ? '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
   borderRadius: '6px',
@@ -262,13 +247,13 @@ const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   scrollbarWidth: 'thin',
 }));
 
-const Table = styled.table({
+const Table = styled('table')({
   borderCollapse: 'collapse',
   flex: '1',
   width: '100%',
 });
 
-const TableCell = styled.td<{
+const TableCell = styled('td')<{
   textAlign: 'left' | 'center' | 'right';
   isLight?: boolean;
   hasBorderRight?: boolean;
@@ -277,7 +262,7 @@ const TableCell = styled.td<{
   borderRight: hasBorderRight ? (isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
 }));
 
-const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
+const TableHead = styled('thead')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: '12px',
   lineHeight: '15px',
@@ -285,38 +270,40 @@ const TableHead = styled.thead<{ isLight: boolean }>(({ isLight }) => ({
   textTransform: 'uppercase',
   fontWeight: 600,
   color: '#708390',
-  borderBottom: isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  borderBottom: theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361',
   whiteSpace: 'nowrap',
 }));
 
-const HeadCell = styled.th<{ hasBorderRight?: boolean; isLight: boolean }>(({ hasBorderRight, isLight }) => ({
+const HeadCell = styled('th')<{ hasBorderRight?: boolean }>(({ hasBorderRight, theme }) => ({
   padding: '24px 16px',
   fontWeight: 600,
-  borderRight: hasBorderRight ? (isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
+  borderRight: hasBorderRight ? (theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
 }));
 
-const TableWrapper = styled.div({
+const TableWrapper = styled('div')(({ theme }) => ({
   display: 'none',
-  '@media (min-width: 834px)': {
+
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'block',
   },
-});
+}));
 
-const CardsWrapper = styled.div({
+const CardsWrapper = styled('div')(({ theme }) => ({
   display: 'block',
   '& .advance-table--transparency_item .advance-table--transparency-card_icon_hidden': {
     display: 'none',
   },
-  '@media (min-width: 834px)': {
+
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
-});
+}));
 
-const TitleCard = styled.div<{ isLight: boolean; cardSpacingSize?: CardSpacingSize; isGroupCard?: boolean }>(
-  ({ isLight, cardSpacingSize = 'large', isGroupCard = false }) => ({
+const TitleCard = styled('div')<{ cardSpacingSize?: CardSpacingSize; isGroupCard?: boolean }>(
+  ({ theme, cardSpacingSize = 'large', isGroupCard = false }) => ({
     padding: cardSpacingSize === 'large' ? '8px 24px' : '8px 16px',
-    background: isLight ? 'rgba(255, 255, 255, 0.7)' : 'rgba(120, 122, 155, 0.3)',
-    boxShadow: isLight
+    background: theme.palette.isLight ? 'rgba(255, 255, 255, 0.7)' : 'rgba(120, 122, 155, 0.3)',
+    boxShadow: theme.palette.isLight
       ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
       : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
     borderRadius: 6,
@@ -336,24 +323,24 @@ const TitleCard = styled.div<{ isLight: boolean; cardSpacingSize?: CardSpacingSi
   })
 );
 
-const GroupTitle = styled.div<WithIsLight>(({ isLight }) => ({
+const GroupTitle = styled('div')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '15px',
   fontWeight: 600,
   letterSpacing: '1px',
   textTransform: 'uppercase',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
-const TableRow = styled.tr<WithIsLight & { borderTop?: boolean; borderBottom?: boolean }>(
-  ({ isLight, borderTop = false, borderBottom = false }) => ({
-    borderTop: borderTop ? `1px solid ${isLight ? '#D4D9E1' : '#405361'}` : 'none',
-    borderBottom: borderBottom ? `1px solid ${isLight ? '#D4D9E1' : '#405361'}` : 'none',
+const TableRow = styled('tr')<{ borderTop?: boolean; borderBottom?: boolean }>(
+  ({ theme, borderTop = false, borderBottom = false }) => ({
+    borderTop: borderTop ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
+    borderBottom: borderBottom ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
   })
 );
 
-const StyledOpenModalTransparency = styled(OpenModalTransparency)<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
+const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) => ({
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   fontSize: 16,
   lineHeight: '18px',
   fontWeight: 500,
@@ -373,13 +360,13 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)<WithIsLight>((
     svg: {
       display: 'none',
     },
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('tablet_768')]: {
       fontSize: 16,
       lineHeight: '19px',
       padding: '8px  0px 16px 16px',
     },
   },
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontWeight: 400,
     paddingTop: 0,
     marginBottom: 0,

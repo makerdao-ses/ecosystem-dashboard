@@ -171,11 +171,11 @@ const ContainerInside = styled('div')<{ marginTop: number }>(({ marginTop, theme
   paddingRight: '64px',
   paddingLeft: '64px',
   [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 45 + marginTop,
+    marginTop: 55 + marginTop,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: 40 + marginTop,
+    marginTop: 65 + marginTop,
   },
 
   [theme.breakpoints.up('desktop_1920')]: {
@@ -187,6 +187,7 @@ const ContainerInside = styled('div')<{ marginTop: number }>(({ marginTop, theme
   [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
     paddingRight: '48px',
     paddingLeft: '48px',
+    marginTop: 45 + marginTop,
   },
 
   [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
