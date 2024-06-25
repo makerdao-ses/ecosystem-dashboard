@@ -21,11 +21,19 @@ interface CoreUnitSummaryProps {
   breadcrumbTitle?: string;
   showDescription?: boolean;
   showHeader?: boolean;
+  className?: string;
 }
 
 export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
   (
-    { coreUnits: data = [], trailingAddress = [], breadcrumbTitle, showDescription = false, showHeader = true },
+    {
+      coreUnits: data = [],
+      trailingAddress = [],
+      breadcrumbTitle,
+      showDescription = false,
+      showHeader = true,
+      className,
+    },
     ref
   ) => {
     const { isLight } = useThemeContext();
@@ -76,7 +84,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
     );
 
     return (
-      <Container ref={ref} isLight={isLight}>
+      <Container ref={ref} isLight={isLight} className={className}>
         {!(phone || lessThanPhone) && (
           <NavigationHeader className="no-select" isLight={isLight}>
             <Breadcrumbs
@@ -166,13 +174,16 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
 
 const Container = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
-  top: 98,
+  top: 64,
   width: '100%',
   background: isLight ? '#FFFFFF' : '#25273D',
   backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
   zIndex: 3,
   borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+  [lightTheme.breakpoints.up('table_834')]: {
+    top: 98,
+  },
 }));
 
 const NavigationHeader = styled.div<{ isLight: boolean }>(({ isLight }) => ({
