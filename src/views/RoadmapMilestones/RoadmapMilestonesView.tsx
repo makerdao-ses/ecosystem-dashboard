@@ -28,10 +28,14 @@ const RoadmapMilestonesView: React.FC = () => {
       />
       <Breadcrumb
         items={[
-          {
-            label: 'Roadmaps',
-            url: '',
-          },
+          ...(isMinimalist
+            ? []
+            : [
+                {
+                  label: 'Roadmaps',
+                  url: '',
+                },
+              ]),
           {
             label: roadmap.title,
             url: siteRoutes.roadmapMilestones(roadmap.slug),
