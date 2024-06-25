@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
 import type React from 'react';
 
 const useMenuUser = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { isLight } = useThemeContext();
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -29,7 +28,7 @@ const useMenuUser = () => {
 
   return {
     open,
-    isLight,
+
     handleClick,
     handleScroll,
     handleClose,

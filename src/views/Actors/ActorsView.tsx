@@ -162,7 +162,7 @@ const ContainerText = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 6,
-  marginTop: 24,
+
   [lightTheme.breakpoints.up('tablet_768')]: {
     marginBottom: 0,
     gap: 8,

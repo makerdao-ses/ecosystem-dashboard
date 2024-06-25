@@ -59,13 +59,13 @@ export const CustomBarChart = (props: CustomBarChartProps) => {
   const id = open ? 'graph-popover' : undefined;
 
   const padding = 8;
-  const maxBarHeight = 50;
+  const maxBarHeight = 45;
   const calculateHeight = (value: number): number => {
     if (!value) return 16;
 
     const allItems = [...(props?.items?.map((item) => item?.value || 0) || []), ...(props?.maxValues || [])];
     const max = Math.max(...allItems);
-    const maxLimit = 45;
+    const maxLimit = 40;
 
     return (value / max) * maxLimit;
   };
@@ -376,6 +376,7 @@ const MonthTextGroup = styled('g')({
 const SVGStyle = styled('svg')(({ theme }) => ({
   width: 60,
   height: 57,
+
   viewBox: '0 0 60 57',
   marginRight: '0px',
   marginLeft: '4px',
@@ -391,6 +392,7 @@ const SVGStyle = styled('svg')(({ theme }) => ({
 
 const BarMonth = styled('rect')<{ color: string }>(({ theme, color }) => ({
   transition: 'fill 0.3s ease',
+
   '&:hover': {
     fill: theme.palette.isLight
       ? color === theme.palette.colors.red[800]
