@@ -8,7 +8,7 @@ import type { CustomChartItemModel } from '@/core/models/customChartItemModel';
 import { buildQueryString } from '@/core/utils/urls';
 import { CustomBarChart } from '@/stories/components/CustomBarChart/CustomBarChart';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
-import { ActualsTooltip } from '../components/ToolTips/ActualsTooltip';
+import { ActualsTooltip } from '../ToolTips/ActualsTooltip';
 import { ColumnExpendituresSkeleton } from './CuTableColumnExpendituresSkeleton';
 
 interface CuTableColumnExpendituresProps {

@@ -4,7 +4,7 @@ import { SummaryToolTip } from './SummaryToolTip';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof SummaryToolTip> = {
-  title: 'Fusion/CoreUnits/SummaryToolTip',
+  title: 'Fusion/Views/Core Units Index/SummaryToolTip',
   component: SummaryToolTip,
 
   parameters: {

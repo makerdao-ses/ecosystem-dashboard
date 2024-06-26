@@ -8,8 +8,8 @@ import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
-import { SummaryToolTip } from '../components/ToolTips/SummaryToolTip';
-import ToolTipsCU from '../components/ToolTips/ToolTips';
+import { SummaryToolTip } from '../ToolTips/SummaryToolTip';
+import ToolTipsCU from '../ToolTips/ToolTips';
 import type { Theme } from '@mui/material';
 
 interface CuTableColumnSummaryProps {

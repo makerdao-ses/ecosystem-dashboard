@@ -1,4 +1,4 @@
-import { fetchCoreUnits } from '@/views/CoreUnits/cuTableAPI';
+import { fetchCoreUnits } from '@/views/CoreUnitsIndexView/cuTableAPI';
 import { fetchActors } from '@/views/EcosystemActorsIndexView/api/queries';
 import { BASE_URL, siteRoutes } from '../../config/routes';
 import { ResourceType } from '../models/interfaces/types';

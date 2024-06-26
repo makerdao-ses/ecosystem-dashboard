@@ -5,7 +5,7 @@ import LastModifiedActorCoreUnit from './LastModifiedActorCoreUnit';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof LastModifiedActorCoreUnit> = {
-  title: 'Fusion/Components/LastModifiedActorCoreUnit',
+  title: 'Fusion/Views/Core Units Index/LastModifiedActorCoreUnit',
   component: LastModifiedActorCoreUnit,
   parameters: {
     chromatic: {

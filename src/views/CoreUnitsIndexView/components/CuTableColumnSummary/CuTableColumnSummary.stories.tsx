@@ -5,7 +5,7 @@ import { CuTableColumnSummary } from './CuTableColumnSummary';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CuTableColumnSummary> = {
-  title: 'Fusion/CoreUnits/ColumnSummary',
+  title: 'Fusion/Views/Core Units Index/ColumnSummary',
   component: CuTableColumnSummary,
 };
 export default meta;

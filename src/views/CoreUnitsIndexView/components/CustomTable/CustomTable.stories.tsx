@@ -6,7 +6,7 @@ import type { SortEnum } from '@ses/core/enums/sortEnum';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CustomTable2> = {
-  title: 'Components/CuTable/CustomTable2',
+  title: 'Fusion/Views/Core Units Index/CustomTable2',
   component: CustomTable2,
   parameters: {
     date: new Date('2023-03-02T09:08:34.123'),

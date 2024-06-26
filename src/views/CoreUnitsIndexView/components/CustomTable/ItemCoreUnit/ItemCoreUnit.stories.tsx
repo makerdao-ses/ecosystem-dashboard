@@ -4,7 +4,7 @@ import ItemCoreUnit from './ItemCoreUnit';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ItemCoreUnit> = {
-  title: 'Fusion/CoreUnits/ItemCoreUnit',
+  title: 'Fusion/Views/Core Units Index/ItemCoreUnit',
   component: ItemCoreUnit,
 };
 export default meta;

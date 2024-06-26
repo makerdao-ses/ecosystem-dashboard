@@ -5,7 +5,7 @@ import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import { CustomPopover } from '@/stories/components/CustomPopover/CustomPopover';
 import CardInfoMember from '@/views/CoreUnitAbout/components/CardInfoMember/CardInfoMember';
 
-import ToolTipsCU from '../components/ToolTips/ToolTips';
+import ToolTipsCU from '../ToolTips/ToolTips';
 import { ColumnTeamMemberSkeleton } from './CuTableColumnTeamMemberSkeleton';
 import type { ContributorCommitment } from '@ses/core/models/interfaces/contributor';
 

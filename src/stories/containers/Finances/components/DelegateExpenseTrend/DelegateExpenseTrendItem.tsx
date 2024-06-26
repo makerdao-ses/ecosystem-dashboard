@@ -15,7 +15,7 @@ import Link from 'next/link';
 import React, { useMemo } from 'react';
 import CircleAvatarWithIcon from '@/components/CircleAvatar/CircleAvatarWithIcon';
 import { AllowedOwnerType } from '@/views/BudgetStatement/types';
-import LastModifiedActorCoreUnit from '@/views/CoreUnits/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+import LastModifiedActorCoreUnit from '@/views/CoreUnitsIndexView/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getLastActivityDate } from '../../utils/utils';
 import ViewButton from '../ViewButton/ViewButton';
 import type { AnalyticMetric } from '@ses/core/models/interfaces/analytic';

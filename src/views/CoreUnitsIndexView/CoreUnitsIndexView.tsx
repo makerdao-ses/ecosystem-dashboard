@@ -7,14 +7,14 @@ import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import type { CoreUnit } from '@/core/models/interfaces/coreUnit';
 import CuFilters from './CuFilters';
-import { CustomTable2 } from './CustomTable/CustomTable2';
+import { CustomTable2 } from './components/CustomTable/CustomTable2';
 import { useCoreUnitsTableView } from './useCoreUnitsTableView';
 
 interface Props {
   coreUnits: CoreUnit[];
 }
 
-const CoreUnitsView: React.FC<Props> = ({ coreUnits }) => {
+const CoreUnitsIndexView: React.FC<Props> = ({ coreUnits }) => {
   const {
     searchText,
     columns,
@@ -72,7 +72,7 @@ const CoreUnitsView: React.FC<Props> = ({ coreUnits }) => {
   );
 };
 
-export default CoreUnitsView;
+export default CoreUnitsIndexView;
 
 export const ContainerOverlay = styled('div')<{ isLight: boolean }>(({ theme }) => ({
   position: 'absolute',

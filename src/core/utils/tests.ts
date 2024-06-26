@@ -5,8 +5,8 @@ import {
   renderLinks,
   renderSummary,
   renderTeamMember,
-} from '@/views/CoreUnits/CuTableRenders';
-import type { CustomTableColumn } from '@/views/CoreUnits/CustomTable/CustomTable2';
+} from '@/views/CoreUnitsIndexView/CuTableRenders';
+import type { CustomTableColumn } from '@/views/CoreUnitsIndexView/components/CustomTable/CustomTable2';
 import { CommitmentJob } from '../enums/commitmentJobEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
 import { SortEnum } from '../enums/sortEnum';

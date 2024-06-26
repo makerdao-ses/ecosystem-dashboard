@@ -4,7 +4,7 @@ import { HeadCustomTable } from './HeadCustomTable';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof HeadCustomTable> = {
-  title: 'Components/CuTable/HeadCustomTable',
+  title: 'Fusion/Views/Core Units Index/HeadCustomTable',
   component: HeadCustomTable,
   parameters: {
     chromatic: {

@@ -26,9 +26,9 @@ import { pascalCaseToNormalString } from '@/core/utils/string';
 import { buildQueryString } from '@/core/utils/urls';
 import CustomItemAll from '../EcosystemActorsIndexView/components/ActorCustomItem/CustomItemAll';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
-import CustomCategoryFilter from './FilterItems/CustomCategoryFilter';
-import CustomStatusItemFilter from './FilterItems/CustomStatusItemFilter';
-import type { CustomTableColumn, CustomTableRow } from './CustomTable/CustomTable2';
+import CustomCategoryFilter from './components/FilterItems/CustomCategoryFilter';
+import CustomStatusItemFilter from './components/FilterItems/CustomStatusItemFilter';
+import type { CustomTableColumn, CustomTableRow } from './components/CustomTable/CustomTable2';
 import type { Theme } from '@mui/material';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 

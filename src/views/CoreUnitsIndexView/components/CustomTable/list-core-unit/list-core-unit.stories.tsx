@@ -4,7 +4,7 @@ import ListCoreUnit from './list-core-unit';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ListCoreUnit> = {
-  title: 'Components/CUTable/ListCoreUnit',
+  title: 'Fusion/Views/Core Units Index/ListCoreUnit',
   component: ListCoreUnit,
   parameters: {
     chromatic: {

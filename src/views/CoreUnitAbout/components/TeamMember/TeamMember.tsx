@@ -1,7 +1,7 @@
 import { Typography, styled } from '@mui/material';
 import React from 'react';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
-import ToolTipsCU from '@/views/CoreUnits/components/ToolTips/ToolTips';
+import ToolTipsCU from '@/views/CoreUnitsIndexView/components/ToolTips/ToolTips';
 
 interface Props {
   ftes: number;
