@@ -77,6 +77,7 @@ const ContainerWithBreadcrumb = styled('div')<{ showIcons?: boolean; showHeader?
     paddingBottom: showHeader ? 16 : undefined,
 
     [theme.breakpoints.up('tablet_768')]: {
+      top: 98,
       paddingBottom: showHeader ? 22 : 0,
       borderBottom: showHeader ? (theme.palette.isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
     },
