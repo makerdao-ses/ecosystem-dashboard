@@ -295,10 +295,11 @@ const SomethingWrongContainer = styled('div')(({ theme }) => ({
     minWidth: 416,
   },
 }));
-const BreadcrumbStyled = styled(Breadcrumb)({
-  top: 92,
-  marginTop: 8,
-});
+const BreadcrumbStyled = styled(Breadcrumb)(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    top: 92,
+  },
+}));
 
 const TeamHeaderStyled = styled(TeamHeader)({
   marginTop: 40,
