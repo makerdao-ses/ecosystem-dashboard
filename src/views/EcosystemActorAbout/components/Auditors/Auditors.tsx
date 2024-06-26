@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import React from 'react';
 import type { Auditor } from '@/core/models/interfaces/users';
-import InlineUser from '@/views/EAAbout/components/InlineUser/InlineUser';
+import InlineUser from '@/views/EcosystemActorAbout/components/InlineUser/InlineUser';
 import type { FC } from 'react';
 
 interface Props {

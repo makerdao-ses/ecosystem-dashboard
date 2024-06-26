@@ -7,7 +7,7 @@ import { siteRoutes } from '@/config/routes';
 import type { AuditorDto } from '@/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@/core/utils/const';
-import Auditors from '@/views/EAAbout/components/Auditors/Auditors';
+import Auditors from '@/views/EcosystemActorAbout/components/Auditors/Auditors';
 import type { FC } from 'react';
 
 interface Props {

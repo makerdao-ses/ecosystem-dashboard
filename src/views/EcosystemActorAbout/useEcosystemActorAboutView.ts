@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
 import type { Team } from '@/core/models/interfaces/team';
 
-const useEAAboutView = (actors: Team[], actor: Team) => {
+const useEcosystemActorAboutView = (actors: Team[], actor: Team) => {
   const router = useRouter();
   const table834 = useMediaQuery(lightTheme.breakpoints.between('table_834', 'desktop_1194'));
   const phone = useMediaQuery(lightTheme.breakpoints.between('mobile_375', 'table_834'));
@@ -90,4 +90,4 @@ const useEAAboutView = (actors: Team[], actor: Team) => {
   };
 };
 
-export default useEAAboutView;
+export default useEcosystemActorAboutView;

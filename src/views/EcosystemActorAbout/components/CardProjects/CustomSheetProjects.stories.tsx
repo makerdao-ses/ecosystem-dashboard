@@ -3,7 +3,7 @@ import ItemCustomProject from './ItemCustomProject';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ItemCustomProject> = {
-  title: 'Fusion/ActorAbout/ItemCustomProject',
+  title: 'Fusion/Views/Ecosystem Actor About/ItemCustomProject',
   component: ItemCustomProject,
 
   parameters: {

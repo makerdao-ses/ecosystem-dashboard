@@ -4,7 +4,7 @@ import CardProjects from './CardProjects';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CardProjects> = {
-  title: 'Fusion/ActorAbout/CardProjects',
+  title: 'Fusion/Views/Ecosystem Actor About/CardProjects',
   component: CardProjects,
   parameters: {
     chromatic: {

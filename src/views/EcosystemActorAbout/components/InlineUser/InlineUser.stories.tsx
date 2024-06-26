@@ -3,7 +3,7 @@ import InlineUser from './InlineUser';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof InlineUser> = {
-  title: 'Fusion/ActorAbout/InlineUser',
+  title: 'Fusion/Views/Ecosystem Actor About/InlineUser',
   component: InlineUser,
   parameters: {
     chromatic: {

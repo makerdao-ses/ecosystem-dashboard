@@ -9,7 +9,7 @@ import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { TeamRole } from '@/core/enums/teamRole';
 import { defaultSocials } from '@/views/EcosystemActorsIndex/utils/utils';
 import AppLayout from '../../stories/containers/AppLayout/AppLayout';
-import EAAboutView from './EAAboutView';
+import EAAboutView from './EcosystemActorAboutView';
 import type { Meta } from '@storybook/react';
 
 const actorsItems = [
@@ -62,7 +62,7 @@ const actorsItems = [
 ];
 
 const meta: Meta<typeof EAAboutView> = {
-  title: 'Fusion/Pages/Actor About',
+  title: 'Fusion/Pages/Ecosystem Actor About',
   component: EAAboutView,
   decorators: [withoutSBPadding],
   parameters: {

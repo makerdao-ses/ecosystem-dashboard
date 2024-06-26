@@ -15,7 +15,7 @@ import React, { useRef } from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import AccountsSnapshotTabContainer from '../../../components/AccountsSnapshot/AccountsSnapshotTabContainer';
-import ActorSummary from '../../../views/EAAbout/components/ActorSummary/ActorSummary';
+import ActorSummary from '../../../views/EcosystemActorAbout/components/ActorSummary/ActorSummary';
 import ExpenseReport from '../TransparencyReport/components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from '../TransparencyReport/components/TransparencyActuals/TransparencyActuals';
 import { TransparencyAudit } from '../TransparencyReport/components/TransparencyAudit/TransparencyAudit';

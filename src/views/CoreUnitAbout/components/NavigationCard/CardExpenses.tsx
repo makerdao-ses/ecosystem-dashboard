@@ -4,7 +4,7 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
-import Auditors from '@/views/EAAbout/components/Auditors/Auditors';
+import Auditors from '@/views/EcosystemActorAbout/components/Auditors/Auditors';
 import { MAKER_BURN_LINK } from '../../../../core/utils/const';
 import InformationCard from './InformationCard';
 import type { AuditorDto } from '../../../../core/models/dto/coreUnitDTO';

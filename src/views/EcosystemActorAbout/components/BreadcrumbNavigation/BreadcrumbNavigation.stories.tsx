@@ -4,7 +4,7 @@ import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrum
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof BreadcrumbNavigation> = {
-  title: 'Components/Actor/BreadcrumbNavigation',
+  title: 'Fusion/Views/Ecosystem Actor About/BreadcrumbNavigation',
   component: BreadcrumbNavigation,
   parameters: {
     chromatic: {

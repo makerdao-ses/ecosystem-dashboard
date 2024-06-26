@@ -4,7 +4,7 @@ import Auditors from './Auditors';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof Auditors> = {
-  title: 'Fusion/ActorAbout/Auditors',
+  title: 'Fusion/Views/Ecosystem Actor About/Auditors',
   component: Auditors,
 
   parameters: {

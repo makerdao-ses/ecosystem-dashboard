@@ -7,7 +7,7 @@ import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedi
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ActorTitleWithDescription> = {
-  title: 'Components/Actor/ActorTitleWithDescription',
+  title: 'Fusion/Views/Ecosystem Actor About/ActorTitleWithDescription',
   component: ActorTitleWithDescription,
   parameters: {
     nextjs: {

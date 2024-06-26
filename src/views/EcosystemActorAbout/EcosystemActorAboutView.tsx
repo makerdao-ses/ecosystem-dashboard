@@ -17,7 +17,7 @@ import CardExpenses from '../CoreUnitAbout/components/NavigationCard/CardExpense
 import CardSomethingWrong from '../CoreUnitAbout/components/NavigationCard/CardSomethingWrong';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
 import CardProjects from './components/CardProjects/CardProjects';
-import useEAAboutView from './useEAAboutView';
+import useEcosystemActorAboutView from './useEcosystemActorAboutView';
 import { removeDuplicateNames } from './utils';
 import type { Team } from '@ses/core/models/interfaces/team';
 
@@ -26,10 +26,10 @@ interface Props {
   actor: Team;
 }
 
-export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
+export const EcosystemActorAboutView: React.FC<Props> = ({ actors, actor }) => {
   // TODO: move all the logic to the hook
   const [isEnabled] = useFlagsActive();
-  const { queryStrings, phone, LessPhone, table834, pager } = useEAAboutView(actors, actor);
+  const { queryStrings, phone, LessPhone, table834, pager } = useEcosystemActorAboutView(actors, actor);
   const routeToFinances = removeAtlasFromPath(actor.budgetPath);
   const removeDuplicateNamesBudgetPath = removeDuplicateNames(routeToFinances) ?? ' ';
 
@@ -146,7 +146,7 @@ export const EAAboutView: React.FC<Props> = ({ actors, actor }) => {
   );
 };
 
-export default EAAboutView;
+export default EcosystemActorAboutView;
 
 const MarkdownContainer = styled('div')();
 
