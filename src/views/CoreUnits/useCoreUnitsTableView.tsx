@@ -24,7 +24,7 @@ import { filterData, getArrayParam, getStringParam } from '@/core/utils/filters'
 import { sortAlphaNum } from '@/core/utils/sort';
 import { pascalCaseToNormalString } from '@/core/utils/string';
 import { buildQueryString } from '@/core/utils/urls';
-import CustomItemAll from '../Actors/components/ActorCustomItem/CustomItemAll';
+import CustomItemAll from '../EcosystemActorsIndexView/components/ActorCustomItem/CustomItemAll';
 import { renderExpenditures, renderLastModified, renderLinks, renderSummary, renderTeamMember } from './CuTableRenders';
 import CustomCategoryFilter from './FilterItems/CustomCategoryFilter';
 import CustomStatusItemFilter from './FilterItems/CustomStatusItemFilter';

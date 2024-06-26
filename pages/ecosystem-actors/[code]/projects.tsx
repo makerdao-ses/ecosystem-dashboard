@@ -4,8 +4,8 @@ import { fetchProjects } from '@ses/containers/ActorProjects/api/query';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { featureFlags } from 'feature-flags/feature-flags';
 import React from 'react';
-import { fetchActors } from '@/views/Actors/api/queries';
 import { fetchActorAbout } from '@/views/EAAbout/api/queries';
+import { fetchActors } from '@/views/EcosystemActorsIndexView/api/queries';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
 const ProjectsPage: NextPage = ({

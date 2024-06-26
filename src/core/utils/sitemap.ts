@@ -1,5 +1,5 @@
-import { fetchActors } from '@/views/Actors/api/queries';
 import { fetchCoreUnits } from '@/views/CoreUnits/cuTableAPI';
+import { fetchActors } from '@/views/EcosystemActorsIndexView/api/queries';
 import { BASE_URL, siteRoutes } from '../../config/routes';
 import { ResourceType } from '../models/interfaces/types';
 import type { CoreUnitDto } from '../models/dto/coreUnitDTO';

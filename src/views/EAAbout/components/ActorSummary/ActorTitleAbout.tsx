@@ -10,7 +10,7 @@ import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { TeamStatus } from '@/core/models/interfaces/types';
 import { StatusChipLegacy } from '@/stories/components/StatusChipLegacy/StatusChipLegacy';
-import { ActorsLinkType, getLinksFromRecognizedActors } from '@/views/Actors/utils/utils';
+import { ActorsLinkType, getLinksFromRecognizedActors } from '@/views/EcosystemActorsIndexView/utils/utils';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
