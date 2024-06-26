@@ -4,7 +4,7 @@ import BigButton from './BigButton';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof BigButton> = {
-  title: 'Fusion/Views/CuAbout/BigButton',
+  title: 'Fusion/Views/Core Unit About/BigButton',
   component: BigButton,
 
   parameters: {

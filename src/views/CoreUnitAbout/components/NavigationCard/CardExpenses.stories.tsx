@@ -4,7 +4,7 @@ import CardExpenses from './CardExpenses';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CardExpenses> = {
-  title: 'Fusion/Views/CUAbout/CardExpense',
+  title: 'Fusion/Views/Core Unit About/CardExpense',
   component: CardExpenses,
   parameters: {
     chromatic: {

@@ -5,7 +5,7 @@ import ItemFinancesSheet from './ItemFinancesSheet';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ItemFinancesSheet> = {
-  title: 'Fusion/Views/CuAbout/ItemFinancesSheet',
+  title: 'Fusion/Views/Core Unit About/ItemFinancesSheet',
   component: ItemFinancesSheet,
 
   parameters: {

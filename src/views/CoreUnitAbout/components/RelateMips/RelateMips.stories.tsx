@@ -5,7 +5,7 @@ import RelateMips from './RelateMips';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof RelateMips> = {
-  title: 'Fusion/Views/CUAbout/RelateMips',
+  title: 'Fusion/Views/Core Unit About/RelateMips',
   component: RelateMips,
   parameters: {
     chromatic: {

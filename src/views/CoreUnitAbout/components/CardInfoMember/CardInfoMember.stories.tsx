@@ -7,7 +7,7 @@ import type { ContributorCommitment } from '@ses/core/models/interfaces/contribu
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CardInfoMember> = {
-  title: 'Fusion/Views/CUAbout/CardInfoMember',
+  title: 'Fusion/Views/Core Unit About/CardInfoMember',
   component: CardInfoMember,
   parameters: {
     chromatic: {

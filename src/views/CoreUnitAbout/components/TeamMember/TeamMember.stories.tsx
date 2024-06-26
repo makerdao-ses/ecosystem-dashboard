@@ -3,7 +3,7 @@ import TeamMember from './TeamMember';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof TeamMember> = {
-  title: 'Fusion/Views/CuAbout/TeamMember',
+  title: 'Fusion/Views/Core Unit About/TeamMember',
   component: TeamMember,
 };
 

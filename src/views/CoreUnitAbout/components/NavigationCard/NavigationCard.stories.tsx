@@ -2,7 +2,7 @@ import NavigationCard from './NavigationCard';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof NavigationCard> = {
-  title: 'Fusion/Views/CuAbout/NavigationCard',
+  title: 'Fusion/Views/Core Unit About/NavigationCard',
   component: NavigationCard,
 };
 export default meta;

@@ -3,7 +3,7 @@ import MdViewerContainer from './MdViewerContainer';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof MdViewerContainer> = {
-  title: 'Fusion/Views/CuAbout/MdViewerContainer',
+  title: 'Fusion/Views/Core Unit About/MdViewerContainer',
   component: MdViewerContainer,
 };
 export default meta;
