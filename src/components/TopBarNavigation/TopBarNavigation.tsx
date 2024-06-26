@@ -40,12 +40,16 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
       <Container>
         <NavContainer aria-label="Primary Navigation" className={className}>
           <LeftSection>
-            <LogoContainerMobile>
-              <Makerdao />
-            </LogoContainerMobile>
-            <LogoContainerDesk>
-              <LogoText />
-            </LogoContainerDesk>
+            <Link href="/">
+              <LogoContainerMobile>
+                <Makerdao />
+              </LogoContainerMobile>
+            </Link>
+            <Link href="/">
+              <LogoContainerDesk>
+                <LogoText />
+              </LogoContainerDesk>
+            </Link>
             <SelectContainer>
               <StyledCustomSelect
                 multiple={false}
