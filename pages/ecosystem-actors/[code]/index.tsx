@@ -1,9 +1,9 @@
 import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React, { useEffect, useState } from 'react';
-import { fetchActors } from '@/views/Actors/api/queries';
-import EAAboutView from '@/views/EAAbout/EAAboutView';
-import { fetchActorAbout } from '@/views/EAAbout/api/queries';
+import EcosystemActorAboutView from '@/views/EcosystemActorAbout/EcosystemActorAboutView';
+import { fetchActorAbout } from '@/views/EcosystemActorAbout/api/queries';
+import { fetchActors } from '@/views/EcosystemActorsIndex/api/queries';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
@@ -21,7 +21,7 @@ const ActorAbout: NextPage = ({ actors, actor }: InferGetServerSidePropsType<typ
         setCurrentTeam: setCurrentActor,
       }}
     >
-      <EAAboutView actors={actors} actor={actor} />
+      <EcosystemActorAboutView actors={actors} actor={actor} />
     </TeamContext.Provider>
   );
 };

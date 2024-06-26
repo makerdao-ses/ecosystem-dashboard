@@ -5,7 +5,7 @@ import OperationsSection from './OperationsSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof OperationsSection> = {
-  title: 'Fusion/Endgame/Operations Section',
+  title: 'Fusion/Views/Endgame/Operations Section',
   component: OperationsSection,
   parameters: {
     chromatic: {

@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof BudgetStructureSection> = {
-  title: 'Fusion/Endgame/Budget Structure Section',
+  title: 'Fusion/Views/Endgame/Budget Structure Section',
   component: BudgetStructureSection,
   parameters: {
     chromatic: {

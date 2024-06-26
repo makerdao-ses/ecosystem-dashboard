@@ -6,7 +6,7 @@ import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
-import { fetchActors } from '@/views/Actors/api/queries';
+import { fetchActors } from '@/views/EcosystemActorsIndex/api/queries';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
 const EcosystemActorsTransparencyReportingPage: NextPage = ({

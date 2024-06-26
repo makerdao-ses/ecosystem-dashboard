@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof EndgameIntroductionBanner> = {
-  title: 'Fusion/Endgame/Endgame Introduction Banner',
+  title: 'Fusion/Views/Endgame/Endgame Introduction Banner',
   component: EndgameIntroductionBanner,
 
   parameters: {

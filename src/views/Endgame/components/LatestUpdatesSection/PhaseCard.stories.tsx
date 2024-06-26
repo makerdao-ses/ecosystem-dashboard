@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof PhaseCard> = {
-  title: 'Fusion/Endgame/PhaseCard',
+  title: 'Fusion/Views/Endgame/PhaseCard',
   component: PhaseCard,
   parameters: {
     chromatic: {
