@@ -3,7 +3,7 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import React, { useEffect, useState } from 'react';
 import EAAboutView from '@/views/EAAbout/EAAboutView';
 import { fetchActorAbout } from '@/views/EAAbout/api/queries';
-import { fetchActors } from '@/views/EcosystemActorsIndexView/api/queries';
+import { fetchActors } from '@/views/EcosystemActorsIndex/api/queries';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 

@@ -1,7 +1,7 @@
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import EcosystemActorsIndexView from '@/views/EcosystemActorsIndexView/EcosystemActorsIndexView';
-import { fetchActors } from '@/views/EcosystemActorsIndexView/api/queries';
+import EcosystemActorsIndexView from '@/views/EcosystemActorsIndex/EcosystemActorsIndexView';
+import { fetchActors } from '@/views/EcosystemActorsIndex/api/queries';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSideProps, NextPage } from 'next';
 

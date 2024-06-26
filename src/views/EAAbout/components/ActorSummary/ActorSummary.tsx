@@ -8,7 +8,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import React, { forwardRef, useCallback, useMemo } from 'react';
-import { filterDataActors } from '@/views/EcosystemActorsIndexView/utils/utils';
+import { filterDataActors } from '@/views/EcosystemActorsIndex/utils/utils';
 import BreadcrumbNavigation from '../BreadcrumbNavigation/BreadcrumbNavigation';
 import ActorTitleWithDescription from './ActorTitleWithDescription';
 import type { Team } from '@ses/core/models/interfaces/team';

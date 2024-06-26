@@ -7,7 +7,7 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { TeamRole } from '@/core/enums/teamRole';
-import { defaultSocials } from '@/views/EcosystemActorsIndexView/utils/utils';
+import { defaultSocials } from '@/views/EcosystemActorsIndex/utils/utils';
 import AppLayout from '../../stories/containers/AppLayout/AppLayout';
 import EAAboutView from './EAAboutView';
 import type { Meta } from '@storybook/react';

@@ -1,6 +1,6 @@
 import type { CoreUnit } from '@/core/models/interfaces/coreUnit';
-import CoreUnitsIndexView from '@/views/CoreUnitsIndexView/CoreUnitsIndexView';
-import { fetchCoreUnits } from '@/views/CoreUnitsIndexView/cuTableAPI';
+import CoreUnitsIndexView from '@/views/CoreUnitsIndex/CoreUnitsIndexView';
+import { fetchCoreUnits } from '@/views/CoreUnitsIndex/cuTableAPI';
 import type { GetServerSideProps, NextPage } from 'next';
 
 interface Props {

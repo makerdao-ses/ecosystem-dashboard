@@ -4,11 +4,11 @@ import React from 'react';
 import Card from '@/components/Card/Card';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
-import ListMobileSheetIconArrow from '@/views/CoreUnitsIndexView/ListMobileSheetIconArrow';
-import { CuTableColumnExpenditures } from '@/views/CoreUnitsIndexView/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
-import { CuTableColumnSummary } from '@/views/CoreUnitsIndexView/components/CuTableColumnSummary/CuTableColumnSummary';
-import CuTableColumnTeamMember from '@/views/CoreUnitsIndexView/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
-import LastModifiedActorCoreUnit from '@/views/CoreUnitsIndexView/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+import ListMobileSheetIconArrow from '@/views/CoreUnitsIndex/ListMobileSheetIconArrow';
+import { CuTableColumnExpenditures } from '@/views/CoreUnitsIndex/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
+import { CuTableColumnSummary } from '@/views/CoreUnitsIndex/components/CuTableColumnSummary/CuTableColumnSummary';
+import CuTableColumnTeamMember from '@/views/CoreUnitsIndex/components/CuTableColumnTeamMember/CuTableColumnTeamMember';
+import LastModifiedActorCoreUnit from '@/views/CoreUnitsIndex/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 
 import {
   getBudgetCapsFromCoreUnit,

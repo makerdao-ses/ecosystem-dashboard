@@ -12,7 +12,7 @@ import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
 import type { TeamRole } from '@/core/enums/teamRole';
 import type { TeamStatus } from '@/core/models/interfaces/types';
-import LastModifiedActorCoreUnit from '@/views/CoreUnitsIndexView/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
+import LastModifiedActorCoreUnit from '@/views/CoreUnitsIndex/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import { getActorLastMonthWithData } from '../../utils/utils';
 import GroupedScopes from './GroupedScopes';
 import type { SocialMediaChannels } from '@ses/core/models/interfaces/socialMedia';
