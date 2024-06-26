@@ -37,9 +37,8 @@ DeskLightMode.parameters = {
   },
   figma: {
     component: {
-      1194: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=24106:112093&mode=dev',
+      1024: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=8-11477',
         options: {
           style: {
             left: -4,

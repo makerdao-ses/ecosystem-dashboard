@@ -7,7 +7,7 @@ import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import Information from '@/components/icons/information';
 import SESTooltipLegacy from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
-import ActorSummary from '../../../views/EAAbout/components/ActorSummary/ActorSummary';
+import ActorSummary from '../../../views/EcosystemActorAbout/components/ActorSummary/ActorSummary';
 import PageSubheader from './components/PageSubheader/PageSubheader';
 import ProjectList from './components/ProjectList/ProjectList';
 import useActorProjectsContainer from './useActorProjectsContainer';
