@@ -297,7 +297,7 @@ const SomethingWrongContainer = styled('div')(({ theme }) => ({
 }));
 const BreadcrumbStyled = styled(Breadcrumb)(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
-    top: 92,
+    top: 98,
   },
 }));
 

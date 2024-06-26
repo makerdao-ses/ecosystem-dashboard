@@ -2,7 +2,6 @@ import { Divider, styled } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
-import lightTheme from '../../../../styles/theme/themes';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { toAbsoluteURL } from '../../../core/utils/urls';
 import ActivityTable from '../../components/CUActivityTable/ActivityTable';
@@ -131,13 +130,13 @@ const Wrapper = styled('div')({
   width: '100%',
 });
 
-const PageWrapper = styled(PageContainer)({
+const PageWrapper = styled(PageContainer)(({ theme }) => ({
   paddingTop: 88,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     paddingTop: 124,
   },
-});
+}));
 
 const TableWrapper = styled('div')({
   maxWidth: '1312px',
@@ -145,7 +144,7 @@ const TableWrapper = styled('div')({
   margin: '0 auto',
 });
 
-const FiltersContainer = styled('div')({
+const FiltersContainer = styled('div')(({ theme }) => ({
   display: 'grid',
   gap: '16px',
   marginBottom: '32px',
@@ -157,13 +156,14 @@ const FiltersContainer = styled('div')({
   "search buttonFilter"
   "coreUnits reset"
   `,
-  '@media (min-width: 834px)': {
+
+  [theme.breakpoints.up('tablet_768')]: {
     gridTemplateRows: 'auto',
     gridTemplateColumns: 'auto auto auto auto',
     justifyContent: 'flex-end',
     gridTemplateAreas: '"reset coreUnits separator search"',
   },
-});
+}));
 
 const Reset = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible, theme }) => ({
   display: filtersVisible ? 'flex' : 'none',
@@ -178,10 +178,10 @@ const Search = styled('div')({
   gridArea: 'search',
 });
 
-const CoreUnitsSelect = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible }) => ({
+const CoreUnitsSelect = styled('div')<{ filtersVisible: boolean }>(({ filtersVisible, theme }) => ({
   display: filtersVisible ? 'flex' : 'none',
   gridArea: 'coreUnits',
-  '@media (min-width: 834px)': {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
 }));

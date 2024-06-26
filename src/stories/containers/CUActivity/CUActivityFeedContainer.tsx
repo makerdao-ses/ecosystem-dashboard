@@ -94,26 +94,27 @@ const InnerPage = styled('div')<{ marginTop: number }>(({ marginTop, theme }) =>
   paddingTop: 24,
   paddingRight: '64px',
   paddingLeft: '64px',
-
-  [theme.breakpoints.up('desktop_1920')]: {
-    maxWidth: '1312px',
-    paddingRight: '0px',
-    paddingLeft: '0px',
+  [theme.breakpoints.down('tablet_768')]: {
+    paddingRight: '16px',
+    paddingLeft: '16px',
   },
-  [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
-    paddingRight: '48px',
-    paddingLeft: '48px',
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingTop: 32,
+    marginTop: 61 + marginTop,
   },
   [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     paddingRight: '32px',
     paddingLeft: '32px',
   },
-  [theme.breakpoints.up('tablet_768')]: {
-    paddingTop: 32,
+  [theme.breakpoints.between('desktop_1280', 'desktop_1440')]: {
+    paddingRight: '48px',
+    paddingLeft: '48px',
   },
-  [theme.breakpoints.down('tablet_768')]: {
-    paddingRight: '16px',
-    paddingLeft: '16px',
+
+  [theme.breakpoints.up('desktop_1920')]: {
+    maxWidth: '1312px',
+    paddingRight: '0px',
+    paddingLeft: '0px',
   },
 }));
 
