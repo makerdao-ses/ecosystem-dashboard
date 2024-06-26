@@ -262,6 +262,12 @@ const LoginContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    display: 'none',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+  },
 }));
 
 const StyledButton = styled(PrimaryButton)({
@@ -294,6 +300,13 @@ const ContainerLogin = styled(IconContainer)(({ theme }) => ({
     fill: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[400],
   },
   [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+
+  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
+    display: 'flex',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
     display: 'none',
   },
 }));
