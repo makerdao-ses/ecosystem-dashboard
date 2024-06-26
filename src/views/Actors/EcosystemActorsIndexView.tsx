@@ -6,10 +6,9 @@ import React from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import FiltersBundle from '@/components/FiltersBundle/FiltersBundle';
-
 import TableEmptyState from '@/components/TableEmptyState/TableEmptyState';
 import ActorTable from './components/ActorTable/ActorTable';
-import { useActorsView } from './useActorsView';
+import { useEcosystemActorsIndexView } from './useEcosystemActorsIndexView';
 import type { Team } from '@ses/core/models/interfaces/team';
 
 interface Props {
@@ -17,7 +16,7 @@ interface Props {
   stories?: boolean;
 }
 
-const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
+const EcosystemActorsIndexView: React.FC<Props> = ({ actors, stories = false }) => {
   const {
     readMore,
     handleRead,
@@ -31,7 +30,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
     onReset,
     searchFilters,
     searchText,
-  } = useActorsView(actors, stories);
+  } = useEcosystemActorsIndexView(actors, stories);
 
   return (
     <ExtendedPageContainer>
@@ -108,7 +107,7 @@ const ActorsView: React.FC<Props> = ({ actors, stories = false }) => {
   );
 };
 
-export default ActorsView;
+export default EcosystemActorsIndexView;
 
 const ExtendedPageContainer = styled(PageContainer)(() => ({
   marginTop: 24,

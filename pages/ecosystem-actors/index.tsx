@@ -1,6 +1,6 @@
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import ActorsView from '@/views/Actors/ActorsView';
+import EcosystemActorsIndexView from '@/views/Actors/EcosystemActorsIndexView';
 import { fetchActors } from '@/views/Actors/api/queries';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { GetServerSideProps, NextPage } from 'next';
@@ -9,7 +9,7 @@ interface Props {
   actors: Team[];
 }
 
-const EcosystemActors: NextPage<Props> = ({ actors }) => <ActorsView actors={actors} />;
+const EcosystemActors: NextPage<Props> = ({ actors }) => <EcosystemActorsIndexView actors={actors} />;
 
 export default EcosystemActors;
 

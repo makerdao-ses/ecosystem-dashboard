@@ -52,7 +52,7 @@ const scopesDefinitions: Scope[] = [
   },
 ];
 
-export const useActorsView = (actors: Team[], stories = false) => {
+export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => {
   const router = useRouter();
   const debounce = useDebounce();
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);

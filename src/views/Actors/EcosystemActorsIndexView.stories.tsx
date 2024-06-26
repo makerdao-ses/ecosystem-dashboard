@@ -7,14 +7,14 @@ import { FeatureFlagsProvider } from '@/core/context/FeatureFlagsProvider';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { TeamRole } from '@/core/enums/teamRole';
 import AppLayout from '@/stories/containers/AppLayout/AppLayout';
-import ActorsView from './ActorsView';
+import ActorsView from './EcosystemActorsIndexView';
 import { defaultSocials } from './utils/utils';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof ActorsView> = {
-  title: 'Fusion/Pages/Actors',
+  title: 'Fusion/Pages/Ecosystem Actors Index',
   component: ActorsView,
   parameters: {
     layout: 'fullscreen',
