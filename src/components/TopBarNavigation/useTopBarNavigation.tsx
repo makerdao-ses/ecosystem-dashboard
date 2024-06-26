@@ -71,7 +71,7 @@ export const useTopBarNavigation = () => {
     } else if (router.pathname.startsWith(siteRoutes.endgame)) {
       return menuItems.endgame;
     } else {
-      if (router.pathname.startsWith('/core-units') || router.pathname.startsWith('/ecosystem-actors')) {
+      if (router.pathname.startsWith('/core-unit') || router.pathname.startsWith('/ecosystem-actors')) {
         return menuItems.contributors;
       } else {
         return menuItems[''];

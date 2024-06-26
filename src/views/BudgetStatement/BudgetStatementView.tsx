@@ -129,11 +129,11 @@ const ContainerInside = styled('div')<{ marginTop: number }>(({ theme, marginTop
   paddingLeft: '64px',
 
   [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 45 + marginTop,
+    marginTop: 61 + marginTop,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: 40 + marginTop,
+    marginTop: 61 + marginTop,
   },
 
   [theme.breakpoints.up('desktop_1920')]: {

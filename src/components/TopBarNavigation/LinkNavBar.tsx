@@ -11,7 +11,11 @@ interface Props {
 
 const LinkNavBar: FC<Props> = ({ href, label, selected }) => (
   <NavItem>
-    <LinkStyle href={href} active={label.toLocaleLowerCase() === selected.toLocaleLowerCase()}>
+    <LinkStyle
+      href={href}
+      active={label.toLocaleLowerCase() === selected.toLocaleLowerCase()}
+      target={label.toLocaleLowerCase() === 'connect' ? '_blank' : '_self'}
+    >
       {label}
     </LinkStyle>
   </NavItem>

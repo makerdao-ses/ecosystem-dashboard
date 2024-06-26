@@ -105,12 +105,15 @@ const PageWrapper = styled(PageContainer)({
   paddingTop: 0,
 });
 
-const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop }) => ({
+const ContainerAllData = styled('div')<{ marginTop: number }>(({ marginTop, theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   zIndex: -1,
   marginTop,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 40 + marginTop,
+  },
 }));
 
 const ContainerResponsive = styled('div')(({ theme }) => ({
@@ -119,7 +122,7 @@ const ContainerResponsive = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   marginTop: 96,
 
-  [theme.breakpoints.down('desktop_1194')]: {
+  [theme.breakpoints.down('desktop_1024')]: {
     width: '100%',
   },
 
