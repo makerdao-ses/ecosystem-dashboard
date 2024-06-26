@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -69,7 +68,7 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
 };
 
 export default Breadcrumbs;
-const Container = styled.div<{
+const Container = styled('div')<{
   padding?: string;
   borderRadius?: string;
   isLight: boolean;
@@ -83,15 +82,15 @@ const Container = styled.div<{
   borderRadius,
 }));
 
-const LinkWrapper = styled.div<{ hasItemsToCount?: boolean; hasManyItems?: boolean }>(
-  ({ hasItemsToCount = true, hasManyItems = false }) => ({
+const LinkWrapper = styled('div')<{ hasItemsToCount?: boolean; hasManyItems?: boolean }>(
+  ({ hasItemsToCount = true, hasManyItems = false, theme }) => ({
     display: 'flex',
     alignItems: 'center',
     '&:first-child .crumb': {
       maxWidth: hasItemsToCount ? 180 : 120,
       marginLeft: 0,
     },
-    [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
       '& .crumb': {
         textAlign: hasManyItems ? 'revert' : 'center',
         width: 'fit-content',
@@ -106,21 +105,28 @@ const LinkWrapper = styled.div<{ hasItemsToCount?: boolean; hasManyItems?: boole
   })
 );
 
-const Crumb = styled.a<{
+const Crumb = styled('a')<{
   first: boolean;
   last: boolean;
   isLight: boolean;
   fontSize?: string;
   marginLeft?: string;
   marginRight?: string;
-}>(({ first, last, isLight, fontSize = '16px', marginLeft, marginRight = '15px' }) => ({
+}>(({ first, last, theme, fontSize = '16px', marginLeft, marginRight = '15px' }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: last ? 700 : 400,
   fontSize,
   lineHeight: '19px',
   textAlign: 'center',
   letterSpacing: '0.4px',
-  color: last && isLight ? '#231536' : !last && isLight ? '#708390' : last && !isLight ? '#D2D4EF' : '#787A9B',
+  color:
+    last && theme.palette.isLight
+      ? '#231536'
+      : !last && theme.palette.isLight
+      ? '#708390'
+      : last && !theme.palette.isLight
+      ? '#D2D4EF'
+      : '#787A9B',
   marginRight,
   marginLeft: first ? '0' : marginLeft ?? '15px',
   cursor: 'pointer',

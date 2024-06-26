@@ -37,7 +37,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
   ) => {
     const { isLight } = useThemeContext();
     const { sortData } = useCoreUnitsTableView(data);
-    const phone = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'table_834'));
+    const phone = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
     const lessThanPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('mobile_375'));
 
     const router = useRouter();

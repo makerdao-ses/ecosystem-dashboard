@@ -14,12 +14,12 @@ export const useCuActivity = () => {
     {
       header: 'Timestamp',
       styles: {
-        [lightTheme.breakpoints.up('table_834')]: {
+        [lightTheme.breakpoints.up('tablet_768')]: {
           width: 262,
           paddingLeft: 32,
           paddingRight: 14,
         },
-        [lightTheme.breakpoints.up('desktop_1194')]: {
+        [lightTheme.breakpoints.up('desktop_1024')]: {
           width: 339,
           paddingLeft: 64,
           paddingRight: 14,

@@ -4,7 +4,6 @@ import React from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
-import theme from '../../../../styles/theme/themes';
 
 import {
   getLatestMip39FromCoreUnit,
@@ -15,6 +14,7 @@ import {
 import { CuTableColumnLinks } from '../CuTableColumnLinks/CuTableColumnLinks';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { StatusChipLegacy } from '../StatusChipLegacy/StatusChipLegacy';
+import type { Theme } from '@mui/material';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface Props {
@@ -22,9 +22,9 @@ interface Props {
 }
 
 export const TitleNavigationCuAbout = ({ coreUnitAbout }: Props) => {
-  const phoneDimensions = useMediaQuery(theme.breakpoints.between('mobile_375', 'tablet_768'));
-  const tableDimensions = useMediaQuery(theme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const lessPhone = useMediaQuery(theme.breakpoints.down('mobile_375'));
+  const phoneDimensions = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
+  const tableDimensions = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const lessPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('mobile_375'));
   if (!coreUnitAbout || coreUnitAbout.cuMip.length === 0) return null;
   const newDate = getSubmissionDateFromCuMip(getLatestMip39FromCoreUnit(coreUnitAbout as CoreUnit));
 
@@ -187,7 +187,7 @@ const Row = styled('div')({
   marginLeft: '4px',
 });
 
-const ContainerLinks = styled('div')({
+const ContainerLinks = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'flex-end',
@@ -208,9 +208,9 @@ const ContainerLinks = styled('div')({
     height: 'fit-content',
     marginTop: '4px',
   },
-});
+}));
 
-const CircleContainer = styled('div')({
+const CircleContainer = styled('div')(({ theme }) => ({
   marginRight: '16px',
   [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
     display: 'none',
@@ -218,7 +218,7 @@ const CircleContainer = styled('div')({
   [theme.breakpoints.down('mobile_375')]: {
     display: 'none',
   },
-});
+}));
 
 const ContainerColum = styled('div')({
   display: 'flex',
@@ -228,7 +228,7 @@ const ContainerColum = styled('div')({
   width: '100%',
 });
 
-const CategoryContainer = styled('div')({
+const CategoryContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   marginTop: '16px',
@@ -269,8 +269,8 @@ const CategoryContainer = styled('div')({
       marginRight: '8px',
     },
   },
-});
-const ContainerCategoryConditional = styled('div')({
+}));
+const ContainerCategoryConditional = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
@@ -287,9 +287,9 @@ const ContainerCategoryConditional = styled('div')({
     flexDirection: 'row',
     marginTop: '16px',
   },
-});
+}));
 
-const ContainerSeparateData = styled('div')({
+const ContainerSeparateData = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'flex-end',
@@ -306,9 +306,9 @@ const ContainerSeparateData = styled('div')({
   [theme.breakpoints.down('tablet_768')]: {
     flexWrap: 'wrap',
   },
-});
+}));
 
-const ResponsiveTitle = styled('div')({
+const ResponsiveTitle = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
@@ -321,7 +321,7 @@ const ResponsiveTitle = styled('div')({
     marginRight: '24px',
     marginBottom: '2px',
   },
-});
+}));
 
 const CircleAvatarStyled = styled(CircleAvatar)({
   width: 68,
