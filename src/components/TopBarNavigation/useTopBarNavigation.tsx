@@ -23,6 +23,11 @@ export const useTopBarNavigation = () => {
     router.push(siteRoutes.login);
   };
 
+  menuItems.home = {
+    title: 'Home',
+    link: '/',
+  };
+
   menuItems.contributors = {
     title: 'Contributors',
     link: '/contributors',
@@ -48,18 +53,13 @@ export const useTopBarNavigation = () => {
     link: CONNECT,
   };
 
-  menuItems[''] = {
-    title: '',
-    link: '',
-  };
-  const filter: SelectItem[] = useMemo(
-    () =>
-      Object.values(menuItems).map((value) => ({
-        label: value.title,
-        value: value.title,
-      })),
-    []
-  );
+  const getMenusAvailable = useMemo(() => {
+    if (isSelectShow) {
+      return menuItems;
+    } else {
+      return Object.values(menuItems).filter((filter) => filter.title !== 'Home');
+    }
+  }, [isSelectShow]);
 
   const activeMenuItem: MenuType = useMemo(() => {
     if (router.pathname.startsWith('/contributors')) {
@@ -74,34 +74,45 @@ export const useTopBarNavigation = () => {
       if (router.pathname.startsWith('/core-units') || router.pathname.startsWith('/ecosystem-actors')) {
         return menuItems.contributors;
       } else {
-        return menuItems[''];
+        return menuItems.home;
       }
     }
   }, [router.pathname]);
+  const filter: SelectItem[] = useMemo(() => {
+    const filtersResult = Object.values(menuItems).map((value) => ({
+      label: value.title,
+      value: value.title,
+    }));
+
+    if (isSelectShow) {
+      return filtersResult;
+    } else {
+      return filtersResult.filter((filter) => filter.label !== 'Home');
+    }
+  }, [isSelectShow]);
 
   const activeItem = useMemo(() => {
     if (isSelectShow) {
-      return activeMenuItem?.title === '' ? 'Contributors' : activeMenuItem.title;
+      return activeMenuItem?.title === '' ? 'Home' : activeMenuItem.title;
     }
     return activeMenuItem.title;
   }, [isSelectShow, activeMenuItem]);
   const handleChangeRoute = (value: string | string[]) => {
     if (typeof value === 'string') {
       const find = Object.values(menuItems).find((menu) => menu.title === value);
-      router.push(find?.link || '/contributors');
+      router.push(find?.link || '/');
     }
   };
-
   return {
     filter,
     themeMode,
     toggleTheme,
     isLight,
-    menuItems,
     activeItem,
     handleGoLogin,
     handleChangeRoute,
     handleOnClickLogOut,
     permissionManager,
+    getMenusAvailable,
   };
 };

@@ -27,7 +27,7 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
     isLight,
     toggleTheme,
     activeItem,
-    menuItems,
+    getMenusAvailable,
     handleGoLogin,
     handleChangeRoute,
     handleOnClickLogOut,
@@ -40,16 +40,16 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
       <Container>
         <NavContainer aria-label="Primary Navigation" className={className}>
           <LeftSection>
-            <Link href="/">
+            <LinkStyled href="/">
               <LogoContainerMobile>
                 <Makerdao />
               </LogoContainerMobile>
-            </Link>
-            <Link href="/">
+            </LinkStyled>
+            <LinkStyled href="/">
               <LogoContainerDesk>
                 <LogoText />
               </LogoContainerDesk>
-            </Link>
+            </LinkStyled>
             <SelectContainer>
               <StyledCustomSelect
                 multiple={false}
@@ -68,7 +68,7 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
             </SelectContainer>
           </LeftSection>
           <CenterLinks>
-            {Object.values(menuItems).map((link) => (
+            {Object.values(getMenusAvailable).map((link) => (
               <LinkNavBar href={link.link} label={link.title} selected={activeItem} />
             ))}
           </CenterLinks>
@@ -214,9 +214,13 @@ const SelectContainer = styled('div')(({ theme }) => ({
 const LeftSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  gap: 16,
+  gap: 8,
+
   [theme.breakpoints.up('tablet_768')]: {
-    gap: 32,
+    gap: 16,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 'revert',
   },
 }));
 
@@ -232,7 +236,7 @@ const RightSection = styled('div')(({ theme }) => ({
     marginRight: 'revert',
   },
   [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: -4,
+    marginTop: 4,
     marginRight: 'revert',
   },
   [theme.breakpoints.up('desktop_1920')]: {
@@ -276,18 +280,16 @@ const CenterLinks = styled('ul')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
     alignItems: 'center',
-    margin: 0,
     padding: 0,
     gap: 24,
-    height: 24,
-    marginTop: -8,
+    marginTop: 18,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
     gap: 48,
   },
   [theme.breakpoints.up('desktop_1920')]: {
-    marginTop: -2,
+    marginTop: 20,
   },
 }));
 
@@ -410,4 +412,8 @@ const StyledMenuProps = (theme: Theme) => ({
       },
     },
   },
+});
+
+const LinkStyled = styled(Link)({
+  display: 'flex',
 });
