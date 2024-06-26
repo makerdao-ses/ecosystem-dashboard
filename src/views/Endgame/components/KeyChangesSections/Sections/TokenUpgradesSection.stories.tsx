@@ -5,7 +5,7 @@ import TokenUpgradesSection from './TokenUpgradesSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof TokenUpgradesSection> = {
-  title: 'Fusion/Endgame/Token Upgrades Section',
+  title: 'Fusion/Views/Endgame/Token Upgrades Section',
   component: TokenUpgradesSection,
   parameters: {
     chromatic: {

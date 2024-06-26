@@ -3,7 +3,7 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
-import KeyChangesBudgetTransitionStatusImportantLink from '@/components/KeyChangesBudgetTransitionStatusImportantLink/KeyChangesBudgetTransitionStatusImportantLink';
+import KeyChangesBudgetTransitionStatusImportantLink from '@/views/Endgame/components/KeyChangesBudgetTransitionStatusImportantLink/KeyChangesBudgetTransitionStatusImportantLink';
 import BudgetStructureSection from './components/BudgetStructureSection/BudgetStructureSection';
 import BudgetTransitionStatusSection from './components/BudgetTransitionStatusSection/BudgetTransitionStatusSection';
 import EndgameIntroductionBanner from './components/EndgameIntroductionBanner/EndgameIntroductionBanner';

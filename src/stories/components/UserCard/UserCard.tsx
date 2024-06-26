@@ -9,7 +9,7 @@ import { useAuthContext } from '../../../core/context/AuthContext';
 import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { capitalizeWordWithoutConvertLowerCase, getCorrectRoleApi } from '../../../core/utils/string';
-import ControlledSwitches from '../../../views/CUAbout/Button/ControlledSwitches/ControlledSwitches';
+import ControlledSwitches from '../../../views/CoreUnitAbout/components/Button/ControlledSwitches/ControlledSwitches';
 import { ENABLE_DISABLE_USER_REQUEST } from '../../containers/Auth/ToggleAccountsActiveFlag/ToggleAccountsActiveFlagAPI';
 import { CustomButton } from '../CustomButton/CustomButton';
 import AvatarPlaceholder from '../svg/avatar-placeholder';

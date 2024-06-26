@@ -241,7 +241,7 @@ const Aside = styled('aside')(({ theme }) => ({
     border: `1px solid ${theme.palette.isLight ? '#D1DEE6' : '#31424E'}`,
     background: theme.palette.isLight ? '#F6F8F9' : '#1E2C37',
     position: 'sticky',
-    top: 140,
+    top: 170,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {

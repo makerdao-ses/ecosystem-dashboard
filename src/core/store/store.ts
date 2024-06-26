@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cuAboutSlice from '@/views/CUAbout/cuAboutSlice';
+import cuAboutSlice from '@/views/CoreUnitAbout/cuAboutSlice';
 import { cuTableSlice } from '@/views/CoreUnits/CuTableSlice';
 import type { ThunkAction, Action } from '@reduxjs/toolkit';
 

@@ -7,7 +7,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
 import React, { useMemo } from 'react';
-import { customRenderer, customRendererDark } from '@/views/CUAbout/Markdown/renderUtils';
+import { customRenderer, customRendererDark } from '@/views/CoreUnitAbout/components/Markdown/renderUtils';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 import GenericCommentCard from './GenericCommentCard';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';

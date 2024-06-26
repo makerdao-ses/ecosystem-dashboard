@@ -8,7 +8,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta = {
-  title: 'Fusion/Endgame/Introduction Endgame',
+  title: 'Fusion/Views/Endgame/Introduction Endgame',
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {

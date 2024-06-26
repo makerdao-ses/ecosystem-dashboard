@@ -5,7 +5,7 @@ import GovernanceSection from './GovernanceSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof GovernanceSection> = {
-  title: 'Fusion/Endgame/Governance Section',
+  title: 'Fusion/Views/Endgame/Governance Section',
   component: GovernanceSection,
   parameters: {
     chromatic: {
