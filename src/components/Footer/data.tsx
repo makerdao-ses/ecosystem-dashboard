@@ -1,3 +1,4 @@
+import { styled } from '@mui/material';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
@@ -6,10 +7,21 @@ import FusionIcon from 'public/assets/svg/makerdao_fusion.svg';
 import SwitchboardIcon from 'public/assets/svg/makerdao_switchboard.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
-import TwitterIcon from 'public/assets/svg/twitter.svg';
+import X from 'public/assets/svg/x.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
 import type { FooterContact, LinkCategory, TypeIconFooter } from './type';
 
+const XStyled = styled(X)(({ theme }) => ({
+  width: 22,
+  height: 22,
+
+  marginLeft: 6,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: 4,
+    marginRight: 8,
+  },
+}));
 const linkCategory: LinkCategory[] = [
   {
     name: 'Governance',
@@ -46,7 +58,7 @@ const linkCategory: LinkCategory[] = [
       },
       {
         label: 'Brand Assets',
-        link: '#',
+        link: 'https://www.notion.so/makerdao-ses/ed7c926d094f46aa82647583077c8205?v=d4a8854753214b3fa4a2446fb2c72045',
       },
       {
         label: 'Github Repos',
@@ -79,11 +91,11 @@ const linkCategory: LinkCategory[] = [
 const iconsMakerDAO: TypeIconFooter[] = [
   {
     Icon: DiscordIcon,
-    href: 'https://discord.com/invite/RBRumCpEDH',
+    href: 'https://discord.com/invite/SK9K9VHQBD',
     title: 'discord',
   },
   {
-    Icon: TwitterIcon,
+    Icon: XStyled,
     href: 'https://x.com/MakerDAO',
     title: 'twitter',
   },
@@ -111,7 +123,7 @@ const iconsPowerhouse: TypeIconFooter[] = [
     title: 'discord',
   },
   {
-    Icon: TwitterIcon,
+    Icon: XStyled,
     href: 'https://x.com/PowerhouseDAO',
     title: 'twitter',
   },
