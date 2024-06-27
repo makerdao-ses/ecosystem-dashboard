@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof TeamTypeCard> = {
-  title: 'Fusion/Teams/TeamTypeCard',
+  title: 'Fusion/Views/Contributors/TeamTypeCard',
   component: TeamTypeCard,
 
   parameters: {

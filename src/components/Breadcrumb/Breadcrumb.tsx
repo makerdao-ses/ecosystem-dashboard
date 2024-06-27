@@ -209,6 +209,10 @@ const Wrapper = styled('div')(({ theme }) => ({
   top: 64,
   zIndex: 1000,
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    top: 98,
+  },
 }));
 
 const BreadcrumbCard = styled('div')(({ theme }) => ({

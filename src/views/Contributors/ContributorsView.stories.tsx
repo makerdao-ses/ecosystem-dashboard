@@ -1,12 +1,12 @@
 import { withoutSBPadding } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AppLayout from '../../stories/containers/AppLayout/AppLayout';
-import TeamsView from './TeamsView';
+import ContributorsView from './ContributorsView';
 import type { Meta } from '@storybook/react';
 
-const meta: Meta<typeof TeamsView> = {
-  title: 'Fusion/Pages/Teams',
-  component: TeamsView,
+const meta: Meta<typeof ContributorsView> = {
+  title: 'Fusion/Pages/Contributors',
+  component: ContributorsView,
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
@@ -147,7 +147,7 @@ const variantsArgs = [
 const [[LightMode, DarkMode]] = createThemeModeVariants(
   (props) => (
     <AppLayout>
-      <TeamsView {...props} />
+      <ContributorsView {...props} />
     </AppLayout>
   ),
   variantsArgs
