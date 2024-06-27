@@ -10,7 +10,7 @@ const meta: Meta<typeof ActivityTable> = {
   component: ActivityTable,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194],
+      viewports: [375, 768, 1024],
       pauseAnimationAtEnd: true,
     },
     date: new Date('2022-09-22T12:23:00Z'),
@@ -73,7 +73,7 @@ const globalActivityTableArgs = {
         paddingLeft: 32,
         paddingRight: 14,
         boxSizing: 'border-box',
-        [lightTheme.breakpoints.up('desktop_1194')]: {
+        [lightTheme.breakpoints.up('desktop_1024')]: {
           minWidth: 387,
           paddingLeft: 64,
         },
@@ -108,12 +108,12 @@ const args = [
       {
         header: 'Timestamp',
         styles: {
-          [lightTheme.breakpoints.up('table_834')]: {
+          [lightTheme.breakpoints.up('tablet_768')]: {
             width: 262,
             paddingLeft: 32,
             paddingRight: 14,
           },
-          [lightTheme.breakpoints.up('desktop_1194')]: {
+          [lightTheme.breakpoints.up('desktop_1024')]: {
             width: 339,
             paddingLeft: 64,
             paddingRight: 14,

@@ -257,7 +257,7 @@ const TeamData = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => (
     paddingLeft: 0,
   },
 
-  [theme.breakpoints.up(isGlobal ? 1000 : 'tablet_768')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     marginTop: 0,
   },
 }));
@@ -293,7 +293,7 @@ const FlexWrapper = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) =
     marginBottom: 24,
   },
 
-  [theme.breakpoints.up(isGlobal ? 1000 : 'tablet_768')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     flexDirection: 'row',
     marginBottom: 0,
   },
