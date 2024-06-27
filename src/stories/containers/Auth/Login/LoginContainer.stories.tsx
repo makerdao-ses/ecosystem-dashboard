@@ -11,7 +11,7 @@ const meta: Meta<typeof LoginContainer> = {
   decorators: [withoutSBPadding],
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194],
+      viewports: [375, 768, 1024],
       pauseAnimationAtEnd: true,
     },
   },
@@ -45,7 +45,7 @@ LightMode.parameters = {
           },
         },
       },
-      834: {
+      768: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10120%3A105175',
         options: {
           componentStyle: {
@@ -57,7 +57,7 @@ LightMode.parameters = {
           },
         },
       },
-      1194: {
+      1024: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10120%3A104591',
         options: {
           componentStyle: {
