@@ -48,6 +48,10 @@ export const EcosystemActorAboutView: React.FC<Props> = ({ actors, actor }) => {
       <BreadcrumbStyled
         items={[
           {
+            label: 'Contributors',
+            href: siteRoutes.contributors,
+          },
+          {
             label: 'Ecosystem Actors',
             href: siteRoutes.ecosystemActors,
             number: actors.length,
@@ -297,7 +301,7 @@ const SomethingWrongContainer = styled('div')(({ theme }) => ({
 }));
 const BreadcrumbStyled = styled(Breadcrumb)(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
-    top: 92,
+    top: 98,
   },
 }));
 

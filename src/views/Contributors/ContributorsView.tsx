@@ -5,8 +5,8 @@ import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamsSections from './components/TeamsSections/TeamsSections';
 import { currentTeams, legacyTeams } from './staticData';
 
-const TeamsView: React.FC = () => (
-  <TeamsPageContainer>
+const ContributorsView: React.FC = () => (
+  <ContributorsPageContainer>
     <SEOHead
       title="MakerDAO | Teams"
       description="MakerDAO Teams page provides an overview of the categories, descriptions and number of teams contributing to the Endgame Ecosystem."
@@ -18,12 +18,12 @@ const TeamsView: React.FC = () => (
         <TeamsSections sectionName="Legacy Contributors" teams={legacyTeams} />
       </SectionsContainer>
     </Container>
-  </TeamsPageContainer>
+  </ContributorsPageContainer>
 );
 
-export default TeamsView;
+export default ContributorsView;
 
-const TeamsPageContainer = styled(PageContainer)(() => ({}));
+const ContributorsPageContainer = styled(PageContainer)(() => ({}));
 
 const SectionsContainer = styled('div')(() => ({
   display: 'flex',

@@ -37,7 +37,7 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
   ) => {
     const { isLight } = useThemeContext();
     const { sortData } = useCoreUnitsTableView(data);
-    const phone = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'table_834'));
+    const phone = useMediaQuery((theme: Theme) => theme.breakpoints.between('mobile_375', 'tablet_768'));
     const lessThanPhone = useMediaQuery((theme: Theme) => theme.breakpoints.down('mobile_375'));
 
     const router = useRouter();
@@ -89,6 +89,10 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
             <Breadcrumbs
               items={[
                 {
+                  label: 'Contributors',
+                  url: siteRoutes.contributors,
+                },
+                {
                   label: (
                     <CoreUnitStyle>
                       Core Units <b>({filteredData.length})</b>
@@ -139,6 +143,10 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
                       </span>
                     ),
                     url: `${siteRoutes.coreUnitsOverview}/${queryStrings}`,
+                  },
+                  {
+                    label: 'Contributors',
+                    url: siteRoutes.contributors,
                   },
                 ]}
                 title={breadcrumbTitle || buildCULabel()}

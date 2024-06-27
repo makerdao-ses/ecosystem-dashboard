@@ -106,6 +106,10 @@ const MainContainer = styled('div')(({ theme }) => ({
   [lightTheme.breakpoints.up('tablet_768')]: {
     top: 98,
   },
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    top: 98,
+  },
 }));
 
 const ContainerResponsiveMobile = styled('div')<{ showHeader: boolean }>(({ theme, showHeader }) => ({
