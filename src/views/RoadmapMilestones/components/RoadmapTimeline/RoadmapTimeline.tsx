@@ -9,6 +9,8 @@ interface RoadmapTimelineProps {
   milestones: Milestone[];
 }
 
+const MIN_TO_SHOW_VIEW_ALL = 6;
+
 const RoadmapTimeline: React.FC<RoadmapTimelineProps> = ({ milestones }) => {
   const { isLight } = useThemeContext();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
@@ -44,11 +46,11 @@ const RoadmapTimeline: React.FC<RoadmapTimelineProps> = ({ milestones }) => {
     <div>
       {isMobile ? (
         <MobileTimeline>
-          {milestones.map((milestone) => (
+          {(viewAll ? milestones : milestones.slice(0, MIN_TO_SHOW_VIEW_ALL)).map((milestone) => (
             <MilestoneCard key={milestone.id} milestone={milestone} />
           ))}
 
-          {viewAllButton}
+          {milestones.length > MIN_TO_SHOW_VIEW_ALL && viewAllButton}
         </MobileTimeline>
       ) : (
         <DesktopTimeline>
