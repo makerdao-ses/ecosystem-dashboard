@@ -1,4 +1,5 @@
 import type { Deliverable } from './deliverables';
+import type { Maybe } from './generics';
 
 export interface StoryPoints {
   __typename: 'StoryPoints';
@@ -12,11 +13,6 @@ export interface Percentage {
 }
 
 export type Progress = StoryPoints | Percentage;
-
-export interface DeliverablesCompleted {
-  total: number;
-  completed: number;
-}
 
 export interface OwnerRef {
   ref: string;
@@ -35,20 +31,22 @@ export enum DeliverableSetStatus {
 
 export interface DeliverableSet {
   deliverables: Deliverable[];
-  status: DeliverableSetStatus;
-  progress: Progress;
-  deliverablesCompleted: DeliverablesCompleted;
+  status: Maybe<DeliverableSetStatus>;
+  progress: Maybe<Progress>;
+  totalDeliverables: Maybe<number>;
+  deliverablesCompleted: Maybe<number>;
 }
 
 export interface Milestone {
   id: string;
+  sequenceCode: string;
   code: string;
   title: string;
   abstract: string;
   description: string;
   targetDate: string;
 
-  scope: DeliverableSet[];
+  scope: DeliverableSet;
 
   coordinators: OwnerRef[];
   contributors: OwnerRef[];
@@ -61,6 +59,10 @@ export interface Roadmap {
   description: string;
 
   milestones: Milestone[];
+}
+
+export interface ScopeOfWorkState {
+  roadmaps: Roadmap[];
 }
 
 export const isPercentage = (progress: Progress): progress is Percentage =>

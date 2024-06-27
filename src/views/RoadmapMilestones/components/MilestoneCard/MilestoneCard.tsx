@@ -3,6 +3,7 @@ import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useRouter } from 'next/router';
 import React from 'react';
 import type { Milestone } from '@/core/models/interfaces/roadmaps';
+import { formatDateStringToQuarter } from '../../utils';
 import MobileProgressBar from './MobileProgressBar';
 
 interface MilestoneCardProps {
@@ -18,14 +19,15 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
       <TitleBox>
         <TitleContainer>
           <NameBox>
-            <MilestoneNumber>{milestone.id}</MilestoneNumber>
+            <MilestoneNumber>{milestone.sequenceCode}</MilestoneNumber>
             <Code>{milestone.code}</Code>
             <Name>{milestone.title}</Name>
           </NameBox>
           <QuarterBox>
             <Quarter>
               {/* target date should be printed out with the format: Q4’23 */}
-              {`${milestone.targetDate.split('-')[1]}'${milestone.targetDate.split('-')[0].slice(-2)}`}
+              {/* {`${milestone.targetDate.split('-')[1]}'${milestone.targetDate.split('-')[0].slice(-2)}`} */}
+              {formatDateStringToQuarter(milestone.targetDate)}
             </Quarter>
           </QuarterBox>
         </TitleContainer>

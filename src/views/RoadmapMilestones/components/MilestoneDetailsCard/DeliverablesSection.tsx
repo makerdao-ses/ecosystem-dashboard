@@ -26,7 +26,7 @@ const DeliverablesSection: React.FC<DeliverablesSectionProps> = ({ minimal, deli
       <Header>
         <TitleBox>
           <Title>Deliverables</Title>
-          <Count>{deliverables.length}</Count>
+          <Count>{deliverables?.length}</Count>
         </TitleBox>
 
         {!minimal && (

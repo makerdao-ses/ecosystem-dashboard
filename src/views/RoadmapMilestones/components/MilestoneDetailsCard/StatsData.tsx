@@ -4,6 +4,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import Information from '@/components/icons/information';
+import { formatDateStringToQuarter } from '../../utils';
 import type { Theme } from '@mui/material';
 
 interface StatsDataProps {
@@ -28,10 +29,7 @@ const StatsData: React.FC<StatsDataProps> = ({ minimal, targetDate }) => {
             </IconWrapper>
           </SESTooltip>
         </Label>
-        <Value>
-          {/* target date with the format: Q4 2023 */}
-          {targetDate.split('-')[1]} {targetDate.split('-')[0]}
-        </Value>
+        <Value>{formatDateStringToQuarter(targetDate, true)}</Value>
       </Row>
       {!minimal && (
         <Row>

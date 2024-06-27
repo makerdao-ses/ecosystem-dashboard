@@ -5,7 +5,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof MilestoneDetailsCard> = {
-  title: 'Fusion/Roadmap and Milestones/Milestone Details Card',
+  title: 'Fusion/Views/Roadmap and Milestones/Milestone Details Card',
   component: MilestoneDetailsCard,
   parameters: {
     chromatic: {
