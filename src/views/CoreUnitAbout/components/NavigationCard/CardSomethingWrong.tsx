@@ -22,7 +22,6 @@ const CardSomethingWrong: React.FC<Props> = ({ title = 'Is this your core unit?'
           If you see something that needs updating, don't hesitate to contact us.
         </StyledTypographyDescription>
       </ContainerText>
-      <LineStyledBorder />
       <div>{children}</div>
     </StyledInformationCard>
   </Container>
@@ -43,12 +42,12 @@ const ContainerText = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  padding: '16px 16px 0px 16px',
+  padding: '16px 16px 16px 16px',
   [theme.breakpoints.up('desktop_1024')]: {
-    padding: '8px 8px 0px 8px',
+    padding: '8px 8px 8px 8px',
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 16px 0px 16px',
+    padding: '16px 16px 16px 16px',
   },
 });
 const StyledInformationCard = styled(Card)(() => ({
@@ -80,31 +79,4 @@ const Label = styled(Typography)(({ theme }) => ({
     lineHeight: '24px',
   },
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-}));
-
-const LineStyledBorder = styled('div')(({ theme }) => ({
-  display: 'none',
-  width: '100%',
-  borderTop: `1px solid ${
-    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
-  }`,
-  [theme.breakpoints.up('tablet_768')]: {
-    display: 'flex',
-    marginTop: 6,
-    marginBottom: 4,
-  },
-  [theme.breakpoints.up('desktop_1024')]: {
-    display: 'flex',
-    marginTop: 18,
-    marginBottom: 6,
-  },
-  [theme.breakpoints.up('desktop_1280')]: {
-    marginTop: 18,
-    marginBottom: 4,
-  },
-  [theme.breakpoints.up('desktop_1440')]: {
-    display: 'flex',
-    marginTop: 12,
-    marginBottom: 10,
-  },
 }));

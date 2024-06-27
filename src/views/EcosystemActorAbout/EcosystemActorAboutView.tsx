@@ -10,9 +10,7 @@ import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBreadcrumbContent';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
-import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import TeamHeader from '@/components/TeamHeader/TeamHeader';
-import { SES_DASHBOARD } from '@/core/utils/const';
 import CardExpenses from '../CoreUnitAbout/components/NavigationCard/CardExpenses';
 import CardSomethingWrong from '../CoreUnitAbout/components/NavigationCard/CardSomethingWrong';
 import ActorMdViewer from './components/ActorMdViewer/ActorMdViewer';
@@ -99,14 +97,7 @@ export const EcosystemActorAboutView: React.FC<Props> = ({ actors, actor }) => {
               <CardSomethingWrong
                 title="Are you part of this Ecosystem Actor? "
                 linkText="Join Powerhouse discord #dashboard-reporting channel"
-              >
-                <ContainerLinks>
-                  <LabelLinks>Important Links</LabelLinks>
-                  <ContainerLinksButton>
-                    <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
-                  </ContainerLinksButton>
-                </ContainerLinks>
-              </CardSomethingWrong>
+              />
             </WrapperCardSomethingWrongMobile>
           </ContainerResponsive>
           <ContainerCardSomethingWrongDesk>
@@ -133,14 +124,7 @@ export const EcosystemActorAboutView: React.FC<Props> = ({ actors, actor }) => {
                 <CardSomethingWrong
                   title="Are you part of this Ecosystem Actor?"
                   linkText="Join Powerhouse discord #dashboard-reporting channel"
-                >
-                  <ContainerLinks>
-                    <LabelLinks>Important Links</LabelLinks>
-                    <ContainerLinksButton>
-                      <ButtonLinkStyled href={`${SES_DASHBOARD}`}>#dashboard-reporting channel</ButtonLinkStyled>
-                    </ContainerLinksButton>
-                  </ContainerLinks>
-                </CardSomethingWrong>
+                />
               </SomethingWrongContainer>
             </ContainerScroll>
           </ContainerCardSomethingWrongDesk>
@@ -228,54 +212,6 @@ const ContainerCardSomethingWrongDesk = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
     marginLeft: 32,
-  },
-}));
-
-const LabelLinks = styled('div')(({ theme }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 16,
-  fontWeight: 700,
-  lineHeight: '19.36px',
-  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.gray[50],
-}));
-
-const ContainerLinksButton = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-});
-
-const ButtonLinkStyled = styled(ExternalLinkButton)(() => ({
-  padding: '2px 14.5px 2px 23px',
-  display: 'flex',
-  alignItems: 'center',
-  fontSize: 16,
-
-  letterSpacing: '-0.32px',
-  '& > div': {
-    width: 23,
-    height: 21,
-  },
-}));
-
-const ContainerLinks = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 16,
-  marginTop: 12,
-  paddingLeft: 16,
-  paddingRight: 16,
-  paddingBottom: 16,
-  [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 4,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingBottom: 8,
-  },
-  [theme.breakpoints.up('desktop_1440')]: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
   },
 }));
 

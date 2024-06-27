@@ -10,7 +10,6 @@ import { getMarkdownInformation } from '@/core/businessLogic/coreUnitAbout';
 import { getFTEsFromCoreUnit } from '@/core/businessLogic/coreUnits';
 import type { Team } from '@/core/models/interfaces/team';
 import { ResourceType } from '@/core/models/interfaces/types';
-import { SES_DASHBOARD } from '@/core/utils/const';
 import { toAbsoluteURL } from '@/core/utils/urls';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import TeamMember from '@/views/CoreUnitAbout/components/TeamMember/TeamMember';
@@ -181,14 +180,7 @@ const CoreUnitAboutView = ({ code, coreUnits, cuAbout }: Props) => {
                 </ContainerCard>
                 {!(phone || LessPhone) && (
                   <ContainerCardHiddenTableSomeWrong>
-                    <CardSomethingWrong>
-                      <ContainerLinks>
-                        <LabelLinks>Important Links</LabelLinks>
-                        <ContainerLinksButton>
-                          <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
-                        </ContainerLinksButton>
-                      </ContainerLinks>
-                    </CardSomethingWrong>
+                    <CardSomethingWrong />
                   </ContainerCardHiddenTableSomeWrong>
                 )}
               </ContainerScroll>
@@ -233,14 +225,7 @@ const CoreUnitAboutView = ({ code, coreUnits, cuAbout }: Props) => {
         </ContainerShowTable>
         {(table768 || phone || LessPhone) && (
           <ContainerCardSomethingWrong>
-            <CardSomethingWrong>
-              <ContainerLinks>
-                <LabelLinks>Important Links</LabelLinks>
-                <ContainerLinksButton>
-                  <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
-                </ContainerLinksButton>
-              </ContainerLinks>
-            </CardSomethingWrong>
+            <CardSomethingWrong />
           </ContainerCardSomethingWrong>
         )}
       </Wrapper>
