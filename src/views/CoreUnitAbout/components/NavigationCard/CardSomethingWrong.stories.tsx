@@ -1,6 +1,4 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { SES_DASHBOARD } from '@/core/utils/const';
-import { ButtonLinkStyled, ContainerLinks, ContainerLinksButton, LabelLinks } from '../../CoreUnitAboutView';
 import CardSomethingWrong from './CardSomethingWrong';
 import type { Meta } from '@storybook/react';
 
@@ -23,16 +21,7 @@ const variantsArgs = [
 ];
 
 const [[Card, CardDark]] = createThemeModeVariants(
-  (props) => (
-    <CardSomethingWrong {...props}>
-      <ContainerLinks>
-        <LabelLinks>Important Links</LabelLinks>
-        <ContainerLinksButton>
-          <ButtonLinkStyled href={`${SES_DASHBOARD}`}>Join SES channel</ButtonLinkStyled>
-        </ContainerLinksButton>
-      </ContainerLinks>
-    </CardSomethingWrong>
-  ),
+  (props) => <CardSomethingWrong {...props} />,
 
   variantsArgs
 );
