@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
-import { Collapse } from '@mui/material';
+import { Collapse, styled } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
@@ -18,12 +16,12 @@ interface ActorSummaryProps {
   trailingAddress?: string[];
   breadcrumbTitle?: string;
   showHeader?: boolean;
+  className?: string;
 }
 
 // TODO: delete this component once it is safe to do it
 const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
-  ({ actors: data = [], breadcrumbTitle, trailingAddress = [], showHeader = true }, ref) => {
-    const { isLight } = useThemeContext();
+  ({ actors: data = [], breadcrumbTitle, trailingAddress = [], showHeader = true }, ref, className = '') => {
     const router = useRouter();
     const query = router.query;
     const code = query.code as string;
@@ -63,7 +61,7 @@ const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
     );
 
     return (
-      <MainContainer ref={ref} isLight={isLight}>
+      <MainContainer ref={ref} className={className}>
         <BreadcrumbNavigationStyled
           descriptionTextPagination="Ecosystem Actors"
           itemActual={page}
@@ -83,7 +81,7 @@ const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
 
         <Collapse in={showHeader} timeout={300} unmountOnExit>
           <ActorTitleWithDescriptionStyled actorAbout={actorAbout} showTextDescription={true} />
-          <ContainerResponsiveMobile showHeader={showHeader} isLight={isLight} />
+          <ContainerResponsiveMobile showHeader={showHeader} />
         </Collapse>
       </MainContainer>
     );
@@ -91,19 +89,22 @@ const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
 );
 
 export default ActorSummary;
-const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const MainContainer = styled('div')(({ theme }) => ({
   position: 'fixed',
   top: 64,
   width: '100%',
-  background: isLight ? '#FFFFFF' : '#25273D',
+  background: theme.palette.isLight ? '#FFFFFF' : '#25273D',
 
-  backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
+  backgroundImage: theme.palette.isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
   backgroundSize: 'cover',
 
   zIndex: 3,
 
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
-    borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+  [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
+    borderBottom: theme.palette.isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+  },
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    top: 98,
   },
 
   [lightTheme.breakpoints.up('tablet_768')]: {
@@ -111,17 +112,17 @@ const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   },
 }));
 
-const ContainerResponsiveMobile = styled.div<{ isLight: boolean; showHeader: boolean }>(({ isLight, showHeader }) => ({
+const ContainerResponsiveMobile = styled('div')<{ showHeader: boolean }>(({ theme, showHeader }) => ({
   position: 'relative',
-  borderBottom: showHeader ? (isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
+  borderBottom: showHeader ? (theme.palette.isLight ? '1px solid #B6EDE7' : '1px solid #027265') : 'none',
   width: '100%',
   marginTop: showHeader ? '24px' : 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [lightTheme.breakpoints.up('tablet_768')]: {
     marginTop: '24px',
   },
 
-  [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
+  [lightTheme.breakpoints.between('mobile_375', 'tablet_768')]: {
     marginTop: showHeader ? '16px' : '0px',
     borderBottom: 'none',
   },
