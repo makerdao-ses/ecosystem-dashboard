@@ -45,8 +45,8 @@ const links = [
 
 const itemsBreadcrumb = [
   {
-    label: 'Finances',
-    url: siteRoutes.financesOverview,
+    label: 'Contributors',
+    url: siteRoutes.contributors,
   },
   {
     label: 'Recognized Delegates',

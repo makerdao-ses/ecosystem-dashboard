@@ -48,6 +48,10 @@ export const EcosystemActorAboutView: React.FC<Props> = ({ actors, actor }) => {
       <BreadcrumbStyled
         items={[
           {
+            label: 'Contributors',
+            href: siteRoutes.contributors,
+          },
+          {
             label: 'Ecosystem Actors',
             href: siteRoutes.ecosystemActors,
             number: actors.length,
