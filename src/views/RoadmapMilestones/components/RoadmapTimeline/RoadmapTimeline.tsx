@@ -9,7 +9,7 @@ interface RoadmapTimelineProps {
   milestones: Milestone[];
 }
 
-const MIN_TO_SHOW_VIEW_ALL = 6;
+const MIN_TO_SHOW_VIEW_ALL = 4;
 
 const RoadmapTimeline: React.FC<RoadmapTimelineProps> = ({ milestones }) => {
   const { isLight } = useThemeContext();
