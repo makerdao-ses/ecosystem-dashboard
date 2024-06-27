@@ -124,7 +124,7 @@ const iconsPowerhouse: TypeIconFooter[] = [
   },
   {
     Icon: XStyled,
-    href: 'https://x.com/i/flow/login?redirect_after_login=%2FPowerhouseDAO',
+    href: 'https://x.com/PowerhouseDAO',
     title: 'twitter',
   },
   {
