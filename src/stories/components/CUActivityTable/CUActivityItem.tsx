@@ -146,7 +146,7 @@ const ActivityItem = styled('a')<{ isLoading?: boolean; isGlobal: boolean }>(({ 
         : '#10191F',
     },
   },
-  [theme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up(1000)]: {
     padding: '24px 64px',
   },
 }));
@@ -155,7 +155,7 @@ const Timestamp = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => 
   display: 'flex',
   justifyContent: 'space-between',
 
-  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
+  [theme.breakpoints.up(isGlobal ? 1000 : 'tablet_768')]: {
     flexDirection: 'column',
     width: isGlobal ? 251 : 230,
     minWidth: isGlobal ? 251 : 230,
@@ -251,7 +251,6 @@ const TeamData = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => (
   minWidth: '327px',
   marginTop: '32px',
   paddingLeft: 7,
-
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 16,
     paddingLeft: 0,

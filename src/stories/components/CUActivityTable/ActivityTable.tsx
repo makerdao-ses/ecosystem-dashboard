@@ -217,7 +217,7 @@ const TableHeader = styled('div')<{ isLight: boolean; isGlobal?: boolean }>(({ i
     ? 'inset .25px -.25px .25px .25px rgba(190, 190, 190, 0.25), 0px 20px 40px rgba(190, 190, 190, .25), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '0px 20px 40px rgba(7, 22, 40, 0.4)',
 
-  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
+  [theme.breakpoints.up(isGlobal ? 1000 : 'tablet_768')]: {
     display: 'block',
   },
 }));
