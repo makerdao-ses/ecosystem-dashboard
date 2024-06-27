@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import React, { useState, useEffect } from 'react';
 import CoreUnitAboutView from '@/views/CoreUnitAbout/CoreUnitAboutView';
 import { fetchCoreUnitByCode } from '@/views/CoreUnitAbout/cuAboutAPI';
-import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
+import { fetchCoreUnits } from '@/views/CoreUnitsIndex/cuTableAPI';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { NextPage, GetServerSideProps, InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';

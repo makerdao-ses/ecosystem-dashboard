@@ -1,7 +1,7 @@
 import React from 'react';
-import { fetchCoreUnits } from '../../../src/stories/components/CoreUnitSummary/CoreUnitSummaryApi';
-import CUActivityContainer from '../../../src/stories/containers/CUActivity/CUActivityFeedContainer';
-import { fetchCoreUnitActivityFeedData } from '../../../src/stories/containers/CUActivity/cuActivityAPI';
+import CUActivityFeedContainer from '@/stories/containers/CUActivity/CUActivityFeedContainer';
+import { fetchCoreUnitActivityFeedData } from '@/stories/containers/CUActivity/cuActivityAPI';
+import { fetchCoreUnits } from '@/views/CoreUnitsIndex/cuTableAPI';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { NextPage, GetServerSideProps, GetServerSidePropsContext } from 'next';
@@ -13,7 +13,7 @@ interface CUActivityProps {
 }
 
 const CoreUnitActivityPage: NextPage<CUActivityProps> = ({ coreUnit, coreUnits, activities }) => (
-  <CUActivityContainer coreUnit={coreUnit} coreUnits={coreUnits} activities={activities} />
+  <CUActivityFeedContainer coreUnit={coreUnit} coreUnits={coreUnits} activities={activities} />
 );
 
 export default CoreUnitActivityPage;
