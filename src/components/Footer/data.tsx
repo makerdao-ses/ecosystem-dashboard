@@ -11,10 +11,17 @@ import X from 'public/assets/svg/x.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
 import type { FooterContact, LinkCategory, TypeIconFooter } from './type';
 
-const XStyled = styled(X)({
-  width: 20,
-  height: 20,
-});
+const XStyled = styled(X)(({ theme }) => ({
+  width: 22,
+  height: 22,
+
+  marginLeft: 6,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: 4,
+    marginRight: 8,
+  },
+}));
 const linkCategory: LinkCategory[] = [
   {
     name: 'Governance',
