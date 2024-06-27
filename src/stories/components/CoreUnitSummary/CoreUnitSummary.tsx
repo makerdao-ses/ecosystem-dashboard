@@ -89,6 +89,10 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
             <Breadcrumbs
               items={[
                 {
+                  label: 'Contributors',
+                  url: siteRoutes.contributors,
+                },
+                {
                   label: (
                     <CoreUnitStyle>
                       Core Units <b>({filteredData.length})</b>
@@ -139,6 +143,10 @@ export const CoreUnitSummary = forwardRef<HTMLDivElement, CoreUnitSummaryProps>(
                       </span>
                     ),
                     url: `${siteRoutes.coreUnitsOverview}/${queryStrings}`,
+                  },
+                  {
+                    label: 'Contributors',
+                    url: siteRoutes.contributors,
                   },
                 ]}
                 title={breadcrumbTitle || buildCULabel()}

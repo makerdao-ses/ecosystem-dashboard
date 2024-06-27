@@ -61,6 +61,10 @@ const CoreUnitAboutView = ({ code, coreUnits, cuAbout }: Props) => {
       <BreadcrumbStyled
         items={[
           {
+            label: 'Contributors',
+            href: siteRoutes.contributors,
+          },
+          {
             label: 'Core Units',
             href: siteRoutes.coreUnitsOverview,
             number: coreUnits.length,

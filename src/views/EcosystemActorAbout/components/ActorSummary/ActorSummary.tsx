@@ -93,7 +93,7 @@ const ActorSummary = forwardRef<HTMLDivElement, ActorSummaryProps>(
 export default ActorSummary;
 const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   position: 'fixed',
-  top: 98,
+  top: 64,
   width: '100%',
   background: isLight ? '#FFFFFF' : '#25273D',
 
@@ -104,6 +104,10 @@ const MainContainer = styled.div<{ isLight: boolean }>(({ isLight }) => ({
 
   [lightTheme.breakpoints.between('mobile_375', 'table_834')]: {
     borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #027265',
+  },
+
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    top: 98,
   },
 }));
 

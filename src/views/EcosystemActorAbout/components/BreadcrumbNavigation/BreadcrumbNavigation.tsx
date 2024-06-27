@@ -5,6 +5,7 @@ import InsidePagination from '@ses/components/Pagination/InsidePagination';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { siteRoutes } from '@/config/routes';
 import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { NextRouter } from 'next/router';
 
@@ -45,6 +46,10 @@ const BreadcrumbNavigation: React.FC<Props> = ({
       <WrapperContainerDesk>
         <StyledBreadcrumbs
           items={[
+            {
+              label: 'Contributors',
+              url: siteRoutes.contributors,
+            },
             {
               label: (
                 <CoreUnitStyle isLight={isLight}>
@@ -96,6 +101,10 @@ const BreadcrumbNavigation: React.FC<Props> = ({
                 </span>
               ),
               url: mainUrl,
+            },
+            {
+              label: 'Contributors',
+              url: siteRoutes.contributors,
             },
           ]}
           title={breadcrumbTitleMobile || (labelFirstItemNavigation.label as string)}
