@@ -49,7 +49,7 @@ const CardExpenses = ({
         <ContainerButton resource={resource}>
           {resource === ResourceType.CoreUnit && (
             <ButtonLinkStyledCard
-              href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
+              href={`${siteRoutes.coreUnitActivityFeed(shortCode)}/${queryStrings}`}
               label="Activity Feed"
               showIcon
             />
@@ -63,7 +63,7 @@ const CardExpenses = ({
             label="Budget Statements"
             showIcon
           />
-          <ButtonLinkStyledCard href={`/finances/${budgetPath}/${queryStrings}`} label="Finances" showIcon />
+          <ButtonLinkStyledCard href={`${siteRoutes.finances(budgetPath)}/${queryStrings}`} label="Finances" showIcon />
         </ContainerButton>
       </ContainerData>
       {resource === ResourceType.CoreUnit ? <Line /> : <DivSpacer />}

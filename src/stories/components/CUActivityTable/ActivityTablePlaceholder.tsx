@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { siteRoutes } from '@/config/routes';
 import PlaceholderImgDark from '../../../../public/assets/img/rectangles-dark.png';
 import PlaceholderImg from '../../../../public/assets/img/rectangles.png';
 import { useThemeContext } from '../../../core/context/ThemeContext';
@@ -13,7 +14,7 @@ export const ActivityPlaceholder = (props: { hasFilter: boolean; clearAction?: (
   const router = useRouter();
 
   const goBack = () => {
-    router.push(`/core-unit/${router.query.code}/`);
+    router.push(`${siteRoutes.coreUnitAbout}/${router.query.code}/`);
   };
 
   return (
