@@ -76,7 +76,7 @@ GlobalLightMode.parameters = {
           },
         },
       },
-      768: {
+      834: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=9776%3A110930',
         options: {
           componentStyle: {
@@ -84,7 +84,7 @@ GlobalLightMode.parameters = {
           },
         },
       },
-      1024: {
+      1194: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=9760%3A106852',
         options: {
           componentStyle: {

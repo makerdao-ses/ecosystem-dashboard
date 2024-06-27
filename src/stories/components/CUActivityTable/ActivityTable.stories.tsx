@@ -108,12 +108,12 @@ const args = [
       {
         header: 'Timestamp',
         styles: {
-          [lightTheme.breakpoints.up('tablet_768')]: {
+          [lightTheme.breakpoints.up('table_834')]: {
             width: 262,
             paddingLeft: 32,
             paddingRight: 14,
           },
-          [lightTheme.breakpoints.up('desktop_1024')]: {
+          [lightTheme.breakpoints.up('desktop_1194')]: {
             width: 339,
             paddingLeft: 64,
             paddingRight: 14,
