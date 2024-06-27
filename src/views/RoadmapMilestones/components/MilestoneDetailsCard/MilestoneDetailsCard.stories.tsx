@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { PowerhouseRoadmap2024 } from '../../staticData';
+import { DefaultRoadmap } from '../../staticData';
 import MilestoneDetailsCard from './MilestoneDetailsCard';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
@@ -19,7 +19,7 @@ export default meta;
 
 const variantsArgs = [
   {
-    milestone: PowerhouseRoadmap2024.milestones[0],
+    milestone: DefaultRoadmap.milestones[0],
   },
 ];
 
