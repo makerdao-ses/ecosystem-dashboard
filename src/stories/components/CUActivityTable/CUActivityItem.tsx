@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
-import lightTheme from '../../../../styles/theme/themes';
-import { useThemeContext } from '../../../core/context/ThemeContext';
 import { ButtonType } from '../../../core/enums/buttonTypeEnum';
 import { CustomButton } from '../CustomButton/CustomButton';
 import { getCorrectCodeFromActivity, getResourceType } from './utils/helpers';
@@ -21,7 +19,6 @@ interface CUActivityItemProps {
 export default function CUActivityItem({ activity, isNew }: CUActivityItemProps) {
   const activityCode = getCorrectCodeFromActivity(activity.activityFeed);
 
-  const { isLight } = useThemeContext();
   const router = useRouter();
   const resourceType = getResourceType(activity.activityFeed);
   const isGlobal = !!activity.team || resourceType === ResourceType.Delegates;
@@ -69,37 +66,33 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
 
   return (
     <Link href={detailsUrl} passHref legacyBehavior>
-      <ActivityItem isLight={isLight} isGlobal={isGlobal}>
+      <ActivityItem isGlobal={isGlobal}>
         <FlexWrapper isGlobal={isGlobal}>
           {isGlobal &&
             (resourceType === ResourceType.Delegates ? (
               <TeamData isGlobal={isGlobal}>
                 <CircleAvatarExtended image={'/assets/img/mk-logo.png'} name={'Recognized Delegates'} />
-                <CoreUnitName style={{ marginLeft: 16 }} isLight={isLight}>
-                  Recognized Delegates
-                </CoreUnitName>
+                <CoreUnitName style={{ marginLeft: 16 }}>Recognized Delegates</CoreUnitName>
               </TeamData>
             ) : (
               [ResourceType.CoreUnit, ResourceType.EcosystemActor].includes(resourceType) && (
                 <TeamData isGlobal={isGlobal}>
                   <CircleAvatarExtended image={activity?.team?.image} name={activity?.team?.name || ''} />
-                  <CoreUnitCode isLight={isLight}>{activity?.team?.shortCode}</CoreUnitCode>
-                  <CoreUnitName isLight={isLight}>{activity?.team?.name}</CoreUnitName>
+                  <CoreUnitCode>{activity?.team?.shortCode}</CoreUnitCode>
+                  <CoreUnitName>{activity?.team?.name}</CoreUnitName>
                 </TeamData>
               )
             ))}
           <Timestamp isGlobal={isGlobal}>
-            <UTCDate isLight={isLight} isGlobal={isGlobal}>
+            <UTCDate isGlobal={isGlobal}>
               {DateTime.fromISO(activity.activityFeed.created_at).setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}
             </UTCDate>
-            <HumanizedDate isLight={isLight} isNew={isNew} isGlobal={isGlobal}>
+            <HumanizedDate isNew={isNew} isGlobal={isGlobal}>
               {dayDiffNow === 0 ? 'Today' : `${dayDiffNow} Day${dayDiffNow !== 1 ? 's' : ''} Ago`}
             </HumanizedDate>
           </Timestamp>
         </FlexWrapper>
-        <Details isLight={isLight} isGlobal={isGlobal}>
-          {activity.activityFeed.description}
-        </Details>
+        <Details isGlobal={isGlobal}>{activity.activityFeed.description}</Details>
         <ButtonContainer isGlobal={isGlobal}>
           <CustomButton
             label="View Details"
@@ -121,44 +114,48 @@ export default function CUActivityItem({ activity, isNew }: CUActivityItemProps)
   );
 }
 
-const ActivityItem = styled.a<{ isLight: boolean; isLoading?: boolean; isGlobal: boolean }>(
-  ({ isLight, isLoading, isGlobal }) => ({
-    fontFamily: 'Inter, sans-serif',
-    display: 'flex',
-    flexDirection: 'column',
-    background: isLight ? 'white' : '#10191F',
-    marginTop: '16px',
-    padding: isGlobal ? 16 : '16px 16px 24px',
-    cursor: 'pointer',
-    borderRadius: '6px',
-    boxShadow: isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+const ActivityItem = styled('a')<{ isLoading?: boolean; isGlobal: boolean }>(({ theme, isLoading, isGlobal }) => ({
+  fontFamily: 'Inter, sans-serif',
+  display: 'flex',
+  flexDirection: 'column',
+  background: theme.palette.isLight ? 'white' : '#10191F',
+  marginTop: '16px',
+  padding: isGlobal ? 16 : '16px 16px 24px',
+  cursor: 'pointer',
+  borderRadius: '6px',
+  boxShadow: theme.palette.isLight
+    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+    : '0px 20px 40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-    [lightTheme.breakpoints.up(833)]: {
-      padding: '16px 24px 24px',
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '16px 24px 24px',
+  },
+
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: '24px 32px',
+
+    ':hover': {
+      background: !isLoading
+        ? theme.palette.isLight
+          ? '#ECF1F3'
+          : '#1E2C37'
+        : theme.palette.isLight
+        ? 'white'
+        : '#10191F',
     },
+  },
+  [theme.breakpoints.up(1000)]: {
+    padding: '24px 64px',
+  },
+}));
 
-    [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
-      alignItems: 'center',
-      flexDirection: 'row',
-      padding: '24px 32px',
-
-      ':hover': {
-        background: !isLoading ? (isLight ? '#ECF1F3' : '#1E2C37') : isLight ? 'white' : '#10191F',
-      },
-    },
-    [lightTheme.breakpoints.up('desktop_1194')]: {
-      padding: '24px 64px',
-    },
-  })
-);
-
-const Timestamp = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
+const Timestamp = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
 
-  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 1000 : 'tablet_768')]: {
     flexDirection: 'column',
     width: isGlobal ? 251 : 230,
     minWidth: isGlobal ? 251 : 230,
@@ -168,106 +165,103 @@ const Timestamp = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
       width: isGlobal ? 251 : 275,
     }),
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: isGlobal ? 251 : 275,
   },
 }));
 
-const Details = styled.div<{ isLight: boolean; isGlobal: boolean }>(({ isLight = true, isGlobal }) => ({
+const Details = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => ({
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '22px',
-  color: isLight ? '#231536' : '#EDEFFF',
+  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
   marginBottom: '32px',
   letterSpacing: 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginBottom: '16px',
     fontSize: '16px',
   },
 
-  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     width: 'calc(100% - 230px)',
     marginBottom: 0,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 'calc(100% - 275px)',
   },
 }));
 
-const UTCDate = styled.div<{ isLight: boolean; isGlobal: boolean }>(({ isLight, isGlobal }) => ({
+const UTCDate = styled('div')<{ isGlobal: boolean }>(({ theme, isGlobal }) => ({
   fontWeight: 600,
   fontSize: '12px',
   lineHeight: '15px',
   textTransform: 'uppercase',
   letterSpacing: '1px',
-  color: isLight ? '#708390' : '#546978',
+  color: theme.palette.isLight ? '#708390' : '#546978',
 
-  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     marginBottom: '4px',
   },
 }));
 
-const HumanizedDate = styled.div<{ isLight: boolean; isNew: boolean; isGlobal: boolean }>(
-  ({ isLight = true, isNew = false, isGlobal }) => ({
-    position: 'relative',
-    fontWeight: 700,
-    fontSize: '14px',
-    lineHeight: '17px',
-    color: isLight ? '#231536' : '#EDEFFF',
+const HumanizedDate = styled('div')<{ isNew: boolean; isGlobal: boolean }>(({ isNew = false, isGlobal, theme }) => ({
+  position: 'relative',
+  fontWeight: 700,
+  fontSize: '14px',
+  lineHeight: '17px',
+  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
 
-    ...(isNew && {
-      paddingRight: '10px',
+  ...(isNew && {
+    paddingRight: '10px',
 
-      [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
-        paddingLeft: '10px',
+    [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
+      paddingLeft: '10px',
+    },
+
+    '&::before': {
+      content: '""',
+      display: 'block',
+      width: '6px',
+      height: '6px',
+      background: theme.palette.isLight ? '#F75524' : '#FF8237',
+      borderRadius: '50%',
+      position: 'absolute',
+      right: 0,
+      top: '5.5px',
+
+      [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
+        left: 0,
       },
+    },
+  }),
+}));
 
-      '&::before': {
-        content: '""',
-        display: 'block',
-        width: '6px',
-        height: '6px',
-        background: isLight ? '#F75524' : '#FF8237',
-        borderRadius: '50%',
-        position: 'absolute',
-        right: 0,
-        top: '5.5px',
-
-        [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
-          left: 0,
-        },
-      },
-    }),
-  })
-);
-
-const ButtonContainer = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
+const ButtonContainer = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => ({
   textAlign: 'right',
 
-  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     display: 'none',
   },
 }));
 
-const TeamData = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
+const TeamData = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => ({
   display: 'flex',
   alignItems: 'center',
   minWidth: '327px',
   marginTop: '32px',
   paddingLeft: 7,
-
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 16,
     paddingLeft: 0,
   },
 
-  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     marginTop: 0,
   },
 }));
 
-const CoreUnitCode = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const CoreUnitCode = styled('span')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 800,
@@ -275,30 +269,30 @@ const CoreUnitCode = styled.span<{ isLight: boolean }>(({ isLight }) => ({
   lineHeight: '17px',
   letterSpacing: '0.3px',
   textTransform: 'uppercase',
-  color: isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
   marginLeft: '16px',
 }));
 
-const CoreUnitName = styled.span<{ isLight: boolean }>(({ isLight }) => ({
+const CoreUnitName = styled('span')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#FFFFFF',
+  color: theme.palette.isLight ? '#231536' : '#FFFFFF',
   marginLeft: '4px',
 }));
 
-const FlexWrapper = styled.div<{ isGlobal: boolean }>(({ isGlobal }) => ({
+const FlexWrapper = styled('div')<{ isGlobal: boolean }>(({ isGlobal, theme }) => ({
   display: 'flex',
   flexDirection: isGlobal ? 'column-reverse' : 'column',
   marginBottom: 32,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginBottom: 24,
   },
 
-  [lightTheme.breakpoints.up(isGlobal ? 1000 : 'table_834')]: {
+  [theme.breakpoints.up(isGlobal ? 'desktop_1024' : 'tablet_768')]: {
     flexDirection: 'row',
     marginBottom: 0,
   },

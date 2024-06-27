@@ -23,7 +23,7 @@ export const useGlobalActivity = (teams: Team[], activityFeed: ChangeTrackingEve
         paddingLeft: 32,
         paddingRight: 14,
         boxSizing: 'border-box',
-        [lightTheme.breakpoints.up('desktop_1194')]: {
+        [lightTheme.breakpoints.up('desktop_1024')]: {
           minWidth: 387,
           paddingLeft: 64,
         },
