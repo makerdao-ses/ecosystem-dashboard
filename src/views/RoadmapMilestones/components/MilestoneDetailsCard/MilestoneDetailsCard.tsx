@@ -23,7 +23,7 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
           <Name>{milestone.title}</Name>
         </NameBox>
 
-        <MilestoneNumber>{milestone.id}</MilestoneNumber>
+        <MilestoneNumber>{milestone.sequenceCode}</MilestoneNumber>
       </HeaderGroupBox>
 
       <HeaderGroupBox>
@@ -57,10 +57,10 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
     <Aside>
       <AsideContent>
         <CodeBox>
-          <Id>{milestone.id}</Id>
+          <Id>{milestone.sequenceCode}</Id>
           <Code>{milestone.code}</Code>
         </CodeBox>
-        <MilestoneProgress minimal={minimal} data={milestone.scope?.[0]} />
+        <MilestoneProgress minimal={minimal} data={milestone.scope} />
         <Divider />
         <StatsData minimal={minimal} targetDate={milestone.targetDate} />
         <Divider />
@@ -79,7 +79,7 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
         <HeaderGroupBox>
           <Name>{milestone.title}</Name>
           <MilestoneNumber>
-            {milestone.id} {milestone.code}
+            {milestone.sequenceCode} {milestone.code}
           </MilestoneNumber>
         </HeaderGroupBox>
 
@@ -91,7 +91,7 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
       </ShowOn1024Up>
 
       <DeliverablesContainer>
-        <DeliverablesSection minimal={minimal} deliverables={milestone.scope?.[0].deliverables} />
+        <DeliverablesSection minimal={minimal} deliverables={milestone.scope?.deliverables} />
       </DeliverablesContainer>
     </MilestoneContent>
   </Card>

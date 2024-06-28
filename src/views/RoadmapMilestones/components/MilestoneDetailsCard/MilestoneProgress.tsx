@@ -10,9 +10,11 @@ interface MilestoneProgressProps {
 }
 
 const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ minimal, data }) => {
-  const progress = isPercentage(data.progress)
-    ? data.progress.value
-    : percentageRespectTo(data.progress.completed, data.progress.total);
+  const progress = data?.progress
+    ? isPercentage(data.progress)
+      ? data.progress.value
+      : percentageRespectTo(data.progress.completed, data.progress.total)
+    : 0;
 
   return (
     <OutlinedCard>
@@ -26,8 +28,7 @@ const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ minimal, data }) 
         )}
 
         <TextProgress>
-          <span>{data.deliverablesCompleted.completed}</span>/<span>{data.deliverablesCompleted.total}</span>{' '}
-          Deliverables Completed
+          <span>{data?.deliverablesCompleted}</span>/<span>{data?.totalDeliverables}</span> Deliverables Completed
         </TextProgress>
       </TextProgressBox>
     </OutlinedCard>

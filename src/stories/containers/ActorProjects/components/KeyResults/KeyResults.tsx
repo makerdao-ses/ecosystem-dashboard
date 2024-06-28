@@ -170,6 +170,11 @@ const KeyLink = styled(ExternalLink)(() => ({
     textOverflow: 'ellipsis',
   },
 
+  '& svg': {
+    minWidth: 11,
+    minHeight: 10,
+  },
+
   '&:before': {
     content: '""',
     display: 'block',

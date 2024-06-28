@@ -11,7 +11,7 @@ const Coordinators: React.FC<CoordinatorsProps> = ({ coordinators }) => (
     <Title>Coordinator(s)</Title>
 
     <CoordinatorsList>
-      {coordinators.map((coordinator) => (
+      {coordinators?.map((coordinator) => (
         <Coordinator key={coordinator.id}>
           <AvatarPlaceholder width={24} height={24} />
           <CoordinatorName>{coordinator.name}</CoordinatorName>

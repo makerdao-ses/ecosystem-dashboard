@@ -8,3 +8,5 @@ export interface WithBudgetStatement {
 export interface WithActivityFeed {
   activityFeed: ChangeTrackingEvent[];
 }
+
+export type Maybe<T> = T | null;

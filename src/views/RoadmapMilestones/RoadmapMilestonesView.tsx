@@ -5,14 +5,19 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import type { Roadmap } from '@/core/models/interfaces/roadmaps';
 import Breadcrumb from './components/Breadcrumb/Breadcrumb';
 import PageHeader from './components/PageHeader/PageHeader';
 import DetailsSection from './components/sections/DetailsSection/DetailsSection';
 import OverviewSection from './components/sections/OverviewSection/OverviewSection';
 import useRoadmapMilestonesView from './useRoadmapMilestonesView';
 
-const RoadmapMilestonesView: React.FC = () => {
-  const { roadmap, isMinimalist, titles } = useRoadmapMilestonesView();
+interface RoadmapMilestonesViewProps {
+  roadmap: Roadmap;
+}
+
+const RoadmapMilestonesView: React.FC<RoadmapMilestonesViewProps> = ({ roadmap }) => {
+  const { isMinimalist, titles } = useRoadmapMilestonesView();
 
   return (
     <PageContainer hasImageBackground>
