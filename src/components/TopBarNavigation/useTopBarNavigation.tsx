@@ -78,25 +78,17 @@ export const useTopBarNavigation = () => {
       }
     }
   }, [router.pathname]);
-  const filter: SelectItem[] = useMemo(() => {
-    const filtersResult = Object.values(menuItems).map((value) => ({
-      label: value.title,
-      value: value.title,
-    }));
+  const filter: SelectItem[] = useMemo(
+    () =>
+      Object.values(menuItems).map((value) => ({
+        label: value.title,
+        value: value.title,
+      })),
 
-    if (isSelectShow) {
-      return filtersResult;
-    } else {
-      return filtersResult.filter((filter) => filter.label !== 'Home');
-    }
-  }, [isSelectShow]);
+    []
+  );
 
-  const activeItem = useMemo(() => {
-    if (isSelectShow) {
-      return activeMenuItem?.title === '' ? 'Home' : activeMenuItem.title;
-    }
-    return activeMenuItem.title;
-  }, [isSelectShow, activeMenuItem]);
+  const activeItem = useMemo(() => activeMenuItem.title, [activeMenuItem]);
   const handleChangeRoute = (value: string | string[]) => {
     if (typeof value === 'string') {
       const find = Object.values(menuItems).find((menu) => menu.title === value);
