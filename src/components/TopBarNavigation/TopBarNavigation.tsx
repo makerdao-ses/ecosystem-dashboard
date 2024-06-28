@@ -270,9 +270,6 @@ const LoginContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
-  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    display: 'none',
-  },
   [theme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
   },
@@ -309,9 +306,6 @@ const ContainerLogin = styled(IconContainer)(({ theme }) => ({
     display: 'none',
   },
 
-  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    display: 'flex',
-  },
   [theme.breakpoints.up('desktop_1280')]: {
     display: 'none',
   },
