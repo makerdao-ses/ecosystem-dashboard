@@ -9,12 +9,12 @@ import React, { useRef } from 'react';
 import AccountsSnapshotTabContainer from '@/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
-import { CommentActivityContext } from '../../../core/context/CommentActivityContext';
-import { useFlagsActive } from '../../../core/hooks/useFlagsActive';
-import { toAbsoluteURL } from '../../../core/utils/urls';
-import { CoreUnitSummary } from '../../components/CoreUnitSummary/CoreUnitSummary';
-import { CustomLink } from '../../components/CustomLink/CustomLink';
-import { SEOHead } from '../../components/SEOHead/SEOHead';
+import { CommentActivityContext } from '@/core/context/CommentActivityContext';
+import { useFlagsActive } from '@/core/hooks/useFlagsActive';
+import { toAbsoluteURL } from '@/core/utils/urls';
+import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
+import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
+import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
 import CuHeadlineText from './components/CuHeadlineText/CuHeadlineText';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
@@ -23,7 +23,7 @@ import AuditorCommentsContainer from './components/TransparencyAuditorComments/A
 import { TransparencyForecast } from './components/TransparencyForecast/TransparencyForecast';
 import { TransparencyMkrVesting } from './components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from './components/TransparencyTransferRequest/TransparencyTransferRequest';
-import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReport';
+import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReportView';
 import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
@@ -39,7 +39,7 @@ export type TableItems = {
   id: string;
 };
 
-export const TransparencyReport = ({
+export const TransparencyReportView = ({
   coreUnits,
   coreUnit,
   expenseCategories,

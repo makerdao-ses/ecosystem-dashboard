@@ -4,7 +4,7 @@ import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComp
 import Tabs from '@ses/components/Tabs/Tabs';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import { Title } from '../../TransparencyReport';
+import { Title } from '../../TransparencyReportView';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';

@@ -3,7 +3,7 @@ import useTransparencyReporting from '@ses/core/hooks/useTransparencyReporting';
 import useTransparencyReportingTabs from '@ses/core/hooks/useTransparencyReportingTabs';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { TRANSPARENCY_IDS_ENUM } from '../TransparencyReport/useTransparencyReport';
+import { TRANSPARENCY_IDS_ENUM } from '@/views/TransparencyReport/useTransparencyReportView';
 import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { DateTime } from 'luxon';

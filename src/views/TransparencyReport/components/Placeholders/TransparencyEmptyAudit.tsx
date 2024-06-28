@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { useThemeContext } from '../../../../../core/context/ThemeContext';
+import { useThemeContext } from '@/core/context/ThemeContext';
 
 export const TransparencyEmptyAudit = () => {
   const { isLight } = useThemeContext();

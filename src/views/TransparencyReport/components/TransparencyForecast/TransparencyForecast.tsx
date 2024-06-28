@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import Tabs from '@ses/components/Tabs/Tabs';
 import React from 'react';
-import { Title } from '../../TransparencyReport';
+import { Title } from '../../TransparencyReportView';
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { BreakdownTableWrapper } from '../TransparencyActuals/TransparencyActuals';

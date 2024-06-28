@@ -3,7 +3,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { NumberCell } from '@ses/components/NumberCell/NumberCell';
 import IconOpenModal from '@ses/components/svg/IconOpenModal';
-import ArrowPopoverTargetValueComponent from '@ses/containers/TransparencyReport/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { useScrollLock } from '@ses/core/hooks/useScrollLock';
@@ -12,12 +11,13 @@ import lightTheme from '@ses/styles/theme/themes';
 import MobileDetect from 'mobile-detect';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Information from '@/components/icons/information';
-import { formatAddressForOutput } from '../../../core/utils/string';
-import { CustomLink } from '../../components/CustomLink/CustomLink';
-import { TextCell } from '../../components/TextCell/TextCell';
-import { WalletTableCell } from '../../components/WalletTableCell/WalletTableCell';
+import type { BudgetStatementWalletDto } from '@/core/models/dto/coreUnitDTO';
+import { formatAddressForOutput } from '@/core/utils/string';
+import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
+import { TextCell } from '@/stories/components/TextCell/TextCell';
+import { WalletTableCell } from '@/stories/components/WalletTableCell/WalletTableCell';
+import ArrowPopoverTargetValueComponent from './components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
 import ModalSheetValueContent from './components/TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
-import type { BudgetStatementWalletDto } from '../../../core/models/dto/coreUnitDTO';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (

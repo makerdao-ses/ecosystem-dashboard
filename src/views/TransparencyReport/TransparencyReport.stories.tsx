@@ -6,7 +6,7 @@ import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import { featureFlags } from 'feature-flags/feature-flags';
 import AppLayout from '../AppLayout/AppLayout';
-import { TransparencyReport } from './TransparencyReport';
+import { TransparencyReport } from './TransparencyReportView';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof TransparencyReport> = {

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React, { useMemo } from 'react';
+import { useThemeContext } from '@/core/context/ThemeContext';
+import { BudgetStatus } from '@/core/models/dto/coreUnitDTO';
 import { getExpenseReportStatusColor } from '@/core/utils/colors';
-import { useThemeContext } from '../../../../../core/context/ThemeContext';
-import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
 
 export type ExpenseReportStatusProps = {
   status: BudgetStatus;

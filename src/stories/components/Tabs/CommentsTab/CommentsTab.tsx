@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { ParenthesisNumber } from '@ses/containers/TransparencyReport/TransparencyReport';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import { ParenthesisNumber } from '@/views/TransparencyReport/TransparencyReportView';
 
 type CommentsTabProps = {
   hasNewComments: boolean;

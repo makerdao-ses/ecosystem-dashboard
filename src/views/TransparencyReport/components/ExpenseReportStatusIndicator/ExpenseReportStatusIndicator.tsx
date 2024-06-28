@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { BASE_URL } from '@ses/config/routes';
+import lightTheme from '@ses/styles/theme/themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import lightTheme from '../../../../../../styles/theme/themes';
-import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
+import { BudgetStatus } from '@/core/models/dto/coreUnitDTO';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 
 export type ExpenseReportStatusIndicatorProps = {
