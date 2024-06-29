@@ -15,8 +15,13 @@ export enum DeliverableStatus {
   DELIVERED = 'DELIVERED',
 }
 
+export interface BProject {
+  code: string;
+  title: string;
+}
+
 export interface BudgetAnchorProject {
-  project: string;
+  project: BProject;
   workUnitBudget: number;
   deliverableBudget: number;
 }

@@ -63,7 +63,15 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
         </Description>
       )}
       <KeyBox>
-        {isProjectCard ? <MilestoneLink /> : <ProjectLink code="PEA" name="Protocol Expense Accounting" />}
+        {isProjectCard ? (
+          <MilestoneLink />
+        ) : (
+          deliverable.budgetAnchor.project &&
+          deliverable.budgetAnchor.project.code &&
+          deliverable.budgetAnchor.project.title && (
+            <ProjectLink code={deliverable.budgetAnchor.project.code} name={deliverable.budgetAnchor.project.title} />
+          )
+        )}
         <KeyResults
           keyResults={deliverable.keyResults}
           viewMode={viewMode}

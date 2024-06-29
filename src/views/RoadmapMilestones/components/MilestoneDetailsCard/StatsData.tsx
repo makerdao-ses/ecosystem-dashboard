@@ -126,7 +126,7 @@ const IconWrapper = styled('div')(({ theme }) => ({
 
 const Value = styled('div')(({ theme }) => ({
   display: 'flex',
-  alignItems: 'flex-end',
+  alignItems: 'center',
   flexWrap: 'nowrap',
   alignSelf: 'normal',
   gap: 4,
