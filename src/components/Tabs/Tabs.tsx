@@ -1,13 +1,11 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { removeEmptyProperties } from '@ses/core/utils/urls';
 import { useRouter } from 'next/router';
+import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
+import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import Compress from '../svg/compress';
-import Expand from '../svg/expand';
 import Tab from './Tab';
 import TabPopover from './TabPopover';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
 
 export interface TabItem {
@@ -86,7 +84,6 @@ const Tabs: React.FC<TabsProps> = ({
   controlled = false,
   selectedTabId,
 }) => {
-  const { isLight } = useThemeContext();
   const router = useRouter();
   const query = router.query;
   const queryValue = useMemo(() => {
@@ -227,7 +224,7 @@ const Tabs: React.FC<TabsProps> = ({
 
   return (
     <Wrapper className="no-select">
-      <Container isLight={isLight}>
+      <Container>
         {activeTabs?.map((element, index) => (
           <StyledTab
             id={element.id}
@@ -251,11 +248,11 @@ const Tabs: React.FC<TabsProps> = ({
           <StyledTab active={false} additionalStyles={{ paddingBottom: 7 }} onClick={handleExpand}>
             {expanded ? (
               <TabPopover id={'expanded-view-popover'} title={expandToolTip?.compressed}>
-                <Expand />
+                <ArrowExpand width={24} height={24} />
               </TabPopover>
             ) : (
               <TabPopover id={'compressed-view-popover'} title={expandToolTip?.default}>
-                <Compress />
+                <ArrowCollapse width={24} height={24} />
               </TabPopover>
             )}
           </StyledTab>
@@ -267,7 +264,7 @@ const Tabs: React.FC<TabsProps> = ({
 
 export default Tabs;
 
-const Wrapper = styled.div({
+const Wrapper = styled('div')({
   width: '100%',
   overflowX: 'scroll',
   msOverflowStyle: 'none',
@@ -278,24 +275,43 @@ const Wrapper = styled.div({
   },
 });
 
-const Container = styled.div<WithIsLight>(({ isLight }) => ({
+const Container = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   display: 'flex',
-  borderBottom: isLight ? '1px solid #B6EDE7' : '1px solid #405361',
+  borderBottom: theme.palette.isLight
+    ? `1px solid ${theme.palette.colors.gray[500]}`
+    : `1px solid ${theme.palette.colors.slate[400]}`,
   flex: 1,
   minWidth: 'fit-content',
   '* + *': {
-    marginRight: '32px',
+    marginRight: 20,
   },
   width: '100%',
   '& :last-child': {
-    marginRight: '0px',
+    marginRight: 0,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    '* + *': {
+      marginRight: 40,
+    },
   },
 }));
 
 const StyledTab = styled(Tab)<{ isFirst?: boolean; additionalStyles?: React.CSSProperties }>(
-  ({ isFirst = false, additionalStyles }) => ({
-    marginRight: isFirst ? 32 : undefined,
+  ({ isFirst = false, additionalStyles, theme }) => ({
+    marginRight: isFirst ? 20 : undefined,
     ...(additionalStyles ?? {}),
+
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600],
+    },
+    '&:hover path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
+
+    [theme.breakpoints.up('desktop_1024')]: {
+      marginRight: isFirst ? 40 : undefined,
+    },
   })
 );

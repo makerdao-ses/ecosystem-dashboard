@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import Tabs from '@ses/components/Tabs/Tabs';
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
@@ -9,6 +8,7 @@ import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBr
 import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import Tabs from '@/components/Tabs/Tabs';
 import TeamHeader from '@/components/TeamHeader/TeamHeader';
 import type { Team } from '@/core/models/interfaces/team';
 import { CommentActivityContext } from '../../core/context/CommentActivityContext';
@@ -334,10 +334,10 @@ const Paragraph = styled('div')(({ theme }) => ({
 }));
 
 const TabsContainer = styled('div')(({ theme }) => ({
-  margin: '32px 0 16px',
+  margin: '32px 0 24px',
 
   [theme.breakpoints.up('tablet_768')]: {
-    margin: '32px 0',
+    margin: '24px 0',
   },
 }));
 

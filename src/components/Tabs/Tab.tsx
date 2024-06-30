@@ -1,10 +1,8 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { BASE_URL } from '@ses/config/routes';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TabProps extends React.PropsWithChildren {
   id?: string;
@@ -16,7 +14,6 @@ interface TabProps extends React.PropsWithChildren {
 }
 
 const Tab: React.FC<TabProps> = ({ children, id, href, tabQuery, active = false, onClick, className }) => {
-  const { isLight } = useThemeContext();
   const router = useRouter();
   const url = useMemo(() => {
     if (href) return href;
@@ -31,7 +28,7 @@ const Tab: React.FC<TabProps> = ({ children, id, href, tabQuery, active = false,
   }, [href, id, router.asPath, tabQuery]);
 
   const content = (
-    <StyledTab isLight={isLight} active={active} onClick={onClick} className={className}>
+    <StyledTab active={active} onClick={onClick} className={className}>
       {children}
     </StyledTab>
   );
@@ -47,19 +44,38 @@ const Tab: React.FC<TabProps> = ({ children, id, href, tabQuery, active = false,
 
 export default Tab;
 
-const StyledTab = styled.a<WithIsLight & { active: boolean }>(({ active, isLight }) => ({
+const StyledTab = styled('a')<{ active: boolean }>(({ theme, active }) => ({
   fontFamily: 'Inter, sans-serif',
-  color: active ? (isLight ? '#1AAB9B' : '#2DC1B1') : isLight ? '#7E7E88' : '#708390',
-  fontSize: '14px',
+  color: active
+    ? theme.palette.isLight
+      ? theme.palette.colors.gray[900]
+      : theme.palette.colors.gray[50]
+    : theme.palette.isLight
+    ? theme.palette.colors.slate[100]
+    : theme.palette.colors.gray[600],
+  fontSize: 14,
   lineHeight: '22px',
-  fontWeight: 400,
-  paddingBottom: '12px',
-  borderBottom: `2px solid ${isLight ? (active ? '#1AAB9B' : 'transparent') : active ? '#1AAB9B' : 'transparent'}`,
+  fontWeight: 600,
+  paddingBottom: 8,
+  borderBottom: `2px solid ${
+    theme.palette.isLight
+      ? active
+        ? theme.palette.colors.gray[900]
+        : 'transparent'
+      : active
+      ? theme.palette.colors.gray[50]
+      : 'transparent'
+  }`,
   cursor: 'pointer',
   transition: 'all .3s ease',
   whiteSpace: 'nowrap',
-  '@media (min-width: 834px)': {
-    fontSize: '16px',
-    lineHeight: '18px',
+
+  '&:hover': {
+    color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    lineHeight: '24px',
   },
 }));

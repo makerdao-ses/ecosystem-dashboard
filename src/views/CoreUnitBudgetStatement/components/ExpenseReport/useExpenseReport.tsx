@@ -4,13 +4,13 @@ import { useHashFragment } from '@ses/core/hooks/useHashFragment';
 import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import type { InternalTabsProps } from '@/components/Tabs/Tabs';
 import { BREAKDOWN_VIEW_QUERY_KEY } from '../../utils/constants';
 import { useTransparencyActuals } from '../TransparencyActuals/useTransparencyActuals';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
 import { useTransparencyMkrVesting } from '../TransparencyMkrVesting/useTransparencyMkrVesting';
 import { useTransparencyTransferRequest } from '../TransparencyTransferRequest/useTransparencyTransferRequest';
 import ExpenseSection from './components/ExpenseSection/ExpenseSection';
-import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 

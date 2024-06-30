@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import Tabs from '@ses/components/Tabs/Tabs';
 import React from 'react';
+import Tabs from '@/components/Tabs/Tabs';
 import { Title } from '../../CoreUnitBudgetStatementView';
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';

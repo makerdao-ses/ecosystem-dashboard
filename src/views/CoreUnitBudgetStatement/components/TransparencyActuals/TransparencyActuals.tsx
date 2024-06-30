@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
-import Tabs from '@ses/components/Tabs/Tabs';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import Tabs from '@/components/Tabs/Tabs';
 import { Title } from '../../CoreUnitBudgetStatementView';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';

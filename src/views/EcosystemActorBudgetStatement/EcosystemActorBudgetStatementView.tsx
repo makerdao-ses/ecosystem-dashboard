@@ -1,6 +1,5 @@
 import { styled } from '@mui/material';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import Tabs from '@ses/components/Tabs/Tabs';
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
@@ -12,6 +11,7 @@ import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBr
 import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import Tabs from '@/components/Tabs/Tabs';
 import TeamHeader from '@/components/TeamHeader/TeamHeader';
 import AccountsSnapshotTabContainer from '../../components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import ExpenseReport from '../CoreUnitBudgetStatement/components/ExpenseReport/ExpenseReport';
@@ -233,9 +233,9 @@ const PageSeparator = styled('div')(() => ({
 }));
 
 const TabsContainer = styled('div')(({ theme }) => ({
-  margin: '32px 0 16px',
+  margin: '32px 0 24px',
 
   [theme.breakpoints.up('tablet_768')]: {
-    margin: '32px 0',
+    margin: '24px 0',
   },
 }));
