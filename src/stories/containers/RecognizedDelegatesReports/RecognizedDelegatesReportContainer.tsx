@@ -1,6 +1,5 @@
 import { styled } from '@mui/material';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
-import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import DelegateSummary from '@ses/components/DelegateSummary/DelegateSummary';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import Tabs from '@ses/components/Tabs/Tabs';
@@ -11,6 +10,7 @@ import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React, { useRef } from 'react';
+import { CustomPager } from '@/components/BudgetStatement/CustomPager/CustomPager';
 import ExpenseReportStatusIndicator from '../../../views/CoreUnitBudgetStatement/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import AuditorCommentsContainer from '../../../views/CoreUnitBudgetStatement/components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import DelegatesActuals from './DelegatesActuals/DelegatesActuals';

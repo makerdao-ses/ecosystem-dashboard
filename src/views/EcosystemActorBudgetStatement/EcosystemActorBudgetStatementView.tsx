@@ -1,7 +1,6 @@
 import { styled } from '@mui/material';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import Tabs from '@ses/components/Tabs/Tabs';
-import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
@@ -10,6 +9,7 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBreadcrumbContent';
+import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import TeamHeader from '@/components/TeamHeader/TeamHeader';

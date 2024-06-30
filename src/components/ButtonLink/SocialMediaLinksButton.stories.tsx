@@ -1,5 +1,4 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-
 import SocialMediaLinksButton from './SocialMediaLinksButton';
 import type { Meta } from '@storybook/react';
 

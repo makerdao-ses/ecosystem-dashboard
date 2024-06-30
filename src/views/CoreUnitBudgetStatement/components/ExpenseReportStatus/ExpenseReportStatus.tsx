@@ -1,19 +1,17 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import React, { useMemo } from 'react';
+import { BudgetStatus } from '@/core/models/interfaces/types';
 import { getExpenseReportStatusColor } from '@/core/utils/colors';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { BudgetStatus } from '../../../../core/models/dto/coreUnitDTO';
 
 export type ExpenseReportStatusProps = {
   status: BudgetStatus;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const ExpenseReportStatus: React.FC<ExpenseReportStatusProps> = ({ status = BudgetStatus.Draft, ...rest }) => {
-  const { isLight } = useThemeContext();
   const variantColor = useMemo(() => getExpenseReportStatusColor(status), [status]);
 
   return (
-    <ExpenseReportStatusStyled isLight={isLight} variantColorSet={variantColor} {...rest}>
+    <ExpenseReportStatusStyled variantColorSet={variantColor} {...rest}>
       {status}
     </ExpenseReportStatusStyled>
   );
@@ -21,19 +19,19 @@ const ExpenseReportStatus: React.FC<ExpenseReportStatusProps> = ({ status = Budg
 
 export default ExpenseReportStatus;
 
-const ExpenseReportStatusStyled = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string } }>(
-  ({ isLight, variantColorSet }) => ({
-    display: 'inline-block',
-    width: 98,
+const ExpenseReportStatusStyled = styled('div')<{ variantColorSet: { [key: string]: string } }>(
+  ({ theme, variantColorSet }) => ({
+    display: 'inline-flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     textAlign: 'center',
     textTransform: 'none',
-    padding: '3px 0',
-    borderRadius: 12,
-    border: `1px solid ${isLight ? variantColorSet.color : variantColorSet.darkColor}`,
-    background: isLight ? variantColorSet.background : variantColorSet.darkBackground,
-    fontWeight: 500,
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: isLight ? variantColorSet.color : variantColorSet.darkColor,
+    padding: '1px 16px',
+    borderRadius: 6,
+    color: theme.palette.isLight ? variantColorSet.color : variantColorSet.darkColor,
+    background: theme.palette.isLight ? variantColorSet.background : variantColorSet.darkBackground,
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '22px',
   })
 );

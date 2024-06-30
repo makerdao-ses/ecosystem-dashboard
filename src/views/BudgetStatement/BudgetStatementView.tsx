@@ -1,9 +1,9 @@
 import { styled } from '@mui/material';
-import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { siteRoutes } from '@ses/config/routes';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import AccountsSnapshotTabContainer from '@/components/AccountsSnapshot/AccountsSnapshotTabContainer';
+import { CustomPager } from '@/components/BudgetStatement/CustomPager/CustomPager';
 import type { SnapshotLimitPeriods } from '@/core/hooks/useBudgetStatementPager';
 import type { ResourceType } from '@/core/models/interfaces/types';
 import BudgetStatementSummary from './components/BudgetStatementSummary/BudgetStatementSummary';

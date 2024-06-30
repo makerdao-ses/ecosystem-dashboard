@@ -1,10 +1,9 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { BASE_URL } from '@ses/config/routes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import lightTheme from '../../../../../styles/theme/themes';
-import { BudgetStatus } from '../../../../core/models/dto/coreUnitDTO';
+import { BudgetStatus } from '@/core/models/interfaces/types';
 import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
 
 export type ExpenseReportStatusIndicatorProps = {
@@ -41,18 +40,18 @@ const ExpenseReportStatusIndicator: React.FC<ExpenseReportStatusIndicatorProps> 
 
 export default ExpenseReportStatusIndicator;
 
-const IndicatorContainer = styled.div({
+const IndicatorContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   marginTop: 8,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
     marginLeft: 16,
   },
-});
+}));
 
-const StyledLink = styled.a({
+const StyledLink = styled('a')(({ theme }) => ({
   marginLeft: 8,
   fontSize: 14,
   fontWeight: 500,
@@ -61,7 +60,7 @@ const StyledLink = styled.a({
   cursor: 'pointer',
   minWidth: 'fit-content',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     fontSize: 16,
   },
-});
+}));
