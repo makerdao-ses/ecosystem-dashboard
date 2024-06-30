@@ -1,9 +1,10 @@
 import CommentsTab from '@ses/components/Tabs/CommentsTab/CommentsTab';
-import { TRANSPARENCY_IDS_ENUM } from '@ses/containers/TransparencyReport/useTransparencyReport';
-import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from '@ses/containers/TransparencyReport/utils/constants';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import type { TableItems } from '@/views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
+import { TRANSPARENCY_IDS_ENUM } from '@/views/CoreUnitBudgetStatement/useCoreUnitBudgetStatementView';
+import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from '@/views/CoreUnitBudgetStatement/utils/constants';
 import { useAuthContext } from '../context/AuthContext';
 import { useCookiesContextTracking } from '../context/CookiesContext';
 import { removeEmptyProperties } from '../utils/urls';
@@ -12,7 +13,6 @@ import { useFlagsActive } from './useFlagsActive';
 import type { CommentsLastVisitState } from './useBudgetStatementComments';
 import type { LastVisitHandler } from '../utils/lastVisitHandler';
 import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
-import type { TableItems } from '@ses/containers/TransparencyReport/TransparencyReport';
 
 interface AuditorViewStoragePayload {
   isAuditorViewEnabled: boolean;

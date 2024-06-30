@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import useSWR from 'swr';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { fetcher } from '../../../../core/utils/fetcher';
-import { ParenthesisNumber } from '../../TransparencyReport/TransparencyReport';
+import { ParenthesisNumber } from '../../../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import { ManagerTabs } from './managerTabsEnum';
 import { QUERY_USERS } from './userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
