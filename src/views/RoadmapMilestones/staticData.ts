@@ -65,7 +65,10 @@ const CommonDefaultMilestone = {
           value: 100,
         },
         budgetAnchor: {
-          project: 'RWA Portfolio',
+          project: {
+            code: 'RWA',
+            title: 'RWA Portfolio',
+          },
           workUnitBudget: 1000,
           deliverableBudget: 1000,
         },

@@ -45,6 +45,7 @@ const DeliverablesSection: React.FC<DeliverablesSectionProps> = ({ minimal, deli
 
       <BackgroundContainer>
         <DeliverablesGrid showDeliverablesBelow={false}>
+          {deliverables.length === 0 && <NoDeliverables>No Deliverable Available</NoDeliverables>}
           {deliverablesRows.map((row) =>
             row.map((deliverable) => (
               <DeliverableCard
@@ -246,5 +247,23 @@ const DeliverablesGrid = styled('div')<{ showDeliverablesBelow: boolean }>(({ th
             maxWidth: 'calc(50% - 12px)',
           }),
     },
+  },
+}));
+
+const NoDeliverables = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  textAlign: 'center',
+  width: '100%',
+  maxWidth: '100%',
+  color: theme.palette.mode === 'light' ? '#B6BCC2' : '#6E7A8A',
+  fontSize: 24,
+  fontWeight: 600,
+  lineHeight: 'normal',
+  letterSpacing: 0.4,
+  padding: '64px 0',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 32,
   },
 }));
