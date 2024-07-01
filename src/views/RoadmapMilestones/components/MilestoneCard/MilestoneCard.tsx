@@ -26,16 +26,17 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
           <QuarterBox>
             <Quarter>
               {/* target date should be printed out with the format: Q4’23 */}
-              {/* {`${milestone.targetDate.split('-')[1]}'${milestone.targetDate.split('-')[0].slice(-2)}`} */}
               {formatDateStringToQuarter(milestone.targetDate)}
             </Quarter>
           </QuarterBox>
         </TitleContainer>
       </TitleBox>
-      <MobileOnlyBox>
-        <DescriptionBox>
-          <Description>{milestone.abstract}</Description>
-        </DescriptionBox>
+      <MobileOnlyBox isCentered={!milestone.abstract}>
+        {milestone.abstract && (
+          <DescriptionBox>
+            <Description>{milestone.abstract}</Description>
+          </DescriptionBox>
+        )}
 
         <MobileProgressBox>
           <ProgressContainer>
@@ -191,9 +192,10 @@ const Quarter = styled('span')(({ theme }) => ({
   },
 }));
 
-const MobileOnlyBox = styled('div')(({ theme }) => ({
+const MobileOnlyBox = styled('div')<{ isCentered: boolean }>(({ theme, isCentered }) => ({
   display: 'flex',
   alignSelf: 'stretch',
+  justifyContent: isCentered ? 'center' : 'normal',
   gap: 8,
 
   [theme.breakpoints.up('tablet_768')]: {
