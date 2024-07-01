@@ -2,12 +2,12 @@ import { styled } from '@mui/material';
 import React, { useId } from 'react';
 import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { Title } from '../../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
-import { TransparencyEmptyTable } from '../../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
-import { NumberCell } from '../NumberCell/NumberCell';
-import { TextCell } from '../TextCell/TextCell';
-import { TransparencyCard } from '../TransparencyCard/TransparencyCard';
+import { useThemeContext } from '../../core/context/ThemeContext';
+import { NumberCell } from '../../stories/components/NumberCell/NumberCell';
+import { TextCell } from '../../stories/components/TextCell/TextCell';
+import { Title } from '../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
+import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
+import { TransparencyCard } from './TransparencyCard/TransparencyCard';
 
 export interface InnerTableColumn {
   align?: string;
@@ -237,11 +237,9 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
 };
 
 const Container = styled('div')(({ theme }) => ({
-  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
-  borderRadius: '6px',
+  background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.reskinShortShadow : theme.fusionShadows.darkMode,
+  borderRadius: '12px',
   overflowX: 'auto',
   msOverFlowStyle: 'none',
   scrollbarWidth: 'thin',

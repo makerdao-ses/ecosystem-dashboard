@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import React from 'react';
+import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import Tabs from '@/components/Tabs/Tabs';
 import { Title } from '../../CoreUnitBudgetStatementView';
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { MAKER_BURN_LINK } from '@ses/core/utils/const';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import Container from '@/components/Container/Container';
 import Tabs from '@/components/Tabs/Tabs';
 import {

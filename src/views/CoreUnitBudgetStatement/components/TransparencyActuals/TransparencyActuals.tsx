@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import Tabs from '@/components/Tabs/Tabs';
 import { Title } from '../../CoreUnitBudgetStatementView';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';

@@ -22,7 +22,7 @@ import type {
   InnerTableColumn,
   InnerTableRow,
   RowType,
-} from '../../../components/AdvancedInnerTable/AdvancedInnerTable';
+} from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementLineItem } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
