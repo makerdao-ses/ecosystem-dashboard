@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 import React from 'react';
-import type { CardSpacingSize } from '../AdvancedInnerTable';
+import type { CardSpacingSize } from '../types';
 
 interface Props {
   header: JSX.Element | string;
