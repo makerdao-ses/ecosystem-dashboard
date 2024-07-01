@@ -1,9 +1,9 @@
 import Skeleton from '@mui/material/Skeleton';
 import { useMemo } from 'react';
 import useSWR from 'swr';
+import { ParenthesisNumber } from '@/views/TransparencyReport/TransparencyReportView';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { fetcher } from '../../../../core/utils/fetcher';
-import { ParenthesisNumber } from '../../TransparencyReport/TransparencyReport';
 import { ManagerTabs } from './managerTabsEnum';
 import { QUERY_USERS } from './userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
