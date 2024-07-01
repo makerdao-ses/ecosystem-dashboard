@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof WalletTableCell> = {
-  title: 'Components/CUTransparencyReport/WalletTableCell',
+  title: 'Fusion/Components/CUTransparencyReport/WalletTableCell',
   component: WalletTableCell,
   parameters: {
     chromatic: {
