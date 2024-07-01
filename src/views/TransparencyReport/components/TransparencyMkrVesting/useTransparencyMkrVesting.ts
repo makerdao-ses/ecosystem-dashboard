@@ -1,7 +1,7 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import _ from 'lodash';
 import { useMemo } from 'react';
-import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 

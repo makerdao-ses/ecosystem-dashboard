@@ -1,4 +1,5 @@
 import groupBy from 'lodash/groupBy';
+import type { InnerTableColumn, InnerTableRow, RowType } from '@/components/AdvancedInnerTable/types';
 import { OpenModalTransparency } from '../transparencyReportUtils';
 import {
   getCommentsFromCategory,
@@ -16,7 +17,6 @@ import {
   hasWalletGroups,
   reduceLineItemsToTotals,
 } from './budgetStatementsUtils';
-import type { InnerTableColumn, InnerTableRow, RowType } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatementLineItem, BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 
 export const filterRowsByNonZeroValue = (rows: InnerTableRow[]): InnerTableRow[] =>

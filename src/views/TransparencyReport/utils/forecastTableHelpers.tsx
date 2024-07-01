@@ -1,4 +1,5 @@
 import groupBy from 'lodash/groupBy';
+import type { InnerTableColumn, InnerTableRow, RowType } from '@/components/AdvancedInnerTable/types';
 import ProgressiveIndicator from '../components/TransparencyForecast/ProgresiveIndicator';
 import { ContainerProgressiveIndicator } from '../components/TransparencyForecast/useTransparencyForecast';
 import {
@@ -20,7 +21,6 @@ import {
   getBudgetCapForMonthOnWalletOnBudgetStatementForeCast,
   sumAllMonths,
 } from './forecastHelper';
-import type { InnerTableColumn, InnerTableRow, RowType } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementLineItem, BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';

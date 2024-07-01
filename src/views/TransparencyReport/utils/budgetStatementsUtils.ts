@@ -1,6 +1,6 @@
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import _ from 'lodash';
-import type { InnerTableColumn } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import type { InnerTableColumn } from '@/components/AdvancedInnerTable/types';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
   BudgetStatementLineItem,

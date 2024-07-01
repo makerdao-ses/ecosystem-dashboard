@@ -5,6 +5,7 @@ import lightTheme from '@ses/styles/theme/themes';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import { renderWallet } from '../../transparencyReportUtils';
 import {
   getBudgetCapForMonthOnBudgetStatement,
@@ -28,7 +29,7 @@ import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../u
 import replacePaymentTopup from '../../utils/helpers';
 import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
 import ProgressiveIndicator from './ProgresiveIndicator';
-import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';

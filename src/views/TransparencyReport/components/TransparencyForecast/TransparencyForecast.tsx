@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 
 import React from 'react';
+import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import Tabs from '@/components/Tabs/Tabs';
 import { Title } from '@/views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import { BreakdownTableWrapper } from '@/views/CoreUnitBudgetStatement/components/TransparencyActuals/TransparencyActuals';

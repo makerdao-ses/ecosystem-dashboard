@@ -1,4 +1,4 @@
-import type { InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+import type { InnerTableRow } from '@/components/AdvancedInnerTable/types';
 
 const replacePaymentTopup = (breakdownItems: InnerTableRow[]): InnerTableRow[] =>
   breakdownItems.map((innerRow) => ({

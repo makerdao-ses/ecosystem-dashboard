@@ -2,9 +2,10 @@ import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { formatNumber } from '@ses/core/utils/string';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
+import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import { RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
 import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
-import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
+
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
   BudgetStatementTransferRequest,
