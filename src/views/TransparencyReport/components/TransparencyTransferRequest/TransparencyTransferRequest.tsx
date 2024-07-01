@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import React from 'react';
-import { Title } from '../../TransparencyReportView';
+import { Title } from '@/views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyTransferRequest } from './useTransparencyTransferRequest';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
