@@ -57,7 +57,7 @@ const CoreUnitAboutView = ({ code, coreUnits, cuAbout }: Props) => {
         canonicalURL={siteRoutes.coreUnitAbout(code)}
       />
 
-      <BreadcrumbStyled
+      <Breadcrumb
         items={[
           {
             label: 'Contributors',
@@ -638,11 +638,6 @@ const DividerSections = styled('div')<{ hasMarginTop: boolean }>(({ theme, hasMa
   borderTop: `1px solid ${theme.palette.isLight ? '#D8E0E3' : theme.palette.colors.charcoal[800]}`,
   marginTop: hasMarginTop ? '32px' : '0px',
   width: '100%',
-}));
-const BreadcrumbStyled = styled(Breadcrumb)(({ theme }) => ({
-  [theme.breakpoints.up('tablet_768')]: {
-    top: 98,
-  },
 }));
 
 const TeamHeaderStyled = styled(TeamHeader)(({ theme }) => ({

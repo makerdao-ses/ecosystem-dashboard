@@ -1,18 +1,16 @@
 import { styled } from '@mui/material';
 import { CustomLink } from '@ses/components/CustomLink/CustomLink';
-import { CustomPager } from '@ses/components/CustomPager/CustomPager';
 import DelegateSummary from '@ses/components/DelegateSummary/DelegateSummary';
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
-import Tabs from '@ses/components/Tabs/Tabs';
 import { siteRoutes } from '@ses/config/routes';
 import { CommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
-import { BudgetStatus } from '@ses/core/models/dto/coreUnitDTO';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import React, { useRef } from 'react';
-import ExpenseReportStatusIndicator from '../TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
-import AuditorCommentsContainer from '../TransparencyReport/components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
+import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
+import Tabs from '@/components/Tabs/Tabs';
+import AuditorCommentsContainer from '@/views/CoreUnitBudgetStatement/components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import DelegatesActuals from './DelegatesActuals/DelegatesActuals';
 import DelegatesForecast from './DelegatesForecast/DelegatesForecast';
 import useRecognizedDelegatesReport, { DELEGATES_REPORT_IDS_ENUM } from './useRecognizedDelegatesReport';
@@ -64,34 +62,16 @@ const RecognizedDelegatesReportContainer: React.FC<RecognizedDelegatesProps> = (
       />
       <DelegateSummary links={links} items={itemsBreadcrumb} ref={ref} showHeader={showHeader} />
       <ContainerInside marginTop={height}>
-        <ContainerPagerBar>
-          <PagerBar className="no-select" ref={null}>
-            <PagerBarLeft>
-              <StyledPagerBar
-                className="styledPagerBar"
-                label={currentMonth.toFormat('MMM yyyy').toUpperCase()}
-                onPrev={handlePreviousMonth}
-                onNext={handleNextMonth}
-                hasNext={hasNextMonth()}
-                hasPrevious={hasPreviousMonth()}
-              />
-              <ContainerExpense>
-                <ExpenseReportStatusIndicator
-                  budgetStatus={currentBudgetStatement?.status || BudgetStatus.Draft}
-                  showCTA={showExpenseReportStatusCTA}
-                />
-              </ContainerExpense>
-            </PagerBarLeft>
-
-            <Spacer />
-            {lastUpdateForBudgetStatement && (
-              <LastUpdate>
-                <Since isLight={isLight}>Last Update</Since>
-                <SinceDate>{lastUpdateForBudgetStatement.setZone('UTC').toFormat('dd-LLL-y HH:mm ZZZZ')}</SinceDate>
-              </LastUpdate>
-            )}
-          </PagerBar>
-        </ContainerPagerBar>
+        <BudgetStatementPager
+          currentMonth={currentMonth}
+          handleNext={handleNextMonth}
+          handlePrevious={handlePreviousMonth}
+          hasNext={hasNextMonth()}
+          hasPrevious={hasPreviousMonth()}
+          budgetStatus={currentBudgetStatement?.status}
+          showExpenseReportStatusCTA={showExpenseReportStatusCTA}
+          lastUpdate={lastUpdateForBudgetStatement}
+        />
 
         <ContainerTabs>
           <Tabs tabs={tabItems} onChange={onTabChange} tabQuery={'section'} />
@@ -201,103 +181,6 @@ const ContainerInside = styled('div')<{ marginTop: number }>(({ marginTop, theme
   },
 }));
 
-const ContainerPagerBar = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('tablet_768')]: {
-    marginTop: -3,
-  },
-}));
-
-const StyledPagerBar = styled(CustomPager)(({ theme }) => ({
-  '&.styledPagerBar': {
-    'div:first-of-type': {
-      gap: 24,
-      [theme.breakpoints.up('tablet_768')]: {
-        gap: 8,
-      },
-    },
-    '> div:last-of-type': {
-      marginLeft: 8,
-      letterSpacing: 0,
-      [theme.breakpoints.up('tablet_768')]: {
-        letterSpacing: ' 0.4px',
-      },
-    },
-  },
-}));
-
-const PagerBar = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'flex-start',
-  flex: 1,
-  marginTop: 2,
-  [theme.breakpoints.up('tablet_768')]: {
-    alignItems: 'center',
-    height: '34px',
-    marginTop: 4,
-    marginLeft: 2,
-  },
-}));
-
-const PagerBarLeft = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'flex-start',
-  flexDirection: 'column',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-}));
-
-const Spacer = styled('div')({
-  flex: '1',
-});
-
-const LastUpdate = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  fontFamily: 'Inter, sans-serif',
-  marginTop: -3,
-  [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 0,
-    marginRight: -2,
-    marginLeft: 8,
-  },
-}));
-
-const Since = styled('div')<{ isLight: boolean }>(({ isLight = true }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
-  fontSize: '11px',
-  lineHeight: '15px',
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 600,
-  letterSpacing: '0px',
-  textTransform: 'uppercase',
-  '@media (min-width: 834px)': {
-    fontSize: '12px',
-    letterSpacing: '1px',
-  },
-}));
-
-const SinceDate = styled('div')({
-  color: '#708390',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '11px',
-  fontWeight: 600,
-  letterSpacing: '0px',
-  lineHeight: '15px',
-  textTransform: 'uppercase',
-  marginTop: '2px',
-  textAlign: 'right',
-  '@media (min-width: 834px)': {
-    fontSize: '12px',
-    marginTop: '4px',
-    letterSpacing: '1px',
-  },
-});
-
 const ContainerTabs = styled('div')(({ theme }) => ({
   margin: '32px 0',
 
@@ -307,19 +190,6 @@ const ContainerTabs = styled('div')(({ theme }) => ({
     [theme.breakpoints.up('tablet_768')]: {
       paddingBottom: 14,
     },
-  },
-}));
-
-const ContainerExpense = styled('div')(({ theme }) => ({
-  marginTop: -2,
-  'div a': {
-    marginLeft: 4,
-    [theme.breakpoints.up('tablet_768')]: {
-      marginLeft: 8,
-    },
-  },
-  [theme.breakpoints.up('tablet_768')]: {
-    marginLeft: -3,
   },
 }));
 

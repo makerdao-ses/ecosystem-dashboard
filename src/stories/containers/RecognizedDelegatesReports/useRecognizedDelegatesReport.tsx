@@ -14,8 +14,8 @@ import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import CommentsTab from '../../components/Tabs/CommentsTab/CommentsTab';
-import type { TableItems } from '../TransparencyReport/TransparencyReport';
+import CommentsTab from '../../../components/Tabs/CommentsTab/CommentsTab';
+import type { TableItems } from '../../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import type { DelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
 export enum DELEGATES_REPORT_IDS_ENUM {

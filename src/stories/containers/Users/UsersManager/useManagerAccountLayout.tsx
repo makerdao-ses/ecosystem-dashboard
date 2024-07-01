@@ -1,13 +1,13 @@
 import Skeleton from '@mui/material/Skeleton';
 import { useMemo } from 'react';
 import useSWR from 'swr';
+import type { TabItem } from '@/components/Tabs/Tabs';
 import { useAuthContext } from '../../../../core/context/AuthContext';
 import { fetcher } from '../../../../core/utils/fetcher';
-import { ParenthesisNumber } from '../../TransparencyReport/TransparencyReport';
+import { ParenthesisNumber } from '../../../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import { ManagerTabs } from './managerTabsEnum';
 import { QUERY_USERS } from './userManagerAPI';
 import type { UserDTO } from '../../../../core/models/dto/authDTO';
-import type { TabItem } from '@ses/components/Tabs/Tabs';
 import type { Fetcher } from 'swr';
 
 export const useManagerAccountLayout = () => {

@@ -1,13 +1,13 @@
 import { fetchCoreUnits } from '@ses/components/CoreUnitSummary/CoreUnitSummaryApi';
 import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import { fetchExpenseCategories } from '@ses/containers/FinancesOverview/api/queries';
-import { TransparencyReport } from '@ses/containers/TransparencyReport/TransparencyReport';
-import { CORE_UNIT_REQUEST, getLastSnapshotPeriod } from '@ses/containers/TransparencyReport/transparencyReportAPI';
 import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import request from 'graphql-request';
 import { DateTime } from 'luxon';
 import React, { useState, useEffect } from 'react';
+import CoreUnitBudgetStatementView from '@/views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
+import { CORE_UNIT_REQUEST, getLastSnapshotPeriod } from '@/views/CoreUnitBudgetStatement/transparencyReportAPI';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { Team } from '@ses/core/models/interfaces/team';
@@ -37,7 +37,7 @@ const Transparency = ({ coreUnits, cu, expenseCategories, snapshotLimitPeriods }
         setCurrentTeam: setCurrentCoreUnit as unknown as (cu: Team) => void,
       }}
     >
-      <TransparencyReport
+      <CoreUnitBudgetStatementView
         coreUnits={coreUnits}
         coreUnit={currentCoreUnit}
         expenseCategories={expenseCategories}

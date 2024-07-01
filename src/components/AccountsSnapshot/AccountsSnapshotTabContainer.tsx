@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import { TransparencyEmptyTable } from '../../stories/containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
+import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import AccountsSnapshot from './AccountsSnapshot';
 import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './useAccountsSnapshotTab';

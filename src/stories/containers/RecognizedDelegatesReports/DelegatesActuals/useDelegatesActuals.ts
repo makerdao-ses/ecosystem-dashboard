@@ -1,5 +1,3 @@
-import { renderWallet } from '@ses/containers/TransparencyReport/transparencyReportUtils';
-
 import {
   budgetTotalActual,
   budgetTotalDifference,
@@ -16,6 +14,7 @@ import {
 } from '@ses/core/utils/finances';
 import _ from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { renderWallet } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
 import { getWalletWidthForWallets } from '../../../../core/utils/string';
