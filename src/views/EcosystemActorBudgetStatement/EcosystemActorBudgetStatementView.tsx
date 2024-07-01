@@ -22,7 +22,7 @@ import { TransparencyForecast } from '../CoreUnitBudgetStatement/components/Tran
 import { TransparencyMkrVesting } from '../CoreUnitBudgetStatement/components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from '../CoreUnitBudgetStatement/components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM } from '../CoreUnitBudgetStatement/useCoreUnitBudgetStatementView';
-import TeamHeadLine from './components/TeamHeadlineText/TeamHeadlineText';
+import CuHeadlineText from '../TransparencyReport/components/CuHeadlineText/CuHeadlineText';
 import useEcosystemActorBudgetStatementView from './useEcosystemActorBudgetStatementView';
 import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
@@ -64,7 +64,7 @@ const EcosystemActorBudgetStatementView: React.FC<EcosystemActorBudgetStatementV
     pager,
   } = useEcosystemActorBudgetStatementView(actor, actors, snapshotLimitPeriods);
 
-  const headline = <TeamHeadLine teamLongCode={actor.code} teamShortCode={actor.shortCode} />;
+  const headline = <CuHeadlineText cuLongCode={actor.code} isCoreUnit={false} shortCode={actor.shortCode} />;
   return (
     <PageContainer>
       <SEOHead

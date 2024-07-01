@@ -70,7 +70,7 @@ const CoreUnitBudgetStatementView = ({
     pager,
   } = useCoreUnitBudgetStatementView(coreUnit, coreUnits, snapshotLimitPeriods);
 
-  const headline = <CuHeadlineText cuLongCode={longCode} />;
+  const headline = <CuHeadlineText cuLongCode={longCode} shortCode={coreUnit.shortCode} />;
   return (
     <PageContainer>
       <SEOHead

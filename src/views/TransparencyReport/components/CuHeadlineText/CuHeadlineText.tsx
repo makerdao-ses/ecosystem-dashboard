@@ -7,16 +7,21 @@ import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButt
 
 interface CuHeadlineTextProps {
   cuLongCode: string;
+  shortCode: string;
   className?: string;
+  isCoreUnit?: boolean;
 }
 
-const CuHeadlineText: React.FC<CuHeadlineTextProps> = ({ cuLongCode }) => (
-  <LinkDescription>
-    <ExternalLinkButtonStyled href={`${MAKER_BURN_LINK}/${cuLongCode}`}>
-      CES Core Unit on-chain transaction history
-    </ExternalLinkButtonStyled>
-  </LinkDescription>
-);
+const CuHeadlineText: React.FC<CuHeadlineTextProps> = ({ cuLongCode, isCoreUnit = true, shortCode }) => {
+  const resource = isCoreUnit ? 'Core Unit' : 'Ecosystem Actor';
+  return (
+    <LinkDescription>
+      <ExternalLinkButtonStyled href={`${MAKER_BURN_LINK}/${cuLongCode}`}>
+        {`${shortCode} ${resource} on-chain transaction history`}
+      </ExternalLinkButtonStyled>
+    </LinkDescription>
+  );
+};
 
 export default CuHeadlineText;
 
