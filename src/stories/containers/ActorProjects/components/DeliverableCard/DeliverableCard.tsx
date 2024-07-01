@@ -1,7 +1,9 @@
 import { styled, useMediaQuery } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
+import { siteRoutes } from '@/config/routes';
 import type { Deliverable } from '@/core/models/interfaces/deliverables';
 import { DeliverableStatus } from '@/core/models/interfaces/deliverables';
 import DeliverablePercentageBar from '../DeliverablePercentageBar/DeliverablePercentageBar';
@@ -39,7 +41,9 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
         </TitleContainer>
         <DeliverableOwnerContainer>
           <SESTooltip content={<OwnerTooltipContent title="Deliverable Owner" items={[deliverable.owner]} />}>
-            <OwnerImage src={deliverable.owner.imageUrl} alt={deliverable.owner.name} />
+            <Link href={siteRoutes.ecosystemActorAbout(deliverable.owner.code)}>
+              <OwnerImage src={deliverable.owner.imageUrl} alt={deliverable.owner.name} />
+            </Link>
           </SESTooltip>
         </DeliverableOwnerContainer>
       </HeaderContainer>
