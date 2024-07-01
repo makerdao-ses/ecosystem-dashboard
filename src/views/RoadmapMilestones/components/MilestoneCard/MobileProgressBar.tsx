@@ -1,4 +1,5 @@
 import { CircularProgress, circularProgressClasses, styled } from '@mui/material';
+import { usLocalizedNumber } from '@/core/utils/humanization';
 
 interface MobileProgressBarProps {
   value: number;
@@ -8,7 +9,7 @@ const MobileProgressBar: React.FC<MobileProgressBarProps> = ({ value }) => (
   <BarContainer>
     <CircularBarBase variant="determinate" size={56} thickness={6} value={100} />
     <CircularBarProgress variant="determinate" dir="rtl" size={56} thickness={6} value={value} />
-    <LabelContainer>{Math.round(value)}%</LabelContainer>
+    <LabelContainer>{usLocalizedNumber(value, 0)}%</LabelContainer>
   </BarContainer>
 );
 

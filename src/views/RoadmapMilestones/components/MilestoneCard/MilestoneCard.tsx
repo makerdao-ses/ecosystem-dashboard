@@ -1,8 +1,11 @@
 import { styled } from '@mui/material';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { Milestone } from '@/core/models/interfaces/roadmaps';
+import { isPercentage } from '@/core/models/interfaces/roadmaps';
+import { usLocalizedNumber } from '@/core/utils/humanization';
+import { percentageRespectTo } from '@/core/utils/math';
 import { formatDateStringToQuarter } from '../../utils';
 import MobileProgressBar from './MobileProgressBar';
 
@@ -13,6 +16,19 @@ interface MilestoneCardProps {
 const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
   const router = useRouter();
   const handleView = () => router.replace(`#${milestone.code}`);
+  // percentage in value from 0 to 1
+  const percentage = useMemo(() => {
+    if (!milestone.scope.progress) {
+      return 0;
+    } else if (isPercentage(milestone.scope.progress)) {
+      return milestone.scope.progress.value;
+    } else {
+      if (!milestone.scope.progress.completed || !milestone.scope.progress.total) {
+        return 0;
+      }
+      return percentageRespectTo(milestone.scope.progress.completed, milestone.scope.progress.total) / 100;
+    }
+  }, [milestone.scope.progress]);
 
   return (
     <Card>
@@ -40,7 +56,7 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
 
         <MobileProgressBox>
           <ProgressContainer>
-            <MobileProgressBar value={55} />
+            <MobileProgressBar value={percentage * 100} />
           </ProgressContainer>
           <ViewButton label="View" onClick={handleView} />
         </MobileProgressBox>
@@ -57,8 +73,8 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
               <Label>Progress</Label>
 
               <ProgressBarBox>
-                <ProgressBar progress={0.75} />
-                <ProgressLabel>75%</ProgressLabel>
+                <ProgressBar progress={percentage} />
+                <ProgressLabel>{usLocalizedNumber(percentage * 100, 0)}%</ProgressLabel>
               </ProgressBarBox>
             </ProgressBox>
           </XBox>
