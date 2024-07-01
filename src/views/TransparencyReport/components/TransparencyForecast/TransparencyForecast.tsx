@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import Tabs from '@ses/components/Tabs/Tabs';
+
 import React from 'react';
-import { Title } from '../../TransparencyReportView';
+import Tabs from '@/components/Tabs/Tabs';
+import { Title } from '@/views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
+import { BreakdownTableWrapper } from '@/views/CoreUnitBudgetStatement/components/TransparencyActuals/TransparencyActuals';
+
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
-import { BreakdownTableWrapper } from '../TransparencyActuals/TransparencyActuals';
+
 import { useTransparencyForecast } from './useTransparencyForecast';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
