@@ -1,4 +1,5 @@
 import { styled } from '@mui/material';
+import Link from 'next/dist/client/link';
 import React from 'react';
 import { capitalizeSentence } from '../../core/utils/string';
 import ExternalLink from '../../stories/components/ExternalLink/ExternalLink';
@@ -11,10 +12,11 @@ interface WalletTableCellProps {
   name: string;
   wallet: string;
   address?: string;
+  className?: string;
 }
 
 export const WalletTableCell = (props: WalletTableCellProps) => (
-  <Container>
+  <Container className={props.className}>
     <BlockiesIdenticon address={props.address ?? ''} size={32} className="circle-avatar" />
     <Data>
       <Label>{capitalizeSentence(props.name)}</Label>
@@ -24,11 +26,11 @@ export const WalletTableCell = (props: WalletTableCellProps) => (
         </StyledLink>
 
         <IconsContainer>
-          <CopyIcon text={props.address ?? ''} defaultTooltip="Copy Address" />
+          <CopyIconStyled text={props.address ?? ''} defaultTooltip="Copy Address" />
 
-          <a href={`https://app.safe.global/home?safe=eth:${props.address}`} target="_blank">
+          <LinkStyled href={`https://app.safe.global/home?safe=eth:${props.address}`} target="_blank">
             <GnosisStyled />
-          </a>
+          </LinkStyled>
         </IconsContainer>
       </LinkContainer>
     </Data>
@@ -90,15 +92,13 @@ const Label = styled('div')(({ theme }) => ({
 const LinkContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  marginTop: 4,
 
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    marginTop: 3,
-  },
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {},
 }));
 
 const StyledLink = styled(ExternalLink)(({ theme }) => ({
   fontSize: 12,
+
   lineHeight: '18px',
   fontWeight: 500,
   color: theme.palette.colors.blue[700],
@@ -112,36 +112,37 @@ const StyledLink = styled(ExternalLink)(({ theme }) => ({
 const IconsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-
-  '& > div': {
-    cursor: 'pointer',
-    marginLeft: 13,
-
-    '> *': {
-      display: 'flex',
-    },
-
-    [theme.breakpoints.up('tablet_768')]: {
-      marginLeft: 5,
-    },
-
-    [theme.breakpoints.up('desktop_1024')]: {
-      marginLeft: -1,
-    },
-  },
-
-  a: {
-    display: 'flex',
-    marginLeft: 32,
-
-    [theme.breakpoints.up('tablet_768')]: {
-      marginLeft: 16,
-    },
+  marginLeft: 24,
+  gap: 24,
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 16,
+    marginLeft: 2,
   },
 }));
 
 const GnosisStyled = styled(Gnosis)(({ theme }) => ({
   '& path': {
     fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
+  },
+  ':hover': {
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
+  },
+}));
+
+const LinkStyled = styled(Link)({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const CopyIconStyled = styled(CopyIcon)(({ theme }) => ({
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
+  },
+  ':hover': {
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
   },
 }));
