@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
-import { TransparencyEmptyTable } from '@ses/containers/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import { TransparencyEmptyTable } from '@/views/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
 import { useDelegatesForecast } from './useDelegatesForecast';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';

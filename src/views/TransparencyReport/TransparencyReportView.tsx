@@ -13,8 +13,8 @@ import { CommentActivityContext } from '@/core/context/CommentActivityContext';
 import { useFlagsActive } from '@/core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '@/core/utils/urls';
 import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
-import { CustomLink } from '@/stories/components/CustomLink/CustomLink';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
+import AdditionalNotesSection from './components/AdditionalNotesSection/AdditionalNotesSection';
 import CuHeadlineText from './components/CuHeadlineText/CuHeadlineText';
 import ExpenseReport from './components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
@@ -23,7 +23,7 @@ import AuditorCommentsContainer from './components/TransparencyAuditorComments/A
 import { TransparencyForecast } from './components/TransparencyForecast/TransparencyForecast';
 import { TransparencyMkrVesting } from './components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from './components/TransparencyTransferRequest/TransparencyTransferRequest';
-import { TRANSPARENCY_IDS_ENUM, useTransparencyReport } from './useTransparencyReportView';
+import { TRANSPARENCY_IDS_ENUM, useTransparencyReportView } from './useTransparencyReportView';
 import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
@@ -66,7 +66,7 @@ export const TransparencyReportView = ({
     onTabsExpand,
     compressedTabItems,
     setSnapshotCreated,
-  } = useTransparencyReport(coreUnit, snapshotLimitPeriods);
+  } = useTransparencyReportView(coreUnit, snapshotLimitPeriods);
   const [isEnabled] = useFlagsActive();
   const ref = useRef<HTMLDivElement>(null);
   const { height, showHeader } = useHeaderSummary(ref, code);
@@ -200,58 +200,7 @@ export const TransparencyReportView = ({
                 resource={ResourceType.CoreUnit}
               />
             )}
-
-            <Container>
-              <AdditionalNotesSection>
-                <Title isTitleOfPage={false}>Additional Notes</Title>
-
-                <Paragraph>
-                  {coreUnit.auditors.length === 0 ? (
-                    <div>
-                      Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
-                      with a detailed budget update. The Core Unit works <b>without auditor</b>, submitting its reports
-                      directly to the community.
-                    </div>
-                  ) : (
-                    <div>
-                      Every month, the {coreUnit.shortCode} Core Unit submits an Expense Report to MakerDAO governance
-                      with a detailed budget update. The Core Unit's reports are reviewed{' '}
-                      <b>
-                        by auditor(s){' '}
-                        {coreUnit.auditors.map((auditor, index, array) => (
-                          <span key={auditor.id}>
-                            <b>{auditor.username}</b>
-                            {array.length > 1 && index !== array.length - 1
-                              ? index !== array.length - 2
-                                ? ', '
-                                : ', and '
-                              : ''}
-                          </span>
-                        ))}{' '}
-                      </b>
-                      before they are marked as final.
-                    </div>
-                  )}
-
-                  {coreUnit.legacyBudgetStatementUrl && (
-                    <LegacyReportParagraph>
-                      <span>Legacy expense reports can be found</span>
-                      <CustomLink
-                        fontWeight={500}
-                        href={coreUnit.legacyBudgetStatementUrl}
-                        iconHeight={10}
-                        iconWidth={10}
-                        fontSize={16}
-                        fontSizeMobile={14}
-                        fontFamily={'Inter, sans-serif'}
-                      >
-                        here
-                      </CustomLink>
-                    </LegacyReportParagraph>
-                  )}
-                </Paragraph>
-              </AdditionalNotesSection>
-            </Container>
+            <AdditionalNotesSection coreUnit={coreUnit} />
           </ModalCategoriesProvider>
         </PageSeparator>
       </PageContainer>
@@ -269,48 +218,37 @@ const PageSeparator = styled('div')<{ marginTop: number }>(({ marginTop, theme }
 
 export const Title = styled('div')<{
   marginBottom?: number;
-
   fontSize?: string;
   responsiveMarginBottom?: number;
   isTitleOfPage?: boolean;
-}>(({ marginBottom = 16, fontSize = '16px', theme, responsiveMarginBottom, isTitleOfPage = false }) => ({
+  marginTop?: number;
+}>(({ marginBottom = 16, theme, responsiveMarginBottom, isTitleOfPage = false, marginTop = 24 }) => ({
   fontFamily: 'Inter, sans-serif',
   fontWeight: isTitleOfPage ? 500 : 600,
   fontStyle: 'normal',
-  fontSize,
+  fontSize: 16,
   lineHeight: '19px',
+  marginTop,
   letterSpacing: '0.4px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
   marginBottom: `${marginBottom}px`,
+
   [theme.breakpoints.up('tablet_768')]: {
-    fontSize: '20px',
+    fontSize: '18px',
     lineHeight: '24px',
     marginBottom: `${responsiveMarginBottom || marginBottom}px`,
   },
 
   [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
-    marginTop: '32px',
     fontWeight: 700,
   },
 }));
 
-const Paragraph = styled('div')(({ theme }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 400,
-  fontSize: '14px',
-  lineHeight: '22px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: '16px',
-  },
-}));
-
 const TabsContainer = styled('div')(({ theme }) => ({
-  margin: '32px 0 16px',
+  margin: '32px 0 24px',
 
   [theme.breakpoints.up('tablet_768')]: {
-    margin: '32px 0',
+    margin: '32px 0 24px',
   },
 }));
 
@@ -334,17 +272,4 @@ export const ParenthesisNumber = styled('label')({
     fontWeight: 'bold',
     marginLeft: '5px',
   },
-});
-
-const AdditionalNotesSection = styled('div')(({ theme }) => ({
-  paddingBottom: 0,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    paddingBottom: 0,
-  },
-}));
-
-const LegacyReportParagraph = styled('div')({
-  marginTop: 16,
-  marginBottom: 0,
 });

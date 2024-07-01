@@ -1,6 +1,6 @@
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import React from 'react';
-import { createThemeModeVariants } from '../../../../../core/utils/storybook/factories';
+import { createThemeModeVariants } from '@/core/utils/storybook/factories';
 import BudgetStatusSelect from './BudgetStatusSelect';
 import type { Meta } from '@storybook/react';
 

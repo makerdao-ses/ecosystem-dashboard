@@ -51,13 +51,15 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
         cardsTotalPosition="top"
         longCode={longCode}
         tablePlaceholder={
-          <div style={{ marginBottom: 64 }}>
+          <div>
             <TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />
           </div>
         }
       />
       {mainTableItems.length > 0 && (
-        <Title ref={breakdownTitleRef}>{currentMonth.toFormat('MMM yyyy')} Breakdown</Title>
+        <Title ref={breakdownTitleRef} marginTop={32}>
+          {currentMonth.toFormat('MMM yyyy')} Breakdown
+        </Title>
       )}
 
       {mainTableItems.length > 0 && (
@@ -76,10 +78,9 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
             columns={breakdownColumnsForActiveTab}
             items={breakdownItemsForActiveTab}
             longCode={longCode}
-            style={{ marginBottom: 64 }}
             cardSpacingSize="small"
             tablePlaceholder={
-              <div style={{ marginBottom: 64 }}>
+              <div>
                 <TransparencyEmptyTable breakdown longCode={longCode} shortCode={shortCode} resource={resource} />
               </div>
             }

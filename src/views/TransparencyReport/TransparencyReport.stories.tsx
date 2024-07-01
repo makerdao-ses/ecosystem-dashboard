@@ -5,13 +5,13 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import { withLocalStorageItem } from '@ses/core/utils/storybook/loaders';
 import { SESCoreUnitMocked } from '@ses/core/utils/storybook/mocks/coreUnitsMocks';
 import { featureFlags } from 'feature-flags/feature-flags';
-import AppLayout from '../AppLayout/AppLayout';
-import { TransparencyReport } from './TransparencyReportView';
+import AppLayout from '@/stories/containers/AppLayout/AppLayout';
+import { TransparencyReportView } from './TransparencyReportView';
 import type { Meta } from '@storybook/react';
 
-const meta: Meta<typeof TransparencyReport> = {
+const meta: Meta<typeof TransparencyReportView> = {
   title: 'Pages/CU Transparency Report',
-  component: TransparencyReport,
+  component: TransparencyReportView,
   decorators: [withoutSBPadding],
 
   parameters: {
@@ -81,7 +81,7 @@ const [
   (props) => (
     <FeatureFlagsProvider enabledFeatures={featureFlags[CURRENT_ENVIRONMENT]}>
       <AppLayout>
-        <TransparencyReport {...props} />
+        <TransparencyReportView {...props} />
       </AppLayout>
     </FeatureFlagsProvider>
   ),

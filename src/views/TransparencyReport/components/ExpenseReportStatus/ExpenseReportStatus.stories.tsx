@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { BudgetStatus } from '../../../../../core/models/dto/coreUnitDTO';
+import { BudgetStatus } from '@/core/models/dto/coreUnitDTO';
 import ExpenseReportStatus from './ExpenseReportStatus';
 import type { Meta } from '@storybook/react';
 

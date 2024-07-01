@@ -18,7 +18,7 @@ export enum TRANSPARENCY_IDS_ENUM {
   EXPENSE_REPORT = 'expense-report',
 }
 
-export const useTransparencyReport = (coreUnit: CoreUnit, snapshotLimitPeriods?: SnapshotLimitPeriods) => {
+export const useTransparencyReportView = (coreUnit: CoreUnit, snapshotLimitPeriods?: SnapshotLimitPeriods) => {
   const router = useRouter();
   const query = router.query;
   const [isEnabled] = useFlagsActive();
