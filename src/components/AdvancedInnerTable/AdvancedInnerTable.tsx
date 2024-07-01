@@ -8,53 +8,7 @@ import { TextCell } from '../../stories/components/TextCell/TextCell';
 import { Title } from '../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { TransparencyCard } from './TransparencyCard/TransparencyCard';
-
-export interface InnerTableColumn {
-  align?: string;
-  header: string | JSX.Element;
-  type?: 'number' | 'incomeNumber' | 'text' | 'custom';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cellRender?: (data: any) => JSX.Element;
-  headerAlign?: string;
-  isCardHeader?: boolean;
-  isCardFooter?: boolean;
-  width?: string;
-  minWidth?: string;
-  hidden?: boolean;
-  hasBorderRight?: boolean;
-  hasBorderBottomOnCard?: boolean;
-  handleOpenModal?: () => void;
-}
-
-export interface InnerTableCell {
-  column: InnerTableColumn;
-  value: unknown | React.ReactElement | JSX.Element;
-  isBold?: boolean;
-}
-
-export type RowType = 'normal' | 'total' | 'section' | 'groupTitle' | 'subTotal' | 'category';
-export type CardSpacingSize = 'small' | 'large';
-
-export interface InnerTableRow {
-  type: RowType;
-  items: InnerTableCell[];
-  borderTop?: boolean;
-  borderBottom?: boolean;
-  hideMobile?: boolean;
-}
-
-interface AdvancedInnerTableProps {
-  columns: InnerTableColumn[];
-  items: InnerTableRow[];
-  style?: React.CSSProperties;
-  cardsTotalPosition?: 'top' | 'bottom';
-  tablePlaceholder?: JSX.Element;
-  longCode: string;
-  className?: string;
-  cardSpacingSize?: CardSpacingSize;
-}
-
-type Alignment = 'left' | 'center' | 'right';
+import type { AdvancedInnerTableProps, Alignment, CardSpacingSize, InnerTableColumn, RowType } from './types';
 
 export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   cardsTotalPosition = 'bottom',
@@ -265,16 +219,19 @@ const TableHead = styled('thead')(({ theme }) => ({
   fontSize: '12px',
   lineHeight: '15px',
   letterSpacing: '1px',
-  textTransform: 'uppercase',
   fontWeight: 600,
-  color: '#708390',
-  borderBottom: theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  borderBottom: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
   whiteSpace: 'nowrap',
 }));
 
 const HeadCell = styled('th')<{ hasBorderRight?: boolean }>(({ hasBorderRight, theme }) => ({
   padding: '24px 16px',
   fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   borderRight: hasBorderRight ? (theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
 }));
 

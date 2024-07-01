@@ -4,6 +4,7 @@ import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import { renderWallet } from '../../transparencyReportUtils';
 import { getActualsBreakdownColumns, getActualsBreakdownItemsForWallet } from '../../utils/actualsTableHelpers';
 import {
@@ -15,7 +16,6 @@ import {
 } from '../../utils/budgetStatementsUtils';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import replacePaymentTopup from '../../utils/helpers';
-import type { InnerTableColumn, InnerTableRow } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
