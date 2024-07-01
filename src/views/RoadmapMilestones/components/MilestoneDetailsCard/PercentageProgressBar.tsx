@@ -1,4 +1,4 @@
-import { CircularProgress, circularProgressClasses, styled, useMediaQuery } from '@mui/material';
+import { CircularProgress, styled, useMediaQuery } from '@mui/material';
 import type { Theme } from '@mui/material';
 
 interface PercentageProgressBarProps {
@@ -39,10 +39,6 @@ const CircularBarProgress = styled(CircularProgress)(() => ({
   position: 'absolute',
   left: 0,
   color: '#1AAB9B',
-
-  [`& .${circularProgressClasses.circle}`]: {
-    strokeLinecap: 'round',
-  },
 }));
 
 const LabelContainer = styled('div')(({ theme }) => ({
