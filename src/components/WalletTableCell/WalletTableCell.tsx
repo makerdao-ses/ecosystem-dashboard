@@ -27,7 +27,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => (
           <CopyIcon text={props.address ?? ''} defaultTooltip="Copy Address" />
 
           <a href={`https://app.safe.global/home?safe=eth:${props.address}`} target="_blank">
-            <Gnosis />
+            <GnosisStyled />
           </a>
         </IconsContainer>
       </LinkContainer>
@@ -137,5 +137,11 @@ const IconsContainer = styled('div')(({ theme }) => ({
     [theme.breakpoints.up('tablet_768')]: {
       marginLeft: 16,
     },
+  },
+}));
+
+const GnosisStyled = styled(Gnosis)(({ theme }) => ({
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   },
 }));
