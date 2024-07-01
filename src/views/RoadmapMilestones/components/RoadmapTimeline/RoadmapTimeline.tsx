@@ -2,6 +2,7 @@ import { styled, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import type { Milestone } from '@/core/models/interfaces/roadmaps';
+import { progressPercentage } from '../../utils';
 import MilestoneCard from '../MilestoneCard/MilestoneCard';
 import type { Theme } from '@mui/material';
 
@@ -56,7 +57,7 @@ const RoadmapTimeline: React.FC<RoadmapTimelineProps> = ({ milestones }) => {
         <DesktopTimeline>
           <Up shouldAddPadding={shouldAddPadding}>
             {up.map((milestone) => (
-              <CardWrapper key={milestone.id}>
+              <CardWrapper key={milestone.id} isStarted={progressPercentage(milestone.scope.progress) !== 0}>
                 <MilestoneCard milestone={milestone} />
               </CardWrapper>
             ))}
@@ -64,7 +65,7 @@ const RoadmapTimeline: React.FC<RoadmapTimelineProps> = ({ milestones }) => {
           <Down shouldAddPadding={shouldAddPadding}>
             {milestones.length > 4 &&
               down.map((milestone) => (
-                <CardWrapper key={milestone.id}>
+                <CardWrapper key={milestone.id} isStarted={progressPercentage(milestone.scope.progress) !== 0}>
                   <MilestoneCard milestone={milestone} />
                 </CardWrapper>
               ))}
@@ -186,7 +187,7 @@ const Down = styled('div')<{ shouldAddPadding: boolean }>(({ theme, shouldAddPad
   },
 }));
 
-const CardWrapper = styled('div')(({ theme }) => ({
+const CardWrapper = styled('div')<{ isStarted: boolean }>(({ theme, isStarted }) => ({
   position: 'relative',
   width: 'calc(25% - 12px)',
 
@@ -214,6 +215,12 @@ const CardWrapper = styled('div')(({ theme }) => ({
     height: 12,
     borderRadius: '50%',
     border: `2px solid ${theme.palette.isLight ? '#1AAB9B' : '#06554C'}`,
-    background: theme.palette.isLight ? '#fff' : '#10191F',
+    background: isStarted
+      ? theme.palette.isLight
+        ? '#1AAB9B'
+        : '#06554C'
+      : theme.palette.isLight
+      ? '#fff'
+      : '#10191F',
   },
 }));

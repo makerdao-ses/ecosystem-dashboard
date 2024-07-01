@@ -295,9 +295,13 @@ const DescriptionContent = styled('div')(({ theme }) => ({
 
 const Paragraph = styled('p')(({ theme }) => ({
   margin: 0,
-  fontSize: 16,
+  fontSize: 14,
   lineHeight: '22px',
   color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+  },
 }));
 
 const MilestoneContent = styled('div')(({ theme }) => ({

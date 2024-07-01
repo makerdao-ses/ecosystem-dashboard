@@ -62,7 +62,7 @@ const CommonDefaultMilestone = {
         status: DeliverableStatus.DELIVERED,
         workProgress: {
           __typename: 'Percentage',
-          value: 100,
+          value: 1,
         },
         budgetAnchor: {
           project: {
@@ -78,7 +78,7 @@ const CommonDefaultMilestone = {
     status: DeliverableSetStatus.FINISHED,
     progress: {
       __typename: 'Percentage',
-      value: 100,
+      value: 0.75,
     },
     totalDeliverables: 3,
     deliverablesCompleted: 3,
