@@ -1,4 +1,8 @@
 import { DateTime } from 'luxon';
+import type { Maybe } from '@/core/models/interfaces/generics';
+import type { Progress } from '@/core/models/interfaces/roadmaps';
+import { isPercentage } from '@/core/models/interfaces/roadmaps';
+import { percentageRespectTo } from '@/core/utils/math';
 
 export const formatDateStringToQuarter = (date: string, extended = false) => {
   if (!date) {
@@ -20,4 +24,17 @@ export const formatDateStringToQuarter = (date: string, extended = false) => {
   }
 
   return date;
+};
+
+export const progressPercentage = (progress: Maybe<Progress>): number => {
+  if (!progress) {
+    return 0;
+  } else if (isPercentage(progress)) {
+    return progress.value;
+  } else {
+    if (!progress.completed || !progress.total) {
+      return 0;
+    }
+    return percentageRespectTo(progress.completed, progress.total) / 100;
+  }
 };

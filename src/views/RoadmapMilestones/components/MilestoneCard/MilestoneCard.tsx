@@ -1,9 +1,10 @@
 import { styled } from '@mui/material';
 import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { Milestone } from '@/core/models/interfaces/roadmaps';
-import { formatDateStringToQuarter } from '../../utils';
+import { usLocalizedNumber } from '@/core/utils/humanization';
+import { formatDateStringToQuarter, progressPercentage } from '../../utils';
 import MobileProgressBar from './MobileProgressBar';
 
 interface MilestoneCardProps {
@@ -13,6 +14,8 @@ interface MilestoneCardProps {
 const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
   const router = useRouter();
   const handleView = () => router.replace(`#${milestone.code}`);
+  // percentage in value from 0 to 1
+  const percentage = useMemo(() => progressPercentage(milestone.scope.progress), [milestone.scope.progress]);
 
   return (
     <Card>
@@ -26,20 +29,21 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
           <QuarterBox>
             <Quarter>
               {/* target date should be printed out with the format: Q4’23 */}
-              {/* {`${milestone.targetDate.split('-')[1]}'${milestone.targetDate.split('-')[0].slice(-2)}`} */}
               {formatDateStringToQuarter(milestone.targetDate)}
             </Quarter>
           </QuarterBox>
         </TitleContainer>
       </TitleBox>
-      <MobileOnlyBox>
-        <DescriptionBox>
-          <Description>{milestone.abstract}</Description>
-        </DescriptionBox>
+      <MobileOnlyBox isCentered={!milestone.abstract}>
+        {milestone.abstract && (
+          <DescriptionBox>
+            <Description>{milestone.abstract}</Description>
+          </DescriptionBox>
+        )}
 
         <MobileProgressBox>
           <ProgressContainer>
-            <MobileProgressBar value={55} />
+            <MobileProgressBar value={percentage * 100} />
           </ProgressContainer>
           <ViewButton label="View" onClick={handleView} />
         </MobileProgressBox>
@@ -56,8 +60,8 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({ milestone }) => {
               <Label>Progress</Label>
 
               <ProgressBarBox>
-                <ProgressBar progress={0.75} />
-                <ProgressLabel>75%</ProgressLabel>
+                <ProgressBar progress={percentage} />
+                <ProgressLabel>{usLocalizedNumber(percentage * 100, 0)}%</ProgressLabel>
               </ProgressBarBox>
             </ProgressBox>
           </XBox>
@@ -191,9 +195,10 @@ const Quarter = styled('span')(({ theme }) => ({
   },
 }));
 
-const MobileOnlyBox = styled('div')(({ theme }) => ({
+const MobileOnlyBox = styled('div')<{ isCentered: boolean }>(({ theme, isCentered }) => ({
   display: 'flex',
   alignSelf: 'stretch',
+  justifyContent: isCentered ? 'center' : 'normal',
   gap: 8,
 
   [theme.breakpoints.up('tablet_768')]: {

@@ -1,7 +1,9 @@
 import { styled } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
+import Link from 'next/link';
 import React from 'react';
+import { siteRoutes } from '@/config/routes';
 import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import type { Owner } from '@ses/core/models/interfaces/projects';
@@ -13,7 +15,9 @@ interface ProjectOwnerChipProps {
 
 const ProjectOwnerChip: React.FC<ProjectOwnerChipProps> = ({ owner, tooltipText = 'Owner' }) => (
   <SESTooltip content={<TooltipText>{tooltipText}</TooltipText>} placement="bottom-start">
-    <OwnerChip label={owner.name} avatar={<Avatar src={(owner as OwnerRef).imageUrl} />} />
+    <Link href={siteRoutes.ecosystemActorAbout(owner.code ?? '')}>
+      <OwnerChip label={owner.name} avatar={<Avatar src={(owner as OwnerRef).imageUrl} />} />
+    </Link>
   </SESTooltip>
 );
 

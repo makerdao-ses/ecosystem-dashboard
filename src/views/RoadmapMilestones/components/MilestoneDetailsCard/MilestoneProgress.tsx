@@ -12,7 +12,7 @@ interface MilestoneProgressProps {
 const MilestoneProgress: React.FC<MilestoneProgressProps> = ({ minimal, data }) => {
   const progress = data?.progress
     ? isPercentage(data.progress)
-      ? data.progress.value
+      ? data.progress.value * 100
       : percentageRespectTo(data.progress.completed, data.progress.total)
     : 0;
 
