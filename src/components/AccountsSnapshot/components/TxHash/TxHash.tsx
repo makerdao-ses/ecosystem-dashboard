@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import CopyIcon from '@/components/CopyIcon/CopyIcon';
 
 interface TxHashProps {
   txHash: string | null;

@@ -1,10 +1,10 @@
 import { styled } from '@mui/material';
 import React from 'react';
 import { capitalizeSentence } from '../../core/utils/string';
-import CopyIcon from '../../stories/components/CopyIcon/CopyIcon';
 import ExternalLink from '../../stories/components/ExternalLink/ExternalLink';
 import Identicon from '../../stories/components/Identicon/Identicon';
 import Gnosis from '../../stories/components/svg/Gnosis';
+import CopyIcon from '../CopyIcon/CopyIcon';
 
 interface WalletTableCellProps {
   imgUrl?: string;

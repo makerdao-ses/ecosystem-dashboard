@@ -1,10 +1,10 @@
 import { styled } from '@mui/material';
-import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import { ChainLinkIcon } from '@ses/components/svg/Link';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import lightTheme from '@ses/styles/theme/themes';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
+import CopyIcon from '@/components/CopyIcon/CopyIcon';
 import Information from '@/components/icons/information';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 
