@@ -1,7 +1,4 @@
 import { styled } from '@mui/system';
-import ProjectOwnerChip from '@ses/containers/ActorProjects/components/ProjectOwnerChip/ProjectOwnerChip';
-import SupportedTeamsAvatarGroup from '@ses/containers/ActorProjects/components/SupportedTeamsAvatarGroup/SupportedTeamsAvatarGroup';
-import { OwnerType } from '@ses/core/models/interfaces/projects';
 import type { Milestone } from '@/core/models/interfaces/roadmaps';
 import Contributors from './Contributors';
 import Coordinators from './Coordinators';
@@ -18,49 +15,27 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
   <Card id={milestone.code}>
     <MobileHeader>
       <HeaderGroupBox>
+        <MilestoneNumber>
+          {milestone.sequenceCode} <Code>{milestone.code}</Code>
+        </MilestoneNumber>
         <NameBox>
-          <Code>{milestone.code}</Code>
           <Name>{milestone.title}</Name>
         </NameBox>
-
-        <MilestoneNumber>{milestone.id}</MilestoneNumber>
       </HeaderGroupBox>
 
-      <HeaderGroupBox>
-        <ProjectOwnerChip
-          owner={{
-            id: '1',
-            ref: OwnerType.EcosystemActor,
-            name: 'Phoenix Lab',
-          }}
-        />
-        <SupportedTeamsAvatarGroup
-          supporters={[
-            {
-              id: '1',
-              name: 'Team 1',
-              code: '',
-              imageUrl: '',
-              ref: OwnerType.EcosystemActor,
-            },
-            {
-              id: '2',
-              name: 'Team 2',
-              code: '',
-              imageUrl: '',
-              ref: OwnerType.EcosystemActor,
-            },
-          ]}
-        />
-      </HeaderGroupBox>
+      <DescriptionContentForMobile>
+        {milestone.description.split('\n').map((paragraph, index) => (
+          <Paragraph key={index}>{paragraph}</Paragraph>
+        ))}
+      </DescriptionContentForMobile>
     </MobileHeader>
     <Aside>
       <AsideContent>
         <CodeBox>
-          <Id>{milestone.id}</Id>
+          <Id>{milestone.sequenceCode}</Id>
           <Code>{milestone.code}</Code>
         </CodeBox>
-        <MilestoneProgress minimal={minimal} data={milestone.scope?.[0]} />
+        <MilestoneProgress minimal={minimal} data={milestone.scope} />
         <Divider />
         <StatsData minimal={minimal} targetDate={milestone.targetDate} />
         <Divider />
@@ -78,9 +53,6 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
       <ShowOn1024Up>
         <HeaderGroupBox>
           <Name>{milestone.title}</Name>
-          <MilestoneNumber>
-            {milestone.id} {milestone.code}
-          </MilestoneNumber>
         </HeaderGroupBox>
 
         <DescriptionContentForDesktop>
@@ -91,7 +63,7 @@ const MilestoneDetailsCard: React.FC<MilestoneDetailsCardProps> = ({ minimal, mi
       </ShowOn1024Up>
 
       <DeliverablesContainer>
-        <DeliverablesSection minimal={minimal} deliverables={milestone.scope?.[0].deliverables} />
+        <DeliverablesSection minimal={minimal} deliverables={milestone.scope?.deliverables} />
       </DeliverablesContainer>
     </MilestoneContent>
   </Card>
@@ -106,7 +78,7 @@ const Card = styled('article')(({ theme }) => ({
   border: `1px solid ${theme.palette.mode === 'light' ? '#D1DEE6' : '#31424E'}`,
   borderRadius: 6,
   padding: '16px 16px 24px 16px',
-  scrollMarginTop: 140,
+  scrollMarginTop: 170,
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: 24,
@@ -137,10 +109,6 @@ const MobileHeader = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
   gap: 16,
 
-  [theme.breakpoints.up('tablet_768')]: {
-    flexDirection: 'row',
-  },
-
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
@@ -148,9 +116,15 @@ const MobileHeader = styled('div')(({ theme }) => ({
 
 const HeaderGroupBox = styled('div')(({ theme }) => ({
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'space-between',
-  alignItems: 'center',
   gap: 16,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    gap: 24,
+    justifyContent: 'normal',
+  },
 
   [theme.breakpoints.up('desktop_1024')]: {
     marginBottom: 24,
@@ -178,36 +152,30 @@ const Code = styled('div')(({ theme }) => ({
 const Name = styled('div')(({ theme }) => ({
   color: theme.palette.mode === 'light' ? '#25273D' : '#D2D4EF',
   fontSize: 14,
-  fontWeight: 500,
+  fontWeight: 600,
   lineHeight: '18px',
 
   [theme.breakpoints.up('tablet_768')]: {
-    display: 'none',
-  },
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    display: 'block',
+    color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
     fontSize: 20,
     fontWeight: 600,
     lineHeight: 'normal',
     letterSpacing: 0.4,
-    color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
   },
 }));
 
 const MilestoneNumber = styled('div')(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? '#708390' : '#B6BCC2',
-  fontSize: 11,
+  display: 'flex',
+  gap: 8,
+  color: '#B6BCC2',
+  fontSize: 14,
+  fontWeight: 700,
   lineHeight: 'normal',
-  padding: '3px 7px',
-  borderRadius: 3,
-  border: '1px solid #D4D9E1',
-  alignSelf: 'baseline',
 
   [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 16,
-    fontWeight: 700,
-    alignSelf: 'center',
+    fontSize: 20,
+    fontWeight: 600,
+    letterSpacing: 0.4,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -257,7 +225,6 @@ const AsideContent = styled('div')(({ theme }) => ({
   gap: 16,
 
   [theme.breakpoints.up('tablet_768')]: {
-    gap: 32,
     width: 336,
     minWidth: 336,
   },
@@ -336,6 +303,11 @@ const Paragraph = styled('p')(({ theme }) => ({
 const MilestoneContent = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     paddingTop: 20,
+    maxWidth: 'calc(100% - 306px - 24px)',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    maxWidth: 'calc(100% - 383px - 48px)',
   },
 }));
 
@@ -345,6 +317,12 @@ const ShowOn1024Up = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'block',
   },
+}));
+
+const DescriptionContentForMobile = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
 }));
 
 const DescriptionContentForDesktop = styled('div')(() => ({

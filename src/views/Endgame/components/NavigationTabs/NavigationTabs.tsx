@@ -62,11 +62,14 @@ const NavigationTabs: FC<NavigationTabsProps> = ({ activeTab }) => {
 
 export default NavigationTabs;
 
-const Sticky = styled('div')({
+const Sticky = styled('div')(({ theme }) => ({
   position: 'sticky',
-  top: 98,
+  top: 64,
   zIndex: 2,
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    top: 98,
+  },
+}));
 
 const Wrapper = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#1B1E24',

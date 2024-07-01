@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
+// todo: remove this hook after all the legacy headers is replaced
 export const useHeaderSummary = (ref: React.RefObject<HTMLDivElement>, code: string) => {
   const router = useRouter();
   const url = router.query.code;

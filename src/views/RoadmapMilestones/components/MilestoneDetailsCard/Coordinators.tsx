@@ -1,35 +1,60 @@
-import { styled } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import AvatarPlaceholder from '@ses/components/svg/avatar-placeholder';
 import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
+import OwnerAvatarGroup from '../OwnerAvatarGroup/OwnerAvatarGroup';
+import type { Theme } from '@mui/material';
 
 interface CoordinatorsProps {
   coordinators: OwnerRef[];
 }
 
-const Coordinators: React.FC<CoordinatorsProps> = ({ coordinators }) => (
-  <CoordinatorsBox>
-    <Title>Coordinator(s)</Title>
+const Coordinators: React.FC<CoordinatorsProps> = ({ coordinators }) => {
+  const isMobileOrTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
-    <CoordinatorsList>
-      {coordinators.map((coordinator) => (
-        <Coordinator key={coordinator.id}>
-          <AvatarPlaceholder width={24} height={24} />
-          <CoordinatorName>{coordinator.name}</CoordinatorName>
-        </Coordinator>
-      ))}
-    </CoordinatorsList>
-  </CoordinatorsBox>
-);
+  return (
+    <CoordinatorsBox>
+      <Title>Coordinator(s)</Title>
+
+      {isMobileOrTablet ? (
+        <OwnerAvatarGroup tooltipTitle="Coordinators" owners={coordinators} />
+      ) : (
+        <CoordinatorsList>
+          {coordinators?.map((coordinator) => (
+            <Coordinator key={coordinator.id}>
+              <AvatarPlaceholder width={24} height={24} />
+              <CoordinatorName>{coordinator.name}</CoordinatorName>
+            </Coordinator>
+          ))}
+        </CoordinatorsList>
+      )}
+    </CoordinatorsBox>
+  );
+};
 
 export default Coordinators;
 
 const CoordinatorsBox = styled('div')(({ theme }) => ({
-  display: 'none',
-  flexDirection: 'column',
-  gap: 32,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  gap: 8,
+  padding: 15,
+  borderRadius: 6,
+  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#31424E'}`,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    borderRadius: 16,
+    gap: 32,
+  },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'normal',
+    justifyContent: 'normal',
+    padding: 0,
+    border: 'none',
+    gap: 24,
   },
 }));
 

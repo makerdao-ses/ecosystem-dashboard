@@ -14,6 +14,7 @@ import Link from 'next/link';
 import React, { useMemo } from 'react';
 import CircleAvatarWithIcon from '@/components/CircleAvatar/CircleAvatarWithIcon';
 import { AllowedOwnerType } from '@/views/BudgetStatement/types';
+import ExpenseReportStatusIndicator from '@/views/CoreUnitBudgetStatement/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import LastModifiedActorCoreUnit from '@/views/CoreUnitsIndex/components/LastModifiedActorCoreUnit/LastModifiedActorCoreUnit';
 import ExpenseReportStatusIndicator from '@/views/TransparencyReport/components/ExpenseReportStatusIndicator/ExpenseReportStatusIndicator';
 import { getLastActivityDate } from '../../utils/utils';

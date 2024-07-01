@@ -68,8 +68,8 @@ const TopBarNavigation: FC<Props> = ({ className }) => {
             </SelectContainer>
           </LeftSection>
           <CenterLinks>
-            {Object.values(getMenusAvailable).map((link) => (
-              <LinkNavBar href={link.link} label={link.title} selected={activeItem} />
+            {Object.values(getMenusAvailable).map((link, index) => (
+              <LinkNavBar href={link.link} label={link.title} selected={activeItem} key={index} />
             ))}
           </CenterLinks>
           <RightSection>
@@ -270,9 +270,6 @@ const LoginContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
-  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    display: 'none',
-  },
   [theme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
   },
@@ -309,9 +306,6 @@ const ContainerLogin = styled(IconContainer)(({ theme }) => ({
     display: 'none',
   },
 
-  [theme.breakpoints.between('desktop_1024', 'desktop_1280')]: {
-    display: 'flex',
-  },
   [theme.breakpoints.up('desktop_1280')]: {
     display: 'none',
   },

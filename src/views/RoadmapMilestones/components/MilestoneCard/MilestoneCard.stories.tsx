@@ -1,11 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { PowerhouseRoadmap2024 } from '../../staticData';
+import { DefaultRoadmap } from '../../staticData';
 import MilestoneCard from './MilestoneCard';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof MilestoneCard> = {
-  title: 'Fusion/Roadmap and Milestones/Milestone Card',
+  title: 'Fusion/Views/Roadmap and Milestones/Milestone Card',
   component: MilestoneCard,
   parameters: {
     chromatic: {
@@ -19,7 +19,7 @@ export default meta;
 
 const variantsArgs = [
   {
-    milestone: PowerhouseRoadmap2024.milestones[0],
+    milestone: DefaultRoadmap.milestones[0],
   },
 ];
 

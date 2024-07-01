@@ -1,10 +1,11 @@
-import ActorsTransparencyReportContainer from '@ses/containers/ActorsTransparencyReport/ActorsTransparencyReportContainer';
-import { fetchEcosystemActor } from '@ses/containers/ActorsTransparencyReport/api/queries';
 import { fetchExpenseCategories } from '@ses/containers/FinancesOverview/api/queries';
 import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
+import { getLastSnapshotPeriod } from '@/views/CoreUnitBudgetStatement/transparencyReportAPI';
+import EcosystemActorBudgetStatementView from '@/views/EcosystemActorBudgetStatement/EcosystemActorBudgetStatementView';
+import { fetchEcosystemActor } from '@/views/EcosystemActorBudgetStatement/api/queries';
 import { fetchActors } from '@/views/EcosystemActorsIndex/api/queries';
 import { getLastSnapshotPeriod } from '@/views/TransparencyReport/transparencyReportAPI';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
@@ -29,7 +30,7 @@ const EcosystemActorsTransparencyReportingPage: NextPage = ({
         setCurrentTeam: setCurrentActor,
       }}
     >
-      <ActorsTransparencyReportContainer
+      <EcosystemActorBudgetStatementView
         actor={currentActor}
         actors={actors}
         expenseCategories={expenseCategories}

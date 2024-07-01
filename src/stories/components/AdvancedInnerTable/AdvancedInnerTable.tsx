@@ -1,9 +1,10 @@
 import { styled } from '@mui/material';
 import React, { useId } from 'react';
-import { Title } from '@/views/TransparencyReport/TransparencyReportView';
-import { TransparencyEmptyTable } from '@/views/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
-import { OpenModalTransparency } from '@/views/TransparencyReport/transparencyReportUtils';
+import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
+
 import { useThemeContext } from '../../../core/context/ThemeContext';
+import { Title } from '../../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
+import { TransparencyEmptyTable } from '../../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { NumberCell } from '../NumberCell/NumberCell';
 import { TextCell } from '../TextCell/TextCell';
 import { TransparencyCard } from '../TransparencyCard/TransparencyCard';

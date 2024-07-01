@@ -2,14 +2,15 @@ import { styled } from '@mui/material';
 import AngleLeft from 'public/assets/svg/angle_left.svg';
 
 export interface PagerArrowsProps {
+  className?: string;
   hasPrevious: boolean;
   hasNext: boolean;
   onPrevious: () => void;
   onNext: () => void;
 }
 
-const PagerArrows: React.FC<PagerArrowsProps> = ({ hasPrevious, hasNext, onPrevious, onNext }) => (
-  <Container>
+const PagerArrows: React.FC<PagerArrowsProps> = ({ className, hasPrevious, hasNext, onPrevious, onNext }) => (
+  <Container className={className}>
     <Angle onClick={onPrevious} disabled={!hasPrevious} />
     <AngleRight onClick={onNext} disabled={!hasNext} />
   </Container>

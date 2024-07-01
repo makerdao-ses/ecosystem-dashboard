@@ -1,11 +1,11 @@
-import CommentsTab from '@ses/components/Tabs/CommentsTab/CommentsTab';
-
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import type { TableItems } from '@/views/TransparencyReport/TransparencyReportView';
-import { TRANSPARENCY_IDS_ENUM } from '@/views/TransparencyReport/useTransparencyReportView';
-import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from '@/views/TransparencyReport/utils/constants';
+import CommentsTab from '@/components/Tabs/CommentsTab/CommentsTab';
+import type { InternalTabsProps } from '@/components/Tabs/Tabs';
+import type { TableItems } from '@/views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
+import { TRANSPARENCY_IDS_ENUM } from '@/views/CoreUnitBudgetStatement/useCoreUnitBudgetStatementView';
+import { AUDITOR_VIEW_STORAGE_COLLECTION_KEY } from '@/views/CoreUnitBudgetStatement/utils/constants';
 import { useAuthContext } from '../context/AuthContext';
 import { useCookiesContextTracking } from '../context/CookiesContext';
 import { removeEmptyProperties } from '../utils/urls';
@@ -13,7 +13,6 @@ import UserActivityManager from '../utils/userActivity';
 import { useFlagsActive } from './useFlagsActive';
 import type { CommentsLastVisitState } from './useBudgetStatementComments';
 import type { LastVisitHandler } from '../utils/lastVisitHandler';
-import type { InternalTabsProps } from '@ses/components/Tabs/Tabs';
 
 interface AuditorViewStoragePayload {
   isAuditorViewEnabled: boolean;

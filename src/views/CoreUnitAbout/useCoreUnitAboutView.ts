@@ -5,6 +5,7 @@ import { getRelateMipObjectFromCoreUnit } from '@/core/businessLogic/coreUnitAbo
 import { TeamStatus } from '@/core/models/interfaces/types';
 import { getArrayParam, getStringParam } from '@/core/utils/filters';
 import { buildQueryString } from '@/core/utils/urls';
+import { useBreadcrumbCoreUnitPager } from './hooks';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { CuMip } from '@ses/core/models/interfaces/cuMip';
 
@@ -58,50 +59,7 @@ export const useCoreUnitAboutView = ({ cuAbout, coreUnits, code, setShowThreeMIP
     router.push(`/core-unit/${code}/activity-feed${queryStrings}`);
   }, [router, code, queryStrings]);
 
-  // breadcrumb pager
-  const filteredData = useMemo(
-    // apply filters coming from the index page to the pagination
-    () =>
-      coreUnits.filter((cu) => {
-        if (filteredCategories.length > 0 && !cu.category.some((category) => filteredCategories.includes(category))) {
-          return false;
-        }
-        if (filteredStatuses.length > 0 && !filteredStatuses.includes(cu.status)) {
-          return false;
-        }
-        if (
-          !!router.query.searchText &&
-          !cu.name.toLowerCase().includes((router.query.searchText as string).toLowerCase())
-        ) {
-          return false;
-        }
-
-        return true;
-      }),
-    [coreUnits, filteredCategories, filteredStatuses, router.query.searchText]
-  );
-
-  const currentPage = filteredData.findIndex((item) => item.shortCode === cuAbout.shortCode) + 1;
-  const totalPages = filteredData.length;
-  const hasPrevious = currentPage > 1;
-  const hasNext = currentPage < totalPages;
-
-  const changeTeam = useCallback(
-    (direction: -1 | 1) => () => {
-      const index = filteredData?.findIndex((item) => item.shortCode === cuAbout.shortCode);
-      const newIndex = index + direction;
-      if (newIndex >= 0 && newIndex < filteredData?.length) {
-        const queryStrings = buildQueryString({
-          ...router.query,
-          filteredCategories,
-          code: null, // override the Actors code to avoid add it to the query string
-        });
-
-        router.push(`${router.route.replace('[code]', filteredData[newIndex].shortCode)}${queryStrings}`);
-      }
-    },
-    [cuAbout.shortCode, filteredCategories, filteredData, router]
-  );
+  const pager = useBreadcrumbCoreUnitPager(cuAbout, coreUnits);
 
   return {
     onClickLessMips,
@@ -112,13 +70,6 @@ export const useCoreUnitAboutView = ({ cuAbout, coreUnits, code, setShowThreeMIP
     setShowThreeMIPs,
     onClickActivity,
     queryStrings,
-    pager: {
-      currentPage,
-      totalPages,
-      hasPrevious,
-      hasNext,
-      onNext: changeTeam(1),
-      onPrevious: changeTeam(-1),
-    },
+    pager,
   };
 };

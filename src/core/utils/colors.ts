@@ -1,3 +1,4 @@
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import { TeamScopeEnum } from '../enums/actorScopeEnum';
 import { CuCategoryEnum } from '../enums/cuCategoryEnum';
 import { CuJobEnum } from '../enums/cuJobEnum';
@@ -225,32 +226,32 @@ export const getExpenseReportStatusColor = (
   switch (variant) {
     case BudgetStatus.Review:
       return {
-        color: '#F08B04',
-        darkColor: '#F08B04',
-        background: '#FFF9ED',
-        darkBackground: '#533905',
+        color: colorPalette.orange[800],
+        darkColor: colorPalette.orange[100],
+        background: colorPalette.orange[100],
+        darkBackground: 'rgba(255, 138, 0, 0.40)',
       };
     case BudgetStatus.Final:
       return {
-        color: '#1AAB9B',
-        darkColor: '#1AAB9B',
-        background: '#E7FCFA',
-        darkBackground: '#044942',
+        color: colorPalette.green[800],
+        darkColor: colorPalette.green[50],
+        background: colorPalette.green[100],
+        darkBackground: 'rgba(52, 168, 83, 0.40)',
       };
     case BudgetStatus.Escalated:
       return {
-        color: '#EB4714',
-        darkColor: '#EB4714',
-        background: '#FDEDE8',
-        darkBackground: '#481403',
+        color: colorPalette.red[800],
+        darkColor: colorPalette.red[100],
+        background: colorPalette.red[100],
+        darkBackground: 'rgba(234, 67, 53, 0.40)',
       };
 
     default: // default to draft
       return {
-        color: '#447AFB',
-        darkColor: '#447AFB',
-        background: '#EDF2FF',
-        darkBackground: '#061D58',
+        color: colorPalette.blue[800],
+        darkColor: colorPalette.blue[50],
+        background: colorPalette.blue[100],
+        darkBackground: 'rgba(0, 132, 255, 0.40)',
       };
   }
 };

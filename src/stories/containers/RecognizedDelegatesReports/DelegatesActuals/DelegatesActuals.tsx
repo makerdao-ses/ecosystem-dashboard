@@ -6,7 +6,7 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import { TransparencyEmptyTable } from '@/views/TransparencyReport/components/Placeholders/TransparencyEmptyTable';
+import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { useDelegatesActuals } from './useDelegatesActuals';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';

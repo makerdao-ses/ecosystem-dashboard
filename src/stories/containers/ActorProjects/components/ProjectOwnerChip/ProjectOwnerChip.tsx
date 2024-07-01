@@ -1,37 +1,27 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React from 'react';
+import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
 import type { Owner } from '@ses/core/models/interfaces/projects';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ProjectOwnerChipProps {
-  owner: Owner;
+  tooltipText?: string;
+  owner: Owner | OwnerRef;
 }
 
-const ProjectOwnerChip: React.FC<ProjectOwnerChipProps> = ({ owner }) => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <SESTooltip content={<TooltipText>Owner</TooltipText>} placement="bottom-start">
-      <OwnerChip
-        isLight={isLight}
-        label={owner.name}
-        avatar={
-          <Avatar src="https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/PHOENIX/PHOENIX_logo.png" />
-        }
-      />
-    </SESTooltip>
-  );
-};
+const ProjectOwnerChip: React.FC<ProjectOwnerChipProps> = ({ owner, tooltipText = 'Owner' }) => (
+  <SESTooltip content={<TooltipText>{tooltipText}</TooltipText>} placement="bottom-start">
+    <OwnerChip label={owner.name} avatar={<Avatar src={(owner as OwnerRef).imageUrl} />} />
+  </SESTooltip>
+);
 
 export default ProjectOwnerChip;
 
-const OwnerChip = styled(Chip)<WithIsLight>(({ isLight }) => ({
-  background: isLight ? '#fff' : '#10191F',
-  border: `1px solid ${isLight ? '#D4D9E1' : '#343442'}`,
+const OwnerChip = styled(Chip)(({ theme }) => ({
+  background: theme.palette.isLight ? '#fff' : '#10191F',
+  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#343442'}`,
   borderRadius: 20,
   padding: '3px 7px 3px 3px',
   color: '#708390',
@@ -50,7 +40,7 @@ const OwnerChip = styled(Chip)<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const TooltipText = styled.div({
+const TooltipText = styled('div')({
   fontWeight: 700,
   fontSize: 16,
   lineHeight: 'normal',

@@ -20,7 +20,7 @@ export const currentTeams = [
       // eslint-disable-next-line spellcheck/spell-checker
       "Aligned Delegates (ADs) are anonymous Alignment Conservers who use the Protocol Delegation System to enable MKR holders to delegate their voting power. ADs hold significant power and responsibility to maintain the Universal Alignment of the Maker Ecosystem. They must adhere to strict requirements and provide governance information and research material to AVCs, focusing on safeguarding the protocol's alignment.",
     teams: 16,
-    href: siteRoutes.finances('immutable/aligned-delegates?year=2023'),
+    href: siteRoutes.finances('immutable/aligned-delegates?year=2024'),
   },
   {
     type: 'contributor',
@@ -28,7 +28,7 @@ export const currentTeams = [
     description:
       "Keepers are a specialized type of contributor entity that manage and operate certain decentralized financial operations within the Maker Ecosystem. They are responsible for performing functions such as maintaining the stability of the Dai stablecoin by participating in liquidation auctions and other mechanisms that ensure the system's resilience and efficiency. Keepers play a vital role in the decentralized operations of MakerDAO, helping to maintain the economic health and stability of the ecosystem.",
     teams: 4,
-    href: siteRoutes.finances('scopes/PRO/KPRS?year=2023'),
+    href: siteRoutes.finances('scopes/PRO/KPRS?year=2024'),
   },
 ] as TeamType[];
 
@@ -55,6 +55,6 @@ export const legacyTeams = [
     description:
       "Special Purpose Funds were designated pools of capital allocated by Maker Governance for specific initiatives that supported the protocol's strategic objectives. These funds were used to finance projects that ranged from ecosystem development and marketing efforts to security audits and community grants. SPFs provided MakerDAO with the flexibility to invest in opportunities that enhanced the protocol's robustness, growth, and adoption, ensuring that it remained competitive and innovative within the DeFi space.",
     teams: 19,
-    href: siteRoutes.finances('legacy/spfs?year=2023'),
+    href: siteRoutes.finances('legacy/spfs?year=2024'),
   },
 ] as TeamType[];
