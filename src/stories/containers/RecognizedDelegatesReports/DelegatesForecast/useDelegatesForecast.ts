@@ -1,15 +1,12 @@
 import { getAllWallets } from '@ses/core/utils/finances';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import type { InnerTableColumn, InnerTableRow, RowType } from '@/components/AdvancedInnerTable/types';
 import { renderWallet } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
 import { getWalletWidthForWallets } from '../../../../core/utils/string';
-import type {
-  InnerTableColumn,
-  InnerTableRow,
-  RowType,
-} from '../../../../components/AdvancedInnerTable/AdvancedInnerTable';
+
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementLineItem } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
