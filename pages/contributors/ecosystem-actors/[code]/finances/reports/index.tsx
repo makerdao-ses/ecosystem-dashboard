@@ -7,7 +7,6 @@ import { getLastSnapshotPeriod } from '@/views/CoreUnitBudgetStatement/transpare
 import EcosystemActorBudgetStatementView from '@/views/EcosystemActorBudgetStatement/EcosystemActorBudgetStatementView';
 import { fetchEcosystemActor } from '@/views/EcosystemActorBudgetStatement/api/queries';
 import { fetchActors } from '@/views/EcosystemActorsIndex/api/queries';
-import { getLastSnapshotPeriod } from '@/views/TransparencyReport/transparencyReportAPI';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
 const EcosystemActorsTransparencyReportingPage: NextPage = ({

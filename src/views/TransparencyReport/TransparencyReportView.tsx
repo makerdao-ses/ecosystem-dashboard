@@ -1,22 +1,23 @@
 import { styled } from '@mui/material';
-import Tabs from '@ses/components/Tabs/Tabs';
-import BudgetStatementPager from '@ses/components/TransparencyReporting/BudgetStatementPager/BudgetStatementPager';
 import { siteRoutes } from '@ses/config/routes';
 import { ModalCategoriesProvider } from '@ses/core/context/CategoryModalContext';
 import { useHeaderSummary } from '@ses/core/hooks/useHeaderSummary';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import React, { useRef } from 'react';
 import AccountsSnapshotTabContainer from '@/components/AccountsSnapshot/AccountsSnapshotTabContainer';
+import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import Tabs from '@/components/Tabs/Tabs';
 import { CommentActivityContext } from '@/core/context/CommentActivityContext';
 import { useFlagsActive } from '@/core/hooks/useFlagsActive';
 import { toAbsoluteURL } from '@/core/utils/urls';
 import { CoreUnitSummary } from '@/stories/components/CoreUnitSummary/CoreUnitSummary';
 import { SEOHead } from '@/stories/components/SEOHead/SEOHead';
+import ExpenseReport from '../CoreUnitBudgetStatement/components/ExpenseReport/ExpenseReport';
 import AdditionalNotesSection from './components/AdditionalNotesSection/AdditionalNotesSection';
 import CuHeadlineText from './components/CuHeadlineText/CuHeadlineText';
-import ExpenseReport from './components/ExpenseReport/ExpenseReport';
+
 import { TransparencyActuals } from './components/TransparencyActuals/TransparencyActuals';
 import { TransparencyAudit } from './components/TransparencyAudit/TransparencyAudit';
 import AuditorCommentsContainer from './components/TransparencyAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
@@ -230,7 +231,7 @@ export const Title = styled('div')<{
   lineHeight: '19px',
   marginTop,
   letterSpacing: '0.4px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   marginBottom: `${marginBottom}px`,
 
   [theme.breakpoints.up('tablet_768')]: {
