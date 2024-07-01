@@ -38,14 +38,14 @@ const AdditionalNotesSection: FC<Props> = ({ coreUnit }) => (
           </div>
         )}
       </Paragraph>
-      {/* {coreUnit.legacyBudgetStatementUrl && ( */}
-      <QuestionContainer>
-        <Question>Is this your core unit?</Question>
-        <ExternalLinkButtonStyled href={coreUnit.legacyBudgetStatementUrl || ''}>
-          Learn how to submit your expenses
-        </ExternalLinkButtonStyled>
-      </QuestionContainer>
-      {/* )} */}
+      {coreUnit.legacyBudgetStatementUrl && (
+        <QuestionContainer>
+          <Question>Is this your core unit?</Question>
+          <ExternalLinkButtonStyled href={coreUnit.legacyBudgetStatementUrl || ''}>
+            Learn how to submit your expenses
+          </ExternalLinkButtonStyled>
+        </QuestionContainer>
+      )}
     </NotesSection>
   </Container>
 );
@@ -64,7 +64,7 @@ const NotesSection = styled('div')(({ theme }) => ({
 
 const TitleAdditionalNotes = styled('div')(({ theme }) => ({
   marginTop: 32,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   fontFamily: 'Inter ,sans-serif',
   fontSize: 16,
   fontStyle: 'normal',
@@ -83,7 +83,7 @@ const Paragraph = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: '16px',
   },
@@ -96,7 +96,7 @@ const QuestionContainer = styled('div')({
 });
 
 const Question = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   fontFamily: 'Inter, sans-serif',
   fontSize: 14,
   fontStyle: 'normal',
