@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { BudgetStatus } from '@/core/models/dto/coreUnitDTO';
-import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
+import ExpenseReportStatus from '@/views/CoreUnitBudgetStatement/components/ExpenseReportStatus/ExpenseReportStatus';
 
 export type ExpenseReportStatusIndicatorProps = {
   budgetStatus?: BudgetStatus;
