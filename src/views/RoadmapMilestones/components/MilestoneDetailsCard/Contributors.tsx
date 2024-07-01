@@ -1,4 +1,6 @@
 import { Avatar, styled, useMediaQuery } from '@mui/material';
+import Link from 'next/link';
+import { siteRoutes } from '@/config/routes';
 import type { OwnerRef } from '@/core/models/interfaces/roadmaps';
 import ProjectOwnerChip from '@/stories/containers/ActorProjects/components/ProjectOwnerChip/ProjectOwnerChip';
 import OwnerAvatarGroup from '../OwnerAvatarGroup/OwnerAvatarGroup';
@@ -24,7 +26,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }) => {
       ) : (
         <ActorList>
           {contributors.map((contributor) => (
-            <Actor key={contributor.id}>
+            <Actor key={contributor.id} href={siteRoutes.ecosystemActorAbout(contributor.code)}>
               <ActorAvatar src={contributor.imageUrl} />
               <ActorName>{contributor.name}</ActorName>
             </Actor>
@@ -78,7 +80,7 @@ const ActorList = styled('div')(() => ({
   gap: 16,
 }));
 
-const Actor = styled('div')({
+const Actor = styled(Link)({
   display: 'flex',
   alignItems: 'center',
   gap: 16,
