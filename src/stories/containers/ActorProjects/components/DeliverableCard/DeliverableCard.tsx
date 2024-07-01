@@ -57,11 +57,7 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
           ))}
       </ProgressContainer>
 
-      {(viewMode === 'detailed' || expanded) && (
-        <Description>
-          Purely financial view of SPFs with generalized financial categories applicable across all budget categories.
-        </Description>
-      )}
+      {(viewMode === 'detailed' || expanded) && <Description>{deliverable.description}</Description>}
       <KeyBox>
         {isProjectCard ? (
           <MilestoneLink />
@@ -155,12 +151,11 @@ const ProgressContainer = styled('div')({
 const Description = styled('p')(({ theme }) => ({
   margin: 0,
   fontSize: 14,
-  lineHeight: 'normal',
+  lineHeight: '22px',
   color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
-    lineHeight: '22px',
   },
 }));
 
