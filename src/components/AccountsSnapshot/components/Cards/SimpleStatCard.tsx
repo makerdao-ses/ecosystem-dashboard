@@ -1,14 +1,10 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled, useMediaQuery } from '@mui/material';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
-import React from 'react';
 import DefaultCountUp from '../DefaultCountUp/DefaultCountUp';
 import EqualSign from '../SVG/Equals';
 import OutlinedCard from './OutlinedCard';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { Theme } from '@mui/material';
 
 interface SimpleStatCardProps {
   date?: string;
@@ -27,14 +23,11 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
   isReserves = false,
   dynamicChanges = false,
 }) => {
-  const { isLight } = useThemeContext();
-  const isTablet = useMediaQuery(lightTheme.breakpoints.down('desktop_1194'));
+  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1194'));
 
   return (
     <Card>
-      <Date isLight={isLight} align={hasEqualSign ? 'right' : 'left'}>
-        {date ? DateTime.fromISO(date).toFormat('d MMM y') : 'N/A'}
-      </Date>
+      <Date align={hasEqualSign ? 'right' : 'left'}>{date ? DateTime.fromISO(date).toFormat('d MMM y') : 'N/A'}</Date>
 
       <ContentWrapper>
         {hasEqualSign && (
@@ -43,7 +36,7 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
           </EqualSignContainer>
         )}
         <Wrapper>
-          <Value isLight={isLight}>
+          <Value>
             {value !== undefined ? (
               <>
                 {dynamicChanges ? (
@@ -57,7 +50,7 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
               'N/A'
             )}
           </Value>
-          <Caption isLight={isLight} position={hasEqualSign ? 'right' : 'left'} isReserves={isReserves}>
+          <Caption position={hasEqualSign ? 'right' : 'left'} isReserves={isReserves}>
             {caption}
           </Caption>
         </Wrapper>
@@ -68,36 +61,36 @@ const SimpleStatCard: React.FC<SimpleStatCardProps> = ({
 
 export default SimpleStatCard;
 
-const Card = styled(OutlinedCard)({
+const Card = styled(OutlinedCard)(({ theme }) => ({
   padding: '7px 15px 15px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     padding: '15px 11px 15px 15px',
     minWidth: 182,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: '24px 10.5px 23px 15px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     padding: '24px 23px 23px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '24px 31px 23px',
   },
-});
+}));
 
-const Date = styled.div<WithIsLight & { align: 'right' | 'left' }>(({ isLight, align }) => ({
-  color: isLight ? '#708390' : '#708390',
+const Date = styled('div')<{ align: 'right' | 'left' }>(({ theme, align }) => ({
+  color: theme.palette.isLight ? '#708390' : '#708390',
   fontWeight: 600,
   fontSize: 11,
   lineHeight: '13px',
   textTransform: 'uppercase',
   textAlign: align,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     fontSize: 12,
     lineHeight: '15px',
     letterSpacing: 1,
@@ -105,50 +98,50 @@ const Date = styled.div<WithIsLight & { align: 'right' | 'left' }>(({ isLight, a
   },
 }));
 
-const ContentWrapper = styled.div({
+const ContentWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   marginTop: 15,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     marginTop: 25,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginTop: 33,
   },
-});
+}));
 
-const EqualSignContainer = styled.div({
+const EqualSignContainer = styled('div')(({ theme }) => ({
   marginTop: -3,
   marginRight: 6,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     marginRight: 'auto',
     marginTop: 0,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginRight: 16,
     marginTop: 7,
   },
-});
+}));
 
-const Wrapper = styled.div({
+const Wrapper = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
 
-const Value = styled.div<WithIsLight>(({ isLight }) => ({
+const Value = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'baseline',
   fontWeight: 700,
   fontSize: 16,
   lineHeight: '19px',
   letterSpacing: 0.3,
-  color: isLight ? '#231536' : '#EDEFFF',
+  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     fontWeight: 600,
     fontSize: 20,
     lineHeight: '24px',
@@ -156,7 +149,7 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
     fontFeatureSettings: 'normal',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontWeight: 500,
     fontSize: 30,
     lineHeight: '36px',
@@ -169,36 +162,36 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
     lineHeight: '15px',
     letterSpacing: 0.3,
     fontFeatureSettings: "'tnum' on, 'lnum' on",
-    color: isLight ? '#9FAFB9' : '#708390',
+    color: theme.palette.isLight ? '#9FAFB9' : '#708390',
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('table_834')]: {
       fontSize: 16,
       lineHeight: '19px',
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
+    [theme.breakpoints.up('desktop_1194')]: {
       fontSize: 16,
     },
   },
 }));
 
-const Caption = styled.div<WithIsLight & { position: 'left' | 'right'; isReserves: boolean }>(
-  ({ isLight, position, isReserves }) => ({
+const Caption = styled('div')<{ position: 'left' | 'right'; isReserves: boolean }>(
+  ({ theme, position, isReserves }) => ({
     fontSize: 11,
     lineHeight: '13px',
-    color: isLight ? '#708390' : '#708390',
+    color: theme.palette.isLight ? '#708390' : '#708390',
     marginTop: 4,
     ...(isReserves && {
       marginLeft: -13,
     }),
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('table_834')]: {
       marginTop: 8,
       textAlign: position,
       ...(position === 'right' && { marginRight: 2 }),
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
+    [theme.breakpoints.up('desktop_1194')]: {
       fontSize: 16,
       lineHeight: '22px',
       textAlign: 'left',

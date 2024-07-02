@@ -1,10 +1,7 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import DefaultCountUp from '../DefaultCountUp/DefaultCountUp';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type ValueColor = 'normal' | 'green';
 
@@ -54,8 +51,8 @@ const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({
           </MinusSVG>
         )}
       </SignContainer>
-      <Card isLight={isLight} sign={sign}>
-        <Value isLight={isLight} valueColor={valueColor}>
+      <Card sign={sign}>
+        <Value valueColor={valueColor}>
           {value !== undefined ? (
             <>
               {dynamicChanges ? (
@@ -69,7 +66,7 @@ const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({
             'N/A'
           )}
         </Value>
-        <Text isLight={isLight}>{text}</Text>
+        <Text>{text}</Text>
       </Card>
     </Container>
   );
@@ -77,64 +74,64 @@ const NumberWithSignCard: React.FC<NumberWithSignCardProps> = ({
 
 export default NumberWithSignCard;
 
-const Container = styled.div({
+const Container = styled('div')({
   display: 'flex',
   width: '100%',
 });
 
-const SignContainer = styled.div({
+const SignContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   marginRight: 4,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginRight: 8,
   },
-});
+}));
 
-const PlusSVG = styled.svg({
+const PlusSVG = styled('svg')(({ theme }) => ({
   width: 16,
   height: 16,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 24,
     height: 24,
   },
-});
+}));
 
-const MinusSVG = styled.svg({
+const MinusSVG = styled('svg')(({ theme }) => ({
   width: 16,
   height: 4,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 24,
     height: 4,
   },
-});
+}));
 
-const Card = styled.div<WithIsLight & { sign: 'positive' | 'negative' }>(({ isLight, sign }) => ({
+const Card = styled('div')<{ sign: 'positive' | 'negative' }>(({ theme, sign }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   minWidth: 167,
   width: '100%',
   padding: 8,
-  background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'rgba(72, 73, 95, 0.25)',
+  background: theme.palette.isLight ? 'rgba(236, 239, 249, 0.5)' : 'rgba(72, 73, 95, 0.25)',
   borderRadius: 6,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     minWidth: sign === 'positive' ? 159 : 167,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     minWidth: sign === 'positive' ? 224 : 235,
   },
 }));
 
-const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, valueColor }) => {
-  let color = isLight ? '#231536' : '#EDEFFF'; // normal
+const Value = styled('div')<{ valueColor: ValueColor }>(({ theme, valueColor }) => {
+  let color = theme.palette.isLight ? '#231536' : '#EDEFFF'; // normal
   if (valueColor === 'green') {
-    color = isLight ? '#1AAB9B' : '#2DC1B1';
+    color = theme.palette.isLight ? '#1AAB9B' : '#2DC1B1';
   }
 
   return {
@@ -148,7 +145,7 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
     color,
     textAlign: 'center',
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('table_834')]: {
       fontWeight: 600,
       fontSize: 20,
       lineHeight: '24px',
@@ -156,7 +153,7 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
       fontFeatureSettings: 'normal',
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
+    [theme.breakpoints.up('desktop_1194')]: {
       fontWeight: 500,
       fontSize: 30,
       lineHeight: '36px',
@@ -169,9 +166,9 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
       lineHeight: '15px',
       letterSpacing: 0.3,
       fontFeatureSettings: "'tnum' on, 'lnum' on",
-      color: isLight ? '#9FAFB9' : '#708390',
+      color: theme.palette.isLight ? '#9FAFB9' : '#708390',
 
-      [lightTheme.breakpoints.up('table_834')]: {
+      [theme.breakpoints.up('table_834')]: {
         fontSize: 16,
         lineHeight: '19px',
       },
@@ -179,13 +176,13 @@ const Value = styled.div<WithIsLight & { valueColor: ValueColor }>(({ isLight, v
   };
 });
 
-const Text = styled.div<WithIsLight>(({ isLight }) => ({
+const Text = styled('div')(({ theme }) => ({
   fontSize: 11,
   lineHeight: '13px',
-  color: isLight ? '#708390' : '#708390',
+  color: theme.palette.isLight ? '#708390' : '#708390',
   marginTop: 4,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 16,
     lineHeight: '22px',
   },

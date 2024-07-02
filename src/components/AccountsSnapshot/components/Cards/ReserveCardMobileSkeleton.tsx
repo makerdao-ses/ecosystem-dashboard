@@ -1,77 +1,70 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React from 'react';
+import { styled } from '@mui/material';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ReserveCardMobileSkeletonProps {
   isGroup: boolean;
 }
 
-const ReserveCardMobileSkeleton: React.FC<ReserveCardMobileSkeletonProps> = ({ isGroup }) => {
-  const { isLight } = useThemeContext();
+const ReserveCardMobileSkeleton: React.FC<ReserveCardMobileSkeletonProps> = ({ isGroup }) => (
+  <Card>
+    {isGroup ? (
+      <TitleSkeleton />
+    ) : (
+      <AccountTitleContainer>
+        <AccountAvatarSkeleton variant="circular" />
+        <AccountInfo>
+          <AccountNameSkeleton />
+          <AccountAddressSkeleton />
+        </AccountInfo>
+      </AccountTitleContainer>
+    )}
 
-  return (
-    <Card isLight={isLight}>
-      {isGroup ? (
-        <TitleSkeleton isLight={isLight} />
-      ) : (
-        <AccountTitleContainer>
-          <AccountAvatarSkeleton isLight={isLight} variant="circular" />
-          <AccountInfo>
-            <AccountNameSkeleton isLight={isLight} />
-            <AccountAddressSkeleton isLight={isLight} />
-          </AccountInfo>
-        </AccountTitleContainer>
-      )}
-
-      <Content>
-        <Line>
-          <BaseTextSkeleton isLight={isLight} width={92} />
-          <ValueContainer>
-            <BaseTextSkeleton isLight={isLight} width={59} />
-            <CurrencySkeleton isLight={isLight} />
-          </ValueContainer>
-        </Line>
-        <Line>
-          <BaseTextSkeleton isLight={isLight} width={40} />
-          <ValueContainer>
-            <BaseTextSkeleton isLight={isLight} width={10} />
-            <BaseTextSkeleton isLight={isLight} width={61} />
-            <CurrencySkeleton isLight={isLight} />
-          </ValueContainer>
-        </Line>
-        <Line>
-          <BaseTextSkeleton isLight={isLight} width={52} />
-          <ValueContainer>
-            <BaseTextSkeleton isLight={isLight} width={7} />
-            <BaseTextSkeleton isLight={isLight} width={61} />
-            <CurrencySkeleton isLight={isLight} />
-          </ValueContainer>
-        </Line>
-        <Line>
-          <BaseTextSkeleton isLight={isLight} width={87} />
-          <ValueContainer>
-            <BaseTextSkeleton isLight={isLight} width={59} />
-            <CurrencySkeleton isLight={isLight} />
-          </ValueContainer>
-        </Line>
-      </Content>
-    </Card>
-  );
-};
+    <Content>
+      <Line>
+        <BaseTextSkeleton width={92} />
+        <ValueContainer>
+          <BaseTextSkeleton width={59} />
+          <CurrencySkeleton />
+        </ValueContainer>
+      </Line>
+      <Line>
+        <BaseTextSkeleton width={40} />
+        <ValueContainer>
+          <BaseTextSkeleton width={10} />
+          <BaseTextSkeleton width={61} />
+          <CurrencySkeleton />
+        </ValueContainer>
+      </Line>
+      <Line>
+        <BaseTextSkeleton width={52} />
+        <ValueContainer>
+          <BaseTextSkeleton width={7} />
+          <BaseTextSkeleton width={61} />
+          <CurrencySkeleton />
+        </ValueContainer>
+      </Line>
+      <Line>
+        <BaseTextSkeleton width={87} />
+        <ValueContainer>
+          <BaseTextSkeleton width={59} />
+          <CurrencySkeleton />
+        </ValueContainer>
+      </Line>
+    </Content>
+  </Card>
+);
 
 export default ReserveCardMobileSkeleton;
 
-const Card = styled.div<WithIsLight>(({ isLight }) => ({
+const Card = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   borderRadius: 6,
   gap: 29,
   padding: '16px 24px 24px',
 
-  backgroundColor: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight
+  backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: theme.palette.isLight
     ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)'
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
@@ -81,13 +74,13 @@ const TitleSkeleton = styled(BaseSkeleton)({
   height: 14,
 });
 
-const Content = styled.div({
+const Content = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
 });
 
-const Line = styled.div({
+const Line = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
 
@@ -107,7 +100,7 @@ const BaseTextSkeleton = styled(BaseSkeleton)({
   height: 12.25,
 });
 
-const ValueContainer = styled.div({
+const ValueContainer = styled('div')({
   display: 'flex',
   gap: 4,
   alignItems: 'flex-end',
@@ -118,7 +111,7 @@ const CurrencySkeleton = styled(BaseSkeleton)({
   width: 23,
 });
 
-const AccountTitleContainer = styled.div({
+const AccountTitleContainer = styled('div')({
   display: 'flex',
   gap: 16,
   alignItems: 'center',
@@ -130,7 +123,7 @@ const AccountAvatarSkeleton = styled(BaseSkeleton)({
   width: 32,
 });
 
-const AccountInfo = styled.div({
+const AccountInfo = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 9.5,

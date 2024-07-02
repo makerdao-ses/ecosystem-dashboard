@@ -1,14 +1,9 @@
-import styled from '@emotion/styled';
-import { alpha } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { alpha, styled } from '@mui/material';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
 import GreenArrowDown from '../SVG/GreenArrowDown';
 import RedArrowUp from '../SVG/RedArrowUp';
 import WalletInfo from '../WalletInfo/WalletInfo';
 import type { Token } from '@ses/core/models/dto/snapshotAccountDTO';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface GroupItemProps {
   name: string;
@@ -28,97 +23,93 @@ const GroupItem: React.FC<GroupItemProps> = ({
   outflow,
   newBalance,
   currency,
-}) => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <GroupItemContainer isLight={isLight}>
-      <WalletContainer>
-        <WalletInfo name={name} address={address} />
-      </WalletContainer>
-      <InitialBalance>
-        <Label isLight={isLight}>Initial Balance</Label>
-        <Value isLight={isLight}>
-          {usLocalizedNumber(initialBalance)} <Currency isLight={isLight}>{currency}</Currency>
+}) => (
+  <GroupItemContainer>
+    <WalletContainer>
+      <WalletInfo name={name} address={address} />
+    </WalletContainer>
+    <InitialBalance>
+      <Label>Initial Balance</Label>
+      <Value>
+        {usLocalizedNumber(initialBalance)} <Currency>{currency}</Currency>
+      </Value>
+    </InitialBalance>
+    <Inflow>
+      <Label>
+        <GreenArrowDown width={16} height={16} /> Inflow
+      </Label>
+      <ValueContainer>
+        <GreenArrowDown width={16} height={16} />
+        <Value>
+          <Sign>{'+'}</Sign>
+          {usLocalizedNumber(inflow)} <Currency>{currency}</Currency>
         </Value>
-      </InitialBalance>
-      <Inflow>
-        <Label isLight={isLight}>
-          <GreenArrowDown width={16} height={16} /> Inflow
-        </Label>
-        <ValueContainer>
-          <GreenArrowDown width={16} height={16} />
-          <Value isLight={isLight}>
-            <Sign>{'+'}</Sign>
-            {usLocalizedNumber(inflow)} <Currency isLight={isLight}>{currency}</Currency>
-          </Value>
-        </ValueContainer>
-      </Inflow>
-      <Outflow>
-        <Label isLight={isLight}>
-          <RedArrowUp width={16} height={16} />
-          Outflow
-        </Label>
-        <ValueContainer>
-          <RedArrowUp width={16} height={16} />
-          <Value isLight={isLight}>
-            <Sign>{'-'}</Sign>
-            {usLocalizedNumber(Math.abs(outflow))} <Currency isLight={isLight}>{currency}</Currency>
-          </Value>
-        </ValueContainer>
-      </Outflow>
-      <NewBalance>
-        <Label isLight={isLight}>New Balance</Label>
-        <Value isLight={isLight}>
-          <span>{usLocalizedNumber(Math.abs(newBalance))}</span> <Currency isLight={isLight}>{currency}</Currency>
+      </ValueContainer>
+    </Inflow>
+    <Outflow>
+      <Label>
+        <RedArrowUp width={16} height={16} />
+        Outflow
+      </Label>
+      <ValueContainer>
+        <RedArrowUp width={16} height={16} />
+        <Value>
+          <Sign>{'-'}</Sign>
+          {usLocalizedNumber(Math.abs(outflow))} <Currency>{currency}</Currency>
         </Value>
-      </NewBalance>
-    </GroupItemContainer>
-  );
-};
+      </ValueContainer>
+    </Outflow>
+    <NewBalance>
+      <Label>New Balance</Label>
+      <Value>
+        <span>{usLocalizedNumber(Math.abs(newBalance))}</span> <Currency>{currency}</Currency>
+      </Value>
+    </NewBalance>
+  </GroupItemContainer>
+);
 
 export default GroupItem;
 
-const GroupItemContainer = styled.div<WithIsLight>(({ isLight }) => ({
+const GroupItemContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '20px 16px 24px',
   borderRadius: 6,
   overflow: 'hidden',
-  background: isLight ? alpha('#ECEFF9', 0.5) : '#26313F',
-  boxShadow: isLight
+  background: theme.palette.isLight ? alpha('#ECEFF9', 0.5) : '#26313F',
+  boxShadow: theme.palette.isLight
     ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
     : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    background: isLight ? alpha('#ECEFF9', 0.5) : '#283341',
+  [theme.breakpoints.up('table_834')]: {
+    background: theme.palette.isLight ? alpha('#ECEFF9', 0.5) : '#283341',
     flexDirection: 'row',
     padding: '20px 32px 16px 16px',
     borderRadius: 0,
     boxShadow: 'none',
 
     '&:hover': {
-      background: isLight ? '#F6F8F9' : '#1F2931',
+      background: theme.palette.isLight ? '#F6F8F9' : '#1F2931',
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: '19px 56px 16px 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     padding: '19px 64px 16px 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '19px 80px 16px 16px',
   },
 }));
 
-const WalletContainer = styled.div({
+const WalletContainer = styled('div')(({ theme }) => ({
   marginBottom: 24,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     marginBottom: 0,
     width: 'calc(205px + 16.1%)',
 
@@ -127,33 +118,33 @@ const WalletContainer = styled.div({
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 'calc(295px + 16.4%)',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 'calc(295px + 16.7%)',
   },
-});
+}));
 
-const InitialBalance = styled.div({
+const InitialBalance = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     display: 'none',
   },
-});
+}));
 
-const Label = styled.div<WithIsLight>(({ isLight }) => ({
+const Label = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#708390' : '#708390',
+  color: theme.palette.isLight ? '#708390' : '#708390',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     fontSize: 11,
     lineHeight: '13px',
 
@@ -162,13 +153,13 @@ const Label = styled.div<WithIsLight>(({ isLight }) => ({
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 12,
     lineHeight: '15px',
   },
 }));
 
-const ValueContainer = styled.div({
+const ValueContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   flexWrap: 'wrap',
@@ -178,14 +169,14 @@ const ValueContainer = styled.div({
     display: 'none',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     '& > svg': {
       display: 'inline-block',
     },
   },
-});
+}));
 
-const Value = styled.div<WithIsLight>(({ isLight }) => ({
+const Value = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'baseline',
   flexWrap: 'wrap',
@@ -195,42 +186,42 @@ const Value = styled.div<WithIsLight>(({ isLight }) => ({
   lineHeight: '17px',
 
   '&, & > span:first-of-type': {
-    color: isLight ? '#231536' : '#D2D4EF',
+    color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 16,
     lineHeight: '19px',
   },
 }));
 
-const Sign = styled.span({
+const Sign = styled('span')({
   fontWeight: 700,
   fontSize: 14,
   lineHeight: '17px',
 });
 
-const Currency = styled.span<WithIsLight>(({ isLight }) => ({
+const Currency = styled('span')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 12,
   lineHeight: '15px',
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: isLight ? '#9FAFB9' : '#9FAFB9',
+  color: theme.palette.isLight ? '#9FAFB9' : '#9FAFB9',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 14,
     lineHeight: '17px',
   },
 }));
 
-const Inflow = styled.div({
+const Inflow = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: 16,
   marginBottom: 12,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     margin: 0,
     flexDirection: 'column',
     justifyContent: 'normal',
@@ -238,30 +229,30 @@ const Inflow = styled.div({
     minWidth: '19.2%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: '19.9%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: '20.6%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '22.5%',
   },
-});
+}));
 
-const Outflow = styled(Inflow)({
+const Outflow = styled(Inflow)(({ theme }) => ({
   marginTop: 12,
   marginBottom: 16,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     margin: 0,
   },
-});
+}));
 
-const NewBalance = styled(InitialBalance)({
-  [lightTheme.breakpoints.up('table_834')]: {
+const NewBalance = styled(InitialBalance)(({ theme }) => ({
+  [theme.breakpoints.up('table_834')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'normal',
@@ -269,4 +260,4 @@ const NewBalance = styled(InitialBalance)({
     alignItems: 'flex-end',
     gap: 8,
   },
-});
+}));

@@ -1,7 +1,4 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
 import TransactionWalletInfo from '../TransactionWalletInfo';
 
 interface TransactionCounterPartyProps {
@@ -10,38 +7,32 @@ interface TransactionCounterPartyProps {
   address: string;
 }
 
-const TransactionCounterParty: React.FC<TransactionCounterPartyProps> = ({ isIncomingTransaction, name, address }) => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <Wrapper>
-      <CounterPartyRole isLight={isLight}>
-        {isIncomingTransaction ? 'Sender Address' : 'Recipient Address'}
-      </CounterPartyRole>
-      <TransactionWalletInfo name={name} address={address} />
-    </Wrapper>
-  );
-};
+const TransactionCounterParty: React.FC<TransactionCounterPartyProps> = ({ isIncomingTransaction, name, address }) => (
+  <Wrapper>
+    <CounterPartyRole>{isIncomingTransaction ? 'Sender Address' : 'Recipient Address'}</CounterPartyRole>
+    <TransactionWalletInfo name={name} address={address} />
+  </Wrapper>
+);
 
 export default TransactionCounterParty;
 
-const Wrapper = styled.div({
+const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
   paddingRight: 10,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginTop: -2,
   },
-});
+}));
 
-const CounterPartyRole = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const CounterPartyRole = styled('div')(({ theme }) => ({
   fontSize: 11,
   lineHeight: '13px',
-  color: isLight ? '#546978' : '#708390',
+  color: theme.palette.isLight ? '#546978' : '#708390',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 12,
     lineHeight: '15px',
   },

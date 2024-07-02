@@ -1,71 +1,66 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled, useMediaQuery } from '@mui/material';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
 import ReserveCardMobileSkeleton from './ReserveCardMobileSkeleton';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { Theme } from '@mui/material';
 
 interface ReserveCardSkeletonProps {
   isGroup?: boolean;
 }
 
 const ReserveCardSkeleton: React.FC<ReserveCardSkeletonProps> = ({ isGroup = false }) => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   if (isMobile) {
     return <ReserveCardMobileSkeleton isGroup={isGroup} />;
   }
 
   return (
-    <Card isLight={isLight}>
+    <Card>
       <TitleContainer isGroup={isGroup}>
         {isGroup ? (
-          <GroupTitleSkeleton isLight={isLight} />
+          <GroupTitleSkeleton />
         ) : (
           <AccountContainer>
-            <AccountAvatarSkeleton isLight={isLight} variant="circular" />
+            <AccountAvatarSkeleton variant="circular" />
             <AccountInfo>
-              <AccountNameSkeleton isLight={isLight} />
-              <AccountAddressSkeleton isLight={isLight} />
+              <AccountNameSkeleton />
+              <AccountAddressSkeleton />
             </AccountInfo>
           </AccountContainer>
         )}
       </TitleContainer>
 
       <InitialContainer>
-        <InitialLabelSkeleton isLight={isLight} />
+        <InitialLabelSkeleton />
         <GenericValueContainer>
-          <InitialValueSkeleton isLight={isLight} />
-          <CurrencySkeleton isLight={isLight} />
+          <InitialValueSkeleton />
+          <CurrencySkeleton />
         </GenericValueContainer>
       </InitialContainer>
 
       <InflowContainer>
-        <InflowLabelSkeleton isLight={isLight} />
+        <InflowLabelSkeleton />
         <GenericValueContainer>
-          <InflowSignSkeleton isLight={isLight} />
-          <InflowValueSkeleton isLight={isLight} />
-          <CurrencySkeleton isLight={isLight} />
+          <InflowSignSkeleton />
+          <InflowValueSkeleton />
+          <CurrencySkeleton />
         </GenericValueContainer>
       </InflowContainer>
 
       <OutflowContainer>
-        <OutflowLabelSkeleton isLight={isLight} />
+        <OutflowLabelSkeleton />
         <GenericValueContainer>
-          <OutflowSignSkeleton isLight={isLight} />
-          <OutflowValueSkeleton isLight={isLight} />
-          <CurrencySkeleton isLight={isLight} />
+          <OutflowSignSkeleton />
+          <OutflowValueSkeleton />
+          <CurrencySkeleton />
         </GenericValueContainer>
       </OutflowContainer>
 
       <BalanceContainer>
-        <BalanceLabelSkeleton isLight={isLight} />
+        <BalanceLabelSkeleton />
         <GenericValueContainer>
-          <BalanceValueSkeleton isLight={isLight} />
-          <CurrencySkeleton isLight={isLight} />
+          <BalanceValueSkeleton />
+          <CurrencySkeleton />
         </GenericValueContainer>
       </BalanceContainer>
     </Card>
@@ -74,157 +69,157 @@ const ReserveCardSkeleton: React.FC<ReserveCardSkeletonProps> = ({ isGroup = fal
 
 export default ReserveCardSkeleton;
 
-const Card = styled.div<WithIsLight>(({ isLight }) => ({
+const Card = styled('div')(({ theme }) => ({
   display: 'flex',
   borderRadius: 6,
-  backgroundColor: isLight ? '#ffffff' : '#10191F',
-  boxShadow: isLight
+  backgroundColor: theme.palette.isLight ? '#ffffff' : '#10191F',
+  boxShadow: theme.palette.isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
 
-const TitleContainer = styled.div<{ isGroup: boolean }>(({ isGroup }) => ({
+const TitleContainer = styled('div')<{ isGroup: boolean }>(({ theme, isGroup }) => ({
   display: 'flex',
   padding: isGroup ? '24px 16px' : '19px 0px 14px 16px',
   width: '28.57%',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: '26.5487%',
     padding: isGroup ? '24px 16px' : '17.5px 0 18.75px 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: '25.338%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '22.8658%',
   },
 }));
 
-const AccountContainer = styled.div({
+const AccountContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   gap: 16,
 });
 
-const GroupTitleSkeleton = styled(BaseSkeleton)({
+const GroupTitleSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 55,
   height: 10.5,
   marginTop: 3.5,
   marginBottom: 8,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 200,
     height: 14,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: 206,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 210,
   },
-});
+}));
 
 const AccountAvatarSkeleton = styled(BaseSkeleton)({
   width: 32,
   height: 32,
 });
 
-const AccountInfo = styled.div({
+const AccountInfo = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 10,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     gap: 11.5,
   },
-});
+}));
 
-const AccountNameSkeleton = styled(BaseSkeleton)({
+const AccountNameSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 70,
   height: 12,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 89,
     height: 14,
   },
-});
+}));
 
-const AccountAddressSkeleton = styled(BaseSkeleton)({
+const AccountAddressSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 78,
   height: 12,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 99,
     height: 12.25,
   },
-});
+}));
 
-const InitialContainer = styled.div({
+const InitialContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '16px 2px 19.75px 2px',
   width: '17.013%',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: '16px 0 21px 16px',
     width: '16.77%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: '17.145%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '17.911%',
   },
-});
+}));
 
-const InitialLabelSkeleton = styled(BaseSkeleton)({
+const InitialLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 72,
   height: 9.63,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 79,
     height: 10.5,
   },
-});
+}));
 
-const GenericValueContainer = styled.div({
+const GenericValueContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-end',
   gap: 4,
   marginTop: 12.37,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 12.5,
   },
-});
+}));
 
-const InitialValueSkeleton = styled(BaseSkeleton)({
+const InitialValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 59,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 67,
     height: 14,
   },
-});
+}));
 
-const CurrencySkeleton = styled(BaseSkeleton)({
+const CurrencySkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 23,
   height: 10.5,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 26,
     height: 12.25,
   },
-});
+}));
 
-const InflowContainer = styled.div({
+const InflowContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   margin: '8px 4px 8px 2px',
@@ -233,52 +228,52 @@ const InflowContainer = styled.div({
   borderRadius: 6,
   background: 'rgba(236, 239, 249, 0.30)',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     margin: '8px 16px',
     padding: '8px 34.5px 12.75px 8px',
     width: '13.9%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: '14.4%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '15.4%',
   },
-});
+}));
 
-const InflowLabelSkeleton = styled(BaseSkeleton)({
+const InflowLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 32,
   height: 9.63,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 35,
     height: 10.5,
   },
-});
+}));
 
-const InflowSignSkeleton = styled(BaseSkeleton)({
+const InflowSignSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 10,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 11,
     height: 14,
   },
-});
+}));
 
-const InflowValueSkeleton = styled(BaseSkeleton)({
+const InflowValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 61,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 70,
     height: 14,
   },
-});
+}));
 
-const OutflowContainer = styled.div({
+const OutflowContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   margin: '8px 2px',
@@ -286,88 +281,88 @@ const OutflowContainer = styled.div({
   borderRadius: 6,
   background: 'rgba(236, 239, 249, 0.30)',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     margin: '8px 16px',
     padding: '8px 34.5px 12.75px 8px',
     width: '13.9%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: '14.4%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '15.4%',
   },
-});
+}));
 
-const OutflowLabelSkeleton = styled(BaseSkeleton)({
+const OutflowLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 41,
   height: 9.63,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 45,
     height: 10.5,
   },
-});
+}));
 
-const OutflowSignSkeleton = styled(BaseSkeleton)({
+const OutflowSignSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 7,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 8,
     height: 14,
   },
-});
+}));
 
-const OutflowValueSkeleton = styled(BaseSkeleton)({
+const OutflowValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 61,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 70,
     height: 14,
   },
-});
+}));
 
-const BalanceContainer = styled.div({
+const BalanceContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-end',
   padding: '16px 49px 19.5px 0px',
   marginLeft: 'auto',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: '16px 88.5px 21px 0px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     padding: '16px 104px 21px 0px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '16px 136px 21px 0px',
   },
-});
+}));
 
-const BalanceLabelSkeleton = styled(BaseSkeleton)({
+const BalanceLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 68,
   height: 9.63,
   marginLeft: 'auto',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 75,
     height: 10.5,
   },
-});
+}));
 
-const BalanceValueSkeleton = styled(BaseSkeleton)({
+const BalanceValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 59,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 67,
     height: 14,
   },
-});
+}));

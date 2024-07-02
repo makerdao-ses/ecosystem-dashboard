@@ -1,10 +1,6 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
 import Information from '@/components/icons/information';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface SectionHeaderProps {
   title: string;
@@ -13,46 +9,42 @@ interface SectionHeaderProps {
   isSubsection?: boolean;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip, isSubsection = false }) => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <Header>
-      <TitleWrapper>
-        <Title isLight={isLight} isSubsection={isSubsection} as={isSubsection ? 'h2' : 'h3'}>
-          {title}
-        </Title>
-        {tooltip && (
-          <TooltipWrapper>
-            <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
-              <IconWrapper>
-                <Information />
-              </IconWrapper>
-            </SESTooltip>
-          </TooltipWrapper>
-        )}
-      </TitleWrapper>
-      <Subtitle isLight={isLight}>{subtitle}</Subtitle>
-    </Header>
-  );
-};
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip, isSubsection = false }) => (
+  <Header>
+    <TitleWrapper>
+      <Title isSubsection={isSubsection} as={isSubsection ? 'h2' : 'h3'}>
+        {title}
+      </Title>
+      {tooltip && (
+        <TooltipWrapper>
+          <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
+            <IconWrapper>
+              <Information />
+            </IconWrapper>
+          </SESTooltip>
+        </TooltipWrapper>
+      )}
+    </TitleWrapper>
+    <Subtitle>{subtitle}</Subtitle>
+  </Header>
+);
 
 export default SectionHeader;
 
-const Header = styled.div({
-  [lightTheme.breakpoints.down('table_834')]: {
+const Header = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('table_834')]: {
     width: '100%',
   },
-});
+}));
 
-const TitleWrapper = styled.div({
+const TitleWrapper = styled('div')({
   display: 'flex',
   alignItems: 'center',
   marginBottom: 8,
 });
 
-const Title = styled.h2<WithIsLight & { isSubsection: boolean }>(({ isLight, isSubsection }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
+const Title = styled('h2')<{ isSubsection: boolean }>(({ theme, isSubsection }) => ({
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   fontWeight: isSubsection ? 700 : 600,
   fontSize: isSubsection ? 16 : 20,
   lineHeight: isSubsection ? '19px' : '24px',
@@ -60,7 +52,7 @@ const Title = styled.h2<WithIsLight & { isSubsection: boolean }>(({ isLight, isS
   margin: 0,
 }));
 
-const TooltipWrapper = styled.div({
+const TooltipWrapper = styled('div')({
   width: 24,
   height: 24,
   display: 'flex',
@@ -69,7 +61,7 @@ const TooltipWrapper = styled.div({
   marginLeft: 4,
 });
 
-const IconWrapper = styled.div({
+const IconWrapper = styled('div')({
   width: 'fit-content',
   height: 'fit-content',
   display: 'flex',
@@ -78,12 +70,12 @@ const IconWrapper = styled.div({
   marginLeft: 8,
 });
 
-const Subtitle = styled.div<WithIsLight>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
+const Subtitle = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   fontSize: 14,
   lineHeight: '22px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     fontSize: 16,
   },
 }));

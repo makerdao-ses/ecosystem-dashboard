@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
 
 interface NumberWithSignCardSkeletonProps {
@@ -28,10 +26,10 @@ const NumberWithSignCardSkeleton: React.FC<NumberWithSignCardSkeletonProps> = ({
       </SignContainer>
       <ValueContainer>
         <ValueWrapper>
-          <Value isLight={isLight} />
-          <Currency isLight={isLight} />
+          <Value />
+          <Currency />
         </ValueWrapper>
-        <Caption isLight={isLight} />
+        <Caption />
       </ValueContainer>
     </Container>
   );
@@ -39,45 +37,45 @@ const NumberWithSignCardSkeleton: React.FC<NumberWithSignCardSkeletonProps> = ({
 
 export default NumberWithSignCardSkeleton;
 
-const Container = styled.div({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     width: '100%',
   },
-});
+}));
 
-const SignContainer = styled.div({
+const SignContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   marginRight: 4,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginRight: 8,
   },
-});
+}));
 
-const PlusSVG = styled.svg({
+const PlusSVG = styled('svg')(({ theme }) => ({
   width: 16,
   height: 16,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 24,
     height: 24,
   },
-});
+}));
 
-const MinusSVG = styled.svg({
+const MinusSVG = styled('svg')(({ theme }) => ({
   width: 16,
   height: 4,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 24,
     height: 4,
   },
-});
+}));
 
-const ValueContainer = styled.div({
+const ValueContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -87,74 +85,74 @@ const ValueContainer = styled.div({
   background: 'rgba(236, 239, 249, 0.30)',
   padding: '8px 12px 11.38px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     alignItems: 'flex-start',
     padding: '8px 8px 11.38px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: '8px 8px 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '10px 32.5px 16px',
   },
-});
+}));
 
-const ValueWrapper = styled.div({
+const ValueWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-end',
   gap: 4,
   marginBottom: 9.5,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     marginBottom: 10,
     gap: 6.5,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginBottom: 12,
     gap: 9,
   },
-});
+}));
 
-const Value = styled(BaseSkeleton)({
+const Value = styled(BaseSkeleton)(({ theme }) => ({
   width: 73,
   height: 14,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     width: 100,
     height: 17,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 145,
     height: 26,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 126,
     height: 26.25,
   },
-});
+}));
 
-const Currency = styled(BaseSkeleton)({
+const Currency = styled(BaseSkeleton)(({ theme }) => ({
   width: 22,
   height: 10.5,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     width: 29,
     height: 14,
   },
-});
+}));
 
-const Caption = styled(BaseSkeleton)({
+const Caption = styled(BaseSkeleton)(({ theme }) => ({
   maxWidth: 143,
   height: 9.63,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     maxWidth: 150,
     height: 14,
   },
-});
+}));
