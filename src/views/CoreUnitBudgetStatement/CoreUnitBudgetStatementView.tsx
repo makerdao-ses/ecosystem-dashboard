@@ -244,34 +244,6 @@ const PageSeparator = styled('div')(() => ({
   marginTop: 24,
 }));
 
-export const Title = styled('div')<{
-  marginBottom?: number;
-  fontSize?: string;
-  responsiveMarginBottom?: number;
-  isTitleOfPage?: boolean;
-  marginTop?: number;
-}>(({ marginBottom = 16, theme, responsiveMarginBottom, isTitleOfPage = false, marginTop = 24 }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontWeight: isTitleOfPage ? 500 : 600,
-  fontStyle: 'normal',
-  fontSize: 16,
-  lineHeight: '19px',
-  marginTop,
-  letterSpacing: '0.4px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-  marginBottom: `${marginBottom}px`,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: '18px',
-    lineHeight: '24px',
-    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
-  },
-
-  [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
-    fontWeight: 700,
-  },
-}));
-
 const TabsContainer = styled('div')(({ theme }) => ({
   margin: '32px 0 24px',
 

@@ -46,12 +46,12 @@ export default Tab;
 
 const StyledTab = styled('a')<{ active: boolean }>(({ theme, active }) => ({
   fontFamily: 'Inter, sans-serif',
-  color: active
-    ? theme.palette.isLight
+  color: theme.palette.isLight
+    ? active
       ? theme.palette.colors.gray[900]
-      : theme.palette.colors.gray[50]
-    : theme.palette.isLight
-    ? theme.palette.colors.slate[100]
+      : theme.palette.colors.slate[100]
+    : active
+    ? theme.palette.colors.gray[50]
     : theme.palette.colors.gray[600],
   fontSize: 14,
   lineHeight: '22px',

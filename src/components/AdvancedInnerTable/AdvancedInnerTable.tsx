@@ -3,10 +3,9 @@ import React, { useId } from 'react';
 import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 
 import { useThemeContext } from '../../core/context/ThemeContext';
-import { NumberCell } from '../../stories/components/NumberCell/NumberCell';
-import { TextCell } from '../../stories/components/TextCell/TextCell';
-import { Title } from '../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
+import { NumberCell } from './NumberCell/NumberCell';
+import { TextCell } from './TextCell/TextCell';
 import { TransparencyCard } from './TransparencyCard/TransparencyCard';
 import type { AdvancedInnerTableProps, Alignment, CardSpacingSize, InnerTableColumn, RowType } from './types';
 
@@ -27,12 +26,13 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       return <></>;
     }
     const isBold = rowType === 'total' || rowType === 'section' || rowType === 'groupTitle';
+    const isSection = rowType === 'section';
     const columnType = rowType === 'total' && column?.type === 'custom' ? 'text' : column?.type;
     switch (columnType) {
       case 'number':
-        return <NumberCell key={id} value={Number(value)} bold={isBold} />;
+        return <NumberCell key={id} value={Number(value)} bold={isBold} rowType={rowType} />;
       case 'incomeNumber':
-        return <NumberCell key={id} value={Number(value)} bold={isBold} isIncome={true} />;
+        return <NumberCell key={id} value={Number(value)} bold={isBold} isIncome={true} rowType={rowType} />;
       case 'text':
         return rowType === 'groupTitle' ? (
           <TextCell key={id} isHeader={true}>
@@ -51,7 +51,12 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             }
           />
         ) : (
-          <TextCell key={id} bold={isBold || rowType === 'subTotal'} isHeader={column.isCardHeader}>
+          <TextCell
+            key={id}
+            bold={isBold || rowType === 'subTotal'}
+            isHeader={column.isCardHeader}
+            isSection={isSection}
+          >
             {value as string}
           </TextCell>
         );
@@ -63,7 +68,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
     }
 
     return (
-      <TextCell key={id} bold={isBold} isHeader={column.isCardHeader}>
+      <TextCell key={id} bold={isBold} isHeader={column.isCardHeader} isSection={isSection}>
         {value as string}
       </TextCell>
     );
@@ -295,10 +300,10 @@ const TableRow = styled('tr')<{ borderTop?: boolean; borderBottom?: boolean }>(
 );
 
 const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) => ({
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   fontSize: 16,
-  lineHeight: '18px',
-  fontWeight: 500,
+  lineHeight: '24px',
+  fontWeight: 600,
   paddingLeft: 16,
   paddingTop: 16,
   marginBottom: 16,
@@ -312,26 +317,55 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
     lineHeight: '15px',
     marginBottom: 0,
     fontWeight: 400,
+
     svg: {
       display: 'none',
     },
     [theme.breakpoints.up('tablet_768')]: {
+      color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
       fontSize: 16,
-      lineHeight: '19px',
+      fontWeight: 600,
+      lineHeight: '24px',
       padding: '8px  0px 16px 16px',
     },
   },
   [theme.breakpoints.up('tablet_768')]: {
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
     fontWeight: 400,
     paddingTop: 0,
     marginBottom: 0,
+    lineHeight: '16.94px',
+    fontSize: 14,
     svg: {
       display: 'none',
     },
   },
+  [theme.breakpoints.up('desktop_1024')]: {
+    lineHeight: '24px',
+    fontSize: 16,
+  },
+
   '&.advanced-table__cell-row--category': {
     svg: {
       display: 'none',
     },
   },
+}));
+
+const Title = styled('div')<{
+  marginBottom?: number;
+  fontSize?: string;
+  responsiveMarginBottom?: number;
+  isBreakDown?: boolean;
+  marginTop?: number;
+}>(({ marginBottom = 16, theme, marginTop = 24, isBreakDown = false }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: isBreakDown ? 700 : 600,
+  fontStyle: 'normal',
+  fontSize: 14,
+  lineHeight: isBreakDown ? '19.36px' : '24px',
+  marginTop,
+  letterSpacing: '0.4px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  marginBottom: `${marginBottom}px`,
 }));

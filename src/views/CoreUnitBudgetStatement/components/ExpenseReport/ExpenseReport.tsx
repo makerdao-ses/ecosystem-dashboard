@@ -52,7 +52,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
   return (
     <ExpenseReportWrapper>
       <Container>
-        <LinkDescription isLight={isLight}>
+        <LinkDescription>
           <span> Visit makerburn.com to view the</span>
           <ActualViewOnChainLink
             href={`${MAKER_BURN_LINK}/${longCode}`}
