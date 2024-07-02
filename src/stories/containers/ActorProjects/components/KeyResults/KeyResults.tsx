@@ -1,14 +1,11 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import ExternalLink from '@ses/components/ExternalLink/ExternalLink';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
 import type { KeyResult } from '@/core/models/interfaces/deliverables';
 import ExpandableButtonItem from './ExpandableButtonItem';
 import MaybeScrollableList from './MaybeScrollableList';
 import type { DeliverableViewMode } from '../ProjectCard/ProjectCard';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { Theme } from '@mui/material';
 
 interface KeyResultsProps {
   keyResults: KeyResult[];
@@ -25,9 +22,8 @@ const KeyResults: React.FC<KeyResultsProps> = ({
   handleToggleExpand,
   maxKeyResultsOnRow,
 }) => {
-  const { isLight } = useThemeContext();
   const isEmpty = keyResults.length === 0;
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const results = useMemo(() => {
     if (viewMode === 'compacted') {
@@ -71,7 +67,7 @@ const KeyResults: React.FC<KeyResultsProps> = ({
 
   return (
     <ResultsContainer height={componentHeight}>
-      <Title isLight={isLight}>{isMobile && isEmpty ? 'No Key Results' : 'Key Results'}</Title>
+      <Title>{isMobile && isEmpty ? 'No Key Results' : 'Key Results'}</Title>
       {((isMobile && !isEmpty) || !isMobile) && (
         <MaybeScrollableList scrollable={!isMobile && (viewMode === 'detailed' || expanded) && keyResults.length > 6}>
           {isEmpty ? (
@@ -82,9 +78,15 @@ const KeyResults: React.FC<KeyResultsProps> = ({
             <>
               {results.map((keyResult) => (
                 <ResultItem key={keyResult.id}>
-                  <KeyLink href={keyResult.link} wrapText target="_blank">
-                    {keyResult.title}
-                  </KeyLink>
+                  {keyResult.link ? (
+                    <KeyLink href={keyResult.link} wrapText target="_blank">
+                      {keyResult.title}
+                    </KeyLink>
+                  ) : (
+                    <NoKeyLink>
+                      <span>{keyResult.title}</span> <Todo>TODO</Todo>
+                    </NoKeyLink>
+                  )}
                 </ResultItem>
               ))}
             </>
@@ -100,48 +102,48 @@ const KeyResults: React.FC<KeyResultsProps> = ({
 
 export default KeyResults;
 
-const ResultsContainer = styled.div<{
+const ResultsContainer = styled('div')<{
   height: 'auto' | number;
-}>(({ height }) => ({
+}>(({ theme, height }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   paddingTop: 16,
   gap: 8,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     // the height should be applicable from > 768 only!
     height,
   },
 
-  [lightTheme.breakpoints.between('tablet_768', 'desktop_1280')]: {
+  [theme.breakpoints.between('tablet_768', 'desktop_1280')]: {
     paddingBottom: 8,
   },
 }));
 
-const Title = styled.h4<WithIsLight>(({ isLight }) => ({
+const Title = styled('h4')(({ theme }) => ({
   margin: 0,
   fontSize: 16,
   fontWeight: 500,
   lineHeight: '18px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   padding: '2px 8px',
-  background: isLight ? 'rgba(236, 239, 249, 0.50)' : 'rgba(35, 21, 54, 0.30)',
+  background: theme.palette.isLight ? 'rgba(236, 239, 249, 0.50)' : 'rgba(35, 21, 54, 0.30)',
 }));
 
-const NoKeyContainer = styled.div({
+const NoKeyContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   alignSelf: 'stretch',
   height: '100%',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     paddingBottom: 8,
   },
-});
+}));
 
-const NoKeyResults = styled.span({
+const NoKeyResults = styled('span')({
   color: '#546978',
   fontSize: 16,
   fontStyle: 'italic',
@@ -149,10 +151,54 @@ const NoKeyResults = styled.span({
   padding: '16px 0',
 });
 
-const ResultItem = styled.li(() => ({
+const ResultItem = styled('li')(() => ({
   display: 'flex',
   alignItems: 'center',
   listStyle: 'none',
+}));
+
+const NoKeyLink = styled('div')(({ theme }) => ({
+  display: 'flex',
+  color: theme.palette.isLight ? '#666' : '#D2D4EF',
+  fontSize: 16,
+  fontWeight: 500,
+  lineHeight: '18px',
+  paddingLeft: 22,
+  position: 'relative',
+  gap: 6,
+  maxWidth: '100%',
+
+  '& span': {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  '& svg': {
+    minWidth: 11,
+    minHeight: 10,
+  },
+
+  '&:before': {
+    content: '""',
+    display: 'block',
+    position: 'absolute',
+    left: 8,
+    top: 6,
+    width: 6,
+    height: 6,
+    borderRadius: '50%',
+    background: theme.palette.isLight ? '#666' : '#D2D4EF',
+  },
+}));
+
+const Todo = styled('div')(({ theme }) => ({
+  fontSize: 12,
+  fontWeight: 700,
+  background: theme.palette.isLight ? '#f7f7f7' : 'rgba(72, 82, 101, 0.40)',
+  color: theme.palette.isLight ? '#666' : '#FCFCFC',
+  padding: '2px 4px',
+  borderRadius: 4,
 }));
 
 const KeyLink = styled(ExternalLink)(() => ({
