@@ -1,10 +1,9 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import Tabs from '@/components/Tabs/Tabs';
-import { Title } from '../../CoreUnitBudgetStatementView';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import { useTransparencyActuals } from './useTransparencyActuals';
@@ -57,7 +56,9 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
         }
       />
       {mainTableItems.length > 0 && (
-        <Title ref={breakdownTitleRef}>{currentMonth.toFormat('MMM yyyy')} Breakdown</Title>
+        <Title ref={breakdownTitleRef} isBreakDown>
+          {currentMonth.toFormat('MMM yyyy')} Breakdown
+        </Title>
       )}
 
       {mainTableItems.length > 0 && (
@@ -91,19 +92,19 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
   );
 };
 
-const Container = styled.div({
+const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
 
 // TODO: delete this
-export const LinkDescription = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+export const LinkDescription = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.colors ? '#231536' : '#D2D4EF',
 
   span: {
     marginRight: 4,
@@ -114,6 +115,31 @@ export const LinkDescription = styled.div<{ isLight: boolean }>(({ isLight }) =>
   },
 }));
 
-export const BreakdownTableWrapper = styled.div({
+export const BreakdownTableWrapper = styled('div')({
   paddingTop: 24,
 });
+
+const Title = styled('div')<{
+  marginBottom?: number;
+  fontSize?: string;
+  responsiveMarginBottom?: number;
+  isBreakDown?: boolean;
+  marginTop?: number;
+}>(({ marginBottom = 16, theme, responsiveMarginBottom, marginTop = 24, isBreakDown = false }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: isBreakDown ? 700 : 600,
+  fontStyle: 'normal',
+  fontSize: 16,
+  lineHeight: isBreakDown ? '19.36px' : '24px',
+  marginTop,
+  letterSpacing: '0.4px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  marginBottom: `${marginBottom}px`,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: '18px',
+    lineHeight: '21.6px',
+    fontWeight: 700,
+    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
+  },
+}));

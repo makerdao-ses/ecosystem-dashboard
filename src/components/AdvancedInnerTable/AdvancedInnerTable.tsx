@@ -4,7 +4,6 @@ import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transpare
 
 import { useThemeContext } from '../../core/context/ThemeContext';
 import { TextCell } from '../../stories/components/TextCell/TextCell';
-import { Title } from '../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
 import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { NumberCell } from '../NumberCell/NumberCell';
 import { TransparencyCard } from './TransparencyCard/TransparencyCard';
@@ -351,4 +350,22 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
       display: 'none',
     },
   },
+}));
+
+const Title = styled('div')<{
+  marginBottom?: number;
+  fontSize?: string;
+  responsiveMarginBottom?: number;
+  isBreakDown?: boolean;
+  marginTop?: number;
+}>(({ marginBottom = 16, theme, marginTop = 24, isBreakDown = false }) => ({
+  fontFamily: 'Inter, sans-serif',
+  fontWeight: isBreakDown ? 700 : 600,
+  fontStyle: 'normal',
+  fontSize: 14,
+  lineHeight: isBreakDown ? '19.36px' : '24px',
+  marginTop,
+  letterSpacing: '0.4px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  marginBottom: `${marginBottom}px`,
 }));
