@@ -3,9 +3,9 @@ import React, { useId } from 'react';
 import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 
 import { useThemeContext } from '../../core/context/ThemeContext';
-import { TextCell } from '../../stories/components/TextCell/TextCell';
 import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
-import { NumberCell } from '../NumberCell/NumberCell';
+import { NumberCell } from './NumberCell/NumberCell';
+import { TextCell } from './TextCell/TextCell';
 import { TransparencyCard } from './TransparencyCard/TransparencyCard';
 import type { AdvancedInnerTableProps, Alignment, CardSpacingSize, InnerTableColumn, RowType } from './types';
 
