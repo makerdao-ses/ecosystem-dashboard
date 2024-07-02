@@ -14,6 +14,7 @@ import PageContainer from '@/components/Container/PageContainer';
 import Tabs from '@/components/Tabs/Tabs';
 import TeamHeader from '@/components/TeamHeader/TeamHeader';
 import AccountsSnapshotTabContainer from '../../components/AccountsSnapshot/AccountsSnapshotTabContainer';
+import CuHeadlineText from '../CoreUnitBudgetStatement/components/CuHeadlineText/CuHeadlineText';
 import ExpenseReport from '../CoreUnitBudgetStatement/components/ExpenseReport/ExpenseReport';
 import { TransparencyActuals } from '../CoreUnitBudgetStatement/components/TransparencyActuals/TransparencyActuals';
 import { TransparencyAudit } from '../CoreUnitBudgetStatement/components/TransparencyAudit/TransparencyAudit';
@@ -22,7 +23,6 @@ import { TransparencyForecast } from '../CoreUnitBudgetStatement/components/Tran
 import { TransparencyMkrVesting } from '../CoreUnitBudgetStatement/components/TransparencyMkrVesting/TransparencyMkrVesting';
 import { TransparencyTransferRequest } from '../CoreUnitBudgetStatement/components/TransparencyTransferRequest/TransparencyTransferRequest';
 import { TRANSPARENCY_IDS_ENUM } from '../CoreUnitBudgetStatement/useCoreUnitBudgetStatementView';
-import CuHeadlineText from '../TransparencyReport/components/CuHeadlineText/CuHeadlineText';
 import useEcosystemActorBudgetStatementView from './useEcosystemActorBudgetStatementView';
 import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { ExpenseCategory } from '@ses/core/models/dto/expenseCategoriesDTO';

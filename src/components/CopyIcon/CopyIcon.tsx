@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React, { useId, useState } from 'react';
+import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { CustomPopover } from '../../stories/components/CustomPopover/CustomPopover';
 import ClipBoard from '../../stories/components/svg/ClipBoard';
+import SESTooltip from '../SESTooltip/SESTooltip';
 
 interface CopyIconProps {
   text: string;
@@ -24,29 +23,21 @@ const CopyIcon: React.FC<CopyIconProps> = ({
   defaultCopyTooltip = 'Copied!',
   icon,
 }) => {
-  const { isLight } = useThemeContext();
-  const [popoverText, setPopoverText] = useState<string>(defaultTooltip);
-  const id = useId();
+  const [tooltipText, setTooltipText] = useState<string>(defaultTooltip);
 
   const handleOnClose = () => {
-    setTimeout(() => setPopoverText(defaultTooltip), 100);
+    setTimeout(() => setTooltipText(defaultTooltip), 100);
   };
 
   return (
     <IconContainer className={className}>
-      <CustomPopover
-        id={id}
-        title={popoverText}
-        closeOnClick={false}
-        onClose={handleOnClose}
-        popupStyle={{
-          color: isLight ? '#231536' : '#D2D4EF',
-        }}
-      >
-        <CopyToClipboard text={text} onCopy={() => setPopoverText(defaultCopyTooltip)}>
-          {icon || <ClipBoard width={width} height={height} onClick={(e: React.MouseEvent) => e.stopPropagation()} />}
-        </CopyToClipboard>
-      </CustomPopover>
+      <SESTooltip content={tooltipText} onClose={handleOnClose} placement="top" className="custom-tooltip">
+        <div>
+          <CopyToClipboard text={text} onCopy={() => setTooltipText(defaultCopyTooltip)}>
+            {icon || <ClipBoard width={width} height={height} onClick={(e: React.MouseEvent) => e.stopPropagation()} />}
+          </CopyToClipboard>
+        </div>
+      </SESTooltip>
     </IconContainer>
   );
 };
