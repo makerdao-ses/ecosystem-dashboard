@@ -6,7 +6,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof CUReserves> = {
-  title: 'Components/CUTransparencyReport/Accounts Snapshot/Core Unit Reserves',
+  title: 'Fusion/Components/Accounts Snapshot/Core Unit Reserves',
   component: CUReserves,
 };
 export default meta;

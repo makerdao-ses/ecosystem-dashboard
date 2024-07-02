@@ -1,14 +1,13 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import BasicTHCell from '@ses/components/AdvanceTable/BuiltIn/Cells/BasicTHCell';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React from 'react';
+import { useState } from 'react';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { GenericCell, RowProps } from '@ses/components/AdvanceTable/types';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ExpensesComparisonRowCardProps {
   row: RowProps;
@@ -22,17 +21,17 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
   expandable = true,
 }) => {
   const { isLight } = useThemeContext();
-  const [expanded, setExpanded] = React.useState<boolean>(!expandable);
+  const [expanded, setExpanded] = useState<boolean>(!expandable);
   const isTotalCard = row.cells[0].value === 'Totals';
 
   return (
     <Container>
-      <Accordion isLight={isLight} expanded={expanded} onChange={() => expandable && setExpanded(!expanded)}>
+      <Accordion expanded={expanded} onChange={() => expandable && setExpanded(!expanded)}>
         <Summary isExpandable={expandable}>
           {isTotalCard ? (
-            <Totals isLight={isLight}>3 Month Totals</Totals>
+            <Totals>3 Month Totals</Totals>
           ) : (
-            <MonthHeader isLight={isLight}>{row.cells[0].value as React.ReactNode}</MonthHeader>
+            <MonthHeader>{row.cells[0].value as React.ReactNode}</MonthHeader>
           )}
 
           {expandable &&
@@ -62,15 +61,11 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
                   cellPadding: 0,
                 }}
               />
-              <Value isLight={isLight} isTotal={isTotalCard}>
-                {row.cells[1].value as React.ReactNode}
-              </Value>
+              <Value isTotal={isTotalCard}>{row.cells[1].value as React.ReactNode}</Value>
             </Item>
-            {hasOffChainData && (
-              <NetExpenseTransactions isLight={isLight}>Net Expense Transactions</NetExpenseTransactions>
-            )}
+            {hasOffChainData && <NetExpenseTransactions>Net Expense Transactions</NetExpenseTransactions>}
           </Reported>
-          <BorderedContainer isLight={isLight}>
+          <BorderedContainer>
             {/* on chain only */}
             <Item>
               <BasicTHCell
@@ -80,9 +75,7 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
                   cellPadding: 0,
                 }}
               />
-              <Value isLight={isLight} isTotal={isTotalCard}>
-                {row.cells[2].value as React.ReactNode}
-              </Value>
+              <Value isTotal={isTotalCard}>{row.cells[2].value as React.ReactNode}</Value>
             </Item>
             {/* difference */}
             <Item marginTop={21}>
@@ -94,13 +87,11 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
                   cellPadding: 0,
                 }}
               />
-              <Value isLight={isLight} isTotal={isTotalCard}>
-                {row.cells[3].value as React.ReactNode}
-              </Value>
+              <Value isTotal={isTotalCard}>{row.cells[3].value as React.ReactNode}</Value>
             </Item>
             {hasOffChainData && (
               <>
-                <HorizontalDivider isLight={isLight} />
+                <HorizontalDivider />
                 {/* including off-chain */}
                 <Item>
                   <BasicTHCell
@@ -110,9 +101,7 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
                       cellPadding: 0,
                     }}
                   />
-                  <Value isLight={isLight} isTotal={isTotalCard}>
-                    {row.cells[4].value as React.ReactNode}
-                  </Value>
+                  <Value isTotal={isTotalCard}>{row.cells[4].value as React.ReactNode}</Value>
                 </Item>
                 {/* difference */}
                 <Item marginTop={20}>
@@ -123,9 +112,7 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
                       cellPadding: 0,
                     }}
                   />
-                  <Value isLight={isLight} isTotal={isTotalCard}>
-                    {row.cells[5].value as React.ReactNode}
-                  </Value>
+                  <Value isTotal={isTotalCard}>{row.cells[5].value as React.ReactNode}</Value>
                 </Item>
               </>
             )}
@@ -138,20 +125,20 @@ const ExpensesComparisonRowCard: React.FC<ExpensesComparisonRowCardProps> = ({
 
 export default ExpensesComparisonRowCard;
 
-const Container = styled.div({
+const Container = styled('div')({
   marginBottom: 8,
 });
 
-const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))<WithIsLight>(({ isLight }) => ({
-  borderRadius: '6px',
-  boxShadow: isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
+  ({ theme }) => ({
+    borderRadius: '6px',
+    boxShadow: theme.palette.isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
 
-  backgroundColor: isLight ? '#FFFFFF' : '#1E2C37',
-}));
+    backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#1E2C37',
+  })
+);
 
 const Summary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)<{ isExpandable: boolean }>(
   ({ isExpandable }) => ({
@@ -177,27 +164,27 @@ const AccordionDetails = styled(MuiAccordionDetails)(() => ({
   padding: '0 0 14px',
 }));
 
-const Totals = styled.div<WithIsLight>(({ isLight }) => ({
+const Totals = styled('div')(({ theme }) => ({
   fontWeight: 700,
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
-const MonthHeader = styled.div<WithIsLight>(({ isLight }) => ({
+const MonthHeader = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 12,
   lineHeight: '15px',
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: isLight ? '#434358' : '#D2D4EF',
+  color: theme.palette.isLight ? '#434358' : '#D2D4EF',
 }));
 
-const Reported = styled.div({
+const Reported = styled('div')({
   margin: '8px 8px 16px',
 });
 
-const Item = styled.div<{ marginTop?: number }>(({ marginTop = 0 }) => ({
+const Item = styled('div')<{ marginTop?: number }>(({ marginTop = 0 }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -209,31 +196,31 @@ const Item = styled.div<{ marginTop?: number }>(({ marginTop = 0 }) => ({
   },
 }));
 
-const Value = styled.div<WithIsLight & { isTotal: boolean }>(({ isLight, isTotal }) => ({
+const Value = styled('div')<{ isTotal: boolean }>(({ theme, isTotal }) => ({
   fontWeight: isTotal ? 700 : 400,
   fontSize: 14,
   lineHeight: '17px',
   letterSpacing: 0.3,
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
-const NetExpenseTransactions = styled.div<WithIsLight>(({ isLight }) => ({
+const NetExpenseTransactions = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 14,
   lineHeight: '17px',
   textAlign: 'center',
-  color: isLight ? '#231536' : '#E2D8EE',
+  color: theme.palette.isLight ? '#231536' : '#E2D8EE',
   marginTop: 16,
 }));
 
-const BorderedContainer = styled.div<WithIsLight>(({ isLight }) => ({
+const BorderedContainer = styled('div')(({ theme }) => ({
   margin: '0 8px',
   padding: '12px 0px 7px',
   display: 'flex',
   flexDirection: 'column',
   borderRadius: 6,
-  border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
 
   '& > div': {
     // items
@@ -241,8 +228,8 @@ const BorderedContainer = styled.div<WithIsLight>(({ isLight }) => ({
   },
 }));
 
-const HorizontalDivider = styled.div<WithIsLight>(({ isLight }) => ({
+const HorizontalDivider = styled('div')(({ theme }) => ({
   width: '100%',
-  borderTop: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+  borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
   margin: '14px 0 22px',
 }));

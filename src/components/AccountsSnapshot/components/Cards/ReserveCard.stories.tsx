@@ -7,7 +7,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof ReserveCard> = {
-  title: 'Components/CUTransparencyReport/Accounts Snapshot/Reserve Card',
+  title: 'Fusion/Components/Accounts Snapshot/Reserve Card',
   component: ReserveCard,
 };
 export default meta;

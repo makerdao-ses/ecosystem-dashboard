@@ -1,6 +1,4 @@
-import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
 import CopyIcon from '@/components/CopyIcon/CopyIcon';
 
 interface TxHashProps {
@@ -23,16 +21,16 @@ const TxHash: React.FC<TxHashProps> = ({ txHash, ...props }) => {
 
 export default TxHash;
 
-const TxHashContainer = styled.div({
+const TxHashContainer = styled('div')({
   display: 'flex',
 });
 
-const Hash = styled.a(() => ({
+const Hash = styled('a')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '15px',
   color: '#447AFB',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 14,
     lineHeight: '17px',
   },

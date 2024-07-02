@@ -1,15 +1,11 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
 import FundChangeCardSkeleton from '../Cards/FundChangeCardSkeleton';
 import SimpleStatCardSkeleton from '../Cards/SimpleStatCardSkeleton';
 import TransactionHistorySkeleton from '../TransactionHistory/TransactionHistorySkeleton';
 
 const FundingOverviewSkeleton: React.FC = () => {
-  const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
   const enableCurrencyPicker = isEnabled('FEATURE_ACCOUNT_SNAPSHOT_CURRENCY_PICKER');
 
@@ -17,15 +13,15 @@ const FundingOverviewSkeleton: React.FC = () => {
     <Container>
       <HeaderContainer>
         <TitleWrapper>
-          <TitleSkeleton isLight={isLight} />
+          <TitleSkeleton />
           <SubtitleContainer>
-            <SubtitleLine1 isLight={isLight} />
-            <SubtitleLine2 isLight={isLight} />
-            <SubtitleLine3 isLight={isLight} />
+            <SubtitleLine1 />
+            <SubtitleLine2 />
+            <SubtitleLine3 />
           </SubtitleContainer>
         </TitleWrapper>
 
-        {enableCurrencyPicker && <CurrencyPicker isLight={isLight} />}
+        {enableCurrencyPicker && <CurrencyPicker />}
       </HeaderContainer>
 
       <CardsContainer>
@@ -41,126 +37,126 @@ const FundingOverviewSkeleton: React.FC = () => {
 
 export default FundingOverviewSkeleton;
 
-const Container = styled.div({
+const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
 });
 
-const HeaderContainer = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
+const HeaderContainer = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('table_834')]: {
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: 10,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     marginTop: 0,
     marginBottom: 0,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginBottom: 8,
   },
-});
+}));
 
-const TitleWrapper = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
+const TitleWrapper = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('table_834')]: {
     width: '100%',
   },
-});
+}));
 
-const TitleSkeleton = styled(BaseSkeleton)({
+const TitleSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   maxWidth: 293,
   height: 17.5,
   marginBottom: 14.5,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     maxWidth: 248,
     height: 21,
     marginBottom: 21,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     maxWidth: 386,
     marginBottom: 13,
   },
-});
+}));
 
-const SubtitleContainer = styled.div({
+const SubtitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 5.25,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     gap: 6,
   },
-});
+}));
 
-const SubtitleLine = styled(BaseSkeleton)({
+const SubtitleLine = styled(BaseSkeleton)(({ theme }) => ({
   height: 12.25,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     height: 14,
   },
-});
+}));
 
-const SubtitleLine1 = styled(SubtitleLine)({
+const SubtitleLine1 = styled(SubtitleLine)(({ theme }) => ({
   maxWidth: 329,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     maxWidth: 423,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     maxWidth: 408,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     maxWidth: 666,
   },
-});
+}));
 
-const SubtitleLine2 = styled(SubtitleLine)({
+const SubtitleLine2 = styled(SubtitleLine)(({ theme }) => ({
   maxWidth: 221,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     maxWidth: 321,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     display: 'none',
   },
-});
+}));
 
-const SubtitleLine3 = styled(SubtitleLine)({
+const SubtitleLine3 = styled(SubtitleLine)(({ theme }) => ({
   maxWidth: 230,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     display: 'none',
   },
-});
+}));
 
-const CurrencyPicker = styled(BaseSkeleton)({
+const CurrencyPicker = styled(BaseSkeleton)(({ theme }) => ({
   marginTop: 12.75,
   maxWidth: 107,
   height: 34,
   borderRadius: 20,
   marginLeft: 'auto',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     marginTop: 8,
     marginLeft: 0,
     maxWidth: 129,
     height: 48,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginTop: 0,
   },
-});
+}));
 
-export const CardsContainer = styled.div({
+export const CardsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: 8,
   flexWrap: 'wrap',
@@ -177,7 +173,7 @@ export const CardsContainer = styled.div({
     width: 'calc(50% - 4px)',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     flexWrap: 'nowrap',
 
     '& > div:nth-of-type(1)': {
@@ -193,8 +189,8 @@ export const CardsContainer = styled.div({
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     gap: 24,
     marginTop: -2,
   },
-});
+}));

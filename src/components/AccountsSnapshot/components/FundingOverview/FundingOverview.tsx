@@ -1,8 +1,6 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { getResourceLabel } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
-import React from 'react';
 import FundChangeCard from '../Cards/FundChangeCard';
 import SimpleStatCard from '../Cards/SimpleStatCard';
 import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
@@ -92,21 +90,21 @@ const FundingOverview: React.FC<FundingOverviewProps> = ({
 
 export default FundingOverview;
 
-const HeaderContainer = styled.div({
+const HeaderContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   flexDirection: 'column',
   gap: 16,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 0,
   },
-});
+}));
 
-const CardsContainer = styled.div({
+const CardsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: 8,
   marginTop: 24,
@@ -124,7 +122,7 @@ const CardsContainer = styled.div({
     width: 'calc(50% - 4px)',
   },
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     flexWrap: 'nowrap',
 
     '& > div:nth-of-type(1)': {
@@ -140,7 +138,7 @@ const CardsContainer = styled.div({
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     gap: 24,
   },
-});
+}));
