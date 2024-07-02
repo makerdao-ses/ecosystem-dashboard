@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import Identicon from '@ses/components/Identicon/Identicon';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { formatAddressForOutput } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
+import CopyIcon from '@/components/CopyIcon/CopyIcon';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TransactionWalletInfoProps {

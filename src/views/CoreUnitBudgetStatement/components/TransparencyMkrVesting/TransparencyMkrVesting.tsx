@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { AdvancedInnerTable } from '@ses/components/AdvancedInnerTable/AdvancedInnerTable';
 import React from 'react';
+import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import { Title } from '../../CoreUnitBudgetStatementView';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
 import MkrVestingInfo from './MkrVestingInfo';

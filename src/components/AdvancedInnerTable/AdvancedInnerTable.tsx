@@ -2,59 +2,13 @@ import { styled } from '@mui/material';
 import React, { useId } from 'react';
 import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 
-import { useThemeContext } from '../../../core/context/ThemeContext';
-import { Title } from '../../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
-import { TransparencyEmptyTable } from '../../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
-import { NumberCell } from '../NumberCell/NumberCell';
-import { TextCell } from '../TextCell/TextCell';
-import { TransparencyCard } from '../TransparencyCard/TransparencyCard';
-
-export interface InnerTableColumn {
-  align?: string;
-  header: string | JSX.Element;
-  type?: 'number' | 'incomeNumber' | 'text' | 'custom';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cellRender?: (data: any) => JSX.Element;
-  headerAlign?: string;
-  isCardHeader?: boolean;
-  isCardFooter?: boolean;
-  width?: string;
-  minWidth?: string;
-  hidden?: boolean;
-  hasBorderRight?: boolean;
-  hasBorderBottomOnCard?: boolean;
-  handleOpenModal?: () => void;
-}
-
-export interface InnerTableCell {
-  column: InnerTableColumn;
-  value: unknown | React.ReactElement | JSX.Element;
-  isBold?: boolean;
-}
-
-export type RowType = 'normal' | 'total' | 'section' | 'groupTitle' | 'subTotal' | 'category';
-export type CardSpacingSize = 'small' | 'large';
-
-export interface InnerTableRow {
-  type: RowType;
-  items: InnerTableCell[];
-  borderTop?: boolean;
-  borderBottom?: boolean;
-  hideMobile?: boolean;
-}
-
-interface AdvancedInnerTableProps {
-  columns: InnerTableColumn[];
-  items: InnerTableRow[];
-  style?: React.CSSProperties;
-  cardsTotalPosition?: 'top' | 'bottom';
-  tablePlaceholder?: JSX.Element;
-  longCode: string;
-  className?: string;
-  cardSpacingSize?: CardSpacingSize;
-}
-
-type Alignment = 'left' | 'center' | 'right';
+import { useThemeContext } from '../../core/context/ThemeContext';
+import { NumberCell } from '../../stories/components/NumberCell/NumberCell';
+import { TextCell } from '../../stories/components/TextCell/TextCell';
+import { Title } from '../../views/CoreUnitBudgetStatement/CoreUnitBudgetStatementView';
+import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
+import { TransparencyCard } from './TransparencyCard/TransparencyCard';
+import type { AdvancedInnerTableProps, Alignment, CardSpacingSize, InnerTableColumn, RowType } from './types';
 
 export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   cardsTotalPosition = 'bottom',
@@ -237,11 +191,9 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
 };
 
 const Container = styled('div')(({ theme }) => ({
-  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1);',
-  borderRadius: '6px',
+  background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.reskinShortShadow : theme.fusionShadows.darkMode,
+  borderRadius: '12px',
   overflowX: 'auto',
   msOverFlowStyle: 'none',
   scrollbarWidth: 'thin',
@@ -267,16 +219,19 @@ const TableHead = styled('thead')(({ theme }) => ({
   fontSize: '12px',
   lineHeight: '15px',
   letterSpacing: '1px',
-  textTransform: 'uppercase',
   fontWeight: 600,
-  color: '#708390',
-  borderBottom: theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361',
+  borderBottom: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
   whiteSpace: 'nowrap',
 }));
 
 const HeadCell = styled('th')<{ hasBorderRight?: boolean }>(({ hasBorderRight, theme }) => ({
   padding: '24px 16px',
   fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   borderRight: hasBorderRight ? (theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
 }));
 

@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import React, { useId, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { CustomPopover } from '../CustomPopover/CustomPopover';
-import ClipBoard from '../svg/ClipBoard';
+import { CustomPopover } from '../../stories/components/CustomPopover/CustomPopover';
+import ClipBoard from '../../stories/components/svg/ClipBoard';
 
 interface CopyIconProps {
   text: string;

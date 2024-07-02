@@ -1,6 +1,5 @@
 import { styled } from '@mui/material';
 import BarPercentRelativeToTotal from '@ses/components/BarPercentRelativeToTotal/BarPercentRelativeToTotal';
-import CopyIcon from '@ses/components/CopyIcon/CopyIcon';
 import SocialMediaComponent from '@ses/components/SocialMediaComponent/SocialMediaComponent';
 import { getLinksFromRecognizedDelegates } from '@ses/core/businessLogic/recognizedDelegate';
 import { deleteTwoDecimalPLace, usLocalizedNumber } from '@ses/core/utils/humanization';
@@ -8,6 +7,7 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 import { formatAddressForOutputDelegateWallet } from '@ses/core/utils/string';
 import React from 'react';
 import CircleAvatar from '@/components/CircleAvatar/CircleAvatar';
+import CopyIcon from '@/components/CopyIcon/CopyIcon';
 import GenericDelegateCard from './GenericDelegateCard';
 import type { RecognizedDelegatesDto } from '@ses/core/models/dto/delegatesDTO';
 
