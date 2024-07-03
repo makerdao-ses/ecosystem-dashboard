@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof WalletInfo> = {
-  title: 'Components/CUTransparencyReport/Accounts Snapshot/WalletInfo',
+  title: 'Fusion/Components/Accounts Snapshot/WalletInfo',
   component: WalletInfo,
 };
 export default meta;

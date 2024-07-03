@@ -61,7 +61,13 @@ const DeliverableCard: React.FC<DeliverableCardProps> = ({
           ))}
       </ProgressContainer>
 
-      {(viewMode === 'detailed' || expanded) && <Description>{deliverable.description}</Description>}
+      {(viewMode === 'detailed' || expanded) && (
+        <Description>
+          {deliverable.description.split('\n').map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </Description>
+      )}
       <KeyBox>
         {isProjectCard ? (
           <MilestoneLink />
@@ -152,11 +158,18 @@ const ProgressContainer = styled('div')({
   gap: 16,
 });
 
-const Description = styled('p')(({ theme }) => ({
+const Description = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
   margin: 0,
   fontSize: 14,
   lineHeight: '22px',
   color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+
+  '& p': {
+    margin: 0,
+  },
 
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,

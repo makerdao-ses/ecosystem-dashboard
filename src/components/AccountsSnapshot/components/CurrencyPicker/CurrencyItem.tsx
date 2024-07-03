@@ -1,9 +1,8 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { Container } from '@ses/components/SelectItem/SelectItem';
 import TokenIcon from '@ses/components/TokenIcon/TokenIcon';
 import Check from '@ses/components/svg/check';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React from 'react';
 import type { SelectItemProps } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import type { Token } from '@ses/components/TokenIcon/TokenIcon';
 
@@ -24,9 +23,7 @@ const CurrencyItem: React.FC<SelectItemProps> = ({ checked = false, ...props }) 
       onClick={props.onClick}
     >
       {!props.params?.isAll && !props.params?.isAll && <StyledTokenIcon token={props.label as Token} size={32} />}
-      <TokenName isLight={isLight} checked={checked}>
-        {props.label}
-      </TokenName>
+      <TokenName checked={checked}>{props.label}</TokenName>
       <CheckWrapper>
         <Check fill={checked ? (isLight ? '#231536' : 'white') : isLight ? '#D1DEE6' : '#231536'} />
       </CheckWrapper>
@@ -36,22 +33,22 @@ const CurrencyItem: React.FC<SelectItemProps> = ({ checked = false, ...props }) 
 
 export default CurrencyItem;
 
-const TokenName = styled.span<{ isLight: boolean; checked: boolean }>(({ isLight, checked = false }) => ({
+const TokenName = styled('span')<{ checked: boolean }>(({ theme, checked = false }) => ({
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? (checked ? '#231536' : '#231536') : '#D2D4EF',
+  color: theme.palette.isLight ? (checked ? '#231536' : '#231536') : '#D2D4EF',
 }));
 
-const CheckWrapper = styled.span({
+const CheckWrapper = styled('span')({
   alignSelf: 'center',
   position: 'absolute',
   right: 8,
   top: 8,
 });
 
-const StyledContainer = styled(Container)<{ isLight: boolean; checked: boolean }>(({ isLight, checked }) => ({
+const StyledContainer = styled(Container)<{ checked: boolean }>(({ theme, checked }) => ({
   '&:hover': {
-    background: isLight ? (checked ? '#EDEFFF' : '#F6F8F9') : checked ? '#231536' : '#25273D',
+    background: theme.palette.isLight ? (checked ? '#EDEFFF' : '#F6F8F9') : checked ? '#231536' : '#25273D',
   },
 }));
 

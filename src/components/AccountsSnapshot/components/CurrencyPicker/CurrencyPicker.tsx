@@ -1,24 +1,20 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import { CustomMultiSelect } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
 import TokenIcon from '@ses/components/TokenIcon/TokenIcon';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import CurrencyItem from './CurrencyItem';
+import type { Theme } from '@mui/material';
 import type { MultiSelectItem, SelectItemProps } from '@ses/components/CustomMultiSelect/CustomMultiSelect';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 const CurrencyPicker: React.FC = () => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('table_834'));
 
   return (
     <PickerWrapper>
       <CustomMultiSelect
         positionRight={true}
         label={() => (
-          <Label isLight={isLight}>
+          <Label>
             <TokenIcon token="DAI" size={32} /> DAI
           </Label>
         )}
@@ -52,7 +48,7 @@ const CurrencyPicker: React.FC = () => {
 
 export default CurrencyPicker;
 
-const Label = styled.div<WithIsLight>(({ isLight }) => ({
+const Label = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 4,
@@ -61,23 +57,23 @@ const Label = styled.div<WithIsLight>(({ isLight }) => ({
   fontWeight: 600,
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: isLight ? '#231536' : 'red',
+  color: theme.palette.isLight ? '#231536' : 'red',
 }));
 
-const PickerWrapper = styled.div({
+const PickerWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
   width: '100%',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     width: 'auto',
   },
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [theme.breakpoints.between('table_834', 'desktop_1194')]: {
     paddingLeft: 90,
   },
 
-  [lightTheme.breakpoints.down('table_834')]: {
+  [theme.breakpoints.down('table_834')]: {
     '&  .no-select': {
       padding: '15px 40px 15px 2px',
 
@@ -86,4 +82,4 @@ const PickerWrapper = styled.div({
       },
     },
   },
-});
+}));

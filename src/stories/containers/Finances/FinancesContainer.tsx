@@ -90,16 +90,10 @@ const FinancesContainer: React.FC<Props> = ({ budgets, allBudgets, yearsRange, i
             )}
             <TitleDescription levelNumber={levelNumber}>
               {levelNumber === 1 ? (
-                <>
-                  <p>
-                    The MakerDAO finances section offers a complete breakdown of budget and expenditure data for
-                    contributor teams since the DAO's launch in 2021.
-                  </p>
-                  <p>
-                    The available metrics are Budget, Budget Cap, Forecast, Actuals, Net Expenses On-Chain and Net
-                    Protocol Outflow.
-                  </p>
-                </>
+                <p>
+                  The MakerDAO finances section offers a complete breakdown of budget and expenditure data for
+                  contributor teams since the DAO's launch in 2021.
+                </p>
               ) : (
                 description
               )}

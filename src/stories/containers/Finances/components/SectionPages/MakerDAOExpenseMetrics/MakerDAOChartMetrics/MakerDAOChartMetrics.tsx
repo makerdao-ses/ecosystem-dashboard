@@ -8,15 +8,17 @@ import {
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
-import { formatNumber, replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
+import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React, { useRef } from 'react';
+import { usLocalizedNumber } from '@/core/utils/humanization';
 import type { CumulativeType } from '../useMakerDAOExpenseMetrics';
 import type { BarChartSeries, LineChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity } from '@ses/core/models/interfaces/analytic';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { EChartsOption } from 'echarts-for-react';
+
 interface BreakdownChartProps {
   year: string;
   selectedGranularity: AnalyticGranularity;
@@ -149,7 +151,7 @@ const MakerDAOChartMetrics: React.FC<BreakdownChartProps> = ({
                     }:</span>
                   <span style="font-size:16px;font-weight:700;color:${
                     isLight ? '#231536' : '#EDEFFF'
-                  };display: inline-block;">${formatNumber(item.value)}</span>
+                  };display: inline-block;">${usLocalizedNumber(item.value, 2)}</span>
                 </div>`
                 )
                 .join('')}

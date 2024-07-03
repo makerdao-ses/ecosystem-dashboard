@@ -1,28 +1,27 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled, useMediaQuery } from '@mui/material';
 import Information from '@/components/icons/information';
 import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
+import type { Theme } from '@mui/material';
 import type { RowProps } from '@ses/components/AdvanceTable/types';
 
-const HeaderWithIcon = styled.div({
+const HeaderWithIcon = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
   gap: 6.5,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     gap: 10,
   },
-});
+}));
 
-const InfoWrapper = styled.div({
+const InfoWrapper = styled('div')({
   display: 'flex',
   cursor: 'pointer',
 });
 
 const NetExpenseTransactions = () => {
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('table_834'));
 
   return (
     <HeaderWithIcon>

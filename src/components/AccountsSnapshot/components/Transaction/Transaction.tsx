@@ -1,13 +1,9 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled, useMediaQuery } from '@mui/material';
 import MobileTransaction from './MobileTransaction';
 import TransactionAmount from './segments/TransactionAmount';
 import TransactionCounterParty from './segments/TransactionCounterParty';
 import TransactionHeader from './segments/TransactionHeader';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { Theme } from '@mui/material';
 
 export interface TransactionProps {
   name: string;
@@ -30,8 +26,7 @@ const Transaction: React.FC<TransactionProps> = ({
   amount,
   highlightPositiveAmounts = false,
 }) => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('table_834'));
   const isIncomingTransaction = amount > 0;
 
   return isMobile ? (
@@ -46,7 +41,7 @@ const Transaction: React.FC<TransactionProps> = ({
       highlightPositiveAmounts={highlightPositiveAmounts}
     />
   ) : (
-    <TransactionContainer isLight={isLight}>
+    <TransactionContainer>
       <TransactionHeader
         isIncomingTransaction={isIncomingTransaction}
         name={name}
@@ -66,27 +61,27 @@ const Transaction: React.FC<TransactionProps> = ({
 
 export default Transaction;
 
-const TransactionContainer = styled.div<WithIsLight>(({ isLight }) => ({
+const TransactionContainer = styled('div')(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '204px 15.7% max-content 1fr',
   padding: '16px 32px 13px 20px',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     gridTemplateColumns: '295px 16% max-content 1fr',
     padding: '16px 56px 14px 20px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     gridTemplateColumns: '295px 16.1% max-content 1fr',
     padding: '16px 64px 14px 20px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     gridTemplateColumns: '295px 16.4% max-content 1fr',
     padding: '16px 80px 14px 20px',
   },
 
   '&:hover': {
-    background: isLight ? '#F6F8F9' : '#1F2931',
+    background: theme.palette.isLight ? '#F6F8F9' : '#1F2931',
   },
 }));

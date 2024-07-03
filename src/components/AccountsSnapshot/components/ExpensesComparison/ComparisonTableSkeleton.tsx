@@ -1,146 +1,138 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const ComparisonTableSkeleton: React.FC = () => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <Shadow isLight={isLight}>
-      <Table isLight={isLight}>
-        <thead>
-          <tr>
-            <ReportedHeaderTH rowSpan={2} colSpan={2}>
-              <ReportedHeaderSkeleton isLight={isLight} />
-            </ReportedHeaderTH>
-            <NetHeaderTH colSpan={4}>
-              <NetHeaderSkeleton isLight={isLight} />
-            </NetHeaderTH>
-          </tr>
-          <tr>
-            <IconHeaderTH>
-              <ItemWithIconContainer>
-                <OnChainHeaderSkeleton isLight={isLight} />
-                <IconSkeleton isLight={isLight} variant="circular" />
-              </ItemWithIconContainer>
-            </IconHeaderTH>
-            <DifferenceHeaderTH>
-              <DifferenceHeaderSkeleton isLight={isLight} />
-            </DifferenceHeaderTH>
-            <IconHeaderTH>
-              <ItemWithIconContainer>
-                <OffChainHeaderSkeleton isLight={isLight} />
-                <IconSkeleton isLight={isLight} variant="circular" />
-              </ItemWithIconContainer>
-            </IconHeaderTH>
-            <DifferenceHeaderTH>
-              <DifferenceHeaderSkeleton isLight={isLight} />
-            </DifferenceHeaderTH>
-          </tr>
-        </thead>
-        <tbody>
-          <CurrentMonthRow isLight={isLight}>
-            <Col1>
-              <MonthLabelSkeleton isLight={isLight} />
-            </Col1>
-            <Col2>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col2>
-            <Col3>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col3>
-            <Col4>
-              <DifferenceValueSmallSkeleton isLight={isLight} />
-            </Col4>
-            <Col5>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col5>
-            <Col6>
-              <DifferenceValueSmallSkeleton isLight={isLight} />
-            </Col6>
-          </CurrentMonthRow>
-          <tr>
-            <Col1>
-              <MonthLabelSkeleton isLight={isLight} />
-            </Col1>
-            <Col2>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col2>
-            <Col3>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col3>
-            <Col4>
-              <DifferenceValueLargeSkeleton isLight={isLight} />
-            </Col4>
-            <Col5>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col5>
-            <Col6>
-              <DifferenceValueSmallSkeleton isLight={isLight} />
-            </Col6>
-          </tr>
-          <tr>
-            <Col1>
-              <MonthLabelSkeleton isLight={isLight} />
-            </Col1>
-            <Col2>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col2>
-            <Col3>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col3>
-            <Col4>
-              <DifferenceValueLargeSkeleton isLight={isLight} />
-            </Col4>
-            <Col5>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col5>
-            <Col6>
-              <DifferenceValueLargeSkeleton isLight={isLight} />
-            </Col6>
-          </tr>
-          <tr>
-            <Col1>
-              <MonthLabelSkeleton isLight={isLight} />
-            </Col1>
-            <Col2>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col2>
-            <Col3>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col3>
-            <Col4>
-              <DifferenceValueSmallSkeleton isLight={isLight} />
-            </Col4>
-            <Col5>
-              <BigNumberValueSkeleton isLight={isLight} />
-            </Col5>
-            <Col6>
-              <DifferenceValueLargeSkeleton isLight={isLight} />
-            </Col6>
-          </tr>
-        </tbody>
-      </Table>
-    </Shadow>
-  );
-};
+const ComparisonTableSkeleton: React.FC = () => (
+  <Shadow>
+    <Table>
+      <thead>
+        <tr>
+          <ReportedHeaderTH rowSpan={2} colSpan={2}>
+            <ReportedHeaderSkeleton />
+          </ReportedHeaderTH>
+          <NetHeaderTH colSpan={4}>
+            <NetHeaderSkeleton />
+          </NetHeaderTH>
+        </tr>
+        <tr>
+          <IconHeaderTH>
+            <ItemWithIconContainer>
+              <OnChainHeaderSkeleton />
+              <IconSkeleton variant="circular" />
+            </ItemWithIconContainer>
+          </IconHeaderTH>
+          <DifferenceHeaderTH>
+            <DifferenceHeaderSkeleton />
+          </DifferenceHeaderTH>
+          <IconHeaderTH>
+            <ItemWithIconContainer>
+              <OffChainHeaderSkeleton />
+              <IconSkeleton variant="circular" />
+            </ItemWithIconContainer>
+          </IconHeaderTH>
+          <DifferenceHeaderTH>
+            <DifferenceHeaderSkeleton />
+          </DifferenceHeaderTH>
+        </tr>
+      </thead>
+      <tbody>
+        <CurrentMonthRow>
+          <Col1>
+            <MonthLabelSkeleton />
+          </Col1>
+          <Col2>
+            <BigNumberValueSkeleton />
+          </Col2>
+          <Col3>
+            <BigNumberValueSkeleton />
+          </Col3>
+          <Col4>
+            <DifferenceValueSmallSkeleton />
+          </Col4>
+          <Col5>
+            <BigNumberValueSkeleton />
+          </Col5>
+          <Col6>
+            <DifferenceValueSmallSkeleton />
+          </Col6>
+        </CurrentMonthRow>
+        <tr>
+          <Col1>
+            <MonthLabelSkeleton />
+          </Col1>
+          <Col2>
+            <BigNumberValueSkeleton />
+          </Col2>
+          <Col3>
+            <BigNumberValueSkeleton />
+          </Col3>
+          <Col4>
+            <DifferenceValueLargeSkeleton />
+          </Col4>
+          <Col5>
+            <BigNumberValueSkeleton />
+          </Col5>
+          <Col6>
+            <DifferenceValueSmallSkeleton />
+          </Col6>
+        </tr>
+        <tr>
+          <Col1>
+            <MonthLabelSkeleton />
+          </Col1>
+          <Col2>
+            <BigNumberValueSkeleton />
+          </Col2>
+          <Col3>
+            <BigNumberValueSkeleton />
+          </Col3>
+          <Col4>
+            <DifferenceValueLargeSkeleton />
+          </Col4>
+          <Col5>
+            <BigNumberValueSkeleton />
+          </Col5>
+          <Col6>
+            <DifferenceValueLargeSkeleton />
+          </Col6>
+        </tr>
+        <tr>
+          <Col1>
+            <MonthLabelSkeleton />
+          </Col1>
+          <Col2>
+            <BigNumberValueSkeleton />
+          </Col2>
+          <Col3>
+            <BigNumberValueSkeleton />
+          </Col3>
+          <Col4>
+            <DifferenceValueSmallSkeleton />
+          </Col4>
+          <Col5>
+            <BigNumberValueSkeleton />
+          </Col5>
+          <Col6>
+            <DifferenceValueLargeSkeleton />
+          </Col6>
+        </tr>
+      </tbody>
+    </Table>
+  </Shadow>
+);
 
 export default ComparisonTableSkeleton;
 
-const Shadow = styled.div<WithIsLight>(({ isLight }) => ({
-  filter: isLight
+const Shadow = styled('div')(({ theme }) => ({
+  filter: theme.palette.isLight
     ? 'drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.40))'
     : 'none',
 }));
 
-const Table = styled.table<WithIsLight>(({ isLight }) => ({
+const Table = styled('table')(({ theme }) => ({
   marginTop: 32,
   borderRadius: 6,
-  backgroundColor: isLight ? '#ffffff' : '#10191F',
-  boxShadow: isLight
+  backgroundColor: theme.palette.isLight ? '#ffffff' : '#10191F',
+  boxShadow: theme.palette.isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px -40px rgba(219, 227, 237, 0.40)'
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
   width: '100%',
@@ -150,74 +142,74 @@ const Table = styled.table<WithIsLight>(({ isLight }) => ({
   padding: 0,
 }));
 
-const ReportedHeaderTH = styled.th({
+const ReportedHeaderTH = styled('th')({
   paddingRight: 16,
 });
 
-const ReportedHeaderSkeleton = styled(BaseSkeleton)({
+const ReportedHeaderSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 139,
   height: 10.5,
   marginLeft: 'auto',
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 227,
     height: 16,
   },
-});
+}));
 
-const NetHeaderTH = styled.th({
+const NetHeaderTH = styled('th')(({ theme }) => ({
   paddingTop: 16,
   paddingBottom: 22.75,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     paddingBottom: 21,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     paddingTop: 11,
     paddingBottom: 16,
   },
-});
+}));
 
-const NetHeaderSkeleton = styled(BaseSkeleton)({
+const NetHeaderSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 179,
   height: 12.25,
   marginLeft: 'auto',
   marginRight: 'auto',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 205,
     height: 14,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 405,
     height: 24,
   },
-});
+}));
 
-const IconHeaderTH = styled.th({
+const IconHeaderTH = styled('th')(({ theme }) => ({
   padding: '24px 12.5px 24px 6px',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: '24px 15.5px 24px 6px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '22px 15.5px 26px 6px',
   },
-});
+}));
 
-const ItemWithIconContainer = styled.div({
+const ItemWithIconContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
   gap: 6.5,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     gap: 12.5,
   },
-});
+}));
 
 const OnChainHeaderSkeleton = styled(BaseSkeleton)({
   width: 111,
@@ -234,77 +226,77 @@ const IconSkeleton = styled(BaseSkeleton)({
   height: 15,
 });
 
-const DifferenceHeaderTH = styled.th({
+const DifferenceHeaderTH = styled('th')(({ theme }) => ({
   padding: '26px 8px 26.5px 0',
   display: 'flex',
   justifyContent: 'flex-end',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: '26px 16px 26.5px 0',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '24px 16px 28.5px 0',
   },
-});
+}));
 
 const DifferenceHeaderSkeleton = styled(BaseSkeleton)({
   width: 83,
   height: 10.5,
 });
 
-const CurrentMonthRow = styled.tr<WithIsLight>(({ isLight }) => ({
-  background: isLight ? 'rgba(236, 239, 249, 0.30)' : 'rgba(48, 54, 60, 0.20)',
+const CurrentMonthRow = styled('tr')(({ theme }) => ({
+  background: theme.palette.isLight ? 'rgba(236, 239, 249, 0.30)' : 'rgba(48, 54, 60, 0.20)',
 }));
 
-const MonthLabelSkeleton = styled(BaseSkeleton)({
+const MonthLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 75,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 150,
     height: 14,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: 120,
   },
-});
+}));
 
-const BigNumberValueSkeleton = styled(BaseSkeleton)({
+const BigNumberValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 111,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 127,
     height: 14,
   },
-});
+}));
 
-const DifferenceValueSmallSkeleton = styled(BaseSkeleton)({
+const DifferenceValueSmallSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 44,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 50,
     height: 14,
   },
-});
+}));
 
-const DifferenceValueLargeSkeleton = styled(BaseSkeleton)({
+const DifferenceValueLargeSkeleton = styled(BaseSkeleton)(({ theme }) => ({
   width: 51,
   height: 12.25,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 58,
     height: 14,
   },
-});
+}));
 
-const RowCell = styled.td({
+const RowCell = styled('td')(({ theme }) => ({
   padding: '18.5px 8px 23.25px 0px',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: '17.5px 16px 22.5px 0px',
   },
 
@@ -312,79 +304,79 @@ const RowCell = styled.td({
     marginLeft: 'auto',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     '&:first-child > *': {
       marginLeft: 16,
     },
   },
-});
+}));
 
-const Col1 = styled(RowCell)({
+const Col1 = styled(RowCell)(({ theme }) => ({
   minWidth: 91,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     minWidth: 186,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 195,
   },
-});
+}));
 
-const Col2 = styled(RowCell)({
+const Col2 = styled(RowCell)(({ theme }) => ({
   minWidth: 142,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     minWidth: 186,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 195,
   },
-});
+}));
 
-const Col3 = styled(RowCell)({
+const Col3 = styled(RowCell)(({ theme }) => ({
   minWidth: 151,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     minWidth: 249,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 261,
   },
-});
+}));
 
-const Col4 = styled(RowCell)({
+const Col4 = styled(RowCell)(({ theme }) => ({
   minWidth: 92,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     minWidth: 126,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 132,
   },
-});
+}));
 
-const Col5 = styled(RowCell)({
+const Col5 = styled(RowCell)(({ theme }) => ({
   minWidth: 200,
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     minWidth: 249,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 261,
   },
-});
+}));
 
-const Col6 = styled(RowCell)({
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+const Col6 = styled(RowCell)(({ theme }) => ({
+  [theme.breakpoints.up('desktop_1194')]: {
     minWidth: 134,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 140,
   },
-});
+}));

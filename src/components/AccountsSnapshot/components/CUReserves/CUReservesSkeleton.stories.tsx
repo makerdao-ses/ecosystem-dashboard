@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof CUReservesSkeleton> = {
-  title: 'Components/CUTransparencyReport/Accounts Snapshot/Core Unit Reserves Skeleton',
+  title: 'Fusion/Components/Accounts Snapshot/Core Unit Reserves Skeleton',
   component: CUReservesSkeleton,
   parameters: {
     chromatic: {
