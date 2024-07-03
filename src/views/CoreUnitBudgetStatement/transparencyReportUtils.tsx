@@ -1,12 +1,12 @@
 import { styled } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
-import IconOpenModal from '@ses/components/svg/IconOpenModal';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import lightTheme from '@ses/styles/theme/themes';
 import MobileDetect from 'mobile-detect';
+import Expand from 'public/assets/svg/expand.svg';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NumberCell } from '@/components/AdvancedInnerTable/NumberCell/NumberCell';
 import { TextCell } from '@/components/AdvancedInnerTable/TextCell/TextCell';
@@ -387,7 +387,9 @@ interface Props {
 export const OpenModalTransparency: React.FC<Props> = ({ name, handleOpenModal, className }) => (
   <CategoryRowInsideColumn className={className}>
     {name}
-    <IconOpenModalStyled onClick={handleOpenModal} />
+    <ContainerIcon onClick={handleOpenModal}>
+      <Expand />
+    </ContainerIcon>
   </CategoryRowInsideColumn>
 );
 
@@ -397,10 +399,23 @@ const CategoryRowInsideColumn = styled('div')({
   gap: 12,
 });
 
-const IconOpenModalStyled = styled(IconOpenModal)(({ theme }) => ({
+const ContainerIcon = styled('div')(({ theme }) => ({
+  height: 20,
+  width: 20,
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
   ':hover': {
     '& rect': {
       stroke: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
     },
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
+    '& line': {
+      stroke: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
+    '& mask': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
+    color: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
   },
 }));
