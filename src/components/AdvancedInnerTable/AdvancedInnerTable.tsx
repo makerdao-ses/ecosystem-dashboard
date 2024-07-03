@@ -130,8 +130,11 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       </TableWrapper>
       <CardsWrapper>
         {cardItems.map((item, i) => {
-          // TODO: Avoid the background in the card of the wallet
-          const showSubHeader = !(item.type === 'total' || item.type === 'subTotal');
+          const showSubHeader = !(
+            item.type === 'total' ||
+            item.type === 'subTotal' ||
+            item.items[i]?.column.isCardHeader
+          );
           if (item.type === 'groupTitle') {
             return (
               <TitleCard isGroupCard={true} cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">

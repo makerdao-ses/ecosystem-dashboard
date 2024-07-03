@@ -120,16 +120,19 @@ const Row = styled('div')<{ hasIcon?: boolean; height?: string }>(({ hasIcon = f
 const Label = styled('div')<{ hasIcon?: boolean; height?: string; isTotal: boolean }>(
   ({ hasIcon = false, isTotal, theme }) => ({
     display: 'flex',
-
-    alignItems: hasIcon ? 'flex-start' : 'center',
-    color: theme.palette.isLight ? (isTotal ? '#434358' : '#708390') : isTotal ? '#9FAFB9' : '#708390',
     fontFamily: 'Inter, sans-serif',
+    alignItems: hasIcon ? 'flex-start' : 'center',
+    color: theme.palette.isLight
+      ? isTotal
+        ? theme.palette.colors.gray[900]
+        : theme.palette.colors.slate[100]
+      : isTotal
+      ? theme.palette.colors.gray[50]
+      : theme.palette.colors.slate[200],
     fontWeight: 600,
-    fontSize: '12px',
-    lineHeight: '15px',
+    fontSize: '16px',
+    lineHeight: '24px',
     height: '37px',
-    letterSpacing: '1px',
-    textTransform: 'uppercase',
     minWidth: 132,
   })
 );
