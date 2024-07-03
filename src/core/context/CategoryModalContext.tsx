@@ -1,5 +1,5 @@
-import { useModalCategory } from '@ses/components/BasicModal/useModalCategory';
 import React, { createContext, useContext } from 'react';
+import { useModalCategory } from '@/components/AdvancedInnerTable/BasicModal/useModalCategory';
 import type { ExpenseCategory, ParsedExpenseCategoryWithExpanded } from '../models/dto/expenseCategoriesDTO';
 
 export type CategoryModalContextValues = {

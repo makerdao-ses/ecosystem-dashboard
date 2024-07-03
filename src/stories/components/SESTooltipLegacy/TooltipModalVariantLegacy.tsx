@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
-import BasicModal from '../BasicModal/BasicModal';
+
+import BasicModal from '@/components/AdvancedInnerTable/BasicModal/BasicModal';
 import { Close } from '../svg/close';
 
 interface TooltipModalVariantProps extends React.PropsWithChildren {
