@@ -58,7 +58,7 @@ const Container = styled('div')<{
   padding: isHeader ? 16 : '8px 0',
   textAlign: isHeader ? 'left' : 'right',
   fontSize: isHeader ? '16px' : '14px',
-  paddingLeft: 16,
+  paddingLeft: 24,
   color: theme.palette.isLight
     ? isSection
       ? '#9da0a1'
@@ -75,6 +75,7 @@ const Container = styled('div')<{
     lineHeight: '19px',
     fontSize: '16px',
     textAlign: 'left',
+    paddingLeft: 16,
     fontWeight: isHeader ? (bold ? 600 : 400) : 400,
   },
 }));

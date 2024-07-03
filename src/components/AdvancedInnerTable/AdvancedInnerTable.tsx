@@ -130,6 +130,11 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       </TableWrapper>
       <CardsWrapper>
         {cardItems.map((item, i) => {
+          const showSubHeader = !(
+            item.type === 'total' ||
+            item.type === 'subTotal' ||
+            item.items[i]?.column.isCardHeader
+          );
           if (item.type === 'groupTitle') {
             return (
               <TitleCard isGroupCard={true} cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">
@@ -138,26 +143,17 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
                 </GroupTitle>
                 {i + 1 < cardItems.length && cardItems[i + 1].type === 'section' && (
                   <Title fontSize="14px" className="advanced-table--table-section">
-                    {cardItems[i + 1].items[0].value as string}
+                    {cardItems[i].items[0].value as string}
                   </Title>
                 )}
               </TitleCard>
             );
           }
-
-          if (item.type === 'section') {
-            return i === 0 || (i > 0 && cardItems[i - 1].type !== 'groupTitle') ? (
-              <TitleCard cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">
-                <Title fontSize="14px" key={`section-${i}`} className="advanced-table--table-section">
-                  {item.items[0].value as string}
-                </Title>
-              </TitleCard>
-            ) : null;
-          }
-
           return (
             <TransparencyCard
+              showSubHeader={showSubHeader}
               itemType={item.type}
+              subHeader={item.subHeader || ''}
               key={`item-${i}`}
               cardSpacingSize={cardSpacingSize}
               separators={item.items
@@ -300,14 +296,14 @@ const TableRow = styled('tr')<{ borderTop?: boolean; borderBottom?: boolean }>(
 );
 
 const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   fontSize: 16,
   lineHeight: '24px',
   fontWeight: 600,
-  paddingLeft: 16,
-  paddingTop: 16,
-  marginBottom: 16,
-
+  paddingLeft: 24,
+  paddingTop: 8,
+  paddingRight: 24,
+  paddingBottom: 8,
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   fontFamily: 'Inter, sans-serif',
   justifyContent: 'space-between',
   gap: 0,
@@ -322,11 +318,12 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
       display: 'none',
     },
     [theme.breakpoints.up('tablet_768')]: {
-      color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
       fontSize: 16,
       fontWeight: 600,
       lineHeight: '24px',
-      padding: '8px  0px 16px 16px',
+      paddingLeft: 16,
+
+      padding: '8px 0px 16px 16px',
     },
   },
   [theme.breakpoints.up('tablet_768')]: {
@@ -334,6 +331,7 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
     fontWeight: 400,
     paddingTop: 0,
     marginBottom: 0,
+    paddingLeft: 16,
     lineHeight: '16.94px',
     fontSize: 14,
     svg: {
