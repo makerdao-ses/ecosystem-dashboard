@@ -39,11 +39,6 @@ const BudgetMetricsModal: React.FC = () => {
             <InsideModal>
               <MetricItem>
                 <MetricTitle>Budget</MetricTitle>
-                <MetricDescription>An estimate of income and expenditure for a set period.</MetricDescription>
-              </MetricItem>
-
-              <MetricItem>
-                <MetricTitle>Budget Cap</MetricTitle>
                 <MetricDescription>
                   The maximum amount allocated for a specific budget category or project.
                 </MetricDescription>
@@ -71,7 +66,8 @@ const BudgetMetricsModal: React.FC = () => {
               <MetricItem>
                 <MetricTitle>Payments Off-Chain Incl</MetricTitle>
                 <MetricDescription>
-                  The net flow of funds originating from the Maker Protocol, as tracked on-chain.
+                  Expense transactions based on the on-chain data combined with self-reported off-chain account
+                  balances.
                 </MetricDescription>
               </MetricItem>
             </InsideModal>

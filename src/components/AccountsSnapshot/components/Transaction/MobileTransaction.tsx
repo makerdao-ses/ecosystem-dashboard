@@ -1,11 +1,11 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { DateTime } from 'luxon';
 import React, { useState } from 'react';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import GreenArrowDown from '../SVG/GreenArrowDown';
 import RedArrowUp from '../SVG/RedArrowUp';
 import TxHash from '../TxHash/TxHash';
@@ -13,7 +13,6 @@ import TransactionWalletInfo from './TransactionWalletInfo';
 import type { TransactionProps } from './Transaction';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface MobileTransactionProps extends TransactionProps {
   // prop to allow the component to be expanded by default (used in the storybook)
@@ -45,21 +44,21 @@ const MobileTransaction: React.FC<MobileTransactionProps> = ({
   );
 
   return (
-    <Accordion expanded={expanded} isLight={isLight} onChange={() => setExpanded(!expanded)}>
+    <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
       <TransactionSummary expanded={expanded}>
         <ArrowContainer>{isIncomingTransaction ? <GreenArrowDown /> : <RedArrowUp />}</ArrowContainer>
         <Content>
           <Data>
-            <Name isLight={isLight}>{name}</Name>
-            <Date isLight={isLight}>{formattedDate}</Date>
+            <Name>{name}</Name>
+            <Date>{formattedDate}</Date>
           </Data>
-          <Value isLight={isLight} isGreen={amount > 0 && !!highlightPositiveAmounts}>
+          <Value isGreen={amount > 0 && !!highlightPositiveAmounts}>
             <Sign>{amount < 0 ? '-' : '+'}</Sign>
             {usLocalizedNumber(Math.abs(amount))}
-            <Currency isLight={isLight}>DAI</Currency>
+            <Currency>DAI</Currency>
           </Value>
         </Content>
-        <CollapseIndicator isLight={isLight}>
+        <CollapseIndicator>
           {expanded ? (
             <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -81,9 +80,9 @@ const MobileTransaction: React.FC<MobileTransactionProps> = ({
         <TxContainer>
           <TxHash txHash={txHash} />
         </TxContainer>
-        <Divider isLight={isLight} />
+        <Divider />
         <TargetContainer>
-          <TargetType isLight={isLight}>{isIncomingTransaction ? 'Sender Address' : 'Recipient Address'}</TargetType>
+          <TargetType>{isIncomingTransaction ? 'Sender Address' : 'Recipient Address'}</TargetType>
           <WalletContainer>
             <TransactionWalletInfo name={counterPartyName} address={counterPartyAddress} />
           </WalletContainer>
@@ -95,19 +94,21 @@ const MobileTransaction: React.FC<MobileTransactionProps> = ({
 
 export default MobileTransaction;
 
-const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))<WithIsLight>(({ isLight }) => ({
-  backgroundColor: isLight ? '#FBFBFB' : '#162530',
-  boxShadow: isLight ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)' : 'red',
-  borderRadius: 6,
-  position: 'relative',
-  overflow: 'hidden',
+const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
+  ({ theme }) => ({
+    backgroundColor: theme.palette.isLight ? '#FBFBFB' : '#162530',
+    boxShadow: theme.palette.isLight
+      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
+      : 'red',
+    borderRadius: 6,
+    position: 'relative',
+    overflow: 'hidden',
 
-  '&:before': {
-    display: 'none',
-  },
-}));
+    '&:before': {
+      display: 'none',
+    },
+  })
+);
 
 const TransactionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)<{
   expanded: boolean;
@@ -125,41 +126,41 @@ const TransactionDetails = styled(MuiAccordionDetails)({
   padding: 0,
 });
 
-const ArrowContainer = styled.div({
+const ArrowContainer = styled('div')({
   marginRight: 8,
   paddingTop: 6,
 });
 
-const Content = styled.div({
+const Content = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
   width: '100%',
 });
 
-const Data = styled.div({
+const Data = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 4,
 });
 
-const Name = styled.div<WithIsLight>(({ isLight }) => ({
+const Name = styled('div')(({ theme }) => ({
   fontWeight: 500,
   fontSize: 12,
   lineHeight: '15px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
-const Date = styled.div<WithIsLight>(({ isLight }) => ({
+const Date = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 10,
   lineHeight: '12px',
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: isLight ? '#9FAFB9' : '#405361',
+  color: theme.palette.isLight ? '#9FAFB9' : '#405361',
 }));
 
-const Value = styled.div<WithIsLight & { isGreen: boolean }>(({ isLight, isGreen }) => ({
+const Value = styled('div')<{ isGreen: boolean }>(({ theme, isGreen }) => ({
   display: 'flex',
   alignItems: 'baseline',
   justifyContent: 'flex-end',
@@ -169,26 +170,26 @@ const Value = styled.div<WithIsLight & { isGreen: boolean }>(({ isLight, isGreen
   marginTop: 5,
 
   '&, & > span:first-of-type': {
-    color: isGreen ? '#1AAB9B' : isLight ? '#231536' : '#D2D4EF',
+    color: isGreen ? '#1AAB9B' : theme.palette.isLight ? '#231536' : '#D2D4EF',
   },
 }));
 
-const Sign = styled.span({
+const Sign = styled('span')({
   fontWeight: 700,
   fontSize: 14,
   lineHeight: '17px',
 });
 
-const Currency = styled.span<WithIsLight>(({ isLight }) => ({
+const Currency = styled('span')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 12,
   lineHeight: '15px',
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
 }));
 
-const CollapseIndicator = styled.div<WithIsLight>(({ isLight }) => ({
+const CollapseIndicator = styled('div')(({ theme }) => ({
   position: 'absolute',
   top: 0,
   right: 0,
@@ -198,37 +199,37 @@ const CollapseIndicator = styled.div<WithIsLight>(({ isLight }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '0 6px',
-  background: isLight ? '#EDEFFF' : '#3C3E64',
+  background: theme.palette.isLight ? '#EDEFFF' : '#3C3E64',
 }));
 
-const TxContainer = styled.div({
+const TxContainer = styled('div')({
   marginLeft: 32,
 });
 
-const Divider = styled.div<WithIsLight>(({ isLight }) => ({
+const Divider = styled('div')(({ theme }) => ({
   marginLeft: 8,
   marginRight: 16,
   margin: '8.5px 16px 8px 8px',
-  borderTop: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+  borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
 }));
 
-const TargetContainer = styled.div({
+const TargetContainer = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   margin: '0 16px 8px 8px',
 });
 
-const TargetType = styled.div<WithIsLight>(({ isLight }) => ({
+const TargetType = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
   fontSize: 12,
   lineHeight: '15px',
-  color: isLight ? '#9FAFB9' : '#708390',
+  color: theme.palette.isLight ? '#9FAFB9' : '#708390',
   paddingRight: 14,
 }));
 
-const WalletContainer = styled.div({
+const WalletContainer = styled('div')({
   minWidth: 'fit-content',
 });

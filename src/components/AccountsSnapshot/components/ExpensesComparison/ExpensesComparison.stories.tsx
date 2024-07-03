@@ -6,7 +6,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof ExpensesComparison> = {
-  title: 'Components/CUTransparencyReport/Accounts Snapshot/Expenses Comparison',
+  title: 'Fusion/Components/Accounts Snapshot/Expenses Comparison',
   component: ExpensesComparison,
   parameters: {
     chromatic: {

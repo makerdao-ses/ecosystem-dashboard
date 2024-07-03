@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
+import { useThemeContext } from '@/core/context/ThemeContext';
 
 const AccordionArrow: React.FC = () => {
   const { isLight } = useThemeContext();
@@ -18,13 +16,13 @@ const AccordionArrow: React.FC = () => {
 
 export default AccordionArrow;
 
-const SVG = styled.svg({
+const SVG = styled('svg')(({ theme }) => ({
   width: 10,
   height: 6,
   margin: '5px 3px',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 16,
     height: 10,
   },
-});
+}));

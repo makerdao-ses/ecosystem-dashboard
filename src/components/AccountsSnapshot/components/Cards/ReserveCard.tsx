@@ -1,17 +1,14 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { useState } from 'react';
 import TransactionList from '../TransactionList/TransactionList';
 import WalletInfo from '../WalletInfo/WalletInfo';
+import type { Theme } from '@mui/material';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { Token, UIReservesData } from '@ses/core/models/dto/snapshotAccountDTO';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ReserveCardProps {
   account: UIReservesData;
@@ -22,9 +19,8 @@ interface ReserveCardProps {
 }
 
 const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', defaultExpanded = false }) => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
-  const [expanded, setExpanded] = React.useState<boolean>(defaultExpanded);
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+  const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
 
   const isGroup = account.accountType === 'group';
   const initialBalance = account.snapshotAccountBalance?.[0]?.initialBalance ?? 0;
@@ -57,10 +53,10 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', de
 
   return (
     <Accordion expanded={expanded} onChange={() => hasTransactions && setExpanded(!expanded)}>
-      <Card isLight={isLight} hasTransactions={hasTransactions}>
+      <Card hasTransactions={hasTransactions}>
         <NameContainer>
           {isGroup ? (
-            <Name isLight={isLight}>{account?.accountLabel}</Name>
+            <Name>{account?.accountLabel}</Name>
           ) : (
             <WalletInfoWrapper>
               <WalletInfo name={account.accountLabel} address={account.accountAddress ?? ''} />
@@ -69,27 +65,27 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', de
           {isMobile && SVG}
         </NameContainer>
         <InitialBalance>
-          <Header isLight={isLight}>Initial Balance</Header>
-          <Value isLight={isLight}>
-            {usLocalizedNumber(initialBalance)} <Currency isLight={isLight}>{currency}</Currency>
+          <Header>Initial Balance</Header>
+          <Value>
+            {usLocalizedNumber(initialBalance)} <Currency>{currency}</Currency>
           </Value>
         </InitialBalance>
-        <Inflow isLight={isLight}>
-          <Header isLight={isLight}>Inflow</Header>
-          <Value isLight={isLight}>
-            + {usLocalizedNumber(inflow)} <Currency isLight={isLight}>{currency}</Currency>
+        <Inflow>
+          <Header>Inflow</Header>
+          <Value>
+            + {usLocalizedNumber(inflow)} <Currency>{currency}</Currency>
           </Value>
         </Inflow>
-        <Outflow isLight={isLight}>
-          <Header isLight={isLight}>Outflow</Header>
-          <Value isLight={isLight}>
-            - {usLocalizedNumber(outflow)} <Currency isLight={isLight}>{currency}</Currency>
+        <Outflow>
+          <Header>Outflow</Header>
+          <Value>
+            - {usLocalizedNumber(outflow)} <Currency>{currency}</Currency>
           </Value>
         </Outflow>
         <NewBalance>
-          <Header isLight={isLight}>New Balance</Header>
-          <Value isLight={isLight}>
-            {usLocalizedNumber(newBalance)} <Currency isLight={isLight}>{currency}</Currency>
+          <Header>New Balance</Header>
+          <Value>
+            {usLocalizedNumber(newBalance)} <Currency>{currency}</Currency>
           </Value>
         </NewBalance>
         {!isMobile && <ArrowContainer>{SVG}</ArrowContainer>}
@@ -118,102 +114,100 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
   },
 });
 
-const Card = styled(MuiAccordionSummary)<WithIsLight & { hasTransactions: boolean }>(
-  ({ isLight, hasTransactions }) => ({
-    padding: '16px 24px 24px',
-    background: isLight ? '#ffffff' : '#1E2C37',
-    boxShadow: isLight
-      ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
-      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-    borderRadius: 6,
-    zIndex: 1,
-    // !important is required to override default cursor style
-    cursor: hasTransactions ? 'pointer' : 'auto!important',
+const Card = styled(MuiAccordionSummary)<{ hasTransactions: boolean }>(({ theme, hasTransactions }) => ({
+  padding: '16px 24px 24px',
+  background: theme.palette.isLight ? '#ffffff' : '#1E2C37',
+  boxShadow: theme.palette.isLight
+    ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
+    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  borderRadius: 6,
+  zIndex: 1,
+  // !important is required to override default cursor style
+  cursor: hasTransactions ? 'pointer' : 'auto!important',
 
-    [lightTheme.breakpoints.up('table_834')]: {
-      padding: 0,
+  [theme.breakpoints.up('table_834')]: {
+    padding: 0,
+  },
+
+  '&.Mui-focusVisible': {
+    backgroundColor: theme.palette.isLight ? '#ffffff' : '#1E2C37',
+  },
+
+  '&.Mui-expanded': {
+    [theme.breakpoints.down('table_834')]: {
+      borderRadius: '6px 6px 0 0',
     },
+  },
 
-    '&.Mui-focusVisible': {
-      backgroundColor: isLight ? '#ffffff' : '#1E2C37',
+  '& .MuiAccordionSummary-content': {
+    margin: 0,
+    width: '100%',
+    flexDirection: 'column',
+
+    [theme.breakpoints.up('table_834')]: {
+      flexDirection: 'row',
+      alignItems: 'center',
     },
+  },
+}));
 
-    '&.Mui-expanded': {
-      [lightTheme.breakpoints.down('table_834')]: {
-        borderRadius: '6px 6px 0 0',
-      },
-    },
-
-    '& .MuiAccordionSummary-content': {
-      margin: 0,
-      width: '100%',
-      flexDirection: 'column',
-
-      [lightTheme.breakpoints.up('table_834')]: {
-        flexDirection: 'row',
-        alignItems: 'center',
-      },
-    },
-  })
-);
-
-const TransactionContainer = styled(MuiAccordionDetails)(() => ({
+const TransactionContainer = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     marginBottom: 24,
   },
 }));
 
-const NameContainer = styled.div({
+const NameContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   width: '100%',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     width: '220px',
     padding: '0 16px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: '300px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '300px',
   },
-});
+}));
 
-const WalletInfoWrapper = styled.div({
+const WalletInfoWrapper = styled('div')(({ theme }) => ({
   paddingTop: 3,
   marginBottom: 1,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     paddingTop: 0,
     margin: 0,
   },
-});
+}));
 
-const Name = styled.div<WithIsLight>(({ isLight }) => ({
+const Name = styled('div')(({ theme }) => ({
   fontWeight: 700,
   fontSize: 16,
   lineHeight: '19px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [theme.breakpoints.between('table_834', 'desktop_1194')]: {
     fontSize: 12,
     lineHeight: '17px',
   },
 }));
 
-const InitialBalance = styled.div({
+const InitialBalance = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   marginTop: 24,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     flexDirection: 'column',
     marginTop: 0,
     justifyContent: 'normal',
@@ -222,64 +216,64 @@ const InitialBalance = styled.div({
     width: '17.08%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: 16,
     width: '16.8%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: '17.1%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     width: '17.9%',
   },
-});
+}));
 
-const Header = styled.div<WithIsLight>(({ isLight }) => ({
+const Header = styled('div')(({ theme }) => ({
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#708390' : '#708390',
+  color: theme.palette.isLight ? '#708390' : '#708390',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     fontSize: 11,
     lineHeight: '13px',
     marginBottom: 8,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 12,
     lineHeight: '15px',
   },
 }));
 
-const Value = styled.div<WithIsLight>(({ isLight }) => ({
+const Value = styled('div')(({ theme }) => ({
   fontWeight: 700,
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 16,
     lineHeight: '19px',
   },
 }));
 
-const Currency = styled.span<WithIsLight>(({ isLight }) => ({
+const Currency = styled('span')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 12,
   lineHeight: '15px',
   letterSpacing: 1,
   textTransform: 'uppercase',
-  color: isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     fontSize: 14,
     lineHeight: '17px',
   },
 }));
 
-const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
+const Inflow = styled('div')(({ theme }) => ({
   marginLeft: -16,
   marginRight: -16,
   marginTop: 8,
@@ -287,9 +281,9 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  background: isLight ? 'rgba(236, 239, 249, 0.5)' : 'rgba(72, 73, 95, 0.25)',
+  background: theme.palette.isLight ? 'rgba(236, 239, 249, 0.5)' : 'rgba(72, 73, 95, 0.25)',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     flexDirection: 'column',
     margin: '8px 2px',
     padding: 8,
@@ -298,26 +292,26 @@ const Inflow = styled.div<WithIsLight>(({ isLight }) => ({
     minWidth: 'calc(16.1% - 4px)',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     margin: '8px 16px',
     minWidth: 'calc(16.8% - 32px)',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 'calc(17.2% - 32px)',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     minWidth: 'calc(18% - 32px)',
   },
 }));
 
 const Outflow = styled(Inflow)({});
 
-const NewBalance = styled(InitialBalance)({
+const NewBalance = styled(InitialBalance)(({ theme }) => ({
   marginTop: 7,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('table_834')]: {
     padding: 2,
     marginLeft: 'auto',
     width: 'unset',
@@ -327,49 +321,49 @@ const NewBalance = styled(InitialBalance)({
     },
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     padding: 16,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     padding: '16px 32px 16px 16px',
     width: 'auto',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     padding: '16px 32px 16px 16px',
   },
-});
+}));
 
-const ArrowContainer = styled.div({
+const ArrowContainer = styled('div')(({ theme }) => ({
   width: 47,
   display: 'flex',
   alignItems: 'center',
   padding: '8px 18.5px',
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1194')]: {
     width: 72,
     justifyContent: 'center',
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     marginLeft: 32,
   },
-});
+}));
 
-const Arrow = styled.svg<{ hasTransactions?: boolean; isExpanded: boolean; isGroup: boolean }>(
-  ({ hasTransactions, isExpanded, isGroup }) => ({
+const Arrow = styled('svg')<{ hasTransactions?: boolean; isExpanded: boolean; isGroup: boolean }>(
+  ({ theme, hasTransactions, isExpanded, isGroup }) => ({
     transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
     transition: 'transform 0.2s ease-in-out',
     marginTop: isGroup ? -4 : -30,
     marginRight: -5,
     visibility: hasTransactions ? 'visible' : 'hidden',
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('table_834')]: {
       marginTop: 0,
     },
 
-    [lightTheme.breakpoints.up('desktop_1194')]: {
+    [theme.breakpoints.up('desktop_1194')]: {
       width: 16,
       height: 10,
       marginRight: 0,

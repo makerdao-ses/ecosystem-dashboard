@@ -57,7 +57,7 @@ const CommonDefaultMilestone = {
         code: '1',
         title: 'First technical integration of RWA Portfolio (Connect & Switchboard)',
         description:
-          'Technical integration demo showcasing for the first time the RWA Portfolio Editor in Connect and the data synchronization with Switchboard.',
+          'Technical integration demo showcasing for the first time the RWA Portfolio Editor in Connect and the data synchronization with Switchboard.\n* Deliverable with multiple lines description.',
         owner: contributors[0],
         status: DeliverableStatus.DELIVERED,
         workProgress: {

@@ -15,6 +15,7 @@ interface TransparencyEmptyTableProps {
   resource?: ResourceType;
 }
 
+// TODO: move this component to the global components folder as it is going to be reused in other places
 export const TransparencyEmptyTable: React.FC<TransparencyEmptyTableProps> = ({
   breakdown = false,
   longCode,

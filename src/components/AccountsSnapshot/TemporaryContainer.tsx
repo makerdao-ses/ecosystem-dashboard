@@ -1,13 +1,10 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled } from '@mui/material';
 import React from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import AccountsSnapshot from './AccountsSnapshot';
 import type { Snapshots } from '@ses/core/models/dto/snapshotAccountDTO';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface TemporaryContainerProps {
   snapshot: Snapshots;
@@ -15,42 +12,23 @@ interface TemporaryContainerProps {
   resourceType: ResourceType;
 }
 
-const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot, snapshotOwner, resourceType }) => {
-  const { isLight } = useThemeContext();
+const TemporaryContainer: React.FC<TemporaryContainerProps> = ({ snapshot, snapshotOwner, resourceType }) => (
+  <PageContainer>
+    <Container>
+      <Title>Account Snapshot</Title>
 
-  return (
-    <PageContainer hasImageBackground>
-      <Container>
-        <Title isLight={isLight}>Account Snapshot</Title>
-
-        <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} resourceType={resourceType} />
-      </Container>
-    </PageContainer>
-  );
-};
+      <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} resourceType={resourceType} />
+    </Container>
+  </PageContainer>
+);
 
 export default TemporaryContainer;
 
-const Title = styled.h1<WithIsLight>(({ isLight }) => ({
-  fontFamily: 'Inter,san-serif',
-  fontStyle: 'normal',
-  fontWeight: 600,
-  fontSize: '20px',
+const Title = styled('h1')(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: 20,
   lineHeight: '24px',
-  letterSpacing: '0.4px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   marginTop: 32,
   marginBottom: 32,
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: 24,
-    lineHeight: '29px',
-    letterSpacing: '0.4px',
-    marginTop: 34,
-    marginBottom: 32,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    marginTop: 32,
-  },
 }));

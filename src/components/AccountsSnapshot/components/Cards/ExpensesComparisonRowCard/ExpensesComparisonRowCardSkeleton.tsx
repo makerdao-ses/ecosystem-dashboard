@@ -1,77 +1,70 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React from 'react';
+import { styled } from '@mui/material';
 import { BaseSkeleton } from '../../BaseSkeleton/BaseSkeleton';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
-const ExpensesComparisonRowCardSkeleton: React.FC = () => {
-  const { isLight } = useThemeContext();
+const ExpensesComparisonRowCardSkeleton: React.FC = () => (
+  <CardsContainer>
+    <Card>
+      <DateSkeleton />
+      <PairContainer>
+        <ReportedLabelSkeleton />
+        <ReportedValueSkeleton />
+      </PairContainer>
+      <NetExpenseLabelSkeleton />
 
-  return (
-    <CardsContainer>
-      <Card isLight={isLight}>
-        <DateSkeleton isLight={isLight} />
-        <PairContainer>
-          <ReportedLabelSkeleton isLight={isLight} />
-          <ReportedValueSkeleton isLight={isLight} />
-        </PairContainer>
-        <NetExpenseLabelSkeleton isLight={isLight} />
+      <PairContainer>
+        <LabelContainer>
+          <OnchainLabelSkeleton />
+          <IconSkeleton variant="circular" />
+        </LabelContainer>
+        <OnchainValueSkeleton />
+      </PairContainer>
+      <PairContainer style={{ marginTop: 22 }}>
+        <OnchainDifferenceLabelSkeleton />
+        <OnchainDifferenceValueSkeleton />
+      </PairContainer>
 
-        <PairContainer>
-          <LabelContainer>
-            <OnchainLabelSkeleton isLight={isLight} />
-            <IconSkeleton isLight={isLight} variant="circular" />
-          </LabelContainer>
-          <OnchainValueSkeleton isLight={isLight} />
-        </PairContainer>
-        <PairContainer style={{ marginTop: 22 }}>
-          <OnchainDifferenceLabelSkeleton isLight={isLight} />
-          <OnchainDifferenceValueSkeleton isLight={isLight} />
-        </PairContainer>
+      <Divider />
 
-        <Divider isLight={isLight} />
+      <PairContainer>
+        <LabelContainer>
+          <OffChainLabelSkeleton />
+          <IconSkeleton variant="circular" />
+        </LabelContainer>
+        <OffChainValueSkeleton />
+      </PairContainer>
+      <PairContainer style={{ marginTop: 22 }}>
+        <OffChainDifferenceLabelSkeleton />
+        <OffChainDifferenceValueSkeleton />
+      </PairContainer>
+    </Card>
 
-        <PairContainer>
-          <LabelContainer>
-            <OffChainLabelSkeleton isLight={isLight} />
-            <IconSkeleton isLight={isLight} variant="circular" />
-          </LabelContainer>
-          <OffChainValueSkeleton isLight={isLight} />
-        </PairContainer>
-        <PairContainer style={{ marginTop: 22 }}>
-          <OffChainDifferenceLabelSkeleton isLight={isLight} />
-          <OffChainDifferenceValueSkeleton isLight={isLight} />
-        </PairContainer>
-      </Card>
-
-      <CollapsedCard isLight={isLight}>
-        <CollapsedCardTextSkeleton isLight={isLight} width={68} />
-      </CollapsedCard>
-      <CollapsedCard isLight={isLight}>
-        <CollapsedCardTextSkeleton isLight={isLight} width={71} />
-      </CollapsedCard>
-      <TotalsCard isLight={isLight}>
-        <CollapsedCardTextSkeleton isLight={isLight} width={103} height={12.25} />
-      </TotalsCard>
-    </CardsContainer>
-  );
-};
+    <CollapsedCard>
+      <CollapsedCardTextSkeleton width={68} />
+    </CollapsedCard>
+    <CollapsedCard>
+      <CollapsedCardTextSkeleton width={71} />
+    </CollapsedCard>
+    <TotalsCard>
+      <CollapsedCardTextSkeleton width={103} height={12.25} />
+    </TotalsCard>
+  </CardsContainer>
+);
 
 export default ExpensesComparisonRowCardSkeleton;
 
-const CardsContainer = styled.div({
+const CardsContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
   marginTop: 20.75,
 });
 
-const BaseCard = styled.div<WithIsLight>(({ isLight }) => ({
+const BaseCard = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   borderRadius: 6,
-  background: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight
+  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: theme.palette.isLight
     ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
     : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
 }));
@@ -98,7 +91,7 @@ const DateSkeleton = styled(BaseSkeleton)({
   marginBottom: 28.5,
 });
 
-const PairContainer = styled.div({
+const PairContainer = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -143,7 +136,7 @@ const OnchainDifferenceValueSkeleton = styled(BaseSkeleton)({
   height: 12.25,
 });
 
-const LabelContainer = styled.div({
+const LabelContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   gap: 8.78,
@@ -154,13 +147,13 @@ const IconSkeleton = styled(BaseSkeleton)({
   height: 15,
 });
 
-const Divider = styled.div<WithIsLight>(({ isLight }) => ({
+const Divider = styled('div')(({ theme }) => ({
   width: 'calc(100% + 16)',
   marginLeft: -8,
   marginRight: -8,
   marginTop: 20.75,
   marginBottom: 21,
-  borderTop: `1px solid ${isLight ? '#ECF1F3' : '#31424E'}`,
+  borderTop: `1px solid ${theme.palette.isLight ? '#ECF1F3' : '#31424E'}`,
 }));
 
 const OffChainLabelSkeleton = styled(BaseSkeleton)({

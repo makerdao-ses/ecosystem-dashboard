@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof MobileTransaction> = {
-  title: 'Components/CUTransparencyReport/Accounts Snapshot/MobileTransaction',
+  title: 'Fusion/Components/Accounts Snapshot/MobileTransaction',
   component: MobileTransaction,
   parameters: {
     chromatic: {
