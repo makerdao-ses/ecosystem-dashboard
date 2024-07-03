@@ -8,10 +8,11 @@ import {
 } from '@ses/containers/Finances/utils/utils';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
-import { formatNumber, replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
+import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo } from 'react';
+import { usLocalizedNumber } from '@/core/utils/humanization';
 import { getSelectMetricText } from '../utils';
 import type { BarChartSeries, BreakdownChartSeriesData } from '@ses/containers/Finances/utils/types';
 import type { AnalyticGranularity, AnalyticMetric } from '@ses/core/models/interfaces/analytic';
@@ -143,7 +144,7 @@ const BreakdownChart: React.FC<BreakdownChartProps> = ({
                       )}:</span>
                     <span style="font-size:16px;font-weight:700;color:${
                       isLight ? '#231536' : '#EDEFFF'
-                    };display: inline-block;">${formatNumber(item.value)}</span>
+                    };display: inline-block;">${usLocalizedNumber(item.value, 2)}</span>
                   </div>`
                   )
                   .join('')}
