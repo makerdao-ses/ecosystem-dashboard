@@ -404,7 +404,8 @@ const CategoryRowInsideColumn = styled('div')({
 const ContainerIcon = styled('div')(({ theme }) => ({
   height: 20,
   width: 20,
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  cursor: 'pointer',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   ':hover': {
     '& rect': {
       stroke: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],

@@ -91,7 +91,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     lineHeight: '22px',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    color: theme.palette.isLight ? theme.palette.colors.gray[500] : 'blue',
+    color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
     padding: 0,
     marginTop: 0,
     marginBottom: 0,
@@ -123,9 +123,13 @@ const ItemsStyle = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   textTransform: 'capitalize',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   gap: 16,
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
+  [lightTheme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    lineHeight: '24px',
+  },
 }));

@@ -100,8 +100,8 @@ const Container = styled('div')<{ isSomeOpen?: boolean }>(({ theme, isSomeOpen }
   paddingBottom: 27,
   overflowY: 'auto',
   height: '100%',
-  background: theme.palette.isLight ? '#FFF' : 'red',
-  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : 'red',
+  background: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
   borderTopLeftRadius: 12,
   borderTopRightRadius: 12,
 
@@ -140,10 +140,8 @@ const Header = styled('div')(({ theme }) => ({
   gap: 16,
   borderTopLeftRadius: '16px',
   borderTopRightRadius: '16px',
-  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : ' 10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
+  background: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: '16px 32px',
@@ -189,7 +187,7 @@ const Title = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 700,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 20,
@@ -203,7 +201,7 @@ const Description = styled('div')(({ theme }) => ({
   lineHeight: '22px',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
   width: '100%',
 
   [theme.breakpoints.up('tablet_768')]: {
@@ -244,7 +242,7 @@ const HeadCount = styled('div')(({ theme }) => ({
   fontSize: 16,
   lineHeight: '24px',
   marginTop: 16,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
   [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 24,
@@ -255,7 +253,9 @@ const HeadCount = styled('div')(({ theme }) => ({
 }));
 
 const Line = styled('div')(({ theme }) => ({
-  borderBottom: `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : 'blue'}`,
+  borderBottom: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
   marginTop: 8,
   marginBottom: 8,
 }));

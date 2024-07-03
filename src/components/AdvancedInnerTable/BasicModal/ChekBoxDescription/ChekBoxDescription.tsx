@@ -40,7 +40,7 @@ const Text = styled('div')<{ isChecked: boolean }>(({ theme, isChecked = false }
   fontStyle: 'normal',
   fontWeight: isChecked ? 700 : 400,
   lineHeight: isChecked ? '19px' : '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 }));
 
 const ContainerCheckBox = styled('div')({
