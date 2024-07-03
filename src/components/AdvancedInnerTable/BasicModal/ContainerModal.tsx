@@ -343,19 +343,21 @@ const StyledClose = styled(Close)(({ theme }) => ({
 
 const SimpleBarStyled = styled(SimpleBar)(({ theme }) => ({
   height: '100%',
+  borderRadius: 12,
 
   '.simplebar-scrollbar::before': {
     width: 4,
     marginLeft: 4,
-    background: '#1aab9b',
     borderRadius: 20,
+    height: 256,
+    background: theme.palette.isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[700],
   },
 
   [theme.breakpoints.up('tablet_768')]: {
-    maxHeight: 813,
+    maxHeight: 256,
 
     '.simplebar-scrollbar::before': {
-      width: 6,
+      width: 8,
     },
   },
 
