@@ -1,16 +1,15 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import type { ParsedExpenseCategoryWithExpanded } from '@ses/core/models/dto/expenseCategoriesDTO';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   style?: React.CSSProperties;
@@ -20,7 +19,6 @@ interface Props {
 }
 
 const AccordionCategory: React.FC<Props> = ({ style, category, expanded, handleChangeItemAccordion }) => {
-  const { isLight } = useThemeContext();
   const handleOnchange = (event: React.SyntheticEvent, expanded: boolean) => {
     handleChangeItemAccordion(category.id, expanded);
   };
@@ -28,10 +26,10 @@ const AccordionCategory: React.FC<Props> = ({ style, category, expanded, handleC
   return (
     <TransactionHistoryContainer style={style}>
       <Accordion expanded={expanded} onChange={handleOnchange}>
-        <AccordionSummary isLight={isLight}>{pascalCaseToNormalString(category.name)}</AccordionSummary>
+        <AccordionSummary>{pascalCaseToNormalString(category.name)}</AccordionSummary>
 
         <AccordionDetails>
-          <ItemsStyle isLight={isLight}>
+          <ItemsStyle>
             {category?.subcategories?.map((category) => (
               <div key={category.name}>{pascalCaseToNormalString(category.name)}</div>
             ))}
@@ -44,7 +42,7 @@ const AccordionCategory: React.FC<Props> = ({ style, category, expanded, handleC
 
 export default AccordionCategory;
 
-const TransactionHistoryContainer = styled.div({
+const TransactionHistoryContainer = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -83,30 +81,23 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     }
     {...props}
   />
-))<WithIsLight>(({ isLight }) => ({
+))(({ theme }) => ({
   minHeight: 'auto',
   padding: 0,
 
   '& .MuiAccordionSummary-content': {
-    fontWeight: 400,
-    fontSize: 16,
+    fontWeight: 600,
+    fontSize: 14,
     lineHeight: '22px',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    color: isLight ? '#231536' : '#D2D4EF',
+    color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
     padding: 0,
     marginTop: 0,
     marginBottom: 0,
-
-    [lightTheme.breakpoints.up('tablet_768')]: {
-      fontWeight: 500,
-      fontSize: 16,
-      lineHeight: 'normal',
-      letterSpacing: '0.4px',
-    },
-
     [lightTheme.breakpoints.up('desktop_1024')]: {
-      fontSize: 18,
+      fontSize: 16,
+      lineHeight: '24px',
     },
   },
 
@@ -126,27 +117,19 @@ const AccordionDetails = styled(MuiAccordionDetails)({
   },
 });
 
-const ItemsStyle = styled.div<WithIsLight>(({ isLight }) => ({
+const ItemsStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   textTransform: 'capitalize',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   gap: 16,
-  fontWeight: 300,
+  fontWeight: 400,
   fontSize: 14,
-  lineHeight: '17px',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    gap: 24,
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: 'normal',
-  },
-
+  lineHeight: '22px',
   [lightTheme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    lineHeight: '22px',
+    lineHeight: '24px',
   },
 }));

@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
-import BasicModal from '@/stories/components/BasicModal/BasicModal';
 import { Close } from '@/stories/components/svg/close';
+import BasicModal from '../AdvancedInnerTable/BasicModal/BasicModal';
 
 interface TooltipModalVariantProps extends React.PropsWithChildren {
   openModal: boolean;

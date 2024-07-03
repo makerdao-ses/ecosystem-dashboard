@@ -1,9 +1,9 @@
 import { styled } from '@mui/material';
-import BasicModal from '@ses/components/BasicModal/BasicModal';
 import { Close } from '@ses/components/svg/close';
 import { useBudgetMetricsModalContext } from '@ses/core/context/BudgetMetricsModalContext';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import SimpleBar from 'simplebar-react';
+import BasicModal from '@/components/AdvancedInnerTable/BasicModal/BasicModal';
 
 const BudgetMetricsModal: React.FC = () => {
   const { isLight } = useThemeContext();
