@@ -1,17 +1,15 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
-import lightTheme from '@ses/styles/theme/themes';
 import MobileDetect from 'mobile-detect';
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import Information from '@/components/icons/information';
 import ModalSheetValueContent from '../TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import HeaderToolTip from './TooltipHeader';
-import type { WithIsLightAndClick } from '../../transparencyReportUtils';
+import type { WithClick } from '../../transparencyReportUtils';
+import type { Theme } from '@mui/material';
 import type { PositionPopoverWithArrow } from '@ses/components/CustomPopover/CustomPopover';
 
 interface Props {
@@ -67,9 +65,9 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
   const refElementShowPopover = useRef<HTMLDivElement>(null);
   const leaveTimeoutRef = useRef<NodeJS.Timeout>();
   const [isOpen, setIsOpen] = useState(false);
-  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobileResolution = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const { lockScroll, unlockScroll } = useScrollLock();
-  const { isLight } = useThemeContext();
+
   const [state, dispatch] = useReducer(updatePositionPopoverReducer, InitialState);
 
   const handleShowPopoverWhenNotSpace = (value: boolean) => {
@@ -216,9 +214,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
           />
         </ModalSheet>
       )}
-      {isMobileResolution && isOpen && isMobileDevice && (
-        <ContainerOverlay isLight={isLight} onClick={handleCloseOverLay} />
-      )}
+      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay onClick={handleCloseOverLay} />}
     </Container>
   );
 };
@@ -246,44 +242,44 @@ const ExtendedCustomPopover = styled(CustomPopover)<{
   },
 }));
 
-const ExtendedCustomPopoverMobile = styled(ExtendedCustomPopover)({
+const ExtendedCustomPopoverMobile = styled(ExtendedCustomPopover)(({ theme }) => ({
   '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-    [lightTheme.breakpoints.down('table_834')]: {
+    [theme.breakpoints.down('tablet_768')]: {
       left: '0px!important',
       marginLeft: -4,
     },
   },
-});
+}));
 
-export const ContainerInfoIcon = styled.div({
+export const ContainerInfoIcon = styled('div')({
   display: 'flex',
   flexDirection: 'row',
 });
 
-const IconPosition = styled(Information)({
+const IconPosition = styled(Information)(({ theme }) => ({
   display: 'flex',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     alignItems: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     alignItems: 'center',
   },
-});
+}));
 
-const Container = styled.div({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   width: 106,
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     justifyContent: 'flex-end',
     width: '100%',
   },
-});
+}));
 
-const Title = styled.div({});
+const Title = styled('div')({});
 
-const ModalSheet = styled.div({
+const ModalSheet = styled('div')({
   width: '100%',
   zIndex: 5,
   textAlign: 'left',
@@ -293,14 +289,14 @@ const ModalSheet = styled.div({
   right: 0,
 });
 
-const ContainerOverlay = styled.div<WithIsLightAndClick>(({ isLight, onClick }) => ({
+const ContainerOverlay = styled('div')<WithClick>(({ theme, onClick }) => ({
   position: 'fixed',
   top: 0,
   left: 0,
   width: '100%',
   height: '100%',
-  background: isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1);',
-  backdropFilter: isLight ? 'blur(2px)' : 'blur(4px)',
+  background: theme.palette.isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1);',
+  backdropFilter: theme.palette.isLight ? 'blur(2px)' : 'blur(4px)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

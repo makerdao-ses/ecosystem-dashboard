@@ -5,12 +5,14 @@ interface Props {
   width?: number;
   height?: number;
   onClick?: () => void;
+  className?: string;
 }
 
-const IconOpenModal: React.FC<Props> = ({ height = 17, width = 16, onClick, ...props }) => {
+const IconOpenModal: React.FC<Props> = ({ height = 17, width = 16, onClick, className, ...props }) => {
   const { isLight } = useThemeContext();
   return (
     <svg
+      className={className}
       width={width}
       height={height}
       viewBox="0 0 16 17"
