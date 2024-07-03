@@ -5,7 +5,7 @@ import IconOpenModal from '@ses/components/svg/IconOpenModal';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
-import lightTheme from '@ses/styles/theme/themes';
+
 import MobileDetect from 'mobile-detect';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NumberCell } from '@/components/AdvancedInnerTable/NumberCell/NumberCell';
@@ -17,6 +17,7 @@ import { formatAddressForOutput } from '../../core/utils/string';
 import { CustomLink } from '../../stories/components/CustomLink/CustomLink';
 import ModalSheetValueContent from './components/TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import type { BudgetStatementWalletDto } from '../../core/models/dto/coreUnitDTO';
+import type { Theme } from '@mui/material';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 
 export const renderWallet = (wallet: BudgetStatementWalletDto) => (
@@ -79,7 +80,7 @@ export const RenderNumberWithIcon = (data: TargetBalanceTooltipInformation) => {
     setMarginTopPopoverPosition(value);
   };
 
-  const isMobileResolution = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
+  const isMobileResolution = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
 
@@ -268,13 +269,13 @@ const ModalSheet = styled('div')({
   right: 0,
 });
 
-const PopoverContainer = styled('div')({
+const PopoverContainer = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   flex: 1,
-});
-const Container = styled('div')({
+}));
+const Container = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'flex',
   flex: 1,
@@ -282,50 +283,50 @@ const Container = styled('div')({
   alignItems: 'center',
   justifyContent: 'space-between',
   marginTop: -8,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     width: '100%',
     flexDirection: 'row-reverse',
     marginLeft: 0,
     marginTop: 0,
   },
-});
+}));
 
 export const ContainerInfoIcon = styled('div')({
   position: 'relative',
 });
 
-const IconPosition = styled(Information)({
+const IconPosition = styled(Information)(({ theme }) => ({
   position: 'absolute',
   top: -14,
   left: -14,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     alignItems: 'center',
     top: -8,
     left: -10,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     alignItems: 'center',
 
     top: -8,
     left: 4,
   },
-});
+}));
 
-const ContainerInformation = styled('div')({
+const ContainerInformation = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
   alignItems: 'flex-end',
 
-  [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     alignItems: 'flex-end',
     marginRight: 14,
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     alignItems: 'flex-end',
     marginRight: 14,
   },
-});
+}));
 
 const ContainerNumberCell = styled(NumberCell)({
   paddingBottom: 2,
@@ -337,40 +338,40 @@ const ContainerNumberCell = styled(NumberCell)({
   },
 });
 
-const ContainerStyleMonths = styled('div')({
+const ContainerStyleMonths = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '11px',
   lineHeight: '13px',
   color: '#546978',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     whiteSpace: 'nowrap',
   },
-});
+}));
 
-export const TotalTargetBalance = styled('div')({
+export const TotalTargetBalance = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   flex: 1,
   justifyContent: 'flex-end',
   textAlign: 'center',
   fontWeight: 700,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginRight: 16,
   },
-});
+}));
 
 const BiggerContainer = styled('div')({
   width: '100%',
 });
 
 const ExtendedCustomPopover = styled(CustomPopover)<{ hasSpacePositionArrow?: boolean }>(
-  ({ hasSpacePositionArrow }) => ({
+  ({ hasSpacePositionArrow, theme }) => ({
     '& > div': {
-      [lightTheme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+      [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
         marginLeft: -45,
         marginTop: 16,
       },
-      [lightTheme.breakpoints.up('desktop_1024')]: {
+      [theme.breakpoints.up('desktop_1024')]: {
         marginLeft: -32,
         marginTop: hasSpacePositionArrow ? -18 : 18,
       },
