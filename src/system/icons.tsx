@@ -12,6 +12,7 @@ import ExternalLink from 'public/assets/svg/external_link.svg';
 import Forum from 'public/assets/svg/forum.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import GlobeWWW from 'public/assets/svg/globe_www.svg';
+import InfoOutlined from 'public/assets/svg/info_outlined.svg';
 import Linkedin from 'public/assets/svg/linkedin.svg';
 import Login from 'public/assets/svg/login.svg';
 import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
@@ -124,6 +125,10 @@ export const iconsPowerHose = [
   {
     Icon: ArrowCollapse,
     title: 'arrow_collapse',
+  },
+  {
+    Icon: InfoOutlined,
+    title: 'info_outlined',
   },
   {
     Icon: Expand,

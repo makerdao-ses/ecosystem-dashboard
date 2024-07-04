@@ -72,7 +72,6 @@ const CUReserves: React.FC<CUReservesProps> = ({
         value={balance?.newBalance}
         caption={`New ${isCoreUnit ? 'Core Unit' : ''} Reserves`}
         hasEqualSign
-        isReserves
         dynamicChanges
       />
     </CardsContainer>
@@ -140,7 +139,8 @@ const CardsContainer = styled('div')(({ theme }) => ({
     width: 'calc(50% - 4px)',
   },
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 24,
     flexWrap: 'nowrap',
 
     '& > div:nth-of-type(1)': {
@@ -156,8 +156,8 @@ const CardsContainer = styled('div')(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    gap: 24,
+  [theme.breakpoints.up('desktop_1280')]: {
+    gap: 32,
   },
 }));
 
@@ -167,12 +167,12 @@ const HeaderContainer = styled('div')(({ theme }) => ({
   alignItems: 'flex-end',
   flexDirection: 'column',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     alignItems: 'flex-end',
   },
 }));
@@ -187,11 +187,11 @@ const CheckContainer = styled('div')(({ theme }) => ({
   gap: 10,
   marginTop: 20,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 4,
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '22px',
   },
@@ -210,7 +210,7 @@ const Checkbox = styled(CheckboxMui)(({ theme }) => ({
 const OnChainSubsection = styled('div')(({ theme }) => ({
   marginTop: 24,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 23,
   },
 }));

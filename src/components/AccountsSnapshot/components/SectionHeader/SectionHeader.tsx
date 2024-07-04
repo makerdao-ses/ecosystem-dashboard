@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
-import Information from '@/components/icons/information';
-import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
+import InfoOutlined from 'public/assets/svg/info_outlined.svg';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 
 interface SectionHeaderProps {
   title: string;
@@ -19,7 +19,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip,
         <TooltipWrapper>
           <SESTooltip content={tooltip} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
             <IconWrapper>
-              <Information />
+              <InfoOutlined width={16} height={16} />
             </IconWrapper>
           </SESTooltip>
         </TooltipWrapper>
@@ -32,7 +32,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip,
 export default SectionHeader;
 
 const Header = styled('div')(({ theme }) => ({
-  [theme.breakpoints.down('table_834')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     width: '100%',
   },
 }));
@@ -44,11 +44,10 @@ const TitleWrapper = styled('div')({
 });
 
 const Title = styled('h2')<{ isSubsection: boolean }>(({ theme, isSubsection }) => ({
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  fontWeight: isSubsection ? 700 : 600,
-  fontSize: isSubsection ? 16 : 20,
-  lineHeight: isSubsection ? '19px' : '24px',
-  letterSpacing: isSubsection ? 0 : 0.4,
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  fontWeight: 700,
+  fontSize: isSubsection ? 18 : 20,
+  lineHeight: isSubsection ? '22px' : '24px',
   margin: 0,
 }));
 
@@ -62,20 +61,22 @@ const TooltipWrapper = styled('div')({
 });
 
 const IconWrapper = styled('div')({
-  width: 'fit-content',
-  height: 'fit-content',
+  width: 24,
+  minWidth: 24,
+  height: 24,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   marginLeft: 8,
+  cursor: 'pointer',
 });
 
 const Subtitle = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
   fontSize: 14,
   lineHeight: '22px',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
   },
 }));

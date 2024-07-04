@@ -1,6 +1,4 @@
-import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
 
 interface ContainerProps extends React.PropsWithChildren {
   className?: string;
@@ -12,17 +10,18 @@ const Container: React.FC<ContainerProps> = ({ children, className }) => (
 
 export default Container;
 
-const ContainerStyled = styled.div({
+const ContainerStyled = styled('div')(({ theme }) => ({
   paddingLeft: 16,
   paddingRight: 16,
   width: '100%',
   maxWidth: '100%',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     paddingLeft: 32,
     paddingRight: 32,
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     marginLeft: 'auto',
     marginRight: 'auto',
     paddingLeft: 0,
@@ -30,7 +29,7 @@ const ContainerStyled = styled.div({
     maxWidth: 1200,
   },
 
-  [lightTheme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1440')]: {
     maxWidth: 1312,
   },
-});
+}));

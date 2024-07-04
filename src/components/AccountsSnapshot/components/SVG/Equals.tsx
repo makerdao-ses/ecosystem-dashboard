@@ -1,4 +1,5 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import * as React from 'react';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 
 const EqualSign: React.FC<Props> = ({ height = 15, width = 24, asSkeleton = false, ...props }) => {
   const { isLight } = useThemeContext();
-  let fill = isLight ? '#ADAFD4' : '#48495F';
+  let fill = isLight ? colorPalette.purple[100] : colorPalette.charcoal[700];
   if (asSkeleton) {
     fill = isLight ? '#ECF1F3' : '#31424E';
   }
