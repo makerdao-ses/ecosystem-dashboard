@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import { AuditStatusChip } from '../../../../stories/components/AuditStatusChip/AuditStatusChip';
-import { Download } from '../../../../stories/components/svg/download';
-import { TransparencyEmptyAudit } from '../Placeholders/TransparencyEmptyAudit';
-import { useTransparencyAudit } from './useTransparencyAudit';
-import type { AuditStatusEnum } from '../../../../core/enums/auditStatusEnum';
+
+import { useThemeContext } from '@/core/context/ThemeContext';
+import type { AuditStatusEnum } from '@/core/enums/auditStatusEnum';
+import { AuditStatusChip } from '@/stories/components/AuditStatusChip/AuditStatusChip';
+import { Download } from '@/stories/components/svg/download';
+import { TransparencyEmptyAudit } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyAudit';
+import { useTransparencyAudit } from './useBudgetStatementAudit';
+
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
 interface TransparencyAuditProps {

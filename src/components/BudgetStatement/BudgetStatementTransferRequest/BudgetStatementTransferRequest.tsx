@@ -1,16 +1,13 @@
 import { styled } from '@mui/material';
 import React from 'react';
 import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
-
-import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
-import MkrVestingInfo from './MkrVestingInfo';
-import MkrVestingTotalFTE from './MkrVestingTotalFTE';
-import { useTransparencyMkrVesting } from './useTransparencyMkrVesting';
+import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
+import { useTransparencyTransferRequest } from './useBudgetStatementTransferRequest';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 
-interface TransparencyMkrVestingProps {
+interface TransparencyTransferRequestProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatement[];
   longCode: string;
@@ -19,7 +16,7 @@ interface TransparencyMkrVestingProps {
   resource: ResourceType;
 }
 
-export const TransparencyMkrVesting: React.FC<TransparencyMkrVestingProps> = ({
+export const TransparencyTransferRequest: React.FC<TransparencyTransferRequestProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
@@ -27,26 +24,23 @@ export const TransparencyMkrVesting: React.FC<TransparencyMkrVestingProps> = ({
   headline,
   resource,
 }) => {
-  const { mainTableItems, mainTableColumns, FTEs } = useTransparencyMkrVesting(currentMonth, budgetStatements);
+  const { mainTableColumns, mainTableItems } = useTransparencyTransferRequest(currentMonth, budgetStatements);
 
   return (
     <Container>
       {headline}
 
-      <Title marginBottom={24}>MKR Vesting Overview</Title>
-      <MkrVestingTotalFTE totalFTE={FTEs} />
-
-      <AdvancedInnerTable
-        columns={mainTableColumns}
-        items={mainTableItems}
-        longCode={longCode}
-        tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />}
-      />
-      {mainTableItems.length > 0 && (
-        <MkrInfoContainer>
-          <MkrVestingInfo />
-        </MkrInfoContainer>
-      )}
+      <Title>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
+      <div style={{ marginTop: 32 }}>
+        <AdvancedInnerTable
+          columns={mainTableColumns}
+          items={mainTableItems}
+          style={{ marginBottom: '64px' }}
+          cardsTotalPosition={'top'}
+          longCode={longCode}
+          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />}
+        />
+      </div>
     </Container>
   );
 };
@@ -54,11 +48,6 @@ export const TransparencyMkrVesting: React.FC<TransparencyMkrVestingProps> = ({
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-});
-
-const MkrInfoContainer = styled('div')({
-  marginTop: 32,
-  marginBottom: 90,
 });
 
 const Title = styled('div')<{

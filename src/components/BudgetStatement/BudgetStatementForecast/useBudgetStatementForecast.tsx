@@ -6,7 +6,9 @@ import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
-import { renderWallet } from '../../transparencyReportUtils';
+
+import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
+import HeaderWithIcon from '@/views/CoreUnitBudgetStatement/components/HeaderWithIcon/HeaderWithIcon';
 import {
   getBudgetCapForMonthOnBudgetStatement,
   getBudgetCapForMonthOnWalletOnBudgetStatement,
@@ -14,9 +16,8 @@ import {
   getForecastSumForMonth,
   getForecastSumForMonths,
   getTotalQuarterlyBudgetCapOnBudgetStatement,
-} from '../../utils/budgetStatementsUtils';
-
-import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
+} from '@/views/CoreUnitBudgetStatement/utils/budgetStatementsUtils';
+import { FORECAST_BREAKDOWN_QUERY_PARAM } from '@/views/CoreUnitBudgetStatement/utils/constants';
 import {
   getBudgetCapForMonthOnBudgetStatementForeCast,
   getForecastForMonthOnWalletOnBudgetStatementOrNA,
@@ -24,10 +25,12 @@ import {
   getTransferRequestSource,
   getWalletMonthlyBudgetForeCast,
   sumAllMonths,
-} from '../../utils/forecastHelper';
-import { getBreakdownItemsForWallet, getForecastBreakdownColumns } from '../../utils/forecastTableHelpers';
-import replacePaymentTopup from '../../utils/helpers';
-import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
+} from '@/views/CoreUnitBudgetStatement/utils/forecastHelper';
+import {
+  getBreakdownItemsForWallet,
+  getForecastBreakdownColumns,
+} from '@/views/CoreUnitBudgetStatement/utils/forecastTableHelpers';
+import replacePaymentTopup from '@/views/CoreUnitBudgetStatement/utils/helpers';
 import ProgressiveIndicator from './ProgresiveIndicator';
 
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';

@@ -8,15 +8,16 @@ import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInne
 import CategoryModalComponent from '@/components/AdvancedInnerTable/BasicModal/CategoryModalComponent';
 import Container from '@/components/Container/Container';
 import Tabs from '@/components/Tabs/Tabs';
+
+import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import {
   ACTUALS_BREAKDOWN_QUERY_PARAM,
   BREAKDOWN_VIEW_QUERY_KEY,
   FORECAST_BREAKDOWN_QUERY_PARAM,
-} from '../../utils/constants';
-import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
-import { LinkDescription } from '../TransparencyActuals/TransparencyActuals';
-import MkrVestingInfo from '../TransparencyMkrVesting/MkrVestingInfo';
-import MkrVestingTotalFTE from '../TransparencyMkrVesting/MkrVestingTotalFTE';
+} from '@/views/CoreUnitBudgetStatement/utils/constants';
+import { LinkDescription } from '../BudgetStatementActuals/BudgetStatementActuals';
+import MkrVestingInfo from '../BudgetStatementMkrVesting/MkrVestingInfo';
+import MkrVestingTotalFTE from '../BudgetStatementMkrVesting/MkrVestingTotalFTE';
 import ExpenseSection from './components/ExpenseSection/ExpenseSection';
 import SectionTitle from './components/SectionTitle/SectionTitle';
 import useExpenseReport from './useExpenseReport';

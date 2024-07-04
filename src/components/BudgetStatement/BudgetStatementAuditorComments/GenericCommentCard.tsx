@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import { getExpenseReportStatusColor } from '@/core/utils/colors';
-import lightTheme from '../../../../../styles/theme/themes';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
 
 export type GenericCommentCardProps = {
   variant?: BudgetStatus;

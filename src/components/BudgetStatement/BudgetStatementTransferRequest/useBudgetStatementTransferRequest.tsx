@@ -3,8 +3,13 @@ import { formatNumber } from '@ses/core/utils/string';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
-import { RenderNumberWithIcon, renderWallet, TotalTargetBalance } from '../../transparencyReportUtils';
-import { useTransparencyForecast } from '../TransparencyForecast/useTransparencyForecast';
+
+import {
+  RenderNumberWithIcon,
+  TotalTargetBalance,
+  renderWallet,
+} from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
+import { useTransparencyForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
 
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {

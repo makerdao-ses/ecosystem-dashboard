@@ -3,13 +3,14 @@ import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React, { useState } from 'react';
+
+import PopoverForecastDescription from '@/views/CoreUnitBudgetStatement/components/PopverForecastDescription/PopoverForecastDescription';
 import {
   getBorderColor,
   getDisplacementDashLine,
   getPercentFullBar,
   getProgressiveBarColor,
-} from '../../utils/forecastHelper';
-import PopoverForecastDescription from '../PopverForecastDescription/PopoverForecastDescription';
+} from '@/views/CoreUnitBudgetStatement/utils/forecastHelper';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 import type { DateTime } from 'luxon';
 
