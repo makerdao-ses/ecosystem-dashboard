@@ -290,8 +290,12 @@ const GroupTitle = styled('div')(({ theme }) => ({
 
 const TableRow = styled('tr')<{ borderTop?: boolean; borderBottom?: boolean }>(
   ({ theme, borderTop = false, borderBottom = false }) => ({
-    borderTop: borderTop ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
-    borderBottom: borderBottom ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
+    borderTop: borderTop
+      ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]}`
+      : 'none',
+    borderBottom: borderBottom
+      ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]}`
+      : 'none',
   })
 );
 
