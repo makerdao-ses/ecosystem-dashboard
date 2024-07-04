@@ -105,8 +105,6 @@ const Question = styled('div')(({ theme }) => ({
 }));
 
 const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
-  padding: '0px 6px 0px 8px',
-  borderWidth: 1.5,
   '& div': {
     width: 16,
     height: 16,
@@ -119,6 +117,7 @@ const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
     height: 32,
     display: 'flex',
     alignItems: 'center',
+
     letterSpacing: '-0.32px',
   },
 }));
