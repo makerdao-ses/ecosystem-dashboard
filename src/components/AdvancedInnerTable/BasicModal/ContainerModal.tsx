@@ -291,27 +291,19 @@ const ContainerTwoColumns = styled('div')(({ theme }) => ({
   },
 }));
 
-const ContainerEven = styled('div')(({ theme }) => ({
+const ContainerEven = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
   gap: 16,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 32,
-  },
 }));
 
-const ContainerOdd = styled('div')(({ theme }) => ({
+const ContainerOdd = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
   flex: 1,
   gap: 16,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 32,
-  },
 }));
 const ContainerClose = styled('div')(({ theme }) => ({
   paddingRight: 3,
