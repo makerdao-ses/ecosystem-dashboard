@@ -114,7 +114,7 @@ LightMode.parameters = {
           },
         },
       },
-      834: {
+      768: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18595%3A253799',
         options: {
           componentStyle: {
@@ -126,7 +126,7 @@ LightMode.parameters = {
           },
         },
       },
-      1194: {
+      1024: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18569%3A235964',
         options: {
           componentStyle: {

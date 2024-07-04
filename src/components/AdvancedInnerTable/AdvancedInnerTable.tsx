@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import React, { useId } from 'react';
-import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 
+import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
 import { useThemeContext } from '../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { NumberCell } from './NumberCell/NumberCell';
@@ -280,18 +280,20 @@ const TitleCard = styled('div')<{ cardSpacingSize?: CardSpacingSize; isGroupCard
 );
 
 const GroupTitle = styled('div')(({ theme }) => ({
-  fontSize: 12,
-  lineHeight: '15px',
+  fontSize: 16,
+  lineHeight: '22px',
   fontWeight: 600,
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
   color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
 const TableRow = styled('tr')<{ borderTop?: boolean; borderBottom?: boolean }>(
   ({ theme, borderTop = false, borderBottom = false }) => ({
-    borderTop: borderTop ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
-    borderBottom: borderBottom ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
+    borderTop: borderTop
+      ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]}`
+      : 'none',
+    borderBottom: borderBottom
+      ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]}`
+      : 'none',
   })
 );
 
@@ -313,6 +315,7 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
     lineHeight: '15px',
     marginBottom: 0,
     fontWeight: 400,
+    color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
 
     svg: {
       display: 'none',
@@ -322,8 +325,6 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
       fontWeight: 600,
       lineHeight: '24px',
       paddingLeft: 16,
-
-      padding: '8px 0px 16px 16px',
     },
   },
   [theme.breakpoints.up('tablet_768')]: {

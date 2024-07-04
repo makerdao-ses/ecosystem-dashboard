@@ -5,10 +5,10 @@ import { useScrollLock } from '@ses/core/hooks/useScrollLock';
 import { getPageWrapper } from '@ses/core/utils/dom';
 import MobileDetect from 'mobile-detect';
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import ModalSheetValueContent from '@/components/BudgetStatement/BudgetStatementTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import Information from '@/components/icons/information';
-import ModalSheetValueContent from '../TransparencyTransferRequest/components/ModalSheet/ModalSheetValueContent';
 import HeaderToolTip from './TooltipHeader';
-import type { WithClick } from '../../transparencyReportUtils';
+import type { WithClick } from '../../BudgetStatementtUtils';
 import type { Theme } from '@mui/material';
 import type { PositionPopoverWithArrow } from '@ses/components/CustomPopover/CustomPopover';
 

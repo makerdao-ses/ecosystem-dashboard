@@ -3,7 +3,7 @@ import { TeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
-import { getLastSnapshotPeriod } from '@/views/CoreUnitBudgetStatement/transparencyReportAPI';
+import { getLastSnapshotPeriod } from '@/views/CoreUnitBudgetStatement/BudgetStatementAPI';
 import EcosystemActorBudgetStatementView from '@/views/EcosystemActorBudgetStatement/EcosystemActorBudgetStatementView';
 import { fetchEcosystemActor } from '@/views/EcosystemActorBudgetStatement/api/queries';
 import { fetchActors } from '@/views/EcosystemActorsIndex/api/queries';

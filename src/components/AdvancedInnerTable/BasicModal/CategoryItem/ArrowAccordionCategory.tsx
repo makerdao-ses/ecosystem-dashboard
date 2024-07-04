@@ -2,10 +2,9 @@ import { styled } from '@mui/material';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
-import { SelectChevronDown } from '@ses/components/svg/select-chevron-down';
 
 import { pascalCaseToNormalString } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/themes';
+import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import React from 'react';
 import type { AccordionProps } from '@mui/material/Accordion';
 import type { AccordionSummaryProps } from '@mui/material/AccordionSummary';
@@ -19,65 +18,61 @@ interface Props {
 }
 
 const AccordionCategory: React.FC<Props> = ({ style, category, expanded, handleChangeItemAccordion }) => {
-  const handleOnchange = (event: React.SyntheticEvent, expanded: boolean) => {
-    handleChangeItemAccordion(category.id, expanded);
+  const handleOnchange = (event: React.SyntheticEvent, newExpanded: boolean) => {
+    handleChangeItemAccordion(category.id, newExpanded);
   };
 
   return (
     <TransactionHistoryContainer style={style}>
-      <Accordion expanded={expanded} onChange={handleOnchange}>
-        <AccordionSummary>{pascalCaseToNormalString(category.name)}</AccordionSummary>
+      <StyledAccordion expanded={expanded} onChange={handleOnchange}>
+        <StyledAccordionSummary>{pascalCaseToNormalString(category.name)}</StyledAccordionSummary>
 
-        <AccordionDetails>
+        <StyledAccordionDetails>
           <ItemsStyle>
-            {category?.subcategories?.map((category) => (
-              <div key={category.name}>{pascalCaseToNormalString(category.name)}</div>
+            {category?.subcategories?.map((subcategory) => (
+              <div key={subcategory.name}>{pascalCaseToNormalString(subcategory.name)}</div>
             ))}
           </ItemsStyle>
-        </AccordionDetails>
-      </Accordion>
+        </StyledAccordionDetails>
+      </StyledAccordion>
     </TransactionHistoryContainer>
   );
 };
 
 export default AccordionCategory;
 
-const TransactionHistoryContainer = styled('div')({
+const TransactionHistoryContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  [lightTheme.breakpoints.down('tablet_768')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     width: '100%',
   },
-});
+}));
 
-const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)({
+const StyledAccordion = styled((props: AccordionProps) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
   backgroundColor: 'transparent',
   width: '100%',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     width: 310,
   },
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 416,
   },
-});
+}));
 
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
+const StyledAccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary
     expandIcon={
-      <SelectChevronDown
-        fill="#1AAB9B"
-        width={10}
-        height={6}
-        style={{
-          transform: 'scaleY(1)',
-          marginRight: 2,
-        }}
-      />
+      <IconContainer>
+        <ArrowSelect />
+      </IconContainer>
     }
     {...props}
   />
@@ -91,11 +86,11 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     lineHeight: '22px',
     fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
-    color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
+    color: theme.palette.mode === 'light' ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
     padding: 0,
     marginTop: 0,
     marginBottom: 0,
-    [lightTheme.breakpoints.up('desktop_1024')]: {
+    [theme.breakpoints.up('desktop_1024')]: {
       fontSize: 16,
       lineHeight: '24px',
     },
@@ -106,16 +101,15 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   },
 }));
 
-const AccordionDetails = styled(MuiAccordionDetails)({
+const StyledAccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 0,
   paddingLeft: 24,
   marginTop: 8,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    marginTop: 24,
+  [theme.breakpoints.up('tablet_768')]: {
     paddingLeft: 32,
   },
-});
+}));
 
 const ItemsStyle = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -123,13 +117,22 @@ const ItemsStyle = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   textTransform: 'capitalize',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-  gap: 16,
+  color: theme.palette.mode === 'light' ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  gap: 11,
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '24px',
   },
+}));
+
+const IconContainer = styled('div')(({ theme }) => ({
+  color: theme.palette.colors.gray[600],
+  width: 16,
+  height: 16,
+  display: 'flex',
+  alignItems: 'center',
+  transform: 'scaleY(1)',
 }));

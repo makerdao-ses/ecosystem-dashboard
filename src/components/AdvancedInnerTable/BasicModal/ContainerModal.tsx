@@ -291,27 +291,19 @@ const ContainerTwoColumns = styled('div')(({ theme }) => ({
   },
 }));
 
-const ContainerEven = styled('div')(({ theme }) => ({
+const ContainerEven = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
   gap: 16,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 32,
-  },
 }));
 
-const ContainerOdd = styled('div')(({ theme }) => ({
+const ContainerOdd = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
   flex: 1,
   gap: 16,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 32,
-  },
 }));
 const ContainerClose = styled('div')(({ theme }) => ({
   paddingRight: 3,
@@ -343,19 +335,21 @@ const StyledClose = styled(Close)(({ theme }) => ({
 
 const SimpleBarStyled = styled(SimpleBar)(({ theme }) => ({
   height: '100%',
+  borderRadius: 12,
 
   '.simplebar-scrollbar::before': {
     width: 4,
     marginLeft: 4,
-    background: '#1aab9b',
     borderRadius: 20,
+    height: 256,
+    background: theme.palette.isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[700],
   },
 
   [theme.breakpoints.up('tablet_768')]: {
-    maxHeight: 813,
+    maxHeight: 256,
 
     '.simplebar-scrollbar::before': {
-      width: 6,
+      width: 8,
     },
   },
 
