@@ -146,9 +146,14 @@ const ContainerLine = styled('div')(({ theme }) => ({
 }));
 
 const ContainerData = styled('div')<{ spacing: CardSpacingSize }>(({ spacing }) => ({
-  padding: spacing === 'large' ? '20px 24px 10px' : '16px 24px 6px',
+  padding: spacing === 'large' ? '20px 24px 10px' : '4px 24px 4px',
   '& .advanced-table__cell-row--category--comments': {
     padding: 0,
+    textAlign: 'end',
+    '& div': {
+      width: 0,
+      height: 0,
+    },
   },
 }));
 
