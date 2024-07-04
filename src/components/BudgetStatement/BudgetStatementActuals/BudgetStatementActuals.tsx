@@ -3,8 +3,8 @@ import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import CategoryModalComponent from '@/components/AdvancedInnerTable/BasicModal/CategoryModalComponent';
+import BudgetStatementsPlaceholder from '@/components/PlaceHolders/BudgetStatementsPlaceholder';
 import Tabs from '@/components/Tabs/Tabs';
-import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '@/views/CoreUnitBudgetStatement/utils/constants';
 import { useTransparencyActuals } from './useBudgetStatementActuals';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
@@ -51,7 +51,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
         longCode={longCode}
         tablePlaceholder={
           <div style={{ marginBottom: 64 }}>
-            <TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />
+            <BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />
           </div>
         }
       />
@@ -81,7 +81,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
             cardSpacingSize="small"
             tablePlaceholder={
               <div style={{ marginBottom: 64 }}>
-                <TransparencyEmptyTable breakdown longCode={longCode} shortCode={shortCode} resource={resource} />
+                <BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />
               </div>
             }
           />

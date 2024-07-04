@@ -13,11 +13,18 @@ interface Props {
   longCode: string;
   shortCode: string;
   resource?: ResourceType;
+  isNotLoading?: boolean;
   // Only for the stories
   titleStory?: string;
 }
 
-const BudgetStatementsPlaceholder: React.FC<Props> = ({ longCode, shortCode, resource, titleStory = '' }) => {
+const BudgetStatementsPlaceholder: React.FC<Props> = ({
+  longCode,
+  shortCode,
+  resource,
+  isNotLoading = true,
+  titleStory = '',
+}) => {
   const { isLight } = useThemeContext();
 
   let title: string;
@@ -37,22 +44,24 @@ const BudgetStatementsPlaceholder: React.FC<Props> = ({ longCode, shortCode, res
       <ImageWrapper>
         <Image src={isLight ? Empty : EmptyDark} alt="There are no elements" layout="fill" unoptimized />
       </ImageWrapper>
-      <ContainerDescription>
-        <Title>{titleStory || title}</Title>
-        <Description>View On-Chain Transfers on makerburn.com</Description>
+      {isNotLoading && (
+        <ContainerDescription>
+          <Title>{titleStory || title}</Title>
+          <Description>View On-Chain Transfers on makerburn.com</Description>
 
-        <ContainerButton>
-          <ExternalLinkButtonStyled
-            href={
-              resource === ResourceType.Delegates
-                ? 'https://makerburn.com/#/expenses/core-units/DELEGATES'
-                : `${MAKER_BURN_LINK}/${longCode}`
-            }
-          >
-            Go To Makerburn
-          </ExternalLinkButtonStyled>
-        </ContainerButton>
-      </ContainerDescription>
+          <ContainerButton>
+            <ExternalLinkButtonStyled
+              href={
+                resource === ResourceType.Delegates
+                  ? 'https://makerburn.com/#/expenses/core-units/DELEGATES'
+                  : `${MAKER_BURN_LINK}/${longCode}`
+              }
+            >
+              Go To Makerburn
+            </ExternalLinkButtonStyled>
+          </ContainerButton>
+        </ContainerDescription>
+      )}
     </Container>
   );
 };
