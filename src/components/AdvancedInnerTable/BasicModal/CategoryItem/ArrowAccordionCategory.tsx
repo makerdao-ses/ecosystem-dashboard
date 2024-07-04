@@ -107,7 +107,6 @@ const StyledAccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   marginTop: 8,
 
   [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 24,
     paddingLeft: 32,
   },
 }));
@@ -119,7 +118,7 @@ const ItemsStyle = styled('div')(({ theme }) => ({
   fontStyle: 'normal',
   textTransform: 'capitalize',
   color: theme.palette.mode === 'light' ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-  gap: 16,
+  gap: 11,
   fontWeight: 400,
   fontSize: 14,
   lineHeight: '22px',
