@@ -1,7 +1,8 @@
 import groupBy from 'lodash/groupBy';
 import type { InnerTableColumn, InnerTableRow, RowType } from '@/components/AdvancedInnerTable/types';
-import ProgressiveIndicator from '../components/TransparencyForecast/ProgresiveIndicator';
-import { ContainerProgressiveIndicator } from '../components/TransparencyForecast/useTransparencyForecast';
+
+import ProgressiveIndicator from '@/components/BudgetStatement/BudgetStatementForecast/ProgresiveIndicator';
+import { ContainerProgressiveIndicator } from '@/components/BudgetStatement/BudgetStatementForecast/useBudgetStatementForecast';
 import {
   getBudgetCapForMonthOnLineItem,
   getBudgetCapForMonthOnWalletOnBudgetStatement,

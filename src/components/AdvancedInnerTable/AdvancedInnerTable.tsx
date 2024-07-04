@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import React, { useId } from 'react';
-import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
 
+import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
 import { useThemeContext } from '../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { NumberCell } from './NumberCell/NumberCell';
@@ -290,8 +290,12 @@ const GroupTitle = styled('div')(({ theme }) => ({
 
 const TableRow = styled('tr')<{ borderTop?: boolean; borderBottom?: boolean }>(
   ({ theme, borderTop = false, borderBottom = false }) => ({
-    borderTop: borderTop ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
-    borderBottom: borderBottom ? `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}` : 'none',
+    borderTop: borderTop
+      ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]}`
+      : 'none',
+    borderBottom: borderBottom
+      ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]}`
+      : 'none',
   })
 );
 

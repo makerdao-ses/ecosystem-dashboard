@@ -5,17 +5,21 @@ import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
-import { renderWallet } from '../../transparencyReportUtils';
-import { getActualsBreakdownColumns, getActualsBreakdownItemsForWallet } from '../../utils/actualsTableHelpers';
+
+import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
+import {
+  getActualsBreakdownColumns,
+  getActualsBreakdownItemsForWallet,
+} from '@/views/CoreUnitBudgetStatement/utils/actualsTableHelpers';
 import {
   getWalletActual,
   getWalletDifference,
   getWalletForecast,
   getWalletMonthlyBudget,
   getWalletPayment,
-} from '../../utils/budgetStatementsUtils';
-import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
-import replacePaymentTopup from '../../utils/helpers';
+} from '@/views/CoreUnitBudgetStatement/utils/budgetStatementsUtils';
+import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '@/views/CoreUnitBudgetStatement/utils/constants';
+import replacePaymentTopup from '@/views/CoreUnitBudgetStatement/utils/helpers';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';

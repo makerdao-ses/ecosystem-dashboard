@@ -2,10 +2,11 @@ import { styled } from '@mui/material';
 import React from 'react';
 import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import Tabs from '@/components/Tabs/Tabs';
-import { FORECAST_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
-import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';
-import { BreakdownTableWrapper } from '../TransparencyActuals/TransparencyActuals';
-import { useTransparencyForecast } from './useTransparencyForecast';
+
+import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
+import { FORECAST_BREAKDOWN_QUERY_PARAM } from '@/views/CoreUnitBudgetStatement/utils/constants';
+import { BreakdownTableWrapper } from '../BudgetStatementActuals/BudgetStatementActuals';
+import { useTransparencyForecast } from './useBudgetStatementForecast';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';

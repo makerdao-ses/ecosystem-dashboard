@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import { useThemeContext } from '../../../../core/context/ThemeContext';
-import ExpenseReportStatus from '../ExpenseReportStatus/ExpenseReportStatus';
+import { useThemeContext } from '@/core/context/ThemeContext';
+import ExpenseReportStatus from '@/views/CoreUnitBudgetStatement/components/ExpenseReportStatus/ExpenseReportStatus';
 
 export type BudgetStatusSelectProps = {
   availableStatuses?: BudgetStatus[];

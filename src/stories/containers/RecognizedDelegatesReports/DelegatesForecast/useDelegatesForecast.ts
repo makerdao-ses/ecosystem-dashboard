@@ -2,7 +2,7 @@ import { getAllWallets } from '@ses/core/utils/finances';
 import _ from 'lodash';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import type { InnerTableColumn, InnerTableRow, RowType } from '@/components/AdvancedInnerTable/types';
-import { renderWallet } from '@/views/CoreUnitBudgetStatement/transparencyReportUtils';
+import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
 import { useUrlAnchor } from '../../../../core/hooks/useUrlAnchor';
 import { API_MONTH_TO_FORMAT } from '../../../../core/utils/date';
 import { getWalletWidthForWallets } from '../../../../core/utils/string';
