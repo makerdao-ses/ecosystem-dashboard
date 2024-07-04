@@ -229,9 +229,7 @@ const CoreUnitBudgetStatementView = ({
             />
           )}
 
-          <Container>
-            <AdditionalNotesSection coreUnit={coreUnit} />
-          </Container>
+          <AdditionalNotesSection coreUnit={coreUnit} />
         </ModalCategoriesProvider>
       </PageSeparator>
     </PageContainer>

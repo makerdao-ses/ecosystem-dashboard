@@ -16,7 +16,7 @@ const CuHeadlineText: React.FC<CuHeadlineTextProps> = ({ cuLongCode, isCoreUnit 
   const resource = isCoreUnit ? 'Core Unit' : 'Ecosystem Actor';
   return (
     <LinkDescription>
-      <ExternalLinkButtonStyled href={`${MAKER_BURN_LINK}/${cuLongCode}`}>
+      <ExternalLinkButtonStyled href={`${MAKER_BURN_LINK}/${cuLongCode}`} wrapText={false}>
         {`${shortCode} ${resource} on-chain transaction history`}
       </ExternalLinkButtonStyled>
     </LinkDescription>
@@ -31,7 +31,9 @@ export const LinkDescription = styled('div')(() => ({
 
 const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
   padding: '0px 6px 0px 8px',
-  letterSpacing: -0.2,
+  gap: 8,
+  borderTopWidth: 1.5,
+  letterSpacing: '-0.28px',
   borderWidth: 1.5,
   fontSize: 14,
   fontWeight: 500,

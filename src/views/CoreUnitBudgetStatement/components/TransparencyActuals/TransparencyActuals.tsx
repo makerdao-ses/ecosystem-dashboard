@@ -1,8 +1,8 @@
 import { styled } from '@mui/material';
-import CategoryModalComponent from '@ses/components/BasicModal/CategoryModalComponent';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
+import CategoryModalComponent from '@/components/AdvancedInnerTable/BasicModal/CategoryModalComponent';
 import Tabs from '@/components/Tabs/Tabs';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '../../utils/constants';
 import { TransparencyEmptyTable } from '../Placeholders/TransparencyEmptyTable';

@@ -7,6 +7,7 @@ import AvatarPlaceHolder from 'public/assets/svg/avatar_placeholder.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
+import Expand from 'public/assets/svg/expand.svg';
 import ExternalLink from 'public/assets/svg/external_link.svg';
 import Forum from 'public/assets/svg/forum.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
@@ -24,7 +25,6 @@ import ThemeIcon from 'public/assets/svg/theme.svg';
 import TwitterIcon from 'public/assets/svg/twitter.svg';
 import X from 'public/assets/svg/x.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
-
 export const iconsPowerHose = [
   {
     Icon: GlobeWWW,
@@ -129,5 +129,9 @@ export const iconsPowerHose = [
   {
     Icon: InfoOutlined,
     title: 'info_outlined',
+  },
+  {
+    Icon: Expand,
+    title: 'expand',
   },
 ];

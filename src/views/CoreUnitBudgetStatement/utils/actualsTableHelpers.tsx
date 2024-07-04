@@ -64,6 +64,7 @@ export const getActualsBreakdownItems = (
       }
 
       result.push({
+        subHeader: groupedCategory[groupedCatKey][0].headcountExpense ? 'Headcount Expenses' : 'Non-Headcount Expenses',
         type: type || 'normal',
         ...(type === 'subTotal'
           ? {

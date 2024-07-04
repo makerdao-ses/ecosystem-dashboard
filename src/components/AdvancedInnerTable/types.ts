@@ -26,6 +26,7 @@ export type CardSpacingSize = 'small' | 'large';
 
 export interface InnerTableRow {
   type: RowType;
+  subHeader?: string;
   items: InnerTableCell[];
   borderTop?: boolean;
   borderBottom?: boolean;
@@ -41,6 +42,7 @@ export interface AdvancedInnerTableProps {
   longCode: string;
   className?: string;
   cardSpacingSize?: CardSpacingSize;
+  showSubHeader?: boolean;
 }
 
 export type Alignment = 'left' | 'center' | 'right';
