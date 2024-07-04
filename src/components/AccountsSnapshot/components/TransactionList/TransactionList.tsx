@@ -58,11 +58,11 @@ const TransactionListContainer = styled('div')(({ theme }) => ({
   padding: 0,
   position: 'relative',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     padding: '0 24px',
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: '0 32px',
   },
 
@@ -84,23 +84,23 @@ const TransactionListContainer = styled('div')(({ theme }) => ({
     left: 0,
     opacity: 0.6,
     filter: 'blur(7.5px)',
-    borderRadius: '0px 0px 6px 6px',
+    borderRadius: '0px 0px 12px 12px',
     background: theme.palette.isLight
-      ? 'linear-gradient(0deg, rgba(219, 227, 237, 0.2), rgba(219, 227, 237, 0.2)), linear-gradient(180deg, rgba(190, 190, 190, 0.64) 0%, rgba(190, 190, 190, 0) 100%)'
-      : 'linear-gradient(0deg, rgba(3, 16, 32, 0.2), rgba(3, 16, 32, 0.2)), linear-gradient(180deg, rgba(0, 32, 202, 0.64) 0%, rgba(64, 85, 200, 0) 100%)',
+      ? 'linear-gradient(0deg, rgba(219, 227, 237, 0.20) 0%, rgba(219, 227, 237, 0.20) 100%), linear-gradient(180deg, rgba(190, 190, 190, 0.64) 0%, rgba(190, 190, 190, 0.00) 100%)'
+      : 'transparent',
   },
 }));
 
 const TransactionCard = styled('div')(({ theme }) => ({
-  borderRadius: '0 0 6px 6px',
-  background: theme.palette.isLight ? '#ECEFF9' : '#38364D',
+  borderRadius: '0 0 12px 12px',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.slate[600],
   overflow: 'hidden',
   padding: 8,
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     padding: 0,
     background: theme.palette.isLight ? '#FBFBFB' : '#162530',
     boxShadow: theme.palette.isLight
@@ -115,7 +115,7 @@ const GroupContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: 8,
 
-  [theme.breakpoints.down('table_834')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     '&:not(:first-of-type)::before': {
       display: 'block',
       content: '""',
@@ -127,7 +127,7 @@ const GroupContainer = styled('div')(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     gap: 0,
 
     '&:not(:first-of-type)': {

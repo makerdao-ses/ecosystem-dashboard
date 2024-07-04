@@ -33,7 +33,7 @@ export default TransactionWalletInfo;
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     alignItems: 'center',
   },
 }));
@@ -47,12 +47,12 @@ const BlockiesContainer = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   background: 'gray',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
     marginRight: 16,
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginRight: 15,
   },
 }));
@@ -62,7 +62,7 @@ const BlockieIdenticon = styled(Identicon)(({ theme }) => ({
   height: 24,
   minWidth: 24,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     width: 32,
     height: 32,
   },
@@ -77,13 +77,13 @@ const NameContainer = styled('div')({
 const Name = styled('div')(({ theme }) => ({
   fontWeight: 500,
   fontSize: 12,
-  lineHeight: '15px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  marginBottom: 4,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '22px',
+    marginBottom: 4,
   },
 }));
 
@@ -93,16 +93,16 @@ const AddressContainer = styled('div')({
 
 const Address = styled('a')(({ theme }) => ({
   fontSize: 12,
-  lineHeight: '15px',
-  color: '#447AFB',
-  marginRight: 17,
+  fontWeight: 500,
+  lineHeight: '18px',
+  color: theme.palette.colors.blue[700],
+  marginRight: 16,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginRight: 4,
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
-    lineHeight: '17px',
   },
 }));

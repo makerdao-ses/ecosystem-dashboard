@@ -16,7 +16,7 @@ export default meta;
 
 const variantsArgs = [{}];
 
-const [[LightMode, DarkMode]] = createThemeModeVariants(FundingOverviewSkeleton, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(FundingOverviewSkeleton, variantsArgs, false);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {

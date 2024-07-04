@@ -40,14 +40,14 @@ CollapsedLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18738:221531',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1996-37244',
         options: {
           componentStyle: {
             width: 327,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
@@ -59,14 +59,14 @@ ExpandedLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18738:221818',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1996-40628',
         options: {
           componentStyle: {
             width: 327,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },

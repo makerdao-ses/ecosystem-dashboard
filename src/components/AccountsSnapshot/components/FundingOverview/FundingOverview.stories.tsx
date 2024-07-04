@@ -65,7 +65,8 @@ const variantsArgs = [
 
 const [[LightMode, DarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
   FundingOverview,
-  variantsArgs
+  variantsArgs,
+  false
 );
 export { LightMode, DarkMode, ExpandedLightMode, ExpandedDarkMode };
 
