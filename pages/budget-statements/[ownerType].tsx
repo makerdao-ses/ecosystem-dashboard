@@ -2,7 +2,8 @@ import { DateTime } from 'luxon';
 import BudgetStatementView from '@/views/BudgetStatement/BudgetStatementView';
 import type { AllowedOwnerType } from '@/views/BudgetStatement/types';
 import { allowedOwnerTypeToResourceType } from '@/views/BudgetStatement/utils';
-import { getLastSnapshotPeriod } from '@/views/CoreUnitBudgetStatement/transparencyReportAPI';
+
+import { getLastSnapshotPeriod } from '@/views/CoreUnitBudgetStatement/BudgetStatementAPI';
 import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 
 const BudgetStatementPage: NextPage = ({
