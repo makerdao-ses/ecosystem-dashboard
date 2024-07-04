@@ -121,13 +121,13 @@ const Card = styled('div')<{ sign: 'positive' | 'negative' }>(({ theme, sign }) 
   flexDirection: 'column',
   alignItems: 'flex-start',
   width: '100%',
-  padding: '3px 7px 7px',
+  padding: '3px 3px 7px 7px',
   borderRadius: 12,
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
 
   [theme.breakpoints.up('tablet_768')]: {
-    padding: '3px 5px 7px 7px',
+    padding: '3px 3px 7px 7px',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {

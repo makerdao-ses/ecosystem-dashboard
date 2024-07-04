@@ -151,7 +151,7 @@ const FillSpace = styled('div')<{ position: 'left' | 'right' }>(({ theme, positi
 }));
 
 const Arrow = styled('div')<{ direction: 'left' | 'right' }>(({ theme, direction }) => {
-  const margin = 16;
+  const margin = 24;
   const borderStyle = `2px solid ${
     theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[700]
   }`;
