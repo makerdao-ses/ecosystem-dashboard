@@ -280,11 +280,9 @@ const TitleCard = styled('div')<{ cardSpacingSize?: CardSpacingSize; isGroupCard
 );
 
 const GroupTitle = styled('div')(({ theme }) => ({
-  fontSize: 12,
-  lineHeight: '15px',
+  fontSize: 16,
+  lineHeight: '22px',
   fontWeight: 600,
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
   color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
@@ -317,6 +315,7 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
     lineHeight: '15px',
     marginBottom: 0,
     fontWeight: 400,
+    color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
 
     svg: {
       display: 'none',
@@ -326,8 +325,6 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
       fontWeight: 600,
       lineHeight: '24px',
       paddingLeft: 16,
-
-      padding: '8px 0px 16px 16px',
     },
   },
   [theme.breakpoints.up('tablet_768')]: {
