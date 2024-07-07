@@ -124,7 +124,7 @@ export default CUReserves;
 const CardsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: 8,
-  marginTop: 24,
+  marginTop: 16,
   flexWrap: 'wrap',
 
   '& > div:nth-of-type(1)': {
@@ -178,22 +178,17 @@ const HeaderContainer = styled('div')(({ theme }) => ({
 }));
 
 const CheckContainer = styled('div')(({ theme }) => ({
-  fontSize: 14,
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#231536' : '#787A9B',
+  fontSize: 16,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   display: 'flex',
   marginRight: 2,
   marginBottom: 1,
   gap: 10,
-  marginTop: 20,
+  marginTop: 8,
 
   [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 4,
-  },
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    fontSize: 16,
-    lineHeight: '22px',
+    marginTop: 'auto',
   },
 
   '& span': {
@@ -203,7 +198,7 @@ const CheckContainer = styled('div')(({ theme }) => ({
 
 const Checkbox = styled(CheckboxMui)(({ theme }) => ({
   svg: {
-    fill: theme.palette.isLight ? '#231536' : '#ADAFD4',
+    fill: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   },
 }));
 

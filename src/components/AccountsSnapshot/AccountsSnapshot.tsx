@@ -61,9 +61,9 @@ const AccountsSnapshot: React.FC<AccountsSnapshotProps> = ({ snapshot, snapshotO
 
 export default AccountsSnapshot;
 
-const Wrapper = styled('div')({
+const Wrapper = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 64,
-  marginBottom: 64,
-});
+  gap: 32,
+  marginBottom: 24,
+}));
