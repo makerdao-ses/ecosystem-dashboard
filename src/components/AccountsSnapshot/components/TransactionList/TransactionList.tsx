@@ -137,6 +137,15 @@ const GroupContainer = styled('div')(({ theme }) => ({
 const EmptyList = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  fontSize: 16,
+  fontWeight: 600,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   padding: '48px 0',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 24,
+    fontWeight: 700,
+    lineHeight: '120%',
+  },
 }));
