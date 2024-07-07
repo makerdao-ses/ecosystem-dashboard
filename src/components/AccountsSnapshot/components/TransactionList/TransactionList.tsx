@@ -59,11 +59,11 @@ const TransactionListContainer = styled('div')(({ theme }) => ({
   position: 'relative',
 
   [theme.breakpoints.up('tablet_768')]: {
-    padding: '0 24px',
+    padding: '0 16px',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    padding: '0 32px',
+    padding: '0 24px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -71,7 +71,7 @@ const TransactionListContainer = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    padding: '0 56px',
+    padding: '0 32px',
   },
 
   '&:before': {
@@ -102,10 +102,8 @@ const TransactionCard = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: 0,
-    background: theme.palette.isLight ? '#FBFBFB' : '#162530',
-    boxShadow: theme.palette.isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : 'none',
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+    boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
     gap: 0,
   },
 }));

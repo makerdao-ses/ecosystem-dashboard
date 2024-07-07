@@ -33,6 +33,7 @@ const Hash = styled('a')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
-    lineHeight: '17px',
+    fontWeight: 600,
+    lineHeight: '22px',
   },
 }));

@@ -33,7 +33,7 @@ export default TransactionWalletInfo;
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
 
-  [theme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     alignItems: 'center',
   },
 }));
@@ -49,11 +49,10 @@ const BlockiesContainer = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
-    marginRight: 16,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    marginRight: 15,
+    marginRight: 16,
   },
 }));
 
@@ -80,10 +79,15 @@ const Name = styled('div')(({ theme }) => ({
   lineHeight: '18px',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '22px',
+  },
+
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    lineHeight: '22px',
-    marginBottom: 4,
+    lineHeight: '24px',
   },
 }));
 
@@ -104,5 +108,7 @@ const Address = styled('a')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '22px',
   },
 }));

@@ -17,13 +17,8 @@ const AccordionArrow: React.FC = () => {
 
 export default AccordionArrow;
 
-const SVG = styled('svg')(({ theme }) => ({
+const SVG = styled('svg')(() => ({
   width: 10,
   height: 6,
   margin: '5px 3px',
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 16,
-    height: 10,
-  },
 }));

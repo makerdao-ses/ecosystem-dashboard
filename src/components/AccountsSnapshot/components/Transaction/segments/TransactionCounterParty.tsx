@@ -19,21 +19,17 @@ export default TransactionCounterParty;
 const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
+  gap: 4,
   paddingRight: 10,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: -2,
   },
 }));
 
 const CounterPartyRole = styled('div')(({ theme }) => ({
-  fontSize: 11,
-  lineHeight: '13px',
-  color: theme.palette.isLight ? '#546978' : '#708390',
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '15px',
-  },
+  fontSize: 12,
+  lineHeight: '18px',
+  fontWeight: 500,
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
 }));
