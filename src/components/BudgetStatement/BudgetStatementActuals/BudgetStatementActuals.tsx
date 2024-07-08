@@ -49,6 +49,7 @@ export const BudgetStatementActuals: React.FC<TransparencyActualsProps> = ({
         style={{ marginBottom: '64px' }}
         cardsTotalPosition="top"
         longCode={longCode}
+        cardSpacingSize="small"
         tablePlaceholder={
           <div style={{ marginBottom: 64 }}>
             <BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />

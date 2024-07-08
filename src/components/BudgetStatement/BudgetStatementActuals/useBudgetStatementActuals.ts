@@ -143,26 +143,31 @@ export const useBudgetStatementActuals = (
         header: 'Mthly Budget',
         align: 'right',
         type: 'number',
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Forecast',
         align: 'right',
         type: 'incomeNumber',
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Actuals',
         align: 'right',
         type: 'incomeNumber',
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Difference',
         align: 'right',
         type: 'number',
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Payments',
         align: 'right',
         type: 'number',
+        hasBorderBottomOnCard: true,
       },
     ];
     return mainTableColumns;

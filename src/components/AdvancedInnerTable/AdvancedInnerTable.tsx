@@ -7,7 +7,7 @@ import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/comp
 import { NumberCell } from './NumberCell/NumberCell';
 import { TextCell } from './TextCell/TextCell';
 import { TransparencyCard } from './TransparencyCard/TransparencyCard';
-import type { AdvancedInnerTableProps, Alignment, CardSpacingSize, InnerTableColumn, RowType } from './types';
+import type { AdvancedInnerTableProps, Alignment, InnerTableColumn, RowType } from './types';
 
 export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   cardsTotalPosition = 'bottom',
@@ -136,21 +136,12 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             item.items[i]?.column.isCardHeader
           );
           if (item.type === 'groupTitle') {
-            return (
-              <TitleCard isGroupCard={true} cardSpacingSize={cardSpacingSize} className="advanced-table--group-section">
-                <GroupTitle key={`groupTitle-${i}`} className="advanced-table--table-groupTitle">
-                  {item.items[0].value as string}
-                </GroupTitle>
-                {i + 1 < cardItems.length && cardItems[i + 1].type === 'section' && (
-                  <Title fontSize="14px" className="advanced-table--table-section">
-                    {cardItems[i].items[0].value as string}
-                  </Title>
-                )}
-              </TitleCard>
-            );
+            return null;
           }
+
           return (
             <TransparencyCard
+              category={item.category}
               showSubHeader={showSubHeader}
               itemType={item.type}
               subHeader={item.subHeader || ''}
@@ -255,30 +246,6 @@ const CardsWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-const TitleCard = styled('div')<{ cardSpacingSize?: CardSpacingSize; isGroupCard?: boolean }>(
-  ({ theme, cardSpacingSize = 'large', isGroupCard = false }) => ({
-    padding: cardSpacingSize === 'large' ? '8px 24px' : '8px 16px',
-    background: theme.palette.isLight ? 'rgba(255, 255, 255, 0.7)' : 'rgba(120, 122, 155, 0.3)',
-    boxShadow: theme.palette.isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-    borderRadius: 6,
-    marginBottom: 8,
-
-    '&:not(:first-of-type)': {
-      marginTop: isGroupCard ? 24 : 0,
-    },
-
-    '& > .advanced-table--table-groupTitle': {
-      marginBottom: 16,
-    },
-
-    '& > .advanced-table--table-section': {
-      margin: 0,
-    },
-  })
-);
-
 const GroupTitle = styled('div')(({ theme }) => ({
   fontSize: 16,
   lineHeight: '22px',
@@ -349,22 +316,4 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
       display: 'none',
     },
   },
-}));
-
-const Title = styled('div')<{
-  marginBottom?: number;
-  fontSize?: string;
-  responsiveMarginBottom?: number;
-  isBreakDown?: boolean;
-  marginTop?: number;
-}>(({ marginBottom = 16, theme, marginTop = 24, isBreakDown = false }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontWeight: isBreakDown ? 700 : 600,
-  fontStyle: 'normal',
-  fontSize: 14,
-  lineHeight: isBreakDown ? '19.36px' : '24px',
-  marginTop,
-  letterSpacing: '0.4px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-  marginBottom: `${marginBottom}px`,
 }));

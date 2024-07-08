@@ -9,19 +9,16 @@ interface Props {
   shortCode: string;
 }
 
-const ItemCustomProject: FC<Props> = ({ shortCode }) => {
-  console.log('hello');
-  return (
-    <CardSheetMobile
-      title="Projects"
-      description={`View all the of the projects ${shortCode} is involved in and there status.`}
-    >
-      <ContainerChildren>
-        <InternalLinkButtonStyled href={siteRoutes.ecosystemActorProjects(shortCode)} label="View Projects" showIcon />
-      </ContainerChildren>
-    </CardSheetMobile>
-  );
-};
+const ItemCustomProject: FC<Props> = ({ shortCode }) => (
+  <CardSheetMobile
+    title="Projects"
+    description={`View all the of the projects ${shortCode} is involved in and there status.`}
+  >
+    <ContainerChildren>
+      <InternalLinkButtonStyled href={siteRoutes.ecosystemActorProjects(shortCode)} label="View Projects" showIcon />
+    </ContainerChildren>
+  </CardSheetMobile>
+);
 
 export default ItemCustomProject;
 
