@@ -27,6 +27,8 @@ export type CardSpacingSize = 'small' | 'large';
 export interface InnerTableRow {
   type: RowType;
   subHeader?: string;
+  category?: string;
+  categoryGroup?: string;
   items: InnerTableCell[];
   borderTop?: boolean;
   borderBottom?: boolean;

@@ -65,6 +65,12 @@ export const getActualsBreakdownItems = (
 
       result.push({
         subHeader: groupedCategory[groupedCatKey][0].headcountExpense ? 'Headcount Expenses' : 'Non-Headcount Expenses',
+        category:
+          groupedCategory[groupedCatKey][0].group === '' ||
+          groupedCategory[groupedCatKey][0].group === null ||
+          groupedCategory[groupedCatKey][0].group === 'null'
+            ? 'General'
+            : groupedCategory[groupedCatKey][0].group,
         type: type || 'normal',
         ...(type === 'subTotal'
           ? {
@@ -125,27 +131,32 @@ export const getActualsBreakdownColumns = (wallet: BudgetStatementWallet, handle
       header: 'Mthly Budget',
       align: 'right',
       type: 'number',
+      hasBorderBottomOnCard: true,
     },
     {
       header: 'Forecast',
       align: 'right',
       type: 'incomeNumber',
+      hasBorderBottomOnCard: true,
     },
     {
       header: 'Actuals',
       align: 'right',
       type: 'incomeNumber',
+      hasBorderBottomOnCard: true,
     },
     {
       header: 'Difference',
       align: 'right',
       type: 'number',
+      hasBorderBottomOnCard: true,
     },
     {
       header: 'Comments',
       align: 'left',
       type: 'text',
       width: '300px',
+      hasBorderBottomOnCard: true,
     },
     {
       header: 'Payments',
@@ -177,6 +188,7 @@ export const getActualsBreakdownItemsForWallet = (
       // it is a project group
       result.push({
         type: 'groupTitle',
+        categoryGroup: groupedKey === '' ? 'General' : groupedKey,
         borderTop: true,
         items: [
           {

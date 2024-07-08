@@ -3,6 +3,7 @@ import type { InnerTableRow } from '@/components/AdvancedInnerTable/types';
 const replacePaymentTopup = (breakdownItems: InnerTableRow[]): InnerTableRow[] =>
   breakdownItems.map((innerRow) => ({
     ...innerRow,
+    category: innerRow.category,
     items: innerRow.items.map((item) => {
       if (item.value === 'payment topup') {
         return {

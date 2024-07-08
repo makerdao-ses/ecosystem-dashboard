@@ -13,6 +13,7 @@ interface Props {
   cardSpacingSize?: CardSpacingSize;
   subHeader: string;
   showSubHeader: boolean;
+  category?: string;
 }
 
 export const TransparencyCard: React.FC<Props> = ({
@@ -25,8 +26,10 @@ export const TransparencyCard: React.FC<Props> = ({
   items,
   separators,
   showSubHeader,
+  category = 'General',
 }) => {
   if (itemType === 'section') return null;
+
   return (
     <Container
       style={{ marginTop: itemType === 'total' ? 24 : 0 }}
@@ -35,9 +38,11 @@ export const TransparencyCard: React.FC<Props> = ({
       }`}
     >
       <HeaderWrapper showSubHeader={showSubHeader}>
-        {header}
+        {showSubHeader && <Category>{category}</Category>}
         {showSubHeader && <SubHeader>{subHeader}</SubHeader>}
       </HeaderWrapper>
+      {header}
+
       {headers.map((header, i) => {
         const titleReactComponent = (header as JSX.Element).props?.title || '';
         const totalsStyle = header === 'Totals' || titleReactComponent === 'Totals';
@@ -96,6 +101,7 @@ const HeaderWrapper = styled('div')<{ showSubHeader: boolean }>(({ theme, showSu
     : theme.palette.colors.charcoal[800],
   borderTopLeftRadius: 12,
   borderTopRightRadius: 12,
+  paddingTop: 8,
 }));
 
 const FooterWrapper = styled('div')(({ theme }) => ({
@@ -140,15 +146,20 @@ const Label = styled('div')<{ hasIcon?: boolean; height?: string; isTotal: boole
 const ContainerLine = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: 1,
-  borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
-  marginBottom: 20,
-  marginTop: 20,
+  borderTop: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+  marginBottom: 6,
+  marginTop: 6,
 }));
 
 const ContainerData = styled('div')<{ spacing: CardSpacingSize }>(({ spacing }) => ({
-  padding: spacing === 'large' ? '20px 24px 10px' : '16px 24px 6px',
+  padding: spacing === 'large' ? '20px 24px 10px' : '4px 24px 4px',
   '& .advanced-table__cell-row--category--comments': {
     padding: 0,
+    textAlign: 'end',
+    '& div': {
+      width: 0,
+      height: 0,
+    },
   },
 }));
 
@@ -157,6 +168,19 @@ const SubHeader = styled('div')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 600,
   lineHeight: '22px',
+  paddingLeft: 24,
+  paddingRight: 24,
+  paddingBottom: 8,
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingLeft: 16,
+  },
+}));
+
+const Category = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  fontSize: 16,
+  fontWeight: 600,
+  lineHeight: '24px',
   paddingLeft: 24,
   paddingRight: 24,
   paddingBottom: 8,
