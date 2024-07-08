@@ -5,7 +5,7 @@ import { ResourceType } from '@ses/core/models/interfaces/types';
 import AccountsSnapshotTabContainer from '@/components/AccountsSnapshot/AccountsSnapshotTabContainer';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBreadcrumbContent';
-import { TransparencyActuals } from '@/components/BudgetStatement/BudgetStatementActuals/BudgetStatementActuals';
+import { BudgetStatementActuals } from '@/components/BudgetStatement/BudgetStatementActuals/BudgetStatementActuals';
 import { TransparencyAudit } from '@/components/BudgetStatement/BudgetStatementAudit/BudgetStatementAudit';
 import AuditorCommentsContainer from '@/components/BudgetStatement/BudgetStatementAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import { TransparencyForecast } from '@/components/BudgetStatement/BudgetStatementForecast/BudgetStatementForecast';
@@ -155,7 +155,7 @@ const CoreUnitBudgetStatementView = ({
         <ModalCategoriesProvider expenseCategories={expenseCategories}>
           <Container>
             {tabsIndex === TRANSPARENCY_IDS_ENUM.ACTUALS && (
-              <TransparencyActuals
+              <BudgetStatementActuals
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}

@@ -6,7 +6,7 @@ import CategoryModalComponent from '@/components/AdvancedInnerTable/BasicModal/C
 import BudgetStatementsPlaceholder from '@/components/PlaceHolders/BudgetStatementsPlaceholder';
 import Tabs from '@/components/Tabs/Tabs';
 import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '@/views/CoreUnitBudgetStatement/utils/constants';
-import { useTransparencyActuals } from './useBudgetStatementActuals';
+import { useBudgetStatementActuals } from './useBudgetStatementActuals';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
@@ -20,7 +20,7 @@ interface TransparencyActualsProps {
   resource: ResourceType;
 }
 
-export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
+export const BudgetStatementActuals: React.FC<TransparencyActualsProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
@@ -36,7 +36,7 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActuals(currentMonth, budgetStatements);
+  } = useBudgetStatementActuals(currentMonth, budgetStatements);
 
   return (
     <Container>

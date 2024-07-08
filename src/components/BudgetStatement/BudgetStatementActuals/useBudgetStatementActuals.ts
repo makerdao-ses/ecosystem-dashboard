@@ -24,7 +24,7 @@ import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatemen
 import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
-export const useTransparencyActuals = (
+export const useBudgetStatementActuals = (
   propsCurrentMonth: DateTime,
   budgetStatements: BudgetStatement[] | undefined
 ) => {
