@@ -251,10 +251,6 @@ const GroupTitle = styled('div')(({ theme }) => ({
   lineHeight: '22px',
   fontWeight: 600,
   color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  // display: 'none',
-  [theme.breakpoints.up('tablet_768')]: {
-    // display: 'flex',
-  },
 }));
 
 const TableRow = styled('tr')<{ borderTop?: boolean; borderBottom?: boolean }>(
