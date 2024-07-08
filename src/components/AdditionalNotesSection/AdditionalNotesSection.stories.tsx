@@ -4,7 +4,7 @@ import AdditionalNotesSection from './AdditionalNotesSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof AdditionalNotesSection> = {
-  title: 'Fusion/Components/Budget Statements//AdditionalNotesSection',
+  title: 'Fusion/Components/Budget Statements/AdditionalNotesSection',
   component: AdditionalNotesSection,
   parameters: {
     chromatic: {
