@@ -153,6 +153,10 @@ const TransactionContainer = styled(MuiAccordionDetails)(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     marginBottom: 24,
+
+    '& > div > div': {
+      paddingTop: 8,
+    },
   },
 }));
 
@@ -233,7 +237,7 @@ const Header = styled('div')(({ theme }) => ({
   fontSize: 12,
   fontWeight: 500,
   lineHeight: '18px',
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.gray[600],
 
   [theme.breakpoints.up('tablet_768')]: {
     marginBottom: 2,
@@ -244,7 +248,7 @@ const Value = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 14,
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
@@ -257,7 +261,7 @@ const Currency = styled('span')(({ theme }) => ({
   fontWeight: 500,
   lineHeight: '18px',
   textTransform: 'uppercase',
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
@@ -275,8 +279,8 @@ const Inflow = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   borderRadius: 8,
-  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
-  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
 
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'column',
