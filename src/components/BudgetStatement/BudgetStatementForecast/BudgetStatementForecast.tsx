@@ -6,12 +6,12 @@ import Tabs from '@/components/Tabs/Tabs';
 import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { FORECAST_BREAKDOWN_QUERY_PARAM } from '@/views/CoreUnitBudgetStatement/utils/constants';
 import { BreakdownTableWrapper } from '../BudgetStatementActuals/BudgetStatementActuals';
-import { useTransparencyForecast } from './useBudgetStatementForecast';
+import { useBudgetStatementForecast } from './useBudgetStatementForecast';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 
-interface TransparencyForecastProps {
+interface BudgetStatementForecastProps {
   currentMonth: DateTime;
   budgetStatements: BudgetStatement[];
   longCode: string;
@@ -20,7 +20,7 @@ interface TransparencyForecastProps {
   resource: ResourceType;
 }
 
-export const TransparencyForecast: React.FC<TransparencyForecastProps> = ({
+export const BudgetStatementForecast: React.FC<BudgetStatementForecastProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
@@ -36,7 +36,7 @@ export const TransparencyForecast: React.FC<TransparencyForecastProps> = ({
     breakdownItems,
     breakdownTitleRef,
     breakdownTabs,
-  } = useTransparencyForecast(currentMonth, budgetStatements);
+  } = useBudgetStatementForecast(currentMonth, budgetStatements);
 
   return (
     <Container>

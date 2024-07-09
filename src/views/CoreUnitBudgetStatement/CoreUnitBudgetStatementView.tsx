@@ -8,7 +8,7 @@ import TeamBreadcrumbContent from '@/components/Breadcrumb/CustomContents/TeamBr
 import { BudgetStatementActuals } from '@/components/BudgetStatement/BudgetStatementActuals/BudgetStatementActuals';
 import { TransparencyAudit } from '@/components/BudgetStatement/BudgetStatementAudit/BudgetStatementAudit';
 import AuditorCommentsContainer from '@/components/BudgetStatement/BudgetStatementAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
-import { TransparencyForecast } from '@/components/BudgetStatement/BudgetStatementForecast/BudgetStatementForecast';
+import { BudgetStatementForecast } from '@/components/BudgetStatement/BudgetStatementForecast/BudgetStatementForecast';
 import { TransparencyMkrVesting } from '@/components/BudgetStatement/BudgetStatementMkrVesting/BudgetStatementMkrVesting';
 import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
 import { TransparencyTransferRequest } from '@/components/BudgetStatement/BudgetStatementTransferRequest/BudgetStatementTransferRequest';
@@ -165,7 +165,7 @@ const CoreUnitBudgetStatementView = ({
               />
             )}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.FORECAST && (
-              <TransparencyForecast
+              <BudgetStatementForecast
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}

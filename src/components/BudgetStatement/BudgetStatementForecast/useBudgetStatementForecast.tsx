@@ -37,7 +37,7 @@ import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatemen
 import type { BudgetStatementWallet } from '@ses/core/models/interfaces/budgetStatementWallet';
 import type { DateTime } from 'luxon';
 
-export const useTransparencyForecast = (currentMonth: DateTime, budgetStatements: BudgetStatement[] | undefined) => {
+export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStatements: BudgetStatement[] | undefined) => {
   const firstMonth = useMemo(() => currentMonth.plus({ month: 1 }), [currentMonth]);
   const secondMonth = useMemo(() => currentMonth.plus({ month: 2 }), [currentMonth]);
   const thirdMonth = useMemo(() => currentMonth.plus({ month: 3 }), [currentMonth]);
