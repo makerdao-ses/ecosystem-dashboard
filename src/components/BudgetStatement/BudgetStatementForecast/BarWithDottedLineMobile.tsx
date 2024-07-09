@@ -109,7 +109,7 @@ const BudgetBar = styled('div')(({ theme }) => ({
   height: 6,
   overflow: 'hidden',
   borderRadius: 2,
-  background: theme.palette.isLight ? '#ECF1F3' : '#48495F',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.slate[400],
   marginTop: 2,
   marginBottom: 2,
 }));
@@ -126,10 +126,11 @@ const BarPercent = styled('div')<{ width: number; color: string }>(({ width, col
 }));
 const BudgetCap = styled('div')(({ theme }) => ({
   fontSize: 12,
-  lineHeight: '15px',
+  fontWeight: 500,
+  lineHeight: '18px',
   textAlign: 'right',
-  color: theme.palette.isLight ? '#708390' : '#546978',
   marginRight: 2,
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[600],
 }));
 
 const ContendBarForSpace = styled('div')<{ displacement: number }>(({ displacement }) => ({
@@ -147,9 +148,15 @@ const ContainerRelative = styled('div')({
   height: 20,
 });
 const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ theme, isTotal, isNegative }) => ({
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontSize: '14px',
+  lineHeight: '22px',
   textAlign: 'right',
-  fontWeight: isTotal ? 700 : 400,
-  color: theme.palette.isLight ? (isNegative ? '#F75524' : '#231536') : isNegative ? '#F75524' : '#D2D4EF',
+  fontWeight: isTotal ? 700 : 600,
+  color: theme.palette.isLight
+    ? isNegative
+      ? '#F75524'
+      : theme.palette.colors.gray[800]
+    : isNegative
+    ? '#F75524'
+    : theme.palette.colors.gray[50],
 }));

@@ -11,9 +11,9 @@ interface Props {
   month?: DateTime;
 }
 
-const ProgressiveIndicatorMobile: React.FC<Props> = ({ forecast, budgetCap, month }) => (
+const ProgressiveIndicatorMobile: React.FC<Props> = ({ forecast, budgetCap, month, isTotal }) => (
   <Container>
-    <BarWithDottedLineMobile value={forecast} relativeValue={budgetCap} month={month} />
+    <BarWithDottedLineMobile value={forecast} relativeValue={budgetCap} month={month} isTotal={isTotal} />
   </Container>
 );
 

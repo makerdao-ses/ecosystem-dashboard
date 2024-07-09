@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import BarWithDottedLine from './BarWithDottedLine';
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap, isTotal = false, month }) => {
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery(lightTheme.breakpoints.down('tablet_768'));
   return (
     <>
       {!isMobile ? (
@@ -31,7 +30,7 @@ const ProgressiveIndicator: React.FC<Props> = ({ forecast, budgetCap, isTotal = 
 
 export default ProgressiveIndicator;
 
-const Container = styled.div({
+const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
