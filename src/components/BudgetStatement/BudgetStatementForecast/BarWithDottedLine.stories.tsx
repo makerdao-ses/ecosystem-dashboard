@@ -3,7 +3,7 @@ import BarWithDottedLine from './BarWithDottedLine';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof BarWithDottedLine> = {
-  title: 'Components/BarWithDottedLine',
+  title: 'Fusion/Components/Budget Statements/BarWithDottedLine',
   component: BarWithDottedLine,
   parameters: {
     chromatic: {

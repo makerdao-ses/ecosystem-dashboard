@@ -44,7 +44,7 @@ const ExternalLinkButtonStyled = styled(ExternalLinkButton)(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     fontSize: 16,
     fontWeight: 600,
-
+    padding: '2px 16px 2px 24px',
     hover: {
       borderWidth: 1.5,
       padding: '2px 16px 2px 24px',

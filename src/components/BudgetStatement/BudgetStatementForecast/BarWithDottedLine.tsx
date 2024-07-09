@@ -1,9 +1,9 @@
 import { styled } from '@mui/material';
-import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React, { useState } from 'react';
 
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import PopoverForecastDescription from '@/views/CoreUnitBudgetStatement/components/PopverForecastDescription/PopoverForecastDescription';
 import {
   getBorderColor,
@@ -20,7 +20,7 @@ interface Props {
   isTotal?: boolean;
 }
 
-const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month, isTotal = false }) => {
+const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month, isTotal = false }) => {
   const { isLight } = useThemeContext();
   const monthFormatted = month?.toFormat('MMMM') || '3 Months Budget Cap';
   const [hover, setHover] = useState(false);
@@ -45,38 +45,27 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
       </Forecast>
       <ContainerBar>
         <BudgetBar>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
-        <StyledPopover
-          displacement={displacement}
-          leaveOnChildrenMouseOut
-          popoverStyle={{
-            border: `1px solid ${borderColor}`,
-            boxShadow: isLight
-              ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-              : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-            background: isLight ? 'white' : '#000A13',
-            borderRadius: '6px',
-          }}
-          id="mouse-over-information"
-          title={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
+
+        <SESTooltipStyled
+          borderColor={borderColor}
+          content={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
         >
-          <ContainerRelative>
-            <ContendBarForSpace
-              onMouseEnter={handleMouseOver}
-              onMouseOut={handleMouseOut}
-              displacement={displacement}
-              onClick={handleMouseOver}
-            >
-              <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} onClick={handleMouseOver} />
-            </ContendBarForSpace>
-          </ContainerRelative>
-        </StyledPopover>
+          <ContendBarForSpace
+            onMouseEnter={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            displacement={displacement}
+            onClick={handleMouseOver}
+          >
+            <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} onClick={handleMouseOver} />
+          </ContendBarForSpace>
+        </SESTooltipStyled>
       </ContainerBar>
       <BudgetCap>{usLocalizedNumber(relativeValue, 2)}</BudgetCap>
     </Container>
   );
 };
 
-export default BarWithDottedLineMobile;
+export default BarWithDottedLine;
 
 const Container = styled('div')({
   paddingTop: 4,
@@ -100,7 +89,7 @@ const ContainerBar = styled('div')({
 const VerticalBar = styled('div')<{ displacement?: number }>(({ displacement, theme }) => ({
   height: 16,
   borderRadius: 6,
-  border: `1px dashed ${theme.palette.colors.blue[700]}`,
+  border: `1px dashed ${theme.palette.isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900]}`,
   right: `${displacement}%`,
   transform: 'rotate(180deg)',
   cursor: 'pointer',
@@ -113,7 +102,7 @@ const BudgetBar = styled('div')(({ theme }) => ({
   height: 6,
   overflow: 'hidden',
   borderRadius: 2,
-  background: theme.palette.isLight ? '#ECF1F3' : '#48495F',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.slate[400],
 }));
 
 const BarPercent = styled('div')<{ width: number; color: string }>(({ width, color }) => ({
@@ -128,9 +117,10 @@ const BarPercent = styled('div')<{ width: number; color: string }>(({ width, col
 }));
 const BudgetCap = styled('div')(({ theme }) => ({
   fontSize: 12,
-  lineHeight: '15px',
+  fontWeight: 500,
+  lineHeight: '18px',
   textAlign: 'right',
-  color: theme.palette.isLight ? '#708390' : '#546978',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[600],
   marginRight: 2,
 }));
 
@@ -145,21 +135,34 @@ const ContendBarForSpace = styled('div')<{ displacement: number }>(({ displaceme
   cursor: 'pointer',
 }));
 
-const ContainerRelative = styled('div')({
-  height: 20,
-});
 const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ theme, isTotal, isNegative }) => ({
-  fontSize: '16px',
-  lineHeight: '19px',
+  fontSize: 14,
+  lineHeight: '22px',
   textAlign: 'right',
-  fontWeight: isTotal ? 700 : 400,
-  color: theme.palette.isLight ? (isNegative ? '#F75524' : '#231536') : isNegative ? '#F75524' : '#D2D4EF',
+  fontWeight: isTotal ? 600 : 600,
+  color: theme.palette.isLight
+    ? isNegative
+      ? '#F75524'
+      : theme.palette.colors.gray[900]
+    : isNegative
+    ? '#F75524'
+    : theme.palette.colors.gray[50],
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 16,
+    lineHeight: '22px',
+  },
 }));
 
-const StyledPopover = styled(CustomPopover)<{ displacement: number }>(({ displacement }) => ({
-  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-    overflowX: 'unset',
-    overflowY: 'unset',
-    marginLeft: -displacement,
+const SESTooltipStyled = styled(SESTooltip)<{ borderColor: string }>(({ borderColor, theme }) => ({
+  padding: 0,
+  marginTop: 0,
+  width: '100%',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+  border: `2px solid ${borderColor}`,
+  minWidth: 298,
+  borderRadius: 12,
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : 'red',
+  '&.MuiTooltip-tooltip MuiTooltip-tooltipPlacementBottom': {
+    backgroundColor: 'red',
   },
 }));

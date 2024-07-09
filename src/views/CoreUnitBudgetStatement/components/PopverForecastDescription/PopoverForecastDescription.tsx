@@ -17,64 +17,73 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
   const valueShowPercent = Math.trunc(percent) === 0 && value !== 0 ? '-' : `${Math.trunc(percent)}%`;
 
   return (
-    <ContainerInside>
-      <RowMonthDescription>
-        <Month>{month}</Month>
-        <SeverityDistinction
-          levelExpenditure={expenditureLevel === '0' ? ExpenditureLevel.overBudget : expenditureLevel}
-        >
-          {expenditureLevel === '0' ? '' : expenditureLevel}
-        </SeverityDistinction>
-      </RowMonthDescription>
-      {value >= 0 && (
-        <RowPercentBudgetCap>
-          <Percent>{valueShowPercent}</Percent>
-          <Description>of budget cap forecasted</Description>
-        </RowPercentBudgetCap>
-      )}
-      <RowAbsoluteNumbers>
-        <Forecast>
-          <Value>{usLocalizedNumber(value)}</Value>
-          <DescriptionValue>Forecast</DescriptionValue>
-        </Forecast>
-        <BudgetCap>
-          <Value>{usLocalizedNumber(relativeValue)}</Value>
-          <DescriptionValue>Budget Cap</DescriptionValue>
-        </BudgetCap>
-      </RowAbsoluteNumbers>
-    </ContainerInside>
+    <Container>
+      <ContainerInside>
+        <RowMonthDescription>
+          <Month>{month}</Month>
+          <SeverityDistinction
+            levelExpenditure={expenditureLevel === '0' ? ExpenditureLevel.overBudget : expenditureLevel}
+          >
+            {expenditureLevel === '0' ? '' : expenditureLevel}
+          </SeverityDistinction>
+        </RowMonthDescription>
+        {value >= 0 && (
+          <RowPercentBudgetCap>
+            <Percent>{valueShowPercent}</Percent>
+            <Description>of budget cap forecasted</Description>
+          </RowPercentBudgetCap>
+        )}
+        <RowAbsoluteNumbers>
+          <Forecast>
+            <Value>{usLocalizedNumber(value)}</Value>
+            <DescriptionValue>Forecast</DescriptionValue>
+          </Forecast>
+          <BudgetCap>
+            <Value>{usLocalizedNumber(relativeValue)}</Value>
+            <DescriptionValue>Budget Cap</DescriptionValue>
+          </BudgetCap>
+        </RowAbsoluteNumbers>
+      </ContainerInside>
+    </Container>
   );
 };
 
 export default PopoverForecastDescription;
 
+const Container = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '8px 16px',
+  width: '100%',
+  fontFamily: 'Inter, sans-serif',
+  fontStyle: 'normal',
+}));
 const ContainerInside = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  gap: 16,
+  gap: 8,
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
-  width: 188,
 });
 
 const RowMonthDescription = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  width: '100%',
 });
-const Month = styled('div')({
+const Month = styled('div')(({ theme }) => ({
   fontWeight: 600,
-  fontSize: '12px',
-  lineHeight: '15px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  color: '#9FAFB9',
-});
+  fontSize: '16px',
+  lineHeight: '24px',
+  color: theme.palette.colors.charcoal[400],
+}));
 const SeverityDistinction = styled('div')<{ levelExpenditure: string }>(({ theme, levelExpenditure }) => ({
   fontWeight: 600,
   fontSize: 14,
   lineHeight: '22px',
-  // textTransform: 'uppercase',
+  marginRight: -4,
+
   color: theme.palette.isLight
     ? levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
       ? theme.palette.colors.green[700]
@@ -97,25 +106,23 @@ const RowPercentBudgetCap = styled('div')({
 });
 
 const Percent = styled('div')(({ theme }) => ({
-  fontWeight: 400,
-  fontSize: '18px',
-  lineHeight: '22px',
-  letterSpacing: '0.3px',
-  fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: theme.palette.isLight ? '#000000' : '#FFFFFF',
-  marginBottom: 4,
+  fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
 }));
 const Description = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: 12,
   lineHeight: '15px',
-  color: theme.palette.isLight ? '#231536' : '#FFFFFF',
+  color: theme.palette.colors.charcoal[500],
 }));
 const DescriptionValue = styled('div')(({ theme }) => ({
-  fontWeight: 400,
-  fontSize: '12px',
-  lineHeight: '15px',
-  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  marginRight: -4,
+  color: theme.palette.colors.charcoal[500],
 }));
 
 const RowAbsoluteNumbers = styled('div')({
@@ -130,13 +137,11 @@ const Forecast = styled('div')({
 });
 
 const Value = styled('div')(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: '14px',
-  lineHeight: '17px',
-  letterSpacing: '0.3px',
-  fontFeatureSettings: " 'tnum' on, 'lnum' on",
-  color: theme ? '#000000' : '#EDEFFF',
-  marginBottom: 4,
+  fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
+  marginTop: 1,
 }));
 
 const BudgetCap = styled('div')({
