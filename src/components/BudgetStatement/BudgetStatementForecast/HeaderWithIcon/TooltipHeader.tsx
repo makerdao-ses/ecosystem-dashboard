@@ -45,7 +45,7 @@ const Description = styled('div')(({ theme }) => ({
   fontWeight: 600,
   fontSize: 14,
   lineHeight: '22px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : '#ADAFD4',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[100],
 }));
 const Source = styled('div')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
@@ -53,7 +53,7 @@ const Source = styled('div')(({ theme }) => ({
   fontWeight: 500,
   fontSize: 12,
   lineHeight: '18px',
-  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : '#ADAFD4',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
 }));
 
 const ContainerLinkWithMip = styled('div')(({ theme }) => ({
@@ -61,8 +61,8 @@ const ContainerLinkWithMip = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: 8,
   padding: '4px 8px 8px 8px',
-  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
-  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   borderRadius: 12,
 }));
 
