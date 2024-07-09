@@ -27,11 +27,13 @@ const TxHashContainer = styled('div')({
 
 const Hash = styled('a')(({ theme }) => ({
   fontSize: 12,
-  lineHeight: '15px',
-  color: '#447AFB',
+  lineHeight: '18px',
+  color: theme.palette.colors.blue[700],
+  fontWeight: 500,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
-    lineHeight: '17px',
+    fontWeight: 600,
+    lineHeight: '22px',
   },
 }));

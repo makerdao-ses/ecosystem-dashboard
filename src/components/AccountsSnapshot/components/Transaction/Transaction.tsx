@@ -26,7 +26,7 @@ const Transaction: React.FC<TransactionProps> = ({
   amount,
   highlightPositiveAmounts = false,
 }) => {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const isIncomingTransaction = amount > 0;
 
   return isMobile ? (
@@ -63,25 +63,31 @@ export default Transaction;
 
 const TransactionContainer = styled('div')(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: '204px 15.7% max-content 1fr',
-  padding: '16px 32px 13px 20px',
+  gridTemplateColumns: '172px 15.7% max-content 1fr',
+  padding: '6px 24px 5px 12px',
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    gridTemplateColumns: '295px 16% max-content 1fr',
-    padding: '16px 56px 14px 20px',
+  '&:not(:first-of-type)': {
+    borderTop: `1px solid ${
+      theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+    }`,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gridTemplateColumns: '218px 16% max-content 1fr',
+    padding: '8px 24px 5px 20px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    gridTemplateColumns: '295px 16.1% max-content 1fr',
-    padding: '16px 64px 14px 20px',
+    gridTemplateColumns: '305px 16.1% max-content 1fr',
+    padding: '6px 40px 7px 20px',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    gridTemplateColumns: '295px 16.4% max-content 1fr',
-    padding: '16px 80px 14px 20px',
+    gridTemplateColumns: '280px 16.4% max-content 1fr',
+    padding: '8px 40px 5px 20px',
   },
 
   '&:hover': {
-    background: theme.palette.isLight ? '#F6F8F9' : '#1F2931',
+    background: theme.palette.isLight ? theme.palette.colors.gray[100] : '#292E38',
   },
 }));

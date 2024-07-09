@@ -33,11 +33,15 @@ const TransactionHeader: React.FC<TransactionHeaderProps> = ({ isIncomingTransac
 
 export default TransactionHeader;
 
-const Wrapper = styled('div')({
+const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
-  gap: 16,
+  gap: 8,
   gridColumn: '1 / 3',
-});
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 16,
+  },
+}));
 
 const commonArrowStyles = {
   width: 24,
@@ -56,29 +60,26 @@ const RedArrow = styled(RedArrowUp)(() => ({
 const Content = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  gap: 4,
 });
 
 const Name = styled('div')(({ theme }) => ({
-  fontWeight: 500,
-  fontSize: 12,
-  lineHeight: '15px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  fontWeight: 600,
+  fontSize: 14,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    fontWeight: 400,
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    lineHeight: '22px',
+    lineHeight: '24px',
   },
 }));
 
 const Date = styled('div')(({ theme }) => ({
-  fontWeight: 600,
+  fontWeight: 500,
   fontSize: 12,
-  lineHeight: '15px',
-  letterSpacing: 1,
+  lineHeight: '18px',
   textTransform: 'uppercase',
-  color: theme.palette.isLight ? '#9FAFB9' : '#405361',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
 }));
 
 const ExtendedTxHash = styled(TxHash)({

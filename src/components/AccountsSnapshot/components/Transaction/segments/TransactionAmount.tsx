@@ -23,23 +23,20 @@ const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
-  justifyContent: 'center',
-  gap: 8,
+  justifyContent: 'flex-start',
+  gap: 16,
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    marginTop: -1,
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 8,
+    justifyContent: 'center',
   },
 }));
 
 const Title = styled('div')(({ theme }) => ({
-  fontSize: 11,
-  lineHeight: '13px',
-  color: theme.palette.isLight ? '#546978' : '#708390',
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '15px',
-  },
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
 }));
 
 const Amount = styled('div')<{ isGreen: boolean }>(({ theme, isGreen }) => ({
@@ -48,14 +45,22 @@ const Amount = styled('div')<{ isGreen: boolean }>(({ theme, isGreen }) => ({
   justifyContent: 'flex-end',
   gap: 4,
   fontSize: 14,
+  fontWeight: 600,
   lineHeight: '22px',
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
+    lineHeight: '24px',
   },
 
   '&, & > span:first-of-type': {
-    color: isGreen ? '#1AAB9B' : theme.palette.isLight ? '#231536' : '#D2D4EF',
+    color: isGreen
+      ? theme.palette.isLight
+        ? theme.palette.colors.green[700]
+        : theme.palette.colors.green[900]
+      : theme.palette.isLight
+      ? theme.palette.colors.gray[900]
+      : theme.palette.colors.gray[50],
   },
 }));
 
@@ -64,26 +69,22 @@ const Sign = styled('span')(({ theme }) => ({
   fontSize: 14,
   lineHeight: '17px',
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    lineHeight: '19px',
+    lineHeight: '24px',
   },
 }));
 
 const Currency = styled('span')(({ theme }) => ({
-  fontWeight: 600,
   fontSize: 12,
-  lineHeight: '15px',
-  letterSpacing: 1,
+  fontWeight: 500,
+  lineHeight: '18px',
   textTransform: 'uppercase',
-  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
 
-  [theme.breakpoints.up('table_834')]: {
-    color: '#9FAFB9',
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
-    lineHeight: '17px',
+    fontWeight: 600,
+    lineHeight: '22px',
   },
 }));

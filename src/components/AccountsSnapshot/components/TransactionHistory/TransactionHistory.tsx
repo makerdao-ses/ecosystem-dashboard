@@ -31,57 +31,54 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactionHist
 
 export default TransactionHistory;
 
-const TransactionHistoryContainer = styled('div')({
-  marginTop: 24,
-});
+const TransactionHistoryContainer = styled('div')(({ theme }) => ({
+  marginTop: 16,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 24,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginTop: 32,
+  },
+}));
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)({
   backgroundColor: 'transparent',
 });
 
 const AccordionSummary = styled(MuiAccordionSummary)(({ theme }) => ({
-  backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#1E2C37',
-  boxShadow: theme.palette.isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  borderRadius: 6,
-  paddingLeft: 16,
+  backgroundColor: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
+  borderRadius: 8,
+  paddingLeft: 8,
   paddingRight: 8,
   minHeight: 'auto',
   zIndex: 1,
 
   '&.Mui-expanded': {
-    [theme.breakpoints.down('table_834')]: {
+    [theme.breakpoints.down('tablet_768')]: {
       borderEndEndRadius: 0,
       borderEndStartRadius: 0,
     },
   },
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     paddingLeft: 24,
-    paddingRight: 16,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    paddingRight: 25,
+    paddingRight: 24,
   },
 
   '& .MuiAccordionSummary-content': {
     fontWeight: 500,
     fontSize: 14,
-    lineHeight: '18px',
-    color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+    lineHeight: 'normal',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
     marginTop: 8,
     marginBottom: 8,
 
-    [theme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('desktop_1024')]: {
       fontSize: 16,
-      lineHeight: '19px',
-    },
-
-    [theme.breakpoints.up('desktop_1194')]: {
-      marginTop: 10,
-      marginBottom: 10,
+      lineHeight: 'normal',
     },
   },
 }));
