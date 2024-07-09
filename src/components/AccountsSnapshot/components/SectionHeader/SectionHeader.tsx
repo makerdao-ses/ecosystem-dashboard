@@ -78,5 +78,6 @@ const Subtitle = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
+    lineHeight: '24px',
   },
 }));

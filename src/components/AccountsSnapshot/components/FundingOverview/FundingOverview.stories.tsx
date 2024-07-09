@@ -65,7 +65,8 @@ const variantsArgs = [
 
 const [[LightMode, DarkMode], [ExpandedLightMode, ExpandedDarkMode]] = createThemeModeVariants(
   FundingOverview,
-  variantsArgs
+  variantsArgs,
+  false
 );
 export { LightMode, DarkMode, ExpandedLightMode, ExpandedDarkMode };
 
@@ -151,51 +152,51 @@ ExpandedLightMode.parameters = {
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19867:248091',
+      768: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1811-52934',
         options: {
           componentStyle: {
-            width: 770,
+            width: 704,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -55,
+            left: -14,
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19866:244261',
+      1024: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1734-46077',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -57,
+            left: -14,
           },
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19865:238552',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1715-15149',
         options: {
           componentStyle: {
-            width: 1184,
+            width: 1200,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -57,
+            left: -14,
           },
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18569:206364',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1679-87116',
         options: {
           componentStyle: {
             width: 1312,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -57,
+            left: -14,
           },
         },
       },
