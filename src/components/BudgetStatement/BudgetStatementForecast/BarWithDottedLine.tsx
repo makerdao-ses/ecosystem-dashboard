@@ -1,9 +1,9 @@
 import { styled } from '@mui/material';
-import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import React, { useState } from 'react';
 
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import PopoverForecastDescription from '@/views/CoreUnitBudgetStatement/components/PopverForecastDescription/PopoverForecastDescription';
 import {
   getBorderColor,
@@ -45,31 +45,20 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month, isTot
       </Forecast>
       <ContainerBar>
         <BudgetBar>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
-        <StyledPopover
-          displacement={displacement}
-          leaveOnChildrenMouseOut
-          popoverStyle={{
-            border: `1px solid ${borderColor}`,
-            boxShadow: isLight
-              ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-              : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-            background: isLight ? 'white' : '#000A13',
-            borderRadius: '6px',
-          }}
-          id="mouse-over-information"
-          title={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
+
+        <SESTooltipStyled
+          borderColor={borderColor}
+          content={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
         >
-          <ContainerRelative>
-            <ContendBarForSpace
-              onMouseEnter={handleMouseOver}
-              onMouseOut={handleMouseOut}
-              displacement={displacement}
-              onClick={handleMouseOver}
-            >
-              <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} onClick={handleMouseOver} />
-            </ContendBarForSpace>
-          </ContainerRelative>
-        </StyledPopover>
+          <ContendBarForSpace
+            onMouseEnter={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            displacement={displacement}
+            onClick={handleMouseOver}
+          >
+            <VerticalBar onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut} onClick={handleMouseOver} />
+          </ContendBarForSpace>
+        </SESTooltipStyled>
       </ContainerBar>
       <BudgetCap>{usLocalizedNumber(relativeValue, 2)}</BudgetCap>
     </Container>
@@ -100,7 +89,7 @@ const ContainerBar = styled('div')({
 const VerticalBar = styled('div')<{ displacement?: number }>(({ displacement, theme }) => ({
   height: 16,
   borderRadius: 6,
-  border: `1px dashed ${theme.palette.colors.blue[700]}`,
+  border: `1px dashed ${theme.palette.isLight ? theme.palette.colors.blue[700] : theme.palette.colors.blue[900]}`,
   right: `${displacement}%`,
   transform: 'rotate(180deg)',
   cursor: 'pointer',
@@ -146,9 +135,6 @@ const ContendBarForSpace = styled('div')<{ displacement: number }>(({ displaceme
   cursor: 'pointer',
 }));
 
-const ContainerRelative = styled('div')({
-  height: 20,
-});
 const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ theme, isTotal, isNegative }) => ({
   fontSize: 14,
   lineHeight: '22px',
@@ -167,10 +153,16 @@ const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ th
   },
 }));
 
-const StyledPopover = styled(CustomPopover)<{ displacement: number }>(({ displacement }) => ({
-  '.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded': {
-    overflowX: 'unset',
-    overflowY: 'unset',
-    marginLeft: -displacement,
+const SESTooltipStyled = styled(SESTooltip)<{ borderColor: string }>(({ borderColor, theme }) => ({
+  padding: 0,
+  marginTop: 0,
+  width: '100%',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+  border: `2px solid ${borderColor}`,
+  minWidth: 298,
+  borderRadius: 12,
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : 'red',
+  '&.MuiTooltip-tooltip MuiTooltip-tooltipPlacementBottom': {
+    backgroundColor: 'red',
   },
 }));
