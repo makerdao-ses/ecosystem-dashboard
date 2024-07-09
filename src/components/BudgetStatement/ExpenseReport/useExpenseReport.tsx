@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import type { InternalTabsProps } from '@/components/Tabs/Tabs';
 import { BREAKDOWN_VIEW_QUERY_KEY } from '@/views/CoreUnitBudgetStatement/utils/constants';
 import { useTransparencyActuals } from '../BudgetStatementActuals/useBudgetStatementActuals';
-import { useTransparencyForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
+import { useBudgetStatementForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
 import { useTransparencyMkrVesting } from '../BudgetStatementMkrVesting/useBudgetStatementMkrVesting';
 import { useTransparencyTransferRequest } from '../BudgetStatementTransferRequest/useBudgetStatementTransferRequest';
 import ExpenseSection from './components/ExpenseSection/ExpenseSection';
@@ -27,7 +27,7 @@ const useExpenseReport = (currentMonth: DateTime, budgetStatements?: BudgetState
   });
 
   const actualsData = useTransparencyActuals(currentMonth, budgetStatements);
-  const forecastData = useTransparencyForecast(currentMonth, budgetStatements);
+  const forecastData = useBudgetStatementForecast(currentMonth, budgetStatements);
   const mkrVestingData = useTransparencyMkrVesting(currentMonth, budgetStatements);
   const transferRequestsData = useTransparencyTransferRequest(currentMonth, budgetStatements);
 

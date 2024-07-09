@@ -9,7 +9,7 @@ import {
   TotalTargetBalance,
   renderWallet,
 } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
-import { useTransparencyForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
+import { useBudgetStatementForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
 
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
@@ -21,7 +21,7 @@ export const useTransparencyTransferRequest = (
   currentMonth: DateTime,
   budgetStatements: BudgetStatement[] | undefined
 ) => {
-  const { wallets } = useTransparencyForecast(currentMonth, budgetStatements);
+  const { wallets } = useBudgetStatementForecast(currentMonth, budgetStatements);
 
   const getTransferRequestForMonthOnWallet = useMemo(() => {
     const getTransferRequestForMonthOnWalletFunction = (walletAddress: string | undefined) => {
