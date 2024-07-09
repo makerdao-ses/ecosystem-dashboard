@@ -64,7 +64,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', de
           )}
           {isMobile && SVG}
         </NameContainer>
-        <InitialBalance>
+        <InitialBalance isGroup={isGroup}>
           <Header>Initial Balance</Header>
           <Value>
             {usLocalizedNumber(initialBalance)} <Currency>{currency}</Currency>
@@ -103,7 +103,7 @@ export default ReserveCard;
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)({
   backgroundColor: 'transparent',
-  borderRadius: '6px',
+  borderRadius: 12,
 
   '&:not(:last-of-type)': {
     marginBottom: 8,
@@ -115,17 +115,15 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 });
 
 const Card = styled(MuiAccordionSummary)<{ hasTransactions: boolean }>(({ theme, hasTransactions }) => ({
-  padding: '16px 24px 24px',
-  background: theme.palette.isLight ? '#ffffff' : '#1E2C37',
-  boxShadow: theme.palette.isLight
-    ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  borderRadius: 6,
+  padding: '8px 24px 16px',
+  background: theme.palette.isLight ? '#ffffff' : theme.palette.colors.charcoal[900],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
+  borderRadius: 12,
   zIndex: 1,
   // !important is required to override default cursor style
   cursor: hasTransactions ? 'pointer' : 'auto!important',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     padding: 0,
   },
 
@@ -133,18 +131,12 @@ const Card = styled(MuiAccordionSummary)<{ hasTransactions: boolean }>(({ theme,
     backgroundColor: theme.palette.isLight ? '#ffffff' : '#1E2C37',
   },
 
-  '&.Mui-expanded': {
-    [theme.breakpoints.down('table_834')]: {
-      borderRadius: '6px 6px 0 0',
-    },
-  },
-
   '& .MuiAccordionSummary-content': {
     margin: 0,
     width: '100%',
     flexDirection: 'column',
 
-    [theme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('tablet_768')]: {
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -154,7 +146,12 @@ const Card = styled(MuiAccordionSummary)<{ hasTransactions: boolean }>(({ theme,
 const TransactionContainer = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: 0,
 
-  [theme.breakpoints.up('table_834')]: {
+  '& > div > div': {
+    marginTop: -6,
+    paddingTop: 14,
+  },
+
+  [theme.breakpoints.up('tablet_768')]: {
     marginBottom: 24,
   },
 }));
@@ -164,112 +161,108 @@ const NameContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   width: '100%',
+  paddingTop: 12,
 
-  [theme.breakpoints.up('table_834')]: {
-    width: '220px',
-    padding: '0 16px',
+  [theme.breakpoints.up('tablet_768')]: {
+    width: '168px',
+    padding: '0 8px',
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: '300px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: '200px',
+    paddingLeft: 16,
   },
 
-  [theme.breakpoints.up('desktop_1440')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     width: '300px',
   },
 }));
 
 const WalletInfoWrapper = styled('div')(({ theme }) => ({
-  paddingTop: 3,
+  marginTop: -11,
   marginBottom: 1,
 
-  [theme.breakpoints.up('table_834')]: {
-    paddingTop: 0,
-    margin: 0,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 0,
+    marginBottom: 0,
   },
 }));
 
 const Name = styled('div')(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: 16,
-  lineHeight: '19px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  fontWeight: 600,
+  fontSize: 14,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
-  [theme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '17px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    lineHeight: '24px',
   },
 }));
 
-const InitialBalance = styled('div')(({ theme }) => ({
+const InitialBalance = styled('div')<{ isGroup?: boolean }>(({ theme, isGroup }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginTop: 24,
+  marginTop: isGroup ? 24 : 16,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'column',
     marginTop: 0,
     justifyContent: 'normal',
     alignItems: 'normal',
-    padding: '16px 2px',
-    width: '17.08%',
+    padding: '13px 2px',
+    width: '14%',
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: 16,
-    width: '16.8%',
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '8px 16px',
+    width: '18.6%',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    width: '17.1%',
+    width: '16.6%',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    width: '17.9%',
+    width: '17.3%',
   },
 }));
 
 const Header = styled('div')(({ theme }) => ({
-  fontSize: 14,
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#708390' : '#708390',
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
 
-  [theme.breakpoints.up('table_834')]: {
-    fontSize: 11,
-    lineHeight: '13px',
-    marginBottom: 8,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '15px',
+  [theme.breakpoints.up('tablet_768')]: {
+    marginBottom: 2,
   },
 }));
 
 const Value = styled('div')(({ theme }) => ({
-  fontWeight: 700,
+  fontWeight: 600,
   fontSize: 14,
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    lineHeight: '19px',
+    lineHeight: '24px',
   },
 }));
 
 const Currency = styled('span')(({ theme }) => ({
-  fontWeight: 600,
   fontSize: 12,
-  lineHeight: '15px',
-  letterSpacing: 1,
+  fontWeight: 500,
+  lineHeight: '18px',
   textTransform: 'uppercase',
-  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
-    lineHeight: '17px',
+    fontWeight: 600,
+    lineHeight: '22px',
   },
 }));
 
@@ -277,43 +270,55 @@ const Inflow = styled('div')(({ theme }) => ({
   marginLeft: -16,
   marginRight: -16,
   marginTop: 8,
-  padding: '8px 16px',
+  padding: '7px 15px',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  background: theme.palette.isLight ? 'rgba(236, 239, 249, 0.5)' : 'rgba(72, 73, 95, 0.25)',
+  borderRadius: 8,
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : 'red'}`,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : 'red',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'column',
-    margin: '8px 2px',
-    padding: 8,
+    margin: '0 8px',
+    padding: '3px 7px 7px',
     justifyContent: 'normal',
     alignItems: 'normal',
-    minWidth: 'calc(16.1% - 4px)',
+    minWidth: 'calc(16.7% - 4px)',
+
+    '& > div:first-of-type': {
+      marginBottom: 0,
+    },
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     margin: '8px 16px',
-    minWidth: 'calc(16.8% - 32px)',
+    minWidth: 'calc(18.5% - 32px)',
+
+    '& > div:first-of-type': {
+      marginBottom: 4,
+    },
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    minWidth: 'calc(17.2% - 32px)',
+    minWidth: 'calc(16.5% - 32px)',
+    padding: '3px 15px 7px',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    minWidth: 'calc(18% - 32px)',
+    minWidth: 'calc(17.2% - 32px)',
   },
 }));
 
 const Outflow = styled(Inflow)({});
 
 const NewBalance = styled(InitialBalance)(({ theme }) => ({
-  marginTop: 7,
+  marginTop: 8,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     padding: 2,
     marginLeft: 'auto',
+    marginRight: 8,
     width: 'unset',
 
     '& > div': {
@@ -321,17 +326,13 @@ const NewBalance = styled(InitialBalance)(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: 16,
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '8px 16px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '16px 32px 16px 16px',
+    padding: '16px 32px 13px 16px',
     width: 'auto',
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 32px 16px 16px',
   },
 }));
 
@@ -341,13 +342,14 @@ const ArrowContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   padding: '8px 18.5px',
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 72,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 'auto',
+    padding: '8px 19px 8px 19px',
     justifyContent: 'center',
   },
 
-  [theme.breakpoints.up('desktop_1440')]: {
-    marginLeft: 32,
+  [theme.breakpoints.up('desktop_1280')]: {
+    padding: '8px 48px 8px 38px',
   },
 }));
 
@@ -355,17 +357,15 @@ const Arrow = styled('svg')<{ hasTransactions?: boolean; isExpanded: boolean; is
   ({ theme, hasTransactions, isExpanded, isGroup }) => ({
     transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
     transition: 'transform 0.2s ease-in-out',
-    marginTop: isGroup ? -4 : -30,
-    marginRight: -5,
+    marginTop: isGroup ? -5 : -15,
+    marginRight: 3,
     visibility: hasTransactions ? 'visible' : 'hidden',
 
-    [theme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('tablet_768')]: {
       marginTop: 0,
     },
 
-    [theme.breakpoints.up('desktop_1194')]: {
-      width: 16,
-      height: 10,
+    [theme.breakpoints.up('desktop_1024')]: {
       marginRight: 0,
     },
   })

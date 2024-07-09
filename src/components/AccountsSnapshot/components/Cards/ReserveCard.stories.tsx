@@ -158,62 +158,62 @@ WithSingularLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18698:216049',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1996-37693',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19867:248296',
+      768: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1811-56190',
         options: {
           componentStyle: {
-            width: 770,
+            width: 704,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19866:244466',
+      1024: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1734-49812',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19865:238757',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1715-18272',
         options: {
           componentStyle: {
-            width: 1184,
+            width: 1200,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20719:254463',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1714-17484',
         options: {
           componentStyle: {
             width: 1312,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
@@ -225,62 +225,62 @@ WithGroupLightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=18698:215790',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1996-37336',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19867:248234',
+      768: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1811-55785',
         options: {
           componentStyle: {
-            width: 770,
+            width: 704,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19866:244404',
+      1024: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1734-49811',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
       1280: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=19865:238695',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1715-18212',
         options: {
           componentStyle: {
-            width: 1184,
+            width: 1200,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
       1440: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=20719:254401',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1679-88398&m=dev',
         options: {
           componentStyle: {
             width: 1312,
           },
           style: {
-            top: -20,
-            left: -40,
+            top: -11,
+            left: -14,
           },
         },
       },
