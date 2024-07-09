@@ -11,6 +11,7 @@ export class BudgetStatementWalletBuilder {
     this._wallet = {
       name: '',
       address: '',
+      budgetStatementId: '',
       currentBalance: 0,
       budgetStatementLineItem: [] as BudgetStatementLineItem[],
       budgetStatementTransferRequest: [] as BudgetStatementTransferRequest[],
@@ -51,6 +52,11 @@ export class BudgetStatementWalletBuilder {
 
   withName(name: string): BudgetStatementWalletBuilder {
     this._wallet.name = name;
+    return this;
+  }
+
+  withBudgetStatementId(budgetStatementId: string): BudgetStatementWalletBuilder {
+    this._wallet.budgetStatementId = budgetStatementId;
     return this;
   }
 

@@ -44,7 +44,7 @@ export const useBudgetStatementActuals = (
     );
 
     if (!budgetStatement || !budgetStatement.budgetStatementWallet) return [];
-
+    console.log('budgetStatement', budgetStatement);
     budgetStatement.budgetStatementWallet.forEach((wallet) => {
       if (wallet.address) {
         if (!dict[wallet.address.toLowerCase()]) {
