@@ -1,17 +1,15 @@
 import { styled } from '@mui/material';
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
-import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import CategoryModalComponent from '@/components/AdvancedInnerTable/BasicModal/CategoryModalComponent';
-import BudgetStatementsPlaceholder from '@/components/PlaceHolders/BudgetStatementsPlaceholder';
-import Tabs from '@/components/Tabs/Tabs';
-import { ACTUALS_BREAKDOWN_QUERY_PARAM } from '@/views/CoreUnitBudgetStatement/utils/constants';
-import { useTransparencyActuals } from './useBudgetStatementActuals';
+import BreakdownSection from './BreakdownSection/BreakdownSection';
+import TotalWalletSections from './TotalWalletSection/TotalWalletSections';
+import { useBudgetStatementActuals } from './useBudgetStatementActuals';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 
-interface TransparencyActualsProps {
+interface BudgetStatementActualsProps {
   currentMonth: DateTime;
   budgetStatements?: BudgetStatement[];
   longCode: string;
@@ -20,7 +18,7 @@ interface TransparencyActualsProps {
   resource: ResourceType;
 }
 
-export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
+export const BudgetStatementActuals: React.FC<BudgetStatementActualsProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
@@ -36,58 +34,31 @@ export const TransparencyActuals: React.FC<TransparencyActualsProps> = ({
     mainTableColumns,
     mainTableItems,
     breakdownTabs,
-  } = useTransparencyActuals(currentMonth, budgetStatements);
-
+  } = useBudgetStatementActuals(currentMonth, budgetStatements);
   return (
     <Container>
       {headline}
-
-      <Title>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
-      <AdvancedInnerTable
-        columns={mainTableColumns}
-        items={mainTableItems}
-        style={{ marginBottom: '64px' }}
-        cardsTotalPosition="top"
+      <TotalWalletSections
+        currentMonth={currentMonth}
         longCode={longCode}
-        cardSpacingSize="small"
-        tablePlaceholder={
-          <div style={{ marginBottom: 64 }}>
-            <BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />
-          </div>
-        }
+        mainTableColumns={mainTableColumns}
+        mainTableItems={mainTableItems}
+        shortCode={shortCode}
+        resource={resource}
       />
-      {mainTableItems.length > 0 && (
-        <Title ref={breakdownTitleRef} isBreakDown>
-          {currentMonth.toFormat('MMM yyyy')} Breakdown
-        </Title>
-      )}
-
-      {mainTableItems.length > 0 && (
-        <Tabs
-          tabs={breakdownTabs.map((header, i) => ({
-            item: header,
-            id: headerIds[i],
-          }))}
-          tabQuery={ACTUALS_BREAKDOWN_QUERY_PARAM}
+      <ContainerBreakdown>
+        <BreakdownSection
+          currentMonth={currentMonth}
+          mainTableItems={mainTableItems}
+          longCode={longCode}
+          shortCode={shortCode}
+          breakdownTitleRef={breakdownTitleRef}
+          breakdownTabs={breakdownTabs}
+          headerIds={headerIds}
+          breakdownColumnsForActiveTab={breakdownColumnsForActiveTab}
+          breakdownItemsForActiveTab={breakdownItemsForActiveTab}
         />
-      )}
-
-      {mainTableItems.length > 0 && (
-        <BreakdownTableWrapper>
-          <AdvancedInnerTable
-            columns={breakdownColumnsForActiveTab}
-            items={breakdownItemsForActiveTab}
-            longCode={longCode}
-            style={{ marginBottom: 64 }}
-            cardSpacingSize="small"
-            tablePlaceholder={
-              <div style={{ marginBottom: 64 }}>
-                <BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />
-              </div>
-            }
-          />
-        </BreakdownTableWrapper>
-      )}
+      </ContainerBreakdown>
       <CategoryModalComponent />
     </Container>
   );
@@ -120,27 +91,6 @@ export const BreakdownTableWrapper = styled('div')({
   paddingTop: 24,
 });
 
-const Title = styled('div')<{
-  marginBottom?: number;
-  fontSize?: string;
-  responsiveMarginBottom?: number;
-  isBreakDown?: boolean;
-  marginTop?: number;
-}>(({ marginBottom = 16, theme, responsiveMarginBottom, marginTop = 24, isBreakDown = false }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontWeight: isBreakDown ? 700 : 600,
-  fontStyle: 'normal',
-  fontSize: 16,
-  lineHeight: isBreakDown ? '19.36px' : '24px',
-  marginTop,
-  letterSpacing: '0.4px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-  marginBottom: `${marginBottom}px`,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    fontSize: '18px',
-    lineHeight: '21.6px',
-    fontWeight: 700,
-    marginBottom: `${responsiveMarginBottom || marginBottom}px`,
-  },
-}));
+const ContainerBreakdown = styled('div')({
+  marginTop: 8,
+});

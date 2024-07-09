@@ -14,6 +14,7 @@ export class BudgetStatementLineItemBuilder {
       month: '',
       budgetCap: 0,
       group: '',
+      budgetStatementWalletId: '',
     };
   }
 
@@ -59,6 +60,11 @@ export class BudgetStatementLineItemBuilder {
 
   withGroup(group: string): BudgetStatementLineItemBuilder {
     this._lineItem.group = group;
+    return this;
+  }
+
+  withBudgetStatementWalletId(budgetStatementWalletId: string): BudgetStatementLineItemBuilder {
+    this._lineItem.budgetStatementWalletId = budgetStatementWalletId;
     return this;
   }
 

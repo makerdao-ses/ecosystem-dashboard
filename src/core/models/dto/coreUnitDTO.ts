@@ -70,6 +70,7 @@ export interface BudgetStatementFteDto {
 
 export interface BudgetStatementLineItemDto {
   actual: number;
+  // id?: string;
   forecast?: number;
   payment?: number;
   budgetCategory?: string;
@@ -78,6 +79,7 @@ export interface BudgetStatementLineItemDto {
   month?: string;
   budgetCap?: number;
   group?: string;
+  budgetStatementWalletId?: string;
 }
 
 export interface SourceDto {
