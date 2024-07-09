@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 
+import HeaderWithIcon from '@/components/BudgetStatement/BudgetStatementForecast/HeaderWithIcon/HeaderWithIcon';
 import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
-import HeaderWithIcon from '@/views/CoreUnitBudgetStatement/components/HeaderWithIcon/HeaderWithIcon';
 import {
   getBudgetCapForMonthOnBudgetStatement,
   getBudgetCapForMonthOnWalletOnBudgetStatement,
