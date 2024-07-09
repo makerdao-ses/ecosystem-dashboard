@@ -210,7 +210,6 @@ const TableHead = styled('thead')(({ theme }) => ({
   fontFamily: 'Inter, sans-serif',
   fontSize: '12px',
   lineHeight: '15px',
-  letterSpacing: '1px',
   fontWeight: 600,
   borderBottom: `1px solid ${
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { CustomPopover } from '@ses/components/CustomPopover/CustomPopover';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
@@ -10,7 +10,7 @@ import {
   getPercentFullBar,
   getProgressiveBarColor,
 } from '@/views/CoreUnitBudgetStatement/utils/forecastHelper';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+
 import type { DateTime } from 'luxon';
 
 interface Props {
@@ -53,12 +53,12 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
       title={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
     >
       <Container onClick={handleMouseOver} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut}>
-        <Forecast isLight={isLight} isTotal={isTotal} isNegative={value < 0}>
+        <Forecast isTotal={isTotal} isNegative={value < 0}>
           {usLocalizedNumber(value, 2)}
         </Forecast>
 
         <ContainerBar>
-          <BudgetBar isLight={isLight}>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
+          <BudgetBar>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
 
           <ContainerRelative>
             <ContendBarForSpace displacement={displacement}>
@@ -66,7 +66,7 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
             </ContendBarForSpace>
           </ContainerRelative>
         </ContainerBar>
-        <BudgetCap isLight={isLight}>{usLocalizedNumber(relativeValue, 2)}</BudgetCap>
+        <BudgetCap>{usLocalizedNumber(relativeValue, 2)}</BudgetCap>
       </Container>
     </CustomPopover>
   );
@@ -74,7 +74,7 @@ const BarWithDottedLineMobile: React.FC<Props> = ({ value, relativeValue, month,
 
 export default BarWithDottedLineMobile;
 
-const Container = styled.div({
+const Container = styled('div')({
   paddingTop: 4,
   width: 101,
   display: 'flex',
@@ -85,7 +85,7 @@ const Container = styled.div({
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 });
-const ContainerBar = styled.div({
+const ContainerBar = styled('div')({
   height: 16,
   display: 'flex',
   alignItems: 'center',
@@ -93,28 +93,28 @@ const ContainerBar = styled.div({
   width: '100%',
 });
 
-const VerticalBar = styled.div<{ displacement?: number }>(({ displacement }) => ({
+const VerticalBar = styled('div')<{ displacement?: number }>(({ displacement, theme }) => ({
   height: 16,
   borderRadius: 6,
-  border: '1px dashed #447AFB',
+  border: `1px dashed ${theme.palette.colors.blue[700]}`,
   right: `${displacement}%`,
   transform: 'rotate(180deg)',
   cursor: 'pointer',
   marginRight: -4,
 }));
 
-const BudgetBar = styled.div<WithIsLight>(({ isLight }) => ({
+const BudgetBar = styled('div')(({ theme }) => ({
   position: 'relative',
   width: '100%',
   height: 6,
   overflow: 'hidden',
   borderRadius: 2,
-  background: isLight ? '#ECF1F3' : '#48495F',
+  background: theme.palette.isLight ? '#ECF1F3' : '#48495F',
   marginTop: 2,
   marginBottom: 2,
 }));
 
-const BarPercent = styled.div<{ width: number; color: string }>(({ width, color }) => ({
+const BarPercent = styled('div')<{ width: number; color: string }>(({ width, color }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
@@ -124,15 +124,15 @@ const BarPercent = styled.div<{ width: number; color: string }>(({ width, color 
   height: '100%',
   transition: 'width, background 0.5s ease-in-out',
 }));
-const BudgetCap = styled.div<WithIsLight>(({ isLight }) => ({
+const BudgetCap = styled('div')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '15px',
   textAlign: 'right',
-  color: isLight ? '#708390' : '#546978',
+  color: theme.palette.isLight ? '#708390' : '#546978',
   marginRight: 2,
 }));
 
-const ContendBarForSpace = styled.div<{ displacement: number }>(({ displacement }) => ({
+const ContendBarForSpace = styled('div')<{ displacement: number }>(({ displacement }) => ({
   width: 6,
   position: 'absolute',
   right: `${displacement}%`,
@@ -143,15 +143,13 @@ const ContendBarForSpace = styled.div<{ displacement: number }>(({ displacement 
   cursor: 'pointer',
 }));
 
-const ContainerRelative = styled.div({
+const ContainerRelative = styled('div')({
   height: 20,
 });
-const Forecast = styled.div<WithIsLight & { isTotal: boolean; isNegative?: boolean; isLight: boolean }>(
-  ({ isLight, isTotal, isNegative }) => ({
-    fontSize: '16px',
-    lineHeight: '19px',
-    textAlign: 'right',
-    fontWeight: isTotal ? 700 : 400,
-    color: isLight ? (isNegative ? '#F75524' : '#231536') : isNegative ? '#F75524' : '#D2D4EF',
-  })
-);
+const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ theme, isTotal, isNegative }) => ({
+  fontSize: '16px',
+  lineHeight: '19px',
+  textAlign: 'right',
+  fontWeight: isTotal ? 700 : 400,
+  color: theme.palette.isLight ? (isNegative ? '#F75524' : '#231536') : isNegative ? '#F75524' : '#D2D4EF',
+}));

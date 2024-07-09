@@ -1,11 +1,9 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import { ExpenditureLevel } from '@ses/core/enums/expenditureLevelEnum';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
 import React from 'react';
 import { getExpenditureLevelForecast } from '../../utils/forecastHelper';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   value: number;
@@ -14,7 +12,6 @@ interface Props {
 }
 
 const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, month }) => {
-  const { isLight } = useThemeContext();
   const expenditureLevel = getExpenditureLevelForecast(value, relativeValue);
   const percent = percentageRespectTo(value, relativeValue);
   const valueShowPercent = Math.trunc(percent) === 0 && value !== 0 ? '-' : `${Math.trunc(percent)}%`;
@@ -24,7 +21,6 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
       <RowMonthDescription>
         <Month>{month}</Month>
         <SeverityDistinction
-          isLight={isLight}
           levelExpenditure={expenditureLevel === '0' ? ExpenditureLevel.overBudget : expenditureLevel}
         >
           {expenditureLevel === '0' ? '' : expenditureLevel}
@@ -32,18 +28,18 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
       </RowMonthDescription>
       {value >= 0 && (
         <RowPercentBudgetCap>
-          <Percent isLight={isLight}>{valueShowPercent}</Percent>
-          <Description isLight={isLight}>of budget cap forecasted</Description>
+          <Percent>{valueShowPercent}</Percent>
+          <Description>of budget cap forecasted</Description>
         </RowPercentBudgetCap>
       )}
       <RowAbsoluteNumbers>
         <Forecast>
-          <Value isLight={isLight}>{usLocalizedNumber(value)}</Value>
-          <DescriptionValue isLight={isLight}>Forecast</DescriptionValue>
+          <Value>{usLocalizedNumber(value)}</Value>
+          <DescriptionValue>Forecast</DescriptionValue>
         </Forecast>
         <BudgetCap>
-          <Value isLight={isLight}>{usLocalizedNumber(relativeValue)}</Value>
-          <DescriptionValue isLight={isLight}>Budget Cap</DescriptionValue>
+          <Value>{usLocalizedNumber(relativeValue)}</Value>
+          <DescriptionValue>Budget Cap</DescriptionValue>
         </BudgetCap>
       </RowAbsoluteNumbers>
     </ContainerInside>
@@ -52,7 +48,7 @@ const PopoverForecastDescription: React.FC<Props> = ({ value, relativeValue, mon
 
 export default PopoverForecastDescription;
 
-const ContainerInside = styled.div({
+const ContainerInside = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
@@ -61,12 +57,12 @@ const ContainerInside = styled.div({
   width: 188,
 });
 
-const RowMonthDescription = styled.div({
+const RowMonthDescription = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
 });
-const Month = styled.div({
+const Month = styled('div')({
   fontWeight: 600,
   fontSize: '12px',
   lineHeight: '15px',
@@ -74,76 +70,76 @@ const Month = styled.div({
   textTransform: 'uppercase',
   color: '#9FAFB9',
 });
-const SeverityDistinction = styled.div<WithIsLight & { levelExpenditure: string }>(({ isLight, levelExpenditure }) => ({
-  fontWeight: 300,
-  fontSize: '11px',
-  lineHeight: '13px',
-  textTransform: 'uppercase',
-  color: isLight
+const SeverityDistinction = styled('div')<{ levelExpenditure: string }>(({ theme, levelExpenditure }) => ({
+  fontWeight: 600,
+  fontSize: 14,
+  lineHeight: '22px',
+  // textTransform: 'uppercase',
+  color: theme.palette.isLight
     ? levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
-      ? '#02CB9B'
+      ? theme.palette.colors.green[700]
       : levelExpenditure === ExpenditureLevel.stretched
-      ? '#F08B04'
+      ? theme.palette.colors.orange[700]
       : levelExpenditure === ExpenditureLevel.overBudget
-      ? '#CB3A0D'
-      : '#1E2C37'
+      ? theme.palette.colors.red[700]
+      : theme.palette.colors.charcoal[500]
     : levelExpenditure === ExpenditureLevel.low || levelExpenditure === ExpenditureLevel.optimal
-    ? '#00ED18'
+    ? theme.palette.colors.green[900]
     : levelExpenditure === ExpenditureLevel.stretched
-    ? '#FF8237'
+    ? theme.palette.colors.orange[900]
     : levelExpenditure === ExpenditureLevel.overBudget
-    ? '#FF4085'
-    : '#ECF1F3',
+    ? theme.palette.colors.red[900]
+    : theme.palette.colors.charcoal[500],
 }));
-const RowPercentBudgetCap = styled.div({
+const RowPercentBudgetCap = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
 
-const Percent = styled.div<WithIsLight>(({ isLight }) => ({
+const Percent = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '18px',
   lineHeight: '22px',
   letterSpacing: '0.3px',
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#000000' : '#FFFFFF',
+  color: theme.palette.isLight ? '#000000' : '#FFFFFF',
   marginBottom: 4,
 }));
-const Description = styled.div<WithIsLight>(({ isLight }) => ({
+const Description = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: 12,
   lineHeight: '15px',
-  color: isLight ? '#231536' : '#FFFFFF',
+  color: theme.palette.isLight ? '#231536' : '#FFFFFF',
 }));
-const DescriptionValue = styled.div<WithIsLight>(({ isLight }) => ({
+const DescriptionValue = styled('div')(({ theme }) => ({
   fontWeight: 400,
   fontSize: '12px',
   lineHeight: '15px',
-  color: isLight ? '#231536' : '#EDEFFF',
+  color: theme.palette.isLight ? '#231536' : '#EDEFFF',
 }));
 
-const RowAbsoluteNumbers = styled.div({
+const RowAbsoluteNumbers = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
 });
 
-const Forecast = styled.div({
+const Forecast = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
 
-const Value = styled.div<WithIsLight>(({ isLight }) => ({
+const Value = styled('div')(({ theme }) => ({
   fontWeight: 700,
   fontSize: '14px',
   lineHeight: '17px',
   letterSpacing: '0.3px',
   fontFeatureSettings: " 'tnum' on, 'lnum' on",
-  color: isLight ? '#000000' : '#EDEFFF',
+  color: theme ? '#000000' : '#EDEFFF',
   marginBottom: 4,
 }));
 
-const BudgetCap = styled.div({
+const BudgetCap = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
