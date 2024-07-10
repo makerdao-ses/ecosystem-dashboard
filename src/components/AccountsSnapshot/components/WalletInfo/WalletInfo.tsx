@@ -32,7 +32,7 @@ export default WalletInfo;
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 4,
   },
 
@@ -46,13 +46,18 @@ const BlockiesContainer = styled('div')(({ theme }) => ({
   height: 32,
   minWidth: 32,
   borderRadius: '50%',
-  marginRight: 16,
-  marginTop: 2,
+  marginRight: 8,
+  marginTop: 4,
   overflow: 'hidden',
   background: 'gray',
 
-  [theme.breakpoints.between('table_834', 'desktop_1194')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 1,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginRight: 16,
+    marginTop: 8,
   },
 }));
 
@@ -68,18 +73,17 @@ const NameContainer = styled('div')({
 });
 
 const Name = styled('div')(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: 16,
-  lineHeight: '19px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  marginBottom: 4,
+  fontWeight: 600,
+  fontSize: 14,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : '900',
   marginRight: 8.5,
 
-  [theme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '17px',
-    marginBottom: 6,
-    marginRight: 4,
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+    marginBottom: 2,
   },
 }));
 
@@ -88,17 +92,19 @@ const AddressContainer = styled('div')({
 });
 
 const Address = styled('a')(({ theme }) => ({
-  fontSize: 14,
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#447AFB' : '#447AFB',
-  marginRight: 17,
+  fontSize: 12,
+  lineHeight: '18px',
+  fontWeight: 500,
+  color: theme.palette.colors.blue[700],
+  marginRight: 16,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginRight: 2,
   },
 
-  [theme.breakpoints.between('table_834', 'desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '15px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '22px',
   },
 }));

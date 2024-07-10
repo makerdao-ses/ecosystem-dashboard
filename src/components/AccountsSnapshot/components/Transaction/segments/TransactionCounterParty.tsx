@@ -22,6 +22,10 @@ const Wrapper = styled('div')(({ theme }) => ({
   gap: 4,
   paddingRight: 10,
 
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 3,
+  },
+
   [theme.breakpoints.up('desktop_1024')]: {
     marginTop: -2,
   },

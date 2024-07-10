@@ -72,19 +72,23 @@ const TransactionContainer = styled('div')(({ theme }) => ({
     }`,
   },
 
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '6px 40px 5px 12px',
+    gridTemplateColumns: '150px 15.7% max-content 1fr',
+  },
+
   [theme.breakpoints.up('desktop_1024')]: {
-    gridTemplateColumns: '218px 16% max-content 1fr',
-    padding: '8px 24px 5px 20px',
+    gridTemplateColumns: '218px 15.7% max-content 1fr',
+    padding: '8px 16px 7px 20px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    gridTemplateColumns: '305px 16.1% max-content 1fr',
-    padding: '6px 40px 7px 20px',
+    gridTemplateColumns: '275px 16.1% max-content 1fr',
+    padding: '8px 80px 7px 20px',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    gridTemplateColumns: '280px 16.4% max-content 1fr',
-    padding: '8px 40px 5px 20px',
+    gridTemplateColumns: '295px 16.4% max-content 1fr',
   },
 
   '&:hover': {
