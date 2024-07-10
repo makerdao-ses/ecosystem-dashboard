@@ -132,7 +132,7 @@ const Container = styled('div')(({ theme }) => ({
 
 const Title = styled('div')(({ theme }) => ({
   fontSize: 16,
-  color: theme.palette.isLight ? theme.palette.colors.slate[100] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   fontWeight: 600,
   lineHeight: '24px',
 }));
@@ -153,7 +153,7 @@ const IconContainer = styled('div')(({ theme }) => ({
   display: 'flex',
 
   '& path': {
-    fill: theme.palette.isLight ? '#B6BCC2' : '#6F7A85"',
+    fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   },
 }));
 
