@@ -30,6 +30,7 @@ const TotalForecastSection: FC<Props> = ({
       longCode={longCode}
       columns={mainTableColumns}
       items={mainTableItems}
+      cardSpacingSize="small"
       cardsTotalPosition={'top'}
       tablePlaceholder={<BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />}
     />
