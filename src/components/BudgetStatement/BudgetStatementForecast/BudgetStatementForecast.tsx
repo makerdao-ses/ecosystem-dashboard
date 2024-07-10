@@ -63,5 +63,4 @@ export const BudgetStatementForecast: React.FC<BudgetStatementForecastProps> = (
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  marginBottom: 64,
 });

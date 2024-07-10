@@ -151,9 +151,14 @@ const IconContainer = styled('div')(({ theme }) => ({
   width: 15,
   height: 15,
   display: 'flex',
-
+  cursor: 'pointer',
   '& path': {
     fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
+  },
+  ':hover': {
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[100],
+    },
   },
 }));
 

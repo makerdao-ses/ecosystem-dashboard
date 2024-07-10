@@ -83,7 +83,6 @@ const MipNumber = styled('div')(({ theme }) => ({
 
 const ExternalLinkStyled = styled(ExternalLink)({
   fontSize: 14,
-
   display: 'flex',
   gap: 8,
 });
