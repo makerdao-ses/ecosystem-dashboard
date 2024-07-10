@@ -67,11 +67,7 @@ const TransactionListContainer = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '0 40px',
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: '0 32px',
+    padding: '0 56px',
   },
 
   '&:before': {
@@ -120,7 +116,7 @@ const GroupContainer = styled('div')(({ theme }) => ({
       width: 'calc(100% + 16px)',
       marginLeft: -8,
       height: 1,
-      background: theme.palette.isLight ? '#D4D9E1' : '#405361',
+      background: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800],
       marginBottom: -1,
     },
   },

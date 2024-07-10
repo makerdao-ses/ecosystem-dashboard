@@ -26,7 +26,7 @@ const Wrapper = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
   gap: 16,
 
-  [theme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     gap: 8,
     justifyContent: 'center',
   },

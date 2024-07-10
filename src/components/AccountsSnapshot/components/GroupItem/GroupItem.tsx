@@ -1,4 +1,4 @@
-import { alpha, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import GreenArrowDown from '../SVG/GreenArrowDown';
 import RedArrowUp from '../SVG/RedArrowUp';
@@ -73,53 +73,50 @@ export default GroupItem;
 const GroupItemContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '20px 16px 24px',
+  padding: '8px 16px 9px',
   borderRadius: 6,
   overflow: 'hidden',
-  background: theme.palette.isLight ? alpha('#ECEFF9', 0.5) : '#26313F',
-  boxShadow: theme.palette.isLight
-    ? '0px 4px 6px rgba(196, 196, 196, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#21262F',
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
 
-  [theme.breakpoints.up('table_834')]: {
-    background: theme.palette.isLight ? alpha('#ECEFF9', 0.5) : '#283341',
+  [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
-    padding: '20px 32px 16px 16px',
+    padding: '6px 40px 5px 8px',
     borderRadius: 0,
     boxShadow: 'none',
 
     '&:hover': {
-      background: theme.palette.isLight ? '#F6F8F9' : '#1F2931',
+      background: theme.palette.isLight ? '#EEF0F2' : '#20252E',
     },
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: '19px 56px 16px 16px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '6px 16px 7px 16px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '19px 64px 16px 16px',
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: '19px 80px 16px 16px',
+    padding: '6px 80px 8px 16px',
   },
 }));
 
 const WalletContainer = styled('div')(({ theme }) => ({
-  marginBottom: 24,
+  marginBottom: 11,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginBottom: 0,
-    width: 'calc(205px + 16.1%)',
+    width: 'calc(151px + 16.1%)',
 
     '& > div': {
       marginTop: 0,
     },
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 'calc(295px + 16.4%)',
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 'calc(216px + 16.4%)',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 'calc(276px + 16.4%)',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
@@ -131,7 +128,7 @@ const InitialBalance = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 }));
@@ -141,21 +138,18 @@ const Label = styled('div')(({ theme }) => ({
   alignItems: 'center',
   gap: 4,
   fontSize: 14,
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#708390' : '#708390',
+  fontWeight: 600,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
 
-  [theme.breakpoints.up('table_834')]: {
-    fontSize: 11,
-    lineHeight: '13px',
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 12,
+    fontWeight: 500,
+    lineHeight: '18px',
 
     '& > svg': {
       display: 'none',
     },
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '15px',
   },
 }));
 
@@ -169,7 +163,7 @@ const ValueContainer = styled('div')(({ theme }) => ({
     display: 'none',
   },
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     '& > svg': {
       display: 'inline-block',
     },
@@ -181,83 +175,79 @@ const Value = styled('div')(({ theme }) => ({
   alignItems: 'baseline',
   flexWrap: 'wrap',
   gap: 4,
-  fontWeight: 700,
   fontSize: 14,
-  lineHeight: '17px',
+  fontWeight: 600,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
-  '&, & > span:first-of-type': {
-    color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '19px',
   },
 }));
 
 const Sign = styled('span')({
-  fontWeight: 700,
   fontSize: 14,
-  lineHeight: '17px',
+  fontWeight: 600,
+  lineHeight: '22px',
 });
 
 const Currency = styled('span')(({ theme }) => ({
-  fontWeight: 600,
   fontSize: 12,
-  lineHeight: '15px',
-  letterSpacing: 1,
+  fontWeight: 500,
+  lineHeight: '18px',
   textTransform: 'uppercase',
-  color: theme.palette.isLight ? '#9FAFB9' : '#9FAFB9',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
-    lineHeight: '17px',
+    lineHeight: '22px',
   },
 }));
 
 const Inflow = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  marginTop: 16,
-  marginBottom: 12,
+  marginTop: 8,
+  marginBottom: 4,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     margin: 0,
     flexDirection: 'column',
     justifyContent: 'normal',
-    gap: 8,
-    minWidth: '19.2%',
+    gap: 6,
+    width: '21.6%',
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: '19.9%',
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: '21%',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    width: '20.6%',
+    width: '23%',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    width: '22.5%',
+    width: '22%',
   },
 }));
 
 const Outflow = styled(Inflow)(({ theme }) => ({
-  marginTop: 12,
-  marginBottom: 16,
+  marginTop: 11,
+  marginBottom: 8,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     margin: 0,
   },
 }));
 
 const NewBalance = styled(InitialBalance)(({ theme }) => ({
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'normal',
     marginLeft: 'auto',
     alignItems: 'flex-end',
-    gap: 8,
+    gap: 6,
   },
 }));

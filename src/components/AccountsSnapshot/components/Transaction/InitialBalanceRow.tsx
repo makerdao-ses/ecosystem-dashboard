@@ -23,18 +23,21 @@ const Wrapper = styled('div')(({ theme }) => ({
   alignItems: 'flex-end',
   justifyContent: 'center',
   gap: 8,
-  padding: '21px 32px 13px 20px',
+  padding: '14px 40px 14px 20px',
+  borderTop: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: '16px 56px 14px 20px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '16px 16px 18px 20px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '16px 64px 14px 20px',
+    padding: '16px 80px 16px 20px',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
@@ -42,50 +45,43 @@ const Wrapper = styled('div')(({ theme }) => ({
   },
 
   '&:hover': {
-    background: theme.palette.isLight ? '#F6F8F9' : '#1F2931',
+    background: theme.palette.isLight ? theme.palette.colors.gray[100] : '#292E38',
   },
 }));
 
 const Title = styled('div')(({ theme }) => ({
-  fontSize: 11,
-  lineHeight: '13px',
-  color: theme.palette.isLight ? '#546978' : '#708390',
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    fontSize: 12,
-    lineHeight: '15px',
-  },
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
 }));
 
 const Amount = styled('div')(({ theme }) => ({
-  fontWeight: 700,
   display: 'flex',
   alignItems: 'baseline',
   justifyContent: 'flex-end',
   gap: 4,
   fontSize: 14,
+  fontWeight: 600,
   lineHeight: '22px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
+    lineHeight: '24px',
   },
 }));
 
 const Currency = styled('span')(({ theme }) => ({
-  fontWeight: 600,
   fontSize: 12,
-  lineHeight: '15px',
-  letterSpacing: 1,
+  fontWeight: 500,
+  lineHeight: '18px',
   textTransform: 'uppercase',
-  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
 
-  [theme.breakpoints.up('table_834')]: {
-    color: '#9FAFB9',
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 14,
-    lineHeight: '17px',
+    fontWeight: 600,
+    lineHeight: '22px',
   },
 }));
