@@ -62,8 +62,9 @@ export const getActualsBreakdownItems = (
       ) {
         continue;
       }
-
+      console.log('breakdownColumns[0]', breakdownColumns[0]);
       result.push({
+        showHeader: !(type === 'subTotal' || type === 'total'),
         subHeader: groupedCategory[groupedCatKey][0].headcountExpense ? 'Headcount Expenses' : 'Non-Headcount Expenses',
         category:
           groupedCategory[groupedCatKey][0].group === '' ||
@@ -72,6 +73,7 @@ export const getActualsBreakdownItems = (
             ? 'General'
             : groupedCategory[groupedCatKey][0].group,
         type: type || 'normal',
+
         ...(type === 'subTotal'
           ? {
               borderTop: true,
@@ -317,6 +319,7 @@ export const getActualsBreakdownItemsForWallet = (
   if (result.length > 0) {
     result.push({
       type: 'total',
+      showHeader: false,
       items: [
         {
           column: breakdownColumns[0],

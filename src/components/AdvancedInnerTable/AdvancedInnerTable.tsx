@@ -130,19 +130,14 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
       </TableWrapper>
       <CardsWrapper>
         {cardItems.map((item, i) => {
-          const showSubHeader = !(
-            item.type === 'total' ||
-            item.type === 'subTotal' ||
-            item.items[i]?.column.isCardHeader
-          );
           if (item.type === 'groupTitle') {
             return null;
           }
-
+          console.log('>>>>>>>>>>>', cardItems[i], cardItems[i].showHeader);
           return (
             <TransparencyCard
               category={item.category}
-              showSubHeader={showSubHeader}
+              showSubHeader={cardItems[i].showHeader || false}
               itemType={item.type}
               subHeader={item.subHeader || ''}
               key={`item-${i}`}

@@ -33,6 +33,7 @@ export interface InnerTableRow {
   borderTop?: boolean;
   borderBottom?: boolean;
   hideMobile?: boolean;
+  showHeader?: boolean;
 }
 
 export interface AdvancedInnerTableProps {

@@ -112,7 +112,16 @@ export const getBreakdownItemsForGroup = (
     const resultSecondMonth = getBudgetCapForMonthOnLineItemForeCast(groupedCategory[groupedCatKey], secondMonth);
     const resultThirdMonth = getBudgetCapForMonthOnLineItemForeCast(groupedCategory[groupedCatKey], thirdMonth);
     const sumTotal = sumAllMonths([resultFirstMonth, resultSecondMonth, resultThirdMonth]);
+
     result.push({
+      showHeader: !(type === 'subTotal' || type === 'total'),
+      subHeader: groupedCategory[groupedCatKey][0].headcountExpense ? 'Headcount Expenses' : 'Non-Headcount Expenses',
+      category:
+        groupedCategory[groupedCatKey][0].group === '' ||
+        groupedCategory[groupedCatKey][0].group === null ||
+        groupedCategory[groupedCatKey][0].group === 'null'
+          ? 'General'
+          : groupedCategory[groupedCatKey][0].group,
       type: type ?? 'normal',
       ...(type === 'subTotal'
         ? {
@@ -239,7 +248,7 @@ export const getBreakdownItemsForWallet = (
     ...getLineItemsForWalletOnMonth(budgetStatements, currentMonth, thirdMonth, currentWalletAddress),
   ];
   const threeMonths = [firstMonth, secondMonth, thirdMonth];
-  const grouped = groupBy(ungrouped, (item) => (item.group?.trim() ? item.group : ''));
+  const grouped = groupBy(ungrouped, (item) => (item.group?.trim() ? item.group : 'General'));
 
   for (const groupedKey in grouped) {
     const hasHeadcount = hasExpensesInRange(grouped[groupedKey], currentMonth, threeMonths, true);
@@ -403,6 +412,7 @@ export const getBreakdownItemsForWallet = (
     ]);
     result.push({
       type: 'total',
+      showHeader: false,
       items: [
         {
           column: breakdownColumns[0],

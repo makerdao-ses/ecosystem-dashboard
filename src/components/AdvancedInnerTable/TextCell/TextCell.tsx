@@ -51,7 +51,7 @@ const Container = styled('div')<{
   isSection?: boolean;
 }>(({ bold, isHeader, theme, isSection = false }) => ({
   fontFamily: 'Inter, sans-serif',
-  fontWeight: isHeader ? (bold ? 600 : 400) : 400,
+  fontWeight: 600,
   lineHeight: isHeader ? (bold ? '19px' : '18px') : '15px',
   display: 'flex',
   alignItems: 'center',
