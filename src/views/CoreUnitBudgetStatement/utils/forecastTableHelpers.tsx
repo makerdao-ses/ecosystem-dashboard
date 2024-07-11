@@ -41,22 +41,26 @@ export const getForecastBreakdownColumns = (
       isCardHeader: true,
       width: hasGroups ? '220px' : '240px',
       type: 'text',
+      hasBorderBottomOnCard: true,
     },
     {
       header: firstMonth.toFormat('MMMM'),
       type: 'custom',
       align: 'right',
+      hasBorderBottomOnCard: true,
     },
     {
       header: secondMonth.toFormat('MMMM'),
       type: 'custom',
       align: 'right',
+      hasBorderBottomOnCard: true,
     },
     {
       header: thirdMonth.toFormat('MMMM'),
       type: 'custom',
       align: 'right',
       hasBorderRight: true,
+      hasBorderBottomOnCard: true,
     },
     {
       header: 'Mthly Budget',
@@ -64,6 +68,7 @@ export const getForecastBreakdownColumns = (
       align: 'right',
       hasBorderRight: true,
       hidden: true,
+      hasBorderBottomOnCard: true,
     },
     {
       header: 'Totals',
