@@ -59,14 +59,14 @@ export const buildWidthStyles = (width: GenericCell['width']): React.CSSProperti
     ...(width.mobile_375 && {
       width: width.mobile_375,
     }),
-    ...(width.table_834 && {
-      [lightTheme.breakpoints.up('table_834')]: {
-        width: width.table_834,
+    ...(width.tablet_768 && {
+      [lightTheme.breakpoints.up('tablet_768')]: {
+        width: width.tablet_768,
       },
     }),
-    ...(width.desktop_1194 && {
-      [lightTheme.breakpoints.up('desktop_1194')]: {
-        width: width.desktop_1194,
+    ...(width.desktop_1024 && {
+      [lightTheme.breakpoints.up('desktop_1024')]: {
+        width: width.desktop_1024,
       },
     }),
     ...(width.desktop_1280 && {
@@ -102,14 +102,14 @@ export const buildPaddingStyles = (padding?: CellPadding): React.CSSProperties =
     ...(padding.mobile_375 && {
       padding: padding.mobile_375,
     }),
-    ...(padding.table_834 && {
-      [lightTheme.breakpoints.up('table_834')]: {
-        padding: padding.table_834,
+    ...(padding.tablet_768 && {
+      [lightTheme.breakpoints.up('tablet_768')]: {
+        padding: padding.tablet_768,
       },
     }),
-    ...(padding.desktop_1194 && {
-      [lightTheme.breakpoints.up('desktop_1194')]: {
-        padding: padding.desktop_1194,
+    ...(padding.desktop_1024 && {
+      [lightTheme.breakpoints.up('desktop_1024')]: {
+        padding: padding.desktop_1024,
       },
     }),
     ...(padding.desktop_1280 && {

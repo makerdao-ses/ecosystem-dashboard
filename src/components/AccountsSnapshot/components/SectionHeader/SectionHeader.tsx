@@ -2,17 +2,19 @@ import { styled } from '@mui/material';
 import InfoOutlined from 'public/assets/svg/info_outlined.svg';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
 
+type HeaderLevel = 'h1' | 'h2' | 'h3';
+
 interface SectionHeaderProps {
   title: string;
   subtitle: React.ReactNode;
   tooltip?: React.ReactNode;
-  isSubsection?: boolean;
+  level?: HeaderLevel;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip, isSubsection = false }) => (
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, tooltip, level = 'h1' }) => (
   <Header>
     <TitleWrapper>
-      <Title isSubsection={isSubsection} as={isSubsection ? 'h2' : 'h3'}>
+      <Title level={level} as={level}>
         {title}
       </Title>
       {tooltip && (
@@ -43,11 +45,11 @@ const TitleWrapper = styled('div')({
   marginBottom: 8,
 });
 
-const Title = styled('h2')<{ isSubsection: boolean }>(({ theme, isSubsection }) => ({
+const Title = styled('h2')<{ level: HeaderLevel }>(({ theme, level }) => ({
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   fontWeight: 700,
-  fontSize: isSubsection ? 18 : 20,
-  lineHeight: isSubsection ? '22px' : '24px',
+  fontSize: level === 'h1' ? 20 : level === 'h2' ? 18 : 16,
+  lineHeight: level === 'h1' ? '24px' : level === 'h2' ? '22px' : '24px',
   margin: 0,
 }));
 

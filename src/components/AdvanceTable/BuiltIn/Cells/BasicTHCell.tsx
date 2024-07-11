@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import React from 'react';
 import BasicCell from './BasicCell';
 import type { GenericCell } from '../../types';
@@ -10,12 +10,14 @@ interface BasicTHCellProps {
 }
 
 const BasicTHCell: React.FC<BasicTHCellProps> = ({ cell, className, as = 'th' }) => (
-  <TH className={className} as={as} cell={cell} />
+  <TH className={className} asComponent={as} cell={cell} />
 );
 
 export default BasicTHCell;
 
-const TH = styled(BasicCell)(() => ({
+const TH = styled(BasicCell, {
+  shouldForwardProp: () => true,
+})(() => ({
   textTransform: 'uppercase',
   letterSpacing: 1,
   fontWeight: 600,
