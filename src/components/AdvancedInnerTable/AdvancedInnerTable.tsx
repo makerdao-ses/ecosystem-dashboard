@@ -133,7 +133,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
           if (item.type === 'groupTitle') {
             return null;
           }
-          console.log('>>>>>>>>>>>', cardItems[i], cardItems[i].showHeader);
+
           return (
             <TransparencyCard
               category={item.category}

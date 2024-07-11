@@ -62,7 +62,7 @@ export const getActualsBreakdownItems = (
       ) {
         continue;
       }
-      console.log('breakdownColumns[0]', breakdownColumns[0]);
+
       result.push({
         showHeader: !(type === 'subTotal' || type === 'total'),
         subHeader: groupedCategory[groupedCatKey][0].headcountExpense ? 'Headcount Expenses' : 'Non-Headcount Expenses',
