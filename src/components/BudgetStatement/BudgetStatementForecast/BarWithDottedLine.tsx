@@ -73,14 +73,17 @@ const Container = styled('div')({
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
+  alignItems: 'flex-end',
 });
-const ContainerBar = styled('div')({
+const ContainerBar = styled('div')(({ theme }) => ({
   height: 14,
   display: 'flex',
-  alignItems: 'center',
   position: 'relative',
-  width: 75,
-});
+  width: 100,
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    width: 75,
+  },
+}));
 
 const VerticalBar = styled('div')<{ displacement?: number }>(({ displacement, theme }) => ({
   height: 16,
