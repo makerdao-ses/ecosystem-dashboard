@@ -1,10 +1,6 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
 import BasicCell from './BasicCell';
 import type { GenericCell, NumberCellExtraProps } from '../../types';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface NumberCellProps {
   cell: GenericCell;
@@ -13,14 +9,12 @@ interface NumberCellProps {
 }
 
 const NumberCell: React.FC<NumberCellProps> = ({ cell, className, as }) => {
-  const { isLight } = useThemeContext();
   const extra = cell.extraProps as NumberCellExtraProps;
 
   return (
     <Cell
       className={className}
-      as={as ?? (cell.isHeader ? 'th' : 'td')}
-      isLight={isLight}
+      asComponent={as ?? (cell.isHeader ? 'th' : 'td')}
       cell={cell}
       isBold={extra?.isBold ?? false}
     />
@@ -29,15 +23,17 @@ const NumberCell: React.FC<NumberCellProps> = ({ cell, className, as }) => {
 
 export default NumberCell;
 
-const Cell = styled(BasicCell)<WithIsLight & { isBold: boolean }>(({ isLight, isBold }) => ({
+const Cell = styled(BasicCell, {
+  shouldForwardProp: (prop) => prop !== 'isBold',
+})<{ isBold: boolean }>(({ theme, isBold }) => ({
   fontWeight: isBold ? 700 : 400,
   fontSize: 14,
   lineHeight: '17px',
-  color: isLight ? '#231536' : '#FFFFFF',
+  color: theme.palette.isLight ? '#231536' : '#FFFFFF',
   letterSpacing: 0.3,
   fontFeatureSettings: "'tnum' on, 'lnum' on",
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
     lineHeight: '19px',
   },

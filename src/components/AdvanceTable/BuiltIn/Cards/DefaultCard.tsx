@@ -1,4 +1,3 @@
-import React from 'react';
 import AbstractCard from './AbstractCard';
 import SectionTitleCard from './SectionTitleCard';
 import StandardCard from './StandardCard';

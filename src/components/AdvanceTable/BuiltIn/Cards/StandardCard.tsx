@@ -1,10 +1,7 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import React from 'react';
+import { styled } from '@mui/material';
 import BasicTHCell from '../Cells/BasicTHCell';
 import AbstractCard from './AbstractCard';
 import type { CardPadding, CardType, GenericCell } from '../../types';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface StandardCardProps {
   type?: CardType;
@@ -13,12 +10,11 @@ interface StandardCardProps {
 }
 
 const StandardCard: React.FC<StandardCardProps> = ({ type = 'normal', cells, cardPadding = 16 }) => {
-  const { isLight } = useThemeContext();
   if (!cells) return null;
 
   const headers = cells
     .filter((cell) => cell.isCardHeader)
-    .map((cell) => <Header isLight={isLight}>{cell.value as React.ReactNode}</Header>);
+    .map((cell) => <Header>{cell.value as React.ReactNode}</Header>);
 
   return (
     <AbstractCard>
@@ -45,12 +41,10 @@ const StandardCard: React.FC<StandardCardProps> = ({ type = 'normal', cells, car
                     as="div"
                   />
                 )}
-                <Value isLight={isLight} isBold={type === 'total'}>
-                  {cell.value as string}
-                </Value>
+                <Value isBold={type === 'total'}>{cell.value as string}</Value>
               </div>
             ) : (
-              <Value isLight={isLight} isBold={type === 'total'} key={index}>
+              <Value isBold={type === 'total'} key={index}>
                 {cell.value as string}
               </Value>
             )
@@ -62,23 +56,23 @@ const StandardCard: React.FC<StandardCardProps> = ({ type = 'normal', cells, car
 
 export default StandardCard;
 
-const CardPaddingStyle = styled.div<{ padding: CardPadding }>(({ padding }) => ({
+const CardPaddingStyle = styled('div')<{ padding: CardPadding }>(({ padding }) => ({
   padding,
   marginBottom: 16,
 }));
 
-const Header = styled.div<WithIsLight>(({ isLight }) => ({
+const Header = styled('div')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
-const Value = styled.div<WithIsLight & { isBold: boolean }>(({ isLight, isBold }) => ({
+const Value = styled('div')<{ isBold: boolean }>(({ theme, isBold }) => ({
   fontSize: 14,
   lineHeight: '17px',
   letterSpacing: 0.3,
   fontWeight: isBold ? 700 : 400,
   fontFeatureSettings: "'tnum' on, 'lnum' on",
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
