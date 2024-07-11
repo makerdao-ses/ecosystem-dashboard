@@ -13,12 +13,33 @@ const mainTableColumns = [
     .withIsCardHeader(true)
     .withMinWidth('220px')
     .withType('custom')
+    .withHasBorderBottomOnCard(true)
     .withWidth('220px')
     .build(),
-  new InnerTableColumnBuilder().withAlign('right').withHeader('Mthly Budget').withType('number').build(),
-  new InnerTableColumnBuilder().withAlign('right').withHeader('Forecast').withType('incomeNumber').build(),
-  new InnerTableColumnBuilder().withAlign('right').withHeader('Actuals').withType('incomeNumber').build(),
-  new InnerTableColumnBuilder().withAlign('right').withHeader('Difference').withType('number').build(),
+  new InnerTableColumnBuilder()
+    .withAlign('right')
+    .withHasBorderBottomOnCard(true)
+    .withHeader('Mthly Budget')
+    .withType('number')
+    .build(),
+  new InnerTableColumnBuilder()
+    .withHasBorderBottomOnCard(true)
+    .withAlign('right')
+    .withHeader('Forecast')
+    .withType('incomeNumber')
+    .build(),
+  new InnerTableColumnBuilder()
+    .withHasBorderBottomOnCard(true)
+    .withAlign('right')
+    .withHeader('Actuals')
+    .withType('incomeNumber')
+    .build(),
+  new InnerTableColumnBuilder()
+    .withHasBorderBottomOnCard(true)
+    .withAlign('right')
+    .withHeader('Difference')
+    .withType('number')
+    .build(),
   new InnerTableColumnBuilder().withAlign('right').withHeader('Payments').withType('number').build(),
 ];
 const meta: Meta<typeof TotalWalletSections> = {
