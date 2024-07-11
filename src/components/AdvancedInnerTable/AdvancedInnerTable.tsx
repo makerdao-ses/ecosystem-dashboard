@@ -218,7 +218,7 @@ const TableHead = styled('thead')(({ theme }) => ({
 }));
 
 const HeadCell = styled('th')<{ hasBorderRight?: boolean }>(({ hasBorderRight, theme }) => ({
-  padding: '24px 16px',
+  padding: '7.5px 16px',
   fontWeight: 600,
   fontSize: 16,
   lineHeight: '24px',

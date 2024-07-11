@@ -42,7 +42,6 @@ export default TotalForecastSection;
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  marginBottom: 64,
 });
 const Title = styled('div')<{
   marginBottom?: number;

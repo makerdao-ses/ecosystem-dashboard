@@ -72,7 +72,6 @@ export default ForecastBreakdownSection;
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  marginBottom: 64,
 });
 
 const BreakdownTableWrapper = styled('div')({

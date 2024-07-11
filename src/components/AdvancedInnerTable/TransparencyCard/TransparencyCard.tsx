@@ -32,7 +32,6 @@ export const TransparencyCard: React.FC<Props> = ({
 
   return (
     <Container
-      style={{ marginTop: itemType === 'total' ? 24 : 0 }}
       className={`advance-table--transparency-card ${
         itemType === 'total' ? 'advance-table--transparency-card_total' : 'advance-table--transparency_item'
       }`}
@@ -84,7 +83,7 @@ const Container = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
   background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
-  marginBottom: 24,
+  marginBottom: 16,
   borderRadius: '12px',
   [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
     ':last-child': {
