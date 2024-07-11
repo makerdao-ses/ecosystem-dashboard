@@ -79,7 +79,6 @@ const ContainerBar = styled('div')({
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
-  // width: '100%',
   width: 75,
 });
 
@@ -100,7 +99,6 @@ const BudgetBar = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   borderRadius: 2,
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.slate[400],
-  // border: '1px solid blue',
 }));
 
 const BarPercent = styled('div')<{ width: number; color: string }>(({ width, color }) => ({
