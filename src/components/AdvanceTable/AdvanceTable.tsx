@@ -1,15 +1,11 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled, useMediaQuery } from '@mui/material';
 import DefaultCard from './BuiltIn/Cards/DefaultCard';
 import DefaultCell from './BuiltIn/Cells/DefaultCell';
 import DefaultTBody from './BuiltIn/DefaultTBody';
 import DefaultTHead from './BuiltIn/DefaultTHead';
 import DefaultTR from './BuiltIn/DefaultTR';
 import type { TableProps } from './types';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import type { Theme } from '@mui/material';
 
 const AdvanceTable: React.FC<TableProps> = ({
   className,
@@ -19,8 +15,7 @@ const AdvanceTable: React.FC<TableProps> = ({
   bodyRender = DefaultTBody,
   toCardsOnMobile = true,
 }) => {
-  const { isLight } = useThemeContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const showCards = isMobile && toCardsOnMobile;
   const THead = headerRender;
   const TBody = bodyRender;
@@ -66,8 +61,8 @@ const AdvanceTable: React.FC<TableProps> = ({
       })}
     </div>
   ) : (
-    <TableWrapper isLight={isLight}>
-      <Table isLight={isLight} className={className}>
+    <TableWrapper>
+      <Table className={className}>
         {header && (
           <THead header={header}>
             {header.map((row, rowIndex) => (
@@ -125,18 +120,16 @@ const AdvanceTable: React.FC<TableProps> = ({
 
 export default AdvanceTable;
 
-const TableWrapper = styled.div<WithIsLight>(({ isLight }) => ({
+const TableWrapper = styled('div')(({ theme }) => ({
   overflowX: 'auto',
-  boxShadow: isLight
-    ? '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px 20px 40px -40px rgba(7, 22, 40, 0.4), 0px 1px 3px rgba(30, 23, 23, 0.25)',
-  borderRadius: 6,
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
+  borderRadius: 12,
 }));
 
-const Table = styled.table<WithIsLight>(({ isLight }) => ({
+const Table = styled('table')(({ theme }) => ({
   borderCollapse: 'collapse',
   flex: '1',
   width: '100%',
-  background: isLight ? '#FFFFFF' : '#10191F',
+  background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
   borderRadius: 6,
 }));

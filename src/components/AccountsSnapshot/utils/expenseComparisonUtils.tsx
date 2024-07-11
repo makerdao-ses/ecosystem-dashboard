@@ -1,12 +1,12 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { DateTime } from 'luxon';
+import type { CardRenderProps, RowProps } from '@/components/AdvanceTable/types';
 import ExpensesComparisonRowCard from '../components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import {
   EXPENSES_COMPARISON_TABLE_HEADER,
   EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN,
 } from '../components/ExpensesComparison/headers';
-import type { CardRenderProps, RowProps } from '@ses/components/AdvanceTable/types';
 import type { ActualsComparison, Token } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -22,8 +22,8 @@ export const buildRow = (
   ({
     ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
     cellPadding: {
-      table_834: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
-      desktop_1194: '17.4px 16px',
+      tablet_768: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
+      desktop_1024: '17.4px 16px',
     },
     rowToCardConfig: {
       render: (props: CardRenderProps) => (
@@ -88,8 +88,8 @@ export const buildRowWithoutOffChain = (
   ({
     ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
     cellPadding: {
-      table_834: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
-      desktop_1194: '17.4px 16px',
+      tablet_768: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
+      desktop_1024: '17.4px 16px',
     },
     rowToCardConfig: {
       render: (props: CardRenderProps) => (
@@ -136,8 +136,7 @@ export const buildRowWithoutOffChain = (
     ],
   } as RowProps);
 
-export const formatExpenseMonth = (month: string): string =>
-  DateTime.fromFormat(month, 'yyyy/MM').toFormat('MMM-yyyy').toLocaleUpperCase();
+export const formatExpenseMonth = (month: string): string => DateTime.fromFormat(month, 'yyyy/MM').toFormat('MMM-yyyy');
 
 export const formatExpenseWithCurrency = (value: number, currency: Token): string => {
   const formatted = `${usLocalizedNumber(value, 2)} ${currency}`;

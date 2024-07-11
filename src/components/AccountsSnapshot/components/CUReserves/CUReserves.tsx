@@ -39,6 +39,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
              total inflow from the Maker Protocol to internal operational wallets, as well as the outflow to external \
              wallets (e.g., Payment Processor) wallets.'
         }
+        level="h2"
       />
       {!!offChainData?.length && (
         <CheckContainer>
@@ -85,7 +86,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
             Track and analyze the movement of <br /> On-Chain assets.
           </>
         }
-        isSubsection
+        level="h3"
       />
 
       <ReservesCardsContainer>
@@ -106,7 +107,7 @@ const CUReserves: React.FC<CUReservesProps> = ({
               off-chain balances.
             </>
           }
-          isSubsection
+          level="h3"
         />
 
         <ReservesCardsContainer>
