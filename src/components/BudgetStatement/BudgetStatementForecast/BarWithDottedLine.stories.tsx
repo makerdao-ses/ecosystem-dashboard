@@ -16,7 +16,7 @@ export default meta;
 const variantsArgs = [
   {
     value: 7500,
-    relativeValue: 856579,
+    relativeValue: 56579,
   },
   {
     value: 846579,
@@ -62,7 +62,7 @@ ProgressiveGreen.parameters = {
     component: {
       375: {
         component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=17273:217604&t=MjSTXSOlnzAFP2Sr-4',
+          'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=1396:31627&t=CMAgTGtsYdltJdmY-4',
         options: {
           style: {
             left: 0,
