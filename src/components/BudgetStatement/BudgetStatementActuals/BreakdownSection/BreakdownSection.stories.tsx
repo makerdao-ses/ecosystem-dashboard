@@ -48,6 +48,8 @@ const variantsArgs = [
         type: 'category',
         category: 'General',
         subHeader: 'Headcount Expenses',
+        showHeader: true,
+
         items: [
           {
             column: {
@@ -119,6 +121,7 @@ const variantsArgs = [
         type: 'category',
         category: 'General',
         subHeader: 'Headcount Expenses',
+        showHeader: true,
         items: [
           {
             column: {
@@ -192,6 +195,7 @@ const variantsArgs = [
         subHeader: 'Non-Headcount Expenses',
         borderTop: true,
         borderBottom: true,
+
         items: [
           {
             column: {
@@ -260,25 +264,10 @@ const variantsArgs = [
         ],
       },
       {
-        type: 'section',
-        category: undefined,
-        items: [
-          {
-            column: {
-              align: 'left',
-              header: 'Expense Category',
-              isCardHeader: true,
-              type: 'text',
-              width: '240px',
-            },
-            value: 'Non-Headcount Expenses',
-          },
-        ],
-      },
-      {
         type: 'category',
         category: 'General',
         subHeader: 'Non-Headcount Expenses',
+        showHeader: true,
         items: [
           {
             column: {
@@ -350,7 +339,9 @@ const variantsArgs = [
       {
         type: 'category',
         category: 'General',
+
         subHeader: 'Non-Headcount Expenses',
+        showHeader: true,
         items: [
           {
             column: {
@@ -423,6 +414,7 @@ const variantsArgs = [
         type: 'category',
         category: 'General',
         subHeader: 'Non-Headcount Expenses',
+        showHeader: true,
         items: [
           {
             column: {
@@ -479,7 +471,7 @@ const variantsArgs = [
               width: '300px',
               hasBorderBottomOnCard: true,
             },
-            value: ' ',
+            value: 234,
           },
           {
             column: {
@@ -493,6 +485,7 @@ const variantsArgs = [
       },
       {
         type: 'category',
+        showHeader: true,
         category: 'General',
         subHeader: 'Non-Headcount Expenses',
         items: [
@@ -505,7 +498,9 @@ const variantsArgs = [
               type: 'text',
               width: '240px',
             },
+            value: 'Contingency Buffer',
           },
+
           {
             column: {
               align: 'right',
@@ -550,7 +545,7 @@ const variantsArgs = [
               width: '300px',
               hasBorderBottomOnCard: true,
             },
-            value: ' ',
+            value: 190,
           },
           {
             column: {
