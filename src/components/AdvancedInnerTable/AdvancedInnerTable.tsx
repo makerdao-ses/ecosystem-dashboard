@@ -298,6 +298,7 @@ const StyledOpenModalTransparency = styled(OpenModalTransparency)(({ theme }) =>
     fontWeight: 400,
     paddingTop: 0,
     marginBottom: 0,
+    paddingBottom: 0,
     paddingLeft: 16,
     lineHeight: '16.94px',
     fontSize: 14,

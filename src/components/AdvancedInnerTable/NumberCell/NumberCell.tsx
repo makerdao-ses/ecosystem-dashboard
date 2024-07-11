@@ -48,7 +48,7 @@ const Container = styled('div')<{ negative?: boolean; isIncome: boolean; bold?: 
       ? theme.palette.colors.gray[50]
       : theme.palette.colors.gray[400],
     [theme.breakpoints.up('tablet_768')]: {
-      padding: '10px 16px',
+      padding: '8px 16px',
     },
     [theme.breakpoints.up('desktop_1024')]: {
       fontSize: '16px',
