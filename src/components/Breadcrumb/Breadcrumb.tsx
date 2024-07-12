@@ -25,6 +25,7 @@ interface BreadcrumbProps {
 }
 
 const MAX_ALLOWED_WIDTH = 250;
+const MAX_ALLOWED_WIDTH_MOBILE = 100;
 const THREE_DOTS_WIDTH = 60;
 
 const getTextWidth = (text: string, font: string) => {
@@ -261,7 +262,7 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
   lineHeight: '24px',
   fontWeight: 600,
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[100],
-  maxWidth: maxWidth || '100%',
+  maxWidth: MAX_ALLOWED_WIDTH_MOBILE,
 
   '& a': {
     color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
@@ -294,6 +295,9 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
     'svg path': {
       fill: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[200],
     },
+  },
+  [theme.breakpoints.up('tablet_768')]: {
+    maxWidth: maxWidth || '100%',
   },
 }));
 

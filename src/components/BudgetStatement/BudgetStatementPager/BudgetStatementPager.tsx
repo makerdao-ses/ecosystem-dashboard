@@ -95,10 +95,13 @@ const PagerArrowStyled = styled(PagerArrows)(({ theme }) => ({
 
 const Label = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
-  fontSize: 20,
+  fontSize: 16,
   fontWeight: 700,
   lineHeight: '24px',
   marginLeft: 8,
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 20,
+  },
 }));
 
 const Spacer = styled('div')({
