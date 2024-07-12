@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon';
 import { createThemeModeVariants } from '@/core/utils/storybook/factories';
 import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
-import BreakdownSection from './BreakdownSection';
+import BreakdownSection from './BreakdownActualsSection';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof BreakdownSection> = {
-  title: 'Fusion/Components/Budget Statements/BreakdownSection',
+  title: 'Fusion/Components/Budget Statements/Actuals Tab/BreakdownSection',
   component: BreakdownSection,
   parameters: {
     chromatic: {

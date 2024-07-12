@@ -3,7 +3,7 @@ import { InnerTableColumnBuilder } from '@/core/businessLogic/tableBuilderColumn
 import { InnerTableRowBuilder } from '@/core/businessLogic/tableBuilderRow';
 import { createThemeModeVariants } from '@/core/utils/storybook/factories';
 import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
-import TotalWalletSections from './TotalWalletSections';
+import TotalWalletSections from './TotalActualSection';
 import type { Meta } from '@storybook/react';
 const mainTableColumns = [
   new InnerTableColumnBuilder()
@@ -43,7 +43,7 @@ const mainTableColumns = [
   new InnerTableColumnBuilder().withAlign('right').withHeader('Payments').withType('number').build(),
 ];
 const meta: Meta<typeof TotalWalletSections> = {
-  title: 'Fusion/Components/Budget Statements/TotalWalletSections',
+  title: 'Fusion/Components/Budget Statements/Actuals Tab/TotalSections',
   component: TotalWalletSections,
   parameters: {
     chromatic: {
