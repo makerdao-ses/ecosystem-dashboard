@@ -68,23 +68,22 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month, isTot
 export default BarWithDottedLine;
 
 const Container = styled('div')({
-  paddingTop: 4,
-  width: 101,
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
-  letterSpacing: '0.3px',
-  fontFeatureSettings: "'tnum' on, 'lnum' on",
+  alignItems: 'flex-end',
 });
-const ContainerBar = styled('div')({
-  height: 16,
+const ContainerBar = styled('div')(({ theme }) => ({
+  height: 14,
   display: 'flex',
-  alignItems: 'center',
   position: 'relative',
-  width: '100%',
-});
+  width: 100,
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    width: 75,
+  },
+}));
 
 const VerticalBar = styled('div')<{ displacement?: number }>(({ displacement, theme }) => ({
   height: 16,
@@ -137,7 +136,7 @@ const ContendBarForSpace = styled('div')<{ displacement: number }>(({ displaceme
 
 const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ theme, isTotal, isNegative }) => ({
   fontSize: 14,
-  lineHeight: '22px',
+  lineHeight: '24px',
   textAlign: 'right',
   fontWeight: isTotal ? 600 : 600,
   color: theme.palette.isLight
@@ -161,8 +160,5 @@ const SESTooltipStyled = styled(SESTooltip)<{ borderColor: string }>(({ borderCo
   border: `2px solid ${borderColor}`,
   minWidth: 298,
   borderRadius: 12,
-  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : 'red',
-  '&.MuiTooltip-tooltip MuiTooltip-tooltipPlacementBottom': {
-    backgroundColor: 'red',
-  },
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
 }));

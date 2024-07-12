@@ -21,7 +21,7 @@ export const WalletTableCell = (props: WalletTableCellProps) => (
     <Data>
       <Label>{capitalizeSentence(props.name)}</Label>
       <LinkContainer>
-        <StyledLink showArrow={false} className="custom-link" href={`https://etherscan.io/address/${props.address}`}>
+        <StyledLink showArrow={false} href={`https://etherscan.io/address/${props.address}`}>
           {props.wallet.toLowerCase()}
         </StyledLink>
 

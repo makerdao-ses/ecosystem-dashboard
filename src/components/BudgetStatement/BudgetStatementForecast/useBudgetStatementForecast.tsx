@@ -142,7 +142,6 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
         type: 'number',
         align: 'right',
         hasBorderRight: true,
-        hasBorderBottomOnCard: true,
         hidden: true,
       },
       {
@@ -175,7 +174,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
     }
 
     let emptyWallets = 0;
-    wallets.forEach((wallet) => {
+    wallets.forEach((wallet, i) => {
       const firstMonthlyBudgetCap = getWalletMonthlyBudgetForeCast(wallet, firstMonth.toFormat(API_MONTH_TO_FORMAT));
       const secondMonthBudgetCap = getWalletMonthlyBudgetForeCast(wallet, secondMonth.toFormat(API_MONTH_TO_FORMAT));
       const thirdMonthBudgetCap = getWalletMonthlyBudgetForeCast(wallet, thirdMonth.toFormat(API_MONTH_TO_FORMAT));
@@ -205,6 +204,9 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
 
       result.push({
         type: 'normal',
+        // Hidden the header for wallet
+        showHeader: result[i]?.items[0].column.header === 'Wallet',
+
         items: [
           {
             column: mainTableColumns[0],
@@ -311,101 +313,107 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
       totalSecondMonthBudGetCap,
       totalThirdMonthBudGetCap,
     ]);
-    result.push({
-      type: 'total',
-      items: [
-        {
-          column: mainTableColumns[0],
-          value: 'Total',
-        },
-        {
-          column: mainTableColumns[1],
-          value: (
-            <ContainerProgressiveIndicator>
-              {typeof totalFirstMonthBudGetCap === 'number' || totalFirstMonth !== 0 ? (
-                <ProgressiveIndicator
-                  budgetCap={totalFirstMonthBudGetCap === 'N/A' ? 0 : totalFirstMonthBudGetCap}
-                  forecast={totalFirstMonth}
-                  isTotal
-                  month={firstMonth}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
-          ),
-        },
-        {
-          column: mainTableColumns[2],
-          value: (
-            <ContainerProgressiveIndicator>
-              {typeof totalSecondMonthBudGetCap === 'number' || totalSecondMonth !== 0 ? (
-                <ProgressiveIndicator
-                  budgetCap={totalSecondMonthBudGetCap === 'N/A' ? 0 : totalSecondMonthBudGetCap}
-                  forecast={totalSecondMonth}
-                  isTotal
-                  month={secondMonth}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
-          ),
-        },
-        {
-          column: mainTableColumns[3],
-          value: (
-            <ContainerProgressiveIndicator>
-              {typeof totalThirdMonthBudGetCap === 'number' || totalThirdMonth !== 0 ? (
-                <ProgressiveIndicator
-                  budgetCap={totalThirdMonthBudGetCap === 'N/A' ? 0 : totalThirdMonthBudGetCap}
-                  forecast={totalThirdMonth}
-                  isTotal
-                  month={thirdMonth}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
-          ),
-        },
-        {
-          column: mainTableColumns[4],
-          value: getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, currentMonth),
-        },
-        {
-          column: mainTableColumns[5],
-          value: (
-            <ContainerProgressiveIndicator>
-              {typeof TotalBudgetCap === 'number' ? (
-                <ProgressiveIndicator
-                  isTotal
-                  budgetCap={TotalBudgetCap}
-                  forecast={getForecastSumForMonths(budgetStatements, currentMonth, [
-                    firstMonth,
-                    secondMonth,
-                    thirdMonth,
-                  ])}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
-          ),
-        },
-        {
-          column: mainTableColumns[6],
-          value: getTotalQuarterlyBudgetCapOnBudgetStatement(
-            budgetStatements,
-            [firstMonth, secondMonth, thirdMonth],
-            wallets,
-            currentMonth
-          ),
-        },
-      ],
-      hideMobile: false,
-    });
 
+    if (result.length > 0) {
+      result.push({
+        type: 'total',
+        showHeader: false,
+        items: [
+          {
+            column: mainTableColumns[0],
+            value: 'Total',
+          },
+          {
+            column: mainTableColumns[1],
+            value: (
+              <ContainerProgressiveIndicator>
+                {typeof totalFirstMonthBudGetCap === 'number' || totalFirstMonth !== 0 ? (
+                  <ProgressiveIndicator
+                    budgetCap={totalFirstMonthBudGetCap === 'N/A' ? 0 : totalFirstMonthBudGetCap}
+                    forecast={totalFirstMonth}
+                    isTotal
+                    month={firstMonth}
+                  />
+                ) : (
+                  <div>N/A</div>
+                )}
+              </ContainerProgressiveIndicator>
+            ),
+          },
+          {
+            column: mainTableColumns[2],
+            value: (
+              <ContainerProgressiveIndicator>
+                {typeof totalSecondMonthBudGetCap === 'number' || totalSecondMonth !== 0 ? (
+                  <ProgressiveIndicator
+                    budgetCap={totalSecondMonthBudGetCap === 'N/A' ? 0 : totalSecondMonthBudGetCap}
+                    forecast={totalSecondMonth}
+                    isTotal
+                    month={secondMonth}
+                  />
+                ) : (
+                  <div>N/A</div>
+                )}
+              </ContainerProgressiveIndicator>
+            ),
+          },
+          {
+            column: mainTableColumns[3],
+            value: (
+              <ContainerProgressiveIndicator>
+                {typeof totalThirdMonthBudGetCap === 'number' || totalThirdMonth !== 0 ? (
+                  <ProgressiveIndicator
+                    budgetCap={totalThirdMonthBudGetCap === 'N/A' ? 0 : totalThirdMonthBudGetCap}
+                    forecast={totalThirdMonth}
+                    isTotal
+                    month={thirdMonth}
+                  />
+                ) : (
+                  <div>N/A</div>
+                )}
+              </ContainerProgressiveIndicator>
+            ),
+          },
+          {
+            column: mainTableColumns[4],
+            value: getBudgetCapForMonthOnBudgetStatement(budgetStatements, currentMonth, currentMonth),
+          },
+          {
+            column: mainTableColumns[5],
+            value: (
+              <ContainerProgressiveIndicator>
+                {typeof TotalBudgetCap === 'number' ? (
+                  <ProgressiveIndicator
+                    isTotal
+                    budgetCap={TotalBudgetCap}
+                    forecast={getForecastSumForMonths(budgetStatements, currentMonth, [
+                      firstMonth,
+                      secondMonth,
+                      thirdMonth,
+                    ])}
+                  />
+                ) : (
+                  <div>N/A</div>
+                )}
+              </ContainerProgressiveIndicator>
+            ),
+          },
+          {
+            column: mainTableColumns[6],
+            value: getTotalQuarterlyBudgetCapOnBudgetStatement(
+              budgetStatements,
+              [firstMonth, secondMonth, thirdMonth],
+              wallets,
+              currentMonth
+            ),
+          },
+        ],
+        // Hidden the total mobile when there is only one wallet
+        hideMobile: result.length < 2,
+      });
+
+      return result;
+    }
     return result;
   }, [budgetStatements, wallets, mainTableColumns, currentMonth, firstMonth, secondMonth, thirdMonth]);
 

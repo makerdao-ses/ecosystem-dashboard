@@ -167,7 +167,6 @@ export const useBudgetStatementActuals = (
         header: 'Payments',
         align: 'right',
         type: 'number',
-        hasBorderBottomOnCard: true,
       },
     ];
     return mainTableColumns;
@@ -177,7 +176,7 @@ export const useBudgetStatementActuals = (
     const result: InnerTableRow[] = [];
 
     if (currentBudgetStatement) {
-      wallets.forEach((wallet) => {
+      wallets.forEach((wallet, i) => {
         const numberCellData = [
           getWalletMonthlyBudget(wallet, currentMonth),
           getWalletForecast(wallet, currentMonth),
@@ -188,6 +187,8 @@ export const useBudgetStatementActuals = (
 
         if (numberCellData.some((n) => n !== 0)) {
           result.push({
+            // Hidden the header for wallet
+            showHeader: result[i]?.items[0].column.header === 'Wallet',
             type: 'normal',
             items: [
               {
@@ -222,6 +223,8 @@ export const useBudgetStatementActuals = (
       if (result.length > 0) {
         result.push({
           type: 'total',
+          // Hidden the header for total
+          showHeader: false,
           items: [
             {
               column: mainTableColumns[0],
@@ -248,6 +251,7 @@ export const useBudgetStatementActuals = (
               value: budgetTotalPayment,
             },
           ],
+          // Hidden the total mobile when there is only one wallet
           hideMobile: result.length < 2,
         });
       }
