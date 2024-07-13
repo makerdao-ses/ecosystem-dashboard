@@ -30,7 +30,7 @@ const ExpensesComparison: React.FC<ExpensesComparisonProps> = ({ rows, hasOffCha
           header={
             hasOffChainData
               ? expensesComparisonTableHeader({ isTablet })
-              : expensesComparisonTableHeaderWithoutOffChain({ isTablet })
+              : expensesComparisonTableHeaderWithoutOffChain()
           }
           body={rows}
         />

@@ -94,7 +94,6 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
   );
 
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
-
   const expensesComparisonRows = useMemo(
     () =>
       buildExpensesComparisonRows(actualsComparison, selectedToken, snapshot.period, hasOffChainData, {
