@@ -17,11 +17,9 @@ export default BasicTHCell;
 
 const TH = styled(BasicCell, {
   shouldForwardProp: () => true,
-})(() => ({
-  textTransform: 'uppercase',
-  letterSpacing: 1,
+})(({ theme }) => ({
+  fontSize: 16,
   fontWeight: 600,
-  fontSize: 12,
-  lineHeight: '15px',
-  color: '#708390',
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
 }));

@@ -1,13 +1,13 @@
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { useMediaQuery } from '@mui/material';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 import { buildExpensesComparisonRows } from './utils/expenseComparisonUtils';
 import { getReserveAccounts, transactionSort } from './utils/reserveUtils';
+import type { Theme } from '@mui/material';
 import type { Snapshots, Token } from '@ses/core/models/dto/snapshotAccountDTO';
 
 const useAccountsSnapshot = (snapshot: Snapshots) => {
-  const { isLight } = useThemeContext();
   const [isEnabled] = useFlagsActive();
 
   // TODO: the `setSelectedTo` is not used yet, but it will be used to filter the data
@@ -93,13 +93,17 @@ const useAccountsSnapshot = (snapshot: Snapshots) => {
     [selectedToken, snapshot.actualsComparison]
   );
 
+  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
+
   const expensesComparisonRows = useMemo(
-    () => buildExpensesComparisonRows(actualsComparison, selectedToken, snapshot.period, hasOffChainData),
-    [actualsComparison, hasOffChainData, selectedToken, snapshot.period]
+    () =>
+      buildExpensesComparisonRows(actualsComparison, selectedToken, snapshot.period, hasOffChainData, {
+        isTablet,
+      }),
+    [actualsComparison, hasOffChainData, isTablet, selectedToken, snapshot.period]
   );
   const isCoreUnit = snapshot.ownerType === 'CoreUnit';
   return {
-    isLight,
     enableCurrencyPicker,
     includeOffChain,
     toggleIncludeOffChain,
