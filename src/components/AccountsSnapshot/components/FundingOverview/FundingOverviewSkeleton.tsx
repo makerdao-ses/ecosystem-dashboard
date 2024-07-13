@@ -13,11 +13,14 @@ const FundingOverviewSkeleton: React.FC = () => {
     <Container>
       <HeaderContainer>
         <TitleWrapper>
-          <TitleSkeleton />
+          <PageTitleWrapper>
+            <TitleSkeleton />
+            <IconSkeleton />
+          </PageTitleWrapper>
+
           <SubtitleContainer>
             <SubtitleLine1 />
             <SubtitleLine2 />
-            <SubtitleLine3 />
           </SubtitleContainer>
         </TitleWrapper>
 
@@ -37,102 +40,91 @@ const FundingOverviewSkeleton: React.FC = () => {
 
 export default FundingOverviewSkeleton;
 
-const Container = styled('div')({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
-});
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    gap: 32,
+  },
+}));
 
 const HeaderContainer = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 0,
     marginBottom: 0,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    marginBottom: 8,
   },
 }));
 
 const TitleWrapper = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     width: '100%',
   },
 }));
 
-const TitleSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 293,
-  height: 17.5,
-  marginBottom: 14.5,
+const PageTitleWrapper = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+  marginBottom: 8,
+}));
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 248,
-    height: 21,
-    marginBottom: 21,
-  },
+const TitleSkeleton = styled(BaseSkeleton)(() => ({
+  maxWidth: 287,
+  height: 24,
+}));
 
-  [theme.breakpoints.up('desktop_1440')]: {
-    maxWidth: 386,
-    marginBottom: 13,
-  },
+const IconSkeleton = styled(BaseSkeleton)(() => ({
+  maxWidth: 16,
+  height: 16,
 }));
 
 const SubtitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 5.25,
+  gap: 4,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     gap: 6,
   },
 }));
 
 const SubtitleLine = styled(BaseSkeleton)(({ theme }) => ({
-  height: 12.25,
+  maxWidth: '100%',
+  width: '100%',
+  height: 20,
 
-  [theme.breakpoints.up('table_834')]: {
-    height: 14,
+  [theme.breakpoints.up('tablet_768')]: {
+    height: 22,
   },
 }));
 
 const SubtitleLine1 = styled(SubtitleLine)(({ theme }) => ({
-  maxWidth: 329,
-
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     maxWidth: 423,
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 408,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    maxWidth: 666,
+  [theme.breakpoints.up('desktop_1024')]: {
+    maxWidth: 675,
+    marginBottom: 2,
   },
 }));
 
 const SubtitleLine2 = styled(SubtitleLine)(({ theme }) => ({
-  maxWidth: 221,
+  maxWidth: 264,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     maxWidth: 321,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
     display: 'none',
   },
-}));
 
-const SubtitleLine3 = styled(SubtitleLine)(({ theme }) => ({
-  maxWidth: 230,
-
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     display: 'none',
   },
 }));
@@ -144,15 +136,11 @@ const CurrencyPicker = styled(BaseSkeleton)(({ theme }) => ({
   borderRadius: 20,
   marginLeft: 'auto',
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 8,
     marginLeft: 0,
     maxWidth: 129,
     height: 48,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    marginTop: 0,
   },
 }));
 
@@ -173,7 +161,7 @@ export const CardsContainer = styled('div')(({ theme }) => ({
     width: 'calc(50% - 4px)',
   },
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     flexWrap: 'nowrap',
 
     '& > div:nth-of-type(1)': {
@@ -189,8 +177,12 @@ export const CardsContainer = styled('div')(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     gap: 24,
     marginTop: -2,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    gap: 32,
   },
 }));

@@ -116,7 +116,7 @@ const MinusSVG = styled('svg')(({ theme }) => ({
   },
 }));
 
-const Card = styled('div')<{ sign: 'positive' | 'negative' }>(({ theme, sign }) => ({
+export const Card = styled('div')<{ sign: 'positive' | 'negative' }>(({ theme, sign }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',

@@ -1,6 +1,8 @@
 import { styled } from '@mui/material';
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
+import { Card } from './NumberWithSignCard';
 
 interface NumberWithSignCardSkeletonProps {
   sign: 'positive' | 'negative';
@@ -8,7 +10,7 @@ interface NumberWithSignCardSkeletonProps {
 
 const NumberWithSignCardSkeleton: React.FC<NumberWithSignCardSkeletonProps> = ({ sign }) => {
   const { isLight } = useThemeContext();
-  const fill = isLight ? '#ECF1F3' : '#31424E';
+  const fill = isLight ? colorPalette.charcoal[100] : colorPalette.charcoal[800];
 
   return (
     <Container>
@@ -24,42 +26,36 @@ const NumberWithSignCardSkeleton: React.FC<NumberWithSignCardSkeletonProps> = ({
           </MinusSVG>
         )}
       </SignContainer>
-      <ValueContainer>
+      <Card sign={sign}>
+        <Caption />
+
         <ValueWrapper>
           <Value />
           <Currency />
         </ValueWrapper>
-        <Caption />
-      </ValueContainer>
+      </Card>
     </Container>
   );
 };
 
 export default NumberWithSignCardSkeleton;
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled('div')(() => ({
   display: 'flex',
-
-  [theme.breakpoints.up('table_834')]: {
-    width: '100%',
-  },
+  width: '100%',
 }));
 
-const SignContainer = styled('div')(({ theme }) => ({
+const SignContainer = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
   marginRight: 4,
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    marginRight: 8,
-  },
 }));
 
 const PlusSVG = styled('svg')(({ theme }) => ({
   width: 16,
   height: 16,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 24,
     height: 24,
   },
@@ -69,90 +65,45 @@ const MinusSVG = styled('svg')(({ theme }) => ({
   width: 16,
   height: 4,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 24,
     height: 4,
   },
 }));
 
-const ValueContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  borderRadius: 6,
-  background: 'rgba(236, 239, 249, 0.30)',
-  padding: '8px 12px 11.38px',
-
-  [theme.breakpoints.up('table_834')]: {
-    alignItems: 'flex-start',
-    padding: '8px 8px 11.38px',
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: '8px 8px 16px',
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: '10px 32.5px 16px',
-  },
-}));
-
-const ValueWrapper = styled('div')(({ theme }) => ({
+const ValueWrapper = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-end',
   gap: 4,
-  marginBottom: 9.5,
-
-  [theme.breakpoints.up('table_834')]: {
-    marginBottom: 10,
-    gap: 6.5,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    marginBottom: 12,
-    gap: 9,
-  },
+  marginTop: 4,
 }));
 
 const Value = styled(BaseSkeleton)(({ theme }) => ({
-  width: 73,
-  height: 14,
+  width: 79,
+  height: 22,
 
-  [theme.breakpoints.up('table_834')]: {
-    width: 100,
-    height: 17,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 145,
-    height: 26,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    width: 126,
-    height: 26.25,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 103,
+    height: 24,
   },
 }));
 
 const Currency = styled(BaseSkeleton)(({ theme }) => ({
-  width: 22,
-  height: 10.5,
+  width: 24,
+  height: 22,
 
-  [theme.breakpoints.up('table_834')]: {
-    width: 29,
-    height: 14,
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 27,
+    height: 24,
   },
 }));
 
 const Caption = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 143,
-  height: 9.63,
+  maxWidth: 99,
+  height: 16,
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 150,
-    height: 14,
+  [theme.breakpoints.up('desktop_1024')]: {
+    maxWidth: 158,
   },
 }));
