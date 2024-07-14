@@ -19,12 +19,14 @@ import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
 import ConnectIcon from 'public/assets/svg/makerdao_connect.svg';
 import FusionIcon from 'public/assets/svg/makerdao_fusion.svg';
 import SwitchboardIcon from 'public/assets/svg/makerdao_switchboard.svg';
+import MemoCheck from 'public/assets/svg/memo_check.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
 import ThemeIcon from 'public/assets/svg/theme.svg';
 import TwitterIcon from 'public/assets/svg/twitter.svg';
 import X from 'public/assets/svg/x.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
+
 export const iconsPowerHose = [
   {
     Icon: GlobeWWW,
@@ -133,5 +135,9 @@ export const iconsPowerHose = [
   {
     Icon: Expand,
     title: 'expand',
+  },
+  {
+    Icon: MemoCheck,
+    title: 'memo_check',
   },
 ];

@@ -1,7 +1,8 @@
-import { styled } from '@mui/material';
+import { styled, useTheme } from '@mui/material';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import { useMemo } from 'react';
-import { getExpenseReportStatusColor } from '@/core/utils/colors';
+import Card from '@/components/Card/Card';
 
 export type GenericCommentCardProps = {
   variant?: BudgetStatus;
@@ -10,18 +11,23 @@ export type GenericCommentCardProps = {
 };
 
 const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children, opacity }) => {
-  const variantColor = useMemo(() => {
-    if (variant === BudgetStatus.Review) {
-      return {
-        ...getExpenseReportStatusColor(variant),
-        color: '#FBCC5F',
-      };
+  const isLight = useTheme().palette.isLight;
+  const borderColor = useMemo(() => {
+    switch (variant) {
+      case BudgetStatus.Final:
+        return isLight ? colorPalette.green[700] : colorPalette.green[900];
+      case BudgetStatus.Review:
+        return isLight ? colorPalette.orange[700] : colorPalette.orange[900];
+      case BudgetStatus.Escalated:
+        return colorPalette.red[700];
+      default:
+        // default to draft
+        return isLight ? colorPalette.blue[700] : colorPalette.blue[900];
     }
-    return getExpenseReportStatusColor(variant);
-  }, [variant]);
+  }, [isLight, variant]);
 
   return (
-    <CommentCard variantColorSet={variantColor} opacity={opacity}>
+    <CommentCard borderColor={borderColor} opacity={opacity}>
       {children}
     </CommentCard>
   );
@@ -29,36 +35,21 @@ const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = Budge
 
 export default GenericCommentCard;
 
-const CommentCard = styled('div')<{ variantColorSet: { [key: string]: string }; opacity?: number }>(
-  ({ theme, variantColorSet, opacity }) => ({
-    position: 'relative',
-    marginBottom: 32,
-    background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-    borderRadius: 6,
-    wordBreak: 'break-word',
-    boxShadow: theme.palette.isLight
-      ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-      : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-    paddingLeft: 2,
+const CommentCard = styled(Card)<{ borderColor: string; opacity?: number }>(({ borderColor, opacity }) => ({
+  position: 'relative',
+  marginBottom: 32,
+  wordBreak: 'break-word',
+  paddingLeft: 8,
 
-    [theme.breakpoints.up('tablet_768')]: {
-      paddingLeft: 8,
-    },
-
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      borderRadius: 6,
-      top: 0,
-      left: 0,
-      width: 2,
-      height: '100%',
-      background: theme.palette.isLight ? variantColorSet.color : variantColorSet.darkColor,
-      ...(opacity ? { opacity } : null),
-
-      [theme.breakpoints.up('tablet_768')]: {
-        width: 8,
-      },
-    },
-  })
-);
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    borderRadius: '12px 0px 0px 12px',
+    top: 0,
+    left: 0,
+    width: 8,
+    height: '100%',
+    background: borderColor,
+    ...(opacity ? { opacity } : null),
+  },
+}));

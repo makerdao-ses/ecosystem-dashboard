@@ -1,26 +1,20 @@
 import { styled } from '@mui/material';
 import { DateTime } from 'luxon';
+import MemoCheck from 'public/assets/svg/memo_check.svg';
 import { useMemo } from 'react';
-import { useThemeContext } from '@/core/context/ThemeContext';
-import NoteChecked from '@/stories/components/svg/note-checked';
 
 export type CUNewExpenseReportProps = {
   description: string;
   date: string;
 };
 
-const CUNewExpenseReport: React.FC<CUNewExpenseReportProps> = ({ description, date }) => {
-  const { isLight } = useThemeContext();
+const NewExpenseReport: React.FC<CUNewExpenseReportProps> = ({ description, date }) => {
   const dateStr = useMemo(() => DateTime.fromISO(date).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ'), [date]);
+
   return (
     <Container>
       <Left>
-        <NoteChecked
-          {...(!isLight && {
-            fill: '#098C7D',
-            background: '#013C35',
-          })}
-        />
+        <MemoCheckIcon />
       </Left>
       <Text>
         <>
@@ -34,35 +28,41 @@ const CUNewExpenseReport: React.FC<CUNewExpenseReportProps> = ({ description, da
   );
 };
 
-export default CUNewExpenseReport;
+export default NewExpenseReport;
 
 const Container = styled('div')({
   position: 'relative',
-  marginBottom: 40,
+  marginBottom: 16,
   display: 'flex',
   width: '100%',
 });
 
 const Text = styled('div')(({ theme }) => ({
-  padding: '0 8px',
+  margin: '0 16px',
   display: 'flex',
   alignItems: 'center',
   flexWrap: 'wrap',
-  fontSize: 14,
-  lineHeight: '22px',
-  fontWeight: 400,
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  fontSize: 12,
+  lineHeight: '18px',
+  fontWeight: 500,
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   maxWidth: 400,
-  minWidth: '74%',
+  minWidth: '61%',
   textAlign: 'center',
 
   [theme.breakpoints.up('tablet_768')]: {
     textAlign: 'left',
-    fontSize: 16,
-    minWidth: '70%',
+    minWidth: '64%',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '22px',
+    minWidth: '48.5%',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
     minWidth: 'fit-content',
   },
 }));
@@ -78,22 +78,22 @@ const Left = styled('div')(({ theme }) => ({
   '&::after': {
     content: '""',
     position: 'absolute',
-    left: 0,
+    left: 32,
     top: '50%',
-    width: '100%',
+    width: 'calc(100% - 32px)',
     height: 1,
-    background: theme.palette.isLight ? '#B6EDE7' : '#027265',
+    background: theme.palette.isLight ? theme.palette.colors.green[200] : theme.palette.colors.green[800],
   },
+}));
 
-  '& svg': {
-    width: 32,
-    height: 32,
-    zIndex: 1,
+const MemoCheckIcon = styled(MemoCheck)(({ theme }) => ({
+  width: 19,
+  height: 19,
+  zIndex: 1,
+  margin: '6px 4.959px 7px 7.539px',
 
-    [theme.breakpoints.up('tablet_768')]: {
-      width: 48,
-      height: 48,
-    },
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.green[700] : theme.palette.colors.green[900],
   },
 }));
 
@@ -109,14 +109,14 @@ const Right = styled('div')(({ theme }) => ({
     top: '50%',
     width: '100%',
     height: 1,
-    background: theme.palette.isLight ? '#B6EDE7' : '#027265',
+    background: theme.palette.isLight ? theme.palette.colors.green[200] : theme.palette.colors.green[800],
   },
 }));
 
 const Circle = styled('div')(({ theme }) => ({
-  width: 16,
-  height: 16,
-  background: theme.palette.isLight ? '#B6EDE7' : '#027265',
+  width: 8,
+  height: 8,
+  background: theme.palette.isLight ? theme.palette.colors.green[200] : theme.palette.colors.green[800],
   borderRadius: '50%',
   position: 'absolute',
   right: 0,
