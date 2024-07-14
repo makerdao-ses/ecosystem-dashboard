@@ -188,6 +188,10 @@ const CheckContainer = styled('div')(({ theme }) => ({
   gap: 10,
   marginTop: 8,
 
+  '&:hover': {
+    color: theme.palette.isLight ? theme.palette.colors.slate[950] : '#fff',
+  },
+
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 'auto',
   },

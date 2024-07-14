@@ -56,6 +56,18 @@ const AccordionSummary = styled(MuiAccordionSummary)(({ theme }) => ({
   minHeight: 'auto',
   zIndex: 1,
 
+  '&:hover': {
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
+
+    '& .MuiAccordionSummary-content': {
+      color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[100],
+    },
+
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[100],
+    },
+  },
+
   '&.Mui-expanded': {
     [theme.breakpoints.down('tablet_768')]: {
       borderEndEndRadius: 0,
