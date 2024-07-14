@@ -3,7 +3,7 @@ import CUNewExpenseReport from './CUNewExpenseReport';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof CUNewExpenseReport> = {
-  title: 'Components/AuditorComments/CUNewExpenseReport',
+  title: 'Fusion/Components/Budget Statements/Comments/CUNewExpenseReport',
   component: CUNewExpenseReport,
   argTypes: {
     description: {

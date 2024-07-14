@@ -1,9 +1,5 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
-
 import InlineUser from '@/views/EcosystemActorAbout/components/InlineUser/InlineUser';
 import type { BaseUser } from '@ses/core/models/interfaces/users';
 
@@ -15,8 +11,6 @@ export type ParticipantRolesProps = {
 };
 
 const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, auditors, resource }) => {
-  const { isLight } = useThemeContext();
-
   const roleName =
     resource === ResourceType.CoreUnit
       ? `${teamShortCode} Core Unit`
@@ -26,11 +20,11 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, 
 
   return (
     <ParticipantContainer>
-      <Title isLight={isLight}>Participant Roles</Title>
-      <Card isLight={isLight}>
+      <Title>Participant Roles</Title>
+      <Card>
         {cu.length > 0 && (
           <RoleSection>
-            <RoleName isLight={isLight}>{roleName}</RoleName>
+            <RoleName>{roleName}</RoleName>
             {cu.map((author) => (
               <UserWrapper key={author.id}>
                 <InlineUser username={author.username} />
@@ -41,7 +35,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, 
 
         {auditors.length > 0 ? (
           <RoleSection>
-            <RoleName isLight={isLight}>Auditor</RoleName>
+            <RoleName>Auditor</RoleName>
             {auditors.map((author) => (
               <UserWrapper key={author.id}>
                 <InlineUser username={author.username} />
@@ -49,7 +43,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, 
             ))}
           </RoleSection>
         ) : (
-          <EmptyState isLight={isLight}>
+          <EmptyState>
             {resource === ResourceType.Delegates
               ? 'Recognized Delegate'
               : ` The ${teamShortCode} ${resource === ResourceType.CoreUnit ? 'Core Unit' : 'Ecosystem Actor'}`}{' '}
@@ -63,57 +57,53 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, 
 
 export default ParticipantRoles;
 
-const ParticipantContainer = styled.div({
+const ParticipantContainer = styled('div')({
   width: '100%',
 });
 
-type StyledThemeProps = {
-  isLight: boolean;
-};
-
-const Title = styled.div<StyledThemeProps>(({ isLight }) => ({
+const Title = styled('div')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 700,
   lineHeight: '19px',
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   marginBottom: 32,
 }));
 
-const Card = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  background: isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: isLight
+const Card = styled('div')(({ theme }) => ({
+  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
+  boxShadow: theme.palette.isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
   borderRadius: 6,
   padding: '16px 16px 24px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     padding: 16,
   },
 }));
 
-const EmptyState = styled.div<StyledThemeProps>(({ isLight }) => ({
+const EmptyState = styled('div')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 400,
   lineHeight: '22px',
-  color: isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
 }));
 
-const RoleSection = styled.div({
+const RoleSection = styled('div')({
   '&:not(:last-child)': {
     marginBottom: 32,
   },
 });
 
-const RoleName = styled.div<StyledThemeProps>(({ isLight }) => ({
+const RoleName = styled('div')(({ theme }) => ({
   fontSize: 14,
   fontWeight: 400,
   lineHeight: '22px',
-  color: isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
   marginBottom: 16,
 }));
 
-const UserWrapper = styled.div({
+const UserWrapper = styled('div')({
   '&:not(:last-child)': {
     marginBottom: 16,
   },

@@ -1,8 +1,6 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/themes';
-import React, { useMemo } from 'react';
-import { useThemeContext } from '@/core/context/ThemeContext';
+import { useMemo } from 'react';
 import { getExpenseReportStatusColor } from '@/core/utils/colors';
 
 export type GenericCommentCardProps = {
@@ -12,7 +10,6 @@ export type GenericCommentCardProps = {
 };
 
 const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children, opacity }) => {
-  const { isLight } = useThemeContext();
   const variantColor = useMemo(() => {
     if (variant === BudgetStatus.Review) {
       return {
@@ -24,7 +21,7 @@ const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = Budge
   }, [variant]);
 
   return (
-    <CommentCard isLight={isLight} variantColorSet={variantColor} opacity={opacity}>
+    <CommentCard variantColorSet={variantColor} opacity={opacity}>
       {children}
     </CommentCard>
   );
@@ -32,19 +29,19 @@ const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = Budge
 
 export default GenericCommentCard;
 
-const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: string]: string }; opacity?: number }>(
-  ({ isLight, variantColorSet, opacity }) => ({
+const CommentCard = styled('div')<{ variantColorSet: { [key: string]: string }; opacity?: number }>(
+  ({ theme, variantColorSet, opacity }) => ({
     position: 'relative',
     marginBottom: 32,
-    background: isLight ? '#FFFFFF' : '#10191F',
+    background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
     borderRadius: 6,
     wordBreak: 'break-word',
-    boxShadow: isLight
+    boxShadow: theme.palette.isLight
       ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
       : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
     paddingLeft: 2,
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('tablet_768')]: {
       paddingLeft: 8,
     },
 
@@ -56,10 +53,10 @@ const CommentCard = styled.div<{ isLight: boolean; variantColorSet: { [key: stri
       left: 0,
       width: 2,
       height: '100%',
-      background: isLight ? variantColorSet.color : variantColorSet.darkColor,
+      background: theme.palette.isLight ? variantColorSet.color : variantColorSet.darkColor,
       ...(opacity ? { opacity } : null),
 
-      [lightTheme.breakpoints.up('table_834')]: {
+      [theme.breakpoints.up('tablet_768')]: {
         width: 8,
       },
     },

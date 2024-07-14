@@ -9,11 +9,11 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof AuditorCommentCard> = {
-  title: 'Components/AuditorComments/CommentCard',
+  title: 'Fusion/Components/Budget Statements/Comments/CommentCard',
   component: AuditorCommentCard,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280],
+      viewports: [375, 768, 1024, 1280],
       pauseAnimationAtEnd: true,
     },
   },
@@ -66,7 +66,7 @@ StatusChange.parameters = {
           },
         },
       },
-      834: {
+      768: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A132865',
         options: {
           componentStyle: {
@@ -77,7 +77,7 @@ StatusChange.parameters = {
           },
         },
       },
-      1194: {
+      1024: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A127300',
         options: {
           componentStyle: {

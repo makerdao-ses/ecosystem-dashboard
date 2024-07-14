@@ -1,15 +1,14 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import { useTeamContext } from '@ses/core/context/TeamContext';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
-import lightTheme from '@ses/styles/theme/themes';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
 import React, { useMemo } from 'react';
+import { useThemeContext } from '@/core/context/ThemeContext';
 import { customRenderer, customRendererDark } from '@/views/CoreUnitAbout/components/Markdown/renderUtils';
 import ExpenseReportStatus from '@/views/CoreUnitBudgetStatement/components/ExpenseReportStatus/ExpenseReportStatus';
 import GenericCommentCard from './GenericCommentCard';
+import type { Theme } from '@mui/material';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
 
 export type AuditorCommentCardProps = {
@@ -27,7 +26,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
 }) => {
   const { isLight } = useThemeContext();
   const { currentTeam } = useTeamContext();
-  const isTablet = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const formattedTimestamp = useMemo(
     () => DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ'),
@@ -52,7 +51,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
   return (
     <GenericCommentCard variant={comment.status}>
       <CommentHeader hasComment={!!comment.comment?.trim()}>
-        <CommentInfo isLight={isLight}>
+        <CommentInfo>
           {hasStatusChange && (
             <StatusLabelWrapper>
               <ExpenseReportStatus status={comment.status} />
@@ -62,21 +61,21 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
             <>
               <MobileColumn>
                 <Username>{comment.author.username}</Username>
-                <UserRole isLight={isLight}>{roleString}</UserRole>
+                <UserRole>{roleString}</UserRole>
               </MobileColumn>
               <ActionAndDate>
                 {verb} on {formattedTimestamp}
               </ActionAndDate>
             </>
           ) : (
-            <Text isLight={isLight}>
+            <Text>
               {comment.author.username} <span>({roleString})</span> {verb} on {formattedTimestamp}
             </Text>
           )}
         </CommentInfo>
       </CommentHeader>
       {comment.comment?.trim() && (
-        <CommentMessage isLight={isLight}>
+        <CommentMessage>
           <Markdown value={comment.comment} renderer={isLight ? customRenderer : customRendererDark} />
         </CommentMessage>
       )}
@@ -86,90 +85,90 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
 
 export default AuditorCommentCard;
 
-const CommentHeader = styled.div<{ hasComment: boolean }>(({ hasComment = false }) => ({
+const CommentHeader = styled('div')<{ hasComment: boolean }>(({ theme, hasComment = false }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   padding: `16px 16px ${hasComment ? '0' : '16px'} 16px`,
   width: '100%',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     padding: `24px 16px ${hasComment ? '0' : '24px'} 16px`,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: `24px 32px ${hasComment ? '0' : '24px'} 32px`,
   },
 }));
 
-const StatusLabelWrapper = styled.div({
-  [lightTheme.breakpoints.up('table_834')]: {
+const StatusLabelWrapper = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
     marginRight: 40,
-  },
-});
-
-const Text = styled.span<{ isLight: boolean }>(({ isLight }) => ({
-  letterSpacing: '1px',
-  color: isLight ? '#708390' : '#546978',
-
-  '& span': {
-    color: isLight ? '#231536' : '#D2D4EF',
   },
 }));
 
-const MobileColumn = styled.div({
+const Text = styled('span')(({ theme }) => ({
+  letterSpacing: '1px',
+  color: theme.palette.isLight ? '#708390' : '#546978',
+
+  '& span': {
+    color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  },
+}));
+
+const MobileColumn = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
   letterSpacing: '1px',
 });
 
-const CommentInfo = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const CommentInfo = styled('div')(({ theme }) => ({
   fontSize: '12px',
   fontWeight: 600,
   lineHeight: '15px',
-  color: isLight ? '#708390' : '#546978',
+  color: theme.palette.isLight ? '#708390' : '#546978',
   textTransform: 'uppercase',
   width: '100%',
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     width: 'auto',
   },
 
-  [lightTheme.breakpoints.down('table_834')]: {
+  [theme.breakpoints.down('tablet_768')]: {
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
 }));
 
-const Username = styled.div({
+const Username = styled('div')({
   // this is being used just for readability purposes
 });
 
-const UserRole = styled.div<{ isLight: boolean }>(({ isLight }) => ({
-  color: isLight ? '#231536' : '#D2D4EF',
+const UserRole = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     margin: '0 3px',
   },
 }));
 
-const ActionAndDate = styled.div({
+const ActionAndDate = styled('div')(({ theme }) => ({
   marginTop: 16,
   width: '100%',
   letterSpacing: '1px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
   },
-});
+}));
 
-const CommentMessage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const CommentMessage = styled('div')(({ theme }) => ({
   width: '100%',
   marginTop: 16,
-  borderTop: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+  borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
   padding: '16px 16px 24px',
 
   '& > *:first-of-type': {
@@ -180,7 +179,7 @@ const CommentMessage = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     paddingLeft: 14,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     marginTop: 24,
     padding: '16px 32px 24px',
   },

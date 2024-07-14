@@ -1,7 +1,6 @@
-import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled } from '@mui/material';
 import { DateTime } from 'luxon';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import NoteChecked from '@/stories/components/svg/note-checked';
 
@@ -15,7 +14,7 @@ const CUNewExpenseReport: React.FC<CUNewExpenseReportProps> = ({ description, da
   const dateStr = useMemo(() => DateTime.fromISO(date).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ'), [date]);
   return (
     <Container>
-      <Left isLight={isLight}>
+      <Left>
         <NoteChecked
           {...(!isLight && {
             fill: '#098C7D',
@@ -23,13 +22,13 @@ const CUNewExpenseReport: React.FC<CUNewExpenseReportProps> = ({ description, da
           })}
         />
       </Left>
-      <Text isLight={isLight}>
+      <Text>
         <>
           {description} on {dateStr}
         </>
       </Text>
-      <Right isLight={isLight}>
-        <Circle isLight={isLight} />
+      <Right>
+        <Circle />
       </Right>
     </Container>
   );
@@ -37,14 +36,14 @@ const CUNewExpenseReport: React.FC<CUNewExpenseReportProps> = ({ description, da
 
 export default CUNewExpenseReport;
 
-const Container = styled.div({
+const Container = styled('div')({
   position: 'relative',
   marginBottom: 40,
   display: 'flex',
   width: '100%',
 });
 
-const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Text = styled('div')(({ theme }) => ({
   padding: '0 8px',
   display: 'flex',
   alignItems: 'center',
@@ -52,23 +51,23 @@ const Text = styled.div<{ isLight: boolean }>(({ isLight }) => ({
   fontSize: 14,
   lineHeight: '22px',
   fontWeight: 400,
-  color: isLight ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   maxWidth: 400,
   minWidth: '74%',
   textAlign: 'center',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     textAlign: 'left',
     fontSize: 16,
     minWidth: '70%',
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     minWidth: 'fit-content',
   },
 }));
 
-const Left = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Left = styled('div')(({ theme }) => ({
   minWidth: 40,
   width: '100%',
   display: 'flex',
@@ -83,7 +82,7 @@ const Left = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     top: '50%',
     width: '100%',
     height: 1,
-    background: isLight ? '#B6EDE7' : '#027265',
+    background: theme.palette.isLight ? '#B6EDE7' : '#027265',
   },
 
   '& svg': {
@@ -91,14 +90,14 @@ const Left = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     height: 32,
     zIndex: 1,
 
-    [lightTheme.breakpoints.up('table_834')]: {
+    [theme.breakpoints.up('tablet_768')]: {
       width: 48,
       height: 48,
     },
   },
 }));
 
-const Right = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Right = styled('div')(({ theme }) => ({
   minWidth: 32,
   width: '100%',
   position: 'relative',
@@ -110,14 +109,14 @@ const Right = styled.div<{ isLight: boolean }>(({ isLight }) => ({
     top: '50%',
     width: '100%',
     height: 1,
-    background: isLight ? '#B6EDE7' : '#027265',
+    background: theme.palette.isLight ? '#B6EDE7' : '#027265',
   },
 }));
 
-const Circle = styled.div<{ isLight: boolean }>(({ isLight }) => ({
+const Circle = styled('div')(({ theme }) => ({
   width: 16,
   height: 16,
-  background: isLight ? '#B6EDE7' : '#027265',
+  background: theme.palette.isLight ? '#B6EDE7' : '#027265',
   borderRadius: '50%',
   position: 'absolute',
   right: 0,

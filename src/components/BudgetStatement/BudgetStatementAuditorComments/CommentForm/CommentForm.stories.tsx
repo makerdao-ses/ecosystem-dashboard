@@ -10,7 +10,7 @@ import type { Meta } from '@storybook/react';
 const MockedAuditor = new UserBuilder().addCoreUnitAuditorRole().build();
 
 const meta: Meta<typeof CommentForm> = {
-  title: 'Components/AuditorComments/CommentForm',
+  title: 'Fusion/Components/Budget Statements/Comments/CommentForm',
   component: CommentForm,
   decorators: [
     withUserLoggedIn(MockedAuditor),
