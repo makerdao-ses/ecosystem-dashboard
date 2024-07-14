@@ -75,12 +75,8 @@ const EqualsWrapper = styled('div')(({ theme }) => ({
   marginTop: 14,
   marginRight: 4,
 
-  [theme.breakpoints.up('tablet_768')]: {
-    marginTop: -2,
-  },
-
   [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: 7,
+    marginTop: 18,
     marginRight: 15,
   },
 }));

@@ -163,6 +163,7 @@ export const CardsContainer = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     flexWrap: 'nowrap',
+    gap: 24,
 
     '& > div:nth-of-type(1)': {
       order: 1,
