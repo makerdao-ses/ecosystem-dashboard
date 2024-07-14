@@ -171,6 +171,7 @@ const HeaderContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    gap: 8,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -194,6 +195,8 @@ const CheckContainer = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 'auto',
+    minWidth: 240,
+    justifyContent: 'flex-end',
   },
 
   '& span': {

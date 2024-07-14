@@ -89,6 +89,7 @@ const TransactionListContainer = styled('div')(({ theme }) => ({
 
 const TransactionCard = styled('div')(({ theme }) => ({
   borderRadius: '0 0 12px 12px',
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.slate[600],
   overflow: 'hidden',
   padding: 8,
@@ -99,7 +100,6 @@ const TransactionCard = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     padding: 0,
     background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
-    boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
     gap: 0,
   },
 }));
@@ -136,8 +136,14 @@ const EmptyList = styled('div')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 600,
   lineHeight: '24px',
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
   padding: '48px 0',
+  margin: -8,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    margin: 0,
+  },
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 24,
