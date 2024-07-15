@@ -9,15 +9,21 @@ const CUReservesSkeleton: React.FC = () => (
   <Container>
     <HeaderContainer>
       <TitleWrapper>
-        <TitleSkeleton />
+        <PageTitleWrapper>
+          <TitleSkeleton />
+          <IconSkeleton />
+        </PageTitleWrapper>
+
         <SubtitleContainer>
           <SubtitleLine1 />
           <SubtitleLine2 />
-          <SubtitleLine3 />
         </SubtitleContainer>
       </TitleWrapper>
 
-      <Checkbox />
+      <CheckboxContainer>
+        <CheckboxLabel />
+        <CheckboxIcon />
+      </CheckboxContainer>
     </HeaderContainer>
 
     <CardsContainer>
@@ -27,155 +33,197 @@ const CUReservesSkeleton: React.FC = () => (
     </CardsContainer>
 
     <SectionTitleContainer>
-      <SectionTitleSkeleton />
+      <PageTitleWrapper>
+        <TitleSkeleton />
+        <IconSkeleton />
+      </PageTitleWrapper>
       <SectionSubtitleSkeleton />
     </SectionTitleContainer>
+
     <ReservesList>
       <ReserveCardSkeleton isGroup />
       <ReserveCardSkeleton />
       <ReserveCardSkeleton isGroup />
     </ReservesList>
 
-    <SectionTitleContainer>
-      <SectionTitleSkeleton />
-      <SectionSubtitleSkeleton />
-    </SectionTitleContainer>
-    <ReservesList>
-      <ReserveCardSkeleton isGroup />
-      <ReserveCardSkeleton isGroup />
-    </ReservesList>
+    <OffChainWrapper>
+      <SectionTitleContainer>
+        <PageTitleWrapper>
+          <TitleSkeleton />
+          <IconSkeleton />
+        </PageTitleWrapper>
+        <SectionSubtitleSkeleton />
+      </SectionTitleContainer>
+      <ReservesList>
+        <ReserveCardSkeleton isGroup />
+        <ReserveCardSkeleton isGroup />
+      </ReservesList>
+    </OffChainWrapper>
   </Container>
 );
 
 export default CUReservesSkeleton;
 
-const Container = styled('div')({
+const Container = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 24,
-});
+  gap: 16,
+}));
 
 const HeaderContainer = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
     justifyContent: 'space-between',
   },
 }));
 
 const TitleWrapper = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     width: '100%',
   },
 }));
 
-const TitleSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 248,
-  height: 17.5,
-  marginBottom: 14.5,
+const PageTitleWrapper = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+  marginBottom: 8,
+}));
 
-  [theme.breakpoints.up('table_834')]: {
-    maxWidth: 190,
-    height: 21,
-    marginBottom: 11,
-  },
+const TitleSkeleton = styled(BaseSkeleton)(() => ({
+  maxWidth: 197,
+  height: 24,
+}));
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 248,
-  },
+const IconSkeleton = styled(BaseSkeleton)(() => ({
+  maxWidth: 16,
+  height: 16,
 }));
 
 const SubtitleContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  gap: 5.25,
+  gap: 4,
 });
 
 const SubtitleLine = styled(BaseSkeleton)({
-  height: 12.25,
+  width: '100%',
+  height: 20,
 });
 
 const SubtitleLine1 = styled(SubtitleLine)(({ theme }) => ({
-  maxWidth: 266,
-
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     maxWidth: 408,
-    height: 14,
+    height: 22,
   },
 }));
 
 const SubtitleLine2 = styled(SubtitleLine)(({ theme }) => ({
-  maxWidth: 269,
+  maxWidth: 102,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 }));
 
-const SubtitleLine3 = styled(SubtitleLine)(({ theme }) => ({
-  maxWidth: 194,
+const CheckboxContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+  justifyContent: 'flex-end',
+  marginTop: 8,
 
-  [theme.breakpoints.up('table_834')]: {
-    display: 'none',
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 0,
+    alignItems: 'flex-end',
   },
 }));
 
-const Checkbox = styled(SubtitleLine)(({ theme }) => ({
-  maxWidth: 182,
-  marginTop: 16.25,
-  marginLeft: 'auto',
+const CheckboxLabel = styled(SubtitleLine)(({ theme }) => ({
+  maxWidth: 208,
+  height: 22,
 
-  [theme.breakpoints.up('table_834')]: {
-    maxWidth: 261,
-    height: 14,
+  [theme.breakpoints.up('tablet_768')]: {
+    minWidth: 208,
     marginTop: 4,
   },
+}));
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    marginTop: 32,
+const CheckboxIcon = styled(BaseSkeleton)(({ theme }) => ({
+  width: 16,
+  height: 16,
+  marginRight: 4,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginBottom: 2,
   },
 }));
 
 const CardsContainer = styled(FundingCardsContainer)(({ theme }) => ({
-  marginTop: 8.25,
+  display: 'flex',
+  gap: 8,
+  flexWrap: 'wrap',
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    marginTop: 8,
+  '& > div:nth-of-type(1)': {
+    order: 1,
+    width: 'calc(50% - 4px)',
   },
+  '& > div:nth-of-type(2)': {
+    order: 3,
+  },
+  '& > div:nth-of-type(3)': {
+    order: 2,
+    width: 'calc(50% - 4px)',
+  },
+
+  [theme.breakpoints.up('tablet_768')]: {
+    flexWrap: 'nowrap',
+    gap: 24,
+
+    '& > div:nth-of-type(1)': {
+      order: 1,
+      width: '100%',
+    },
+    '& > div:nth-of-type(2)': {
+      order: 2,
+    },
+    '& > div:nth-of-type(3)': {
+      order: 3,
+      width: '100%',
+    },
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 24,
+    marginTop: -2,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    gap: 32,
+  },
+}));
+
+const OffChainWrapper = styled('div')(() => ({
+  opacity: 0.3,
 }));
 
 const SectionTitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 15.5,
-  marginTop: 2.5,
+  marginTop: 16,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: 0,
-    gap: 11,
-  },
-}));
-
-const SectionTitleSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 149,
-  height: 14,
-
-  [theme.breakpoints.up('table_834')]: {
-    maxWidth: 190,
-    height: 21,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 248,
   },
 }));
 
 const SectionSubtitleSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 296,
-  height: 12,
+  maxWidth: 260,
+  height: 20,
 
-  [theme.breakpoints.up('table_834')]: {
-    maxWidth: 408,
-    height: 14,
+  [theme.breakpoints.up('tablet_768')]: {
+    maxWidth: 323,
+    height: 22,
   },
 }));
 
@@ -185,7 +233,7 @@ const ReservesList = styled('div')(({ theme }) => ({
   gap: 8,
   marginTop: 10,
 
-  [theme.breakpoints.up('table_834')]: {
-    marginTop: 8,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 24,
   },
 }));

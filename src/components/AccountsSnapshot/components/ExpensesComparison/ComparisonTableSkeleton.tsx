@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
+import type { Theme } from '@mui/material';
 
 const ComparisonTableSkeleton: React.FC = () => (
   <Shadow>
@@ -17,7 +18,7 @@ const ComparisonTableSkeleton: React.FC = () => (
           <IconHeaderTH>
             <ItemWithIconContainer>
               <OnChainHeaderSkeleton />
-              <IconSkeleton variant="circular" />
+              <IconSkeleton />
             </ItemWithIconContainer>
           </IconHeaderTH>
           <DifferenceHeaderTH>
@@ -26,7 +27,7 @@ const ComparisonTableSkeleton: React.FC = () => (
           <IconHeaderTH>
             <ItemWithIconContainer>
               <OffChainHeaderSkeleton />
-              <IconSkeleton variant="circular" />
+              <IconSkeleton />
             </ItemWithIconContainer>
           </IconHeaderTH>
           <DifferenceHeaderTH>
@@ -36,16 +37,16 @@ const ComparisonTableSkeleton: React.FC = () => (
       </thead>
       <tbody>
         <CurrentMonthRow>
-          <Col1>
+          <Col1 border={['borderRight']}>
             <MonthLabelSkeleton />
           </Col1>
-          <Col2>
+          <Col2 border={['borderRight']}>
             <BigNumberValueSkeleton />
           </Col2>
           <Col3>
             <BigNumberValueSkeleton />
           </Col3>
-          <Col4>
+          <Col4 border={['borderRight']}>
             <DifferenceValueSmallSkeleton />
           </Col4>
           <Col5>
@@ -56,16 +57,16 @@ const ComparisonTableSkeleton: React.FC = () => (
           </Col6>
         </CurrentMonthRow>
         <tr>
-          <Col1>
+          <Col1 border={['borderRight']}>
             <MonthLabelSkeleton />
           </Col1>
-          <Col2>
+          <Col2 border={['borderRight']}>
             <BigNumberValueSkeleton />
           </Col2>
           <Col3>
             <BigNumberValueSkeleton />
           </Col3>
-          <Col4>
+          <Col4 border={['borderRight']}>
             <DifferenceValueLargeSkeleton />
           </Col4>
           <Col5>
@@ -76,16 +77,16 @@ const ComparisonTableSkeleton: React.FC = () => (
           </Col6>
         </tr>
         <tr>
-          <Col1>
+          <Col1 border={['borderRight']}>
             <MonthLabelSkeleton />
           </Col1>
-          <Col2>
+          <Col2 border={['borderRight']}>
             <BigNumberValueSkeleton />
           </Col2>
           <Col3>
             <BigNumberValueSkeleton />
           </Col3>
-          <Col4>
+          <Col4 border={['borderRight']}>
             <DifferenceValueLargeSkeleton />
           </Col4>
           <Col5>
@@ -96,22 +97,22 @@ const ComparisonTableSkeleton: React.FC = () => (
           </Col6>
         </tr>
         <tr>
-          <Col1>
-            <MonthLabelSkeleton />
+          <Col1 border={['borderTop', 'borderRight']}>
+            <MonthLabelSkeleton width={48} />
           </Col1>
-          <Col2>
+          <Col2 border={['borderTop', 'borderRight']}>
             <BigNumberValueSkeleton />
           </Col2>
-          <Col3>
+          <Col3 border={['borderTop']}>
             <BigNumberValueSkeleton />
           </Col3>
-          <Col4>
+          <Col4 border={['borderTop', 'borderRight']}>
             <DifferenceValueSmallSkeleton />
           </Col4>
-          <Col5>
+          <Col5 border={['borderTop']}>
             <BigNumberValueSkeleton />
           </Col5>
-          <Col6>
+          <Col6 border={['borderTop']}>
             <DifferenceValueLargeSkeleton />
           </Col6>
         </tr>
@@ -122,19 +123,23 @@ const ComparisonTableSkeleton: React.FC = () => (
 
 export default ComparisonTableSkeleton;
 
+type BorderPositionDirective = 'borderTop' | 'borderRight' | 'borderBottom' | 'borderLeft';
+
+const createBorder = (theme: Theme, directive: BorderPositionDirective) => ({
+  [directive]: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+});
+
 const Shadow = styled('div')(({ theme }) => ({
-  filter: theme.palette.isLight
-    ? 'drop-shadow(0px 1px 3px rgba(190, 190, 190, 0.25)) drop-shadow(0px 20px 40px rgba(219, 227, 237, 0.40))'
-    : 'none',
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode,
+  borderRadius: 12,
 }));
 
 const Table = styled('table')(({ theme }) => ({
-  marginTop: 32,
-  borderRadius: 6,
-  backgroundColor: theme.palette.isLight ? '#ffffff' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px -40px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+  marginTop: 16,
+  background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
+  borderRadius: 12,
   width: '100%',
   borderCollapse: 'collapse',
   borderSpacing: 0,
@@ -142,26 +147,24 @@ const Table = styled('table')(({ theme }) => ({
   padding: 0,
 }));
 
-const ReportedHeaderTH = styled('th')({
+const ReportedHeaderTH = styled('th')(({ theme }) => ({
   paddingRight: 16,
-});
+  ...createBorder(theme, 'borderRight'),
+  ...createBorder(theme, 'borderBottom'),
+}));
 
-const ReportedHeaderSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 139,
-  height: 10.5,
+const ReportedHeaderSkeleton = styled(BaseSkeleton)(() => ({
+  width: 135,
+  height: 24,
   marginLeft: 'auto',
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    width: 227,
-    height: 16,
-  },
 }));
 
 const NetHeaderTH = styled('th')(({ theme }) => ({
-  paddingTop: 16,
-  paddingBottom: 22.75,
+  paddingTop: 14,
+  paddingBottom: 13,
+  ...createBorder(theme, 'borderBottom'),
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     paddingBottom: 21,
   },
 
@@ -171,32 +174,19 @@ const NetHeaderTH = styled('th')(({ theme }) => ({
   },
 }));
 
-const NetHeaderSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 179,
-  height: 12.25,
+const NetHeaderSkeleton = styled(BaseSkeleton)(() => ({
+  width: 205,
+  height: 24,
   marginLeft: 'auto',
   marginRight: 'auto',
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 205,
-    height: 14,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    width: 405,
-    height: 24,
-  },
 }));
 
 const IconHeaderTH = styled('th')(({ theme }) => ({
-  padding: '24px 12.5px 24px 6px',
+  padding: '23px 6px',
+  ...createBorder(theme, 'borderBottom'),
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: '24px 15.5px 24px 6px',
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: '22px 15.5px 26px 6px',
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '19px 12px',
   },
 }));
 
@@ -204,118 +194,103 @@ const ItemWithIconContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  gap: 6.5,
+  gap: 8,
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     gap: 12.5,
   },
 }));
 
 const OnChainHeaderSkeleton = styled(BaseSkeleton)({
-  width: 111,
-  height: 10.5,
+  width: 93,
+  height: 24,
 });
 
 const OffChainHeaderSkeleton = styled(BaseSkeleton)({
-  width: 156,
-  height: 10.5,
+  width: 102,
+  height: 24,
 });
 
 const IconSkeleton = styled(BaseSkeleton)({
-  width: 15,
-  height: 15,
+  width: 16,
+  height: 16,
 });
 
 const DifferenceHeaderTH = styled('th')(({ theme }) => ({
-  padding: '26px 8px 26.5px 0',
+  padding: '23px 6px',
   display: 'flex',
   justifyContent: 'flex-end',
+  ...createBorder(theme, 'borderBottom'),
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: '26px 16px 26.5px 0',
+  '&:not(:last-of-type)': {
+    ...createBorder(theme, 'borderRight'),
   },
 
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: '24px 16px 28.5px 0',
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '19px 16px',
   },
 }));
 
-const DifferenceHeaderSkeleton = styled(BaseSkeleton)({
-  width: 83,
-  height: 10.5,
-});
+const DifferenceHeaderSkeleton = styled(BaseSkeleton)(({ theme }) => ({
+  width: 48,
+  height: 24,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    width: 74,
+  },
+}));
 
 const CurrentMonthRow = styled('tr')(({ theme }) => ({
-  background: theme.palette.isLight ? 'rgba(236, 239, 249, 0.30)' : 'rgba(48, 54, 60, 0.20)',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#21262F',
 }));
 
-const MonthLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 75,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 150,
-    height: 14,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    width: 120,
-  },
+const MonthLabelSkeleton = styled(BaseSkeleton)(() => ({
+  width: 78,
+  height: 22,
+  marginLeft: 0,
+  marginRight: 'auto',
 }));
 
-const BigNumberValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
+const BigNumberValueSkeleton = styled(BaseSkeleton)(() => ({
   width: 111,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 127,
-    height: 14,
-  },
+  height: 22,
 }));
 
-const DifferenceValueSmallSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 44,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 50,
-    height: 14,
-  },
+const DifferenceValueSmallSkeleton = styled(BaseSkeleton)(() => ({
+  width: 37,
+  height: 22,
 }));
 
-const DifferenceValueLargeSkeleton = styled(BaseSkeleton)(({ theme }) => ({
+const DifferenceValueLargeSkeleton = styled(BaseSkeleton)(() => ({
   width: 51,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    width: 58,
-    height: 14,
-  },
+  height: 22,
 }));
 
-const RowCell = styled('td')(({ theme }) => ({
-  padding: '18.5px 8px 23.25px 0px',
+const RowCell = styled('td')<{ border?: BorderPositionDirective[] }>(({ theme, border = [] }) => ({
+  padding: '16px 8px',
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    padding: '17.5px 16px 22.5px 0px',
+  ...border.reduce(
+    (acc, curr) => ({
+      ...acc,
+      ...createBorder(theme, curr),
+    }),
+    {}
+  ),
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: 16,
   },
 
   '& > *': {
     marginLeft: 'auto',
   },
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    '&:first-child > *': {
-      marginLeft: 16,
-    },
-  },
 }));
 
 const Col1 = styled(RowCell)(({ theme }) => ({
-  minWidth: 91,
+  minWidth: 94,
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    minWidth: 186,
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 138,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -324,10 +299,10 @@ const Col1 = styled(RowCell)(({ theme }) => ({
 }));
 
 const Col2 = styled(RowCell)(({ theme }) => ({
-  minWidth: 142,
+  minWidth: 125,
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    minWidth: 186,
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 176,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -336,10 +311,10 @@ const Col2 = styled(RowCell)(({ theme }) => ({
 }));
 
 const Col3 = styled(RowCell)(({ theme }) => ({
-  minWidth: 151,
+  minWidth: 159,
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    minWidth: 249,
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 200,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -348,10 +323,10 @@ const Col3 = styled(RowCell)(({ theme }) => ({
 }));
 
 const Col4 = styled(RowCell)(({ theme }) => ({
-  minWidth: 92,
+  minWidth: 83,
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    minWidth: 126,
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 123,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -360,10 +335,10 @@ const Col4 = styled(RowCell)(({ theme }) => ({
 }));
 
 const Col5 = styled(RowCell)(({ theme }) => ({
-  minWidth: 200,
+  minWidth: 160,
 
-  [theme.breakpoints.up('desktop_1194')]: {
-    minWidth: 249,
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 200,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -372,8 +347,8 @@ const Col5 = styled(RowCell)(({ theme }) => ({
 }));
 
 const Col6 = styled(RowCell)(({ theme }) => ({
-  [theme.breakpoints.up('desktop_1194')]: {
-    minWidth: 134,
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 123,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {

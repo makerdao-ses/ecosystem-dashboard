@@ -83,6 +83,8 @@ export interface RowProps {
   render?: React.FC<RowProps & React.PropsWithChildren>;
   // === How will looks like this row on mobile? ===
   rowToCardConfig?: CardConfiguration;
+  // allow hover styles on each row
+  hover?: boolean;
 }
 
 export interface TableProps {

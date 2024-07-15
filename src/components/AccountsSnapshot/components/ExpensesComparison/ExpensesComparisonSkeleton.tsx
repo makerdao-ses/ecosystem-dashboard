@@ -5,19 +5,21 @@ import ComparisonTableSkeleton from './ComparisonTableSkeleton';
 import type { Theme } from '@mui/material';
 
 const ExpensesComparisonSkeleton: React.FC = () => {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
     <div>
-      <TitleContainer>
-        <TitleLine1Skeleton />
-        <TitleLine2Skeleton />
-      </TitleContainer>
-      <SubtitleContainer>
-        <SubtitleLine1Skeleton />
-        <SubtitleLine2Skeleton />
-        <SubtitleLine3Skeleton />
-      </SubtitleContainer>
+      <TitleWrapper>
+        <PageTitleWrapper>
+          <TitleSkeleton />
+          <IconSkeleton />
+        </PageTitleWrapper>
+
+        <SubtitleContainer>
+          <SubtitleLine1 />
+          <SubtitleLine2 />
+        </SubtitleContainer>
+      </TitleWrapper>
 
       {isMobile ? <ExpensesComparisonRowCardSkeleton /> : <ComparisonTableSkeleton />}
     </div>
@@ -26,62 +28,51 @@ const ExpensesComparisonSkeleton: React.FC = () => {
 
 export default ExpensesComparisonSkeleton;
 
-const TitleContainer = styled('div')(({ theme }) => ({
+const TitleWrapper = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
+    width: '100%',
+  },
+}));
+
+const PageTitleWrapper = styled('div')(() => ({
   display: 'flex',
-  flexDirection: 'column',
-  gap: 6,
-
-  [theme.breakpoints.up('table_834')]: {
-    gap: 11,
-  },
+  alignItems: 'center',
+  gap: 12,
+  marginBottom: 8,
 }));
 
-const TitleLine1Skeleton = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 314,
-  height: 18,
-
-  [theme.breakpoints.up('table_834')]: {
-    maxWidth: 190,
-    height: 21,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
-    maxWidth: 248,
-  },
+const TitleSkeleton = styled(BaseSkeleton)(() => ({
+  maxWidth: 197,
+  height: 24,
 }));
 
-const TitleLine2Skeleton = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 122,
-  height: 17.5,
+const IconSkeleton = styled(BaseSkeleton)(() => ({
+  maxWidth: 16,
+  height: 16,
+}));
 
-  [theme.breakpoints.up('table_834')]: {
+const SubtitleLine = styled(BaseSkeleton)({
+  width: '100%',
+  height: 20,
+});
+
+const SubtitleLine1 = styled(SubtitleLine)(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
     maxWidth: 408,
-    height: 14,
+    height: 22,
   },
 }));
 
-const SubtitleContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 5.25,
-  marginTop: 14.5,
+const SubtitleLine2 = styled(SubtitleLine)(({ theme }) => ({
+  maxWidth: 233,
 
-  [theme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     display: 'none',
   },
 }));
 
-const SubtitleLine1Skeleton = styled(BaseSkeleton)({
-  maxWidth: 236,
-  height: 12.25,
-});
-
-const SubtitleLine2Skeleton = styled(BaseSkeleton)({
-  maxWidth: 210,
-  height: 12.25,
-});
-
-const SubtitleLine3Skeleton = styled(BaseSkeleton)({
-  maxWidth: 200,
-  height: 12.25,
+const SubtitleContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 4,
 });

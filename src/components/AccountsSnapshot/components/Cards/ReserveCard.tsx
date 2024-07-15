@@ -56,7 +56,7 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', de
       <Card hasTransactions={hasTransactions}>
         <NameContainer>
           {isGroup ? (
-            <Name>{account?.accountLabel}</Name>
+            <Name className="hoverTarget">{account?.accountLabel}</Name>
           ) : (
             <WalletInfoWrapper>
               <WalletInfo name={account.accountLabel} address={account.accountAddress ?? ''} />
@@ -66,25 +66,25 @@ const ReserveCard: React.FC<ReserveCardProps> = ({ account, currency = 'DAI', de
         </NameContainer>
         <InitialBalance isGroup={isGroup}>
           <Header>Initial Balance</Header>
-          <Value>
+          <Value className="hoverTarget">
             {usLocalizedNumber(initialBalance)} <Currency>{currency}</Currency>
           </Value>
         </InitialBalance>
         <Inflow>
           <Header>Inflow</Header>
-          <Value>
+          <Value className="hoverTarget">
             + {usLocalizedNumber(inflow)} <Currency>{currency}</Currency>
           </Value>
         </Inflow>
         <Outflow>
           <Header>Outflow</Header>
-          <Value>
+          <Value className="hoverTarget">
             - {usLocalizedNumber(outflow)} <Currency>{currency}</Currency>
           </Value>
         </Outflow>
         <NewBalance>
           <Header>New Balance</Header>
-          <Value>
+          <Value className="hoverTarget">
             {usLocalizedNumber(newBalance)} <Currency>{currency}</Currency>
           </Value>
         </NewBalance>
@@ -127,8 +127,12 @@ const Card = styled(MuiAccordionSummary)<{ hasTransactions: boolean }>(({ theme,
     padding: 0,
   },
 
-  '&.Mui-focusVisible': {
-    backgroundColor: theme.palette.isLight ? '#ffffff' : '#1E2C37',
+  '&.Mui-focusVisible, &:hover': {
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
+
+    '& .hoverTarget': {
+      color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[50],
+    },
   },
 
   '& .MuiAccordionSummary-content': {

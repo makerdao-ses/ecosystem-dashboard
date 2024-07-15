@@ -1,42 +1,45 @@
 import { styled } from '@mui/material';
+import Card from '@/components/Card/Card';
+import AccordionArrow from '../AccordionArrow/AccordionArrow';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
 
 const TransactionHistorySkeleton: React.FC = () => (
-  <Card>
+  <HistoryCard>
     <Text />
-  </Card>
+    <AccordionArrow />
+  </HistoryCard>
 );
 
 export default TransactionHistorySkeleton;
 
-const Card = styled('div')(({ theme }) => ({
-  background: theme.palette.isLight ? '#fff' : '#10191F',
-  borderRadius: 6,
-  boxShadow: theme.palette.isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
-  padding: '11px 16px',
+const HistoryCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: 8,
+  marginTop: -8,
 
-  [theme.breakpoints.up('table_834')]: {
-    padding: '11px 16px 10px 24px',
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800],
   },
 
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '8px 24px',
+    marginTop: 0,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: '12px 16px 12px 24px',
   },
 }));
 
 const Text = styled(BaseSkeleton)(({ theme }) => ({
-  maxWidth: 190,
-  height: 12,
+  maxWidth: 168,
+  height: 17,
 
-  [theme.breakpoints.up('table_834')]: {
-    maxWidth: 250,
-    height: 14,
-  },
-
-  [theme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     maxWidth: 310,
-    height: 16,
+    height: 19,
   },
 }));

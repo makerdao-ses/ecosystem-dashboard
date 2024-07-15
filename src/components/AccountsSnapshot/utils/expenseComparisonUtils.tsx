@@ -1,6 +1,5 @@
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import { colorPalette } from '@ses/styles/theme/colorPalette';
 import { DateTime } from 'luxon';
 import type { CardRenderProps, RowProps } from '@/components/AdvanceTable/types';
 import ExpensesComparisonRowCard from '../components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
@@ -14,10 +13,15 @@ export type BreakpointOptions = {
   isTablet: boolean;
 };
 
-const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { isLight } = useThemeContext();
-  return <tr style={{ background: isLight ? colorPalette.slate[50] : '#21262F' }}>{children}</tr>;
-};
+const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => <CustomRow>{children}</CustomRow>;
+
+const CustomRow = styled('tr')(({ theme }) => ({
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#21262F',
+
+  '&:hover': {
+    background: theme.palette.isLight ? '#EEF0F2' : '#20252E',
+  },
+}));
 
 export const buildRow = (
   values: [string, string, string, string, string, string],
@@ -29,6 +33,7 @@ export const buildRow = (
 
   return {
     ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
+    hover: true,
     cellPadding: {
       tablet_768: isTotal ? '15px 8px 16px' : '16px 8px',
       desktop_1024: isTotal ? '15px 16px 16px' : '15px 16px',
@@ -98,6 +103,7 @@ export const buildRowWithoutOffChain = (
 
   return {
     ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
+    hover: true,
     cellPadding: {
       tablet_768: isTotal ? '15px 16px 16px' : 16,
       desktop_1024: isTotal ? '15px 16px 16px' : '15px 16px',

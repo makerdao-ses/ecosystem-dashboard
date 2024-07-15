@@ -8,7 +8,7 @@ const meta: Meta<typeof CUReservesSkeleton> = {
   component: CUReservesSkeleton,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
     },
   },
 };
@@ -16,21 +16,21 @@ export default meta;
 
 const variantsArgs = [{}];
 
-const [[LightMode, DarkMode]] = createThemeModeVariants(CUReservesSkeleton, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CUReservesSkeleton, variantsArgs, false);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21718:260508',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=3660-63328',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
             top: 0,
-            left: -40,
+            left: -14,
           },
         },
       },

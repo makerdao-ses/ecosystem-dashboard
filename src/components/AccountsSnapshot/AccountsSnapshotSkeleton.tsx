@@ -13,13 +13,9 @@ const AccountsSnapshotSkeleton: React.FC = () => (
 
 export default AccountsSnapshotSkeleton;
 
-const Wrapper = styled('div')(({ theme }) => ({
+const Wrapper = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 40,
-  marginBottom: 64,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    gap: 64,
-  },
+  gap: 32,
+  marginBottom: 24,
 }));
