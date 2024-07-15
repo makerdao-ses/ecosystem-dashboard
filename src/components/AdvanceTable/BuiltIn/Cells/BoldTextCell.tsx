@@ -20,12 +20,12 @@ const BoldCell = styled(BasicCell, {
   textTransform: 'none',
   fontWeight: 700,
   fontSize: 14,
-  lineHeight: '17px',
+  lineHeight: '22px',
   letterSpacing: 0,
-  color: theme.palette.isLight ? '#231536' : '#FFFFFF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    lineHeight: '19px',
+    lineHeight: '24px',
   },
 }));

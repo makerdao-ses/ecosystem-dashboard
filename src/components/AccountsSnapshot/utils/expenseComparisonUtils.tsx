@@ -1,29 +1,37 @@
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import { DateTime } from 'luxon';
 import type { CardRenderProps, RowProps } from '@/components/AdvanceTable/types';
 import ExpensesComparisonRowCard from '../components/Cards/ExpensesComparisonRowCard/ExpensesComparisonRowCard';
 import {
-  EXPENSES_COMPARISON_TABLE_HEADER,
-  EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN,
+  expensesComparisonTableHeader,
+  expensesComparisonTableHeaderWithoutOffChain,
 } from '../components/ExpensesComparison/headers';
 import type { ActualsComparison, Token } from '@ses/core/models/dto/snapshotAccountDTO';
 
+export type BreakpointOptions = {
+  isTablet: boolean;
+};
+
 const RenderCurrentMonthRow: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLight } = useThemeContext();
-  return <tr style={{ background: isLight ? 'rgba(236, 239, 249, 0.5)' : '#283341' }}>{children}</tr>;
+  return <tr style={{ background: isLight ? colorPalette.slate[50] : '#21262F' }}>{children}</tr>;
 };
 
 export const buildRow = (
   values: [string, string, string, string, string, string],
   isCurrentMonth = false,
-  isTotal = false
-): RowProps =>
-  ({
+  isTotal = false,
+  breakpointOptions: BreakpointOptions
+): RowProps => {
+  const EXPENSES_COMPARISON_TABLE_HEADER = expensesComparisonTableHeader(breakpointOptions);
+
+  return {
     ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
     cellPadding: {
-      tablet_768: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
-      desktop_1024: '17.4px 16px',
+      tablet_768: isTotal ? '15px 8px 16px' : '16px 8px',
+      desktop_1024: isTotal ? '15px 16px 16px' : '15px 16px',
     },
     rowToCardConfig: {
       render: (props: CardRenderProps) => (
@@ -54,42 +62,45 @@ export const buildRow = (
       },
       {
         value: values[1],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER[1].cells[1],
       },
       {
         value: values[2],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER[1].cells[2],
       },
       {
         value: values[3],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER[1].cells[3],
       },
       {
         value: values[4],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER[1].cells[4],
       },
       {
         value: values[5],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER[1].cells[5],
       },
     ],
-  } as RowProps);
+  } as RowProps;
+};
 
 export const buildRowWithoutOffChain = (
   values: [string, string, string, string],
   isCurrentMonth = false,
   isTotal = false
-): RowProps =>
-  ({
+): RowProps => {
+  const EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN = expensesComparisonTableHeaderWithoutOffChain();
+
+  return {
     ...(isCurrentMonth ? { render: RenderCurrentMonthRow } : {}),
     cellPadding: {
-      tablet_768: isTotal ? '17px 8px 18.5px' : '18.5px 8px',
-      desktop_1024: '17.4px 16px',
+      tablet_768: isTotal ? '15px 16px 16px' : 16,
+      desktop_1024: isTotal ? '15px 16px 16px' : '15px 16px',
     },
     rowToCardConfig: {
       render: (props: CardRenderProps) => (
@@ -120,21 +131,22 @@ export const buildRowWithoutOffChain = (
       },
       {
         value: values[1],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN[0].cells[1],
       },
       {
         value: values[2],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN[0].cells[3],
       },
       {
         value: values[3],
-        defaultRenderer: 'number',
+        defaultRenderer: isTotal ? 'boldText' : 'number',
         inherit: EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN[0].cells[4],
       },
     ],
-  } as RowProps);
+  } as RowProps;
+};
 
 export const formatExpenseMonth = (month: string): string => DateTime.fromFormat(month, 'yyyy/MM').toFormat('MMM-yyyy');
 
@@ -184,7 +196,8 @@ export const buildExpensesComparisonRows = (
   values: ActualsComparison[],
   currency: Token,
   currentPeriod: string,
-  hasOffChainData: boolean
+  hasOffChainData: boolean,
+  breakpointOptions: BreakpointOptions
 ): RowProps[] => {
   const rows: RowProps[] = [];
   if (hasOffChainData) {
@@ -199,7 +212,8 @@ export const buildExpensesComparisonRows = (
           formatExpenseDifference((comparison.netExpenses.offChainIncluded.difference || 0) * 100),
         ],
         comparison.month === currentPeriod,
-        false
+        false,
+        breakpointOptions
       );
       rows.push(row);
     });
@@ -217,7 +231,8 @@ export const buildExpensesComparisonRows = (
             formatExpenseDifference(totals.netExpenses.offChainIncluded.difference || 0),
           ],
           false,
-          true
+          true,
+          breakpointOptions
         )
       );
     }

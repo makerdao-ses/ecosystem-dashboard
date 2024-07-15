@@ -18,11 +18,11 @@ const Cell = styled(BasicCell, {
   shouldForwardProp: () => true,
 })(({ theme }) => ({
   fontSize: 14,
-  lineHeight: '17px',
-  color: theme.palette.isLight ? '#231536' : '#FFFFFF',
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
 
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: 16,
-    lineHeight: '22px',
+    lineHeight: '24px',
   },
 }));
