@@ -1,51 +1,104 @@
 import { DateTime } from 'luxon';
+
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
-import { InnerTableColumnBuilder } from '@/core/businessLogic/tableBuilderColumns';
 import { InnerTableRowBuilder } from '@/core/businessLogic/tableBuilderRow';
 import { createThemeModeVariants } from '@/core/utils/storybook/factories';
+
 import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
-import TotalWalletSections from './TotalActualSection';
+import HeaderWithIcon from '../HeaderWithIcon/HeaderWithIcon';
+import ProgressiveIndicator from '../ProgresiveIndicator';
+import TotalForecastSection from './TotalForecastSection';
 import type { Meta } from '@storybook/react';
+
+const source = {
+  description: '1 Month Budget Cap',
+  url: 'https://mips.makerdao.com/mips/details/MIP40c3SP82',
+  mipNumber: 'MIP40c3SP82',
+  title: 'June',
+  name: 'MIP40c3-SP82: Modify Development & UX Core Unit Budget (DUX-001)',
+  code: 'SES',
+};
+
 const mainTableColumns = [
-  new InnerTableColumnBuilder()
-    .withAlign('left')
-    .withCellRender(renderWallet)
-    .withHeader('Wallet')
-    .withIsCardHeader(true)
-    .withMinWidth('220px')
-    .withType('custom')
-    .withHasBorderBottomOnCard(true)
-    .withWidth('220px')
-    .build(),
-  new InnerTableColumnBuilder()
-    .withAlign('right')
-    .withHasBorderBottomOnCard(true)
-    .withHeader('Mthly Budget')
-    .withType('number')
-    .build(),
-  new InnerTableColumnBuilder()
-    .withHasBorderBottomOnCard(true)
-    .withAlign('right')
-    .withHeader('Forecast')
-    .withType('incomeNumber')
-    .build(),
-  new InnerTableColumnBuilder()
-    .withHasBorderBottomOnCard(true)
-    .withAlign('right')
-    .withHeader('Actuals')
-    .withType('incomeNumber')
-    .build(),
-  new InnerTableColumnBuilder()
-    .withHasBorderBottomOnCard(true)
-    .withAlign('right')
-    .withHeader('Difference')
-    .withType('number')
-    .build(),
-  new InnerTableColumnBuilder().withAlign('right').withHeader('Payments').withType('number').build(),
+  {
+    cellRender: renderWallet,
+    header: 'Wallet',
+    isCardHeader: true,
+    minWidth: '220px',
+    type: 'custom',
+    width: '220px',
+  },
+  {
+    align: 'right',
+    header: (
+      <HeaderWithIcon
+        description="1 Month Budget Cap"
+        link={source.url || ''}
+        mipNumber="MIP39c2-SP1"
+        title="June"
+        name="MIP39c2-SP1:Adding Core Unit (Real-World Finance)"
+      />
+    ),
+    type: 'custom',
+  },
+  {
+    align: 'right',
+    header: (
+      <HeaderWithIcon
+        description="1 Month Budget Cap"
+        link={source.url || ''}
+        mipNumber="MIP39c2-SP1"
+        title="July"
+        name="MIP39c2-SP1:Adding Core Unit (Real-World Finance)"
+      />
+    ),
+    type: 'custom',
+  },
+  {
+    align: 'right',
+    hasBorderRight: true,
+    header: (
+      <HeaderWithIcon
+        description="1 Month Budget Cap"
+        link={source.url || ''}
+        mipNumber="MIP39c2-SP1"
+        title="August"
+        name="MIP39c2-SP1:Adding Core Unit (Real-World Finance)"
+      />
+    ),
+    type: 'custom',
+  },
+  {
+    align: 'right',
+    hasBorderRight: true,
+    header: 'Mthly Budget',
+    hidden: true,
+    type: 'number',
+  },
+  {
+    align: 'right',
+    header: (
+      <HeaderWithIcon
+        description="3 MonthS Budget Cap"
+        link={source.url || ''}
+        mipNumber="MIP39c2-SP1"
+        title="Total"
+        name="MIP39c2-SP1:Adding Core Unit (Real-World Finance)"
+      />
+    ),
+    type: 'custom',
+  },
+  {
+    align: 'right',
+    header: 'Qtly Budget',
+    hidden: true,
+    type: 'number',
+  },
 ] as InnerTableColumn[];
-const meta: Meta<typeof TotalWalletSections> = {
-  title: 'Fusion/Components/Budget Statements/Actuals Tab/TotalSections',
-  component: TotalWalletSections,
+
+const meta: Meta<typeof TotalForecastSection> = {
+  title: 'Fusion/Components/Budget Statements/Forecast Tab/TotalSections',
+  component: TotalForecastSection,
   parameters: {
     chromatic: {
       viewports: [375, 768, 1024, 1280],
@@ -57,10 +110,11 @@ const meta: Meta<typeof TotalWalletSections> = {
 
 export default meta;
 
+const currentMonth = DateTime.fromISO('2023-01-01T04:14:00.000Z');
+
 const variantsArgs = [
   {
-    currentMonth: DateTime.fromISO('2023-01-01T04:14:00.000Z'),
-
+    currentMonth,
     mainTableColumns,
     mainTableItems: [
       new InnerTableRowBuilder()
@@ -68,6 +122,7 @@ const variantsArgs = [
         .addItem({
           column: mainTableColumns[0],
           value: {
+            type: 'custom',
             name: 'Permanent Team (Dai)',
             address: '0x34d8d61050ef9d2b48ab00e6dc8a8ca6581c5d63',
             currentBalance: 0,
@@ -211,23 +266,28 @@ const variantsArgs = [
         })
         .addItem({
           column: mainTableColumns[1],
-          value: 37521,
+          value: (
+            // <ContainerProgressiveIndicator>
+            <ProgressiveIndicator budgetCap={234} forecast={45} month={currentMonth} />
+            // </ContainerProgressiveIndicator>
+          ),
         })
         .addItem({
           column: mainTableColumns[2],
-          value: 37521,
+          value: <ProgressiveIndicator budgetCap={234} forecast={35} month={currentMonth} />,
         })
         .addItem({
           column: mainTableColumns[3],
-          value: 0,
+
+          value: <ProgressiveIndicator budgetCap={234} forecast={34} month={currentMonth} />,
         })
         .addItem({
           column: mainTableColumns[4],
-          value: 37521,
+          value: <ProgressiveIndicator budgetCap={234} forecast={34} month={currentMonth} />,
         })
         .addItem({
           column: mainTableColumns[5],
-          value: 0,
+          value: <ProgressiveIndicator budgetCap={936} forecast={145} month={currentMonth} />,
         })
         .build(),
       new InnerTableRowBuilder()
@@ -235,27 +295,28 @@ const variantsArgs = [
         .withHideMobile(true)
         .addItem({
           column: mainTableColumns[0],
+
           value: 'Total',
         })
         .addItem({
           column: mainTableColumns[1],
-          value: 37521,
+          value: <ProgressiveIndicator budgetCap={234} forecast={45} month={currentMonth} />,
         })
         .addItem({
           column: mainTableColumns[2],
-          value: 37521,
+          value: <ProgressiveIndicator budgetCap={234} forecast={35} month={currentMonth} />,
         })
         .addItem({
           column: mainTableColumns[3],
-          value: 0,
+          value: <ProgressiveIndicator budgetCap={234} forecast={34} month={currentMonth} />,
         })
         .addItem({
           column: mainTableColumns[4],
-          value: 37521,
+          value: <ProgressiveIndicator budgetCap={234} forecast={34} month={currentMonth} />,
         })
         .addItem({
           column: mainTableColumns[5],
-          value: 0,
+          value: <ProgressiveIndicator budgetCap={234} forecast={145} month={currentMonth} />,
         })
         .build(),
     ] as InnerTableRow[],
@@ -266,7 +327,7 @@ const variantsArgs = [
 ];
 
 const [[BudgetStatementActualsLight, BudgetStatementActualsDark]] = createThemeModeVariants(
-  TotalWalletSections,
+  TotalForecastSection,
   variantsArgs
 );
 

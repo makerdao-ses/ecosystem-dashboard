@@ -14,8 +14,8 @@ import {
 import type { DateTime } from 'luxon';
 
 interface Props {
-  value: number;
-  relativeValue: number;
+  value: number | string;
+  relativeValue: number | string;
   month?: DateTime;
   isTotal?: boolean;
 }
@@ -24,6 +24,7 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month, isTot
   const { isLight } = useThemeContext();
   const monthFormatted = month?.toFormat('MMMM') || '3 Months Budget Cap';
   const [hover, setHover] = useState(false);
+  const showComponent = typeof value === 'number' && typeof relativeValue === 'number';
 
   const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -34,6 +35,8 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month, isTot
     e.stopPropagation();
     setHover(false);
   };
+
+  if (!showComponent) return <ContainerNA>N/A</ContainerNA>;
   const barColor = getProgressiveBarColor(value, relativeValue, isLight, hover);
   const percent = getPercentFullBar(value, relativeValue);
   const displacement = getDisplacementDashLine(value, relativeValue);
@@ -67,19 +70,29 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month, isTot
 
 export default BarWithDottedLine;
 
-const Container = styled('div')({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   fontFamily: 'Inter, sans-serif',
   fontStyle: 'normal',
   fontWeight: 400,
   alignItems: 'flex-end',
-});
+  flex: 1,
+  justifyContent: 'flex-end',
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingRight: 16,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    paddingRight: 16,
+  },
+}));
+
 const ContainerBar = styled('div')(({ theme }) => ({
   height: 14,
   display: 'flex',
   position: 'relative',
   width: 100,
+  alignItems: 'center',
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     width: 75,
   },
@@ -136,7 +149,7 @@ const ContendBarForSpace = styled('div')<{ displacement: number }>(({ displaceme
 
 const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ theme, isTotal, isNegative }) => ({
   fontSize: 14,
-  lineHeight: '24px',
+  lineHeight: '22px',
   textAlign: 'right',
   fontWeight: isTotal ? 600 : 600,
   color: theme.palette.isLight
@@ -146,9 +159,12 @@ const Forecast = styled('div')<{ isTotal: boolean; isNegative?: boolean }>(({ th
     : isNegative
     ? '#F75524'
     : theme.palette.colors.gray[50],
-  [theme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     fontSize: 16,
     lineHeight: '22px',
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    lineHeight: '24px',
   },
 }));
 
@@ -161,4 +177,14 @@ const SESTooltipStyled = styled(SESTooltip)<{ borderColor: string }>(({ borderCo
   minWidth: 298,
   borderRadius: 12,
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
+}));
+
+const ContainerNA = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  paddingRight: 0,
+  width: '100%',
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingRight: 16,
+  },
 }));
