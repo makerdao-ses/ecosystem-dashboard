@@ -4,6 +4,7 @@ import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
 import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import AvatarPlaceHolder from 'public/assets/svg/avatar_placeholder.svg';
+import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
@@ -19,12 +20,16 @@ import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
 import ConnectIcon from 'public/assets/svg/makerdao_connect.svg';
 import FusionIcon from 'public/assets/svg/makerdao_fusion.svg';
 import SwitchboardIcon from 'public/assets/svg/makerdao_switchboard.svg';
+import Map from 'public/assets/svg/map.svg';
+import Megaphone from 'public/assets/svg/megaphone.svg';
+import PersonSquare from 'public/assets/svg/person_square.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
 import ThemeIcon from 'public/assets/svg/theme.svg';
 import TwitterIcon from 'public/assets/svg/twitter.svg';
 import X from 'public/assets/svg/x.svg';
 import YoutubeIcon from 'public/assets/svg/youtube.svg';
+
 export const iconsPowerHose = [
   {
     Icon: GlobeWWW,
@@ -133,5 +138,21 @@ export const iconsPowerHose = [
   {
     Icon: Expand,
     title: 'expand',
+  },
+  {
+    Icon: BarChartLine,
+    title: 'bar_chart_line',
+  },
+  {
+    Icon: Megaphone,
+    title: 'megaphone',
+  },
+  {
+    Icon: PersonSquare,
+    title: 'person_square',
+  },
+  {
+    Icon: Map,
+    title: 'map',
   },
 ];
