@@ -61,6 +61,8 @@ export interface TabsProps {
   controlled?: boolean;
   // selected tab when this `Tabs` are controlled (true)
   selectedTabId?: string;
+  // Customize
+  className?: string;
 }
 
 const Tabs: React.FC<TabsProps> = ({
@@ -83,6 +85,7 @@ const Tabs: React.FC<TabsProps> = ({
   },
   controlled = false,
   selectedTabId,
+  className,
 }) => {
   const router = useRouter();
   const query = router.query;
@@ -224,7 +227,7 @@ const Tabs: React.FC<TabsProps> = ({
 
   return (
     <Wrapper className="no-select">
-      <Container>
+      <Container className={className}>
         {activeTabs?.map((element, index) => (
           <StyledTab
             id={element.id}
