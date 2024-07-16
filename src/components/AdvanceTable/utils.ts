@@ -1,10 +1,11 @@
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import lightTheme from '@ses/styles/theme/themes';
 import { isBorder } from './types';
 import type { Border, BorderConfig, GenericCell, CellPadding } from './types';
 
 const getBorderValue = (border: Border | boolean, isLight: boolean) => {
   const defaultWidth = 1;
-  const defaultColor = isLight ? '#D4D9E1' : '#405361';
+  const defaultColor = isLight ? colorPalette.charcoal[100] : colorPalette.charcoal[800];
   const defaultStyle = 'solid';
 
   if (typeof border === 'boolean') {

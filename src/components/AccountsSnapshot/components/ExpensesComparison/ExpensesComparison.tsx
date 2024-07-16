@@ -1,41 +1,50 @@
-import { styled } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import AdvanceTable from '@/components/AdvanceTable/AdvanceTable';
 import type { RowProps } from '@/components/AdvanceTable/types';
 import SectionHeader from '../SectionHeader/SectionHeader';
-import { EXPENSES_COMPARISON_TABLE_HEADER, EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN } from './headers';
+import { expensesComparisonTableHeader, expensesComparisonTableHeaderWithoutOffChain } from './headers';
+import type { Theme } from '@mui/material';
 
 interface ExpensesComparisonProps {
   rows: RowProps[];
   hasOffChainData: boolean;
 }
 
-const ExpensesComparison: React.FC<ExpensesComparisonProps> = ({ rows, hasOffChainData }) => (
-  <div>
-    <SectionHeader
-      title="Reported Expenses Comparison"
-      subtitle={'Reported actuals compared to expense and revenue transactions.'}
-      tooltip={
-        'Understand the differences between reported and net transactions. Easily spot variations \
-          and improve financial tracking for comprehensive expense  and revenue analysis.'
-      }
-      level="h2"
-    />
+const ExpensesComparison: React.FC<ExpensesComparisonProps> = ({ rows, hasOffChainData }) => {
+  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
 
-    <TableWrapper>
-      <StyledTable
-        header={hasOffChainData ? EXPENSES_COMPARISON_TABLE_HEADER : EXPENSES_COMPARISON_TABLE_HEADER_WITHOUT_OFF_CHAIN}
-        body={rows}
+  return (
+    <div>
+      <SectionHeader
+        title="Reported Expenses Comparison"
+        subtitle={'Reported actuals compared to expense and revenue transactions.'}
+        tooltip={
+          'Understand the differences between reported and net transactions. Easily spot variations \
+            and improve financial tracking for comprehensive expense  and revenue analysis.'
+        }
+        level="h2"
       />
-    </TableWrapper>
-  </div>
-);
+
+      <TableWrapper>
+        <AdvanceTable
+          header={
+            hasOffChainData
+              ? expensesComparisonTableHeader({ isTablet })
+              : expensesComparisonTableHeaderWithoutOffChain()
+          }
+          body={rows}
+        />
+      </TableWrapper>
+    </div>
+  );
+};
 
 export default ExpensesComparison;
 
-const TableWrapper = styled('div')({
+const TableWrapper = styled('div')(({ theme }) => ({
   marginTop: 24,
-});
 
-const StyledTable = styled(AdvanceTable)(({ theme }) => ({
-  background: theme.palette.isLight ? '#FFFFFF' : '#1E2C37',
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 16,
+  },
 }));

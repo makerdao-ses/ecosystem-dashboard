@@ -8,6 +8,11 @@ import type { FigmaParams } from 'sb-figma-comparator';
 const meta: Meta<typeof CUReserves> = {
   title: 'Fusion/Components/Accounts Snapshot/Core Unit Reserves',
   component: CUReserves,
+  parameters: {
+    chromatic: {
+      viewports: [375, 768, 1024, 1280, 1440],
+    },
+  },
 };
 export default meta;
 
@@ -96,7 +101,7 @@ const variantsArgs = [
   },
 ];
 
-const [[LightMode, DarkMode]] = createThemeModeVariants(CUReserves, variantsArgs);
+const [[LightMode, DarkMode]] = createThemeModeVariants(CUReserves, variantsArgs, false);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {

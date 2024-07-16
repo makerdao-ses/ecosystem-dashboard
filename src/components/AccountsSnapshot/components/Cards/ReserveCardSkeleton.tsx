@@ -1,4 +1,5 @@
 import { styled, useMediaQuery } from '@mui/material';
+import Card from '@/components/Card/Card';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
 import ReserveCardMobileSkeleton from './ReserveCardMobileSkeleton';
 import type { Theme } from '@mui/material';
@@ -15,16 +16,22 @@ const ReserveCardSkeleton: React.FC<ReserveCardSkeletonProps> = ({ isGroup = fal
   }
 
   return (
-    <Card>
-      <TitleContainer isGroup={isGroup}>
+    <CardReserves>
+      <TitleContainer>
         {isGroup ? (
           <GroupTitleSkeleton />
         ) : (
           <AccountContainer>
-            <AccountAvatarSkeleton variant="circular" />
+            <AccountAvatarSkeleton />
             <AccountInfo>
-              <AccountNameSkeleton />
-              <AccountAddressSkeleton />
+              <AccountNameWrapper>
+                <AccountNameSkeleton />
+                <AccountNameIconSkeleton />
+              </AccountNameWrapper>
+              <AccountAddressWrapper>
+                <AccountAddressSkeleton />
+                <AccountAddressCopySkeleton />
+              </AccountAddressWrapper>
             </AccountInfo>
           </AccountContainer>
         )}
@@ -41,18 +48,14 @@ const ReserveCardSkeleton: React.FC<ReserveCardSkeletonProps> = ({ isGroup = fal
       <InflowContainer>
         <InflowLabelSkeleton />
         <GenericValueContainer>
-          <InflowSignSkeleton />
           <InflowValueSkeleton />
-          <CurrencySkeleton />
         </GenericValueContainer>
       </InflowContainer>
 
       <OutflowContainer>
         <OutflowLabelSkeleton />
         <GenericValueContainer>
-          <OutflowSignSkeleton />
           <OutflowValueSkeleton />
-          <CurrencySkeleton />
         </GenericValueContainer>
       </OutflowContainer>
 
@@ -63,29 +66,38 @@ const ReserveCardSkeleton: React.FC<ReserveCardSkeletonProps> = ({ isGroup = fal
           <CurrencySkeleton />
         </GenericValueContainer>
       </BalanceContainer>
-    </Card>
+
+      <ArrowContainer>
+        <Arrow
+          isGroup={isGroup}
+          width="10"
+          height="6"
+          viewBox="0 0 10 6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M4.69339 5.86308C4.85404 6.04564 5.14598 6.04564 5.30664 5.86308L9.90358 0.639524C10.1255 0.38735 9.93978 0 9.59696 0H0.403059C0.0602253 0 -0.125491 0.38735 0.0964331 0.639525L4.69339 5.86308Z" />
+        </Arrow>
+      </ArrowContainer>
+    </CardReserves>
   );
 };
 
 export default ReserveCardSkeleton;
 
-const Card = styled('div')(({ theme }) => ({
-  display: 'flex',
-  borderRadius: 6,
-  backgroundColor: theme.palette.isLight ? '#ffffff' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+const CardReserves = styled(Card)(() => ({
+  flexDirection: 'row',
 }));
 
-const TitleContainer = styled('div')<{ isGroup: boolean }>(({ theme, isGroup }) => ({
+const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
-  padding: isGroup ? '24px 16px' : '19px 0px 14px 16px',
-  width: '28.57%',
+  alignItems: 'center',
+  padding: 8,
+  width: 168,
 
   [theme.breakpoints.up('desktop_1024')]: {
-    width: '26.5487%',
-    padding: isGroup ? '24px 16px' : '17.5px 0 18.75px 16px',
+    width: '200px',
+    paddingLeft: 16,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -103,66 +115,61 @@ const AccountContainer = styled('div')({
   gap: 16,
 });
 
-const GroupTitleSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 55,
-  height: 10.5,
-  marginTop: 3.5,
-  marginBottom: 8,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 200,
-    height: 14,
-  },
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    width: 206,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    width: 210,
-  },
+const GroupTitleSkeleton = styled(BaseSkeleton)(() => ({
+  width: 68,
+  height: 24,
 }));
 
 const AccountAvatarSkeleton = styled(BaseSkeleton)({
-  width: 32,
+  borderRadius: 8,
   height: 32,
+  width: 32,
 });
 
-const AccountInfo = styled('div')(({ theme }) => ({
+const AccountInfo = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: 10,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    gap: 11.5,
-  },
+  gap: 2,
 }));
 
-const AccountNameSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 70,
-  height: 12,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 89,
-    height: 14,
-  },
+const AccountNameWrapper = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
 }));
 
-const AccountAddressSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 78,
-  height: 12,
+const AccountAddressWrapper = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+}));
 
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 99,
-    height: 12.25,
-  },
+const AccountNameSkeleton = styled(BaseSkeleton)(() => ({
+  width: 45,
+  height: 24,
+}));
+
+const AccountNameIconSkeleton = styled(BaseSkeleton)(() => ({
+  width: 16,
+  height: 16,
+}));
+
+const AccountAddressSkeleton = styled(BaseSkeleton)(() => ({
+  width: 75,
+  height: 22,
+}));
+
+const AccountAddressCopySkeleton = styled(BaseSkeleton)(() => ({
+  width: 16,
+  height: 16,
 }));
 
 const InitialContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: '16px 2px 19.75px 2px',
-  width: '17.013%',
+  justifyContent: 'center',
+  padding: '13px 2px',
+  width: '14%',
 
   [theme.breakpoints.up('desktop_1024')]: {
     padding: '16px 0 21px 16px',
@@ -178,55 +185,37 @@ const InitialContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const InitialLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 72,
-  height: 9.63,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 79,
-    height: 10.5,
-  },
+const InitialLabelSkeleton = styled(BaseSkeleton)(() => ({
+  width: 80,
+  height: 18,
 }));
 
-const GenericValueContainer = styled('div')(({ theme }) => ({
+const GenericValueContainer = styled('div')(() => ({
   display: 'flex',
   alignItems: 'flex-end',
   gap: 4,
-  marginTop: 12.37,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: 12.5,
-  },
+  marginTop: 2,
 }));
 
-const InitialValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 59,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 67,
-    height: 14,
-  },
+const InitialValueSkeleton = styled(BaseSkeleton)(() => ({
+  width: 65,
+  height: 24,
 }));
 
-const CurrencySkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 23,
-  height: 10.5,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 26,
-    height: 12.25,
-  },
+const CurrencySkeleton = styled(BaseSkeleton)(() => ({
+  width: 24,
+  height: 22,
 }));
 
 const InflowContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  margin: '8px 4px 8px 2px',
-  padding: '8px 10px 11.5px 8px',
-  width: '16.104%',
-  borderRadius: 6,
-  background: 'rgba(236, 239, 249, 0.30)',
+  margin: 8,
+  padding: '3px 7px 7px',
+  minWidth: 'calc(16.7% - 4px)',
+  borderRadius: 12,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
 
   [theme.breakpoints.up('desktop_1024')]: {
     margin: '8px 16px',
@@ -243,43 +232,25 @@ const InflowContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const InflowLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 32,
-  height: 9.63,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 35,
-    height: 10.5,
-  },
+const InflowLabelSkeleton = styled(BaseSkeleton)(() => ({
+  width: 35,
+  height: 18,
 }));
 
-const InflowSignSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 10,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 11,
-    height: 14,
-  },
-}));
-
-const InflowValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 61,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 70,
-    height: 14,
-  },
+const InflowValueSkeleton = styled(BaseSkeleton)(() => ({
+  width: 88,
+  height: 24,
 }));
 
 const OutflowContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  margin: '8px 2px',
-  padding: '8px 13px 11.5px 8px',
-  borderRadius: 6,
-  background: 'rgba(236, 239, 249, 0.30)',
+  margin: 8,
+  padding: '3px 7px 7px',
+  borderRadius: 12,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+  minWidth: 'calc(16.7% - 4px)',
 
   [theme.breakpoints.up('desktop_1024')]: {
     margin: '8px 16px',
@@ -296,73 +267,68 @@ const OutflowContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const OutflowLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 41,
-  height: 9.63,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 45,
-    height: 10.5,
-  },
+const OutflowLabelSkeleton = styled(BaseSkeleton)(() => ({
+  width: 48,
+  height: 18,
 }));
 
-const OutflowSignSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 7,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 8,
-    height: 14,
-  },
-}));
-
-const OutflowValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 61,
-  height: 12.25,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 70,
-    height: 14,
-  },
+const OutflowValueSkeleton = styled(BaseSkeleton)(() => ({
+  width: 88,
+  height: 24,
 }));
 
 const BalanceContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-end',
-  padding: '16px 49px 19.5px 0px',
+  padding: '13px 2px',
   marginLeft: 'auto',
 
   [theme.breakpoints.up('desktop_1024')]: {
-    padding: '16px 88.5px 21px 0px',
+    justifyContent: 'center',
+    padding: '8px 16px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    padding: '16px 104px 21px 0px',
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    padding: '16px 136px 21px 0px',
+    padding: '16px 32px 13px 16px',
+    width: 'auto',
   },
 }));
 
-const BalanceLabelSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 68,
-  height: 9.63,
+const BalanceLabelSkeleton = styled(BaseSkeleton)(() => ({
+  width: 75,
+  height: 18,
   marginLeft: 'auto',
+}));
+
+const BalanceValueSkeleton = styled(BaseSkeleton)(() => ({
+  width: 65,
+  height: 24,
+}));
+
+const ArrowContainer = styled('div')(({ theme }) => ({
+  width: 47,
+  display: 'flex',
+  alignItems: 'center',
+  padding: '8px 18.5px',
 
   [theme.breakpoints.up('desktop_1024')]: {
-    width: 75,
-    height: 10.5,
+    width: 48,
+    minWidth: 48,
+    padding: '8px 19px 8px 19px',
+    justifyContent: 'center',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 106,
+    minWidth: 106,
   },
 }));
 
-const BalanceValueSkeleton = styled(BaseSkeleton)(({ theme }) => ({
-  width: 59,
-  height: 12.25,
+const Arrow = styled('svg')<{ isGroup: boolean }>(({ theme, isGroup }) => ({
+  display: isGroup ? 'none' : 'block',
 
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 67,
-    height: 14,
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800],
   },
 }));

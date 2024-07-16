@@ -76,7 +76,7 @@ const FundChangeCard: React.FC<FundChangeCardProps> = ({
 
 export default FundChangeCard;
 
-const CardStat = styled(Card)(({ theme }) => ({
+export const CardStat = styled(Card)(({ theme }) => ({
   padding: 8,
   display: 'flex',
   flexDirection: 'column',
@@ -107,12 +107,12 @@ const CardStat = styled(Card)(({ theme }) => ({
   },
 }));
 
-const ChangeContainer = styled('div')(() => ({
+export const ChangeContainer = styled('div')(() => ({
   display: 'flex',
   width: '100%',
 }));
 
-const LeftArrowContainer = styled('div')(({ theme }) => ({
+export const LeftArrowContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   width: '100%',
 
@@ -122,7 +122,7 @@ const LeftArrowContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const RightArrowContainer = styled('div')(({ theme }) => ({
+export const RightArrowContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   width: '100%',
 
@@ -132,7 +132,7 @@ const RightArrowContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const FillSpace = styled('div')<{ position: 'left' | 'right' }>(({ theme, position }) => ({
+export const FillSpace = styled('div')<{ position: 'left' | 'right' }>(({ theme, position }) => ({
   minWidth: position === 'left' ? 85 : 65,
   height: '100%',
 
@@ -150,7 +150,7 @@ const FillSpace = styled('div')<{ position: 'left' | 'right' }>(({ theme, positi
   },
 }));
 
-const Arrow = styled('div')<{ direction: 'left' | 'right' }>(({ theme, direction }) => {
+export const Arrow = styled('div')<{ direction: 'left' | 'right' }>(({ theme, direction }) => {
   const margin = 24;
   const borderStyle = `2px solid ${
     theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[700]
@@ -200,7 +200,7 @@ const Arrow = styled('div')<{ direction: 'left' | 'right' }>(({ theme, direction
   };
 });
 
-const ChangeContent = styled('div')(({ theme }) => ({
+export const ChangeContent = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

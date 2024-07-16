@@ -23,22 +23,22 @@ LightMode.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21718:260439',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=3660-63267',
         options: {
           componentStyle: {
             width: 343,
           },
           style: {
-            top: 0,
-            left: -40,
+            top: -57,
+            left: -14,
           },
         },
       },
-      834: {
+      768: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21718:257154',
         options: {
           componentStyle: {
-            width: 770,
+            width: 704,
           },
           style: {
             top: 0,
@@ -46,11 +46,11 @@ LightMode.parameters = {
           },
         },
       },
-      1194: {
+      1024: {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21718:253635',
         options: {
           componentStyle: {
-            width: 1130,
+            width: 960,
           },
           style: {
             top: 0,
@@ -62,7 +62,7 @@ LightMode.parameters = {
         component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=21716:254652',
         options: {
           componentStyle: {
-            width: 1184,
+            width: 1200,
           },
           style: {
             top: 0,

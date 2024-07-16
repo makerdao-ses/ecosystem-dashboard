@@ -1,9 +1,11 @@
 import { styled } from '@mui/material';
+import Card from '@/components/Card/Card';
+import AccordionArrow from '../../AccordionArrow/AccordionArrow';
 import { BaseSkeleton } from '../../BaseSkeleton/BaseSkeleton';
 
 const ExpensesComparisonRowCardSkeleton: React.FC = () => (
   <CardsContainer>
-    <Card>
+    <ExpandedCard>
       <DateSkeleton />
       <PairContainer>
         <ReportedLabelSkeleton />
@@ -11,42 +13,47 @@ const ExpensesComparisonRowCardSkeleton: React.FC = () => (
       </PairContainer>
       <NetExpenseLabelSkeleton />
 
-      <PairContainer>
-        <LabelContainer>
-          <OnchainLabelSkeleton />
-          <IconSkeleton variant="circular" />
-        </LabelContainer>
-        <OnchainValueSkeleton />
-      </PairContainer>
-      <PairContainer style={{ marginTop: 22 }}>
-        <OnchainDifferenceLabelSkeleton />
-        <OnchainDifferenceValueSkeleton />
-      </PairContainer>
+      <BorderedContainer>
+        <Item paddingBottom={3}>
+          <LabelContainer>
+            <OnchainLabelSkeleton />
+            <IconSkeleton />
+          </LabelContainer>
+          <OnchainValueSkeleton />
+        </Item>
+        <Item marginTop={4}>
+          <OnchainDifferenceLabelSkeleton />
+          <OnchainDifferenceValueSkeleton />
+        </Item>
 
-      <Divider />
+        <Divider />
 
-      <PairContainer>
-        <LabelContainer>
-          <OffChainLabelSkeleton />
-          <IconSkeleton variant="circular" />
-        </LabelContainer>
-        <OffChainValueSkeleton />
-      </PairContainer>
-      <PairContainer style={{ marginTop: 22 }}>
-        <OffChainDifferenceLabelSkeleton />
-        <OffChainDifferenceValueSkeleton />
-      </PairContainer>
-    </Card>
+        <Item paddingBottom={3}>
+          <LabelContainer>
+            <OffChainLabelSkeleton />
+            <IconSkeleton />
+          </LabelContainer>
+          <OffChainValueSkeleton />
+        </Item>
+        <Item marginTop={4}>
+          <OffChainDifferenceLabelSkeleton />
+          <OffChainDifferenceValueSkeleton />
+        </Item>
+      </BorderedContainer>
+    </ExpandedCard>
 
     <CollapsedCard>
-      <CollapsedCardTextSkeleton width={68} />
+      <CollapsedCardTextSkeleton width={82} />
+      <AccordionArrow />
     </CollapsedCard>
     <CollapsedCard>
-      <CollapsedCardTextSkeleton width={71} />
+      <CollapsedCardTextSkeleton width={82} />
+      <AccordionArrow />
     </CollapsedCard>
-    <TotalsCard>
-      <CollapsedCardTextSkeleton width={103} height={12.25} />
-    </TotalsCard>
+    <CollapsedCard>
+      <CollapsedCardTextSkeleton width={156} />
+      <AccordionArrow />
+    </CollapsedCard>
   </CardsContainer>
 );
 
@@ -56,40 +63,50 @@ const CardsContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  marginTop: 20.75,
+  marginTop: 24,
 });
 
-const BaseCard = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  borderRadius: 6,
-  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 1px 3px 0px rgba(190, 190, 190, 0.25), 0px 20px 40px 0px rgba(219, 227, 237, 0.40)'
-    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+const ExpandedCard = styled(Card)({
+  padding: '8px 16px',
+});
+
+const CollapsedCard = styled(Card)(({ theme }) => ({
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  borderRadius: 8,
+  padding: '10.5px 8px',
+
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800],
+  },
 }));
 
-const Card = styled(BaseCard)({
-  padding: '16px 16px 28.75px 16px',
-});
-
-const CollapsedCard = styled(BaseCard)({
-  padding: '8.5px 8px 13px 16px',
-});
-
-const TotalsCard = styled(BaseCard)({
-  padding: '8px 8px 12.75px 16px',
-});
-
 const CollapsedCardTextSkeleton = styled(BaseSkeleton)({
-  height: 10.5,
+  height: 17,
 });
 
 const DateSkeleton = styled(BaseSkeleton)({
-  width: 70,
-  height: 10.5,
-  marginBottom: 28.5,
+  width: 71,
+  height: 22,
+  marginBottom: 8,
 });
+
+const BorderedContainer = styled('div')(({ theme }) => ({
+  margin: '0 -8px',
+  padding: '9px 0px 7px',
+  display: 'flex',
+  flexDirection: 'column',
+  borderRadius: 8,
+  border: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[700]
+  }`,
+
+  '& > div:nth-of-type(1), & > div:nth-of-type(4)': {
+    borderBottom: `1px solid ${
+      theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+    }`,
+  },
+}));
 
 const PairContainer = styled('div')({
   display: 'flex',
@@ -97,81 +114,98 @@ const PairContainer = styled('div')({
   alignItems: 'center',
 });
 
+const Item = styled('div')<{ marginTop?: number; paddingBottom?: number }>(
+  ({ theme, marginTop = 0, paddingBottom = 0 }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: `0 8px ${paddingBottom}px`,
+    marginTop,
+
+    '& > div': {
+      whiteSpace: 'nowrap',
+    },
+
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
+    },
+  })
+);
+
 const ReportedLabelSkeleton = styled(BaseSkeleton)({
-  width: 139,
-  height: 10.5,
+  width: 135,
+  height: 24,
 });
 
 const ReportedValueSkeleton = styled(BaseSkeleton)({
-  width: 116,
-  height: 12.25,
+  width: 105,
+  height: 22,
 });
 
 const NetExpenseLabelSkeleton = styled(BaseSkeleton)({
   width: 177,
-  height: 12.25,
+  height: 22,
   marginLeft: 'auto',
   marginRight: 'auto',
-  marginTop: 20.75,
-  marginBottom: 33.75,
+  marginTop: 8,
+  marginBottom: 8,
 });
 
 const OnchainLabelSkeleton = styled(BaseSkeleton)({
-  width: 111,
-  height: 10.5,
+  width: 113,
+  height: 24,
 });
 
 const OnchainValueSkeleton = styled(BaseSkeleton)({
-  width: 116,
-  height: 12.25,
+  width: 108,
+  height: 22,
 });
 
 const OnchainDifferenceLabelSkeleton = styled(BaseSkeleton)({
-  width: 83,
-  height: 10.5,
+  width: 87,
+  height: 24,
 });
 
 const OnchainDifferenceValueSkeleton = styled(BaseSkeleton)({
-  width: 47,
-  height: 12.25,
+  width: 40,
+  height: 22,
 });
 
 const LabelContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
-  gap: 8.78,
+  gap: 6,
 });
 
 const IconSkeleton = styled(BaseSkeleton)({
-  width: 15,
-  height: 15,
+  width: 16,
+  height: 16,
 });
 
 const Divider = styled('div')(({ theme }) => ({
-  width: 'calc(100% + 16)',
-  marginLeft: -8,
-  marginRight: -8,
-  marginTop: 20.75,
-  marginBottom: 21,
-  borderTop: `1px solid ${theme.palette.isLight ? '#ECF1F3' : '#31424E'}`,
+  width: '100%',
+  borderTop: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[700]
+  }`,
+  margin: '3px 0 6px',
 }));
 
 const OffChainLabelSkeleton = styled(BaseSkeleton)({
-  width: 156,
-  height: 10.5,
+  width: 147,
+  height: 24,
 });
 
 const OffChainValueSkeleton = styled(BaseSkeleton)({
-  width: 116,
-  height: 12.25,
+  width: 108,
+  height: 22,
 });
 
 const OffChainDifferenceLabelSkeleton = styled(BaseSkeleton)({
-  width: 83,
-  height: 10.5,
+  width: 87,
+  height: 24,
 });
 
 const OffChainDifferenceValueSkeleton = styled(BaseSkeleton)({
-  width: 53,
-  height: 12.25,
+  width: 50,
+  height: 22,
 });

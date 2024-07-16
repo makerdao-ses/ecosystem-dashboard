@@ -4,12 +4,15 @@ import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
 import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
+import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import Expand from 'public/assets/svg/expand.svg';
 import ExternalLink from 'public/assets/svg/external_link.svg';
 import Forum from 'public/assets/svg/forum.svg';
+import FusionArrowCollapse from 'public/assets/svg/fusion_arrow_collapse.svg';
+import FusionArrowExpand from 'public/assets/svg/fusion_arrow_expand.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import GlobeWWW from 'public/assets/svg/globe_www.svg';
 import InfoOutlined from 'public/assets/svg/info_outlined.svg';
@@ -19,7 +22,10 @@ import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
 import ConnectIcon from 'public/assets/svg/makerdao_connect.svg';
 import FusionIcon from 'public/assets/svg/makerdao_fusion.svg';
 import SwitchboardIcon from 'public/assets/svg/makerdao_switchboard.svg';
+import Map from 'public/assets/svg/map.svg';
+import Megaphone from 'public/assets/svg/megaphone.svg';
 import MemoCheck from 'public/assets/svg/memo_check.svg';
+import PersonSquare from 'public/assets/svg/person_square.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
 import ThemeIcon from 'public/assets/svg/theme.svg';
@@ -139,5 +145,29 @@ export const iconsPowerHose = [
   {
     Icon: MemoCheck,
     title: 'memo_check',
+  },
+  {
+    Icon: BarChartLine,
+    title: 'bar_chart_line',
+  },
+  {
+    Icon: Megaphone,
+    title: 'megaphone',
+  },
+  {
+    Icon: PersonSquare,
+    title: 'person_square',
+  },
+  {
+    Icon: Map,
+    title: 'map',
+  },
+  {
+    Icon: FusionArrowCollapse,
+    title: 'fusion_arrow_collapse',
+  },
+  {
+    Icon: FusionArrowExpand,
+    title: 'fusion_arrow_expand',
   },
 ];

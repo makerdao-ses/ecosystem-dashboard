@@ -2,7 +2,6 @@ import groupBy from 'lodash/groupBy';
 import type { InnerTableColumn, InnerTableRow, RowType } from '@/components/AdvancedInnerTable/types';
 
 import ProgressiveIndicator from '@/components/BudgetStatement/BudgetStatementForecast/ProgresiveIndicator';
-import { ContainerProgressiveIndicator } from '@/components/BudgetStatement/BudgetStatementForecast/useBudgetStatementForecast';
 import {
   getBudgetCapForMonthOnLineItem,
   getBudgetCapForMonthOnWalletOnBudgetStatement,
@@ -142,49 +141,31 @@ export const getBreakdownItemsForGroup = (
         {
           column: breakdownColumns[1],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof resultFirstMonth === 'number' ? (
-                <ProgressiveIndicator
-                  budgetCap={resultFirstMonth}
-                  forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], firstMonth)}
-                  month={firstMonth}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
+            <ProgressiveIndicator
+              budgetCap={resultFirstMonth}
+              forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], firstMonth)}
+              month={firstMonth}
+            />
           ),
         },
         {
           column: breakdownColumns[2],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof resultSecondMonth === 'number' ? (
-                <ProgressiveIndicator
-                  budgetCap={resultSecondMonth}
-                  forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], secondMonth)}
-                  month={secondMonth}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
+            <ProgressiveIndicator
+              budgetCap={resultSecondMonth}
+              forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], secondMonth)}
+              month={secondMonth}
+            />
           ),
         },
         {
           column: breakdownColumns[3],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof resultThirdMonth === 'number' ? (
-                <ProgressiveIndicator
-                  budgetCap={resultThirdMonth}
-                  forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], thirdMonth)}
-                  month={thirdMonth}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
+            <ProgressiveIndicator
+              budgetCap={resultThirdMonth}
+              forecast={getLineItemForecastSumForMonth(groupedCategory[groupedCatKey], thirdMonth)}
+              month={thirdMonth}
+            />
           ),
         },
 
@@ -195,20 +176,14 @@ export const getBreakdownItemsForGroup = (
         {
           column: breakdownColumns[5],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof sumTotal === 'number' ? (
-                <ProgressiveIndicator
-                  budgetCap={sumTotal}
-                  forecast={getLineItemForecastSumForMonths(groupedCategory[groupedCatKey], [
-                    firstMonth,
-                    secondMonth,
-                    thirdMonth,
-                  ])}
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
+            <ProgressiveIndicator
+              budgetCap={sumTotal}
+              forecast={getLineItemForecastSumForMonths(groupedCategory[groupedCatKey], [
+                firstMonth,
+                secondMonth,
+                thirdMonth,
+              ])}
+            />
           ),
         },
         {
@@ -426,67 +401,49 @@ export const getBreakdownItemsForWallet = (
         {
           column: breakdownColumns[1],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof totalFirstMonthBudgetCap === 'number' ? (
-                <ProgressiveIndicator
-                  isTotal
-                  month={firstMonth}
-                  budgetCap={totalFirstMonthBudgetCap}
-                  forecast={getForecastForMonthOnWalletOnBudgetStatement(
-                    budgetStatements,
-                    currentWalletAddress,
-                    currentMonth,
-                    firstMonth
-                  )}
-                />
-              ) : (
-                <div>N/A</div>
+            <ProgressiveIndicator
+              isTotal
+              month={firstMonth}
+              budgetCap={totalFirstMonthBudgetCap}
+              forecast={getForecastForMonthOnWalletOnBudgetStatement(
+                budgetStatements,
+                currentWalletAddress,
+                currentMonth,
+                firstMonth
               )}
-            </ContainerProgressiveIndicator>
+            />
           ),
         },
         {
           column: breakdownColumns[2],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof totalSecondMonthBudgetCap === 'number' ? (
-                <ProgressiveIndicator
-                  isTotal
-                  month={secondMonth}
-                  budgetCap={totalSecondMonthBudgetCap}
-                  forecast={getForecastForMonthOnWalletOnBudgetStatement(
-                    budgetStatements,
-                    currentWalletAddress,
-                    currentMonth,
-                    secondMonth
-                  )}
-                />
-              ) : (
-                <div>N/A</div>
+            <ProgressiveIndicator
+              isTotal
+              month={secondMonth}
+              budgetCap={totalSecondMonthBudgetCap}
+              forecast={getForecastForMonthOnWalletOnBudgetStatement(
+                budgetStatements,
+                currentWalletAddress,
+                currentMonth,
+                secondMonth
               )}
-            </ContainerProgressiveIndicator>
+            />
           ),
         },
         {
           column: breakdownColumns[3],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof totalThirdMonthBudgetCap === 'number' ? (
-                <ProgressiveIndicator
-                  month={thirdMonth}
-                  budgetCap={totalThirdMonthBudgetCap}
-                  forecast={getForecastForMonthOnWalletOnBudgetStatement(
-                    budgetStatements,
-                    currentWalletAddress,
-                    currentMonth,
-                    thirdMonth
-                  )}
-                  isTotal
-                />
-              ) : (
-                <div>N/A</div>
+            <ProgressiveIndicator
+              month={thirdMonth}
+              budgetCap={totalThirdMonthBudgetCap}
+              forecast={getForecastForMonthOnWalletOnBudgetStatement(
+                budgetStatements,
+                currentWalletAddress,
+                currentMonth,
+                thirdMonth
               )}
-            </ContainerProgressiveIndicator>
+              isTotal
+            />
           ),
         },
         {
@@ -501,21 +458,15 @@ export const getBreakdownItemsForWallet = (
         {
           column: breakdownColumns[5],
           value: (
-            <ContainerProgressiveIndicator>
-              {typeof totalOfThreeMonths === 'number' ? (
-                <ProgressiveIndicator
-                  budgetCap={totalOfThreeMonths}
-                  forecast={getForecastSumOfMonthsOnWallet(budgetStatements, currentWalletAddress, currentMonth, [
-                    firstMonth,
-                    secondMonth,
-                    thirdMonth,
-                  ])}
-                  isTotal
-                />
-              ) : (
-                <div>N/A</div>
-              )}
-            </ContainerProgressiveIndicator>
+            <ProgressiveIndicator
+              budgetCap={totalOfThreeMonths}
+              forecast={getForecastSumOfMonthsOnWallet(budgetStatements, currentWalletAddress, currentMonth, [
+                firstMonth,
+                secondMonth,
+                thirdMonth,
+              ])}
+              isTotal
+            />
           ),
         },
         {

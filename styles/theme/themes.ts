@@ -77,7 +77,7 @@ export const lightTheme = responsiveFontSizes(
         styleOverrides: {
           root: ({ theme, ownerState }) =>
             theme.unstable_sx({
-              backgroundColor: '#ECF1F3',
+              backgroundColor: colorPalette.charcoal[100],
               borderRadius: ownerState.variant === 'rounded' ? '64px' : undefined,
             }),
         },
@@ -113,7 +113,7 @@ export const darkTheme = responsiveFontSizes(
         styleOverrides: {
           root: ({ theme, ownerState }) =>
             theme.unstable_sx({
-              backgroundColor: '#31424E',
+              backgroundColor: colorPalette.charcoal[800],
               borderRadius: ownerState.variant === 'rounded' ? '64px' : undefined,
             }),
         },

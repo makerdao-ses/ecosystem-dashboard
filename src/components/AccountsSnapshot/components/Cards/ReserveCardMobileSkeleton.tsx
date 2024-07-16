@@ -1,4 +1,6 @@
 import { styled } from '@mui/material';
+import Card from '@/components/Card/Card';
+import AccordionArrow from '../AccordionArrow/AccordionArrow';
 import { BaseSkeleton } from '../BaseSkeleton/BaseSkeleton';
 
 interface ReserveCardMobileSkeletonProps {
@@ -6,72 +8,82 @@ interface ReserveCardMobileSkeletonProps {
 }
 
 const ReserveCardMobileSkeleton: React.FC<ReserveCardMobileSkeletonProps> = ({ isGroup }) => (
-  <Card>
-    {isGroup ? (
-      <TitleSkeleton />
-    ) : (
-      <AccountTitleContainer>
-        <AccountAvatarSkeleton variant="circular" />
-        <AccountInfo>
-          <AccountNameSkeleton />
-          <AccountAddressSkeleton />
-        </AccountInfo>
-      </AccountTitleContainer>
-    )}
+  <CardReserve>
+    <CardHeader>
+      {isGroup ? (
+        <TitleSkeleton />
+      ) : (
+        <AccountTitleContainer>
+          <AccountAvatarSkeleton />
+          <AccountInfo>
+            <AccountNameWrapper>
+              <AccountNameSkeleton />
+              <AccountNameIconSkeleton />
+            </AccountNameWrapper>
+            <AccountAddressWrapper>
+              <AccountAddressSkeleton />
+              <AccountAddressCopySkeleton />
+            </AccountAddressWrapper>
+          </AccountInfo>
+        </AccountTitleContainer>
+      )}
+
+      <AccordionArrow />
+    </CardHeader>
 
     <Content>
       <Line>
-        <BaseTextSkeleton width={92} />
+        <BaseLabelSkeleton width={80} />
         <ValueContainer>
-          <BaseTextSkeleton width={59} />
+          <BaseTextSkeleton width={57} />
           <CurrencySkeleton />
         </ValueContainer>
       </Line>
       <Line>
-        <BaseTextSkeleton width={40} />
+        <BaseLabelSkeleton width={35} />
         <ValueContainer>
-          <BaseTextSkeleton width={10} />
-          <BaseTextSkeleton width={61} />
+          <BaseTextSkeleton width={60} />
           <CurrencySkeleton />
         </ValueContainer>
       </Line>
       <Line>
-        <BaseTextSkeleton width={52} />
+        <BaseLabelSkeleton width={46} />
         <ValueContainer>
-          <BaseTextSkeleton width={7} />
-          <BaseTextSkeleton width={61} />
+          <BaseTextSkeleton width={60} />
           <CurrencySkeleton />
         </ValueContainer>
       </Line>
       <Line>
-        <BaseTextSkeleton width={87} />
+        <BaseLabelSkeleton width={75} />
         <ValueContainer>
-          <BaseTextSkeleton width={59} />
+          <BaseTextSkeleton width={57} />
           <CurrencySkeleton />
         </ValueContainer>
       </Line>
     </Content>
-  </Card>
+  </CardReserve>
 );
 
 export default ReserveCardMobileSkeleton;
 
-const Card = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  borderRadius: 6,
-  gap: 29,
+const CardReserve = styled(Card)(() => ({
+  gap: 16,
   padding: '16px 24px 24px',
+}));
 
-  backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 4px 6px 0px rgba(195, 195, 195, 0.25)'
-    : '0px 1px 3px 0px rgba(30, 23, 23, 0.25), 0px 20px 40px -40px rgba(7, 22, 40, 0.40)',
+const CardHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800],
+  },
 }));
 
 const TitleSkeleton = styled(BaseSkeleton)({
-  maxWidth: 73,
-  height: 14,
+  maxWidth: 96,
+  height: 22,
 });
 
 const Content = styled('div')({
@@ -80,24 +92,31 @@ const Content = styled('div')({
   gap: 8,
 });
 
-const Line = styled('div')({
+const Line = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
 
   '&:nth-of-type(1), &:nth-of-type(4)': {
     paddingBottom: 4.75,
   },
 
   '&:nth-of-type(2), &:nth-of-type(3)': {
-    padding: '8px 16px 12.75px',
+    padding: '8px 16px',
     marginLeft: -16,
     marginRight: -16,
-    background: 'rgba(236, 239, 249, 0.30)',
+    borderRadius: 8,
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+    border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
   },
+}));
+
+const BaseLabelSkeleton = styled(BaseSkeleton)({
+  height: 18,
 });
 
 const BaseTextSkeleton = styled(BaseSkeleton)({
-  height: 12.25,
+  height: 22,
 });
 
 const ValueContainer = styled('div')({
@@ -107,18 +126,18 @@ const ValueContainer = styled('div')({
 });
 
 const CurrencySkeleton = styled(BaseSkeleton)({
-  height: 10.5,
-  width: 23,
+  width: 20,
+  height: 18,
 });
 
 const AccountTitleContainer = styled('div')({
   display: 'flex',
-  gap: 16,
+  gap: 8,
   alignItems: 'center',
-  marginBottom: -4.75,
 });
 
 const AccountAvatarSkeleton = styled(BaseSkeleton)({
+  borderRadius: 8,
   height: 32,
   width: 32,
 });
@@ -126,17 +145,37 @@ const AccountAvatarSkeleton = styled(BaseSkeleton)({
 const AccountInfo = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  gap: 9.5,
-  paddingTop: 2.5,
-  paddingBottom: 4.75,
+  gap: 2,
 });
+
+const AccountNameWrapper = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+}));
 
 const AccountNameSkeleton = styled(BaseSkeleton)({
-  height: 14,
-  width: 59,
+  width: 51,
+  height: 22,
 });
 
+const AccountNameIconSkeleton = styled(BaseSkeleton)(() => ({
+  width: 16,
+  height: 16,
+}));
+
+const AccountAddressWrapper = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+}));
+
 const AccountAddressSkeleton = styled(BaseSkeleton)({
-  height: 12.25,
-  width: 99,
+  width: 86,
+  height: 18,
 });
+
+const AccountAddressCopySkeleton = styled(BaseSkeleton)(() => ({
+  width: 16,
+  height: 16,
+}));

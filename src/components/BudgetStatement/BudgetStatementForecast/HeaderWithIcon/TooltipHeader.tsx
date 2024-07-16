@@ -20,7 +20,7 @@ const HeaderToolTip: React.FC<Props> = ({ description, link, style, name }) => {
         <Source>Source</Source>
         <ContainerLink>
           <MipNumber>{pieces[0]}</MipNumber>
-          <ExternalLinkStyled showArrow href={link}>
+          <ExternalLinkStyled showArrow href={link} wrapText>
             {pieces[1]}
           </ExternalLinkStyled>
         </ContainerLink>
@@ -83,6 +83,9 @@ const MipNumber = styled('div')(({ theme }) => ({
 
 const ExternalLinkStyled = styled(ExternalLink)({
   fontSize: 14,
-  display: 'flex',
-  gap: 8,
+  display: 'inline-block',
+  gap: 4,
+  '& svg': {
+    marginLeft: 4,
+  },
 });
