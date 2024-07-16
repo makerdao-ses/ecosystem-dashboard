@@ -224,7 +224,26 @@ const variantsArgs = [
               type: 'text',
               width: '240px',
             },
-            value: 'Headcount Expenses',
+            value: 'Non-Headcount Expenses',
+          },
+          {
+            column: breakdownColumnsForActiveTab[1],
+            value: '',
+          },
+          {
+            column: breakdownColumnsForActiveTab[1],
+            value: '',
+          },
+          {
+            column: {
+              align: 'right',
+              hasBorderBottomOnCard: true,
+              hasBorderRight: true,
+              header: '',
+              type: 'custom',
+            },
+
+            value: '',
           },
         ],
       },
@@ -293,6 +312,7 @@ const variantsArgs = [
         subHeader: 'Non-Headcount Expenses',
         borderTop: true,
         borderBottom: true,
+
         items: [
           {
             column: {
@@ -333,9 +353,29 @@ const variantsArgs = [
               header: 'Budget Category',
               isCardHeader: true,
               type: 'text',
+
               width: '240px',
             },
             value: 'Non-Headcount Expenses',
+          },
+          {
+            column: breakdownColumnsForActiveTab[1],
+            value: '',
+          },
+          {
+            column: breakdownColumnsForActiveTab[1],
+            value: '',
+          },
+          {
+            column: {
+              align: 'right',
+              hasBorderBottomOnCard: true,
+              hasBorderRight: true,
+              header: '',
+              type: 'custom',
+            },
+
+            value: '',
           },
         ],
       },
