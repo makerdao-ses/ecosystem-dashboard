@@ -218,7 +218,9 @@ const HeadCell = styled('th')<{ hasBorderRight?: boolean }>(({ hasBorderRight, t
   fontSize: 16,
   lineHeight: '24px',
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
-  borderRight: hasBorderRight ? (theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
+  borderRight: hasBorderRight
+    ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]} }`
+    : 'none',
 }));
 
 const TableWrapper = styled('div')(({ theme }) => ({
