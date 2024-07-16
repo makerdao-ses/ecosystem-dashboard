@@ -41,7 +41,6 @@ const meta: Meta<typeof BudgetStatementMkrVestingTableSection> = {
       viewports: [375, 768, 1024, 1280],
       pauseAnimationAtEnd: true,
     },
-    // date: new Date('2023-01-01T04:14:00.000Z'),
   },
 };
 
@@ -49,8 +48,6 @@ export default meta;
 
 const variantsArgs = [
   {
-    // currentMonth: DateTime.fromISO('2023-01-01T04:14:00.000Z'),
-
     mainTableColumns,
     mainTableItems: [
       new InnerTableRowBuilder()
@@ -75,10 +72,7 @@ const variantsArgs = [
           column: mainTableColumns[4],
           value: <div style={{ paddingLeft: 16 }}>Some reason</div>,
         })
-        // .addItem({
-        //   column: mainTableColumns[5],
-        //   value: 0,
-        // })
+
         .build(),
       new InnerTableRowBuilder()
         .withType('total')
@@ -103,10 +97,7 @@ const variantsArgs = [
           column: mainTableColumns[4],
           value: <div style={{ paddingLeft: 16 }}>Some reason</div>,
         })
-        // .addItem({
-        //   column: mainTableColumns[5],
-        //   value: 0,
-        // })
+
         .build(),
     ] as InnerTableRow[],
     longCode: 'SES-01',
