@@ -133,7 +133,7 @@ const CoreUnitBudgetStatementView = ({
           />
 
           <TabsContainer>
-            <Tabs
+            <TabsStyled
               tabs={tabItems}
               expandable
               compressedTabs={compressedTabItems}
@@ -275,3 +275,9 @@ export const ParenthesisNumber = styled('label')({
     marginLeft: '5px',
   },
 });
+
+const TabsStyled = styled(Tabs)(({ theme }) => ({
+  borderBottom: theme.palette.isLight
+    ? `1px solid ${theme.palette.colors.slate[100]}`
+    : `1px solid ${theme.palette.colors.gray[600]}`,
+}));

@@ -42,7 +42,7 @@ const BudgetStatementsPlaceholder: React.FC<Props> = ({
   return (
     <Container>
       <ImageWrapper>
-        <Image src={isLight ? Empty : EmptyDark} alt="There are no elements" layout="fill" unoptimized />
+        <Image src={isLight ? Empty : EmptyDark} alt="There are no elements" layout="fill" />
       </ImageWrapper>
       {isNotLoading && (
         <ContainerDescription>
@@ -151,6 +151,7 @@ const ContainerDescription = styled('div')(({ theme }) => ({
   marginTop: 1,
   maxWidth: '279px',
   padding: '16px 8px',
+  backgroundColor: theme.palette.isLight ? '#FFFFFF80' : '#252A3480',
 
   [theme.breakpoints.up('tablet_768')]: {
     maxWidth: '512px',
