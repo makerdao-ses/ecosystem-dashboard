@@ -224,7 +224,7 @@ const variantsArgs = [
               type: 'text',
               width: '240px',
             },
-            value: 'Non-Headcount Expenses',
+            value: 'Headcount Expenses',
           },
           {
             column: breakdownColumnsForActiveTab[1],
