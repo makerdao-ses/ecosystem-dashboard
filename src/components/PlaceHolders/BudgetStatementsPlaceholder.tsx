@@ -151,6 +151,7 @@ const ContainerDescription = styled('div')(({ theme }) => ({
   marginTop: 1,
   maxWidth: '279px',
   padding: '16px 8px',
+  backgroundColor: '#FFFFFF80',
 
   [theme.breakpoints.up('tablet_768')]: {
     maxWidth: '512px',
