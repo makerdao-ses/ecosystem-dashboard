@@ -1,6 +1,5 @@
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import { InnerTableColumnBuilder } from '@/core/businessLogic/tableBuilderColumns';
-import { InnerTableRowBuilder } from '@/core/businessLogic/tableBuilderRow';
 import { createThemeModeVariants } from '@/core/utils/storybook/factories';
 
 import ToolTipMkrVesting from '../ToolTipMkrVesting';
@@ -33,6 +32,195 @@ const mainTableColumns = [
     .build(),
   new InnerTableColumnBuilder().withAlign('left').withHeader('Reason(s)').withType('text').build(),
 ] as InnerTableColumn[];
+const mainTableItems = [
+  {
+    borderBottom: true,
+    type: 'category',
+    items: [
+      {
+        column: {
+          header: 'Vesting Date',
+          align: 'right',
+          isCardHeader: true,
+        },
+        value: '2022-06-01',
+      },
+      {
+        column: {
+          header: 'Last month',
+          type: 'number',
+          align: 'right',
+          hasBorderBottomOnCard: true,
+        },
+        value: 234,
+      },
+      {
+        column: {
+          header: 'Difference',
+          type: 'number',
+          align: 'right',
+          hasBorderBottomOnCard: true,
+        },
+        value: 366.35,
+      },
+      {
+        column: {
+          header: 'Last month',
+          type: 'number',
+          align: 'right',
+          hasBorderBottomOnCard: true,
+        },
+        value: 234,
+      },
+      {
+        column: {
+          header: 'Reason(s)',
+          type: 'text',
+        },
+        value: 'new hires',
+      },
+    ],
+  },
+  {
+    borderBottom: true,
+    type: 'category',
+    items: [
+      {
+        column: {
+          header: 'Vesting Date',
+          isCardHeader: true,
+        },
+        value: '2022-12-31',
+      },
+      {
+        column: {
+          align: 'right',
+          hasBorderBottomOnCard: true,
+          header: 'MKR Amount',
+          type: 'number',
+        },
+        value: 183.18,
+      },
+      {
+        column: {
+          align: 'right',
+          hasBorderBottomOnCard: true,
+          header: 'Last month',
+          type: 'number',
+        },
+        value: 0,
+      },
+      {
+        column: {
+          header: 'Difference',
+          type: 'number',
+          align: 'right',
+          hasBorderBottomOnCard: true,
+        },
+        value: 234,
+      },
+      {
+        column: {
+          align: 'right',
+
+          header: 'Reason(s)',
+          type: 'text',
+        },
+        value: 'new hires',
+      },
+    ],
+  },
+  {
+    borderBottom: true,
+    type: 'category',
+    items: [
+      {
+        column: {
+          header: 'Vesting Date',
+          isCardHeader: true,
+        },
+        value: '2023-06-01',
+      },
+      {
+        column: {
+          align: 'right',
+          hasBorderBottomOnCard: true,
+          header: 'MKR Amount',
+          type: 'number',
+        },
+        value: 183.18,
+      },
+      {
+        column: {
+          align: 'right',
+          hasBorderBottomOnCard: true,
+          header: 'Last month',
+          type: 'number',
+        },
+        value: 0,
+      },
+      {
+        column: {
+          header: 'Difference',
+          type: 'number',
+          align: 'right',
+          hasBorderBottomOnCard: true,
+        },
+        value: 234,
+      },
+      {
+        column: {
+          align: 'right',
+
+          header: 'Reason(s)',
+          type: 'text',
+        },
+        value: 'new hires',
+      },
+    ],
+  },
+  {
+    borderBottom: true,
+    type: 'total',
+    items: [
+      {
+        column: {
+          header: 'Vesting Date',
+          isCardHeader: true,
+        },
+        value: 'Total',
+      },
+      {
+        column: {
+          align: 'right',
+          hasBorderBottomOnCard: true,
+          header: 'MKR Amount',
+          type: 'number',
+        },
+        value: 1099.07,
+      },
+      {
+        column: {
+          align: 'right',
+          hasBorderBottomOnCard: true,
+          header: 'Last month',
+          type: 'number',
+        },
+        value: 2340,
+      },
+      {
+        column: {
+          align: 'right',
+          hasBorderBottomOnCard: true,
+          header: 'Difference',
+          type: 'number',
+        },
+        value: 2340,
+      },
+    ],
+  },
+] as InnerTableRow[];
+
 const meta: Meta<typeof BudgetStatementMkrVestingTableSection> = {
   title: 'Fusion/Components/Budget Statements/MkrVesting Tab/BudgetStatementMkrVestingTableSection',
   component: BudgetStatementMkrVestingTableSection,
@@ -49,57 +237,7 @@ export default meta;
 const variantsArgs = [
   {
     mainTableColumns,
-    mainTableItems: [
-      new InnerTableRowBuilder()
-        .withType('normal')
-        .addItem({
-          column: mainTableColumns[0],
-          value: '2022-06-01',
-        })
-        .addItem({
-          column: mainTableColumns[1],
-          value: 37521,
-        })
-        .addItem({
-          column: mainTableColumns[2],
-          value: 37521,
-        })
-        .addItem({
-          column: mainTableColumns[3],
-          value: 0,
-        })
-        .addItem({
-          column: mainTableColumns[4],
-          value: <div style={{ paddingLeft: 16 }}>Some reason</div>,
-        })
-
-        .build(),
-      new InnerTableRowBuilder()
-        .withType('total')
-        .withHideMobile(true)
-        .addItem({
-          column: mainTableColumns[0],
-          value: 'Total',
-        })
-        .addItem({
-          column: mainTableColumns[1],
-          value: 37521,
-        })
-        .addItem({
-          column: mainTableColumns[2],
-          value: 37521,
-        })
-        .addItem({
-          column: mainTableColumns[3],
-          value: 0,
-        })
-        .addItem({
-          column: mainTableColumns[4],
-          value: <div style={{ paddingLeft: 16 }}>Some reason</div>,
-        })
-
-        .build(),
-    ] as InnerTableRow[],
+    mainTableItems: mainTableItems as InnerTableRow[],
     longCode: 'SES-01',
     shortCode: 'SES',
     resource: 'CoreUnit',
