@@ -16,7 +16,7 @@ const COLORS_BAR = {
   COLOR_GREEN_DARK: '#34A853',
   COLOR_GREEN_DARK_HOVER: '#3BBE5F',
   COLOR_GRAY: '#6F7A85',
-  COLOR_GRAY_STRONG: '#8391A7',
+  COLOR_GRAY_STRONG: '#9DA6B9',
   COLOR_ORANGE: '#FFD099',
   COLOR_ORANGE_HOVER: '#FFC480',
   COLOR_ORANGE_DARK: '#FF8A00',
@@ -28,14 +28,16 @@ const COLORS_BAR = {
 };
 
 const COLORS_BORDERS_POPOVER = {
-  COLOR_GREEN: '#6EDBD0',
-  COLOR_GREEN_DARK: 'rgba(0, 237, 24, 0.4)',
-  COLOR_GRAY: '#D1DEE6',
-  COLOR_GRAY_STRONG: '#708390',
-  COLOR_ORANGE: '#FEDB88',
-  COLOR_ORANGE_DARK: 'rgba(255, 130, 55, 0.4)',
-  COLOR_RED: '#F99374',
-  COLOR_RED_DARK: 'rgba(255, 64, 133, 0.4)',
+  COLOR_GREEN: '#BDEAC8',
+  COLOR_GREEN_DARK: '#27633B',
+  COLOR_GRAY: '#E6E9ED',
+  COLOR_GRAY_DARK: '#485265',
+  COLOR_GRAY_STRONG: '#E6E9ED',
+  COLOR_GRAY_STRONG_DARK: '#485265',
+  COLOR_ORANGE: '#FFDCB3',
+  COLOR_ORANGE_DARK: '#8C5412',
+  COLOR_RED: '#FBD9D7',
+  COLOR_RED_DARK: '#82302C',
 };
 
 export const getProgressiveBarColor = (
@@ -97,7 +99,7 @@ export const getDisplacementDashLine = (value: number, valueRelative: number): n
 
 export const getExpenditureLevelForecast = (valueActual: number, budgetCapActual: number): string => {
   if (budgetCapActual === 0) return '0';
-  if (valueActual === 0) return 'NO FORECAST';
+  if (valueActual === 0) return 'No Forecast';
   const percent = (valueActual * 100) / budgetCapActual;
   let expenditureLevel = '';
   if (percent > 0 && percent <= 75) {
@@ -119,8 +121,8 @@ export const getExpenditureLevelForecast = (valueActual: number, budgetCapActual
 };
 
 export const getBorderColor = (value: number, valueRelative: number, isLight: boolean): string => {
-  if (!valueRelative) return COLORS_BORDERS_POPOVER.COLOR_GRAY;
-  if (!value) return COLORS_BORDERS_POPOVER.COLOR_GRAY_STRONG;
+  if (!valueRelative) return isLight ? COLORS_BORDERS_POPOVER.COLOR_GRAY : COLORS_BORDERS_POPOVER.COLOR_GRAY_DARK;
+  if (!value) return isLight ? COLORS_BORDERS_POPOVER.COLOR_GRAY_STRONG : COLORS_BORDERS_POPOVER.COLOR_GRAY_STRONG_DARK;
   let color = '';
   const percent = percentageRespectTo(value, valueRelative);
   if (percent > 0 && percent <= 90) {
