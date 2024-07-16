@@ -45,7 +45,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             className={
               value === 'Total' || value === 'Subtotal'
                 ? 'advanced-table__cell-row--category'
-                : column.header === 'Comments'
+                : column.header === 'Comments' || column.header === 'Reason(s)'
                 ? 'advanced-table__cell-row--category--comments'
                 : ''
             }

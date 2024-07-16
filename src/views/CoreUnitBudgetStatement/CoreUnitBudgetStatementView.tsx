@@ -9,7 +9,7 @@ import { BudgetStatementActuals } from '@/components/BudgetStatement/BudgetState
 import { TransparencyAudit } from '@/components/BudgetStatement/BudgetStatementAudit/BudgetStatementAudit';
 import AuditorCommentsContainer from '@/components/BudgetStatement/BudgetStatementAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import { BudgetStatementForecast } from '@/components/BudgetStatement/BudgetStatementForecast/BudgetStatementForecast';
-import { TransparencyMkrVesting } from '@/components/BudgetStatement/BudgetStatementMkrVesting/BudgetStatementMkrVesting';
+import { BudgetStatementMkrVesting } from '@/components/BudgetStatement/BudgetStatementMkrVesting/BudgetStatementMkrVesting';
 import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
 import { TransparencyTransferRequest } from '@/components/BudgetStatement/BudgetStatementTransferRequest/BudgetStatementTransferRequest';
 import ExpenseReport from '@/components/BudgetStatement/ExpenseReport/ExpenseReport';
@@ -175,7 +175,7 @@ const CoreUnitBudgetStatementView = ({
               />
             )}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
-              <TransparencyMkrVesting
+              <BudgetStatementMkrVesting
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}
