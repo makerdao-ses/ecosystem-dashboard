@@ -3,6 +3,7 @@ import { useTeamContext } from '@ses/core/context/TeamContext';
 import { ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
+import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import React, { useMemo } from 'react';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import { customRenderer, customRendererDark } from '@/views/CoreUnitAbout/components/Markdown/renderUtils';
@@ -26,7 +27,7 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
 }) => {
   const { isLight } = useThemeContext();
   const { currentTeam } = useTeamContext();
-  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const formattedTimestamp = useMemo(
     () => DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ'),
@@ -48,35 +49,48 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
     return `${currentTeam?.shortCode} Ecosystem Actor`;
   }, [comment, currentTeam, resource]);
 
+  const author = (
+    <AuthorContainer>
+      <UserAvatar />
+      <Username>{comment.author.username}</Username>
+      <UserRole>{roleString}</UserRole>
+    </AuthorContainer>
+  );
+
+  const actionDate = (
+    <ActionAndDate>
+      <Action>{verb}</Action>
+      <Date>{formattedTimestamp}</Date>
+    </ActionAndDate>
+  );
+
   return (
     <GenericCommentCard variant={comment.status}>
       <CommentHeader hasComment={!!comment.comment?.trim()}>
-        <CommentInfo>
-          {hasStatusChange && (
-            <StatusLabelWrapper>
-              <ExpenseReportStatus status={comment.status} />
-            </StatusLabelWrapper>
-          )}
-          {isTablet && hasStatusChange ? (
-            <>
-              <MobileColumn>
-                <Username>{comment.author.username}</Username>
-                <UserRole>{roleString}</UserRole>
-              </MobileColumn>
-              <ActionAndDate>
-                {verb} on {formattedTimestamp}
-              </ActionAndDate>
-            </>
-          ) : (
-            <Text>
-              {comment.author.username} <span>({roleString})</span> {verb} on {formattedTimestamp}
-            </Text>
-          )}
-        </CommentInfo>
+        {hasStatusChange ? (
+          <MetaForStatusChange>
+            <ExpenseReportStatus status={comment.status} />
+            {actionDate}
+            {author}
+          </MetaForStatusChange>
+        ) : (
+          <MetaForComment>
+            {author} {!isMobile && actionDate}
+          </MetaForComment>
+        )}
       </CommentHeader>
       {comment.comment?.trim() && (
         <CommentMessage>
-          <Markdown value={comment.comment} renderer={isLight ? customRenderer : customRendererDark} />
+          <MarkdownWrapper>
+            <Markdown value={comment.comment} renderer={isLight ? customRenderer : customRendererDark} />
+          </MarkdownWrapper>
+
+          {isMobile && (
+            <MobileCommentDate>
+              <Verb>{verb}</Verb>
+              <CommentDateString>{formattedTimestamp}</CommentDateString>
+            </MobileCommentDate>
+          )}
         </CommentMessage>
       )}
     </GenericCommentCard>
@@ -85,93 +99,207 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
 
 export default AuditorCommentCard;
 
+const ActionAndDate = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  border: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+  borderRadius: 8,
+  overflow: 'hidden',
+}));
+
+const Action = styled('div')(({ theme }) => ({
+  padding: '2px 4px 2px 3px',
+  background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800],
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
+  textTransform: 'capitalize',
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+  height: '100%',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+    padding: '0 8px 0 7px',
+  },
+}));
+
+const Date = styled('div')(({ theme }) => ({
+  padding: '2px 3px 2px 4px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+    padding: '0 7px 0 8px',
+  },
+}));
+
+const AuthorContainer = styled('div')(() => ({
+  display: 'flex',
+}));
+
+const UserAvatar = styled(AvatarPlaceholder)(({ theme }) => ({
+  width: 24,
+  height: 24,
+  borderRadius: '50%',
+  boxShadow: theme.palette.isLight
+    ? '1.5px 3px 5.25px 0px rgba(25, 144, 255, 0.20)'
+    : '1.167px 4.667px 17.85px 0px #141921',
+}));
+
+const Username = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
+  fontSize: 14,
+  fontWeight: 500,
+  lineHeight: '22px',
+  marginLeft: 4,
+  marginRight: 8,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+  },
+}));
+
+const UserRole = styled('div')(({ theme }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  fontSize: 14,
+  fontWeight: 500,
+  lineHeight: '22px',
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    fontSize: 16,
+    fontWeight: 600,
+    lineHeight: '24px',
+  },
+}));
+
 const CommentHeader = styled('div')<{ hasComment: boolean }>(({ theme, hasComment = false }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  padding: `16px 16px ${hasComment ? '0' : '16px'} 16px`,
+  padding: 8,
   width: '100%',
 
-  [theme.breakpoints.up('tablet_768')]: {
-    padding: `24px 16px ${hasComment ? '0' : '24px'} 16px`,
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: hasComment ? '8px 16px 6px 16px' : '8px 16px',
+  },
+}));
+
+const MetaForStatusChange = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  width: '100%',
+
+  '& > *:nth-of-type(1)': {
+    // status
+    // nothing for now here...
+  },
+  '& > *:nth-of-type(2)': {
+    // action and date
+    marginLeft: 'auto',
+  },
+  '& > *:nth-of-type(3)': {
+    // author
+    width: '100%',
+    marginTop: 8,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    padding: `24px 32px ${hasComment ? '0' : '24px'} 32px`,
+    '& > *:nth-of-type(1)': {
+      order: 1,
+    },
+    '& > *:nth-of-type(2)': {
+      // action and date
+      order: 3,
+    },
+    '& > *:nth-of-type(3)': {
+      // author
+      order: 2,
+      marginTop: 0,
+      marginLeft: 16,
+      width: 'fit-content',
+    },
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    '& > *:nth-of-type(3)': {
+      // author
+      marginLeft: 24,
+    },
   },
 }));
 
-const StatusLabelWrapper = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('tablet_768')]: {
-    marginRight: 40,
-  },
-}));
-
-const Text = styled('span')(({ theme }) => ({
-  letterSpacing: '1px',
-  color: theme.palette.isLight ? '#708390' : '#546978',
-
-  '& span': {
-    color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  },
-}));
-
-const MobileColumn = styled('div')({
+const MetaForComment = styled('div')(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  letterSpacing: '1px',
-});
-
-const CommentInfo = styled('div')(({ theme }) => ({
-  fontSize: '12px',
-  fontWeight: 600,
-  lineHeight: '15px',
-  color: theme.palette.isLight ? '#708390' : '#546978',
-  textTransform: 'uppercase',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
+  flexWrap: 'wrap',
 
   [theme.breakpoints.up('tablet_768')]: {
-    width: 'auto',
-  },
-
-  [theme.breakpoints.down('tablet_768')]: {
-    flexWrap: 'wrap',
+    width: '100%',
     justifyContent: 'space-between',
-  },
-}));
-
-const Username = styled('div')({
-  // this is being used just for readability purposes
-});
-
-const UserRole = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    margin: '0 3px',
-  },
-}));
-
-const ActionAndDate = styled('div')(({ theme }) => ({
-  marginTop: 16,
-  width: '100%',
-  letterSpacing: '1px',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    marginTop: 0,
   },
 }));
 
 const CommentMessage = styled('div')(({ theme }) => ({
   width: '100%',
-  marginTop: 16,
-  borderTop: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
-  padding: '16px 16px 24px',
+  borderTop: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+  padding: '7px 8px 4px',
 
-  '& > *:first-of-type': {
+  [theme.breakpoints.up('tablet_768')]: {
+    paddingBottom: 16,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '7px 16px 16px',
+  },
+}));
+
+const MarkdownWrapper = styled('div')(({ theme }) => ({
+  '& p, & div, & li': {
+    fontSize: 12,
+    fontWeight: 500,
+    lineHeight: '18px',
+    color: `${theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600]}!important`,
+
+    [theme.breakpoints.up('desktop_1024')]: {
+      fontSize: 14,
+      fontWeight: 600,
+      lineHeight: '22px',
+    },
+  },
+
+  '& h1, & h2, & h3, & h4, & h5, & h6': {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '22px',
+    color: `${theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50]}!important`,
+
+    [theme.breakpoints.up('desktop_1024')]: {
+      fontSize: 16,
+      lineHeight: '24px',
+    },
+  },
+
+  '& b, & strong': {
+    color: `${theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50]}!important`,
+    fontWeight: 600,
+  },
+
+  '& > *:not(:nth-child(1))': {
+    marginTop: 8,
+  },
+
+  '& > *:nth-child(1)': {
     marginTop: '0',
   },
 
@@ -179,8 +307,28 @@ const CommentMessage = styled('div')(({ theme }) => ({
     paddingLeft: 14,
   },
 
-  [theme.breakpoints.up('desktop_1024')]: {
-    marginTop: 24,
-    padding: '16px 32px 24px',
+  '& li': {
+    marginTop: '0!important',
   },
+}));
+
+const MobileCommentDate = styled('div')(({ theme }) => ({
+  display: 'flex',
+  borderTop: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+  padding: '4px 8px 0',
+  margin: '14px -8px 0',
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[50],
+}));
+
+const Verb = styled('span')(() => ({
+  textTransform: 'capitalize',
+}));
+
+const CommentDateString = styled('span')(() => ({
+  marginLeft: 'auto',
 }));

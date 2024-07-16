@@ -3,7 +3,7 @@ import AngleRight from 'public/assets/svg/angle_right.svg';
 import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
 import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
-import AvatarPlaceHolder from 'public/assets/svg/avatar_placeholder.svg';
+import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
@@ -105,7 +105,7 @@ export const iconsPowerHose = [
     title: 'circle_info',
   },
   {
-    Icon: AvatarPlaceHolder,
+    Icon: AvatarPlaceholder,
     title: 'avatar_placeholder',
   },
   {

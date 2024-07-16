@@ -15,14 +15,14 @@ const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = Budge
   const borderColor = useMemo(() => {
     switch (variant) {
       case BudgetStatus.Final:
-        return isLight ? colorPalette.green[700] : colorPalette.green[900];
+        return isLight ? colorPalette.green[100] : '#34A85366';
       case BudgetStatus.Review:
-        return isLight ? colorPalette.orange[700] : colorPalette.orange[900];
+        return isLight ? colorPalette.orange[100] : '#FF8A0066';
       case BudgetStatus.Escalated:
-        return colorPalette.red[700];
+        return isLight ? colorPalette.red[200] : '#EA433566';
       default:
         // default to draft
-        return isLight ? colorPalette.blue[700] : colorPalette.blue[900];
+        return isLight ? colorPalette.blue[100] : '#0084FF66';
     }
   }, [isLight, variant]);
 
