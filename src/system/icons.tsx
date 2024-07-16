@@ -11,6 +11,8 @@ import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import Expand from 'public/assets/svg/expand.svg';
 import ExternalLink from 'public/assets/svg/external_link.svg';
 import Forum from 'public/assets/svg/forum.svg';
+import FusionArrowCollapse from 'public/assets/svg/fusion_arrow_collapse.svg';
+import FusionArrowExpand from 'public/assets/svg/fusion_arrow_expand.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import GlobeWWW from 'public/assets/svg/globe_www.svg';
 import InfoOutlined from 'public/assets/svg/info_outlined.svg';
@@ -154,5 +156,13 @@ export const iconsPowerHose = [
   {
     Icon: Map,
     title: 'map',
+  },
+  {
+    Icon: FusionArrowCollapse,
+    title: 'fusion_arrow_collapse',
+  },
+  {
+    Icon: FusionArrowExpand,
+    title: 'fusion_arrow_expand',
   },
 ];
