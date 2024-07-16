@@ -6,7 +6,7 @@ import ParticipantRoles from './ParticipantRoles';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ParticipantRoles> = {
-  title: 'Components/AuditorComments/ParticipantRoles',
+  title: 'Fusion/Components/Budget Statements/Comments/ParticipantRoles',
   component: ParticipantRoles,
   decorators: [
     (Story) => (

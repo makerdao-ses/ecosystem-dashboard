@@ -3,7 +3,7 @@ import NoComments from './NoComments';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof NoComments> = {
-  title: 'Components/AuditorComments/NoComments',
+  title: 'Fusion/Components/Budget Statements/Comments/NoComments',
   component: NoComments,
 };
 export default meta;

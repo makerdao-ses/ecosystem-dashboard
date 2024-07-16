@@ -1,6 +1,4 @@
-import styled from '@emotion/styled';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
+import { styled } from '@mui/material';
 import GenericCommentCard from './GenericCommentCard';
 
 const NoComments: React.FC = () => (
@@ -11,7 +9,7 @@ const NoComments: React.FC = () => (
 
 export default NoComments;
 
-const Title = styled.div({
+const Title = styled('div')(({ theme }) => ({
   fontFamily: 'FT Base, sans-serif',
   fontStyle: 'normal',
   fontWeight: 500,
@@ -22,7 +20,7 @@ const Title = styled.div({
   color: '#9FAFB9',
   padding: '77px 16px',
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     fontSize: '32px',
   },
-});
+}));

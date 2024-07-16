@@ -5,7 +5,7 @@ import BudgetStatusSelect from './BudgetStatusSelect';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof BudgetStatusSelect> = {
-  title: 'Components/AuditorComments/BudgetStatusSelect',
+  title: 'Fusion/Components/Budget Statements/Comments/BudgetStatusSelect',
   component: BudgetStatusSelect,
   decorators: [
     (Story) => (

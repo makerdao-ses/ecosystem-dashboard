@@ -3,7 +3,7 @@ import AngleRight from 'public/assets/svg/angle_right.svg';
 import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
 import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
-import AvatarPlaceHolder from 'public/assets/svg/avatar_placeholder.svg';
+import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
@@ -24,6 +24,7 @@ import FusionIcon from 'public/assets/svg/makerdao_fusion.svg';
 import SwitchboardIcon from 'public/assets/svg/makerdao_switchboard.svg';
 import Map from 'public/assets/svg/map.svg';
 import Megaphone from 'public/assets/svg/megaphone.svg';
+import MemoCheck from 'public/assets/svg/memo_check.svg';
 import PersonSquare from 'public/assets/svg/person_square.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
@@ -110,7 +111,7 @@ export const iconsPowerHose = [
     title: 'circle_info',
   },
   {
-    Icon: AvatarPlaceHolder,
+    Icon: AvatarPlaceholder,
     title: 'avatar_placeholder',
   },
   {
@@ -140,6 +141,10 @@ export const iconsPowerHose = [
   {
     Icon: Expand,
     title: 'expand',
+  },
+  {
+    Icon: MemoCheck,
+    title: 'memo_check',
   },
   {
     Icon: BarChartLine,
