@@ -65,7 +65,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
     <Container>
       {!isMobileResolution && (
         <ContainerTitleIcon>
-          <Title style={{ marginRight: 8 }}>{title}</Title>
+          <Title>{title}</Title>
 
           {showPopover && (
             <SESTooltipStyled content={<HeaderToolTip description={description} link={link} name={name} />}>
@@ -78,7 +78,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
       )}
       {isMobileResolution && !isMobileDevice && (
         <ContainerTitleIcon>
-          <Title style={{ marginRight: 8 }}>{title}</Title>
+          <Title>{title}</Title>
           {showPopover && (
             <SESTooltipStyled content={<HeaderToolTip description={description} link={link} name={name} />}>
               <IconContainer className="advance-table--transparency-card_icon_hidden">
@@ -89,14 +89,14 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
         </ContainerTitleIcon>
       )}
       {isMobileResolution && isMobileDevice && (
-        <>
-          <Title style={{ marginRight: 8 }}>{title}</Title>
+        <ContainerTitleIcon>
+          <Title>{title}</Title>
           {showPopover && (
             <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
               <IconPosition />
             </ContainerInfoIcon>
           )}
-        </>
+        </ContainerTitleIcon>
       )}
     </Container>
   );
@@ -162,9 +162,15 @@ const IconContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const ContainerTitleIcon = styled('div')({
+const ContainerTitleIcon = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-
+  gap: 8.5,
   alignItems: 'center',
-});
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 6.5,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    gap: 12.5,
+  },
+}));
