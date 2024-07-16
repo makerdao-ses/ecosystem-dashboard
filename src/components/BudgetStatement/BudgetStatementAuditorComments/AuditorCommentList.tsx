@@ -3,7 +3,7 @@ import { getCommentVerb } from '@ses/core/utils/string';
 import { isActivity } from '@ses/core/utils/typesHelpers';
 import React, { useMemo } from 'react';
 import AuditorCommentCard from './AuditorCommentCard';
-import CUNewExpenseReport from './CUNewExpenseReport';
+import NewExpenseReport from './NewExpenseReport';
 import type { ChangeTrackingEvent } from '@ses/core/models/interfaces/activity';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
@@ -18,7 +18,7 @@ const AuditorCommentList: React.FC<AuditorCommentListProps> = ({ comments, resou
     () =>
       comments.map((comment, index) => {
         if (isActivity(comment)) {
-          return <CUNewExpenseReport key={comment.id} description={comment.description} date={comment.created_at} />;
+          return <NewExpenseReport key={comment.id} description={comment.description} date={comment.created_at} />;
         } else {
           let hasStatusChange = (comments.length === 1 || index === 0) && comment.status !== BudgetStatus.Draft;
           let previousComment: BudgetStatementComment | undefined;

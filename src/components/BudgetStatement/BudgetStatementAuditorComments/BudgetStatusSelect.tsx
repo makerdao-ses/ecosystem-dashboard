@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { BudgetStatus } from '@ses/core/models/interfaces/types';
-import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import ExpenseReportStatus from '@/views/CoreUnitBudgetStatement/components/ExpenseReportStatus/ExpenseReportStatus';
 
@@ -53,7 +53,7 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
   }
 
   return (
-    <SelectWrapper ref={menuRef} isLight={isLight} open={opened} onClick={toggleOpenHandler}>
+    <SelectWrapper ref={menuRef} open={opened} onClick={toggleOpenHandler}>
       <SelectControl>
         <ExpenseReportStatus status={selectedStatus} />
         <Arrow width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,14 +65,9 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
           />
         </Arrow>
       </SelectControl>
-      <Menu isLight={isLight} open={opened} ref={menuRef}>
+      <Menu open={opened} ref={menuRef}>
         {statuses.map((status) => (
-          <MenuItem
-            key={status}
-            isLight={isLight}
-            onClick={() => selectStatusHandler(status)}
-            selected={status === selectedStatus}
-          >
+          <MenuItem key={status} onClick={() => selectStatusHandler(status)} selected={status === selectedStatus}>
             <ExpenseReportStatus status={status} />
           </MenuItem>
         ))}
@@ -83,13 +78,9 @@ const BudgetStatusSelect: React.FC<BudgetStatusSelectProps> = ({ availableStatus
 
 export default BudgetStatusSelect;
 
-type StyledThemeProps = {
-  isLight: boolean;
-};
-
-const SelectWrapper = styled.div<StyledThemeProps & { open: boolean }>(({ isLight, open }) => ({
+const SelectWrapper = styled('div')<{ open: boolean }>(({ theme, open }) => ({
   position: 'relative',
-  border: `1px solid ${isLight ? '#D4D9E1' : '#405361'}`,
+  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
   borderRadius: 6,
   padding: '7px 10px 7px 7px',
   minWidth: 'fit-content',
@@ -97,36 +88,36 @@ const SelectWrapper = styled.div<StyledThemeProps & { open: boolean }>(({ isLigh
 
   ...(open && {
     borderColor: 'transparent',
-    background: isLight ? '#EDEFFF' : '#21212B',
+    background: theme.palette.isLight ? '#EDEFFF' : '#21212B',
     '& > svg': {
       transform: 'rotate(180deg)',
     },
   }),
 }));
 
-const SelectControl = styled.div({
+const SelectControl = styled('div')({
   cursor: 'pointer',
 });
 
-const Arrow = styled.svg({
+const Arrow = styled('svg')({
   marginLeft: 19,
 });
 
-const Menu = styled.div<StyledThemeProps & { open: boolean }>(({ isLight, open }) => ({
+const Menu = styled('div')<{ open: boolean }>(({ theme, open }) => ({
   position: 'absolute',
   display: open ? 'block' : 'none',
   left: 0,
   top: '100%',
   padding: 16,
   borderRadius: 6,
-  background: isLight ? '#FFFFFF' : '#000A13',
-  boxShadow: isLight
+  background: theme.palette.isLight ? '#FFFFFF' : '#000A13',
+  boxShadow: theme.palette.isLight
     ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
     : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-  ...(!isLight && { border: '1px solid #231536' }),
+  ...(!theme.palette.isLight && { border: '1px solid #231536' }),
 }));
 
-const MenuItem = styled.div<StyledThemeProps & { selected: boolean }>(({ isLight, selected }) => ({
+const MenuItem = styled('div')<{ selected: boolean }>(({ theme, selected }) => ({
   position: 'relative',
   borderRadius: 6,
   padding: '4px 4px 4px 44px',
@@ -148,7 +139,7 @@ const MenuItem = styled.div<StyledThemeProps & { selected: boolean }>(({ isLight
   },
 
   ...(selected && {
-    background: isLight ? '#EDEFFF' : '#231536',
+    background: theme.palette.isLight ? '#EDEFFF' : '#231536',
     '&:after': {
       content: '""',
       position: 'absolute',
@@ -157,7 +148,7 @@ const MenuItem = styled.div<StyledThemeProps & { selected: boolean }>(({ isLight
       width: 10,
       height: 10,
       borderRadius: '50%',
-      border: `1px solid ${isLight ? '#231536' : '#D2D4EF'}`,
+      border: `1px solid ${theme.palette.isLight ? '#231536' : '#D2D4EF'}`,
     },
     '&:before': {
       content: '""',
@@ -167,7 +158,7 @@ const MenuItem = styled.div<StyledThemeProps & { selected: boolean }>(({ isLight
       width: 6,
       height: 6,
       borderRadius: '50%',
-      background: isLight ? '#231536' : '#D2D4EF',
+      background: theme.palette.isLight ? '#231536' : '#D2D4EF',
     },
   }),
 }));

@@ -7,7 +7,7 @@ import AuditorCommentList from './AuditorCommentList';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof AuditorCommentList> = {
-  title: 'Components/AuditorComments/AuditorCommentList',
+  title: 'Fusion/Components/Budget Statements/Comments/AuditorCommentList',
   component: AuditorCommentList,
   decorators: [withGenericTeamContext],
 };

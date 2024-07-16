@@ -1,6 +1,6 @@
 import { CommentBuilder } from '@ses/core/businessLogic/builders/commentBuilder';
 import { UserBuilder } from '@ses/core/businessLogic/builders/userBuilder';
-import { ResourceType } from '@ses/core/models/interfaces/types';
+import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { withTeamContext } from '@ses/core/utils/storybook/decorators';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import AuditorCommentCard from './AuditorCommentCard';
@@ -9,11 +9,11 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof AuditorCommentCard> = {
-  title: 'Components/AuditorComments/CommentCard',
+  title: 'Fusion/Components/Budget Statements/Comments/CommentCard',
   component: AuditorCommentCard,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280],
+      viewports: [375, 768, 1024, 1280],
       pauseAnimationAtEnd: true,
     },
   },
@@ -33,7 +33,9 @@ const variantsArgs = [
     comment: new CommentBuilder()
       .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().withUsername('wkampmann').build())
       .withTimestamp('2022-10-17T12:32:00.000Z')
+      .withStatus(BudgetStatus.Draft)
       .build(),
+    hasStatusChange: true,
     resource: ResourceType.CoreUnit,
   },
   {
@@ -41,7 +43,7 @@ const variantsArgs = [
       .withAuthor(new UserBuilder().addCoreUnitFacilitatorRole().withUsername('wkampmann').build())
       .withComment(
         // eslint-disable-next-line spellcheck/spell-checker
-        'Our September forecast included offsite participation estimates for more people that ended up participating. Equally we have managed to get speaker tickets.\n\n**Updating:**\n\n- Actual expenses\n- FTE number'
+        'Our September forecast included offsite participation estimates for more people that ended up participating. Equally we have managed to get speaker tickets.\n\n# Updating:\n\n- Actual expenses\n- FTE number'
       )
       .withTimestamp('2022-10-17T12:32:00.000Z')
       .build(),
@@ -59,45 +61,102 @@ StatusChange.parameters = {
   figma: {
     component: {
       0: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A140374',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-97728',
         options: {
           componentStyle: {
             width: 343,
           },
+          style: {
+            top: 0,
+            left: 8,
+          },
         },
       },
-      834: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A132865',
+      768: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-97461',
         options: {
           componentStyle: {
-            width: 545,
+            width: 461,
           },
           style: {
-            top: -18,
+            top: -11,
+            left: -14,
           },
         },
       },
-      1194: {
-        component: 'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A127300',
+      1024: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-97190',
         options: {
           componentStyle: {
-            width: 866,
+            width: 714,
           },
         },
       },
       1280: {
-        component: 'https:// www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?node-id=10662%3A124775',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-96919',
         options: {
           componentStyle: {
-            width: 912,
+            width: 892,
           },
         },
       },
     },
     options: {
       style: {
-        top: -20,
-        left: -40,
+        top: -11,
+        left: -14,
+      },
+    },
+  } as FigmaParams,
+};
+
+Comment.parameters = {
+  figma: {
+    component: {
+      0: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-97756',
+        options: {
+          componentStyle: {
+            width: 343,
+          },
+          style: {
+            top: -11,
+            left: -14,
+          },
+        },
+      },
+      768: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-97491',
+        options: {
+          componentStyle: {
+            width: 461,
+          },
+          style: {
+            top: -11,
+          },
+        },
+      },
+      1024: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-97220',
+        options: {
+          componentStyle: {
+            width: 714,
+          },
+        },
+      },
+      1280: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4968-96949',
+        options: {
+          componentStyle: {
+            width: 892,
+          },
+        },
+      },
+    },
+    options: {
+      style: {
+        top: -11,
+        left: -14,
       },
     },
   } as FigmaParams,
