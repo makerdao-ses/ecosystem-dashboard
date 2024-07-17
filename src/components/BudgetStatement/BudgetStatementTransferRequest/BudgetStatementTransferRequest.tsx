@@ -16,7 +16,7 @@ interface TransparencyTransferRequestProps {
   resource: ResourceType;
 }
 
-export const TransparencyTransferRequest: React.FC<TransparencyTransferRequestProps> = ({
+export const BudgetStatementTransferRequest: React.FC<TransparencyTransferRequestProps> = ({
   currentMonth,
   budgetStatements,
   longCode,
