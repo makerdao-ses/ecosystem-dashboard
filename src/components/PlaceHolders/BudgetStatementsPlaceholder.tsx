@@ -1,5 +1,7 @@
 import { styled } from '@mui/material';
 import Image from 'next/image';
+import MobileDark from 'public/assets/img/empty-mobile-dark.png';
+import Mobile from 'public/assets/img/empty_mobile.png';
 import EmptyDark from 'public/assets/img/no-data-provide-dark.png';
 import Empty from 'public/assets/img/no-data-provide.png';
 
@@ -41,6 +43,9 @@ const BudgetStatementsPlaceholder: React.FC<Props> = ({
   }
   return (
     <Container>
+      <ImageWrapperMobile>
+        <Image src={isLight ? Mobile : MobileDark} alt="There are no elements" layout="fill" />
+      </ImageWrapperMobile>
       <ImageWrapper>
         <Image src={isLight ? Empty : EmptyDark} alt="There are no elements" layout="fill" />
       </ImageWrapper>
@@ -119,12 +124,12 @@ const Description = styled('div')(({ theme }) => ({
 }));
 
 const ImageWrapper = styled('div')(({ theme }) => ({
-  position: 'relative',
-  width: '343px',
-  minWidth: '100%',
-  height: '300px',
+  display: 'none',
 
   [theme.breakpoints.up('tablet_768')]: {
+    display: 'block',
+    position: 'relative',
+    minWidth: '100%',
     width: '704px',
     height: '328px',
   },
@@ -151,9 +156,10 @@ const ContainerDescription = styled('div')(({ theme }) => ({
   marginTop: 1,
   maxWidth: '279px',
   padding: '16px 8px',
-  backgroundColor: theme.palette.isLight ? '#FFFFFF80' : '#252A3480',
 
+  backgroundColor: theme.palette.isLight ? 'rgba(255, 255, 255, 0.2)' : 'rgba(37, 42, 52, 0.2)',
   [theme.breakpoints.up('tablet_768')]: {
+    backgroundColor: theme.palette.isLight ? 'rgba(255, 255, 255, 0.5)' : 'rgba(37, 42, 52, 0.5)',
     maxWidth: '512px',
     top: '11%',
     padding: '40px 16px 32px',
@@ -197,3 +203,14 @@ const ExternalLinkButtonStyled = styled(ExternalLinkButton)({
     height: 20,
   },
 });
+
+const ImageWrapperMobile = styled('div')(({ theme }) => ({
+  position: 'relative',
+  width: '343px',
+  minWidth: '100%',
+  height: '300px',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'none',
+  },
+}));
