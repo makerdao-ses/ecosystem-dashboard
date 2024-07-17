@@ -17,7 +17,7 @@ export interface WithClick {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export const TargetValueThreeMoths = (data: TargetBalanceTooltipInformation) => {
+export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const isMobileResolution = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
