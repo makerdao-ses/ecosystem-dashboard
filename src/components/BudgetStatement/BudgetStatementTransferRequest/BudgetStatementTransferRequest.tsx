@@ -31,16 +31,15 @@ export const BudgetStatementTransferRequest: React.FC<TransparencyTransferReques
       {headline}
 
       <Title>{currentMonth.toFormat('MMM yyyy')} Totals</Title>
-      <div style={{ marginTop: 32 }}>
-        <AdvancedInnerTable
-          columns={mainTableColumns}
-          items={mainTableItems}
-          style={{ marginBottom: '64px' }}
-          cardsTotalPosition={'top'}
-          longCode={longCode}
-          tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />}
-        />
-      </div>
+
+      <AdvancedInnerTable
+        columns={mainTableColumns}
+        items={mainTableItems}
+        cardsTotalPosition={'top'}
+        cardSpacingSize="small"
+        longCode={longCode}
+        tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />}
+      />
     </Container>
   );
 };
