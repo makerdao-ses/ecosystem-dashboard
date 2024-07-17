@@ -195,9 +195,6 @@ const variantsArgs = [
   },
 ];
 
-const [[BudgetStatementActualsLight, BudgetStatementActualsDark]] = createThemeModeVariants(
-  TransferRequestSection,
-  variantsArgs
-);
+const [[TransferRequestLight, TransferRequestDark]] = createThemeModeVariants(TransferRequestSection, variantsArgs);
 
-export { BudgetStatementActualsLight, BudgetStatementActualsDark };
+export { TransferRequestLight, TransferRequestDark };
