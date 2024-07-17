@@ -63,7 +63,7 @@ LightMode.parameters = {
         },
       },
       1440: {
-        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=28-8214&m=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=4864-10681&m=dev',
         options: {
           componentStyle: {},
           style: {},
