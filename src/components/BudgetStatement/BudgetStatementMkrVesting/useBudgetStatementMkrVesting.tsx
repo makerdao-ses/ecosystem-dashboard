@@ -35,7 +35,7 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
     return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmountOld);
   }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
-  const FTEs = useMemo(
+  const fTEs = useMemo(
     () => _.first(currentBudgetStatement?.budgetStatementFTEs)?.ftes ?? 'N/A',
     [currentBudgetStatement?.budgetStatementFTEs]
   );
@@ -137,10 +137,10 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
 
     return result;
   }, [mkrVestings, mainTableColumns, totalAmount, totalOldAmount]);
-
+  console.log('mainTableItems', mainTableItems);
   return {
     mainTableColumns,
     mainTableItems,
-    FTEs,
+    fTEs,
   };
 };
