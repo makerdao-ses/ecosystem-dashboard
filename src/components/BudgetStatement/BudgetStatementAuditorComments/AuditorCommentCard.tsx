@@ -153,6 +153,13 @@ const UserAvatar = styled(AvatarPlaceholder)(({ theme }) => ({
   boxShadow: theme.palette.isLight
     ? '1.5px 3px 5.25px 0px rgba(25, 144, 255, 0.20)'
     : '1.167px 4.667px 17.85px 0px #141921',
+
+  '& path': {
+    fill: theme.palette.isLight ? '#6C7275' : theme.palette.colors.charcoal[500],
+  },
+  '& rect': {
+    fill: theme.palette.isLight ? '#CED3DC' : theme.palette.colors.charcoal[700],
+  },
 }));
 
 const Username = styled('div')(({ theme }) => ({

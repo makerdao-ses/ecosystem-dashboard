@@ -37,9 +37,8 @@ const User = styled('div')(({ theme }) => ({
 const Username = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  marginLeft: 8,
   fontSize: 16,
-  fontWeight: 700,
-  lineHeight: '19px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[50],
+  fontWeight: 600,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 }));

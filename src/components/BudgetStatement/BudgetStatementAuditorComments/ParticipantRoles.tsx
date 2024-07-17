@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 import { ResourceType } from '@ses/core/models/interfaces/types';
+import Card from '@/components/Card/Card';
 import InlineUser from '@/views/EcosystemActorAbout/components/InlineUser/InlineUser';
 import type { BaseUser } from '@ses/core/models/interfaces/users';
 
@@ -21,7 +22,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, 
   return (
     <ParticipantContainer>
       <Title>Participant Roles</Title>
-      <Card>
+      <ParticipantsCard>
         {cu.length > 0 && (
           <RoleSection>
             <RoleName>{roleName}</RoleName>
@@ -35,7 +36,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, 
 
         {auditors.length > 0 ? (
           <RoleSection>
-            <RoleName>Auditor</RoleName>
+            <RoleName>Auditor{auditors.length === 1 ? '' : 's'}</RoleName>
             {auditors.map((author) => (
               <UserWrapper key={author.id}>
                 <InlineUser username={author.username} />
@@ -50,7 +51,7 @@ const ParticipantRoles: React.FC<ParticipantRolesProps> = ({ teamShortCode, cu, 
             is currently working without an auditor
           </EmptyState>
         )}
-      </Card>
+      </ParticipantsCard>
     </ParticipantContainer>
   );
 };
@@ -63,48 +64,51 @@ const ParticipantContainer = styled('div')({
 
 const Title = styled('div')(({ theme }) => ({
   fontSize: 16,
-  fontWeight: 700,
-  lineHeight: '19px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
-  marginBottom: 32,
+  fontWeight: 600,
+  lineHeight: '24px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  marginBottom: 8,
 }));
 
-const Card = styled('div')(({ theme }) => ({
-  background: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-  boxShadow: theme.palette.isLight
-    ? '0px 20px 40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '10px 15px 20px 6px rgba(20, 0, 141, 0.1)',
-  borderRadius: 6,
-  padding: '16px 16px 24px',
+const ParticipantsCard = styled(Card)(({ theme }) => ({
+  padding: '16px 8px 8px',
 
-  [theme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: 16,
   },
 }));
 
 const EmptyState = styled('div')(({ theme }) => ({
   fontSize: 14,
-  fontWeight: 400,
+  fontWeight: 500,
   lineHeight: '22px',
-  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
+  color: theme.palette.colors.slate[100],
 }));
 
-const RoleSection = styled('div')({
+const RoleSection = styled('div')(({ theme }) => ({
+  position: 'relative',
+  padding: '16px 15px 15px',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: 16,
+  borderRadius: 8,
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+
   '&:not(:last-child)': {
     marginBottom: 32,
   },
-});
-
-const RoleName = styled('div')(({ theme }) => ({
-  fontSize: 14,
-  fontWeight: 400,
-  lineHeight: '22px',
-  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
-  marginBottom: 16,
 }));
 
-const UserWrapper = styled('div')({
-  '&:not(:last-child)': {
-    marginBottom: 16,
-  },
-});
+const RoleName = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  top: -9,
+  left: 8,
+  padding: '0 8px',
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
+  color: theme.palette.colors.slate[100],
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+}));
+
+const UserWrapper = styled('div')({});
