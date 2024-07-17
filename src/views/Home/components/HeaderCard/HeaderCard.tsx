@@ -3,6 +3,8 @@ import { Button, IconButton, styled, useMediaQuery } from '@mui/material';
 import BarChartLineIcon from 'public/assets/svg/bar_chart_line.svg';
 import ArrowCollapseIcon from 'public/assets/svg/fusion_arrow_collapse.svg';
 import ArrowExpandIcon from 'public/assets/svg/fusion_arrow_expand.svg';
+import FusionArrowSelectDown from 'public/assets/svg/fusion_arrow_select_down.svg';
+import FusionArrowSelectUp from 'public/assets/svg/fusion_arrow_select_up.svg';
 import MapIcon from 'public/assets/svg/map.svg';
 import MegaphoneIcon from 'public/assets/svg/megaphone.svg';
 import PersonSquareIcon from 'public/assets/svg/person_square.svg';
@@ -15,21 +17,20 @@ import useHeaderCard from './useHeaderCard';
 import type { Theme, ButtonProps } from '@mui/material';
 import type { FC } from 'react';
 
-interface StyledButtonsContainerProps {
+interface StyledContainerProps {
   isExpanded: boolean | undefined;
 }
 interface StyledButtonProps extends ButtonProps {
-  active: boolean;
-  boxShadow: string;
+  index: number;
 }
 
 const HeaderCard: FC = () => {
-  const { isExpanded, handleIsExpanded, activeButtonIndex, handleActiveButtonIndex } = useHeaderCard();
+  const { isExpanded, handleIsExpanded, isMobileMenuExpanded, handleIsMobileMenuExpanded } = useHeaderCard();
 
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
-    <Container>
+    <Container isExpanded={isExpanded}>
       <ToggleButton
         aria-label={isExpanded ? 'Collapse' : 'Expand'}
         disableRipple
@@ -42,51 +43,41 @@ const HeaderCard: FC = () => {
       {isExpanded && <Title>{headerCardData.title}</Title>}
       {isExpanded && <Description>{headerCardData.description}</Description>}
       {isMobile ? (
-        <MobileButtons isExpanded={isExpanded} />
+        <MobileMenu isExpanded={isExpanded}>
+          <MobileHeaderButtonContainer
+            onClick={() => {
+              handleIsMobileMenuExpanded(!isMobileMenuExpanded);
+            }}
+          >
+            <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[0]}</MobileHeaderButton>
+            {isMobileMenuExpanded ? <FusionArrowSelectUp /> : <FusionArrowSelectDown />}
+          </MobileHeaderButtonContainer>
+          {isMobileMenuExpanded && (
+            <>
+              <MobileHeaderButtonContainer>
+                <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[1]}</MobileHeaderButton>
+              </MobileHeaderButtonContainer>
+              <MobileHeaderButtonContainer>
+                <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[2]}</MobileHeaderButton>
+              </MobileHeaderButtonContainer>
+              <MobileHeaderButtonContainer>
+                <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[3]}</MobileHeaderButton>
+              </MobileHeaderButtonContainer>
+            </>
+          )}
+        </MobileMenu>
       ) : (
         <Buttons isExpanded={isExpanded}>
-          <HeaderButton
-            active={activeButtonIndex === 0}
-            boxShadow={`1px 4px 15px 0px rgba(19, 83, 36, ${activeButtonIndex === 0 ? 1 : 0.5})`}
-            endIcon={<BarChartLineIcon />}
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(0);
-            }}
-          >
+          <HeaderButton index={0} endIcon={<BarChartLineIcon />} disableRipple>
             {headerCardData.buttonTexts[0]}
           </HeaderButton>
-          <HeaderButton
-            active={activeButtonIndex === 1}
-            boxShadow={`1px 4px 15px 0px rgba(188, 153, 242, ${activeButtonIndex === 1 ? 0.5 : 0.2})`}
-            endIcon={<MegaphoneIcon />}
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(1);
-            }}
-          >
+          <HeaderButton index={1} endIcon={<MegaphoneIcon />} disableRipple>
             {headerCardData.buttonTexts[1]}
           </HeaderButton>
-          <HeaderButton
-            active={activeButtonIndex === 2}
-            boxShadow={`1px 4px 15px 0px rgba(25, 144, 255, ${activeButtonIndex === 2 ? 0.5 : 0.2})`}
-            endIcon={<PersonSquareIcon />}
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(2);
-            }}
-          >
+          <HeaderButton index={2} endIcon={<PersonSquareIcon />} disableRipple>
             {headerCardData.buttonTexts[2]}
           </HeaderButton>
-          <HeaderButton
-            active={activeButtonIndex === 3}
-            boxShadow={`1px 4px 15px 0px rgba(234, 67, 53, ${activeButtonIndex === 3 ? 0.5 : 0.2})`}
-            endIcon={<MapIcon />}
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(3);
-            }}
-          >
+          <HeaderButton index={3} endIcon={<MapIcon />} disableRipple>
             {headerCardData.buttonTexts[3]}
           </HeaderButton>
         </Buttons>
@@ -97,12 +88,14 @@ const HeaderCard: FC = () => {
 
 export default HeaderCard;
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled('div', {
+  shouldForwardProp: (prop) => prop !== 'isExpanded',
+})<StyledContainerProps>(({ theme, isExpanded }) => ({
   position: 'relative',
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  padding: '32px 24px 24px',
+  padding: `${isExpanded ? 32 : 48}px 24px 88px`,
   borderRadius: 12,
   backgroundOrigin: 'padding-box',
   backgroundPosition: '68% 50%',
@@ -176,23 +169,48 @@ const Description = styled('p')(({ theme }) => ({
   },
 }));
 
-const MobileButtons = styled('div', {
+const MobileMenu = styled('div', {
   shouldForwardProp: (prop) => prop !== 'isExpanded',
-})<StyledButtonsContainerProps>(({ theme, isExpanded }) => ({
-  height: 40,
+})<StyledContainerProps>(({ theme, isExpanded }) => ({
+  position: 'absolute',
+  top: `calc(100% - ${isExpanded ? 64 : 88}px)`,
+  width: 295,
   display: 'flex',
   flexDirection: 'column',
-  marginTop: isExpanded ? 24 : 0,
+  gap: 16,
   padding: '8px 16px',
   border: `1px solid ${theme.palette.colors.slate[50]}`,
   borderRadius: 12,
   backgroundColor: '#1E1D21',
-  boxShadow: '1px 4px 15px 0px #135324',
+  boxShadow: headerCardData.buttonShadows[0],
+}));
+
+const MobileHeaderButtonContainer = styled('div')(() => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+}));
+
+const MobileHeaderButton = styled(Button)(({ theme }) => ({
+  padding: 0,
+  fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+  textTransform: 'none',
+  borderRadius: 0,
+  color: theme.palette.colors.slate[50],
+  backgroundColor: '#1E1D21',
+  cursor: 'default',
+
+  '&:hover, &:active, &:focus': {
+    backgroundColor: '#1E1D21',
+  },
 }));
 
 const Buttons = styled('div', {
   shouldForwardProp: (prop) => prop !== 'isExpanded',
-})<StyledButtonsContainerProps>(({ theme, isExpanded }) => ({
+})<StyledContainerProps>(({ theme, isExpanded }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: isExpanded ? 40 : 0,
@@ -203,8 +221,8 @@ const Buttons = styled('div', {
 }));
 
 const HeaderButton = styled(Button, {
-  shouldForwardProp: (prop) => prop !== 'active' && prop !== 'boxShadow',
-})<StyledButtonProps>(({ theme, active, boxShadow }) => ({
+  shouldForwardProp: (prop) => prop !== 'index',
+})<StyledButtonProps>(({ theme, index }) => ({
   minWidth: 146,
   height: 40,
   display: 'flex',
@@ -215,11 +233,11 @@ const HeaderButton = styled(Button, {
   fontSize: 16,
   lineHeight: '24px',
   textTransform: 'none',
-  border: `1px solid ${theme.palette.colors.slate[active ? 50 : 200]}`,
+  border: `1px solid ${theme.palette.colors.slate[index === 0 ? 50 : 200]}`,
   borderRadius: 12,
-  color: theme.palette.colors.slate[active ? 50 : 200],
+  color: theme.palette.colors.slate[index === 0 ? 50 : 200],
   backgroundColor: '#1E1D21',
-  boxShadow,
+  boxShadow: headerCardData.buttonShadows[index * 2],
 
   '& .MuiButton-endIcon': {
     width: 24,
@@ -228,13 +246,22 @@ const HeaderButton = styled(Button, {
     marginRight: 0,
 
     '& > svg path': {
-      fill: theme.palette.colors.slate[active ? 50 : 200],
+      fill: theme.palette.colors.slate[index === 0 ? 50 : 200],
     },
   },
 
-  '&:hover, &:active, &:focus': {
+  '&:hover': {
+    color: theme.palette.colors.slate[50],
     backgroundColor: '#1E1D21',
-    boxShadow,
+    boxShadow: headerCardData.buttonShadows[index * 2 + 1],
+
+    '& .MuiButton-endIcon > svg path': {
+      fill: theme.palette.colors.slate[50],
+    },
+  },
+
+  '&:active, &:focus': {
+    backgroundColor: '#1E1D21',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {

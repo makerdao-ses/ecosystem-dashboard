@@ -3,4 +3,14 @@ export const headerCardData = {
   description:
     "Welcome to the MakerDAO Dashboard, your hub for key insights into MakerDAO's finances, governance, teams, and roadmaps. Get up-to-date data and explore strategic developments to stay informed about MakerDAO’s progress and future plans.",
   buttonTexts: ['Finances', 'Governance', 'Contributors', 'Roadmap'],
+  buttonShadows: [
+    '1px 4px 15px 0px rgba(19, 83, 36, 1)',
+    '1px 4px 15px 0px rgba(19, 83, 36, 1)',
+    '1px 4px 15px 0px rgba(188, 153, 242, 0.2)',
+    '1px 4px 15px 0px rgba(188, 153, 242, 0.5)',
+    '1px 4px 15px 0px rgba(25, 144, 255, 0.2)',
+    '1px 4px 15px 0px rgba(25, 144, 255, 0.5)',
+    '1px 4px 15px 0px rgba(234, 67, 53, 0.2)',
+    '1px 4px 15px 0px rgba(234, 67, 53, 0.5)',
+  ],
 };

@@ -29,9 +29,9 @@ const useHeaderCard = () => {
     setIsExpanded(expanded);
   };
 
-  const [activeButtonIndex, setActiveButtonIndex] = useState(0);
-  const handleActiveButtonIndex = (index: number) => {
-    setActiveButtonIndex(index);
+  const [isMobileMenuExpanded, setIsMobileMenuExpanded] = useState(false);
+  const handleIsMobileMenuExpanded = (mobileMenuExpanded: boolean) => {
+    setIsMobileMenuExpanded(mobileMenuExpanded);
   };
 
   useEffect(() => {
@@ -44,8 +44,8 @@ const useHeaderCard = () => {
   return {
     isExpanded,
     handleIsExpanded: handleIsExpandedCopy,
-    activeButtonIndex,
-    handleActiveButtonIndex,
+    isMobileMenuExpanded,
+    handleIsMobileMenuExpanded,
   };
 };
 

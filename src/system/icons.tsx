@@ -13,6 +13,8 @@ import ExternalLink from 'public/assets/svg/external_link.svg';
 import Forum from 'public/assets/svg/forum.svg';
 import FusionArrowCollapse from 'public/assets/svg/fusion_arrow_collapse.svg';
 import FusionArrowExpand from 'public/assets/svg/fusion_arrow_expand.svg';
+import FusionArrowSelectDown from 'public/assets/svg/fusion_arrow_select_down.svg';
+import FusionArrowSelectUp from 'public/assets/svg/fusion_arrow_select_up.svg';
 import GithubIcon from 'public/assets/svg/github.svg';
 import GlobeWWW from 'public/assets/svg/globe_www.svg';
 import InfoOutlined from 'public/assets/svg/info_outlined.svg';
@@ -169,5 +171,13 @@ export const iconsPowerHose = [
   {
     Icon: FusionArrowExpand,
     title: 'fusion_arrow_expand',
+  },
+  {
+    Icon: FusionArrowSelectDown,
+    title: 'fusion_arrow_select_down',
+  },
+  {
+    Icon: FusionArrowSelectUp,
+    title: 'fusion_arrow_select_up',
   },
 ];
