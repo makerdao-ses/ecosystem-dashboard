@@ -3,14 +3,9 @@ import { formatNumber } from '@ses/core/utils/string';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
-
-import {
-  RenderNumberWithIcon,
-  TotalTargetBalance,
-  renderWallet,
-} from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
+import { TotalTargetBalance, renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
 import { useBudgetStatementForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
-
+import { TargetValueThreeMoths } from './components/TargetValueThreeMoths/TargetValueThreeMoths';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
   BudgetStatementTransferRequest,
@@ -123,7 +118,7 @@ export const useTransparencyTransferRequest = (
     }
 
     const dateTime = DateTime.fromISO(timeStampAnyWallet);
-    const formatData = dateTime.toFormat('dd-LLL');
+    const formatData = dateTime.toFormat('dd - LLL');
 
     return formatData;
   }, [wallets]);
@@ -157,7 +152,7 @@ export const useTransparencyTransferRequest = (
         align: 'right',
       },
       {
-        header: `${getWalletBalanceTimeStamp()} Balance`,
+        header: `${getWalletBalanceTimeStamp()}  Balance`,
         type: 'number',
         align: 'right',
       },
@@ -185,7 +180,7 @@ export const useTransparencyTransferRequest = (
           {
             column: mainTableColumns[1],
             value: (
-              <RenderNumberWithIcon
+              <TargetValueThreeMoths
                 balance={target?.amount || 0}
                 months={target?.calculation || ''}
                 link={target?.source.url || ''}
