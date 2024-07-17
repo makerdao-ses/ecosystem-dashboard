@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
+import BudgetStatementsPlaceholder from '../PlaceHolders/BudgetStatementsPlaceholder';
 import AccountsSnapshot from './AccountsSnapshot';
 import AccountsSnapshotSkeleton from './AccountsSnapshotSkeleton';
 import useAccountsSnapshotTab from './useAccountsSnapshotTab';
@@ -39,7 +39,7 @@ const AccountsSnapshotTabContainer: React.FC<AccountsSnapshotTabContainerProps> 
     <AccountsSnapshot snapshot={snapshot} snapshotOwner={snapshotOwner} sinceDate={sinceDate} resourceType={resource} />
   ) : (
     <Box sx={{ mb: '64px' }}>
-      <TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />
+      <BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />
     </Box>
   );
 };
