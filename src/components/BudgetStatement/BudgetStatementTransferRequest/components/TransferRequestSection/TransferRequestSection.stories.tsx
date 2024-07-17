@@ -2,8 +2,6 @@ import { DateTime } from 'luxon';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import { createThemeModeVariants } from '@/core/utils/storybook/factories';
 import { renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
-
-// import { TargetValueThreeMonths } from '../TargetValueThreeMonths/TargetValueThreeMonths';
 import { TargetValueThreeMonths } from '../TargetValueThreeMonths/TargetValueThreeMonths';
 import TransferRequestSection from './TransferRequestSection';
 import type { Meta } from '@storybook/react';

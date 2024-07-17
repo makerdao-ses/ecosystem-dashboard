@@ -24,7 +24,7 @@ export const BudgetStatementTransferRequest: React.FC<TransparencyTransferReques
   resource,
 }) => {
   const { mainTableColumns, mainTableItems } = useTransparencyTransferRequest(currentMonth, budgetStatements);
-  console.log('mainTableItems', mainTableItems);
+
   return (
     <Container>
       {headline}
