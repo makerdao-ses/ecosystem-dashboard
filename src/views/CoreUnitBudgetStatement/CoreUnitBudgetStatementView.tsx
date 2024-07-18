@@ -11,7 +11,7 @@ import AuditorCommentsContainer from '@/components/BudgetStatement/BudgetStateme
 import { BudgetStatementForecast } from '@/components/BudgetStatement/BudgetStatementForecast/BudgetStatementForecast';
 import { BudgetStatementMkrVesting } from '@/components/BudgetStatement/BudgetStatementMkrVesting/BudgetStatementMkrVesting';
 import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
-import { TransparencyTransferRequest } from '@/components/BudgetStatement/BudgetStatementTransferRequest/BudgetStatementTransferRequest';
+import { BudgetStatementTransferRequest } from '@/components/BudgetStatement/BudgetStatementTransferRequest/BudgetStatementTransferRequest';
 import ExpenseReport from '@/components/BudgetStatement/ExpenseReport/ExpenseReport';
 
 import Container from '@/components/Container/Container';
@@ -185,7 +185,7 @@ const CoreUnitBudgetStatementView = ({
               />
             )}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
-              <TransparencyTransferRequest
+              <BudgetStatementTransferRequest
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}

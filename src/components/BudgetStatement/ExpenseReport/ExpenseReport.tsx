@@ -229,7 +229,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
       </ExpenseSection>
 
       <ExpenseSection title={'MKR Vesting Overview'}>
-        <MkrVestingTotalFTE totalFTE={mkrVestingData.FTEs} />
+        <MkrVestingTotalFTE totalFTE={mkrVestingData.fTEs} />
 
         <BudgetTable
           isLight={isLight}

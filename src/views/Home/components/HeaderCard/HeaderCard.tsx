@@ -3,6 +3,8 @@ import { Button, IconButton, styled, useMediaQuery } from '@mui/material';
 import BarChartLineIcon from 'public/assets/svg/bar_chart_line.svg';
 import ArrowCollapseIcon from 'public/assets/svg/fusion_arrow_collapse.svg';
 import ArrowExpandIcon from 'public/assets/svg/fusion_arrow_expand.svg';
+import FusionArrowSelectDown from 'public/assets/svg/fusion_arrow_select_down.svg';
+import FusionArrowSelectUp from 'public/assets/svg/fusion_arrow_select_up.svg';
 import MapIcon from 'public/assets/svg/map.svg';
 import MegaphoneIcon from 'public/assets/svg/megaphone.svg';
 import PersonSquareIcon from 'public/assets/svg/person_square.svg';
@@ -15,20 +17,20 @@ import useHeaderCard from './useHeaderCard';
 import type { Theme, ButtonProps } from '@mui/material';
 import type { FC } from 'react';
 
-interface StyledButtonsContainerProps {
-  isExpanded: boolean;
+interface StyledContainerProps {
+  isExpanded: boolean | undefined;
 }
 interface StyledButtonProps extends ButtonProps {
-  boxShadow: string;
+  index: number;
 }
 
 const HeaderCard: FC = () => {
-  const { isExpanded, handleIsExpanded, handleActiveButtonIndex } = useHeaderCard();
+  const { isExpanded, handleIsExpanded, isMobileMenuExpanded, handleIsMobileMenuExpanded } = useHeaderCard();
 
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
-    <Container>
+    <Container isExpanded={isExpanded}>
       <ToggleButton
         aria-label={isExpanded ? 'Collapse' : 'Expand'}
         disableRipple
@@ -41,47 +43,41 @@ const HeaderCard: FC = () => {
       {isExpanded && <Title>{headerCardData.title}</Title>}
       {isExpanded && <Description>{headerCardData.description}</Description>}
       {isMobile ? (
-        <MobileButtons isExpanded={isExpanded} />
+        <MobileMenu isExpanded={isExpanded}>
+          <MobileHeaderButtonContainer
+            onClick={() => {
+              handleIsMobileMenuExpanded(!isMobileMenuExpanded);
+            }}
+          >
+            <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[0]}</MobileHeaderButton>
+            {isMobileMenuExpanded ? <FusionArrowSelectUp /> : <FusionArrowSelectDown />}
+          </MobileHeaderButtonContainer>
+          {isMobileMenuExpanded && (
+            <>
+              <MobileHeaderButtonContainer>
+                <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[1]}</MobileHeaderButton>
+              </MobileHeaderButtonContainer>
+              <MobileHeaderButtonContainer>
+                <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[2]}</MobileHeaderButton>
+              </MobileHeaderButtonContainer>
+              <MobileHeaderButtonContainer>
+                <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[3]}</MobileHeaderButton>
+              </MobileHeaderButtonContainer>
+            </>
+          )}
+        </MobileMenu>
       ) : (
         <Buttons isExpanded={isExpanded}>
-          <HeaderButton
-            endIcon={<BarChartLineIcon />}
-            boxShadow="1px 4px 15px 0px #135324"
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(0);
-            }}
-          >
+          <HeaderButton index={0} endIcon={<BarChartLineIcon />} disableRipple>
             {headerCardData.buttonTexts[0]}
           </HeaderButton>
-          <HeaderButton
-            endIcon={<MegaphoneIcon />}
-            boxShadow="1px 4px 15px 0px rgba(188, 153, 242, 0.50)"
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(1);
-            }}
-          >
+          <HeaderButton index={1} endIcon={<MegaphoneIcon />} disableRipple>
             {headerCardData.buttonTexts[1]}
           </HeaderButton>
-          <HeaderButton
-            endIcon={<PersonSquareIcon />}
-            boxShadow="1px 4px 15px 0px rgba(25, 144, 255, 0.50)"
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(2);
-            }}
-          >
+          <HeaderButton index={2} endIcon={<PersonSquareIcon />} disableRipple>
             {headerCardData.buttonTexts[2]}
           </HeaderButton>
-          <HeaderButton
-            endIcon={<MapIcon />}
-            boxShadow="1px 4px 15px 0px rgba(234, 67, 53, 0.50)"
-            disableRipple
-            onClick={() => {
-              handleActiveButtonIndex(3);
-            }}
-          >
+          <HeaderButton index={3} endIcon={<MapIcon />} disableRipple>
             {headerCardData.buttonTexts[3]}
           </HeaderButton>
         </Buttons>
@@ -92,20 +88,20 @@ const HeaderCard: FC = () => {
 
 export default HeaderCard;
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled('div', {
+  shouldForwardProp: (prop) => prop !== 'isExpanded',
+})<StyledContainerProps>(({ theme, isExpanded }) => ({
   position: 'relative',
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  padding: '32px 24px 24px',
+  padding: `${isExpanded ? 32 : 48}px 24px 88px`,
   borderRadius: 12,
   backgroundOrigin: 'padding-box',
   backgroundPosition: '68% 50%',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
-  backgroundImage: theme.palette.isLight
-    ? 'url(/assets/img/home/header-card-background-light.jpg)'
-    : 'url(/assets/img/home/header-card-background-dark.jpg)',
+  backgroundImage: 'url(/assets/img/home/header-card-background-dark.jpg)',
 
   [theme.breakpoints.up('tablet_768')]: {
     padding: '32px 24px',
@@ -129,14 +125,14 @@ const ToggleButton = styled(IconButton)(({ theme }) => ({
   alignItems: 'center',
   padding: 4,
   borderRadius: 6,
-  backgroundColor: theme.palette.isLight ? 'rgba(197, 199, 199, 0.20)' : 'rgba(243, 245, 247, 0.20)',
+  backgroundColor: 'rgba(243, 245, 247, 0.20)',
 
   '&:hover, &:active, &:focus': {
-    backgroundColor: theme.palette.isLight ? 'rgba(197, 199, 199, 0.20)' : 'rgba(243, 245, 247, 0.20)',
+    backgroundColor: 'rgba(243, 245, 247, 0.20)',
   },
 
   '& > svg path': {
-    fill: theme.palette.isLight ? '#9EA0A1' : '#F3F5F7',
+    fill: theme.palette.colors.slate[50],
   },
 }));
 
@@ -173,22 +169,48 @@ const Description = styled('p')(({ theme }) => ({
   },
 }));
 
-const MobileButtons = styled('div', {
+const MobileMenu = styled('div', {
   shouldForwardProp: (prop) => prop !== 'isExpanded',
-})<StyledButtonsContainerProps>(({ theme, isExpanded }) => ({
-  height: 40,
+})<StyledContainerProps>(({ theme, isExpanded }) => ({
+  position: 'absolute',
+  top: `calc(100% - ${isExpanded ? 64 : 88}px)`,
+  width: 295,
   display: 'flex',
   flexDirection: 'column',
-  marginTop: isExpanded ? 24 : 0,
+  gap: 16,
+  padding: '8px 16px',
   border: `1px solid ${theme.palette.colors.slate[50]}`,
   borderRadius: 12,
   backgroundColor: '#1E1D21',
-  boxShadow: '1px 4px 15px 0px #135324',
+  boxShadow: headerCardData.buttonShadows[0],
+}));
+
+const MobileHeaderButtonContainer = styled('div')(() => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+}));
+
+const MobileHeaderButton = styled(Button)(({ theme }) => ({
+  padding: 0,
+  fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+  textTransform: 'none',
+  borderRadius: 0,
+  color: theme.palette.colors.slate[50],
+  backgroundColor: '#1E1D21',
+  cursor: 'default',
+
+  '&:hover, &:active, &:focus': {
+    backgroundColor: '#1E1D21',
+  },
 }));
 
 const Buttons = styled('div', {
   shouldForwardProp: (prop) => prop !== 'isExpanded',
-})<StyledButtonsContainerProps>(({ theme, isExpanded }) => ({
+})<StyledContainerProps>(({ theme, isExpanded }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: isExpanded ? 40 : 0,
@@ -199,43 +221,53 @@ const Buttons = styled('div', {
 }));
 
 const HeaderButton = styled(Button, {
-  shouldForwardProp: (prop) => prop !== 'boxShadow',
-})<StyledButtonProps>(({ theme, boxShadow }) => ({
-  minWidth: 123,
+  shouldForwardProp: (prop) => prop !== 'index',
+})<StyledButtonProps>(({ theme, index }) => ({
+  minWidth: 146,
   height: 40,
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   padding: 8,
   fontWeight: 600,
   fontSize: 16,
   lineHeight: '24px',
   textTransform: 'none',
-  border: `1px solid ${theme.palette.colors.slate[50]}`,
+  border: `1px solid ${theme.palette.colors.slate[index === 0 ? 50 : 200]}`,
   borderRadius: 12,
-  color: theme.palette.colors.slate[50],
+  color: theme.palette.colors.slate[index === 0 ? 50 : 200],
   backgroundColor: '#1E1D21',
-  boxShadow,
+  boxShadow: headerCardData.buttonShadows[index * 2],
 
   '& .MuiButton-endIcon': {
     width: 24,
     height: 24,
-    marginLeft: 13,
+    marginLeft: 'auto',
     marginRight: 0,
+
+    '& > svg path': {
+      fill: theme.palette.colors.slate[index === 0 ? 50 : 200],
+    },
   },
 
-  '&:hover, &:active, &:focus': {
+  '&:hover': {
+    color: theme.palette.colors.slate[50],
     backgroundColor: '#1E1D21',
-    boxShadow,
+    boxShadow: headerCardData.buttonShadows[index * 2 + 1],
+
+    '& .MuiButton-endIcon > svg path': {
+      fill: theme.palette.colors.slate[50],
+    },
+  },
+
+  '&:active, &:focus': {
+    backgroundColor: '#1E1D21',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    minWidth: 199.33,
-    height: 56,
-    padding: 16,
-
-    '& .MuiButton-endIcon': {
-      marginLeft: 24,
-    },
+    minWidth: 210,
+    height: 54,
+    padding: '15px 16px 15px 24px',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
@@ -243,15 +275,10 @@ const HeaderButton = styled(Button, {
     fontWeight: 700,
     fontSize: 18,
     lineHeight: '21.6px',
-
-    '& .MuiButton-endIcon': {
-      marginLeft: 'auto',
-    },
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
     minWidth: 288,
-    height: 54,
     padding: '16px 24px',
   },
 }));
