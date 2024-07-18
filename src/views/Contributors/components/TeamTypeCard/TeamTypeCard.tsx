@@ -1,4 +1,5 @@
 import { styled, useMediaQuery } from '@mui/material';
+import Link from 'next/link';
 import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import type { Theme } from '@mui/material';
@@ -17,27 +18,29 @@ const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, descript
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
-    <TeamCard>
-      <MobileHeader>
-        <NameContainer>
+    <LinkStyled href={href}>
+      <TeamCard>
+        <MobileHeader>
+          <NameContainer>
+            <Name>{name}</Name>
+            <TeamsNumber>{teams}</TeamsNumber>
+          </NameContainer>
+          <InternalLinkButtonStyled href={href} showIcon label={isMobile ? undefined : 'View'} isLink={false} />
+        </MobileHeader>
+
+        <MainContentDesktop>
           <Name>{name}</Name>
-          <TeamsNumber>{teams}</TeamsNumber>
-        </NameContainer>
-        <InternalLinkButtonStyled href={href} showIcon label={isMobile ? undefined : 'View'} />
-      </MobileHeader>
+          <Description>{description}</Description>
+        </MainContentDesktop>
 
-      <MainContentDesktop>
-        <Name>{name}</Name>
-        <Description>{description}</Description>
-      </MainContentDesktop>
-
-      <TeamsNumberDesktop>
-        <span>{teams}</span> <span>{cardType === 'team' ? 'Teams' : 'Contributors'}</span>
-      </TeamsNumberDesktop>
-      <DesktopLinkContainer>
-        <InternalLinkButtonStyled href={href} showIcon label="View" />
-      </DesktopLinkContainer>
-    </TeamCard>
+        <TeamsNumberDesktop>
+          <span>{teams}</span> <span>{cardType === 'team' ? 'Teams' : 'Contributors'}</span>
+        </TeamsNumberDesktop>
+        <DesktopLinkContainer>
+          <InternalLinkButtonStyled href={''} showIcon label="View" isLink={false} />
+        </DesktopLinkContainer>
+      </TeamCard>
+    </LinkStyled>
   );
 };
 
@@ -53,6 +56,10 @@ const TeamCard = styled(Card)(({ theme }) => ({
     flexDirection: 'row',
   },
 }));
+
+const LinkStyled = styled(Link)({
+  display: 'flex',
+});
 
 const MobileHeader = styled('div')(({ theme }) => ({
   display: 'flex',
