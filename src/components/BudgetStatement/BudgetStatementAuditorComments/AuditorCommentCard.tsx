@@ -1,16 +1,15 @@
 import { styled, useMediaQuery } from '@mui/material';
-import { useTeamContext } from '@ses/core/context/TeamContext';
-import { ResourceType } from '@ses/core/models/interfaces/types';
 import { DateTime } from 'luxon';
 import Markdown from 'marked-react';
-import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import React, { useMemo } from 'react';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import { customRenderer, customRendererDark } from '@/views/CoreUnitAbout/components/Markdown/renderUtils';
 import ExpenseReportStatus from '@/views/CoreUnitBudgetStatement/components/ExpenseReportStatus/ExpenseReportStatus';
+import CommentAuthor from './CommentAuthor';
 import GenericCommentCard from './GenericCommentCard';
 import type { Theme } from '@mui/material';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
+import type { ResourceType } from '@ses/core/models/interfaces/types';
 
 export type AuditorCommentCardProps = {
   comment: BudgetStatementComment;
@@ -26,35 +25,11 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
   resource,
 }) => {
   const { isLight } = useThemeContext();
-  const { currentTeam } = useTeamContext();
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const formattedTimestamp = useMemo(
     () => DateTime.fromISO(comment.timestamp).toUTC().toFormat('dd-LLL-yyyy HH:mm ZZZZ'),
     [comment.timestamp]
-  );
-
-  const roleString = useMemo(() => {
-    if (resource === ResourceType.Delegates) {
-      return 'Delegates Administrator';
-    } else if (currentTeam?.auditors?.some((auditor) => auditor.id === comment.author.id)) {
-      return 'Auditor';
-    }
-
-    if (resource === ResourceType.CoreUnit) {
-      return `${currentTeam?.shortCode} Core Unit`;
-    }
-
-    // Ecosystem actor are the defaults
-    return `${currentTeam?.shortCode} Ecosystem Actor`;
-  }, [comment, currentTeam, resource]);
-
-  const author = (
-    <AuthorContainer>
-      <UserAvatar />
-      <Username>{comment.author.username}</Username>
-      <UserRole>{roleString}</UserRole>
-    </AuthorContainer>
   );
 
   const actionDate = (
@@ -71,11 +46,11 @@ const AuditorCommentCard: React.FC<AuditorCommentCardProps> = ({
           <MetaForStatusChange>
             <ExpenseReportStatus status={comment.status} />
             {actionDate}
-            {author}
+            <CommentAuthor comment={comment} resource={resource} />
           </MetaForStatusChange>
         ) : (
           <MetaForComment>
-            {author} {!isMobile && actionDate}
+            <CommentAuthor comment={comment} resource={resource} /> {!isMobile && actionDate}
           </MetaForComment>
         )}
       </CommentHeader>
@@ -139,54 +114,6 @@ const Date = styled('div')(({ theme }) => ({
     fontWeight: 600,
     lineHeight: '24px',
     padding: '0 7px 0 8px',
-  },
-}));
-
-const AuthorContainer = styled('div')(() => ({
-  display: 'flex',
-}));
-
-const UserAvatar = styled(AvatarPlaceholder)(({ theme }) => ({
-  width: 24,
-  height: 24,
-  borderRadius: '50%',
-  boxShadow: theme.palette.isLight
-    ? '1.5px 3px 5.25px 0px rgba(25, 144, 255, 0.20)'
-    : '1.167px 4.667px 17.85px 0px #141921',
-
-  '& path': {
-    fill: theme.palette.isLight ? '#6C7275' : theme.palette.colors.charcoal[500],
-  },
-  '& rect': {
-    fill: theme.palette.isLight ? '#CED3DC' : theme.palette.colors.charcoal[700],
-  },
-}));
-
-const Username = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
-  fontSize: 14,
-  fontWeight: 500,
-  lineHeight: '22px',
-  marginLeft: 4,
-  marginRight: 8,
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    fontSize: 16,
-    fontWeight: 600,
-    lineHeight: '24px',
-  },
-}));
-
-const UserRole = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
-  fontSize: 14,
-  fontWeight: 500,
-  lineHeight: '22px',
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    fontSize: 16,
-    fontWeight: 600,
-    lineHeight: '24px',
   },
 }));
 
