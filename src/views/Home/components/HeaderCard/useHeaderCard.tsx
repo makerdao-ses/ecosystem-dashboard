@@ -35,7 +35,10 @@ const useHeaderCard = () => {
   };
 
   useEffect(() => {
-    if (isFunctionalTrackingAccepted) {
+    if (
+      isFunctionalTrackingAccepted ||
+      (document.cookie.includes('themeTracking=true') && document.cookie.includes('timestampTracking=true'))
+    ) {
       window.localStorage.setItem('home-header-card-expanded', isExpandedCopy ? '1' : '0');
     }
     handleIsExpanded(isExpandedCopy);
