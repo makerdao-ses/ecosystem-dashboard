@@ -152,6 +152,11 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     }
   };
 
+  const handleReset = () => {
+    setTextareaValue('');
+    setSelectedStatus(currentBudgetStatus);
+  };
+
   const roleString = useMemo(() => {
     if (currentTeam?.auditors?.some((auditor) => auditor.id === permissionManager.loggedUser?.id)) {
       return 'Auditor';
@@ -172,6 +177,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     isCommenting: selectedStatus === currentBudgetStatus,
     handleChangeVariant,
     handleChangeTextarea,
+    handleReset,
     handleSubmit,
   } as const;
 };

@@ -1,7 +1,9 @@
 import { styled } from '@mui/material';
-import { CustomButton } from '@ses/components/CustomButton/CustomButton';
 import { ResourceType } from '@ses/core/models/interfaces/types';
+import Close from 'public/assets/svg/close.svg';
+import SecondaryButton from '@/components/SecondaryButton/SecondaryButton';
 import BudgetStatusSelect from '../BudgetStatusSelect';
+import CommentAuthor from '../CommentAuthor';
 import GenericCommentCard from '../GenericCommentCard';
 import useCommentForm from './useCommentForm';
 import type { BudgetStatus } from '@ses/core/models/interfaces/types';
@@ -25,26 +27,36 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
     isCommenting,
     handleChangeVariant,
     handleChangeTextarea,
+    handleReset,
     handleSubmit,
   } = useCommentForm(currentBudgetStatus, budgetStatementId, resource);
+
+  const canReset =
+    isSubmitting ||
+    (!textareaValue.trim() && isCommenting) ||
+    (currentBudgetStatus === selectedStatus && !textareaValue.trim());
 
   return (
     <GenericCommentCard variant={selectedStatus}>
       <CommentHeader>
-        <Select>
-          <BudgetStatusSelect
-            onChangeStatus={handleChangeVariant}
-            availableStatuses={availableStatuses}
-            selected={selectedStatus}
-          />
-        </Select>
-        <User>
-          <Username>{username}</Username>
-          <UserRole>
-            {/* TODO: check this role string */}(
-            {resource === ResourceType.Delegates ? 'Delegates Administrator' : roleString})
-          </UserRole>
-        </User>
+        <LeftHeaderContent>
+          <Select>
+            <BudgetStatusSelect
+              onChangeStatus={handleChangeVariant}
+              availableStatuses={availableStatuses}
+              selected={selectedStatus}
+            />
+          </Select>
+          <UserContainer>
+            <CommentAuthor
+              resource={resource}
+              username={username}
+              role={resource === ResourceType.Delegates ? 'Delegates Administrator' : roleString}
+            />
+          </UserContainer>
+        </LeftHeaderContent>
+
+        {!isMobile && <ResetButton title={<Close />} onClick={handleReset} disabled={canReset} />}
       </CommentHeader>
       <FormContainer>
         <TextArea
@@ -52,12 +64,16 @@ const CommentForm: React.FC<CommentFormProps> = ({ currentBudgetStatus, budgetSt
           value={textareaValue}
           onChange={handleChangeTextarea}
         />
-        <SubmitButton
-          label={submitLabel}
-          allowsHover={!isMobile}
-          onClick={handleSubmit}
-          disabled={isSubmitting || (!textareaValue.trim() && isCommenting)}
-        />
+
+        <ButtonsContainer>
+          {isMobile && <SecondaryButton title="Cancel" onClick={handleReset} disabled={canReset} />}
+
+          <SecondaryButton
+            title={submitLabel}
+            onClick={handleSubmit}
+            disabled={isSubmitting || (!textareaValue.trim() && isCommenting)}
+          />
+        </ButtonsContainer>
       </FormContainer>
     </GenericCommentCard>
   );
@@ -68,46 +84,56 @@ export default CommentForm;
 const CommentHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: 16,
-  borderBottom: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
+  padding: '8px 8px 7px',
+  borderBottom: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    justifyContent: 'space-between',
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '8px 16px 7px',
+  },
 }));
+
+const LeftHeaderContent = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+});
 
 const Select = styled('div')({
   minWidth: 'fit-content',
 });
 
-const User = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  fontSize: '12px',
-  lineHeight: '15px',
-  fontWeight: 600,
-  textTransform: 'uppercase',
-  marginLeft: 16,
-  letterSpacing: '1px',
+const UserContainer = styled('div')(({ theme }) => ({
+  marginLeft: 8,
 
-  [theme.breakpoints.up('desktop_1024')]: {
-    marginLeft: 32,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: 16,
   },
-}));
-
-const Username = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? '#708390' : '#546978',
-  marginRight: 3,
-}));
-
-const UserRole = styled('div')(({ theme }) => ({
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
 }));
 
 const FormContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'flex-end',
-  padding: 16,
+  padding: '8px 8px 16px',
 
-  [theme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '8px 16px 16px',
     flexWrap: 'nowrap',
+    gap: 24,
+
+    '& button': {
+      whiteSpace: 'nowrap',
+      height: 'fit-content',
+    },
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    gap: 32,
   },
 }));
 
@@ -117,37 +143,57 @@ const TextArea = styled('textarea')(({ theme }) => ({
   fontWeight: 400,
   lineHeight: '22px',
   width: '100%',
-  border: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
-  borderRadius: 6,
+  border: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+  borderRadius: 8,
   padding: '8px 8px 0px',
-  marginBottom: 16,
+  marginBottom: 8,
   minHeight: 96,
-  backgroundColor: theme.palette.isLight ? '#FFFFFF' : '#10191F',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  backgroundColor: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   resize: 'vertical',
   outline: 'none',
 
   '&::placeholder': {
-    color: theme.palette.isLight ? '#708390' : '#546978',
+    color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    marginBottom: 0,
   },
 }));
 
-const SubmitButton = styled(CustomButton)(({ theme }) => ({
-  height: 'fit-content',
-  padding: '8px 24px',
+const ButtonsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: 8,
+  width: '100%',
 
-  '&:hover:disabled, &:hover[disabled]': {
-    cursor: 'default',
-
-    '& div': {
-      color: '#9FAFB9',
-    },
+  [theme.breakpoints.up('tablet_768')]: {
+    justifyContent: 'flex-end',
   },
 
-  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-    marginLeft: 16,
-  },
   [theme.breakpoints.up('desktop_1024')]: {
-    marginLeft: 32,
+    width: 'auto',
+  },
+}));
+
+const ResetButton = styled(SecondaryButton)(({ theme }) => ({
+  padding: 8,
+  height: 32,
+  lineHeight: 'normal',
+
+  '& > svg': {
+    width: 16,
+    height: 16,
+  },
+
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[100],
+  },
+
+  '&:disabled path': {
+    fill: theme.palette.isLight ? theme.palette.colors.gray[400] : theme.palette.colors.slate[400],
   },
 }));

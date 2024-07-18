@@ -3,7 +3,7 @@ import React from 'react';
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  title: string;
+  title: React.ReactNode;
   className?: string;
   disabled?: boolean;
 }

@@ -6,6 +6,7 @@ import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
+import Close from 'public/assets/svg/close.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import Expand from 'public/assets/svg/expand.svg';
@@ -169,5 +170,9 @@ export const iconsPowerHose = [
   {
     Icon: FusionArrowExpand,
     title: 'fusion_arrow_expand',
+  },
+  {
+    Icon: Close,
+    title: 'close',
   },
 ];
