@@ -137,7 +137,7 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
 
     return result;
   }, [mkrVestings, mainTableColumns, totalAmount, totalOldAmount]);
-  console.log('mainTableItems', mainTableItems);
+
   return {
     mainTableColumns,
     mainTableItems,

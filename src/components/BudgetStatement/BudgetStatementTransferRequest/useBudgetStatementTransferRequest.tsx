@@ -5,7 +5,8 @@ import { useCallback, useMemo } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import { TotalTargetBalance, renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
 import { useBudgetStatementForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
-import { TargetValueThreeMoths } from './components/TargetValueThreeMoths/TargetValueThreeMoths';
+
+import { TargetValueThreeMonths } from './components/TargetValueThreeMonths/TargetValueThreeMonths';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
   BudgetStatementTransferRequest,
@@ -170,6 +171,7 @@ export const useTransparencyTransferRequest = (
 
     wallets.forEach((wallet) => {
       const { target } = getTransferRequestTargetBalanceColumn(wallet);
+
       result.push({
         type: 'normal',
         items: [
@@ -180,7 +182,7 @@ export const useTransparencyTransferRequest = (
           {
             column: mainTableColumns[1],
             value: (
-              <TargetValueThreeMoths
+              <TargetValueThreeMonths
                 balance={target?.amount || 0}
                 months={target?.calculation || ''}
                 link={target?.source.url || ''}
