@@ -130,13 +130,10 @@ const Since = styled('div')(({ theme }) => ({
 }));
 
 const SinceDate = styled('div')(({ theme }) => ({
-  fontFamily: 'OpenSansCondensed,san-serif',
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400],
-  fontSize: 14,
-  fontStyle: 'normal',
-  fontWeight: 700,
-  lineHeight: 'normal',
-  letterSpacing: 1,
+  fontSize: 12,
+  fontWeight: 500,
+  lineHeight: '18px',
   textTransform: 'uppercase',
   marginTop: 4,
 
