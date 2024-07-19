@@ -26,16 +26,19 @@ const mainTableColumns = [
     minWidth: '220px',
     type: 'custom',
     width: '220px',
+    hasBorderBottomOnCard: true,
   },
   {
     align: 'right',
     header: 'Target Balance',
     type: 'custom',
+    hasBorderBottomOnCard: true,
   },
   {
     align: 'right',
     header: 'Balance',
     type: 'number',
+    hasBorderBottomOnCard: true,
   },
   {
     align: 'right',
@@ -46,7 +49,7 @@ const mainTableColumns = [
 const mainTableItems = [
   {
     borderBottom: true,
-    type: 'category',
+    type: 'normal',
     items: [
       {
         column: mainTableColumns[0],
@@ -83,7 +86,7 @@ const mainTableItems = [
   },
   {
     borderBottom: true,
-    type: 'category',
+    type: 'normal',
     items: [
       {
         column: mainTableColumns[0],
