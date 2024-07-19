@@ -160,14 +160,13 @@ const Container = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginTop: -10,
+  marginTop: 0,
   marginRight: 0,
   [theme.breakpoints.up('tablet_768')]: {
     marginRight: -12,
     width: '100%',
     flexDirection: 'row-reverse',
     marginLeft: 0,
-    marginTop: 0,
   },
 }));
 
@@ -194,6 +193,7 @@ const ContainerInformation = styled('div')<{ hasIcon?: boolean }>(({ theme, hasI
 const ContainerNumberCell = styled(NumberCell)(({ theme }) => ({
   paddingBottom: 2,
   paddingTop: 0,
+  fontWeight: 600,
 
   [theme.breakpoints.up('tablet_768')]: {
     paddingBottom: 0,
