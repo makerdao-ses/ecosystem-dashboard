@@ -79,7 +79,7 @@ const mainTableItems = [
         value: 500,
       },
       {
-        column: mainTableColumns[2],
+        column: mainTableColumns[3],
         value: 500,
       },
     ],
@@ -120,7 +120,7 @@ const mainTableItems = [
           header: 'Difference',
           type: 'number',
           align: 'right',
-          hasBorderBottomOnCard: true,
+          // hasBorderBottomOnCard: true,
         },
         value: 400,
       },
@@ -159,7 +159,7 @@ const mainTableItems = [
       {
         column: {
           align: 'right',
-          hasBorderBottomOnCard: true,
+          // hasBorderBottomOnCard: true,
           header: 'Difference',
           type: 'number',
         },
