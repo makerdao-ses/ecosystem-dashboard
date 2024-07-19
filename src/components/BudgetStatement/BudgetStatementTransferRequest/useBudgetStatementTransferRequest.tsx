@@ -177,6 +177,7 @@ export const useTransparencyTransferRequest = (
 
       result.push({
         type: 'normal',
+        borderBottom: true,
         items: [
           {
             column: mainTableColumns[0],
