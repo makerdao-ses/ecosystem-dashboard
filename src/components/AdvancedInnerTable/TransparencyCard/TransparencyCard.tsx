@@ -88,6 +88,7 @@ const Container = styled('div')(({ theme }) => ({
       marginBottom: '0px',
     },
   },
+  paddingBottom: 8,
 }));
 
 const HeaderWrapper = styled('div')<{ showSubHeader: boolean }>(({ theme, showSubHeader }) => ({
