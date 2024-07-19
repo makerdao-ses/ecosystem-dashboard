@@ -1,6 +1,6 @@
 import { createRef, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
-import { fetchAnalytics } from '../../stories/containers/Finances/api/queries';
+import { fetchAnalytics } from '../Finances/api/queries';
 import type { BudgetTransitionPlainData, TransitionStatusDataShown } from './types';
 import type { Analytic } from '@ses/core/models/interfaces/analytic';
 import type { RefObject } from 'react';

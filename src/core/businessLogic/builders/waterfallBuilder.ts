@@ -1,4 +1,4 @@
-import type { WaterfallChartSeriesData } from '@ses/containers/Finances/utils/types';
+import type { WaterfallChartSeriesData } from '@/views/Finances/utils/types';
 import type { EChartsOption } from 'echarts-for-react';
 
 export class WaterfallChartSeriesBuilder {

@@ -3,8 +3,8 @@ import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import type { DoughnutSeries } from '@/views/Finances/utils/types';
 import type { Theme } from '@mui/material';
-import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 import type { EChartsOption } from 'echarts-for-react';
 
 interface Props {
