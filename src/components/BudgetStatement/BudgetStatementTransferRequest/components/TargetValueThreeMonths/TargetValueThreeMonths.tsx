@@ -5,13 +5,10 @@ import Info from 'public/assets/svg/info_outlined.svg';
 import React, { useCallback, useEffect, useState } from 'react';
 import { NumberCell } from '@/components/AdvancedInnerTable/NumberCell/NumberCell';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
-import Information from '@/components/icons/information';
-import { zIndexEnum } from '@/core/enums/zIndexEnum';
 import { useScrollLock } from '@/core/hooks/useScrollLock';
 import { getPageWrapper } from '@/core/utils/dom';
 import type { TargetBalanceTooltipInformation } from '@/core/utils/typesHelpers';
 import ArrowPopoverTargetValueComponent from '@/views/CoreUnitBudgetStatement/components/ArrowPopoverTargetValue/ArrowPopoverTargetValueComponent';
-import ModalSheetValueContent from '../ModalSheet/ModalSheetValueContent';
 
 export interface WithClick {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -54,9 +51,6 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
     [isOpen]
   );
 
-  const handleOnclose = () => {
-    setIsOpen(false);
-  };
   return (
     <BiggerContainer>
       <PopoverContainer>
@@ -90,6 +84,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           <Container>
             {showIconToolTip && (
               <SESTooltipStyled
+                showAsModalBottomSheet
                 content={
                   <ArrowPopoverTargetValueComponent
                     toolTipData={{
@@ -118,9 +113,22 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           {isMobileResolution && isMobileDevice && (
             <Container>
               {showIconToolTip && (
-                <ContainerInfoIcon onClick={handleOnClick}>
-                  <IconPosition />
-                </ContainerInfoIcon>
+                <SESTooltipStyled
+                  content={
+                    <ArrowPopoverTargetValueComponent
+                      toolTipData={{
+                        link: data.link,
+                        description: data.description,
+                        mipNumber: data.mipNumber,
+                      }}
+                      name={data.name}
+                    />
+                  }
+                >
+                  <IconContainer>
+                    <Info />
+                  </IconContainer>
+                </SESTooltipStyled>
               )}
 
               <ContainerInformation onClick={handleOnClick} hasIcon={!!data.months}>
@@ -131,47 +139,9 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           )}
         </PopoverContainer>
       )}
-      {isMobileResolution && isOpen && isMobileDevice && (
-        <ModalSheet>
-          <ModalSheetValueContent
-            toolTipData={{
-              description: data.description,
-              link: data.link,
-              mipNumber: data.mipNumber,
-            }}
-            name={data.name}
-          />
-        </ModalSheet>
-      )}
-      {isMobileResolution && isOpen && isMobileDevice && <ContainerOverlay onClick={handleOnclose} />}
     </BiggerContainer>
   );
 };
-
-const ContainerOverlay = styled('div')<WithClick>(({ onClick, theme }) => ({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  background: theme.palette.isLight ? 'rgba(52, 52, 66, 0.1)' : 'rgba(0, 22, 78, 0.1);',
-  backdropFilter: theme.palette.isLight ? 'blur(2px)' : 'blur(4px)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: zIndexEnum.OVERLAY_MOBILE_TOOLTIP,
-  cursor: onClick ? 'default' : undefined,
-}));
-
-const ModalSheet = styled('div')({
-  width: '100%',
-  zIndex: 5,
-  textAlign: 'left',
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  right: 0,
-});
 
 const PopoverContainer = styled('div')(() => ({
   display: 'flex',
@@ -186,7 +156,7 @@ const Container = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginTop: -8,
+  marginTop: -10,
   marginRight: 0,
   [theme.breakpoints.up('tablet_768')]: {
     marginRight: -12,
@@ -200,23 +170,6 @@ const Container = styled('div')(({ theme }) => ({
 export const ContainerInfoIcon = styled('div')({
   position: 'relative',
 });
-
-const IconPosition = styled(Information)(({ theme }) => ({
-  position: 'absolute',
-  top: -14,
-  left: -14,
-  [theme.breakpoints.up('tablet_768')]: {
-    alignItems: 'center',
-    top: -8,
-    left: -10,
-  },
-  [theme.breakpoints.up('desktop_1024')]: {
-    alignItems: 'center',
-
-    top: -8,
-    left: 4,
-  },
-}));
 
 const ContainerInformation = styled('div')<{ hasIcon?: boolean }>(({ theme, hasIcon }) => ({
   display: 'flex',

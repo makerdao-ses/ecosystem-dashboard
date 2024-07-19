@@ -50,8 +50,11 @@ const TeamCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
+  cursor: 'pointer',
   padding: '8px 16px 16px',
-
+  ':hover': {
+    backgroundColor: theme.palette.isLight ? '#FCFCFC' : '#292E38',
+  },
   [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
   },
