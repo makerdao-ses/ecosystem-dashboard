@@ -146,16 +146,19 @@ export const useTransparencyTransferRequest = (
         minWidth: '240px',
         cellRender: renderWallet,
         isCardHeader: true,
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Target Balance',
         type: 'custom',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
         header: `${getWalletBalanceTimeStamp()}  Balance`,
         type: 'number',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Transfer Request',
