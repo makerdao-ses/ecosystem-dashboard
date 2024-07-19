@@ -59,44 +59,43 @@ const CommentsContainer = styled('div')(({ theme }) => ({
   width: '100%',
 
   [theme.breakpoints.up('tablet_768')]: {
-    width: 'calc(100% - 225px)',
+    width: 'calc(100% - 243px)',
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    width: 'calc(100% - 264px)',
+    width: 'calc(100% - 246px)',
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    width: 'calc(100% - 272px)',
+    width: 'calc(100% - 308px)',
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    width: 'calc(100% - 280px)',
+    width: 'calc(100% - 368px)',
   },
 }));
 
 const ParticipantsColumn = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('tablet_768')]: {
-    borderTop: theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid  #405361',
-    paddingTop: 32,
+    borderTop: `1px solid ${
+      theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]
+    }`,
+    paddingTop: 16,
     width: '100%',
     marginBottom: 8,
   },
 
   [theme.breakpoints.up('tablet_768')]: {
-    width: 201,
+    width: 219,
     marginLeft: 24,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    width: 240,
+    width: 222,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
+    width: 276,
     marginLeft: 32,
-  },
-
-  [theme.breakpoints.up('desktop_1440')]: {
-    marginLeft: 40,
   },
 }));
