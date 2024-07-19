@@ -71,7 +71,7 @@ const Label = styled('div')(({ theme }) => ({
   fontWeight: 500,
   fontSize: 12,
   lineHeight: '18px',
-  color: theme.palette.isLight ? theme.palette.colors.charcoal[300] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.charcoal[300] : theme.palette.colors.charcoal[700],
   [theme.breakpoints.up('tablet_768')]: {
     lineHeight: '22px',
     fontWeight: 600,
