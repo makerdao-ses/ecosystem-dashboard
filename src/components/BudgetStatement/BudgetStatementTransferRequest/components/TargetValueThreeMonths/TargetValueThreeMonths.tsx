@@ -143,11 +143,15 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
   );
 };
 
-const PopoverContainer = styled('div')(() => ({
+const PopoverContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   flex: 1,
+  marginLeft: -32,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: 0,
+  },
 }));
 const Container = styled('div')(({ theme }) => ({
   width: '100%',
