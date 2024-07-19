@@ -247,7 +247,7 @@ const CurrentMonthRow = styled('tr')(({ theme }) => ({
 const MonthLabelSkeleton = styled(BaseSkeleton)(() => ({
   width: 78,
   height: 22,
-  marginLeft: 0,
+  marginLeft: '0!important', // prevent overriding this property
   marginRight: 'auto',
 }));
 
