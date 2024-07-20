@@ -26,6 +26,7 @@ export const TransparencyCard: React.FC<Props> = ({
   items,
   separators,
   showSubHeader,
+
   category = 'General',
 }) => {
   if (itemType === 'section') return null;
@@ -110,7 +111,7 @@ const FooterWrapper = styled('div')(({ theme }) => ({
   padding: '8px 0 0',
 }));
 
-const Row = styled('div')<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false, theme }) => ({
+const Row = styled('div')<{ hasIcon?: boolean }>(({ hasIcon = false, theme }) => ({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
@@ -148,7 +149,8 @@ const ContainerLine = styled('div')(({ theme }) => ({
 }));
 
 const ContainerData = styled('div')<{ spacing: CardSpacingSize }>(({ spacing }) => ({
-  padding: spacing === 'large' ? '20px 24px 10px' : '4px 24px 4px',
+  padding: spacing === 'large' ? '20px 24px 10px' : '0px 24px 0px',
+
   '& .advanced-table__cell-row--category--comments': {
     padding: 0,
     textAlign: 'end',
