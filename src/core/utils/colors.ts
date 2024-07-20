@@ -229,21 +229,21 @@ export const getExpenseReportStatusColor = (
         color: colorPalette.orange[800],
         darkColor: colorPalette.orange[100],
         background: colorPalette.orange[100],
-        darkBackground: 'rgba(255, 138, 0, 0.40)',
+        darkBackground: '#FF8A0066',
       };
     case BudgetStatus.Final:
       return {
         color: colorPalette.green[800],
         darkColor: colorPalette.green[50],
         background: colorPalette.green[100],
-        darkBackground: 'rgba(52, 168, 83, 0.40)',
+        darkBackground: '#34A85366',
       };
     case BudgetStatus.Escalated:
       return {
         color: colorPalette.red[800],
         darkColor: colorPalette.red[100],
-        background: colorPalette.red[100],
-        darkBackground: 'rgba(234, 67, 53, 0.40)',
+        background: colorPalette.red[200],
+        darkBackground: '#EA433566',
       };
 
     default: // default to draft
@@ -251,7 +251,7 @@ export const getExpenseReportStatusColor = (
         color: colorPalette.blue[800],
         darkColor: colorPalette.blue[50],
         background: colorPalette.blue[100],
-        darkBackground: 'rgba(0, 132, 255, 0.40)',
+        darkBackground: '#0084FF66',
       };
   }
 };

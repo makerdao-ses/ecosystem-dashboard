@@ -9,9 +9,9 @@ import { BudgetStatementActuals } from '@/components/BudgetStatement/BudgetState
 import { TransparencyAudit } from '@/components/BudgetStatement/BudgetStatementAudit/BudgetStatementAudit';
 import AuditorCommentsContainer from '@/components/BudgetStatement/BudgetStatementAuditorComments/AuditorCommentsContainer/AuditorCommentsContainer';
 import { BudgetStatementForecast } from '@/components/BudgetStatement/BudgetStatementForecast/BudgetStatementForecast';
-import { TransparencyMkrVesting } from '@/components/BudgetStatement/BudgetStatementMkrVesting/BudgetStatementMkrVesting';
+import { BudgetStatementMkrVesting } from '@/components/BudgetStatement/BudgetStatementMkrVesting/BudgetStatementMkrVesting';
 import BudgetStatementPager from '@/components/BudgetStatement/BudgetStatementPager/BudgetStatementPager';
-import { TransparencyTransferRequest } from '@/components/BudgetStatement/BudgetStatementTransferRequest/BudgetStatementTransferRequest';
+import { BudgetStatementTransferRequest } from '@/components/BudgetStatement/BudgetStatementTransferRequest/BudgetStatementTransferRequest';
 import ExpenseReport from '@/components/BudgetStatement/ExpenseReport/ExpenseReport';
 
 import Container from '@/components/Container/Container';
@@ -133,7 +133,7 @@ const CoreUnitBudgetStatementView = ({
           />
 
           <TabsContainer>
-            <Tabs
+            <TabsStyled
               tabs={tabItems}
               expandable
               compressedTabs={compressedTabItems}
@@ -175,7 +175,7 @@ const CoreUnitBudgetStatementView = ({
               />
             )}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.MKR_VESTING && (
-              <TransparencyMkrVesting
+              <BudgetStatementMkrVesting
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}
@@ -185,7 +185,7 @@ const CoreUnitBudgetStatementView = ({
               />
             )}
             {tabsIndex === TRANSPARENCY_IDS_ENUM.TRANSFER_REQUESTS && (
-              <TransparencyTransferRequest
+              <BudgetStatementTransferRequest
                 currentMonth={currentMonth}
                 budgetStatements={coreUnit?.budgetStatements}
                 longCode={longCode}
@@ -275,3 +275,9 @@ export const ParenthesisNumber = styled('label')({
     marginLeft: '5px',
   },
 });
+
+const TabsStyled = styled(Tabs)(({ theme }) => ({
+  borderBottom: theme.palette.isLight
+    ? `1px solid ${theme.palette.colors.slate[100]}`
+    : `1px solid ${theme.palette.colors.gray[600]}`,
+}));

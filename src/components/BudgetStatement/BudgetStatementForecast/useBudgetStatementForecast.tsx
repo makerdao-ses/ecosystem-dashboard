@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import { capitalizeSentence, getWalletWidthForWallets, toKebabCase } from '@ses/core/utils/string';
-import lightTheme from '@ses/styles/theme/themes';
+
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -94,6 +94,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
         isCardHeader: true,
         width: getWalletWidthForWallets(wallets),
         minWidth: getWalletWidthForWallets(wallets),
+        hasBorderBottomOnCard: true,
       },
       {
         header: (
@@ -108,6 +109,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
 
         type: 'custom',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
         header: (
@@ -122,6 +124,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
 
         type: 'custom',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
         header: (
@@ -136,6 +139,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
         type: 'custom',
         align: 'right',
         hasBorderRight: true,
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Mthly Budget',
@@ -216,49 +220,19 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
             column: mainTableColumns[1],
 
             value: (
-              <ContainerProgressiveIndicator>
-                {typeof firstMonthlyBudgetCap === 'number' && typeof numberCellData[0] === 'number' ? (
-                  <ProgressiveIndicator
-                    budgetCap={firstMonthlyBudgetCap}
-                    forecast={numberCellData[0]}
-                    month={firstMonth}
-                  />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
+              <ProgressiveIndicator budgetCap={firstMonthlyBudgetCap} forecast={numberCellData[0]} month={firstMonth} />
             ),
           },
           {
             column: mainTableColumns[2],
             value: (
-              <ContainerProgressiveIndicator>
-                {typeof secondMonthBudgetCap === 'number' && typeof numberCellData[1] === 'number' ? (
-                  <ProgressiveIndicator
-                    budgetCap={secondMonthBudgetCap}
-                    forecast={numberCellData[1]}
-                    month={secondMonth}
-                  />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
+              <ProgressiveIndicator budgetCap={secondMonthBudgetCap} forecast={numberCellData[1]} month={secondMonth} />
             ),
           },
           {
             column: mainTableColumns[3],
             value: (
-              <ContainerProgressiveIndicator>
-                {typeof thirdMonthBudgetCap === 'number' && typeof numberCellData[2] === 'number' ? (
-                  <ProgressiveIndicator
-                    budgetCap={thirdMonthBudgetCap}
-                    forecast={numberCellData[2]}
-                    month={thirdMonth}
-                  />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
+              <ProgressiveIndicator budgetCap={thirdMonthBudgetCap} forecast={numberCellData[2]} month={thirdMonth} />
             ),
           },
           {
@@ -267,15 +241,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
           },
           {
             column: mainTableColumns[5],
-            value: (
-              <ContainerProgressiveIndicator>
-                {typeof totalMonthPerWallet === 'number' && typeof numberCellData[4] === 'number' ? (
-                  <ProgressiveIndicator budgetCap={totalMonthPerWallet} forecast={numberCellData[4]} />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
-            ),
+            value: <ProgressiveIndicator budgetCap={totalMonthPerWallet} forecast={numberCellData[4]} />,
           },
           {
             column: mainTableColumns[6],
@@ -326,52 +292,34 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
           {
             column: mainTableColumns[1],
             value: (
-              <ContainerProgressiveIndicator>
-                {typeof totalFirstMonthBudGetCap === 'number' || totalFirstMonth !== 0 ? (
-                  <ProgressiveIndicator
-                    budgetCap={totalFirstMonthBudGetCap === 'N/A' ? 0 : totalFirstMonthBudGetCap}
-                    forecast={totalFirstMonth}
-                    isTotal
-                    month={firstMonth}
-                  />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                budgetCap={totalFirstMonthBudGetCap === 'N/A' ? 0 : totalFirstMonthBudGetCap}
+                forecast={totalFirstMonth}
+                isTotal
+                month={firstMonth}
+              />
             ),
           },
           {
             column: mainTableColumns[2],
             value: (
-              <ContainerProgressiveIndicator>
-                {typeof totalSecondMonthBudGetCap === 'number' || totalSecondMonth !== 0 ? (
-                  <ProgressiveIndicator
-                    budgetCap={totalSecondMonthBudGetCap === 'N/A' ? 0 : totalSecondMonthBudGetCap}
-                    forecast={totalSecondMonth}
-                    isTotal
-                    month={secondMonth}
-                  />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                budgetCap={totalSecondMonthBudGetCap === 'N/A' ? 0 : totalSecondMonthBudGetCap}
+                forecast={totalSecondMonth}
+                isTotal
+                month={secondMonth}
+              />
             ),
           },
           {
             column: mainTableColumns[3],
             value: (
-              <ContainerProgressiveIndicator>
-                {typeof totalThirdMonthBudGetCap === 'number' || totalThirdMonth !== 0 ? (
-                  <ProgressiveIndicator
-                    budgetCap={totalThirdMonthBudGetCap === 'N/A' ? 0 : totalThirdMonthBudGetCap}
-                    forecast={totalThirdMonth}
-                    isTotal
-                    month={thirdMonth}
-                  />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                budgetCap={totalThirdMonthBudGetCap === 'N/A' ? 0 : totalThirdMonthBudGetCap}
+                forecast={totalThirdMonth}
+                isTotal
+                month={thirdMonth}
+              />
             ),
           },
           {
@@ -381,21 +329,15 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
           {
             column: mainTableColumns[5],
             value: (
-              <ContainerProgressiveIndicator>
-                {typeof TotalBudgetCap === 'number' ? (
-                  <ProgressiveIndicator
-                    isTotal
-                    budgetCap={TotalBudgetCap}
-                    forecast={getForecastSumForMonths(budgetStatements, currentMonth, [
-                      firstMonth,
-                      secondMonth,
-                      thirdMonth,
-                    ])}
-                  />
-                ) : (
-                  <div>N/A</div>
-                )}
-              </ContainerProgressiveIndicator>
+              <ProgressiveIndicator
+                isTotal
+                budgetCap={TotalBudgetCap}
+                forecast={getForecastSumForMonths(budgetStatements, currentMonth, [
+                  firstMonth,
+                  secondMonth,
+                  thirdMonth,
+                ])}
+              />
             ),
           },
           {
@@ -468,15 +410,15 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
   };
 };
 
-export const ContainerProgressiveIndicator = styled.div({
+export const ContainerProgressiveIndicator = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: 1,
   flexDirection: 'row',
   justifyContent: 'flex-end',
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     paddingRight: 8,
   },
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    paddingRight: 16,
+  [theme.breakpoints.up('desktop_1024')]: {
+    paddingRight: 0,
   },
-});
+}));

@@ -26,6 +26,7 @@ export const TransparencyCard: React.FC<Props> = ({
   items,
   separators,
   showSubHeader,
+
   category = 'General',
 }) => {
   if (itemType === 'section') return null;
@@ -52,9 +53,7 @@ export const TransparencyCard: React.FC<Props> = ({
               key={header.toString()}
               hasIcon={header !== 'Target Balance' || (header === 'Target Balance' && itemType === 'total')}
             >
-              <Label hasIcon={header === 'Target Balance'} isTotal={totalsStyle}>
-                {header}
-              </Label>
+              <Label isTotal={totalsStyle}>{header}</Label>
               <div
                 style={{
                   display: itemType === 'total' ? 'flex' : undefined,
@@ -90,6 +89,7 @@ const Container = styled('div')(({ theme }) => ({
       marginBottom: '0px',
     },
   },
+  paddingBottom: 8,
 }));
 
 const HeaderWrapper = styled('div')<{ showSubHeader: boolean }>(({ theme, showSubHeader }) => ({
@@ -111,7 +111,7 @@ const FooterWrapper = styled('div')(({ theme }) => ({
   padding: '8px 0 0',
 }));
 
-const Row = styled('div')<{ hasIcon?: boolean; height?: string }>(({ hasIcon = false, theme }) => ({
+const Row = styled('div')<{ hasIcon?: boolean }>(({ hasIcon = false, theme }) => ({
   display: 'flex',
   flex: 1,
   alignItems: 'center',
@@ -122,25 +122,23 @@ const Row = styled('div')<{ hasIcon?: boolean; height?: string }>(({ hasIcon = f
   },
 }));
 
-const Label = styled('div')<{ hasIcon?: boolean; height?: string; isTotal: boolean }>(
-  ({ hasIcon = false, isTotal, theme }) => ({
-    display: 'flex',
-    fontFamily: 'Inter, sans-serif',
-    alignItems: hasIcon ? 'flex-start' : 'center',
-    color: theme.palette.isLight
-      ? isTotal
-        ? theme.palette.colors.gray[900]
-        : theme.palette.colors.slate[100]
-      : isTotal
-      ? theme.palette.colors.gray[50]
-      : theme.palette.colors.slate[200],
-    fontWeight: 600,
-    fontSize: '16px',
-    lineHeight: '24px',
-    height: '37px',
-    minWidth: 132,
-  })
-);
+const Label = styled('div')<{ height?: string; isTotal: boolean }>(({ isTotal, theme }) => ({
+  display: 'flex',
+  fontFamily: 'Inter, sans-serif',
+  alignItems: 'center',
+  color: theme.palette.isLight
+    ? isTotal
+      ? theme.palette.colors.gray[900]
+      : theme.palette.colors.slate[100]
+    : isTotal
+    ? theme.palette.colors.gray[50]
+    : theme.palette.colors.slate[200],
+  fontWeight: 600,
+  fontSize: '16px',
+  lineHeight: '24px',
+  height: '37px',
+  minWidth: 132,
+}));
 
 const ContainerLine = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -151,7 +149,8 @@ const ContainerLine = styled('div')(({ theme }) => ({
 }));
 
 const ContainerData = styled('div')<{ spacing: CardSpacingSize }>(({ spacing }) => ({
-  padding: spacing === 'large' ? '20px 24px 10px' : '4px 24px 4px',
+  padding: spacing === 'large' ? '20px 24px 10px' : '0px 24px 0px',
+
   '& .advanced-table__cell-row--category--comments': {
     padding: 0,
     textAlign: 'end',

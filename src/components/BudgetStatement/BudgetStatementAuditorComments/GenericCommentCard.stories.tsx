@@ -4,7 +4,7 @@ import GenericCommentCard from './GenericCommentCard';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof GenericCommentCard> = {
-  title: 'Components/AuditorComments/GenericCommentCard',
+  title: 'Fusion/Components/Budget Statements/Comments/GenericCommentCard',
   component: GenericCommentCard,
   argTypes: {
     variant: {

@@ -3,14 +3,10 @@ import { formatNumber } from '@ses/core/utils/string';
 import { DateTime } from 'luxon';
 import { useCallback, useMemo } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
-
-import {
-  RenderNumberWithIcon,
-  TotalTargetBalance,
-  renderWallet,
-} from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
+import { TotalTargetBalance, renderWallet } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
 import { useBudgetStatementForecast } from '../BudgetStatementForecast/useBudgetStatementForecast';
 
+import { TargetValueThreeMonths } from './components/TargetValueThreeMonths/TargetValueThreeMonths';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type {
   BudgetStatementTransferRequest,
@@ -123,7 +119,7 @@ export const useTransparencyTransferRequest = (
     }
 
     const dateTime = DateTime.fromISO(timeStampAnyWallet);
-    const formatData = dateTime.toFormat('dd-LLL');
+    const formatData = dateTime.toFormat('dd - LLL');
 
     return formatData;
   }, [wallets]);
@@ -150,16 +146,19 @@ export const useTransparencyTransferRequest = (
         minWidth: '240px',
         cellRender: renderWallet,
         isCardHeader: true,
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Target Balance',
         type: 'custom',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
-        header: `${getWalletBalanceTimeStamp()} Balance`,
+        header: `${getWalletBalanceTimeStamp()}  Balance`,
         type: 'number',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Transfer Request',
@@ -175,8 +174,10 @@ export const useTransparencyTransferRequest = (
 
     wallets.forEach((wallet) => {
       const { target } = getTransferRequestTargetBalanceColumn(wallet);
+
       result.push({
         type: 'normal',
+        borderBottom: true,
         items: [
           {
             column: mainTableColumns[0],
@@ -185,7 +186,7 @@ export const useTransparencyTransferRequest = (
           {
             column: mainTableColumns[1],
             value: (
-              <RenderNumberWithIcon
+              <TargetValueThreeMonths
                 balance={target?.amount || 0}
                 months={target?.calculation || ''}
                 link={target?.source.url || ''}

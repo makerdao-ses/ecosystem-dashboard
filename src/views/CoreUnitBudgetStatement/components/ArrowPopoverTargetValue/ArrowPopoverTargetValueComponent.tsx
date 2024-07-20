@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowPopoverTargetValueContent from './ArrowPopoverTargetValueContent';
+import TargetBalanceToolTipContent from './TargetBalanceToolTipContent';
 import type { TargetBalanceTooltipInformation } from '@ses/core/utils/typesHelpers';
 import type { CSSProperties } from 'react';
 
@@ -10,6 +10,6 @@ interface Props {
 }
 
 const ArrowPopoverTargetValueComponent: React.FC<Props> = ({ toolTipData, name, style }) => (
-  <ArrowPopoverTargetValueContent name={name} toolTipData={toolTipData} style={style} />
+  <TargetBalanceToolTipContent name={name} toolTipData={toolTipData} style={style} />
 );
 export default ArrowPopoverTargetValueComponent;
