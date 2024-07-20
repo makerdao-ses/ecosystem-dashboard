@@ -4,8 +4,8 @@ import { Button, IconButton, styled, useMediaQuery } from '@mui/material';
 import BarChartLineIcon from 'public/assets/svg/bar_chart_line.svg';
 import ArrowCollapseIcon from 'public/assets/svg/fusion_arrow_collapse.svg';
 import ArrowExpandIcon from 'public/assets/svg/fusion_arrow_expand.svg';
-import FusionArrowSelectDown from 'public/assets/svg/fusion_arrow_select_down.svg';
-import FusionArrowSelectUp from 'public/assets/svg/fusion_arrow_select_up.svg';
+import ArrowSelectDownIcon from 'public/assets/svg/fusion_arrow_select_down.svg';
+import ArrowSelectUpIcon from 'public/assets/svg/fusion_arrow_select_up.svg';
 import MapIcon from 'public/assets/svg/map.svg';
 import MegaphoneIcon from 'public/assets/svg/megaphone.svg';
 import PersonSquareIcon from 'public/assets/svg/person_square.svg';
@@ -65,7 +65,7 @@ const HeaderCard: FC = () => {
               }}
             >
               <MobileHeaderButton disableRipple>{headerCardData.buttonTexts[0]}</MobileHeaderButton>
-              {isMobileMenuExpanded ? <FusionArrowSelectUp /> : <FusionArrowSelectDown />}
+              {isMobileMenuExpanded ? <ArrowSelectUpIcon /> : <ArrowSelectDownIcon />}
             </MobileHeaderButtonContainer>
             {isMobileMenuExpanded && (
               <>

@@ -5,6 +5,7 @@ import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
+import BlueLines from 'public/assets/svg/blue_lines.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import Close from 'public/assets/svg/close.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
@@ -184,5 +185,9 @@ export const iconsPowerHose = [
   {
     Icon: Close,
     title: 'close',
+  },
+  {
+    Icon: BlueLines,
+    title: 'blue_lines',
   },
 ];
