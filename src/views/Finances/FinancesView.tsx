@@ -7,7 +7,6 @@ import React from 'react';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
-import BudgetMetricButtonModalTrigger from './components/BudgetMetricButtonModalTrigger/BudgetMetricButtonModalTrigger';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
 import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
@@ -29,7 +28,6 @@ interface Props {
 
 const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initialYear }) => {
   const {
-    isMobile,
     year,
     levelNumber,
     icon,
@@ -96,8 +94,6 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
               )}
             </TitleDescription>
           </TitleContainer>
-
-          {(levelNumber === 1 || isMobile) && <BudgetMetricButtonModalTrigger />}
 
           <ContainerSections>
             <WrapperDesk>
@@ -225,7 +221,7 @@ const TitleContainer = styled('div')(({ theme }) => ({
   marginTop: 72,
   marginBottom: 24,
 
-  [theme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     marginBottom: 32,
   },
 }));
@@ -234,19 +230,19 @@ const TitleDescription = styled('div')<{ levelNumber: number }>(({ theme, levelN
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  fontFamily: 'Inter, sans-serif',
   fontSize: 14,
-  fontStyle: 'normal',
   fontWeight: 400,
-  lineHeight: 'normal',
-  letterSpacing: '0.4px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  lineHeight: '22px',
+  color: theme.palette.colors.gray[500],
   margin: 0,
   marginLeft: levelNumber === 1 ? 0 : 40,
 
   [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: levelNumber === 1 ? 0 : 58,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
     fontSize: 16,
-    marginLeft: levelNumber === 1 ? 0 : 56,
   },
 
   p: {
@@ -255,17 +251,18 @@ const TitleDescription = styled('div')<{ levelNumber: number }>(({ theme, levelN
 }));
 
 const FirstLevelTitle = styled('h1')(({ theme }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 20,
-  fontStyle: 'normal',
-  fontWeight: 600,
-  lineHeight: 'normal',
-  letterSpacing: '0.4px',
-  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
+  fontSize: 18,
+  fontWeight: 700,
+  lineHeight: '120%',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   margin: 0,
 
   [theme.breakpoints.up('tablet_768')]: {
-    fontSize: 28,
+    fontSize: 20,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 24,
   },
 }));
 
