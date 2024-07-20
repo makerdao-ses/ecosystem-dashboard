@@ -1,11 +1,16 @@
 import { styled } from '@mui/material';
+
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+
+import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarChartCard';
 import HeaderCard from './components/HeaderCard/HeaderCard';
-import { headerCardData } from './staticData';
+
+import { headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
+
 import type { FC } from 'react';
 
 const HomeView: FC = () => {
@@ -25,10 +30,22 @@ const HomeView: FC = () => {
       />
       <Container>
         <HeaderCard />
-        <Section id={headerCardData.buttonTexts[0].toLowerCase()} />
-        <Section id={headerCardData.buttonTexts[1].toLowerCase()} />
-        <Section id={headerCardData.buttonTexts[2].toLowerCase()} />
-        <Section id={headerCardData.buttonTexts[3].toLowerCase()} />
+        <Section id={headerCardData.buttonTexts[0].toLowerCase()}>
+          <SectionTitle>{sectionsData.titles[0]}</SectionTitle>
+          <Finances>
+            <FinancesBarChartCard />
+            <div style={{ width: '100%' }}>Second Card</div>
+          </Finances>
+        </Section>
+        <Section id={headerCardData.buttonTexts[1].toLowerCase()}>
+          <SectionTitle>{sectionsData.titles[1]}</SectionTitle>
+        </Section>
+        <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
+          <SectionTitle>{sectionsData.titles[2]}</SectionTitle>
+        </Section>
+        <Section id={headerCardData.buttonTexts[3].toLowerCase()}>
+          <SectionTitle>{sectionsData.titles[3]}</SectionTitle>
+        </Section>
       </Container>
     </HomeViewContainer>
   );
@@ -42,11 +59,10 @@ const HomeViewContainer = styled(PageContainer)(() => ({
 
 const Section = styled('section')(({ theme }) => ({
   width: '100%',
-  height: 400,
+  height: 600,
   display: 'flex',
   flexDirection: 'column',
   marginTop: 24,
-  border: '1px solid #000',
   scrollSnapAlign: 'start',
   scrollMarginTop: 80,
 
@@ -56,5 +72,31 @@ const Section = styled('section')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1280')]: {
     marginTop: 32,
+  },
+}));
+
+const SectionTitle = styled('h2')(({ theme }) => ({
+  margin: 0,
+  fontWeight: 700,
+  fontSize: 24,
+  lineHeight: '28.8px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[300],
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 32,
+    lineHeight: '38.4px',
+  },
+}));
+
+const Finances = styled('div')(({ theme }) => ({
+  height: 400,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  marginTop: 24,
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    flexDirection: 'row',
+    gap: 32,
   },
 }));
