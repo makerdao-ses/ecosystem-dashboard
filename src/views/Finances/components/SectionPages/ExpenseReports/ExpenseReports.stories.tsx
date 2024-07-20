@@ -4,7 +4,7 @@ import ExpenseReports from './ExpenseReports';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ExpenseReports> = {
-  title: 'Components/NewFinances/Section/Expense Reports Finances',
+  title: 'Fusion/Views/Finances/Section/Expense Reports Finances',
   component: ExpenseReports,
   parameters: {
     date: new Date('2023-09-18T12:23:00Z'),

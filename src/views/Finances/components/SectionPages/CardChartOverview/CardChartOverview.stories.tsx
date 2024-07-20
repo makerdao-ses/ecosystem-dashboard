@@ -5,7 +5,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof CardChartOverview> = {
-  title: 'Components/NewFinances/Section/CardChartOverview',
+  title: 'Fusion/Views/Finances/Section/CardChartOverview',
   component: CardChartOverview,
 
   parameters: {

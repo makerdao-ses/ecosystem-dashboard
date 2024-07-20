@@ -4,7 +4,7 @@ import HeaderDelegateExpense from './HeaderDelegateExpense';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof HeaderDelegateExpense> = {
-  title: 'Components/NewFinances/HeaderDelegateExpense',
+  title: 'Fusion/Views/Finances/HeaderDelegateExpense',
   component: HeaderDelegateExpense,
 };
 export default meta;

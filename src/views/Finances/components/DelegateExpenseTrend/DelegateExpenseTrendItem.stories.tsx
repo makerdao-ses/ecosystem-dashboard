@@ -4,7 +4,7 @@ import DelegateExpenseTrendItem from './DelegateExpenseTrendItem';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof DelegateExpenseTrendItem> = {
-  title: 'Components/NewFinances/DelegateExpenseTrendItem',
+  title: 'Fusion/Views/Finances/DelegateExpenseTrendItem',
   component: DelegateExpenseTrendItem,
   parameters: {
     chromatic: {

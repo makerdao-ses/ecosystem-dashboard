@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof OverviewCardMobile> = {
-  title: 'Components/NewFinances/OverviewCardMobile',
+  title: 'Fusion/Views/Finances/OverviewCardMobile',
   component: OverviewCardMobile,
 
   parameters: {

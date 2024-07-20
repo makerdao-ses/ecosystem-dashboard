@@ -5,7 +5,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof BreadcrumbYearNavigation> = {
-  title: 'Components/NewFinances/Section/BreadcrumbYearNavigation',
+  title: 'Fusion/Views/Finances/Section/BreadcrumbYearNavigation',
   component: BreadcrumbYearNavigation,
 
   parameters: {

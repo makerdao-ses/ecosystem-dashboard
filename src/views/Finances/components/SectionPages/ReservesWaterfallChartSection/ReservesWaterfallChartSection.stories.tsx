@@ -4,7 +4,7 @@ import { builderWaterfallSeries } from './utils';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ReservesWaterfallChartSection> = {
-  title: 'Components/NewFinances/Section/ReservesWaterfallChartSection',
+  title: 'Fusion/Views/Finances/Section/ReservesWaterfallChartSection',
   component: ReservesWaterfallChartSection,
 
   parameters: {

@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof CardCoreUnitThirdLevelBudget> = {
-  title: 'Components/NewFinances/CardCoreUnitThirdLevelBudget',
+  title: 'Fusion/Views/Finances/CardCoreUnitThirdLevelBudget',
   component: CardCoreUnitThirdLevelBudget,
 
   parameters: {

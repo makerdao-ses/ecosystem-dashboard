@@ -2,11 +2,10 @@ import { BreakdownBudgetAnalyticBuilder } from '@ses/core/businessLogic/builders
 import { BudgetBuilder } from '@ses/core/businessLogic/builders/budgetBuilder';
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BreakdownChartSection from './BreakdownChartSection';
-
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof BreakdownChartSection> = {
-  title: 'Components/NewFinances/Section/BreakdownChartSection',
+  title: 'Fusion/Views/Finances/Section/BreakdownChartSection',
   component: BreakdownChartSection,
 
   parameters: {

@@ -4,7 +4,7 @@ import MakerDAOExpenseMetricsFinances from './MakerDAOExpenseMetrics';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof MakerDAOExpenseMetricsFinances> = {
-  title: 'Components/NewFinances/Section/MakerDAOExpenseMetricsFinances',
+  title: 'Fusion/Views/Finances/Section/MakerDAOExpenseMetricsFinances',
   component: MakerDAOExpenseMetricsFinances,
 
   parameters: {

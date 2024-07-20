@@ -4,11 +4,11 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof BreakdownTableFinances> = {
-  title: 'Components/NewFinances/Section/BreakdownTableFinances',
+  title: 'Fusion/Views/Finances/Section/BreakdownTableFinances',
   component: BreakdownTableFinances,
   parameters: {
     chromatic: {
-      viewports: [375, 834, 1194, 1280, 1440],
+      viewports: [375, 768, 1024, 1280, 1440],
       pauseAnimationAtEnd: true,
     },
   },

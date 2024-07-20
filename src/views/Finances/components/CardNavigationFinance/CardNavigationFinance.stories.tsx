@@ -6,7 +6,7 @@ import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
 const meta: Meta<typeof CardNavigationFinance> = {
-  title: 'Components/NewFinances/CardNavigationFinance',
+  title: 'Fusion/Views/Finances/CardNavigationFinance',
   component: CardNavigationFinance,
 
   parameters: {
