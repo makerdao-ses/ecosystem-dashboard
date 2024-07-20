@@ -1,74 +1,93 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
-import BreadcrumbWithYear from '../BreadcrumbWithYear/BreadcrumbWithYear';
+import { styled } from '@mui/material';
+import CircleInfo from 'public/assets/svg/circle_info.svg';
+import type { BreadcrumbItem } from '@/components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
+import CustomSelect from '@/components/CustomSelect/CustomSelect';
+import { useBudgetMetricsModalContext } from '@/core/context/BudgetMetricsModalContext';
 
-import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
-
-interface Props {
+interface BreadcrumbYearNavigationProps {
   years: string[];
   handleChange: (value: string) => void;
   selectedValue: string;
-  trailingAddress: NavigationBreadcrumb[];
-  trailingAddressDesk: NavigationBreadcrumb[];
-  title: string;
-  hasIcon?: boolean;
-  className?: string;
+  breakdownItems: BreadcrumbItem[];
 }
-const BreadcrumbYearNavigation: React.FC<Props> = ({
+const BreadcrumbYearNavigation: React.FC<BreadcrumbYearNavigationProps> = ({
   years,
   handleChange,
   selectedValue,
-  trailingAddress,
-  trailingAddressDesk,
-  hasIcon,
-  title,
-  className,
-}: Props) => {
-  const { isLight } = useThemeContext();
+  breakdownItems,
+}) => {
+  const { handleOpenModal } = useBudgetMetricsModalContext();
+
   return (
-    <ContainerNavigation isLight={isLight} className={className}>
-      <BreadcrumbWithYear
-        handleChange={handleChange}
-        selectedValue={selectedValue}
-        years={years}
-        trailingAddress={trailingAddress}
-        trailingAddressDesk={trailingAddressDesk}
-        title={title}
-        hasIcon={hasIcon}
-      />
-    </ContainerNavigation>
+    <Breadcrumb
+      items={breakdownItems}
+      rightContent={
+        <RightContentContainer>
+          <BudgetButton onClick={handleOpenModal}>
+            <span>Budget Metrics</span>
+            <CircleInfo width={24} height={24} />
+          </BudgetButton>
+          <Select
+            label="Year"
+            options={years.map((year) => ({
+              label: year,
+              value: year,
+            }))}
+            onChange={(value) => handleChange(value as string)}
+            selected={selectedValue}
+          />
+        </RightContentContainer>
+      }
+    />
   );
 };
 
 export default BreadcrumbYearNavigation;
 
-const ContainerNavigation = styled.div<WithIsLight>(({ isLight }) => ({
-  marginRight: 16,
-  marginLeft: 16,
-  position: 'sticky',
-  top: 64,
-  paddingLeft: 8,
-  paddingRight: 8,
-  borderRadius: 6,
-  background: isLight ? '#ECF1F3' : '#000A13',
-  zIndex: zIndexEnum.BREAD_CRUMB_NAVIGATION,
+const RightContentContainer = styled('div')(() => ({
+  display: 'flex',
+  gap: 16,
+}));
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    top: 98,
-    marginRight: 0,
-    marginLeft: 0,
-    paddingLeft: 32,
-    paddingRight: 32,
-    width: '100%',
-    background: isLight ? '#FFFFFF' : '#25273D',
-    backgroundImage: isLight ? 'url(/assets/img/Subheader.png)' : 'url(/assets/img/Subheader-dark.png)',
-    backgroundSize: 'cover',
-    borderBottom: isLight ? '2px solid rgba(95, 196, 185, 0.1)' : 'red',
-    margin: 0,
-    borderRadius: 0,
+const BudgetButton = styled('button')(({ theme }) => ({
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.charcoal[700]}`,
+  borderRadius: 8,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[800],
+  color: theme.palette.isLight ? theme.palette.colors.gray[700] : theme.palette.colors.gray[300],
+  cursor: 'pointer',
+  fontSize: 16,
+  fontWeight: 600,
+  lineHeight: '24px',
+  letterSpacing: -0.32,
+  display: 'flex',
+  gap: 8,
+  padding: 3,
+
+  '& > span': {
+    display: 'none',
+
+    [theme.breakpoints.up('tablet_768')]: {
+      display: 'inline',
+      whiteSpace: 'nowrap',
+    },
   },
+
+  '& path': {
+    fill: theme.palette.colors.blue[800],
+  },
+
+  '&:hover': {
+    border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[400] : theme.palette.colors.charcoal[600]}`,
+    background: theme.palette.isLight ? theme.palette.colors.gray[100] : theme.palette.colors.charcoal[700],
+    color: theme.palette.isLight ? theme.palette.colors.gray[800] : theme.palette.colors.gray[100],
+  },
+
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: '3px 15px',
+  },
+}));
+
+const Select = styled(CustomSelect)(() => ({
+  minWidth: 97,
 }));

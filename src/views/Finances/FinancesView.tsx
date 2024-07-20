@@ -35,8 +35,7 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
     icon,
     title,
     description,
-    trailingAddressMobile,
-    trailingAddressDesktop,
+    breakdownItems,
     cardOverViewSectionData,
     handleChangeYears,
     cardsToShow,
@@ -52,7 +51,7 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
   } = useFinancesView(budgets, allBudgets, initialYear);
 
   return (
-    <PageContainerLegacy>
+    <PageContainer>
       <SEOHead
         title="MakerDAO | Finances"
         description="MakerDAO Finances page provides a structured overview of MakerDAO's budgets, from high-level finances to detailed legacy and endgame allocations "
@@ -63,17 +62,15 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
         }}
         twitterImage={toAbsoluteURL('/assets/img/social-1200x630.png')}
       />
-      <BreadcrumbYearNavigation
-        trailingAddress={trailingAddressMobile}
-        years={yearsRange}
-        handleChange={handleChangeYears}
-        selectedValue={year}
-        trailingAddressDesk={trailingAddressDesktop}
-        title={levelNumber === 1 ? 'Finances' : title}
-        hasIcon={levelNumber !== 1}
-      />
 
       <BudgetMetricsModalProvider>
+        <BreadcrumbYearNavigation
+          breakdownItems={breakdownItems}
+          years={yearsRange}
+          handleChange={handleChangeYears}
+          selectedValue={year}
+        />
+
         <Container>
           <TitleContainer>
             {/* Page title */}
@@ -215,21 +212,17 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
           />
         </ContainerLastReport>
       </Container>
-    </PageContainerLegacy>
+    </PageContainer>
   );
 };
 
 export default FinancesView;
 
-const PageContainerLegacy = styled(PageContainer)(({ theme }) => ({
-  background: theme.palette.mode === 'light' ? '#fff' : '#000',
-}));
-
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-  marginTop: 28,
+  marginTop: 72,
   marginBottom: 24,
 
   [theme.breakpoints.up('tablet_768')]: {
@@ -247,7 +240,7 @@ const TitleDescription = styled('div')<{ levelNumber: number }>(({ theme, levelN
   fontWeight: 400,
   lineHeight: 'normal',
   letterSpacing: '0.4px',
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   margin: 0,
   marginLeft: levelNumber === 1 ? 0 : 40,
 
@@ -268,7 +261,7 @@ const FirstLevelTitle = styled('h1')(({ theme }) => ({
   fontWeight: 600,
   lineHeight: 'normal',
   letterSpacing: '0.4px',
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  color: theme.palette.isLight ? '#231536' : '#D2D4EF',
   margin: 0,
 
   [theme.breakpoints.up('tablet_768')]: {

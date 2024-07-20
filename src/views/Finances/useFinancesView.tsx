@@ -5,6 +5,7 @@ import { percentageRespectTo } from '@ses/core/utils/math';
 import { useRouter } from 'next/router';
 import { useState, useMemo, useEffect } from 'react';
 import useSWRImmutable from 'swr/immutable';
+import type { BreadcrumbItem } from '@/components/Breadcrumb/Breadcrumb';
 import useBreakdownChart from './components/BreakdownChartSection/useBreakdownChart';
 import { useBreakdownTable } from './components/SectionPages/BreakdownTable/useBreakdownTable';
 import { useCardChartOverview } from './components/SectionPages/CardChartOverview/useCardChartOverview';
@@ -21,7 +22,6 @@ import {
   formatBudgetName,
 } from './utils/utils';
 import type { Theme } from '@mui/material';
-import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 
@@ -57,40 +57,30 @@ export const useFinancesView = (budgets: Budget[], allBudgets: Budget[], initial
   );
 
   // generate the breadcrumb routes
-  const { trailingAddressMobile, trailingAddressDesktop } = useMemo(() => {
+  const breakdownItems: BreadcrumbItem[] = useMemo(() => {
+    const items: BreadcrumbItem[] = [];
     const segmentedCodePath = codePath.split('/');
-    const trailingAddressDesktop: NavigationBreadcrumb[] = [];
-    // build the breadcrumb url
     segmentedCodePath.forEach((item, index) => {
       if (item === 'atlas') {
         // it is the first level
-        trailingAddressDesktop.push({
+        items.push({
           label: 'Finances',
-          url: `${siteRoutes.finances()}?year=${year}`,
+          href: `${siteRoutes.finances()}?year=${year}`,
         });
       } else {
         // it is a deeper level
-        trailingAddressDesktop.push({
+        items.push({
           label: formatBudgetName(
             allBudgets.find((budget) => budget.codePath === segmentedCodePath.slice(0, index + 1).join('/'))?.name ??
               codePath
           ),
-          url: `${siteRoutes.finances(segmentedCodePath.slice(1, index + 1).join('/'))}?year=${year}`,
+          href: `${siteRoutes.finances(segmentedCodePath.slice(1, index + 1).join('/'))}?year=${year}`,
         });
       }
     });
 
-    const trailingAddressMobile = [...trailingAddressDesktop].reverse();
-    trailingAddressMobile[0] = {
-      ...trailingAddressMobile[0],
-      style: { color: isLight ? '#25273D' : '#D2D4EF' },
-    };
-
-    return {
-      trailingAddressDesktop,
-      trailingAddressMobile,
-    };
-  }, [allBudgets, codePath, isLight, year]);
+    return items;
+  }, [allBudgets, codePath, year]);
 
   const allMetrics = getTotalAllMetricsBudget(budgetsAnalytics);
 
@@ -173,8 +163,7 @@ export const useFinancesView = (budgets: Budget[], allBudgets: Budget[], initial
     icon,
     title,
     description,
-    trailingAddressMobile,
-    trailingAddressDesktop,
+    breakdownItems,
     handleChangeYears,
     cardOverViewSectionData,
     router,
