@@ -3,10 +3,11 @@ import AngleRight from 'public/assets/svg/angle_right.svg';
 import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
 import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
-import AvatarPlaceHolder from 'public/assets/svg/avatar_placeholder.svg';
+import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
 import BlueLines from 'public/assets/svg/blue_lines.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
+import Close from 'public/assets/svg/close.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import Expand from 'public/assets/svg/expand.svg';
@@ -27,6 +28,7 @@ import FusionIcon from 'public/assets/svg/makerdao_fusion.svg';
 import SwitchboardIcon from 'public/assets/svg/makerdao_switchboard.svg';
 import Map from 'public/assets/svg/map.svg';
 import Megaphone from 'public/assets/svg/megaphone.svg';
+import MemoCheck from 'public/assets/svg/memo_check.svg';
 import PersonSquare from 'public/assets/svg/person_square.svg';
 import PowerhouseIcon from 'public/assets/svg/powerhouse.svg';
 import RedditIcon from 'public/assets/svg/reddit.svg';
@@ -113,7 +115,7 @@ export const iconsPowerHose = [
     title: 'circle_info',
   },
   {
-    Icon: AvatarPlaceHolder,
+    Icon: AvatarPlaceholder,
     title: 'avatar_placeholder',
   },
   {
@@ -143,6 +145,10 @@ export const iconsPowerHose = [
   {
     Icon: Expand,
     title: 'expand',
+  },
+  {
+    Icon: MemoCheck,
+    title: 'memo_check',
   },
   {
     Icon: BarChartLine,
@@ -175,6 +181,10 @@ export const iconsPowerHose = [
   {
     Icon: FusionArrowSelectUp,
     title: 'fusion_arrow_select_up',
+  },
+  {
+    Icon: Close,
+    title: 'close',
   },
   {
     Icon: BlueLines,

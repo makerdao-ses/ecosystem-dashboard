@@ -2,6 +2,7 @@ import { API_MONTH_TO_FORMAT } from '@ses/core/utils/date';
 import _ from 'lodash';
 import { useMemo } from 'react';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
+import ToolTipMkrVesting from './ToolTipMkrVesting';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 import type { DateTime } from 'luxon';
 
@@ -34,7 +35,7 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
     return _.sumBy(currentBudgetStatement?.budgetStatementMKRVest ?? [], (mkr) => mkr.mkrAmountOld);
   }, [currentMonth, budgetStatements, currentBudgetStatement?.budgetStatementMKRVest]);
 
-  const FTEs = useMemo(
+  const fTEs = useMemo(
     () => _.first(currentBudgetStatement?.budgetStatementFTEs)?.ftes ?? 'N/A',
     [currentBudgetStatement?.budgetStatementFTEs]
   );
@@ -44,24 +45,29 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
       {
         header: 'Vesting Date',
         isCardHeader: true,
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'MKR Amount',
         type: 'number',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
         header: 'Last month',
         type: 'number',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
-        header: 'Difference',
+        header: <ToolTipMkrVesting title="Difference" />,
         type: 'number',
         align: 'right',
+        hasBorderBottomOnCard: true,
       },
       {
-        header: 'Reasons(s)',
+        header: 'Reason(s)',
+        type: 'text',
       },
     ];
     return mainTableColumns;
@@ -74,7 +80,8 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
 
     mkrVestingsOrdered.forEach((mkrVesting) => {
       result.push({
-        type: 'normal',
+        borderBottom: true,
+        type: 'category',
         items: [
           {
             value: mkrVesting.vestingDate,
@@ -134,6 +141,6 @@ export const useTransparencyMkrVesting = (currentMonth: DateTime, budgetStatemen
   return {
     mainTableColumns,
     mainTableItems,
-    FTEs,
+    fTEs,
   };
 };

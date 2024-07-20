@@ -111,7 +111,7 @@ export const getCommentVerb = (comment: BudgetStatementComment, previousComment?
     // is the first comment
     switch (comment.status) {
       case BudgetStatus.Review:
-        return 'submitted for review';
+        return 'submitted';
       case BudgetStatus.Final:
         return 'marked as final';
     }
@@ -125,7 +125,7 @@ export const getCommentVerb = (comment: BudgetStatementComment, previousComment?
         return 'reopened';
       case BudgetStatus.Review:
         if (previousComment.status === BudgetStatus.Draft) {
-          return 'submitted for review';
+          return 'submitted';
         } else {
           return 'reopened';
         }

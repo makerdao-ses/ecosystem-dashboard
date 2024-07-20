@@ -55,7 +55,7 @@ const Container = styled('div')<{
   lineHeight: isHeader ? (bold ? '19px' : '18px') : '15px',
   display: 'flex',
   alignItems: 'center',
-  padding: isHeader ? 16 : '8px 0',
+  padding: isHeader ? 16 : '0px 0',
   textAlign: isHeader ? 'left' : 'right',
   fontSize: isHeader ? '16px' : '14px',
   paddingLeft: 24,
@@ -76,6 +76,7 @@ const Container = styled('div')<{
     fontSize: '16px',
     textAlign: 'left',
     paddingLeft: 16,
+    padding: isHeader ? 16 : '8px 0',
     fontWeight: isHeader ? (bold ? 600 : 400) : 400,
   },
 }));

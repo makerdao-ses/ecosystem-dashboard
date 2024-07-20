@@ -39,14 +39,17 @@ export const SummaryToolTip: React.FC<Props> = ({ imageUrl, code, name, status, 
         </StatusLastModifiedContainer>
       </InformationContainer>
     </RowContainer>
-    <CategoriesContainer>
-      <CategoriesLabel>Categories</CategoriesLabel>
-      <Categories>
-        {categories.map((category) => (
-          <CategoryChip category={category} />
-        ))}
-      </Categories>
-    </CategoriesContainer>
+    {categories && (
+      <CategoriesContainer>
+        <CategoriesLabel>Categories</CategoriesLabel>
+
+        <Categories>
+          {categories?.map((category) => (
+            <CategoryChip category={category} />
+          ))}
+        </Categories>
+      </CategoriesContainer>
+    )}
   </Container>
 );
 

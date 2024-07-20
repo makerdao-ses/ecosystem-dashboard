@@ -3,21 +3,19 @@ import { GRAPHQL_ENDPOINT } from '@ses/config/endpoints';
 import { useAuthContext } from '@ses/core/context/AuthContext';
 import { useCommentActivityContext } from '@ses/core/context/CommentActivityContext';
 import { useTeamContext } from '@ses/core/context/TeamContext';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { BudgetStatus, ResourceType } from '@ses/core/models/interfaces/types';
 import { triggerToast } from '@ses/core/utils/notifications';
-import lightTheme from '@ses/styles/theme/themes';
 import request from 'graphql-request';
 import { useEffect, useMemo, useState } from 'react';
 import { CREATE_BUDGET_STATEMENT_COMMENT } from './auditorComentingAPI';
+import type { Theme } from '@mui/material';
 import type { BudgetStatementComment } from '@ses/core/models/interfaces/budgetStatementComment';
 import type { Team } from '@ses/core/models/interfaces/team';
 
 const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: string, resource: ResourceType) => {
-  const { isLight } = useThemeContext();
   const { permissionManager, authToken } = useAuthContext();
   const { currentTeam, setCurrentTeam } = useTeamContext();
-  const isMobile = useMediaQuery(lightTheme.breakpoints.down('table_834'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitLabel, setSubmitLabel] = useState<string>('Submit Comment');
   const [availableStatuses, setAvailableStatuses] = useState<BudgetStatus[]>([]);
@@ -154,6 +152,11 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     }
   };
 
+  const handleReset = () => {
+    setTextareaValue('');
+    setSelectedStatus(currentBudgetStatus);
+  };
+
   const roleString = useMemo(() => {
     if (currentTeam?.auditors?.some((auditor) => auditor.id === permissionManager.loggedUser?.id)) {
       return 'Auditor';
@@ -163,7 +166,6 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
   }, [currentTeam?.auditors, currentTeam?.shortCode, permissionManager.loggedUser?.id, resource]);
 
   return {
-    isLight,
     isMobile,
     submitLabel,
     roleString,
@@ -175,6 +177,7 @@ const useCommentForm = (currentBudgetStatus: BudgetStatus, budgetStatementId: st
     isCommenting: selectedStatus === currentBudgetStatus,
     handleChangeVariant,
     handleChangeTextarea,
+    handleReset,
     handleSubmit,
   } as const;
 };

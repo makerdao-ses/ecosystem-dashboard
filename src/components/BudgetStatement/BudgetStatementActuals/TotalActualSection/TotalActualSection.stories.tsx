@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 import { InnerTableColumnBuilder } from '@/core/businessLogic/tableBuilderColumns';
 import { InnerTableRowBuilder } from '@/core/businessLogic/tableBuilderRow';
 import { createThemeModeVariants } from '@/core/utils/storybook/factories';
@@ -41,7 +42,7 @@ const mainTableColumns = [
     .withType('number')
     .build(),
   new InnerTableColumnBuilder().withAlign('right').withHeader('Payments').withType('number').build(),
-];
+] as InnerTableColumn[];
 const meta: Meta<typeof TotalWalletSections> = {
   title: 'Fusion/Components/Budget Statements/Actuals Tab/TotalSections',
   component: TotalWalletSections,
@@ -257,7 +258,7 @@ const variantsArgs = [
           value: 0,
         })
         .build(),
-    ],
+    ] as InnerTableRow[],
     longCode: 'SES-01',
     shortCode: 'SES',
     resource: 'CoreUnit',

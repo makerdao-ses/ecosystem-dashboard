@@ -1,8 +1,6 @@
 import { styled } from '@mui/material';
 import React, { useId } from 'react';
-
 import { OpenModalTransparency } from '@/views/CoreUnitBudgetStatement/BudgetStatementtUtils';
-import { useThemeContext } from '../../core/context/ThemeContext';
 import { TransparencyEmptyTable } from '../../views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import { NumberCell } from './NumberCell/NumberCell';
 import { TextCell } from './TextCell/TextCell';
@@ -20,7 +18,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   cardSpacingSize = 'large',
 }) => {
   const id = useId();
-  const { isLight } = useThemeContext();
+
   const getCell = (column: InnerTableColumn, rowType: RowType, value: unknown) => {
     if (value !== 0 && !value) {
       return <></>;
@@ -45,7 +43,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
             className={
               value === 'Total' || value === 'Subtotal'
                 ? 'advanced-table__cell-row--category'
-                : column.header === 'Comments'
+                : column.header === 'Comments' || column.header === 'Reason(s)'
                 ? 'advanced-table__cell-row--category--comments'
                 : ''
             }
@@ -114,7 +112,6 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
                     .map((item, j) => (
                       <TableCell
                         hasBorderRight={item.column.hasBorderRight}
-                        isLight={isLight}
                         key={`${i}-${j}`}
                         textAlign={(item.column?.align ?? 'left') as Alignment}
                       >
@@ -194,11 +191,15 @@ const Table = styled('table')({
 
 const TableCell = styled('td')<{
   textAlign: 'left' | 'center' | 'right';
-  isLight?: boolean;
+
   hasBorderRight?: boolean;
-}>(({ textAlign, isLight, hasBorderRight }) => ({
+}>(({ textAlign, hasBorderRight, theme }) => ({
   textAlign,
-  borderRight: hasBorderRight ? (isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
+  borderRight: hasBorderRight
+    ? theme.palette.isLight
+      ? `1px solid ${theme.palette.colors.charcoal[100]}`
+      : `1px solid ${theme.palette.colors.charcoal[800]}`
+    : 'none',
 }));
 
 const TableHead = styled('thead')(({ theme }) => ({
@@ -218,7 +219,9 @@ const HeadCell = styled('th')<{ hasBorderRight?: boolean }>(({ hasBorderRight, t
   fontSize: 16,
   lineHeight: '24px',
   color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[200],
-  borderRight: hasBorderRight ? (theme.palette.isLight ? '1px solid #D4D9E1' : '1px solid #405361') : 'none',
+  borderRight: hasBorderRight
+    ? `1px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]} }`
+    : 'none',
 }));
 
 const TableWrapper = styled('div')(({ theme }) => ({
