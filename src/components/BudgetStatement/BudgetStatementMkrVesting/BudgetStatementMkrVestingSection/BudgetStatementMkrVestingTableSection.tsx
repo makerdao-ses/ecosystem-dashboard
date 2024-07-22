@@ -81,7 +81,7 @@ const SESTooltipStyled = styled(SESTooltip)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
 }));
 
-const IconContainer = styled('div')(({ theme }) => ({
+export const IconContainer = styled('div')(({ theme }) => ({
   width: 15,
   height: 15,
   display: 'flex',
@@ -110,7 +110,7 @@ const ContainerTitle = styled('div')<{ marginBottom?: number; responsiveMarginBo
   })
 );
 
-const ContainerToolTip = styled('div')(({ theme }) => ({
+export const ContainerToolTip = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
   fontSize: 16,
   fontWeight: 500,

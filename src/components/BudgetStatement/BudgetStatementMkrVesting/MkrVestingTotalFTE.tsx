@@ -3,10 +3,11 @@ import React from 'react';
 
 interface MkrVestingTotalFTEProps {
   totalFTE: string | number;
+  className?: string;
 }
 
-const MkrVestingTotalFTE: React.FC<MkrVestingTotalFTEProps> = ({ totalFTE }) => (
-  <Container>
+const MkrVestingTotalFTE: React.FC<MkrVestingTotalFTEProps> = ({ totalFTE, className }) => (
+  <Container className={className}>
     <TotalFte>
       <span>Total FTEs</span>
       <u>{totalFTE}</u>

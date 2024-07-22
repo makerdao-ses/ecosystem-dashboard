@@ -12,10 +12,10 @@ interface CuHeadlineTextProps {
   isCoreUnit?: boolean;
 }
 
-const CuHeadlineText: React.FC<CuHeadlineTextProps> = ({ cuLongCode, isCoreUnit = true, shortCode }) => {
+const CuHeadlineText: React.FC<CuHeadlineTextProps> = ({ cuLongCode, isCoreUnit = true, shortCode, className }) => {
   const resource = isCoreUnit ? 'Core Unit' : 'Ecosystem Actor';
   return (
-    <LinkDescription>
+    <LinkDescription className={className}>
       <ExternalLinkButtonStyled href={`${MAKER_BURN_LINK}/${cuLongCode}`} wrapText={false}>
         {`${shortCode} ${resource} on-chain transaction history`}
       </ExternalLinkButtonStyled>
