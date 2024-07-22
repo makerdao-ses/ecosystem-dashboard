@@ -16,7 +16,7 @@ export interface WithClick {
 
 export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const hasIcon = !(data.months === 'N/A' || data.months === '');
   const isMobileResolution = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
@@ -74,7 +74,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
                 </IconContainer>
               </SESTooltipStyled>
             )}
-            <ContainerInformation hasIcon={!!data.months}>
+            <ContainerInformation hasIcon={hasIcon}>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
             </ContainerInformation>
@@ -101,7 +101,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
                 </IconContainer>
               </SESTooltipStyled>
             )}
-            <ContainerInformation onClick={handleOnClick} hasIcon={!!data.months}>
+            <ContainerInformation onClick={handleOnClick} hasIcon={hasIcon}>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
             </ContainerInformation>
@@ -131,7 +131,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
                 </SESTooltipStyled>
               )}
 
-              <ContainerInformation onClick={handleOnClick} hasIcon={!!data.months}>
+              <ContainerInformation onClick={handleOnClick} hasIcon={hasIcon}>
                 <ContainerNumberCell value={data.balance} />
                 <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
               </ContainerInformation>

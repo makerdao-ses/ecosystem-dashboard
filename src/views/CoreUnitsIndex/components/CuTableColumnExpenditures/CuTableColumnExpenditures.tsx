@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
+import { siteRoutes } from '@/config/routes';
 import type { CustomChartItemModel } from '@/core/models/customChartItemModel';
 import { buildQueryString } from '@/core/utils/urls';
 import { CustomBarChart } from '@/stories/components/CustomBarChart/CustomBarChart';
@@ -25,7 +26,7 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return !isLoading ? (
-    <LinkStyle href={`/core-unit/${props.code}/finances/reports${queryStrings}`}>
+    <LinkStyle href={`${siteRoutes.coreUnitAbout(props?.code || '')}/${queryStrings}`}>
       <Container>
         <Title>Latest 3 Months</Title>
         <DataWrapper>
