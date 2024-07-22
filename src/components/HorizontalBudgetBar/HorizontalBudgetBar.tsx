@@ -53,7 +53,7 @@ const BarContainer = styled('div')(({ theme }) => ({
   height: 9,
   overflow: 'hidden',
   borderRadius: 8,
-  background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'red',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#232832',
 
   [theme.breakpoints.up('tablet_768')]: {
     height: 16,
@@ -64,7 +64,7 @@ const Actuals = styled('div')<{ width: number }>(({ theme, width }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
-  background: theme.palette.isLight ? theme.palette.colors.green[600] : 'red',
+  background: theme.palette.isLight ? theme.palette.colors.green[600] : theme.palette.colors.green[900],
   borderRadius: 8,
   width: `${width}%`,
   height: '100%',
@@ -88,5 +88,5 @@ const BudgetCapLine = styled('div')<{ position: number }>(({ theme, position }) 
   left: `${position}%`,
   width: 1,
   height: '100%',
-  background: theme.palette.colors.red[700],
+  background: theme.palette.isLight ? theme.palette.colors.red[700] : theme.palette.colors.red[900],
 }));

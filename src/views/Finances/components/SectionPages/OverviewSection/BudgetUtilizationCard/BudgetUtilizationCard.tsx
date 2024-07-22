@@ -2,6 +2,7 @@ import { styled, useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
 import { percentageRespectTo } from '@ses/core/utils/math';
+import { colorPalette } from '@ses/styles/theme/colorPalette';
 import Card from '@/components/Card/Card';
 import HorizontalBudgetBar from '@/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import type { Theme } from '@mui/material';
@@ -45,10 +46,10 @@ const BudgetUtilizationCard: React.FC<QuarterCardProps> = ({ paymentsOnChain, bu
         <HorizontalBudgetBarStyled actuals={paymentsOnChain} prediction={0} budgetCap={budgetCap} />
       </BarWrapper>
       <Legend>
-        <LegendItem dotColor={isLight ? '#2DC1B1' : '#1AAB9B'}>
+        <LegendItem dotColor={isLight ? colorPalette.green[600] : colorPalette.green[900]}>
           Net {isDesktop1024 ? 'Exp' : 'Expenses'} On-chain
         </LegendItem>
-        <LegendItem dotColor={'#F75524'}>Budget Cap</LegendItem>
+        <LegendItem dotColor={colorPalette.red[900]}>Budget Cap</LegendItem>
       </Legend>
     </CardContainer>
   );
@@ -159,7 +160,7 @@ const LegendItem = styled('div')<{ dotColor: string }>(({ theme, dotColor }) => 
   fontSize: 12,
   fontWeight: 700,
   lineHeight: '18px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   paddingLeft: 12,
   display: 'flex',
   alignItems: 'flex-start ',
@@ -219,7 +220,9 @@ const DividerActualsBudgetCap = styled('div')(({ theme }) => ({
 
 const DividerCardChart = styled('div')(({ theme }) => ({
   margin: '10px -11px',
-  borderBottom: `1px solid ${theme.palette.isLight ? '#D4D9E1' : '#405361'}`,
+  borderBottom: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.slate[500]
+  }`,
 
   [theme.breakpoints.up('desktop_1024')]: {
     margin: '10px -32px',

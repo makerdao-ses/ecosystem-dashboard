@@ -24,24 +24,20 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({
   selectedMetric,
   showSwiper,
   numberSliderPerLevel,
-}) => {
-  console.log('OverviewSection');
+}) => (
+  <MainContentSection>
+    <BudgetUtilizationCard paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
 
-  return (
-    <MainContentSection>
-      <BudgetUtilizationCard paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
-
-      <DoughnutChartFinances
-        doughnutSeriesData={doughnutSeriesData}
-        isCoreThirdLevel={isCoreThirdLevel}
-        changeAlignment={changeAlignment}
-        showSwiper={showSwiper}
-        numberSliderPerLevel={numberSliderPerLevel}
-        selectedMetric={selectedMetric}
-      />
-    </MainContentSection>
-  );
-};
+    <DoughnutChartFinances
+      doughnutSeriesData={doughnutSeriesData}
+      isCoreThirdLevel={isCoreThirdLevel}
+      changeAlignment={changeAlignment}
+      showSwiper={showSwiper}
+      numberSliderPerLevel={numberSliderPerLevel}
+      selectedMetric={selectedMetric}
+    />
+  </MainContentSection>
+);
 
 export default OverviewSection;
 
