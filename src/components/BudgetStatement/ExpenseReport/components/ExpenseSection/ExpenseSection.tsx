@@ -1,26 +1,28 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
+import { styled } from '@mui/material';
+
 import React from 'react';
 import Container from '@/components/Container/Container';
 import SectionTitle from '../SectionTitle/SectionTitle';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface ExpenseSectionProps extends React.PropsWithChildren {
   title?: string;
   level?: 1 | 2;
+  hasIcon?: boolean;
 }
 
-const ExpenseSection: React.FC<ExpenseSectionProps> = ({ children, level = 1, title }) => {
-  const { isLight } = useThemeContext();
+const ExpenseSection: React.FC<ExpenseSectionProps> = ({ children, level = 1, title, hasIcon = false }) => {
   const Wrapper = level === 1 ? WrapperL1 : WrapperL2;
   const LevelContainer = level === 1 ? L1Container : React.Fragment;
 
   return (
     <ExpensesContainer level={level}>
-      <Wrapper isLight={isLight}>
+      <Wrapper>
         <LevelContainer>
-          {title && <SectionTitle hasExternalIcon={true}>{title}</SectionTitle>}
+          {title && (
+            <SectionTitle hasExternalIcon={true} hasIcon={hasIcon}>
+              {title}
+            </SectionTitle>
+          )}
 
           <ChildrenContainer hasMargin={!!title}>{children}</ChildrenContainer>
         </LevelContainer>
@@ -31,11 +33,11 @@ const ExpenseSection: React.FC<ExpenseSectionProps> = ({ children, level = 1, ti
 
 export default ExpenseSection;
 
-const ExpensesContainer = styled(Container)<{ level: 1 | 2 }>(({ level }) => ({
+const ExpensesContainer = styled('div')<{ level: 1 | 2 }>(({ level, theme }) => ({
   paddingLeft: 0,
   paddingRight: 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     ...(level === 2 && {
       paddingLeft: 0,
       paddingRight: 0,
@@ -43,70 +45,70 @@ const ExpensesContainer = styled(Container)<{ level: 1 | 2 }>(({ level }) => ({
   },
 }));
 
-const L1Container = styled(Container)({
-  [lightTheme.breakpoints.up('table_834')]: {
+const L1Container = styled(Container)(({ theme }) => ({
+  [theme.breakpoints.up('tablet_768')]: {
     paddingLeft: 16,
     paddingRight: 16,
   },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     paddingLeft: 24,
     paddingRight: 24,
   },
-
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     paddingLeft: 32,
     paddingRight: 32,
   },
-});
+}));
 
-const WrapperL1 = styled.div<WithIsLight>(({ isLight }) => ({
-  padding: '16px 0',
-  background: isLight ? '#F6F8F9' : '#121F27',
-  boxShadow: isLight
-    ? '0px 20px 40px -40px rgba(219, 227, 237, 0.4), 0px 1px 3px rgba(190, 190, 190, 0.25)'
-    : '0px -20px 40px -40px rgba(7, 22, 40, 0.4), 0px -1px 3px rgba(30, 23, 23, 0.25)',
+const WrapperL1 = styled('div')(({ theme }) => ({
+  padding: '8px 0',
+
+  background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : '#1E222A',
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
   marginBottom: 24,
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    padding: '16px 0 32px',
-    marginBottom: 32,
+  [theme.breakpoints.up('tablet_768')]: {
+    background: theme.palette.isLight ? theme.palette.colors.gray[100] : '#1E222A',
+    padding: '8px 0 24px',
   },
 }));
 
-const WrapperL2 = styled.div<WithIsLight>(({ isLight }) => ({
+const WrapperL2 = styled('div')(({ theme }) => ({
   padding: '16px 8px',
-  background: isLight ? '#ECF1F3' : '#0C1318',
+  borderRadius: 12,
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.background.dm,
   marginTop: 16,
-  borderRadius: 6,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  border: `1px solid ${
+    theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+  }`,
+  [theme.breakpoints.up('tablet_768')]: {
     padding: 16,
-    marginTop: 32,
+    marginTop: 24,
   },
 
-  [lightTheme.breakpoints.up('desktop_1194')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     padding: '16px 24px 32px',
   },
 
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+  [theme.breakpoints.up('desktop_1280')]: {
     padding: '16px 32px 32px',
   },
 
   // custom style for the table header sections
   '.advanced-table--group-section': {
     lineHeight: '17px',
-    background: isLight ? 'rgba(255, 255, 255, 0.4)' : 'rgba(30, 44, 55, 0.7)',
+    background: theme.palette.isLight ? 'rgba(255, 255, 255, 0.4)' : 'rgba(30, 44, 55, 0.7)',
     padding: '8px 16px',
     marginTop: 24,
     marginBottom: 8,
   },
 }));
 
-const ChildrenContainer = styled.div<{ hasMargin: boolean }>(({ hasMargin }) => ({
+const ChildrenContainer = styled('div')<{ hasMargin: boolean }>(({ hasMargin, theme }) => ({
   marginTop: hasMargin ? 16 : 0,
 
-  [lightTheme.breakpoints.up('table_834')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     marginTop: hasMargin ? 24 : 0,
   },
 }));

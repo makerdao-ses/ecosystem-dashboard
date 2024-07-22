@@ -31,6 +31,7 @@ const BudgetStatementMkrVestingTableSection: FC<Props> = ({
       <Title>MKR Vesting Overview</Title>
 
       <SESTooltipStyled
+        showAsModal
         content={
           <ContainerToolTip>This Overview is based on MIP40c3-SP17, SES’MKR Incentive Proposal.</ContainerToolTip>
         }
@@ -80,7 +81,7 @@ const SESTooltipStyled = styled(SESTooltip)(({ theme }) => ({
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
 }));
 
-const IconContainer = styled('div')(({ theme }) => ({
+export const IconContainer = styled('div')(({ theme }) => ({
   width: 15,
   height: 15,
   display: 'flex',
@@ -109,10 +110,13 @@ const ContainerTitle = styled('div')<{ marginBottom?: number; responsiveMarginBo
   })
 );
 
-const ContainerToolTip = styled('div')(({ theme }) => ({
+export const ContainerToolTip = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.charcoal[900] : theme.palette.colors.charcoal[100],
   fontSize: 16,
   fontWeight: 500,
   lineHeight: '24px',
-  padding: 16,
+  padding: 0,
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: 16,
+  },
 }));

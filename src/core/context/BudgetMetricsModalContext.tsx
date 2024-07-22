@@ -1,5 +1,5 @@
-import BudgetMetricsModal from '@ses/containers/Finances/components/BudgetMetricsModal/BudgetMetricsModal';
 import { createContext, useContext, useState } from 'react';
+import BudgetMetricsModal from '@/views/Finances/components/BudgetMetricsModal/BudgetMetricsModal';
 
 interface BudgetMetricsModalContextValues {
   handleOpenModal: () => void;

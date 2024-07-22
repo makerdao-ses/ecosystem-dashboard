@@ -17,6 +17,7 @@ export interface WithClick {
 export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const hasSmallSpace = !!(data.description && data.link);
   const isMobileResolution = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const { lockScroll, unlockScroll } = useScrollLock();
   const showIconToolTip = !!(data.description && data.link);
@@ -58,6 +59,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           <Container>
             {showIconToolTip && (
               <SESTooltipStyled
+                showAsModal
                 content={
                   <ArrowPopoverTargetValueComponent
                     toolTipData={{
@@ -74,7 +76,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
                 </IconContainer>
               </SESTooltipStyled>
             )}
-            <ContainerInformation hasIcon={!!data.months}>
+            <ContainerInformation hasSmallSpace={hasSmallSpace}>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
             </ContainerInformation>
@@ -84,7 +86,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           <Container>
             {showIconToolTip && (
               <SESTooltipStyled
-                showAsModalBottomSheet
+                showAsModal
                 content={
                   <ArrowPopoverTargetValueComponent
                     toolTipData={{
@@ -101,7 +103,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
                 </IconContainer>
               </SESTooltipStyled>
             )}
-            <ContainerInformation onClick={handleOnClick} hasIcon={!!data.months}>
+            <ContainerInformation onClick={handleOnClick} hasSmallSpace={hasSmallSpace}>
               <ContainerNumberCell value={data.balance} />
               <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
             </ContainerInformation>
@@ -114,6 +116,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
             <Container>
               {showIconToolTip && (
                 <SESTooltipStyled
+                  showAsModal
                   content={
                     <ArrowPopoverTargetValueComponent
                       toolTipData={{
@@ -131,7 +134,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
                 </SESTooltipStyled>
               )}
 
-              <ContainerInformation onClick={handleOnClick} hasIcon={!!data.months}>
+              <ContainerInformation onClick={handleOnClick} hasSmallSpace={hasSmallSpace}>
                 <ContainerNumberCell value={data.balance} />
                 <ContainerStyleMonths>{data.months}</ContainerStyleMonths>
               </ContainerInformation>
@@ -174,7 +177,7 @@ export const ContainerInfoIcon = styled('div')({
   position: 'relative',
 });
 
-const ContainerInformation = styled('div')<{ hasIcon?: boolean }>(({ theme, hasIcon }) => ({
+const ContainerInformation = styled('div')<{ hasSmallSpace?: boolean }>(({ theme, hasSmallSpace }) => ({
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
@@ -182,11 +185,11 @@ const ContainerInformation = styled('div')<{ hasIcon?: boolean }>(({ theme, hasI
   marginRight: 0,
   [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
     alignItems: 'flex-end',
-    marginRight: hasIcon ? 12.5 : 30,
+    marginRight: hasSmallSpace ? 12.5 : 30,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     alignItems: 'flex-end',
-    marginRight: hasIcon ? 12.5 : 30,
+    marginRight: hasSmallSpace ? 12.5 : 30,
   },
 }));
 
