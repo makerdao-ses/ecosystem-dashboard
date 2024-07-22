@@ -16,34 +16,9 @@ interface Props {
   numberSliderPerLevel?: number;
 }
 
-// const FILTERS: {
-//   label: string;
-//   value: AnalyticMetric;
-// }[] = [
-//   {
-//     label: 'Actuals',
-//     value: 'Actuals',
-//   },
-//   {
-//     label: 'Forecast',
-//     value: 'Forecast',
-//   },
-//   {
-//     label: 'Net Expenses On-Chain',
-//     value: 'PaymentsOnChain',
-//   },
-//   {
-//     label: 'Net Protocol Outflow',
-//     value: 'ProtocolNetOutflow',
-//   },
-//   {
-//     label: 'Budget',
-//     value: 'Budget',
-//   },
-// ];
-
 const CardChartOverview: React.FC<Props> = ({
   selectedMetric,
+  // TODO: Uncomment this line after the chart filters are implemented (notice to reviewers: this is WIP)
   // handleSelectedMetric,
   paymentsOnChain,
   budgetCap,
@@ -52,25 +27,19 @@ const CardChartOverview: React.FC<Props> = ({
   changeAlignment,
   showSwiper,
   numberSliderPerLevel,
-}) => {
-  // const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.down('desktop_1024'));
-  // const { handleOpenModal } = useBudgetMetricsModalContext();
-  console.log('testing...');
-
-  return (
-    <Container>
-      <InformationBudgetCapOverview paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
-      <DoughnutChartFinances
-        doughnutSeriesData={doughnutSeriesData}
-        isCoreThirdLevel={isCoreThirdLevel}
-        changeAlignment={changeAlignment}
-        showSwiper={showSwiper}
-        numberSliderPerLevel={numberSliderPerLevel}
-        selectedMetric={selectedMetric}
-      />
-    </Container>
-  );
-};
+}) => (
+  <Container>
+    <InformationBudgetCapOverview paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
+    <DoughnutChartFinances
+      doughnutSeriesData={doughnutSeriesData}
+      isCoreThirdLevel={isCoreThirdLevel}
+      changeAlignment={changeAlignment}
+      showSwiper={showSwiper}
+      numberSliderPerLevel={numberSliderPerLevel}
+      selectedMetric={selectedMetric}
+    />
+  </Container>
+);
 
 export default CardChartOverview;
 

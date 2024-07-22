@@ -123,6 +123,7 @@ export const useFinancesView = (budgets: Budget[], allBudgets: Budget[], initial
     [allMetrics.paymentsOnChain, budgets, budgetsAnalytics, colorsDark, colorsLight, isLight, year]
   );
 
+  // TODO: is this still necessary (Notice to reviewers: this is WIP)
   // if there too many cards we need to use a swiper on desktop but paginated on mobile
   const [canLoadMoreCards, setCanLoadMoreCards] = useState<boolean>(cardsNavigationInformation.length > 6);
   const [showMoreCards, setShowMoreCards] = useState<boolean>(false);
@@ -131,13 +132,13 @@ export const useFinancesView = (budgets: Budget[], allBudgets: Budget[], initial
     setCanLoadMoreCards(cardsNavigationInformation.length > 6);
     setShowMoreCards(false);
   }, [cardsNavigationInformation.length]);
-
   const toggleShowMoreCards = () => {
     if (!canLoadMoreCards) return;
 
     setShowMoreCards(!showMoreCards);
   };
 
+  // TODO: is this still necessary (Notice to reviewers: this is WIP)
   // pagination only happens on mobile devices
   const cardsToShow = !showMoreCards && isMobile ? cardsNavigationInformation.slice(0, 6) : cardsNavigationInformation;
 

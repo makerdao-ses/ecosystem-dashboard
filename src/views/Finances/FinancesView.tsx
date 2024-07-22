@@ -34,11 +34,7 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
     breakdownItems,
     cardOverViewSectionData,
     handleChangeYears,
-    // cardsToShow,
     breakdownTable,
-    // canLoadMoreCards,
-    // showMoreCards,
-    // toggleShowMoreCards,
     makerDAOExpensesMetrics,
     breakdownChartSectionData,
     expenseReportSection,
@@ -104,32 +100,6 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
               showSwiper={cardOverViewSectionData.showSwiper}
               numberSliderPerLevel={cardOverViewSectionData.numberSliderPerLevel}
             />
-
-            {/* <WrapperDesk>
-              <CardChartOverview
-                selectedMetric={cardOverViewSectionData.selectedMetric}
-                handleSelectedMetric={cardOverViewSectionData.handleSelectedMetric}
-                paymentsOnChain={cardOverViewSectionData.paymentsOnChain}
-                budgetCap={cardOverViewSectionData.budgetCap}
-                doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
-                isCoreThirdLevel={levelNumber >= 3}
-                changeAlignment={cardOverViewSectionData.changeAlignment}
-                showSwiper={cardOverViewSectionData.showSwiper}
-                numberSliderPerLevel={cardOverViewSectionData.numberSliderPerLevel}
-              />
-            </WrapperDesk>
-            <WrapperMobile>
-              <OverviewCardMobile
-                paymentsOnChain={cardOverViewSectionData.paymentsOnChain}
-                budgetCap={cardOverViewSectionData.budgetCap}
-              />
-            </WrapperMobile>
-            <CardsNavigation
-              cardsNavigationInformation={cardsToShow}
-              canLoadMoreCards={canLoadMoreCards}
-              showMoreCards={showMoreCards}
-              toggleShowMoreCards={toggleShowMoreCards}
-            /> */}
           </ContainerSections>
 
           <BreakdownChartSection
