@@ -293,7 +293,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
             column: mainTableColumns[1],
             value: (
               <ProgressiveIndicator
-                budgetCap={totalFirstMonthBudGetCap === 'N/A' ? 0 : totalFirstMonthBudGetCap}
+                budgetCap={totalFirstMonthBudGetCap === 'N/A' ? 'N/A' : totalFirstMonthBudGetCap}
                 forecast={totalFirstMonth}
                 isTotal
                 month={firstMonth}
@@ -304,7 +304,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
             column: mainTableColumns[2],
             value: (
               <ProgressiveIndicator
-                budgetCap={totalSecondMonthBudGetCap === 'N/A' ? 0 : totalSecondMonthBudGetCap}
+                budgetCap={totalSecondMonthBudGetCap === 'N/A' ? 'N/A' : totalSecondMonthBudGetCap}
                 forecast={totalSecondMonth}
                 isTotal
                 month={secondMonth}
@@ -315,7 +315,7 @@ export const useBudgetStatementForecast = (currentMonth: DateTime, budgetStateme
             column: mainTableColumns[3],
             value: (
               <ProgressiveIndicator
-                budgetCap={totalThirdMonthBudGetCap === 'N/A' ? 0 : totalThirdMonthBudGetCap}
+                budgetCap={totalThirdMonthBudGetCap === 'N/A' ? 'N/A' : totalThirdMonthBudGetCap}
                 forecast={totalThirdMonth}
                 isTotal
                 month={thirdMonth}
