@@ -58,6 +58,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           <Container>
             {showIconToolTip && (
               <SESTooltipStyled
+                showAsModal
                 content={
                   <ArrowPopoverTargetValueComponent
                     toolTipData={{
@@ -84,7 +85,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           <Container>
             {showIconToolTip && (
               <SESTooltipStyled
-                showAsModalBottomSheet
+                showAsModal
                 content={
                   <ArrowPopoverTargetValueComponent
                     toolTipData={{
@@ -114,6 +115,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
             <Container>
               {showIconToolTip && (
                 <SESTooltipStyled
+                  showAsModal
                   content={
                     <ArrowPopoverTargetValueComponent
                       toolTipData={{

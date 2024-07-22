@@ -68,7 +68,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
           <Title>{title}</Title>
 
           {showPopover && (
-            <SESTooltipStyled content={<HeaderToolTip description={description} link={link} name={name} />}>
+            <SESTooltipStyled showAsModal content={<HeaderToolTip description={description} link={link} name={name} />}>
               <IconContainer className="advance-table--transparency-card_icon_hidden">
                 <Info />
               </IconContainer>
@@ -80,7 +80,7 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
         <ContainerTitleIcon>
           <Title>{title}</Title>
           {showPopover && (
-            <SESTooltipStyled content={<HeaderToolTip description={description} link={link} name={name} />}>
+            <SESTooltipStyled showAsModal content={<HeaderToolTip description={description} link={link} name={name} />}>
               <IconContainer className="advance-table--transparency-card_icon_hidden">
                 <Info />
               </IconContainer>
@@ -92,9 +92,11 @@ const HeaderWithIcon: React.FC<Props> = ({ title, description, mipNumber, link, 
         <ContainerTitleIcon>
           <Title>{title}</Title>
           {showPopover && (
-            <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
-              <IconPosition />
-            </ContainerInfoIcon>
+            <SESTooltipStyled showAsModal content={<HeaderToolTip description={description} link={link} name={name} />}>
+              <ContainerInfoIcon className="advance-table--transparency-card_icon_hidden" onClick={handleOnClick}>
+                <IconPosition />
+              </ContainerInfoIcon>
+            </SESTooltipStyled>
           )}
         </ContainerTitleIcon>
       )}

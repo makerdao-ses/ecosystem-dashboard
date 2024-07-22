@@ -31,6 +31,7 @@ const BudgetStatementMkrVestingTableSection: FC<Props> = ({
       <Title>MKR Vesting Overview</Title>
 
       <SESTooltipStyled
+        showAsModal
         content={
           <ContainerToolTip>This Overview is based on MIP40c3-SP17, SES’MKR Incentive Proposal.</ContainerToolTip>
         }
@@ -114,5 +115,8 @@ const ContainerToolTip = styled('div')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 500,
   lineHeight: '24px',
-  padding: 16,
+  padding: 0,
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: 16,
+  },
 }));
