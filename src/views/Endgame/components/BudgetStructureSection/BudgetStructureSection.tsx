@@ -7,12 +7,12 @@ import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 import TitleWithIconInformation from '@/components/TitleWithIconInformation/TitleWithIconInformation';
 import { siteRoutes } from '@/config/routes';
+import type { DoughnutSeries } from '@/views/Finances/utils/types';
 import BudgetDoughnutChart from '../BudgetDoughnutChart/BudgetDoughnutChart';
 import TotalBudgetContent from '../TotalBudgetContent/TotalBudgetContent';
 import BudgetStructureSectionSkeleton from './BudgetStructureSectionSkeleton';
 import type { TotalBudgetContentProps } from '../TotalBudgetContent/TotalBudgetContent';
 import type { Theme } from '@mui/material';
-import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
 
 interface BudgetCompositionProps extends TotalBudgetContentProps {
   scopes: number;

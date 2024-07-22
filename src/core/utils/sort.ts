@@ -1,4 +1,4 @@
-import type { DoughnutSeries } from '@ses/containers/Finances/utils/types';
+import type { DoughnutSeries } from '@/views/Finances/utils/types';
 
 const reA = /[^a-zA-Z]/g;
 const reN = /[^0-9]/g;

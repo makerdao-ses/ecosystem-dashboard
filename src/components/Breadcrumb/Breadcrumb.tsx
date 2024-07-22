@@ -68,9 +68,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
     };
 
     getWidths(); // initial call
-    document.addEventListener('resize', getWidths);
+    window.addEventListener('resize', getWidths);
     return () => {
-      document.removeEventListener('resize', getWidths);
+      window.removeEventListener('resize', getWidths);
     };
   }, [contentId, rightPartId]);
 
@@ -111,44 +111,28 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
     return itemsExtended;
   });
 
-  // update groupedItems when the window is resized
+  // group items in segments to show at most 3 items
   useEffect(() => {
-    const segmentsContainerWidth = elementWidths[0] - elementWidths[1] - 16; // 16 is the padding of the content container
-    const totalWidth = itemsExtended.reduce((acc, item) => acc + Math.min(item.labelWidth, MAX_ALLOWED_WIDTH), 0);
-    const groupItems = () => {
-      if (itemsExtended.length <= 3) {
-        setGroupedItems(itemsExtended);
-      } else {
-        setGroupedItems([
-          itemsExtended[0],
-          {
-            label: '...',
-            href: '',
-            labelWidth: 0,
-            recommendedWidth: THREE_DOTS_WIDTH,
-            attachedItems: itemsExtended.slice(1, itemsExtended.length - 2),
-          },
-          // 2 last items
-          ...itemsExtended.slice(-2),
-        ]);
-      }
-    };
-
-    if (segmentsContainerWidth === 0 || totalWidth <= segmentsContainerWidth) {
-      if (segmentsContainerWidth === 0 && itemsExtended.length > 3) {
-        // it is not initialized yet and there's a lot of items
-        // let's assume that they don't fit
-        groupItems();
-        return;
-      }
+    if (itemsExtended.length <= 3) {
       setGroupedItems(itemsExtended);
-      return;
+    } else {
+      setGroupedItems([
+        itemsExtended[0],
+        {
+          label: '...',
+          href: '',
+          labelWidth: 0,
+          recommendedWidth: THREE_DOTS_WIDTH,
+          attachedItems: itemsExtended.slice(1, itemsExtended.length - 2),
+        },
+        // 2 last items
+        ...itemsExtended.slice(-2),
+      ]);
     }
-
-    groupItems();
-  }, [elementWidths, itemsExtended]);
+  }, [itemsExtended]);
 
   const separator = <AngleRight width={24} height={24} />;
+  const mobileRecommendedSegmentWidth = elementWidths[0] - elementWidths[1] - 64 - 16;
 
   return (
     <Wrapper className={className}>
@@ -164,7 +148,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, rightContent, withMenusO
                       {separator}
                     </Segment>
                   )}
-                  <Segment maxWidth={elementWidths[0] - elementWidths[1] - 64 - 16}>
+                  <Segment maxWidth={mobileRecommendedSegmentWidth < 10 ? 10 : mobileRecommendedSegmentWidth}>
                     <EllipseSegment>{itemsExtended?.[itemsExtended.length - 1]?.label}</EllipseSegment>
                   </Segment>
                 </>
@@ -262,7 +246,7 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
   lineHeight: '24px',
   fontWeight: 600,
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[100],
-  maxWidth: MAX_ALLOWED_WIDTH_MOBILE,
+  maxWidth: maxWidth || MAX_ALLOWED_WIDTH_MOBILE,
 
   '& a': {
     color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[300],
@@ -295,9 +279,6 @@ const Segment = styled('div')<{ maxWidth?: number }>(({ theme, maxWidth }) => ({
     'svg path': {
       fill: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[200],
     },
-  },
-  [theme.breakpoints.up('tablet_768')]: {
-    maxWidth: maxWidth || '100%',
   },
 }));
 

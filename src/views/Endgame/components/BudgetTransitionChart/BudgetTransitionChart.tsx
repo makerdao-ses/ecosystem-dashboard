@@ -4,8 +4,8 @@ import { replaceAllNumberLetOneBeforeDot } from '@ses/core/utils/string';
 import theme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
 import React, { useMemo } from 'react';
+import type { BarChartSeries } from '@/views/Finances/utils/types';
 import type { BudgetTransitionPlainData, SeriesData, TransitionStatusDataShown } from '../../types';
-import type { BarChartSeries } from '@ses/containers/Finances/utils/types';
 import type { EChartsOption } from 'echarts-for-react';
 
 interface BudgetTransitionChartProps {
