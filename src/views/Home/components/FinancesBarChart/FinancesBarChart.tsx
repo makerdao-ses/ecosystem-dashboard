@@ -1,0 +1,191 @@
+import { styled, useMediaQuery, useTheme } from '@mui/material';
+
+import ReactECharts from 'echarts-for-react';
+
+import type { EChartsOption } from 'echarts-for-react';
+import type { FC } from 'react';
+
+const FinancesBarChart: FC = () => {
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('tablet_768'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesktop1024 = useMediaQuery(theme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesktop1280 = useMediaQuery(theme.breakpoints.between('desktop_1280', 'desktop_1440'));
+
+  const series = [
+    {
+      data: [15, 20, 24, 49],
+      type: 'bar',
+      stack: 'a',
+      name: 'psm',
+      barWidth: isMobile ? 24 : isTablet ? 32 : isDesktop1024 ? 40 : isDesktop1280 ? 40 : 40,
+      itemStyle: {
+        color: theme.palette.isLight ? theme.palette.colors.green[700] : theme.palette.colors.green[900],
+        borderRadius: 0,
+      },
+      emphasis: {
+        itemStyle: {
+          color: 'inherit',
+        },
+      },
+    },
+    {
+      data: [10, 10, 10, 30],
+      type: 'bar',
+      stack: 'a',
+      name: 'liquidationIncome',
+      itemStyle: {
+        color: theme.palette.isLight ? theme.palette.colors.green[500] : theme.palette.colors.green[700],
+        borderRadius: 0,
+      },
+      emphasis: {
+        itemStyle: {
+          color: 'inherit',
+        },
+      },
+    },
+    {
+      data: [12, 12, 14, 20],
+      type: 'bar',
+      stack: 'a',
+      name: 'fees',
+      itemStyle: {
+        color: theme.palette.isLight ? theme.palette.colors.green[300] : theme.palette.colors.green[500],
+        borderRadius: [8, 8, 0, 0],
+      },
+      emphasis: {
+        itemStyle: {
+          color: 'inherit',
+        },
+      },
+    },
+    {
+      data: [13, 20, 22, 22],
+      type: 'bar',
+      stack: 'b',
+      name: 'mkrVesting',
+      barWidth: isMobile ? 24 : isTablet ? 32 : isDesktop1024 ? 40 : isDesktop1280 ? 40 : 40,
+      itemStyle: {
+        color: theme.palette.isLight ? theme.palette.colors.red[700] : theme.palette.colors.red[900],
+        borderRadius: 0,
+      },
+      emphasis: {
+        itemStyle: {
+          color: 'inherit',
+        },
+      },
+    },
+    {
+      data: [5, 7, 8, 8],
+      type: 'bar',
+      stack: 'b',
+      name: 'daiSpent',
+      itemStyle: {
+        color: theme.palette.isLight ? theme.palette.colors.red[500] : theme.palette.colors.red[700],
+        borderRadius: [8, 8, 0, 0],
+      },
+      emphasis: {
+        itemStyle: {
+          color: 'inherit',
+        },
+      },
+    },
+  ];
+
+  const options: EChartsOption = {
+    grid: {
+      width: isMobile ? 287 : isTablet ? 336 : isDesktop1024 ? 477 : isDesktop1280 ? 400 : 431,
+      height: isMobile ? 188 : isTablet ? 222 : isDesktop1024 ? 222 : isDesktop1280 ? 330 : 330,
+      top: isMobile ? 8 : isTablet ? 8 : isDesktop1024 ? 8 : isDesktop1280 ? 8 : 8,
+      right: 0,
+    },
+    xAxis: {
+      data: ['2021', '2022', '2023', '2024'],
+      axisLine: {
+        lineStyle: {
+          color: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      axisLabel: {
+        margin: 4,
+        fontFamily: 'OpenSansCondensed, san-serif',
+        fontWeight: 700,
+        fontSize: isMobile ? 12 : isTablet ? 14 : isDesktop1024 ? 14 : isDesktop1280 ? 14 : 14,
+        lineHeight: isMobile ? 16 : isTablet ? 19 : isDesktop1024 ? 19 : isDesktop1280 ? 19 : 19,
+        color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400],
+      },
+    },
+    yAxis: {
+      splitLine: {
+        lineStyle: {
+          color: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300],
+        },
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300],
+        },
+      },
+      axisLabel: {
+        margin: 8,
+        fontFamily: 'OpenSansCondensed, san-serif',
+        fontWeight: 700,
+        fontSize: isMobile ? 12 : isTablet ? 14 : isDesktop1024 ? 14 : isDesktop1280 ? 14 : 14,
+        lineHeight: isMobile ? 16 : isTablet ? 19 : isDesktop1024 ? 19 : isDesktop1280 ? 19 : 19,
+        color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[500],
+        formatter: (value: number) => `${value} M`,
+      },
+    },
+    series,
+  };
+
+  return (
+    <Container>
+      <ReactECharts
+        option={options}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        opts={{ renderer: 'svg' }}
+      />
+    </Container>
+  );
+};
+
+export default FinancesBarChart;
+
+const Container = styled('div')(({ theme }) => ({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  maxWidth: 327,
+  width: '100%',
+  height: 216,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    maxWidth: 385,
+    height: 253,
+  },
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    maxWidth: 526,
+    height: 253,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    maxWidth: 449,
+    height: 360,
+  },
+
+  [theme.breakpoints.up('desktop_1440')]: {
+    maxWidth: 480,
+    height: 360,
+  },
+}));

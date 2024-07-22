@@ -59,7 +59,7 @@ const HomeViewContainer = styled(PageContainer)(() => ({
 
 const Section = styled('section')(({ theme }) => ({
   width: '100%',
-  height: 600,
+  height: 800,
   display: 'flex',
   flexDirection: 'column',
   marginTop: 24,
@@ -89,7 +89,7 @@ const SectionTitle = styled('h2')(({ theme }) => ({
 }));
 
 const Finances = styled('div')(({ theme }) => ({
-  height: 400,
+  height: 600,
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
