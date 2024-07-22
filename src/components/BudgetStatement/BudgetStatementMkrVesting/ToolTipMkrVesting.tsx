@@ -13,6 +13,7 @@ const ToolTipMkrVesting: FC<Props> = ({ title }) => (
     <div>{title}</div>
 
     <SESTooltipStyled
+      showAsModal
       content={
         <ContainerToolTip>
           The Difference column indicates any changes in the MKR vesting amounts compared to last month, with the
@@ -67,5 +68,8 @@ const ContainerToolTip = styled('div')(({ theme }) => ({
   fontSize: 16,
   fontWeight: 500,
   lineHeight: '24px',
-  padding: 16,
+  padding: 0,
+  [theme.breakpoints.up('tablet_768')]: {
+    padding: 16,
+  },
 }));

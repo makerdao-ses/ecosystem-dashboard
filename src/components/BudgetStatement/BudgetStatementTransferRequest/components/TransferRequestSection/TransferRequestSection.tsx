@@ -3,8 +3,8 @@ import React from 'react';
 import { AdvancedInnerTable } from '@/components/AdvancedInnerTable/AdvancedInnerTable';
 import type { InnerTableColumn, InnerTableRow } from '@/components/AdvancedInnerTable/types';
 
+import BudgetStatementsPlaceholder from '@/components/PlaceHolders/BudgetStatementsPlaceholder';
 import type { ResourceType } from '@/core/models/interfaces/types';
-import { TransparencyEmptyTable } from '@/views/CoreUnitBudgetStatement/components/Placeholders/TransparencyEmptyTable';
 import type { DateTime } from 'luxon/src/datetime';
 import type { FC } from 'react';
 
@@ -34,7 +34,7 @@ const TransferRequestSection: FC<Props> = ({
       cardsTotalPosition={'top'}
       cardSpacingSize="small"
       longCode={longCode}
-      tablePlaceholder={<TransparencyEmptyTable longCode={longCode} shortCode={shortCode} resource={resource} />}
+      tablePlaceholder={<BudgetStatementsPlaceholder longCode={longCode} shortCode={shortCode} resource={resource} />}
     />
   </Container>
 );

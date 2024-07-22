@@ -7,10 +7,9 @@ import Card from '@/components/Card/Card';
 export type GenericCommentCardProps = {
   variant?: BudgetStatus;
   children: React.ReactNode;
-  opacity?: number;
 };
 
-const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children, opacity }) => {
+const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = BudgetStatus.Draft, children }) => {
   const isLight = useTheme().palette.isLight;
   const borderColor = useMemo(() => {
     switch (variant) {
@@ -26,18 +25,14 @@ const GenericCommentCard: React.FC<GenericCommentCardProps> = ({ variant = Budge
     }
   }, [isLight, variant]);
 
-  return (
-    <CommentCard borderColor={borderColor} opacity={opacity}>
-      {children}
-    </CommentCard>
-  );
+  return <CommentCard borderColor={borderColor}>{children}</CommentCard>;
 };
 
 export default GenericCommentCard;
 
-const CommentCard = styled(Card)<{ borderColor: string; opacity?: number }>(({ borderColor, opacity }) => ({
+const CommentCard = styled(Card)<{ borderColor: string }>(({ borderColor }) => ({
   position: 'relative',
-  marginBottom: 32,
+  marginBottom: 16,
   wordBreak: 'break-word',
   paddingLeft: 8,
 
@@ -50,6 +45,5 @@ const CommentCard = styled(Card)<{ borderColor: string; opacity?: number }>(({ b
     width: 8,
     height: '100%',
     background: borderColor,
-    ...(opacity ? { opacity } : null),
   },
 }));

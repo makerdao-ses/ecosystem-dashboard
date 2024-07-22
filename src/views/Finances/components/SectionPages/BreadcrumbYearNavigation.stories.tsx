@@ -1,6 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import BreadcrumbYearNavigation from './BreadcrumbYearNavigation';
-import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
@@ -21,16 +20,13 @@ const args = [
   {
     years: ['2022', '2023'],
     handleChange: () => null,
-    onOpen: () => null,
-    onClose: () => null,
     selectedValue: '2023',
-    isOpen: false,
-    trailingAddress: [
+    breakdownItems: [
       {
         label: 'Finances',
-        url: '#',
+        href: '#',
       },
-    ] as NavigationBreadcrumb[],
+    ],
   },
 ];
 const [[LightMode, DarkMode]] = createThemeModeVariants(BreadcrumbYearNavigation, args);

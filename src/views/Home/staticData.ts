@@ -15,3 +15,17 @@ export const headerCardData = {
     '1px 4px 15px 0px rgba(234, 67, 53, 0.5)',
   ],
 };
+
+export const sectionsData = {
+  titles: ['Finances', 'Governance', 'Contributors', 'Roadmap'],
+};
+
+export const financesBarChartCardData = {
+  title: 'MakerDAO Finances',
+  annualProfitDivAsteriskText: '*All values are converted to DAI',
+  annualProfitDivTitle: 'Annual Profit',
+  revenueDivTitle: 'Revenue',
+  revenueDivButtonTexts: ['Fees', 'Liquidation Income', 'PSM'],
+  spendingDivTitle: 'Spending',
+  spendingDivButtonTexts: ['DAI Spent', 'MKR Vesting'],
+};

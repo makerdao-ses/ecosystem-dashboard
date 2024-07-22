@@ -4,8 +4,6 @@ import MobileDark from 'public/assets/img/empty-mobile-dark.png';
 import Mobile from 'public/assets/img/empty_mobile.png';
 import EmptyDark from 'public/assets/img/no-data-provide-dark.png';
 import Empty from 'public/assets/img/no-data-provide.png';
-
-import React from 'react';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import { useThemeContext } from '@/core/context/ThemeContext';
 import { ResourceType } from '@/core/models/interfaces/types';

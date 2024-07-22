@@ -58,6 +58,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           <Container>
             {showIconToolTip && (
               <SESTooltipStyled
+                showAsModal
                 content={
                   <ArrowPopoverTargetValueComponent
                     toolTipData={{
@@ -84,7 +85,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
           <Container>
             {showIconToolTip && (
               <SESTooltipStyled
-                showAsModalBottomSheet
+                showAsModal
                 content={
                   <ArrowPopoverTargetValueComponent
                     toolTipData={{
@@ -114,6 +115,7 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
             <Container>
               {showIconToolTip && (
                 <SESTooltipStyled
+                  showAsModal
                   content={
                     <ArrowPopoverTargetValueComponent
                       toolTipData={{
@@ -143,11 +145,15 @@ export const TargetValueThreeMonths = (data: TargetBalanceTooltipInformation) =>
   );
 };
 
-const PopoverContainer = styled('div')(() => ({
+const PopoverContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   flex: 1,
+  marginLeft: -32,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginLeft: 0,
+  },
 }));
 const Container = styled('div')(({ theme }) => ({
   width: '100%',
@@ -156,14 +162,13 @@ const Container = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginTop: -10,
+  marginTop: 0,
   marginRight: 0,
   [theme.breakpoints.up('tablet_768')]: {
     marginRight: -12,
     width: '100%',
     flexDirection: 'row-reverse',
     marginLeft: 0,
-    marginTop: 0,
   },
 }));
 
@@ -190,6 +195,7 @@ const ContainerInformation = styled('div')<{ hasIcon?: boolean }>(({ theme, hasI
 const ContainerNumberCell = styled(NumberCell)(({ theme }) => ({
   paddingBottom: 2,
   paddingTop: 0,
+  fontWeight: 600,
 
   [theme.breakpoints.up('tablet_768')]: {
     paddingBottom: 0,
