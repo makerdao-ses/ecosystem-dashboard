@@ -66,41 +66,26 @@ LightMode.parameters = {
         },
       },
       1280: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:211743&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-3975',
         options: {
           componentStyle: {
-            width: 1280,
+            width: 379,
           },
           style: {
-            top: -1,
-            left: -1,
+            top: -11,
+            left: -14,
           },
         },
       },
       1440: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22069:258713&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=8-10318',
         options: {
           componentStyle: {
-            width: 1440,
+            width: 416,
           },
           style: {
-            top: -1,
-            left: -1,
-          },
-        },
-      },
-      1920: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22935:205711&mode=dev',
-        options: {
-          componentStyle: {
-            width: 1920,
-          },
-          style: {
-            top: -1,
-            left: -1,
+            top: -11,
+            left: -14,
           },
         },
       },

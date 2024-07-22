@@ -56,11 +56,15 @@ const BudgetUtilizationCard: React.FC<QuarterCardProps> = ({ paymentsOnChain, bu
 
 export default BudgetUtilizationCard;
 
-const CardContainer = styled(Card)(() => ({
+const CardContainer = styled(Card)(({ theme }) => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   padding: '13px 32px',
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    padding: '16px 32px',
+  },
 }));
 
 const PredictionWrapper = styled('div')(({ theme }) => ({
@@ -122,17 +126,12 @@ const NumberSuffix = styled('div')(({ theme }) => ({
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
 }));
 
-const BarWrapper = styled('div')(({ theme }) => ({
+const BarWrapper = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
   marginTop: 4,
   marginBottom: 4,
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    marginTop: 16,
-    marginBottom: 16,
-  },
 }));
 
 const Legend = styled('div')(({ theme }) => ({
@@ -165,6 +164,12 @@ const LegendItem = styled('div')<{ dotColor: string }>(({ theme, dotColor }) => 
   display: 'flex',
   alignItems: 'flex-start ',
   height: 'fit-content',
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '22px',
+  },
 
   '&::before': {
     content: '""',
@@ -218,11 +223,6 @@ const DividerCardChart = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1024')]: {
     margin: '10px -32px',
-  },
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    marginTop: 24,
-    marginBottom: 24,
   },
 }));
 
