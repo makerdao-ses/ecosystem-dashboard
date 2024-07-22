@@ -17,7 +17,7 @@ const IconTitleWithCode: React.FC<Props> = ({ icon, title, className, code }) =>
   return (
     <Container className={className}>
       <Icon>
-        <ImageStyle src={icon} width={isMobile ? 29 : 32} height={isMobile ? 29 : 32} alt="Picture" unoptimized />
+        <ImageStyle src={icon} width={isMobile ? 32 : 42} height={isMobile ? 32 : 42} alt="Picture" unoptimized />
       </Icon>
       <Title>
         <Code>{code}</Code>
@@ -33,24 +33,26 @@ const Container = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   gap: 8,
-  alignItems: 'flex-start',
+  alignItems: 'center',
+
   [lightTheme.breakpoints.up('tablet_768')]: {
-    alignItems: 'center',
+    gap: 16,
   },
 });
 
 const Title = styled('span')(({ theme }) => ({
-  fontFamily: 'Inter, sans-serif',
-  fontStyle: 'normal',
-  fontWeight: 600,
-  fontSize: 20,
-  lineHeight: '24.2px',
-  letterSpacing: '0.4px',
-  color: theme.palette.mode === 'light' ? '#231536' : '#D2D4EF',
+  fontSize: 18,
+  fontWeight: 700,
+  lineHeight: '120%',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  margin: 0,
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    fontSize: 28,
-    lineHeight: '33.89px',
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 20,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 24,
   },
 }));
 
@@ -64,14 +66,14 @@ const Icon = styled('div')({
   minWidth: 32,
   minHeight: 32,
   backgroundColor: '#ECF1F3',
-  boxShadow: '2px 4px 7px 0px rgba(26, 171, 155, 0.25)',
+  boxShadow: '2px 4px 7px rgba(25, 144, 255, 0.20)',
   borderRadius: '50%',
 
   [lightTheme.breakpoints.up('tablet_768')]: {
-    width: 48,
-    height: 48,
-    minWidth: 48,
-    minHeight: 48,
+    width: 42,
+    height: 42,
+    minWidth: 42,
+    minHeight: 42,
   },
 });
 
@@ -85,17 +87,19 @@ const ImageStyle = styled(Image)(({ theme }) => ({
 }));
 
 const Code = styled('span')(({ theme }) => ({
-  fontFamily: 'Inter, sans-serif',
   display: 'inline-block',
-  fontWeight: 600,
-  fontSize: 20,
-  lineHeight: '24.2px',
-  marginRight: 6,
-  letterSpacing: '0.4px',
-  color: theme ? '#B6BCC2' : '#546978',
+  fontSize: 18,
+  fontWeight: 700,
+  lineHeight: '120%',
+  marginRight: 8,
+  color: theme.palette.isLight ? theme.palette.colors.gray[400] : theme.palette.colors.gray[600],
+
   [theme.breakpoints.up('tablet_768')]: {
-    marginRight: 8,
-    fontSize: 28,
-    lineHeight: '33.89px',
+    marginRight: 16,
+    fontSize: 20,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 24,
   },
 }));

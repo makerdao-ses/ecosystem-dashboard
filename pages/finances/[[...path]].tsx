@@ -1,11 +1,11 @@
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
-import FinancesContainer from '@ses/containers/Finances/FinancesContainer';
-import { fetchBudgets } from '@ses/containers/Finances/api/queries';
-import { getYearsRange, getBudgetsAnalytics } from '@ses/containers/Finances/utils/utils';
 import { featureFlags } from 'feature-flags/feature-flags';
 import { DateTime } from 'luxon';
 // eslint-disable-next-line camelcase
 import { SWRConfig, unstable_serialize } from 'swr';
+import FinancesContainer from '@/views/Finances/FinancesView';
+import { fetchBudgets } from '@/views/Finances/api/queries';
+import { getYearsRange, getBudgetsAnalytics } from '@/views/Finances/utils/utils';
 import type { BreakdownBudgetAnalytic } from '@ses/core/models/interfaces/analytic';
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { GetServerSidePropsContext } from 'next';
