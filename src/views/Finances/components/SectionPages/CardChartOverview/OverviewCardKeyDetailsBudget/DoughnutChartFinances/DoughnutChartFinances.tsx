@@ -1,21 +1,21 @@
-import styled from '@emotion/styled';
-import { useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
 import { usLocalizedNumber } from '@ses/core/utils/humanization';
 import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
-import lightTheme from '@ses/styles/theme/themes';
 import ReactECharts from 'echarts-for-react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Card from '@/components/Card/Card';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
 import { calculateValuesByBreakpoint } from '@/views/Finances/utils/utils';
-import { getCorrectMetricValuesOverViewChart } from '../../SectionPages/CardChartOverview/utils';
+import { getCorrectMetricValuesOverViewChart } from '../../utils';
 import CardLegend from './CardLegend';
 import DaiToolTipIcon from './DaiToolTipIcon';
 import DoughnutChartFinancesSkeleton from './DoughnutChartFinancesSkeleton';
 import { chunkArray } from './utils';
+import type { Theme } from '@mui/material';
 import type { AnalyticMetric, BudgetMetric } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
@@ -55,10 +55,10 @@ const DoughnutChartFinances: React.FC<Props> = ({
     // avoid to cut off the chart on page load
     chartRef.current?.getEchartsInstance()?.resize();
   }, [doughnutSeriesData]);
-  const isTable = useMediaQuery(lightTheme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isDesktop1024 = useMediaQuery(lightTheme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const isDesktop1280 = useMediaQuery(lightTheme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const isDesktop1440 = useMediaQuery(lightTheme.breakpoints.up('desktop_1440'));
+  const isTable = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
+  const isDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
+  const isDesktop1280 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isDesktop1440 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1440'));
 
   const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
@@ -352,44 +352,49 @@ const DoughnutChartFinances: React.FC<Props> = ({
 };
 export default DoughnutChartFinances;
 
-const Container = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
+const Container = styled(Card)<{ isCoreThirdLevel: boolean }>(({ theme, isCoreThirdLevel }) => ({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
   gap: 64,
-  [lightTheme.breakpoints.up('tablet_768')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     gap: 20,
     justifyContent: 'center',
   },
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+
+  [theme.breakpoints.up('desktop_1024')]: {
     gap: 30,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+
+  [theme.breakpoints.up('desktop_1280')]: {
     gap: isCoreThirdLevel ? 40 : 64,
   },
 }));
 
-const ContainerChart = styled.div({
+const ContainerChart = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-start',
   position: 'relative',
-  [lightTheme.breakpoints.up('tablet_768')]: {
+
+  [theme.breakpoints.up('tablet_768')]: {
     width: 138,
     minWidth: 138,
   },
 
-  [lightTheme.breakpoints.up('desktop_1024')]: {
+  [theme.breakpoints.up('desktop_1024')]: {
     width: 138,
     minWidth: 138,
   },
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+
+  [theme.breakpoints.up('desktop_1280')]: {
     width: 210,
     minWidth: 210,
   },
-});
+}));
 
-const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean; numberSlider: number }>(
-  ({ isCoreThirdLevel, changeAlignment, numberSlider }) => ({
+const ContainerLegend = styled('div')<{ isCoreThirdLevel: boolean; changeAlignment: boolean; numberSlider: number }>(
+  ({ theme, isCoreThirdLevel, changeAlignment, numberSlider }) => ({
     display: 'flex',
     flex: isCoreThirdLevel && numberSlider >= 2 ? 1 : 'none',
     flexDirection: 'column',
@@ -398,13 +403,14 @@ const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment:
     gap: isCoreThirdLevel ? 16 : 14,
     maxWidth: '100%',
     position: 'relative',
-    [lightTheme.breakpoints.up('desktop_1280')]: {
+
+    [theme.breakpoints.up('desktop_1280')]: {
       gap: 16,
     },
   })
 );
 
-const ContainerLegendNotSwiper = styled.div<{ isCoreThirdLevel: boolean }>(({ isCoreThirdLevel }) => ({
+const ContainerLegendNotSwiper = styled('div')<{ isCoreThirdLevel: boolean }>(({ theme, isCoreThirdLevel }) => ({
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'wrap',
@@ -413,16 +419,17 @@ const ContainerLegendNotSwiper = styled.div<{ isCoreThirdLevel: boolean }>(({ is
   gap: isCoreThirdLevel ? 16 : 14,
   maxWidth: '100%',
   position: 'relative',
-  [lightTheme.breakpoints.up('desktop_1280')]: {
+
+  [theme.breakpoints.up('desktop_1280')]: {
     gap: 16,
   },
 }));
 
-const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLevel: number }>(
-  ({ isCoreThirdLevel, numberSliderPerLevel }) => ({
+const SwiperWrapper = styled('div')<{ isCoreThirdLevel: boolean; numberSliderPerLevel: number }>(
+  ({ theme, isCoreThirdLevel, numberSliderPerLevel }) => ({
     display: 'none',
 
-    [lightTheme.breakpoints.up('tablet_768')]: {
+    [theme.breakpoints.up('tablet_768')]: {
       marginTop: isCoreThirdLevel ? 10 : 16,
       display: 'flex',
       position: 'relative',
@@ -430,7 +437,7 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLev
       height: numberSliderPerLevel === 5 ? 'calc(100% + 8px)' : 'calc(100% - 4px)',
     },
 
-    [lightTheme.breakpoints.up('desktop_1024')]: {
+    [theme.breakpoints.up('desktop_1024')]: {
       marginTop: isCoreThirdLevel ? 10 : 16,
       display: 'flex',
       height: isCoreThirdLevel ? 'calc(100% + 8px)' : 'calc(100% - 16px)',
@@ -438,7 +445,7 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLev
       minWidth: 250,
     },
 
-    [lightTheme.breakpoints.up('desktop_1280')]: {
+    [theme.breakpoints.up('desktop_1280')]: {
       marginTop: !isCoreThirdLevel ? 10 : 10,
       display: 'flex',
       position: 'relative',
@@ -449,7 +456,7 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLev
       }),
     },
 
-    [lightTheme.breakpoints.up('desktop_1440')]: {
+    [theme.breakpoints.up('desktop_1440')]: {
       marginTop: !isCoreThirdLevel ? 10 : 10,
       display: 'flex',
       position: 'relative',
@@ -482,7 +489,7 @@ const SwiperWrapper = styled.div<{ isCoreThirdLevel: boolean; numberSliderPerLev
   })
 );
 
-const ContainerDaiIcon = styled.div({
+const ContainerDaiIcon = styled('div')({
   width: 64,
   height: 64,
   left: 0,

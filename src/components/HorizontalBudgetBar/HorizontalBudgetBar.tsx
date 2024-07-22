@@ -1,8 +1,5 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import lightTheme from '@ses/styles/theme/themes';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import { styled } from '@mui/material';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export type HorizontalBudgetBarProps = {
   actuals: number;
@@ -19,7 +16,6 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({
   className,
   maxPercentage = 87,
 }) => {
-  const { isLight } = useThemeContext();
   const barRef = useRef<HTMLDivElement>(null);
   const [actualsWidth, setActualsWidth] = useState<number>(0);
   const [predictionWidth, setPredictionWidth] = useState<number>(0);
@@ -41,9 +37,9 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({
   }, [updateBars]);
 
   return (
-    <BarContainer isLight={isLight} ref={barRef} className={className}>
-      {prediction > 0 && <Prediction data-type="prediction" isLight={isLight} width={predictionWidth} />}
-      {actuals > 0 && <Actuals data-type="actuals" isLight={isLight} width={actualsWidth} />}
+    <BarContainer ref={barRef} className={className}>
+      {prediction > 0 && <Prediction data-type="prediction" width={predictionWidth} />}
+      {actuals > 0 && <Actuals data-type="actuals" width={actualsWidth} />}
       {budgetCap > 0 && <BudgetCapLine data-type="budget" position={budgetCapPosition} />}
     </BarContainer>
   );
@@ -51,55 +47,46 @@ const HorizontalBudgetBar: React.FC<HorizontalBudgetBarProps> = ({
 
 export default HorizontalBudgetBar;
 
-const BarContainer = styled.div<WithIsLight>(({ isLight }) => ({
+const BarContainer = styled('div')(({ theme }) => ({
   position: 'relative',
   width: '100%',
   height: 9,
   overflow: 'hidden',
-  borderRadius: 4,
-  background: isLight ? '#ECF1F3' : '#10191F',
+  borderRadius: 8,
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : '#232832',
 
-  [lightTheme.breakpoints.up('tablet_768')]: {
+  [theme.breakpoints.up('tablet_768')]: {
     height: 16,
-    borderRadius: 8,
   },
 }));
 
-const Actuals = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
+const Actuals = styled('div')<{ width: number }>(({ theme, width }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
-  background: isLight ? '#0EB19F' : '#027265',
-  borderRadius: 4,
+  background: theme.palette.isLight ? theme.palette.colors.green[600] : theme.palette.colors.green[900],
+  borderRadius: 8,
   width: `${width}%`,
   height: '100%',
   transition: 'width 0.85s ease-in-out',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    borderRadius: 8,
-  },
 }));
 
-const Prediction = styled.div<WithIsLight & { width: number }>(({ isLight, width }) => ({
+const Prediction = styled('div')<{ width: number }>(({ theme, width }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
-  background: isLight ? '#68FEE3' : '#1AAB9B',
-  borderRadius: 4,
+  background: theme.palette.isLight ? '#68FEE3' : '#1AAB9B',
+  borderRadius: 8,
   width: `${width}%`,
   height: '100%',
   transition: 'width 0.85s ease-in-out',
-
-  [lightTheme.breakpoints.up('tablet_768')]: {
-    borderRadius: 8,
-  },
 }));
 
-const BudgetCapLine = styled.div<{ position: number }>(({ position }) => ({
+const BudgetCapLine = styled('div')<{ position: number }>(({ theme, position }) => ({
   position: 'absolute',
   top: 0,
   left: `${position}%`,
-  width: 2,
+  width: 1,
   height: '100%',
-  background: '#F99374',
+  background: theme.palette.isLight ? theme.palette.colors.red[700] : theme.palette.colors.red[900],
 }));

@@ -4,7 +4,7 @@ import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/u
 import lightTheme from '@ses/styles/theme/themes';
 import React from 'react';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
-import { getShortCode } from '../../SectionPages/CardChartOverview/utils';
+import { getShortCode } from '../../utils';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {

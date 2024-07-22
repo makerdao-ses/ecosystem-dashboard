@@ -1,7 +1,7 @@
 import { styled, useMediaQuery } from '@mui/material';
-import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
+import HorizontalBudgetBar from '@/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import SESTooltip from '@/components/SESTooltip/SESTooltip';
 import Information from '@/components/icons/information';
 import { formatDateStringToQuarter } from '../../utils';

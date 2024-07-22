@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import ArrowNavigationForCards from '@ses/components/svg/ArrowNavigationForCards';
-import HorizontalBudgetBar from '@ses/containers/FinancesOverview/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import HorizontalBudgetBar from '@/components/HorizontalBudgetBar/HorizontalBudgetBar';
 import CardNavigationGeneric from '../CardNavigationGeneric';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
