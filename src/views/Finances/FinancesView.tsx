@@ -8,13 +8,11 @@ import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import BreakdownChartSection from './components/BreakdownChartSection/BreakdownChartSection';
 import ConditionalWrapper from './components/ConditionalWrapper/ConditionalWrapper';
-import OverviewCardMobile from './components/OverviewCardMobile/OverviewCardMobile';
 import BreadcrumbYearNavigation from './components/SectionPages/BreadcrumbYearNavigation';
 import BreakdownTable from './components/SectionPages/BreakdownTable/BreakdownTable';
-import CardChartOverview from './components/SectionPages/CardChartOverview/CardChartOverview';
-import CardsNavigation from './components/SectionPages/CardsNavigation/CardsNavigation';
 import DelegateExpenseTrendFinances from './components/SectionPages/ExpenseReports/ExpenseReports';
 import MakerDAOExpenseMetricsFinances from './components/SectionPages/MakerDAOExpenseMetrics/MakerDAOExpenseMetrics';
+import OverviewSection from './components/SectionPages/OverviewSection/OverviewSection';
 import ReservesWaterfallChartSection from './components/SectionPages/ReservesWaterfallChartSection/ReservesWaterfallChartSection';
 import { useFinancesView } from './useFinancesView';
 import type { Budget } from '@ses/core/models/interfaces/budget';
@@ -36,11 +34,11 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
     breakdownItems,
     cardOverViewSectionData,
     handleChangeYears,
-    cardsToShow,
+    // cardsToShow,
     breakdownTable,
-    canLoadMoreCards,
-    showMoreCards,
-    toggleShowMoreCards,
+    // canLoadMoreCards,
+    // showMoreCards,
+    // toggleShowMoreCards,
     makerDAOExpensesMetrics,
     breakdownChartSectionData,
     expenseReportSection,
@@ -96,7 +94,18 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
           </TitleContainer>
 
           <ContainerSections>
-            <WrapperDesk>
+            <OverviewSection
+              paymentsOnChain={cardOverViewSectionData.paymentsOnChain}
+              budgetCap={cardOverViewSectionData.budgetCap}
+              selectedMetric={cardOverViewSectionData.selectedMetric}
+              doughnutSeriesData={cardOverViewSectionData.doughnutSeriesData}
+              isCoreThirdLevel={levelNumber >= 3}
+              changeAlignment={cardOverViewSectionData.changeAlignment}
+              showSwiper={cardOverViewSectionData.showSwiper}
+              numberSliderPerLevel={cardOverViewSectionData.numberSliderPerLevel}
+            />
+
+            {/* <WrapperDesk>
               <CardChartOverview
                 selectedMetric={cardOverViewSectionData.selectedMetric}
                 handleSelectedMetric={cardOverViewSectionData.handleSelectedMetric}
@@ -120,7 +129,7 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
               canLoadMoreCards={canLoadMoreCards}
               showMoreCards={showMoreCards}
               toggleShowMoreCards={toggleShowMoreCards}
-            />
+            /> */}
           </ContainerSections>
 
           <BreakdownChartSection
@@ -284,31 +293,11 @@ const ContainerSections = styled('div')(({ theme }) => ({
   },
 }));
 
-const WrapperDesk = styled('div')(({ theme }) => ({
-  display: 'none',
-
-  [theme.breakpoints.up('tablet_768')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 64,
-  },
-}));
-
 const ContainerLastReport = styled('div')(({ theme }) => ({
   marginTop: 40,
 
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 64,
-  },
-}));
-
-const WrapperMobile = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-
-  [theme.breakpoints.up('tablet_768')]: {
-    display: 'none',
   },
 }));
 

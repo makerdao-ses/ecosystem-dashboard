@@ -1,12 +1,11 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import BreadcrumbYearNavigation from './BreadcrumbYearNavigation';
-import type { NavigationBreadcrumb } from '@ses/components/Breadcrumbs/Breadcrumbs';
+import BudgetUtilizationCard from './BudgetUtilizationCard';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
-const meta: Meta<typeof BreadcrumbYearNavigation> = {
-  title: 'Fusion/Views/Finances/Section/BreadcrumbYearNavigation',
-  component: BreadcrumbYearNavigation,
+const meta: Meta<typeof BudgetUtilizationCard> = {
+  title: 'Fusion/Views/Finances/Budget Utilization Card',
+  component: BudgetUtilizationCard,
 
   parameters: {
     chromatic: {
@@ -19,62 +18,50 @@ export default meta;
 
 const args = [
   {
-    years: ['2022', '2023'],
-    handleChange: () => null,
-    onOpen: () => null,
-    onClose: () => null,
-    selectedValue: '2023',
-    isOpen: false,
-    trailingAddress: [
-      {
-        label: 'Finances',
-        url: '#',
-      },
-    ] as NavigationBreadcrumb[],
+    paymentsOnChain: 5017100,
+    budgetCap: 9122000,
   },
 ];
-const [[LightMode, DarkMode]] = createThemeModeVariants(BreadcrumbYearNavigation, args);
+
+const [[LightMode, DarkMode]] = createThemeModeVariants(BudgetUtilizationCard, args);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {
     component: {
       375: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22820:193423&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-12845',
         options: {
           componentStyle: {
-            width: 375,
+            width: 343,
           },
           style: {
-            top: 16,
-            left: 16,
+            top: -11,
+            left: -14,
           },
         },
       },
       768: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22977:248499&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-10772',
         options: {
           componentStyle: {
-            width: 834,
+            width: 704,
           },
           style: {
-            top: -1,
-            left: -1,
+            top: -11,
+            left: -14,
           },
         },
       },
       1024: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=22944:242472&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-6551',
         options: {
           componentStyle: {
-            width: 1194,
+            width: 304,
           },
           style: {
-            top: -1,
-            left: -1,
+            top: -11,
+            left: -14,
           },
         },
       },

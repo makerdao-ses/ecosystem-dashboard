@@ -3,8 +3,8 @@ import { useThemeContext } from '@ses/core/context/ThemeContext';
 import { threeDigitsPrecisionHumanization } from '@ses/core/utils/humanization';
 import lightTheme from '@ses/styles/theme/themes';
 import React, { useMemo } from 'react';
+import HorizontalBudgetBar from '../../../../../components/HorizontalBudgetBar/HorizontalBudgetBar';
 import { formatQuarter } from '../../utils/quarters';
-import HorizontalBudgetBar from '../HorizontalBudgetBar/HorizontalBudgetBar';
 import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 export type QuarterCardProps = {
