@@ -4,6 +4,8 @@ import BlueLinesIcon from 'public/assets/svg/blue_lines.svg';
 
 import Card from '@/components/Card/Card';
 
+import FinancesBarChart from '@/views/Home/components/FinancesBarChart/FinancesBarChart';
+
 import { financesBarChartCardData } from '@/views/Home/staticData';
 import useFinancesBarChartCard from './useFinancesBarChartCard';
 
@@ -17,12 +19,14 @@ const FinancesBarChartCard: FC = () => {
       <Title>{financesBarChartCardData.title}</Title>
       <FinancesBarChartContainer>
         <AnnualProfit>
-          <Text>{financesBarChartCardData.annualProfitDivAsteriskText}</Text>
+          <Text>{financesBarChartCardData.annualProfitLegendAsteriskText}</Text>
           <AnnualProfitLegend>
             <BlueLinesIcon />
-            <Text>{financesBarChartCardData.annualProfitDivTitle}</Text>
+            <Text>{financesBarChartCardData.annualProfitLegendTitle}</Text>
           </AnnualProfitLegend>
         </AnnualProfit>
+        <FinancesBarChart />
+        <div>Legend container</div>
       </FinancesBarChartContainer>
     </Container>
   );
