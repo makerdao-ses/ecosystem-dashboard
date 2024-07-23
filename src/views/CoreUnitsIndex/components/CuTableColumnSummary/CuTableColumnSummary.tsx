@@ -75,7 +75,7 @@ export const CuTableColumnSummary = ({ hasPopup = true, ...props }: CuTableColum
   return (
     <Container onClick={props.onClick} style={props.style}>
       <ContainerSummary>
-        <CircleContainer href={props.href} target="_blank">
+        <CircleContainer href={props.href}>
           <PopupWrapper
             hasPopup={hiddenPopOverSmallDevices}
             code={props.code}
