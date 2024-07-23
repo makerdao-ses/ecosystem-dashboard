@@ -63,7 +63,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
 
         {actualsData.mainTableItems?.length > 0 && (
           <>
-            <TitleSpacer>
+            <TitleSpacer hasBreakDownItems={forecastData.mainTableItems?.length > 0}>
               <SectionTitle level={2}>Actuals - Breakdown</SectionTitle>
             </TitleSpacer>
 
@@ -83,6 +83,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             {isBreakdownExpanded ? (
               <BreakdownTableWrapper>
                 <BudgetTable
+                  spaceEachCards={24}
                   columns={actualsData.breakdownColumnsForActiveTab}
                   items={actualsData.breakdownItemsForActiveTab}
                   longCode={longCode}
@@ -139,7 +140,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
 
         {forecastData.mainTableItems?.length > 0 && (
           <>
-            <TitleSpacer>
+            <TitleSpacer hasBreakDownItems={forecastData.mainTableItems?.length > 0}>
               <SectionTitle level={2}>Forecast - Breakdown</SectionTitle>
             </TitleSpacer>
 
@@ -159,6 +160,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             {isBreakdownExpanded ? (
               <BreakdownTableWrapper>
                 <BudgetTable
+                  spaceEachCards={24}
                   longCode={longCode}
                   columns={forecastData.breakdownColumnsForActiveTab}
                   items={forecastData.breakdownItems}
@@ -197,19 +199,21 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         )}
       </ExpenseSection>
 
-      <ExpenseSection title={'MKR Vesting Overview'} hasIcon>
+      <MkExpenseSection title={'MKR Vesting Overview'} hasIcon>
         <MkrVestingTotalFTEStyled totalFTE={mkrVestingData.fTEs} />
 
         <BudgetTable
+          cardSpacingSize="small"
           columns={mkrVestingData.mainTableColumns}
           items={mkrVestingData.mainTableItems}
           longCode={longCode}
           tablePlaceholder={<BudgetStatementsPlaceholder longCode={longCode} shortCode={code} resource={resource} />}
         />
-      </ExpenseSection>
+      </MkExpenseSection>
 
       <ExpenseSection title={'Transfer Request'}>
         <BudgetTable
+          cardSpacingSize="small"
           columns={transferRequestsData.mainTableColumns}
           items={transferRequestsData.mainTableItems}
           cardsTotalPosition={'top'}
@@ -231,12 +235,13 @@ const BudgetTable = styled((props: React.ComponentProps<typeof AdvancedInnerTabl
   <AdvancedInnerTable {...props} />
 ))(() => ({}));
 
-const TitleSpacer = styled('div')(({ theme }) => ({
+const TitleSpacer = styled('div')<{ hasBreakDownItems: boolean }>(({ theme, hasBreakDownItems }) => ({
   marginTop: 32,
-  marginBottom: 16,
+  marginBottom: hasBreakDownItems ? 16 : 24,
 
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 32,
+    marginBottom: 16,
   },
 }));
 
@@ -268,7 +273,7 @@ const MkrVestingTotalFTEStyled = styled(MkrVestingTotalFTE)({
   '& span': {
     fontSize: 16,
     lineHeight: '24px',
-    fontWeight: 700,
+    fontWeight: 600,
   },
   '& u': {
     fontSize: 18,
@@ -283,3 +288,11 @@ const StyledSectionTitle = styled(SectionTitle)(({ theme }) => ({
     marginBottom: 0,
   },
 }));
+
+const MkExpenseSection = styled(ExpenseSection)({
+  '& h2': {
+    fontWeight: 700,
+    fontSize: 18,
+    lineHeight: '21.6px',
+  },
+});

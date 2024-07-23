@@ -14,6 +14,7 @@ interface Props {
   subHeader: string;
   showSubHeader: boolean;
   category?: string;
+  spaceEachCards?: number;
 }
 
 export const TransparencyCard: React.FC<Props> = ({
@@ -26,13 +27,14 @@ export const TransparencyCard: React.FC<Props> = ({
   items,
   separators,
   showSubHeader,
-
+  spaceEachCards = 16,
   category = 'General',
 }) => {
   if (itemType === 'section') return null;
 
   return (
     <Container
+      spaceEachCards={spaceEachCards}
       className={`advance-table--transparency-card ${
         itemType === 'total' ? 'advance-table--transparency-card_total' : 'advance-table--transparency_item'
       }`}
@@ -77,12 +79,12 @@ export const TransparencyCard: React.FC<Props> = ({
   );
 };
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled('div')<{ spaceEachCards?: number }>(({ theme, spaceEachCards }) => ({
   display: 'flex',
   flexDirection: 'column',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
   background: theme.palette.isLight ? '#FFFFFF' : theme.palette.colors.charcoal[900],
-  marginBottom: 16,
+  marginBottom: spaceEachCards,
   borderRadius: '12px',
   [theme.breakpoints.between('mobile_375', 'tablet_768')]: {
     ':last-child': {

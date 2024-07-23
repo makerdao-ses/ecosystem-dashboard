@@ -62,7 +62,7 @@ const L1Container = styled(Container)(({ theme }) => ({
 }));
 
 const WrapperL1 = styled('div')(({ theme }) => ({
-  padding: '8px 0',
+  padding: '8px 0px 24px',
 
   background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : '#1E222A',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
@@ -84,18 +84,10 @@ const WrapperL2 = styled('div')(({ theme }) => ({
     theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
   }`,
   [theme.breakpoints.up('tablet_768')]: {
-    padding: 16,
+    padding: 0,
     marginTop: 24,
     border: 'revert',
     background: 'revert',
-  },
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    padding: '16px 24px 32px',
-  },
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    padding: '16px 32px 32px',
   },
 }));
 
