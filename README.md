@@ -4,14 +4,6 @@ This repository contains the code of the [Fusion platform](https://expenses.make
 
 It is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## After bootstrapping it was also added
-
-- Storybook
-- ESLint
-- Material UI, emotion and styled components
-- Sass
-- React-router-dom
-
 ## Getting started
 
 ### Required environment variables
@@ -35,6 +27,9 @@ NEXT_PUBLIC_GA_TRACKING_ID=G-XXXXXXXX
 
 # not required, used for the storybook-figma integration plugin
 STORYBOOK_FIGMA_ACCESS_TOKEN=XXXX
+
+# configurable data
+NEXT_PUBLIC_CONNECT="https://xxx.com"
 ```
 
 ### To run in development mode use
