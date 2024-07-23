@@ -32,7 +32,7 @@ export interface CustomTableRow {
 interface Props {
   columns: CustomTableColumn[];
   items?: CustomTableRow[];
-  loading?: boolean;
+
   sortState?: SortEnum[];
   handleSort?: (index: number) => void;
   headersSort?: SortEnum[];
@@ -48,12 +48,7 @@ export const CustomTable2 = (props: Props) => {
         <TableWrapper>
           <HeadCustomTable {...props} />
         </TableWrapper>
-        <ListCoreUnit
-          columns={props.columns}
-          isLoading={props.loading}
-          queryStrings={props.queryStrings}
-          rows={props.items}
-        />
+        <ListCoreUnit columns={props.columns} queryStrings={props.queryStrings} rows={props.items} />
       </Table>
     </TableContainer>
   );

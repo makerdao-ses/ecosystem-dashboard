@@ -1,9 +1,9 @@
 import { styled } from '@mui/material';
 import { siteRoutes } from '@ses/config/routes';
+import Link from 'next/link';
 import React from 'react';
 import Card from '@/components/Card/Card';
-import CategoryChip from '@/components/CategoryChip/CategoryChip';
-import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
+import type { TeamStatus } from '@/core/models/interfaces/types';
 import ListMobileSheetIconArrow from '@/views/CoreUnitsIndex/ListMobileSheetIconArrow';
 import { CuTableColumnExpenditures } from '@/views/CoreUnitsIndex/components/CuTableColumnExpenditures/CuTableColumnExpenditures';
 import { CuTableColumnSummary } from '@/views/CoreUnitsIndex/components/CuTableColumnSummary/CuTableColumnSummary';
@@ -47,7 +47,7 @@ const CoreUnitCard = ({ coreUnit }: CoreUnitCardProps) => (
           isCard={true}
         />
       </Summary>
-
+      <DivSpaceSummary href={siteRoutes.coreUnitAbout(coreUnit.shortCode)} />
       <Expenditure>
         <CuTableColumnExpenditures
           value={getExpenditureValueFromCoreUnit(coreUnit)}
@@ -58,20 +58,16 @@ const CoreUnitCard = ({ coreUnit }: CoreUnitCardProps) => (
           code={getShortCode(coreUnit.code)}
         />
       </Expenditure>
-      <Team>
+      <DivSpaceExpenditure href={siteRoutes.coreUnitAbout(coreUnit.shortCode)} />
+      <Team href="">
         <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
       </Team>
-      <Line />
+      <DivSpaceTeam href={siteRoutes.coreUnitAbout(coreUnit.shortCode)} />
+
       <ContainerLinks>
         <ListMobileSheetIconArrow coreUnit={coreUnit} />
       </ContainerLinks>
     </ContainerRow>
-
-    <Categories>
-      {coreUnit.category?.map((category) => (
-        <CategoryChip key={category} category={category as TeamCategory} />
-      ))}
-    </Categories>
 
     <LastModifiedActorCoreUnitStyled
       date={getLastMonthWithData(coreUnit)}
@@ -92,6 +88,7 @@ const Summary = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   marginTop: 0,
+
   [theme.breakpoints.up('tablet_768')]: {
     marginTop: 4,
     width: 294,
@@ -99,61 +96,31 @@ const Summary = styled('div')(({ theme }) => ({
 }));
 
 const Expenditure = styled('div')(({ theme }) => ({
-  gridArea: 'expenditure',
   display: 'none',
+
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
-    marginLeft: 24,
+
     marginTop: -4,
   },
 }));
 
-const Team = styled('div')(({ theme }) => ({
-  gridArea: 'team',
+const Team = styled(Link)(({ theme }) => ({
   marginTop: '0px',
   display: 'none',
   width: 'fit-content',
   [theme.breakpoints.up('tablet_768')]: {
     display: 'flex',
-    alignItem: 'center',
-    marginLeft: 10,
+
     marginTop: -2,
-  },
-}));
-
-const Line = styled('div')(({ theme }) => ({
-  gridArea: 'line',
-  height: 1,
-  borderRadius: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[50] : 'red'}`,
-  margin: '4px 0 0px',
-
-  [theme.breakpoints.up('desktop_1024')]: {
-    display: 'none',
-  },
-}));
-
-const Categories = styled('div')(({ theme }) => ({
-  gridArea: 'categories',
-  display: 'none',
-  alignItems: 'center',
-  marginBottom: '16px',
-  justifyContent: 'center',
-
-  '& > div': {
-    marginRight: '8px',
-    [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
-      marginRight: '16px',
-    },
-  },
-  '& div:last-child': {
-    marginRight: '0px',
   },
 }));
 
 const ContainerRow = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  border: '2px solid blue',
+  // justifyContent: 'space-between',
   paddingLeft: 8,
   paddingRight: 8,
   [theme.breakpoints.up('tablet_768')]: {
@@ -180,5 +147,55 @@ const LastModifiedActorCoreUnitStyled = styled(LastModifiedActorCoreUnit)(({ the
   padding: '4px 8px 4px 8px',
   [theme.breakpoints.up('tablet_768')]: {
     padding: '2px 8px 4px 8px',
+  },
+}));
+
+const DivSpaceSummary = styled(Link)(({ theme }) => ({
+  display: 'flex',
+  border: '2px solid red',
+  flexGrow: 1,
+  minWidth: 10,
+  minHeight: 46,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+    minWidth: 30,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
+  },
+}));
+
+const DivSpaceExpenditure = styled(Link)(({ theme }) => ({
+  display: 'flex',
+  border: '2px solid red',
+  flexGrow: 1,
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
+  },
+}));
+
+const DivSpaceTeam = styled(Link)(({ theme }) => ({
+  display: 'flex',
+  border: '2px solid red',
+  flexGrow: 1,
+  [theme.breakpoints.up('desktop_1024')]: {
+    display: 'flex',
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    display: 'flex',
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    display: 'flex',
   },
 }));
