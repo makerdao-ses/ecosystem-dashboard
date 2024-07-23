@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v1
       - name: Configure environment variables
         run: |
-          echo -e "NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }}\nNEXT_PUBLIC_ENVIRONMENT=production\nENABLE_SITEMAP=true\nNEXT_PUBLIC_BASE_URL=https://expenses.makerdao.network\nNEXT_PUBLIC_GA_TRACKING_ID=${{ secrets.GA_TRACKING_ID }}" >> .env
+          echo -e "NEXT_PUBLIC_GRAPHQL_ENDPOINT=${{ secrets.GRAPHQL_API_URL }}\nNEXT_PUBLIC_ENVIRONMENT=production\nENABLE_SITEMAP=true\nNEXT_PUBLIC_BASE_URL=https://expenses.makerdao.network\nNEXT_PUBLIC_GA_TRACKING_ID=${{ secrets.GA_TRACKING_ID }}\nNEXT_PUBLIC_CONNECT=${{ secrets.NEXT_PUBLIC_CONNECT }}\n" >> .env
       - name: Install project
         run: |
           npm install -g yarn
