@@ -59,7 +59,7 @@ const CoreUnitCard = ({ coreUnit }: CoreUnitCardProps) => (
         />
       </Expenditure>
       <DivSpaceExpenditure href={siteRoutes.coreUnitAbout(coreUnit.shortCode)} />
-      <Team href="">
+      <Team href={siteRoutes.coreUnitAbout(coreUnit.shortCode)}>
         <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(coreUnit)} fte={getFTEsFromCoreUnit(coreUnit)} />
       </Team>
       <DivSpaceTeam href={siteRoutes.coreUnitAbout(coreUnit.shortCode)} />

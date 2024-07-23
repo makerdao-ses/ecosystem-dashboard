@@ -140,23 +140,33 @@ const ListWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-const ExpendituresContainer = styled('div')({
+const ExpendituresContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-end',
   margin: 'auto 0',
-});
+  paddingLeft: 20,
+  [theme.breakpoints.up('desktop_1024')]: {
+    paddingLeft: 20,
+    marginLeft: 4,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    paddingLeft: 0,
+    marginLeft: -2,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    paddingLeft: 0,
+    marginLeft: -4,
+  },
+}));
 
 const InsideExpenditureContainer = styled('div')(({ theme }) => ({
   display: 'block',
-  paddingLeft: '8px',
 
   [theme.breakpoints.up('desktop_1024')]: {
-    marginLeft: -4,
     marginTop: -2,
-    paddingLeft: 0,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    marginLeft: -25,
+    paddingLeft: 0,
   },
 }));
 
@@ -165,28 +175,26 @@ const TeamMemberContainer = styled(Link)(({ theme }) => ({
 
   alignItems: 'flex-end',
   minHeight: 50,
-  width: 128,
+  minWidth: 140,
 
   [theme.breakpoints.up('desktop_1024')]: {
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginLeft: -2,
+    paddingLeft: 20,
     marginTop: -2,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    width: 140,
+    width: 164,
 
     justifyContent: 'flex-start',
-    marginLeft: -26,
-
-    marginTop: 2,
+    paddingLeft: 0,
+    marginTop: -1,
   },
   [theme.breakpoints.up('desktop_1440')]: {
     justifyContent: 'flex-start',
     height: 'revert',
     marginTop: -4,
     width: 160,
-    paddingLeft: 20,
   },
 }));
 
@@ -208,14 +216,15 @@ const Summary = styled('div')(({ theme }) => ({
 
 const LastModified = styled('div')(({ theme }) => ({
   width: 120,
-
+  paddingLeft: 16,
   [theme.breakpoints.up('desktop_1280')]: {
     width: 120,
-    marginLeft: -30,
+    paddingLeft: 0,
   },
   [theme.breakpoints.up('desktop_1440')]: {
     width: 120,
-    marginLeft: -10,
+    paddingLeft: 0,
+    marginLeft: 0,
   },
 }));
 
@@ -226,7 +235,6 @@ const DivSpaceSummary = styled(Link)(({ theme }) => ({
   height: '100%',
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
-    minWidth: 30,
   },
   [theme.breakpoints.up('desktop_1280')]: {
     display: 'flex',
