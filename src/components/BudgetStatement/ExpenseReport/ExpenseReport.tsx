@@ -284,7 +284,6 @@ const MkrVestingTotalFTEStyled = styled(MkrVestingTotalFTE)({
 
 const StyledSectionTitle = styled(SectionTitle)(({ theme }) => ({
   marginBottom: 16,
-
   [theme.breakpoints.up('tablet_768')]: {
     marginBottom: 0,
   },
