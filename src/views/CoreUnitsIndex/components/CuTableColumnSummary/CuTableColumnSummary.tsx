@@ -97,7 +97,7 @@ export const CuTableColumnSummary = ({ hasPopup = true, ...props }: CuTableColum
           </PopupWrapper>
         </CircleContainer>
         <Content>
-          <TitleWrapper href={props.href} target="_blank">
+          <TitleWrapper href={props.href}>
             <Code>{props.code}</Code>
             <Title longCode={(props.code?.length ?? 0) > 3}>{props.title}</Title>
           </TitleWrapper>
