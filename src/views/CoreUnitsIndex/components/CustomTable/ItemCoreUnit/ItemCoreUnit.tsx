@@ -51,7 +51,7 @@ export const ItemCoreUnit = ({ isLoading, columns, cu }: Props) => (
             categories={cu?.category}
           />
         </Summary>
-        <DivSpaceSummary href={''} />
+        <DivSpaceSummary href={siteRoutes.coreUnitAbout(cu.shortCode)} />
 
         <LastModified>
           <LastModifiedActorCoreUnit
@@ -59,7 +59,7 @@ export const ItemCoreUnit = ({ isLoading, columns, cu }: Props) => (
             date={getLastMonthWithData(cu)}
           />
         </LastModified>
-        <DivSpaceLastModified href={''} />
+        <DivSpaceLastModified href={siteRoutes.coreUnitAbout(cu.shortCode)} />
         <ExpendituresContainer>
           <InsideExpenditureContainer>
             <CuTableColumnExpenditures
@@ -72,11 +72,11 @@ export const ItemCoreUnit = ({ isLoading, columns, cu }: Props) => (
             />
           </InsideExpenditureContainer>
         </ExpendituresContainer>
-        <DivSpaceExpenditure href={''} />
-        <TeamMemberContainer href="">
+        <DivSpaceExpenditure href={siteRoutes.coreUnitAbout(cu.shortCode)} />
+        <TeamMemberContainer href={siteRoutes.coreUnitAbout(cu.shortCode)}>
           <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(cu)} fte={getFTEsFromCoreUnit(cu)} />
         </TeamMemberContainer>
-        <DivSpaceTeam href={''} />
+        <DivSpaceTeam href={siteRoutes.coreUnitAbout(cu.shortCode)} />
         <ContainerLinks>
           <CuRenderLinks coreUnit={cu} />
         </ContainerLinks>
@@ -104,7 +104,6 @@ const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[
   padding: '16px 16px 8px 8px',
   width: '100%',
   flexDirection: 'row',
-  // justifyContent: 'space-between',
   alignItems: 'center',
 
   marginTop: '16px',

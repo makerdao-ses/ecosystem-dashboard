@@ -119,8 +119,6 @@ const Team = styled(Link)(({ theme }) => ({
 const ContainerRow = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  border: '2px solid blue',
-  // justifyContent: 'space-between',
   paddingLeft: 8,
   paddingRight: 8,
   [theme.breakpoints.up('tablet_768')]: {
@@ -152,7 +150,6 @@ const LastModifiedActorCoreUnitStyled = styled(LastModifiedActorCoreUnit)(({ the
 
 const DivSpaceSummary = styled(Link)(({ theme }) => ({
   display: 'flex',
-  border: '2px solid red',
   flexGrow: 1,
   minWidth: 10,
   minHeight: 46,
@@ -171,7 +168,6 @@ const DivSpaceSummary = styled(Link)(({ theme }) => ({
 
 const DivSpaceExpenditure = styled(Link)(({ theme }) => ({
   display: 'flex',
-  border: '2px solid red',
   flexGrow: 1,
 
   [theme.breakpoints.up('desktop_1024')]: {
@@ -187,7 +183,6 @@ const DivSpaceExpenditure = styled(Link)(({ theme }) => ({
 
 const DivSpaceTeam = styled(Link)(({ theme }) => ({
   display: 'flex',
-  border: '2px solid red',
   flexGrow: 1,
   [theme.breakpoints.up('desktop_1024')]: {
     display: 'flex',
