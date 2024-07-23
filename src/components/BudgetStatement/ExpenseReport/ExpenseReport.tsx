@@ -68,6 +68,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             </TitleSpacer>
 
             <Tabs
+              showBorderBottomIconTab={true}
               tabs={actualsData.breakdownTabs.map((header, i) => ({
                 item: header,
                 id: actualsData.headerIds[i],
@@ -145,6 +146,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
             </TitleSpacer>
 
             <Tabs
+              showBorderBottomIconTab={true}
               tabs={forecastData.breakdownTabs.map((header, i) => ({
                 item: header,
                 id: forecastData.headerIds[i],

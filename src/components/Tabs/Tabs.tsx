@@ -63,6 +63,8 @@ export interface TabsProps {
   selectedTabId?: string;
   // Customize
   className?: string;
+  // When compress the icon its the only select there is not more values
+  showBorderBottomIconTab?: boolean;
 }
 
 const Tabs: React.FC<TabsProps> = ({
@@ -79,6 +81,7 @@ const Tabs: React.FC<TabsProps> = ({
   expandToolTip,
   tabQuery = 'tab',
   viewKey = 'view',
+  showBorderBottomIconTab = false,
   viewValues = {
     default: 'default',
     compressed: 'compressed',
@@ -248,17 +251,23 @@ const Tabs: React.FC<TabsProps> = ({
           </StyledTab>
         ))}
         {expandable && (
-          <StyledTab active={false} additionalStyles={{ paddingBottom: 7 }} onClick={handleExpand}>
+          <StyledTabIcon
+            showBorderBottomIconTab={showBorderBottomIconTab}
+            expanded={expanded}
+            active={false}
+            additionalStyles={{ paddingBottom: 7 }}
+            onClick={handleExpand}
+          >
             {expanded ? (
               <TabPopover id={'expanded-view-popover'} title={expandToolTip?.compressed}>
                 <ArrowExpand width={24} height={24} />
               </TabPopover>
             ) : (
               <TabPopover id={'compressed-view-popover'} title={expandToolTip?.default}>
-                <ArrowCollapse width={24} height={24} />
+                <ArrowCollapseStyled width={24} height={24} />
               </TabPopover>
             )}
-          </StyledTab>
+          </StyledTabIcon>
         )}
       </Container>
     </Wrapper>
@@ -316,5 +325,27 @@ const StyledTab = styled(Tab)<{ isFirst?: boolean; additionalStyles?: React.CSSP
     [theme.breakpoints.up('desktop_1024')]: {
       marginRight: isFirst ? 40 : undefined,
     },
+  })
+);
+
+const ArrowCollapseStyled = styled(ArrowCollapse)(({ theme }) => ({
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+  },
+}));
+
+const StyledTabIcon = styled(StyledTab)<{ expanded: boolean; showBorderBottomIconTab?: boolean }>(
+  ({ theme, expanded, showBorderBottomIconTab = false }) => ({
+    borderBottom: showBorderBottomIconTab
+      ? `2px solid ${
+          theme.palette.isLight
+            ? expanded
+              ? 'transparent'
+              : theme.palette.colors.gray[900]
+            : expanded
+            ? 'transparent'
+            : theme.palette.colors.gray[50]
+        }`
+      : 'none',
   })
 );
