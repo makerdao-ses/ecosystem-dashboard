@@ -26,7 +26,7 @@ export const CuTableColumnExpenditures = ({ isLoading = false, ...props }: CuTab
   const router = useRouter();
   const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
   return !isLoading ? (
-    <LinkStyle href={`${siteRoutes.coreUnitAbout(props?.code || '')}/${queryStrings}`}>
+    <LinkStyle href={`${siteRoutes.coreUnitReports(props?.code || '')}/${queryStrings}`}>
       <Container>
         <Title>Latest 3 Months</Title>
         <DataWrapper>
