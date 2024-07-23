@@ -55,6 +55,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         <BudgetTable
           columns={actualsData.mainTableColumns}
           items={actualsData.mainTableItems}
+          cardSpacingSize="small"
           cardsTotalPosition="top"
           longCode={longCode}
           tablePlaceholder={<BudgetStatementsPlaceholder longCode={longCode} shortCode={code} resource={resource} />}
@@ -96,17 +97,17 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 {actualsData.breakdownTabs.map((header, index) => (
                   <L2SectionInner key={header}>
                     <BudgetSubsectionContainer isFirst={index === 0}>
-                      <SectionTitle level={2} hasIcon={false} hasExternalIcon={false} idPrefix={'actuals'}>
+                      <StyledSectionTitle level={2} hasIcon={false} hasExternalIcon={false} idPrefix={'actuals'}>
                         {header}
-                      </SectionTitle>
+                      </StyledSectionTitle>
                       <BudgetTable
                         columns={actualsData.allBreakdownColumns[header]}
                         items={actualsData.allBreakdownItems[header]}
                         longCode={longCode}
-                        style={{ marginTop: 16 }}
+                        style={{ marginTop: 8 }}
                         cardSpacingSize="small"
                         tablePlaceholder={
-                          <div style={{ marginTop: 16 }}>
+                          <div style={{ marginTop: 8 }}>
                             <BudgetStatementsPlaceholder longCode={longCode} shortCode={code} resource={resource} />
                           </div>
                         }
@@ -123,12 +124,17 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
 
       <ExpenseSection title={'Forecast - Totals'}>
         <BudgetTable
+          cardSpacingSize="small"
           longCode={longCode}
           columns={forecastData.mainTableColumns}
           items={forecastData.mainTableItems}
-          style={{ marginBottom: 32 }}
+          style={{ marginBottom: 8 }}
           cardsTotalPosition={'top'}
-          tablePlaceholder={<BudgetStatementsPlaceholder longCode={longCode} shortCode={code} resource={resource} />}
+          tablePlaceholder={
+            <div style={{ marginTop: 8 }}>
+              <BudgetStatementsPlaceholder longCode={longCode} shortCode={code} resource={resource} />
+            </div>
+          }
         />
 
         {forecastData.mainTableItems?.length > 0 && (
@@ -167,17 +173,17 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
                 {forecastData.breakdownTabs.map((header, index) => (
                   <L2SectionInner key={header}>
                     <BudgetSubsectionContainer isFirst={index === 0}>
-                      <SectionTitle level={2} hasIcon={false} hasExternalIcon={false} idPrefix={'forecast'}>
+                      <StyledSectionTitle level={2} hasIcon={false} hasExternalIcon={false} idPrefix={'forecast'}>
                         {header}
-                      </SectionTitle>
+                      </StyledSectionTitle>
                       <BudgetTable
                         columns={forecastData.allBreakdownColumns[header]}
                         items={forecastData.allBreakdownItems[header]}
                         longCode={longCode}
-                        style={{ marginTop: 16 }}
+                        style={{ marginTop: 8 }}
                         cardSpacingSize="small"
                         tablePlaceholder={
-                          <div style={{ marginTop: 16 }}>
+                          <div style={{ marginTop: 8 }}>
                             <BudgetStatementsPlaceholder longCode={longCode} shortCode={code} resource={resource} />
                           </div>
                         }
@@ -226,7 +232,7 @@ const BudgetTable = styled((props: React.ComponentProps<typeof AdvancedInnerTabl
 ))(() => ({}));
 
 const TitleSpacer = styled('div')(({ theme }) => ({
-  marginTop: 16,
+  marginTop: 32,
   marginBottom: 16,
 
   [theme.breakpoints.up('tablet_768')]: {
@@ -238,7 +244,14 @@ const BudgetSubsectionContainer = styled('div')<{ isFirst: boolean }>(({ isFirst
   marginTop: 0,
 
   [theme.breakpoints.up('tablet_768')]: {
-    ...(isFirst ? {} : { marginTop: 24 }),
+    ...(isFirst ? {} : { marginTop: 16 }),
+    borderRadius: 12,
+    padding: '8px 16px 16px',
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.background.dm,
+
+    border: `1px solid ${
+      theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800]
+    }`,
   },
 }));
 
@@ -263,3 +276,10 @@ const MkrVestingTotalFTEStyled = styled(MkrVestingTotalFTE)({
     fontWeight: 700,
   },
 });
+
+const StyledSectionTitle = styled(SectionTitle)(({ theme }) => ({
+  marginBottom: 16,
+  [theme.breakpoints.up('tablet_768')]: {
+    marginBottom: 0,
+  },
+}));
