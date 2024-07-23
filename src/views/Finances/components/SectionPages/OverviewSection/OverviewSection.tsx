@@ -1,13 +1,13 @@
 import { styled } from '@mui/material';
 import type { AnalyticMetric } from '@/core/models/interfaces/analytic';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
-import DoughnutChartFinances from '../CardChartOverview/OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinances';
 import BudgetUtilizationCard from './BudgetUtilizationCard/BudgetUtilizationCard';
+import UtilizationChart from './UtilizationChart/UtilizationChart';
 
 interface OverviewSectionProps {
   paymentsOnChain: number;
   budgetCap: number;
-  doughnutSeriesData: DoughnutSeries[];
+  seriesData: DoughnutSeries[];
   isCoreThirdLevel: boolean;
   changeAlignment: boolean;
   showSwiper: boolean;
@@ -18,24 +18,25 @@ interface OverviewSectionProps {
 const OverviewSection: React.FC<OverviewSectionProps> = ({
   paymentsOnChain,
   budgetCap,
-  changeAlignment,
-  doughnutSeriesData,
-  isCoreThirdLevel,
-  selectedMetric,
-  showSwiper,
-  numberSliderPerLevel,
+  seriesData,
+  // changeAlignment,
+  // isCoreThirdLevel,
+  // selectedMetric,
+  // showSwiper,
+  // numberSliderPerLevel,
 }) => (
   <MainContentSection>
     <BudgetUtilizationCard paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
 
-    <DoughnutChartFinances
+    <UtilizationChart seriesData={seriesData} />
+    {/* <DoughnutChartFinances
       doughnutSeriesData={doughnutSeriesData}
       isCoreThirdLevel={isCoreThirdLevel}
       changeAlignment={changeAlignment}
       showSwiper={showSwiper}
       numberSliderPerLevel={numberSliderPerLevel}
       selectedMetric={selectedMetric}
-    />
+    /> */}
   </MainContentSection>
 );
 
