@@ -162,10 +162,21 @@ const Code = styled('span')(({ theme }) => ({
   whiteSpace: 'nowrap',
 }));
 
-const TitleWrapper = styled(Link)({
+const TitleWrapper = styled(Link)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-});
+  minWidth: 191,
+  flexGrow: 1,
+  [theme.breakpoints.up('tablet_768')]: {
+    minWidth: 256,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 256,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    minWidth: 269,
+  },
+}));
 
 const Title = styled('div')<{ longCode: boolean }>(({ theme, longCode = false }) => ({
   fontFamily: 'Inter, sans-serif',

@@ -26,7 +26,7 @@ export const CuRenderLinks: React.FC<Props> = ({ coreUnit, className }) => {
   );
 };
 
-const LinksContainer = styled('div')({
+const LinksContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   width: 150,
   justifyContent: 'flex-end',
@@ -35,7 +35,10 @@ const LinksContainer = styled('div')({
 
   height: '50px',
   cursor: 'pointer',
-});
+  [theme.breakpoints.up('desktop_1024')]: {
+    paddingRight: 0,
+  },
+}));
 
 const ContainerLinksArrowsDesk = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1024')]: {
