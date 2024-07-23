@@ -14,16 +14,24 @@ interface SectionTitleProps extends React.PropsWithChildren {
   hasIcon?: boolean;
   hasExternalIcon?: boolean;
   idPrefix?: string;
+  className?: string;
 }
 
-const SectionTitle: React.FC<SectionTitleProps> = ({ children, level = 1, hasIcon = false, idPrefix = '' }) => (
-  <Container>
+const SectionTitle: React.FC<SectionTitleProps> = ({
+  children,
+  level = 1,
+  hasIcon = false,
+  idPrefix = '',
+  className,
+}) => (
+  <Container className={className}>
     <Title level={level} as={level === 1 ? 'h2' : 'h3'} id={`#${idPrefix}-${toKebabCase(children as string)}`}>
       {children}
     </Title>
     {hasIcon && (
       <ContainerTitle>
         <SESTooltipStyled
+          showAsModal
           content={
             <ContainerToolTip>This Overview is based on MIP40c3-SP17, SES’MKR Incentive Proposal.</ContainerToolTip>
           }
@@ -48,7 +56,6 @@ const Title = styled('h2')<{ level: number }>(({ theme, level }) => ({
   fontWeight: level === 1 ? 600 : 700,
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   margin: 0,
-
   [lightTheme.breakpoints.up('tablet_768')]: {
     fontSize: 18,
     lineHeight: '21.6px',
@@ -57,19 +64,12 @@ const Title = styled('h2')<{ level: number }>(({ theme, level }) => ({
   },
 }));
 
-const ContainerTitle = styled('div')<{ marginBottom?: number; responsiveMarginBottom?: number; marginTop?: number }>(
-  ({ marginBottom = 24, responsiveMarginBottom, theme, marginTop = 24 }) => ({
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12.5,
-    marginTop,
-    marginBottom: `${marginBottom}px`,
-    [theme.breakpoints.up('tablet_768')]: {
-      marginBottom: `${responsiveMarginBottom || marginBottom}px`,
-    },
-  })
-);
+const ContainerTitle = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 12.5,
+}));
 
 const SESTooltipStyled = styled(SESTooltip)(({ theme }) => ({
   padding: 0,
