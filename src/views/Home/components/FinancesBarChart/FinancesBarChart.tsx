@@ -2,16 +2,15 @@ import { styled, useMediaQuery, useTheme } from '@mui/material';
 
 import ReactECharts from 'echarts-for-react';
 
+import type { Theme } from '@mui/material';
 import type { EChartsOption } from 'echarts-for-react';
 import type { FC } from 'react';
 
 const FinancesBarChart: FC = () => {
   const theme = useTheme();
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('tablet_768'));
-  const isTablet = useMediaQuery(theme.breakpoints.between('tablet_768', 'desktop_1024'));
-  const isDesktop1024 = useMediaQuery(theme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const isDesktop1280 = useMediaQuery(theme.breakpoints.between('desktop_1280', 'desktop_1440'));
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+  const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
 
   const series = [
     {
@@ -19,7 +18,7 @@ const FinancesBarChart: FC = () => {
       type: 'bar',
       stack: 'a',
       name: 'psm',
-      barWidth: isMobile ? 24 : isTablet ? 32 : isDesktop1024 ? 40 : isDesktop1280 ? 40 : 40,
+      barWidth: isMobile ? 24 : isTablet ? 32 : 40,
       itemStyle: {
         color: theme.palette.isLight ? theme.palette.colors.green[700] : theme.palette.colors.green[900],
         borderRadius: 0,
@@ -65,7 +64,7 @@ const FinancesBarChart: FC = () => {
       type: 'bar',
       stack: 'b',
       name: 'mkrVesting',
-      barWidth: isMobile ? 24 : isTablet ? 32 : isDesktop1024 ? 40 : isDesktop1280 ? 40 : 40,
+      barWidth: isMobile ? 24 : isTablet ? 32 : 40,
       itemStyle: {
         color: theme.palette.isLight ? theme.palette.colors.red[700] : theme.palette.colors.red[900],
         borderRadius: 0,
@@ -95,10 +94,10 @@ const FinancesBarChart: FC = () => {
 
   const options: EChartsOption = {
     grid: {
-      width: isMobile ? 287 : isTablet ? 336 : isDesktop1024 ? 477 : isDesktop1280 ? 400 : 431,
-      height: isMobile ? 188 : isTablet ? 222 : isDesktop1024 ? 222 : isDesktop1280 ? 330 : 330,
-      top: isMobile ? 8 : isTablet ? 8 : isDesktop1024 ? 8 : isDesktop1280 ? 8 : 8,
+      top: 8,
       right: 0,
+      bottom: 20,
+      left: isMobile ? 40 : 49,
     },
     xAxis: {
       data: ['2021', '2022', '2023', '2024'],
@@ -114,9 +113,16 @@ const FinancesBarChart: FC = () => {
         margin: 4,
         fontFamily: 'OpenSansCondensed, san-serif',
         fontWeight: 700,
-        fontSize: isMobile ? 12 : isTablet ? 14 : isDesktop1024 ? 14 : isDesktop1280 ? 14 : 14,
-        lineHeight: isMobile ? 16 : isTablet ? 19 : isDesktop1024 ? 19 : isDesktop1280 ? 19 : 19,
+        fontSize: isMobile ? 12 : 14,
+        lineHeight: isMobile ? 16 : 19,
         color: theme.palette.isLight ? theme.palette.colors.slate[100] : theme.palette.colors.slate[400],
+      },
+      axisPointer: {
+        show: !isMobile,
+        type: 'shadow',
+        label: {
+          show: false,
+        },
       },
     },
     yAxis: {
@@ -135,8 +141,8 @@ const FinancesBarChart: FC = () => {
         margin: 8,
         fontFamily: 'OpenSansCondensed, san-serif',
         fontWeight: 700,
-        fontSize: isMobile ? 12 : isTablet ? 14 : isDesktop1024 ? 14 : isDesktop1280 ? 14 : 14,
-        lineHeight: isMobile ? 16 : isTablet ? 19 : isDesktop1024 ? 19 : isDesktop1280 ? 19 : 19,
+        fontSize: isMobile ? 12 : 14,
+        lineHeight: isMobile ? 16 : 19,
         color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[500],
         formatter: (value: number) => `${value} M`,
       },
@@ -165,27 +171,25 @@ const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  maxWidth: 327,
   width: '100%',
   height: 216,
+  marginTop: 8,
 
   [theme.breakpoints.up('tablet_768')]: {
-    maxWidth: 385,
+    width: 385,
     height: 253,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    maxWidth: 526,
-    height: 253,
+    width: 526,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
-    maxWidth: 449,
+    width: 449,
     height: 360,
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    maxWidth: 480,
-    height: 360,
+    width: 480,
   },
 }));
