@@ -2,11 +2,14 @@ import { styled, useMediaQuery, useTheme } from '@mui/material';
 
 import ReactECharts from 'echarts-for-react';
 
+import useFinancesBarChart from './useFinancesBarChart';
+
 import type { Theme } from '@mui/material';
 import type { EChartsOption } from 'echarts-for-react';
 import type { FC } from 'react';
 
 const FinancesBarChart: FC = () => {
+  const { financesBarChartRef } = useFinancesBarChart();
   const theme = useTheme();
 
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
@@ -153,6 +156,7 @@ const FinancesBarChart: FC = () => {
   return (
     <Container>
       <ReactECharts
+        ref={financesBarChartRef}
         option={options}
         style={{
           width: '100%',
