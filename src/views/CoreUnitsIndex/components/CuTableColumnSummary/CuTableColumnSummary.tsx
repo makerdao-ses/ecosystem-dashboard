@@ -75,7 +75,7 @@ export const CuTableColumnSummary = ({ hasPopup = true, ...props }: CuTableColum
   return (
     <Container onClick={props.onClick} style={props.style}>
       <ContainerSummary>
-        <CircleContainer href={props.href} target="_blank">
+        <CircleContainer href={props.href}>
           <PopupWrapper
             hasPopup={hiddenPopOverSmallDevices}
             code={props.code}
@@ -97,7 +97,7 @@ export const CuTableColumnSummary = ({ hasPopup = true, ...props }: CuTableColum
           </PopupWrapper>
         </CircleContainer>
         <Content>
-          <TitleWrapper href={props.href} target="_blank">
+          <TitleWrapper href={props.href}>
             <Code>{props.code}</Code>
             <Title longCode={(props.code?.length ?? 0) > 3}>{props.title}</Title>
           </TitleWrapper>
@@ -162,10 +162,21 @@ const Code = styled('span')(({ theme }) => ({
   whiteSpace: 'nowrap',
 }));
 
-const TitleWrapper = styled(Link)({
+const TitleWrapper = styled(Link)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-});
+  minWidth: 191,
+  flexGrow: 1,
+  [theme.breakpoints.up('tablet_768')]: {
+    minWidth: 256,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    minWidth: 256,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    minWidth: 269,
+  },
+}));
 
 const Title = styled('div')<{ longCode: boolean }>(({ theme, longCode = false }) => ({
   fontFamily: 'Inter, sans-serif',

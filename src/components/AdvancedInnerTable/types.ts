@@ -46,6 +46,7 @@ export interface AdvancedInnerTableProps {
   className?: string;
   cardSpacingSize?: CardSpacingSize;
   showSubHeader?: boolean;
+  spaceEachCards?: number;
 }
 
 export type Alignment = 'left' | 'center' | 'right';
