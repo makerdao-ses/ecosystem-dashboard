@@ -89,7 +89,7 @@ const SectionTitle = styled('h2')(({ theme }) => ({
 }));
 
 const Finances = styled('div')(({ theme }) => ({
-  height: 600,
+  height: 700,
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
