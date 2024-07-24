@@ -260,11 +260,11 @@ const Tabs: React.FC<TabsProps> = ({
           >
             {expanded ? (
               <TabPopover id={'expanded-view-popover'} title={expandToolTip?.compressed}>
-                <ArrowExpand width={24} height={24} />
+                <ArrowExpand width={24} height={24} key="expanded-view-popover" />
               </TabPopover>
             ) : (
               <TabPopover id={'compressed-view-popover'} title={expandToolTip?.default}>
-                <ArrowCollapseStyled width={24} height={24} />
+                <ArrowCollapseStyled width={24} height={24} key="compressed-view-popover" />
               </TabPopover>
             )}
           </StyledTabIcon>
@@ -330,7 +330,8 @@ const StyledTab = styled(Tab)<{ isFirst?: boolean; additionalStyles?: React.CSSP
 
 const ArrowCollapseStyled = styled(ArrowCollapse)(({ theme }) => ({
   '& path': {
-    fill: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
+    // Note use important to override styles in StyledTab
+    fill: `${theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50]} !important`,
   },
 }));
 
@@ -346,6 +347,6 @@ const StyledTabIcon = styled(StyledTab)<{ expanded: boolean; showBorderBottomIco
             ? 'transparent'
             : theme.palette.colors.gray[50]
         }`
-      : 'none',
+      : 'transparent',
   })
 );
