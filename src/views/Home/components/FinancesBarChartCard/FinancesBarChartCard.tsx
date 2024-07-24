@@ -4,8 +4,11 @@ import BlueLinesIcon from 'public/assets/svg/blue_lines.svg';
 import CircleIcon from 'public/assets/svg/circle.svg';
 
 import Card from '@/components/Card/Card';
+import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 
 import FinancesBarChart from '@/views/Home/components/FinancesBarChart/FinancesBarChart';
+import useFinancesBarChart from '@/views/Home/components/FinancesBarChart/useFinancesBarChart';
 
 import { financesBarChartCardData } from '@/views/Home/staticData';
 import useFinancesBarChartCard from './useFinancesBarChartCard';
@@ -18,6 +21,7 @@ interface StyledButtonProps extends ButtonProps {
 }
 
 const FinancesBarChartCard: FC = () => {
+  useFinancesBarChart();
   useFinancesBarChartCard();
 
   return (
@@ -62,6 +66,12 @@ const FinancesBarChartCard: FC = () => {
           </SpendingLegend>
         </Legends>
       </FinancesBarChartContainer>
+      <LinkButtons>
+        <StyledExternalLinkButton href="/" wrapText={false}>
+          makerburn.com
+        </StyledExternalLinkButton>
+        <StyledInternalLinkButton href="/" buttonType="primary" label="Details" />
+      </LinkButtons>
     </Container>
   );
 };
@@ -338,4 +348,32 @@ const LegendButton = styled(Button, {
       transform: 'scale(1.5)',
     },
   },
+}));
+
+const LinkButtons = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  marginTop: 24,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    marginTop: 16,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginTop: 24,
+  },
+}));
+
+const StyledExternalLinkButton = styled(ExternalLinkButton)(() => ({
+  padding: '4px 16px 4px 24px',
+  fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
+}));
+
+const StyledInternalLinkButton = styled(InternalLinkButton)(() => ({
+  padding: '4px 16px 4px 24px',
+  fontWeight: 600,
+  fontSize: 16,
+  lineHeight: '24px',
 }));
