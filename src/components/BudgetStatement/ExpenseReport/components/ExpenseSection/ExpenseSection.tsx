@@ -71,6 +71,7 @@ const WrapperL1 = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('tablet_768')]: {
     background: theme.palette.isLight ? theme.palette.colors.gray[100] : '#1E222A',
     padding: '8px 0 24px',
+    marginBottom: 0,
   },
 }));
 

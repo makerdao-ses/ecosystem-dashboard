@@ -50,7 +50,6 @@ const BarWithDottedLine: React.FC<Props> = ({ value, relativeValue, month, isTot
         <BudgetBar>{<BarPercent width={percent} color={barColor} />}</BudgetBar>
 
         <SESTooltipStyled
-          showAsModal
           borderColor={borderColor}
           content={<PopoverForecastDescription relativeValue={relativeValue} value={value} month={monthFormatted} />}
         >
