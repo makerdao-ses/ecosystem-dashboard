@@ -19,6 +19,8 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({
   paymentsOnChain,
   budgetCap,
   seriesData,
+  // NOTICE: for reviewers, the following commented code is a WIP and it is going to be used
+  // right after the merge of the PR that is currently being reviewed.
   // changeAlignment,
   // isCoreThirdLevel,
   // selectedMetric,
@@ -27,16 +29,7 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({
 }) => (
   <MainContentSection>
     <BudgetUtilizationCard paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
-
     <UtilizationChart seriesData={seriesData} />
-    {/* <DoughnutChartFinances
-      doughnutSeriesData={doughnutSeriesData}
-      isCoreThirdLevel={isCoreThirdLevel}
-      changeAlignment={changeAlignment}
-      showSwiper={showSwiper}
-      numberSliderPerLevel={numberSliderPerLevel}
-      selectedMetric={selectedMetric}
-    /> */}
   </MainContentSection>
 );
 

@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import { useMemo } from 'react';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
+import LegendItem from './LegendItem';
 
 interface MobileChartProps {
   seriesData: DoughnutSeries[];
@@ -23,7 +24,21 @@ const MobileChart: React.FC<MobileChartProps> = ({ seriesData }) => {
           <Bar key={item.name} color={item.color} height={item.percentage} />
         ))}
       </BarContainer>
-      <LegendsContainer>legends</LegendsContainer>
+      <LegendsWrapper>
+        <LegendContainer>
+          {seriesData.map((item) => (
+            <LegendItem
+              key={item.name}
+              inline={seriesData.length > 4}
+              name={item.name}
+              code={item.code}
+              color={item.color}
+              value={item.value}
+              percentage={item.percent}
+            />
+          ))}
+        </LegendContainer>
+      </LegendsWrapper>
     </Wrapper>
   );
 };
@@ -38,7 +53,8 @@ const Wrapper = styled('div')(() => ({
 const BarContainer = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  height: 192,
+  alignSelf: 'stretch',
+  minHeight: 192,
   width: 32,
   borderRadius: 8,
   overflow: 'hidden',
@@ -50,7 +66,7 @@ const Bar = styled('div')<{ color: string; height: number }>(({ color, height })
   width: '100%',
 }));
 
-const LegendsContainer = styled('div')(({ theme }) => ({
+const LegendsWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -58,5 +74,12 @@ const LegendsContainer = styled('div')(({ theme }) => ({
   borderRadius: 12,
   background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'red',
   width: '100%',
-  height: 192,
+  minHeight: 192,
+  padding: 16,
+}));
+
+const LegendContainer = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
 }));
