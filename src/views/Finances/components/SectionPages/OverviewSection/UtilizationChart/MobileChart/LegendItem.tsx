@@ -59,7 +59,7 @@ const LegendContainer = styled('div')<{ inline: boolean; color: string }>(({ inl
 const Name = styled('div')(({ theme }) => ({
   fontSize: 12,
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 }));
 
 const Line = styled('div')(() => ({
@@ -72,11 +72,11 @@ const Line = styled('div')(() => ({
 }));
 
 const Percentage = styled('span')(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[200],
 }));
 
 const Value = styled('span')(({ theme }) => ({
   fontSize: 12,
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.gray[600] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[400],
 }));

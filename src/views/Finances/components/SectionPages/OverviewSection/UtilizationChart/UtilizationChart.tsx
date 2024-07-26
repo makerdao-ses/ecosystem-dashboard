@@ -2,6 +2,7 @@ import { styled, useMediaQuery } from '@mui/material';
 import Card from '@/components/Card/Card';
 import type { AnalyticMetric } from '@/core/models/interfaces/analytic';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
+import DesktopChart from './DesktopChart/DesktopChart';
 import FilterTabs from './FilterTabs/FilterTabs';
 import MobileChart from './MobileChart/MobileChart';
 import type { Theme } from '@mui/material';
@@ -18,7 +19,7 @@ const UtilizationChart: React.FC<UtilizationChartProps> = ({ seriesData, selecte
   return (
     <CardContainer>
       <FilterTabs selectedMetric={selectedMetric} onChangeTab={handleMetricChange} />
-      <Content>{isMobile ? <MobileChart seriesData={seriesData} /> : <div>Chart</div>}</Content>
+      <Content>{isMobile ? <MobileChart seriesData={seriesData} /> : <DesktopChart />}</Content>
     </CardContainer>
   );
 };

@@ -46,10 +46,13 @@ const FilterTabs: React.FC<FilterTabsProps> = ({ selectedMetric, onChangeTab }) 
 
 export default FilterTabs;
 
-const Wrapper = styled('div')(() => ({
+const Wrapper = styled('div')(({ theme }) => ({
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#232832',
   position: 'relative',
   maxWidth: '100%',
-  boxShadow: '1px 0px 15px 0px rgba(117, 117, 117, 0.15)',
+  boxShadow: theme.palette.isLight
+    ? '1px 0px 15px 0px rgba(117, 117, 117, 0.15)'
+    : '4px 0px 12.3px 0px rgba(23, 24, 29, 0.30)',
 }));
 
 const TabContainer = styled('div')(({ theme }) => ({
@@ -82,11 +85,15 @@ const Tab = styled('div')<{ active: boolean }>(({ theme, active }) => ({
   color: active
     ? theme.palette.isLight
       ? theme.palette.colors.gray[900]
-      : theme.palette.colors.gray[500]
+      : theme.palette.colors.slate[50]
     : theme.palette.isLight
     ? theme.palette.colors.gray[500]
-    : 'red',
-  background: active ? (theme.palette.isLight ? theme.palette.colors.slate[50] : 'red') : 'transparent',
+    : theme.palette.colors.slate[400],
+  background: active
+    ? theme.palette.isLight
+      ? theme.palette.colors.slate[50]
+      : theme.palette.colors.charcoal[900]
+    : 'transparent',
   whiteSpace: 'nowrap',
   padding: `8px 8px ${active ? 8 : 4}px`,
   cursor: 'pointer',
@@ -104,7 +111,19 @@ const Tab = styled('div')<{ active: boolean }>(({ theme, active }) => ({
       width: 4,
       height: '100%',
       borderRadius: '0px 4px 4px 0px',
-      background: active ? (theme.palette.isLight ? theme.palette.colors.gray[900] : 'red') : 'transparent',
+      background: active
+        ? theme.palette.isLight
+          ? theme.palette.colors.gray[900]
+          : theme.palette.colors.charcoal[700]
+        : 'transparent',
+    },
+
+    '&:hover': {
+      background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
+
+      '&:before': {
+        background: theme.palette.isLight ? theme.palette.colors.gray[400] : '#323740',
+      },
     },
   },
 
