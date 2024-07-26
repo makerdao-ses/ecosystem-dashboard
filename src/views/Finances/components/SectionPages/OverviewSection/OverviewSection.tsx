@@ -5,31 +5,36 @@ import BudgetUtilizationCard from './BudgetUtilizationCard/BudgetUtilizationCard
 import UtilizationChart from './UtilizationChart/UtilizationChart';
 
 interface OverviewSectionProps {
+  // budget utilization
   paymentsOnChain: number;
   budgetCap: number;
+  // chart
   seriesData: DoughnutSeries[];
+  selectedMetric: AnalyticMetric;
+  handleMetricChange: (metric: AnalyticMetric) => void;
+  // rest
   isCoreThirdLevel: boolean;
   changeAlignment: boolean;
   showSwiper: boolean;
   numberSliderPerLevel?: number;
-  selectedMetric: AnalyticMetric;
 }
 
 const OverviewSection: React.FC<OverviewSectionProps> = ({
   paymentsOnChain,
   budgetCap,
   seriesData,
+  selectedMetric,
+  handleMetricChange,
   // NOTICE: for reviewers, the following commented code is a WIP and it is going to be used
   // right after the merge of the PR that is currently being reviewed.
   // changeAlignment,
   // isCoreThirdLevel,
-  // selectedMetric,
   // showSwiper,
   // numberSliderPerLevel,
 }) => (
   <MainContentSection>
     <BudgetUtilizationCard paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
-    <UtilizationChart seriesData={seriesData} />
+    <UtilizationChart seriesData={seriesData} selectedMetric={selectedMetric} handleMetricChange={handleMetricChange} />
   </MainContentSection>
 );
 

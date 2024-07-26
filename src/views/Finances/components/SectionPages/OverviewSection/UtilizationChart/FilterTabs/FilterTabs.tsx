@@ -1,17 +1,43 @@
 import { styled } from '@mui/material';
+import type { AnalyticMetric } from '@/core/models/interfaces/analytic';
+
+const FILTERS: {
+  label: string;
+  value: AnalyticMetric;
+}[] = [
+  {
+    label: 'Actuals',
+    value: 'Actuals',
+  },
+  {
+    label: 'Forecast',
+    value: 'Forecast',
+  },
+  {
+    label: 'Net Expenses On-Chain',
+    value: 'PaymentsOnChain',
+  },
+  {
+    label: 'Net Protocol Outflow',
+    value: 'ProtocolNetOutflow',
+  },
+  {
+    label: 'Budget',
+    value: 'Budget',
+  },
+];
 
 interface FilterTabsProps {
-  tabs: string[];
-  activeTab: string;
-  onChangeTab: (tab: string) => void;
+  selectedMetric: AnalyticMetric;
+  onChangeTab: (metric: AnalyticMetric) => void;
 }
 
-const FilterTabs: React.FC<FilterTabsProps> = ({ tabs, activeTab, onChangeTab }) => (
+const FilterTabs: React.FC<FilterTabsProps> = ({ selectedMetric, onChangeTab }) => (
   <Wrapper className="no-select">
     <TabContainer>
-      {tabs.map((tab) => (
-        <Tab key={tab} onClick={() => onChangeTab(tab)} active={activeTab === tab}>
-          {tab}
+      {FILTERS.map((tab) => (
+        <Tab key={tab.value} onClick={() => onChangeTab(tab.value)} active={tab.value === selectedMetric}>
+          {tab.label}
         </Tab>
       ))}
     </TabContainer>

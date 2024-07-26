@@ -16,12 +16,19 @@ const LegendItem: React.FC<LegendItemProps> = ({ inline = false, name, code, col
   return (
     <LegendContainer inline={inline} color={color}>
       <Name>{inline ? code ?? name : name}</Name>
-      <Line>
-        <Percentage>({usLocalizedNumber(percentage, 0)}%)</Percentage>
-        <Value>
-          {valueFormatted.value} {valueFormatted.suffix}
-        </Value>
-      </Line>
+      {inline ? (
+        <Line>
+          <Value>{usLocalizedNumber(value, 2)}</Value>
+          <Percentage>({usLocalizedNumber(percentage, 0)}%)</Percentage>
+        </Line>
+      ) : (
+        <Line>
+          <Percentage>({usLocalizedNumber(percentage, 0)}%)</Percentage>
+          <Value>
+            {valueFormatted.value} {valueFormatted.suffix}
+          </Value>
+        </Line>
+      )}
     </LegendContainer>
   );
 };

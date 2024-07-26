@@ -1,6 +1,6 @@
 import { styled, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
 import Card from '@/components/Card/Card';
+import type { AnalyticMetric } from '@/core/models/interfaces/analytic';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
 import FilterTabs from './FilterTabs/FilterTabs';
 import MobileChart from './MobileChart/MobileChart';
@@ -8,19 +8,16 @@ import type { Theme } from '@mui/material';
 
 interface UtilizationChartProps {
   seriesData: DoughnutSeries[];
+  selectedMetric: AnalyticMetric;
+  handleMetricChange: (metric: AnalyticMetric) => void;
 }
 
-const UtilizationChart: React.FC<UtilizationChartProps> = ({ seriesData }) => {
+const UtilizationChart: React.FC<UtilizationChartProps> = ({ seriesData, selectedMetric, handleMetricChange }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-  const [activeTab, setActiveTab] = useState('Budget');
 
   return (
     <CardContainer>
-      <FilterTabs
-        tabs={['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals']}
-        activeTab={activeTab}
-        onChangeTab={(tab: string) => setActiveTab(tab)}
-      />
+      <FilterTabs selectedMetric={selectedMetric} onChangeTab={handleMetricChange} />
       <Content>{isMobile ? <MobileChart seriesData={seriesData} /> : <div>Chart</div>}</Content>
     </CardContainer>
   );
