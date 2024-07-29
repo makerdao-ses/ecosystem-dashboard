@@ -30,7 +30,7 @@ const TeamTypeCard: React.FC<TeamTypeCardProps> = ({ name, teams, href, descript
 
         <MainContentDesktop>
           <Name>{name}</Name>
-          <Description>{description}</Description>
+          <Description className="team_category_description">{description}</Description>
         </MainContentDesktop>
 
         <TeamsNumberDesktop>

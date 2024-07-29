@@ -97,7 +97,7 @@ const Title = styled('h2')(({ theme }) => ({
 
 const Subtitle = styled('p')(({ theme }) => ({
   margin: 0,
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : '#D2D4EF',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
   fontSize: 14,
   lineHeight: '22px',
 

@@ -26,6 +26,7 @@ interface CuTableColumnSummaryProps {
   categories?: string[];
   isCard?: boolean;
   href: string;
+  queryStrings?: string;
 }
 
 interface PopupWrapperProps {

@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 import Magnifier from 'public/assets/svg/magnifying.svg';
-import React from 'react';
+import React, { useState } from 'react';
 import type { SearchFilter } from '../FiltersBundle/types';
 
 interface SearchInputProps {
@@ -21,8 +21,17 @@ const Search: React.FC<SearchInputProps> = ({
   className,
   widthStyles,
 }) => {
+  const [focus, setFocus] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(event.target.value);
+  };
+
+  const handleOnFocus = () => {
+    setFocus(true);
+  };
+
+  const handleOnBlur = () => {
+    setFocus(false);
   };
 
   return (
@@ -33,9 +42,11 @@ const Search: React.FC<SearchInputProps> = ({
         </IconWrapper>
 
         <Input
+          onBlur={handleOnBlur}
+          onFocus={handleOnFocus}
           id="search-input"
           onChange={handleChange}
-          placeholder={placeholder}
+          placeholder={focus ? '' : placeholder}
           value={value}
           defaultValue={defaultValue}
           autoComplete="off"
