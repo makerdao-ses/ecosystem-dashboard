@@ -13,7 +13,7 @@ export const useBreadcrumbCoreUnitPager = (coreUnit: CoreUnit, coreUnits: CoreUn
     // apply filters coming from the index page to the pagination
     () =>
       coreUnits.filter((cu) => {
-        if (filteredCategories.length > 0 && !cu.category.some((category) => filteredCategories.includes(category))) {
+        if (filteredCategories.length > 0 && !cu.category?.some((category) => filteredCategories.includes(category))) {
           return false;
         }
         if (filteredStatuses.length > 0 && !filteredStatuses.includes(cu.status)) {

@@ -31,26 +31,26 @@ const ActorItem: React.FC<Props> = ({ actor, queryStrings }) => {
     <CardContainer socialLength={keysWithNonNullValues.length}>
       <ContainerActorType>
         <RowLink>
-          <EcosystemActorDescription actor={actor} />
+          <EcosystemActorDescription actor={actor} queryStrings={queryStrings} />
           <ShowOnlyMobile>
             <SocialArrowLinks actor={actor} />
           </ShowOnlyMobile>
         </RowLink>
-        <LinkSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}`} />
+        <LinkSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} />
         <RowScopeRole>
-          <RoleItem actor={actor} />
-          <ScopeItem actor={actor} />
+          <RoleItem actor={actor} queryStrings={queryStrings} />
+          <ScopeItem actor={actor} queryStrings={queryStrings} />
         </RowScopeRole>
-        <LinkSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}`} />
+        <LinkSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} />
 
-        <DivSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}`} />
+        <DivSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} />
         <ContainerLastModifiedDesk>
           <LastModifiedActorCoreUnit
             date={getActorLastMonthWithData(actor)}
-            href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}`}
+            href={`${siteRoutes.ecosystemActorReports(actor.shortCode)}/${queryStrings}`}
           />
         </ContainerLastModifiedDesk>
-        <LinkSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}`} />
+        <LinkSpace href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} />
         <ShowOnlyTable>
           <SocialArrowLinks actor={actor} />
         </ShowOnlyTable>

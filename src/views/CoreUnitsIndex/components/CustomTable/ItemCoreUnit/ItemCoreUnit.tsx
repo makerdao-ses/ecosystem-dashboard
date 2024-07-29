@@ -34,13 +34,13 @@ interface Props {
   cu: CoreUnit;
 }
 
-export const ItemCoreUnit = ({ isLoading, columns, cu }: Props) => (
+export const ItemCoreUnit = ({ isLoading, columns, cu, queryStrings }: Props) => (
   <>
     <TableWrapper>
       <TableRow isLoading={isLoading} columns={columns}>
         <Summary>
           <CuTableColumnSummary
-            href={siteRoutes.coreUnitAbout(cu.shortCode)}
+            href={`${siteRoutes.coreUnitAbout(cu.shortCode)}/${queryStrings}`}
             key={`summary-${cu.code}`}
             title={cu.name}
             status={cu.status as TeamStatus}
@@ -49,9 +49,10 @@ export const ItemCoreUnit = ({ isLoading, columns, cu }: Props) => (
             mipUrl={getMipUrlFromCoreUnit(cu)}
             code={getShortCode(cu.shortCode)}
             categories={cu?.category}
+            queryStrings={queryStrings}
           />
         </Summary>
-        <DivSpaceSummary href={siteRoutes.coreUnitAbout(cu.shortCode)} />
+        <DivSpaceSummary href={`${siteRoutes.coreUnitAbout(cu.shortCode)}/${queryStrings}`} />
 
         <LastModified>
           <LastModifiedActorCoreUnit
@@ -59,7 +60,7 @@ export const ItemCoreUnit = ({ isLoading, columns, cu }: Props) => (
             date={getLastMonthWithData(cu)}
           />
         </LastModified>
-        <DivSpaceLastModified href={siteRoutes.coreUnitAbout(cu.shortCode)} />
+        <DivSpaceLastModified href={`${siteRoutes.coreUnitAbout(cu.shortCode)}/${queryStrings}`} />
         <ExpendituresContainer>
           <InsideExpenditureContainer>
             <CuTableColumnExpenditures
@@ -72,11 +73,11 @@ export const ItemCoreUnit = ({ isLoading, columns, cu }: Props) => (
             />
           </InsideExpenditureContainer>
         </ExpendituresContainer>
-        <DivSpaceExpenditure href={siteRoutes.coreUnitAbout(cu.shortCode)} />
-        <TeamMemberContainer href={siteRoutes.coreUnitAbout(cu.shortCode)}>
+        <DivSpaceExpenditure href={`${siteRoutes.coreUnitAbout(cu.shortCode)}/${queryStrings}`} />
+        <TeamMemberContainer href={`${siteRoutes.coreUnitAbout(cu.shortCode)}/${queryStrings}`}>
           <CuTableColumnTeamMember members={getFacilitatorsFromCoreUnit(cu)} fte={getFTEsFromCoreUnit(cu)} />
         </TeamMemberContainer>
-        <DivSpaceTeam href={siteRoutes.coreUnitAbout(cu.shortCode)} />
+        <DivSpaceTeam href={`${siteRoutes.coreUnitAbout(cu.shortCode)}/${queryStrings}`} />
         <ContainerLinks>
           <CuRenderLinks coreUnit={cu} />
         </ContainerLinks>
