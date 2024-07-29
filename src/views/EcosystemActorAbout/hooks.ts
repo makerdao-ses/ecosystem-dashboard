@@ -17,7 +17,7 @@ export const useBreadcrumbTeamPager = (team: Team, teams: Team[]) => {
       teams.filter((actor) => {
         if (
           filteredCategories.length > 0 &&
-          !actor.category.some((category) => filteredCategories.includes(category))
+          !actor.category?.some((category) => filteredCategories.includes(category))
         ) {
           return false;
         }
