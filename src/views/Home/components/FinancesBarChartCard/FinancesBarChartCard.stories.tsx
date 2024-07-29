@@ -27,6 +27,8 @@ const variantsArgs = [
       revenueLegendButtonTexts: financesBarChartCardData.revenueLegendButtonTexts,
       spendingLegendTitle: financesBarChartCardData.spendingLegendTitle,
       spendingLegendButtonTexts: financesBarChartCardData.spendingLegendButtonTexts,
+      makerburnLinkText: financesBarChartCardData.makerburnLinkText,
+      detailsLinkText: financesBarChartCardData.detailsLinkText,
     },
   },
 ];

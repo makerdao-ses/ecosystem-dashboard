@@ -28,4 +28,10 @@ export const financesBarChartCardData = {
   revenueLegendButtonTexts: ['Fees', 'Liquidation Income', 'PSM'],
   spendingLegendTitle: 'Spending',
   spendingLegendButtonTexts: ['DAI Spent', 'MKR Vesting'],
+  makerburnLinkText: 'makerburn.com',
+  detailsLinkText: 'Details',
+};
+
+export const financesLineChartCardData = {
+  tabButtonsTexts: ['Realized Expenses', 'Operational Reserves', 'Forecast'],
 };

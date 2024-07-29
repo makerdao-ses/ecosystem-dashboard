@@ -7,6 +7,9 @@ import Card from '@/components/Card/Card';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
 
+import { MAKERBURN_URL } from '@/config/externalUrls';
+import { siteRoutes } from '@/config/routes';
+
 import FinancesBarChart from '@/views/Home/components/FinancesBarChart/FinancesBarChart';
 import useFinancesBarChart from '@/views/Home/components/FinancesBarChart/useFinancesBarChart';
 
@@ -67,10 +70,14 @@ const FinancesBarChartCard: FC = () => {
         </Legends>
       </FinancesBarChartContainer>
       <LinkButtons>
-        <StyledExternalLinkButton href="/" wrapText={false}>
-          makerburn.com
+        <StyledExternalLinkButton href={MAKERBURN_URL} wrapText={false}>
+          {financesBarChartCardData.makerburnLinkText}
         </StyledExternalLinkButton>
-        <StyledInternalLinkButton href="/" buttonType="primary" label="Details" />
+        <InternalLinkButton
+          href={siteRoutes.finances()}
+          buttonType="primary"
+          label={financesBarChartCardData.detailsLinkText}
+        />
       </LinkButtons>
     </Container>
   );
@@ -366,14 +373,5 @@ const LinkButtons = styled('div')(({ theme }) => ({
 
 const StyledExternalLinkButton = styled(ExternalLinkButton)(() => ({
   padding: '4px 16px 4px 24px',
-  fontWeight: 600,
   fontSize: 16,
-  lineHeight: '24px',
-}));
-
-const StyledInternalLinkButton = styled(InternalLinkButton)(() => ({
-  padding: '4px 16px 4px 24px',
-  fontWeight: 600,
-  fontSize: 16,
-  lineHeight: '24px',
 }));
