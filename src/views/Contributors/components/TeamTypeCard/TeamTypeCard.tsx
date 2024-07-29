@@ -56,7 +56,7 @@ const TeamCard = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
     '.team_category_description': {
       backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
-      border: `1px solid${theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[400]}`,
+      border: `1px solid${theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.charcoal[700]}`,
     },
   },
   [theme.breakpoints.up('desktop_1024')]: {
