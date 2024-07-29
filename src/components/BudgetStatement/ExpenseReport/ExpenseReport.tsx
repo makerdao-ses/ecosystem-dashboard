@@ -213,7 +213,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         />
       </MkExpenseSection>
 
-      <ExpenseSectionStyled title={'Transfer Request'}>
+      <ExpenseSectionStyled title={`Transfer Request - ${currentMonth.toFormat('MMM yyyy')} Totals`}>
         <BudgetTable
           cardSpacingSize="small"
           columns={transferRequestsData.mainTableColumns}
@@ -275,7 +275,7 @@ const MkrVestingTotalFTEStyled = styled(MkrVestingTotalFTE)({
     lineHeight: '24px',
     fontWeight: 600,
   },
-  '& u': {
+  '& div > u': {
     fontSize: 18,
     lineHeight: '21.6px',
     fontWeight: 700,
