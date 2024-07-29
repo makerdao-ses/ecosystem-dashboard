@@ -213,7 +213,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         />
       </MkExpenseSection>
 
-      <ExpenseSection title={`Transfer Request - ${currentMonth.toFormat('MMM yyyy')} Totals`}>
+      <ExpenseSectionStyled title={`Transfer Request - ${currentMonth.toFormat('MMM yyyy')} Totals`}>
         <BudgetTable
           cardSpacingSize="small"
           columns={transferRequestsData.mainTableColumns}
@@ -222,16 +222,14 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
           longCode={longCode}
           tablePlaceholder={<BudgetStatementsPlaceholder longCode={longCode} shortCode={code} resource={resource} />}
         />
-      </ExpenseSection>
+      </ExpenseSectionStyled>
     </ExpenseReportWrapper>
   );
 };
 
 export default ExpenseReport;
 
-const ExpenseReportWrapper = styled('div')({
-  marginBottom: 32,
-});
+const ExpenseReportWrapper = styled('div')({});
 
 const BudgetTable = styled((props: React.ComponentProps<typeof AdvancedInnerTable>) => (
   <AdvancedInnerTable {...props} />
@@ -298,3 +296,9 @@ const MkExpenseSection = styled(ExpenseSection)({
     lineHeight: '21.6px',
   },
 });
+
+const ExpenseSectionStyled = styled(ExpenseSection)(() => ({
+  '& > div': {
+    marginBottom: 0,
+  },
+}));
