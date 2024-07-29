@@ -213,7 +213,7 @@ const ExpenseReport: React.FC<ExpenseReportProps> = ({ currentMonth, budgetState
         />
       </MkExpenseSection>
 
-      <ExpenseSection title={'Transfer Request'}>
+      <ExpenseSection title={`Transfer Request - ${currentMonth.toFormat('MMM yyyy')} Totals`}>
         <BudgetTable
           cardSpacingSize="small"
           columns={transferRequestsData.mainTableColumns}

@@ -53,7 +53,11 @@ const TeamCard = styled(Card)(({ theme }) => ({
   cursor: 'pointer',
   padding: '8px 16px 16px',
   ':hover': {
-    backgroundColor: theme.palette.isLight ? '#FCFCFC' : '#292E38',
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
+    '.team_category_description': {
+      backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
+      border: `1px solid${theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.charcoal[700]}`,
+    },
   },
   [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
