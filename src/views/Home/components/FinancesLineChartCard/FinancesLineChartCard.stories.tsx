@@ -36,35 +36,52 @@ LightMode.parameters = {
         component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=5617-32011&m=dev',
         options: {
           componentStyle: {},
-          style: {},
+          style: {
+            top: '-1rem',
+            left: '-1rem',
+          },
         },
       },
       768: {
         component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=5617-29764&m=dev',
         options: {
           componentStyle: {},
-          style: {},
+          style: {
+            top: '-1rem',
+            left: '-1rem',
+          },
         },
       },
       1024: {
         component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=5617-27017&m=dev',
         options: {
           componentStyle: {},
-          style: {},
+          style: {
+            top: '-1rem',
+            left: '-1rem',
+          },
         },
       },
       1280: {
         component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=5617-24134&m=dev',
         options: {
           componentStyle: {},
-          style: {},
+          style: {
+            top: '-0.75rem',
+            left: '50%',
+            transform: 'translate(-50%, 0)',
+          },
         },
       },
       1440: {
         component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=5617-14137&m=dev',
         options: {
           componentStyle: {},
-          style: {},
+          style: {
+            top: '-0.75rem',
+            left: '50%',
+            transform: 'translate(-50%, 0)',
+          },
         },
       },
     },
