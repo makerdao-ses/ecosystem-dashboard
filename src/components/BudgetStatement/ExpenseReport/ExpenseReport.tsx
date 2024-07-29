@@ -277,7 +277,7 @@ const MkrVestingTotalFTEStyled = styled(MkrVestingTotalFTE)({
     lineHeight: '24px',
     fontWeight: 600,
   },
-  '& u': {
+  '& div > u': {
     fontSize: 18,
     lineHeight: '21.6px',
     fontWeight: 700,
