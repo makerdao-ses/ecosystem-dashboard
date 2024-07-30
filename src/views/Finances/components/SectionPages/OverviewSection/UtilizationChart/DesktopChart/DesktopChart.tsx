@@ -277,13 +277,6 @@ const DesktopChart: React.FC<DesktopChartProps> = ({
     return <DoughnutChartFinancesSkeleton />;
   }
 
-  // TODO: remove this console log
-  console.log({
-    showSwiper,
-    isCoreThirdLevel,
-    numberSliderPerLevel,
-  });
-
   return (
     <Container isCoreThirdLevel={isCoreThirdLevel}>
       <ContainerChart>
