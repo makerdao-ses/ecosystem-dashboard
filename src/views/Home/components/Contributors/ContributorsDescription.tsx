@@ -2,28 +2,26 @@ import { styled } from '@mui/material';
 import Link from 'next/link';
 import Arrow from 'public/assets/svg/arrow.svg';
 import React from 'react';
+import type { ContributorsInformation } from '../../utils/types';
 import type { FC } from 'react';
 
 interface Props {
-  title: string;
-  href: string;
-  contributors: number;
-  description: string;
+  contributor: ContributorsInformation;
 }
 
-const ContributorsDescription: FC<Props> = ({ title, contributors, href, description }) => (
-  <Container href={href}>
+const ContributorDescription: FC<Props> = ({ contributor }) => (
+  <Container href={contributor.href}>
     <ContainerTitle>
-      {title} ({contributors})
+      {contributor.title} ({contributor.contributors})
       <LinkArrow>
         <Arrow />
       </LinkArrow>
     </ContainerTitle>
-    <Description>{description}</Description>
+    <Description>{contributor.description}</Description>
   </Container>
 );
 
-export default ContributorsDescription;
+export default ContributorDescription;
 
 const Container = styled(Link)({
   display: 'flex',

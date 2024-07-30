@@ -4,7 +4,7 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
-
+import ContributorsSection from './components/Contributors/ContributorsSection';
 import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarChartCard';
 import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLineChartCard';
 import HeaderCard from './components/HeaderCard/HeaderCard';
@@ -43,6 +43,9 @@ const HomeView: FC = () => {
         </Section>
         <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[2]}</SectionTitle>
+          <ContainerMargin>
+            <ContributorsSection />
+          </ContainerMargin>
         </Section>
         <Section id={headerCardData.buttonTexts[3].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[3]}</SectionTitle>
@@ -100,3 +103,7 @@ const Finances = styled('div')(({ theme }) => ({
     gap: 32,
   },
 }));
+
+const ContainerMargin = styled('div')({
+  marginTop: 24,
+});
