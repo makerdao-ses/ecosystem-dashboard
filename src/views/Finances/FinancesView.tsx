@@ -98,7 +98,7 @@ const FinancesView: React.FC<Props> = ({ budgets, allBudgets, yearsRange, initia
               selectedMetric={cardOverViewSectionData.selectedMetric}
               seriesData={cardOverViewSectionData.doughnutSeriesData}
               handleMetricChange={cardOverViewSectionData.handleSelectedMetric}
-              // rest
+              // legend
               isCoreThirdLevel={levelNumber >= 3}
               changeAlignment={cardOverViewSectionData.changeAlignment}
               showSwiper={cardOverViewSectionData.showSwiper}

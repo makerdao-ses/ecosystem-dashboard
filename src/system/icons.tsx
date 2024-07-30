@@ -8,6 +8,7 @@ import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
 import BlueLines from 'public/assets/svg/blue_lines.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import Close from 'public/assets/svg/close.svg';
+import DAI from 'public/assets/svg/dai.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import Expand from 'public/assets/svg/expand.svg';
@@ -189,5 +190,9 @@ export const iconsPowerHose = [
   {
     Icon: BlueLines,
     title: 'blue_lines',
+  },
+  {
+    Icon: DAI,
+    title: 'dai',
   },
 ];

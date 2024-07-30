@@ -12,6 +12,15 @@ interface LegendItemProps {
 
 const LegendItem: React.FC<LegendItemProps> = ({ inline = false, name, code, color, value, percentage }) => {
   const valueFormatted = threeDigitsPrecisionHumanization(value);
+  const formattedPercentage = `${
+    percentage === 0
+      ? 0
+      : percentage < 0.1
+      ? '<0.1'
+      : percentage < 1
+      ? usLocalizedNumber(percentage, 2)
+      : usLocalizedNumber(percentage, 1)
+  }%`;
 
   return (
     <LegendContainer inline={inline} color={color}>
@@ -19,11 +28,11 @@ const LegendItem: React.FC<LegendItemProps> = ({ inline = false, name, code, col
       {inline ? (
         <Line>
           <Value>{usLocalizedNumber(value, 2)}</Value>
-          <Percentage>({usLocalizedNumber(percentage, 0)}%)</Percentage>
+          <Percentage>({formattedPercentage})</Percentage>
         </Line>
       ) : (
         <Line>
-          <Percentage>({usLocalizedNumber(percentage, 0)}%)</Percentage>
+          <Percentage>({formattedPercentage})</Percentage>
           <Value>
             {valueFormatted.value} {valueFormatted.suffix}
           </Value>

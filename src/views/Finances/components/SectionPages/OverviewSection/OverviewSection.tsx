@@ -12,7 +12,7 @@ interface OverviewSectionProps {
   seriesData: DoughnutSeries[];
   selectedMetric: AnalyticMetric;
   handleMetricChange: (metric: AnalyticMetric) => void;
-  // rest
+  // legend
   isCoreThirdLevel: boolean;
   changeAlignment: boolean;
   showSwiper: boolean;
@@ -25,16 +25,22 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({
   seriesData,
   selectedMetric,
   handleMetricChange,
-  // NOTICE: for reviewers, the following commented code is a WIP and it is going to be used
-  // right after the merge of the PR that is currently being reviewed.
-  // changeAlignment,
-  // isCoreThirdLevel,
-  // showSwiper,
-  // numberSliderPerLevel,
+  changeAlignment,
+  isCoreThirdLevel,
+  showSwiper,
+  numberSliderPerLevel,
 }) => (
   <MainContentSection>
     <BudgetUtilizationCard paymentsOnChain={paymentsOnChain} budgetCap={budgetCap} />
-    <UtilizationChart seriesData={seriesData} selectedMetric={selectedMetric} handleMetricChange={handleMetricChange} />
+    <UtilizationChart
+      seriesData={seriesData}
+      selectedMetric={selectedMetric}
+      handleMetricChange={handleMetricChange}
+      isCoreThirdLevel={isCoreThirdLevel}
+      changeAlignment={changeAlignment}
+      showSwiper={showSwiper}
+      numberSliderPerLevel={numberSliderPerLevel}
+    />
   </MainContentSection>
 );
 

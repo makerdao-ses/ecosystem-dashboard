@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
+import { styled } from '@mui/material';
 import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
 import ItemLegendDoughnut from './ItemLegendDoughnut';
 
@@ -42,18 +40,17 @@ const CardLegend: React.FC<Props> = ({
 
 export default CardLegend;
 
-const ContainerLegend = styled.div<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
-  ({ isCoreThirdLevel, changeAlignment }) => ({
+const ContainerLegend = styled('div')<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
+  ({ theme, isCoreThirdLevel, changeAlignment }) => ({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: isCoreThirdLevel && changeAlignment ? 'flex-start' : changeAlignment ? 'flex-start' : 'center',
-    gap: isCoreThirdLevel ? 16 : 14,
+    gap: 8,
     maxWidth: '100%',
     maxHeight: isCoreThirdLevel ? 180 : 210,
 
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      gap: 16,
+    [theme.breakpoints.up('desktop_1280')]: {
       columnGap: 32,
     },
   })

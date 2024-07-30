@@ -11,15 +11,42 @@ interface UtilizationChartProps {
   seriesData: DoughnutSeries[];
   selectedMetric: AnalyticMetric;
   handleMetricChange: (metric: AnalyticMetric) => void;
+
+  // TODO: is this needed?
+  isCoreThirdLevel: boolean;
+  changeAlignment: boolean;
+  showSwiper: boolean;
+  numberSliderPerLevel?: number;
 }
 
-const UtilizationChart: React.FC<UtilizationChartProps> = ({ seriesData, selectedMetric, handleMetricChange }) => {
+const UtilizationChart: React.FC<UtilizationChartProps> = ({
+  seriesData,
+  selectedMetric,
+  handleMetricChange,
+  isCoreThirdLevel,
+  changeAlignment,
+  showSwiper,
+  numberSliderPerLevel,
+}) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   return (
     <CardContainer>
       <FilterTabs selectedMetric={selectedMetric} onChangeTab={handleMetricChange} />
-      <Content>{isMobile ? <MobileChart seriesData={seriesData} /> : <DesktopChart />}</Content>
+      <Content>
+        {isMobile ? (
+          <MobileChart seriesData={seriesData} />
+        ) : (
+          <DesktopChart
+            seriesData={seriesData}
+            selectedMetric={selectedMetric}
+            isCoreThirdLevel={isCoreThirdLevel}
+            changeAlignment={changeAlignment}
+            showSwiper={showSwiper}
+            numberSliderPerLevel={numberSliderPerLevel}
+          />
+        )}
+      </Content>
     </CardContainer>
   );
 };
@@ -27,13 +54,18 @@ const UtilizationChart: React.FC<UtilizationChartProps> = ({ seriesData, selecte
 export default UtilizationChart;
 
 const CardContainer = styled(Card)(({ theme }) => ({
-  overflow: 'hidden',
-
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
   },
 }));
 
-const Content = styled('div')(() => ({
+const Content = styled('div')(({ theme }) => ({
   padding: '8px 16px 16px',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    padding: '8px 16px',
+  },
 }));

@@ -56,6 +56,7 @@ const BarContainer = styled('div')(() => ({
   alignSelf: 'stretch',
   minHeight: 192,
   width: 32,
+  minWidth: 32,
   borderRadius: 8,
   overflow: 'hidden',
 }));

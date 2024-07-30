@@ -6,24 +6,24 @@ const FILTERS: {
   value: AnalyticMetric;
 }[] = [
   {
-    label: 'Actuals',
-    value: 'Actuals',
+    label: 'Budget',
+    value: 'Budget',
   },
   {
     label: 'Forecast',
     value: 'Forecast',
   },
   {
-    label: 'Net Expenses On-Chain',
-    value: 'PaymentsOnChain',
-  },
-  {
     label: 'Net Protocol Outflow',
     value: 'ProtocolNetOutflow',
   },
   {
-    label: 'Budget',
-    value: 'Budget',
+    label: 'Net Expenses On-Chain',
+    value: 'PaymentsOnChain',
+  },
+  {
+    label: 'Actuals',
+    value: 'Actuals',
   },
 ];
 
@@ -48,11 +48,18 @@ export default FilterTabs;
 
 const Wrapper = styled('div')(({ theme }) => ({
   background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#232832',
+  overflow: 'hidden',
+  borderRadius: '12px 12px 0px 0px',
   position: 'relative',
   maxWidth: '100%',
   boxShadow: theme.palette.isLight
     ? '1px 0px 15px 0px rgba(117, 117, 117, 0.15)'
     : '4px 0px 12.3px 0px rgba(23, 24, 29, 0.30)',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    minWidth: 192,
+    borderRadius: '12px 0px 0px 12px',
+  },
 }));
 
 const TabContainer = styled('div')(({ theme }) => ({
@@ -99,7 +106,7 @@ const Tab = styled('div')<{ active: boolean }>(({ theme, active }) => ({
   cursor: 'pointer',
 
   [theme.breakpoints.up('tablet_768')]: {
-    padding: '2px 24px',
+    padding: '0 24px',
     lineHeight: '22px',
     position: 'relative',
 
