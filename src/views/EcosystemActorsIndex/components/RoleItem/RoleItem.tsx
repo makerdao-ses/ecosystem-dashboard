@@ -11,10 +11,15 @@ import type { FC } from 'react';
 interface Props {
   actor: Team;
   className?: string;
+  queryStrings?: string;
 }
 
-const RoleItem: FC<Props> = ({ actor, className }) => (
-  <Container className={className} href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}`} id="role">
+const RoleItem: FC<Props> = ({ actor, className, queryStrings }) => (
+  <Container
+    className={className}
+    href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
+    id="role"
+  >
     <TypeSection>
       <Label>Role</Label>
       <WrapperHiddenOnlyMobileCategory>

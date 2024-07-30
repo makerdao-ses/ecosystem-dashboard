@@ -16,6 +16,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
   className,
   tablePlaceholder,
   cardSpacingSize = 'large',
+  spaceEachCards,
 }) => {
   const id = useId();
 
@@ -133,6 +134,7 @@ export const AdvancedInnerTable: React.FC<AdvancedInnerTableProps> = ({
 
           return (
             <TransparencyCard
+              spaceEachCards={spaceEachCards}
               category={item.category}
               showSubHeader={cardItems[i].showHeader || false}
               itemType={item.type}

@@ -92,8 +92,6 @@ const Data = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
-  width: '100%',
-
   [theme.breakpoints.up('desktop_1440')]: {
     marginLeft: '4px',
   },

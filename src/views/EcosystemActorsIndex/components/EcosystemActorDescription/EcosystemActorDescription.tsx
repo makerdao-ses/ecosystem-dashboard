@@ -12,12 +12,13 @@ import type { FC } from 'react';
 interface Props {
   actor: Team;
   className?: string;
+  queryStrings?: string;
 }
 
-const EcosystemActorDescription: FC<Props> = ({ actor, className }) => {
+const EcosystemActorDescription: FC<Props> = ({ actor, className, queryStrings }) => {
   const [isEnabled] = useFlagsActive();
   return (
-    <Container href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}`} className={className}>
+    <Container href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`} className={className}>
       <ActorAvatar>
         <CircleAvatarExtended name={actor.name || 'Wallet'} image={actor.image} />
         <ContainerDescription>

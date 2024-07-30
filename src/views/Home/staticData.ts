@@ -22,10 +22,16 @@ export const sectionsData = {
 
 export const financesBarChartCardData = {
   title: 'MakerDAO Finances',
-  annualProfitDivAsteriskText: '*All values are converted to DAI',
-  annualProfitDivTitle: 'Annual Profit',
-  revenueDivTitle: 'Revenue',
-  revenueDivButtonTexts: ['Fees', 'Liquidation Income', 'PSM'],
-  spendingDivTitle: 'Spending',
-  spendingDivButtonTexts: ['DAI Spent', 'MKR Vesting'],
+  annualProfitLegendAsteriskText: '*All values are converted to DAI',
+  annualProfitLegendTitle: 'Annual Profit',
+  revenueLegendTitle: 'Revenue',
+  revenueLegendButtonTexts: ['Fees', 'Liquidation Income', 'PSM'],
+  spendingLegendTitle: 'Spending',
+  spendingLegendButtonTexts: ['DAI Spent', 'MKR Vesting'],
+  makerburnLinkText: 'makerburn.com',
+  detailsLinkText: 'Details',
+};
+
+export const financesLineChartCardData = {
+  tabButtonsTexts: ['Realized Expenses', 'Operational Reserves', 'Forecast'],
 };

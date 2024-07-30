@@ -6,6 +6,7 @@ import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 
 import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarChartCard';
+import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLineChartCard';
 import HeaderCard from './components/HeaderCard/HeaderCard';
 
 import { headerCardData, sectionsData } from './staticData';
@@ -34,7 +35,7 @@ const HomeView: FC = () => {
           <SectionTitle>{sectionsData.titles[0]}</SectionTitle>
           <Finances>
             <FinancesBarChartCard />
-            <div style={{ width: '100%' }}>Second Card</div>
+            <FinancesLineChartCard />
           </Finances>
         </Section>
         <Section id={headerCardData.buttonTexts[1].toLowerCase()}>
@@ -59,7 +60,7 @@ const HomeViewContainer = styled(PageContainer)(() => ({
 
 const Section = styled('section')(({ theme }) => ({
   width: '100%',
-  height: 600,
+  minHeight: 800,
   display: 'flex',
   flexDirection: 'column',
   marginTop: 24,
@@ -89,7 +90,6 @@ const SectionTitle = styled('h2')(({ theme }) => ({
 }));
 
 const Finances = styled('div')(({ theme }) => ({
-  height: 400,
   display: 'flex',
   flexDirection: 'column',
   gap: 16,

@@ -6,6 +6,7 @@ import ArrowSelect from 'public/assets/svg/arrow_select.svg';
 import AvatarPlaceholder from 'public/assets/svg/avatar_placeholder.svg';
 import BarChartLine from 'public/assets/svg/bar_chart_line.svg';
 import BlueLines from 'public/assets/svg/blue_lines.svg';
+import Circle from 'public/assets/svg/circle.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import Close from 'public/assets/svg/close.svg';
 import DAI from 'public/assets/svg/dai.svg';
@@ -194,5 +195,9 @@ export const iconsPowerHose = [
   {
     Icon: DAI,
     title: 'dai',
+  },
+  {
+    Icon: Circle,
+    title: 'circle',
   },
 ];

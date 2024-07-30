@@ -1,105 +1,87 @@
-import styled from '@emotion/styled';
-import ArrowLink from '@ses/components/svg/ArrowLink';
-import Wallet from '@ses/components/svg/wallet';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import { toKebabCase } from '@ses/core/utils/string';
 import lightTheme from '@ses/styles/theme/themes';
+import Info from 'public/assets/svg/info_outlined.svg';
 import React from 'react';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
+import {
+  ContainerToolTip,
+  IconContainer,
+} from '@/components/BudgetStatement/BudgetStatementMkrVesting/BudgetStatementMkrVestingSection/BudgetStatementMkrVestingTableSection';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 
 interface SectionTitleProps extends React.PropsWithChildren {
   level?: 1 | 2;
   hasIcon?: boolean;
   hasExternalIcon?: boolean;
   idPrefix?: string;
+  className?: string;
 }
 
 const SectionTitle: React.FC<SectionTitleProps> = ({
   children,
   level = 1,
   hasIcon = false,
-  hasExternalIcon = false,
   idPrefix = '',
-}) => {
-  const { isLight } = useThemeContext();
-
-  return (
-    <Title
-      isLight={isLight}
-      level={level}
-      as={level === 1 ? 'h2' : 'h3'}
-      id={`#${idPrefix}-${toKebabCase(children as string)}`}
-    >
-      {hasIcon && (
-        <IconContainer>
-          <Wallet fill={isLight ? '#231536' : '#D2D4EF'} />
-        </IconContainer>
-      )}
+  className,
+}) => (
+  <Container className={className}>
+    <Title level={level} as={level === 1 ? 'h2' : 'h3'} id={`#${idPrefix}-${toKebabCase(children as string)}`}>
       {children}
-      {hasExternalIcon && (
-        <StyledArrowLink href={`#${idPrefix}-${toKebabCase(children as string)}`} target="_blank" fill={'#447AFB'} />
-      )}
     </Title>
-  );
-};
+    {hasIcon && (
+      <ContainerTitle>
+        <SESTooltipStyled
+          showAsModal
+          content={
+            <ContainerToolTip>This Overview is based on MIP40c3-SP17, SES’MKR Incentive Proposal.</ContainerToolTip>
+          }
+        >
+          <IconContainer className="advance-table--transparency-card_icon_hidden">
+            <Info />
+          </IconContainer>
+        </SESTooltipStyled>
+      </ContainerTitle>
+    )}
+  </Container>
+);
 
 export default SectionTitle;
 
-const Title = styled.h2<{ level: number } & WithIsLight>(({ isLight, level }) => ({
+const Title = styled('h2')<{ level: number }>(({ theme, level }) => ({
   display: 'flex',
   alignItems: 'center',
   fontSize: 16,
-  lineHeight: '19px',
-  letterSpacing: level === 1 ? 0 : '0.3px',
-  fontWeight: 700,
-  color: isLight ? '#231536' : '#D2D4EF',
+  lineHeight: level === 1 ? '24px' : 'normal',
+
+  fontWeight: level === 1 ? 600 : 700,
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   margin: 0,
-  fontFeatureSettings: "'tnum' on, 'lnum' on",
-
-  [lightTheme.breakpoints.up('table_834')]: {
-    fontSize: level === 1 ? 20 : 18,
-    lineHeight: level === 1 ? '24px' : '22px',
+  [lightTheme.breakpoints.up('tablet_768')]: {
+    fontSize: 18,
+    lineHeight: '21.6px',
     letterSpacing: '0.4px',
-    fontWeight: level === 1 ? 600 : 500,
-  },
-
-  [lightTheme.breakpoints.up('desktop_1194')]: {
-    fontSize: 20,
-    lineHeight: '24px',
+    fontWeight: 700,
   },
 }));
 
-const IconContainer = styled.div({
-  display: 'inline-flex',
-  marginRight: 12,
-
-  svg: {
-    width: 10,
-    height: 10,
-
-    [lightTheme.breakpoints.up('table_834')]: {
-      width: 20,
-      height: 20,
-    },
-  },
-});
-
-const StyledArrowLink = styled(ArrowLink)({
-  marginLeft: 8,
+const ContainerTitle = styled('div')(() => ({
   display: 'flex',
+  flexDirection: 'row',
   alignItems: 'center',
+  gap: 12.5,
+}));
 
-  [lightTheme.breakpoints.up('table_834')]: {
-    marginLeft: 10,
-  },
+const SESTooltipStyled = styled(SESTooltip)(({ theme }) => ({
+  padding: 0,
+  marginTop: 0,
+  width: '100%',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+  minWidth: 327,
+  borderRadius: 12,
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.graphShadow : theme.fusionShadows.darkMode,
+}));
 
-  svg: {
-    width: 16,
-    height: 16,
-
-    [lightTheme.breakpoints.up('table_834')]: {
-      width: 20,
-      height: 20,
-    },
-  },
+const Container = styled('div')({
+  display: 'flex',
+  gap: 12.5,
 });

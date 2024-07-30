@@ -9,10 +9,15 @@ import type { FC } from 'react';
 interface Props {
   actor: Team;
   className?: string;
+  queryStrings?: string;
 }
 
-const ScopeItem: FC<Props> = ({ actor, className }) => (
-  <Container id="scope" className={className} href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}`}>
+const ScopeItem: FC<Props> = ({ actor, className, queryStrings }) => (
+  <Container
+    id="scope"
+    className={className}
+    href={`${siteRoutes.ecosystemActorAbout(actor.shortCode)}/${queryStrings}`}
+  >
     <ContainerMobileTable>
       <LabelMobile>Scope</LabelMobile>
       <ContainerScopeMobile>

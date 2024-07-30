@@ -21,6 +21,14 @@ const variantsArgs = [
   {
     financesBarChartCard: {
       title: financesBarChartCardData.title,
+      annualProfitLegendAsteriskText: financesBarChartCardData.annualProfitLegendAsteriskText,
+      annualProfitLegendTitle: financesBarChartCardData.annualProfitLegendTitle,
+      revenueLegendTitle: financesBarChartCardData.revenueLegendTitle,
+      revenueLegendButtonTexts: financesBarChartCardData.revenueLegendButtonTexts,
+      spendingLegendTitle: financesBarChartCardData.spendingLegendTitle,
+      spendingLegendButtonTexts: financesBarChartCardData.spendingLegendButtonTexts,
+      makerburnLinkText: financesBarChartCardData.makerburnLinkText,
+      detailsLinkText: financesBarChartCardData.detailsLinkText,
     },
   },
 ];

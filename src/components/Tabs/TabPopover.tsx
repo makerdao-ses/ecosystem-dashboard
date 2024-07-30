@@ -4,9 +4,10 @@ import SESTooltip from '../SESTooltip/SESTooltip';
 interface TabPopoverProps extends React.PropsWithChildren {
   id: string;
   title?: string;
+  className?: string;
 }
 
-const TabPopover: React.FC<TabPopoverProps> = ({ children, id, title }) => {
+const TabPopover: React.FC<TabPopoverProps> = ({ children, id, title, className }) => {
   const [show, setShow] = useState<boolean>(false);
 
   if (!title) {
@@ -22,7 +23,7 @@ const TabPopover: React.FC<TabPopoverProps> = ({ children, id, title }) => {
       onMouseLeave={() => setShow(false)}
       onClose={() => setShow(false)}
     >
-      <div id={id} onClick={() => setShow(false)}>
+      <div id={id} onClick={() => setShow(false)} className={className}>
         {' '}
         {children}
       </div>
