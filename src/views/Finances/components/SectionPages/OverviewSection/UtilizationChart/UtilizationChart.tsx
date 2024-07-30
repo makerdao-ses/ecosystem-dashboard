@@ -1,27 +1,50 @@
 import { styled, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
 import Card from '@/components/Card/Card';
+import type { AnalyticMetric } from '@/core/models/interfaces/analytic';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
+import DesktopChart from './DesktopChart/DesktopChart';
 import FilterTabs from './FilterTabs/FilterTabs';
 import MobileChart from './MobileChart/MobileChart';
 import type { Theme } from '@mui/material';
 
 interface UtilizationChartProps {
   seriesData: DoughnutSeries[];
+  selectedMetric: AnalyticMetric;
+  handleMetricChange: (metric: AnalyticMetric) => void;
+  isCoreThirdLevel: boolean;
+  changeAlignment: boolean;
+  showSwiper: boolean;
+  numberSliderPerLevel?: number;
 }
 
-const UtilizationChart: React.FC<UtilizationChartProps> = ({ seriesData }) => {
+const UtilizationChart: React.FC<UtilizationChartProps> = ({
+  seriesData,
+  selectedMetric,
+  handleMetricChange,
+  isCoreThirdLevel,
+  changeAlignment,
+  showSwiper,
+  numberSliderPerLevel,
+}) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
-  const [activeTab, setActiveTab] = useState('Budget');
 
   return (
     <CardContainer>
-      <FilterTabs
-        tabs={['Budget', 'Forecast', 'Net Protocol Outflow', 'Net Expenses On-chain', 'Actuals']}
-        activeTab={activeTab}
-        onChangeTab={(tab: string) => setActiveTab(tab)}
-      />
-      <Content>{isMobile ? <MobileChart seriesData={seriesData} /> : <div>Chart</div>}</Content>
+      <FilterTabs selectedMetric={selectedMetric} onChangeTab={handleMetricChange} />
+      <Content>
+        {isMobile ? (
+          <MobileChart seriesData={seriesData} />
+        ) : (
+          <DesktopChart
+            seriesData={seriesData}
+            selectedMetric={selectedMetric}
+            isCoreThirdLevel={isCoreThirdLevel}
+            changeAlignment={changeAlignment}
+            showSwiper={showSwiper}
+            numberSliderPerLevel={numberSliderPerLevel}
+          />
+        )}
+      </Content>
     </CardContainer>
   );
 };
@@ -29,13 +52,18 @@ const UtilizationChart: React.FC<UtilizationChartProps> = ({ seriesData }) => {
 export default UtilizationChart;
 
 const CardContainer = styled(Card)(({ theme }) => ({
-  overflow: 'hidden',
-
   [theme.breakpoints.up('tablet_768')]: {
     flexDirection: 'row',
   },
 }));
 
-const Content = styled('div')(() => ({
+const Content = styled('div')(({ theme }) => ({
   padding: '8px 16px 16px',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    padding: '8px 16px',
+  },
 }));

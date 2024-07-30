@@ -12,16 +12,32 @@ interface LegendItemProps {
 
 const LegendItem: React.FC<LegendItemProps> = ({ inline = false, name, code, color, value, percentage }) => {
   const valueFormatted = threeDigitsPrecisionHumanization(value);
+  const formattedPercentage = `${
+    percentage === 0
+      ? 0
+      : percentage < 0.1
+      ? '<0.1'
+      : percentage < 1
+      ? usLocalizedNumber(percentage, 2)
+      : usLocalizedNumber(percentage, 1)
+  }%`;
 
   return (
     <LegendContainer inline={inline} color={color}>
       <Name>{inline ? code ?? name : name}</Name>
-      <Line>
-        <Percentage>({usLocalizedNumber(percentage, 0)}%)</Percentage>
-        <Value>
-          {valueFormatted.value} {valueFormatted.suffix}
-        </Value>
-      </Line>
+      {inline ? (
+        <Line>
+          <Value>{usLocalizedNumber(value, 2)}</Value>
+          <Percentage>({formattedPercentage})</Percentage>
+        </Line>
+      ) : (
+        <Line>
+          <Percentage>({formattedPercentage})</Percentage>
+          <Value>
+            {valueFormatted.value} {valueFormatted.suffix}
+          </Value>
+        </Line>
+      )}
     </LegendContainer>
   );
 };
@@ -52,7 +68,7 @@ const LegendContainer = styled('div')<{ inline: boolean; color: string }>(({ inl
 const Name = styled('div')(({ theme }) => ({
   fontSize: 12,
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.gray[900] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
 }));
 
 const Line = styled('div')(() => ({
@@ -65,11 +81,11 @@ const Line = styled('div')(() => ({
 }));
 
 const Percentage = styled('span')(({ theme }) => ({
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[200],
 }));
 
 const Value = styled('span')(({ theme }) => ({
   fontSize: 12,
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.gray[600] : 'red',
+  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[400],
 }));
