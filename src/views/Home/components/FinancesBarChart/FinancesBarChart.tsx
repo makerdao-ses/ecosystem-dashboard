@@ -31,6 +31,21 @@ const FinancesBarChart: FC = () => {
           color: 'inherit',
         },
       },
+      markLine: {
+        silent: true,
+        lineStyle: {
+          width: 2,
+          color: theme.palette.colors.blue[900],
+          cap: 'round',
+        },
+        symbol: ['none', 'none'],
+        data: [
+          [{ coord: [0, 10] }, { coord: [1, 10] }],
+          [{ coord: [1, 20] }, { coord: [2, 20] }],
+          [{ coord: [2, 35] }, { coord: [3, 35] }],
+          [{ coord: [2, 60] }, { coord: [3, 60] }],
+        ],
+      },
     },
     {
       data: [10, 10, 10, 30],
@@ -178,6 +193,18 @@ const Container = styled('div')(({ theme }) => ({
   width: '100%',
   height: 216,
   marginTop: 8,
+
+  '& svg path:nth-of-type(39)': {
+    transform: 'translateX(-5%)',
+  },
+
+  '& svg path:nth-of-type(40), & svg path:nth-of-type(41)': {
+    transform: 'translateX(-10%)',
+  },
+
+  '& svg path:nth-of-type(42)': {
+    transform: 'translateX(12.5%)',
+  },
 
   [theme.breakpoints.up('tablet_768')]: {
     width: 385,

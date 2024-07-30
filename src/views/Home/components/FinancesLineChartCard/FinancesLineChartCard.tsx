@@ -2,6 +2,9 @@ import { Button, styled } from '@mui/material';
 
 import Card from '@/components/Card/Card';
 
+import FinancesLineChart from '@/views/Home/components/FinancesLineChart/FinancesLineChart';
+import useFinancesLineChart from '@/views/Home/components/FinancesLineChart/useFinancesLineChart';
+
 import { financesLineChartCardData } from '@/views/Home/staticData';
 import useFinancesLineChartCard from './useFinancesLineChartCard';
 
@@ -13,6 +16,7 @@ interface TabButtonProps extends ButtonProps {
 }
 
 const FinancesLineChartCard: FC = () => {
+  useFinancesLineChart();
   const { activeTab, handleActiveTab } = useFinancesLineChartCard();
 
   return (
@@ -46,6 +50,7 @@ const FinancesLineChartCard: FC = () => {
           {financesLineChartCardData.tabButtonsTexts[2]}
         </TabButton>
       </TabButtonsContainer>
+      <FinancesLineChart />
     </Container>
   );
 };
@@ -54,7 +59,6 @@ export default FinancesLineChartCard;
 
 const Container = styled(Card)(({ theme }) => ({
   width: '100%',
-  minHeight: 400,
   padding: '0px 0px 16px',
 
   [theme.breakpoints.up('tablet_768')]: {
