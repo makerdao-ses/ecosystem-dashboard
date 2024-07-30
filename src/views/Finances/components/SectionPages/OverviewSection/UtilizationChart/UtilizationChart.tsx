@@ -11,8 +11,6 @@ interface UtilizationChartProps {
   seriesData: DoughnutSeries[];
   selectedMetric: AnalyticMetric;
   handleMetricChange: (metric: AnalyticMetric) => void;
-
-  // TODO: is this needed?
   isCoreThirdLevel: boolean;
   changeAlignment: boolean;
   showSwiper: boolean;
