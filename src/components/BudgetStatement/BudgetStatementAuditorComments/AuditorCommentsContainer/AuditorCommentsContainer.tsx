@@ -71,7 +71,7 @@ const CommentsContainer = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
-    width: 'calc(100% - 368px)',
+    width: 'calc(100% - 336px)',
   },
 }));
 
@@ -97,5 +97,8 @@ const ParticipantsColumn = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('desktop_1280')]: {
     width: 276,
     marginLeft: 32,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    width: 304,
   },
 }));

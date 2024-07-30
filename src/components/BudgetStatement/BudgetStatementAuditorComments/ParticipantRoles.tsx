@@ -93,7 +93,7 @@ const RoleSection = styled('div')(({ theme }) => ({
   gap: 16,
   borderRadius: 8,
   border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
-
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
   '&:not(:last-child)': {
     marginBottom: 32,
   },
