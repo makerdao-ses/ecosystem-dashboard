@@ -1,5 +1,6 @@
 import AngleLeft from 'public/assets/svg/angle_left.svg';
 import AngleRight from 'public/assets/svg/angle_right.svg';
+import Arrow from 'public/assets/svg/arrow.svg';
 import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
 import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
@@ -194,5 +195,9 @@ export const iconsPowerHose = [
   {
     Icon: Circle,
     title: 'circle',
+  },
+  {
+    Icon: Arrow,
+    title: 'arrow',
   },
 ];
