@@ -1,52 +1,65 @@
 import { styled } from '@mui/material';
-import DAIIcon from '@ses/components/svg/DAIIcon';
+import DAI from 'public/assets/svg/dai.svg';
+import InfoOutlined from 'public/assets/svg/info_outlined.svg';
 import React from 'react';
-import Information from '@/components/icons/information';
-import SESTooltip from '@/stories/components/SESTooltipLegacy/SESTooltipLegacy';
+import SESTooltip from '@/components/SESTooltip/SESTooltip';
 
-const DaiToolTipIcon = () => (
-  <Tooltip>
+const DaiToolTipIcon: React.FC = () => (
+  <Wrapper>
     <DAIIconStyled />
     <SESTooltip content={'All amounts are in DAI'} placement="bottom-start" enterTouchDelay={0} leaveTouchDelay={15000}>
       <IconWrapper>
-        <Information height={16} width={16} />
+        <InfoOutlined height={14} width={14} />
       </IconWrapper>
     </SESTooltip>
-  </Tooltip>
+  </Wrapper>
 );
 
 export default DaiToolTipIcon;
 
-const Tooltip = styled('div')({
+const Wrapper = styled('div')({
+  position: 'relative',
   display: 'flex',
   justifyContent: 'center',
+  width: '100%',
+  height: '100%',
 });
 
 const IconWrapper = styled('div')(({ theme }) => ({
   position: 'absolute',
-  bottom: 8,
+  bottom: 13,
   right: 12,
   display: 'flex',
-  backgroundColor: theme.palette.mode === 'light' ? 'white' : '#1E2C37',
+  backgroundColor: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
   justifyContent: 'center',
-  width: 20,
-  height: 20,
+  width: 17.3,
+  height: 17.3,
   borderRadius: '50%',
   alignItems: 'center',
+  cursor: 'pointer',
 
-  '& svg': {
-    fill: theme.palette.mode === 'light' ? '#32373B' : '#6F7A85',
+  '& path': {
+    fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[400],
+  },
+
+  '&:hover path': {
+    fill: theme.palette.colors.slate[300],
   },
 }));
 
-const DAIIconStyled = styled(DAIIcon)(({ theme }) => ({
-  position: 'relative',
-  width: 64,
-  height: 64,
+const DAIIconStyled = styled(DAI)(({ theme }) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 29,
+  height: 25,
+
   '& path': {
-    fill: theme.palette.mode === 'light' ? '#32373B' : '#6F7A85',
+    fill: theme.palette.isLight ? theme.palette.colors.slate[200] : theme.palette.colors.slate[400],
   },
+
   '& circle': {
-    fill: theme.palette.mode === 'light' ? 'white' : 'transparent',
+    fill: theme.palette.isLight ? 'white' : 'transparent',
   },
 }));

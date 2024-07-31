@@ -1,12 +1,12 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
-import CardChartOverview from './CardChartOverview';
+import UtilizationChart from './UtilizationChart';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
 
-const meta: Meta<typeof CardChartOverview> = {
-  title: 'Fusion/Views/Finances/Section/CardChartOverview',
-  component: CardChartOverview,
+const meta: Meta<typeof UtilizationChart> = {
+  title: 'Fusion/Views/Finances/Section/Utilization Chart',
+  component: UtilizationChart,
 
   parameters: {
     chromatic: {
@@ -21,13 +21,10 @@ export default meta;
 const args = [
   {
     selectedMetric: 'Budget',
-    handleSelectedMetric: () => null,
-    actuals: 9120,
-    budgetCap: 9120,
-    prediction: 4436,
+    handleMetricChange: () => null,
     isCoreThirdLevel: false,
 
-    doughnutSeriesData: [
+    seriesData: [
       {
         name: 'Endgame Atlas Budgets',
         value: 1790155,
@@ -130,75 +127,69 @@ const args = [
     ] as DoughnutSeries[],
   },
 ];
-const [[LightMode, DarkMode]] = createThemeModeVariants(CardChartOverview, args);
+const [[LightMode, DarkMode]] = createThemeModeVariants(UtilizationChart, args);
 export { LightMode, DarkMode };
 
 LightMode.parameters = {
   figma: {
     component: {
+      0: {
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-12878',
+        options: {
+          componentStyle: {
+            width: 343,
+          },
+          style: {
+            top: -15,
+            left: -14,
+          },
+        },
+      },
       768: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:331224&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-10805',
         options: {
           componentStyle: {
             width: 704,
           },
           style: {
-            top: -20,
-            left: -38,
+            top: -15,
+            left: -14,
           },
         },
       },
       1024: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:329579&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-6584',
         options: {
           componentStyle: {
-            width: 960,
+            width: 632,
           },
           style: {
-            top: -20,
-
-            left: -38,
+            top: -15,
+            left: -14,
           },
         },
       },
       1280: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:334248&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=16-4008',
         options: {
           componentStyle: {
-            width: 1184,
+            width: 789,
           },
           style: {
-            top: -20,
-            left: -38,
+            top: -15,
+            left: -14,
           },
         },
       },
       1440: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=28966:335777&mode=dev',
+        component: 'https://www.figma.com/design/iLyzLutlWLu6Yf8tFdlM6T/Fusion%2FPowerhouse?node-id=8-10351',
         options: {
           componentStyle: {
-            width: 1312,
+            width: 864,
           },
           style: {
-            top: -20,
-            left: -38,
-          },
-        },
-      },
-      1920: {
-        component:
-          'https://www.figma.com/file/pyaYEjcwF2b5uf9y0vIfIy/SES-Dashboard?type=design&node-id=31002:29277&mode=dev',
-        options: {
-          componentStyle: {
-            width: 1312,
-          },
-          style: {
-            top: -20,
-            left: -38,
+            top: -15,
+            left: -14,
           },
         },
       },

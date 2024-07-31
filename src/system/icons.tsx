@@ -1,5 +1,6 @@
 import AngleLeft from 'public/assets/svg/angle_left.svg';
 import AngleRight from 'public/assets/svg/angle_right.svg';
+import Arrow from 'public/assets/svg/arrow.svg';
 import ArrowCollapse from 'public/assets/svg/arrow_collapse.svg';
 import ArrowExpand from 'public/assets/svg/arrow_expand.svg';
 import ArrowSelect from 'public/assets/svg/arrow_select.svg';
@@ -9,6 +10,7 @@ import BlueLines from 'public/assets/svg/blue_lines.svg';
 import Circle from 'public/assets/svg/circle.svg';
 import CircleInfo from 'public/assets/svg/circle_info.svg';
 import Close from 'public/assets/svg/close.svg';
+import DAI from 'public/assets/svg/dai.svg';
 import DiscordIcon from 'public/assets/svg/discord.svg';
 import Ellipsis from 'public/assets/svg/ellipsis.svg';
 import Expand from 'public/assets/svg/expand.svg';
@@ -192,7 +194,15 @@ export const iconsPowerHose = [
     title: 'blue_lines',
   },
   {
+    Icon: DAI,
+    title: 'dai',
+  },
+  {
     Icon: Circle,
     title: 'circle',
+  },
+  {
+    Icon: Arrow,
+    title: 'arrow',
   },
 ];

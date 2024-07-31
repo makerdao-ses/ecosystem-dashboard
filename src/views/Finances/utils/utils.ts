@@ -17,46 +17,6 @@ import type {
 import type { Budget } from '@ses/core/models/interfaces/budget';
 import type { BudgetStatement } from '@ses/core/models/interfaces/budgetStatement';
 
-export const calculateValuesByBreakpoint = (
-  isTable: boolean,
-  isDesktop1024: boolean,
-  isDesktop1280: boolean,
-  isDesktop1440: boolean
-) => {
-  const radius = isTable || isDesktop1024 ? [32, 64] : isDesktop1280 ? [50, 96] : isDesktop1440 ? [48, 96] : [48, 96];
-  const center = isTable
-    ? [68, '50%']
-    : isDesktop1024
-    ? ['50%', '50%']
-    : isDesktop1280
-    ? ['50%', '50%']
-    : ['50%', '50%'];
-  const paddingLegend = isTable
-    ? [20, 60, 0, 0]
-    : isDesktop1024
-    ? [18, 58, 0, 0]
-    : isDesktop1280
-    ? [22, 6, 0, 0]
-    : isDesktop1440
-    ? [22, 2, 0, 0]
-    : [22, 2, 0, 0];
-
-  const paddingRichTextName = isTable ? [20, 0, 14, 0] : isDesktop1024 ? [26, 0, 7, 0] : [26, 0, 13.7, 1];
-  const paddingRichTextValue = isTable ? [-6, -2, 0, 0] : isDesktop1024 ? [-8, 0, 0, 0] : [0, 0, 0, 2];
-  const paddingRichTextDai = isTable ? [-6, 4, 0, 8] : isDesktop1024 ? [-8, 4, 0, 4] : [0, 4, 0, 4];
-  const paddingRichTextPercent = isTable ? [-6, 0, 0, 0] : isDesktop1024 ? [0, 0, 8, 0] : [0, 0, 0, 0];
-
-  return {
-    radius,
-    center,
-    paddingLegend,
-    paddingRichTextName,
-    paddingRichTextValue,
-    paddingRichTextDai,
-    paddingRichTextPercent,
-  };
-};
-
 export const mockDataApiTeam: MomentDataItem[] = [
   {
     id: '34',
