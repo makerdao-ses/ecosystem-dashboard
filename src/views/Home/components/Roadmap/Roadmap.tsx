@@ -2,6 +2,9 @@ import { styled } from '@mui/material';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import FancyTabs from '@/components/FancyTabs/FancyTabs';
+import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
+
 import MilestoneCard from '@/views/Home/components/MilestoneCard/MilestoneCard';
 
 import { roadmapData } from '@/views/Home/staticData';
@@ -14,7 +17,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const Roadmap: FC = () => {
-  useRoadmap();
+  const { activeTab, handleActiveTab } = useRoadmap();
 
   const swiperOptions: SwiperProps = {
     pagination: {
@@ -41,9 +44,18 @@ const Roadmap: FC = () => {
 
   return (
     <Container>
-      <TitleContainer>
-        <Title>{roadmapData.title}</Title>
-      </TitleContainer>
+      <ShadowWrapper>
+        <FancyTabs
+          tabs={roadmapData.tabs}
+          activeTab={activeTab}
+          onTabChange={(tab: string) => {
+            handleActiveTab(tab);
+          }}
+        />
+        <TitleContainer>
+          <Title>{roadmapData.tabs.find((tab) => tab.id === activeTab)?.title + ` ${roadmapData.title}`}</Title>
+        </TitleContainer>
+      </ShadowWrapper>
       <SwiperContainer>
         <Swiper modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
           {roadmapData.cards.map((card, index) => (
@@ -76,7 +88,6 @@ const TitleContainer = styled('div')(({ theme }) => ({
   padding: '8px 16px',
   borderRadius: '0px 12px 0px 0px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
-  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode, // temporary (tabs shadow)
 }));
 
 const Title = styled('h3')(({ theme }) => ({

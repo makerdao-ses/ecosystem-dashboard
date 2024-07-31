@@ -64,7 +64,21 @@ export const mockDataDescription: ContributorsInformation[] = [
 ];
 
 export const roadmapData = {
-  title: 'Phase 1 MakerDAO roadmap.',
+  title: 'MakerDAO roadmap.',
+  tabs: [
+    {
+      id: '1',
+      title: 'Phase 1',
+    },
+    {
+      id: '2',
+      title: 'Phase 2',
+    },
+    {
+      id: '3',
+      title: 'Phase 3',
+    },
+  ],
   cards: [
     { name: 'Card 1' },
     { name: 'Card 2' },
