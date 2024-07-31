@@ -8,6 +8,7 @@ import PageContainer from '@/components/Container/PageContainer';
 import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarChartCard';
 import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLineChartCard';
 import HeaderCard from './components/HeaderCard/HeaderCard';
+import Roadmap from './components/Roadmap/Roadmap';
 
 import { headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
@@ -46,6 +47,7 @@ const HomeView: FC = () => {
         </Section>
         <Section id={headerCardData.buttonTexts[3].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[3]}</SectionTitle>
+          <Roadmap />
         </Section>
       </Container>
     </HomeViewContainer>
