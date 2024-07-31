@@ -9,7 +9,7 @@ import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarC
 import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLineChartCard';
 import HeaderCard from './components/HeaderCard/HeaderCard';
 
-import { headerCardData, sectionsData } from './staticData';
+import { contributor, headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
 
 import type { FC } from 'react';
@@ -44,7 +44,7 @@ const HomeView: FC = () => {
         <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[2]}</SectionTitle>
           <ContainerMargin>
-            <ContributorsSection />
+            <ContributorsSection contributor={contributor} />
           </ContainerMargin>
         </Section>
         <Section id={headerCardData.buttonTexts[3].toLowerCase()}>
