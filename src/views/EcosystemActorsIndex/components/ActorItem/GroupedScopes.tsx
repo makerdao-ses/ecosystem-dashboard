@@ -20,7 +20,7 @@ const GroupedScopes: React.FC<GroupedScopesProps> = ({ scopes }) => (
   >
     <Group columns={Math.ceil(scopes.length / 2)}>
       {scopes?.map((scope, index) => (
-        <ScopeChip scope={scope} codeOnly key={index} size="medium" />
+        <ScopeChip scope={scope} key={index} size="medium" />
       ))}
     </Group>
   </SESTooltip>

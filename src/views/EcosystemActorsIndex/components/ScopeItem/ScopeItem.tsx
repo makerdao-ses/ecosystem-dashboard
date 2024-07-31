@@ -22,12 +22,12 @@ const ScopeItem: FC<Props> = ({ actor, className, queryStrings }) => (
       <LabelMobile>Scope</LabelMobile>
       <ContainerScopeMobile>
         {actor.scopes?.map((item, index) => (
-          <ScopeChip scope={item} key={index} codeOnly size="small" />
+          <ScopeChip scope={item} key={index} size="small" />
         ))}
       </ContainerScopeMobile>
       <ContainerScopeTable>
         {actor.scopes?.map((item, index) => (
-          <ScopeChip scope={item} key={index} codeOnly size="medium" />
+          <ScopeChip scope={item} key={index} size="medium" />
         ))}
       </ContainerScopeTable>
     </ContainerMobileTable>

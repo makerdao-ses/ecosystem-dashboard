@@ -336,7 +336,7 @@ export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => 
       customOptionsRenderAll: (isActive: boolean) => (
         <CustomItemAll isActive={isActive} total={actors.length}>
           <ScopeChip
-            size="normal"
+            size="medium"
             scope={{
               id: 'All',
               code: 'All',
