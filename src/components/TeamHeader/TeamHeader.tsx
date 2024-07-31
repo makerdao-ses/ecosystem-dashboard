@@ -25,7 +25,7 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ team, className }) => {
       ? team.scopes?.length > 0 && (
           <ScopeList>
             {team.scopes?.map((item, index) => (
-              <ScopeChip scope={item} key={index} codeOnly={isMobile} />
+              <ScopeChip scope={item} key={index} size={isMobile ? 'small' : 'large'} />
             ))}
           </ScopeList>
         )
