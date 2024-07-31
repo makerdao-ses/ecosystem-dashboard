@@ -56,6 +56,7 @@ const BarContainer = styled('div')(() => ({
   alignSelf: 'stretch',
   minHeight: 192,
   width: 32,
+  minWidth: 32,
   borderRadius: 8,
   overflow: 'hidden',
 }));
@@ -72,7 +73,7 @@ const LegendsWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: 12,
-  background: theme.palette.isLight ? theme.palette.colors.slate[50] : 'red',
+  background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
   width: '100%',
   minHeight: 192,
   padding: 16,

@@ -29,15 +29,14 @@ import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 
 interface Props {
   queryStrings?: string;
-  isLoading?: boolean;
   columns: CustomTableColumn[];
   cu: CoreUnit;
 }
 
-export const ItemCoreUnit = ({ isLoading, columns, cu, queryStrings }: Props) => (
+export const ItemCoreUnit = ({ columns, cu, queryStrings }: Props) => (
   <>
     <TableWrapper>
-      <TableRow isLoading={isLoading} columns={columns}>
+      <TableRow columns={columns}>
         <Summary>
           <CuTableColumnSummary
             href={`${siteRoutes.coreUnitAbout(cu.shortCode)}/${queryStrings}`}
@@ -98,7 +97,7 @@ const TableWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[] }>(({ theme, isLoading }) => ({
+const TableRow = styled(Card)<{ columns: CustomTableColumn[] }>(({ theme }) => ({
   borderRadius: 16,
   background: theme.palette.isLight ? 'white' : theme.palette.colors.charcoal[900],
   display: 'flex',
@@ -110,13 +109,7 @@ const TableRow = styled(Card)<{ isLoading?: boolean; columns: CustomTableColumn[
   marginTop: '16px',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
   ':hover': {
-    background: !isLoading
-      ? theme.palette.isLight
-        ? theme.palette.colors.gray[50]
-        : '#292E38'
-      : theme.palette.isLight
-      ? 'white'
-      : '#10191F',
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
   },
   [theme.breakpoints.up('desktop_1280')]: {
     padding: '16px 16px 8px 16px',

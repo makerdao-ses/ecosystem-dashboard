@@ -244,21 +244,21 @@ export const useCardChartOverview = (
   const numberItems = doughnutSeriesData.length;
   const changeAlignment = numberItems > 4;
 
-  const showSwiper =
-    (isTable && numberItems >= 4) || (isDesk1024 && numberItems >= 4) || (isDesk1280 && numberItems >= 10);
+  const showSwiper = ((isTable || isDesk1024) && numberItems >= 4) || (isDesk1280 && numberItems >= 10);
+
   const numberSliderPerLevel = isTable
     ? numberItems >= 4 && levelNumber < 3
       ? 3
-      : 5
+      : 6
     : isDesk1024
     ? numberItems >= 4 && levelNumber < 3
       ? 3
-      : 5
+      : 6
     : isDesk1280
     ? numberItems >= 10
       ? 10
-      : 5
-    : 5;
+      : 6
+    : 6;
 
   return {
     paymentsOnChain: isHasSubLevels ? metric.paymentsOnChain : budgetWithNotChildren.paymentsOnChain,
