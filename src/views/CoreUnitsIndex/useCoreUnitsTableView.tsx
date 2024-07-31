@@ -5,7 +5,7 @@ import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import CategoryChip from '@/components/CategoryChip/CategoryChip';
 import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
 import { StatusChip } from '@/components/StatusChip/StatusChip';
@@ -17,10 +17,9 @@ import {
 } from '@/core/businessLogic/coreUnits';
 import { CuCategoryEnum } from '@/core/enums/cuCategoryEnum';
 import { SortEnum } from '@/core/enums/sortEnum';
-import { useDebounce } from '@/core/hooks/useDebounce';
 import { TeamStatus } from '@/core/models/interfaces/types';
 import type { TeamCategory } from '@/core/models/interfaces/types';
-import { filterData, getArrayParam, getStringParam } from '@/core/utils/filters';
+import { filterData, getArrayParam } from '@/core/utils/filters';
 import { sortAlphaNum } from '@/core/utils/sort';
 import { pascalCaseToNormalString } from '@/core/utils/string';
 import { buildQueryString } from '@/core/utils/urls';
@@ -38,13 +37,13 @@ const categories = Object.values(CuCategoryEnum) as string[];
 export const useCoreUnitsTableView = (coreUnits: CoreUnit[]) => {
   const router = useRouter();
   const theme = useTheme();
-  const debounce = useDebounce();
+  const [searchText, setSearchText] = useState('');
+  const deferredSearchText = useDeferredValue(searchText);
+  const previousSearchTextRef = useRef<string | null>(null);
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
-
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
 
-  const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
   const desktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1440'));
   const isDesk1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
   const isDesk1280 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1280', 'desktop_1440'));
@@ -69,6 +68,25 @@ export const useCoreUnitsTableView = (coreUnits: CoreUnit[]) => {
       }),
     [data, filteredCategories, filteredStatuses, searchText]
   );
+  const searchFilters = (value: string) => {
+    setSearchText(value);
+  };
+
+  useEffect(() => {
+    const queryStrings = buildQueryString({
+      filteredStatuses,
+      filteredCategories,
+      searchText: deferredSearchText,
+    });
+    // Avoid re-render
+    if (deferredSearchText !== previousSearchTextRef.current) {
+      router.replace({
+        pathname: siteRoutes.coreUnitsOverview,
+        search: queryStrings,
+      });
+      previousSearchTextRef.current = deferredSearchText;
+    }
+  }, [deferredSearchText, filteredStatuses, filteredCategories, router]);
 
   const categoriesCount = useMemo(() => {
     const result: { [id: string]: number } = {};
@@ -340,11 +358,6 @@ export const useCoreUnitsTableView = (coreUnits: CoreUnit[]) => {
     },
     [router]
   );
-  const searchFilters = (value: string) => {
-    debounce(() => {
-      handleChangeUrl('searchText')(value);
-    }, 300);
-  };
 
   // Filters Options
   const filters: Filter[] = [
