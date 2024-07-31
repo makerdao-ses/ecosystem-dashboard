@@ -34,14 +34,14 @@ const Container = styled('div')<{ isLegacy?: boolean }>(({ theme, isLegacy = fal
   }),
 
   [theme.breakpoints.up('tablet_768')]: {
-    width: 279,
+    width: 247,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    width: 304,
+    width: 272,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    width: 379,
+    width: 347,
   },
   [theme.breakpoints.up('desktop_1440')]: {
     width: 304,
