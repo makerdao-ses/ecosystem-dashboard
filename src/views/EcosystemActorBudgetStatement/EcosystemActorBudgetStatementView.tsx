@@ -62,6 +62,7 @@ const EcosystemActorBudgetStatementView: React.FC<EcosystemActorBudgetStatementV
     comments,
     setSnapshotCreated,
     pager,
+    isDisablePopoverForMobile,
   } = useEcosystemActorBudgetStatementView(actor, actors, snapshotLimitPeriods);
 
   const headline = <CuHeadlineText cuLongCode={actor.code} isCoreUnit={false} shortCode={actor.shortCode} />;
@@ -126,6 +127,7 @@ const EcosystemActorBudgetStatementView: React.FC<EcosystemActorBudgetStatementV
 
           <TabsContainer>
             <Tabs
+              isDisablePopover={isDisablePopoverForMobile}
               tabs={tabItems}
               expandable
               compressedTabs={compressedTabItems}
