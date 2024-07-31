@@ -33,6 +33,7 @@ const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; type: Sc
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 6,
+    width: 'fit-content',
     border: `1.5px solid ${theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark}`,
     background: theme.palette.isLight ? colors[scope]?.background : colors[scope]?.backgroundDark,
 
