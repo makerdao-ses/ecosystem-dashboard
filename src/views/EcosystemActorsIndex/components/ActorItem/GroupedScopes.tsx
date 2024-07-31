@@ -13,14 +13,14 @@ const GroupedScopes: React.FC<GroupedScopesProps> = ({ scopes }) => (
     content={
       <TooltipContent>
         {scopes?.map((scope, index) => (
-          <ScopeChip scope={scope} key={index} />
+          <ScopeChip scope={scope} key={index} size="large" />
         ))}
       </TooltipContent>
     }
   >
     <Group columns={Math.ceil(scopes.length / 2)}>
       {scopes?.map((scope, index) => (
-        <ScopeChip scope={scope} codeOnly key={index} />
+        <ScopeChip scope={scope} key={index} size="medium" />
       ))}
     </Group>
   </SESTooltip>

@@ -9,7 +9,7 @@ import type { FC } from 'react';
 const MilestoneCard: FC = () => {
   useMilestoneCard();
 
-  return <Container />;
+  return <Container> </Container>;
 };
 
 export default MilestoneCard;

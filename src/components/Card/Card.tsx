@@ -1,10 +1,13 @@
 import { styled } from '@mui/material';
 
-interface CardProps extends React.PropsWithChildren {
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
+  children: React.ReactNode;
 }
-const Card: React.FC<CardProps> = ({ children, className }) => (
-  <CardComponent className={className}>{children}</CardComponent>
+const Card: React.FC<CardProps> = ({ children, className, ...htmlAttrs }) => (
+  <CardComponent className={className} {...htmlAttrs}>
+    {children}
+  </CardComponent>
 );
 
 export default Card;

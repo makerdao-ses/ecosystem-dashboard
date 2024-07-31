@@ -2,6 +2,7 @@ import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import ScopeChip from './ScopeChip';
+import type { ScopeSizeVariant } from './ScopeChip';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof ScopeChip> = {
@@ -21,6 +22,7 @@ const variantsArgs = [
       id: '1',
       code: 'SUP',
       name: TeamScopeEnum.SupportScope,
+      size: 'small' as ScopeSizeVariant,
     },
   },
   {
@@ -28,6 +30,7 @@ const variantsArgs = [
       id: '2',
       code: 'STA',
       name: TeamScopeEnum.StabilityScope,
+      size: 'medium' as ScopeSizeVariant,
     },
   },
   {
@@ -35,6 +38,7 @@ const variantsArgs = [
       id: '3',
       code: 'ACC',
       name: TeamScopeEnum.AccessibilityScope,
+      size: 'large' as ScopeSizeVariant,
     },
   },
   {
@@ -42,6 +46,7 @@ const variantsArgs = [
       id: '4',
       code: 'PTO',
       name: TeamScopeEnum.ProtocolScope,
+      size: 'extraLarge' as ScopeSizeVariant,
     },
   },
   {
@@ -49,7 +54,7 @@ const variantsArgs = [
       id: '5',
       code: 'GOV',
       name: TeamScopeEnum.GovernanceScope,
-      codeOnly: true,
+      size: 'small' as ScopeSizeVariant,
     },
   },
 ];

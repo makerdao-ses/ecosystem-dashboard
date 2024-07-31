@@ -2,19 +2,18 @@ import { stringify } from 'querystring';
 import { siteRoutes } from '@ses/config/routes';
 import { SortEnum } from '@ses/core/enums/sortEnum';
 import { ActorCategory, TeamCategory } from '@ses/core/models/interfaces/types';
-import { getArrayParam, getStringParam } from '@ses/core/utils/filters';
+import { getArrayParam } from '@ses/core/utils/filters';
 import { buildQueryString } from '@ses/core/utils/urls';
 import lightTheme from '@ses/styles/theme/themes';
 import orderBy from 'lodash/orderBy';
 import { DateTime } from 'luxon';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import type { Filter, SelectOption } from '@/components/FiltersBundle/types';
 import RoleChip from '@/components/RoleChip/RoleChip';
 import ScopeChip from '@/components/ScopeChip/ScopeChip';
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import { TeamRole } from '@/core/enums/teamRole';
-import { useDebounce } from '@/core/hooks/useDebounce';
 import type { Scope } from '@/core/models/interfaces/scopes';
 import { pascalCaseToNormalString } from '@/core/utils/string';
 import CustomItemAll from './components/ActorCustomItem/CustomItemAll';
@@ -54,10 +53,11 @@ const scopesDefinitions: Scope[] = [
 
 export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => {
   const router = useRouter();
-  const debounce = useDebounce();
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
   const filteredScopes = useMemo(() => getArrayParam('filteredScopes', router.query), [router.query]);
-  const searchText = useMemo(() => getStringParam('searchText', router.query), [router.query]);
+  const previousSearchTextRef = useRef<string | null>(null);
+  const [searchText, setSearchText] = useState('');
+  const deferredSearchText = useDeferredValue(searchText);
   const [readMore, setReadMore] = useState<boolean>(stories);
   const showTextDesk = readMore;
 
@@ -78,11 +78,34 @@ export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => 
     [router]
   );
   const searchFilters = (value: string) => {
-    debounce(() => {
-      handleChangeUrl('searchText')(value);
-    }, 300);
+    setSearchText(value);
   };
-  const queryStrings = useMemo(() => buildQueryString(router.query), [router.query]);
+
+  useEffect(() => {
+    const queryStrings = buildQueryString({
+      filteredScopes,
+      filteredCategories,
+      searchText: deferredSearchText,
+    });
+    // Avoid re-render
+    if (deferredSearchText !== previousSearchTextRef.current) {
+      router.replace({
+        pathname: siteRoutes.ecosystemActors,
+        search: queryStrings,
+      });
+      previousSearchTextRef.current = deferredSearchText;
+    }
+  }, [deferredSearchText, filteredCategories, filteredScopes, router]);
+
+  const queryStrings = useMemo(
+    () =>
+      buildQueryString({
+        filteredScopes,
+        filteredCategories,
+        searchText,
+      }),
+    [filteredCategories, filteredScopes, searchText]
+  );
 
   const [sortColumn, setSortColumn] = useState<number>(-1);
   const [headersSort, setHeadersSort] = useState<SortEnum[]>([
@@ -336,6 +359,7 @@ export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => 
       customOptionsRenderAll: (isActive: boolean) => (
         <CustomItemAll isActive={isActive} total={actors.length}>
           <ScopeChip
+            size="medium"
             scope={{
               id: 'All',
               code: 'All',
@@ -405,7 +429,7 @@ export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => 
     filteredScopes,
     scopeCount,
     searchText,
-    debounce,
+    // debounce,
     filter,
     canReset,
     onReset,

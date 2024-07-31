@@ -39,6 +39,7 @@ export const colorPalette = {
   },
 
   purple: {
+    50: '#F4EEFD',
     100: '#E8DDFB',
     200: '#DDCCF9',
     300: '#D2BBF7',

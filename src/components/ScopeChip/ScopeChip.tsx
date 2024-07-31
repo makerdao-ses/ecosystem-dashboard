@@ -5,47 +5,44 @@ import type { Scope } from '@/core/models/interfaces/scopes';
 import useScopeColors from './useScopeColors';
 import type { ScopeColors } from './useScopeColors';
 
+export type ScopeSizeVariant = 'small' | 'medium' | 'large' | 'extraLarge';
 interface Props {
   scope: Scope;
   className?: string;
-  codeOnly?: boolean;
-  isUppercase?: boolean;
+  size?: ScopeSizeVariant;
 }
 
-const ScopeChip: React.FC<Props> = ({ scope, className, codeOnly, isUppercase }) => {
+const ScopeChip: React.FC<Props> = ({ scope, className, size = 'large' }) => {
   const colors = useScopeColors();
+  const renderValue = size === 'small' || size === 'medium' ? scope.code : scope.name;
 
   return (
-    <Chip className={className} scope={scope.name} colors={colors} codeOnly={codeOnly}>
-      {!(scope.name === TeamScopeEnum.All) && (
-        <Code isUppercase={isUppercase} colors={colors} scope={scope.name} codeOnly={codeOnly}>
-          {scope.code}
-        </Code>
-      )}
-      {!codeOnly && (
-        <ScopeContainer colors={colors} scope={scope.name}>
-          {scope.name}
-        </ScopeContainer>
-      )}
+    <Chip className={className} scope={scope.name} colors={colors} type={size}>
+      <Code colors={colors} scope={scope.name} type={size}>
+        {renderValue}
+      </Code>
     </Chip>
   );
 };
 
 export default ScopeChip;
-const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; codeOnly?: boolean }>(
-  ({ theme, scope, colors, codeOnly = false }) => ({
+const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; type: ScopeSizeVariant }>(
+  ({ theme, scope, colors, type }) => ({
     fontFamily: 'Inter, sans-serif',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 6,
-    gap: 4,
-    border: `1.5px solid ${theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark}`,
-    padding: '0px 8px 0px 0px',
     width: 'fit-content',
-    ...(codeOnly && {
-      border: 'revert',
-      padding: '0px',
+    border: `1.5px solid ${theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark}`,
+    background: theme.palette.isLight ? colors[scope]?.background : colors[scope]?.backgroundDark,
+
+    ...((type === 'small' || type === 'medium' || type === 'large') && {
+      padding: '1px 8px ',
+    }),
+    ...(type === 'extraLarge' && {
+      padding: '5px 8px ',
+      border: `2px solid ${theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark}`,
     }),
     ...(scope === TeamScopeEnum.All && {
       padding: '1px 16px 1px 16px',
@@ -54,38 +51,38 @@ const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; codeOnly
   })
 );
 
-const Code = styled('div')<{ isUppercase?: boolean; colors: ScopeColors; scope: TeamScopeEnum; codeOnly?: boolean }>(
-  ({ scope, theme, isUppercase = true, colors, codeOnly = false }) => ({
+const Code = styled('div')<{
+  isUppercase?: boolean;
+  colors: ScopeColors;
+  scope: TeamScopeEnum;
+
+  className?: string;
+  type: ScopeSizeVariant;
+}>(({ scope, theme, colors, type }) => ({
+  color: theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark,
+  width: 'fit-content',
+  ...(type === 'small' && {
     fontWeight: 800,
     fontSize: 12,
+    lineHeight: '22px',
     textAlign: 'center',
-    lineHeight: theme.palette.isLight ? '22px' : '21px',
-    borderRadius: '4px 0px 0px 4px',
-    padding: '1px 4px 1px 8px',
-
-    textTransform: isUppercase ? 'uppercase' : 'none',
-    color: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(243, 245, 247, 0.6)',
-    background: theme.palette.isLight ? colors[scope]?.color : colors[scope]?.color,
-    ...(codeOnly && {
-      padding: '1px 8px 1px 8px',
-      borderRadius: 6,
-    }),
-    ...(scope === TeamScopeEnum.All && {
-      padding: '1px 16px 1px 16px',
-      background: 'revert',
-    }),
-
-    [theme.breakpoints.up('tablet_768')]: {
-      fontSize: 14,
-    },
-  })
-);
-const ScopeContainer = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum }>(({ theme, colors, scope }) => ({
-  fontWeight: 600,
-  fontSize: 14,
-  lineHeight: '22px',
-  color: theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark,
+    textTransform: 'uppercase',
+  }),
+  ...(type === 'medium' && {
+    fontWeight: 800,
+    fontSize: 14,
+    lineHeight: '22px',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  }),
+  ...((type === 'large' || type === 'extraLarge') && {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '22px',
+    textAlign: 'center',
+  }),
   ...(scope === TeamScopeEnum.All && {
-    color: theme.palette.isLight ? colors[scope].color : colors[scope].colorDark,
+    textTransform: 'revert',
+    fontWeight: 600,
   }),
 }));
