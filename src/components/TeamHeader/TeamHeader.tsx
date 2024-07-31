@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
 import type { TeamRole } from '@/core/enums/teamRole';
 import type { Team } from '@/core/models/interfaces/team';
 import type { TeamCategory, TeamStatus } from '@/core/models/interfaces/types';
@@ -11,6 +11,7 @@ import RoleChip from '../RoleChip/RoleChip';
 import ScopeChip from '../ScopeChip/ScopeChip';
 import { StatusChip } from '../StatusChip/StatusChip';
 import CoreUnitSubmissionLink from './CoreUnitSubmissionLink';
+import type { Theme } from '@mui/material';
 
 interface TeamHeaderProps {
   team: Team;
@@ -18,12 +19,13 @@ interface TeamHeaderProps {
 }
 
 const TeamHeader: React.FC<TeamHeaderProps> = ({ team, className }) => {
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const chips =
     team.type === ResourceType.EcosystemActor
       ? team.scopes?.length > 0 && (
           <ScopeList>
             {team.scopes?.map((item, index) => (
-              <ScopeChip scope={item} key={index} size="small" />
+              <ScopeChip scope={item} key={index} size={isMobile ? 'small' : 'large'} />
             ))}
           </ScopeList>
         )
