@@ -1,4 +1,6 @@
+import { styled } from '@mui/material';
 import { useState } from 'react';
+import Card from '@/components/Card/Card';
 import BulletIcon from '@/components/FancyTabs/BulletIcon';
 import FancyTabs from '@/components/FancyTabs/FancyTabs';
 import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
@@ -10,10 +12,10 @@ const GovernanceSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('4');
 
   return (
-    <div>
+    <SectionContainer>
       <SectionTitle>{sectionsData.titles[1]}</SectionTitle>
 
-      <div>proposals here...</div>
+      <div>Proposals go here... (WIP)</div>
 
       <ShadowWrapper>
         <FancyTabs
@@ -52,17 +54,25 @@ const GovernanceSection: React.FC = () => {
           activeTab={activeTab}
           onTabChange={(tab: string) => setActiveTab(tab)}
         />
-        <div
+        <Card
+          // This is for testing purposes only (WIP)
           style={{
-            width: '100%',
-            background: 'gray',
+            padding: 16,
+            boxShadow: 'none',
+            borderTopLeftRadius: 0,
           }}
         >
           content here...
-        </div>
+        </Card>
       </ShadowWrapper>
-    </div>
+    </SectionContainer>
   );
 };
 
 export default GovernanceSection;
+
+const SectionContainer = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
+}));
