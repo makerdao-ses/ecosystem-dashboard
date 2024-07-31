@@ -24,17 +24,17 @@ const Roadmap: FC = () => {
       768: {
         slidesPerView: 2,
         slidesPerGroup: 2,
-        spaceBetween: 24,
+        spaceBetween: 8,
       },
       1024: {
         slidesPerView: 3,
         slidesPerGroup: 3,
-        spaceBetween: 24,
+        spaceBetween: 8,
       },
       1280: {
         slidesPerView: 4,
         slidesPerGroup: 4,
-        spaceBetween: 16,
+        spaceBetween: 0,
       },
     },
   };
@@ -45,11 +45,12 @@ const Roadmap: FC = () => {
         <Title>{roadmapData.title}</Title>
       </TitleContainer>
       <SwiperContainer>
-        <Swiper modules={[Pagination]} pagination={true} {...swiperOptions}>
+        <Swiper modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
           {roadmapData.cards.map((card, index) => (
             <SwiperSlide key={`${card.name}-${index}`}>
-              {card.name}
-              <MilestoneCard />
+              <MilestoneCardContainer>
+                <MilestoneCard />
+              </MilestoneCardContainer>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -67,10 +68,6 @@ const Container = styled('div')(({ theme }) => ({
   marginTop: 24,
 
   [theme.breakpoints.up('tablet_768')]: {
-    gap: 8,
-  },
-
-  [theme.breakpoints.up('desktop_1280')]: {
     gap: 24,
   },
 }));
@@ -79,6 +76,7 @@ const TitleContainer = styled('div')(({ theme }) => ({
   padding: '8px 16px',
   borderRadius: '0px 12px 0px 0px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+  boxShadow: theme.palette.isLight ? theme.fusionShadows.modules : theme.fusionShadows.darkMode, // temporary (tabs shadow)
 }));
 
 const Title = styled('h3')(({ theme }) => ({
@@ -96,10 +94,7 @@ const Title = styled('h3')(({ theme }) => ({
 
 const SwiperContainer = styled('div')(({ theme }) => ({
   position: 'relative',
-
-  '& .swiper-slide-active': {
-    marginLeft: 0,
-  },
+  margin: '0px -8px',
 
   '& .swiper-pagination-horizontal': {
     position: 'relative',
@@ -128,4 +123,9 @@ const SwiperContainer = styled('div')(({ theme }) => ({
       ? `${theme.palette.colors.gray[900]} !important`
       : `${theme.palette.colors.slate[50]} !important`,
   },
+}));
+
+const MilestoneCardContainer = styled('div')(() => ({
+  marginLeft: 8,
+  marginRight: 8,
 }));
