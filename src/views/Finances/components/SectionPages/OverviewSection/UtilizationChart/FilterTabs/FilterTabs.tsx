@@ -1,17 +1,43 @@
 import { styled } from '@mui/material';
+import type { AnalyticMetric } from '@/core/models/interfaces/analytic';
+
+const FILTERS: {
+  label: string;
+  value: AnalyticMetric;
+}[] = [
+  {
+    label: 'Budget',
+    value: 'Budget',
+  },
+  {
+    label: 'Forecast',
+    value: 'Forecast',
+  },
+  {
+    label: 'Net Protocol Outflow',
+    value: 'ProtocolNetOutflow',
+  },
+  {
+    label: 'Net Expenses On-Chain',
+    value: 'PaymentsOnChain',
+  },
+  {
+    label: 'Actuals',
+    value: 'Actuals',
+  },
+];
 
 interface FilterTabsProps {
-  tabs: string[];
-  activeTab: string;
-  onChangeTab: (tab: string) => void;
+  selectedMetric: AnalyticMetric;
+  onChangeTab: (metric: AnalyticMetric) => void;
 }
 
-const FilterTabs: React.FC<FilterTabsProps> = ({ tabs, activeTab, onChangeTab }) => (
+const FilterTabs: React.FC<FilterTabsProps> = ({ selectedMetric, onChangeTab }) => (
   <Wrapper className="no-select">
     <TabContainer>
-      {tabs.map((tab) => (
-        <Tab key={tab} onClick={() => onChangeTab(tab)} active={activeTab === tab}>
-          {tab}
+      {FILTERS.map((tab) => (
+        <Tab key={tab.value} onClick={() => onChangeTab(tab.value)} active={tab.value === selectedMetric}>
+          {tab.label}
         </Tab>
       ))}
     </TabContainer>
@@ -20,10 +46,20 @@ const FilterTabs: React.FC<FilterTabsProps> = ({ tabs, activeTab, onChangeTab })
 
 export default FilterTabs;
 
-const Wrapper = styled('div')(() => ({
+const Wrapper = styled('div')(({ theme }) => ({
+  background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#232832',
+  overflow: 'hidden',
+  borderRadius: '12px 12px 0px 0px',
   position: 'relative',
   maxWidth: '100%',
-  boxShadow: '1px 0px 15px 0px rgba(117, 117, 117, 0.15)',
+  boxShadow: theme.palette.isLight
+    ? '1px 0px 15px 0px rgba(117, 117, 117, 0.15)'
+    : '4px 0px 12.3px 0px rgba(23, 24, 29, 0.30)',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    minWidth: 192,
+    borderRadius: '12px 0px 0px 12px',
+  },
 }));
 
 const TabContainer = styled('div')(({ theme }) => ({
@@ -56,17 +92,21 @@ const Tab = styled('div')<{ active: boolean }>(({ theme, active }) => ({
   color: active
     ? theme.palette.isLight
       ? theme.palette.colors.gray[900]
-      : theme.palette.colors.gray[500]
+      : theme.palette.colors.slate[50]
     : theme.palette.isLight
     ? theme.palette.colors.gray[500]
-    : 'red',
-  background: active ? (theme.palette.isLight ? theme.palette.colors.slate[50] : 'red') : 'transparent',
+    : theme.palette.colors.slate[400],
+  background: active
+    ? theme.palette.isLight
+      ? theme.palette.colors.slate[50]
+      : theme.palette.colors.charcoal[900]
+    : 'transparent',
   whiteSpace: 'nowrap',
   padding: `8px 8px ${active ? 8 : 4}px`,
   cursor: 'pointer',
 
   [theme.breakpoints.up('tablet_768')]: {
-    padding: '2px 24px',
+    padding: '0 24px',
     lineHeight: '22px',
     position: 'relative',
 
@@ -78,7 +118,19 @@ const Tab = styled('div')<{ active: boolean }>(({ theme, active }) => ({
       width: 4,
       height: '100%',
       borderRadius: '0px 4px 4px 0px',
-      background: active ? (theme.palette.isLight ? theme.palette.colors.gray[900] : 'red') : 'transparent',
+      background: active
+        ? theme.palette.isLight
+          ? theme.palette.colors.gray[900]
+          : theme.palette.colors.charcoal[700]
+        : 'transparent',
+    },
+
+    '&:hover': {
+      background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[900],
+
+      '&:before': {
+        background: theme.palette.isLight ? theme.palette.colors.gray[400] : '#323740',
+      },
     },
   },
 

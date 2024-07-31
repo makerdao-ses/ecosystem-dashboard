@@ -1,11 +1,7 @@
-import styled from '@emotion/styled';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
+import { styled } from '@mui/material';
 import { threeDigitsPrecisionHumanization, usLocalizedNumber } from '@ses/core/utils/humanization';
-import lightTheme from '@ses/styles/theme/themes';
-import React from 'react';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
 import { getShortCode } from '../../utils';
-import type { WithIsLight } from '@ses/core/utils/typesHelpers';
 
 interface Props {
   isCoreThirdLevel?: boolean;
@@ -24,26 +20,25 @@ const ItemLegendDoughnut: React.FC<Props> = ({
   onLegendItemLeave,
   toggleSeriesVisibility,
 }) => {
-  const { isLight } = useThemeContext();
   const valueRounded = threeDigitsPrecisionHumanization(doughnutData?.value, true);
+
   return (
     <LegendItem
       key={doughnutData.name}
       changeAlignment={changeAlignment}
       isCoreThirdLevel={isCoreThirdLevel}
-      isLight={isLight}
       onClick={() => toggleSeriesVisibility(doughnutData.name)}
       onMouseEnter={() => onLegendItemHover(doughnutData.name)}
       onMouseLeave={() => onLegendItemLeave(doughnutData.name)}
     >
       <IconWithName>
         <LegendIcon backgroundColor={doughnutData.color || 'blue'} />
-        <NameOrCode isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
+        <NameOrCode isCoreThirdLevel={isCoreThirdLevel}>
           {isCoreThirdLevel ? getShortCode(doughnutData?.code || '') : doughnutData.name}
         </NameOrCode>
       </IconWithName>
-      <ValueDescription isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-        <Percent isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>{`(${
+      <ValueDescription isCoreThirdLevel={isCoreThirdLevel}>
+        <Percent>{`(${
           doughnutData.percent === 0
             ? 0
             : doughnutData.percent < 0.1
@@ -53,12 +48,9 @@ const ItemLegendDoughnut: React.FC<Props> = ({
             : usLocalizedNumber(doughnutData.percent, 1)
         }%)`}</Percent>
         <ContainerValue>
-          <Value isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-            {valueRounded.value}
+          <Value>
+            {valueRounded.value} {valueRounded.suffix}
           </Value>
-          <Suffix isLight={isLight} isCoreThirdLevel={isCoreThirdLevel}>
-            {valueRounded.suffix}
-          </Suffix>
         </ContainerValue>
       </ValueDescription>
     </LegendItem>
@@ -67,7 +59,7 @@ const ItemLegendDoughnut: React.FC<Props> = ({
 
 export default ItemLegendDoughnut;
 
-const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor }) => ({
+const LegendIcon = styled('div')<{ backgroundColor: string }>(({ backgroundColor }) => ({
   backgroundColor,
   minWidth: 8,
   maxWidth: 8,
@@ -75,30 +67,25 @@ const LegendIcon = styled.div<{ backgroundColor: string }>(({ backgroundColor })
   minHeight: 8,
   borderRadius: '50%',
 }));
-const LegendItem = styled.div<WithIsLight & { isCoreThirdLevel: boolean; changeAlignment: boolean }>(
-  ({ isLight, isCoreThirdLevel, changeAlignment }) => ({
+const LegendItem = styled('div')<{ isCoreThirdLevel: boolean; changeAlignment: boolean }>(
+  ({ isCoreThirdLevel, changeAlignment }) => ({
     display: 'flex',
     flexDirection: isCoreThirdLevel ? 'row' : 'column',
-    gap: isCoreThirdLevel ? 0 : 4,
+    gap: 2,
     fontSize: 12,
     fontFamily: 'Inter, sans-serif',
-    color: isLight ? '#43435' : '#EDEFFF',
     cursor: 'pointer',
     minWidth: 190,
     ...(changeAlignment && {
       minWidth: 0,
     }),
-    [lightTheme.breakpoints.up('desktop_1280')]: {
-      gap: isCoreThirdLevel ? 0 : 8,
-    },
   })
 );
-const ValueDescription = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  color: isLight ? '#9FAFB9' : '#546978',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: 14,
-  fontStyle: 'normal',
-  fontWeight: 400,
+
+const ValueDescription = styled('div')<{ isCoreThirdLevel: boolean }>(({ theme, isCoreThirdLevel }) => ({
+  color: theme.palette.isLight ? '#9FAFB9' : '#546978',
+  fontSize: 12,
+  fontWeight: 500,
   lineHeight: 'normal',
   display: 'flex',
   marginLeft: isCoreThirdLevel ? 4 : 14,
@@ -107,44 +94,44 @@ const ValueDescription = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>
     overflow: 'revert',
     textOverflow: 'revert',
   }),
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 14,
+  },
 }));
 
-const IconWithName = styled.div({
+const IconWithName = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   gap: 6,
   alignItems: 'center',
 });
 
-const NameOrCode = styled.div<WithIsLight & { isCoreThirdLevel: boolean }>(({ isLight, isCoreThirdLevel }) => ({
-  color: isLight ? (isCoreThirdLevel ? '#B6BCC2' : '#434358') : '#EDEFFF',
-  fontFamily: 'Inter, sans-serif',
+const NameOrCode = styled('div')<{ isCoreThirdLevel: boolean }>(({ theme, isCoreThirdLevel }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50],
   fontSize: 12,
-  fontStyle: 'normal',
-  fontWeight: isCoreThirdLevel ? 700 : 600,
-
-  lineHeight: 'normal',
-
+  fontWeight: 600,
+  lineHeight: isCoreThirdLevel ? '15px' : '18px',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-
   width: isCoreThirdLevel ? 'fit-content' : 170,
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 14,
+    lineHeight: '24px',
+  },
 }));
 
-const Percent = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCoreThirdLevel, isLight }) => ({
-  color: isLight ? (isCoreThirdLevel ? '#6F7A85' : '#B6BCC2') : '#6F7A85',
+const Percent = styled('span')(({ theme }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[700],
 }));
 
-const Value = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCoreThirdLevel, isLight }) => ({
-  color: isLight ? (isCoreThirdLevel ? '#0E1010' : '#6F7A85') : '#B6BCC2',
+const Value = styled('span')(({ theme }) => ({
+  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[400],
 }));
 
-const Suffix = styled.span<WithIsLight & { isCoreThirdLevel: boolean }>(({ isCoreThirdLevel, isLight }) => ({
-  color: isLight ? (isCoreThirdLevel ? '#0E1010' : '#6F7A85') : '#B6BCC2',
-}));
-
-const ContainerValue = styled.div({
+const ContainerValue = styled('div')({
   display: 'flex',
   marginLeft: 4,
 });

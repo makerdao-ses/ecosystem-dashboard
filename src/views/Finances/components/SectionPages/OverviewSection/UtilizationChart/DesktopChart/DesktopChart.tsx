@@ -1,22 +1,20 @@
 import { styled, useMediaQuery } from '@mui/material';
-import { useThemeContext } from '@ses/core/context/ThemeContext';
-import { zIndexEnum } from '@ses/core/enums/zIndexEnum';
-import { usLocalizedNumber } from '@ses/core/utils/humanization';
-import { sortDoughnutSeriesByValue } from '@ses/core/utils/sort';
 import ReactECharts from 'echarts-for-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Card from '@/components/Card/Card';
+import { useThemeContext } from '@/core/context/ThemeContext';
+import { zIndexEnum } from '@/core/enums/zIndexEnum';
+import type { AnalyticMetric, BudgetMetric } from '@/core/models/interfaces/analytic';
+import { usLocalizedNumber } from '@/core/utils/humanization';
+import { sortDoughnutSeriesByValue } from '@/core/utils/sort';
 import type { DoughnutSeries } from '@/views/Finances/utils/types';
-import { calculateValuesByBreakpoint } from '@/views/Finances/utils/utils';
-import { getCorrectMetricValuesOverViewChart } from '../../utils';
-import CardLegend from './CardLegend';
-import DaiToolTipIcon from './DaiToolTipIcon';
-import DoughnutChartFinancesSkeleton from './DoughnutChartFinancesSkeleton';
-import { chunkArray } from './utils';
+import CardLegend from '../../../CardChartOverview/OverviewCardKeyDetailsBudget/DoughnutChartFinances/CardLegend';
+import DaiToolTipIcon from '../../../CardChartOverview/OverviewCardKeyDetailsBudget/DoughnutChartFinances/DaiToolTipIcon';
+import DoughnutChartFinancesSkeleton from '../../../CardChartOverview/OverviewCardKeyDetailsBudget/DoughnutChartFinances/DoughnutChartFinancesSkeleton';
+import { chunkArray } from '../../../CardChartOverview/OverviewCardKeyDetailsBudget/DoughnutChartFinances/utils';
+import { getCorrectMetricValuesOverViewChart } from '../../../CardChartOverview/utils';
 import type { Theme } from '@mui/material';
-import type { AnalyticMetric, BudgetMetric } from '@ses/core/models/interfaces/analytic';
 import type { EChartsOption } from 'echarts-for-react';
 import type { SwiperProps, SwiperRef } from 'swiper/react';
 import 'swiper/css/navigation';
@@ -24,43 +22,37 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css';
 
-interface Props {
-  doughnutSeriesData: DoughnutSeries[];
-  className?: string;
+interface DesktopChartProps {
+  seriesData: DoughnutSeries[];
+  selectedMetric: AnalyticMetric;
   isCoreThirdLevel?: boolean;
   changeAlignment: boolean;
   showSwiper: boolean;
   numberSliderPerLevel?: number;
-  selectedMetric: AnalyticMetric;
 }
 
-const DoughnutChartFinances: React.FC<Props> = ({
-  doughnutSeriesData,
-  className,
+const DesktopChart: React.FC<DesktopChartProps> = ({
+  seriesData,
+  selectedMetric,
   isCoreThirdLevel = true,
   changeAlignment,
   showSwiper,
-  numberSliderPerLevel = 5,
-  selectedMetric,
+  numberSliderPerLevel = 6,
 }) => {
   const chartRef = useRef<EChartsOption | null>(null);
   const ref = useRef<SwiperRef>(null);
   const { isLight } = useThemeContext();
-  const [visibleSeries, setVisibleSeries] = useState<DoughnutSeries[]>(doughnutSeriesData);
-  const [legends, setLegends] = useState<DoughnutSeries[]>(doughnutSeriesData);
+  const [visibleSeries, setVisibleSeries] = useState<DoughnutSeries[]>(seriesData);
+  const [legends, setLegends] = useState<DoughnutSeries[]>(seriesData);
 
   useEffect(() => {
-    setVisibleSeries(doughnutSeriesData);
-    setLegends(doughnutSeriesData);
+    setVisibleSeries(seriesData);
+    setLegends(seriesData);
     // avoid to cut off the chart on page load
     chartRef.current?.getEchartsInstance()?.resize();
-  }, [doughnutSeriesData]);
+  }, [seriesData]);
   const isTable = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
   const isDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1024', 'desktop_1280'));
-  const isDesktop1280 = useMediaQuery((theme: Theme) => theme.breakpoints.between('desktop_1280', 'desktop_1440'));
-  const isDesktop1440 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1440'));
-
-  const { center, radius } = calculateValuesByBreakpoint(isTable, isDesktop1024, isDesktop1280, isDesktop1440);
 
   useEffect(() => {
     // Resize chart on window resize to avoid UI flickering
@@ -84,7 +76,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
     }
   }, [selectedMetric]);
 
-  const doughnutSeriesChunks = chunkArray(sortDoughnutSeriesByValue(doughnutSeriesData), numberSliderPerLevel);
+  const doughnutSeriesChunks = chunkArray(sortDoughnutSeriesByValue(seriesData), numberSliderPerLevel);
   const numberSlider = doughnutSeriesChunks.size;
   const options = useMemo(
     () => ({
@@ -107,10 +99,10 @@ const DoughnutChartFinances: React.FC<Props> = ({
           const itemRender = visibleSeries[index];
           const selectedMetricKey = getCorrectMetricValuesOverViewChart(selectedMetric) as keyof BudgetMetric;
           const customTooltip = `
-        <div style="background-color:${
-          isLight ? '#fff' : '#000A13'
-        };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
-          <div style="margin-bottom:4px;color:${isLight ? '#000' : '#EDEFFF'};">${
+          <div style="background-color:${
+            isLight ? '#fff' : '#000A13'
+          };padding:16px;min-width:194px;overflow:auto;border-radius:3px;">
+            <div style="margin-bottom:4px;color:${isLight ? '#000' : '#EDEFFF'};">${
             itemRender.percent === 0
               ? 0
               : itemRender.percent < 0.1
@@ -119,29 +111,29 @@ const DoughnutChartFinances: React.FC<Props> = ({
               ? usLocalizedNumber(itemRender.percent, 2)
               : usLocalizedNumber(itemRender.percent, 1)
           }%</div>
-          <div style="margin-bottom:16px;color:${
-            isLight ? '#000' : '#EDEFFF'
-          };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">${itemRender.name}</div>
-          <div style="display:flex;flex-direction:row;gap:20px">
-              <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${usLocalizedNumber(
+            <div style="margin-bottom:16px;color:${
+              isLight ? '#000' : '#EDEFFF'
+            };max-width: 300px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">${itemRender.name}</div>
+            <div style="display:flex;flex-direction:row;gap:20px">
+                <div style="display:flex;flex-direction:column">
+                  <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${usLocalizedNumber(
             itemRender.metrics[selectedMetricKey === 'budget' ? 'paymentsOnChain' : selectedMetricKey].value,
             2
           )}</div>
-                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">${
+                  <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">${
             selectedMetric === 'Budget' ? 'Net Expenses On-Chain' : tooltipSelectedMetricLabel
           }</div>
-             </div>
-              <div style="display:flex;flex-direction:column">
-                <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${usLocalizedNumber(
+               </div>
+                <div style="display:flex;flex-direction:column">
+                  <div style="margin-bottom:4;color:${isLight ? '#000' : '#EDEFFF'};">${usLocalizedNumber(
             itemRender.metrics.budget.value,
             2
           )}</div>
-                <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Budget Cap</div>
-             </div>
+                  <div style="font-weight:bold;color:${isLight ? '#231536' : '#9FAFB9'};">Budget Cap</div>
+               </div>
+            </div>
           </div>
-        </div>
-        `;
+          `;
 
           return customTooltip;
         },
@@ -151,8 +143,8 @@ const DoughnutChartFinances: React.FC<Props> = ({
         {
           name: 'Overview Card',
           type: 'pie',
-          radius,
-          center,
+          radius: isTable || isDesktop1024 ? [32, 64] : [37, 73],
+          center: ['50%', '50%'],
           label: {
             normal: {
               show: false,
@@ -171,7 +163,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
         },
       ],
     }),
-    [center, isLight, radius, selectedMetric, tooltipSelectedMetricLabel, visibleSeries]
+    [isDesktop1024, isLight, isTable, selectedMetric, tooltipSelectedMetricLabel, visibleSeries]
   );
 
   const toggleSeriesVisibility = (seriesName: string) => {
@@ -286,7 +278,7 @@ const DoughnutChartFinances: React.FC<Props> = ({
   }
 
   return (
-    <Container className={className} isCoreThirdLevel={isCoreThirdLevel}>
+    <Container isCoreThirdLevel={isCoreThirdLevel}>
       <ContainerChart>
         <ReactECharts
           ref={chartRef}
@@ -334,25 +326,24 @@ const DoughnutChartFinances: React.FC<Props> = ({
           </Swiper>
         </SwiperWrapper>
       ) : (
-        <ContainerLegendNotSwiper isCoreThirdLevel={isCoreThirdLevel}>
-          {
-            <CardLegend
-              changeAlignment={changeAlignment}
-              doughnutSeriesData={doughnutSeriesData}
-              toggleSeriesVisibility={toggleSeriesVisibility}
-              onLegendItemHover={onLegendItemHover}
-              onLegendItemLeave={onLegendItemLeave}
-              isCoreThirdLevel={isCoreThirdLevel}
-            />
-          }
+        <ContainerLegendNotSwiper>
+          <CardLegend
+            changeAlignment={changeAlignment}
+            doughnutSeriesData={seriesData}
+            toggleSeriesVisibility={toggleSeriesVisibility}
+            onLegendItemHover={onLegendItemHover}
+            onLegendItemLeave={onLegendItemLeave}
+            isCoreThirdLevel={isCoreThirdLevel}
+          />
         </ContainerLegendNotSwiper>
       )}
     </Container>
   );
 };
-export default DoughnutChartFinances;
 
-const Container = styled(Card)<{ isCoreThirdLevel: boolean }>(({ theme, isCoreThirdLevel }) => ({
+export default DesktopChart;
+
+const Container = styled('div')<{ isCoreThirdLevel: boolean }>(({ theme, isCoreThirdLevel }) => ({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
@@ -382,14 +373,9 @@ const ContainerChart = styled('div')(({ theme }) => ({
     minWidth: 138,
   },
 
-  [theme.breakpoints.up('desktop_1024')]: {
-    width: 138,
-    minWidth: 138,
-  },
-
   [theme.breakpoints.up('desktop_1280')]: {
-    width: 210,
-    minWidth: 210,
+    width: 158,
+    minWidth: 158,
   },
 }));
 
@@ -410,19 +396,14 @@ const ContainerLegend = styled('div')<{ isCoreThirdLevel: boolean; changeAlignme
   })
 );
 
-const ContainerLegendNotSwiper = styled('div')<{ isCoreThirdLevel: boolean }>(({ theme, isCoreThirdLevel }) => ({
+const ContainerLegendNotSwiper = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'wrap',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: isCoreThirdLevel ? 16 : 14,
   maxWidth: '100%',
   position: 'relative',
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    gap: 16,
-  },
 }));
 
 const SwiperWrapper = styled('div')<{ isCoreThirdLevel: boolean; numberSliderPerLevel: number }>(
@@ -430,17 +411,14 @@ const SwiperWrapper = styled('div')<{ isCoreThirdLevel: boolean; numberSliderPer
     display: 'none',
 
     [theme.breakpoints.up('tablet_768')]: {
-      marginTop: isCoreThirdLevel ? 10 : 16,
       display: 'flex',
       position: 'relative',
       width: 200,
-      height: numberSliderPerLevel === 5 ? 'calc(100% + 8px)' : 'calc(100% - 4px)',
     },
 
     [theme.breakpoints.up('desktop_1024')]: {
-      marginTop: isCoreThirdLevel ? 10 : 16,
+      marginTop: isCoreThirdLevel ? 0 : 16,
       display: 'flex',
-      height: isCoreThirdLevel ? 'calc(100% + 8px)' : 'calc(100% - 16px)',
       width: 250,
       minWidth: 250,
     },
@@ -449,7 +427,6 @@ const SwiperWrapper = styled('div')<{ isCoreThirdLevel: boolean; numberSliderPer
       marginTop: !isCoreThirdLevel ? 10 : 10,
       display: 'flex',
       position: 'relative',
-      height: 'calc(100% - 8px)',
       ...(numberSliderPerLevel === 10 && {
         minWidth: 365,
         height: 'calc(100% - 10px)',
@@ -460,7 +437,6 @@ const SwiperWrapper = styled('div')<{ isCoreThirdLevel: boolean; numberSliderPer
       marginTop: !isCoreThirdLevel ? 10 : 10,
       display: 'flex',
       position: 'relative',
-      height: 'calc(100% - 8px)',
       ...(numberSliderPerLevel === 10 && {
         minWidth: 440,
         height: 'calc(100% - 10px)',
@@ -473,18 +449,25 @@ const SwiperWrapper = styled('div')<{ isCoreThirdLevel: boolean; numberSliderPer
       justifyContent: 'center',
     },
     '& .swiper-pagination-bullet': {
+      backgroundColor: `${
+        theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[700]
+      } !important`,
+      opacity: 1,
       width: 8,
       height: 8,
-      borderRadius: 1,
+      borderRadius: '50%',
+
       '&:first-child': {
-        borderRadius: '6px 1px 1px 6px',
+        borderRadius: '6px 0 0 6px',
       },
       '&:last-child': {
-        borderRadius: '1px 6px 6px 1px',
+        borderRadius: '0 6px 6px 0',
       },
     },
     '& .swiper-pagination-bullet-active': {
-      backgroundColor: '#2DC1B1 !important',
+      backgroundColor: `${
+        theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[50]
+      } !important`,
     },
   })
 );
