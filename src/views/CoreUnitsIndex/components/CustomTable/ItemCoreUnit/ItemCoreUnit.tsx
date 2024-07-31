@@ -109,7 +109,7 @@ const TableRow = styled(Card)<{ columns: CustomTableColumn[] }>(({ theme }) => (
   marginTop: '16px',
   boxShadow: theme.palette.isLight ? theme.fusionShadows.shortShadow : theme.fusionShadows.darkMode,
   ':hover': {
-    background: theme.palette.isLight ? 'white' : '#10191F',
+    background: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
   },
   [theme.breakpoints.up('desktop_1280')]: {
     padding: '16px 16px 8px 16px',
