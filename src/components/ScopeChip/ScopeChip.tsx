@@ -26,7 +26,7 @@ const ScopeChip: React.FC<Props> = ({ scope, className, size = 'large' }) => {
 };
 
 export default ScopeChip;
-const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; codeOnly?: boolean; type: ScopeSizeVariant }>(
+const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; type: ScopeSizeVariant }>(
   ({ theme, scope, colors, type }) => ({
     fontFamily: 'Inter, sans-serif',
     display: 'flex',
@@ -54,7 +54,7 @@ const Code = styled('div')<{
   isUppercase?: boolean;
   colors: ScopeColors;
   scope: TeamScopeEnum;
-  codeOnly?: boolean;
+
   className?: string;
   type: ScopeSizeVariant;
 }>(({ scope, theme, colors, type }) => ({
