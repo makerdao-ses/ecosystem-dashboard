@@ -429,7 +429,6 @@ export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => 
     filteredScopes,
     scopeCount,
     searchText,
-    // debounce,
     filter,
     canReset,
     onReset,
