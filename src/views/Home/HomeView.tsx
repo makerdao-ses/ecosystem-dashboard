@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-
 import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
@@ -7,12 +6,11 @@ import PageContainer from '@/components/Container/PageContainer';
 import ContributorsSection from './components/Contributors/ContributorsSection';
 import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarChartCard';
 import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLineChartCard';
+import GovernanceSection from './components/GovernanceSection/GovernanceSection';
 import HeaderCard from './components/HeaderCard/HeaderCard';
 import Roadmap from './components/Roadmap/Roadmap';
-
 import { headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
-
 import type { FC } from 'react';
 
 const HomeView: FC = () => {
@@ -40,7 +38,7 @@ const HomeView: FC = () => {
           </Finances>
         </Section>
         <Section id={headerCardData.buttonTexts[1].toLowerCase()}>
-          <SectionTitle>{sectionsData.titles[1]}</SectionTitle>
+          <GovernanceSection />
         </Section>
         <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[2]}</SectionTitle>
@@ -65,7 +63,6 @@ const HomeViewContainer = styled(PageContainer)(() => ({
 
 const Section = styled('section')(({ theme }) => ({
   width: '100%',
-  minHeight: 800,
   display: 'flex',
   flexDirection: 'column',
   marginTop: 24,
@@ -81,7 +78,7 @@ const Section = styled('section')(({ theme }) => ({
   },
 }));
 
-const SectionTitle = styled('h2')(({ theme }) => ({
+export const SectionTitle = styled('h2')(({ theme }) => ({
   margin: 0,
   fontWeight: 700,
   fontSize: 24,
