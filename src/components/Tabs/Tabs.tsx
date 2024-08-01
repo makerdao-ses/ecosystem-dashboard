@@ -65,6 +65,7 @@ export interface TabsProps {
   className?: string;
   // When compress the icon its the only select there is not more values
   showBorderBottomIconTab?: boolean;
+  isDisablePopover?: boolean;
 }
 
 const Tabs: React.FC<TabsProps> = ({
@@ -89,6 +90,7 @@ const Tabs: React.FC<TabsProps> = ({
   controlled = false,
   selectedTabId,
   className,
+  isDisablePopover = false,
 }) => {
   const router = useRouter();
   const query = router.query;
@@ -259,13 +261,19 @@ const Tabs: React.FC<TabsProps> = ({
             onClick={handleExpand}
           >
             {expanded ? (
-              <TabPopover id={'expanded-view-popover'} title={expandToolTip?.compressed}>
+              !isDisablePopover ? (
+                <TabPopover id="expanded-view-popover" title={expandToolTip?.compressed}>
+                  <ArrowExpand width={24} height={24} key="expanded-view-popover" />
+                </TabPopover>
+              ) : (
                 <ArrowExpand width={24} height={24} key="expanded-view-popover" />
-              </TabPopover>
-            ) : (
-              <TabPopover id={'compressed-view-popover'} title={expandToolTip?.default}>
+              )
+            ) : !isDisablePopover ? (
+              <TabPopover id="compressed-view-popover" title={expandToolTip?.default}>
                 <ArrowCollapseStyled width={24} height={24} key="compressed-view-popover" />
               </TabPopover>
+            ) : (
+              <ArrowCollapseStyled width={24} height={24} key="compressed-view-popover" />
             )}
           </StyledTabIcon>
         )}

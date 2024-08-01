@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import useTransparencyReporting from '@ses/core/hooks/useTransparencyReporting';
 import useTransparencyReportingTabs from '@ses/core/hooks/useTransparencyReportingTabs';
@@ -5,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { TRANSPARENCY_IDS_ENUM } from '../CoreUnitBudgetStatement/useCoreUnitBudgetStatementView';
 import { useBreadcrumbTeamPager } from '../EcosystemActorAbout/hooks';
+import type { Theme } from '@mui/material';
 import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { DateTime } from 'luxon';
@@ -17,6 +19,8 @@ const useEcosystemActorBudgetStatementView = (
   const router = useRouter();
   const query = router.query;
   const [isEnabled] = useFlagsActive();
+
+  const isDisablePopoverForMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const initTabIndex = useCallback(() => {
     // initialize quickly the correct tab to avoid tab flickering
@@ -121,6 +125,7 @@ const useEcosystemActorBudgetStatementView = (
     comments,
     setSnapshotCreated,
     pager,
+    isDisablePopoverForMobile,
   };
 };
 

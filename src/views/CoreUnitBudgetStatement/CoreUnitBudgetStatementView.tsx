@@ -69,6 +69,7 @@ const CoreUnitBudgetStatementView = ({
     compressedTabItems,
     setSnapshotCreated,
     pager,
+    isDisablePopoverForMobile,
   } = useCoreUnitBudgetStatementView(coreUnit, coreUnits, snapshotLimitPeriods);
 
   const headline = <CuHeadlineText cuLongCode={longCode} shortCode={coreUnit.shortCode} />;
@@ -134,6 +135,7 @@ const CoreUnitBudgetStatementView = ({
 
           <TabsContainer>
             <TabsStyled
+              isDisablePopover={isDisablePopoverForMobile}
               tabs={tabItems}
               expandable
               compressedTabs={compressedTabItems}

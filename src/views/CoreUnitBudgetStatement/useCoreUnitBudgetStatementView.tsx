@@ -1,9 +1,11 @@
+import { useMediaQuery } from '@mui/material';
 import { useFlagsActive } from '@ses/core/hooks/useFlagsActive';
 import useTransparencyReporting from '@ses/core/hooks/useTransparencyReporting';
 import useTransparencyReportingTabs from '@ses/core/hooks/useTransparencyReportingTabs';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useBreadcrumbCoreUnitPager } from '../CoreUnitAbout/hooks';
+import type { Theme } from '@mui/material';
 import type { SnapshotLimitPeriods } from '@ses/core/hooks/useBudgetStatementPager';
 import type { CoreUnit } from '@ses/core/models/interfaces/coreUnit';
 import type { DateTime } from 'luxon';
@@ -27,6 +29,8 @@ export const useCoreUnitBudgetStatementView = (
   const router = useRouter();
   const query = router.query;
   const [isEnabled] = useFlagsActive();
+
+  const isDisablePopoverForMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const initTabIndex = useCallback(() => {
     // initialize quickly the correct tab to avoid tab flickering
@@ -133,5 +137,6 @@ export const useCoreUnitBudgetStatementView = (
     longCode: coreUnit.code,
     setSnapshotCreated,
     pager,
+    isDisablePopoverForMobile,
   };
 };
