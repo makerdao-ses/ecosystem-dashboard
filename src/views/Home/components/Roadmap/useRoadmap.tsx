@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 
-import type { RoadmapInformation } from '@/views/Home/utils/types';
+import type { Roadmap } from '@/core/models/interfaces/roadmaps';
 import type { SwiperRef } from 'swiper/react';
 
-const useRoadmap = (roadmapsData: RoadmapInformation[]) => {
+const useRoadmap = (roadmapsData: Roadmap[]) => {
   const tabs = roadmapsData.map((roadmap) => ({
     id: roadmap.id,
     title: roadmap.title,

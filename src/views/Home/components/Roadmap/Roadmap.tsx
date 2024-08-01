@@ -108,6 +108,10 @@ const SwiperContainer = styled('div')(({ theme }) => ({
   position: 'relative',
   margin: '0px -8px',
 
+  '& .swiper-slide': {
+    marginBottom: 8,
+  },
+
   '& .swiper-pagination-horizontal': {
     position: 'relative',
     marginTop: 24,

@@ -2,13 +2,13 @@ import { styled } from '@mui/material';
 
 import Card from '@/components/Card/Card';
 
-import type { MilestoneInformation } from '@/views/Home/utils/types';
+import type { Milestone } from '@/core/models/interfaces/roadmaps';
 
 import useMilestoneCard from './useMilestoneCard';
 
 import type { FC } from 'react';
 
-const MilestoneCard: FC<MilestoneInformation> = ({ title }) => {
+const MilestoneCard: FC<Milestone> = ({ title }) => {
   useMilestoneCard();
 
   return <Container>{title}</Container>;
