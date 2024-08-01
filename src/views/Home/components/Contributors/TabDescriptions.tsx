@@ -1,12 +1,12 @@
 import { styled } from '@mui/material';
 import React from 'react';
 
+import type { TeamType } from '@/views/Contributors/components/TeamsSections/TeamsSections';
 import ContributorDescription from './ContributorsDescription';
-import type { ContributorsInformation } from '../../utils/types';
 import type { FC } from 'react';
 
 interface Props {
-  contributorsDescription: ContributorsInformation[];
+  contributorsDescription: TeamType[];
   isLegacy: boolean;
 }
 
