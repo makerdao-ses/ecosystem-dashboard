@@ -17,6 +17,7 @@ const MilestoneCard: FC<Milestone> = ({ title }) => {
 export default MilestoneCard;
 
 const Container = styled(Card)(() => ({
+  width: '100%',
   height: 400,
   padding: '0px 0px 8px 0px',
 }));

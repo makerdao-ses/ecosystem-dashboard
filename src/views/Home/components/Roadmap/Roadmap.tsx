@@ -1,4 +1,5 @@
-import { styled } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
+import { Fragment } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,6 +11,7 @@ import MilestoneCard from '@/views/Home/components/MilestoneCard/MilestoneCard';
 import { roadmapsData } from '@/views/Home/staticData';
 import useRoadmap from './useRoadmap';
 
+import type { Theme } from '@mui/material';
 import type { FC } from 'react';
 import type { SwiperProps } from 'swiper/react';
 
@@ -17,6 +19,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const Roadmap: FC = () => {
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+
   const { tabs, activeRoadmapRef, swiperRef, activeTab, handleActiveTab } = useRoadmap(roadmapsData);
   const activeRoadmap = activeRoadmapRef.current;
 
@@ -57,17 +61,28 @@ const Roadmap: FC = () => {
           <Description>{roadmapsData[activeRoadmap].description}</Description>
         </DescriptionContainer>
       </ShadowWrapper>
-      <SwiperContainer>
-        <Swiper ref={swiperRef} modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
+      {isMobile ? (
+        <MobileMilestoneCardsContainer>
           {roadmapsData[activeRoadmap].milestones.map((milestoneData, index) => (
-            <SwiperSlide key={`${milestoneData.title}-${index}`}>
-              <MilestoneCardContainer>
-                <MilestoneCard {...milestoneData} />
-              </MilestoneCardContainer>
-            </SwiperSlide>
+            <Fragment key={`${milestoneData.title}-${index}`}>
+              <MilestoneCard {...milestoneData} />
+              {index !== roadmapsData[activeRoadmap].milestones.length - 1 && <MobileMilestoneCardsDivider />}
+            </Fragment>
           ))}
-        </Swiper>
-      </SwiperContainer>
+        </MobileMilestoneCardsContainer>
+      ) : (
+        <SwiperContainer>
+          <Swiper ref={swiperRef} modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
+            {roadmapsData[activeRoadmap].milestones.map((milestoneData, index) => (
+              <SwiperSlide key={`${milestoneData.title}-${index}`}>
+                <MilestoneCardContainer>
+                  <MilestoneCard {...milestoneData} />
+                </MilestoneCardContainer>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </SwiperContainer>
+      )}
     </Container>
   );
 };
@@ -85,10 +100,27 @@ const Container = styled('div')(({ theme }) => ({
   },
 }));
 
+const MobileMilestoneCardsContainer = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+}));
+
+const MobileMilestoneCardsDivider = styled('div')(({ theme }) => ({
+  width: 5,
+  height: 24,
+  borderRadius: '0px 0px 0px 0px',
+  backgroundColor: theme.palette.colors.slate[100],
+}));
+
 const DescriptionContainer = styled('div')(({ theme }) => ({
-  padding: '8px 16px',
+  padding: '9px 16px',
   borderRadius: '0px 12px 0px 0px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '8px 16px',
+  },
 }));
 
 const Description = styled('h3')(({ theme }) => ({
@@ -131,6 +163,12 @@ const SwiperContainer = styled('div')(({ theme }) => ({
 
     '&:last-of-type': {
       borderRadius: '0px 20px 20px 0px',
+    },
+
+    '&:not(.swiper-pagination-bullet-active):hover': {
+      backgroundColor: theme.palette.isLight
+        ? `${theme.palette.colors.charcoal[100]} !important`
+        : `${theme.palette.colors.gray[800]} !important`,
     },
   },
 

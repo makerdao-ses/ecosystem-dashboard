@@ -16,7 +16,7 @@ const useRoadmap = (roadmapsData: Roadmap[]) => {
   const handleActiveTab = (tabId: string) => {
     activeRoadmapRef.current = roadmapsData.findIndex((roadmap) => roadmap.id === tabId);
     setActiveTab(tabId);
-    if (swiperRef.current) {
+    if (swiperRef.current?.swiper) {
       swiperRef.current.swiper.slideTo(0);
     }
   };
