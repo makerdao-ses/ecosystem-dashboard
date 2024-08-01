@@ -9,7 +9,7 @@ import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLi
 import GovernanceSection from './components/GovernanceSection/GovernanceSection';
 import HeaderCard from './components/HeaderCard/HeaderCard';
 import Roadmap from './components/Roadmap/Roadmap';
-import { contributor, headerCardData, sectionsData } from './staticData';
+import { headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
 import type { FC } from 'react';
 
@@ -43,7 +43,7 @@ const HomeView: FC = () => {
         <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[2]}</SectionTitle>
           <ContainerMargin>
-            <ContributorsSection contributor={contributor} />
+            <ContributorsSection />
           </ContainerMargin>
         </Section>
         <Section id={headerCardData.buttonTexts[3].toLowerCase()}>

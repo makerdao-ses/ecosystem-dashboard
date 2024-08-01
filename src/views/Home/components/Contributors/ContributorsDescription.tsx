@@ -7,17 +7,18 @@ import type { FC } from 'react';
 
 interface Props {
   contributor: ContributorsInformation;
+  isLegacy: boolean;
 }
 
-const ContributorDescription: FC<Props> = ({ contributor }) => (
+const ContributorDescription: FC<Props> = ({ contributor, isLegacy }) => (
   <Container href={contributor.href}>
-    <ContainerTitle>
+    <ContainerTitle isLegacy={isLegacy}>
       {contributor.title} ({contributor.contributors})
       <LinkArrow>
         <Arrow />
       </LinkArrow>
     </ContainerTitle>
-    <Description>{contributor.description}</Description>
+    <Description isLegacy={isLegacy}>{contributor.description}</Description>
   </Container>
 );
 
@@ -29,13 +30,19 @@ const Container = styled(Link)({
   gap: 4,
 });
 
-const ContainerTitle = styled('div')(({ theme }) => ({
+const ContainerTitle = styled('div')<{ isLegacy: boolean }>(({ theme, isLegacy }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   fontSize: 14,
   fontWeight: 600,
-  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[100],
+  color: isLegacy
+    ? theme.palette.isLight
+      ? theme.palette.colors.gray[600]
+      : theme.palette.colors.slate[50]
+    : theme.palette.isLight
+    ? theme.palette.colors.gray[600]
+    : theme.palette.colors.slate[100],
   lineHeight: '24px',
 }));
 
@@ -48,10 +55,16 @@ const LinkArrow = styled('div')(({ theme }) => ({
   },
 }));
 
-const Description = styled('div')(({ theme }) => ({
+const Description = styled('div')<{ isLegacy: boolean }>(({ theme, isLegacy }) => ({
   display: 'flex',
   fontSize: 12,
   fontWeight: 500,
-  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[600],
+  color: isLegacy
+    ? theme.palette.isLight
+      ? theme.palette.colors.gray[500]
+      : theme.palette.colors.gray[500]
+    : theme.palette.isLight
+    ? theme.palette.colors.gray[500]
+    : theme.palette.colors.gray[600],
   lineHeight: '18px',
 }));

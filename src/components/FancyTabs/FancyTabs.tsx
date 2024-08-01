@@ -31,7 +31,7 @@ const Wrapper = styled('div')({
   overflowX: 'scroll',
   msOverflowStyle: 'none',
   scrollbarWidth: 'none',
-
+  whiteSpace: 'nowrap',
   '&::-webkit-scrollbar': {
     display: 'none',
   },
