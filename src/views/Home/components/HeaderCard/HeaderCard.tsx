@@ -42,7 +42,7 @@ const HeaderCard: FC = () => {
       </ToggleButton>
       {isExpanded && <Title>{headerCardData.title}</Title>}
       {isExpanded && <Description>{headerCardData.description}</Description>}
-      {isMobile ? (
+      {isExpanded !== undefined && isMobile && (
         <ClickAwayListener
           onClickAway={() => {
             handleIsMobileMenuExpanded(false);
@@ -106,7 +106,8 @@ const HeaderCard: FC = () => {
             )}
           </MobileMenu>
         </ClickAwayListener>
-      ) : (
+      )}
+      {isExpanded !== undefined && !isMobile && (
         <Buttons isExpanded={isExpanded}>
           <HeaderButton index={0} endIcon={<BarChartLineIcon />} disableRipple>
             {headerCardData.buttonTexts[0]}

@@ -1,7 +1,7 @@
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import type { Team } from '@/core/models/interfaces/team';
 import { ResourceType, TeamStatus } from '@/core/models/interfaces/types';
-import type { ContributorsInformation } from './utils/types';
+import type { ContributorsInformation, RoadmapInformation } from './utils/types';
 
 export const headerCardData = {
   title: 'MakerDAO Dashboard',
@@ -138,32 +138,49 @@ export const contributor: Team = {
   budgetStatements: [],
   cuMip: null,
 };
-export const roadmapData = {
-  title: 'MakerDAO roadmap.',
-  tabs: [
-    {
-      id: '1',
-      title: 'Phase 1',
-    },
-    {
-      id: '2',
-      title: 'Phase 2',
-    },
-    {
-      id: '3',
-      title: 'Phase 3',
-    },
-  ],
-  cards: [
-    { name: 'Card 1' },
-    { name: 'Card 2' },
-    { name: 'Card 3' },
-    { name: 'Card 4' },
-    { name: 'Card 5' },
-    { name: 'Card 6' },
-    { name: 'Card 7' },
-    { name: 'Card 8' },
-    { name: 'Card 9' },
-    { name: 'Card 10' },
-  ],
-};
+
+export const roadmapsData: RoadmapInformation[] = [
+  {
+    id: 'r1',
+    title: 'Phase 1',
+    description: 'Phase 1 MakerDAO roadmap.',
+    milestones: [
+      { title: 'Phase 1 - Milestone 1' },
+      { title: 'Phase 1 - Milestone 2' },
+      { title: 'Phase 1 - Milestone 3' },
+      { title: 'Phase 1 - Milestone 4' },
+      { title: 'Phase 1 - Milestone 5' },
+      { title: 'Phase 1 - Milestone 6' },
+      { title: 'Phase 1 - Milestone 7' },
+      { title: 'Phase 1 - Milestone 8' },
+      { title: 'Phase 1 - Milestone 9' },
+      { title: 'Phase 1 - Milestone 10' },
+    ],
+  },
+  {
+    id: 'r2',
+    title: 'Phase 2',
+    description: 'Phase 2 MakerDAO roadmap.',
+    milestones: [
+      { title: 'Phase 2 - Milestone 1' },
+      { title: 'Phase 2 - Milestone 2' },
+      { title: 'Phase 2 - Milestone 3' },
+      { title: 'Phase 2 - Milestone 4' },
+      { title: 'Phase 2 - Milestone 5' },
+      { title: 'Phase 2 - Milestone 6' },
+      { title: 'Phase 2 - Milestone 7' },
+    ],
+  },
+  {
+    id: 'r3',
+    title: 'Phase 3',
+    description: 'Phase 3 MakerDAO roadmap.',
+    milestones: [
+      { title: 'Phase 3 - Milestone 1' },
+      { title: 'Phase 3 - Milestone 2' },
+      { title: 'Phase 3 - Milestone 3' },
+      { title: 'Phase 3 - Milestone 4' },
+      { title: 'Phase 3 - Milestone 5' },
+    ],
+  },
+];

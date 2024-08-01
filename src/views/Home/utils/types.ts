@@ -4,3 +4,14 @@ export interface ContributorsInformation {
   contributors: number;
   description: string;
 }
+
+export interface MilestoneInformation {
+  title: string;
+}
+
+export interface RoadmapInformation {
+  id: string;
+  title: string;
+  description: string;
+  milestones: MilestoneInformation[];
+}

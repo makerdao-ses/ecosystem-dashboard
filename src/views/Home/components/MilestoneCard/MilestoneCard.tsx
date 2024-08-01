@@ -2,14 +2,16 @@ import { styled } from '@mui/material';
 
 import Card from '@/components/Card/Card';
 
+import type { MilestoneInformation } from '@/views/Home/utils/types';
+
 import useMilestoneCard from './useMilestoneCard';
 
 import type { FC } from 'react';
 
-const MilestoneCard: FC = () => {
+const MilestoneCard: FC<MilestoneInformation> = ({ title }) => {
   useMilestoneCard();
 
-  return <Container> </Container>;
+  return <Container>{title}</Container>;
 };
 
 export default MilestoneCard;

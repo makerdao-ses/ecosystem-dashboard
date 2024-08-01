@@ -7,7 +7,7 @@ import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
 
 import MilestoneCard from '@/views/Home/components/MilestoneCard/MilestoneCard';
 
-import { roadmapData } from '@/views/Home/staticData';
+import { roadmapsData } from '@/views/Home/staticData';
 import useRoadmap from './useRoadmap';
 
 import type { FC } from 'react';
@@ -17,7 +17,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const Roadmap: FC = () => {
-  const { activeTab, handleActiveTab } = useRoadmap();
+  const { tabs, activeRoadmapRef, swiperRef, activeTab, handleActiveTab } = useRoadmap(roadmapsData);
+  const activeRoadmap = activeRoadmapRef.current;
 
   const swiperOptions: SwiperProps = {
     pagination: {
@@ -46,22 +47,22 @@ const Roadmap: FC = () => {
     <Container>
       <ShadowWrapper>
         <FancyTabs
-          tabs={roadmapData.tabs}
+          tabs={tabs}
           activeTab={activeTab}
           onTabChange={(tab: string) => {
             handleActiveTab(tab);
           }}
         />
-        <TitleContainer>
-          <Title>{roadmapData.tabs.find((tab) => tab.id === activeTab)?.title + ` ${roadmapData.title}`}</Title>
-        </TitleContainer>
+        <DescriptionContainer>
+          <Description>{roadmapsData[activeRoadmap].description}</Description>
+        </DescriptionContainer>
       </ShadowWrapper>
       <SwiperContainer>
-        <Swiper modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
-          {roadmapData.cards.map((card, index) => (
-            <SwiperSlide key={`${card.name}-${index}`}>
+        <Swiper ref={swiperRef} modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
+          {roadmapsData[activeRoadmap].milestones.map((milestoneData, index) => (
+            <SwiperSlide key={`${milestoneData.title}-${index}`}>
               <MilestoneCardContainer>
-                <MilestoneCard />
+                <MilestoneCard {...milestoneData} />
               </MilestoneCardContainer>
             </SwiperSlide>
           ))}
@@ -84,13 +85,13 @@ const Container = styled('div')(({ theme }) => ({
   },
 }));
 
-const TitleContainer = styled('div')(({ theme }) => ({
+const DescriptionContainer = styled('div')(({ theme }) => ({
   padding: '8px 16px',
   borderRadius: '0px 12px 0px 0px',
   backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
 }));
 
-const Title = styled('h3')(({ theme }) => ({
+const Description = styled('h3')(({ theme }) => ({
   margin: 0,
   fontWeight: 600,
   fontSize: 14,
