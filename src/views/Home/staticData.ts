@@ -1,7 +1,6 @@
 import { TeamScopeEnum } from '@/core/enums/actorScopeEnum';
 import type { Team } from '@/core/models/interfaces/team';
 import { ResourceType, TeamStatus } from '@/core/models/interfaces/types';
-import type { ContributorsInformation } from './utils/types';
 
 export const headerCardData = {
   title: 'MakerDAO Dashboard',
@@ -41,43 +40,18 @@ export const financesLineChartCardData = {
   tabButtonsTexts: ['Realized Expenses', 'Operational Reserves', 'Forecast'],
 };
 
-// Remove when api connected
-export const mockDataDescription: ContributorsInformation[] = [
-  {
-    title: 'Ecosystem Actors',
-    contributors: 21,
-    description:
-      'Ecosystem Actors are contributor teams that perform essential tasks to benefit the MakerDAO ecosystem. They are divided into two categories: Advisory Council Members and Active Ecosystem Actors. Here, we are referring to the Active Ecosystem Actors who carry out specific projects such as feature development, data collection, marketing, legal work, and other operational activities that benefit the Maker Ecosystem, following the specifications of Scope Alignment Artifacts',
-    href: '#',
-  },
-  {
-    title: 'Aligned Delegates ',
-    contributors: 23,
-    description:
-      "Aligned Delegates (ADs) are anonymous Alignment Conserve who use the Protocol Delegation System to enable MKR holders to delegate their voting power. ADs hold significant power and responsibility to maintain the Universal Alignment of the Maker Ecosystem. They must adhere to strict requirements and provide governance information and research material to AVCs, focusing on safeguarding the protocol's alignment",
-    href: '#',
-  },
-  {
-    title: 'Keepers',
-    contributors: 4,
-    description:
-      "Keepers are a specialized type of contributor entity that manage and operate certain decentralized financial operations within the Maker Ecosystem. They are responsible for performing functions such as maintaining the stability of the Dai stablecoin by participating in liquidation auctions and other mechanisms that ensure the system's resilience and efficiency. Keepers play a vital role in the decentralized operations of MakerDAO, helping to maintain the economic health and stability of the ecosystem.",
-    href: '#',
-  },
-];
-
 // Remove when the data is ready
 export const contributor: Team = {
   id: '1',
-  code: 'SES-001',
-  shortCode: 'SES',
-  name: 'Sustainable Ecosystem Scaling',
+  code: 'PO-001',
+  shortCode: 'PO',
+  name: 'Powerhouse Inc.',
   status: TeamStatus.Accepted,
   scopes: [
     {
       id: '2',
       code: 'ACC',
-      name: TeamScopeEnum.ProtocolScope,
+      name: TeamScopeEnum.AccessibilityScope,
     },
   ],
   image: 'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
@@ -89,7 +63,7 @@ export const contributor: Team = {
     'The SES Core Unit supports a decentralized, effective, and scalable economy on top of the Maker Protocol that continues to push forward its growth in a sustainable manner...',
   paragraphImage: '',
   lastActivity: {
-    created_at: '2024-06-25T08:37:03.648Z',
+    created_at: '2024-05-12T08:37:03.648Z',
     description: 'CoreUnit SES has updated their expense report for May 2024',
     event: 'TEAM_BUDGET_STATEMENT_UPDATED',
     id: '2855',

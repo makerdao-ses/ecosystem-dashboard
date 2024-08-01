@@ -1,10 +1,13 @@
 import { useTheme } from '@mui/material';
+
 import { useState } from 'react';
 import BulletIcon from '@/components/FancyTabs/BulletIcon';
 
+import { currentTeams, legacyTeams } from '@/views/Contributors/staticData';
+
 export const useContributorsSection = () => {
   const theme = useTheme();
-  const hasDefaultColors = false;
+
   const [activeCategoryTab, setActiveCategoryTab] = useState('1');
   const [activeDetailTab, setActiveDetailTab] = useState('1');
   const handleActiveCategoryTab = (id: string) => {
@@ -49,6 +52,9 @@ export const useContributorsSection = () => {
       : 'Core Units Contributors';
 
   const isLegacy = activeCategoryTab === '2';
+  const teamCategoryDataMock = isLegacy ? legacyTeams : currentTeams;
+  const hasDefaultColors = activeDetailTab === '1';
+
   return {
     hasDefaultColors,
     teamCategoriesTabs,
@@ -59,5 +65,6 @@ export const useContributorsSection = () => {
     handleActiveCategoryTab,
     subTitle,
     isLegacy,
+    teamCategoryDataMock,
   };
 };
