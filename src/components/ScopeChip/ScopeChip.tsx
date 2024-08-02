@@ -37,8 +37,12 @@ const Chip = styled('div')<{ colors: ScopeColors; scope: TeamScopeEnum; type: Sc
     border: `1.5px solid ${theme.palette.isLight ? colors[scope]?.color : colors[scope]?.colorDark}`,
     background: theme.palette.isLight ? colors[scope]?.background : colors[scope]?.backgroundDark,
 
-    ...((type === 'small' || type === 'medium' || type === 'large') && {
-      padding: '1px 8px ',
+    ...(type === 'small' && {
+      padding: '0px 2px',
+    }),
+
+    ...((type === 'medium' || type === 'large') && {
+      padding: '0px 7px ',
     }),
     ...(type === 'extraLarge' && {
       padding: '5px 8px ',

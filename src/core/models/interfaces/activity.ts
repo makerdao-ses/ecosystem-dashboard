@@ -29,6 +29,7 @@ export interface ChangeTrackingParams {
 export interface ChangeTrackingEvent {
   id: string;
   created_at: string;
+  update_at?: string;
   event: string;
   params: ChangeTrackingParams;
   description: string;
