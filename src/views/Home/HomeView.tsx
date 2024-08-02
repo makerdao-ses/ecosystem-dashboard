@@ -5,20 +5,22 @@ import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import type { Team } from '@/core/models/interfaces/team';
 import ContributorsSection from './components/Contributors/ContributorsSection';
-import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarChartCard';
-import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLineChartCard';
+import FinancesSection from './components/FinancesSection/FinancesSection';
+import { SectionTitle } from './components/FinancesSectionTitle/FinancesSectionTitle';
 import GovernanceSection from './components/GovernanceSection/GovernanceSection';
 import HeaderCard from './components/HeaderCard/HeaderCard';
 import Roadmap from './components/Roadmap/Roadmap';
 import { headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
+import type { RevenueAndSpendingRecords } from './api/queries';
 import type { FC } from 'react';
 
-interface Props {
+export interface HomeViewProps {
+  revenueAndSpendingData: RevenueAndSpendingRecords;
   teams: Team[];
 }
 
-const HomeView: FC<Props> = ({ teams }) => {
+const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams }) => {
   useHomeView();
 
   return (
@@ -36,11 +38,7 @@ const HomeView: FC<Props> = ({ teams }) => {
       <Container>
         <HeaderCard />
         <Section id={headerCardData.buttonTexts[0].toLowerCase()}>
-          <SectionTitle>{sectionsData.titles[0]}</SectionTitle>
-          <Finances>
-            <FinancesBarChartCard />
-            <FinancesLineChartCard />
-          </Finances>
+          <FinancesSection revenueAndSpendingData={revenueAndSpendingData} />
         </Section>
         <Section id={headerCardData.buttonTexts[1].toLowerCase()}>
           <GovernanceSection />
@@ -80,31 +78,6 @@ const Section = styled('section')(({ theme }) => ({
 
   [theme.breakpoints.up('desktop_1280')]: {
     marginTop: 32,
-  },
-}));
-
-export const SectionTitle = styled('h2')(({ theme }) => ({
-  margin: 0,
-  fontWeight: 700,
-  fontSize: 24,
-  lineHeight: '28.8px',
-  color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.slate[300],
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    fontSize: 32,
-    lineHeight: '38.4px',
-  },
-}));
-
-const Finances = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 16,
-  marginTop: 24,
-
-  [theme.breakpoints.up('desktop_1280')]: {
-    flexDirection: 'row',
-    gap: 32,
   },
 }));
 

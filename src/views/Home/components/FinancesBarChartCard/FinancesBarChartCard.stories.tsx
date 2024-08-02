@@ -1,5 +1,4 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { financesBarChartCardData } from '@/views/Home/staticData';
 import FinancesBarChartCard from './FinancesBarChartCard';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
@@ -19,16 +18,39 @@ export default meta;
 
 const variantsArgs = [
   {
-    financesBarChartCard: {
-      title: financesBarChartCardData.title,
-      annualProfitLegendAsteriskText: financesBarChartCardData.annualProfitLegendAsteriskText,
-      annualProfitLegendTitle: financesBarChartCardData.annualProfitLegendTitle,
-      revenueLegendTitle: financesBarChartCardData.revenueLegendTitle,
-      revenueLegendButtonTexts: financesBarChartCardData.revenueLegendButtonTexts,
-      spendingLegendTitle: financesBarChartCardData.spendingLegendTitle,
-      spendingLegendButtonTexts: financesBarChartCardData.spendingLegendButtonTexts,
-      makerburnLinkText: financesBarChartCardData.makerburnLinkText,
-      detailsLinkText: financesBarChartCardData.detailsLinkText,
+    revenueAndSpendingData: {
+      2021: {
+        fees: 50000,
+        liquidationIncome: 120000,
+        psm: 30000,
+        daiSpent: 70000,
+        mkrVesting: 20000,
+        annualProfit: 100000,
+      },
+      2022: {
+        fees: 60000,
+        liquidationIncome: 140000,
+        psm: 35000,
+        daiSpent: 80000,
+        mkrVesting: 25000,
+        annualProfit: 115000,
+      },
+      2023: {
+        fees: 70000,
+        liquidationIncome: 160000,
+        psm: 40000,
+        daiSpent: 90000,
+        mkrVesting: 30000,
+        annualProfit: 130000,
+      },
+      2024: {
+        fees: 80000,
+        liquidationIncome: 180000,
+        psm: 45000,
+        daiSpent: 100000,
+        mkrVesting: 35000,
+        annualProfit: 145000,
+      },
     },
   },
 ];
