@@ -1,27 +1,70 @@
 import { styled, useMediaQuery, useTheme } from '@mui/material';
-
 import ReactECharts from 'echarts-for-react';
-
+import { useMemo } from 'react';
+import { replaceAllNumberLetOneBeforeDot } from '@/core/utils/string';
 import useFinancesBarChart from './useFinancesBarChart';
-
+import type { RevenueAndSpendingRecords } from '../../api/queries';
 import type { Theme } from '@mui/material';
 import type { EChartsOption } from 'echarts-for-react';
 import type { FC } from 'react';
 
-const FinancesBarChart: FC = () => {
+interface FinancesBarChartProps {
+  revenueAndSpendingData: RevenueAndSpendingRecords;
+}
+
+const FinancesBarChart: FC<FinancesBarChartProps> = ({ revenueAndSpendingData }) => {
   const { financesBarChartRef } = useFinancesBarChart();
   const theme = useTheme();
 
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
   const isTablet = useMediaQuery((theme: Theme) => theme.breakpoints.between('tablet_768', 'desktop_1024'));
 
+  const { chartSeries, makerLineData } = useMemo(() => {
+    const series: Record<string, number[]> = {
+      psm: [],
+      liquidationIncome: [],
+      fees: [],
+      mkrVesting: [],
+      daiSpent: [],
+    };
+
+    const makerLineData = [] as { coord: [number, number] }[][];
+
+    const years = Object.keys(revenueAndSpendingData)
+      // limit the years to 2021-2024 as there's no UI space for more years
+      .filter((year) => Number(year) >= 2021 && Number(year) <= 2024)
+      .sort((a, b) => Number(a) - Number(b));
+
+    years.forEach((year, index) => {
+      const record = revenueAndSpendingData[year];
+
+      series.psm.push(record.psm);
+      series.liquidationIncome.push(record.liquidationIncome);
+      series.fees.push(record.fees);
+      series.mkrVesting.push(record.mkrVesting);
+      series.daiSpent.push(record.daiSpent);
+
+      makerLineData.push([
+        { coord: [index, revenueAndSpendingData[year].annualProfit] },
+        { coord: [index + 1, revenueAndSpendingData[year].annualProfit] },
+      ]);
+    });
+
+    return {
+      chartSeries: series,
+      makerLineData,
+    };
+  }, [revenueAndSpendingData]);
+
+  const barWidth = isMobile ? 24 : isTablet ? 32 : 40;
+
   const series = [
     {
-      data: [15, 20, 24, 49],
+      data: chartSeries.psm,
       type: 'bar',
-      stack: 'a',
+      stack: 'revenue',
       name: 'psm',
-      barWidth: isMobile ? 24 : isTablet ? 32 : 40,
+      barWidth,
       itemStyle: {
         color: theme.palette.isLight ? theme.palette.colors.green[700] : theme.palette.colors.green[900],
         borderRadius: 0,
@@ -34,24 +77,22 @@ const FinancesBarChart: FC = () => {
       markLine: {
         silent: true,
         lineStyle: {
+          margin: [0 - 8, 0, -8],
           width: 2,
           color: theme.palette.colors.blue[900],
+          type: 'dashed',
           cap: 'round',
         },
         symbol: ['none', 'none'],
-        data: [
-          [{ coord: [0, 10] }, { coord: [1, 10] }],
-          [{ coord: [1, 20] }, { coord: [2, 20] }],
-          [{ coord: [2, 35] }, { coord: [3, 35] }],
-          [{ coord: [2, 60] }, { coord: [3, 60] }],
-        ],
+        data: makerLineData,
       },
     },
     {
-      data: [10, 10, 10, 30],
+      data: chartSeries.liquidationIncome,
       type: 'bar',
-      stack: 'a',
+      stack: 'revenue',
       name: 'liquidationIncome',
+      barWidth,
       itemStyle: {
         color: theme.palette.isLight ? theme.palette.colors.green[500] : theme.palette.colors.green[700],
         borderRadius: 0,
@@ -63,10 +104,11 @@ const FinancesBarChart: FC = () => {
       },
     },
     {
-      data: [12, 12, 14, 20],
+      data: chartSeries.fees,
       type: 'bar',
-      stack: 'a',
+      stack: 'revenue',
       name: 'fees',
+      barWidth,
       itemStyle: {
         color: theme.palette.isLight ? theme.palette.colors.green[300] : theme.palette.colors.green[500],
         borderRadius: [8, 8, 0, 0],
@@ -78,11 +120,11 @@ const FinancesBarChart: FC = () => {
       },
     },
     {
-      data: [13, 20, 22, 22],
+      data: chartSeries.mkrVesting,
       type: 'bar',
-      stack: 'b',
+      stack: 'spending',
       name: 'mkrVesting',
-      barWidth: isMobile ? 24 : isTablet ? 32 : 40,
+      barWidth,
       itemStyle: {
         color: theme.palette.isLight ? theme.palette.colors.red[700] : theme.palette.colors.red[900],
         borderRadius: 0,
@@ -94,10 +136,11 @@ const FinancesBarChart: FC = () => {
       },
     },
     {
-      data: [5, 7, 8, 8],
+      data: chartSeries.daiSpent,
       type: 'bar',
-      stack: 'b',
+      stack: 'spending',
       name: 'daiSpent',
+      barWidth,
       itemStyle: {
         color: theme.palette.isLight ? theme.palette.colors.red[500] : theme.palette.colors.red[700],
         borderRadius: [8, 8, 0, 0],
@@ -119,6 +162,7 @@ const FinancesBarChart: FC = () => {
     },
     xAxis: {
       data: ['2021', '2022', '2023', '2024'],
+      type: 'category',
       axisLine: {
         lineStyle: {
           color: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300],
@@ -144,6 +188,7 @@ const FinancesBarChart: FC = () => {
       },
     },
     yAxis: {
+      type: 'value',
       splitLine: {
         lineStyle: {
           color: theme.palette.isLight ? theme.palette.colors.gray[300] : theme.palette.colors.slate[300],
@@ -156,13 +201,19 @@ const FinancesBarChart: FC = () => {
         },
       },
       axisLabel: {
-        margin: 8,
+        // margin: 8,
         fontFamily: 'OpenSansCondensed, san-serif',
         fontWeight: 700,
         fontSize: isMobile ? 12 : 14,
-        lineHeight: isMobile ? 16 : 19,
+        // lineHeight: isMobile ? 16 : 19,
         color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[500],
-        formatter: (value: number) => `${value} M`,
+        formatter: function (value: number, index: number) {
+          if (value === 0 && index === 0) {
+            return value.toString();
+          }
+
+          return replaceAllNumberLetOneBeforeDot(value, true);
+        },
       },
     },
     series,
