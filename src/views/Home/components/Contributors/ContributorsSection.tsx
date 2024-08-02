@@ -1,13 +1,20 @@
 import { styled } from '@mui/material';
 import React from 'react';
+import SimpleBar from 'simplebar-react';
 import Card from '@/components/Card/Card';
 import FancyTabs from '@/components/FancyTabs/FancyTabs';
-import { mockDataDescription } from '../../staticData';
+import type { Team } from '@/core/models/interfaces/team';
+import ContributorsItem from './ContributorsItem';
 import TabDescriptions from './TabDescriptions';
 import { useContributorsSection } from './useContributorsSection';
+import type { FC } from 'react';
 
-const ContributorsSection = () => {
+interface Props {
+  contributor: Team;
+}
+const ContributorsSection: FC<Props> = ({ contributor }) => {
   const {
+    hasDefaultColors,
     activeCategoryTab,
     handleActiveCategoryTab,
     activeDetailTab,
@@ -16,11 +23,12 @@ const ContributorsSection = () => {
     teamDetailsTabs,
     subTitle,
     isLegacy,
+    teamCategoryDataMock,
   } = useContributorsSection();
   return (
     <Container>
       <TabsDescriptions>
-        <FancyTabs
+        <FancyStyled
           tabs={teamCategoriesTabs}
           activeTab={activeCategoryTab}
           onTabChange={(tab: string) => {
@@ -29,7 +37,7 @@ const ContributorsSection = () => {
         />
 
         <CardTabs isLegacy={isLegacy}>
-          <TabDescriptions contributorsDescription={mockDataDescription} isLegacy={isLegacy} />
+          <TabDescriptions contributorsDescription={teamCategoryDataMock} isLegacy={isLegacy} />
         </CardTabs>
       </TabsDescriptions>
       <ContainerTabs>
@@ -40,8 +48,16 @@ const ContributorsSection = () => {
             handleActiveDetailTab(tab);
           }}
         />
+
         <ContributorInformation>
           <Title>{subTitle}</Title>
+          <ContainerScroll>
+            <SimpleBarStyled>
+              <ContainerContributors>
+                <ContributorsItem contributors={contributor} hasDefaultColors={hasDefaultColors} />
+              </ContainerContributors>
+            </SimpleBarStyled>
+          </ContainerScroll>
         </ContributorInformation>
       </ContainerTabs>
     </Container>
@@ -72,7 +88,7 @@ const ContainerTabs = styled('div')(({ theme }) => ({
   flex: 1,
 
   [theme.breakpoints.up('tablet_768')]: {
-    minWidth: 401,
+    width: 401,
   },
   [theme.breakpoints.up('desktop_1024')]: {
     minWidth: 632,
@@ -93,29 +109,36 @@ const ContributorInformation = styled(Card)(() => ({
   overFlow: 'hidden',
 }));
 
-const CardTabs = styled(Card)<{ isLegacy: boolean }>(({ isLegacy }) => ({
+const CardTabs = styled(Card)<{ isLegacy: boolean }>(({ isLegacy, theme }) => ({
   borderTopLeftRadius: 0,
-  borderTopRightRadius: 0,
-
   padding: isLegacy ? '8px 8px' : '8px 16px',
+  [theme.breakpoints.down(375)]: {
+    borderTopRightRadius: 0,
+  },
+  [theme.breakpoints.between('mobile_375', 392)]: {
+    borderTopRightRadius: 0,
+  },
+  [theme.breakpoints.up('tablet_768')]: {
+    borderTopRightRadius: 0,
+  },
 }));
 
 const TabsDescriptions = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
+
   [theme.breakpoints.up('tablet_768')]: {
-    minWidth: 247,
+    width: 279,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
-    minWidth: 272,
+    width: 304,
   },
   [theme.breakpoints.up('desktop_1280')]: {
-    minWidth: 379,
+    width: 379,
   },
   [theme.breakpoints.up('desktop_1440')]: {
-    minWidth: 304,
+    width: 304,
   },
 }));
 
@@ -135,3 +158,49 @@ const Title = styled('div')(({ theme }) => ({
     lineHeight: '24px',
   },
 }));
+
+const ContainerContributors = styled('div')({
+  display: 'flex',
+  width: 'calc(100%-8px)', // Reduces the width of the container to make space for the scrollbar margin
+  flexDirection: 'column',
+  gap: 8,
+  padding: 8,
+  flex: 1,
+});
+
+const SimpleBarStyled = styled(SimpleBar)(({ theme }) => ({
+  height: '100%',
+  width: '100%',
+
+  '.simplebar-scrollbar::before': {
+    width: 4,
+    marginLeft: 4,
+    height: 128,
+    background: theme.palette.isLight ? theme.palette.colors.charcoal[500] : theme.palette.colors.charcoal[700],
+    borderRadius: 12,
+  },
+
+  [theme.breakpoints.up('tablet_768')]: {
+    height: 812,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
+    height: 760,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    height: 634,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    height: 760,
+  },
+}));
+
+const FancyStyled = styled(FancyTabs)({
+  '& button': {
+    padding: '4px 16px 4px 16px',
+  },
+});
+
+const ContainerScroll = styled('div')({
+  display: 'flex',
+  marginRight: 4,
+});
