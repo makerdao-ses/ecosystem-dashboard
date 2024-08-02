@@ -1,5 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { roadmapData } from '@/views/Home/staticData';
+import { roadmapsData } from '@/views/Home/staticData';
 import Roadmap from './Roadmap';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
@@ -19,9 +19,7 @@ export default meta;
 
 const variantsArgs = [
   {
-    roadmap: {
-      title: roadmapData.title,
-    },
+    roadmapsData: [...roadmapsData],
   },
 ];
 

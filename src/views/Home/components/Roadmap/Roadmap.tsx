@@ -1,4 +1,5 @@
-import { styled } from '@mui/material';
+import { styled, useMediaQuery } from '@mui/material';
+import { Fragment } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -7,9 +8,10 @@ import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
 
 import MilestoneCard from '@/views/Home/components/MilestoneCard/MilestoneCard';
 
-import { roadmapData } from '@/views/Home/staticData';
+import { roadmapsData } from '@/views/Home/staticData';
 import useRoadmap from './useRoadmap';
 
+import type { Theme } from '@mui/material';
 import type { FC } from 'react';
 import type { SwiperProps } from 'swiper/react';
 
@@ -17,7 +19,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const Roadmap: FC = () => {
-  const { activeTab, handleActiveTab } = useRoadmap();
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
+
+  const { tabs, activeRoadmapRef, swiperRef, activeTab, handleActiveTab } = useRoadmap(roadmapsData);
+  const activeRoadmap = activeRoadmapRef.current;
 
   const swiperOptions: SwiperProps = {
     pagination: {
@@ -46,27 +51,38 @@ const Roadmap: FC = () => {
     <Container>
       <ShadowWrapper>
         <FancyTabs
-          tabs={roadmapData.tabs}
+          tabs={tabs}
           activeTab={activeTab}
           onTabChange={(tab: string) => {
             handleActiveTab(tab);
           }}
         />
-        <TitleContainer>
-          <Title>{roadmapData.tabs.find((tab) => tab.id === activeTab)?.title + ` ${roadmapData.title}`}</Title>
-        </TitleContainer>
+        <DescriptionContainer>
+          <Description>{roadmapsData[activeRoadmap].description}</Description>
+        </DescriptionContainer>
       </ShadowWrapper>
-      <SwiperContainer>
-        <Swiper modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
-          {roadmapData.cards.map((card, index) => (
-            <SwiperSlide key={`${card.name}-${index}`}>
-              <MilestoneCardContainer>
-                <MilestoneCard />
-              </MilestoneCardContainer>
-            </SwiperSlide>
+      {isMobile ? (
+        <MobileMilestoneCardsContainer>
+          {roadmapsData[activeRoadmap].milestones.map((milestoneData, index) => (
+            <Fragment key={`${milestoneData.title}-${index}`}>
+              <MilestoneCard {...milestoneData} />
+              {index !== roadmapsData[activeRoadmap].milestones.length - 1 && <MobileMilestoneCardsDivider />}
+            </Fragment>
           ))}
-        </Swiper>
-      </SwiperContainer>
+        </MobileMilestoneCardsContainer>
+      ) : (
+        <SwiperContainer>
+          <Swiper ref={swiperRef} modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
+            {roadmapsData[activeRoadmap].milestones.map((milestoneData, index) => (
+              <SwiperSlide key={`${milestoneData.title}-${index}`}>
+                <MilestoneCardContainer>
+                  <MilestoneCard {...milestoneData} />
+                </MilestoneCardContainer>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </SwiperContainer>
+      )}
     </Container>
   );
 };
@@ -84,13 +100,30 @@ const Container = styled('div')(({ theme }) => ({
   },
 }));
 
-const TitleContainer = styled('div')(({ theme }) => ({
-  padding: '8px 16px',
-  borderRadius: '0px 12px 0px 0px',
-  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+const MobileMilestoneCardsContainer = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 }));
 
-const Title = styled('h3')(({ theme }) => ({
+const MobileMilestoneCardsDivider = styled('div')(({ theme }) => ({
+  width: 5,
+  height: 24,
+  borderRadius: '0px 0px 0px 0px',
+  backgroundColor: theme.palette.colors.slate[100],
+}));
+
+const DescriptionContainer = styled('div')(({ theme }) => ({
+  padding: '9px 16px',
+  borderRadius: '0px 12px 0px 0px',
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+
+  [theme.breakpoints.up('desktop_1024')]: {
+    padding: '8px 16px',
+  },
+}));
+
+const Description = styled('h3')(({ theme }) => ({
   margin: 0,
   fontWeight: 600,
   fontSize: 14,
@@ -106,6 +139,10 @@ const Title = styled('h3')(({ theme }) => ({
 const SwiperContainer = styled('div')(({ theme }) => ({
   position: 'relative',
   margin: '0px -8px',
+
+  '& .swiper-slide': {
+    marginBottom: 8,
+  },
 
   '& .swiper-pagination-horizontal': {
     position: 'relative',
@@ -126,6 +163,12 @@ const SwiperContainer = styled('div')(({ theme }) => ({
 
     '&:last-of-type': {
       borderRadius: '0px 20px 20px 0px',
+    },
+
+    '&:not(.swiper-pagination-bullet-active):hover': {
+      backgroundColor: theme.palette.isLight
+        ? `${theme.palette.colors.charcoal[100]} !important`
+        : `${theme.palette.colors.gray[800]} !important`,
     },
   },
 
