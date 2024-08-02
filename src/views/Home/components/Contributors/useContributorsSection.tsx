@@ -19,8 +19,8 @@ export const useContributorsSection = (teams: Team[]) => {
   const handleActiveDetailTab = (id: string) => setActiveDetailTab(id);
 
   // Filter teams by type
-  const coreUnits = teams.filter((team) => team.type === ResourceType.CoreUnit);
-  const ecosystemActors = teams.filter((team) => team.type === ResourceType.EcosystemActor);
+  const coreUnits = teams?.filter((team) => team.type === ResourceType.CoreUnit);
+  const ecosystemActors = teams?.filter((team) => team.type === ResourceType.EcosystemActor);
 
   // Alphabetically sort by name
   const sortedCoreUnits = sortBy(coreUnits, 'name');
