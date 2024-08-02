@@ -7,7 +7,7 @@ import type { PropsWithChildren } from 'react';
 interface Props {
   label?: string;
   showIcon?: boolean;
-  href: string;
+  href?: string;
   className?: string;
   buttonType?: 'primary' | 'secondary';
   isLink?: boolean;
@@ -23,7 +23,13 @@ const InternalLinkButton: React.FunctionComponent<Props> = ({
 }) => {
   const WrapperComponent = isLink
     ? ({ children }: PropsWithChildren) => (
-        <ContainerLink href={href} className={className} buttonType={buttonType} label={!!label} showIcon={showIcon}>
+        <ContainerLink
+          href={href ?? ''}
+          className={className}
+          buttonType={buttonType}
+          label={!!label}
+          showIcon={showIcon}
+        >
           {children}
         </ContainerLink>
       )

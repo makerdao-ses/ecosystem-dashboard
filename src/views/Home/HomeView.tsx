@@ -3,17 +3,22 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import type { Team } from '@/core/models/interfaces/team';
 import ContributorsSection from './components/Contributors/ContributorsSection';
 import FinancesBarChartCard from './components/FinancesBarChartCard/FinancesBarChartCard';
 import FinancesLineChartCard from './components/FinancesLineChartCard/FinancesLineChartCard';
 import GovernanceSection from './components/GovernanceSection/GovernanceSection';
 import HeaderCard from './components/HeaderCard/HeaderCard';
 import Roadmap from './components/Roadmap/Roadmap';
-import { contributor, headerCardData, sectionsData } from './staticData';
+import { headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
 import type { FC } from 'react';
 
-const HomeView: FC = () => {
+interface Props {
+  teams: Team[];
+}
+
+const HomeView: FC<Props> = ({ teams }) => {
   useHomeView();
 
   return (
@@ -43,7 +48,7 @@ const HomeView: FC = () => {
         <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[2]}</SectionTitle>
           <ContainerMargin>
-            <ContributorsSection contributor={contributor} />
+            <ContributorsSection teams={teams} />
           </ContainerMargin>
         </Section>
         <Section id={headerCardData.buttonTexts[3].toLowerCase()}>

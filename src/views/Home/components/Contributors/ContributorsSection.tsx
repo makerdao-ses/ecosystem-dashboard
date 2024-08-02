@@ -10,9 +10,9 @@ import { useContributorsSection } from './useContributorsSection';
 import type { FC } from 'react';
 
 interface Props {
-  contributor: Team;
+  teams: Team[];
 }
-const ContributorsSection: FC<Props> = ({ contributor }) => {
+const ContributorsSection: FC<Props> = ({ teams }) => {
   const {
     hasDefaultColors,
     activeCategoryTab,
@@ -24,7 +24,9 @@ const ContributorsSection: FC<Props> = ({ contributor }) => {
     subTitle,
     isLegacy,
     teamCategoryDataMock,
-  } = useContributorsSection();
+    contributors,
+    textDefault,
+  } = useContributorsSection(teams);
   return (
     <Container>
       <TabsDescriptions>
@@ -54,7 +56,13 @@ const ContributorsSection: FC<Props> = ({ contributor }) => {
           <ContainerScroll>
             <SimpleBarStyled>
               <ContainerContributors>
-                <ContributorsItem contributors={contributor} hasDefaultColors={hasDefaultColors} />
+                {contributors.map((contributor) => (
+                  <ContributorsItem
+                    contributor={contributor}
+                    hasDefaultColors={hasDefaultColors}
+                    textDefault={textDefault}
+                  />
+                ))}
               </ContainerContributors>
             </SimpleBarStyled>
           </ContainerScroll>

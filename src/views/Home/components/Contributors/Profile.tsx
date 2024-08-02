@@ -89,12 +89,17 @@ const Name = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
+  width: 185,
   [theme.breakpoints.up('tablet_768')]: {
-    width: 'revert',
+    width: 220,
   },
+
   [theme.breakpoints.up('desktop_1024')]: {
     fontSize: '14px',
-    minWidth: 104,
+    width: 104,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 150,
   },
 }));
 
@@ -106,7 +111,7 @@ const CircleAvatarExtended = styled(CircleAvatar)(({ theme }) => ({
   minHeight: 32,
   border: 'none',
   display: 'flex',
-  alignItems: 'flex-start',
+  alignItems: 'center',
 }));
 
 const ShortCode = styled('div')(({ theme }) => ({
