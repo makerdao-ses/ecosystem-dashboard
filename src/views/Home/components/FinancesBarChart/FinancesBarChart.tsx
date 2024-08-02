@@ -201,11 +201,9 @@ const FinancesBarChart: FC<FinancesBarChartProps> = ({ revenueAndSpendingData })
         },
       },
       axisLabel: {
-        // margin: 8,
         fontFamily: 'OpenSansCondensed, san-serif',
         fontWeight: 700,
         fontSize: isMobile ? 12 : 14,
-        // lineHeight: isMobile ? 16 : 19,
         color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[500],
         formatter: function (value: number, index: number) {
           if (value === 0 && index === 0) {
