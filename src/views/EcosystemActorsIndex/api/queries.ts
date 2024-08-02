@@ -3,7 +3,7 @@ import request, { gql } from 'graphql-request';
 import type { Team } from '@ses/core/models/interfaces/team';
 import type { ResourceType } from '@ses/core/models/interfaces/types';
 
-export const getAllActors = (teamType: ResourceType) => ({
+export const getAllActors = (teamType?: ResourceType) => ({
   query: gql`
     query teams($filter: TeamFilter) {
       teams(filter: $filter) {
@@ -14,6 +14,20 @@ export const getAllActors = (teamType: ResourceType) => ({
         name
         status
         type
+        budgetStatements {
+          month
+          budgetStatementFTEs {
+            month
+            ftes
+          }
+          status
+          budgetStatementWallet {
+            budgetStatementLineItem {
+              actual
+              month
+            }
+          }
+        }
         lastActivity {
           created_at
           description
@@ -46,13 +60,11 @@ export const getAllActors = (teamType: ResourceType) => ({
     }
   `,
   filter: {
-    filter: {
-      type: teamType,
-    },
+    filter: teamType ? { type: teamType } : null,
   },
 });
 
-export const fetchActors = async (teamType: ResourceType): Promise<Team[]> => {
+export const fetchActors = async (teamType?: ResourceType): Promise<Team[]> => {
   const { query, filter } = getAllActors(teamType);
   const res = await request<{ teams: Team[] }>(GRAPHQL_ENDPOINT, query, filter);
   return res.teams;
