@@ -22,9 +22,14 @@ const ScopeItem: FC<Props> = ({ actor, className, queryStrings }) => (
       <LabelMobile>Scope</LabelMobile>
       <ContainerScopeMobile>
         {actor.scopes?.map((item, index) => (
-          <ScopeChip scope={item} key={index} codeOnly />
+          <ScopeChip scope={item} key={index} size="small" />
         ))}
       </ContainerScopeMobile>
+      <ContainerScopeTable>
+        {actor.scopes?.map((item, index) => (
+          <ScopeChip scope={item} key={index} size="medium" />
+        ))}
+      </ContainerScopeTable>
     </ContainerMobileTable>
     <WrapperScopeLinks alignEnd={actor?.scopes?.length === 0}>
       <ContainerDesk>
@@ -32,7 +37,7 @@ const ScopeItem: FC<Props> = ({ actor, className, queryStrings }) => (
           {actor?.scopes?.length > 2 ? (
             <GroupedScopes scopes={actor.scopes} />
           ) : (
-            actor?.scopes?.map((item, index) => <ScopeChipStyled scope={item} key={index} />)
+            actor?.scopes?.map((item, index) => <ScopeChip scope={item} key={index} size="large" />)
           )}
         </ScopeSection>
       </ContainerDesk>
@@ -69,19 +74,22 @@ const ContainerMobileTable = styled('div')(({ theme }) => ({
 }));
 const ContainerScopeMobile = styled('div')(({ theme }) => ({
   display: 'flex',
-
   flexDirection: 'row',
   gap: 4,
-  '& div': {
-    width: 34,
-    padding: '0px',
-  },
-  [theme.breakpoints.up('tablet_768')]: {
-    '& div': {
-      width: 40,
-    },
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'none',
   },
 }));
+
+const ContainerScopeTable = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 4,
+  },
+}));
+
 const LabelMobile = styled('div')(({ theme }) => ({
   fontSize: 12,
   fontWeight: 500,
@@ -166,11 +174,5 @@ const ScopeSection = styled('div')(({ theme }) => ({
     marginLeft: 22,
     flexDirection: 'column',
     gap: 4,
-  },
-}));
-
-const ScopeChipStyled = styled(ScopeChip)(({ theme }) => ({
-  [theme.breakpoints.up('desktop_1024')]: {
-    height: 24,
   },
 }));

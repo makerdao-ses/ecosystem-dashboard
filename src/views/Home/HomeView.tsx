@@ -3,9 +3,11 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import type { Team } from '@/core/models/interfaces/team';
 import ContributorsSection from './components/Contributors/ContributorsSection';
 import FinancesSection from './components/FinancesSection/FinancesSection';
 import { SectionTitle } from './components/FinancesSectionTitle/FinancesSectionTitle';
+import GovernanceSection from './components/GovernanceSection/GovernanceSection';
 import HeaderCard from './components/HeaderCard/HeaderCard';
 import Roadmap from './components/Roadmap/Roadmap';
 import { headerCardData, sectionsData } from './staticData';
@@ -15,9 +17,10 @@ import type { FC } from 'react';
 
 export interface HomeViewProps {
   revenueAndSpendingData: RevenueAndSpendingRecords;
+  teams: Team[];
 }
 
-const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData }) => {
+const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams }) => {
   useHomeView();
 
   return (
@@ -38,12 +41,12 @@ const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData }) => {
           <FinancesSection revenueAndSpendingData={revenueAndSpendingData} />
         </Section>
         <Section id={headerCardData.buttonTexts[1].toLowerCase()}>
-          <SectionTitle>{sectionsData.titles[1]}</SectionTitle>
+          <GovernanceSection />
         </Section>
         <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[2]}</SectionTitle>
           <ContainerMargin>
-            <ContributorsSection />
+            <ContributorsSection teams={teams} />
           </ContainerMargin>
         </Section>
         <Section id={headerCardData.buttonTexts[3].toLowerCase()}>
