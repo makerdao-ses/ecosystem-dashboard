@@ -2,6 +2,7 @@ import { styled } from '@mui/material';
 
 import React from 'react';
 import type { TeamRole } from '@/core/enums/teamRole';
+import { ResourceType } from '@/core/models/interfaces/types';
 import { pascalCaseToNormalString } from '@/core/utils/string';
 import useRoleColors from './useRoleColors';
 import type { RoleColors } from './useRoleColors';
@@ -10,13 +11,18 @@ interface ScopeChipProps {
   status: TeamRole;
   className?: string;
   hasDefaultColors?: boolean;
+  textDefault?: boolean;
+  type?: string;
 }
 
-const RoleChip: React.FC<ScopeChipProps> = ({ status, className, hasDefaultColors }) => {
+const RoleChip: React.FC<ScopeChipProps> = ({ status, className, hasDefaultColors, textDefault = false, type }) => {
   const colors = useRoleColors();
+  const valueType = type === ResourceType.EcosystemActor ? 'Active Ecosystem Actor' : 'Core Unit';
+  const labelForChip = textDefault && type ? valueType : pascalCaseToNormalString(status);
+
   return (
     <Chip className={className} colors={colors} status={status} hasDefaultColors={hasDefaultColors}>
-      <Status hasDefaultColors={hasDefaultColors}>{pascalCaseToNormalString(status)}</Status>
+      <Status hasDefaultColors={hasDefaultColors}>{labelForChip}</Status>
     </Chip>
   );
 };
@@ -38,8 +44,10 @@ const Chip = styled('div')<{
   background: theme.palette.isLight ? colors[status]?.background : colors[status]?.backgroundDark,
   borderBottom: `1.5px solid ${theme.palette.isLight ? colors[status]?.borderColor : colors[status]?.borderColorDark}`,
   ...(hasDefaultColors && {
-    background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : 'red',
-    borderBottom: `1.5px solid ${theme.palette.isLight ? theme.palette.colors.charcoal[200] : 'red'}`,
+    background: theme.palette.isLight ? theme.palette.colors.charcoal[100] : theme.palette.colors.charcoal[800],
+    borderBottom: `1.5px solid ${
+      theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800]
+    }`,
   }),
 }));
 

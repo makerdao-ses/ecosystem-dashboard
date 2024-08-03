@@ -4,8 +4,8 @@ import Card from '@/components/Card/Card';
 import BulletIcon from '@/components/FancyTabs/BulletIcon';
 import FancyTabs from '@/components/FancyTabs/FancyTabs';
 import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
-import { SectionTitle } from '../../HomeView';
 import { sectionsData } from '../../staticData';
+import { SectionTitle } from '../FinancesSectionTitle/FinancesSectionTitle';
 
 const GovernanceSection: React.FC = () => {
   // for testing purposes
