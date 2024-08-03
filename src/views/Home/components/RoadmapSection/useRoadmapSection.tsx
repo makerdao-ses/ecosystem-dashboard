@@ -4,7 +4,7 @@ import type { Roadmap } from '@/core/models/interfaces/roadmaps';
 import type { SwiperRef } from 'swiper/react';
 
 const useRoadmapSection = (roadmapsData: Roadmap[]) => {
-  const tabs = roadmapsData?.map((roadmap) => ({
+  const tabs = roadmapsData.map((roadmap) => ({
     id: roadmap.id,
     title: roadmap.title,
   }));
