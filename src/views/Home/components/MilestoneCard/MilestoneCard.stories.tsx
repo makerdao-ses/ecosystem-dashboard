@@ -1,4 +1,3 @@
-/* eslint-disable spellcheck/spell-checker */
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
 import MilestoneCard from './MilestoneCard';
 import type { Meta } from '@storybook/react';
@@ -87,22 +86,22 @@ const variantsArgs = [
         },
         {
           imageUrl: 'N/A',
-          code: 'teep',
-          name: 'teep',
+          code: 'cc00',
+          name: 'cc00',
           ref: 'makerdao/contributor',
           id: '66ICk94v',
         },
         {
           imageUrl: 'N/A',
-          code: 'meraki',
-          name: 'meraki',
+          code: 'cc11',
+          name: 'cc11',
           ref: 'makerdao/contributor',
           id: '47z35Z8x',
         },
         {
           imageUrl: 'N/A',
-          code: 'callmeT',
-          name: 'callmeT',
+          code: 'cc22',
+          name: 'cc22',
           ref: 'makerdao/contributor',
           id: '05SGYZ20',
         },

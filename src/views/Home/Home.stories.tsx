@@ -1,4 +1,3 @@
-/* eslint-disable spellcheck/spell-checker */
 import { CURRENT_ENVIRONMENT } from '@ses/config/endpoints';
 import AppLayout from '@ses/containers/AppLayout/AppLayout';
 import { FeatureFlagsProvider } from '@ses/core/context/FeatureFlagsProvider';
@@ -366,22 +365,22 @@ const variantsArgs = [
               },
               {
                 imageUrl: 'N/A',
-                code: 'teep',
-                name: 'teep',
+                code: 'cc00',
+                name: 'cc00',
                 ref: 'makerdao/contributor',
                 id: '66ICk94v',
               },
               {
                 imageUrl: 'N/A',
-                code: 'meraki',
-                name: 'meraki',
+                code: 'cc11',
+                name: 'cc11',
                 ref: 'makerdao/contributor',
                 id: '47z35Z8x',
               },
               {
                 imageUrl: 'N/A',
-                code: 'callmeT',
-                name: 'callmeT',
+                code: 'cc22',
+                name: 'cc22',
                 ref: 'makerdao/contributor',
                 id: '05SGYZ20',
               },
