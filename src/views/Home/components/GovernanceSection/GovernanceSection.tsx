@@ -6,6 +6,7 @@ import FancyTabs from '@/components/FancyTabs/FancyTabs';
 import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
 import { sectionsData } from '../../staticData';
 import { SectionTitle } from '../FinancesSectionTitle/FinancesSectionTitle';
+import Proposals from './Proposals/Proposals';
 
 const GovernanceSection: React.FC = () => {
   // for testing purposes
@@ -15,7 +16,7 @@ const GovernanceSection: React.FC = () => {
     <SectionContainer>
       <SectionTitle>{sectionsData.titles[1]}</SectionTitle>
 
-      <div>Proposals go here... (WIP)</div>
+      <Proposals />
 
       <ShadowWrapper>
         <FancyTabs
