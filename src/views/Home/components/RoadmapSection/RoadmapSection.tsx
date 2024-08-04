@@ -6,10 +6,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import FancyTabs from '@/components/FancyTabs/FancyTabs';
 import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
 
+import type { Roadmap } from '@/core/models/interfaces/roadmaps';
 import MilestoneCard from '@/views/Home/components/MilestoneCard/MilestoneCard';
 
-import { roadmapsData } from '@/views/Home/staticData';
-import useRoadmap from './useRoadmap';
+import useRoadmapSection from './useRoadmapSection';
 
 import type { Theme } from '@mui/material';
 import type { FC } from 'react';
@@ -18,10 +18,14 @@ import type { SwiperProps } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const Roadmap: FC = () => {
+interface RoadmapSectionProps {
+  roadmaps: Roadmap[];
+}
+
+const RoadmapSection: FC<RoadmapSectionProps> = ({ roadmaps }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
-  const { tabs, activeRoadmapRef, swiperRef, activeTab, handleActiveTab } = useRoadmap(roadmapsData);
+  const { tabs, activeRoadmapRef, swiperRef, activeTab, handleActiveTab } = useRoadmapSection(roadmaps);
   const activeRoadmap = activeRoadmapRef.current;
 
   const swiperOptions: SwiperProps = {
@@ -58,25 +62,25 @@ const Roadmap: FC = () => {
           }}
         />
         <DescriptionContainer>
-          <Description>{roadmapsData[activeRoadmap].description}</Description>
+          <Description>{roadmaps[activeRoadmap]?.description}</Description>
         </DescriptionContainer>
       </ShadowWrapper>
       {isMobile ? (
         <MobileMilestoneCardsContainer>
-          {roadmapsData[activeRoadmap].milestones.map((milestoneData, index) => (
-            <Fragment key={`${milestoneData.title}-${index}`}>
-              <MilestoneCard {...milestoneData} />
-              {index !== roadmapsData[activeRoadmap].milestones.length - 1 && <MobileMilestoneCardsDivider />}
+          {roadmaps[activeRoadmap]?.milestones.map((milestoneData, index) => (
+            <Fragment key={milestoneData.id}>
+              <MilestoneCard slug={roadmaps[activeRoadmap]?.slug} milestoneData={milestoneData} />
+              {index !== roadmaps[activeRoadmap]?.milestones.length - 1 && <MobileMilestoneCardsDivider />}
             </Fragment>
           ))}
         </MobileMilestoneCardsContainer>
       ) : (
         <SwiperContainer>
           <Swiper ref={swiperRef} modules={[Pagination]} centerInsufficientSlides {...swiperOptions}>
-            {roadmapsData[activeRoadmap].milestones.map((milestoneData, index) => (
-              <SwiperSlide key={`${milestoneData.title}-${index}`}>
+            {roadmaps[activeRoadmap]?.milestones.map((milestoneData) => (
+              <SwiperSlide key={milestoneData.id}>
                 <MilestoneCardContainer>
-                  <MilestoneCard {...milestoneData} />
+                  <MilestoneCard slug={roadmaps[activeRoadmap]?.slug} milestoneData={milestoneData} />
                 </MilestoneCardContainer>
               </SwiperSlide>
             ))}
@@ -87,7 +91,7 @@ const Roadmap: FC = () => {
   );
 };
 
-export default Roadmap;
+export default RoadmapSection;
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',

@@ -4,13 +4,14 @@ import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
 import type { ExtendedExecutiveProposal } from '@/core/models/interfaces/makervote';
+import type { Roadmap } from '@/core/models/interfaces/roadmaps';
 import type { Team } from '@/core/models/interfaces/team';
 import ContributorsSection from './components/Contributors/ContributorsSection';
 import FinancesSection from './components/FinancesSection/FinancesSection';
 import { SectionTitle } from './components/FinancesSectionTitle/FinancesSectionTitle';
 import GovernanceSection from './components/GovernanceSection/GovernanceSection';
 import HeaderCard from './components/HeaderCard/HeaderCard';
-import Roadmap from './components/Roadmap/Roadmap';
+import RoadmapSection from './components/RoadmapSection/RoadmapSection';
 import { headerCardData, sectionsData } from './staticData';
 import useHomeView from './useHomeView';
 import type { RevenueAndSpendingRecords } from './api/queries';
@@ -20,9 +21,10 @@ export interface HomeViewProps {
   revenueAndSpendingData: RevenueAndSpendingRecords;
   teams: Team[];
   governanceProposals: ExtendedExecutiveProposal[];
+  roadmaps: Roadmap[];
 }
 
-const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams, governanceProposals }) => {
+const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams, governanceProposals, roadmaps }) => {
   useHomeView();
 
   return (
@@ -53,7 +55,7 @@ const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams, governance
         </Section>
         <Section id={headerCardData.buttonTexts[3].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[3]}</SectionTitle>
-          <Roadmap />
+          <RoadmapSection roadmaps={roadmaps} />
         </Section>
       </Container>
     </HomeViewContainer>
