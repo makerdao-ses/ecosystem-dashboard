@@ -1,29 +1,37 @@
 import { styled, useMediaQuery } from '@mui/material';
+import { utils } from 'ethers';
+import { DateTime } from 'luxon';
 import MakerdaoIcon from 'public/assets/svg/makerdao.svg';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import type { ExtendedExecutiveProposal } from '@/core/models/interfaces/makervote';
+import { usLocalizedNumber } from '@/core/utils/humanization';
 import type { Theme } from '@mui/material';
 
 interface ProposalProps {
-  isGoverningProposal?: boolean;
+  proposal: ExtendedExecutiveProposal;
 }
 
-const Proposal: React.FC<ProposalProps> = ({ isGoverningProposal = false }) => {
+const Proposal: React.FC<ProposalProps> = ({ proposal }) => {
   const isUpDesktop1024 = useMediaQuery((theme: Theme) => theme.breakpoints.up('desktop_1024'));
+  const mkrSupportEth = parseFloat(utils.formatEther(proposal.spellData.mkrSupport));
 
   return (
     <ProposalCard>
       <DescriptionContainer>
-        <Description>
-          Increase GSM Pause Delay, Increase Spark MetaMorpho Vault Maximum Debt Ceiling, Add Native Vaults to Debt
-          Ceiling Breaker, SparkLend Proxy Spell, and TACO Resolutions - April 4, 2024
-        </Description>
+        <Description>{proposal.proposalBlurb}</Description>
 
         <DescriptionFooter>
-          {isGoverningProposal && <GoverningProposal>Governing Proposal</GoverningProposal>}
+          {proposal.active && <GoverningProposal>Governing Proposal</GoverningProposal>}
           <Dates>
-            <span>Passed on DEC 10 2024 14:56 UTC</span>
+            <span>
+              Passed on{' '}
+              {DateTime.fromISO(proposal.spellData.datePassed).toFormat("LLL dd yyyy HH:mm 'UTC'").toUpperCase()}
+            </span>
             <Separator>-</Separator>
-            <span>Executed On DEC 11 2023</span>
+            <span>
+              Executed on{' '}
+              {DateTime.fromISO(proposal.spellData.dateExecuted).toFormat("LLL dd yyyy HH:mm 'UTC'").toUpperCase()}
+            </span>
           </Dates>
         </DescriptionFooter>
       </DescriptionContainer>
@@ -31,16 +39,19 @@ const Proposal: React.FC<ProposalProps> = ({ isGoverningProposal = false }) => {
       <Info>
         <Supporters>
           <Label>Supporters</Label>
-          <Number>41</Number>
+          <Number>{proposal.supporters}</Number>
         </Supporters>
         <MKRSupport>
           <Label>MKR Support</Label>
           <Number>
-            42,337 <MakerdaoIcon />
+            {usLocalizedNumber(mkrSupportEth, mkrSupportEth < 1000 ? 1 : 0)} <MakerdaoIcon />
           </Number>
         </MKRSupport>
         <ExternalLinkContainer>
-          <ExternalLinkButton href="https://vote.makerdao.com/" children={isUpDesktop1024 ? 'View' : null} />
+          <ExternalLinkButton
+            href={`https://vote.makerdao.com/executive/${proposal.key}`}
+            children={isUpDesktop1024 ? 'View' : null}
+          />
         </ExternalLinkContainer>
       </Info>
     </ProposalCard>
