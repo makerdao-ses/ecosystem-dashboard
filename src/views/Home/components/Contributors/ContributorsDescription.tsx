@@ -8,10 +8,11 @@ import type { FC } from 'react';
 interface Props {
   contributor: TeamType;
   isLegacy: boolean;
+  className?: string;
 }
 
-const ContributorDescription: FC<Props> = ({ contributor, isLegacy }) => (
-  <Container href={contributor.href}>
+const ContributorDescription: FC<Props> = ({ contributor, isLegacy, className }) => (
+  <Container className={className} href={contributor.href} isLegacy={isLegacy}>
     <ContainerTitle isLegacy={isLegacy}>
       <span>
         {contributor.name} ({contributor.teams})
@@ -26,10 +27,23 @@ const ContributorDescription: FC<Props> = ({ contributor, isLegacy }) => (
 
 export default ContributorDescription;
 
-const Container = styled(Link)(() => ({
+const Container = styled(Link)<{ isLegacy: boolean }>(({ theme, isLegacy }) => ({
   display: 'flex',
   flexDirection: 'column',
+  position: 'relative',
+  overflow: 'hidden',
+  padding: isLegacy ? '0px 8px' : '0px 16px',
   gap: 4,
+  ':hover': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
+
+    '& span': {
+      color: theme.palette.isLight ? theme.palette.colors.slate[300] : theme.palette.colors.slate[100],
+    },
+    '& div': {
+      color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[500],
+    },
+  },
 }));
 
 const ContainerTitle = styled('div')<{ isLegacy: boolean }>(({ theme, isLegacy }) => ({
