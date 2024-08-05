@@ -37,11 +37,11 @@ export const useContributorsSection = (teams: Team[]) => {
   const teamCategoriesTabs = [
     {
       id: '1',
-      title: 'Current Contributors',
+      title: 'Current',
     },
     {
       id: '2',
-      title: 'Legacy Contributors',
+      title: 'Legacy',
     },
   ];
   const teamDetailsTabs = [

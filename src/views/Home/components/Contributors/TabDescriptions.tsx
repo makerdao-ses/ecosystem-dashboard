@@ -24,7 +24,7 @@ const Container = styled('div')<{ isLegacy?: boolean }>(({ theme, isLegacy = fal
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
-
+  height: '100%',
   padding: 0,
   backgroundColor: 'transparent',
   ...(isLegacy && {
@@ -43,4 +43,10 @@ const Container = styled('div')<{ isLegacy?: boolean }>(({ theme, isLegacy = fal
       },
     },
   }),
+
+  [theme.breakpoints.up('tablet_768')]: {
+    gap: 'revert',
+    marginBottom: isLegacy ? 0 : 32,
+    justifyContent: 'space-between',
+  },
 }));
