@@ -1,5 +1,4 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
-import { financesLineChartCardData } from '@/views/Home/staticData';
 import FinancesLineChartCard from './FinancesLineChartCard';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
@@ -17,13 +16,7 @@ const meta: Meta<typeof FinancesLineChartCard> = {
 
 export default meta;
 
-const variantsArgs = [
-  {
-    financesLineChartCard: {
-      tabButtonsTexts: financesLineChartCardData.tabButtonsTexts,
-    },
-  },
-];
+const variantsArgs = [{}];
 
 const [[LightMode, DarkMode]] = createThemeModeVariants(FinancesLineChartCard, variantsArgs);
 

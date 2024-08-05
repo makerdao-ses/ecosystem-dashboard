@@ -19,7 +19,3 @@ export const headerCardData = {
 export const sectionsData = {
   titles: ['Finances', 'Governance', 'Contributors', 'Roadmap'],
 };
-
-export const financesLineChartCardData = {
-  tabButtonsTexts: ['Realized Expenses', 'Operational Reserves', 'Forecast'],
-};
