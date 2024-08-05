@@ -81,7 +81,7 @@ const ContributorsItem: FC<Props> = ({ contributor, className, hasDefaultColors 
                 </ContainerCategoryMobile>
                 <ContainerFTEsMobile>
                   <Label>FTS</Label>
-                  <FTS>7</FTS>
+                  <FTS>{getFTEsFromCoreUnit(contributor as unknown as CoreUnit)}</FTS>
                 </ContainerFTEsMobile>
               </>
             )}
@@ -150,7 +150,7 @@ const ContributorsItem: FC<Props> = ({ contributor, className, hasDefaultColors 
         )}
 
         <DateUpdated>
-          <ProfileUpdated date={getProfileUpdate(contributor)} />
+          <ProfileUpdated date={getProfileUpdate(contributor)} type={contributor.type} />
         </DateUpdated>
         <ArrowContainerDesk>
           <InternalLinkButtonStyled showIcon isLink={false} />
@@ -182,7 +182,9 @@ const Container = styled(Card)(({ theme }) => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-
+  ':hover': {
+    backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : '#292E38',
+  },
   [theme.breakpoints.up('desktop_1024')]: {
     flexDirection: 'row',
     padding: '8px 12px',

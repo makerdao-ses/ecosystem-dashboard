@@ -1,18 +1,23 @@
 import { styled } from '@mui/material';
 import React from 'react';
+import { ResourceType } from '@/core/models/interfaces/types';
 import type { DateTime } from 'luxon';
 import type { FC } from 'react';
 
 interface Props {
   date?: DateTime;
+  type: ResourceType;
 }
 
-const ProfileUpdated: FC<Props> = ({ date }) => (
-  <Container>
-    <Label>Profile Updated</Label>
-    <DateContainer>{date?.toFormat('dd.MM.yyyy') ?? 'No data'}</DateContainer>
-  </Container>
-);
+const ProfileUpdated: FC<Props> = ({ date, type }) => {
+  const labelText = type === ResourceType.CoreUnit ? 'Expense Report' : 'Profile Updated';
+  return (
+    <Container>
+      <Label>{labelText}</Label>
+      <DateContainer>{date?.toFormat('dd.MM.yyyy') ?? 'No data'}</DateContainer>
+    </Container>
+  );
+};
 
 export default ProfileUpdated;
 
@@ -54,6 +59,7 @@ const Label = styled('div')(({ theme }) => ({
     fontSize: 14,
     fontWeight: 600,
     lineHeight: '24px',
+    color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.slate[300],
   },
 }));
 
@@ -66,5 +72,6 @@ const DateContainer = styled('div')(({ theme }) => ({
     fontSize: 14,
     fontWeight: 600,
     lineHeight: '24px',
+    color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[300],
   },
 }));
