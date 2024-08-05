@@ -3,6 +3,7 @@ import { SEOHead } from '@ses/components/SEOHead/SEOHead';
 import { toAbsoluteURL } from '@ses/core/utils/urls';
 import Container from '@/components/Container/Container';
 import PageContainer from '@/components/Container/PageContainer';
+import type { ExtendedExecutiveProposal } from '@/core/models/interfaces/makervote';
 import type { Roadmap } from '@/core/models/interfaces/roadmaps';
 import type { Team } from '@/core/models/interfaces/team';
 import ContributorsSection from './components/Contributors/ContributorsSection';
@@ -19,10 +20,11 @@ import type { FC } from 'react';
 export interface HomeViewProps {
   revenueAndSpendingData: RevenueAndSpendingRecords;
   teams: Team[];
+  governanceProposals: ExtendedExecutiveProposal[];
   roadmaps: Roadmap[];
 }
 
-const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams, roadmaps }) => {
+const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams, governanceProposals, roadmaps }) => {
   useHomeView();
 
   return (
@@ -43,7 +45,7 @@ const HomeView: FC<HomeViewProps> = ({ revenueAndSpendingData, teams, roadmaps }
           <FinancesSection revenueAndSpendingData={revenueAndSpendingData} />
         </Section>
         <Section id={headerCardData.buttonTexts[1].toLowerCase()}>
-          <GovernanceSection />
+          <GovernanceSection governanceProposals={governanceProposals} />
         </Section>
         <Section id={headerCardData.buttonTexts[2].toLowerCase()}>
           <SectionTitle>{sectionsData.titles[2]}</SectionTitle>

@@ -119,7 +119,7 @@ const ContributorInformation = styled(Card)(() => ({
 
 const CardTabs = styled(Card)<{ isLegacy: boolean }>(({ isLegacy, theme }) => ({
   borderTopLeftRadius: 0,
-  padding: isLegacy ? '8px 8px' : '8px 16px',
+  padding: isLegacy ? '8px 0px' : '8px 0px',
   [theme.breakpoints.down(375)]: {
     borderTopRightRadius: 0,
   },

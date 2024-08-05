@@ -26,10 +26,21 @@ const Container = styled('div')<{ isLegacy?: boolean }>(({ theme, isLegacy = fal
   gap: 8,
 
   padding: 0,
-  backgroundColor: 'none',
+  backgroundColor: 'transparent',
   ...(isLegacy && {
-    padding: '8px 8px',
+    margin: 8,
     borderRadius: 12,
     backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+
+    '& a': {
+      '&:first-of-type:hover': {
+        borderTopRightRadius: 12,
+        borderTopLeftRadius: 12,
+      },
+      '&:last-of-type:hover': {
+        borderBottomRightRadius: 12,
+        borderBottomLeftRadius: 12,
+      },
+    },
   }),
 }));

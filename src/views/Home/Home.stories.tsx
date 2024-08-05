@@ -71,6 +71,50 @@ const variantsArgs = [
         annualProfit: 145000,
       },
     } as HomeViewProps['revenueAndSpendingData'],
+    governanceProposals: [
+      {
+        proposalBlurb:
+          'Increase GSM Pause Delay, Increase Spark MetaMorpho Vault Maximum Debt Ceiling, Add Native Vaults to Debt Ceiling Breaker, SparkLend Proxy Spell, and TACO Resolutions - April 4, 2024',
+        key: 'template-executive-vote-lite-psm-usdc-a-phase-1-setup-spark-proxy-spell-july-25-2024',
+        address: '0x8c7F12C7cE07916f631B25ce148e419FeFf19d46',
+        date: 'Thu Jul 25 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
+        active: true,
+        spellData: {
+          datePassed: '2024-07-29T14:29:59.000Z',
+          dateExecuted: '2024-07-30T20:30:11.000Z',
+          mkrSupport: '117129779559442077335595',
+        },
+        supporters: 41,
+      },
+      {
+        proposalBlurb:
+          'Increase GSM Pause Delay, Increase Spark MetaMorpho Vault Maximum Debt Ceiling, Add Native Vaults to Debt Ceiling Breaker, SparkLend Proxy Spell, and TACO Resolutions - April 4, 2024',
+        key: 'template-executive-vote-lite-psm-usdc-a-phase-1-setup-spark-proxy-spell-july-25-2024',
+        address: '0x8c7F12C7cE07916f631B25ce148e419FeFf19d46',
+        date: 'Thu Jul 25 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
+        active: false,
+        spellData: {
+          datePassed: '2024-07-29T14:29:59.000Z',
+          dateExecuted: '2024-07-30T20:30:11.000Z',
+          mkrSupport: '17129779559442077335595',
+        },
+        supporters: 30,
+      },
+      {
+        proposalBlurb:
+          'Increase GSM Pause Delay, Increase Spark MetaMorpho Vault Maximum Debt Ceiling, Add Native Vaults to Debt Ceiling Breaker, SparkLend Proxy Spell, and TACO Resolutions - April 4, 2024',
+        key: 'template-executive-vote-lite-psm-usdc-a-phase-1-setup-spark-proxy-spell-july-25-2024',
+        address: '0x8c7F12C7cE07916f631B25ce148e419FeFf19d46',
+        date: 'Thu Jul 25 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
+        active: false,
+        spellData: {
+          datePassed: '2024-07-29T14:29:59.000Z',
+          dateExecuted: '2024-07-30T20:30:11.000Z',
+          mkrSupport: '33129779559442077335595',
+        },
+        supporters: 28,
+      },
+    ],
     teams: [
       new EcosystemActorBuilder()
         .withId('23')

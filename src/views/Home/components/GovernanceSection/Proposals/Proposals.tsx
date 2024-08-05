@@ -1,32 +1,54 @@
 import { styled } from '@mui/material';
 import Card from '@/components/Card/Card';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
+import type { ExtendedExecutiveProposal } from '@/core/models/interfaces/makervote';
 import Proposal from '../Proposal/Proposal';
 
-const Proposals: React.FC = () => (
-  <ProposalsContainer>
-    <SectionContainer>
-      <SectionHeader>
-        <span>Active Executive Proposals</span>
-        <ExternalLinkButton href="https://vote.makerdao.com/">Go to Makervote</ExternalLinkButton>
-      </SectionHeader>
+interface ProposalsProps {
+  governanceProposals: ExtendedExecutiveProposal[];
+}
 
-      <ProposalList>
-        <Proposal isGoverningProposal />
-      </ProposalList>
-    </SectionContainer>
+const Proposals: React.FC<ProposalsProps> = ({ governanceProposals }) => {
+  const activeProposals = governanceProposals.filter((proposal) => proposal.active);
+  const passedProposals = governanceProposals.filter((proposal) => !proposal.active);
+  const slicedPassedProposals = passedProposals.slice(0, Math.min(3, passedProposals.length));
 
-    <SectionContainer>
-      <SectionHeader>Passed Executive Proposals</SectionHeader>
+  return (
+    <ProposalsContainer>
+      {activeProposals.length > 0 && (
+        <SectionContainer>
+          <SectionHeader>
+            <span>Active Executive Proposals</span>
+            <ExternalLinkButton href="https://vote.makerdao.com/">Go to Makervote</ExternalLinkButton>
+          </SectionHeader>
 
-      <ProposalList>
-        <Proposal />
-        <Proposal />
-        <Proposal />
-      </ProposalList>
-    </SectionContainer>
-  </ProposalsContainer>
-);
+          <ProposalList>
+            {activeProposals.map((proposal, index) => (
+              <Proposal key={index} proposal={proposal} />
+            ))}
+          </ProposalList>
+        </SectionContainer>
+      )}
+
+      {passedProposals.length > 0 && (
+        <SectionContainer>
+          <SectionHeader>
+            <span>Passed Executive Proposals</span>
+            {activeProposals.length === 0 && (
+              <ExternalLinkButton href="https://vote.makerdao.com/">Go to Makervote</ExternalLinkButton>
+            )}
+          </SectionHeader>
+
+          <ProposalList>
+            {slicedPassedProposals.map((proposal, index) => (
+              <Proposal key={index} proposal={proposal} />
+            ))}
+          </ProposalList>
+        </SectionContainer>
+      )}
+    </ProposalsContainer>
+  );
+};
 
 export default Proposals;
 
