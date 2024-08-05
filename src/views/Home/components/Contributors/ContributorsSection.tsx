@@ -3,6 +3,7 @@ import React from 'react';
 import SimpleBar from 'simplebar-react';
 import Card from '@/components/Card/Card';
 import FancyTabs from '@/components/FancyTabs/FancyTabs';
+import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
 import type { Team } from '@/core/models/interfaces/team';
 import ContributorsItem from './ContributorsItem';
 import TabDescriptions from './TabDescriptions';
@@ -30,43 +31,47 @@ const ContributorsSection: FC<Props> = ({ teams }) => {
   return (
     <Container>
       <TabsDescriptions>
-        <FancyStyled
-          tabs={teamCategoriesTabs}
-          activeTab={activeCategoryTab}
-          onTabChange={(tab: string) => {
-            handleActiveCategoryTab(tab);
-          }}
-        />
+        <ShadowWrapperStyled>
+          <FancyTabs
+            tabs={teamCategoriesTabs}
+            activeTab={activeCategoryTab}
+            onTabChange={(tab: string) => {
+              handleActiveCategoryTab(tab);
+            }}
+          />
 
-        <CardTabs isLegacy={isLegacy}>
-          <TabDescriptions contributorsDescription={teamCategoryDataMock} isLegacy={isLegacy} />
-        </CardTabs>
+          <CardTabs isLegacy={isLegacy}>
+            <TabDescriptions contributorsDescription={teamCategoryDataMock} isLegacy={isLegacy} />
+          </CardTabs>
+        </ShadowWrapperStyled>
       </TabsDescriptions>
       <ContainerTabs>
-        <FancyTabs
-          tabs={teamDetailsTabs}
-          activeTab={activeDetailTab}
-          onTabChange={(tab: string) => {
-            handleActiveDetailTab(tab);
-          }}
-        />
+        <ShadowWrapper>
+          <FancyTabs
+            tabs={teamDetailsTabs}
+            activeTab={activeDetailTab}
+            onTabChange={(tab: string) => {
+              handleActiveDetailTab(tab);
+            }}
+          />
 
-        <ContributorInformation>
-          <Title>{subTitle}</Title>
-          <ContainerScroll>
-            <SimpleBarStyled>
-              <ContainerContributors>
-                {contributors.map((contributor) => (
-                  <ContributorsItem
-                    contributor={contributor}
-                    hasDefaultColors={hasDefaultColors}
-                    textDefault={textDefault}
-                  />
-                ))}
-              </ContainerContributors>
-            </SimpleBarStyled>
-          </ContainerScroll>
-        </ContributorInformation>
+          <ContributorInformation>
+            <Title>{subTitle}</Title>
+            <ContainerScroll>
+              <SimpleBarStyled>
+                <ContainerContributors>
+                  {contributors.map((contributor) => (
+                    <ContributorsItem
+                      contributor={contributor}
+                      hasDefaultColors={hasDefaultColors}
+                      textDefault={textDefault}
+                    />
+                  ))}
+                </ContainerContributors>
+              </SimpleBarStyled>
+            </ContainerScroll>
+          </ContributorInformation>
+        </ShadowWrapper>
       </ContainerTabs>
     </Container>
   );
@@ -119,16 +124,10 @@ const ContributorInformation = styled(Card)(() => ({
 
 const CardTabs = styled(Card)<{ isLegacy: boolean }>(({ isLegacy, theme }) => ({
   borderTopLeftRadius: 0,
+  boxShadow: 'none',
+  height: 'calc(100% - 32px)',
+  backgroundColor: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
   padding: isLegacy ? '8px 0px' : '8px 0px',
-  [theme.breakpoints.down(375)]: {
-    borderTopRightRadius: 0,
-  },
-  [theme.breakpoints.between('mobile_375', 392)]: {
-    borderTopRightRadius: 0,
-  },
-  [theme.breakpoints.up('tablet_768')]: {
-    borderTopRightRadius: 0,
-  },
 }));
 
 const TabsDescriptions = styled('div')(({ theme }) => ({
@@ -175,7 +174,6 @@ const ContainerContributors = styled('div')({
   padding: 8,
   flex: 1,
 });
-
 const SimpleBarStyled = styled(SimpleBar)(({ theme }) => ({
   height: '100%',
   width: '100%',
@@ -189,26 +187,18 @@ const SimpleBarStyled = styled(SimpleBar)(({ theme }) => ({
   },
 
   [theme.breakpoints.up('tablet_768')]: {
-    height: 812,
-  },
-  [theme.breakpoints.up('desktop_1024')]: {
-    height: 760,
+    height: 534,
   },
   [theme.breakpoints.up('desktop_1280')]: {
     height: 634,
   },
-  [theme.breakpoints.up('desktop_1280')]: {
-    height: 760,
-  },
 }));
-
-const FancyStyled = styled(FancyTabs)({
-  '& button': {
-    padding: '4px 16px 4px 16px',
-  },
-});
 
 const ContainerScroll = styled('div')({
   display: 'flex',
   marginRight: 4,
+});
+
+const ShadowWrapperStyled = styled(ShadowWrapper)({
+  height: '100%',
 });

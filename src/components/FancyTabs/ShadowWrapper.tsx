@@ -1,6 +1,12 @@
 import { styled } from '@mui/material';
 
-const ShadowWrapper: React.FC<React.PropsWithChildren> = ({ children }) => <Wrapper>{children}</Wrapper>;
+interface Props {
+  className?: string;
+}
+
+const ShadowWrapper: React.FC<React.PropsWithChildren & Props> = ({ children, className }) => (
+  <Wrapper className={className}>{children}</Wrapper>
+);
 
 export default ShadowWrapper;
 
