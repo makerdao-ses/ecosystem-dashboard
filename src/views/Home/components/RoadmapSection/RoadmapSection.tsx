@@ -145,6 +145,7 @@ const SwiperContainer = styled('div')(({ theme }) => ({
   margin: '0px -8px',
 
   '& .swiper-slide': {
+    height: 'auto',
     marginBottom: 8,
   },
 
@@ -184,6 +185,7 @@ const SwiperContainer = styled('div')(({ theme }) => ({
 }));
 
 const MilestoneCardContainer = styled('div')(() => ({
+  height: '100%',
   marginLeft: 8,
   marginRight: 8,
 }));
