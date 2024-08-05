@@ -38,7 +38,7 @@ const contributors = [
   },
 ];
 
-const CommonDefaultMilestone = {
+export const CommonDefaultMilestone = {
   id: 'M1',
   sequenceCode: 'M1',
   code: 'BASE',
