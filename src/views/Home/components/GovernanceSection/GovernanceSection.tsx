@@ -4,10 +4,16 @@ import Card from '@/components/Card/Card';
 import BulletIcon from '@/components/FancyTabs/BulletIcon';
 import FancyTabs from '@/components/FancyTabs/FancyTabs';
 import ShadowWrapper from '@/components/FancyTabs/ShadowWrapper';
-import { SectionTitle } from '../../HomeView';
+import type { ExtendedExecutiveProposal } from '@/core/models/interfaces/makervote';
 import { sectionsData } from '../../staticData';
+import { SectionTitle } from '../FinancesSectionTitle/FinancesSectionTitle';
+import Proposals from './Proposals/Proposals';
 
-const GovernanceSection: React.FC = () => {
+interface GovernanceSectionProps {
+  governanceProposals: ExtendedExecutiveProposal[];
+}
+
+const GovernanceSection: React.FC<GovernanceSectionProps> = ({ governanceProposals }) => {
   // for testing purposes
   const [activeTab, setActiveTab] = useState<string>('4');
 
@@ -15,7 +21,7 @@ const GovernanceSection: React.FC = () => {
     <SectionContainer>
       <SectionTitle>{sectionsData.titles[1]}</SectionTitle>
 
-      <div>Proposals go here... (WIP)</div>
+      <Proposals governanceProposals={governanceProposals} />
 
       <ShadowWrapper>
         <FancyTabs

@@ -12,6 +12,7 @@ import { ResourceType, TeamCategory, TeamStatus } from '@/core/models/interfaces
 import { defaultSocials } from '../EcosystemActorsIndex/utils/utils';
 import HomeView from './HomeView';
 import { headerCardData } from './staticData';
+import type { HomeViewProps } from './HomeView';
 import type { Meta } from '@storybook/react';
 
 const meta: Meta<typeof HomeView> = {
@@ -35,6 +36,84 @@ const variantsArgs = [
       description: headerCardData.description,
       buttonTexts: headerCardData.buttonTexts,
     },
+    revenueAndSpendingData: {
+      2021: {
+        fees: 50000,
+        liquidationIncome: 120000,
+        psm: 30000,
+        daiSpent: 70000,
+        mkrVesting: 20000,
+        annualProfit: 100000,
+      },
+      2022: {
+        fees: 60000,
+        liquidationIncome: 140000,
+        psm: 35000,
+        daiSpent: 80000,
+        mkrVesting: 25000,
+        annualProfit: 115000,
+      },
+      2023: {
+        fees: 70000,
+        liquidationIncome: 160000,
+        psm: 40000,
+        daiSpent: 90000,
+        mkrVesting: 30000,
+        annualProfit: 130000,
+      },
+      2024: {
+        fees: 80000,
+        liquidationIncome: 180000,
+        psm: 45000,
+        daiSpent: 100000,
+        mkrVesting: 35000,
+        annualProfit: 145000,
+      },
+    } as HomeViewProps['revenueAndSpendingData'],
+    governanceProposals: [
+      {
+        proposalBlurb:
+          'Increase GSM Pause Delay, Increase Spark MetaMorpho Vault Maximum Debt Ceiling, Add Native Vaults to Debt Ceiling Breaker, SparkLend Proxy Spell, and TACO Resolutions - April 4, 2024',
+        key: 'template-executive-vote-lite-psm-usdc-a-phase-1-setup-spark-proxy-spell-july-25-2024',
+        address: '0x8c7F12C7cE07916f631B25ce148e419FeFf19d46',
+        date: 'Thu Jul 25 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
+        active: true,
+        spellData: {
+          datePassed: '2024-07-29T14:29:59.000Z',
+          dateExecuted: '2024-07-30T20:30:11.000Z',
+          mkrSupport: '117129779559442077335595',
+        },
+        supporters: 41,
+      },
+      {
+        proposalBlurb:
+          'Increase GSM Pause Delay, Increase Spark MetaMorpho Vault Maximum Debt Ceiling, Add Native Vaults to Debt Ceiling Breaker, SparkLend Proxy Spell, and TACO Resolutions - April 4, 2024',
+        key: 'template-executive-vote-lite-psm-usdc-a-phase-1-setup-spark-proxy-spell-july-25-2024',
+        address: '0x8c7F12C7cE07916f631B25ce148e419FeFf19d46',
+        date: 'Thu Jul 25 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
+        active: false,
+        spellData: {
+          datePassed: '2024-07-29T14:29:59.000Z',
+          dateExecuted: '2024-07-30T20:30:11.000Z',
+          mkrSupport: '17129779559442077335595',
+        },
+        supporters: 30,
+      },
+      {
+        proposalBlurb:
+          'Increase GSM Pause Delay, Increase Spark MetaMorpho Vault Maximum Debt Ceiling, Add Native Vaults to Debt Ceiling Breaker, SparkLend Proxy Spell, and TACO Resolutions - April 4, 2024',
+        key: 'template-executive-vote-lite-psm-usdc-a-phase-1-setup-spark-proxy-spell-july-25-2024',
+        address: '0x8c7F12C7cE07916f631B25ce148e419FeFf19d46',
+        date: 'Thu Jul 25 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
+        active: false,
+        spellData: {
+          datePassed: '2024-07-29T14:29:59.000Z',
+          dateExecuted: '2024-07-30T20:30:11.000Z',
+          mkrSupport: '33129779559442077335595',
+        },
+        supporters: 28,
+      },
+    ],
     teams: [
       new EcosystemActorBuilder()
         .withId('23')
@@ -256,6 +335,114 @@ const variantsArgs = [
         .withSocials(defaultSocials)
         .build(),
     ] as Team[],
+    roadmaps: [
+      {
+        id: '1',
+        slug: 'ph-2024',
+        title: 'Powerhouse Roadmap 2024',
+        description: 'Powerhouse Ecosystem Actor team roadmap for the year 2024.',
+        milestones: [
+          {
+            id: 'ustpb52jla',
+            sequenceCode: 'PH01',
+            code: 'POC',
+            title: 'Decentralized Operations Platform - POC',
+            abstract: 'The initial phase of Powerhouse Decentralized Operations Platform.',
+            scope: {
+              deliverables: [
+                {
+                  id: 'oy69oibt04',
+                  code: 'POC1',
+                  title: 'First technical integration of RWA Portfolio (Connect & Switchboard)',
+                  description:
+                    'Technical integration demo showcasing for the first time the RWA Portfolio Editor in Connect and the data synchronization with Switchboard.',
+                  status: 'DELIVERED',
+                  keyResults: [
+                    {
+                      id: 'B84xO69g',
+                      title: 'RWA Conceptual Wireframes',
+                      link: 'https://drive.google.com/file/d/1NZXm_Q43sKH5pqwHTwN0DYvSW1uewMlY/view',
+                    },
+                    {
+                      id: '4965Bh97',
+                      title: 'First demo of RWA Portfolio - Feb 21',
+                      link: 'https://drive.google.com/file/d/1CMwePiR046IJqQGLypi7Fzu_B7aLYNco/view',
+                    },
+                  ],
+                  workProgress: {
+                    __typename: 'Percentage',
+                    value: 1,
+                  },
+                  budgetAnchor: {
+                    project: {
+                      code: 'RWA',
+                      title: 'RWA Portfolio Reporting',
+                    },
+                    workUnitBudget: 1,
+                    deliverableBudget: 0,
+                  },
+                  owner: {
+                    id: 'H7Cx8em3',
+                    ref: 'makerdao/ecosystem-actor',
+                    name: 'Powerhouse',
+                    code: 'PH',
+                    imageUrl:
+                      'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
+                  },
+                },
+              ],
+              status: 'DRAFT',
+              progress: {
+                __typename: 'Percentage',
+                value: 1,
+              },
+              totalDeliverables: 3,
+              deliverablesCompleted: 3,
+            },
+            coordinators: [
+              {
+                imageUrl: 'N/A',
+                code: 'Prometheus',
+                name: 'Prometheus',
+                ref: 'makerdao/contributor',
+                id: 'Z89231k5',
+              },
+              {
+                imageUrl: 'N/A',
+                code: 'cc00',
+                name: 'cc00',
+                ref: 'makerdao/contributor',
+                id: '66ICk94v',
+              },
+              {
+                imageUrl: 'N/A',
+                code: 'cc11',
+                name: 'cc11',
+                ref: 'makerdao/contributor',
+                id: '47z35Z8x',
+              },
+              {
+                imageUrl: 'N/A',
+                code: 'cc22',
+                name: 'cc22',
+                ref: 'makerdao/contributor',
+                id: '05SGYZ20',
+              },
+            ],
+            contributors: [
+              {
+                id: 'H7Cx8em3',
+                ref: 'makerdao/ecosystem-actor',
+                name: 'Powerhouse',
+                code: 'PH',
+                imageUrl:
+                  'https://makerdao-ses.github.io/ecosystem-dashboard/ecosystem-actors/POWERHOUSE/POWERHOUSE_logo.png',
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
 ];
 

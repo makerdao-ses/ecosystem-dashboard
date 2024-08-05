@@ -1,21 +1,13 @@
 import { Button, styled } from '@mui/material';
-
 import BlueLinesIcon from 'public/assets/svg/blue_lines.svg';
 import CircleIcon from 'public/assets/svg/circle.svg';
-
 import Card from '@/components/Card/Card';
 import ExternalLinkButton from '@/components/ExternalLinkButton/ExternalLinkButton';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
-
 import { MAKERBURN_URL } from '@/config/externalUrls';
 import { siteRoutes } from '@/config/routes';
-
 import FinancesBarChart from '@/views/Home/components/FinancesBarChart/FinancesBarChart';
-import useFinancesBarChart from '@/views/Home/components/FinancesBarChart/useFinancesBarChart';
-
-import { financesBarChartCardData } from '@/views/Home/staticData';
-import useFinancesBarChartCard from './useFinancesBarChartCard';
-
+import type { RevenueAndSpendingRecords } from '../../api/queries';
 import type { ButtonProps } from '@mui/material';
 import type { FC } from 'react';
 
@@ -23,65 +15,60 @@ interface StyledButtonProps extends ButtonProps {
   index: number;
 }
 
-const FinancesBarChartCard: FC = () => {
-  useFinancesBarChart();
-  useFinancesBarChartCard();
+interface FinancesBarChartCardProps {
+  revenueAndSpendingData: RevenueAndSpendingRecords;
+}
 
-  return (
-    <Container>
-      <Title>{financesBarChartCardData.title}</Title>
-      <FinancesBarChartContainer>
-        <div>
-          <AnnualProfit>
-            <Text>{financesBarChartCardData.annualProfitLegendAsteriskText}</Text>
-            <AnnualProfitLegend>
-              <BlueLinesIcon />
-              <Text>{financesBarChartCardData.annualProfitLegendTitle}</Text>
-            </AnnualProfitLegend>
-          </AnnualProfit>
-          <FinancesBarChart />
-        </div>
-        <Legends>
-          <RevenueLegend>
-            <LegendTitle>{financesBarChartCardData.revenueLegendTitle}</LegendTitle>
-            <RevenueLegendButtons>
-              <LegendButton index={0} startIcon={<CircleIcon />} disableRipple>
-                {financesBarChartCardData.revenueLegendButtonTexts[0]}
-              </LegendButton>
-              <LegendButton index={1} startIcon={<CircleIcon />} disableRipple>
-                {financesBarChartCardData.revenueLegendButtonTexts[1]}
-              </LegendButton>
-              <LegendButton index={2} startIcon={<CircleIcon />} disableRipple>
-                {financesBarChartCardData.revenueLegendButtonTexts[2]}
-              </LegendButton>
-            </RevenueLegendButtons>
-          </RevenueLegend>
-          <SpendingLegend>
-            <LegendTitle>{financesBarChartCardData.spendingLegendTitle}</LegendTitle>
-            <SpendingLegendButtons>
-              <LegendButton index={3} startIcon={<CircleIcon />} disableRipple>
-                {financesBarChartCardData.spendingLegendButtonTexts[0]}
-              </LegendButton>
-              <LegendButton index={4} startIcon={<CircleIcon />} disableRipple>
-                {financesBarChartCardData.spendingLegendButtonTexts[1]}
-              </LegendButton>
-            </SpendingLegendButtons>
-          </SpendingLegend>
-        </Legends>
-      </FinancesBarChartContainer>
-      <LinkButtons>
-        <StyledExternalLinkButton href={MAKERBURN_URL} wrapText={false}>
-          {financesBarChartCardData.makerburnLinkText}
-        </StyledExternalLinkButton>
-        <InternalLinkButton
-          href={siteRoutes.finances()}
-          buttonType="primary"
-          label={financesBarChartCardData.detailsLinkText}
-        />
-      </LinkButtons>
-    </Container>
-  );
-};
+const FinancesBarChartCard: FC<FinancesBarChartCardProps> = ({ revenueAndSpendingData }) => (
+  <Container>
+    <Title>MakerDAO Finances</Title>
+    <FinancesBarChartContainer>
+      <div>
+        <AnnualProfit>
+          <Text>*All values are converted to DAI</Text>
+          <AnnualProfitLegend>
+            <BlueLinesIcon />
+            <Text>Annual Profit</Text>
+          </AnnualProfitLegend>
+        </AnnualProfit>
+        <FinancesBarChart revenueAndSpendingData={revenueAndSpendingData} />
+      </div>
+      <Legends>
+        <RevenueLegend>
+          <LegendTitle>Revenue</LegendTitle>
+          <RevenueLegendButtons>
+            <LegendButton index={0} startIcon={<CircleIcon />} disableRipple>
+              Fees
+            </LegendButton>
+            <LegendButton index={1} startIcon={<CircleIcon />} disableRipple>
+              Liquidation Income
+            </LegendButton>
+            <LegendButton index={2} startIcon={<CircleIcon />} disableRipple>
+              PSM
+            </LegendButton>
+          </RevenueLegendButtons>
+        </RevenueLegend>
+        <SpendingLegend>
+          <LegendTitle>Spending</LegendTitle>
+          <SpendingLegendButtons>
+            <LegendButton index={3} startIcon={<CircleIcon />} disableRipple>
+              DAI Spent
+            </LegendButton>
+            <LegendButton index={4} startIcon={<CircleIcon />} disableRipple>
+              MKR Vesting
+            </LegendButton>
+          </SpendingLegendButtons>
+        </SpendingLegend>
+      </Legends>
+    </FinancesBarChartContainer>
+    <LinkButtons>
+      <StyledExternalLinkButton href={MAKERBURN_URL} wrapText={false}>
+        makerburn.com
+      </StyledExternalLinkButton>
+      <InternalLinkButton href={siteRoutes.finances()} buttonType="primary" label="Details" />
+    </LinkButtons>
+  </Container>
+);
 
 export default FinancesBarChartCard;
 
