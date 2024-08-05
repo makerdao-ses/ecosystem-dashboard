@@ -28,7 +28,6 @@ const Container = styled('div')<{ isLegacy?: boolean }>(({ theme, isLegacy = fal
   padding: 0,
   backgroundColor: 'transparent',
   ...(isLegacy && {
-    margin: 8,
     borderRadius: 12,
     backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
 

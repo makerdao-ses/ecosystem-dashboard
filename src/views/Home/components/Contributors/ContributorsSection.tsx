@@ -127,7 +127,7 @@ const CardTabs = styled(Card)<{ isLegacy: boolean }>(({ isLegacy, theme }) => ({
   boxShadow: 'none',
   height: 'calc(100% - 32px)',
   backgroundColor: theme.palette.isLight ? '#FFF' : theme.palette.colors.charcoal[900],
-  padding: isLegacy ? '8px 0px' : '8px 0px',
+  padding: isLegacy ? '8px 8px' : '8px 0px',
 }));
 
 const TabsDescriptions = styled('div')(({ theme }) => ({
