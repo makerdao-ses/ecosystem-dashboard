@@ -92,7 +92,7 @@ const ContributorsItem: FC<Props> = ({ contributor, className, hasDefaultColors 
           <>
             <ScopesDesk>
               {contributor?.scopes?.length > 1 ? (
-                <GroupScopesContributors scopes={contributor.scopes} />
+                <GroupScopesContributors items={contributor.scopes} />
               ) : contributor?.scopes?.length === 0 || contributor.scopes === null ? (
                 <PlaceHolderEcosystemActor />
               ) : (
@@ -114,7 +114,7 @@ const ContributorsItem: FC<Props> = ({ contributor, className, hasDefaultColors 
           <>
             <ScopesDesk>
               {contributor?.scopes?.length > 1 ? (
-                <GroupScopesContributors scopes={contributor.scopes} />
+                <GroupScopesContributors items={contributor.scopes} />
               ) : contributor?.scopes?.length === 0 || contributor.scopes === null ? (
                 <PlaceHolderEcosystemActor />
               ) : (
@@ -137,9 +137,15 @@ const ContributorsItem: FC<Props> = ({ contributor, className, hasDefaultColors 
             <ContainerCategoryDesk>
               <Label>Category</Label>
               <ContainerCategories>
-                {contributor.category?.map((category) => (
-                  <CategoryChip key={category} category={category as TeamCategory} />
-                ))}
+                {contributor?.category?.length > 2 ? (
+                  <GroupScopesContributors items={contributor.category as TeamCategory[]} />
+                ) : contributor?.category?.length === 0 || contributor.category === null ? (
+                  <PlaceHolderEcosystemActor />
+                ) : (
+                  contributor?.category?.map((item, index) => (
+                    <CategoryChip category={item as TeamCategory} key={index} />
+                  ))
+                )}
               </ContainerCategories>
             </ContainerCategoryDesk>
             <ContainerFTEsDesk>
@@ -372,9 +378,12 @@ const FTS = styled('div')(({ theme }) => ({
   },
 }));
 
-const PlaceHolderEcosystemActor = styled('div')({
-  width: 54,
-});
+const PlaceHolderEcosystemActor = styled('div')(({ theme }) => ({
+  width: 32,
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 45,
+  },
+}));
 
 const RoleChipStyled = styled(RoleChip)(() => ({
   '& div': {
