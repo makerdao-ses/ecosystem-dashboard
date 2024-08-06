@@ -1,9 +1,10 @@
 import { styled } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+
+import AvatarPlaceholderIcon from 'public/assets/svg/avatar_placeholder.svg';
 
 import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
-import SESTooltip from '@/components/SESTooltip/SESTooltip';
-import Information from '@/components/icons/information';
 
 import { siteRoutes } from '@/config/routes';
 import type { Maybe } from '@/core/models/interfaces/generics';
@@ -46,7 +47,7 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
           label="Details"
         />
       </Header>
-      <TitleContainer>
+      <TitleContainer className="title-container">
         <Title>{milestoneData.title}</Title>
         <Abstract>{milestoneData.abstract}</Abstract>
       </TitleContainer>
@@ -54,11 +55,6 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
         <ProgressTitleWrapper>
           <ProgressTitleContainer>
             <ProgressTitle>Progress</ProgressTitle>
-            <SESTooltip content="Example text" placement="bottom-start">
-              <InformationContainer>
-                <Information />
-              </InformationContainer>
-            </SESTooltip>
           </ProgressTitleContainer>
           <StatusLabelContainer status={milestoneData.scope?.status}>
             <StatusLabel status={milestoneData.scope?.status}>{statusLabel}</StatusLabel>
@@ -69,6 +65,23 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
           <ProgressLabel progress={progress}>{usLocalizedNumber(progress * 100, 0)}%</ProgressLabel>
         </ProgressBarContainer>
       </Progress>
+      <CoordinatorsContainer className="coordinators-container">
+        <CoordinatorsTitle>Coordinators</CoordinatorsTitle>
+        <Coordinators>
+          {milestoneData.coordinators?.map((coordinatorData) => (
+            <CoordinatorAvatarContainer key={coordinatorData.id}>
+              {coordinatorData.imageUrl === 'N/A' ? (
+                <CoordinatorAvatar>
+                  <AvatarPlaceholderIcon />
+                </CoordinatorAvatar>
+              ) : (
+                <CoordinatorAvatar alt={coordinatorData.name} src={coordinatorData.imageUrl} />
+              )}
+              <CoordinatorName>{coordinatorData.name}</CoordinatorName>
+            </CoordinatorAvatarContainer>
+          ))}
+        </Coordinators>
+      </CoordinatorsContainer>
     </Container>
   );
 };
@@ -143,7 +156,6 @@ const StyledInternalLinkButton = styled(InternalLinkButton)(({ theme }) => ({
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  flex: '1 0 0',
   gap: 4,
   margin: '8px 8px 0px',
   padding: '4px 8px',
@@ -197,15 +209,6 @@ const ProgressTitle = styled('h4')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '18px',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
-}));
-
-const InformationContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 16,
-  height: 16,
-  cursor: 'pointer',
 }));
 
 const ProgressBarContainer = styled('div')(({ theme }) => ({
@@ -289,4 +292,57 @@ const StatusLabel = styled('span', {
   ...((status === DeliverableSetStatus.DRAFT || status === DeliverableSetStatus.TODO) && {
     color: theme.palette.isLight ? theme.palette.colors.orange[800] : theme.palette.colors.orange[100],
   }),
+}));
+
+const CoordinatorsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  margin: '4px 8px 0px',
+  padding: 8,
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+  borderRadius: 12,
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+}));
+
+const CoordinatorsTitle = styled('h4')(({ theme }) => ({
+  margin: 0,
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
+}));
+
+const Coordinators = styled('div')(() => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: 16,
+}));
+
+const CoordinatorAvatarContainer = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 4,
+}));
+
+const CoordinatorAvatar = styled(Avatar)(({ theme }) => ({
+  width: 24,
+  height: 24,
+
+  '& > svg': {
+    fill: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800],
+    '& rect': {
+      fill: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800],
+    },
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.charcoal[600] : theme.palette.colors.charcoal[500],
+    },
+  },
+}));
+
+const CoordinatorName = styled('span')(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: 14,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[400],
 }));
