@@ -187,10 +187,13 @@ const SimpleBarStyled = styled(SimpleBar)(({ theme }) => ({
   },
 
   [theme.breakpoints.up('tablet_768')]: {
-    height: 534,
+    height: 480,
   },
-  [theme.breakpoints.up('desktop_1280')]: {
-    height: 634,
+  [theme.breakpoints.up('desktop_1024')]: {
+    height: 540,
+  },
+  [theme.breakpoints.up('desktop_1440')]: {
+    height: 550,
   },
 }));
 

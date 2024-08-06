@@ -26,26 +26,24 @@ const Container = styled('div')<{ isLegacy?: boolean }>(({ theme, isLegacy = fal
   gap: 8,
   height: '100%',
   padding: 0,
+  paddingTop: 8,
+  paddingBottom: 8,
   backgroundColor: 'transparent',
   ...(isLegacy && {
     borderRadius: 12,
     backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
-
-    '& a': {
-      '&:first-of-type:hover': {
-        borderTopRightRadius: 12,
-        borderTopLeftRadius: 12,
-      },
-      '&:last-of-type:hover': {
-        borderBottomRightRadius: 12,
-        borderBottomLeftRadius: 12,
-      },
-    },
   }),
 
   [theme.breakpoints.up('tablet_768')]: {
-    gap: 'revert',
+    marginBottom: isLegacy ? 0 : 16,
+    gap: 16,
+  },
+  [theme.breakpoints.up('desktop_1024')]: {
     marginBottom: isLegacy ? 0 : 32,
-    justifyContent: 'space-between',
+    gap: 48,
+  },
+  [theme.breakpoints.up('desktop_1280')]: {
+    marginBottom: isLegacy ? 0 : 32,
+    gap: 64,
   },
 }));
