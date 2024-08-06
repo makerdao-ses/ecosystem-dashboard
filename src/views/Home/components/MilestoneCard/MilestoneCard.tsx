@@ -1,4 +1,7 @@
 import { styled } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+
+import AvatarPlaceholderIcon from 'public/assets/svg/avatar_placeholder.svg';
 
 import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
@@ -14,11 +17,12 @@ import { progressPercentage } from '@/views/RoadmapMilestones/utils';
 
 import useMilestoneCard from './useMilestoneCard';
 
-import type { FC } from 'react';
+import type { FC, MutableRefObject } from 'react';
 
 interface MilestoneCardProps {
   slug: string;
   milestoneData: Milestone;
+  coordinatorsRef: MutableRefObject<HTMLDivElement[]>;
 }
 
 interface ElementWithProgress {
@@ -29,7 +33,7 @@ interface ElementWithStatus {
   status: Maybe<DeliverableSetStatus>;
 }
 
-const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
+const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData, coordinatorsRef }) => {
   const { statusLabel } = useMilestoneCard(milestoneData.scope?.status);
 
   const progress = progressPercentage(milestoneData.scope?.progress);
@@ -69,6 +73,29 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
           <ProgressLabel progress={progress}>{usLocalizedNumber(progress * 100, 0)}%</ProgressLabel>
         </ProgressBarContainer>
       </Progress>
+      <CoordinatorsContainer
+        ref={(element) => {
+          if (element !== null) {
+            coordinatorsRef.current.push(element);
+          }
+        }}
+      >
+        <CoordinatorsTitle>Coordinators</CoordinatorsTitle>
+        <Coordinators>
+          {milestoneData.coordinators?.map((coordinatorData) => (
+            <CoordinatorAvatarContainer key={coordinatorData.id}>
+              {coordinatorData.imageUrl === 'N/A' ? (
+                <CoordinatorAvatar>
+                  <AvatarPlaceholderIcon />
+                </CoordinatorAvatar>
+              ) : (
+                <CoordinatorAvatar alt={coordinatorData.name} src={coordinatorData.imageUrl} />
+              )}
+              <CoordinatorName>{coordinatorData.name}</CoordinatorName>
+            </CoordinatorAvatarContainer>
+          ))}
+        </Coordinators>
+      </CoordinatorsContainer>
     </Container>
   );
 };
@@ -289,4 +316,57 @@ const StatusLabel = styled('span', {
   ...((status === DeliverableSetStatus.DRAFT || status === DeliverableSetStatus.TODO) && {
     color: theme.palette.isLight ? theme.palette.colors.orange[800] : theme.palette.colors.orange[100],
   }),
+}));
+
+const CoordinatorsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  margin: '4px 8px 0px',
+  padding: 8,
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+  borderRadius: 12,
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+}));
+
+const CoordinatorsTitle = styled('h4')(({ theme }) => ({
+  margin: 0,
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
+}));
+
+const Coordinators = styled('div')(() => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: 16,
+}));
+
+const CoordinatorAvatarContainer = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 4,
+}));
+
+const CoordinatorAvatar = styled(Avatar)(({ theme }) => ({
+  width: 24,
+  height: 24,
+
+  '& > svg': {
+    fill: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800],
+    '& rect': {
+      fill: theme.palette.isLight ? theme.palette.colors.charcoal[200] : theme.palette.colors.charcoal[800],
+    },
+    '& path': {
+      fill: theme.palette.isLight ? theme.palette.colors.charcoal[600] : theme.palette.colors.charcoal[500],
+    },
+  },
+}));
+
+const CoordinatorName = styled('span')(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: 14,
+  lineHeight: '22px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[400],
 }));

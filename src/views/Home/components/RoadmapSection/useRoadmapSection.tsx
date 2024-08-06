@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import type { Roadmap } from '@/core/models/interfaces/roadmaps';
 import type { SwiperRef } from 'swiper/react';
@@ -21,12 +21,24 @@ const useRoadmapSection = (roadmapsData: Roadmap[]) => {
     }
   };
 
+  const coordinatorsRef = useRef<HTMLDivElement[]>([]);
+
+  useLayoutEffect(() => {
+    coordinatorsRef.current.sort(
+      (prevDiv: HTMLDivElement, nextDiv: HTMLDivElement) => nextDiv.clientHeight - prevDiv.clientHeight
+    );
+    for (const coordinatorDiv of coordinatorsRef.current) {
+      coordinatorDiv.style.height = `${coordinatorsRef.current[0].getBoundingClientRect().height}px`;
+    }
+  });
+
   return {
     tabs,
     activeRoadmapRef,
     swiperRef,
     activeTab,
     handleActiveTab,
+    coordinatorsRef,
   };
 };
 
