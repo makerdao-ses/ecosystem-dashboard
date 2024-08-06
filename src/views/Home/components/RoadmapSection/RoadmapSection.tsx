@@ -25,8 +25,7 @@ interface RoadmapSectionProps {
 const RoadmapSection: FC<RoadmapSectionProps> = ({ roadmaps }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
-  const { tabs, activeRoadmapRef, swiperRef, activeTab, handleActiveTab, coordinatorsRef } =
-    useRoadmapSection(roadmaps);
+  const { tabs, activeRoadmapRef, swiperRef, activeTab, handleActiveTab } = useRoadmapSection(roadmaps);
   const activeRoadmap = activeRoadmapRef.current;
 
   const swiperOptions: SwiperProps = {
@@ -70,11 +69,7 @@ const RoadmapSection: FC<RoadmapSectionProps> = ({ roadmaps }) => {
         <MobileMilestoneCardsContainer>
           {roadmaps[activeRoadmap]?.milestones.map((milestoneData, index) => (
             <Fragment key={milestoneData.id}>
-              <MilestoneCard
-                slug={roadmaps[activeRoadmap]?.slug}
-                milestoneData={milestoneData}
-                coordinatorsRef={coordinatorsRef}
-              />
+              <MilestoneCard slug={roadmaps[activeRoadmap]?.slug} milestoneData={milestoneData} />
               {index !== roadmaps[activeRoadmap]?.milestones.length - 1 && <MobileMilestoneCardsDivider />}
             </Fragment>
           ))}
@@ -85,11 +80,7 @@ const RoadmapSection: FC<RoadmapSectionProps> = ({ roadmaps }) => {
             {roadmaps[activeRoadmap]?.milestones.map((milestoneData) => (
               <SwiperSlide key={milestoneData.id}>
                 <MilestoneCardContainer>
-                  <MilestoneCard
-                    slug={roadmaps[activeRoadmap]?.slug}
-                    milestoneData={milestoneData}
-                    coordinatorsRef={coordinatorsRef}
-                  />
+                  <MilestoneCard slug={roadmaps[activeRoadmap]?.slug} milestoneData={milestoneData} />
                 </MilestoneCardContainer>
               </SwiperSlide>
             ))}

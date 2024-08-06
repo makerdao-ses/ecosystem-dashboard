@@ -21,9 +21,6 @@ const variantsArgs = [
   {
     slug: 'default',
     milestoneData: { ...CommonDefaultMilestone },
-    coordinatorsRef: {
-      current: [],
-    },
   },
 ];
 

@@ -5,8 +5,6 @@ import AvatarPlaceholderIcon from 'public/assets/svg/avatar_placeholder.svg';
 
 import Card from '@/components/Card/Card';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
-import SESTooltip from '@/components/SESTooltip/SESTooltip';
-import Information from '@/components/icons/information';
 
 import { siteRoutes } from '@/config/routes';
 import type { Maybe } from '@/core/models/interfaces/generics';
@@ -17,12 +15,11 @@ import { progressPercentage } from '@/views/RoadmapMilestones/utils';
 
 import useMilestoneCard from './useMilestoneCard';
 
-import type { FC, MutableRefObject } from 'react';
+import type { FC } from 'react';
 
 interface MilestoneCardProps {
   slug: string;
   milestoneData: Milestone;
-  coordinatorsRef: MutableRefObject<HTMLDivElement[]>;
 }
 
 interface ElementWithProgress {
@@ -33,7 +30,7 @@ interface ElementWithStatus {
   status: Maybe<DeliverableSetStatus>;
 }
 
-const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData, coordinatorsRef }) => {
+const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
   const { statusLabel } = useMilestoneCard(milestoneData.scope?.status);
 
   const progress = progressPercentage(milestoneData.scope?.progress);
@@ -50,7 +47,7 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData, coordinato
           label="Details"
         />
       </Header>
-      <TitleContainer>
+      <TitleContainer className="title-container">
         <Title>{milestoneData.title}</Title>
         <Abstract>{milestoneData.abstract}</Abstract>
       </TitleContainer>
@@ -58,11 +55,6 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData, coordinato
         <ProgressTitleWrapper>
           <ProgressTitleContainer>
             <ProgressTitle>Progress</ProgressTitle>
-            <SESTooltip content="Example text" placement="bottom-start">
-              <InformationContainer>
-                <Information />
-              </InformationContainer>
-            </SESTooltip>
           </ProgressTitleContainer>
           <StatusLabelContainer status={milestoneData.scope?.status}>
             <StatusLabel status={milestoneData.scope?.status}>{statusLabel}</StatusLabel>
@@ -73,13 +65,7 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData, coordinato
           <ProgressLabel progress={progress}>{usLocalizedNumber(progress * 100, 0)}%</ProgressLabel>
         </ProgressBarContainer>
       </Progress>
-      <CoordinatorsContainer
-        ref={(element) => {
-          if (element !== null) {
-            coordinatorsRef.current.push(element);
-          }
-        }}
-      >
+      <CoordinatorsContainer className="coordinators-container">
         <CoordinatorsTitle>Coordinators</CoordinatorsTitle>
         <Coordinators>
           {milestoneData.coordinators?.map((coordinatorData) => (
@@ -170,7 +156,6 @@ const StyledInternalLinkButton = styled(InternalLinkButton)(({ theme }) => ({
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  flex: '1 0 0',
   gap: 4,
   margin: '8px 8px 0px',
   padding: '4px 8px',
@@ -224,15 +209,6 @@ const ProgressTitle = styled('h4')(({ theme }) => ({
   fontSize: 12,
   lineHeight: '18px',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
-}));
-
-const InformationContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 16,
-  height: 16,
-  cursor: 'pointer',
 }));
 
 const ProgressBarContainer = styled('div')(({ theme }) => ({
