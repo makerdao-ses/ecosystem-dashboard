@@ -86,7 +86,7 @@ const LatestUpdatesSection: React.FC = () => (
           list: [
             {
               bold: 'Introducing NewChain',
-              text: 'Laung of a dedicated L1 blockchain to inhance the Maker ecosystem.',
+              text: 'Launch of a dedicated L1 blockchain to enhance the Maker ecosystem.',
             },
             {
               bold: 'Ethereum and Beyond',
@@ -94,7 +94,7 @@ const LatestUpdatesSection: React.FC = () => (
             },
             {
               bold: 'Foundation for the Future',
-              text: 'Strategic development of New Chain to ensure scalability and innovation.',
+              text: 'Strategic development of NewChain to ensure scalability and innovation.',
             },
           ],
         }}
