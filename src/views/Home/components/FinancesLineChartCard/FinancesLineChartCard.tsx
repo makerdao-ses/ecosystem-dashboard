@@ -1,13 +1,11 @@
 import { Button, styled } from '@mui/material';
-
 import Card from '@/components/Card/Card';
-
+import FilterButtonTab from '@/components/FilterButtonTab/FilterButtonTab';
+import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
+import { siteRoutes } from '@/config/routes';
 import FinancesLineChart from '@/views/Home/components/FinancesLineChart/FinancesLineChart';
 import useFinancesLineChart from '@/views/Home/components/FinancesLineChart/useFinancesLineChart';
-
-import { financesLineChartCardData } from '@/views/Home/staticData';
-import useFinancesLineChartCard from './useFinancesLineChartCard';
-
+import useFinancesLineChartCard, { ExpenseBreakdownFilterOptions } from './useFinancesLineChartCard';
 import type { ButtonProps } from '@mui/material';
 import type { FC } from 'react';
 
@@ -21,36 +19,64 @@ const FinancesLineChartCard: FC = () => {
 
   return (
     <Container>
-      <TabButtonsContainer>
-        <TabButton
-          isActive={activeTab === 0}
-          disableRipple
-          onClick={() => {
-            handleActiveTab(0);
+      <FilterContainer>
+        <TabButtonsContainer>
+          <TabButton
+            isActive={activeTab === ExpenseBreakdownFilterOptions.REALIZED_EXPENSES}
+            disableRipple
+            onClick={() => {
+              handleActiveTab(ExpenseBreakdownFilterOptions.REALIZED_EXPENSES);
+            }}
+          >
+            Realized Expenses
+          </TabButton>
+          <TabButton
+            isActive={activeTab === ExpenseBreakdownFilterOptions.OPERATIONAL_RESERVES}
+            disableRipple
+            onClick={() => {
+              handleActiveTab(ExpenseBreakdownFilterOptions.OPERATIONAL_RESERVES);
+            }}
+          >
+            Operational Reserves
+          </TabButton>
+          <TabButton
+            isActive={activeTab === ExpenseBreakdownFilterOptions.FORECAST}
+            disableRipple
+            onClick={() => {
+              handleActiveTab(ExpenseBreakdownFilterOptions.FORECAST);
+            }}
+          >
+            Forecast
+          </TabButton>
+        </TabButtonsContainer>
+
+        <FilterGroupContainer
+          style={{
+            visibility: activeTab === ExpenseBreakdownFilterOptions.OPERATIONAL_RESERVES ? 'hidden' : 'visible',
           }}
         >
-          {financesLineChartCardData.tabButtonsTexts[0]}
-        </TabButton>
-        <TabButton
-          isActive={activeTab === 1}
-          disableRipple
-          onClick={() => {
-            handleActiveTab(1);
-          }}
-        >
-          {financesLineChartCardData.tabButtonsTexts[1]}
-        </TabButton>
-        <TabButton
-          isActive={activeTab === 2}
-          disableRipple
-          onClick={() => {
-            handleActiveTab(2);
-          }}
-        >
-          {financesLineChartCardData.tabButtonsTexts[2]}
-        </TabButton>
-      </TabButtonsContainer>
+          {activeTab !== ExpenseBreakdownFilterOptions.FORECAST ? (
+            // this one is going to be shown when Realized expenses tab is selected,
+            // but is Operational Reserves is selected we need to add it here to keep the same space
+            // this way we can avoid UI jumps (this is not going to be visible in the UI)
+            <>
+              <FilterButtonTab label={'Actuals'} handleChange={() => null} isSelect={false} />
+              <FilterButtonTab label={'Payments'} handleChange={() => null} isSelect={true} />
+            </>
+          ) : (
+            <>
+              <FilterButtonTab label={'Budgets'} handleChange={() => null} isSelect={false} />
+              <FilterButtonTab label={'Forecasts'} handleChange={() => null} isSelect={true} />
+            </>
+          )}
+        </FilterGroupContainer>
+      </FilterContainer>
+
       <FinancesLineChart />
+
+      <ExternalButtonContainer>
+        <InternalLinkButton label="Realized Expenses" buttonType="primary" href={siteRoutes.finances('/scopes')} />
+      </ExternalButtonContainer>
     </Container>
   );
 };
@@ -78,6 +104,26 @@ const Container = styled(Card)(({ theme }) => ({
   },
 }));
 
+const FilterContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  width: '100%',
+
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 24,
+    marginBottom: 16,
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    flexDirection: 'column',
+    gap: 8,
+  },
+}));
+
 const TabButtonsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   borderRadius: '12px 12px 0px 0px',
@@ -97,6 +143,13 @@ const TabButtonsContainer = styled('div')(({ theme }) => ({
     justifyContent: 'center',
     gap: 32,
   },
+}));
+
+const FilterGroupContainer = styled('div')(() => ({
+  display: 'flex',
+  gap: 8,
+  marginLeft: 'auto',
+  padding: '0 8px',
 }));
 
 const TabButton = styled(Button, {
@@ -190,5 +243,19 @@ const TabButton = styled(Button, {
     height: 24,
     fontSize: 16,
     lineHeight: '24px',
+  },
+}));
+
+const ExternalButtonContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: 24,
+
+  '& > a': {
+    padding: '2px 14px 2px 22px',
+  },
+
+  [theme.breakpoints.between('tablet_768', 'desktop_1024')]: {
+    marginTop: 16,
   },
 }));

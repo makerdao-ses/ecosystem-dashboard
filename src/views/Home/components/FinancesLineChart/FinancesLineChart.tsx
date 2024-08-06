@@ -1,9 +1,6 @@
 import { styled, useMediaQuery, useTheme } from '@mui/material';
-
 import ReactECharts from 'echarts-for-react';
-
 import useFinancesLineChart from './useFinancesLineChart';
-
 import type { Theme } from '@mui/material';
 import type { EChartsOption } from 'echarts-for-react';
 import type { FC } from 'react';
@@ -26,6 +23,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [260, 220, 190, 160, 120, 80, 50],
+      itemStyle: {
+        color: theme.palette.colors.charcoal[300],
+      },
     },
     {
       type: 'line',
@@ -38,6 +38,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [480, 400, 300, 200, 140, 100, 40],
+      itemStyle: {
+        color: theme.palette.colors.charcoal[200],
+      },
     },
     {
       type: 'line',
@@ -50,6 +53,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [null, null, null, null, null, null, 10, 80, 160, 200, 200, 140, 100, 50, 50, 50],
+      itemStyle: {
+        color: theme.palette.colors.fusion[400],
+      },
     },
     {
       type: 'line',
@@ -62,6 +68,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [null, null, null, null, null, null, 10, 80, 160, 100, 120, 140, 100, 50, 50, 50],
+      itemStyle: {
+        color: theme.palette.colors.blue[500],
+      },
     },
     {
       type: 'line',
@@ -74,6 +83,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [null, null, null, null, null, null, 10, 80, 160, 150, 160, 140, 100, 50, 50, 50],
+      itemStyle: {
+        color: theme.palette.colors.red[500],
+      },
     },
     {
       type: 'line',
@@ -86,6 +98,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [null, null, null, null, null, null, 10, 80, 160, 150, 160, 140, 100, 50, 50, 50],
+      itemStyle: {
+        color: theme.palette.colors.green[500],
+      },
     },
     {
       type: 'line',
@@ -98,6 +113,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [null, null, null, null, null, null, 20, 80, 160, 150, 160, 140, 100, 50, 50, 80],
+      itemStyle: {
+        color: theme.palette.colors.purple[500],
+      },
     },
     {
       type: 'line',
@@ -110,6 +128,9 @@ const FinancesLineChart: FC = () => {
       },
       showSymbol: false,
       data: [null, null, null, null, null, null, 30, 80, 160, 150, 160, 140, 100, 180, 50, 100],
+      itemStyle: {
+        color: theme.palette.colors.orange[500],
+      },
     },
   ];
 
@@ -166,23 +187,48 @@ const FinancesLineChart: FC = () => {
   };
 
   return (
-    <Container>
-      <ReactECharts
-        ref={financesLineChartRef}
-        option={options}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        opts={{ renderer: 'svg' }}
-      />
-    </Container>
+    <Wrapper>
+      <ChartContainer>
+        <ReactECharts
+          ref={financesLineChartRef}
+          option={options}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          opts={{ renderer: 'svg' }}
+        />
+      </ChartContainer>
+
+      <LegendContainer>
+        {series.map((item) => (
+          <LegendItem key={item.name}>
+            <Dot color={item.itemStyle.color} />
+            {item.name}
+          </LegendItem>
+        ))}
+      </LegendContainer>
+    </Wrapper>
   );
 };
 
 export default FinancesLineChart;
 
-const Container = styled('div')(({ theme }) => ({
+const Wrapper = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    flexDirection: 'row',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    flexDirection: 'column',
+  },
+}));
+
+const ChartContainer = styled('div')(({ theme }) => ({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -192,20 +238,82 @@ const Container = styled('div')(({ theme }) => ({
   marginTop: 8,
 
   [theme.breakpoints.up('tablet_768')]: {
-    width: 500,
+    width: 385,
+    minWidth: 385,
     height: 253,
   },
 
   [theme.breakpoints.up('desktop_1024')]: {
     width: 540,
+    minWidth: 540,
   },
 
   [theme.breakpoints.up('desktop_1280')]: {
     width: 480,
+    minWidth: 480,
     height: 360,
   },
 
   [theme.breakpoints.up('desktop_1440')]: {
     width: 520,
+    minWidth: 520,
+  },
+}));
+
+const LegendContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '8px 24px',
+  flexWrap: 'wrap',
+  borderRadius: 12,
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+  margin: '0 8px',
+  padding: 8,
+
+  [theme.breakpoints.up('tablet_768')]: {
+    border: 'unset',
+    width: '100%',
+    background: theme.palette.isLight ? theme.palette.colors.slate[50] : theme.palette.colors.charcoal[800],
+    padding: '16px 32px',
+    margin: 'unset',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+}));
+
+const LegendItem = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  fontSize: 12,
+  fontWeight: 600,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.slate[900] : theme.palette.colors.slate[50],
+
+  [theme.breakpoints.up('tablet_768')]: {
+    fontSize: 14,
+    lineHeight: '22px',
+  },
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    fontSize: 16,
+    lineHeight: '24px',
+  },
+}));
+
+const Dot = styled('div')<{ color: string }>(({ theme, color }) => ({
+  width: 8,
+  height: 8,
+  borderRadius: '50%',
+  backgroundColor: color,
+  marginRight: 8,
+
+  [theme.breakpoints.up('desktop_1280')]: {
+    width: 12,
+    height: 12,
   },
 }));
