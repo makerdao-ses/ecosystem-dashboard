@@ -39,7 +39,7 @@ export const useCoreUnitsTableView = (coreUnits: CoreUnit[]) => {
   const theme = useTheme();
   const [searchText, setSearchText] = useState('');
   const deferredSearchText = useDeferredValue(searchText);
-  const previousSearchTextRef = useRef<string | null>(null);
+  const previousSearchTextRef = useRef<string | null>('');
 
   const filteredStatuses = useMemo(() => getArrayParam('filteredStatuses', router.query), [router.query]);
   const filteredCategories = useMemo(() => getArrayParam('filteredCategories', router.query), [router.query]);
@@ -434,6 +434,7 @@ export const useCoreUnitsTableView = (coreUnits: CoreUnit[]) => {
       pathname: siteRoutes.coreUnitsOverview,
       search: stringify(newQuery),
     });
+    setSearchText('');
   };
 
   return {
