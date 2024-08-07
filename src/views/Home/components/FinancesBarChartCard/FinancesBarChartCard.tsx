@@ -25,7 +25,6 @@ const FinancesBarChartCard: FC<FinancesBarChartCardProps> = ({ revenueAndSpendin
     <FinancesBarChartContainer>
       <div>
         <AnnualProfit>
-          <Text>*All values are converted to DAI</Text>
           <AnnualProfitLegend>
             <BlueLinesIcon />
             <Text>Annual Profit</Text>
