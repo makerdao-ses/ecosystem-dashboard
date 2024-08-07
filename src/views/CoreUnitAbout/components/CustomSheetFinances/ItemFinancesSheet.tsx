@@ -44,15 +44,10 @@ const ItemFinancesSheet: FC<Props> = ({
     >
       <ContainerChildren>
         {type === ResourceType.CoreUnit && (
-          <StyledActivityButton
-            href={`/core-unit/${shortCode}/activity-feed${queryStrings}`}
-            label="Activity Feed"
-            showIcon
-          />
+          <StyledActivityButton href={siteRoutes.coreUnitActivityFeed(shortCode)} label="Activity Feed" showIcon />
         )}
         <StyledBudgetButton href={route} label="Budget Statements" showIcon />
-        <StyledBudgetFinances href={`/finances/${budgetPath}/${queryStrings}`} label="Finances" showIcon />
-
+        <StyledBudgetFinances href={siteRoutes.finances(budgetPath)} label="Finances" showIcon />
         {type === ResourceType.CoreUnit && <Line />}
         {type === ResourceType.CoreUnit && (
           <ContainerLinks>
