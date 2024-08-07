@@ -10,3 +10,13 @@ export const getProfileUpdate = (contributor: Team) => {
   }
   return undefined;
 };
+
+const tooltipLabels: { [key: string]: string } = {
+  psm: 'PSM',
+  liquidationIncome: 'Liquidation Income',
+  fees: 'Fees',
+  daiSpent: 'DAI Spent',
+  mkrVesting: 'MKR Vesting',
+};
+
+export const getCorrectLabelForToolTip = (label: string): string => tooltipLabels[label] || '';
