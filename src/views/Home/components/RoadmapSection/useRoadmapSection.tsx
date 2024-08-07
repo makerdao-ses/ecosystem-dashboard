@@ -22,16 +22,18 @@ const useRoadmapSection = (roadmapsData: Roadmap[]) => {
     }
   };
 
-  const coordinatorsRef = useRef<HTMLDivElement[]>([]);
-
   const width = useWindowWidth();
 
   useEffect(() => {
     const titleContainer = document.getElementsByClassName('title-container');
     const coordinatorsContainer = document.getElementsByClassName('coordinators-container');
+    const latestKeyResultsContainer = document.getElementsByClassName('latest-key-results-container');
 
     const titles = Array.from(titleContainer).sort((prevDiv, nextDiv) => nextDiv.clientHeight - prevDiv.clientHeight);
     const coordinators = Array.from(coordinatorsContainer).sort(
+      (prevDiv, nextDiv) => nextDiv.clientHeight - prevDiv.clientHeight
+    );
+    const latestKeyResults = Array.from(latestKeyResultsContainer).sort(
       (prevDiv, nextDiv) => nextDiv.clientHeight - prevDiv.clientHeight
     );
 
@@ -41,6 +43,9 @@ const useRoadmapSection = (roadmapsData: Roadmap[]) => {
     for (const coordinatorDiv of coordinators) {
       (coordinatorDiv as HTMLDivElement).style.minHeight = `${coordinators[0].getBoundingClientRect().height}px`;
     }
+    for (const keyResultDiv of latestKeyResults) {
+      (keyResultDiv as HTMLDivElement).style.minHeight = `${latestKeyResults[0].getBoundingClientRect().height}px`;
+    }
   }, [width]);
 
   return {
@@ -49,7 +54,6 @@ const useRoadmapSection = (roadmapsData: Roadmap[]) => {
     swiperRef,
     activeTab,
     handleActiveTab,
-    coordinatorsRef,
   };
 };
 
