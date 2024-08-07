@@ -31,7 +31,7 @@ const FinancesLineChartCard: FC<FinancesLineChartCardProps> = ({ financesData })
         return setSelectedMetric(realizedExpensesFilter === 'Payments' ? 'PaymentsOnChain' : 'Actuals'); // or Actuals
       case ExpenseBreakdownFilterOptions.OPERATIONAL_RESERVES:
         // ProtocolNetOutFlow - PaymentsOffChainIncluded
-        return setSelectedMetric('ProtocolNetOutflow');
+        return setSelectedMetric('OperationalReserves');
       case ExpenseBreakdownFilterOptions.FORECAST:
         return setSelectedMetric('Forecast');
     }

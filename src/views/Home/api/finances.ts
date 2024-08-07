@@ -37,7 +37,8 @@ const filter = {
   },
 };
 
-export type MetricKey = 'Actuals' | 'PaymentsOnChain' | 'ProtocolNetOutflow' | 'PaymentsOffChainIncluded' | 'Forecast';
+export type MetricKey = 'Actuals' | 'PaymentsOnChain' | 'Forecast' | 'OperationalReserves';
+export type MetricKeyExtended = MetricKey | 'ProtocolNetOutflow' | 'PaymentsOffChainIncluded';
 export type BudgetKey =
   | 'legacyOthers'
   | 'legacyCoreUnits'
@@ -76,12 +77,13 @@ export const getFinancesData = async (): Promise<FormattedFinancesData> => {
     immutable: [] as number[],
   };
 
-  const data: Record<MetricKey, typeof emptyData> = {
+  const data: Record<MetricKeyExtended, typeof emptyData> = {
     Actuals: clone(emptyData),
     PaymentsOnChain: clone(emptyData),
+    Forecast: clone(emptyData),
     ProtocolNetOutflow: clone(emptyData),
     PaymentsOffChainIncluded: clone(emptyData),
-    Forecast: clone(emptyData),
+    OperationalReserves: clone(emptyData),
   };
 
   analyticsResponse.analytics.series.forEach((series) => {
@@ -89,7 +91,7 @@ export const getFinancesData = async (): Promise<FormattedFinancesData> => {
     const year = Number(series.period.split('/')[0]);
     const quarter = Number(series.period.charAt(6));
     series.rows.forEach((row) => {
-      const metric = row.metric as MetricKey;
+      const metric = row.metric as MetricKeyExtended;
       Object.keys(pathRegexMap).forEach((key) => {
         if (pathRegexMap?.[key as BudgetKey].test(row.dimensions[0].path)) {
           const index = (year - 2021) * 4 + quarter - 1;
@@ -102,6 +104,15 @@ export const getFinancesData = async (): Promise<FormattedFinancesData> => {
         }
       });
     });
+  });
+
+  // calculate operational reserves
+  // it is ProtocolNetOutflow - PaymentsOffChainIncluded
+  data.OperationalReserves = clone(data.ProtocolNetOutflow);
+  Object.keys(data.OperationalReserves).forEach((key) => {
+    data.OperationalReserves[key as BudgetKey] = data.ProtocolNetOutflow[key as BudgetKey].map(
+      (value, index) => value - data.PaymentsOffChainIncluded[key as BudgetKey][index]
+    );
   });
 
   return data;
