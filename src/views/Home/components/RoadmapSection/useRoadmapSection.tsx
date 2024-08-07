@@ -1,4 +1,3 @@
-import { useWindowWidth } from '@react-hook/window-size';
 import { useEffect, useRef, useState } from 'react';
 
 import type { Roadmap } from '@/core/models/interfaces/roadmaps';
@@ -22,8 +21,6 @@ const useRoadmapSection = (roadmapsData: Roadmap[]) => {
     }
   };
 
-  const width = useWindowWidth();
-
   useEffect(() => {
     const titleContainer = document.getElementsByClassName('title-container');
     const coordinatorsContainer = document.getElementsByClassName('coordinators-container');
@@ -46,7 +43,7 @@ const useRoadmapSection = (roadmapsData: Roadmap[]) => {
     for (const keyResultDiv of latestKeyResults) {
       (keyResultDiv as HTMLDivElement).style.minHeight = `${latestKeyResults[0].getBoundingClientRect().height}px`;
     }
-  }, [width]);
+  }, []);
 
   return {
     tabs,

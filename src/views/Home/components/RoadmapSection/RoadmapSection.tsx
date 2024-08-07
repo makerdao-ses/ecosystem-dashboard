@@ -158,7 +158,7 @@ const SwiperContainer = styled('div')(({ theme }) => ({
     width: 16,
     height: 16,
     backgroundColor: theme.palette.isLight
-      ? `${theme.palette.colors.slate[50]} !important`
+      ? `${theme.palette.colors.charcoal[100]} !important`
       : `${theme.palette.colors.gray[900]} !important`,
     opacity: '1 !important',
 
@@ -172,7 +172,7 @@ const SwiperContainer = styled('div')(({ theme }) => ({
 
     '&:not(.swiper-pagination-bullet-active):hover': {
       backgroundColor: theme.palette.isLight
-        ? `${theme.palette.colors.charcoal[100]} !important`
+        ? `${theme.palette.colors.charcoal[200]} !important`
         : `${theme.palette.colors.gray[800]} !important`,
     },
   },

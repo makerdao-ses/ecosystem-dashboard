@@ -149,6 +149,7 @@ const Code = styled('h3')(({ theme }) => ({
 
 const StyledInternalLinkButton = styled(InternalLinkButton)(({ theme }) => ({
   padding: 0,
+  fontSize: 14,
 
   '&:hover': {
     gap: 8,
@@ -171,14 +172,25 @@ const StyledInternalLinkButton = styled(InternalLinkButton)(({ theme }) => ({
     color: theme.palette.isLight ? theme.palette.colors.charcoal[800] : theme.palette.colors.charcoal[200],
   },
 
-  '& div:last-of-type > svg path': {
-    fill: theme.palette.isLight ? theme.palette.colors.charcoal[800] : theme.palette.colors.charcoal[200],
+  '& div:last-of-type': {
+    width: 20,
+    height: 20,
+
+    '& > svg': {
+      width: 20,
+      height: 20,
+
+      '& path': {
+        fill: theme.palette.isLight ? theme.palette.colors.charcoal[800] : theme.palette.colors.charcoal[200],
+      },
+    },
   },
 }));
 
 const TitleContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  flex: '1 0 0',
   gap: 4,
   margin: '8px 8px 0px',
   padding: '4px 8px',
@@ -320,6 +332,7 @@ const StatusLabel = styled('span', {
 const CoordinatorsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  flex: '1 0 0',
   gap: 8,
   margin: '4px 8px 0px',
   padding: 8,
@@ -373,6 +386,7 @@ const CoordinatorName = styled('span')(({ theme }) => ({
 const LatestKeyResultsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  flex: '1 0 0',
   gap: 8,
   margin: '4px 8px 0px',
   padding: 8,
@@ -397,7 +411,7 @@ const KeyResult = styled('li')(() => ({
 
 const KeyResultLink = styled(ExternalLink)(({ theme }) => ({
   position: 'relative',
-  maxWidth: '100%',
+  maxWidth: 'calc(100% - 14px)',
   gap: 6,
   paddingLeft: 14,
   fontWeight: 500,
@@ -435,7 +449,7 @@ const KeyResultLink = styled(ExternalLink)(({ theme }) => ({
 
 const NoKeyResultLink = styled('div')(({ theme }) => ({
   position: 'relative',
-  width: '100%',
+  width: 'calc(100% - 14px)',
   display: 'flex',
   gap: 8,
   paddingLeft: 14,
