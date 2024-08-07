@@ -7,7 +7,7 @@ import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButt
 import { MAKERBURN_URL } from '@/config/externalUrls';
 import { siteRoutes } from '@/config/routes';
 import FinancesBarChart from '@/views/Home/components/FinancesBarChart/FinancesBarChart';
-import type { RevenueAndSpendingRecords } from '../../api/queries';
+import type { RevenueAndSpendingRecords } from '../../api/revenueAndSpending';
 import type { ButtonProps } from '@mui/material';
 import type { FC } from 'react';
 

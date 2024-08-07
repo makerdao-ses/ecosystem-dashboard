@@ -1,4 +1,5 @@
 import { createThemeModeVariants } from '@ses/core/utils/storybook/factories';
+import { financesDataMocked } from '../../staticData';
 import FinancesLineChartCard from './FinancesLineChartCard';
 import type { Meta } from '@storybook/react';
 import type { FigmaParams } from 'sb-figma-comparator';
@@ -16,7 +17,11 @@ const meta: Meta<typeof FinancesLineChartCard> = {
 
 export default meta;
 
-const variantsArgs = [{}];
+const variantsArgs = [
+  {
+    financesData: financesDataMocked,
+  },
+];
 
 const [[LightMode, DarkMode]] = createThemeModeVariants(FinancesLineChartCard, variantsArgs);
 
