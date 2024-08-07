@@ -412,6 +412,7 @@ export const useEcosystemActorsIndexView = (actors: Team[], stories = false) => 
       pathname: siteRoutes.ecosystemActors,
       search: stringify(newQuery),
     });
+    setSearchText('');
   };
 
   return {

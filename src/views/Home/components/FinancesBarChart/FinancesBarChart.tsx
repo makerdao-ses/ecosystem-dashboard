@@ -3,7 +3,7 @@ import ReactECharts from 'echarts-for-react';
 import { useMemo } from 'react';
 import { replaceAllNumberLetOneBeforeDot } from '@/core/utils/string';
 import useFinancesBarChart from './useFinancesBarChart';
-import type { RevenueAndSpendingRecords } from '../../api/queries';
+import type { RevenueAndSpendingRecords } from '../../api/revenueAndSpending';
 import type { Theme } from '@mui/material';
 import type { EChartsOption } from 'echarts-for-react';
 import type { FC } from 'react';

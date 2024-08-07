@@ -1,14 +1,20 @@
 import { styled, useMediaQuery, useTheme } from '@mui/material';
 import ReactECharts from 'echarts-for-react';
+import { replaceAllNumberLetOneBeforeDot } from '@/core/utils/string';
 import useFinancesLineChart from './useFinancesLineChart';
+import type { FormattedFinancesData, MetricKey } from '../../api/finances';
 import type { Theme } from '@mui/material';
 import type { EChartsOption } from 'echarts-for-react';
 import type { FC } from 'react';
 
-const FinancesLineChart: FC = () => {
+interface FinancesLineChartProps {
+  financesData: FormattedFinancesData;
+  selectedMetric: MetricKey;
+}
+
+const FinancesLineChart: FC<FinancesLineChartProps> = ({ financesData, selectedMetric }) => {
   const { financesLineChartRef } = useFinancesLineChart();
   const theme = useTheme();
-
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('tablet_768'));
 
   const series = [
@@ -22,7 +28,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [260, 220, 190, 160, 120, 80, 50],
+      data: financesData[selectedMetric].legacyOthers,
       itemStyle: {
         color: theme.palette.colors.charcoal[300],
       },
@@ -37,7 +43,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [480, 400, 300, 200, 140, 100, 40],
+      data: financesData[selectedMetric].legacyCoreUnits,
       itemStyle: {
         color: theme.palette.colors.charcoal[200],
       },
@@ -52,7 +58,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [null, null, null, null, null, null, 10, 80, 160, 200, 200, 140, 100, 50, 50, 50],
+      data: financesData[selectedMetric].governanceScope,
       itemStyle: {
         color: theme.palette.colors.fusion[400],
       },
@@ -67,7 +73,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [null, null, null, null, null, null, 10, 80, 160, 100, 120, 140, 100, 50, 50, 50],
+      data: financesData[selectedMetric].stability,
       itemStyle: {
         color: theme.palette.colors.blue[500],
       },
@@ -82,7 +88,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [null, null, null, null, null, null, 10, 80, 160, 150, 160, 140, 100, 50, 50, 50],
+      data: financesData[selectedMetric].support,
       itemStyle: {
         color: theme.palette.colors.red[500],
       },
@@ -97,7 +103,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [null, null, null, null, null, null, 10, 80, 160, 150, 160, 140, 100, 50, 50, 50],
+      data: financesData[selectedMetric].protocol,
       itemStyle: {
         color: theme.palette.colors.green[500],
       },
@@ -112,7 +118,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [null, null, null, null, null, null, 20, 80, 160, 150, 160, 140, 100, 50, 50, 80],
+      data: financesData[selectedMetric].accessibility,
       itemStyle: {
         color: theme.palette.colors.purple[500],
       },
@@ -127,7 +133,7 @@ const FinancesLineChart: FC = () => {
         focus: 'series',
       },
       showSymbol: false,
-      data: [null, null, null, null, null, null, 30, 80, 160, 150, 160, 140, 100, 180, 50, 100],
+      data: financesData[selectedMetric].immutable,
       itemStyle: {
         color: theme.palette.colors.orange[500],
       },
@@ -180,7 +186,13 @@ const FinancesLineChart: FC = () => {
         fontSize: isMobile ? 12 : 14,
         lineHeight: isMobile ? 16 : 19,
         color: theme.palette.isLight ? theme.palette.colors.gray[600] : theme.palette.colors.gray[500],
-        formatter: (value: number) => `${value} K`,
+        formatter: (value: number, index: number) => {
+          if (value === 0 && index === 0) {
+            return value.toString();
+          }
+
+          return replaceAllNumberLetOneBeforeDot(value, true);
+        },
       },
     },
     series,

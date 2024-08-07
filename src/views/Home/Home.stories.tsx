@@ -12,7 +12,7 @@ import { ResourceType, TeamCategory, TeamStatus } from '@/core/models/interfaces
 import { DefaultRoadmap } from '@/views/RoadmapMilestones/staticData';
 import { defaultSocials } from '../EcosystemActorsIndex/utils/utils';
 import HomeView from './HomeView';
-import { headerCardData } from './staticData';
+import { financesDataMocked } from './staticData';
 import type { HomeViewProps } from './HomeView';
 import type { Meta } from '@storybook/react';
 
@@ -32,11 +32,6 @@ export default meta;
 
 const variantsArgs = [
   {
-    headerCard: {
-      title: headerCardData.title,
-      description: headerCardData.description,
-      buttonTexts: headerCardData.buttonTexts,
-    },
     revenueAndSpendingData: {
       2021: {
         fees: 50000,
@@ -71,6 +66,7 @@ const variantsArgs = [
         annualProfit: 145000,
       },
     } as HomeViewProps['revenueAndSpendingData'],
+    financesData: financesDataMocked,
     governanceProposals: [
       {
         proposalBlurb:

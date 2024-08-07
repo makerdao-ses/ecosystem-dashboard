@@ -1,4 +1,5 @@
 import { Button, styled } from '@mui/material';
+import { useEffect, useState } from 'react';
 import Card from '@/components/Card/Card';
 import FilterButtonTab from '@/components/FilterButtonTab/FilterButtonTab';
 import InternalLinkButton from '@/components/InternalLinkButton/InternalLinkButton';
@@ -6,6 +7,7 @@ import { siteRoutes } from '@/config/routes';
 import FinancesLineChart from '@/views/Home/components/FinancesLineChart/FinancesLineChart';
 import useFinancesLineChart from '@/views/Home/components/FinancesLineChart/useFinancesLineChart';
 import useFinancesLineChartCard, { ExpenseBreakdownFilterOptions } from './useFinancesLineChartCard';
+import type { FormattedFinancesData, MetricKey } from '../../api/finances';
 import type { ButtonProps } from '@mui/material';
 import type { FC } from 'react';
 
@@ -13,9 +15,27 @@ interface TabButtonProps extends ButtonProps {
   isActive?: boolean;
 }
 
-const FinancesLineChartCard: FC = () => {
+interface FinancesLineChartCardProps {
+  financesData: FormattedFinancesData;
+}
+
+const FinancesLineChartCard: FC<FinancesLineChartCardProps> = ({ financesData }) => {
   useFinancesLineChart();
   const { activeTab, handleActiveTab } = useFinancesLineChartCard();
+
+  const [realizedExpensesFilter, setRealizedExpensesFilter] = useState<'Actuals' | 'Payments'>('Payments');
+  const [selectedMetric, setSelectedMetric] = useState<MetricKey>('PaymentsOnChain');
+  useEffect(() => {
+    switch (activeTab) {
+      case ExpenseBreakdownFilterOptions.REALIZED_EXPENSES:
+        return setSelectedMetric(realizedExpensesFilter === 'Payments' ? 'PaymentsOnChain' : 'Actuals'); // or Actuals
+      case ExpenseBreakdownFilterOptions.OPERATIONAL_RESERVES:
+        // ProtocolNetOutFlow - PaymentsOffChainIncluded
+        return setSelectedMetric('OperationalReserves');
+      case ExpenseBreakdownFilterOptions.FORECAST:
+        return setSelectedMetric('Forecast');
+    }
+  }, [activeTab, realizedExpensesFilter]);
 
   return (
     <Container>
@@ -52,27 +72,23 @@ const FinancesLineChartCard: FC = () => {
 
         <FilterGroupContainer
           style={{
-            visibility: activeTab === ExpenseBreakdownFilterOptions.OPERATIONAL_RESERVES ? 'hidden' : 'visible',
+            visibility: activeTab === ExpenseBreakdownFilterOptions.REALIZED_EXPENSES ? 'visible' : 'hidden',
           }}
         >
-          {activeTab !== ExpenseBreakdownFilterOptions.FORECAST ? (
-            // this one is going to be shown when Realized expenses tab is selected,
-            // but is Operational Reserves is selected we need to add it here to keep the same space
-            // this way we can avoid UI jumps (this is not going to be visible in the UI)
-            <>
-              <FilterButtonTab label={'Actuals'} handleChange={() => null} isSelect={false} />
-              <FilterButtonTab label={'Payments'} handleChange={() => null} isSelect={true} />
-            </>
-          ) : (
-            <>
-              <FilterButtonTab label={'Budgets'} handleChange={() => null} isSelect={false} />
-              <FilterButtonTab label={'Forecasts'} handleChange={() => null} isSelect={true} />
-            </>
-          )}
+          <FilterButtonTab
+            label={'Actuals'}
+            handleChange={() => setRealizedExpensesFilter('Actuals')}
+            isSelect={realizedExpensesFilter === 'Actuals'}
+          />
+          <FilterButtonTab
+            label={'Payments'}
+            handleChange={() => setRealizedExpensesFilter('Payments')}
+            isSelect={realizedExpensesFilter === 'Payments'}
+          />
         </FilterGroupContainer>
       </FilterContainer>
 
-      <FinancesLineChart />
+      <FinancesLineChart financesData={financesData} selectedMetric={selectedMetric} />
 
       <ExternalButtonContainer>
         <InternalLinkButton label="Realized Expenses" buttonType="primary" href={siteRoutes.finances('/scopes')} />
