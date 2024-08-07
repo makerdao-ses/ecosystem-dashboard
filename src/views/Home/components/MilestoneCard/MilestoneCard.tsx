@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 
+import ExternalLink from '@ses/components/ExternalLink/ExternalLink';
 import AvatarPlaceholderIcon from 'public/assets/svg/avatar_placeholder.svg';
 
 import Card from '@/components/Card/Card';
@@ -34,6 +35,11 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
   const { statusLabel } = useMilestoneCard(milestoneData.scope?.status);
 
   const progress = progressPercentage(milestoneData.scope?.progress);
+
+  const keyResults = milestoneData.scope?.deliverables
+    ?.map((deliverableData) => deliverableData.keyResults)
+    ?.flat()
+    ?.slice(0, 3);
 
   return (
     <Container>
@@ -82,6 +88,23 @@ const MilestoneCard: FC<MilestoneCardProps> = ({ slug, milestoneData }) => {
           ))}
         </Coordinators>
       </CoordinatorsContainer>
+      <LatestKeyResultsContainer className="latest-key-results-container">
+        <LatestKeyResultsTitle>Latest Key Results</LatestKeyResultsTitle>
+        {keyResults.map((keyResultData) => (
+          <KeyResult key={keyResultData.id}>
+            {keyResultData.link ? (
+              <KeyResultLink href={keyResultData.link} wrapText>
+                {keyResultData.title}
+              </KeyResultLink>
+            ) : (
+              <NoKeyResultLink>
+                <span>{keyResultData.title}</span>
+                <Todo>Todo</Todo>
+              </NoKeyResultLink>
+            )}
+          </KeyResult>
+        ))}
+      </LatestKeyResultsContainer>
     </Container>
   );
 };
@@ -345,4 +368,113 @@ const CoordinatorName = styled('span')(({ theme }) => ({
   fontSize: 14,
   lineHeight: '22px',
   color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.charcoal[400],
+}));
+
+const LatestKeyResultsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  margin: '4px 8px 0px',
+  padding: 8,
+  border: `1px solid ${theme.palette.isLight ? theme.palette.colors.gray[200] : theme.palette.colors.charcoal[800]}`,
+  borderRadius: 12,
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.gray[50] : theme.palette.colors.charcoal[900],
+}));
+
+const LatestKeyResultsTitle = styled('h4')(({ theme }) => ({
+  margin: 0,
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[900] : theme.palette.colors.gray[600],
+}));
+
+const KeyResult = styled('li')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  listStyle: 'none',
+}));
+
+const KeyResultLink = styled(ExternalLink)(({ theme }) => ({
+  position: 'relative',
+  maxWidth: '100%',
+  gap: 6,
+  paddingLeft: 14,
+  fontWeight: 500,
+  fontSize: 14,
+  lineHeight: '18px',
+
+  '& span': {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    color: theme.palette.colors.blue[700],
+  },
+
+  '& svg': {
+    minWidth: 11,
+    minHeight: 10,
+
+    '& path': {
+      fill: theme.palette.colors.blue[700],
+    },
+  },
+
+  '&:before': {
+    content: '""',
+    position: 'absolute',
+    display: 'block',
+    left: 0,
+    top: 6,
+    width: 6,
+    height: 6,
+    borderRadius: '50%',
+    background: theme.palette.colors.blue[700],
+  },
+}));
+
+const NoKeyResultLink = styled('div')(({ theme }) => ({
+  position: 'relative',
+  width: '100%',
+  display: 'flex',
+  gap: 8,
+  paddingLeft: 14,
+
+  '& span': {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    fontWeight: 500,
+    fontSize: 14,
+    lineHeight: '18px',
+    color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[400],
+  },
+
+  '& svg': {
+    minWidth: 11,
+    minHeight: 10,
+  },
+
+  '&:before': {
+    content: '""',
+    position: 'absolute',
+    display: 'block',
+    left: 0,
+    top: 6,
+    width: 6,
+    height: 6,
+    borderRadius: '50%',
+    background: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.slate[400],
+  },
+}));
+
+const Todo = styled('div')(({ theme }) => ({
+  marginLeft: 'auto',
+  padding: '0px 8px',
+  borderRadius: 6,
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  color: theme.palette.isLight ? theme.palette.colors.gray[500] : theme.palette.colors.gray[50],
+  backgroundColor: theme.palette.isLight ? theme.palette.colors.slate[50] : 'rgba(72, 82, 101, 0.40)',
 }));
