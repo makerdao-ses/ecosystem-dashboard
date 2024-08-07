@@ -13,7 +13,7 @@ interface FinancesSectionProps {
 const FinancesSection: React.FC<FinancesSectionProps> = ({ revenueAndSpendingData, financesData }) => (
   <>
     <SectionTitle>Finances</SectionTitle>
-
+    <Text>*All values are converted to DAI</Text>
     <Finances>
       <FinancesBarChartCard revenueAndSpendingData={revenueAndSpendingData} />
       <FinancesLineChartCard financesData={financesData} />
@@ -33,4 +33,11 @@ const Finances = styled('div')(({ theme }) => ({
     flexDirection: 'row',
     gap: 32,
   },
+}));
+
+const Text = styled('span')(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: 12,
+  lineHeight: '18px',
+  color: theme.palette.colors.slate[200],
 }));
