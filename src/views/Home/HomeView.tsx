@@ -38,7 +38,7 @@ const HomeView: FC<HomeViewProps> = ({
   return (
     <HomeViewContainer>
       <SEOHead
-        title="Homepage title"
+        title="Homepage"
         description="Homepage description"
         image={{
           src: toAbsoluteURL('/assets/img/social-385x200.png'),
