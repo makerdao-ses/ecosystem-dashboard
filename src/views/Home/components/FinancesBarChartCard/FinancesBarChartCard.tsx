@@ -131,7 +131,7 @@ const FinancesBarChartContainer = styled('div')(({ theme }) => ({
 
 const AnnualProfit = styled('div')(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
 
   [theme.breakpoints.up('tablet_768')]: {
     paddingLeft: 49,
