@@ -75,12 +75,12 @@ const FinancesLineChartCard: FC<FinancesLineChartCardProps> = ({ financesData })
             visibility: activeTab === ExpenseBreakdownFilterOptions.REALIZED_EXPENSES ? 'visible' : 'hidden',
           }}
         >
-          <FilterButtonTab
+          <FilterButtonTabStyled
             label={'Actuals'}
             handleChange={() => setRealizedExpensesFilter('Actuals')}
             isSelect={realizedExpensesFilter === 'Actuals'}
           />
-          <FilterButtonTab
+          <FilterButtonTabStyled
             label={'Payments'}
             handleChange={() => setRealizedExpensesFilter('Payments')}
             isSelect={realizedExpensesFilter === 'Payments'}
@@ -275,3 +275,12 @@ const ExternalButtonContainer = styled('div')(({ theme }) => ({
     marginTop: 16,
   },
 }));
+
+const FilterButtonTabStyled = styled(FilterButtonTab)({
+  height: 32,
+  '& div': {
+    fontSize: 16,
+    linHeight: '24px',
+    letterSpacing: '-0.32px',
+  },
+});
